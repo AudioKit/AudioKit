@@ -393,7 +393,7 @@ typedef struct {
 {
     EZAudioFloatData *waveformData;
     if (pthread_mutex_trylock(&_lock) != 0) {
-        NSLog(@"Unable to obtain file lock.\n");
+        // NSLog(@"Unable to obtain file lock.\n");
         return waveformData;
     }
 

@@ -38,9 +38,9 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(FMOscillatorBank)
-
+    
     // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
@@ -53,7 +53,7 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-
+    
     // Create a parameter object for the modulating multiplier.
     AUParameter *modulatingMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
@@ -66,7 +66,7 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-
+    
     // Create a parameter object for the modulation index.
     AUParameter *modulationIndexAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
@@ -79,24 +79,24 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-
-
+    
+    
     // Initialize the parameter values.
     carrierMultiplierAUParameter.value = 1.0;
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
-
+    
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
-
+    
     [self setKernelPtr:&_kernel];
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
-                                                                                      modulatingMultiplierAUParameter,
-                                                                                      modulationIndexAUParameter]];
+                                                                                   modulatingMultiplierAUParameter,
+                                                                                   modulationIndexAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];
-
+    
     parameterTreeBlock(FMOscillatorBank)
 }
 

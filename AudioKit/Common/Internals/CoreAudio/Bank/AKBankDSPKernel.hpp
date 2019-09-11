@@ -60,7 +60,7 @@ protected:
         virtual ~NoteState() {
             sp_adsr_destroy(&adsr);
         }
-
+        
         virtual void init() = 0;
         
         virtual void clear() {
@@ -90,7 +90,7 @@ protected:
         virtual void run(int frameCount, float *outL, float *outR) = 0;
         
     };
-
+    
 public:
     enum BankAddresses {
         attackDurationAddress = 0,
@@ -102,13 +102,13 @@ public:
         vibratoRateAddress,
         numberOfBankEnumElements
     };
-
+    
 public:
     
     // MARK: Member Functions
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeKernel::init(channelCount, sampleRate);
-
+        
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
@@ -117,13 +117,13 @@ public:
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
     }
-
+    
     virtual void reset() {
         for (auto& state : noteStates) state->clear();
         playingNotes = nullptr;
         playingNotesCount = 0;
         resetted = true;
-
+        
         attackDurationRamper.reset();
         decayDurationRamper.reset();
         sustainLevelRamper.reset();
@@ -132,25 +132,25 @@ public:
         vibratoDepthRamper.reset();
         vibratoRateRamper.reset();
     }
-
+    
     double frequencyScale = 2. * M_PI / sampleRate;
-
+    
     float attackDuration = 0.1;
     float decayDuration = 0.1;
     float sustainLevel = 1.0;
     float releaseDuration = 0.1;
-
+    
     float pitchBend = 0;
     float vibratoDepth = 0;
     float vibratoRate = 0;
-
+    
     UInt64 currentRunningIndex = 0;
-
+    
     std::vector< std::unique_ptr<NoteState> > noteStates;
     NoteState *playingNotes = nullptr;
     int playingNotesCount = 0;
     bool resetted = false;
-
+    
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;
     ParameterRamper sustainLevelRamper = 1.0;
@@ -230,7 +230,7 @@ public:
             }
         }
     }
-
+    
     void standardBankGetAndSteps() {
         attackDuration = attackDurationRamper.getAndStep();
         decayDuration = decayDurationRamper.getAndStep();
@@ -240,7 +240,7 @@ public:
         vibratoDepth = double(vibratoDepthRamper.getAndStep());
         vibratoRate = double(vibratoRateRamper.getAndStep());
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
@@ -266,7 +266,7 @@ public:
                 break;
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackDurationAddress: \
@@ -286,7 +286,7 @@ public:
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case attackDurationAddress:

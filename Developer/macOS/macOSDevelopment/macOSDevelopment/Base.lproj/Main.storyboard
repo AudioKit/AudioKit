@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -652,7 +652,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="AudioKit Quick Test Area" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="AudioKit Quick Test Area" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" appearanceType="darkAqua" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -674,25 +674,22 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="macOSDevelopment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="335" height="314"/>
+                        <rect key="frame" x="0.0" y="0.0" width="463" height="319"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="AudioKit Management" translatesAutoresizingMaskIntoConstraints="NO" id="pn6-nj-ML2">
-                                <rect key="frame" x="17" y="231" width="301" height="63"/>
+                            <box fixedFrame="YES" title="AudioKit Engine" translatesAutoresizingMaskIntoConstraints="NO" id="pn6-nj-ML2">
+                                <rect key="frame" x="17" y="236" width="263" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="f3c-NC-0E5">
-                                    <rect key="frame" x="3" y="3" width="295" height="45"/>
+                                    <rect key="frame" x="3" y="3" width="257" height="45"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kAA-2y-mnk">
                                             <rect key="frame" x="8" y="14" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Start AudioKit" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eab-8t-V7s">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <buttonCell key="cell" type="push" title="Start Engine" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eab-8t-V7s">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                 <font key="font" metaFont="miniSystem"/>
-                                                <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="start:" target="XfG-lQ-9wD" id="yoT-fG-OxX"/>
@@ -701,71 +698,15 @@ DQ
                                     </subviews>
                                 </view>
                             </box>
-                            <box fixedFrame="YES" title="Input Source" translatesAutoresizingMaskIntoConstraints="NO" id="4aZ-eO-Hao">
-                                <rect key="frame" x="17" y="138" width="301" height="83"/>
+                            <box fixedFrame="YES" title="AKPlayer" translatesAutoresizingMaskIntoConstraints="NO" id="4aZ-eO-Hao">
+                                <rect key="frame" x="17" y="143" width="279" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="Yv9-CG-qrP">
-                                    <rect key="frame" x="3" y="3" width="295" height="65"/>
+                                    <rect key="frame" x="3" y="3" width="273" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0V9-qu-KOn">
-                                            <rect key="frame" x="8" y="40" width="92" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Oscillator" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="cvs-cx-rj4" id="JAS-Qm-wWT">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="l0x-5e-2Kh">
-                                                    <items>
-                                                        <menuItem title="Oscillator" state="on" id="cvs-cx-rj4" userLabel="SpeechSynthesizer"/>
-                                                        <menuItem title="Player" id="1x7-of-7uY">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="SpeechSynthesizer" id="oMK-Wi-yZe" userLabel="SpeechSynthesizer"/>
-                                                    </items>
-                                                </menu>
-                                                <string key="userLabel">SpeechS/// AudioKit version of Apple's SpeechSynthesis Audio Unit
-///
-
-open class AKSpeechSynthesizer: AKNode {
-    public static let ComponentDescription = AudioComponentDescription(componentType: kAudioUnitType_Generator,
-                                                                       componentSubType: kAudioUnitSubType_SpeechSynthesis,
-                                                                       componentManufacturer: kAudioUnitManufacturer_Apple,
-                                                                       componentFlags: 0,
-                                                                       componentFlagsMask: 0)
-
-    fileprivate let speechAU = AVAudioUnitGenerator(audioComponentDescription: ComponentDescription)
-
-    public func sayHello() {
-        var channel: SpeechChannel?
-        var propsize: UInt32 = UInt32(MemoryLayout&lt;SpeechChannel&gt;.size)
-        
-        CheckError(AudioUnitGetProperty(speechAU.audioUnit,
-                                        kAudioUnitProperty_SpeechChannel,
-                                        kAudioUnitScope_Global,
-                                        0,
-                                        &amp;channel,
-                                        &amp;propsize))
-        
-        guard let speechChannel = channel else {
-            debugPrint("Cannot get Speech Channel")
-            exit(1)
-        }
-        
-        SpeakCFString(speechChannel, "hello world. AK Speech Synthesizer works!" as CFString, nil)
-    }
-    
-    @objc public override init() {
-        super.init(avAudioNode: speechAU, attach: true)
-    }
-}
-SpeechSynthesizer</string>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="changeInput:" target="XfG-lQ-9wD" id="kHb-Sq-fMP"/>
-                                            </connections>
-                                        </popUpButton>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l3p-S9-rpb">
-                                            <rect key="frame" x="107" y="39" width="91" height="16"/>
+                                            <rect key="frame" x="10" y="40" width="91" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Choose Audio..." bezelStyle="rounded" alignment="center" controlSize="mini" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b8M-PK-7d2">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -776,7 +717,7 @@ SpeechSynthesizer</string>
                                             </connections>
                                         </button>
                                         <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEs-YG-bjc">
-                                            <rect key="frame" x="6" y="9" width="24" height="24"/>
+                                            <rect key="frame" x="6" y="4" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="smallSquare" title="▶️" alternateTitle="⏹" bezelStyle="smallSquare" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="yHK-pv-LOG">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -786,20 +727,25 @@ IA
 </string>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="handlePlay:" target="XfG-lQ-9wD" id="2Zu-g7-oBw"/>
+                                                <action selector="handlePlayer:" target="XfG-lQ-9wD" id="Mh2-KM-ufO"/>
                                             </connections>
                                         </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9o-fd-EYc">
-                                            <rect key="frame" x="30" y="14" width="169" height="11"/>
+                                        <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aPX-Hn-joJ">
+                                            <rect key="frame" x="30" y="4" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" placeholderString="..." id="Ik0-lh-kEx">
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
+                                            <buttonCell key="cell" type="smallSquare" title="⏸" alternateTitle="⏯" bezelStyle="smallSquare" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="5Fz-aK-cnX">
+                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+IA
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="setPauseState:" target="XfG-lQ-9wD" id="Xfh-tX-lx9"/>
+                                            </connections>
+                                        </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8R-4z-Nck">
-                                            <rect key="frame" x="205" y="37" width="63" height="22"/>
+                                            <rect key="frame" x="105" y="38" width="50" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Loop" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="uzf-Hk-rkU">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -809,19 +755,8 @@ IA
                                                 <action selector="setLoopState:" target="XfG-lQ-9wD" id="qzr-P8-7iN"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvT-Iw-pen">
-                                            <rect key="frame" x="205" y="23" width="74" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Normalize" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="TeM-je-VCz">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="setNormalizeState:" target="XfG-lQ-9wD" id="2lK-E0-aHO"/>
-                                            </connections>
-                                        </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-Jr-ujd">
-                                            <rect key="frame" x="205" y="9" width="74" height="22"/>
+                                            <rect key="frame" x="150" y="38" width="58" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Reverse" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="b0d-h0-QJg">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -831,26 +766,46 @@ IA
                                                 <action selector="setReversedState:" target="XfG-lQ-9wD" id="0Dy-l3-ike"/>
                                             </connections>
                                         </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQH-P7-v4Q">
+                                            <rect key="frame" x="208" y="38" width="61" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Buffered" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="dUL-bO-AXo">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="setBufferedState:" target="XfG-lQ-9wD" id="WAt-NR-48V"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9o-fd-EYc">
+                                            <rect key="frame" x="57" y="9" width="206" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" placeholderString="..." id="Ik0-lh-kEx">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </box>
-                            <box fixedFrame="YES" title="Booster" translatesAutoresizingMaskIntoConstraints="NO" id="rf7-dE-2ch">
-                                <rect key="frame" x="17" y="16" width="301" height="118"/>
+                            <box fixedFrame="YES" title="AKPlayer Settings" translatesAutoresizingMaskIntoConstraints="NO" id="rf7-dE-2ch">
+                                <rect key="frame" x="17" y="30" width="429" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="Y8n-OY-6be">
-                                    <rect key="frame" x="3" y="3" width="295" height="100"/>
+                                    <rect key="frame" x="3" y="3" width="423" height="91"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ECb-sw-G5e">
-                                            <rect key="frame" x="14" y="69" width="80" height="13"/>
+                                            <rect key="frame" x="14" y="60" width="80" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-32" maxValue="32" tickMarkPosition="above" sliderType="linear" id="aCC-4q-nkf"/>
                                             <connections>
-                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="dYM-ZH-jYI"/>
+                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="pg0-VZ-rD7"/>
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cb0-Ku-Foi" userLabel="GainText">
-                                            <rect key="frame" x="100" y="71" width="44" height="11"/>
+                                            <rect key="frame" x="100" y="62" width="44" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="0 dB" id="z7R-n2-kUu">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -859,24 +814,24 @@ IA
                                             </textFieldCell>
                                         </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3-xE-87P">
-                                            <rect key="frame" x="14" y="33" width="80" height="13"/>
+                                            <rect key="frame" x="14" y="24" width="80" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="0.10000000000000001" tickMarkPosition="above" sliderType="linear" id="uyG-yf-Faf"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="uyG-yf-Faf"/>
                                             <connections>
-                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="C8x-cL-Kba"/>
+                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="ASh-IO-A58"/>
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91i-T0-5j1" userLabel="GainText">
-                                            <rect key="frame" x="100" y="35" width="44" height="11"/>
+                                            <rect key="frame" x="97" y="26" width="38" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="0.5" id="nN1-Bi-bop">
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="-" id="nN1-Bi-bop">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlB-9T-wa1">
-                                            <rect key="frame" x="12" y="83" width="32" height="11"/>
+                                            <rect key="frame" x="12" y="74" width="32" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gain" id="NAQ-UN-JoZ">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -885,24 +840,102 @@ IA
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKg-4d-EZH">
-                                            <rect key="frame" x="12" y="49" width="72" height="11"/>
+                                            <rect key="frame" x="12" y="40" width="72" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ramp Duration" id="s2k-vo-aSi">
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fade In" id="s2k-vo-aSi">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71H-ey-ooh">
-                                            <rect key="frame" x="14" y="1" width="80" height="15"/>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8f5-MK-O5l">
+                                            <rect key="frame" x="139" y="24" width="80" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="3" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="4" allowsTickMarkValuesOnly="YES" sliderType="linear" id="1iE-eT-1RM"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Uxf-ge-nwj"/>
+                                            <connections>
+                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="Y7z-Qd-140"/>
+                                            </connections>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AiZ-dD-TS8">
+                                            <rect key="frame" x="137" y="40" width="72" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fade Out" id="uQC-PG-kPD">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVh-9Z-a72" userLabel="GainText">
+                                            <rect key="frame" x="223" y="26" width="28" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="-" id="2uC-Mr-LYT">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HIJ-TI-9ES">
+                                            <rect key="frame" x="139" y="60" width="80" height="13"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="0.03125" maxValue="5" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="184-7x-ase"/>
+                                            <connections>
+                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="eW0-5m-UNX"/>
+                                            </connections>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBb-u4-MWj" userLabel="GainText">
+                                            <rect key="frame" x="223" y="62" width="28" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="1" id="Pbb-GX-BeT">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKf-k6-Jbs">
+                                            <rect key="frame" x="137" y="74" width="32" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Rate" id="30A-2k-bS8">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dP-qa-Cge">
+                                            <rect key="frame" x="252" y="60" width="80" height="13"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-2400" maxValue="2400" tickMarkPosition="above" sliderType="linear" id="Qza-eG-qQQ"/>
+                                            <connections>
+                                                <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="gm0-mJ-I65"/>
+                                            </connections>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FL6-4x-nJ4" userLabel="GainText">
+                                            <rect key="frame" x="338" y="62" width="60" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="0" id="X6C-Km-rqv">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="po8-hv-g64">
+                                            <rect key="frame" x="250" y="74" width="32" height="11"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pitch" id="Mk7-dd-M6v">
+                                                <font key="font" metaFont="miniSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71H-ey-ooh">
+                                            <rect key="frame" x="255" y="24" width="80" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="3" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="4" allowsTickMarkValuesOnly="YES" sliderType="linear" id="1iE-eT-1RM"/>
                                             <connections>
                                                 <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="FVL-BW-dI1"/>
                                             </connections>
                                         </slider>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGi-E5-4DZ" userLabel="GainText">
-                                            <rect key="frame" x="100" y="5" width="68" height="11"/>
+                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGi-E5-4DZ" userLabel="GainText">
+                                            <rect key="frame" x="341" y="28" width="68" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Linear" id="ew5-So-yR5">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -910,8 +943,8 @@ IA
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKS-j6-bB5">
-                                            <rect key="frame" x="12" y="17" width="72" height="11"/>
+                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKS-j6-bB5">
+                                            <rect key="frame" x="253" y="40" width="72" height="11"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ramp Type" id="VGH-65-TGS">
                                                 <font key="font" metaFont="miniSystem"/>
@@ -922,31 +955,85 @@ IA
                                     </subviews>
                                 </view>
                             </box>
+                            <box fixedFrame="YES" title="Oscillator" translatesAutoresizingMaskIntoConstraints="NO" id="ycs-63-1a9">
+                                <rect key="frame" x="298" y="143" width="73" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="yT1-j8-yY3">
+                                    <rect key="frame" x="3" y="3" width="67" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M5a-Ms-qtC">
+                                            <rect key="frame" x="21" y="21" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="smallSquare" title="▶️" alternateTitle="⏹" bezelStyle="smallSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="dVr-iH-CM7">
+                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+IA
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="handleOscillator:" target="XfG-lQ-9wD" id="3YZ-1n-JVF"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </box>
+                            <box fixedFrame="YES" title="Speech" translatesAutoresizingMaskIntoConstraints="NO" id="ijZ-QG-gpU">
+                                <rect key="frame" x="373" y="143" width="73" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="bxq-En-X66">
+                                    <rect key="frame" x="3" y="3" width="67" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8CA-Q7-w8a">
+                                            <rect key="frame" x="21" y="21" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="smallSquare" title="▶️" bezelStyle="smallSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="56N-Q9-a2G">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+IA
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="handleSpeech:" target="XfG-lQ-9wD" id="QKt-M9-1Eo"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </box>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="chooseAudioButton" destination="l3p-S9-rpb" id="bsQ-Ck-Pmo"/>
-                        <outlet property="inputSource" destination="0V9-qu-KOn" id="UID-ot-ray"/>
-                        <outlet property="inputSourceBox" destination="4aZ-eO-Hao" id="gRn-Xf-Pdh"/>
+                        <outlet property="fadeInSlider" destination="id3-xE-87P" id="RyH-TU-605"/>
+                        <outlet property="fadeInValue" destination="91i-T0-5j1" id="SiX-nh-Jez"/>
+                        <outlet property="fadeOutSlider" destination="8f5-MK-O5l" id="DXn-DG-DDT"/>
+                        <outlet property="fadeOutValue" destination="BVh-9Z-a72" id="e3A-E6-I1G"/>
+                        <outlet property="gainSlider" destination="ECb-sw-G5e" id="FTJ-Hg-9fI"/>
+                        <outlet property="gainValue" destination="Cb0-Ku-Foi" id="kEm-9v-Aw8"/>
                         <outlet property="inputSourceInfo" destination="C9o-fd-EYc" id="0sX-Q2-gJL"/>
                         <outlet property="loopButton" destination="p8R-4z-Nck" id="P4l-eL-Uaz"/>
-                        <outlet property="normalizeButton" destination="jvT-Iw-pen" id="5ly-3O-PH0"/>
+                        <outlet property="pauseButton" destination="aPX-Hn-joJ" id="ia3-V7-Ec0"/>
+                        <outlet property="pitchSlider" destination="4dP-qa-Cge" id="BPt-7Q-m0x"/>
+                        <outlet property="pitchValue" destination="FL6-4x-nJ4" id="dkR-9m-6NH"/>
                         <outlet property="playButton" destination="tEs-YG-bjc" id="7Rl-fz-8nk"/>
+                        <outlet property="playerBox" destination="4aZ-eO-Hao" id="LyB-i9-OXI"/>
+                        <outlet property="rateSlider" destination="HIJ-TI-9ES" id="sKO-Uc-Af4"/>
+                        <outlet property="rateValue" destination="wBb-u4-MWj" id="If8-jv-cX1"/>
                         <outlet property="reverseButton" destination="Ztv-Jr-ujd" id="GjQ-0z-oUM"/>
-                        <outlet property="slider1" destination="ECb-sw-G5e" id="oA8-TR-BBs"/>
-                        <outlet property="slider1Value" destination="Cb0-Ku-Foi" id="SP8-fG-5js"/>
-                        <outlet property="slider2" destination="id3-xE-87P" id="eCb-c8-lgx"/>
-                        <outlet property="slider2Value" destination="91i-T0-5j1" id="dmj-Re-8db"/>
                         <outlet property="slider3" destination="71H-ey-ooh" id="ruO-cG-aA1"/>
                         <outlet property="slider3Value" destination="eGi-E5-4DZ" id="eYQ-qa-ZqZ"/>
                         <outlet property="sliderLabel1" destination="BlB-9T-wa1" id="C31-f2-1VR"/>
                         <outlet property="sliderLabel2" destination="lKg-4d-EZH" id="JJ8-yW-q0J"/>
-                        <outlet property="sliderLabel3" destination="HKS-j6-bB5" id="uAS-ry-iPj"/>
+                        <outlet property="startButton" destination="kAA-2y-mnk" id="qkA-gW-fU5"/>
+                        <outlet property="view" destination="m2S-Jp-Qdl" id="4CK-ED-5N1"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2.5" y="677"/>
+            <point key="canvasLocation" x="66.5" y="679.5"/>
         </scene>
     </scenes>
 </document>
