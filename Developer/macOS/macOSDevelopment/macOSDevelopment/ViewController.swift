@@ -25,6 +25,12 @@ class ViewController: NSViewController {
 
     @IBOutlet var gainSlider: NSSlider!
     @IBOutlet var gainValue: NSTextField!
+    @IBOutlet var rateSlider: NSSlider!
+    @IBOutlet var rateValue: NSTextField!
+
+    @IBOutlet var pitchSlider: NSSlider!
+    @IBOutlet var pitchValue: NSTextField!
+
     @IBOutlet var fadeInSlider: NSSlider!
     @IBOutlet var fadeInValue: NSTextField!
     @IBOutlet var fadeOutSlider: NSSlider!
@@ -35,7 +41,8 @@ class ViewController: NSViewController {
 
     @IBOutlet var loopButton: NSButton!
     @IBOutlet var reverseButton: NSButton!
-    @IBOutlet var normalizeButton: NSButton!
+
+    @IBOutlet var pauseButton: NSButton!
 
     var openPanel = NSOpenPanel()
 
@@ -48,7 +55,7 @@ class ViewController: NSViewController {
     var osc = AKOscillator()
     var speechSynthesizer = AKSpeechSynthesizer()
     var mixer = AKMixer()
-    var player: AKPlayer?
+    var player: AKDynamicPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,15 +105,12 @@ class ViewController: NSViewController {
         playButton.isEnabled = state
         startButton.title = state ? "Stop Engine" : "Start Engine"
 
-        initPlayer()
     }
 
     private func initPlayer() {
-        if player == nil {
-            chooseAudio(chooseAudioButton!)
+        if player == nil, let chooseAudioButton = chooseAudioButton {
+            chooseAudio(chooseAudioButton)
             return
-        } else {
-            player?.disconnectOutput()
         }
         guard let player = player else { return }
 
@@ -114,6 +118,8 @@ class ViewController: NSViewController {
         player >>> mixer
 
         handleUpdateParam(gainSlider)
+        handleUpdateParam(rateSlider)
+        handleUpdateParam(pitchSlider)
         handleUpdateParam(fadeInSlider)
         handleUpdateParam(fadeOutSlider)
     }
@@ -133,15 +139,13 @@ class ViewController: NSViewController {
         player?.isLooping = sender.state == .on
     }
 
-    @IBAction func setNormalizeState(_ sender: NSButton) {
+    @IBAction func setPauseState(_ sender: NSButton) {
         guard let player = player else { return }
 
         let state = sender.state == .on
-        // player?.isNormalized = sender.state == .on
 
         if state {
             player.pause()
-            // player.pauseTime = player.duration
             AKLog("set pause start time to", player.pauseTime ?? 0.0)
         } else {
             player.resume()
@@ -171,13 +175,9 @@ class ViewController: NSViewController {
         }
 
         AKLog("Creating player...", url)
-        player = AKPlayer(url: url)
+        player = AKDynamicPlayer(url: url)
         player?.completionHandler = handleAudioComplete
         player?.isLooping = loopButton.state == .on
-
-        // for seamless looping use: .always
-        // player?.buffering = .dynamic
-        // player?.stopEnvelopeTime = 0.3
 
         initPlayer()
 
@@ -195,20 +195,13 @@ class ViewController: NSViewController {
 
     @IBAction func handlePlayer(_ sender: NSButton) {
         let state = sender.state == .on
-//        if node == osc {
-//            state ? osc.play() : osc.stop()
-//
-//        } else if node == speechSynthesizer {
-//            speechSynthesizer.sayHello()
-//
-//        }
 
         guard let player = player else {
             return
         }
 
-        // play in 1 second
-        state ? player.play() : player.stop()
+        // play in X seconds
+        state ? player.play(when: 0) : player.stop()
 
         AKLog("player.isPlaying:", player.isPlaying)
     }
@@ -234,6 +227,13 @@ class ViewController: NSViewController {
             let plus = dB > 0 ? "+" : ""
             gainSlider.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
             player.gain = gain
+        } else if sender == rateSlider {
+            player.rate = rateSlider.doubleValue
+            rateValue.stringValue = String(describing: roundTo(rateSlider.doubleValue, decimalPlaces: 3))
+
+        } else if sender == pitchSlider {
+            player.pitch = pitchSlider.doubleValue
+            pitchValue.stringValue = String(describing: roundTo(pitchSlider.doubleValue, decimalPlaces: 1))
 
         } else if sender == fadeInSlider {
             player.fade.inTime = fadeInSlider.doubleValue

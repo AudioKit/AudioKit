@@ -87,7 +87,7 @@ extension AKPlayer {
             reverseBuffer()
         }
 
-        if isFaded, destructiveFades {
+        if isFaded, isBufferFaded {
             fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
             fade.needsUpdate = false
         }
