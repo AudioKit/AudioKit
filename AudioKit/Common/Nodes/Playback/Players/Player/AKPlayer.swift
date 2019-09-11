@@ -311,6 +311,11 @@ public class AKPlayer: AKNode {
 
     // MARK: - Public Options
 
+    // When buffered this will apply the fade to the buffer itself
+    internal var destructiveFades: Bool {
+        return buffering == .always && isLooping
+    }
+
     /// true if the player is buffering audio rather than playing from disk
     @objc public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
@@ -460,34 +465,24 @@ public class AKPlayer: AKNode {
         startTime = from
         endTime = to
 
-        if isFaded {
-            createFader()
-            // resetFader(false)
-        } else {
-            // resetFader(true)
+        if isBuffered {
+            updateBuffer()
+
+            if destructiveFades {
+                return
+            }
         }
 
-        guard isBuffered else { return }
-        updateBuffer()
+        if isFaded {
+            createFader()
+        } else {
+            // if there are no fades, be sure to reset this
+            AKLog("Resetting gain")
+            faderNode?.gain = fade.maximumGain
+        }
     }
 
     // MARK: - Play
-
-    // Placed in main class to be overriden in subclasses if needed.
-    public func play(from startingTime: Double,
-                     to endingTime: Double,
-                     when scheduledTime: Double,
-                     hostTime: UInt64? = nil) {
-        let refTime = hostTime ?? mach_absolute_time()
-        var avTime: AVAudioTime?
-
-        AKLog("schedulingType", renderingMode)
-
-        let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
-        avTime = nowTime.offset(seconds: scheduledTime)
-
-        play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
-    }
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
@@ -499,19 +494,14 @@ public class AKPlayer: AKNode {
         schedulePlayer(at: audioTime, hostTime: refTime)
         scheduleFader(at: audioTime, hostTime: refTime)
 
-        AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime)
+        AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
 
-        if isFaded {
+        if isFaded, !destructiveFades {
             // turn on the render notification
             let audioEndTime = audioTime.offset(seconds: endingTime)
             faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
         }
-
-//        guard !isBuffered else {
-//            faderNode?.gain = gain
-//            return
-//        }
 
         pauseTime = nil
     }

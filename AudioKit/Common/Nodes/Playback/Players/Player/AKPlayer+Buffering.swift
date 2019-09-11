@@ -35,12 +35,12 @@ extension AKPlayer {
             updateNeeded = true
         }
 
-//        if fade.needsUpdate && isFaded {
-//            updateNeeded = true
-//        }
+        if fade.needsUpdate && isFaded {
+            updateNeeded = true
+        }
 
         if !updateNeeded {
-            // AKLog("No buffer update needed")
+            AKLog("No buffer update needed")
             return
         }
 
@@ -87,10 +87,10 @@ extension AKPlayer {
             reverseBuffer()
         }
 
-//        if isFaded {
-//            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
-//            fade.needsUpdate = false
-//        }
+        if isFaded, destructiveFades {
+            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
+            fade.needsUpdate = false
+        }
 
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
@@ -127,7 +127,7 @@ extension AKPlayer {
                                          inRampType: fade.inRampType,
                                          outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
-            // AKLog("Faded Buffer")
+            AKLog("Faded Buffer")
         }
     }
 }

@@ -12,22 +12,24 @@ import Cocoa
 
 // If you make changes to this class, either don't commit them, or make sure you don't break the exisiting setup.
 class ViewController: NSViewController {
-    @IBOutlet var inputSourceBox: NSBox!
-
     @IBOutlet var startButton: NSButton!
+
+    @IBOutlet var playerBox: NSBox!
 
     // Default controls
     @IBOutlet var playButton: NSButton!
-    @IBOutlet var sliderLabel1: NSTextField!
-    @IBOutlet var slider1: NSSlider!
     @IBOutlet var sliderLabel2: NSTextField!
-    @IBOutlet var slider2: NSSlider!
-    @IBOutlet var slider1Value: NSTextField!
-    @IBOutlet var slider2Value: NSTextField!
+
     @IBOutlet var slider3: NSSlider!
-    @IBOutlet var sliderLabel3: NSTextField!
     @IBOutlet var slider3Value: NSTextField!
-    @IBOutlet var inputSource: NSPopUpButton!
+
+    @IBOutlet var gainSlider: NSSlider!
+    @IBOutlet var gainValue: NSTextField!
+    @IBOutlet var fadeInSlider: NSSlider!
+    @IBOutlet var fadeInValue: NSTextField!
+    @IBOutlet var fadeOutSlider: NSSlider!
+    @IBOutlet var fadeOutValue: NSTextField!
+
     @IBOutlet var chooseAudioButton: NSButton!
     @IBOutlet var inputSourceInfo: NSTextField!
 
@@ -45,23 +47,12 @@ class ViewController: NSViewController {
     // Define components ⏦ ⏚ ⎍ ⍾ ⚙︎
     var osc = AKOscillator()
     var speechSynthesizer = AKSpeechSynthesizer()
-
     var mixer = AKMixer()
-
-    var booster: AKBooster? {
-        return player?.faderNode
-    }
-
     var player: AKPlayer?
-
-    var node: AKNode? {
-        didSet {
-            updateEnabled()
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.appearance = NSAppearance(named: .vibrantDark)
 
         // osc.start()
         osc.frequency = 220
@@ -81,10 +72,6 @@ class ViewController: NSViewController {
         if let url = Bundle.main.url(forResource: "PinkNoise", withExtension: "wav") {
             open(url: url)
         }
-
-//        let path = "/Users/rf/Dropbox/Formulas/Master Library/Sound Design/Beds/Bed/OXYGEN BED1_Beds__1.wav"
-//        let url = URL(fileURLWithPath: path)
-//        open(url: url)
     }
 
     @IBAction func start(_ sender: NSButton) {
@@ -102,43 +89,19 @@ class ViewController: NSViewController {
             AKLog("ERROR: AudioKit did not start.")
         }
 
-        guard let content = inputSourceBox.contentView else { return }
+        guard let content = playerBox.contentView else { return }
         for sv in content.subviews {
             guard let control = sv as? NSControl else { continue }
             control.isEnabled = state
         }
 
         playButton.isEnabled = state
-
         startButton.title = state ? "Stop Engine" : "Start Engine"
 
         initPlayer()
     }
 
-    private func updateEnabled() {
-        chooseAudioButton.isEnabled = node == player
-        loopButton.isEnabled = node == player
-        reverseButton.isEnabled = node == player
-        normalizeButton.isEnabled = node == player
-    }
-
-    private func initOscillator() {
-        guard node != osc else { return }
-        // booster.disconnectInput()
-        // osc >>> mixer
-        node = osc
-    }
-
-    private func initSpeechSynthesizer() {
-        guard node != speechSynthesizer else { return }
-        // booster.disconnectInput()
-        // speechSynthesizer >>> mixer
-        node = speechSynthesizer
-    }
-
     private func initPlayer() {
-        guard node != player else { return }
-
         if player == nil {
             chooseAudio(chooseAudioButton!)
             return
@@ -149,29 +112,10 @@ class ViewController: NSViewController {
 
         // booster.disconnectInput()
         player >>> mixer
-        node = player
 
-        handleUpdateParam(slider1)
-        handleUpdateParam(slider2)
-        //handleUpdateParam(slider3)
-    }
-
-    @IBAction func changeInput(_ sender: NSPopUpButton) {
-        guard let title = sender.selectedItem?.title else { return }
-
-        inputSourceInfo.stringValue = title
-
-        if title == "Oscillator" {
-            initOscillator()
-        } else if title == "SpeechSynthesizer" {
-            initSpeechSynthesizer()
-        } else if title == "Player" {
-            initPlayer()
-        }
-    }
-
-    @IBAction func chooseSpeechSynthesizer(_ sender: Any) {
-        initSpeechSynthesizer()
+        handleUpdateParam(gainSlider)
+        handleUpdateParam(fadeInSlider)
+        handleUpdateParam(fadeOutSlider)
     }
 
     @IBAction func chooseAudio(_ sender: Any) {
@@ -205,7 +149,14 @@ class ViewController: NSViewController {
     }
 
     @IBAction func setReversedState(_ sender: NSButton) {
-        player?.isReversed = sender.state == .on
+        let state = sender.state == .on
+        player?.isReversed = state
+    }
+
+    @IBAction func setBufferedState(_ sender: NSButton) {
+        let state = sender.state == .on
+
+        player?.buffering = state ? .always : .dynamic
     }
 
     /// open an audio URL for playing
@@ -233,30 +184,33 @@ class ViewController: NSViewController {
         AKLog("Opened", url.path, "duration", player?.duration)
     }
 
-    @IBAction func handlePlay(_ sender: NSButton) {
+    @IBAction func handleOscillator(_ sender: NSButton) {
         let state = sender.state == .on
-        if node == osc {
-            state ? osc.play() : osc.stop()
+        state ? osc.play() : osc.stop()
+    }
 
-        } else if node == speechSynthesizer {
+    @IBAction func handleSpeech(_ sender: NSButton) {
+        speechSynthesizer.say(text: "Hello There")
+    }
+
+    @IBAction func handlePlayer(_ sender: NSButton) {
+        let state = sender.state == .on
+//        if node == osc {
+//            state ? osc.play() : osc.stop()
+//
+//        } else if node == speechSynthesizer {
 //            speechSynthesizer.sayHello()
+//
+//        }
 
-        } else if node == player, let player = player {
-            if state {
-//                // can use these to test the internal fader in the player:
-//                player.fade.inTime = 2
-//                player.fade.inStartGain = 0
-//                player.fade.outTime = 2
-//                player.fade.outStartGain = 1
-//                player.fade.inRampType = .linear
-//                player.fade.outRampType = .linear
-            }
-
-            // play in 1 second
-            state ? player.play() : player.stop()
-
-            AKLog("player.isPlaying:", player.isPlaying)
+        guard let player = player else {
+            return
         }
+
+        // play in 1 second
+        state ? player.play() : player.stop()
+
+        AKLog("player.isPlaying:", player.isPlaying)
     }
 
     private func handleAudioComplete() {
@@ -266,8 +220,6 @@ class ViewController: NSViewController {
             playButton?.state = .off
             player.stop()
         }
-
-
     }
 
     @IBAction func handleUpdateParam(_ sender: NSSlider) {
@@ -275,23 +227,23 @@ class ViewController: NSViewController {
             AKLog("Player faderNode is nil")
             return
         }
-        if sender == slider1 {
-            let dB = slider1.doubleValue
+        if sender == gainSlider {
+            let dB = gainSlider.doubleValue
+            let gain = pow(10.0, dB / 20.0)
+
             let plus = dB > 0 ? "+" : ""
-            slider1Value.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
+            gainSlider.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
+            player.gain = gain
 
-            player.gain = pow(10.0, dB / 20.0)
+        } else if sender == fadeInSlider {
+            player.fade.inTime = fadeInSlider.doubleValue
+            fadeInValue.stringValue = String(describing: roundTo(fadeInSlider.doubleValue, decimalPlaces: 3))
 
-        } else if sender == slider2 {
-//            booster?.rampDuration = slider2.doubleValue
+        } else if sender == fadeOutSlider {
+            player.fade.outTime = fadeInSlider.doubleValue
+            fadeOutValue.stringValue = String(describing: roundTo(fadeOutSlider.doubleValue, decimalPlaces: 3))
 
-            player.fade.inTime = slider2.doubleValue
-            player.fade.outTime = slider2.doubleValue
-
-            slider2Value.stringValue = String(describing: roundTo(slider2.doubleValue, decimalPlaces: 3))
-
-            AKLog("fade time:", player.fade.inTime)
-
+            // Currently unused
         } else if sender == slider3 {
             let value = Int(slider3.intValue)
             if value == AKSettings.RampType.linear.rawValue {

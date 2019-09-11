@@ -9,6 +9,7 @@
 /// The Fader is also used for the gain stage of the player
 extension AKPlayer {
     public struct Fade {
+        /// So that the Fade struct can be used outside of AKPlayer
         public init() {}
 
         /// a constant
@@ -17,18 +18,43 @@ extension AKPlayer {
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
 
-        public var inTime: Double = 0
-        public var outTime: Double = 0
+        public var inTime: Double = 0 {
+            willSet {
+                if newValue != inTime { needsUpdate = true }
+            }
+        }
 
-        // tell Booster what ramper to use when multiple curves are available
-        public var inRampType: AKSettings.RampType = .linear
-        public var outRampType: AKSettings.RampType = .linear
+        public var inRampType: AKSettings.RampType = .linear {
+            willSet {
+                if newValue != inRampType { needsUpdate = true }
+            }
+        }
 
-        /// if you want to start midway into a fade this value is used by
-        /// the application to specify at what point within a region of sound
-        /// the file is being started.
+        public var outRampType: AKSettings.RampType = .linear {
+            willSet {
+                if newValue != outRampType { needsUpdate = true }
+            }
+        }
+
+        // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
+
+        // Currently Unused
+        public var inStartGain: Double = minimumGain
+
+        public var outTime: Double = 0 {
+            willSet {
+                if newValue != outTime { needsUpdate = true }
+            }
+        }
+
         public var outTimeOffset: Double = 0
+
+        // Currently Unused
+        public var outStartGain: Double = 1
+
+        // the needsUpdate flag is used by the buffering scheme
+        var needsUpdate: Bool = false
     }
     
     internal func createFader() {
@@ -44,8 +70,6 @@ extension AKPlayer {
     }
 
     internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        //guard !isBuffered else { return }
-
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
