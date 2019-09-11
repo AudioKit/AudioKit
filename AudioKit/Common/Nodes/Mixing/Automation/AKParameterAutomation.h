@@ -21,7 +21,7 @@ typedef struct AutomationPoint {
     AUEventSampleTime anchorTime;
 
     AUAudioFrameCount rampDuration;
-    /// it is up to the implementing class to support the ramping scheme
+    /// TODO: it is up to the implementing class to support the ramping scheme
     //var rampType: AKSettings.RampType = .linear
 
     bool triggered;
