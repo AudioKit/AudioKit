@@ -46,8 +46,13 @@ extension AKPlayer {
         let refTime = hostTime ?? mach_absolute_time()
         var avTime: AVAudioTime?
 
-        let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
-        avTime = nowTime.offset(seconds: scheduledTime)
+
+        if renderingMode == .offline {
+            let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
+            avTime = nowTime.offset(seconds: scheduledTime)
+        } else {
+            avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+        }
 
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
