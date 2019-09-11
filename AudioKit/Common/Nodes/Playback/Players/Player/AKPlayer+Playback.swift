@@ -47,10 +47,11 @@ extension AKPlayer {
         var avTime: AVAudioTime?
 
         if renderingMode == .offline {
-            let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
-            avTime = nowTime.offset(seconds: scheduledTime)
+            let sampleTime = AVAudioFramePosition(scheduledTime * sampleRate)
+            let sampleAVTime = AVAudioTime(hostTime: refTime, sampleTime: sampleTime, atRate: sampleRate)
+            avTime = sampleAVTime
         } else {
-            avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+            avTime = AVAudioTime(hostTime: refTime).offset(seconds: scheduledTime)
         }
 
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
@@ -129,6 +130,7 @@ extension AKPlayer {
             if audioTime.isSampleTimeValid {
                 let adjustedFrames = Double(audioTime.sampleTime) * _rate
                 scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+
             } else if audioTime.isHostTimeValid {
                 let adjustedFrames = (audioTime.toSeconds(hostTime: refTime) * _rate) * sampleRate
                 scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)

@@ -24,12 +24,14 @@ extension AKPlayer {
             }
         }
 
+        // TODO:
         public var inRampType: AKSettings.RampType = .linear {
             willSet {
                 if newValue != inRampType { needsUpdate = true }
             }
         }
 
+        // TODO:
         public var outRampType: AKSettings.RampType = .linear {
             willSet {
                 if newValue != outRampType { needsUpdate = true }
@@ -56,26 +58,24 @@ extension AKPlayer {
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false
     }
-    
+
     internal func createFader() {
         // only do this once when needed
         guard faderNode == nil else { return }
 
         AKLog("Creating fader")
-        faderNode = AKBooster()
+        faderNode = AKFader()
         faderNode?.gain = gain
-        faderNode?.rampType = rampType
+        // faderNode?.rampType = rampType
 
         initialize()
     }
 
-    internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
+    internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
-
-        // 1 render cycle in the future in order to put after AUEventSampleTimeImmediate events
-        let frameOffset: AUEventSampleTime = 512
+        // 4 render cycles in the future in order to put after AUEventSampleTimeImmediate events
 
         // reset automation if it is running
         faderNode.stopAutomation()
@@ -94,13 +94,16 @@ extension AKPlayer {
                 inTime -= fade.inTimeOffset
 
                 AKLog("In middle of a fade IN... adjusted inTime to", inTime)
+            } else {
+                // set immediately to 0
+                faderNode.gain = Fade.minimumGain
             }
 
             let rampSamples = AUAudioFrameCount(inTime * sampleRate)
 
             AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples, "fadeFrom", fadeFrom, "fade.inTimeOffset", fade.inTimeOffset)
 
-            //inTimeInSamples
+            // inTimeInSamples
             faderNode.addAutomationPoint(value: fadeFrom, at: AUEventSampleTimeImmediate, anchorTime: audioTime.sampleTime, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
 
             // then fade it in
@@ -140,7 +143,7 @@ extension AKPlayer {
 
             } else if inTime == 0 {
                 AKLog("reset to ", fade.maximumGain, "if there is no fade in or are past it")
-                //inTimeInSamples
+                // inTimeInSamples
                 faderNode.addAutomationPoint(value: fade.maximumGain, at: AUEventSampleTimeImmediate, anchorTime: audioTime.sampleTime, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
             }
 
@@ -153,5 +156,4 @@ extension AKPlayer {
             faderNode.addAutomationPoint(value: value, at: outTimeInSamples + outOffset, anchorTime: audioTime.sampleTime, rampDuration: fadeLengthInSamples, rampType: fade.outRampType)
         }
     }
-
 }

@@ -8,7 +8,7 @@
 
 @objc public protocol AKAutomatable: class {
     var parameterAutomation: AKParameterAutomation? { get }
-    
+
     func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?)
     func stopAutomation()
 }
