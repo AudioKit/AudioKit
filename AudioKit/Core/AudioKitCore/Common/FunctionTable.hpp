@@ -56,6 +56,7 @@ namespace AudioKitCore
         }
         
         // functions for use by class AKWaveShaper (see comments in .cpp file)
+        void linearCurve(float gain = 1.0f);
         void exponentialCurve(float left, float right);
         void powerCurve(float exponent);
         
@@ -126,7 +127,7 @@ namespace AudioKitCore
         ~WaveShaper() { deinit(); }
         void deinit() { waveTable.deinit(); }
         
-        void init(int tableLength=DEFAULT_WAVETABLE_SIZE) { waveTable.init(tableLength); }
+        void init(int tableLength = DEFAULT_WAVETABLE_SIZE);
         
         inline float interp(float x)
         {

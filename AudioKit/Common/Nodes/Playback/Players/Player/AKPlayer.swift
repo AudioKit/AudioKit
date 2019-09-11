@@ -41,7 +41,7 @@ import AVFoundation
  player.play()
  ```
 
- Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
+ Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKNode {
     /// How the player should handle audio. If buffering, it will load the audio data into
@@ -50,6 +50,12 @@ public class AKPlayer: AKNode {
     /// such as Perfect Looping or Reversing
     public enum BufferingType {
         case dynamic, always
+    }
+
+    /// the way that AKPlayer needs to be scheduled for playback or offline rendering is different currently
+    /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
+    public enum RenderingMode {
+        case realtime, offline
     }
 
     public struct Loop {
@@ -68,61 +74,13 @@ public class AKPlayer: AKNode {
         var needsUpdate: Bool = false
     }
 
-    public struct Fade {
-        public init() {}
-
-        /// a constant
-        public static var minimumGain: Double = 0.0002
-
-        /// the value that the booster should fade to, settable
-        public var maximumGain: Double = 1
-
-        public var inTime: Double = 0 {
-            willSet {
-                if newValue != inTime { needsUpdate = true }
-            }
-        }
-
-        public var inRampType: AKSettings.RampType = .exponential {
-            willSet {
-                if newValue != inRampType { needsUpdate = true }
-            }
-        }
-
-        public var outRampType: AKSettings.RampType = .exponential {
-            willSet {
-                if newValue != outRampType { needsUpdate = true }
-            }
-        }
-
-        // if you want to start midway into a fade
-        public var inTimeOffset: Double = 0
-
-        // Currently Unused
-        public var inStartGain: Double = minimumGain
-
-        public var outTime: Double = 0 {
-            willSet {
-                if newValue != outTime { needsUpdate = true }
-            }
-        }
-
-        public var outTimeOffset: Double = 0
-
-        // Currently Unused
-        public var outStartGain: Double = 1
-
-        // tell Booster what ramper to use when multiple curves are available
-        public var type: AKSettings.RampType = .exponential
-
-        var needsUpdate: Bool = false
-    }
-
     /// Holds characteristics about the fade options.
     public var fade = Fade()
 
-    /// Optional Auto-Fade to audio on stop(). Useful for eliminating clicks with a short 0.1 second fade.
+    /// Optional Auto-Fade to audio on user triggered stop(). Useful for eliminating clicks with a short 0.1 second fade.
     /// Default is 0, or off.
+
+    /// TODO: needs to be reimplemented
     public var stopEnvelopeTime: Double = 0 {
         didSet {
             if faderNode == nil {
@@ -134,10 +92,10 @@ public class AKPlayer: AKNode {
     // MARK: - Nodes
 
     /// The underlying player node
-    @objc public let playerNode = AVAudioPlayerNode()
+    @objc public var playerNode = AVAudioPlayerNode()
 
     /// The main output
-    @objc public let mixer = AVAudioMixerNode()
+    @objc public var mixer = AVAudioMixerNode()
 
     /// The underlying gain booster which controls fades as well. Created on demand.
     @objc public var faderNode: AKBooster?
@@ -150,11 +108,8 @@ public class AKPlayer: AKNode {
     // these timers will go away when AudioKit is built for 10.13
     // in that case the real completion handlers of the scheduling can be used.
     // Pre 10.13 the completion handlers are inaccurate to the point of unusable.
-    internal var prerollTimer: Timer?
-    internal var completionTimer: Timer?
-
-    // fade timer
-    internal var faderTimer: Timer?
+    // internal var prerollTimer: Timer?
+    // internal var completionTimer: Timer?
 
     // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
     // if you don't need them, you can disable them here
@@ -173,6 +128,7 @@ public class AKPlayer: AKNode {
     private var _startTime: Double = 0
     private var _endTime: Double = 0
 
+    // this will be overridden by AKDynamicPlayer. In the main class for scheduling purposes
     internal var _rate: Double {
         return 1.0
     }
@@ -183,7 +139,15 @@ public class AKPlayer: AKNode {
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
     /// stop() is called while playing or when looping from a buffer.
-    @objc public var completionHandler: AKCallback?
+    @objc public var completionHandler: AKCallback? {
+        didSet {
+            if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            } else {
+                AKLog("Sorry, this completionHandler requires iOS 11, macOS 10.13, tvOS 11. " +
+                    "Legacy Timer based callbacks have been removed - though you can implement on your end.")
+            }
+        }
+    }
 
     /// Completion handler to be called when Audio has looped. The handler won't be called if
     /// stop() is called while playing.
@@ -206,6 +170,17 @@ public class AKPlayer: AKNode {
         }
     }
 
+    /// Will return whether the engine is rendering offline or realtime
+    public var renderingMode: RenderingMode {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            // AVAudioEngineManualRenderingMode
+            if playerNode.engine?.manualRenderingMode == .offline {
+                return .offline
+            }
+        }
+        return .realtime
+    }
+
     /// The internal audio file
     @objc public private(set) var audioFile: AVAudioFile?
 
@@ -213,6 +188,10 @@ public class AKPlayer: AKNode {
     @objc public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
+    }
+
+    @objc public var sampleRate: Double {
+        return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
     /// Looping Parameters
@@ -337,8 +316,6 @@ public class AKPlayer: AKNode {
         return isNormalized || isReversed || buffering == .always
     }
 
-    @objc public var isNotBuffered: Bool { return !isBuffered }
-
     /// Will automatically normalize on buffer updates if enabled
     @objc public var isNormalized: Bool = false {
         didSet {
@@ -358,6 +335,9 @@ public class AKPlayer: AKNode {
             if isPlaying {
                 stop()
             }
+            if isFaded {
+                fade.needsUpdate = true
+            }
             updateBuffer(force: true)
         }
     }
@@ -369,6 +349,13 @@ public class AKPlayer: AKNode {
     /// true if any fades have been set
     @objc public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
+    }
+
+    // When buffered this will indicate if the buffer will be faded.
+    // Fading the actual buffer data is necessary as loops when buffered don't fire
+    // a callback on loop restart
+    @objc public var isBufferFaded: Bool {
+        return buffering == .always && isLooping
     }
 
     // MARK: - Initialization
@@ -459,7 +446,7 @@ public class AKPlayer: AKNode {
     }
 
     @objc public func load(audioFile: AVAudioFile) {
-        faderTimer?.invalidate()
+        // faderTimer?.invalidate()
 
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
@@ -483,36 +470,38 @@ public class AKPlayer: AKNode {
         startTime = from
         endTime = to
 
-        if isFaded {
-            createFader()
-            resetFader(false)
-        } else {
-            resetFader(true)
+        if isBuffered {
+            updateBuffer()
         }
 
-        guard isBuffered else { return }
-        updateBuffer()
+        if isFaded, !isBufferFaded {
+            createFader()
+        } else {
+            // if there are no fades, be sure to reset this
+            faderNode?.gain = fade.maximumGain
+        }
     }
 
     // MARK: - Play
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
-    /// Placed in main class to be overriden in subclasses if needed.
+    // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
-
-        faderTimer?.invalidate()
+        let refTime = hostTime ?? mach_absolute_time()
+        let audioTime = audioTime ?? AVAudioTime.now()
 
         preroll(from: startingTime, to: endingTime)
-        schedule(at: audioTime, hostTime: hostTime)
-        playerNode.play()
-        faderNode?.start()
+        schedulePlayer(at: audioTime, hostTime: refTime)
+        scheduleFader(at: audioTime, hostTime: refTime)
 
-        guard !isBuffered else {
-            faderNode?.gain = gain
-            return
+        // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
+        playerNode.play()
+
+        if isFaded, !isBufferFaded {
+            // turn on the render notification
+            let audioEndTime = audioTime.offset(seconds: endingTime)
+            faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
         }
-        initFader(at: audioTime, hostTime: hostTime)
 
         pauseTime = nil
     }
@@ -526,20 +515,16 @@ public class AKPlayer: AKNode {
         audioFile = nil
         buffer = nil
         AudioKit.detach(nodes: [mixer, playerNode])
-
-        if let faderNode = faderNode {
-            AudioKit.detach(nodes: [faderNode.avAudioUnitOrNode])
-        }
+        faderNode?.detach()
         faderNode = nil
     }
 
     @objc deinit {
-        AKLog("* deinit AKPlayer")
+        AKLog("* { AKPlayer }")
     }
 }
 
-// This used to be in a separate file but this broke setPosition
-
+// This used to be in a separate file but it broke setPosition
 @objc extension AKPlayer: AKTiming {
     @objc public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)

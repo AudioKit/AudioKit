@@ -25,9 +25,9 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(PWMOscillatorBank)
-
+    
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameterWithIdentifier:@"pulseWidth"
                                                                          name:@"Pulse Width"
@@ -35,18 +35,18 @@
                                                                           min:0.0
                                                                           max:1.0
                                                                          unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     pulseWidthAUParameter.value = 0.5;
-
+    
     _kernel.setParameter(AKPWMOscillatorBankDSPKernel::pulseWidthAddress, pulseWidthAUParameter.value);
-
+    
     [self setKernelPtr:&_kernel];
-
+    
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[pulseWidthAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];
-
+    
     parameterTreeBlock(PWMOscillatorBank)
 }
 

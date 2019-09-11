@@ -56,7 +56,7 @@ namespace AudioKitCore
         currentSegmentIndex = asi;
         float initialLevel = pParameters->pSeg[asi].initialLevel;
         float finalLevel = pParameters->pSeg[asi].finalLevel;
-        float normalizedInterval = pParameters->pSeg[asi].seconds * pParameters->sampleRateHz;
+        int normalizedInterval = int(pParameters->pSeg[asi].seconds * pParameters->sampleRateHz);
         ramper.init(initialLevel, finalLevel, normalizedInterval);
     }
 
@@ -65,7 +65,7 @@ namespace AudioKitCore
         int rsi = pParameters->releaseSegmentIndex;
         currentSegmentIndex = rsi;
         float finalLevel = pParameters->pSeg[rsi].finalLevel;
-        float normalizedInterval = pParameters->pSeg[rsi].seconds * pParameters->sampleRateHz;
+        int normalizedInterval = int(pParameters->pSeg[rsi].seconds * pParameters->sampleRateHz);
         ramper.reinit(finalLevel, normalizedInterval);
     }
 
@@ -74,7 +74,7 @@ namespace AudioKitCore
         // segment 0 may be defined as a quick note-dampening segment before attack segment
         currentSegmentIndex = 0;
         float finalLevel = pParameters->pSeg[0].finalLevel;
-        float normalizedInterval = pParameters->pSeg[0].seconds * pParameters->sampleRateHz;
+        int normalizedInterval = int(pParameters->pSeg[0].seconds * pParameters->sampleRateHz);
         ramper.reinit(finalLevel, normalizedInterval);
     }
 
@@ -101,7 +101,7 @@ namespace AudioKitCore
             currentSegmentIndex = ssi;
             float initialLevel = pParameters->pSeg[ssi].initialLevel;
             float finalLevel = pParameters->pSeg[ssi].finalLevel;
-            float normalizedInterval = pParameters->pSeg[ssi].seconds * pParameters->sampleRateHz;
+            int normalizedInterval = int(pParameters->pSeg[ssi].seconds * pParameters->sampleRateHz);
             ramper.init(initialLevel, finalLevel, normalizedInterval);
             return initialLevel;
         }
@@ -110,7 +110,7 @@ namespace AudioKitCore
         currentSegmentIndex++;
         float initialLevel = pParameters->pSeg[currentSegmentIndex].initialLevel;
         float finalLevel = pParameters->pSeg[currentSegmentIndex].finalLevel;
-        float normalizedInterval = pParameters->pSeg[currentSegmentIndex].seconds * pParameters->sampleRateHz;
+        int normalizedInterval = int(pParameters->pSeg[currentSegmentIndex].seconds * pParameters->sampleRateHz);
         ramper.init(initialLevel, finalLevel, normalizedInterval);
         return initialLevel;
     }

@@ -3,6 +3,11 @@
 import AudioKitPlaygrounds
 import AudioKit
 
+// In this trivial example, we of course initialise the microphone node before we assign AudioKit.output
+// - there is no other way to structure this. However, in a real world application there may be cases
+// where you could do it the other way around. If you create your microphone node after you assign to
+// AudioKit.output, your microphone node may only return zeros as samples. So, as a rule of thumb:
+// Always create your microphone node first.
 let mic = AKMicrophone()
 
 // Create two copies of the microphone node (each one will be tapped once to supply data for plots
