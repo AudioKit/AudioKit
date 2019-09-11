@@ -7,7 +7,6 @@
 //
 
 #import "AKAudioUnitBase.h"
-
 #import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKAudioUnitBase
@@ -19,9 +18,10 @@
 
 @synthesize parameterTree = _parameterTree;
 
-- (AUValue)parameterWithAddress:(AUParameterAddress)address; {
+- (AUValue)parameterWithAddress:(AUParameterAddress)address {
     return self.kernel->getParameter(address);
 }
+
 - (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
     self.kernel->setParameter(address, value);
 }
@@ -30,24 +30,45 @@
     self.kernel->setParameter(address, value, true);
 }
 
-- (void)start { self.kernel->start(); }
-- (void)stop { self.kernel->stop(); }
-- (void)clear { self.kernel->clear(); };
-- (void)initializeConstant:(AUValue)value { self.kernel->initializeConstant(value); }
-- (BOOL)isPlaying { return self.kernel->isPlaying(); }
-- (BOOL)isSetUp { return self.kernel->isSetup(); }
+- (void)start {
+    self.kernel->start();
+}
+
+- (void)stop {
+    self.kernel->stop();
+}
+
+- (void)clear {
+    self.kernel->clear();
+}
+
+- (void)initializeConstant:(AUValue)value {
+    self.kernel->initializeConstant(value);
+}
+
+- (BOOL)isPlaying {
+    return self.kernel->isPlaying();
+}
+
+- (BOOL)isSetUp {
+    return self.kernel->isSetup();
+}
+
 - (void)setupWaveform:(int)size {
     self.kernel->setupWaveform((uint32_t)size);
 }
-- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
+
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index {
     self.kernel->setWaveformValue(index, value);
 }
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
     self.kernel->setUpTable(data, size);
 }
+
 - (void)setPartitionLength:(int)partitionLength {
     self.kernel->setPartitionLength(partitionLength);
 }
+
 - (void)initConvolutionEngine {
     self.kernel->initConvolutionEngine();
 }
@@ -56,8 +77,7 @@
  This should be overridden. All the base class does is make sure that the pointer to the
  DSP is invalid.
  */
-
-- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+- (AKDSPRef)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count {
     return (_dsp = NULL);
 }
 
@@ -70,7 +90,7 @@
  Otherwise, this code is just the same as what is in the Apple example code init function.
  */
 
-- (void) setParameterTree: (AUParameterTree*) tree {
+- (void)setParameterTree:(AUParameterTree *)tree {
     _parameterTree = tree;
 
     // Make a local pointer to the kernel to avoid capturing self.
@@ -102,9 +122,10 @@
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
-
     self = [super initWithComponentDescription:componentDescription options:options error:outError];
-    if (self == nil) { return nil; }
+    if (self == nil) {
+        return nil;
+    }
 
     // Initialize a default format for the busses.
     AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
@@ -129,20 +150,19 @@
     AVAudioFormat *format = self.outputBusses[0].format;
     self.kernel->init(format.channelCount, format.sampleRate);
     self.kernel->reset();
+
     return YES;
 }
 
--(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
-
+- (ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
     __block AKDSPBase *kernel = self.kernel;
-    return ^(AudioBufferList       *inBuffer,
-             AudioBufferList       *outBuffer,
-             const AudioTimeStamp  *timestamp,
-             AVAudioFrameCount     frameCount,
-             const AURenderEvent   *eventListHead) {
-
-        kernel->setBuffers(inBuffer, outBuffer);
-        kernel->processWithEvents(timestamp, frameCount, eventListHead);
+    return ^(AudioBufferList *inBuffer,
+             AudioBufferList *outBuffer,
+             const AudioTimeStamp *timestamp,
+             AVAudioFrameCount frameCount,
+             const AURenderEvent *eventListHead) {
+               kernel->setBuffers(inBuffer, outBuffer);
+               kernel->processWithEvents(timestamp, frameCount, eventListHead);
     };
 }
 
@@ -161,6 +181,7 @@
 // buffer list. The audio unit may process in-place in the input buffers.
 // See the discussion of renderBlock.
 // Partially bridged to the v2 property kAudioUnitProperty_InPlaceProcessing, the v3 property is not settable.
+// Should be overriden in subclasses
 - (BOOL)canProcessInPlace {
     return NO;   // OK THIS IS DIFFERENT FROM APPLE EXAMPLE CODE
 }
