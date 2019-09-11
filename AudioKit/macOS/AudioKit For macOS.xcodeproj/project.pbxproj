@@ -2735,10 +2735,10 @@
 		B11F88672329767100CB8D3F /* Fader */ = {
 			isa = PBXGroup;
 			children = (
-				B11F88682329767100CB8D3F /* AKFaderDSP.mm */,
-				B11F88692329767100CB8D3F /* AKFaderDSP.hpp */,
 				B11F886A2329767100CB8D3F /* AKFader.swift */,
 				B11F886B2329767100CB8D3F /* AKFaderAudioUnit.swift */,
+				B11F88692329767100CB8D3F /* AKFaderDSP.hpp */,
+				B11F88682329767100CB8D3F /* AKFaderDSP.mm */,
 			);
 			path = Fader;
 			sourceTree = "<group>";
@@ -2759,10 +2759,10 @@
 		B18CB8442326BB0900A6298D /* Automation */ = {
 			isa = PBXGroup;
 			children = (
-				B11F88672329767100CB8D3F /* Fader */,
+				B140D168232843E600A42455 /* AKAutomatable.swift */,
 				B13E47A523270F5800D4757A /* AKParameterAutomation.h */,
 				B13E47A623270F5800D4757A /* AKParameterAutomation.m */,
-				B140D168232843E600A42455 /* AKAutomatable.swift */,
+				B11F88672329767100CB8D3F /* Fader */,
 			);
 			path = Automation;
 			sourceTree = "<group>";
