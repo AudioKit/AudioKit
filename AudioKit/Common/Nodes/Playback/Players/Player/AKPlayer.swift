@@ -311,11 +311,6 @@ public class AKPlayer: AKNode {
 
     // MARK: - Public Options
 
-    // When buffered this will apply the fade to the buffer itself
-    internal var destructiveFades: Bool {
-        return buffering == .always && isLooping
-    }
-
     /// true if the player is buffering audio rather than playing from disk
     @objc public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
@@ -340,6 +335,9 @@ public class AKPlayer: AKNode {
             if isPlaying {
                 stop()
             }
+            if isFaded {
+                fade.needsUpdate = true
+            }
             updateBuffer(force: true)
         }
     }
@@ -351,6 +349,13 @@ public class AKPlayer: AKNode {
     /// true if any fades have been set
     @objc public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
+    }
+
+    // When buffered this will indicate if the buffer will be faded.
+    // Fading the actual buffer data is necessary as loops when buffered don't fire
+    // a callback on loop restart
+    @objc public var isBufferFaded: Bool {
+        return buffering == .always && isLooping
     }
 
     // MARK: - Initialization
@@ -467,17 +472,12 @@ public class AKPlayer: AKNode {
 
         if isBuffered {
             updateBuffer()
-
-            if destructiveFades {
-                return
-            }
         }
 
-        if isFaded {
+        if isFaded, !isBufferFaded {
             createFader()
         } else {
             // if there are no fades, be sure to reset this
-            AKLog("Resetting gain")
             faderNode?.gain = fade.maximumGain
         }
     }
@@ -494,10 +494,10 @@ public class AKPlayer: AKNode {
         schedulePlayer(at: audioTime, hostTime: refTime)
         scheduleFader(at: audioTime, hostTime: refTime)
 
-        AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
+        // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
 
-        if isFaded, !destructiveFades {
+        if isFaded, !isBufferFaded {
             // turn on the render notification
             let audioEndTime = audioTime.offset(seconds: endingTime)
             faderNode?.startAutomation(at: audioTime, duration: audioEndTime)

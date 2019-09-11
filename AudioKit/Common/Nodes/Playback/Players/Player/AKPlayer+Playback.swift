@@ -35,7 +35,7 @@ extension AKPlayer {
 
     /// Play file using previously set startTime and endTime at some point in the future specified in seconds
     /// with a hostTime reference
-    public func play(when scheduledTime: Double, hostTime: UInt64?) {
+    public func play(when scheduledTime: Double, hostTime: UInt64? = nil) {
         play(from: startTime, to: endTime, when: scheduledTime, hostTime: hostTime)
     }
 
