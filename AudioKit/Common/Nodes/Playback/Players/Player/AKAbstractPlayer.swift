@@ -200,6 +200,10 @@ public class AKAbstractPlayer: AKNode {
         initialize()
     }
 
+    internal func resetFader() {
+        faderNode?.gain = fade.maximumGain
+    }
+
     /// This is used to schedule the fade in and out for a region. It uses vaues from the fade object.
     internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }

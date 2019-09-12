@@ -302,7 +302,7 @@ public class AKPlayer: AKAbstractPlayer {
             playerNode.disconnectOutput()
         }
 
-        if let faderNode = faderNode {
+        if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
                 AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
             } else {
@@ -321,7 +321,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     internal func connectNodes() {
         guard let processingFormat = processingFormat else { return }
-        if let faderNode = faderNode {
+        if let faderNode = super.faderNode {
             AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
         } else {
@@ -367,10 +367,10 @@ public class AKPlayer: AKAbstractPlayer {
 
         if isFaded, !isBufferFaded {
             // make sure the fader has been installed
-            createFader()
+            super.createFader()
         } else {
             // if there are no fades, be sure to reset this
-            faderNode?.gain = fade.maximumGain
+            super.resetFader()
         }
     }
 
@@ -393,7 +393,7 @@ public class AKPlayer: AKAbstractPlayer {
                                     sampleTime: sampleTime,
                                     atRate: sampleRate)
         }
-        scheduleFader(at: faderTime, hostTime: refTime)
+        super.scheduleFader(at: faderTime, hostTime: refTime)
 
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
@@ -402,7 +402,7 @@ public class AKPlayer: AKAbstractPlayer {
             // NOTE: duration is currently not implemented
             let audioEndTime = faderTime.offset(seconds: endingTime)
             // turn on the render notification
-            faderNode?.startAutomation(at: faderTime, duration: audioEndTime)
+            super.faderNode?.startAutomation(at: faderTime, duration: audioEndTime)
         }
 
         pauseTime = nil

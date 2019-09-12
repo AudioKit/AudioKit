@@ -94,13 +94,14 @@ extension AKPlayer {
             return
         }
 
-        // handle stopEnvelopeTime
-
-        if stopEnvelopeTime > 0 {
+        // Provides a convenience for a quick fade out when a user presses stop.
+        // Only do this if it's realtime playback, as Timers aren't running
+        // anyway offline.
+        if stopEnvelopeTime > 0 && renderingMode == .realtime {
             AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
 
             // stop after an auto fade out
-            fadeOut(with: stopEnvelopeTime)
+            super.fadeOut(with: stopEnvelopeTime)
             stopEnvelopeTimer?.invalidate()
             stopEnvelopeTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
                                                      target: self,
@@ -115,14 +116,14 @@ extension AKPlayer {
 
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
-        faderNode?.stopAutomation()
+        super.faderNode?.stopAutomation()
     }
 
     @objc private func stopCompletion() {
         playerNode.stop()
 
         if isFaded {
-            faderNode?.stopAutomation()
+            super.faderNode?.stopAutomation()
         }
     }
 
@@ -252,7 +253,7 @@ extension AKPlayer {
     @objc private func handleComplete() {
         stop()
 
-        faderNode?.stopAutomation()
+        super.faderNode?.stopAutomation()
 
         if isLooping {
             startTime = loop.start
