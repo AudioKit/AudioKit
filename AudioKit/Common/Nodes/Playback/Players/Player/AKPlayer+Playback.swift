@@ -84,7 +84,7 @@ extension AKPlayer {
         startTime = previousStartTime
         // restore the pauseTime cleared by play and preserve it by setting _isPaused to false manually
         pauseTime = time
-        _isPaused = false
+        isPaused = false
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events

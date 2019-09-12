@@ -197,7 +197,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     public var pauseTime: Double? {
         didSet {
-            _isPaused = pauseTime != nil
+            isPaused = pauseTime != nil
         }
     }
 
@@ -221,10 +221,8 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    internal var _isPaused = false
-    @objc public var isPaused: Bool {
-        return _isPaused
-    }
+    /// returns if the player is currently paused
+    @objc public internal (set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
     @objc public var isReversed: Bool = false {
