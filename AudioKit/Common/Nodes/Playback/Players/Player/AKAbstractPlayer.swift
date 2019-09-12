@@ -6,8 +6,6 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Cocoa
-
 /**
  Psuedo abstract base class for players that wish to use AKFader based automation.
  */
