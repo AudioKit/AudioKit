@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+/// Functions specific to buffering audio
 extension AKPlayer {
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
