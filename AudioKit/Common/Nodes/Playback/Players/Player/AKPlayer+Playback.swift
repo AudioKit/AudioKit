@@ -9,6 +9,10 @@
 import Foundation
 
 extension AKPlayer {
+    internal var useCompletionHandler: Bool {
+        return (isLooping && !isBuffered) || completionHandler != nil
+    }
+
     /// Play entire file right now
     @objc public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
@@ -89,26 +93,29 @@ extension AKPlayer {
             // AKLog("Player isn't playing")
             return
         }
-        stopCompletion()
 
-        // TODO: handle stopEnvelopeTime
+        // handle stopEnvelopeTime
 
-//        guard stopEnvelopeTime > 0 else {
-//            // stop immediately
-//            stopCompletion()
-//            return
-//        }
+        if stopEnvelopeTime > 0 {
+            AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
 
-        // AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
+            // stop after an auto fade out
+            fadeOut(with: stopEnvelopeTime)
+            stopEnvelopeTimer?.invalidate()
+            stopEnvelopeTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+                                                     target: self,
+                                                     selector: #selector(autoFadeOutCompletion),
+                                                     userInfo: nil,
+                                                     repeats: false)
 
-        // stop after an auto fade out
-//        fadeOutWithTime(stopEnvelopeTime)
-//        faderTimer?.invalidate()
-//        faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
-//                                          target: self,
-//                                          selector: #selector(stopCompletion),
-//                                          userInfo: nil,
-//                                          repeats: false)
+        } else {
+            stopCompletion()
+        }
+    }
+
+    @objc private func autoFadeOutCompletion() {
+        playerNode.stop()
+        faderNode?.stopAutomation()
     }
 
     @objc private func stopCompletion() {
