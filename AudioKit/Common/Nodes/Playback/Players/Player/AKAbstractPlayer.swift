@@ -9,7 +9,12 @@
 /**
  Psuedo abstract base class for players that wish to use AKFader based automation.
  */
-public class AKAbstractPlayer: AKNode {
+open class AKAbstractPlayer: AKNode {
+    /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
+    public enum RenderingMode {
+        case realtime, offline
+    }
+    
     // MARK: - Fade struct
 
     public struct Fade {
@@ -87,6 +92,17 @@ public class AKAbstractPlayer: AKNode {
 
     // MARK: - public properties
 
+    /// Will return whether the engine is rendering offline or realtime
+    public var renderingMode: RenderingMode {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            // AVAudioEngineManualRenderingMode
+            if outputNode.engine?.manualRenderingMode == .offline {
+                return .offline
+            }
+        }
+        return .realtime
+    }
+
     /// Holds characteristics about the fade options.
     public var fade = Fade()
 
@@ -96,6 +112,8 @@ public class AKAbstractPlayer: AKNode {
     /// The underlying gain booster which controls fades as well. Created on demand.
     @objc public var faderNode: AKFader?
 
+
+    @available(*, deprecated, renamed: "fadeOutAndStop(with:)")
     @objc public var stopEnvelopeTime: Double = 0 {
         didSet {
             if faderNode == nil {
@@ -125,7 +143,7 @@ public class AKAbstractPlayer: AKNode {
     private var _startTime: Double = 0
 
     /// Get or set the start time of the player.
-    @objc public var startTime: Double {
+    @objc open var startTime: Double {
         get {
             // return max(0, _startTime)
             return _startTime
@@ -139,7 +157,7 @@ public class AKAbstractPlayer: AKNode {
     private var _endTime: Double = 0
 
     /// Get or set the end time of the player.
-    @objc public var endTime: Double {
+    @objc open var endTime: Double {
         get {
             return isLooping ? loop.end : _endTime
         }
@@ -155,21 +173,21 @@ public class AKAbstractPlayer: AKNode {
 
     // MARK: - public flags
 
-    @objc public var isLooping: Bool = false
+    @objc open var isLooping: Bool = false
 
     /// true if any fades have been set
-    @objc public var isFaded: Bool {
+    @objc open var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
     }
 
     // MARK: - abstract items, to be implemented in subclasses
 
-    @objc public var duration: Double {
+    @objc open var duration: Double {
         return 0
     }
 
     // stub property
-    @objc public var sampleRate: Double {
+    @objc open var sampleRate: Double {
         return AKSettings.sampleRate
     }
 
@@ -185,22 +203,6 @@ public class AKAbstractPlayer: AKNode {
     internal var stopEnvelopeTimer: Timer?
 
     // MARK: internal functions to be used by subclasses
-
-    internal func createFader() {
-        // only do this once when needed
-        guard faderNode == nil else { return }
-
-        AKLog("Creating fader")
-        faderNode = AKFader()
-        faderNode?.gain = gain
-        // faderNode?.rampType = rampType
-
-        initialize()
-    }
-
-    internal func resetFader() {
-        faderNode?.gain = fade.maximumGain
-    }
 
     /// This is used to schedule the fade in and out for a region. It uses vaues from the fade object.
     internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
@@ -310,9 +312,25 @@ public class AKAbstractPlayer: AKNode {
         }
     }
 
-    internal func fadeOut(with time: Double) {
+    public func createFader() {
+        // only do this once when needed
+        guard faderNode == nil else { return }
+
+        AKLog("Creating fader")
+        faderNode = AKFader()
+        faderNode?.gain = gain
+        // faderNode?.rampType = rampType
+
+        initialize()
+    }
+
+    public func resetFader() {
+        faderNode?.gain = fade.maximumGain
+    }
+
+    public func fadeOut(with time: Double) {
         faderNode?.stopAutomation()
-        let outFrames = AUAudioFrameCount(stopEnvelopeTime * sampleRate)
+        let outFrames = AUAudioFrameCount(time * sampleRate)
         faderNode?.addAutomationPoint(value: Fade.minimumGain,
                                       at: AUEventSampleTimeImmediate,
                                       anchorTime: 0,
@@ -321,5 +339,12 @@ public class AKAbstractPlayer: AKNode {
 
         let now = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: 0, atRate: sampleRate)
         faderNode?.startAutomation(at: now, duration: nil)
+    }
+
+    open override func detach() {
+        super.detach()
+
+        faderNode?.detach()
+        faderNode = nil
     }
 }

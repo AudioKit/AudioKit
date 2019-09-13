@@ -93,17 +93,28 @@ extension AKPlayer {
             // AKLog("Player isn't playing")
             return
         }
+        stopCompletion()
+    }
+
+    /// replaces stopEnvelopeTime
+    public func fadeOutAndStop(time: TimeInterval) {
+        guard isPlaying else {
+            // AKLog("Player isn't playing")
+            return
+        }
+
+        createFader()
 
         // Provides a convenience for a quick fade out when a user presses stop.
         // Only do this if it's realtime playback, as Timers aren't running
         // anyway offline.
-        if stopEnvelopeTime > 0 && renderingMode == .realtime {
-            AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
+        if time > 0 && renderingMode == .realtime {
+            AKLog("starting stopEnvelopeTime fade of", time)
 
             // stop after an auto fade out
-            super.fadeOut(with: stopEnvelopeTime)
+            super.fadeOut(with: time)
             stopEnvelopeTimer?.invalidate()
-            stopEnvelopeTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+            stopEnvelopeTimer = Timer.scheduledTimer(timeInterval: time,
                                                      target: self,
                                                      selector: #selector(autoFadeOutCompletion),
                                                      userInfo: nil,
@@ -113,6 +124,7 @@ extension AKPlayer {
             stopCompletion()
         }
     }
+
 
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
