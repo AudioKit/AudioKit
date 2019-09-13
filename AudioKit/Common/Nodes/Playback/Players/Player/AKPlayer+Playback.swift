@@ -125,7 +125,6 @@ extension AKPlayer {
         }
     }
 
-
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
         super.faderNode?.stopAutomation()
