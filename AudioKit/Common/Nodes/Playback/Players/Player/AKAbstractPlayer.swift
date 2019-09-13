@@ -14,7 +14,7 @@ open class AKAbstractPlayer: AKNode {
     public enum RenderingMode {
         case realtime, offline
     }
-    
+
     // MARK: - Fade struct
 
     public struct Fade {
@@ -111,7 +111,6 @@ open class AKAbstractPlayer: AKNode {
 
     /// The underlying gain booster which controls fades as well. Created on demand.
     @objc public var faderNode: AKFader?
-
 
     @available(*, deprecated, renamed: "fadeOutAndStop(with:)")
     @objc public var stopEnvelopeTime: Double = 0 {
