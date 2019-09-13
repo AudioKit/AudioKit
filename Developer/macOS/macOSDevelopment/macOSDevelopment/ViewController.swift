@@ -178,8 +178,7 @@ class ViewController: NSViewController {
         player = AKDynamicPlayer(url: url)
         player?.completionHandler = handleAudioComplete
         player?.isLooping = loopButton.state == .on
-        player?.stopEnvelopeTime = 0.2 // auto fade out if user presses stop
-
+        player?.createFader()
         initPlayer()
 
         AKLog("Opened", url.path, "duration", player?.duration)
@@ -202,7 +201,7 @@ class ViewController: NSViewController {
         }
 
         // play in X seconds
-        state ? player.play(when: 0) : player.stop()
+        state ? player.play(when: 0) : player.fadeOutAndStop(time: 0.5)
 
         AKLog("player.isPlaying:", player.isPlaying)
     }
