@@ -52,12 +52,6 @@ public class AKPlayer: AKAbstractPlayer {
         case dynamic, always
     }
 
-    /// the way that AKPlayer needs to be scheduled for playback or offline rendering is different currently
-    /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
-    public enum RenderingMode {
-        case realtime, offline
-    }
-
     // MARK: - Nodes
 
     /// The underlying player node
@@ -116,7 +110,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Will return whether the engine is rendering offline or realtime
-    public var renderingMode: RenderingMode {
+    public override var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
             if playerNode.engine?.manualRenderingMode == .offline {
@@ -222,7 +216,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// returns if the player is currently paused
-    @objc public internal (set) var isPaused: Bool = false
+    @objc public internal(set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
     @objc public var isReversed: Bool = false {
@@ -336,7 +330,6 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     @objc public func load(audioFile: AVAudioFile) {
-
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
         // will reset the stored start / end times or update the buffer
@@ -412,11 +405,10 @@ public class AKPlayer: AKAbstractPlayer {
     /// Only call when you are totally done with this class.
     @objc public override func detach() {
         stop()
+        super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
         AudioKit.detach(nodes: [mixer, playerNode])
-        faderNode?.detach()
-        faderNode = nil
     }
 
     @objc deinit {
