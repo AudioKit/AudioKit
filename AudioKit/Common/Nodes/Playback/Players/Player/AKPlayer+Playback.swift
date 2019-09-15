@@ -89,10 +89,6 @@ extension AKPlayer {
 
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public func stop() {
-        guard isPlaying else {
-            // AKLog("Player isn't playing")
-            return
-        }
         stopCompletion()
     }
 
@@ -125,10 +121,10 @@ extension AKPlayer {
         }
     }
 
-
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
         super.faderNode?.stopAutomation()
+        isPlaying = false
     }
 
     @objc private func stopCompletion() {
@@ -137,6 +133,8 @@ extension AKPlayer {
         if isFaded {
             super.faderNode?.stopAutomation()
         }
+
+        isPlaying = false
     }
 
     // MARK: - Scheduling

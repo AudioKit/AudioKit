@@ -231,9 +231,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    @objc public var isPlaying: Bool {
-        return playerNode.isPlaying
-    }
+    @objc public internal(set) var isPlaying: Bool = false
 
     // When buffered this will indicate if the buffer will be faded.
     // Fading the actual buffer data is necessary as loops when buffered don't fire
@@ -373,6 +371,8 @@ public class AKPlayer: AKAbstractPlayer {
         let refTime = hostTime ?? mach_absolute_time()
         let audioTime = audioTime ?? AVAudioTime.now()
         var faderTime = audioTime
+
+        isPlaying = true
 
         preroll(from: startingTime, to: endingTime)
         schedulePlayer(at: audioTime, hostTime: refTime)
