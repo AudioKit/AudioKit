@@ -12,6 +12,7 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your d
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
+* Also for **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 * For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
 
 ## Alternative: include the AudioKit library from source
@@ -23,6 +24,7 @@ You may obtain the source code archive directly from [GitHub](https://github.com
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
 * In the **Build Phases** tab, add `AudioKit.framework` in **Target Dependencies** for your target. Also add `AudioKitUI.framework` as needed.
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
+* For **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 
 ## Building universal frameworks from scratch
 
