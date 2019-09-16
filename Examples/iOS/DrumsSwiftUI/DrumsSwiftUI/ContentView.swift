@@ -21,9 +21,9 @@ struct PadsView: View {
                       }) {
                           ZStack {
                               Rectangle()
-                                .fill(Color.black)
+                                .fill(Color("PadColor"))
                                 .aspectRatio(contentMode: .fit)
-                              Text(String(getPadId(row: row, column: column))).foregroundColor(.white)
+                              Text(String(getPadId(row: row, column: column))).foregroundColor(Color("FontColor"))
                           }
                       }
                   }
