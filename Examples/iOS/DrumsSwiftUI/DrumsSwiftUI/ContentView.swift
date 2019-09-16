@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PadsView: View {
-    @EnvironmentObject var conductor: Conductor
+    var padsAction: (_ padNumber: Int) -> Void
 
     var body: some View {
         VStack(spacing: 2) {
@@ -17,7 +17,7 @@ struct PadsView: View {
                 HStack(spacing: 2) {
                   ForEach((0..<3), id: \.self) { column in
                       Button(action: {
-                          self.conductor.playPad(padNumber: getPadId(row: row, column: column))
+                          self.padsAction(getPadId(row: row, column: column))
                       }) {
                           ZStack {
                               Rectangle()
@@ -34,7 +34,7 @@ struct PadsView: View {
 }
 
 struct TopView: View {
-    @EnvironmentObject var conductor: Conductor
+    var lastPlayed: String
 
     var body: some View {
         VStack {
@@ -42,7 +42,7 @@ struct TopView: View {
             Text("AudioKit Drum Pads").font(.system(size: 20)).fontWeight(.bold)
             Spacer()
             Text("Last played Sample").fontWeight(.bold)
-            Text(conductor.lastPlayed)
+            Text(lastPlayed)
             Spacer().fixedSize(horizontal: false, vertical: true)
               .frame(width: 0, height: 40, alignment: .bottom)
         }
@@ -50,11 +50,14 @@ struct TopView: View {
 }
 
 struct ContentView: View {
+    @EnvironmentObject var conductor: Conductor
 
     var body: some View {
         VStack(spacing: 2) {
-          TopView()
-          PadsView()
+          TopView(lastPlayed: self.conductor.lastPlayed)
+          PadsView { (pad) in
+            self.conductor.playPad(padNumber: pad)
+          }
           Spacer().fixedSize().frame(minWidth: 0, maxWidth: .infinity,
                                      minHeight: 0, maxHeight: 5, alignment: .topLeading)
         }
