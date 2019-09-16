@@ -6,11 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+/// Functions specific to buffering audio
 extension AKPlayer {
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
-        if isNotBuffered { return }
-        guard let audioFile = audioFile else { return }
+        guard isBuffered, let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat
         let processingFormat = audioFile.processingFormat
@@ -41,7 +41,7 @@ extension AKPlayer {
         }
 
         if !updateNeeded {
-            // AKLog("No buffer update needed")
+            AKLog("No buffer update needed")
             return
         }
 
@@ -88,7 +88,7 @@ extension AKPlayer {
             reverseBuffer()
         }
 
-        if isFaded {
+        if isFaded, isBufferFaded {
             fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
             fade.needsUpdate = false
         }
@@ -128,7 +128,7 @@ extension AKPlayer {
                                          inRampType: fade.inRampType,
                                          outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
-            // AKLog("Faded Buffer")
+            AKLog("Faded Buffer")
         }
     }
 }

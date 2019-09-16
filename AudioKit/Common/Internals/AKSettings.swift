@@ -99,6 +99,11 @@ open class AKSettings: NSObject {
     @objc public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
     #endif
 
+    #if !os(macOS)
+    /// Enable / disable voice processing (echo canellation)
+    @objc public static var enableEchoCancellation: Bool = false
+    #endif
+
     /// Whether AirPlay is enabled when audio input is enabled
     @objc public static var allowAirPlay: Bool = false
 
@@ -227,19 +232,19 @@ extension AKSettings {
     @objc public static func setSession(category: SessionCategory,
                                         with options: AVAudioSession.CategoryOptions = []) throws {
 
-        if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
-            do {
-                try AKTry {
-                   if #available(iOS 10.0, *) {
-                        try session.setCategory(category.avCategory, mode: .default, options: options)
-                    } else {
-                        session.perform(NSSelectorFromString("setCategory:error:"), with: category.avCategory)
-                    }
+        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+
+        do {
+            try AKTry {
+                if #available(iOS 10.0, *) {
+                    try session.setCategory(category.avCategory, mode: .default, options: options)
+                } else {
+                    session.perform(NSSelectorFromString("setCategory:error:"), with: category.avCategory)
                 }
-            } catch let error as NSError {
-                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
-                throw error
             }
+        } catch let error as NSError {
+            AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
+            throw error
         }
 
         // Preferred IO Buffer Duration

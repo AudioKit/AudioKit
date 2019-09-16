@@ -5,11 +5,9 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
-
 import AVFoundation
 
 public class AKBoosterAudioUnit: AKAudioUnitBase {
-
     func setParameter(_ address: AKBoosterParameter, value: Double) {
         setParameterWithAddress(address.rawValue, value: Float(value))
     }
@@ -67,5 +65,4 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
     }
 
     public override var canProcessInPlace: Bool { return true }
-
 }

@@ -13,6 +13,9 @@
 namespace AudioKitCore
 {
 
+    // 9 Hammond drawbars mapped to harmonic numbers, minus 1 for a 0-based array
+    const int DrawbarsOscillator::drawBarMap[9] = { 0, 2, 1, 3, 5, 7, 9, 11, 15 };
+
     void DrawbarsOscillator::init(double sampleRate, WaveStack *pStack)
     {
         sampleRateHz = sampleRate;
@@ -21,8 +24,9 @@ namespace AudioKitCore
         for (int i=0; i < phaseCount; i++)
         {
             phase[i] = phaseDelta[i] = 0.0f;
-            level[i] = 0.0f;
+            safetyLevels[i] = 0.0f;
         }
+        level = safetyLevels;
     }
 
     void DrawbarsOscillator::setFrequency(float frequency)
@@ -50,20 +54,6 @@ namespace AudioKitCore
             }
         }
         //printf("%f Hz oct %d\n", frequency, octave[0]);
-    }
-
-    void DrawbarsOscillator::setDrawbars(float levels[])
-    {
-        float totalLevel = 0.0f;
-        for (int i=0; i < phaseCount; i++)
-        {
-            totalLevel += levels[i];
-            level[i] = levels[i];
-        }
-        for (int i=0; i < phaseCount; i++)
-        {
-            level[i] /= totalLevel;
-        }
     }
 
     float DrawbarsOscillator::getSample()

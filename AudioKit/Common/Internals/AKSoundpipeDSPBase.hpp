@@ -13,12 +13,14 @@
 #ifndef __cplusplus
 
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 
 #else
 
 extern "C" {
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 }
 
@@ -40,8 +42,8 @@ public:
         sp_destroy(&sp);
     }
 
-    // Is this needed? Ramping should be rethought
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
+    // Is this needed? Ramping should be rethought.
+    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {}
 
     virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
     virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }

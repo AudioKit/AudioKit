@@ -18,12 +18,12 @@
 struct AKParameterRamp : AKParameterRampBase {
     // See AKSettings.RampType. Same values.
     enum RampType {
-        linearRamp = 0,
+        linearRamp      = 0,
         exponentialRamp = 1,
         logarithmicRamp = 2,
-        sCurveRamp = 3
+        sCurveRamp      = 3
     };
-    
+
     enum FadeCurve {
         // Linear Slope
         linearCurve,
@@ -40,7 +40,8 @@ struct AKParameterRamp : AKParameterRampBase {
         halfSineCurve
     };
 
-    float computeValueAt(int64_t atSample) override {
+    float computeValueAt(int64_t atSample) override
+    {
         int64_t index = atSample - _startSample;
         bool fadeIn = getTarget() > getStartValue();
         int curveType = linearCurve;
@@ -73,7 +74,8 @@ struct AKParameterRamp : AKParameterRampBase {
     // Function returns gain value 0.0 - 1.0 according index / range ratio
     // and -1.0 if type is invalid
     // See enum above for explanation of each, not currently using all of these but they might be useful later
-    double calculateGain(uint64_t index, uint64_t range, int type) {
+    double calculateGain(uint64_t index, uint64_t range, int type)
+    {
         double result = 0.0;
 
         // does it really have to be constrained to [0.0, 1.0]?
@@ -81,27 +83,27 @@ struct AKParameterRamp : AKParameterRampBase {
         double findex = (double)index / range;
 
         switch (type) {
-            case linearCurve :
+            case linearCurve:
                 result = findex;
                 break;
 
-            case quarterCurve :
+            case quarterCurve:
                 result = sin(findex * M_PI_2);
                 break;
 
-            case halfCurve :
-                result = (1 - cos(findex * M_PI )) / 2;
+            case halfCurve:
+                result = (1 - cos(findex * M_PI)) / 2;
                 break;
 
-            case exponentialCurve :
+            case exponentialCurve:
                 result = pow(0.1, (1 - findex) * 2);
                 break;
 
-            case parabolicCurve :
+            case parabolicCurve:
                 result = (1 - (1 - findex) * (1 - findex));
                 break;
 
-            case logOutCurve :
+            case logOutCurve:
                 result = log(1 + (findex * (M_E - 1)));
                 break;
 
@@ -117,7 +119,8 @@ struct AKParameterRamp : AKParameterRampBase {
     }
 
     // currently unused
-    double computeExponential(int64_t atSample) {
+    double computeExponential(int64_t atSample)
+    {
         // position
         double minp = _startSample;
         double maxp = _startSample + getDurationInSamples();
@@ -127,19 +130,19 @@ struct AKParameterRamp : AKParameterRampBase {
         double maxv = log(getTarget());
 
         // calculate adjustment factor
-        double scale = (maxv-minv) / (maxp-minp);
-        double result = exp(minv + scale * (atSample-minp));
+        double scale = (maxv - minv) / (maxp - minp);
+        double result = exp(minv + scale * (atSample - minp));
 
         //printf( "From: %6.4lf, To: %6.4lf, Start: %lld, Total: S%6.4lld, Current Sample: %lld, Value: %6.4lf\n", getStartValue(), getTarget(), _startSample, getDurationInSamples(), atSample, _value );
         return result;
     }
 
     // currently unused
-    float computeLinear(int64_t atSample) {
+    float computeLinear(int64_t atSample)
+    {
         float fract = (float)(atSample - _startSample) / getDurationInSamples();
         return _value = getStartValue() + (getTarget() - getStartValue()) * fract;
     }
-
 };
 
 #endif

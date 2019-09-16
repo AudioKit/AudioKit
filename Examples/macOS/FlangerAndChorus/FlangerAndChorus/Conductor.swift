@@ -114,7 +114,7 @@ class Conductor {
         }
     }
 
-    func afterTouch(_ pressure: MIDIByte) {
+    func aftertouch(_ pressure: MIDIByte) {
     }
 
     func controller(_ controller: MIDIByte, value: MIDIByte) {

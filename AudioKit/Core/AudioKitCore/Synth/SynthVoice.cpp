@@ -34,7 +34,7 @@ namespace AudioKitCore
         osc2.setPanSpread(pParameters->osc2.panSpread);
 
         osc3.init(sampleRate, pOsc3Stack);
-        osc3.setDrawbars(pParameters->osc3.drawbars);
+        osc3.level = pParameters->osc3.drawbars;
 
         leftFilter.init(sampleRate);
         rightFilter.init(sampleRate);
@@ -46,7 +46,7 @@ namespace AudioKitCore
         pumpEG.init(pEnvParameters);
     }
 
-    void SynthVoice::start(unsigned evt, unsigned noteNumber, float frequency, float volume)
+    void SynthVoice::start(unsigned evt, unsigned noteNum, float frequency, float volume)
     {
         event = evt;
         noteVolume = volume;
@@ -58,7 +58,7 @@ namespace AudioKitCore
         pumpEG.start();
         
         noteFrequency = frequency;
-        this->noteNumber = noteNumber;
+        noteNumber = noteNum;
     }
     
     void SynthVoice::restart(unsigned evt, float volume)
@@ -70,10 +70,10 @@ namespace AudioKitCore
         pumpEG.restart();
     }
     
-    void SynthVoice::restart(unsigned evt, unsigned noteNumber, float frequency, float volume)
+    void SynthVoice::restart(unsigned evt, unsigned noteNum, float frequency, float volume)
     {
         event = evt;
-        newNoteNumber = noteNumber;
+        newNoteNumber = noteNum;
         newNoteVol = volume;
         noteFrequency = frequency;
         ampEG.restart();

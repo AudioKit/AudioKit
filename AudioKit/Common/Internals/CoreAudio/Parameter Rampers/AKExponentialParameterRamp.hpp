@@ -12,6 +12,7 @@
 
 #ifdef __cplusplus
 
+// Currently Unused
 struct AKExponentialParameterRamp : AKParameterRampBase {
 
     float computeValueAt(int64_t atSample) override {
@@ -29,7 +30,7 @@ struct AKExponentialParameterRamp : AKParameterRampBase {
         _value = exp(minv + scale * (atSample-minp));
 
 //        printf( "%6.4lf %6.4lf \n", _startValue, _target);
-//        printf( "%lld %6.4lld %lld %6.4lf %6.4lf \n", _startSample, _duration, atSample, currSample, _value );
+//        printf( "AKExponentialParameterRamp %lld %6.4lld %lld %6.4lf \n", _startSample, _duration, atSample, _value );
         return _value;
     }
 

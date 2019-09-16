@@ -5,7 +5,6 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
-
 /// Stereo Booster
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
@@ -102,7 +101,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         gain: Double = 1
     ) {
-
         self.leftGain = gain
         self.rightGain = gain
 
