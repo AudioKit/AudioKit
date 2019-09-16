@@ -28,6 +28,8 @@
 #import "EZAudioUtilities.h"
 #import "EZAudioDevice.h"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures
 //------------------------------------------------------------------------------
@@ -217,7 +219,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
     inputComponentDescription.componentType = kAudioUnitType_Output;
     inputComponentDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
 #if TARGET_OS_IPHONE
-    inputComponentDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+    inputComponentDescription.componentSubType = AKSettings.enableEchoCancellation ? kAudioUnitSubType_VoiceProcessingIO: kAudioUnitSubType_RemoteIO;
 #elif TARGET_OS_MAC
     inputComponentDescription.componentSubType = kAudioUnitSubType_HALOutput;
 #endif
@@ -649,11 +651,21 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                          withBufferSize:inNumberFrames
                    withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
     }
+    if ([microphone.delegate respondsToSelector:@selector(microphone:hasBufferList:withBufferSize:withNumberOfChannels:atTime:)])
+    {
+        [microphone.delegate microphone:microphone
+                          hasBufferList:info->audioBufferList
+                         withBufferSize:inNumberFrames
+                   withNumberOfChannels:info->streamFormat.mChannelsPerFrame
+                                 atTime:inTimeStamp];
+    }
 
     //
     // Notify delegate of new float data processed
     //
-    if ([microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:)])
+    bool respondsToSelector              = [microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:)];
+    bool respondsToSelectorWithTimestamp = [microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:atTime:)];
+    if (respondsToSelector || respondsToSelectorWithTimestamp)
     {
         //
         // Convert to float
@@ -661,10 +673,22 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
         [microphone.floatConverter convertDataFromAudioBufferList:info->audioBufferList
                                                withNumberOfFrames:inNumberFrames
                                                    toFloatBuffers:info->floatData];
-        [microphone.delegate microphone:microphone
-                       hasAudioReceived:info->floatData
-                         withBufferSize:inNumberFrames
-                   withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
+
+        if (respondsToSelector)
+        {
+            [microphone.delegate microphone:microphone
+                           hasAudioReceived:info->floatData
+                             withBufferSize:inNumberFrames
+                       withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
+        }
+        if (respondsToSelectorWithTimestamp)
+        {
+            [microphone.delegate microphone:microphone
+                           hasAudioReceived:info->floatData
+                             withBufferSize:inNumberFrames
+                       withNumberOfChannels:info->streamFormat.mChannelsPerFrame
+                                     atTime:inTimeStamp];
+        }
     }
 
     return result;

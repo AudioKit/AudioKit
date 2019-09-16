@@ -13,8 +13,7 @@
 #import <libkern/OSAtomic.h>
 #import <stdatomic.h>
 
-struct ParameterRamper::InternalData
-{
+struct ParameterRamper::InternalData {
     float clampLow, clampHigh;
     float uiValue;
     float goal;
@@ -24,22 +23,26 @@ struct ParameterRamper::InternalData
     int32_t updateCounter = 0;
 };
 
-ParameterRamper::ParameterRamper(float value) : data(new InternalData) {
+ParameterRamper::ParameterRamper(float value) : data(new InternalData)
+{
     setImmediate(value);
 }
 
-ParameterRamper::~ParameterRamper() {
+ParameterRamper::~ParameterRamper()
+{
     delete data;
 }
 
-void ParameterRamper::setImmediate(float value) {
+void ParameterRamper::setImmediate(float value)
+{
     // only to be called from the render thread or when resources are not allocated.
     data->goal = data->uiValue = value;
     data->inverseSlope = 0.0;
     data->samplesRemaining = 0;
 }
 
-void ParameterRamper::init() {
+void ParameterRamper::init()
+{
     /*
      Call this from the kernel init.
      Updates the internal value from the UI value.
@@ -47,16 +50,19 @@ void ParameterRamper::init() {
     setImmediate(data->uiValue);
 }
 
-void ParameterRamper::reset() {
+void ParameterRamper::reset()
+{
     data->changeCounter = data->updateCounter = 0;
 }
 
-void ParameterRamper::setUIValue(float value) {
+void ParameterRamper::setUIValue(float value)
+{
     data->uiValue = value;
     atomic_fetch_add(&data->changeCounter, 1);
 }
 
-float ParameterRamper::getUIValue() const {
+float ParameterRamper::getUIValue() const
+{
     return data->uiValue;
 }
 
@@ -70,11 +76,11 @@ void ParameterRamper::dezipperCheck(uint32_t rampDuration)
     }
 }
 
-void ParameterRamper::startRamp(float newGoal, uint32_t duration) {
+void ParameterRamper::startRamp(float newGoal, uint32_t duration)
+{
     if (duration == 0) {
         setImmediate(newGoal);
-    }
-    else {
+    } else {
         /*
          Set a new ramp.
          Assigning to inverseSlope must come before assigning to goal.
@@ -85,7 +91,8 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration) {
     }
 }
 
-float ParameterRamper::get() const {
+float ParameterRamper::get() const
+{
     /*
      For long ramps, integrating a sum loses precision and does not reach
      the goal at the right time. So instead, a line equation is used. y = m * x + b.
@@ -93,34 +100,35 @@ float ParameterRamper::get() const {
     return data->inverseSlope * float(data->samplesRemaining) + data->goal;
 }
 
-void ParameterRamper::step() {
+void ParameterRamper::step()
+{
     // Do this in each inner loop iteration after getting the value.
     if (data->samplesRemaining != 0) {
         --data->samplesRemaining;
     }
 }
 
-float ParameterRamper::getAndStep() {
+float ParameterRamper::getAndStep()
+{
     // Combines get and step. Saves a multiply-add when not ramping.
     if (data->samplesRemaining != 0) {
         float value = get();
         --data->samplesRemaining;
         return value;
-    }
-    else {
+    } else {
         return data->goal;
     }
 }
 
-void ParameterRamper::stepBy(uint32_t n) {
+void ParameterRamper::stepBy(uint32_t n)
+{
     /*
      When a parameter does not participate in the current inner loop, you
      will want to advance it after the end of the loop.
      */
     if (n >= data->samplesRemaining) {
         data->samplesRemaining = 0;
-    }
-    else {
+    } else {
         data->samplesRemaining -= n;
     }
 }

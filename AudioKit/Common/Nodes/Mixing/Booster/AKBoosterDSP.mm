@@ -8,7 +8,8 @@
 
 #include "AKBoosterDSP.hpp"
 
-extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate)
+{
     AKBoosterDSP *dsp = new AKBoosterDSP();
     dsp->init(channelCount, sampleRate);
     return dsp;
@@ -19,7 +20,8 @@ struct AKBoosterDSP::InternalData {
     AKParameterRamp rightGainRamp;
 };
 
-AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {
+AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
+{
     data->leftGainRamp.setTarget(1.0, true);
     data->leftGainRamp.setDurationInSamples(10000);
     data->rightGainRamp.setTarget(1.0, true);
@@ -27,7 +29,8 @@ AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {
 }
 
 // Uses the ParameterAddress as a key
-void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
+void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
+{
     switch (address) {
         case AKBoosterParameterLeftGain:
             data->leftGainRamp.setTarget(value, immediate);
@@ -47,7 +50,8 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 }
 
 // Uses the ParameterAddress as a key
-float AKBoosterDSP::getParameter(AUParameterAddress address) {
+float AKBoosterDSP::getParameter(AUParameterAddress address)
+{
     switch (address) {
         case AKBoosterParameterLeftGain:
             return data->leftGainRamp.getTarget();
@@ -59,8 +63,8 @@ float AKBoosterDSP::getParameter(AUParameterAddress address) {
     return 0;
 }
 
-void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
+void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
+{
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
@@ -71,7 +75,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel == 0) {
                 *out = *in * data->leftGainRamp.getValue();

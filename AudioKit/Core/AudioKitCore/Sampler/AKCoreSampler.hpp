@@ -42,6 +42,9 @@ public:
     
     /// call to load samples
     void loadSampleData(AKSampleDataDescriptor& sdd);
+
+    /// call to unload samples, freeing memory
+    void unloadAllSamples();
     
     // after loading samples, call one of these to build the key map
     

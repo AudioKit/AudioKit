@@ -207,7 +207,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
 
         AudioBufferList *outAudioBufferList = outputData;
 
-        //Ouptut silence using silentBufferList if performing an offline render, or if internalRenderEnabled == false.  pullInput not called.
+        //Output silence using silentBufferList if performing an offline render, or if internalRenderEnabled == false.  pullInput not called.
         BOOL renderDisabled = !*internalRenderEnabled;
         BOOL lockSuccessful = false;
 

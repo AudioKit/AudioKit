@@ -50,6 +50,7 @@ extension AKAudioUnitManager {
                                                           "AKFlatFrequencyResponseReverb",
                                                           "AKZitaReverb",
                                                           "AKBooster",
+                                                          "AKFader",
                                                           "AKTanhDistortion"]
 
     /// request a list of all installed Effect AudioUnits, will be returned async
@@ -206,6 +207,8 @@ extension AKAudioUnitManager {
             node = AKZitaReverb()
         case "AKBooster":
             node = AKBooster()
+        case "AKFader":
+            node = AKFader()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         case "AKTimePitch":
