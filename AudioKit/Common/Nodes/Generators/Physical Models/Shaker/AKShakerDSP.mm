@@ -64,6 +64,7 @@ void AKShakerDSP::trigger() {
 
 void AKShakerDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
     uint8_t veloc = midiEvent.data[2];
+    data->type = (UInt8)midiEvent.data[1];
     data->amplitude = (AUValue)veloc / 127.0;
     trigger();
 }
@@ -88,7 +89,8 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {
-                    data->shaker->noteOn(data->type, data->amplitude);
+                    float frequency = pow(2.0, (data->type - 69.0) / 12.0) * 440.0;
+                    data->shaker->noteOn(frequency, data->amplitude);
                 }
                 *out = data->shaker->tick();
             } else {
