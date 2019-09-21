@@ -53,6 +53,9 @@ xcodebuild -project Examples/iOS/AudioUnitManager/AudioUnitManager.xcodeproj -sd
 echo "Building iOS Drums"
 xcodebuild -project Examples/iOS/Drums/Drums.xcodeproj -sdk iphonesimulator -scheme Drums -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 12
 
+echo "Building iOS DrumsSwiftUI"
+xcodebuild -project Examples/iOS/DrumsSwiftUI/DrumsSwiftUI.xcodeproj -sdk iphonesimulator -scheme DrumsSwiftUI -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 13
+
 echo "Building iOS HelloObjectiveC"
 # xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean 	build | xcpretty -c || exit 13
 

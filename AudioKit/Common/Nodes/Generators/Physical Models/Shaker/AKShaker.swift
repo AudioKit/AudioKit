@@ -83,8 +83,9 @@ public enum AKShakerType: UInt8 {
 ///
 open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "shak")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
     public typealias AKAudioUnitType = AKShakerAudioUnit
+
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
@@ -95,7 +96,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     open var type: AKShakerType = .maraca {
         willSet {
             guard type != newValue else { return }
-            internalAU?.type = Double(type.rawValue)
+            internalAU?.type = Double(newValue.rawValue)
         }
     }
 

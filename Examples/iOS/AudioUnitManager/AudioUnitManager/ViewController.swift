@@ -78,8 +78,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             let kframe = CGRect(x: 0,
                                 y: 0,
-                                width:
-                                    self.keyboardContainer.bounds.size.width,
+                                width: self.keyboardContainer.bounds.size.width,
                                 height: self.keyboardContainer.bounds.size.height)
             let keyboard = AKKeyboardView(frame: kframe)
             keyboard.delegate = self
