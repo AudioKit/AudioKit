@@ -36,6 +36,14 @@ AKShakerDSP::~AKShakerDSP() = default;
 
 /** Uses the ParameterAddress as a key */
 void AKShakerDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
+    switch (address) {
+        case AKShakerParameterType:
+            data->type = (UInt8)value;
+            break;
+        case AKShakerParameterAmplitude:
+            data->amplitude = value;
+            break;
+    }
 }
 
 /** Uses the ParameterAddress as a key */
@@ -52,6 +60,13 @@ void AKShakerDSP::init(int channelCount, double sampleRate)  {
 
 void AKShakerDSP::trigger() {
     data->internalTrigger = 1;
+}
+
+void AKShakerDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
+    uint8_t veloc = midiEvent.data[2];
+    data->type = (UInt8)midiEvent.data[1];
+    data->amplitude = (AUValue)veloc / 127.0;
+    trigger();
 }
 
 void AKShakerDSP::triggerTypeAmplitude(AUValue type, AUValue amp)  {
@@ -74,7 +89,8 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {
-                    data->shaker->noteOn(data->type, data->amplitude);
+                    float frequency = pow(2.0, (data->type - 69.0) / 12.0) * 440.0;
+                    data->shaker->noteOn(frequency, data->amplitude);
                 }
                 *out = data->shaker->tick();
             } else {
