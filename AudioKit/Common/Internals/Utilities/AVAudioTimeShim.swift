@@ -50,8 +50,6 @@ extension AVAudioTime {
 
     /// Returns an AVAudioTime offset by seconds.
     open func offset(seconds: Double) -> AVAudioTime {
-        AKLog("isSampleTimeValid", isSampleTimeValid, "isHostTimeValid", isHostTimeValid)
-
         if isSampleTimeValid && isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
