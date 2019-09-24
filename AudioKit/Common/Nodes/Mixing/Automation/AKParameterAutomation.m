@@ -62,7 +62,6 @@
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
 
     AUEventSampleTime offsetTime = audioTime.audioTimeStamp.mSampleTime + lastRenderTime;
-    //anchorTime = [[AVAudioTime alloc]initWithSampleTime:offsetTime atRate:sampleRate];
     anchorTime = [[AVAudioTime alloc]initWithHostTime:audioTime.hostTime sampleTime:offsetTime atRate:sampleRate];
 
     endTime = 0;
