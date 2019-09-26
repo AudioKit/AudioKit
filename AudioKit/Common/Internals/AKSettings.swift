@@ -80,7 +80,6 @@ open class AKSettings: NSObject {
         didSet {
             if #available(iOS 13.0, *) {
                 do {
-                    print("allow them haptics")
                     try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                 } catch {
                     print(error)
@@ -268,7 +267,7 @@ extension AKSettings {
             if #available(iOS 13.0, *) {
                 try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
             }
-        }  catch {
+        } catch {
             AKLog("Error: Cannot set allowHapticsAndSystemSoundsDuringRecording", error)
         }
 
