@@ -147,6 +147,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKAutoPannerDSP.hpp"
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterDSP.hpp"
+#import "AKFaderDSP.hpp"
 #import "AKPannerDSP.hpp"
 #import "AKStereoFieldLimiterDSP.hpp"
 
@@ -196,3 +197,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
 
+// Automation
+#import "AKParameterAutomation.h"

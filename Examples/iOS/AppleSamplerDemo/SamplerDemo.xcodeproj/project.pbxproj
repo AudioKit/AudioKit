@@ -15,6 +15,7 @@
 		78524B891D2C3D3500804C0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B871D2C3D3500804C0B /* LaunchScreen.storyboard */; };
 		78524B911D2C3D6100804C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B901D2C3D6100804C0B /* Main.storyboard */; };
 		78524B941D2C3D7B00804C0B /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B921D2C3D7B00804C0B /* Conductor.swift */; };
+		C403F4AF2329722400A81C0E /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3A4C541F4EE39C003D9C16 /* AudioKitUI.framework */; };
 		FEE35C3C1F0EAA7E00EE1A85 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE35C3A1F0EAA7400EE1A85 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEE35C3C1F0EAA7E00EE1A85 /* AudioKit.framework in Frameworks */,
+				C403F4AF2329722400A81C0E /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +323,10 @@
 				INFOPLIST_FILE = SamplerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SamplerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -339,7 +344,10 @@
 				INFOPLIST_FILE = SamplerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SamplerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

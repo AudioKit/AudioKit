@@ -71,7 +71,7 @@
     _kernel.stopPlayingNotes();
 }
 -(void)rewind {
-//    _kernel.rewind();
+    _kernel.seekTo(0.0);
 }
 -(void)seekTo:(double)seekPosition {
     _kernel.seekTo(seekPosition);

@@ -137,7 +137,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     /// Filter Cutoff Frequency in Hz
-    @objc open dynamic var filterCutoffFrequency: Double = 22050.0 {
+    @objc open dynamic var filterCutoffFrequency: Double = 22_050.0 {
         willSet {
             guard filterCutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -147,9 +147,9 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Resonance
-    @objc open dynamic var filterResonance: Double = 22050.0 {
+    @objc open dynamic var filterResonance: Double = 22_050.0 {
         willSet {
             guard filterResonance != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -159,7 +159,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Attack Duration in seconds
     @objc open dynamic var filterAttackDuration: Double = 0.1 {
         willSet {
@@ -171,7 +171,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Decay Duration in seconds
     @objc open dynamic var filterDecayDuration: Double = 0.1 {
         willSet {
@@ -275,7 +275,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         pitchBend: Double = 0,
         vibratoDepth: Double = 0,
         vibratoRate: Double = 0,
-        filterCutoffFrequency: Double = 22050.0,
+        filterCutoffFrequency: Double = 22_050.0,
         filterResonance: Double = 0.0,
         filterAttackDuration: Double = 0.1,
         filterDecayDuration: Double = 0.1,
@@ -336,7 +336,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         filterEnvelopeStrengthParameter = tree["filterEnvelopeStrength"]
         filterLFODepthParameter = tree["filterLFODepth"]
         filterLFORateParameter = tree["filterLFORate"]
-        
+
         internalAU?.pulseWidth = Float(pulseWidth)
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)

@@ -12,7 +12,7 @@
 #import "AKParameterRamp.hpp"
 #import "AKExponentialParameterRamp.hpp" // to be deleted
 
-typedef NS_ENUM(AUParameterAddress, AKBoosterParameter) {
+typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,
     AKBoosterParameterRampDuration,
@@ -35,7 +35,6 @@ AKDSPRef createBoosterDSP(int channelCount, double sampleRate);
  */
 
 struct AKBoosterDSP : AKDSPBase {
-
 private:
     struct InternalData;
     std::unique_ptr<InternalData> data;
