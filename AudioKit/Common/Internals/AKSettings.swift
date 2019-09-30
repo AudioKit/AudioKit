@@ -78,7 +78,7 @@ open class AKSettings: NSObject {
     /// Whether haptics and system sounds are muted while a microhpone is setup or recording is active
     @objc public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
         didSet {
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, *) {
                 do {
                     try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                 } catch {
@@ -264,7 +264,7 @@ extension AKSettings {
 
         // Core Haptics
         do {
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, *) {
                 try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
             }
         } catch {
