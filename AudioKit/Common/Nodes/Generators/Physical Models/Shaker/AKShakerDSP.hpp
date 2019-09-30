@@ -49,6 +49,8 @@ public:
     void destroy();
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
 };
 
 #endif

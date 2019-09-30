@@ -12,6 +12,8 @@
 
 #ifdef __cplusplus
 
+// Currently Unused
+
 struct AKLinearParameterRamp : AKParameterRampBase {
 
     float computeValueAt(int64_t atSample) override {

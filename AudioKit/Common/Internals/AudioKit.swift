@@ -95,7 +95,6 @@ open class AudioKit: NSObject {
             guard let finalMixer = finalMixer else { return }
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: AKSettings.audioFormat)
 
-
         }
     }
 

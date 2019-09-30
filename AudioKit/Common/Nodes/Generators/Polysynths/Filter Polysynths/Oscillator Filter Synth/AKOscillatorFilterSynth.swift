@@ -138,7 +138,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     /// Filter Cutoff Frequency in Hz
-    @objc open dynamic var filterCutoffFrequency: Double = 22050.0 {
+    @objc open dynamic var filterCutoffFrequency: Double = 22_050.0 {
         willSet {
             guard filterCutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -148,9 +148,9 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Resonance
-    @objc open dynamic var filterResonance: Double = 22050.0 {
+    @objc open dynamic var filterResonance: Double = 22_050.0 {
         willSet {
             guard filterResonance != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -160,7 +160,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Attack Duration in seconds
     @objc open dynamic var filterAttackDuration: Double = 0.1 {
         willSet {
@@ -172,7 +172,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Filter Decay Duration in seconds
     @objc open dynamic var filterDecayDuration: Double = 0.1 {
         willSet {
@@ -275,7 +275,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         pitchBend: Double = 0,
         vibratoDepth: Double = 0,
         vibratoRate: Double = 0,
-        filterCutoffFrequency: Double = 22050.0,
+        filterCutoffFrequency: Double = 22_050.0,
         filterResonance: Double = 0.0,
         filterAttackDuration: Double = 0.1,
         filterDecayDuration: Double = 0.1,
@@ -340,7 +340,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         filterEnvelopeStrengthParameter = tree["filterEnvelopeStrength"]
         filterLFODepthParameter = tree["filterLFODepth"]
         filterLFORateParameter = tree["filterLFORate"]
-        
+
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)
@@ -357,7 +357,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         internalAU?.filterEnvelopeStrength = Float(filterEnvelopeStrength)
         internalAU?.filterLFODepth = Float(filterLFODepth)
         internalAU?.filterLFORate = Float(filterLFORate)
-        
+
     }
 
     open func reset() {

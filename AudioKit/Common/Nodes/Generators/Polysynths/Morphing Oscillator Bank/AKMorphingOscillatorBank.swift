@@ -13,11 +13,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "morb")
-    
+
     // MARK: - Properties
-    
+
     private var internalAU: AKAudioUnitType?
-    
+
     /// An array of tables to morph between
     open var waveformArray = [AKTable]() {
         willSet {
@@ -29,9 +29,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     fileprivate var indexParameter: AUParameter?
-    
+
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
@@ -39,14 +39,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoRateParameter: AUParameter?
-    
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
-    
+
     /// Index of the wavetable to use (fractional are okay).
     @objc open dynamic var index: Double = 0.0 {
         willSet {
@@ -59,7 +59,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
@@ -71,7 +71,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
@@ -83,7 +83,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
@@ -95,7 +95,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
@@ -107,7 +107,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
@@ -119,7 +119,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
@@ -131,7 +131,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
@@ -143,14 +143,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     @objc public convenience override init() {
         self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
-    
+
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -174,10 +174,10 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBend: Double = 0,
         vibratoDepth: Double = 0,
         vibratoRate: Double = 0) {
-        
+
         self.waveformArray = waveformArray
         self.index = index
-        
+
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
@@ -185,16 +185,16 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.vibratoRate = vibratoRate
-        
+
         _Self.register()
-        
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             for (i, waveform) in waveformArray.enumerated() {
                 self?.internalAU?.setupWaveform(UInt32(i), size: Int32(UInt32(waveform.count)))
                 for (j, sample) in waveform.enumerated() {
@@ -202,14 +202,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
                 }
             }
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         indexParameter = tree["index"]
-        
+
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
@@ -218,7 +218,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
         internalAU?.index = Float(index)
-        
+
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)
@@ -227,14 +227,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.vibratoDepth = Float(vibratoDepth)
         internalAU?.vibratoRate = Float(vibratoRate)
     }
-    
+
     /// stops all notes
     open func reset() {
         internalAU?.reset()
     }
-    
+
     // MARK: - AKPolyphonic
-    
+
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
@@ -242,7 +242,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
                             channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     open override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber)

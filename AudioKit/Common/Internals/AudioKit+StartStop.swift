@@ -79,7 +79,7 @@ extension AudioKit {
 
     @objc internal static func updateSessionCategoryAndOptions() throws {
         guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
-        
+
         #if !os(macOS)
         let sessionCategory = AKSettings.computedSessionCategory()
 

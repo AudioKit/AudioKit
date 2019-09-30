@@ -413,6 +413,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Play the file back from a certain time, to an end time (if set).
     /// You can optionally set a scheduled time to play (in seconds).
+    /// Scheduling via scheduledTime works only if the player was not paused before. Stop it before actually scheduling
     ///
     ///  - Parameters:
     ///    - startTime: Time into the file at which to start playing back
@@ -428,6 +429,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time
     /// to play (in seconds).
+    /// Scheduling via avTime works only if the player was not paused before. Stop it before actually scheduling
     ///
     ///  - Parameters:
     ///    - startTime: Time into the file at which to start playing back
