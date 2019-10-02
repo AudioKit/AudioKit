@@ -112,10 +112,15 @@ extension AudioKit {
     ///         - audioFile: An file initialized for writing
     ///         - duration: Duration to render, in seconds
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///         - progress: A closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc public static func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
-        try engine.renderToFile(audioFile, duration: duration, prerender: prerender)
+    @objc public static func renderToFile(_ audioFile: AVAudioFile,
+                                          duration: Double,
+                                          prerender: (() -> Void)? = nil,
+                                          progress: ((Double) -> Void)? = nil) throws {
+
+        try engine.renderToFile(audioFile, duration: duration, prerender: prerender, progress: progress)
     }
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
