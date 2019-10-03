@@ -76,4 +76,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
                          timelineBlock:(AKTimelineBlock _Nullable )block NS_SWIFT_UNAVAILABLE("No render code in Swift");
 -(instancetype _Nonnull )init NS_UNAVAILABLE;
 
+/** Call when done with this class to release the renderTap and nil out the block. */
+- (void)detach;
+
 @end

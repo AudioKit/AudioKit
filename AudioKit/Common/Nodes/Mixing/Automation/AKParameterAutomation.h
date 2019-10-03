@@ -64,7 +64,7 @@ typedef struct AutomationPoint {
 - (void)clear;
 
 /** Call when done with this class to release resources */
-- (void)dispose;
+//- (void)detach;
 
 @end
 

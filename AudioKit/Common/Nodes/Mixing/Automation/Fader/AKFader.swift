@@ -148,7 +148,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     open override func detach() {
         super.detach()
-        self.parameterAutomation?.dispose()
+        //self.parameterAutomation?.detach()
         self._parameterAutomation = nil
     }
 
