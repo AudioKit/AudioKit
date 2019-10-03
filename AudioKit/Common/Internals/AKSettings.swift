@@ -210,7 +210,7 @@ open class AKSettings: NSObject {
     /// If set to false, AudioKit will not handle the AVAudioSession route change
     /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
-    /// to these notifications and restart AudioKit after rebuiling their audio chain.
+    /// to these notifications and restart AudioKit after rebuilding their audio chain.
     @objc public static var enableRouteChangeHandling: Bool = true
 
     /// If set to false, AudioKit will not handle the AVAudioSession category change

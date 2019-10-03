@@ -63,9 +63,6 @@ typedef struct AutomationPoint {
 /** Removes all automation points */
 - (void)clear;
 
-/** Call when done with this class to release resources */
-- (void)dispose;
-
 @end
 
 NS_ASSUME_NONNULL_END

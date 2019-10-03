@@ -516,7 +516,7 @@ open class AKConverter: NSObject {
 
     private func isCompressed(url: URL) -> Bool {
         let ext = url.pathExtension.lowercased()
-        return (ext == "m4a" || ext == "mp3" || ext == "mp4" || ext == "m4v")
+        return (ext == "m4a" || ext == "mp3" || ext == "mp4" || ext == "m4v" || ext == "mpg")
     }
 
     private func createError(message: String, code: Int = 1) -> NSError {
