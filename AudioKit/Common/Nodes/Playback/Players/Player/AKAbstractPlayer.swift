@@ -342,7 +342,6 @@ open class AKAbstractPlayer: AKNode {
 
     open override func detach() {
         super.detach()
-
         faderNode?.detach()
         faderNode = nil
     }
