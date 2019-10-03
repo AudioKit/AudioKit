@@ -74,6 +74,21 @@ open class AKSettings: NSObject {
         }
     }
 
+    #if !os(macOS)
+    /// Whether haptics and system sounds are muted while a microhpone is setup or recording is active
+    @objc public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
+        didSet {
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                do {
+                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    #endif
+
     /// Number of audio channels: 2 for stereo, 1 for mono
     @objc public static var channelCount: UInt32 = 2
 
@@ -247,6 +262,15 @@ extension AKSettings {
             throw error
         }
 
+        // Core Haptics
+        do {
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+            }
+        } catch {
+            AKLog("Error: Cannot set allowHapticsAndSystemSoundsDuringRecording", error)
+        }
+
         // Preferred IO Buffer Duration
         do {
             try AKTry {
@@ -320,6 +344,7 @@ extension AKSettings {
             if AKSettings.defaultToSpeaker {
                 options = options.union(.defaultToSpeaker)
             }
+
             #endif
         }
 
