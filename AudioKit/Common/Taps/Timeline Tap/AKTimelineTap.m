@@ -42,13 +42,14 @@
 
 - (AKRenderNotifyBlock)renderNotify {
     AKTimeline *timeline = &_timeline;
+    AudioUnitRenderActionFlags *actionFlags = &self->actionFlags;
 
     return ^(AudioUnitRenderActionFlags *ioActionFlags,
              const AudioTimeStamp *inTimeStamp,
              UInt32 inBusNumber,
              UInt32 inNumberFrames,
              AudioBufferList *ioData) {
-               if ((*ioActionFlags & actionFlags)) {
+               if ((*ioActionFlags & *actionFlags)) {
                    AKTimelineRender(timeline, inTimeStamp, inNumberFrames, ioData);
                }
     };
@@ -73,15 +74,6 @@
         return nil;
     }
     return [self initWithAudioUnit:avAudioUnit.audioUnit timelineBlock:block];
-}
-
-- (void)detach {
-    self->_block = nil;
-    self->renderTap = nil;
-}
-
-- (void)dealloc {
-    NSLog(@"* { AKTimelineTap.dealloc }");
 }
 
 static void TimingCallback(void            *refCon,
