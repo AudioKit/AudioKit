@@ -8,7 +8,6 @@
 
 #pragma once
 #import "AKSoundpipeKernel.hpp"
-#import "AKWaveTableDSPKernel.hpp"
 #import "AKDSPKernel.hpp"
 
 enum {
