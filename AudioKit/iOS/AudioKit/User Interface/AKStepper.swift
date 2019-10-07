@@ -88,7 +88,7 @@ import UIKit
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect) {
-        let borderWidth = minusButton!.borderWidth
+        let borderWidth = minusButton?.borderWidth ?? 0
         label.frame = CGRect(x: rect.origin.x + borderWidth,
                              y: rect.origin.y,
                              width: rect.width,

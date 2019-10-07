@@ -189,7 +189,8 @@ import AudioKit
         playOuterPath.fill()
 
         //// playInner Drawing
-        let playRect = CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
+        let playRect = CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 +
+            borderWidth + rect.width * 0.13 + borderWidth,
                               y: rect.height * 0.25,
                               width: rect.height * 0.5,
                               height: rect.height * 0.5)
