@@ -45,8 +45,12 @@ open class AKSequencer {
 
     /// Initialize with target nodes
     /// This will create a track for each node
-    required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+    required public init(targetNodes: [AKNode]? = nil) {
+        if let targetNodes = targetNodes {
+            tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+        } else {
+            AKLog("no nodes connected to sequencer at init - be sure to connect some via addTrack")
+        }
     }
 
     public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
@@ -146,6 +150,12 @@ open class AKSequencer {
 
     func getTrackFor(node: AKNode) -> AKSequencerTrack? {
         return tracks.first(where: { $0.targetNode == node })
+    }
+
+    func addTrack(for node: AKNode) -> AKSequencerTrack {
+        let track = AKSequencerTrack(targetNode: node)
+        tracks.append(track)
+        return track
     }
 }
 
