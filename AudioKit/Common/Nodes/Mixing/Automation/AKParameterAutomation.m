@@ -208,11 +208,7 @@
 
 - (void)dealloc {
     NSLog(@"* { AKParameterAutomation.dealloc }");
-
     [self stopAutomation];
-
-    // make sure that the tap's block is nil:
-    [tap detach];
     tap = nil;
     auAudioUnit = nil;
     avAudioUnit = nil;
