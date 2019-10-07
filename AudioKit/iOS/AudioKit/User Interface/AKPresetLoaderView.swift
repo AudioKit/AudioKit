@@ -104,11 +104,16 @@
 
     // Default background color per theme
     var bgColorForTheme: AKColor {
-        if let bgColor = bgColor { return bgColor }
+        if let bgColor = bgColor {
+            return bgColor
+
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.8, alpha: 1.0)
-        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.8, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 0.7, alpha: 1.0)
         }
     }
 

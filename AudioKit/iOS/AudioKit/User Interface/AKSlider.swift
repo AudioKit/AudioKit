@@ -196,11 +196,15 @@ public enum AKSliderStyle {
     }
 
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 

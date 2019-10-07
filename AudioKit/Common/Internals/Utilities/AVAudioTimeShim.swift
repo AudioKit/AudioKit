@@ -11,7 +11,7 @@ private let ticksToSeconds: Double = {
     var tinfo = mach_timebase_info()
     let err = mach_timebase_info(&tinfo)
     let timecon = Double(tinfo.numer) / Double(tinfo.denom)
-    return timecon * 0.000000001
+    return timecon * 0.000_000_001
 }()
 
 /// Utility to convert between seconds to host time.
