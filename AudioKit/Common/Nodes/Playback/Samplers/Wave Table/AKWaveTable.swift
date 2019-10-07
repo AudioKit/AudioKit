@@ -311,7 +311,6 @@ open class AKWaveTable: AKNode, AKComponent {
         internalAU?.destroy()
     }
 
-
     // Function to start, play, or activate the node at frequency
     open func play(noteNumber: MIDINoteNumber,
                    velocity: MIDIVelocity,
