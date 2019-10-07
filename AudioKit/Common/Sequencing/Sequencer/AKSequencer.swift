@@ -135,6 +135,18 @@ open class AKSequencer {
             track.clear()
         }
     }
+
+    func seek(to position: Double) {
+        tracks.forEach({ $0.seek(to: position) })
+    }
+
+    func pause() {
+        stop()
+    }
+
+    func getTrackFor(node: AKNode) -> AKSequencerTrack? {
+        return tracks.first(where: { $0.targetNode == node })
+    }
 }
 
 /* functions from aksequencer to implement
