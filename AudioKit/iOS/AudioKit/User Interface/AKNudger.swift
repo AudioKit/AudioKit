@@ -84,8 +84,10 @@ import AudioKit
         return Int(abs((minimum - originalValue) / increment))
     }
     private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer? {
-        if timer != nil, timer.isValid {
-            return nil
+        if let timer = timer {
+            if timer.isValid {
+                return nil
+            }
         }
         if #available(iOS 10.0, *) {
             return Timer.scheduledTimer(withTimeInterval: self.frameRate, repeats: true,
@@ -137,8 +139,8 @@ import AudioKit
             strongSelf.doMinusActionRelease()
             strongSelf.touchEndedCallback()
         }
-        plusButton.font = buttonFont
-        minusButton.font = buttonFont
+        plusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
+        minusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
         plusButton.borderWidth = buttonBorderWidth
         minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)
