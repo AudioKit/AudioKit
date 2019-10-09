@@ -14,10 +14,19 @@ extension AKSampler {
     /// Load an SFZ at the given location
     ///
     /// Parameters:
-    ///   - path: Path tothe file as a string
+    ///   - path: Path to the file as a string
     ///   - fileName: Name of the SFZ file
     ///
     open func loadSFZ(path: String, fileName: String) {
+        loadSFZ(url: URL(fileURLWithPath: path).appendingPathComponent(fileName))
+    }
+
+    /// Load an SFZ at the given location
+    ///
+    /// Parameters:
+    ///   - url: File url to the SFZ file
+    ///
+    open func loadSFZ(url: URL) {
 
         stopAllVoices()
         unloadAllSamples()
@@ -32,10 +41,10 @@ extension AKSampler {
         var loopStartPoint: Float32 = 0
         var loopEndPoint: Float32 = 0
 
-        let baseURL = URL(fileURLWithPath: path)
-        let sfzURL = baseURL.appendingPathComponent(fileName)
+        let samplesBaseURL = url.deletingLastPathComponent()
+
         do {
-            let data = try String(contentsOf: sfzURL, encoding: .ascii)
+            let data = try String(contentsOf: url, encoding: .ascii)
             let lines = data.components(separatedBy: .newlines)
             for line in lines {
                 let trimmed = String(line.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -93,13 +102,14 @@ extension AKSampler {
                                                               loopEndPoint: loopEndPoint,
                                                               startPoint: 0.0,
                                                               endPoint: 0.0)
-                    let sampleFileURL = baseURL.appendingPathComponent(sample)
+                    let sampleFileURL = samplesBaseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
                         loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
                                                                               path: sampleFileURL.path))
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
-                            let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
+                            let compressedFileURL = samplesBaseURL
+                                .appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
                                 loadCompressedSampleFile(
