@@ -169,8 +169,8 @@ import UIKit
             }
             strongSelf.touchEndedCallback()
         }
-        plusButton.font = buttonFont
-        minusButton.font = buttonFont
+        plusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
+        minusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
         plusButton.borderWidth = buttonBorderWidth
         minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)

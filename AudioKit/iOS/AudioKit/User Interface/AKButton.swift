@@ -104,7 +104,7 @@ public enum AKButtonStyle {
         self.init(frame: frame)
         self.title = title
         self.color = color
-        self.highlightedColor = color.darker(by: 11)
+        self.highlightedColor = color.darker(by: 11) ?? color
         self.callback = callback
 
         clipsToBounds = true
@@ -114,7 +114,7 @@ public enum AKButtonStyle {
     override public init(frame: CGRect) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11)
+        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
         super.init(frame: frame)
 
         self.backgroundColor = AKColor.clear
@@ -125,7 +125,7 @@ public enum AKButtonStyle {
     required public init?(coder: NSCoder) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11)
+        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
         super.init(coder: coder)
 
         self.clipsToBounds = true
