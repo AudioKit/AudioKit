@@ -19,10 +19,10 @@
     var currentIndex = 0
 
     /// Text to display as a label
-    @IBInspectable open var label = "Preset"
+    @IBInspectable open var label: String = "Preset"
 
     /// The presets to scroll through
-    @IBInspectable open var presets = [String]()
+    open var presets = [String]()
 
     /// Function to call when the preset is changed
     open var callback: (String) -> Void
@@ -32,21 +32,21 @@
     @IBInspectable open var fontSize: CGFloat = 24
 
     /// Font
-    @IBInspectable open var font = UIFont.boldSystemFont(ofSize: 24)
+    open var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
 
-    @IBInspectable open var bgColor: AKColor? {
+    open var bgColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable open var textColor: AKColor? {
+    open var textColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable open var borderColor: AKColor? {
+    open var borderColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
@@ -104,31 +104,44 @@
 
     // Default background color per theme
     var bgColorForTheme: AKColor {
-        if let bgColor = bgColor { return bgColor }
+        if let bgColor = bgColor {
+            return bgColor
+
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.8, alpha: 1.0)
-        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.8, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 0.7, alpha: 1.0)
         }
     }
 
     // Default border color per theme
     var borderColorForTheme: AKColor {
-        if let borderColor = borderColor { return borderColor }
+        if let borderColor = borderColor {
+            return borderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
-        case .midnight: return AKColor.white.withAlphaComponent(0.8)
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
+        case .midnight:
+            return AKColor.white.withAlphaComponent(0.8)
         }
     }
 
     // Default text color per theme
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 

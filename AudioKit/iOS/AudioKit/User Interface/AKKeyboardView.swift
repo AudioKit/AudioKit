@@ -355,7 +355,6 @@ import AudioKit
         return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
     }
 
-    // swiftlint:disable variable_name
     func whiteKeyX(_ n: Int, octaveNumber: Int) -> CGFloat {
         return CGFloat(n) * whiteKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
     }

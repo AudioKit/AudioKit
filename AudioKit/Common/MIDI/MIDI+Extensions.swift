@@ -20,11 +20,11 @@ extension MIDIByte {
     /// it sounds like your are referring to the highest bit and the lowest bit
 
     /// This limits the range to be from 0 to 16
-    var lowBit: MIDIByte {
+    public var lowBit: MIDIByte {
         return self & 0xF
     }
 
-    var highBit: MIDIByte {
+    public var highBit: MIDIByte {
         return self >> 4
     }
 

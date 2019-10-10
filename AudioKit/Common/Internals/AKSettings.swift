@@ -74,6 +74,21 @@ open class AKSettings: NSObject {
         }
     }
 
+    #if !os(macOS)
+    /// Whether haptics and system sounds are muted while a microhpone is setup or recording is active
+    @objc public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
+        didSet {
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                do {
+                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    #endif
+
     /// Number of audio channels: 2 for stereo, 1 for mono
     @objc public static var channelCount: UInt32 = 2
 
@@ -195,7 +210,7 @@ open class AKSettings: NSObject {
     /// If set to false, AudioKit will not handle the AVAudioSession route change
     /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
-    /// to these notifications and restart AudioKit after rebuiling their audio chain.
+    /// to these notifications and restart AudioKit after rebuilding their audio chain.
     @objc public static var enableRouteChangeHandling: Bool = true
 
     /// If set to false, AudioKit will not handle the AVAudioSession category change
@@ -245,6 +260,15 @@ extension AKSettings {
         } catch let error as NSError {
             AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
             throw error
+        }
+
+        // Core Haptics
+        do {
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+            }
+        } catch {
+            AKLog("Error: Cannot set allowHapticsAndSystemSoundsDuringRecording", error)
         }
 
         // Preferred IO Buffer Duration
@@ -320,6 +344,7 @@ extension AKSettings {
             if AKSettings.defaultToSpeaker {
                 options = options.union(.defaultToSpeaker)
             }
+
             #endif
         }
 

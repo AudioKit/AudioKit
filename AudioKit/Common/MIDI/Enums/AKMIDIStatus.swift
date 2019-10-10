@@ -90,7 +90,7 @@ public enum AKMIDIStatusType: Int {
     /// bent up or down a given number of semitones
     case pitchWheel = 14
 
-    static func from(byte: MIDIByte) -> AKMIDIStatusType? {
+    public static func from(byte: MIDIByte) -> AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
