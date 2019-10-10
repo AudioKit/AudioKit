@@ -61,6 +61,9 @@
            duration:(double)duration {
     _kernel.addMIDINote(number, velocity, beat, duration);
 }
+-(void)removeNote:(double)beat {
+    _kernel.removeNoteAt(beat);
+}
 -(void)setLoopCallback:(AKCCallback)callback {
     _kernel.loopCallback = callback;
 }
