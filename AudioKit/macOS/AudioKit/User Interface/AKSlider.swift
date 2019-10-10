@@ -14,8 +14,10 @@ public enum AKSliderStyle {
     // Factor for calculating the corner radius of the slider based on the width of the slider indicator
     var cornerRadiusFactor: CGFloat {
         switch self {
-        case .roundIndicator: return 2.0
-        case .tabIndicator: return 4.0
+        case .roundIndicator:
+            return 2.0
+        case .tabIndicator:
+            return 4.0
         }
     }
 }
@@ -107,44 +109,62 @@ public enum AKSliderStyle {
 
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
-        case .roundIndicator: return sliderHeight
-        case .tabIndicator: return AKSlider.tabIndicatorWidth
+        case .roundIndicator:
+            return sliderHeight
+        case .tabIndicator:
+            return AKSlider.tabIndicatorWidth
         }
     }
 
     var bgColorForTheme: AKColor {
-        if let bgColor = bgColor { return bgColor }
+        if let bgColor = bgColor {
+            return bgColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 0.7, alpha: 1.0)
         }
     }
 
     var indicatorBorderColorForTheme: AKColor {
-        if let indicatorBorderColor = indicatorBorderColor { return indicatorBorderColor }
+        if let indicatorBorderColor = indicatorBorderColor {
+            return indicatorBorderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     var sliderBorderColorForTheme: AKColor {
-        if let sliderBorderColor = sliderBorderColor { return sliderBorderColor }
+        if let sliderBorderColor = sliderBorderColor {
+            return sliderBorderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.2, alpha: 1.0)
-        case .midnight: return AKColor(white: 0.9, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 0.9, alpha: 1.0)
         }
     }
 
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 

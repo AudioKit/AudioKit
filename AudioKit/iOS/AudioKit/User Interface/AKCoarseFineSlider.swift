@@ -94,48 +94,66 @@ import AudioKit
                           frame: frame,
                           callback: { _ in })
         coarseStepper.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.fineStepper.currentValue = value
             strongSelf.slider.value = value
         }
         coarseStepper.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         coarseStepper.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         fineStepper.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.coarseStepper.currentValue = value
             strongSelf.slider.value = value
         }
         fineStepper.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         fineStepper.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         slider.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.coarseStepper.currentValue = value
             strongSelf.fineStepper.currentValue = value
         }
         slider.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         slider.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         coarseStepper.backgroundColor = .clear
@@ -213,8 +231,8 @@ import AudioKit
         buttons.layoutSubviews()
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
-        if view != nil {
-            stack.addArrangedSubview(view!)
+        if let view = view {
+            stack.addArrangedSubview(view)
         }
     }
     /// Require constraint-based layout

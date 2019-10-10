@@ -30,15 +30,19 @@ static int akCustomUgenFunction(plumber_data *pd, sporth_stack *stack, void **ud
                 return PLUMBER_NOTOK;
             }
             ugen.callComputeFunction(ugen);
+        }
             break;
-        } case PLUMBER_COMPUTE: {
+
+        case PLUMBER_COMPUTE: {
             AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
-            [ugen.stack setStack:stack];
             ugen.callComputeFunction(ugen);
+        }
             break;
-        } case PLUMBER_DESTROY:
+
+        case PLUMBER_DESTROY:
             CFBridgingRelease(*ud);
             break;
+
         default:
             fprintf(stderr, "aux (f)unction: unknown mode!\n");
             break;

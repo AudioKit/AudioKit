@@ -62,8 +62,8 @@ import UIKit
         checkValues()
         setupButtons(frame: frame)
         addSubview(label)
-        if showsValue {
-            addSubview(valueLabel!)
+        if showsValue, let valueLabel = valueLabel {
+            addSubview(valueLabel)
         }
     }
 
@@ -88,7 +88,7 @@ import UIKit
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect) {
-        let borderWidth = minusButton!.borderWidth
+        let borderWidth = minusButton?.borderWidth ?? 0
         label.frame = CGRect(x: rect.origin.x + borderWidth,
                              y: rect.origin.y,
                              width: rect.width,
@@ -130,8 +130,8 @@ import UIKit
         genStackViews(rect: bounds)
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
-        if view != nil {
-            stack.addArrangedSubview(view!)
+        if let view = view {
+            stack.addArrangedSubview(view)
         }
     }
     internal func checkValues() {
@@ -144,25 +144,33 @@ import UIKit
     internal func setupButtons(frame: CGRect) {
         let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
         plusButton = AKButton(title: "+", frame: buttonFrame, callback: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doPlusAction()
             strongSelf.touchBeganCallback()
         })
         plusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         minusButton = AKButton(title: "-", frame: buttonFrame, callback: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doMinusAction()
             strongSelf.touchBeganCallback()
         })
         minusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
-        plusButton.font = buttonFont!
-        minusButton.font = buttonFont!
+        plusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
+        minusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
         plusButton.borderWidth = buttonBorderWidth
         minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)
