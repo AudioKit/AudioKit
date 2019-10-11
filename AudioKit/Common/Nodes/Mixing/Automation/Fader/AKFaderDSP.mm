@@ -80,7 +80,7 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
 void AKFaderDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    printf("AKFaderDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
+    // printf("AKFaderDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
 
     // Note, if duration is 0 frames, startRamp will setImmediate
     switch (address) {

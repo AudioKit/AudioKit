@@ -49,27 +49,39 @@ import AudioKit
                           frame: frame,
                           callback: { _ in })
         coarseStepper.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         coarseStepper.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         fineStepper.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         fineStepper.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         slider.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         slider.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         coarseStepper.backgroundColor = .clear
@@ -94,7 +106,9 @@ import AudioKit
                                             height: frame.height * 0.7))
 
         coarseStepper.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.fineStepper.currentValue = value
@@ -102,7 +116,9 @@ import AudioKit
             strongSelf.slider.value = value
         }
         fineStepper.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.coarseStepper.currentValue = value
@@ -110,7 +126,9 @@ import AudioKit
             strongSelf.slider.value = value
         }
         slider.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.coarseStepper.currentValue = value
@@ -119,17 +137,23 @@ import AudioKit
         }
         nudger.linear = false
         nudger.callback = { [weak self] value in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.callback(value)
             strongSelf.currentValue = value
             strongSelf.slider.value = value
         }
         nudger.touchBeganCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchBeganCallback()
         }
         nudger.touchEndedCallback = { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         nudger.backgroundColor = .clear
@@ -140,7 +164,7 @@ import AudioKit
         nudger.buttonBorderWidth = buttonBorderWidth
 
         self.addSubview(nameLabel)
-        self.addSubview(valueLabel!)
+        self.addSubview(valueLabel)
         self.addSubview(slider)
         self.addSubview(buttons)
         addToStackIfPossible(view: coarseStepper, stack: buttons)

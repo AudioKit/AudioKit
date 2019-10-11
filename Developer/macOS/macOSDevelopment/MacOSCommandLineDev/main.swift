@@ -40,7 +40,7 @@ if isTempoListener {
 }
 
 while receivedNotificaton == false {
-    let oneSecondLater = Date(timeIntervalSinceNow: 0.0025)
+    let oneSecondLater = Date(timeIntervalSinceNow: 0.002_5)
     RunLoop.current.run(mode: .default, before: oneSecondLater)
 
     if isTempoListener {

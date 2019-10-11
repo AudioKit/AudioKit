@@ -153,6 +153,10 @@ open class AKSequencerTrack: AKNode, AKComponent {
         }
     }
 
+    open func removeNote(at position: Double) {
+        internalAU?.removeNote(position)
+    }
+
     /// Remove the notes in the track
     open func clear() {
         internalAU?.clear()

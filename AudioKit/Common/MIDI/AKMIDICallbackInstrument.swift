@@ -9,12 +9,15 @@
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
 /// Another callback instrument, AKCallbackInstrument
+/// You will need to enable "Background Modes - Audio" in your project for this to work.
 open class AKMIDICallbackInstrument: AKMIDIInstrument {
 
-    // MARK: Properties
+    // MARK: - Properties
 
     /// All callbacks that will get triggered by MIDI events
     open var callback: AKMIDICallback?
+
+    // MARK: - Initialization
 
     /// Initialize the callback instrument
     ///
@@ -28,6 +31,8 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)
     }
+
+    // MARK: - Triggering
 
     fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
                                       data1: MIDIByte,
@@ -58,6 +63,8 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel), data1: noteNumber, data2: 0)
     }
+
+    // MARK: - MIDI
 
     override open func receivedMIDIController(_ controller: MIDIByte,
                                               value: MIDIByte,
