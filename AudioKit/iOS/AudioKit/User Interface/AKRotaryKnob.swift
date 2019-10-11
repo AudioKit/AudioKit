@@ -153,31 +153,43 @@ public enum AKRotaryKnobStyle {
 
     /// Color for the arrow on the knob for the current theme
     open func indicatorColorForTheme() -> AKColor {
-        if let indicatorColor = indicatorColor { return indicatorColor }
+        if let indicatorColor = indicatorColor {
+            return indicatorColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     /// Color for the border for the current theme
     open func knobBorderColorForTheme() -> AKColor {
-        if let knobBorderColor = knobBorderColor { return knobBorderColor }
+        if let knobBorderColor = knobBorderColor {
+            return knobBorderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.2, alpha: 1.0)
-        case .midnight: return AKColor(white: 1.0, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 1.0, alpha: 1.0)
         }
     }
 
     /// Text color for the current theme
     open func textColorForTheme() -> AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
@@ -369,7 +381,9 @@ public enum AKRotaryKnobStyle {
                                      curvature: Double,
                                      startPoint: CGPoint,
                                      offsetAngle: Double) -> UIBezierPath {
-        guard numberOfSides > 2 else { return UIBezierPath(rect: rect) }
+        guard numberOfSides > 2 else {
+            return UIBezierPath(rect: rect)
+        }
 
         let path = UIBezierPath()
         path.move(to: startPoint)

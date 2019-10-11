@@ -146,21 +146,29 @@ public enum AKButtonStyle {
 
     // Default border color per theme
     var borderColorForTheme: AKColor {
-        if let borderColor = borderColor { return borderColor }
+        if let borderColor = borderColor {
+            return borderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     // Default text color per theme
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
@@ -172,8 +180,10 @@ public enum AKButtonStyle {
     func drawButton(rect: CGRect) {
         let cornerRadius: CGFloat = {
             switch self.style {
-            case .standard: return AKButton.standardCornerRadius
-            case .round: return rect.height / 2.0
+            case .standard:
+                return AKButton.standardCornerRadius
+            case .round:
+                return rect.height / 2.0
             }
         }()
 

@@ -9,15 +9,16 @@
 #import "AKTimelineTap.h"
 #import <AudioKit/AudioKit-Swift.h>
 
-@implementation AKTimelineTap {
+@implementation AKTimelineTap
+{
     AKRenderTap *renderTap;
     AudioStreamBasicDescription asbd;
     AKTimelineBlock _block;
     AudioUnitRenderActionFlags actionFlags;
 }
 
--(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit
-                              timelineBlock:(AKTimelineBlock _Nullable )block {
+- (instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit
+                              timelineBlock:(AKTimelineBlock _Nullable)block {
     self = [super init];
     if (self) {
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
@@ -39,35 +40,34 @@
     return self;
 }
 
--(AKRenderNotifyBlock)renderNotify {
-
+- (AKRenderNotifyBlock)renderNotify {
     AKTimeline *timeline = &_timeline;
+    AudioUnitRenderActionFlags *actionFlags = &self->actionFlags;
 
     return ^(AudioUnitRenderActionFlags *ioActionFlags,
-             const AudioTimeStamp       *inTimeStamp,
-             UInt32                     inBusNumber,
-             UInt32                     inNumberFrames,
-             AudioBufferList            *ioData) {
-
-        if ((*ioActionFlags & actionFlags)) {
-            AKTimelineRender(timeline, inTimeStamp, inNumberFrames, ioData);
-        }
+             const AudioTimeStamp *inTimeStamp,
+             UInt32 inBusNumber,
+             UInt32 inNumberFrames,
+             AudioBufferList *ioData) {
+               if ((*ioActionFlags & *actionFlags)) {
+                   AKTimelineRender(timeline, inTimeStamp, inNumberFrames, ioData);
+               }
     };
 }
 
--(void)setPreRender:(BOOL)preRender {
+- (void)setPreRender:(BOOL)preRender {
     actionFlags = preRender ? kAudioUnitRenderAction_PreRender : kAudioUnitRenderAction_PostRender;
 }
 
--(BOOL)preRender {
+- (BOOL)preRender {
     return actionFlags == kAudioUnitRenderAction_PreRender;
 }
 
--(AKTimeline *)timeline {
+- (AKTimeline *)timeline {
     return &_timeline;
 }
 
--(instancetype _Nullable )initWithNode:(AVAudioNode * _Nonnull)node timelineBlock:(AKTimelineBlock _Nullable )block {
+- (instancetype _Nullable)initWithNode:(AVAudioNode *_Nonnull)node timelineBlock:(AKTimelineBlock _Nullable)block {
     AVAudioUnit *avAudioUnit = (AVAudioUnit *)node;
     if (![avAudioUnit respondsToSelector:@selector(audioUnit)]) {
         NSLog(@"%@ doesn't have an accessible audioUnit, can't set render notify!", NSStringFromClass(node.class));
@@ -76,12 +76,12 @@
     return [self initWithAudioUnit:avAudioUnit.audioUnit timelineBlock:block];
 }
 
-static void TimingCallback(void *refCon,
-                           AudioTimeStamp *timeStamp,
-                           UInt32 inNumberFrames,
-                           UInt32 renderStartOffset,
-                           AudioBufferList *ioData) {
-
+static void TimingCallback(void            *refCon,
+                           AudioTimeStamp  *timeStamp,
+                           UInt32          inNumberFrames,
+                           UInt32          renderStartOffset,
+                           AudioBufferList *ioData)
+{
     __unsafe_unretained AKTimelineTap *self = (__bridge AKTimelineTap *)refCon;
     __unsafe_unretained AKTimelineBlock timelineBlock = self->_block;
 
@@ -89,4 +89,5 @@ static void TimingCallback(void *refCon,
         timelineBlock(&self->_timeline, timeStamp, renderStartOffset, inNumberFrames, ioData);
     }
 }
+
 @end

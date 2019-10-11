@@ -15,9 +15,7 @@
     AUAudioUnit *auAudioUnit;
     AVAudioUnit *avAudioUnit;
     Float64 lastRenderTime;
-
     AVAudioTime *anchorTime;
-
     AUEventSampleTime endTime;
 
     // currently a fixed buffer of automation points
@@ -62,7 +60,6 @@
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
 
     AUEventSampleTime offsetTime = audioTime.audioTimeStamp.mSampleTime + lastRenderTime;
-    //anchorTime = [[AVAudioTime alloc]initWithSampleTime:offsetTime atRate:sampleRate];
     anchorTime = [[AVAudioTime alloc]initWithHostTime:audioTime.hostTime sampleTime:offsetTime atRate:sampleRate];
 
     endTime = 0;
@@ -72,7 +69,7 @@
     // not needed at the moment
     //[self validatePoints:audioTime];
 
-    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
+    // NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
@@ -88,7 +85,7 @@
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
     [self clear];
 
-    NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
+    // NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
 }
 
 #pragma mark - Render Block
@@ -106,10 +103,9 @@
 
                // printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
 
-               // TODO:
+               // TODO: allow for a timed duration stop to end automation - don't use this:
                //AUEventSampleTime endTime = welf->endTime;
 
-               //if (sampleTime + inNumberFrames >= welf->anchorTime.audioTimeStamp.mSampleTime) {
                for (int n = 0; n < inNumberFrames; n++) {
                    AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
 
@@ -130,7 +126,7 @@
                        }
 
                        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
-                           printf("👉 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
+                           // printf("👉 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
@@ -140,7 +136,7 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
-                           printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
+                           // printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
 
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,
@@ -210,16 +206,12 @@
 
 #pragma mark - Deinit
 
-- (void)dispose {
+- (void)dealloc {
+    NSLog(@"* { AKParameterAutomation.dealloc }");
     [self stopAutomation];
-
     tap = nil;
     auAudioUnit = nil;
     avAudioUnit = nil;
-}
-
-- (void)dealloc {
-    NSLog(@"* { AKParameterAutomation.dealloc }");
 }
 
 @end
