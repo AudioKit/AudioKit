@@ -164,7 +164,7 @@ static void deletezitarev(zitarev* dsp) {
 
 static void instanceInitzitarev(zitarev* dsp, int samplingFreq) {
 	dsp->fSamplingFreq = samplingFreq;
-	dsp->fHslider0 = (FAUSTFLOAT)-20.;
+	dsp->fHslider0 = (FAUSTFLOAT)0.;
 	/* C99 loop */
 	{
 		int i0;
