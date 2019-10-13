@@ -8,7 +8,6 @@ addons:
     - gnu-sed
     - s3cmd
 before_install:
-- pod repo update
 - gem install xcpretty -N
 script: "./Tests/travis.sh"
 notifications:
