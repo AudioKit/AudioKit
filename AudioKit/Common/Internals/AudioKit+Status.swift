@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AudioToolbox
 
 extension AudioKit {
 
@@ -19,12 +20,14 @@ extension AudioKit {
 
     #if os(iOS)
     var isIAAConnected: Bool {
+        #if !targetEnvironment(macCatalyst)
         do {
             let result: UInt32? = try AudioKit.engine.outputNode.audioUnit?.getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
             return result == 1
         } catch {
             AKLog("could not get IAA status: \(error)")
         }
+        #endif
         return false
     }
     #endif
