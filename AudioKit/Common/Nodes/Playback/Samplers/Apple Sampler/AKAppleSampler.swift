@@ -89,6 +89,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [url])
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading wav file at \(url)")
@@ -114,6 +115,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [file.url])
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading audio file \"\(file.fileNamePlusExtension)\"")
@@ -134,6 +136,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: urls)
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading audio files \(urls)")
@@ -151,6 +154,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+                self.samplerUnit.reset()
             }
         } catch {
             AKLog("Error AKSampler.loadPath loading file at \(filePath)")
@@ -167,6 +171,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: url)
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading instrument resource \(file)")
@@ -248,6 +253,7 @@ open class AKAppleSampler: AKNode {
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(type),
                 bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+            samplerUnit.reset()
         } catch let error as NSError {
             AKLog("Error loading SoundFont \(file)")
             throw error
@@ -279,6 +285,7 @@ open class AKAppleSampler: AKNode {
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(bMSB),
                 bankLSB: MIDIByte(bLSB))
+            samplerUnit.reset()
         } catch let error as NSError {
             AKLog("Error loading SoundFont \(file)")
             throw error
