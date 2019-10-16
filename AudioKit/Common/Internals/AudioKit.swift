@@ -23,9 +23,9 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// Top level AudioKit managing class
 open class AudioKit: NSObject {
     #if !os(macOS)
-    static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+    public static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
     #else
-    static let deviceSampleRate: Double = 44_100
+    public static let deviceSampleRate: Double = 44_100
     #endif
 
     // MARK: - Internal audio engine mechanics
