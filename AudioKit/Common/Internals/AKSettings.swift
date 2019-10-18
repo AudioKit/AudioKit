@@ -310,8 +310,6 @@ extension AKSettings {
 
         if AKSettings.audioInputEnabled {
 
-            options = options.union(.mixWithOthers)
-
             #if !os(tvOS)
             if #available(iOS 10.0, *) {
                 // Blueooth Options
