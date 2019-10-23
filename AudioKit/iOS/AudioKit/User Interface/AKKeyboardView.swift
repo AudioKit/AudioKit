@@ -18,7 +18,7 @@ import AudioKit
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
-
+    //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
 
