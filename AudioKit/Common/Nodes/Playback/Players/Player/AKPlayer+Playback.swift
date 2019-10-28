@@ -29,7 +29,7 @@ extension AKPlayer {
 
         if let requestedTime = audioTime {
             if requestedTime.isHostTimeValid, requestedTime.hostTime < mach_absolute_time() {
-                AKLog("AudioTime is in the past, playing immediately.")
+                AKLog("Scheduled time is in the past so playing now...")
                 audioTime = nil
             }
         }
