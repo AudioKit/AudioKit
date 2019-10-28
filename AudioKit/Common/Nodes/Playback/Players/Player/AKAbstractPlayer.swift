@@ -130,6 +130,8 @@ open class AKAbstractPlayer: AKNode {
         set {
             if newValue != 1 && faderNode == nil {
                 createFader()
+            } else if newValue == 1 && faderNode != nil && !isPlaying {
+                removeFader()
             }
             // this is the value that the fader will fade to
             fade.maximumGain = newValue
@@ -172,6 +174,8 @@ open class AKAbstractPlayer: AKNode {
 
     // MARK: - public flags
 
+    @objc open internal(set) var isPlaying: Bool = false
+
     @objc open var isLooping: Bool = false
 
     /// true if any fades have been set
@@ -185,7 +189,6 @@ open class AKAbstractPlayer: AKNode {
         return 0
     }
 
-    // stub property
     @objc open var sampleRate: Double {
         return AKSettings.sampleRate
     }
@@ -196,14 +199,17 @@ open class AKAbstractPlayer: AKNode {
         return 1.0
     }
 
-    /// Stub function to be implemented on route changes in subclasses
-    internal func initialize(restartIfPlaying: Bool = true) {}
-
     internal var stopEnvelopeTimer: Timer?
+
+    /// Stub function to be implemented on route changes in subclasses
+    open func initialize(restartIfPlaying: Bool = true) {}
+
+    @objc open func play() {}
+    @objc open func stop() {}
 
     // MARK: internal functions to be used by subclasses
 
-    /// This is used to schedule the fade in and out for a region. It uses vaues from the fade object.
+    /// This is used to schedule the fade in and out for a region. It uses values from the fade struct.
     internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
@@ -321,6 +327,21 @@ open class AKAbstractPlayer: AKNode {
         // faderNode?.rampType = rampType
 
         initialize()
+    }
+
+    // Removes the internal fader from the signal chain
+    public func removeFader() {
+        guard faderNode != nil else { return }
+        let wasPlaying = isPlaying
+        stop()
+        faderNode?.disconnectOutput()
+        faderNode?.detach()
+        faderNode = nil
+        AKLog("Fader was removed")
+        initialize()
+        if wasPlaying {
+            play()
+        }
     }
 
     public func resetFader() {
