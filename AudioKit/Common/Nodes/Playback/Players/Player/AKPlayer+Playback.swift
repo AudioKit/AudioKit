@@ -13,11 +13,6 @@ extension AKPlayer {
         return (isLooping && !isBuffered) || completionHandler != nil
     }
 
-    /// Play entire file right now
-    @objc public func play() {
-        play(from: startTime, to: endTime, at: nil, hostTime: nil)
-    }
-
     /// Play segments of a file
     @objc public func play(from startingTime: Double, to endingTime: Double = 0) {
         var to = endingTime
@@ -27,8 +22,18 @@ extension AKPlayer {
         play(from: startingTime, to: to, at: nil, hostTime: nil)
     }
 
-    /// Play file using previously set startTime and endTime at some point in the future
+    /// Play file using previously set startTime and endTime at some point in the future.
+    /// This will not work in the audioTime is in the past
     @objc public func play(at audioTime: AVAudioTime?) {
+        var audioTime = audioTime
+
+        if let requestedTime = audioTime {
+            if requestedTime.isHostTimeValid, requestedTime.hostTime < mach_absolute_time() {
+                AKLog("AudioTime is in the past, playing immediately.")
+                audioTime = nil
+            }
+        }
+
         play(at: audioTime, hostTime: nil)
     }
 
@@ -87,18 +92,14 @@ extension AKPlayer {
         isPaused = false
     }
 
-    /// Stop playback and cancel any pending scheduled playback or completion events
-    @objc public func stop() {
-        stopCompletion()
-    }
-
-    /// replaces stopEnvelopeTime
+    /// Provides a convenience method for a quick fade out for when a user presses stop.
     public func fadeOutAndStop(time: TimeInterval) {
         guard isPlaying else {
             // AKLog("Player isn't playing")
             return
         }
 
+        // creates if necessary only
         createFader()
 
         // Provides a convenience for a quick fade out when a user presses stop.
@@ -127,13 +128,12 @@ extension AKPlayer {
         isPlaying = false
     }
 
-    @objc private func stopCompletion() {
+    @objc internal func stopCompletion() {
         playerNode.stop()
 
         if isFaded {
             super.faderNode?.stopAutomation()
         }
-
         isPlaying = false
     }
 
@@ -262,7 +262,6 @@ extension AKPlayer {
 
     @objc private func handleComplete() {
         stop()
-
         super.faderNode?.stopAutomation()
 
         if isLooping {
