@@ -12,6 +12,7 @@ custom_categories:
     children:
     - AudioKit
     - AKAudioFile
+    - AKCallbackInstrument
     - AKComponent
     - AKCustomUgen
     - AKDevice
@@ -27,7 +28,6 @@ custom_categories:
     - AKTester
     - AKTiming
     - AKTry(_:)
-    - AKTuningTable
     - CheckError(_:)
     - fourCC(_:)
     - ">>>(_:_:)"
@@ -36,26 +36,52 @@ custom_categories:
     children:
     - AKMIDI
     - AKMIDICallback
+    - AKMIDICallbackInstrument
+    - AKMIDIClockListener
     - AKMIDIControl
     - AKMIDIEvent
+    - AKMIDIFile
+    - AKMIDIFileChunkEvent
+    - AKMIDIFileTrack
     - AKMIDIInstrument
     - AKMIDIListener
+    - AKMIDIMetaEvent
+    - AKMIDIMetaEventType
+    - AKMIDIMonoPolyListener
     - AKMIDINode
+    - AKMIDINoteData
+    - AKMIDIOMNIListener
     - AKMIDISampler
     - AKMIDIStatus
+    - AKMIDIStatusType
     - AKMIDISystemCommand
+    - AKMIDISystemCommandType
+    - AKMIDISystemRealTimeListener
+    - AKMIDITempoListener
+    - AKMIDITimeOut
     - AKMIDITransformer
     - AKRawMIDIPacket
+    - MIDIFileTrackChunk
     - MIDIPacket
     - MIDIPacketList
+    - MIDIProgramChangeEvent
+    - MIDITimeFormat
     - AKBluetoothMIDIButton
-    - AKCallbackInstrument
 
   - name: Sequencing
     children:
     - AKAppleSequencer
     - AKDuration
     - AKMusicTrack
+    - AKSequencer
+    - AKSequencerTrack
+
+  - name: Tuning
+    children:
+    - AKTuningTable
+    - AKTuningTableBase
+    - AKTuningTableDelta12ET
+    - AKTuningTableETNN
 
   - name: Nodes
     children:
@@ -73,6 +99,8 @@ custom_categories:
   - name: Delay Nodes
     children:
     - AKDelay
+    - AKStereoDelay
+    - AKStereoDelayAudioUnit
     - AKVariableDelay
     - AKVariableDelayAudioUnit
 
@@ -177,6 +205,7 @@ custom_categories:
     - AKCostelloReverb
     - AKCostelloReverbAudioUnit
     - AKConvolution
+    - AKConvolutionAudioUnit
     - AKFlatFrequencyResponseReverb
     - AKFlatFrequencyResponseReverbAudioUnit
     - AKReverb
@@ -198,18 +227,25 @@ custom_categories:
     - AKFMOscillator
     - AKFMOscillatorAudioUnit
     - AKFMOscillatorBank
+    - AKFMOscillatorFilterSynth
     - AKMorphingOscillator
     - AKMorphingOscillatorAudioUnit
     - AKMorphingOscillatorBank
+    - AKMorphingOscillatorFilterSynth
     - AKOscillator
     - AKOscillatorAudioUnit
     - AKOscillatorBank
+    - AKOscillatorFilterSynth
     - AKPhaseDistortionOscillator
     - AKPhaseDistortionOscillatorAudioUnit
     - AKPhaseDistortionOscillatorBank
+    - AKPhaseDistortionOscillatorFilterSynth
     - AKPWMOscillator
     - AKPWMOscillatorAudioUnit
     - AKPWMOscillatorBank
+    - AKPWMOscillatorFilterSynth
+    - AKSynth
+    - AKSynthAudioUnit
 
   - name: Physical Models
     children:
@@ -225,11 +261,14 @@ custom_categories:
     - AKPluckedString
     - AKPluckedStringAudioUnit
     - AKRhodesPiano
+    - AKRhodesPianoAudioUnit
     - AKShaker
+    - AKShakerAudioUnit
     - AKShakerType
     - AKSynthKick
     - AKSynthSnare
     - AKTubularBells
+    - AKTubularBellsAudioUnit
     - AKVocalTract
     - AKVocalTractAudioUnit
 
@@ -241,32 +280,45 @@ custom_categories:
   - name: Mixing Nodes
     children:
     - AK3DPanner
+    - AKAutoPanner
+    - AKAutoPannerAudioUnit
     - AKBalancer
     - AKBooster
     - AKBoosterAudioUnit
     - AKDryWetMixer
+    - AKFader
+    - AKFaderAudioUnit
     - AKMixer
     - AKPanner
+    - AKPannerAudioUnit
     - AKStereoFieldLimiter
+    - AKStereoFieldLimiterAudioUnit
 
   - name: Playback Nodes
     children:
 
+    - AKAbstractPlayer
     - AKAppleSampler
+    - AKAudioPlayer
     - AKClip
     - AKClipMerger
     - AKClipPlayer
     - AKClipRecorder
+    - AKDiskStreamer
+    - AKDynamicPlayer
     - AKFileClip
     - AKFileClipSequence
     - AKMetronome
     - AKPhaseLockedVocoder
+    - AKPhaseLockedVocoderAudioUnit
     - AKPlayer
     - AKRecordingResult
     - AKSampler
+    - AKSamplerAudioUnit
     - AKSamplePlayer
     - AKTimePitch
     - AKVariSpeed
+    - AKWaveTable
     - ClipMergeDelegate
     - ClipMergerError
     - ClipRecordingError

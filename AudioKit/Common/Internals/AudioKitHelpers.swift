@@ -177,7 +177,7 @@ extension Double {
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
         // Avoiding division by zero in this trivial case
-        if range.upperBound - range.lowerBound < 0.00001 {
+        if range.upperBound - range.lowerBound < 0.000_01 {
             return range.lowerBound
         }
 
@@ -188,8 +188,8 @@ extension Double {
             // exponential taper
             var adjustedMinimum: Double = 0.0
             var adjustedMaximum: Double = 0.0
-            if range.lowerBound == 0 { adjustedMinimum = 0.00_000_000_001 }
-            if range.upperBound == 0 { adjustedMaximum = 0.00_000_000_001 }
+            if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
+            if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
