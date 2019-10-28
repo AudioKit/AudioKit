@@ -33,7 +33,7 @@ import AudioKit
     @IBInspectable public var value: Double = 0 {
         didSet {
             value = range.clamp(value)
-            if discreteValues.count > 0 {
+            if discreteValues.isNotEmpty {
                 value = closest(to: value)
             }
 

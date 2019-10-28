@@ -7,7 +7,7 @@
 //
 
 /// Supported default table types
-@objc public enum AKTableType: Int, Codable {
+@objc public enum AKTableType: Int, Codable, CaseIterable {
     /// Standard sine waveform
     case sine
 

@@ -190,6 +190,24 @@ public:
         framesCounted += frameCount;
     }
 
+    void removeNoteAt(double beat) {
+        for (int i = 0; i < notes.size(); i++) {
+            MIDINote note = notes[i];
+            if (note.noteOn.beat == beat) {
+                notes.erase(notes.begin()+i);
+            }
+        }
+    }
+
+    void removeEventAt(double beat) {
+        for (int i = 0; i < events.size(); i++) {
+            MIDIEvent event = events[i];
+            if (event.beat == beat) {
+                events.erase(events.begin()+i);
+            }
+        }
+    }
+
     void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
         MIDIEvent newEvent;
         newEvent.status = status;

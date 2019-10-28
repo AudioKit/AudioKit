@@ -84,8 +84,10 @@ import AudioKit
         return Int(abs((minimum - originalValue) / increment))
     }
     private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer? {
-        if timer != nil, timer!.isValid {
-            return nil
+        if let timer = timer {
+            if timer.isValid {
+                return nil
+            }
         }
         if #available(iOS 10.0, *) {
             return Timer.scheduledTimer(withTimeInterval: self.frameRate, repeats: true,
@@ -110,27 +112,35 @@ import AudioKit
     }
     override internal func setupButtons(frame: CGRect) {
         plusButton = AKButton(title: "+", frame: frame, callback: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doPlusActionHit()
             strongSelf.touchBeganCallback()
         })
         minusButton = AKButton(title: "-", frame: frame, callback: { [weak self]  _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doMinusActionHit()
             strongSelf.touchBeganCallback()
         })
         plusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doPlusActionRelease()
             strongSelf.touchEndedCallback()
         }
         minusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doMinusActionRelease()
             strongSelf.touchEndedCallback()
         }
-        plusButton.font = buttonFont!
-        minusButton.font = buttonFont!
+        plusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
+        minusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
         plusButton.borderWidth = buttonBorderWidth
         minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)
