@@ -23,7 +23,7 @@ extension AKPlayer {
     }
 
     /// Play file using previously set startTime and endTime at some point in the future.
-    /// This will not work in the audioTime is in the past
+    /// If the audioTime is in the past it will be played now.
     @objc public func play(at audioTime: AVAudioTime?) {
         var audioTime = audioTime
 
