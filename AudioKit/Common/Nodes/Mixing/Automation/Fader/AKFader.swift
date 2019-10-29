@@ -31,7 +31,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
-            AKLog(newValue)
+            // AKLog(newValue)
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
@@ -86,7 +86,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - Initialization
 
-    /// Initialize this booster node
+    /// Initialize this fader node
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be amplified
@@ -148,8 +148,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     open override func detach() {
         super.detach()
-        // self.parameterAutomation?.detach()
         self._parameterAutomation = nil
+    }
+
+    @objc deinit {
+        AKLog("* { AKFader }")
     }
 
     // MARK: - AKAutomatable

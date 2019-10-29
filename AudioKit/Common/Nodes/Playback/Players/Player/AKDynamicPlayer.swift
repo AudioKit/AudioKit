@@ -26,8 +26,7 @@ public class AKDynamicPlayer: AKPlayer {
                 removeTimePitch()
                 return
             } else if timePitchNode == nil && newValue != 1 {
-                timePitchNode = AKTimePitch()
-                initialize()
+                createTimePitch()
             }
 
             if let timePitchNode = self.timePitchNode {
@@ -55,12 +54,11 @@ public class AKDynamicPlayer: AKPlayer {
                 return
             }
             // timePitch is only installed if it is requested. This saves CPU resources.
-            if timePitchNode != nil && newValue == 0 && rate == 1 {
+            if timePitchNode != nil && newValue == 0 && rate == 1 && !isPlaying {
                 removeTimePitch()
                 return
             } else if timePitchNode == nil && newValue != 0 {
-                timePitchNode = AKTimePitch()
-                initialize()
+                createTimePitch()
             }
 
             if let timePitchNode = self.timePitchNode {
@@ -74,7 +72,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     // MARK: - Initialization
 
-    internal override func initialize(restartIfPlaying: Bool = true) {
+    open override func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = self.timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
                 AudioKit.engine.attach(timePitchNode.avAudioNode)
@@ -114,7 +112,14 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    private func removeTimePitch() {
+    public func createTimePitch() {
+        guard timePitchNode == nil else { return }
+        timePitchNode = AKTimePitch()
+        initialize()
+    }
+
+    // Removes the Time / Pitch AU from the signal chain
+    public func removeTimePitch() {
         guard timePitchNode != nil else { return }
         let wasPlaying = isPlaying
         stop()
