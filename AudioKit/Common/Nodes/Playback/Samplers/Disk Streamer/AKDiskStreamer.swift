@@ -138,8 +138,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU!.completionHandler = completionHandler
-            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
+            strongSelf.internalAU?.completionHandler = completionHandler
+            strongSelf.internalAU?.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
