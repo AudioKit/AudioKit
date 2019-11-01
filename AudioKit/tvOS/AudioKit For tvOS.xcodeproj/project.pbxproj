@@ -1106,8 +1106,6 @@
 		EAFECEFF1F4EC3ED00A2B046 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41F01C40E5C2009D870B /* EZAudioDisplayLink.m */; };
 		EAFECF001F4EC3ED00A2B046 /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41FB1C40E5C2009D870B /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECF011F4EC3ED00A2B046 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41FC1C40E5C2009D870B /* EZAudioPlot.m */; };
-		EAFECF021F4EC3ED00A2B046 /* EZAudioPlotGL.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41FD1C40E5C2009D870B /* EZAudioPlotGL.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAFECF031F4EC3ED00A2B046 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41FE1C40E5C2009D870B /* EZAudioPlotGL.m */; };
 		EAFECF041F4EC3ED00A2B046 /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42051C40E5C2009D870B /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECF051F4EC3ED00A2B046 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C42061C40E5C2009D870B /* EZPlot.m */; };
 		EAFECF0E1F4EC4C000A2B046 /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF071F4EC4BF00A2B046 /* AKMicrophone.swift */; };
@@ -5497,7 +5495,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAFECF041F4EC3ED00A2B046 /* EZPlot.h in Headers */,
-				EAFECF021F4EC3ED00A2B046 /* EZAudioPlotGL.h in Headers */,
 				EAFECF001F4EC3ED00A2B046 /* EZAudioPlot.h in Headers */,
 				EAB403DC225AF7DD00EB0A24 /* EZAudioUtilities.h in Headers */,
 				EAFECEFD1F4EC3C100A2B046 /* AudioKitUI.h in Headers */,
@@ -6391,7 +6388,6 @@
 				EAFECEF61F4EC38D00A2B046 /* AKView.swift in Sources */,
 				EAFECF011F4EC3ED00A2B046 /* EZAudioPlot.m in Sources */,
 				EAFECEFA1F4EC38D00A2B046 /* AKRollingOutputPlot.swift in Sources */,
-				EAFECF031F4EC3ED00A2B046 /* EZAudioPlotGL.m in Sources */,
 				EAFECEFF1F4EC3ED00A2B046 /* EZAudioDisplayLink.m in Sources */,
 				EAFECEF71F4EC38D00A2B046 /* AKNodeFFTPlot.swift in Sources */,
 			);
