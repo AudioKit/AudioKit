@@ -155,7 +155,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this SamplePlayer node
+    /// Initialize this WaveTable node
     ///
     /// - Parameters:
     ///   - file: Initial file to load (defining maximum size unless maximum samples are also set

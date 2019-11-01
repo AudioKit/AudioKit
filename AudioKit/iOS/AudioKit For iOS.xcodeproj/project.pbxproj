@@ -1150,8 +1150,6 @@
 		EA7D07211F4E640D00707706 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41491C40E3A5009D870B /* EZPlot.m */; };
 		EA7D07221F4E641A00707706 /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C413E1C40E3A5009D870B /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA7D07231F4E641A00707706 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C413F1C40E3A5009D870B /* EZAudioPlot.m */; };
-		EA7D07241F4E641A00707706 /* EZAudioPlotGL.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41401C40E3A5009D870B /* EZAudioPlotGL.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA7D07251F4E641A00707706 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41411C40E3A5009D870B /* EZAudioPlotGL.m */; };
 		EA7D07261F4E655200707706 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41331C40E3A5009D870B /* EZAudioDisplayLink.m */; };
 		EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAAC547D224DB8A000DC5E6D /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAAC547C224DB8A000DC5E6D /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5941,7 +5939,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA7D07241F4E641A00707706 /* EZAudioPlotGL.h in Headers */,
 				EAFECEC51F4EBD3900A2B046 /* AudioKitUI.h in Headers */,
 				EA7D07221F4E641A00707706 /* EZAudioPlot.h in Headers */,
 				37A5FC2B22002CF5008579F8 /* EZAudioUtilities.h in Headers */,
@@ -6933,7 +6930,6 @@
 				EA7D07151F4E63FA00707706 /* AKButton.swift in Sources */,
 				EA7D071E1F4E63FA00707706 /* AKTelephoneView.swift in Sources */,
 				EA7D071B1F4E63FA00707706 /* AKSlider.swift in Sources */,
-				EA7D07251F4E641A00707706 /* EZAudioPlotGL.m in Sources */,
 				EA7D071A1F4E63FA00707706 /* AKStepper.swift in Sources */,
 				FE2C8B1F20D9C82000009BAC /* AKTweaker.swift in Sources */,
 				EA7D07141F4E63FA00707706 /* AKADSRView.swift in Sources */,
