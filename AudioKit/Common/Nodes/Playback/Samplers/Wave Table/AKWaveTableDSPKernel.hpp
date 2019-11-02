@@ -323,14 +323,14 @@ public:
             case 0x80 : { //note off
                 uint8_t note = midiEvent.data[1];
                 if (note > 127) break;
-                start();
+                stop();
                 break;
             }
             case 0x90 : { //note on
                 uint8_t note = midiEvent.data[1];
                 uint8_t veloc = midiEvent.data[2];
                 if (note > 127 || veloc > 127) break;
-                stop();
+                start();
                 break;
             }
         }

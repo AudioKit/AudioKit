@@ -1164,8 +1164,6 @@
 		EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662D31D448D7D00D26565 /* EZAudioDisplayLink.m */; };
 		EAFECEDF1F4EBEC700A2B046 /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662DE1D448D7D00D26565 /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEE01F4EBEC700A2B046 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662DF1D448D7D00D26565 /* EZAudioPlot.m */; };
-		EAFECEE11F4EBEC700A2B046 /* EZAudioPlotGL.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662E01D448D7D00D26565 /* EZAudioPlotGL.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAFECEE21F4EBEC700A2B046 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662E11D448D7D00D26565 /* EZAudioPlotGL.m */; };
 		EAFECEE31F4EBEE900A2B046 /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662E81D448D7D00D26565 /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEE41F4EBEE900A2B046 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662E91D448D7D00D26565 /* EZPlot.m */; };
 		F4F01C79205F4EEE007C4F74 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F01C78205F4EED007C4F74 /* AKTuningTableBase.swift */; };
@@ -1535,8 +1533,6 @@
 		C45662DD1D448D7D00D26565 /* EZAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlayer.m; sourceTree = "<group>"; };
 		C45662DE1D448D7D00D26565 /* EZAudioPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioPlot.h; path = "../../User Interface/EZAudio/EZAudioPlot.h"; sourceTree = "<group>"; };
 		C45662DF1D448D7D00D26565 /* EZAudioPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZAudioPlot.m; path = "../../User Interface/EZAudio/EZAudioPlot.m"; sourceTree = "<group>"; };
-		C45662E01D448D7D00D26565 /* EZAudioPlotGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioPlotGL.h; path = "../../User Interface/EZAudio/EZAudioPlotGL.h"; sourceTree = "<group>"; };
-		C45662E11D448D7D00D26565 /* EZAudioPlotGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZAudioPlotGL.m; path = "../../User Interface/EZAudio/EZAudioPlotGL.m"; sourceTree = "<group>"; };
 		C45662E21D448D7D00D26565 /* EZAudioUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioUtilities.h; sourceTree = "<group>"; };
 		C45662E31D448D7D00D26565 /* EZAudioUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioUtilities.m; sourceTree = "<group>"; };
 		C45662E41D448D7D00D26565 /* EZMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZMicrophone.h; sourceTree = "<group>"; };
@@ -3160,8 +3156,6 @@
 				C45662DD1D448D7D00D26565 /* EZAudioPlayer.m */,
 				C45662DE1D448D7D00D26565 /* EZAudioPlot.h */,
 				C45662DF1D448D7D00D26565 /* EZAudioPlot.m */,
-				C45662E01D448D7D00D26565 /* EZAudioPlotGL.h */,
-				C45662E11D448D7D00D26565 /* EZAudioPlotGL.m */,
 				C45662E21D448D7D00D26565 /* EZAudioUtilities.h */,
 				C45662E31D448D7D00D26565 /* EZAudioUtilities.m */,
 				C45662E41D448D7D00D26565 /* EZMicrophone.h */,
@@ -5866,7 +5860,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAFECEE11F4EBEC700A2B046 /* EZAudioPlotGL.h in Headers */,
 				EAFECEDD1F4EBEB700A2B046 /* EZAudioDisplayLink.h in Headers */,
 				EAFECEE31F4EBEE900A2B046 /* EZPlot.h in Headers */,
 				EAB403DD225AF7E600EB0A24 /* EZAudioUtilities.h in Headers */,
@@ -6858,7 +6851,6 @@
 				C4EDF5F81F5B871300A45815 /* AKLiveViewController.swift in Sources */,
 				EAFECED41F4EBD8E00A2B046 /* AKResourceAudioFileLoaderView.swift in Sources */,
 				EAFECEC91F4EBD7D00A2B046 /* AKRollingOutputPlot.swift in Sources */,
-				EAFECEE21F4EBEC700A2B046 /* EZAudioPlotGL.m in Sources */,
 				EAFECECF1F4EBD8E00A2B046 /* AKKeyboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
