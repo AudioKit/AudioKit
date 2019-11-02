@@ -28,4 +28,3 @@ FOUNDATION_EXPORT const unsigned char AudioKitUIVersionString[];
 #import "EZPlot.h"
 #import "EZAudioDisplayLink.h"
 #import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"
