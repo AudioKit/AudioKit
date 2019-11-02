@@ -33,7 +33,7 @@ cat AudioKit.podspec.json.tmpl | sed "s/__AK_VERSION__/$VER/" | sed "s|__AK_SOUR
 cd ..
 if test $1 = release;
 then
-	pod trunk push AudioKit.podspec.json --verbose --allow-warnings
+	pod trunk push AudioKit.podspec.json --verbose --allow-warnings --skip-import-validation 
 else # Staging
 	pod repo push ak-specs AudioKit.podspec.json --verbose
 fi

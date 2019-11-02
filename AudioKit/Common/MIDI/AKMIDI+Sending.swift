@@ -113,7 +113,7 @@ extension AKMIDI {
         }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
-        } ?? "Uknown"
+        } ?? "Unknown"
         return name
     }
 

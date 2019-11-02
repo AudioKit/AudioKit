@@ -28,6 +28,7 @@ identifier_name:
 force_cast: warning
 empty_count: warning
 force_try: warning
+
 cyclomatic_complexity:
   - 10 # warning
   - 100 # error
