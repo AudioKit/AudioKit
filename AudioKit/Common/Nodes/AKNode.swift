@@ -145,6 +145,10 @@ public protocol AKPolyphonic {
     @objc open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
     }
+
+    deinit {
+        detach()
+    }
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state

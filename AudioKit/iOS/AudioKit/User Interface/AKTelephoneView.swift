@@ -8,6 +8,7 @@
 
 /// This is primarily for the telephone page in the Synthesis playground
 open class AKTelephoneView: UIView {
+    //swiftlint:disable
 
     var keyRects = [String: CGRect]()
     var keyStarRect = CGRect.zero

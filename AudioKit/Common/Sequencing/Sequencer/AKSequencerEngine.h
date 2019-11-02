@@ -29,6 +29,7 @@ typedef void (^AKCCallback)(void);
           velocity:(uint8_t)velocity
               beat:(double)beat
           duration:(double)duration;
+-(void)removeEvent:(double)beat;
 -(void)removeNote:(double)beat;
 -(void)clear;
 -(void)rewind;

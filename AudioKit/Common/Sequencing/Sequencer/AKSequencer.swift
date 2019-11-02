@@ -140,19 +140,19 @@ open class AKSequencer {
         }
     }
 
-    func seek(to position: Double) {
+    open func seek(to position: Double) {
         tracks.forEach({ $0.seek(to: position) })
     }
 
-    func pause() {
+    open func pause() {
         stop()
     }
 
-    func getTrackFor(node: AKNode) -> AKSequencerTrack? {
+    open func getTrackFor(node: AKNode) -> AKSequencerTrack? {
         return tracks.first(where: { $0.targetNode == node })
     }
 
-    func addTrack(for node: AKNode) -> AKSequencerTrack {
+    open func addTrack(for node: AKNode) -> AKSequencerTrack {
         let track = AKSequencerTrack(targetNode: node)
         tracks.append(track)
         return track

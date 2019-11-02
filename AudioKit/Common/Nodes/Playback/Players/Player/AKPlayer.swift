@@ -76,7 +76,7 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Public Properties
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
-    /// stop() is called while playing or when looping from a buffer.
+    /// stop() is called while playing or when looping from a buffer. Requires iOS 11, macOS 10.13.
     @objc public var completionHandler: AKCallback? {
         didSet {
             if #available(iOS 11, macOS 10.13, tvOS 11, *) {
@@ -110,6 +110,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Will return whether the engine is rendering offline or realtime
+    /// Requires iOS 11, macOS 10.13 for offline rendering
     public override var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
@@ -180,11 +181,11 @@ public class AKPlayer: AKAbstractPlayer {
     /// - Returns: Current time of the player in seconds while playing.
     @objc public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
-        var normalisedPauseTime = 0.0
+        var normalizedPauseTime = 0.0
         if let pauseTime = pauseTime, pauseTime > startTime {
-            normalisedPauseTime = pauseTime - startTime
+            normalizedPauseTime = pauseTime - startTime
         }
-        let current = startTime + normalisedPauseTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
+        let current = startTime + normalizedPauseTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
 
         return current
     }
@@ -231,8 +232,6 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    @objc public internal(set) var isPlaying: Bool = false
-
     // When buffered this will indicate if the buffer will be faded.
     // Fading the actual buffer data is necessary as loops when buffered don't fire
     // a callback on loop restart
@@ -276,7 +275,7 @@ public class AKPlayer: AKAbstractPlayer {
         initialize(restartIfPlaying: false)
     }
 
-    internal override func initialize(restartIfPlaying: Bool = true) {
+    open override func initialize(restartIfPlaying: Bool = true) {
         let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
@@ -365,6 +364,11 @@ public class AKPlayer: AKAbstractPlayer {
 
     // MARK: - Play
 
+    /// Play entire file right now
+    @objc public override func play() {
+        play(from: startTime, to: endTime, at: nil, hostTime: nil)
+    }
+
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
@@ -397,6 +401,11 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         pauseTime = nil
+    }
+
+    /// Stop playback and cancel any pending scheduled playback or completion events
+    @objc public override func stop() {
+        stopCompletion()
     }
 
     // MARK: - Deinit

@@ -153,6 +153,10 @@ open class AKSequencerTrack: AKNode, AKComponent {
         }
     }
 
+    open func removeEvent(at position: Double) {
+        internalAU?.removeEvent(position)
+    }
+
     open func removeNote(at position: Double) {
         internalAU?.removeNote(position)
     }
