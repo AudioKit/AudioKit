@@ -1,0 +1,38 @@
+# AudioKit Code Owners File
+# https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
+
+# Primary Owners
+* @aure
+
+.travis.yml @aure @megastep
+
+# Folders
+/Developer/ @aure @getdunne
+/Frameworks/ @aure @megastep
+
+/AudioKit/Core/AudioKitCore/ @aure @getdunne
+/AudioKit/Core/Soundpipe/ @aure @paulbatchelor
+/AudioKit/Core/Sporth/ @aure @paulbatchelor
+
+/AudioKit/Common/Internals/AudioUnit Host @aure @ryanfrancesconi
+/AudioKit/Common/Internals/Microtonality/ @aure @marcussatellite
+/AudioKit/Common/Internals/Utilities/Timeline/ @aure @dave234
+/AudioKit/Common/Internals/Synchronization/ @aure @dave234
+/AudioKit/Common/MIDI/ @aure @eljeff
+/AudioKit/Common/Nodes/Effects/Delay/Stereo Delay/ @aure @getdunne
+/AudioKit/Common/Nodes/Effects/Modulation/ @aure @getdunne
+/AudioKit/Common/Nodes/Playback/Samplers/ @aure @eljeff
+/AudioKit/Common/Nodes/Playback/Samplers/Sampler/ @aure @getdunne
+
+/AudioKit/Common/Sequencing/ @aure @eljeff
+
+/docs/ @aure @getdunne
+
+/Examples/iOS/AppleSamplerDemo/ @aure @eljeff 
+/Examples/iOS/DrumsSwiftUI/ @aure @sieren
+/Examples/iOS/MetronomeSamplerSync/ @aure @dave234
+/Examples/iOS/MIDIUtility/ @aure @eljeff 
+/Examples/iOS/SequencerDemo/ @aure @eljeff 
+/Examples/macOS/FlangerAndChorus/ @aure @getdunne
+/Examples/macOS/MIDIUtility/ @aure @eljeff 
+/Examples/tvOS/HelloWorld/ @aure @megastep
