@@ -59,9 +59,6 @@ public:
     
     /// optionally call this to make samples continue looping after note-release
     void setLoopThruRelease(bool value) { loopThruRelease = value; }
-
-    /// optionally call this to force envelopes to run full Attack and Decay segments even for short notes
-    void setDrumMode(bool value);
     
     void playNote(unsigned noteNumber, unsigned velocity);
     void stopNote(unsigned noteNumber, bool immediate);
@@ -136,9 +133,6 @@ protected:
     float linearResonance;
     
     // sample-related parameters
-
-    // if true, amp ADRSs always do A, D phases even for very short notes
-    bool drumMode;
     
     // if true, sample continue looping thru note release phase
     bool loopThruRelease;

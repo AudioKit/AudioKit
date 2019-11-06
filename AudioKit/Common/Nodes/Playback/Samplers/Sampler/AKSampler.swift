@@ -36,7 +36,6 @@
     fileprivate var filterReleaseDurationParameter: AUParameter?
 
     fileprivate var filterEnableParameter: AUParameter?
-    fileprivate var drumModeParameter: AUParameter?
     fileprivate var loopThruReleaseParameter: AUParameter?
     fileprivate var monophonicParameter: AUParameter?
     fileprivate var legatoParameter: AUParameter?
@@ -220,14 +219,6 @@
         }
     }
 
-    /// Drum Mode (boolean, 0.0 for false or 1.0 for true)
-    @objc open dynamic var drumMode: Bool = false {
-        willSet {
-            guard drumMode != newValue else { return }
-            internalAU?.drumMode = newValue ? 1.0 : 0.0
-        }
-    }
-
     /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var loopThruRelease: Bool = false {
         willSet {
@@ -289,7 +280,6 @@
     ///   - filterSustainLevel: 0.0 - 1.0
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///   - glideRate: seconds/octave, 0.0 - 10.0
-    ///   - drumMode: if true, amp envelopes will always do A, D phases
     ///   - loopThruRelease: if true, sample will continue looping after key release
     ///   - isMonophonic: true for mono, false for polyphonic
     ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
@@ -313,7 +303,6 @@
         filterSustainLevel: Double = 1.0,
         filterReleaseDuration: Double = 0.0,
         glideRate: Double = 0.0,
-        drumMode: Bool = false,
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
         isLegato: Bool = false,
@@ -336,7 +325,6 @@
         self.filterSustainLevel = filterSustainLevel
         self.filterReleaseDuration = filterReleaseDuration
         self.glideRate = glideRate
-        self.drumMode = drumMode
         self.loopThruRelease = loopThruRelease
         self.isMonophonic = isMonophonic
         self.isLegato = isLegato
@@ -378,7 +366,6 @@
         self.filterReleaseDurationParameter = tree["filterReleaseDuration"]
         self.filterEnableParameter = tree["filterEnable"]
         self.glideRateParameter = tree["glideRate"]
-        self.drumModeParameter = tree["drumMode"]
         self.loopThruReleaseParameter = tree["loopThruRelease"]
         self.monophonicParameter = tree["monophonic"]
         self.legatoParameter = tree["legato"]
@@ -401,7 +388,6 @@
         self.internalAU?.setParameterImmediately(.filterReleaseDuration, value: filterReleaseDuration)
         self.internalAU?.setParameterImmediately(.filterEnable, value: filterEnable ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.glideRate, value: glideRate)
-        self.internalAU?.setParameterImmediately(.drumMode, value: drumMode ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
@@ -453,14 +439,6 @@
 
     @objc open func buildKeyMap() {
         internalAU?.buildKeyMap()
-    }
-
-    @objc open func setDrumMode() {
-        internalAU?.setDrumMode()
-    }
-
-    @objc open func clearDrumMode() {
-        internalAU?.clearDrumMode()
     }
 
     @objc open func setLoop(thruRelease: Bool) {

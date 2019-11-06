@@ -72,10 +72,6 @@ extern "C" void doAKSamplerBuildKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
-extern "C" void doAKSamplerSetDrumMode(AKDSPRef pDSP, bool value) {
-    ((AKSamplerDSP*)pDSP)->setDrumMode(value);
-}
-
 extern "C" void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
@@ -191,9 +187,6 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
             break;
-        case AKSamplerParameterDrumMode:
-            setDrumMode(value > 0.5f);
-            break;
         case AKSamplerParameterLoopThruRelease:
             loopThruRelease = value > 0.5f;
             break;
@@ -252,8 +245,6 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return getFilterReleaseDurationSeconds();
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
-        case AKSamplerParameterDrumMode:
-            return drumMode ? 1.0f : 0.0f;
         case AKSamplerParameterLoopThruRelease:
             return loopThruRelease ? 1.0f : 0.0f;
         case AKSamplerParameterMonophonic:

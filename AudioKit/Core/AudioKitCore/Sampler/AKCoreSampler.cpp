@@ -61,7 +61,6 @@ AKCoreSampler::AKCoreSampler()
 , cutoffEnvelopeStrength(20.0f)
 , filterEnvelopeVelocityScaling(0.0f)
 , linearResonance(0.5f)
-, drumMode(false)
 , loopThruRelease(false)
 , stoppingAllVoices(false)
 , data(new InternalData)
@@ -82,12 +81,6 @@ AKCoreSampler::AKCoreSampler()
 AKCoreSampler::~AKCoreSampler()
 {
     unloadAllSamples();
-}
-
-void AKCoreSampler::setDrumMode(bool value)
-{
-    drumMode = value;
-    data->adsrEnvelopeParameters.drumMode = value;
 }
 
 int AKCoreSampler::init(double sampleRate)

@@ -32,7 +32,6 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
     AKSamplerParameterLoopThruRelease,
-    AKSamplerParameterDrumMode,
     AKSamplerParameterMonophonic,
     AKSamplerParameterLegato,
     AKSamplerParameterKeyTrackingFraction,
@@ -53,7 +52,6 @@ void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
 void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
 void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
 void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
-void doAKSamplerSetDrumMode(AKDSPRef pDSP, bool value);
 void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
 void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
 void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
