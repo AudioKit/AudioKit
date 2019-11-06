@@ -24,6 +24,7 @@ namespace AudioKitCore
     {
     public:
         void reset(double initialValue, double targetValue, double tco, int segmentLengthSamples);
+        void setReleased(bool rel) { released = rel; }
 
         inline float getValue()
         {
@@ -35,7 +36,7 @@ namespace AudioKitCore
             if (isHorizontal)
             {
                 out = float(target);
-                if (segLength < 0) return false;        // non-timed "sustain"segment
+                if (segLength < 0) return released;     // non-timed "sustain"segment
                 else return (++tcount >= segLength);    // timed "hold" segment
             }
             else
@@ -57,6 +58,7 @@ namespace AudioKitCore
         bool isHorizontal;
         int tcount, segLength;
         bool isLinear;
+        bool released;
     };
 
     class MultiSegmentEnvelopeGenerator : public ExponentialSegmentGenerator
