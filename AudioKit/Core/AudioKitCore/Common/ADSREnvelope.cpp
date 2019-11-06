@@ -94,24 +94,21 @@ namespace AudioKitCore
 
     void ADSREnvelope::start()
     {
-        env.setReleased(false);
         env.advanceToSegment(kAttack);
     }
 
     void ADSREnvelope::restart()
     {
-        env.setReleased(false);
         env.advanceToSegment(kSilence);
     }
 
     void ADSREnvelope::release()
     {
-        env.setReleased(true);
+        env.advanceToSegment(kRelease);
     }
 
     void ADSREnvelope::reset()
     {
-        env.setReleased(false);
         env.reset(&envDesc);
     }
 
