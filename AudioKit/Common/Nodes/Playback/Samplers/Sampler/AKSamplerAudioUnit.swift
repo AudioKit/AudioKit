@@ -86,6 +86,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterEnable, value: filterEnable) }
     }
 
+    var drumMode: Double = 0.0 {
+        didSet { setParameter(.drumMode, value: drumMode) }
+    }
+
     var loopThruRelease: Double = 0.0 {
         didSet { setParameter(.loopThruRelease, value: loopThruRelease) }
     }
@@ -278,6 +282,16 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
+        let drumModeParameter = AUParameter(
+            identifier: "drumMode",
+            name: "Drum Mode",
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         let loopThruReleaseParameter = AUParameter(
             identifier: "loopThruRelease",
             name: "Loop Thru Release",
@@ -342,6 +356,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterSustainLevelParameter,
                                                                    filterReleaseDurationParameter,
                                                                    filterEnableParameter,
+                                                                   drumModeParameter,
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
                                                                    legatoParameter,
@@ -363,6 +378,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterSustainLevelParameter.value = 1.0
         filterReleaseDurationParameter.value = 0.0
         filterEnableParameter.value = 0.0
+        drumModeParameter.value = 0.0
         loopThruReleaseParameter.value = 0.0
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0
@@ -404,6 +420,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
     public func buildKeyMap() {
         doAKSamplerBuildKeyMap(dsp)
+    }
+
+    public func setDrumMode() {
+        doAKSamplerSetDrumMode(dsp, true)
+    }
+
+    public func clearDrumMode() {
+        doAKSamplerSetDrumMode(dsp, false)
     }
 
     public func setLoop(thruRelease: Bool) {

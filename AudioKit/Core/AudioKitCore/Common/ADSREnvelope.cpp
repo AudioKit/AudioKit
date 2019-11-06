@@ -14,6 +14,7 @@ namespace AudioKitCore
 
     ADSREnvelopeParameters::ADSREnvelopeParameters()
         : sampleRateHz(44100.0f) // a guess, will be overridden later by a call to init(,,,,)
+        , drumMode(false)
     {
         init(0.0f, 0.0f, 1.0f, 0.0f);
     }
@@ -107,6 +108,8 @@ namespace AudioKitCore
     void ADSREnvelope::release()
     {
         env.setReleased(true);
+        if (! pParameters->drumMode)
+            env.advanceToSegment(kRelease);
     }
 
     void ADSREnvelope::reset()

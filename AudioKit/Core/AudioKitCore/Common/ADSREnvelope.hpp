@@ -16,6 +16,8 @@ namespace AudioKitCore
         float attackSamples, decaySamples, releaseSamples;
         float sustainFraction;    // [0.0, 1.0]
 
+        bool drumMode;  // if true, A, D phases must always complete
+
         ADSREnvelopeParameters();
         void init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
         void init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
