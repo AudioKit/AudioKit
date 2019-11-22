@@ -55,8 +55,14 @@ open class AKConverter: NSObject {
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
-        /// used only when outputting compressed from PCM
-        public var bitRate: UInt32 = 256_000
+        /// used only when outputting compressed from PCM - convertAsset()
+        public var bitRate: UInt32 = 128_000 {
+            didSet {
+                if bitRate < 64_000 {
+                    bitRate = 64_000
+                }
+            }
+        }
         public var channels: UInt32?
         public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this before you call start()
@@ -109,22 +115,24 @@ open class AKConverter: NSObject {
             return
         }
 
-        // Format checks are necessary as AVAssetReader has opinions about compressed audio for some illogical reason
+        // Format checks are necessary as AVAssetReader has opinions about compressed audio for some reason
         if isCompressed(url: inputURL) && isCompressed(url: outputURL) {
+            // Compressed input and output
             convertCompressed(completionHandler: completionHandler)
-            return
 
-        } else if isCompressed(url: outputURL) == false {
+        } else if !isCompressed(url: outputURL) {
+            // PCM output
             convertToPCM(completionHandler: completionHandler)
-            return
-        }
 
-        convertAsset(completionHandler: completionHandler)
+        } else {
+            // PCM input, compressed output
+            convertAsset(completionHandler: completionHandler)
+        }
     }
 
     // MARK: - private helper functions
 
-    // The AVFoundation way
+    // The AVFoundation way. This method doesn't handle compressed input - only compressed output.
     private func convertAsset(completionHandler: AKConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
@@ -136,6 +144,8 @@ open class AKConverter: NSObject {
         }
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
+
+        AKLog("Converting Asset to", outputFormat)
 
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
@@ -238,16 +248,18 @@ open class AKConverter: NSObject {
             AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFile.fileFormat.isInterleaved)
         ]
 
-        // Note: AVAssetReaderOutput does not currently support compressed output
+        // Note: AVAssetReaderOutput does not currently support compressed audio?
         if formatKey == kAudioFormatMPEG4AAC {
             if sampleRate > 48_000 {
                 sampleRate = 48_000
             }
+            // reset these for m4a:
             outputSettings = [
                 AVFormatIDKey: formatKey,
                 AVSampleRateKey: sampleRate,
                 AVNumberOfChannelsKey: channels,
-                AVEncoderBitRateKey: options.bitRate
+                AVEncoderBitRateKey: Int(options.bitRate),
+                AVEncoderBitRateStrategyKey: AVAudioBitRateStrategy_Constant
             ]
         }
 
@@ -274,28 +286,41 @@ open class AKConverter: NSObject {
         writer.startSession(atSourceTime: CMTime.zero)
         reader.startReading()
 
-        let queue = DispatchQueue(label: "io.audiokit.AKConverter.start", qos: .utility)
+        let queue = DispatchQueue(label: "io.audiokit.AKConverter.convertAsset", qos: .userInitiated)
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
-            while writerInput.isReadyForMoreMediaData {
-                if reader.status == .failed {
-                    AKLog("Conversion Failed")
-                    break
-                }
+            var processing = true
 
-                if let buffer = readerOutput.copyNextSampleBuffer() {
+            while writerInput.isReadyForMoreMediaData && processing {
+                if reader.status == .reading,
+                    let buffer = readerOutput.copyNextSampleBuffer() {
                     writerInput.append(buffer)
 
                 } else {
+                    AKLog("Finishing up...")
                     writerInput.markAsFinished()
-                    writer.endSession(atSourceTime: asset.duration)
-                    writer.finishWriting {
-                        // AKLog("DONE: \(self.reader!.asset)")
-                        DispatchQueue.main.async {
+
+                    switch reader.status {
+                    case .failed:
+                        AKLog("Conversion failed with error", writer.error)
+                        writer.cancelWriting()
+                        completionHandler?(writer.error)
+                    case .cancelled:
+                        AKLog("Conversion cancelled")
+                        completionHandler?(nil)
+                        break
+                    case .completed:
+                        writer.endSession(atSourceTime: asset.duration)
+                        writer.finishWriting {
+                            AKLog("Conversion complete")
                             completionHandler?(nil)
                         }
+                        break
+                    default:
+                        break
                     }
+                    processing = false
                 }
             }
         }) // requestMediaDataWhenReady
@@ -315,6 +340,8 @@ open class AKConverter: NSObject {
 
         let asset = AVURLAsset(url: inputURL)
         guard let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else { return }
+
+        AKLog("Converting to AVAssetExportPresetAppleM4A with default settings.")
 
         // session.progress could be sent out via a delegate for this session
         session.outputURL = outputURL
