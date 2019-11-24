@@ -198,8 +198,14 @@ public class AKPlayer: AKAbstractPlayer {
 
     @objc public var processingFormat: AVAudioFormat? {
         guard let audioFile = audioFile else { return nil }
-        return AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
+        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
                              channels: audioFile.fileFormat.channelCount)
+        if format == nil {
+            // fallback
+            return audioFile.processingFormat
+        }
+
+        return format
     }
 
     // MARK: - Public Options
