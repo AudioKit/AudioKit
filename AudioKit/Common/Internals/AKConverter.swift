@@ -290,7 +290,7 @@ open class AKConverter: NSObject {
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
-            var processing = true
+            var processing = true // safety flag to prevent runaway loops if errors
 
             while writerInput.isReadyForMoreMediaData && processing {
                 if reader.status == .reading,
@@ -309,14 +309,12 @@ open class AKConverter: NSObject {
                     case .cancelled:
                         AKLog("Conversion cancelled")
                         completionHandler?(nil)
-                        break
                     case .completed:
                         writer.endSession(atSourceTime: asset.duration)
                         writer.finishWriting {
                             AKLog("Conversion complete")
                             completionHandler?(nil)
                         }
-                        break
                     default:
                         break
                     }
