@@ -196,10 +196,9 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
+    /// Returns the audioFile's internal processingFormat
     @objc public var processingFormat: AVAudioFormat? {
-        guard let audioFile = audioFile else { return nil }
-        return AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
-                             channels: audioFile.fileFormat.channelCount)
+        return audioFile?.processingFormat
     }
 
     // MARK: - Public Options
@@ -309,7 +308,10 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     internal func connectNodes() {
-        guard let processingFormat = processingFormat else { return }
+        guard let processingFormat = processingFormat else {
+            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
+            return
+        }
         if let faderNode = super.faderNode {
             AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
