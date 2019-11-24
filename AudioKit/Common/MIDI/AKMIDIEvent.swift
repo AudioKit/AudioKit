@@ -66,7 +66,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public var command: AKMIDISystemCommand? {
         //FIXME: Improve this if statement to catch valid system reset commands (0xFF)
         // but ignore meta events (0xFF, 0x..., 0x..., etc)
-        if let statusByte = data.first, (statusByte != AKMIDISystemCommand.sysReset.rawValue && data.count > 1) {
+        if let statusByte = data.first, (statusByte != AKMIDISystemCommand.sysReset.rawValue) {
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil

@@ -86,5 +86,11 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
+static inline double floatToHz(float noteNumber)
+{
+    return 440. * exp2((noteNumber - 69.0)/12.);
+}
+
+
 #endif
 

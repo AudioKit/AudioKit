@@ -68,7 +68,7 @@ protected:
             amp = 0;
         }
         
-        void noteOn(int noteNumber, int velocity)
+        virtual void noteOn(int noteNumber, int velocity)
         {
             noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
         }
@@ -100,6 +100,7 @@ public:
         pitchBendAddress,
         vibratoDepthAddress,
         vibratoRateAddress,
+        detuningOffsetAddress,
         numberOfBankEnumElements
     };
     
@@ -116,6 +117,7 @@ public:
         pitchBendRamper.init();
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
+        detuningOffsetRamper.init();
     }
     
     virtual void reset() {
@@ -131,6 +133,7 @@ public:
         pitchBendRamper.reset();
         vibratoDepthRamper.reset();
         vibratoRateRamper.reset();
+        detuningOffsetRamper.reset();
     }
     
     double frequencyScale = 2. * M_PI / sampleRate;
@@ -143,7 +146,9 @@ public:
     float pitchBend = 0;
     float vibratoDepth = 0;
     float vibratoRate = 0;
-    
+    float detuningOffset = 0;
+    int transposition = 0;
+
     UInt64 currentRunningIndex = 0;
     
     std::vector< std::unique_ptr<NoteState> > noteStates;
@@ -158,15 +163,16 @@ public:
     ParameterRamper pitchBendRamper = 0;
     ParameterRamper vibratoDepthRamper = 0;
     ParameterRamper vibratoRateRamper = 0;
-    
+    ParameterRamper detuningOffsetRamper = 0;
+
     // standard bank kernel functions
-    void startNote(int note, int velocity) {
+    virtual void startNote(int note, int velocity) {
         noteStates[note]->noteOn(note, velocity);
     }
-    void startNote(int note, int velocity, float frequency) {
+    virtual void startNote(int note, int velocity, float frequency) {
         noteStates[note]->noteOn(note, velocity, frequency);
     }
-    void stopNote(int note) {
+    virtual void stopNote(int note) {
         noteStates[note]->noteOn(note, 0);
     }
     void setAttackDuration(float value) {
@@ -196,6 +202,10 @@ public:
     void setVibratoRate(float value) {
         vibratoRate = clamp(value, (float)0, (float)600);
         vibratoRateRamper.setImmediate(vibratoRate);
+    }
+    void setDetuningOffset(float value) {
+        detuningOffset = clamp(value, (float)-100, (float)100);
+        detuningOffsetRamper.setImmediate(detuningOffset);
     }
     
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
@@ -239,6 +249,7 @@ public:
         pitchBend = double(pitchBendRamper.getAndStep());
         vibratoDepth = double(vibratoDepthRamper.getAndStep());
         vibratoRate = double(vibratoRateRamper.getAndStep());
+        detuningOffset = double(detuningOffsetRamper.getAndStep());
     }
     
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -264,6 +275,9 @@ public:
             case vibratoRateAddress:
                 vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600));
                 break;
+            case detuningOffsetAddress:
+                detuningOffsetRamper.setUIValue(clamp(value, (float)-100, (float)100));
+                break;
         }
     }
     
@@ -283,6 +297,8 @@ public:
                 return vibratoDepthRamper.getUIValue(); \
             case vibratoRateAddress: \
                 return vibratoRateRamper.getUIValue(); \
+            case detuningOffsetAddress: \
+                return detuningOffsetRamper.getUIValue(); \
             default: return 0.0f;
         }
     }
@@ -309,6 +325,9 @@ public:
                 break;
             case vibratoRateAddress:
                 vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration);
+                break;
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-100, (float)100), duration);
                 break;
         }
     }

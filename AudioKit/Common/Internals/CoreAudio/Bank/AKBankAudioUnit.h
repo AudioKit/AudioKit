@@ -19,6 +19,7 @@
 @property AUParameter *pitchBendAUParameter;
 @property AUParameter *vibratoDepthAUParameter;
 @property AUParameter *vibratoRateAUParameter;
+@property AUParameter *detuningOffsetAUParameter;
 
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
@@ -27,6 +28,7 @@
 @property (nonatomic) float pitchBend;
 @property (nonatomic) float vibratoDepth;
 @property (nonatomic) float vibratoRate;
+@property (nonatomic) float detuningOffset;
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
