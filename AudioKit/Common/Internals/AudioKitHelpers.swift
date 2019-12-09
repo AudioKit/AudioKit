@@ -90,11 +90,7 @@ public func AKLog(fullname: String = #function, file: String = #file, line: Int 
     guard AKSettings.enableLogging else { return }
     let fileName = (file as NSString).lastPathComponent
     let content = (items.map {
-        if let item = $0 {
-            return String(describing: item)
-        } else {
-            return "nil"
-        }
+        String(describing: ($0 ?? "nil"))
     }).joined(separator: " ")
     Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
@@ -177,7 +173,7 @@ extension Double {
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
         // Avoiding division by zero in this trivial case
-        if range.upperBound - range.lowerBound < 0.000_01 {
+        if range.upperBound - range.lowerBound < 0.00001 {
             return range.lowerBound
         }
 
@@ -188,8 +184,8 @@ extension Double {
             // exponential taper
             var adjustedMinimum: Double = 0.0
             var adjustedMaximum: Double = 0.0
-            if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
-            if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
+            if range.lowerBound == 0 { adjustedMinimum = 0.00_000_000_001 }
+            if range.upperBound == 0 { adjustedMaximum = 0.00_000_000_001 }
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
@@ -417,6 +413,6 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 prefix operator ❗️
 
 /// Negative logic can be confusing, so we draw special attention to those cases
-prefix public func ❗️(a: Bool) -> Bool {
+public prefix func ❗️(a: Bool) -> Bool {
     return !a
 }
