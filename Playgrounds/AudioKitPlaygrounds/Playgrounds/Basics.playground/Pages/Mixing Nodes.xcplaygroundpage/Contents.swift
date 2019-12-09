@@ -98,7 +98,7 @@ class LiveView: AKLiveViewController {
             lead.pan = sliderValue
         })
 
-        addView(AKSlider(property: "Overall Voilume", value: booster.gain, range: 0 ... 2) { sliderValue in
+        addView(AKSlider(property: "Overall Volume", value: booster.gain, range: 0 ... 2) { sliderValue in
             booster.gain = sliderValue
         })
     }
