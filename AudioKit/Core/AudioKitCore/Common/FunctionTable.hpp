@@ -65,7 +65,7 @@ namespace AudioKitCore
             if (phase < 0) return pWaveTable[0];
             if (phase >= 1.0) return pWaveTable[nTableSize-1];
             
-            float readIndex = phase * nTableSize;
+            float readIndex = phase * (nTableSize - 1);
             int ri = int(readIndex);
             float f = readIndex - ri;
             int rj = ri + 1; if (rj >= nTableSize) rj = nTableSize - 1;
