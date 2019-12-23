@@ -46,24 +46,8 @@
 		AKSettings.audioInputEnabled = true
 
 		#if os(iOS)
-		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
-		do {
-			try setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
-		} catch {
-			AKLog(error)
-			return nil
-		}
-
 		AudioKit.engine.attach(avAudioUnitOrNode)
 		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
-
-		//Now set samplerate to your AKSettings sampling rate, it may be heavy handed to make the init fail here, but taking all percautions to avoid all the hard crashes with AKMicrohpone init issues of late.
-		do {
-			try setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
-		} catch {
-			AKLog(error)
-			return nil
-		}
 		#elseif !os(tvOS)
 		AudioKit.engine.inputNode.connect(to: self.avAudioNode)
 		#endif
@@ -101,7 +85,7 @@
         let audioFormat: AVAudioFormat?
         #if os(iOS) && !targetEnvironment(simulator)
         let currentFormat = AudioKit.engine.inputNode.inputFormat(forBus: 0)
-        let desiredFS = AudioKit.deviceSampleRate
+        let desiredFS = AVAudioSession.sharedInstance().sampleRate
         if let layout = currentFormat.channelLayout {
             audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,
                                         sampleRate: desiredFS,
