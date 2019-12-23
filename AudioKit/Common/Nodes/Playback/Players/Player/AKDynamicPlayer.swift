@@ -85,7 +85,10 @@ public class AKDynamicPlayer: AKPlayer {
     }
 
     internal override func connectNodes() {
-        guard let processingFormat = processingFormat else { return }
+        guard let processingFormat = processingFormat else {
+            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
+            return
+        }
 
         if let timePitchNode = timePitchNode, let faderNode = super.faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)

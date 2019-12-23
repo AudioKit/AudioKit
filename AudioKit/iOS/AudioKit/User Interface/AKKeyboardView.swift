@@ -10,7 +10,7 @@ import AudioKit
 
 /// Delegate for keyboard events
 @objc public protocol AKKeyboardDelegate: class {
-    /// Note on evenets
+    /// Note on events
     func noteOn(note: MIDINoteNumber)
     /// Note off events
     func noteOff(note: MIDINoteNumber)
