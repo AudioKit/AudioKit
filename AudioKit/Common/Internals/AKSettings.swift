@@ -16,28 +16,28 @@ open class AKSettings: NSObject {
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     @objc public enum BufferLength: Int {
 
-        /// Shortest
+        /// Shortest: 32 samples = 0.7 ms @ 44100 kz
         case shortest = 5
 
-        /// Very Short
+        /// Very Short: 64 samples
         case veryShort = 6
 
-        /// Short
+        /// Short: 128 samples
         case short = 7
 
-        /// Medium
+        /// Medium: 256 samples
         case medium = 8
 
-        /// Long
+        /// Long: 512 samples
         case long = 9
 
-        /// Very Long
+        /// Very Long: 1024 samples
         case veryLong = 10
 
-        /// Huge
+        /// Huge: 2048 samples
         case huge = 11
 
-        /// Longest
+        /// Longest: 4096 samples = 92.9 ms @ 44100 Hz
         case longest = 12
 
         /// The buffer Length expressed as number of samples
