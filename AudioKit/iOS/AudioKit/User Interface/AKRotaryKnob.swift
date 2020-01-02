@@ -1,5 +1,5 @@
 //
-//  AKBypassButton.swift
+//  AKRotaryKnob.swift
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
