@@ -20,6 +20,7 @@ extension AudioKit {
     /// - Parameters:
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
+    ///   - afterStart: Closure to execute at the beginning of the test
     ///
     @objc public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
         #if swift(>=3.2)
