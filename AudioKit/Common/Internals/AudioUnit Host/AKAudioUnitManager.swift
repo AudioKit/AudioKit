@@ -428,7 +428,7 @@ open class AKAudioUnitManager: NSObject {
     }
 }
 
-public protocol AKAudioUnitManagerDelegate: class {
+public protocol AKAudioUnitManagerDelegate: AnyObject {
     func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
                                             audioUnitManager: AKAudioUnitManager)
     func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didAddEffectAtIndex index: Int)

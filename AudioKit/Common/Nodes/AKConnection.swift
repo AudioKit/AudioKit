@@ -22,7 +22,7 @@ open class AKInputConnection: NSObject {
 }
 
 /// Simplify making connections from a node.
-@objc public protocol AKOutput: class {
+@objc public protocol AKOutput: AnyObject {
 
     /// The output of this node can be connected to the inputNode of an AKInput.
     var outputNode: AVAudioNode { get }
