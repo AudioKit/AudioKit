@@ -63,6 +63,7 @@ open class AKNodeRecorder: NSObject {
     /// - Parameters:
     ///   - node: Node to record from
     ///   - file: Audio file to record to
+    ///   - bus: Integer index of the bus to use
     ///
     public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil,
