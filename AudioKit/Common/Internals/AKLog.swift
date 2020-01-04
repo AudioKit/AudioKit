@@ -12,7 +12,10 @@ private let subsystem = "io.audiokit"
 
 extension OSLog {
     /// Generic AudioKit log
-    public static let audiokit = OSLog(subsystem: subsystem, category: "audiokit")
+    public static let general = OSLog(subsystem: subsystem, category: "general")
+
+    /// Generic AudioKit log
+    public static let settings = OSLog(subsystem: subsystem, category: "settings")
 
     /// AudioKit MIDI related log
     public static let midi = OSLog(subsystem: subsystem, category: "midi")
@@ -26,7 +29,7 @@ extension OSLog {
 ///
 /// Parameters:
 ///     - message:  Output message, should be very detailed
-///     - log: One of the log types from the Log struct, defaults to .audiokit
+///     - log: One of the log types from the Log struct, defaults to .general
 ///     - type: OSLogType, defaults to .info
 ///     - file:  Filename from the log message, should  not be set explicitly
 ///     - function: Function enclosing the log message, should not be set explicitly
@@ -34,7 +37,7 @@ extension OSLog {
 ///
 @inline(__always)
 public func AKLog(_ message: String,
-                  log: OSLog = OSLog.audiokit,
+                  log: OSLog = OSLog.general,
                   type: OSLogType = .info,
                   file: String = #file,
                   function: String = #function,

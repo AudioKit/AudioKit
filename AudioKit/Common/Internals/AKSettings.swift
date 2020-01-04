@@ -66,7 +66,7 @@ open class AKSettings: NSObject {
             do {
                 try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
             } catch {
-                AKLog(error.localizedDescription)
+                AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription, log: OSLog.settings, type: .error)
             }
             #else
             //nothing for macOS
@@ -82,7 +82,8 @@ open class AKSettings: NSObject {
                 do {
                     try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                 } catch {
-                    AKLog(error.localizedDescription)
+                    AKLog("Could not set allow haptics to \(allowHapticsAndSystemSoundsDuringRecording)" +
+                        error.localizedDescription, log: OSLog.settings, type: .error)
                 }
             }
         }
@@ -149,7 +150,7 @@ open class AKSettings: NSObject {
                                               &frames,
                                               UInt32(MemoryLayout<UInt32>.size))
             if status != 0 {
-                AKLog("error in set ioBufferDuration status \(status)")
+                AKLog("error in set ioBufferDuration status \(status)", log: OSLog.settings, type: .error)
             }
         }
         get {
@@ -165,7 +166,7 @@ open class AKSettings: NSObject {
                                               &frames,
                                               &propSize)
             if status != 0 {
-                AKLog("error in get ioBufferDuration status \(status)")
+                AKLog("error in get ioBufferDuration status \(status)", log: OSLog.settings, type: .error)
             }
             return Double(frames) / sampleRate
         }
@@ -180,7 +181,7 @@ open class AKSettings: NSObject {
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
             } catch {
-                AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error) ")
+                AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)", log: OSLog.settings, type: .error)
             }
         }
         get {
@@ -220,6 +221,7 @@ open class AKSettings: NSObject {
     @objc public static var enableCategoryChangeHandling: Bool = true
 
     /// Turn off AudioKit logging
+    /// TODO: With new AKLog, we have the ability to do a lot better than just a boolean here
     @objc public static var enableLogging: Bool = true
 
     #if !os(macOS)
@@ -258,7 +260,8 @@ extension AKSettings {
                 }
             }
         } catch let error as NSError {
-            AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
+            AKLog("Cannot set AVAudioSession Category to \(category) with options: \(options) " + error.localizedDescription,
+                  log: OSLog.settings, type: .error)
             throw error
         }
 
@@ -268,7 +271,7 @@ extension AKSettings {
                 try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
             }
         } catch {
-            AKLog("Could not allow haptics: \(error)")
+            AKLog("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
         }
 
         // Preferred IO Buffer Duration
@@ -277,9 +280,9 @@ extension AKSettings {
                 try session.setPreferredIOBufferDuration(bufferLength.duration)
             }
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to " +
-                "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
-            AKLog("AKSettings Error: \(error))")
+            AKLog("Cannot set Preferred IO Buffer Duration to " +
+                "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples) due to " +
+                error.localizedDescription, log: OSLog.settings, type: .error)
             throw error
         }
 
@@ -289,7 +292,7 @@ extension AKSettings {
                 try session.setActive(true)
             }
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true \(error)")
+            AKLog("Cannot set AVAudioSession.setActive to true \(error)", log: OSLog.settings, type: .error)
             throw error
         }
     }
@@ -393,7 +396,7 @@ extension AKSettings {
                 return AVAudioSession.Category.playAndRecord.rawValue
             case .multiRoute:
                 return AVAudioSession.Category.multiRoute.rawValue
-            default :
+            default:
                 return AVAudioSession.Category.soloAmbient.rawValue
             }
         }
