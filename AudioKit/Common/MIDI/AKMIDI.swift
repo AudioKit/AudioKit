@@ -10,16 +10,6 @@ import CoreMIDI
 
 /// MIDI input and output handler
 ///
-/// You add MIDI listeners like this:
-/// ```
-/// var midi = AudioKit.midi
-/// midi.openInput()
-/// midi.addListener(someClass)
-/// ```
-/// ...where someClass conforms to the AKMIDIListener protocol
-///
-/// You then implement the methods you need from AKMIDIListener and use the data how you need.
-///
 open class AKMIDI {
 
     // MARK: - Properties
