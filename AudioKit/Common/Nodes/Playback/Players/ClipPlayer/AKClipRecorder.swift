@@ -186,7 +186,7 @@ open class AKClipRecorder {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
             } catch let error {
-                AKLog(error)
+                AKLog(error.localizedDescription)
             }
         }
     }

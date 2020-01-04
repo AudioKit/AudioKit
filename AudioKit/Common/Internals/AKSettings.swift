@@ -180,7 +180,7 @@ open class AKSettings: NSObject {
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
             } catch {
-                AKLog(error)
+                AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error) ")
             }
         }
         get {
@@ -268,7 +268,7 @@ extension AKSettings {
                 try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
             }
         } catch {
-            AKLog("Error: Cannot set allowHapticsAndSystemSoundsDuringRecording", error)
+            AKLog("Could not allow haptics: \(error)")
         }
 
         // Preferred IO Buffer Duration
@@ -289,7 +289,7 @@ extension AKSettings {
                 try session.setActive(true)
             }
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true", error)
+            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true \(error)")
             throw error
         }
     }

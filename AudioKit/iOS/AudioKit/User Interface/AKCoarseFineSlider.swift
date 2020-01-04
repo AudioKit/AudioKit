@@ -54,7 +54,7 @@ import AudioKit
         }
     }
     public var callback: (Double) -> Void = {val in
-        AKLog(val)
+        AKLog("Course fine slider: \(val)")
     }
     public func reset(to value: Double) {
         setStable(value: value)
