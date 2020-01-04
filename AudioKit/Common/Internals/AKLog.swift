@@ -10,9 +10,14 @@ import os
 
 private let subsystem = "io.audiokit"
 
-public struct Log {
-    public static let general = OSLog(subsystem: subsystem, category: "general")
+extension OSLog {
+    /// Generic AudioKit log
+    public static let audiokit = OSLog(subsystem: subsystem, category: "audiokit")
+
+    /// AudioKit MIDI related log
     public static let midi = OSLog(subsystem: subsystem, category: "midi")
+
+    /// Log revolving around finding, reading, and writing files
     public static let fileHandling = OSLog(subsystem: subsystem, category: "fileHandling")
 }
 
@@ -21,7 +26,7 @@ public struct Log {
 ///
 /// Parameters:
 ///     - message:  Output message, should be very detailed
-///     - log: One of the log types from the Log struct, defaults to .general
+///     - log: One of the log types from the Log struct, defaults to .audiokit
 ///     - type: OSLogType, defaults to .info
 ///     - file:  Filename from the log message, should  not be set explicitly
 ///     - function: Function enclosing the log message, should not be set explicitly
@@ -29,7 +34,7 @@ public struct Log {
 ///
 @inline(__always)
 public func AKLog(_ message: String,
-                  log: OSLog = Log.general,
+                  log: OSLog = OSLog.audiokit,
                   type: OSLogType = .info,
                   file: String = #file,
                   function: String = #function,
