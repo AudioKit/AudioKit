@@ -66,7 +66,7 @@ open class AKSettings: NSObject {
             do {
                 try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
             } catch {
-                print(error)
+                AKLog(error.localizedDescription)
             }
             #else
             //nothing for macOS
@@ -82,7 +82,7 @@ open class AKSettings: NSObject {
                 do {
                     try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                 } catch {
-                    print(error)
+                    AKLog(error.localizedDescription)
                 }
             }
         }
