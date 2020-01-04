@@ -336,9 +336,8 @@ extension AKMIDI {
         self.sendMessage(message)
     }
 
-    // MARK: -
     // MARK: - Expand api to include MIDITimeStamp
-    // MARK: -
+
     // MARK: - Send a message with MIDITimeStamp
     public func sendNoteOnMessageWithTime(noteNumber: MIDINoteNumber,
                                           velocity: MIDIVelocity,

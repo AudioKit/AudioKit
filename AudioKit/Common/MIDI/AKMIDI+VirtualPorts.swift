@@ -50,7 +50,8 @@ extension AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
-            AKLog("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)", log: OSLog.midi, type: .error)
+            AKLog("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)",
+                log: OSLog.midi, type: .error)
             CheckError(result)
         }
     }
@@ -64,7 +65,8 @@ extension AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
-            AKLog("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)", log: OSLog.midi, type: .error)
+            AKLog("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)",
+                log: OSLog.midi, type: .error)
             CheckError(result)
         }
     }
