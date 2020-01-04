@@ -23,8 +23,10 @@ public struct Log {
 @inline(__always)
 public func AKLog(_ message: String,
                   log: OSLog = Log.general,
-                  type: OSLogType = .info) {
+                  type: OSLogType = .info,
+                  function: String = #function,
+                  line: Int = #line) {
     guard AKSettings.enableLogging else { return }
     let fileName = (#file as NSString).lastPathComponent
-    os_log("%s:%s:%d %s", log: log, type: type, fileName, #function, #line, message)
+    os_log("%s:%s:%d %s", log: log, type: type, fileName, function, line, message)
 }
