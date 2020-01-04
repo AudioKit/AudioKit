@@ -79,7 +79,7 @@ open class AKMIDIClockListener: NSObject {
 
             let spaces = "    "
             let prefix = spaces.prefix( Int(fourCount) )
-            AKLog(prefix, fourCount)
+            AKLog("\(prefix) \(fourCount)")
 
             if (sendStart || sendContinue) {
                 sendStartContinueToObservers()
@@ -99,7 +99,7 @@ open class AKMIDIClockListener: NSObject {
             sendMIDIBeatUpdateToObservers()
 
             let beat = (sppMIDIBeatCounter % 16) + 1
-            AKLog("       ", beat)
+            AKLog("       \(beat)")
         }
     }
 

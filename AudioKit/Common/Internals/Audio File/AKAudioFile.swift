@@ -156,11 +156,10 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 }
             }
 
-            AKLog(deletedFilesCount, "files deleted")
+            AKLog("\(deletedFilesCount) files deleted")
 
         } catch let error as NSError {
-            AKLog("Couldn't access Temp Directory")
-            AKLog("Error:", error)
+            AKLog("Couldn't access Temp Directory \(error)")
         }
     }
 

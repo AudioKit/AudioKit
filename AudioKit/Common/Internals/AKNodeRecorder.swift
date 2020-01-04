@@ -111,7 +111,7 @@ open class AKNodeRecorder: NSObject {
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
-        AKLog("Recording using format", internalAudioFile.processingFormat.debugDescription)
+        AKLog("Recording using format \(internalAudioFile.processingFormat.debugDescription)")
 
         // note, format should be nil as per the documentation for installTap:
         // "If non-nil, attempts to apply this as the format of the specified output bus. This should
@@ -173,7 +173,7 @@ open class AKNodeRecorder: NSObject {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete", audioFile?.fileNamePlusExtension ?? "nil", error.localizedDescription)
+            AKLog("Error: Can't delete" + (audioFile?.fileNamePlusExtension ?? "nil") + error.localizedDescription)
         }
 
         // Creates a blank new file
@@ -181,7 +181,7 @@ open class AKNodeRecorder: NSObject {
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
             AKLog("File has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to", internalAudioFile.fileNamePlusExtension)
+            AKLog("Error: Can't record to" + internalAudioFile.fileNamePlusExtension)
             throw error
         }
     }
