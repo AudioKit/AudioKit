@@ -37,11 +37,9 @@ import Foundation
 
     deinit {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
-//        AKLog("AKMIDITimeout - deallocated")
     }
 
     public func perform(_ block: () -> Void) {
-//        AKLog("AKMIDITimeout - starting timeout timer")
         DispatchQueue.main.async {
             self.perform(#selector(self.messageTimeout), with: nil, afterDelay: self.timeoutInterval)
         }
@@ -49,7 +47,6 @@ import Foundation
     }
 
     public func succeed() {
-//        AKLog("AKMIDITimeout - success")
         mainthreadSuccessCall()
     }
 
@@ -70,7 +67,6 @@ import Foundation
 
     @objc func messageTimeout() {
         let action: ActionClosureType = {
-//            AKLog("AKMIDITimeout - timed out")
             if self.disableFailure == false {
                 self.onTimeout?()
             }
