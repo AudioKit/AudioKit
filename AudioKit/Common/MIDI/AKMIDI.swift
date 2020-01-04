@@ -31,7 +31,7 @@ open class AKMIDI {
     internal let clientName: CFString = "MIDI Client" as CFString
 
     /// Array of MIDI In ports
-    var inputPorts = [MIDIUniqueID: MIDIPortRef]()
+    public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
 
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()
@@ -52,9 +52,9 @@ open class AKMIDI {
     open var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
 
     /// Array of all listeners
-    var listeners = [AKMIDIListener]()
+    public var listeners = [AKMIDIListener]()
 
-    var transformers = [AKMIDITransformer]()
+    public var transformers = [AKMIDITransformer]()
 
     // MARK: - Initialization
 
