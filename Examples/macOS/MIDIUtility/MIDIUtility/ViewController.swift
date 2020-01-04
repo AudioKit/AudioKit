@@ -9,6 +9,18 @@
 import AudioKit
 import Cocoa
 
+@inline(__always)
+public func AKLog2(_ message: String,
+                  log: OSLog = Log.general,
+                  type: OSLogType = .info,
+                  function: String = #function,
+                  line: Int = #line) {
+    guard AKSettings.enableLogging else { return }
+    let fileName = (#file as NSString).lastPathComponent
+    os_log("%s:%s:%d %s", log: log, type: type, fileName, function, line, message)
+}
+
+
 class ViewController: NSViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: NSTextView!
     @IBOutlet private var sourcePopUpButton: NSPopUpButton!
@@ -31,6 +43,7 @@ class ViewController: NSViewController, AKMIDIListener {
             midi.closeAllInputs()
             midi.openInput(name: midi.inputNames[sender.indexOfSelectedItem - 1])
         }
+        AKLog2("Aurelius")
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel,
