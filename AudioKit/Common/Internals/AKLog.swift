@@ -16,17 +16,25 @@ public struct Log {
     public static let fileHandling = OSLog(subsystem: subsystem, category: "fileHandling")
 }
 
-/// Wrapper for printing out status messages to the console,
-/// eventually it could be expanded with log levels
-/// - items: Zero or more items to print.
+/// Wrapper for  os_log logging system. It currently shows filename,  function, and line number,
+/// but that might be removed if it shows any negative performance impact (Apple recommends against it).
+///
+/// Parameters:
+///     - message:  Output message, should be very detailed
+///     - log: One of the log types from the Log struct, defaults to .general
+///     - type: OSLogType, defaults to .info
+///     - file:  Filename from the log message, should  not be set explicitly
+///     - function: Function enclosing the log message, should not be set explicitly
+///     - line: Line number of the log method, should  not be set explicitly
 ///
 @inline(__always)
 public func AKLog(_ message: String,
                   log: OSLog = Log.general,
                   type: OSLogType = .info,
+                  file: String = #file,
                   function: String = #function,
                   line: Int = #line) {
     guard AKSettings.enableLogging else { return }
-    let fileName = (#file as NSString).lastPathComponent
-    os_log("%s:%s:%d %s", log: log, type: type, fileName, function, line, message)
+    let fileName = (file as NSString).lastPathComponent
+    os_log("%s (%s:%s:%d)", log: log, type: type, message, fileName, function, line)
 }
