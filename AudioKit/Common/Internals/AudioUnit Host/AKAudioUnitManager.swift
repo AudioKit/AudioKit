@@ -260,7 +260,7 @@ open class AKAudioUnitManager: NSObject {
             completionHandler(audioUnit)
 
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
             completionHandler(nil)
         }
     }
@@ -288,7 +288,7 @@ open class AKAudioUnitManager: NSObject {
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else {
-            AKLog(index, "index is invalid.")
+            AKLog("\(index) index is invalid.")
             return
         }
 
@@ -327,7 +327,7 @@ open class AKAudioUnitManager: NSObject {
                 self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
             }
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
         }
     }
 

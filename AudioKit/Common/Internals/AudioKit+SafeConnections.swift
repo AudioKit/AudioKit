@@ -162,7 +162,7 @@ extension AudioKit {
 
             outputs.forEach {
                 let dstDescription = nodeDescription($0.id, $0.node)
-                print("\(srcDescritption) \(format) -> \(dstDescription)) bus: \($0.bus)")
+                AKLog("\(srcDescritption) \(format) -> \(dstDescription)) bus: \($0.bus)")
             }
         }
     }

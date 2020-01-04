@@ -59,7 +59,7 @@
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
 			throw error
         }
         #endif

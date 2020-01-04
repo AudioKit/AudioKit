@@ -228,7 +228,7 @@ open class AKAUPresetBuilder {
             try str.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
         } catch let error as NSError {
             AKLog("Could not write to \(path)")
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
     }
 

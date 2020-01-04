@@ -39,8 +39,8 @@ class ViewController: NSViewController {
 
         do {
             try AudioKit.start()
-        } catch let err as NSError {
-            AKLog(err)
+        } catch let error as NSError {
+            AKLog(error.localizedDescription)
             return
         }
 

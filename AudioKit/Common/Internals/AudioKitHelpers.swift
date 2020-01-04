@@ -56,20 +56,6 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Wrapper for printing out status messages to the console,
-/// eventually it could be expanded with log levels
-/// - items: Zero or more items to print.
-///
-@inline(__always)
-public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any?...) {
-    guard AKSettings.enableLogging else { return }
-    let fileName = (file as NSString).lastPathComponent
-    let content = (items.map {
-        String(describing: ($0 ?? "nil"))
-    }).joined(separator: " ")
-    Swift.print("\(fileName):\(fullname):\(line):\(content)")
-}
-
 /// Random double between bounds
 ///
 /// - Parameters:
