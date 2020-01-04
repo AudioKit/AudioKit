@@ -516,6 +516,7 @@
 		C464079120117D1200299119 /* AKVocalTractDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C464078E20117D1000299119 /* AKVocalTractDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C464079220117D1200299119 /* AKVocalTract.mm in Sources */ = {isa = PBXBuildFile; fileRef = C464078F20117D1100299119 /* AKVocalTract.mm */; };
 		C464079320117D1200299119 /* AKVocalTractAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464079020117D1200299119 /* AKVocalTractAudioUnit.swift */; };
+		C4649D4123C08C000020072A /* AKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4649D4023C08C000020072A /* AKLog.swift */; };
 		C46615201EEA2E6A0044A5FC /* AKVocalTract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C466151C1EEA2E6A0044A5FC /* AKVocalTract.swift */; };
 		C466DECD2009F59F0032D0A5 /* AKGeneratorAudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C466DEC62009EF270032D0A5 /* AKGeneratorAudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466DECE2009F5BF0032D0A5 /* AKGeneratorAudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = C466DEC82009EF3E0032D0A5 /* AKGeneratorAudioUnitBase.mm */; };
@@ -1759,6 +1760,7 @@
 		C464078E20117D1000299119 /* AKVocalTractDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKVocalTractDSP.hpp; sourceTree = "<group>"; };
 		C464078F20117D1100299119 /* AKVocalTract.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVocalTract.mm; sourceTree = "<group>"; };
 		C464079020117D1200299119 /* AKVocalTractAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocalTractAudioUnit.swift; sourceTree = "<group>"; };
+		C4649D4023C08C000020072A /* AKLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLog.swift; sourceTree = "<group>"; };
 		C466151C1EEA2E6A0044A5FC /* AKVocalTract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocalTract.swift; sourceTree = "<group>"; };
 		C466DEC62009EF270032D0A5 /* AKGeneratorAudioUnitBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKGeneratorAudioUnitBase.h; sourceTree = "<group>"; };
 		C466DEC82009EF3E0032D0A5 /* AKGeneratorAudioUnitBase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKGeneratorAudioUnitBase.mm; sourceTree = "<group>"; };
@@ -3066,6 +3068,7 @@
 				B1DAFDDB1FCE0D2200511A43 /* AKConverter.swift */,
 				C45662B51D448D7D00D26565 /* AKDevice.swift */,
 				FE5839732080FC19008DBCE6 /* AKError.swift */,
+				C4649D4023C08C000020072A /* AKLog.swift */,
 				C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */,
 				C45662B71D448D7D00D26565 /* AKNotifications.swift */,
 				C43647801E9CB663009FBD85 /* AKPeriodicFunction.swift */,
@@ -6773,6 +6776,7 @@
 				555857DB1F62180400C73F59 /* AKClip.swift in Sources */,
 				C49B1824204A0AD0009C7C8E /* phaser.c in Sources */,
 				34DB48AA2030BDF200ECFF1F /* AKFlangerAudioUnit.swift in Sources */,
+				C4649D4123C08C000020072A /* AKLog.swift in Sources */,
 				C49B1826204A0AD0009C7C8E /* osc.c in Sources */,
 				C49B187C204A0AD0009C7C8E /* butlp.c in Sources */,
 				C45669501D448D7E00D26565 /* AKCostelloReverbPresets.swift in Sources */,
@@ -7006,7 +7010,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7035,7 +7039,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7065,7 +7069,7 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7094,7 +7098,7 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

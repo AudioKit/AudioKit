@@ -146,7 +146,7 @@ open class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("Converting Asset to", outputFormat)
+        AKLog("Converting Asset to \(outputFormat)")
 
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
@@ -188,7 +188,7 @@ open class AKConverter: NSObject {
 
         if FileManager.default.fileExists(atPath: outputURL.path) {
             if options.eraseFile {
-                AKLog("Warning: removing existing file at", outputURL.path)
+                AKLog("Warning: removing existing file at \(outputURL.path)")
                 try? FileManager.default.removeItem(at: outputURL)
             } else {
                 let message = "The output file exists already. You need to choose a unique URL or delete the file."
@@ -281,7 +281,7 @@ open class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            AKLog("Failed to start writing. Error:", writer.error?.localizedDescription)
+            AKLog("Failed to start writing. " + (writer.error?.localizedDescription ?? ""))
             completionHandler?(writer.error)
             return
         }
@@ -289,7 +289,7 @@ open class AKConverter: NSObject {
         writer.startSession(atSourceTime: CMTime.zero)
 
         if !reader.startReading() {
-            AKLog("Failed to start reading. Error:", reader.error?.localizedDescription)
+            AKLog("Failed to start reading. " + (reader.error?.localizedDescription ?? ""))
             completionHandler?(reader.error)
             return
         }
@@ -311,7 +311,7 @@ open class AKConverter: NSObject {
 
                     switch reader.status {
                     case .failed:
-                        AKLog("Conversion failed with error", reader.error)
+                        AKLog("Conversion failed with error" + (reader.error?.localizedDescription ?? "Unknown"))
                         writer.cancelWriting()
                         completionHandler?(reader.error)
                     case .cancelled:
