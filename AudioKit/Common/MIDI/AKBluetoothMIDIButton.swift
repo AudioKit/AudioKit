@@ -34,7 +34,7 @@ public class AKBluetoothMIDIButton: UIButton {
         realSuperView = view
     }
 
-    /// Handle touches
+    /// Pull up a popover controller when the button is released
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
