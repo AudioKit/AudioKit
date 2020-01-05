@@ -1,56 +1,19 @@
 //
 //  Conductor.swift
-//  DrumsSwiftUI
+//  Drums
 //
-//  Created by Matthias Frick on 11/09/2019.
-//  Copyright © 2019 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
-import Combine
 
-struct DrumSample {
-    var fileName: String
-    var midiNote: Int
-    var audioFile: AKAudioFile?
-
-    init(_ sampleFileName: String, note: Int) {
-        fileName = sampleFileName
-        midiNote = note
-        do {
-            audioFile = try AKAudioFile(readFileName: fileName)
-        } catch {
-            AKLog("Could not load: $fileName")
-        }
-    }
-}
-
-class Conductor: ObservableObject {
-    // Mark Published so View updates label on changes
-    @Published private(set) var lastPlayed: String = "None"
-
-    let drumSamplesFiles: [DrumSample] =
-    [
-        DrumSample("Samples/Drums/bass_drum_C1.wav", note: 24),
-        DrumSample("Samples/Drums/closed_hi_hat_F#1.wav", note: 26),
-        DrumSample("Samples/Drums/hi_tom_D2.wav", note: 30),
-        DrumSample("Samples/Drums/lo_tom_F1.wav", note: 34),
-        DrumSample("Samples/Drums/mid_tom_B1.wav", note: 29),
-        DrumSample("Samples/Drums/open_hi_hat_A#1.wav", note: 35),
-        DrumSample("Samples/Drums/snare_D1.wav", note: 24),
-        DrumSample("Samples/Drums/bass_drum_C1.wav", note: 38),
-        DrumSample("Samples/Drums/bass_drum_C1.wav", note: 24)
-    ]
-
+class Conductor {
+    static let sharedInstance = Conductor()
     let drums = AKAppleSampler()
 
-    func playPad(padNumber: Int) {
-        try? drums.play(noteNumber: MIDINoteNumber(drumSamplesFiles[padNumber].midiNote))
-        let fileName = drumSamplesFiles[padNumber].fileName
-        lastPlayed = fileName.components(separatedBy: "/").last!
-    }
-
     init() {
+
         AudioKit.output = drums
         do {
             try AudioKit.start()
@@ -58,13 +21,27 @@ class Conductor: ObservableObject {
             AKLog("AudioKit did not start!")
         }
         do {
-          let files = drumSamplesFiles.map {
-            $0.audioFile!
-          }
-          try drums.loadAudioFiles(files)
+            let bassDrumFile = try AKAudioFile(readFileName: "Samples/Drums/bass_drum_C1.wav")
+            let clapFile = try AKAudioFile(readFileName: "Samples/Drums/clap_D#1.wav")
+            let closedHiHatFile = try AKAudioFile(readFileName: "Samples/Drums/closed_hi_hat_F#1.wav")
+            let hiTomFile = try AKAudioFile(readFileName: "Samples/Drums/hi_tom_D2.wav")
+            let loTomFile = try AKAudioFile(readFileName: "Samples/Drums/lo_tom_F1.wav")
+            let midTomFile = try AKAudioFile(readFileName: "Samples/Drums/mid_tom_B1.wav")
+            let openHiHatFile = try AKAudioFile(readFileName: "Samples/Drums/open_hi_hat_A#1.wav")
+            let snareDrumFile = try AKAudioFile(readFileName: "Samples/Drums/snare_D1.wav")
+
+            try drums.loadAudioFiles([bassDrumFile,
+                                      clapFile,
+                                      closedHiHatFile,
+                                      hiTomFile,
+                                      loTomFile,
+                                      midTomFile,
+                                      openHiHatFile,
+                                      snareDrumFile])
 
         } catch {
             AKLog("Files Didn't Load")
         }
+
     }
 }
