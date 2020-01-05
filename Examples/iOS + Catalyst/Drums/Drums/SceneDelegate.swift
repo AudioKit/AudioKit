@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  DrumsSwiftUI
+//  Drums
 //
 //  Created by Matthias Frick on 11/09/2019.
 //  Copyright © 2019 AudioKit. All rights reserved.
@@ -10,8 +10,8 @@ import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-  let conductor = Conductor()
   var window: UIWindow?
+  let conductor = Conductor()
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
              options connectionOptions: UIScene.ConnectionOptions) {
@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // (see `application:configurationForConnectingSceneSession` instead).
 
     // Create the SwiftUI view that provides the window contents.
-    // Pass in the AudioKit Conductor as Environment Variable
     let contentView = ContentView().environmentObject(conductor)
 
     // Use a UIHostingController as window root view controller.
@@ -53,7 +52,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func sceneWillEnterForeground(_ scene: UIScene) {
     // Called as the scene transitions from the background to the foreground.
-    // Use this method to undo the changes made on entering the background.
+
+    // AudioKit cannot start while the app is in the background and on Catalina,
+    // the app is in the background until just after this function is called,
+    // so we build in a delay and start AudioKit a millisecond later.
+    // Is this good pratice? No, but we haven't thought of anything better yet
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
+      self.conductor.start()
+    }
   }
 
   func sceneDidEnterBackground(_ scene: UIScene) {
@@ -61,4 +67,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
   }
+
 }
