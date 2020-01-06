@@ -6,4 +6,3 @@
 * MIDI Utility - Basic MIDI implementation including MIDI monitoring
 * Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
 * Recorder - Simple audio recorder
-* Sporth Editor - A graphical user interface to the Sporth audio language
