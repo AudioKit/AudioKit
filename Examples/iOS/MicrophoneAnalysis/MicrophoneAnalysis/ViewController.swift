@@ -71,9 +71,16 @@ class ViewController: UIViewController {
 
     @objc func updateUI() {
         if tracker.amplitude > 0.1 {
+            let trackerFrequency = Float(tracker.frequency)
+
+            guard trackerFrequency < 7_000 else {
+                // This is a bit of hack because of modern Macbooks giving super high frequencies
+                return
+            }
+
             frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
 
-            var frequency = Float(tracker.frequency)
+            var frequency = trackerFrequency
             while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
                 frequency /= 2.0
             }
@@ -91,7 +98,7 @@ class ViewController: UIViewController {
                     minDistance = distance
                 }
             }
-            let octave = Int(log2f(Float(tracker.frequency) / frequency))
+            let octave = Int(log2f(trackerFrequency / frequency))
             noteNameWithSharpsLabel.text = "\(noteNamesWithSharps[index])\(octave)"
             noteNameWithFlatsLabel.text = "\(noteNamesWithFlats[index])\(octave)"
         }
