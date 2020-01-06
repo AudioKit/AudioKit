@@ -32,10 +32,10 @@
 
 ## Examples for macOS only
 
-* Flanger and Chorus
+* Flanger and Chorus - Effect processor examples
 * Hello OSC - Starter project for OSC communication
-* Output Splitter
-* Speech Synthesizer
+* Output Splitter - crude example of how to split Audio and pipe it to two different output devices
+* Speech Synthesizeer - simple speech synthesizer
 
 ## Example for tvOS
 
