@@ -32,6 +32,9 @@ struct PadsView: View {
           }
         }
       }
+    }.onAppear {
+      // Important to start AudioKit after the app has moved to the foreground on Catalyst
+      self.conductor.start()
     }
   }
 }

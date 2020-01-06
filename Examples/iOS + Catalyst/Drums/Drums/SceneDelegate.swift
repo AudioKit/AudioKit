@@ -52,14 +52,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func sceneWillEnterForeground(_ scene: UIScene) {
     // Called as the scene transitions from the background to the foreground.
-
-    // AudioKit cannot start while the app is in the background and on Catalina,
-    // the app is in the background until just after this function is called,
-    // so we build in a delay and start AudioKit a millisecond later.
-    // Is this good pratice? No, but we haven't thought of anything better yet
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
-      self.conductor.start()
-    }
   }
 
   func sceneDidEnterBackground(_ scene: UIScene) {
