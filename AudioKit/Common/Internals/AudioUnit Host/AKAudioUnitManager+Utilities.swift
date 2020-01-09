@@ -125,15 +125,15 @@ extension AKAudioUnitManager {
         }
     }
 
-  /// Asynchronously create the AU, then call the
-  /// supplied completion handler when the operation is complete.
-  public static func createMIDIProcessorAudioUnit(_ componentDescription: AudioComponentDescription,
-                                               completionHandler: @escaping AKMIDIProcessorCallback) {
-      AVAudioUnit.instantiate(with: componentDescription,
-                                            options: .loadOutOfProcess) { avAudioUnit, _ in
-          completionHandler(avAudioUnit)
-      }
-  }
+    /// Asynchronously create the AU, then call the
+    /// supplied completion handler when the operation is complete.
+    public static func createMIDIProcessorAudioUnit(_ componentDescription: AudioComponentDescription,
+                                                 completionHandler: @escaping AKMIDIProcessorCallback) {
+        AVAudioUnit.instantiate(with: componentDescription,
+                                              options: .loadOutOfProcess) { avAudioUnit, _ in
+            completionHandler(avAudioUnit)
+        }
+    }
 
     public static func canLoadInProcess(componentDescription: AudioComponentDescription) -> Bool {
         let flags = AudioComponentFlags(rawValue: componentDescription.componentFlags)
