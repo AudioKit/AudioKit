@@ -13,7 +13,7 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-extern "C" {
+extern "C++" {
 #include "soundpipe.h"
 #include "md5.h"
 #include "test.h"
