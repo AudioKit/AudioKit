@@ -9,7 +9,7 @@
 #ifdef __cplusplus
 #pragma once
 
-extern "C" {
+extern "C++" {
 #include "soundpipe.h"
 #include "soundpipeextension.h"
 }

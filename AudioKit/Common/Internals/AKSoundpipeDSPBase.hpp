@@ -18,7 +18,7 @@
 
 #else
 
-extern "C" {
+extern "C++" {
 #include "soundpipe.h"
 #include "soundpipeextension.h"
 #include "vocwrapper.h"
