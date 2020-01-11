@@ -15,7 +15,7 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-extern "C++" {
+extern "C" {
 #include "plumber.h"
 }
 

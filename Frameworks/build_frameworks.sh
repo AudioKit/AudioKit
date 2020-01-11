@@ -154,16 +154,15 @@ create_universal_framework()
 create_xcframework()
 {
 	echo "Assembling xcframework for $1 ..."
-	if test $OSTYPE = darwin19; then
+	if test -d "${BUILD_DIR}/Catalyst.xcarchive"; then
 		CATA_ARG="-framework ${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
 	fi
-	xcodebuild -create-xcframework \
-		-framework "${BUILD_DIR}/{$CONFIGURATION}-iphoneos/$1.framework" \
-		-framework "${BUILD_DIR}/{$CONFIGURATION}-iphonesimulator/$1.framework" \
-		-framework "${BUILD_DIR}/{$CONFIGURATION}-appletvos/$1.framework" \
-		-framework "${BUILD_DIR}/{$CONFIGURATION}-appletvsimulator/$1.framework" \
-		-framework "${BUILD_DIR}/{$CONFIGURATION}/$1.framework" $CATA_ARG \		
-		-output $1.xcframework
+	xcodebuild -create-xcframework -output $1.xcframework \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
 }
 
 # Create individual static platform frameworks (device or simulator) in their own subdirectories
