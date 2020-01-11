@@ -200,7 +200,8 @@ typedef struct {
         @"snd",
         @"au",
         @"sd2",
-        @"wav"
+        @"wav",
+        @"flac"
            ];
 }
 
