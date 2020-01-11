@@ -157,6 +157,7 @@ create_xcframework()
 	if test -d "${BUILD_DIR}/Catalyst.xcarchive"; then
 		CATA_ARG="-framework ${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
 	fi
+	rm -rf $1.xcframework # Start fresh
 	xcodebuild -create-xcframework -output $1.xcframework \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/$1.framework" \
