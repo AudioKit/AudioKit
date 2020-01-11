@@ -164,6 +164,8 @@ create_xcframework()
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
+	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
+	find $1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
 }
 
 # Create individual static platform frameworks (device or simulator) in their own subdirectories
