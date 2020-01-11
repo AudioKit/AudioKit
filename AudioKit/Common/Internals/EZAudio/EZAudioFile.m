@@ -248,7 +248,7 @@ typedef struct {
     //
     // Create an ExtAudioFileRef for the file handle
     //
-    if (fileExists) {
+    if ((fileExists) || ([fileURL.absoluteString hasPrefix:@"ipod-library://"])) {
         [EZAudioUtilities checkResult:ExtAudioFileOpenURL(url, &self.info->extAudioFileRef)
                             operation:"Failed to create ExtAudioFileRef"];
     } else {
