@@ -138,11 +138,11 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
                     try fileManager.removeItem(atPath: filePathName)
-                    AKLog("\"\(fileName)\" deleted.")
+                    AKLog("\"\(fileName)\" deleted.", log: OSLog.fileHandling)
                     deletedFilesCount += 1
                 } catch let error as NSError {
-                    AKLog("Couldn't delete \(fileName) from Temp Directory")
-                    AKLog("Error: \(error)")
+                    AKLog("Couldn't delete \(fileName) from Temp Directory " + error.localizedDescription,
+                          log: OSLog.fileHandling, type: .error)
                 }
             }
 
@@ -156,11 +156,10 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 }
             }
 
-            AKLog(deletedFilesCount, "files deleted")
+            AKLog("\(deletedFilesCount) files deleted", log: OSLog.fileHandling, type: .error)
 
         } catch let error as NSError {
-            AKLog("Couldn't access Temp Directory")
-            AKLog("Error:", error)
+            AKLog("Couldn't access Temp Directory " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
     }
 
@@ -201,7 +200,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
               return try Bundle.main.path(forResource: path, ofType: "") ??
                          NSError.fileCreateError
             case (.custom, _):
-              AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
+              AKLog("AKAudioFile: custom directory not implemented", log: OSLog.fileHandling, type: .error)
               fallthrough
             default:
               throw NSError.fileCreateError
@@ -267,7 +266,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         do {
             try self.read(into: buffer!)
         } catch let error as NSError {
-            AKLog("error cannot readIntBuffer, Error: \(error)")
+            AKLog("Cannot readIntBuffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
 
         return buffer!

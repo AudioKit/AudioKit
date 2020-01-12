@@ -89,6 +89,23 @@ extension AKAudioUnitManager {
         } // dispatch global
     }
 
+
+    /// request a list of MIDI Processors, will be returned async
+    public static func midiProcessorComponents(completionHandler: AKComponentListCallback? = nil) {
+        /// Locating components can be a little slow, especially the first time.
+        /// Do this work on a separate dispatch thread.
+        DispatchQueue.global(qos: .default).async {
+            let predicate = NSPredicate(format: "typeName == '\(AVAudioUnitTypeMIDIProcessor)'", argumentArray: [])
+            var availableMIDIProcessors = AVAudioUnitComponentManager.shared().components(matching: predicate)
+            availableMIDIProcessors = availableMIDIProcessors.sorted { $0.name < $1.name }
+
+            // Let the UI know that we have an updated list of units.
+            DispatchQueue.main.async {
+                completionHandler?(availableMIDIProcessors)
+            }
+        } // dispatch global
+    }
+
     /// Asynchronously create the AU, then call the
     /// supplied completion handler when the operation is complete.
     public static func createEffectAudioUnit(_ componentDescription: AudioComponentDescription,
@@ -105,6 +122,16 @@ extension AKAudioUnitManager {
         AVAudioUnitMIDIInstrument.instantiate(with: componentDescription,
                                               options: .loadOutOfProcess) { avAudioUnit, _ in
             completionHandler(avAudioUnit as? AVAudioUnitMIDIInstrument)
+        }
+    }
+
+    /// Asynchronously create the AU, then call the
+    /// supplied completion handler when the operation is complete.
+    public static func createMIDIProcessorAudioUnit(_ componentDescription: AudioComponentDescription,
+                                                 completionHandler: @escaping AKMIDIProcessorCallback) {
+        AVAudioUnit.instantiate(with: componentDescription,
+                                              options: .loadOutOfProcess) { avAudioUnit, _ in
+            completionHandler(avAudioUnit)
         }
     }
 

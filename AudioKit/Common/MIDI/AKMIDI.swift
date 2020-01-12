@@ -10,16 +10,6 @@ import CoreMIDI
 
 /// MIDI input and output handler
 ///
-/// You add MIDI listeners like this:
-/// ```
-/// var midi = AudioKit.midi
-/// midi.openInput()
-/// midi.addListener(someClass)
-/// ```
-/// ...where someClass conforms to the AKMIDIListener protocol
-///
-/// You then implement the methods you need from AKMIDIListener and use the data how you need.
-///
 open class AKMIDI {
 
     // MARK: - Properties
@@ -60,7 +50,7 @@ open class AKMIDI {
 
     /// Initialize the AKMIDI system
     @objc public init() {
-        AKLog("Initializing MIDI")
+        AKLog("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)
         MIDINetworkSession.default().isEnabled = true
@@ -90,7 +80,7 @@ open class AKMIDI {
                 }
             }
             if result != noErr {
-                AKLog("Error creating MIDI client : \(result)")
+                AKLog("Error creating MIDI client: \(result)", log: OSLog.midi, type: .error)
             }
         }
     }
@@ -99,12 +89,12 @@ open class AKMIDI {
 
     internal var isReceivingSysex: Bool = false
     func startReceivingSysex(with midiBytes: [MIDIByte]) {
-        AKLog("Starting to receive Sysex")
+        AKLog("Starting to receive Sysex", log: OSLog.midi)
         isReceivingSysex = true
         incomingSysex = midiBytes
     }
     func stopReceivingSysex() {
-        AKLog("Done receiving Sysex")
+        AKLog("Done receiving Sysex", log: OSLog.midi)
         isReceivingSysex = false
     }
     var incomingSysex = [MIDIByte]()

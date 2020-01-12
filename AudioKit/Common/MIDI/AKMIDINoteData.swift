@@ -30,9 +30,9 @@ public struct AKMIDINoteData: CustomStringConvertible, Equatable {
         return """
         note: \(noteNumber)
         velocity: \(velocity)
-        chan: \(channel)
+        channel: \(channel)
         duration: \(duration.beats)
-        position \(position.beats)
+        position: \(position.beats)
         """
     }
 }

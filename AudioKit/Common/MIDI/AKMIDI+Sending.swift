@@ -168,7 +168,7 @@ extension AKMIDI {
     public func openOutput(uid outputUid: MIDIUniqueID) {
         if outputPort == 0 {
             guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
-                AKLog("Unable to create MIDIOutputPort")
+                AKLog("Unable to create MIDIOutputPort", log: OSLog.midi, type: .error)
                 return
             }
             outputPort = tempPort
@@ -222,18 +222,18 @@ extension AKMIDI {
     ///
     public func closeOutput(uid outputUid: MIDIUniqueID) {
         let name = destinationName(for: outputUid)
-        AKLog("Closing MIDI Output '\(String(describing: name))'")
+        AKLog("Closing MIDI Output '\(String(describing: name))'", log: OSLog.midi)
         var result = noErr
         if endpoints[outputUid] != nil {
             endpoints.removeValue(forKey: outputUid)
-            AKLog("Disconnected \(name) and removed it from endpoints")
+            AKLog("Disconnected \(name) and removed it from endpoints", log: OSLog.midi)
             if endpoints.count == 0 {
                 // if there are no more endpoints, dispose of midi output port
                 result = MIDIPortDispose(outputPort)
                 if result == noErr {
-                    AKLog("Disposed MIDI Output port")
+                    AKLog("Disposed MIDI Output port", log: OSLog.midi)
                 } else {
-                    AKLog("Error disposing  MIDI Output port: \(result)")
+                    AKLog("Error disposing  MIDI Output port: \(result)", log: OSLog.midi, type: .error)
                 }
                 outputPort = 0
             }
@@ -250,7 +250,7 @@ extension AKMIDI {
         // the discussion section of MIDIPacketListAdd states that "The maximum
         // size of a packet list is 65536 bytes." Checking for that limit here.
         if bufferSize > 65_536 {
-            AKLog("error sending midi : data array is too large, requires a buffer larger than 65536")
+            AKLog("error sending midi : data array is too large, requires a buffer larger than 65536", log: OSLog.midi, type: .error)
             return
         }
 
@@ -269,14 +269,14 @@ extension AKMIDI {
                 // I would prefer stronger error handling here, perhaps throwing
                 // to force the app developer to handle the error.
                 if nextPacket == nil {
-                    AKLog("error sending midi : Failed to add packet to packet list.")
+                    AKLog("error sending midi: Failed to add packet to packet list.", log: OSLog.midi, type: .error)
                     return
                 }
 
                 for endpoint in endpoints.values {
                     let result = MIDISend(outputPort, endpoint, packetListPointer)
                     if result != noErr {
-                        AKLog("error sending midi : \(result)")
+                        AKLog("error sending midi: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
 
@@ -336,9 +336,8 @@ extension AKMIDI {
         self.sendMessage(message)
     }
 
-    // MARK: -
     // MARK: - Expand api to include MIDITimeStamp
-    // MARK: -
+
     // MARK: - Send a message with MIDITimeStamp
     public func sendNoteOnMessageWithTime(noteNumber: MIDINoteNumber,
                                           velocity: MIDIVelocity,
@@ -369,7 +368,7 @@ extension AKMIDI {
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
-                AKLog("error sending midi : \(result)")
+                AKLog("error sending midi: \(result)", log: OSLog.midi, type: .error)
             }
         }
 

@@ -21,6 +21,7 @@ open class AKAudioUnitManager: NSObject {
     public enum Notification {
         case effectsAvailable(effects: [AVAudioUnitComponent])
         case instrumentsAvailable(instruments: [AVAudioUnitComponent])
+        case midiProcessorsAvailable(midiProcessors: [AVAudioUnitComponent])
         case changed
         case crashed(audioUnit: AUAudioUnit?)
     }
@@ -29,6 +30,7 @@ open class AKAudioUnitManager: NSObject {
     public typealias AKComponentListCallback = ([AVAudioUnitComponent]) -> Void
     public typealias AKEffectCallback = (AVAudioUnit?) -> Void
     public typealias AKInstrumentCallback = (AVAudioUnitMIDIInstrument?) -> Void
+    public typealias AKMIDIProcessorCallback = (AVAudioUnit?) -> Void
     private typealias NotificationCallback = (Notification) -> Void
 
     /// Delegate that will be sent notifications
@@ -61,6 +63,13 @@ open class AKAudioUnitManager: NSObject {
 
     // List of available audio unit components.
     private var _availableInstruments = [AVAudioUnitComponent]()
+
+    // Serializes all access to `_availableMIDIProcessors`.
+    private let availableMIDIProcessorsAccessQueue = DispatchQueue(label:
+        "AKAudioUnitManager.availableMIDIProcessorsAccessQueue")
+
+    // List of available audio unit components.
+    private var _availableMIDIProcessors = [AVAudioUnitComponent]()
 
     // Defaults to a chain of 6 effects
     private var _effectsChain = [AVAudioUnit?](repeating: nil, count: 6)
@@ -144,6 +153,21 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
+    /// `availableMIDIProcessors` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    public var availableMIDIProcessors: [AVAudioUnitComponent] {
+        get {
+            return availableMIDIProcessorsAccessQueue.sync {
+                self._availableMIDIProcessors
+            }
+        }
+
+        set {
+            availableMIDIProcessorsAccessQueue.sync {
+                self._availableMIDIProcessors = newValue
+            }
+        }
+    }
+
     // MARK: - Initialization
 
     /// Initialize the manager with arbritary amount of inserts
@@ -223,6 +247,21 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
+    /// request a list of Instruments and caches the results
+    public func requestMIDIProcessors(completionHandler: AKComponentListCallback? = nil) {
+        AKAudioUnitManager.midiProcessorComponents { components in
+            self.availableMIDIProcessors = components
+
+            DispatchQueue.main.async {
+                // notify delegate
+                self.delegate?.handleAudioUnitManagerNotification(.midiProcessorsAvailable(midiProcessors: self.availableMIDIProcessors),
+                                                                  audioUnitManager: self)
+
+                completionHandler?(self.availableMIDIProcessors)
+            }
+        }
+    }
+
     /// Create an instrument by name. The Audio Unit will be returned in the callback.
     public func createInstrument(name: String, completionHandler: @escaping AKInstrumentCallback) {
         guard let desc = (availableInstruments.first { $0.name == name })?.audioComponentDescription else { return }
@@ -260,8 +299,21 @@ open class AKAudioUnitManager: NSObject {
             completionHandler(audioUnit)
 
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
             completionHandler(nil)
+        }
+    }
+
+    /// Create a MIDI Processor by name. The Audio Unit will be returned in the callback.
+    public func createMIDIProcessor(name: String, completionHandler: @escaping AKMIDIProcessorCallback) {
+        guard let desc = (availableMIDIProcessors.first { $0.name == name })?.audioComponentDescription else { return }
+        AKAudioUnitManager.createMIDIProcessorAudioUnit(desc) { audioUnit in
+            guard let audioUnit = audioUnit else {
+                AKLog("Unable to create audioUnit")
+                completionHandler(nil)
+                return
+            }
+            completionHandler(audioUnit)
         }
     }
 
@@ -288,7 +340,7 @@ open class AKAudioUnitManager: NSObject {
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else {
-            AKLog(index, "index is invalid.")
+            AKLog("\(index) index is invalid.")
             return
         }
 
@@ -327,7 +379,7 @@ open class AKAudioUnitManager: NSObject {
                 self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
             }
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
         }
     }
 

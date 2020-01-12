@@ -88,7 +88,7 @@ open class AKFileClip: NSObject, FileClip {
             self.init(audioFile: audioFile)
             return
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
         return nil
     }

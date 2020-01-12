@@ -25,7 +25,7 @@ public extension AKTable {
                 //AKLog("sample name: \(url), count: \(sample.samplesCount)")
             }
         } catch {
-            AKLog("\(error)")
+            AKLog(error.localizedDescription)
             return nil
         }
 
