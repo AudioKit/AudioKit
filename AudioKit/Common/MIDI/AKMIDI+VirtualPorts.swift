@@ -24,7 +24,7 @@ extension AKMIDI {
 
     /// Create set of virtual input and output MIDI ports
     open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        AKLog("Creating virtual input and output ports")
+        AKLog("Creating virtual input and output ports", log: OSLog.midi)
         destroyVirtualPorts()
         createVirtualInputPort(name: name)
         createVirtualOutputPort(name: name)
@@ -50,7 +50,8 @@ extension AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
-            AKLog("Error Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)")
+            AKLog("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)",
+                log: OSLog.midi, type: .error)
             CheckError(result)
         }
     }
@@ -64,7 +65,8 @@ extension AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
-            AKLog("Error Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)")
+            AKLog("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)",
+                log: OSLog.midi, type: .error)
             CheckError(result)
         }
     }

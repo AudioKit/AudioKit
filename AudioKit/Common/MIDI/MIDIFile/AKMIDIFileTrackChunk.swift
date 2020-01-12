@@ -106,11 +106,11 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         } else if let status = AKMIDIStatusType.from(byte: type) {
                             currentLengthByte = MIDIByte(status.length)
                         } else {
-                            AKLog(("bad midi data - could not determine length of event"))
+                            AKLog("bad midi data - could not determine length of event", log: OSLog.midi)
                             return events
                         }
                     } else {
-                        AKLog(("bad midi data - could not determine type"))
+                        AKLog("bad midi data - could not determine type", log: OSLog.midi)
                         return events
                     }
                     if isNotParsingSysex {
@@ -129,15 +129,15 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
                 }
                 if time != chunkEvent.deltaTime {
-                    AKLog("MIDI File Parser time mismatch \(time) vs. \(chunkEvent.deltaTime)")
+                    AKLog("MIDI File Parser time mismatch \(time) vs. \(chunkEvent.deltaTime)", log: OSLog.midi)
                     break
                 }
                 if type != chunkEvent.typeByte {
-                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))")
+                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))", log: OSLog.midi)
                     break
                 }
                 if length != chunkEvent.length {
-                    AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)")
+                    AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)", log: OSLog.midi)
                     break
                 }
                 accumulatedDeltaTime += chunkEvent.deltaTime

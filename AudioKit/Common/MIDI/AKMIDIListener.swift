@@ -155,7 +155,7 @@ public extension AKMIDIListener {
                             portID: MIDIUniqueID? = nil,
                             offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
+            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -174,7 +174,7 @@ public extension AKMIDIListener {
                              portID: MIDIUniqueID? = nil,
                              offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
+            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -194,7 +194,7 @@ public extension AKMIDIListener {
                                 offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
             AKLog("channel: \(channel) controller: \(controller) value: \(value) " +
-                "port: \(portID ?? 0) offset: \(offset)")
+                "port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -214,7 +214,7 @@ public extension AKMIDIListener {
                                 offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
             AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) " +
-                "pressure: \(pressure) port: \(portID ?? 0) offset: \(offset)")
+                "pressure: \(pressure) port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -232,7 +232,7 @@ public extension AKMIDIListener {
                               offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
             AKLog("channel: \(channel) MIDI Aftertouch pressure: \(pressure) " +
-                "port: \(portID ?? 0) offset: \(offset)")
+                "port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -249,7 +249,7 @@ public extension AKMIDIListener {
                                 portID: MIDIUniqueID? = nil,
                                 offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0) offset: \(offset)")
+          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -266,7 +266,7 @@ public extension AKMIDIListener {
                                    portID: MIDIUniqueID? = nil,
                                    offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0) offset: \(offset)")
+          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0) offset: \(offset)", log: OSLog.midi)
         }
     }
 
@@ -281,25 +281,25 @@ public extension AKMIDIListener {
                                    portID: MIDIUniqueID? = nil,
                                    offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("AKMIDIListener default method")
+            AKLog("AKMIDIListener default method", log: OSLog.midi)
         }
     }
 
     /// MIDI Setup has changed
     func receivedMIDISetupChange() {
         if AKMIDIListenerLogging {
-            AKLog("MIDI Setup Has Changed.")
+            AKLog("MIDI Setup Has Changed.", log: OSLog.midi)
         }
     }
 
     /// MIDI Setup has changed
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
-        AKLog("MIDI Property Has Changed.")
+        AKLog("MIDI Property Has Changed.", log: OSLog.midi)
     }
 
     /// Generic MIDI Notification
     func receivedMIDINotification(notification: MIDINotification) {
-        AKLog("MIDI Notification received.")
+        AKLog("MIDI Notification received.", log: OSLog.midi)
     }
 
     func isEqualTo(_ listener: AKMIDIListener) -> Bool {
