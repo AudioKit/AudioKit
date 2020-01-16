@@ -1,121 +1,57 @@
-AudioKit V4.9
-===
+# AudioKit Frameworks
 
-[![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
-[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/master/LICENSE)
-[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://cocoapods.org/pods/AudioKit)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
-<img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-[![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
+AudioKit is distributed as a couple of universal static frameworks with minimal dependencies on all supported platforms. This makes AudioKit easy to integrate within your own projects.
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your deployment target needs to be set to at least one of these versions to link with AudioKit.
 
-| [AudioKitPro.com](http://audiokitpro.com/)|[AudioKit.io](http://audiokit.io/)|
-|:--:|:--:|
-| Features, News, Blog, and Highlighted Apps | Developer Documentation |
-| [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
+## Using the compiled frameworks in your projects
 
-## Sponsor AudioKit!
+* Select the target in your Xcode project that will link with AudioKit.
+* Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
+* When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
+* Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
+* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
+* For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
+* Also for **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
+* For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
 
-If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
+## Alternative: include the AudioKit library from source
 
-## Key Concepts
+This may be the preferred method if you need to debug or develop code in AudioKit, as Xcode is still notoriously bad at handling precompiled Swift frameworks in other projects.
 
-| Nodes | Operations | Taps |
-|-------|------------|------|
-| Nodes are interconnectable signal processing components.  Each node has an output and usually some parameters.  If the nodes processes another signal, the nodes will also have an `input`. | Operations are similar to nodes, except that they are signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes. This allows a tap to be moved from node to node more freely and to be added after the audio signal path has started.
+You may obtain the source code archive directly from [GitHub](https://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 
-## Installation
+* Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
+* In the **Build Phases** tab, add `AudioKit.framework` in **Target Dependencies** for your target. Also add `AudioKitUI.framework` as needed.
+* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
+* For **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 
-Installation details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
+## Building universal frameworks from scratch
 
-AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
+If you are tinkering with AudioKit itself, you may also want to build a set of universal frameworks from source. We provide a script to do just that, which is how the actual binaries are produced for each new release of AudioKit.
 
-```
-    pod 'AudioKit', '~> 4.0'
-```
+Go to the `Frameworks` directory and run the `./build_frameworks.sh` script. You will need to have the Xcode command line tools installed. Optionally, install the `xcpretty` Ruby gem to prettify the ouput.
 
-If you do not need the UI components, you can select just the Core pod, like so:
+The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directory, where platform is one of iOS, tvOS or macOS. Note that when building from source, all included examples assume that the frameworks have been previously built in this location.
 
-```
-   pod 'AudioKit/Core'
-```
+Optionally, you may restrict which platforms to build the frameworks for by setting the `PLATFORMS` environment variable prior to calling the script. The following example only builds for iOS and tvOS, skipping macOS:
 
-You can also use [Carthage](https://github.com/Carthage/Carthage) (v0.30 or higher) to install our precompiled static frameworks in your project.
+`PLATFORMS="iOS tvOS" ./build_frameworks.sh`
 
-## Example Code
-There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
+## Distribution to other projects
 
-For Hello World, you only need to understand a few lines of code:
+**Current this is only enabled for iOS, but it's easy for you to improve this for other targets** 
 
-| Code                                           | Description                  |
-|------------------------------------------------|------------------------------|
-| `var oscillator = AKOscillator()`              | Create the sound generator   |
-| `AudioKit.output = oscillator`                 | Tell AudioKit what to output |
-| `AudioKit.start()`                             | Start up AudioKit            |
-| `oscillator.start()`                           | Start the oscillator         |
-| `oscillator.frequency = random(in: 220...880)` | Set oscillator parameters    |
-| `oscillator.stop()`                            | Stop the oscillator          |
+For people who want to build AudioKit in one directory then copy it into another project, there is an optional script, `distribute_built_frameworks.sh` that you can use to perform this copy at the end of `./build_frameworks.sh`.  
 
-## Playgrounds
+* First edit the example to copy the framework to your desired location:
 
-<table>
-<tr>
-<td>
-Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over 100 playgrounds which cover basic tutorials, synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
+    `pico distribute_built_frameworks.sh_example`
+    
+* Next move the example to enable the script:
 
-We provide all playgrounds as a macOS project that is ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn AudioKit's API in a fun way!
+    `mv distribute_built_frameworks.sh_example distribute_built_frameworks.sh`
 
-We have videos of most of the playgrounds in action, so you don't need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
-</td>
-<td width=320 align=right>
+Now, each time you run `./build_frameworks.sh`, it will copy the framework to your desired location.
 
-[![Playgrounds](http://audiokit.io/examples/playgrounds.jpg)](http://audiokit.io/playgrounds/)
-
-</td>
-</tr>
-</table>
-
-## Ray Wenderlich's AudioKit Tutorial
-
-
-Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
-
-## Getting help
-
-Here are three methods for getting support which are roughly listed in order of what you should try first:
-
-1. Post your problem to [StackOverflow with the #AudioKit hashtag](https://stackoverflow.com/questions/tagged/audiokit).
-
-2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
-
-3. If you are pretty sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
-
-
-## Contributing Code
-
-AudioKit is always being improved by our core team and our users.   [This is a rough outline of what we're working on currently.](https://github.com/audiokit/AudioKit/projects)
-
-When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
-
-## About Us
-
-AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/analogcode) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
-
-But, there are many other important people in our family:
-
-| Group | Description |
-|-------|-------------|
-|[Core Team](https://github.com/orgs/AudioKit/people)                    | The biggest contributors to AudioKit! |
-|[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
-|[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
-|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
-
-### Contributors
-
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
-<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
-
-
+`distribute_built_frameworks.sh` is in the .gitignore file so that you don't share your distribution process to other developers.
