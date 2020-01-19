@@ -6,7 +6,11 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your d
 
 ## Using the compiled frameworks in your projects
 
+<img src="DragAndDropFrameworks.gif"/>
+
+
 * Select the target in your Xcode project that will link with AudioKit.
+* Go to [AudoKit Downloads](https://audiokit.io/downloads/) and download the AudioKit-\*.zip archives that contain universal precompiled frameworks to be able to drag and drop them in the project folder.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
