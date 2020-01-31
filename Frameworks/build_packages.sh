@@ -102,4 +102,10 @@ rm -f ${SUBDIR}/AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
 zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
+cd ..
 
+if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
+	echo "Packaging the XCFrameworks ..."
+	rm -f ${SUBDIR}/AudioKit.xcframework.zip
+	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+fi
