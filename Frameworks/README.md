@@ -42,6 +42,12 @@ Optionally, you may restrict which platforms to build the frameworks for by sett
 
 `PLATFORMS="iOS tvOS" ./build_frameworks.sh`
 
+## Universal XCFramework on Xcode 11 / Catalina
+
+If you are running at least macOS 10.15 (Catalina), you can now build XCFramework archives containing all supported platforms in a singular archive - including the Mac Catalyst versions.
+
+Note that these can only be built on a Mac running Catalina, and the `build_frameworks.sh` script only creates this if all platforms were built (the default), i.e. xcframework archives won't be generated if you're only building a subset of the platforms.
+
 ## Distribution to other projects
 
 **Current this is only enabled for iOS, but it's easy for you to improve this for other targets** 
