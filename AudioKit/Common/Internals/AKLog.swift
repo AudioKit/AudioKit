@@ -28,7 +28,7 @@ extension OSLog {
 /// but that might be removed if it shows any negative performance impact (Apple recommends against it).
 ///
 /// Parameters:
-///     - message:  Output message, should be very detailed
+///     - items:  Output message or variable list of objects
 ///     - log: One of the log types from the Log struct, defaults to .general
 ///     - type: OSLogType, defaults to .info
 ///     - file:  Filename from the log message, should  not be set explicitly
@@ -36,13 +36,20 @@ extension OSLog {
 ///     - line: Line number of the log method, should  not be set explicitly
 ///
 @inline(__always)
-public func AKLog(_ message: String,
+public func AKLog(_ items: Any?...,
                   log: OSLog = OSLog.general,
                   type: OSLogType = .info,
                   file: String = #file,
                   function: String = #function,
                   line: Int = #line) {
     guard AKSettings.enableLogging else { return }
+
     let fileName = (file as NSString).lastPathComponent
+    let content = (items.map {
+        String(describing: ($0 ?? "nil"))
+    }).joined(separator: " ")
+
+    let message = "\(fileName):\(function):\(line):\(content)"
+
     os_log("%s (%s:%s:%d)", log: log, type: type, message, fileName, function, line)
 }
