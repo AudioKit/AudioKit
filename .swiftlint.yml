@@ -26,7 +26,9 @@ identifier_name:
     - 1 # warning
 
 force_cast: warning
-empty_count: warning
+empty_count:
+  severity: warning
+  warning: 10
 force_try: warning
 
 cyclomatic_complexity:
