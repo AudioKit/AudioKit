@@ -10,6 +10,8 @@ DerivedData/
 *.xccheckout
 *.xctimeline
 *.o
+*.log
+*.xcframework
 project.xcworkspace/
 xcuserdata/
 xcodebuild

@@ -36,6 +36,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
         return "Unhandled event \(data)"
     }
 
+    #if swift(>=5.2)
+    // This method CRASHES the LLVM compiler with Swift version 5.1 and "Build Libraries for Distribution" turned on
     /// Internal MIDIByte-sized packets - in development / not used yet
     public var internalPackets: [[MIDIByte]] {
         var splitData = [[MIDIByte]]()
@@ -48,7 +50,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
         }
         return splitData
     }
-
+    #endif
+    
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     public var length: Int {
         return data.count
