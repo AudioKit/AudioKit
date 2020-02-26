@@ -93,7 +93,8 @@ namespace AudioKitCore
                               float keyTracking,
                               float cutoffEnvelopeStrength,
                               float cutoffEnvelopeVelocityScaling,
-                              float resLinear);
+                              float resLinear,
+                              float pitchEGAmount);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
     };
