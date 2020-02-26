@@ -39,7 +39,7 @@
     fileprivate var pitchDecayDurationParameter: AUParameter?
     fileprivate var pitchSustainLevelParameter: AUParameter?
     fileprivate var pitchReleaseDurationParameter: AUParameter?
-    fileprivate var pitchEGAmountParameter: AUParameter?
+    fileprivate var pitchADSRSemitonesParameter: AUParameter?
 
     fileprivate var filterEnableParameter: AUParameter?
     fileprivate var loopThruReleaseParameter: AUParameter?
@@ -250,10 +250,10 @@
     }
 
     /// Pitch EG Amount duration (semitones)
-    @objc open dynamic var pitchEGAmount: Double = 0.0 {
+    @objc open dynamic var pitchADSRSemitones: Double = 0.0 {
         willSet {
-            guard pitchEGAmount != newValue else { return }
-            internalAU?.pitchEGAmount = newValue
+            guard pitchADSRSemitones != newValue else { return }
+            internalAU?.pitchADSRSemitones = newValue
         }
     }
 
@@ -356,7 +356,7 @@
         pitchDecayDuration: Double = 0.0,
         pitchSustainLevel: Double = 0.0,
         pitchReleaseDuration: Double = 0.0,
-        pitchEGAmount: Double = 0.0,
+        pitchADSRSemitones: Double = 0.0,
         glideRate: Double = 0.0,
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
@@ -383,7 +383,7 @@
         self.pitchDecayDuration = pitchDecayDuration
         self.pitchSustainLevel = pitchSustainLevel
         self.pitchReleaseDuration = pitchReleaseDuration
-        self.pitchEGAmount = pitchEGAmount
+        self.pitchADSRSemitones = pitchADSRSemitones
         self.glideRate = glideRate
         self.loopThruRelease = loopThruRelease
         self.isMonophonic = isMonophonic
@@ -429,7 +429,7 @@
         self.pitchDecayDurationParameter = tree["pitchDecayDuration"]
         self.pitchSustainLevelParameter = tree["pitchSustainLevel"]
         self.pitchReleaseDurationParameter = tree["pitchReleaseDuration"]
-        self.pitchEGAmountParameter = tree["pitchEGAmount"]
+        self.pitchADSRSemitonesParameter = tree["pitchADSRSemitones"]
         self.glideRateParameter = tree["glideRate"]
         self.loopThruReleaseParameter = tree["loopThruRelease"]
         self.monophonicParameter = tree["monophonic"]
@@ -456,7 +456,7 @@
         self.internalAU?.setParameterImmediately(.pitchDecayDuration, value: pitchDecayDuration)
         self.internalAU?.setParameterImmediately(.pitchSustainLevel, value: pitchSustainLevel)
         self.internalAU?.setParameterImmediately(.pitchReleaseDuration, value: pitchReleaseDuration)
-        self.internalAU?.setParameterImmediately(.pitchEGAmount, value: pitchEGAmount)
+        self.internalAU?.setParameterImmediately(.pitchADSRSemitones, value: pitchADSRSemitones)
         self.internalAU?.setParameterImmediately(.glideRate, value: glideRate)
         self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)

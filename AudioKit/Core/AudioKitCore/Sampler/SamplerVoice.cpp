@@ -132,7 +132,7 @@ namespace AudioKitCore
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
                                         float cutoffMultiple, float keyTracking,
                                         float cutoffEnvelopeStrength, float cutoffEnvelopeVelocityScaling,
-                                        float resLinear, float pitchEGAmount)
+                                        float resLinear, float pitchADSRSemitones)
     {
         if (adsrEnvelope.isIdle()) return true;
 
@@ -176,7 +176,7 @@ namespace AudioKitCore
 
         float pitchCurveAmount = 1.0f; // >1 = faster curve, 0 < curve < 1 = slower curve - make this a parameter
         if (pitchCurveAmount < 0) { pitchCurveAmount = 0; }
-        pitchEnvelopeSemitones = pow(pitchEnvelope.getSample(), pitchCurveAmount) * pitchEGAmount;
+        pitchEnvelopeSemitones = pow(pitchEnvelope.getSample(), pitchCurveAmount) * pitchADSRSemitones;
 
         float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones;
         oscillator.setPitchOffsetSemitones(pitchOffsetModified);

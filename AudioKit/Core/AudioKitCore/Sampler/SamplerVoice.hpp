@@ -94,7 +94,7 @@ namespace AudioKitCore
                               float cutoffEnvelopeStrength,
                               float cutoffEnvelopeVelocityScaling,
                               float resLinear,
-                              float pitchEGAmount);
+                              float pitchADSRSemitones);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
     };
