@@ -43,6 +43,9 @@ namespace AudioKitCore
         /// will reduce to zero during glide
         float glideSemitones;
 
+        /// will reduce to zero during glide
+        float pitchEnvelopeSemitones;
+
         /// fraction 0.0 - 1.0, based on MIDI velocity
         float noteVolume;
 
@@ -69,6 +72,7 @@ namespace AudioKitCore
 
         void updateAmpAdsrParameters() { adsrEnvelope.updateParams(); }
         void updateFilterAdsrParameters() { filterEnvelope.updateParams(); }
+        void updatePitchAdsrParameters() { pitchEnvelope.updateParams(); }
         
         void start(unsigned noteNumber,
                    float sampleRate,
