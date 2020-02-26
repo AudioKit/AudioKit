@@ -141,8 +141,8 @@ protected:
     // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
     float linearResonance;
 
-    // how much pitch EG adds on top of pitch
-    float pitchEnvelopeStrength;
+    // how much pitch ADSR adds on top of pitch
+    float pitchADSRSemitones;
     
     // sample-related parameters
     
