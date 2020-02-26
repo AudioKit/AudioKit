@@ -35,6 +35,12 @@
     fileprivate var filterSustainLevelParameter: AUParameter?
     fileprivate var filterReleaseDurationParameter: AUParameter?
 
+    fileprivate var pitchAttackDurationParameter: AUParameter?
+    fileprivate var pitchDecayDurationParameter: AUParameter?
+    fileprivate var pitchSustainLevelParameter: AUParameter?
+    fileprivate var pitchReleaseDurationParameter: AUParameter?
+    fileprivate var pitchEGAmountParameter: AUParameter?
+
     fileprivate var filterEnableParameter: AUParameter?
     fileprivate var loopThruReleaseParameter: AUParameter?
     fileprivate var monophonicParameter: AUParameter?
@@ -211,6 +217,46 @@
         }
     }
 
+    /// Pitch attack duration (seconds)
+    @objc open dynamic var pitchAttackDuration: Double = 0.0 {
+        willSet {
+            guard pitchAttackDuration != newValue else { return }
+            internalAU?.pitchAttackDuration = newValue
+        }
+    }
+
+    /// Pitch Decay duration (seconds)
+    @objc open dynamic var pitchDecayDuration: Double = 0.0 {
+        willSet {
+            guard pitchDecayDuration != newValue else { return }
+            internalAU?.pitchDecayDuration = newValue
+        }
+    }
+
+    /// Pitch sustain level (fraction)
+    @objc open dynamic var pitchSustainLevel: Double = 1.0 {
+        willSet {
+            guard pitchSustainLevel != newValue else { return }
+            internalAU?.pitchSustainLevel = newValue
+        }
+    }
+
+    /// Pitch Release duration (seconds)
+    @objc open dynamic var pitchReleaseDuration: Double = 0.0 {
+        willSet {
+            guard pitchReleaseDuration != newValue else { return }
+            internalAU?.pitchReleaseDuration = newValue
+        }
+    }
+
+    /// Pitch EG Amount duration (semitones)
+    @objc open dynamic var pitchEGAmount: Double = 0.0 {
+        willSet {
+            guard pitchEGAmount != newValue else { return }
+            internalAU?.pitchEGAmount = newValue
+        }
+    }
+
     /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var filterEnable: Bool = false {
         willSet {
@@ -279,6 +325,10 @@
     ///   - filterDecayDuration: seconds, 0.0 - 10.0
     ///   - filterSustainLevel: 0.0 - 1.0
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
+    ///   - pitchAttackDuration: seconds, 0.0 - 10.0
+    ///   - pitchDecayDuration: seconds, 0.0 - 10.0
+    ///   - pitchSustainLevel: 0.0 - 1.0
+    ///   - pitchReleaseDuration: seconds, 0.0 - 10.0
     ///   - glideRate: seconds/octave, 0.0 - 10.0
     ///   - loopThruRelease: if true, sample will continue looping after key release
     ///   - isMonophonic: true for mono, false for polyphonic
@@ -302,6 +352,11 @@
         filterDecayDuration: Double = 0.0,
         filterSustainLevel: Double = 1.0,
         filterReleaseDuration: Double = 0.0,
+        pitchAttackDuration: Double = 0.0,
+        pitchDecayDuration: Double = 0.0,
+        pitchSustainLevel: Double = 0.0,
+        pitchReleaseDuration: Double = 0.0,
+        pitchEGAmount: Double = 0.0,
         glideRate: Double = 0.0,
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
@@ -324,6 +379,11 @@
         self.filterDecayDuration = filterDecayDuration
         self.filterSustainLevel = filterSustainLevel
         self.filterReleaseDuration = filterReleaseDuration
+        self.pitchAttackDuration = pitchAttackDuration
+        self.pitchDecayDuration = pitchDecayDuration
+        self.pitchSustainLevel = pitchSustainLevel
+        self.pitchReleaseDuration = pitchReleaseDuration
+        self.pitchEGAmount = pitchEGAmount
         self.glideRate = glideRate
         self.loopThruRelease = loopThruRelease
         self.isMonophonic = isMonophonic
@@ -365,6 +425,11 @@
         self.filterSustainLevelParameter = tree["filterSustainLevel"]
         self.filterReleaseDurationParameter = tree["filterReleaseDuration"]
         self.filterEnableParameter = tree["filterEnable"]
+        self.pitchAttackDurationParameter = tree["pitchAttackDuration"]
+        self.pitchDecayDurationParameter = tree["pitchDecayDuration"]
+        self.pitchSustainLevelParameter = tree["pitchSustainLevel"]
+        self.pitchReleaseDurationParameter = tree["pitchReleaseDuration"]
+        self.pitchEGAmountParameter = tree["pitchEGAmount"]
         self.glideRateParameter = tree["glideRate"]
         self.loopThruReleaseParameter = tree["loopThruRelease"]
         self.monophonicParameter = tree["monophonic"]
@@ -387,6 +452,11 @@
         self.internalAU?.setParameterImmediately(.filterSustainLevel, value: filterSustainLevel)
         self.internalAU?.setParameterImmediately(.filterReleaseDuration, value: filterReleaseDuration)
         self.internalAU?.setParameterImmediately(.filterEnable, value: filterEnable ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.pitchAttackDuration, value: pitchAttackDuration)
+        self.internalAU?.setParameterImmediately(.pitchDecayDuration, value: pitchDecayDuration)
+        self.internalAU?.setParameterImmediately(.pitchSustainLevel, value: pitchSustainLevel)
+        self.internalAU?.setParameterImmediately(.pitchReleaseDuration, value: pitchReleaseDuration)
+        self.internalAU?.setParameterImmediately(.pitchEGAmount, value: pitchEGAmount)
         self.internalAU?.setParameterImmediately(.glideRate, value: glideRate)
         self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
