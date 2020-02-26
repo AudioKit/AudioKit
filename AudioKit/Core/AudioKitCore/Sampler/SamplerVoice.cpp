@@ -136,11 +136,13 @@ namespace AudioKitCore
     {
         if (adsrEnvelope.isIdle()) return true;
 
-        if (adsrEnvelope.isPreStarting())
+        if (adsrEnvelope.isPreStarting()) //FIXME: EXHIBIT A
         {
             tempGain = masterVolume * tempNoteVolume;
             volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
-            if (!adsrEnvelope.isPreStarting())
+            // FIXME - is the following 'if' code (Exhibit B) ever executed if previous
+            // 'if (adsrEnvelope.isPreStarting())' (Exhibit A) has already been checked, and is true?
+            if (!adsrEnvelope.isPreStarting()) //FIXME: EXHIBIT B
             {
                 tempGain = masterVolume * noteVolume;
                 volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
