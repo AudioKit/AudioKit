@@ -199,7 +199,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterPitchReleaseDuration:
             setPitchReleaseDurationSeconds(value);
             break;
-        case AKSamplerParameterPitchEGAmount:
+        case AKSamplerParameterPitchADSRSemitones:
             pitchStrengthRamp.setTarget(value, immediate);
             break;
 
@@ -272,7 +272,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return getPitchSustainFraction();
         case AKSamplerParameterPitchReleaseDuration:
             return getPitchReleaseDurationSeconds();
-        case AKSamplerParameterPitchEGAmount:
+        case AKSamplerParameterPitchADSRSemitones:
             return pitchStrengthRamp.getTarget();
 
         case AKSamplerParameterFilterEnable:

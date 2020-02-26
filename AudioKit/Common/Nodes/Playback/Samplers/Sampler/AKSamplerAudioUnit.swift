@@ -98,8 +98,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.pitchReleaseDuration, value: pitchReleaseDuration) }
     }
 
-    var pitchEGAmount: Double = 0.0 {
-        didSet { setParameter(.pitchEGAmount, value: pitchEGAmount) }
+    var pitchADSRSemitones: Double = 0.0 {
+        didSet { setParameter(.pitchADSRSemitones, value: pitchADSRSemitones) }
     }
 
     var filterEnable: Double = 0.0 {
@@ -338,8 +338,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchEGAmountParameter = AUParameter(
-            identifier: "pitchEGAmount",
+        let pitchADSRSemitonesParameter = AUParameter(
+            identifier: "pitchADSRSemitones",
             name: "Pitch EG Amount",
             address: parameterAddress,
             range: -100.0...100.0,
@@ -416,7 +416,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    pitchDecayDurationParameter,
                                                                    pitchSustainLevelParameter,
                                                                    pitchReleaseDurationParameter,
-                                                                   pitchEGAmountParameter,
+                                                                   pitchADSRSemitonesParameter,
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
                                                                    legatoParameter,
@@ -442,7 +442,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         pitchDecayDurationParameter.value = 0.0
         pitchSustainLevelParameter.value = 0.0
         pitchReleaseDurationParameter.value = 0.0
-        pitchEGAmountParameter.value = 0.0
+        pitchADSRSemitonesParameter.value = 0.0
         loopThruReleaseParameter.value = 0.0
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0

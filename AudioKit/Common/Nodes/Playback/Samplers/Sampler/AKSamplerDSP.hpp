@@ -35,7 +35,7 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterPitchDecayDuration,
     AKSamplerParameterPitchSustainLevel,
     AKSamplerParameterPitchReleaseDuration,
-    AKSamplerParameterPitchEGAmount,
+    AKSamplerParameterPitchADSRSemitones,
     AKSamplerParameterLoopThruRelease,
     AKSamplerParameterMonophonic,
     AKSamplerParameterLegato,
