@@ -172,7 +172,9 @@ namespace AudioKitCore
             }
         }
 
-        pitchEnvelopeSemitones = pitchEnvelope.getSample() * pitchEGAmount;
+        float pitchCurveAmount = 1.0f; // >1 = faster curve, 0 < curve < 1 = slower curve - make this a parameter
+        if (pitchCurveAmount < 0) { pitchCurveAmount = 0; }
+        pitchEnvelopeSemitones = pow(pitchEnvelope.getSample(), pitchCurveAmount) * pitchEGAmount;
 
         float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones;
         oscillator.setPitchOffsetSemitones(pitchOffsetModified);
