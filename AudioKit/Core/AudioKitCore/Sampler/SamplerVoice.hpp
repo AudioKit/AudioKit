@@ -29,7 +29,7 @@ namespace AudioKitCore
 
         /// two filters (left/right)
         ResonantLowPassFilter leftFilter, rightFilter;
-        ADSREnvelope adsrEnvelope, filterEnvelope;
+        ADSREnvelope adsrEnvelope, filterEnvelope, pitchEnvelope;
 
         /// common glide rate, seconds per octave
         float *glideSecPerOctave;
