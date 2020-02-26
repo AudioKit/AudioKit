@@ -43,7 +43,7 @@ namespace AudioKitCore
         /// will reduce to zero during glide
         float glideSemitones;
 
-        /// will reduce to zero during glide
+        /// amount of semitone change via pitch envelope
         float pitchEnvelopeSemitones;
 
         /// fraction 0.0 - 1.0, based on MIDI velocity
