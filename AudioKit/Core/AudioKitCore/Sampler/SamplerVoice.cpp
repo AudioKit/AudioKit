@@ -20,6 +20,7 @@ namespace AudioKitCore
         rightFilter.init(sampleRate);
         adsrEnvelope.init();
         filterEnvelope.init();
+        pitchEnvelope.init();
         volumeRamper.init(0.0f);
         tempGain = 0.0f;
     }
@@ -40,7 +41,11 @@ namespace AudioKitCore
         leftFilter.updateSampleRate(double(samplingRate));
         rightFilter.updateSampleRate(double(samplingRate));
         filterEnvelope.start();
-        
+
+        pitchEnvelope.start();
+
+        pitchEnvelopeSemitones = 0.0f;
+
         glideSemitones = 0.0f;
         if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
         {
@@ -66,6 +71,9 @@ namespace AudioKitCore
             glideSemitones = -12.0f * log2f(frequency / noteFrequency);
             if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
         }
+
+        pitchEnvelopeSemitones = 0.0f;
+
         noteFrequency = frequency;
         noteNumber = note;
         tempNoteVolume = noteVolume;
@@ -73,6 +81,7 @@ namespace AudioKitCore
         adsrEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
+        pitchEnvelope.restart();
     }
 
     void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
@@ -100,6 +109,7 @@ namespace AudioKitCore
         adsrEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
+        pitchEnvelope.restart();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
@@ -107,6 +117,7 @@ namespace AudioKitCore
         if (!loopThruRelease) oscillator.isLooping = false;
         adsrEnvelope.release();
         filterEnvelope.release();
+        pitchEnvelope.release();
     }
     
     void SamplerVoice::stop()
@@ -115,6 +126,7 @@ namespace AudioKitCore
         adsrEnvelope.reset();
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
+        pitchEnvelope.reset();
     }
 
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
@@ -159,7 +171,11 @@ namespace AudioKitCore
                 if (glideSemitones < 0.0f) glideSemitones = 0.0f;
             }
         }
-        oscillator.setPitchOffsetSemitones(pitchOffset + glideSemitones);
+
+        pitchEnvelopeSemitones = pitchEnvelope.getSample();
+
+        float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones;
+        oscillator.setPitchOffsetSemitones(pitchOffsetModified);
 
         // negative value of cutoffMultiple means filters are disabled
         if (cutoffMultiple < 0.0f)
@@ -169,7 +185,7 @@ namespace AudioKitCore
         else
         {
             isFilterEnabled = true;
-            float noteHz = noteFrequency * powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
+            float noteHz = noteFrequency * powf(2.0f, (pitchOffsetModified) / 12.0f);
             float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteHz - MIDDLE_C_HZ);
             float envStrength = ((1.0f - cutoffEnvelopeVelocityScaling) + cutoffEnvelopeVelocityScaling * noteVolume);
             double cutoffFrequency = baseFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * envStrength * filterEnvelope.getSample());
