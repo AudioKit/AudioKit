@@ -110,7 +110,7 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     filterCutoffRamp.setTarget(4, true);
     filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
-    pitchStrengthRamp.setTarget(1.0, true);
+    pitchADSRSemitonesRamp.setTarget(1.0, true);
     glideRateRamp.setTarget(0.0, true);
 }
 
@@ -135,7 +135,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             filterCutoffRamp.setRampDuration(value, sampleRate);
             filterStrengthRamp.setRampDuration(value, sampleRate);
             filterResonanceRamp.setRampDuration(value, sampleRate);
-            pitchStrengthRamp.setRampDuration(value, sampleRate);
+            pitchADSRSemitonesRamp.setRampDuration(value, sampleRate);
             glideRateRamp.setRampDuration(value, sampleRate);
             break;
 
@@ -200,7 +200,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             setPitchReleaseDurationSeconds(value);
             break;
         case AKSamplerParameterPitchADSRSemitones:
-            pitchStrengthRamp.setTarget(value, immediate);
+            pitchADSRSemitonesRamp.setTarget(value, immediate);
             break;
 
         case AKSamplerParameterFilterEnable:
@@ -273,7 +273,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
         case AKSamplerParameterPitchReleaseDuration:
             return getPitchReleaseDurationSeconds();
         case AKSamplerParameterPitchADSRSemitones:
-            return pitchStrengthRamp.getTarget();
+            return pitchADSRSemitonesRamp.getTarget();
 
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
@@ -342,8 +342,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         filterResonanceRamp.advanceTo(now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
         
-        pitchStrengthRamp.advanceTo(now + frameOffset);
-        pitchEnvelopeStrength = (float)pitchStrengthRamp.getValue();
+        pitchADSRSemitonesRamp.advanceTo(now + frameOffset);
+        pitchADSRSemitones = (float)pitchADSRSemitonesRamp.getValue();
 
         glideRateRamp.advanceTo(now + frameOffset);
         glideRate = (float)glideRateRamp.getValue();

@@ -79,7 +79,7 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
-    AKLinearParameterRamp pitchStrengthRamp;
+    AKLinearParameterRamp pitchADSRSemitonesRamp;
     AKLinearParameterRamp glideRateRamp;
     
     AKSamplerDSP();
