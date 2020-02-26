@@ -329,6 +329,7 @@
     ///   - pitchDecayDuration: seconds, 0.0 - 10.0
     ///   - pitchSustainLevel: 0.0 - 1.0
     ///   - pitchReleaseDuration: seconds, 0.0 - 10.0
+    ///   - pitchADSRSemitones: semitones, -100.0 - 100.0   
     ///   - glideRate: seconds/octave, 0.0 - 10.0
     ///   - loopThruRelease: if true, sample will continue looping after key release
     ///   - isMonophonic: true for mono, false for polyphonic
