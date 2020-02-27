@@ -106,7 +106,7 @@ extension AKPlayer {
         // Only do this if it's realtime playback, as Timers aren't running
         // anyway offline.
         if time > 0 && renderingMode == .realtime {
-            AKLog("starting stopEnvelopeTime fade of", time)
+            AKLog("starting stopEnvelopeTime fade of \(time)")
 
             // stop after an auto fade out
             super.fadeOut(with: time)
@@ -147,11 +147,15 @@ extension AKPlayer {
 
             if audioTime.isSampleTimeValid {
                 let adjustedFrames = Double(audioTime.sampleTime) * _rate
-                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+                scheduleTime = AVAudioTime(hostTime: refTime,
+                                           sampleTime: AVAudioFramePosition(adjustedFrames),
+                                           atRate: sampleRate)
 
             } else if audioTime.isHostTimeValid {
                 let adjustedFrames = (audioTime.toSeconds(hostTime: refTime) * _rate) * sampleRate
-                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+                scheduleTime = AVAudioTime(hostTime: refTime,
+                                           sampleTime: AVAudioFramePosition(adjustedFrames),
+                                           atRate: sampleRate)
             }
         }
         if isBuffered {
@@ -205,7 +209,7 @@ extension AKPlayer {
 
         let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
-            AKLog("Unable to schedule file. totalFrames to play is \(totalFrames). audioFile.length is", audioFile.length)
+            AKLog("Unable to schedule file. totalFrames to play is \(totalFrames). audioFile.length is \(audioFile.length)")
             return
         }
 

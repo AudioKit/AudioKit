@@ -124,7 +124,7 @@ extension AKSampler {
                 }
             }
         } catch {
-            AKLog(error)
+            AKLog("Could not load SFZ: \(error.localizedDescription)")
         }
 
         buildKeyMap()

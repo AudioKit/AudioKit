@@ -12,7 +12,7 @@ public protocol Aliased {
 }
 
 /// Helpful in reducing repetitive code in AudioKit
-public protocol AUComponent: class, Aliased {
+public protocol AUComponent: AnyObject, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 

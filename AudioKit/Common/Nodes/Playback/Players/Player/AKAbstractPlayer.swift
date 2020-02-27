@@ -6,9 +6,7 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-/**
- Psuedo abstract base class for players that wish to use AKFader based automation.
- */
+/// Psuedo abstract base class for players that wish to use AKFader based automation.
 open class AKAbstractPlayer: AKNode {
     /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
@@ -233,7 +231,7 @@ open class AKAbstractPlayer: AKNode {
                 fadeFrom = value * ratio
                 inTime -= fade.inTimeOffset
 
-                AKLog("In middle of a fade IN... adjusted inTime to", inTime)
+                AKLog("In middle of a fade in... adjusted inTime to \(inTime)")
             } else {
                 // set immediately to 0
                 faderNode.gain = Fade.minimumGain
@@ -241,7 +239,7 @@ open class AKAbstractPlayer: AKNode {
 
             let rampSamples = AUAudioFrameCount(inTime * sampleRate)
 
-            AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples, "fadeFrom", fadeFrom, "fade.inTimeOffset", fade.inTimeOffset)
+            AKLog("Scheduling fade IN to value: \(value) at inTimeInSamples \(inTimeInSamples) rampDuration \(rampSamples) fadeFrom \(fadeFrom) fade.inTimeOffset \(fade.inTimeOffset)")
 
             // inTimeInSamples
             faderNode.addAutomationPoint(value: fadeFrom,
@@ -278,7 +276,7 @@ open class AKAbstractPlayer: AKNode {
                     newOutTime -= (duration - endTime)
                 }
 
-                AKLog("In middle of a fade out... adjusted outTime to", newOutTime)
+                AKLog("In middle of a fade out... adjusted outTime to \(newOutTime)")
 
                 outTimeInSamples = 0
 
@@ -294,7 +292,7 @@ open class AKAbstractPlayer: AKNode {
                 outOffset = frameOffset
 
             } else if inTime == 0 {
-                AKLog("reset to ", fade.maximumGain, "if there is no fade in or are past it")
+                AKLog("reset to \(fade.maximumGain) if there is no fade in or are past it")
                 // inTimeInSamples
                 faderNode.addAutomationPoint(value: fade.maximumGain,
                                              at: AUEventSampleTimeImmediate,
@@ -308,7 +306,7 @@ open class AKAbstractPlayer: AKNode {
 
             let value = Fade.minimumGain
 
-            AKLog("Scheduling fade OUT (\(outTime) sec) to value:", value, "at outTimeInSamples", outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples)
+            AKLog("Scheduling fade OUT (\(outTime) sec) to value: \(value) at outTimeInSamples \(outTimeInSamples) fadeLengthInSamples \(fadeLengthInSamples)")
             faderNode.addAutomationPoint(value: value,
                                          at: outTimeInSamples + outOffset,
                                          anchorTime: audioTime.sampleTime,

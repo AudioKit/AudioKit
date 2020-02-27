@@ -24,31 +24,6 @@ public typealias AKCCallback = @convention(block) () -> Void
 /// Callback function that can be called from C
 public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
 
-// extension Collection {
-//    /// Return a random element from the collection
-//    public var randomIndex: Index {
-//        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
-//        return index(startIndex, offsetBy: offset)
-//    }
-// }
-
-// extension Collection where Element == CGPoint {
-//
-//    public func bezier() -> NSBezierPath {
-//        let path = NSBezierPath()
-//
-//        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
-//        path.move(to: fst)
-//
-//        dropFirst().forEach {
-//            path.line(to: $0)
-//        }
-//
-//        path.close()
-//        return path
-//    }
-// }
-
 extension AudioUnitParameterOptions {
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
 }
@@ -79,24 +54,6 @@ public func fourCC(_ string: String) -> UInt32 {
         out |= UInt32(char)
     }
     return out
-}
-
-/// Wrapper for printing out status messages to the console,
-/// eventually it could be expanded with log levels
-/// - items: Zero or more items to print.
-///
-@inline(__always)
-public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any?...) {
-    guard AKSettings.enableLogging else { return }
-    let fileName = (file as NSString).lastPathComponent
-    let content = (items.map {
-        if let item = $0 {
-            return String(describing: item)
-        } else {
-            return "nil"
-        }
-    }).joined(separator: " ")
-    Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
 
 /// Random double between bounds
@@ -177,7 +134,7 @@ extension Double {
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
         // Avoiding division by zero in this trivial case
-        if range.upperBound - range.lowerBound < 0.000_01 {
+        if range.upperBound - range.lowerBound < 0.00001 {
             return range.lowerBound
         }
 
@@ -188,8 +145,8 @@ extension Double {
             // exponential taper
             var adjustedMinimum: Double = 0.0
             var adjustedMaximum: Double = 0.0
-            if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
-            if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
+            if range.lowerBound == 0 { adjustedMinimum = 0.00_000_000_001 }
+            if range.upperBound == 0 { adjustedMaximum = 0.00_000_000_001 }
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
@@ -417,6 +374,6 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 prefix operator ❗️
 
 /// Negative logic can be confusing, so we draw special attention to those cases
-prefix public func ❗️(a: Bool) -> Bool {
+public prefix func ❗️(a: Bool) -> Bool {
     return !a
 }

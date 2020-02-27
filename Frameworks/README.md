@@ -6,7 +6,11 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your d
 
 ## Using the compiled frameworks in your projects
 
+<img src="DragAndDropFrameworks.gif"/>
+
+
 * Select the target in your Xcode project that will link with AudioKit.
+* Go to [AudoKit Downloads](https://audiokit.io/downloads/) and download the AudioKit-\*.zip archives that contain universal precompiled frameworks to be able to drag and drop them in the project folder.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
@@ -37,6 +41,12 @@ The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directo
 Optionally, you may restrict which platforms to build the frameworks for by setting the `PLATFORMS` environment variable prior to calling the script. The following example only builds for iOS and tvOS, skipping macOS:
 
 `PLATFORMS="iOS tvOS" ./build_frameworks.sh`
+
+## Universal XCFramework on Xcode 11 / Catalina
+
+If you are running at least macOS 10.15 (Catalina), you can now build XCFramework archives containing all supported platforms in a singular archive - including the Mac Catalyst versions.
+
+Note that these can only be built on a Mac running Catalina, and the `build_frameworks.sh` script only creates this if all platforms were built (the default), i.e. xcframework archives won't be generated if you're only building a subset of the platforms.
 
 ## Distribution to other projects
 

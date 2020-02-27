@@ -20,14 +20,6 @@ class AKSoundpipeKernel: public AKDSPKernel {
 protected:
     sp_data *sp = nullptr;
 public:
-    //    AKSoundpipeKernel(int channelCount, float sampleRate):
-    //        AKDSPKernel(channelCount, sampleRate) {
-    //
-    //      sp_create(&sp);
-    //      sp->sr = sampleRate;
-    //      sp->nchan = channelCount;
-    //    }
-
     sp_data *getSpData() { return sp; }
 
     // The default constructor should be deleted,

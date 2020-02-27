@@ -332,6 +332,22 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
                                                        &maximumFramesPerSlice,
                                                        sizeof(maximumFramesPerSlice))
                         operation:"Failed to set maximum frames per slice on mixer node"];
+    
+    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->converterNodeInfo.audioUnit,
+                                                       kAudioUnitProperty_MaximumFramesPerSlice,
+                                                       kAudioUnitScope_Global,
+                                                       0,
+                                                       &maximumFramesPerSlice,
+                                                       sizeof(maximumFramesPerSlice))
+                        operation:"Failed to set maximum frames per slice on converter node"];
+    
+    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->outputNodeInfo.audioUnit,
+                                                       kAudioUnitProperty_MaximumFramesPerSlice,
+                                                       kAudioUnitScope_Global,
+                                                       0,
+                                                       &maximumFramesPerSlice,
+                                                       sizeof(maximumFramesPerSlice))
+                        operation:"Failed to set maximum frames per slice on output node"];
 
     //
     // Initialize all the audio units in the graph

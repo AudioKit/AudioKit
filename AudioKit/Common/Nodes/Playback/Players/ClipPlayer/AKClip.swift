@@ -8,7 +8,7 @@
 
 /// A protocol containing timing information for scheduling audio clips in a timeline.  All
 /// properties are time values in seconds, relative to a zero based timeline.
-@objc public protocol AKClip: class {
+@objc public protocol AKClip: AnyObject {
 
     /// The time in the timeline that the clip should begin playing.
     var time: Double { get }
@@ -88,7 +88,7 @@ open class AKFileClip: NSObject, FileClip {
             self.init(audioFile: audioFile)
             return
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
         return nil
     }
