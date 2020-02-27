@@ -69,7 +69,8 @@ create_universal_framework()
 	DIR="AudioKit-$1"
 	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
+		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
 		echo "Building dynamic framework for AudioKit"
@@ -96,7 +97,8 @@ create_universal_framework()
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* "${DIR}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"* "${DIR}/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"
 	else # Build device slices
-		xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 3
+		xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
+			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 3
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* \
 			"${DIR}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"* \
@@ -148,6 +150,24 @@ create_universal_framework()
 	fi
 }
 
+# Create a xcframework for the given framework, merging all specified platforms
+create_xcframework()
+{
+	echo "Assembling xcframework for $1 ..."
+	if test -d "${BUILD_DIR}/Catalyst.xcarchive"; then
+		CATA_ARG="-framework ${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
+	fi
+	rm -rf $1.xcframework # Start fresh
+	xcodebuild -create-xcframework -output $1.xcframework \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
+		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
+	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
+	find $1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
+}
+
 # Create individual static platform frameworks (device or simulator) in their own subdirectories
 # 2 arguments: platform (iOS or tvOS), platform (iphoneos, iphonesimulator, appletvos, appletvsimulator)
 create_framework()
@@ -162,7 +182,8 @@ create_framework()
 		XCCONFIG=device.xcconfig
 	fi
 	echo "Building static frameworks for $1 / $2"
-	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
+		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
 	strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
 }
@@ -175,7 +196,8 @@ create_macos_framework()
 	DIR="AudioKit-$1"
 	rm -rf "${DIR}/${PROJECT_NAME}.framework" "${DIR}/${PROJECT_UI_NAME}.framework"
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
 	then
@@ -191,7 +213,39 @@ create_macos_framework()
 	fi
 }
 
+# Make a UIKitforMac version (maccatalyst) from the iOS project, but package with the Mac version
+create_catalyst_framework()
+{
+	if test $OSTYPE = darwin19; then
+		echo "Building Mac Catalyst framework"
+	else
+		echo "Skipping Catalyst build, macOS Catalina is required"
+		return
+	fi
+	PROJECT="../AudioKit/iOS/AudioKit For iOS.xcodeproj"
+	DIR="AudioKit-macOS/Catalyst"
+	rm -rf "${DIR}/${PROJECT_NAME}.framework" "${DIR}/${PROJECT_UI_NAME}.framework"
+	mkdir -p "$DIR"
+	xcodebuild archive -project "$PROJECT" -scheme $PROJECT_UI_NAME ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
+			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
+			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
+	cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_NAME}.framework" "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_UI_NAME}.framework" "$DIR/"
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
+	then
+		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$DIR/"
+	else
+		strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}"
+	fi
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM";
+	then
+		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
+	else
+		strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+	fi
+}
+
 echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
+rm -f build.log
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
@@ -204,8 +258,15 @@ for os in $PLATFORMS; do
 		#create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
 		create_macos_framework macOS macosx
+		create_catalyst_framework
 	fi
 done
+
+# Only create the xcframework if all platforms were built
+if test "$PLATFORMS" = "iOS macOS tvOS"; then
+	create_xcframework AudioKit
+	create_xcframework AudioKitUI
+fi
 
 if [ -f distribute_built_frameworks.sh ]; then
     ./distribute_built_frameworks.sh

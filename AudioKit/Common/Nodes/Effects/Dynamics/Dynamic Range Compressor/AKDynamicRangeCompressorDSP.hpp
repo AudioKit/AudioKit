@@ -15,7 +15,8 @@ typedef NS_ENUM(AUParameterAddress, AKDynamicRangeCompressorParameter) {
     AKDynamicRangeCompressorParameterThreshold,
     AKDynamicRangeCompressorParameterAttackDuration,
     AKDynamicRangeCompressorParameterReleaseDuration,
-    AKDynamicRangeCompressorParameterRampDuration
+    AKDynamicRangeCompressorParameterRampDuration,
+    AKDynamicRangeCompressorParameterCompressionAmount
 };
 
 #ifndef __cplusplus
@@ -30,7 +31,7 @@ class AKDynamicRangeCompressorDSP : public AKSoundpipeDSPBase {
 private:
     struct InternalData;
     std::unique_ptr<InternalData> data;
- 
+
 public:
     AKDynamicRangeCompressorDSP();
 
@@ -55,7 +56,7 @@ public:
 
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
-    
+
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;

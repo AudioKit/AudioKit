@@ -36,7 +36,7 @@ import UIKit
     @IBInspectable public var maximum: Double = 1
     internal var originalValue: Double = 0.5
     open var callback: (Double) -> Void = {val in
-        print("akstepper callback: \(val)")
+        AKLog("AKStepper callback: \(val)")
     }
     internal func doPlusAction() {
         currentValue += min(increment, maximum - currentValue)

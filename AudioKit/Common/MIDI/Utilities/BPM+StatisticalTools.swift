@@ -89,7 +89,6 @@ struct BPMHistoryStatistics {
         let first = timeHistory[firstIndex]
         let last = timeHistory.last!
         let value = first + ((last - first) * ratio)
-        //AKLog("value \(first) + ((\(last) - \(first))/2) = \(middle)")
         return UInt64(value)
     }
 

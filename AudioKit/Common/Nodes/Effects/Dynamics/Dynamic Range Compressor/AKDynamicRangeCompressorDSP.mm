@@ -22,6 +22,7 @@ struct AKDynamicRangeCompressorDSP::InternalData {
     AKLinearParameterRamp thresholdRamp;
     AKLinearParameterRamp attackDurationRamp;
     AKLinearParameterRamp releaseDurationRamp;
+    float liveCompressionAmount;
 };
 
 AKDynamicRangeCompressorDSP::AKDynamicRangeCompressorDSP() : data(new InternalData) {
@@ -72,6 +73,8 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
             return data->releaseDurationRamp.getTarget();
         case AKDynamicRangeCompressorParameterRampDuration:
             return data->ratioRamp.getRampDuration(sampleRate);
+        case AKDynamicRangeCompressorParameterCompressionAmount:
+            return data->liveCompressionAmount;
     }
     return 0;
 }
@@ -90,6 +93,7 @@ void AKDynamicRangeCompressorDSP::init(int channelCount, double sampleRate) {
     *data->compressor1->atk = defaultAttackDuration;
     *data->compressor0->rel = defaultReleaseDuration;
     *data->compressor1->rel = defaultReleaseDuration;
+    data->liveCompressionAmount = 0;
 }
 
 void AKDynamicRangeCompressorDSP::deinit() {
@@ -98,6 +102,7 @@ void AKDynamicRangeCompressorDSP::deinit() {
 }
 
 void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    double totalBufferCompression = 0.0;
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
@@ -138,6 +143,10 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
             } else {
                 sp_compressor_compute(sp, data->compressor1, in, out);
             }
+
+            totalBufferCompression += abs(*in - *out);
         }
     }
+
+    data->liveCompressionAmount = totalBufferCompression / (double) (frameCount * channelCount);
 }

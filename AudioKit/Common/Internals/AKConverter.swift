@@ -21,6 +21,7 @@
  })
  ```
  */
+
 open class AKConverter: NSObject {
     /**
      AKConverterCallback is the callback format for start()
@@ -145,7 +146,7 @@ open class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("Converting Asset to", outputFormat)
+        AKLog("Converting Asset to \(outputFormat)")
 
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
@@ -187,6 +188,7 @@ open class AKConverter: NSObject {
 
         if FileManager.default.fileExists(atPath: outputURL.path) {
             if options.eraseFile {
+                AKLog("Warning: removing existing file at \(outputURL.path)")
                 try? FileManager.default.removeItem(at: outputURL)
             } else {
                 let message = "The output file exists already. You need to choose a unique URL or delete the file."
@@ -266,27 +268,33 @@ open class AKConverter: NSObject {
         let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings)
         writer.add(writerInput)
 
-        let tracks = asset.tracks(withMediaType: .audio)
-
-        guard !tracks.isEmpty else {
+        guard let track = asset.tracks(withMediaType: .audio).first else {
             completionHandler?(createError(message: "No audio was found in the input file."))
             return
         }
 
-        let readerOutput = AVAssetReaderTrackOutput(track: tracks[0], outputSettings: nil)
+        let readerOutput = AVAssetReaderTrackOutput(track: track, outputSettings: nil)
+        guard reader.canAdd(readerOutput) else {
+            completionHandler?(createError(message: "Unable to add reader output."))
+            return
+        }
         reader.add(readerOutput)
 
-        if writer.startWriting() == false {
-            let error = String(describing: writer.error)
-            AKLog("Failed to start writing. Error: \(error)")
+        if !writer.startWriting() {
+            AKLog("Failed to start writing. " + (writer.error?.localizedDescription ?? ""))
             completionHandler?(writer.error)
             return
         }
 
         writer.startSession(atSourceTime: CMTime.zero)
-        reader.startReading()
 
-        let queue = DispatchQueue(label: "io.audiokit.AKConverter.convertAsset", qos: .userInitiated)
+        if !reader.startReading() {
+            AKLog("Failed to start reading. " + (reader.error?.localizedDescription ?? ""))
+            completionHandler?(reader.error)
+            return
+        }
+
+        let queue = DispatchQueue(label: "io.audiokit.AKConverter.convertAsset")
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
@@ -298,22 +306,26 @@ open class AKConverter: NSObject {
                     writerInput.append(buffer)
 
                 } else {
-                    AKLog("Finishing up...")
+                    // AKLog("Finishing up...")
                     writerInput.markAsFinished()
 
                     switch reader.status {
                     case .failed:
-                        AKLog("Conversion failed with error", writer.error)
+                        AKLog("Conversion failed with error" + (reader.error?.localizedDescription ?? "Unknown"))
                         writer.cancelWriting()
-                        completionHandler?(writer.error)
+                        completionHandler?(reader.error)
                     case .cancelled:
                         AKLog("Conversion cancelled")
                         completionHandler?(nil)
                     case .completed:
-                        writer.endSession(atSourceTime: asset.duration)
                         writer.finishWriting {
-                            AKLog("Conversion complete")
-                            completionHandler?(nil)
+                            switch writer.status {
+                            case .failed:
+                                completionHandler?(writer.error)
+                            default:
+                                // AKLog("Conversion complete")
+                                completionHandler?(nil)
+                            }
                         }
                     default:
                         break

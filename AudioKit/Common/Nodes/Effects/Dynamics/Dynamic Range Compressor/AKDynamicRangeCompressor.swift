@@ -109,6 +109,10 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         return internalAU?.isPlaying ?? false
     }
 
+    @objc open dynamic var compressionAmount: Float {
+        return internalAU?.compressionAmount ?? 0
+    }
+
     // MARK: - Initialization
 
     /// Initialize this compressor node

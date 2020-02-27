@@ -27,6 +27,7 @@ import AudioKit
 
 class ViewController: UIViewController {
 
+    let mic = AKMicrophone()
     var metronome = AKSamplerMetronome()
     var mixer = AKMixer()
     var loopBackRecorder: AKClipRecorder?
@@ -73,7 +74,7 @@ class ViewController: UIViewController {
         do {
             AKSettings.audioInputEnabled = true
             AKSettings.defaultToSpeaker = true
-            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+//            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
             try AKSettings.setSession(category: .playAndRecord)
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
@@ -87,12 +88,17 @@ class ViewController: UIViewController {
         }
 
         // Make connections
-        metronome.connect(to: mixer.inputNode)
-        player.connect(to: mixer.inputNode)
+
+        let muter = AKMixer()
+        muter.volume = 0
+
+        mic! >>> muter >>> mixer
+        metronome >>> mixer
+        player >>> mixer
         AudioKit.output = mixer
 
         // Set up recorders
-        loopBackRecorder = AKClipRecorder(node: AudioKit.engine.inputNode)
+        loopBackRecorder = AKClipRecorder(node: mic!)
         directRecorder = AKClipRecorder(node: metronome)
 
         do { try AudioKit.start() } catch {
@@ -165,7 +171,7 @@ class ViewController: UIViewController {
 
             switch result {
             case .error(let error):
-                AKLog(error)
+                AKLog(error.localizedDescription)
                 return
             case .clip(let clip):
                 AKLog("loopback.duration \(clip.duration)")
@@ -199,7 +205,7 @@ class ViewController: UIViewController {
                     })
 
                 } catch {
-                    AKLog(error)
+                    AKLog(error.localizedDescription)
                 }
             }
 
@@ -209,7 +215,7 @@ class ViewController: UIViewController {
         try? directRecorder?.recordClip(time: 0, duration: targetDuration, tap: nil) { result in
             switch result {
             case .error(let error):
-                AKLog(error)
+                AKLog(error.localizedDescription)
                 return
             case .clip(let clip):
                 AKLog("direct.duration \(clip.duration)")
@@ -220,7 +226,7 @@ class ViewController: UIViewController {
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
                     AKLog("Direct saved at " + urlInDocs.path)
                 } catch {
-                    AKLog(error)
+                    AKLog(error.localizedDescription)
                 }
             }
         }
@@ -276,7 +282,7 @@ extension FileManager {
                 try fileManager.removeItem(at: docs.appendingPathComponent(fileName))
             }
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
     }
 }

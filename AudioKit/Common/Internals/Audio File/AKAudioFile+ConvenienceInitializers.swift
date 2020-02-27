@@ -84,7 +84,7 @@ extension AKAudioFile {
             do {
                 try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
-                AKLog("ERROR: Couldn't create an AKAudioFile", error)
+                AKLog("Couldn't create an AKAudioFile \(error)")
                 throw NSError.fileCreateError
             }
     }
@@ -136,7 +136,7 @@ extension AKAudioFile {
         do {
             try self.write(from: buffer!)
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
+            AKLog("Cannot writeFromBuffer: \(error)")
             throw error
         }
     }

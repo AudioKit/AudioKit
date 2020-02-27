@@ -31,6 +31,11 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterSustainLevel,
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
+    AKSamplerParameterPitchAttackDuration,
+    AKSamplerParameterPitchDecayDuration,
+    AKSamplerParameterPitchSustainLevel,
+    AKSamplerParameterPitchReleaseDuration,
+    AKSamplerParameterPitchADSRSemitones,
     AKSamplerParameterLoopThruRelease,
     AKSamplerParameterMonophonic,
     AKSamplerParameterLegato,
@@ -74,6 +79,7 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
+    AKLinearParameterRamp pitchADSRSemitonesRamp;
     AKLinearParameterRamp glideRateRamp;
     
     AKSamplerDSP();

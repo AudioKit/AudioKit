@@ -54,7 +54,7 @@ create_package()
 	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
-	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
+	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor Examples/Drums
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
@@ -102,4 +102,10 @@ rm -f ${SUBDIR}/AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
 zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
+cd ..
 
+if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
+	echo "Packaging the XCFrameworks ..."
+	rm -f ${SUBDIR}/AudioKit.xcframework.zip
+	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+fi

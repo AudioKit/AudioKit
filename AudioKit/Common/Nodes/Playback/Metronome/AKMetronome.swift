@@ -47,7 +47,7 @@ public class AKMetronome: AKOperationGenerator {
     }
 
     /// Initialize the metronome
-    @objc public init() {
+    @objc public override init() {
 
         let sporth = "(0 p) bpm2rate metro (_triggerFunction fe) dup 0.001 0.01 0.001 tenvx swap (1 p) 0 count dup 2 pset 0 eq (4 p) (3 p) branch 0.4 sine * dup"
         callback = { return }

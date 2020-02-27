@@ -65,6 +65,19 @@ namespace AudioKitCore
             pWaveTable[i] = (float)(amplitude * sin(double(i)/nTableSize * 2.0 * M_PI));
     }
 
+    // A variation of sinusoid() which adds a tiny bit of 2nd harmonic, producing a tone closer to
+    // that of a Hammond organ tonewheel generator.
+    void AudioKitCore::FunctionTable::hammond(float amplitude)
+    {
+        // in case user forgot, init table to default size
+        if (pWaveTable == 0) init();
+
+        for (int i = 0; i < nTableSize; i++)
+            pWaveTable[i] = (float)(amplitude *
+                (sin(double(i) / nTableSize * 2.0 * M_PI) + 0.015f * sin(double(i) / nTableSize * 4.0 * M_PI))
+                );
+    }
+
     void FunctionTable::square(float amplitude, float dutyCycle)
     {
         // in case user forgot, init table to default size

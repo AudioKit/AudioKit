@@ -38,6 +38,10 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
+    var compressionAmount: Float {
+        get { parameter(withAddress: AKDynamicRangeCompressorParameter.compressionAmount.rawValue) }
+    }
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createDynamicRangeCompressorDSP(Int32(count), sampleRate)

@@ -11,7 +11,7 @@ This is software developed by or used by Mike Gazarrusso on his contributions to
 
 ## Soundpipe
 
-Paul Batchelor's C-library of DSP algorithms by Paul, some of which were adapted from code from Csound, Faust, Guitarix, and others.
+Paul Batchelor's C-library of DSP algorithms by Paul Batchelor, some of which were adapted from code from Csound, Faust, Guitarix, and others.
 
 ## Sporth
 
