@@ -82,6 +82,26 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
     }
 
+    var pitchAttackDuration: Double = 0.0 {
+        didSet { setParameter(.pitchAttackDuration, value: pitchAttackDuration) }
+    }
+
+    var pitchDecayDuration: Double = 0.0 {
+        didSet { setParameter(.pitchDecayDuration, value: pitchDecayDuration) }
+    }
+
+    var pitchSustainLevel: Double = 0.0 {
+        didSet { setParameter(.pitchSustainLevel, value: pitchSustainLevel) }
+    }
+
+    var pitchReleaseDuration: Double = 0.0 {
+        didSet { setParameter(.pitchReleaseDuration, value: pitchReleaseDuration) }
+    }
+
+    var pitchADSRSemitones: Double = 0.0 {
+        didSet { setParameter(.pitchADSRSemitones, value: pitchADSRSemitones) }
+    }
+
     var filterEnable: Double = 0.0 {
         didSet { setParameter(.filterEnable, value: filterEnable) }
     }
@@ -278,6 +298,56 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
+        let pitchAttackDurationParameter = AUParameter(
+            identifier: "pitchAttackDuration",
+            name: "Pitch Attack duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        let pitchDecayDurationParameter = AUParameter(
+            identifier: "pitchDecayDuration",
+            name: "Pitch Decay duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        let pitchSustainLevelParameter = AUParameter(
+            identifier: "pitchSustainLevel",
+            name: "Pitch Sustain level (fraction)",
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .generic,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        let pitchReleaseDurationParameter = AUParameter(
+            identifier: "pitchReleaseDuration",
+            name: "Pitch Release duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        let pitchADSRSemitonesParameter = AUParameter(
+            identifier: "pitchADSRSemitones",
+            name: "Pitch EG Amount",
+            address: parameterAddress,
+            range: -100.0...100.0,
+            unit: .generic,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         let loopThruReleaseParameter = AUParameter(
             identifier: "loopThruRelease",
             name: "Loop Thru Release",
@@ -342,6 +412,11 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterSustainLevelParameter,
                                                                    filterReleaseDurationParameter,
                                                                    filterEnableParameter,
+                                                                   pitchAttackDurationParameter,
+                                                                   pitchDecayDurationParameter,
+                                                                   pitchSustainLevelParameter,
+                                                                   pitchReleaseDurationParameter,
+                                                                   pitchADSRSemitonesParameter,
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
                                                                    legatoParameter,
@@ -363,6 +438,11 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterSustainLevelParameter.value = 1.0
         filterReleaseDurationParameter.value = 0.0
         filterEnableParameter.value = 0.0
+        pitchAttackDurationParameter.value = 0.0
+        pitchDecayDurationParameter.value = 0.0
+        pitchSustainLevelParameter.value = 0.0
+        pitchReleaseDurationParameter.value = 0.0
+        pitchADSRSemitonesParameter.value = 0.0
         loopThruReleaseParameter.value = 0.0
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0
