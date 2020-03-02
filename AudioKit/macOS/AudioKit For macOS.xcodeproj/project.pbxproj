@@ -530,6 +530,7 @@
 		C47047BE1E78FA2D00D9906F /* AKRhodesPiano.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047B01E78FA2D00D9906F /* AKRhodesPiano.swift */; };
 		C47047C21E78FA2D00D9906F /* AKShaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047B51E78FA2D00D9906F /* AKShaker.swift */; };
 		C47047C61E78FA2D00D9906F /* AKTubularBells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047BA1E78FA2D00D9906F /* AKTubularBells.swift */; };
+		C4749B6523C9ADB4006EFC9D /* AKReverb2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4749B6423C9ADB4006EFC9D /* AKReverb2.swift */; };
 		C477582D202FCF0C00159BA7 /* AKOscillatorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C477582C202FCF0B00159BA7 /* AKOscillatorDSP.mm */; };
 		C4775834202FD10B00159BA7 /* AKDynaRageCompressorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C477582F202FD10B00159BA7 /* AKDynaRageCompressorAudioUnit.mm */; };
 		C4775835202FD10B00159BA7 /* AKDynaRageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4775830202FD10B00159BA7 /* AKDynaRageCompressor.swift */; };
@@ -1775,6 +1776,7 @@
 		C47047B01E78FA2D00D9906F /* AKRhodesPiano.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhodesPiano.swift; sourceTree = "<group>"; };
 		C47047B51E78FA2D00D9906F /* AKShaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKShaker.swift; sourceTree = "<group>"; };
 		C47047BA1E78FA2D00D9906F /* AKTubularBells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTubularBells.swift; sourceTree = "<group>"; };
+		C4749B6423C9ADB4006EFC9D /* AKReverb2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKReverb2.swift; sourceTree = "<group>"; };
 		C477582C202FCF0B00159BA7 /* AKOscillatorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKOscillatorDSP.mm; sourceTree = "<group>"; };
 		C477582F202FD10B00159BA7 /* AKDynaRageCompressorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDynaRageCompressorAudioUnit.mm; sourceTree = "<group>"; };
 		C4775830202FD10B00159BA7 /* AKDynaRageCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressor.swift; sourceTree = "<group>"; };
@@ -3783,7 +3785,7 @@
 			isa = PBXGroup;
 			children = (
 				C45665A61D448D7E00D26565 /* AKReverb.swift */,
-				EA31D1D023C9773C0077BE23 /* AKReverb2.swift */,
+				C4749B6423C9ADB4006EFC9D /* AKReverb2.swift */,
 			);
 			path = "Apple Reverb";
 			sourceTree = "<group>";
@@ -6660,7 +6662,7 @@
 				C483F63D1D666D7A00374B2A /* trackedAmplitude.swift in Sources */,
 				C456690A1D448D7E00D26565 /* AKLowPassButterworthFilter.swift in Sources */,
 				34DB48A92030BDF200ECFF1F /* AKFlanger.swift in Sources */,
-				EA31D1D123C9773D0077BE23 /* AKReverb2.swift in Sources */,
+				C4749B6523C9ADB4006EFC9D /* AKReverb2.swift in Sources */,
 				C45669E71D448D7E00D26565 /* subtract.swift in Sources */,
 				EADFC4382151088D003E5191 /* AKCoreSynth.cpp in Sources */,
 				C47047BE1E78FA2D00D9906F /* AKRhodesPiano.swift in Sources */,
