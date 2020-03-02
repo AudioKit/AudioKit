@@ -159,7 +159,7 @@ open class AKSequencer {
     }
 }
 
-/* functions from aksequencer to implement
+/* functions from AKAppleSequencer  to implement
 
  public convenience init(fromURL fileURL: URL) {
  open func enableLooping(_ loopLength: AKDuration) {

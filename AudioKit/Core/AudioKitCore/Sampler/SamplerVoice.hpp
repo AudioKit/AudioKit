@@ -29,7 +29,7 @@ namespace AudioKitCore
 
         /// two filters (left/right)
         ResonantLowPassFilter leftFilter, rightFilter;
-        ADSREnvelope adsrEnvelope, filterEnvelope;
+        ADSREnvelope adsrEnvelope, filterEnvelope, pitchEnvelope;
 
         /// common glide rate, seconds per octave
         float *glideSecPerOctave;
@@ -42,6 +42,9 @@ namespace AudioKitCore
 
         /// will reduce to zero during glide
         float glideSemitones;
+
+        /// amount of semitone change via pitch envelope
+        float pitchEnvelopeSemitones;
 
         /// fraction 0.0 - 1.0, based on MIDI velocity
         float noteVolume;
@@ -69,6 +72,7 @@ namespace AudioKitCore
 
         void updateAmpAdsrParameters() { adsrEnvelope.updateParams(); }
         void updateFilterAdsrParameters() { filterEnvelope.updateParams(); }
+        void updatePitchAdsrParameters() { pitchEnvelope.updateParams(); }
         
         void start(unsigned noteNumber,
                    float sampleRate,
@@ -89,7 +93,8 @@ namespace AudioKitCore
                               float keyTracking,
                               float cutoffEnvelopeStrength,
                               float cutoffEnvelopeVelocityScaling,
-                              float resLinear);
+                              float resLinear,
+                              float pitchADSRSemitones);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
     };

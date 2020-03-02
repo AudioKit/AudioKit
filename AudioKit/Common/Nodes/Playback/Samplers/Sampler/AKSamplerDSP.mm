@@ -110,6 +110,7 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     filterCutoffRamp.setTarget(4, true);
     filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
+    pitchADSRSemitonesRamp.setTarget(1.0, true);
     glideRateRamp.setTarget(0.0, true);
 }
 
@@ -134,6 +135,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             filterCutoffRamp.setRampDuration(value, sampleRate);
             filterStrengthRamp.setRampDuration(value, sampleRate);
             filterResonanceRamp.setRampDuration(value, sampleRate);
+            pitchADSRSemitonesRamp.setRampDuration(value, sampleRate);
             glideRateRamp.setRampDuration(value, sampleRate);
             break;
 
@@ -184,6 +186,23 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterFilterReleaseDuration:
             setFilterReleaseDurationSeconds(value);
             break;
+
+        case AKSamplerParameterPitchAttackDuration:
+            setPitchAttackDurationSeconds(value);
+            break;
+        case AKSamplerParameterPitchDecayDuration:
+            setPitchDecayDurationSeconds(value);
+            break;
+        case AKSamplerParameterPitchSustainLevel:
+            setPitchSustainFraction(value);
+            break;
+        case AKSamplerParameterPitchReleaseDuration:
+            setPitchReleaseDurationSeconds(value);
+            break;
+        case AKSamplerParameterPitchADSRSemitones:
+            pitchADSRSemitonesRamp.setTarget(value, immediate);
+            break;
+
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
             break;
@@ -223,6 +242,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return filterStrengthRamp.getTarget();
         case AKSamplerParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
+
         case AKSamplerParameterGlideRate:
             return glideRateRamp.getTarget();
 
@@ -243,6 +263,18 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return getFilterSustainFraction();
         case AKSamplerParameterFilterReleaseDuration:
             return getFilterReleaseDurationSeconds();
+
+        case AKSamplerParameterPitchAttackDuration:
+            return getPitchAttackDurationSeconds();
+        case AKSamplerParameterPitchDecayDuration:
+            return getPitchDecayDurationSeconds();
+        case AKSamplerParameterPitchSustainLevel:
+            return getPitchSustainFraction();
+        case AKSamplerParameterPitchReleaseDuration:
+            return getPitchReleaseDurationSeconds();
+        case AKSamplerParameterPitchADSRSemitones:
+            return pitchADSRSemitonesRamp.getTarget();
+
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
         case AKSamplerParameterLoopThruRelease:
@@ -309,6 +341,10 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
+        
+        pitchADSRSemitonesRamp.advanceTo(now + frameOffset);
+        pitchADSRSemitones = (float)pitchADSRSemitonesRamp.getValue();
+
         glideRateRamp.advanceTo(now + frameOffset);
         glideRate = (float)glideRateRamp.getValue();
 

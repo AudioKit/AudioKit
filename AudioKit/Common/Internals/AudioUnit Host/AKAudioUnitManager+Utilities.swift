@@ -9,49 +9,59 @@
 /// Utility methods for common tasks related to Audio Units
 extension AKAudioUnitManager {
     /// Internal audio units not including the Apple ones, only the custom ones
-    public internal(set) static var internalAudioUnits = ["AKVariableDelay",
-                                                          "AKChorus",
-                                                          "AKFlanger",
-                                                          "AKBitCrusher",
-                                                          "AKClipper",
-                                                          "AKDynamicRangeCompressor",
-                                                          "AKDynaRageCompressor",
-                                                          "AKAmplitudeEnvelope",
-                                                          "AKTremolo",
+    public internal(set) static var internalAudioUnits = ["AKAmplitudeEnvelope",
                                                           "AKAutoWah",
                                                           "AKBandPassButterworthFilter",
                                                           "AKBandRejectButterworthFilter",
+                                                          "AKBitCrusher",
+                                                          "AKBooster",
+                                                          "AKChorus",
+                                                          "AKChowningReverb",
+                                                          "AKClipper",
+                                                          "AKCombFilterReverb",
+                                                          "AKCostelloReverb",
                                                           "AKDCBlock",
+                                                          "AKDecimator",
+                                                          "AKDelay",
+                                                          "AKDistortion",
+                                                          "AKDynamicRangeCompressor",
+                                                          "AKDynaRageCompressor",
                                                           "AKEqualizerFilter",
+                                                          "AKFader",
+                                                          "AKFlanger",
+                                                          "AKFlatFrequencyResponseReverb",
                                                           "AKFormantFilter",
                                                           "AKHighPassButterworthFilter",
+                                                          "AKHighPassFilter",
+                                                          "AKHighShelfFilter",
                                                           "AKHighShelfParametricEqualizerFilter",
                                                           "AKKorgLowPassFilter",
                                                           "AKLowPassButterworthFilter",
+                                                          "AKLowPassFilter",
+                                                          "AKLowShelfFilter",
                                                           "AKLowShelfParametricEqualizerFilter",
                                                           "AKModalResonanceFilter",
                                                           "AKMoogLadder",
                                                           "AKPanner",
                                                           "AKPeakingParametricEqualizerFilter",
-                                                          "AKResonantFilter",
-                                                          "AKRolandTB303Filter",
-                                                          "AKStringResonator",
-                                                          "AKThreePoleLowpassFilter",
-                                                          "AKToneComplementFilter",
-                                                          "AKToneFilter",
-                                                          "AKRhinoGuitarProcessor",
+                                                          "AKPeakLimiter",
                                                           "AKPhaser",
                                                           "AKPitchShifter",
+                                                          "AKResonantFilter",
+                                                          "AKRhinoGuitarProcessor",
+                                                          "AKRingModulator",
+                                                          "AKRolandTB303Filter",
+                                                          "AKStereoDelay",
+                                                          "AKStringResonator",
+                                                          "AKTanhDistortion",
+                                                          "AKThreePoleLowpassFilter",
                                                           "AKTimePitch",
+                                                          "AKToneComplementFilter",
+                                                          "AKToneFilter",
+                                                          "AKTremolo",
+                                                          "AKVariableDelay",
                                                           "AKVariSpeed",
-                                                          "AKChowningReverb",
-                                                          "AKCombFilterReverb",
-                                                          "AKCostelloReverb",
-                                                          "AKFlatFrequencyResponseReverb",
-                                                          "AKZitaReverb",
-                                                          "AKBooster",
-                                                          "AKFader",
-                                                          "AKTanhDistortion"]
+                                                          "AKZitaReverb"]
 
     /// request a list of all installed Effect AudioUnits, will be returned async
     public static func effectComponents(completionHandler: AKComponentListCallback? = nil) {
@@ -89,6 +99,22 @@ extension AKAudioUnitManager {
         } // dispatch global
     }
 
+    /// request a list of MIDI Processors, will be returned async
+    public static func midiProcessorComponents(completionHandler: AKComponentListCallback? = nil) {
+        /// Locating components can be a little slow, especially the first time.
+        /// Do this work on a separate dispatch thread.
+        DispatchQueue.global(qos: .default).async {
+            let predicate = NSPredicate(format: "typeName == '\(AVAudioUnitTypeMIDIProcessor)'", argumentArray: [])
+            var availableMIDIProcessors = AVAudioUnitComponentManager.shared().components(matching: predicate)
+            availableMIDIProcessors = availableMIDIProcessors.sorted { $0.name < $1.name }
+
+            // Let the UI know that we have an updated list of units.
+            DispatchQueue.main.async {
+                completionHandler?(availableMIDIProcessors)
+            }
+        } // dispatch global
+    }
+
     /// Asynchronously create the AU, then call the
     /// supplied completion handler when the operation is complete.
     public static func createEffectAudioUnit(_ componentDescription: AudioComponentDescription,
@@ -108,6 +134,16 @@ extension AKAudioUnitManager {
         }
     }
 
+    /// Asynchronously create the AU, then call the
+    /// supplied completion handler when the operation is complete.
+    public static func createMIDIProcessorAudioUnit(_ componentDescription: AudioComponentDescription,
+                                                    completionHandler: @escaping AKMIDIProcessorCallback) {
+        AVAudioUnit.instantiate(with: componentDescription,
+                                options: .loadOutOfProcess) { avAudioUnit, _ in
+            completionHandler(avAudioUnit)
+        }
+    }
+
     public static func canLoadInProcess(componentDescription: AudioComponentDescription) -> Bool {
         let flags = AudioComponentFlags(rawValue: componentDescription.componentFlags)
         return flags.contains(AudioComponentFlags.canLoadInProcess)
@@ -116,21 +152,40 @@ extension AKAudioUnitManager {
     // Create an instance of an AudioKit internal effect based on a class name
     public static func createInternalEffect(name: String) -> AVAudioUnit? {
         var node: AKNode?
-        // this would be nice but isn't possible at the moment:
-        //        if let anyClass = NSClassFromString("AudioKit." + auname) {
-        //            if let aknode = anyClass as? AKNode.Type {
-        //                let instance = aknode.init()
-        //            }
-        //        }
-
         // currently, the auAudioUnit.audioUnitName comes with "Local" on the front
         let name = name.replacingOccurrences(of: "Local AK", with: "AK")
 
+        //  This would be nice, but it doesn't work in AudioKit currently due to the way AKNode is setup
+//        if let anyClass = NSClassFromString("AudioKit." + name) {
+//            if let aknode = anyClass as? AKNode.Type {
+//                node = aknode.init()
+//            }
+//        }
+
+        // kind of a maintainence mess, but there it is
         switch name {
+        case "AKLowShelfFilter":
+            node = AKLowShelfFilter()
+        case "AKLowPassFilter":
+            node = AKLowPassFilter()
+        case "AKHighShelfFilter":
+            node = AKHighShelfFilter()
+        case "AKHighPassFilter":
+            node = AKHighPassFilter()
+        case "AKDecimator":
+            node = AKDecimator()
+        case "AKDistortion":
+            node = AKDistortion()
+        case "AKDelay":
+            node = AKDelay()
+        case "AKStereoDelay":
+            node = AKStereoDelay()
         case "AKVariableDelay":
             node = AKVariableDelay()
         case "AKChorus":
             node = AKChorus()
+        case "AKCompressor":
+            node = AKCompressor()
         case "AKFlanger":
             node = AKFlanger()
         case "AKBitCrusher":
