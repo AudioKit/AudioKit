@@ -78,7 +78,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        AudioKit.internalConnections.append(self)
+        AKManager.internalConnections.append(self)
     }
 
     /// Initialize the track with a target node

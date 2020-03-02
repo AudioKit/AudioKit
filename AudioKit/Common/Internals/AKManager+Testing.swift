@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AudioKit {
+extension AKManager {
 
     // MARK: - Testing
 

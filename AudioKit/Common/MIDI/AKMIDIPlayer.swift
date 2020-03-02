@@ -42,7 +42,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
 
     /// Sequencer Initialization
     public override init() {
-        super.init(audioEngine: AudioKit.engine)
+        super.init(audioEngine: AKManager.engine)
     }
 
     /// Initialize the sequence with a MIDI file
@@ -50,7 +50,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
     /// - parameter filename: Location of the MIDI File
     ///
     public init(filename: String) {
-        super.init(audioEngine: AudioKit.engine)
+        super.init(audioEngine: AKManager.engine)
         loadMIDIFile(filename)
     }
 

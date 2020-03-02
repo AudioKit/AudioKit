@@ -56,9 +56,9 @@ class Conductor: ObservableObject {
   }
 
   func start() {
-    AudioKit.output = drums
+    AKManager.output = drums
     do {
-      try AudioKit.start()
+      try AKManager.start()
     } catch let error {
       AKLog("AudioKit did not start! \(error)")
     }

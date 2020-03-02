@@ -12,7 +12,7 @@ extension AVAudioEngine {
 
     /// Adding connection between nodes with default format
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        connect(node1, to: node2, format: AudioKit.format)
+        connect(node1, to: node2, format: AKManager.format)
     }
 
     /// Render output to an AVAudioFile for a duration.

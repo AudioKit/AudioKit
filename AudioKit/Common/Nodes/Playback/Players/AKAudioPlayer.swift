@@ -271,11 +271,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         super.init()
         self.looping = looping
-        AudioKit.engine.attach(internalPlayer)
-        AudioKit.engine.attach(internalMixer)
+        AKManager.engine.attach(internalPlayer)
+        AKManager.engine.attach(internalMixer)
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
                                    channels: internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        AKManager.engine.connect(internalPlayer, to: internalMixer, format: format)
         avAudioNode = internalMixer
         internalPlayer.volume = 1.0
 
@@ -376,7 +376,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.reset()
 
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        AKManager.engine.connect(internalPlayer, to: internalMixer, format: format)
 
         initialize()
 
@@ -701,7 +701,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // Disconnect the node
     open override func detach() {
-        AudioKit.detach(nodes: [self.avAudioNode])
-        AudioKit.engine.detach(internalPlayer)
+        AKManager.detach(nodes: [self.avAudioNode])
+        AKManager.engine.detach(internalPlayer)
     }
 }

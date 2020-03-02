@@ -21,7 +21,7 @@ public typealias AKCallback = () -> Void
 public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// Top level AudioKit managing class
-open class AudioKit: NSObject {
+open class AKManager: NSObject {
     #if !os(macOS)
     public static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
     #else
@@ -39,7 +39,7 @@ open class AudioKit: NSObject {
                 _ = _engine.inputNode
             }
             #endif
-            _ = AudioKit.deviceSampleRate
+            _ = AKManager.deviceSampleRate
             return _engine
         }
         set {
@@ -218,7 +218,7 @@ open class AudioKit: NSObject {
         #if os(macOS)
         try AKTry {
             var id = output.deviceID
-            if let audioUnit = AudioKit.engine.outputNode.audioUnit {
+            if let audioUnit = AKManager.engine.outputNode.audioUnit {
                 AudioUnitSetProperty(audioUnit,
                                      kAudioOutputUnitProperty_CurrentDevice,
                                      kAudioUnitScope_Global, 0,
