@@ -22,7 +22,7 @@
     /// Set the actual microphone device
     @objc public func setDevice(_ device: AKDevice) throws {
         do {
-            try AudioKit.setInputDevice(device)
+            try AKManager.setInputDevice(device)
         } catch {
             AKLog("Could not set input device")
         }
@@ -46,10 +46,10 @@
 		AKSettings.audioInputEnabled = true
 
 		#if os(iOS)
-		AudioKit.engine.attach(avAudioUnitOrNode)
-		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
+		AKManager.engine.attach(avAudioUnitOrNode)
+		AKManager.engine.connect(AKManager.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
 		#elseif !os(tvOS)
-		AudioKit.engine.inputNode.connect(to: self.avAudioNode)
+		AKManager.engine.inputNode.connect(to: self.avAudioNode)
 		#endif
 	}
 
@@ -84,7 +84,7 @@
     private func getFormatForDevice() -> AVAudioFormat? {
         let audioFormat: AVAudioFormat?
         #if os(iOS) && !targetEnvironment(simulator)
-        let currentFormat = AudioKit.engine.inputNode.inputFormat(forBus: 0)
+        let currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
         let desiredFS = AVAudioSession.sharedInstance().sampleRate
         if let layout = currentFormat.channelLayout {
             audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,

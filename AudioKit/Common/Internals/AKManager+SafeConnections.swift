@@ -9,7 +9,7 @@
 import Foundation
 
 /// This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
-extension AudioKit {
+extension AKManager {
 
     // Attaches nodes if node.engine == nil
     private static func safeAttach(_ nodes: [AVAudioNode]) {
@@ -61,7 +61,7 @@ extension AudioKit {
 
         let dummy = AVAudioUnitSampler()
         engine.attach(dummy)
-        engine.connect(dummy, to: mixer, format: AudioKit.format)
+        engine.connect(dummy, to: mixer, format: AKManager.format)
         return dummy
     }
 
