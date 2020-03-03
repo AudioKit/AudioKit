@@ -1,4 +1,4 @@
-AudioKit V4.9
+AudioKit V5.0
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -34,7 +34,7 @@ Installation details are found in the [Frameworks README file](https://github.co
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
 ```
-    pod 'AudioKit', '~> 4.0'
+    pod 'AudioKit', '~> 5.0'
 ```
 
 If you do not need the UI components, you can select just the Core pod, like so:
