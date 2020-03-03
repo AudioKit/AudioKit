@@ -114,7 +114,7 @@ class FileConverter: NSViewController {
 /// Handle Window Events
 extension FileConverter: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        // AudioKit.stop()
+        // AKManager.stop()
         exit(0)
     }
 }

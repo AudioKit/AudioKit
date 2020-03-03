@@ -31,7 +31,7 @@ class AudiobusCompatibleSequencer {
         midi.openOutput()
 
         mixer = AKMixer()
-        AudioKit.output = mixer
+        AKManager.output = mixer
 
         seq = AKAppleSequencer()
         createTracksAndCallBackInst()
@@ -44,7 +44,7 @@ class AudiobusCompatibleSequencer {
     fileprivate func startAudioKit() {
         do {
             AKSettings.playbackWhileMuted = true
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("Couldn't start Audiokit")
         }
