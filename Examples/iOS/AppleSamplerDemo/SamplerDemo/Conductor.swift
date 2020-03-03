@@ -34,7 +34,7 @@ class Conductor {
 
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20_000
-        AudioKit.output = filter
+        AKManager.output = filter
 
         do {
             useSound(.square, synthesizer: .arpeggio)
@@ -45,7 +45,7 @@ class Conductor {
             AKLog("A file was not found.")
         }
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
