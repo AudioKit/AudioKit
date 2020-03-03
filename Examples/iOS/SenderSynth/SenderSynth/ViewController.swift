@@ -18,9 +18,9 @@ class ViewController: UIViewController, AKKeyboardDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -52,7 +52,7 @@ class ViewController: UIViewController, AKKeyboardDelegate {
 
         let rect = CGRect(x: 0, y: 0, width: 300, height: 20)
         transportView = CAInterAppAudioTransportView(frame: rect)
-        transportView?.setOutputAudioUnit(AudioKit.engine.outputNode.audioUnit!)
+        transportView?.setOutputAudioUnit(AKManager.engine.outputNode.audioUnit!)
 
         stackView.addArrangedSubview(transportView!)
 

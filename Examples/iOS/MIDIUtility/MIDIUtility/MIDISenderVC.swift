@@ -11,7 +11,7 @@ import AudioKit
 import UIKit
 
 class MIDISenderVC: UIViewController {
-    let midiOut = AudioKit.midi
+    let midiOut = AKManager.midi
 
     @IBOutlet var noteNumField: UITextField!
     @IBOutlet var noteVelField: UITextField!
