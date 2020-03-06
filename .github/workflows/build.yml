@@ -36,22 +36,25 @@ jobs:
     runs-on: macos-latest
 
     steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
     - name: Download iOS Frameworks
       uses: actions/checkout@v1
       with:
         name: iOS
+        path: Frameworks
     - name: Download macOS Frameworks
       uses: actions/checkout@v1
       with:
         name: macOS
+        path: Frameworks
     - name: Download tvOS Frameworks
       uses: actions/checkout@v1
       with:
         name: tvOS
-
-    - name: Check out AudioKit
-      uses: actions/checkout@v2
+        path: Frameworks
 
     - name: Run tests
-      run: ls -l
+      run: ls -lR Frameworks
  
