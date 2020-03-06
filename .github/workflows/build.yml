@@ -3,6 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  # Run the build for each platform in parallel
   build:
     runs-on: macos-latest
     strategy:
@@ -25,13 +26,20 @@ jobs:
       env:
         PLATFORMS: ${{ matrix.env.PLATFORMS }}
 
-    - name: Upload artifacts
+    - name: Upload built frameworks
       uses: actions/upload-artifact@v1
       with:
         name: ${{ matrix.env.PLATFORMS }}
         path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
 
-  test:
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: build-${{ matrix.env.PLATFORMS }}
+        path: Frameworks/build
+
+  # Reassemble the builds, put together the XCFramework
+  xcframework:
     needs: build
     runs-on: macos-latest
 
@@ -39,30 +47,30 @@ jobs:
     - name: Check out AudioKit
       uses: actions/checkout@v2
 
-    - name: Download iOS Frameworks
+    - name: Download iOS build artifacts
       uses: actions/download-artifact@v1
       with:
-        name: iOS
-        path: Frameworks/AudioKit-iOS
-    - name: Download macOS Frameworks
+        name: build-iOS
+        path: Frameworks/build
+    - name: Download macOS build artifacts
       uses: actions/download-artifact@v1
       with:
-        name: macOS
-        path: Frameworks/AudioKit-macOS
-    - name: Download tvOS Frameworks
+        name: build-macOS
+        path: Frameworks/build
+    - name: Download tvOS build artifacts
       uses: actions/download-artifact@v1
       with:
-        name: tvOS
-        path: Frameworks/AudioKit-tvOS
+        name: build-tvOS
+        path: Frameworks/build
 
     - name: Build XCFramework
       run: |
         cd Frameworks
-        mkdir build
-        ./build_xcframework.sh build
+        mkdir release
+        ./build_xcframework.sh release
 
     - name: Upload XCFramework artifacts
       uses: actions/upload-artifact@v1
       with:
         name: XCFrameworks
-        path: Frameworks/build
+        path: Frameworks/release
