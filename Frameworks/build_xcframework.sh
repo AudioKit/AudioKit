@@ -11,16 +11,14 @@ DESTINATION=${1:-"."}
 create_xcframework()
 {
 	echo "Assembling xcframework for $1 ..."
-	if test -d "${BUILD_DIR}/Catalyst.xcarchive"; then
-		CATA_ARG="-framework ${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
-	fi
 	rm -rf ${DESTINATION}/$1.xcframework # Start fresh
 	xcodebuild -create-xcframework -output ${DESTINATION}/$1.xcframework \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
-		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
+		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" \
+        -framework "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
 	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
 	find ${DESTINATION}/$1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
 }
