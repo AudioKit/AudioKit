@@ -88,7 +88,7 @@ class AudioUnitManager: NSViewController {
                                                object: nil)
         let mainOutput = AKMixer()
         mixer.connect(to: mainOutput)
-        AudioKit.output = mainOutput
+        AKManager.output = mainOutput
 
         initManager()
         initMIDI()
@@ -96,16 +96,16 @@ class AudioUnitManager: NSViewController {
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
-        // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
-        if !AudioKit.engine.isRunning {
+        // AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
+        if !AKManager.engine.isRunning {
             do {
-                try AudioKit.start()
+                try AKManager.start()
             } catch {
                 AKLog("AudioKit did not start!")
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 completionHandler?()
-                AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
+                AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
             }
             return
         }
@@ -302,7 +302,7 @@ extension AudioUnitManager: NSWindowDelegate {
             if w == view.window {
                 internalManager.reset()
                 do {
-                    try AudioKit.stop()
+                    try AKManager.stop()
                 } catch {
                     AKLog("AudioKit did not stop!")
                 }

@@ -62,7 +62,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         super.init()
         avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
-        AudioKit.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 

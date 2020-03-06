@@ -85,11 +85,11 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
 
         super.init(avAudioNode: mixer.avAudioNode)
 
-        AudioKit.engine.attach(effect)
+        AKManager.engine.attach(effect)
         if let node = effectGain?.avAudioNode {
-            AudioKit.engine.connect(node, to: effect)
+            AKManager.engine.connect(node, to: effect)
         }
-        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+        AKManager.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kLowPassParam_Resonance] = resonance
         au[kLowPassParam_CutoffFrequency] = cutoffFrequency
@@ -121,10 +121,10 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     override open func detach() {
         stop()
 
-        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+        AKManager.detach(nodes: [inputMixer.avAudioNode,
                                 inputGain!.avAudioNode,
                                 effectGain!.avAudioNode,
                                 mixer.avAudioNode])
-        AudioKit.engine.detach(self.internalEffect)
+        AKManager.engine.detach(self.internalEffect)
     }
 }

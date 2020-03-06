@@ -12,7 +12,7 @@ import Cocoa
 class ViewController: NSViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: NSTextView!
     @IBOutlet private var sourcePopUpButton: NSPopUpButton!
-    var midi = AudioKit.midi
+    var midi = AKManager.midi
 
     override func viewDidLoad() {
         super.viewDidLoad()

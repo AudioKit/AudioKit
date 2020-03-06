@@ -35,7 +35,7 @@
 
         #if !os(tvOS)
         AKSettings.audioInputEnabled = true
-        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
+        AKManager.engine.inputNode.connect(to: self.avAudioNode)
         #endif
     }
 

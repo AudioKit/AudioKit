@@ -281,18 +281,18 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if mixer.engine == nil {
-            AudioKit.engine.attach(mixer)
+            AKManager.engine.attach(mixer)
         }
 
         if playerNode.engine == nil {
-            AudioKit.engine.attach(playerNode)
+            AKManager.engine.attach(playerNode)
         } else {
             playerNode.disconnectOutput()
         }
 
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
-                AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
+                AKManager.engine.attach(faderNode.avAudioUnitOrNode)
             } else {
                 faderNode.disconnectOutput()
             }
@@ -313,10 +313,10 @@ public class AKPlayer: AKAbstractPlayer {
             return
         }
         if let faderNode = super.faderNode {
-            AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
-            AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
+            AKManager.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
+            AKManager.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
         } else {
-            AudioKit.connect(playerNode, to: mixer, format: processingFormat)
+            AKManager.connect(playerNode, to: mixer, format: processingFormat)
         }
     }
 
@@ -419,7 +419,7 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AudioKit.detach(nodes: [mixer, playerNode])
+        AKManager.detach(nodes: [mixer, playerNode])
     }
 
     @objc deinit {

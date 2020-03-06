@@ -29,7 +29,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
         self.name = midiInputName
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
-        AudioKit.engine.attach(self.avAudioNode)
+        AKManager.engine.attach(self.avAudioNode)
     }
 
     // MARK: - Triggering

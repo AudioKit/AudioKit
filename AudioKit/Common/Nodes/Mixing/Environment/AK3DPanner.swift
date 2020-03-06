@@ -56,6 +56,6 @@ open class AK3DPanner: AKNode, AKInput {
         return inputMixer.avAudioNode
     }
     open override func detach() {
-        AudioKit.detach(nodes: [environmentNode, inputMixer.avAudioNode])
+        AKManager.detach(nodes: [environmentNode, inputMixer.avAudioNode])
     }
 }

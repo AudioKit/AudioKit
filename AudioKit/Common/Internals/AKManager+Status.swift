@@ -9,7 +9,7 @@
 import Foundation
 import AudioToolbox
 
-extension AudioKit {
+extension AKManager {
 
     // MARK: Global audio format (44.1K, Stereo)
 
@@ -22,7 +22,7 @@ extension AudioKit {
     var isIAAConnected: Bool {
         #if !targetEnvironment(macCatalyst)
         do {
-            let result: UInt32? = try AudioKit.engine.outputNode.audioUnit?.getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
+            let result: UInt32? = try AKManager.engine.outputNode.audioUnit?.getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
             return result == 1
         } catch {
             AKLog("could not get IAA status: \(error)")

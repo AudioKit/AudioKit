@@ -42,9 +42,9 @@ class ViewController: UIViewController {
 
         booster = AKBooster(reverbMixer!)
 
-        AudioKit.output = booster
+        AKManager.output = booster
         do {
-            try AudioKit.start()         
+            try AKManager.start()         
         } catch {
             AKLog("AudioKit did not start!")
         }
