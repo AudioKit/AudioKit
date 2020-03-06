@@ -28,8 +28,8 @@
     mixer = [[AKMixer alloc] init: @[oscillator1, oscillator2]];
     mixer.volume = 0.5;
 
-    AudioKit.output = mixer;
-    [AudioKit startAndReturnError:nil];
+    AKManager.output = mixer;
+    [AKManager startAndReturnError:nil];
 
     return self;
 }
