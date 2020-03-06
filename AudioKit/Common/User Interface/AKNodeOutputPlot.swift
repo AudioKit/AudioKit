@@ -94,7 +94,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(AudioKit.output)
+        setupNode(AKManager.output)
         setupReconnection()
     }
 
@@ -105,7 +105,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    @objc public init(_ input: AKNode? = AudioKit.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    @objc public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

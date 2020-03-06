@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 #endif
 
-extension AudioKit {
+extension AKManager {
     // MARK: - Start/Stop
 
     /// Start up the audio engine with periodic functions

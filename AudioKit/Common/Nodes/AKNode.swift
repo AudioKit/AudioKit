@@ -35,7 +35,7 @@ extension AVAudioConnectionPoint {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
         if attach {
-            AudioKit.engine.attach(avAudioUnit)
+            AKManager.engine.attach(avAudioUnit)
         }
     }
 
@@ -43,13 +43,13 @@ extension AVAudioConnectionPoint {
     @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
-            AudioKit.engine.attach(avAudioNode)
+            AKManager.engine.attach(avAudioNode)
         }
     }
 
     // Subclasses should override to detach all internal nodes
     open func detach() {
-        AudioKit.detach(nodes: [avAudioUnitOrNode])
+        AKManager.detach(nodes: [avAudioUnitOrNode])
     }
 }
 
@@ -73,7 +73,7 @@ extension AKNode {
 
     @available(*, deprecated, message: "Use AudioKit.detach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
-        AudioKit.detach(nodes: nodes)
+        AKManager.detach(nodes: nodes)
     }
 }
 

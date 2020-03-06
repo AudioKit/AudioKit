@@ -25,9 +25,9 @@ During the init() function we initialize the instruments, connect them to a mixi
     arpeggioVolume = AKBooster(arpeggioSynthesizer)
     mixer.connect(arpeggioVolume!)
     filter = AKMoogLadder(mixer)
-    AudioKit.output = filter
+    AKManager.output = filter
     arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-    AudioKit.start()
-    sequence = AKAppleSequencer(filename: "seqDemo", engine: AudioKit.engine)
+    AKManager.start()
+    sequence = AKAppleSequencer(filename: "seqDemo", engine: AKManager.engine)
     sequence!.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
 ```

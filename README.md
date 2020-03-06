@@ -1,4 +1,4 @@
-AudioKit V4.9
+AudioKit V5.0
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -10,7 +10,7 @@ AudioKit V4.9
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
 | [AudioKitPro.com](http://audiokitpro.com/)|[AudioKit.io](http://audiokit.io/)|
 |:--:|:--:|
@@ -34,7 +34,7 @@ Installation details are found in the [Frameworks README file](https://github.co
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
 ```
-    pod 'AudioKit', '~> 4.0'
+    pod 'AudioKit', '~> 5.0'
 ```
 
 If you do not need the UI components, you can select just the Core pod, like so:

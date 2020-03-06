@@ -44,7 +44,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
                          name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

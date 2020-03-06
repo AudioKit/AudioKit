@@ -77,7 +77,7 @@ open class AKDryWetMixer: AKNode, AKInput {
 
     // Disconnect the node
     override open func detach() {
-        AudioKit.detach(nodes: [mixer.avAudioUnitOrNode,
+        AKManager.detach(nodes: [mixer.avAudioUnitOrNode,
                                 input1Attenuator.avAudioUnitOrNode, input2Attentuator.avAudioUnitOrNode])
     }
 

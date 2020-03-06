@@ -80,7 +80,7 @@ public class AKAmplitudeTap: AKToggleable {
 
         input.avAudioUnitOrNode.installTap(onBus: bus,
                                            bufferSize: bufferSize,
-                                           format: AudioKit.format,
+                                           format: AKManager.format,
                                            block: handleTapBlock(buffer:at:))
     }
 
