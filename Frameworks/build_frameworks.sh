@@ -150,24 +150,6 @@ create_universal_framework()
 	fi
 }
 
-# Create a xcframework for the given framework, merging all specified platforms
-create_xcframework()
-{
-	echo "Assembling xcframework for $1 ..."
-	if test -d "${BUILD_DIR}/Catalyst.xcarchive"; then
-		CATA_ARG="-framework ${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/$1.framework"
-	fi
-	rm -rf $1.xcframework # Start fresh
-	xcodebuild -create-xcframework -output $1.xcframework \
-		-framework "${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework" \
-		-framework "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/$1.framework" \
-		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
-		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
-		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
-	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
-	find $1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
-}
-
 # Create individual static platform frameworks (device or simulator) in their own subdirectories
 # 2 arguments: platform (iOS or tvOS), platform (iphoneos, iphonesimulator, appletvos, appletvsimulator)
 create_framework()
@@ -261,12 +243,6 @@ for os in $PLATFORMS; do
 		create_catalyst_framework
 	fi
 done
-
-# Only create the xcframework if all platforms were built
-if test "$PLATFORMS" = "iOS macOS tvOS"; then
-	create_xcframework AudioKit
-	create_xcframework AudioKitUI
-fi
 
 if [ -f distribute_built_frameworks.sh ]; then
     ./distribute_built_frameworks.sh

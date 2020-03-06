@@ -55,8 +55,14 @@ jobs:
         name: tvOS
         path: Frameworks/AudioKit-tvOS
 
-    - name: Run tests
+    - name: Build XCFramework
       run: |
-        pwd
-        ls -lR Frameworks
- 
+        cd Frameworks
+        mkdir build
+        ./build_xcframework.sh build
+
+    - name: Upload XCFramework artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks/build
