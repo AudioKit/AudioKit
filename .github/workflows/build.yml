@@ -74,3 +74,26 @@ jobs:
       with:
         name: XCFrameworks
         path: Frameworks/release
+
+  # Perform unit tests in parallel
+  test:
+    needs: build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        env:
+          [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
+      fail-fast: true
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+    
+    - name: Download built frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: ${{ matrix.env.PLATFORMS }}
+        path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
+
+    - name: Run unit tests
+      run: ./Tests/tests-${{ matrix.env.PLATFORMS }}.sh
