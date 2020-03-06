@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
+    - name: Build iOS Frameworks
+      run: |
+        cd Frameworks
+        ./build_frameworks.sh
+      env:
+        PLATFORMS: iOS
+
+    - name: Upload iOS artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: iOS-Framework
+        path: Frameworks/AudioKit-iOS
+
+        
+ 
