@@ -83,7 +83,7 @@ jobs:
       matrix:
         env:
           [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
-      fail-fast: true
+      fail-fast: false
 
     steps:
     - name: Check out AudioKit
