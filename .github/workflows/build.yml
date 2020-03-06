@@ -40,21 +40,23 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Download iOS Frameworks
-      uses: actions/checkout@v1
+      uses: actions/download-artifact@v1
       with:
         name: iOS
-        path: Frameworks
+        path: Frameworks/AudioKit-iOS
     - name: Download macOS Frameworks
-      uses: actions/checkout@v1
+      uses: actions/download-artifact@v1
       with:
         name: macOS
-        path: Frameworks
+        path: Frameworks/AudioKit-macOS
     - name: Download tvOS Frameworks
-      uses: actions/checkout@v1
+      uses: actions/download-artifact@v1
       with:
         name: tvOS
-        path: Frameworks
+        path: Frameworks/AudioKit-tvOS
 
     - name: Run tests
-      run: ls -lR Frameworks
+      run: |
+        pwd
+        ls -lR Frameworks
  
