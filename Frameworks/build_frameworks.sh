@@ -224,6 +224,17 @@ create_catalyst_framework()
 	else
 		strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
 	fi
+
+	# Finally, replace the symlinks created in the build directory by the actual archive, so they can be copied as build artifacts
+	if [ -L "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework" ];
+	then
+		LINK=$(readlink "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework")
+		rm "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework"
+		cp -a "$LINK" "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework"
+		LINK=$(readlink "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework")
+		rm "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework"
+		cp -a "$LINK" "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework"
+	fi
 }
 
 echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
