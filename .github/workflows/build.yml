@@ -96,4 +96,4 @@ jobs:
         path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
 
     - name: Run unit tests
-      run: ./Tests/tests-${{ matrix.env.PLATFORMS }}.sh
+      run: ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
