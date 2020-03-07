@@ -58,7 +58,7 @@ create_package()
 	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor Examples/Drums
-	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
+	find Examples -name project.pbxproj -exec $SED -i -f ../fix_paths.sed {} \;
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
@@ -77,7 +77,7 @@ create_playgrounds()
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
 	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	$SED -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find . -name build -or -name xcuserdata -exec rm -rf {} \;
