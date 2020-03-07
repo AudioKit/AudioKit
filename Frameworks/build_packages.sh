@@ -81,7 +81,7 @@ create_playgrounds()
 	find . -name .DS_Store -exec rm -rf {} \;
 	find . -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
-        zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
+    zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 }
 
 rm -rf Carthage

@@ -97,3 +97,38 @@ jobs:
 
     - name: Run unit tests
       run: ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
+
+  # Upload staging builds to S3
+  staging:
+    needs: xcframework
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+    - name: Download XCFramework
+      uses: actions/download-artifact@v1
+      with:
+        name: XCFramework
+        path: Frameworks
+    - name: Upload to S3
+      run: |
+        cd Frameworks
+        ls -lR
+        zip -9r AudioKit.xcframework.zip XCFramework
+        aws s3 ls s3://files.audiokit.io/staging/
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # Upload release assets for tags
+  release:
+    needs: xcframework
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
