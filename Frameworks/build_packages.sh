@@ -9,13 +9,14 @@ SKIP_JAZZY=1 # Broken for now
 SUBDIR=${SUBDIR:-"packages"}
 STAGING_BRANCH="staging"
 VERSION=$(cat ../VERSION)
+SED=${SED:-"sed"}
 
 if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH";
 then
 	VERSION="${VERSION}.b1"
 fi
 
-if ! which gsed > /dev/null 2>&1;
+if ! which $SED > /dev/null 2>&1;
 then
 	echo "You need GNU sed installed to run this script properly!"
 	echo "  brew install gnu-sed"
