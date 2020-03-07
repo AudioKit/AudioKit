@@ -115,9 +115,8 @@ jobs:
     - name: Upload to S3
       run: |
         cd Frameworks
-        ls -lR
-        zip -9r AudioKit.xcframework.zip XCFrameworks
-        aws s3 ls s3://files.audiokit.io/staging/
+        zip -9r AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+        aws s3 cp AudioKit.xcframework.zip s3://files.audiokit.io/staging/v$(cat ../VERSION).b1/
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
