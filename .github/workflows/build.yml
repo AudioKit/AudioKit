@@ -1,3 +1,4 @@
+# GitHub Actions for AudioKit: includes builds, tests and releases
 name: CI
 
 on: [push, pull_request]
@@ -131,3 +132,38 @@ jobs:
     - name: Check out AudioKit
       uses: actions/checkout@v2
 
+    - name: Download XCFramework
+      uses: actions/download-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks
+
+    - name: Download built iOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: iOS
+        path: Frameworks/AudioKit-iOS
+    - name: Download built macOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: macOS
+        path: Frameworks/AudioKit-macOS
+    - name: Download built tvOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: tvOS
+        path: Frameworks/AudioKit-tvOS
+    
+    - name: Build packages
+      run: |
+        cd Frameworks
+        ./build_packages.sh
+
+    - name: Upload files to release draft
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: false
+        draft: true
+        automatic_release_tag: latest
+        files: Frameworks/packages/*
