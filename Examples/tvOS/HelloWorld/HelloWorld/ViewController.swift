@@ -19,9 +19,9 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

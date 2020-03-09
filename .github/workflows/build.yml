@@ -1,0 +1,168 @@
+# GitHub Actions for AudioKit: includes builds, tests and releases
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  # Run the build for each platform in parallel
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        env:
+          [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
+      fail-fast: true
+
+    steps:
+    - name: Install additional packages
+      run: brew install swiftlint
+
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
+    - name: Build Frameworks
+      run: |
+        cd Frameworks
+        ./build_frameworks.sh
+      env:
+        PLATFORMS: ${{ matrix.env.PLATFORMS }}
+
+    - name: Upload built frameworks
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ matrix.env.PLATFORMS }}
+        path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: build-${{ matrix.env.PLATFORMS }}
+        path: Frameworks/build
+
+  # Reassemble the builds, put together the XCFramework
+  xcframework:
+    needs: build
+    runs-on: macos-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
+    - name: Download iOS build artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: build-iOS
+        path: Frameworks/build
+    - name: Download macOS build artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: build-macOS
+        path: Frameworks/build
+    - name: Download tvOS build artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: build-tvOS
+        path: Frameworks/build
+
+    - name: Build XCFramework
+      run: |
+        cd Frameworks
+        mkdir release
+        ./build_xcframework.sh release
+
+    - name: Upload XCFramework artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks/release
+
+  # Perform unit tests in parallel
+  test:
+    needs: build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        env:
+          [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
+      fail-fast: false
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+    
+    - name: Download built frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: ${{ matrix.env.PLATFORMS }}
+        path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
+
+    - name: Run unit tests
+      run: ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
+
+  # Upload staging builds to S3
+  staging:
+    needs: xcframework
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+    - name: Download XCFramework
+      uses: actions/download-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks
+    - name: Upload to S3
+      run: |
+        cd Frameworks
+        zip -9r AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+        aws s3 cp AudioKit.xcframework.zip s3://files.audiokit.io/staging/v$(cat ../VERSION).b1/
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # Upload release assets for tags
+  release:
+    needs: [xcframework, test]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+
+    - name: Download XCFramework
+      uses: actions/download-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks
+
+    - name: Download built iOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: iOS
+        path: Frameworks/AudioKit-iOS
+    - name: Download built macOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: macOS
+        path: Frameworks/AudioKit-macOS
+    - name: Download built tvOS frameworks
+      uses: actions/download-artifact@v1
+      with:
+        name: tvOS
+        path: Frameworks/AudioKit-tvOS
+    
+    - name: Build packages
+      run: |
+        cd Frameworks
+        ./build_packages.sh
+
+    - name: Upload files to release draft
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: false
+        draft: true
+        files: Frameworks/packages/*
