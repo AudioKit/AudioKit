@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,7 +16,8 @@
 		C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */; };
 		C4EDA0F01DA8C36A008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */; };
 		C4EDA0F21DA8C91A008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */; };
-		C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; };
+		EAF51ACC24171EA4005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51ACA24171EA4005E7000 /* AudioKit.xcframework */; };
+		EAF51ACE24171EA4005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51ACB24171EA4005E7000 /* AudioKitUI.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +36,8 @@
 		C4EDA0EB1DA8C101008C1827 /* SenderSynth-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SenderSynth-BridgingHeader.h"; sourceTree = "<group>"; };
 		C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Audiobus.swift; path = ../../Audiobus/Audiobus.swift; sourceTree = "<group>"; };
 		C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
-		C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		EAF51ACA24171EA4005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		EAF51ACB24171EA4005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 		EF045D6CF445585F921382DD /* Pods_SenderSynth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenderSynth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,7 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */,
+				EAF51ACC24171EA4005E7000 /* AudioKit.xcframework in Frameworks */,
+				EAF51ACE24171EA4005E7000 /* AudioKitUI.xcframework in Frameworks */,
 				C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */,
 				071CAF41B49BFAA9F991F5F6 /* Pods_SenderSynth.framework in Frameworks */,
 			);
@@ -57,8 +59,8 @@
 		2FE01482DB8AE647315372E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */,
-				C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */,
+				EAF51ACA24171EA4005E7000 /* AudioKit.xcframework */,
+				EAF51ACB24171EA4005E7000 /* AudioKitUI.xcframework */,
 				C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */,
 				EF045D6CF445585F921382DD /* Pods_SenderSynth.framework */,
 			);
@@ -352,7 +354,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -369,7 +372,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SenderSynth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lc++",
@@ -391,7 +397,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SenderSynth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lc++",

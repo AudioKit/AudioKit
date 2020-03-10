@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,7 +41,7 @@
 		1F2DAD642083428F00F1C9E3 /* SequencerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DAD632083428F00F1C9E3 /* SequencerManager.swift */; };
 		1F2DAD6D20841E5A00F1C9E3 /* D_Loop_03.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1F2DAD6C20841E5A00F1C9E3 /* D_Loop_03.mid */; };
 		1F2DAD7120842A4200F1C9E3 /* cellularAutomatonComp.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1F2DAD7020842A4100F1C9E3 /* cellularAutomatonComp.mid */; };
-		C4CC303F208486FD004E91CB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC303E208486FD004E91CB /* AudioKit.framework */; };
+		EAF51AE524172354005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51AE424172354005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +81,7 @@
 		1F2DAD632083428F00F1C9E3 /* SequencerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerManager.swift; sourceTree = "<group>"; };
 		1F2DAD6C20841E5A00F1C9E3 /* D_Loop_03.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = D_Loop_03.mid; sourceTree = "<group>"; };
 		1F2DAD7020842A4100F1C9E3 /* cellularAutomatonComp.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = cellularAutomatonComp.mid; sourceTree = "<group>"; };
-		C4CC303E208486FD004E91CB /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EAF51AE424172354005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4CC303F208486FD004E91CB /* AudioKit.framework in Frameworks */,
+				EAF51AE524172354005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,9 +99,9 @@
 		1F0E9602207DEBD90036B6B2 = {
 			isa = PBXGroup;
 			children = (
-				C4CC303E208486FD004E91CB /* AudioKit.framework */,
 				1F0E960D207DEBD90036B6B2 /* MIDIFileEditAndSync */,
 				1F0E960C207DEBD90036B6B2 /* Products */,
+				EAF51AE324172354005E7000 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,6 +177,14 @@
 				1F2DAD3720807ADB00F1C9E3 /* SequencerSettingsVC.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		EAF51AE324172354005E7000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAF51AE424172354005E7000 /* AudioKit.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,7 +431,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -435,7 +444,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MIDIFileEditAndSync/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIFileEditAndSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -451,7 +463,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MIDIFileEditAndSync/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIFileEditAndSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";

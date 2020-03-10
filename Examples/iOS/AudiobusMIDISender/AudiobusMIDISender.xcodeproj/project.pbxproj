@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,7 @@
 		1F9F2B43206B6B4E009E1296 /* Audiobus+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B42206B6B4E009E1296 /* Audiobus+MIDI.swift */; };
 		1F9F2B45206B7132009E1296 /* AudiobusCompatibleSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B44206B7132009E1296 /* AudiobusCompatibleSequencer.swift */; };
 		21E6BE67496E372765E253C4 /* Pods_AudiobusMIDISender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */; };
-		C4058A17206F04190055B6CA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4058A16206F04190055B6CA /* AudioKit.framework */; };
+		EAF51AE0241721DE005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51ADF241721DE005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,7 @@
 		1F9F2B46206B7340009E1296 /* AudiobusMIDISender-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudiobusMIDISender-BridgingHeader.h"; sourceTree = "<group>"; };
 		5BB9282EE90BE91CC0599EAA /* Pods-AudiobusMIDISender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudiobusMIDISender.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender.release.xcconfig"; sourceTree = "<group>"; };
 		6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AudiobusMIDISender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4058A16206F04190055B6CA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EAF51ADF241721DE005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4058A17206F04190055B6CA /* AudioKit.framework in Frameworks */,
+				EAF51AE0241721DE005E7000 /* AudioKit.xcframework in Frameworks */,
 				21E6BE67496E372765E253C4 /* Pods_AudiobusMIDISender.framework in Frameworks */,
 				1F9F2B3D206B6811009E1296 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -105,7 +105,7 @@
 		5143BE3127059D506A5A4413 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C4058A16206F04190055B6CA /* AudioKit.framework */,
+				EAF51ADF241721DE005E7000 /* AudioKit.xcframework */,
 				1F9F2B3C206B6811009E1296 /* AudioToolbox.framework */,
 				6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */,
 			);
@@ -356,7 +356,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -370,7 +371,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
@@ -388,7 +392,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
