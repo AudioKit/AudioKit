@@ -57,8 +57,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
-    @objc public init(
-        amplitude: Double = defaultAmplitude) {
+    @objc public init(amplitude: Double = defaultAmplitude) {
 
         self.amplitude = amplitude
 
@@ -84,6 +83,10 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
+    @objc override convenience public init() {
+        self.init(amplitude: AKBrownianNoise.defaultAmplitude)
+    }
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
