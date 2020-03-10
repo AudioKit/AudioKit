@@ -112,8 +112,6 @@
 		C468DC3121AC1DA700678959 /* VocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468DC3021AC1DA700678959 /* VocalTractTests.swift */; };
 		C47C528320929D7800A6FB3C /* AKAppleSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47C528220929D7800A6FB3C /* AKAppleSequencerTests.swift */; };
 		C4F5E7A82068DF13008E0838 /* AKDynamicRangeCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */; };
-		EA4E72722417A8E600F98A40 /* AKDynaRageCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72702417A8E600F98A40 /* AKDynaRageCompressorTests.swift */; };
-		EA4E72732417A8E600F98A40 /* AKWaveTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72712417A8E600F98A40 /* AKWaveTableTests.swift */; };
 		EAF51B6324172BAF005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B6224172BAF005E7000 /* AudioKit.xcframework */; };
 		FE920C3920E579CD00CA8AA7 /* AKDiskStreamerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */; };
 		FEE0730520E56B0A003F7FD5 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEE0730420E56B0A003F7FD5 /* sinechirp.wav */; };
@@ -240,8 +238,6 @@
 		C468DC3021AC1DA700678959 /* VocalTractTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalTractTests.swift; sourceTree = "<group>"; };
 		C47C528220929D7800A6FB3C /* AKAppleSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencerTests.swift; sourceTree = "<group>"; };
 		C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicRangeCompressorTests.swift; sourceTree = "<group>"; };
-		EA4E72702417A8E600F98A40 /* AKDynaRageCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressorTests.swift; sourceTree = "<group>"; };
-		EA4E72712417A8E600F98A40 /* AKWaveTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWaveTableTests.swift; sourceTree = "<group>"; };
 		EAF51B6224172BAF005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 		FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamerTests.swift; sourceTree = "<group>"; };
 		FEE0730420E56B0A003F7FD5 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
@@ -418,8 +414,6 @@
 				C44FF8B91FD0994F00B2217D /* triangleTests.swift */,
 				C44FF8841FD0994F00B2217D /* triangleWaveTests.swift */,
 				C44FF8831FD0994F00B2217D /* variableDelayTests.swift */,
-				EA4E72702417A8E600F98A40 /* AKDynaRageCompressorTests.swift */,
-				EA4E72712417A8E600F98A40 /* AKWaveTableTests.swift */,
 				C468DC3021AC1DA700678959 /* VocalTractTests.swift */,
 				C44FF8C01FD0994F00B2217D /* whiteNoiseTests.swift */,
 			);
@@ -574,7 +568,6 @@
 				C44FF91D1FD0994F00B2217D /* AKTestCase.swift in Sources */,
 				C44FF8E61FD0994F00B2217D /* dcBlockTests.swift in Sources */,
 				C40D6BBE206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift in Sources */,
-				EA4E72732417A8E600F98A40 /* AKWaveTableTests.swift in Sources */,
 				C44FF9261FD0994F00B2217D /* AKCostelloReverbTests.swift in Sources */,
 				C44FF9231FD0994F00B2217D /* stringResonatorTests.swift in Sources */,
 				C44FF8F11FD0994F00B2217D /* AKCompressorTests.swift in Sources */,
@@ -585,7 +578,6 @@
 				C44FF92A1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift in Sources */,
 				C44FF90F1FD0994F00B2217D /* AKOscillatorBankTests.swift in Sources */,
 				C44FF9171FD0994F00B2217D /* reverberateWithFlatFrequencyResponseTests.swift in Sources */,
-				EA4E72722417A8E600F98A40 /* AKDynaRageCompressorTests.swift in Sources */,
 				C44FF9141FD0994F00B2217D /* AKMorphingOscillatorTests.swift in Sources */,
 				C44FF92C1FD0994F00B2217D /* squareWaveTests.swift in Sources */,
 				C44FF8E01FD0994F00B2217D /* AKBandPassButterworthFilterTests.swift in Sources */,
