@@ -110,11 +110,11 @@
 		EA4E727C2417A90700F98A40 /* VocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72742417A90600F98A40 /* VocalTractTests.swift */; };
 		EA4E727D2417A90700F98A40 /* AKVocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */; };
 		EA4E727E2417A90700F98A40 /* AKDiskStreamerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */; };
-		EA4E727F2417A90700F98A40 /* AKDynaRageCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72772417A90600F98A40 /* AKDynaRageCompressorTests.swift */; };
 		EA4E72802417A90700F98A40 /* AKRhinoGuitarProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */; };
-		EA4E72812417A90700F98A40 /* AKWaveTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72792417A90600F98A40 /* AKWaveTableTests.swift */; };
 		EA4E72822417A90700F98A40 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */; };
 		EA4E72832417A90700F98A40 /* AKAppleSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */; };
+		EA4E72852417B53D00F98A40 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA4E72842417B53D00F98A40 /* sinechirp.wav */; };
+		EA4E72862417B53D00F98A40 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA4E72842417B53D00F98A40 /* sinechirp.wav */; };
 		EAF51B6624172BDF005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B6524172BDF005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
@@ -237,11 +237,10 @@
 		EA4E72742417A90600F98A40 /* VocalTractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalTractTests.swift; sourceTree = "<group>"; };
 		EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocalTractTests.swift; sourceTree = "<group>"; };
 		EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamerTests.swift; sourceTree = "<group>"; };
-		EA4E72772417A90600F98A40 /* AKDynaRageCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressorTests.swift; sourceTree = "<group>"; };
 		EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
-		EA4E72792417A90600F98A40 /* AKWaveTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWaveTableTests.swift; sourceTree = "<group>"; };
 		EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencerTests.swift; sourceTree = "<group>"; };
+		EA4E72842417B53D00F98A40 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
 		EAF51B6524172BDF005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,6 +286,7 @@
 		C464E84C1FB0302A0025629C /* macOSTestSuite */ = {
 			isa = PBXGroup;
 			children = (
+				EA4E72842417B53D00F98A40 /* sinechirp.wav */,
 				C464E84D1FB0302A0025629C /* AppDelegate.swift */,
 				C464E8541FB0302A0025629C /* Info.plist */,
 				C464E8551FB0302A0025629C /* macOSTestSuite.entitlements */,
@@ -333,11 +333,9 @@
 				C4AA79B61FD09BA300040720 /* AKHighPassFilterTests.swift */,
 				EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */,
 				EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */,
-				EA4E72772417A90600F98A40 /* AKDynaRageCompressorTests.swift */,
 				EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */,
 				EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */,
 				EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */,
-				EA4E72792417A90600F98A40 /* AKWaveTableTests.swift */,
 				EA4E72742417A90600F98A40 /* VocalTractTests.swift */,
 				C4AA79D41FD09BA300040720 /* AKHighShelfFilterTests.swift */,
 				C4AA79D11FD09BA300040720 /* AKHighShelfParametricEqualizerFilterTests.swift */,
@@ -516,6 +514,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4E72852417B53D00F98A40 /* sinechirp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +522,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4E72862417B53D00F98A40 /* sinechirp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +550,6 @@
 				C4AA7A0C1FD09BA300040720 /* AKPWMOscillatorBankTests.swift in Sources */,
 				C4AA7A251FD09BA300040720 /* korgLowPassFilterTests.swift in Sources */,
 				C4AA7A411FD09BA300040720 /* AKKorgLowPassFilterTests.swift in Sources */,
-				EA4E727F2417A90700F98A40 /* AKDynaRageCompressorTests.swift in Sources */,
 				C4AA7A2C1FD09BA300040720 /* distortTests.swift in Sources */,
 				C4AA7A1A1FD09BA300040720 /* AKFMOscillatorTests.swift in Sources */,
 				C4AA7A551FD09BA400040720 /* lowPassFilterTests.swift in Sources */,
@@ -609,7 +608,6 @@
 				C4AA7A1D1FD09BA300040720 /* AKBandRejectButterworthFilterTests.swift in Sources */,
 				C4AA7A2D1FD09BA300040720 /* AKFormantFilterTests.swift in Sources */,
 				C4AA7A281FD09BA300040720 /* AKAutoWahTests.swift in Sources */,
-				EA4E72812417A90700F98A40 /* AKWaveTableTests.swift in Sources */,
 				C4AA7A211FD09BA300040720 /* autoWahTests.swift in Sources */,
 				C4AA7A421FD09BA300040720 /* pinkNoiseTests.swift in Sources */,
 				C4AA7A2E1FD09BA300040720 /* AKToneComplementFilterTests.swift in Sources */,
