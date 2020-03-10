@@ -99,6 +99,9 @@ open class AKSettings: NSObject {
     /// Whether to allow audio playback to override the mute setting
     @objc public static var playbackWhileMuted: Bool = false
 
+    /// Whether we will allow our audio to mix with other applications
+    @objc public static var mixWithOthers: Bool  = true
+
     /// Global audio format AudioKit will default to
     @objc public static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount)!
@@ -309,7 +312,11 @@ extension AKSettings {
 
     @objc public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
 
-        var options: AVAudioSession.CategoryOptions = [.mixWithOthers]
+        var options: AVAudioSession.CategoryOptions = []
+
+        if AKSettings.mixWithOthers {
+          options = options.union(.mixWithOthers)
+        }
 
         if AKSettings.audioInputEnabled {
 
