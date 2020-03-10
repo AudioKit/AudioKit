@@ -188,6 +188,14 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         internalAU?.setParameterImmediately(.nasality, value: nasality)
     }
 
+    @objc override convenience public init() {
+        self.init(frequency: AKVocalTract.defaultFrequency,
+                  tonguePosition: AKVocalTract.defaultTonguePosition,
+                  tongueDiameter: AKVocalTract.defaultTongueDiameter,
+                  tenseness: AKVocalTract.defaultTenseness,
+                  nasality: AKVocalTract.defaultNasality)
+    }
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
