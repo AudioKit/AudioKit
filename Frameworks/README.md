@@ -4,6 +4,8 @@ AudioKit is distributed as a couple of universal static frameworks with minimal 
 
 AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your deployment target needs to be set to at least one of these versions to link with AudioKit.
 
+Starting with AudioKit 5, the new XCFramework format will be the prefered way to distribute and use AudioKit, whether through your own builds or through a third-party package manager like CocoaPods.
+
 ## Using the compiled frameworks in your projects
 
 <img src="DragAndDropFrameworks.gif"/>
@@ -46,7 +48,7 @@ Optionally, you may restrict which platforms to build the frameworks for by sett
 
 If you are running at least macOS 10.15 (Catalina), you can now build XCFramework archives containing all supported platforms in a singular archive - including the Mac Catalyst versions.
 
-Note that these can only be built on a Mac running Catalina, and the `build_frameworks.sh` script only creates this if all platforms were built (the default), i.e. xcframework archives won't be generated if you're only building a subset of the platforms.
+Note that these can only be built on a Mac running Catalina, and you need to explicitly run the `build_xcframework.sh` script after building the individual frameworks first with `build_frameworks.sh`. You will need binaries for all supported platforms to be able to generate the XCFramework with this script.
 
 ## Distribution to other projects
 
