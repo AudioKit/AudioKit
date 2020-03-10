@@ -134,7 +134,7 @@ class AKWaveTableTests: AKTestCase {
         if let path = Bundle.main.path(forResource: "sinechirp", ofType: "wav") {
             let url = URL(fileURLWithPath: path)
             let file = try! AKAudioFile(forReading: url)
-            sampler = AKWaveTable(file: file)
+            sampler = AKWaveTable(file: file, maximumSamples: 1024)
             output = sampler
         } else {
             XCTFail("Could not load sinechirp.wav")

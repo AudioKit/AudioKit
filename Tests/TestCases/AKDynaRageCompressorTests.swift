@@ -20,7 +20,7 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
     func testAttackTime() {
-        output = AKDynaRageCompressor(input, ratio: 10, attackTime: 21)
+        output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
         AKTestMD5("27de5d9f687d6c114126e2e243b22a25")
     }
 
@@ -33,8 +33,8 @@ class AKDynaRangeCompressorTests: AKTestCase {
         output = AKDynaRageCompressor(input,
                                       ratio: 10,
                                       threshold: -1,
-                                      attackTime: 21,
-                                      releaseTime: 22)
+                                      attackDuration: 21,
+                                      releaseDuration: 22)
         AKTestMD5("746a16c29c92b779e3b6e05d636cdf53")
     }
 
@@ -49,7 +49,7 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
     func testReleaseTime() {
-        output = AKDynaRageCompressor(input, ratio: 10, releaseTime: 22)
+        output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
         AKTestMD5("00ad8e2278e31838555163547d9cac9c")
     }
 

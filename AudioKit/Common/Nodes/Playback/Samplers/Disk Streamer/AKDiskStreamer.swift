@@ -152,6 +152,10 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.volume = Float(volume)
     }
 
+    @objc override convenience public init() {
+        self.init(volume: 1)
+    }
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
