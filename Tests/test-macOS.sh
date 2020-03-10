@@ -4,11 +4,11 @@
 #
 set -o pipefail
 
-echo "Skipping iOS+Catalyst HelloWorld because it can be built with Catalina, it references the AudioKit project file which we don't want to have to build again"
-#xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 4
+echo "Building iOS+Catalyst HelloWorld"
+xcodebuild -project Examples/iOS+Catalyst/HelloWorld/HelloWorld.xcodeproj -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 4
 
-echo "Skipping iOS+Catalyst Drums"
-#xcodebuild -project Examples/iOS+Catalyst/Drums/Drums.xcodeproj -sdk iphonesimulator -scheme Drums -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 12
+echo "Building iOS+Catalyst Drums"
+xcodebuild -project Examples/iOS+Catalyst/Drums/Drums.xcodeproj -scheme Drums -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 12
 
 echo "Building macOS AudioUnitManager"
 xcodebuild -project Examples/macOS/AudioUnitManager/AudioUnitManager.xcodeproj -scheme AudioUnitManager ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22

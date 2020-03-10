@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -106,8 +106,8 @@
 		C4AA7A5E1FD09BA400040720 /* AKPinkNoiseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA79FE1FD09BA300040720 /* AKPinkNoiseTest.swift */; };
 		C4AA7A5F1FD09BA400040720 /* AKResonantFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA79FF1FD09BA300040720 /* AKResonantFilterTests.swift */; };
 		C4AA7A601FD09BA400040720 /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7A001FD09BA300040720 /* AKBoosterTests.swift */; };
-		C4D8A00A21981A67002B71EC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AA7A611FD09DD700040720 /* AudioKit.framework */; };
 		C4D8A00C21981A84002B71EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D8A00B21981A84002B71EC /* AVFoundation.framework */; };
+		EAF51B6624172BDF005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B6524172BDF005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,8 +225,8 @@
 		C4AA79FE1FD09BA300040720 /* AKPinkNoiseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoiseTest.swift; sourceTree = "<group>"; };
 		C4AA79FF1FD09BA300040720 /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C4AA7A001FD09BA300040720 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
-		C4AA7A611FD09DD700040720 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C4D8A00B21981A84002B71EC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EAF51B6524172BDF005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,7 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D8A00C21981A84002B71EC /* AVFoundation.framework in Frameworks */,
-				C4D8A00A21981A67002B71EC /* AudioKit.framework in Frameworks */,
+				EAF51B6624172BDF005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +252,6 @@
 		C464E8411FB0302A0025629C = {
 			isa = PBXGroup;
 			children = (
-				C4AA7A611FD09DD700040720 /* AudioKit.framework */,
 				C464E84C1FB0302A0025629C /* macOSTestSuite */,
 				C464E85D1FB0302A0025629C /* macOSTestSuiteTests */,
 				C464E84B1FB0302A0025629C /* Products */,
@@ -397,6 +396,7 @@
 		C4D8A00921981A67002B71EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAF51B6524172BDF005E7000 /* AudioKit.xcframework */,
 				C4D8A00B21981A84002B71EC /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -737,7 +737,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -750,7 +751,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = macOSTestSuite/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuite;
@@ -769,7 +773,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = macOSTestSuite/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuite;
@@ -787,7 +794,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = macOSTestSuiteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuiteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -804,7 +815,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = macOSTestSuiteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuiteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
