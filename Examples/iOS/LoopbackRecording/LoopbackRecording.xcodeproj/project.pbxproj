@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,8 @@
 		5576EBA8209BD033007F6EDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576EBA7209BD033007F6EDF /* ViewController.swift */; };
 		5576EBAD209BD034007F6EDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5576EBAC209BD034007F6EDF /* Assets.xcassets */; };
 		55F8E8F3209CB46800C6C35D /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8E8F2209CB46800C6C35D /* CompareViewController.swift */; };
-		55F8E908209D1FE600C6C35D /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F8E8EF209CB42900C6C35D /* AudioKit.framework */; };
+		EAF51AF7241724D4005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51AF5241724D4005E7000 /* AudioKitUI.xcframework */; };
+		EAF51AF9241724D4005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51AF6241724D4005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,9 +21,9 @@
 		5576EBA7209BD033007F6EDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5576EBAC209BD034007F6EDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5576EBB1209BD034007F6EDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55F8E8EE209CB42900C6C35D /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		55F8E8EF209CB42900C6C35D /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		55F8E8F2209CB46800C6C35D /* CompareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
+		EAF51AF5241724D4005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
+		EAF51AF6241724D4005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55F8E908209D1FE600C6C35D /* AudioKit.framework in Frameworks */,
+				EAF51AF7241724D4005E7000 /* AudioKitUI.xcframework in Frameworks */,
+				EAF51AF9241724D4005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,8 +71,8 @@
 		55F8E8ED209CB42900C6C35D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55F8E8EF209CB42900C6C35D /* AudioKit.framework */,
-				55F8E8EE209CB42900C6C35D /* AudioKitUI.framework */,
+				EAF51AF6241724D4005E7000 /* AudioKit.xcframework */,
+				EAF51AF5241724D4005E7000 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

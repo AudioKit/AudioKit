@@ -44,7 +44,7 @@ class ViewController: UIViewController, AKKeyboardDelegate {
         }
 
         stackView.addArrangedSubview(adsrView)
-        let keyboardView = AKKeyboardView()
+        let keyboardView = AKKeyboardView(width: 300, height: 20)
         keyboardView.polyphonicMode = true
         keyboardView.delegate = self
 
