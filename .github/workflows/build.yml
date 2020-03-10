@@ -78,7 +78,7 @@ jobs:
 
   # Perform unit tests in parallel
   test:
-    needs: build
+    needs: xcframework
     runs-on: macos-latest
     strategy:
       matrix:
@@ -90,11 +90,11 @@ jobs:
     - name: Check out AudioKit
       uses: actions/checkout@v2
     
-    - name: Download built frameworks
+    - name: Download XCFramework
       uses: actions/download-artifact@v1
       with:
-        name: ${{ matrix.env.PLATFORMS }}
-        path: Frameworks/AudioKit-${{ matrix.env.PLATFORMS }}
+        name: XCFrameworks
+        path: Frameworks
 
     - name: Run unit tests
       run: ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
@@ -124,7 +124,7 @@ jobs:
 
   # Upload release assets for tags
   release:
-    needs: [xcframework, test]
+    needs: test
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 
