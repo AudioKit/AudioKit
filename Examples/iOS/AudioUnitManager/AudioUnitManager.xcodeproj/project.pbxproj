@@ -18,6 +18,7 @@
 		C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE31F5D411900FA09A4 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4704C3A1F5D2C15004C087E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4704C391F5D2C15004C087E /* Default-568h@2x.png */; };
 		EAF51AEB241723E7005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51AEA241723E7005E7000 /* AudioKit.xcframework */; };
+		EAF51B6B2417328D005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B6A2417328D005E7000 /* AudioKitUI.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		C4704C2E1F5D2B3C004C087E /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Organ.wav; path = ../../../Common/Organ.wav; sourceTree = "<group>"; };
 		C4704C391F5D2C15004C087E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EAF51AEA241723E7005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		EAF51B6A2417328D005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4067FE41F5D415C00FA09A4 /* DropDown.framework in Frameworks */,
+				EAF51B6B2417328D005E7000 /* AudioKitUI.xcframework in Frameworks */,
 				EAF51AEB241723E7005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +127,7 @@
 		EAF51AE9241723E6005E7000 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAF51B6A2417328D005E7000 /* AudioKitUI.xcframework */,
 				EAF51AEA241723E7005E7000 /* AudioKit.xcframework */,
 			);
 			name = Frameworks;
@@ -302,7 +306,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -364,7 +368,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
