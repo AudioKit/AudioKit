@@ -3,20 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B12307821FE31D77002FFEB1 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B12307801FE31D77002FFEB1 /* AudioKit.framework */; };
 		B1BF702E1FE2F42B00110328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF702D1FE2F42B00110328 /* AppDelegate.swift */; };
 		B1BF70301FE2F42B00110328 /* FileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF702F1FE2F42B00110328 /* FileConverter.swift */; };
 		B1BF70321FE2F42B00110328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1BF70311FE2F42B00110328 /* Assets.xcassets */; };
 		B1BF70351FE2F42B00110328 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1BF70331FE2F42B00110328 /* Main.storyboard */; };
+		EAF51B2E24172853005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B2D24172853005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B123077F1FE31D77002FFEB1 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		B12307801FE31D77002FFEB1 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		B1BF702A1FE2F42B00110328 /* FileConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1BF702D1FE2F42B00110328 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1BF702F1FE2F42B00110328 /* FileConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileConverter.swift; sourceTree = "<group>"; };
@@ -24,6 +22,7 @@
 		B1BF70341FE2F42B00110328 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1BF70361FE2F42B00110328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1BF70371FE2F42B00110328 /* FileConverter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileConverter.entitlements; sourceTree = "<group>"; };
+		EAF51B2D24172853005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B12307821FE31D77002FFEB1 /* AudioKit.framework in Frameworks */,
+				EAF51B2E24172853005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +40,6 @@
 		B1BF70211FE2F42B00110328 = {
 			isa = PBXGroup;
 			children = (
-				B12307801FE31D77002FFEB1 /* AudioKit.framework */,
-				B123077F1FE31D77002FFEB1 /* AudioKitUI.framework */,
 				B1BF702C1FE2F42B00110328 /* FileConverter */,
 				B1BF702B1FE2F42B00110328 /* Products */,
 				B1BF70461FE2F90800110328 /* Frameworks */,
@@ -73,6 +70,7 @@
 		B1BF70461FE2F90800110328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAF51B2D24172853005E7000 /* AudioKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

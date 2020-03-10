@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,12 +13,12 @@
 		34D486C721DBE8EF00F6037F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D486C521DBE8EF00F6037F /* Main.storyboard */; };
 		8A7C7FC9F4A29598921182C2 /* Pods_OSCSender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C308F34EFC8B1196433661B /* Pods_OSCSender.framework */; };
 		933AACE04FD1A97B5F69B0E7 /* Pods_HelloOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE10CDF9FC9A58E0EA76D9E8 /* Pods_HelloOSC.framework */; };
-		C446B3F21D4552C8000AEFCA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B3F11D4552C8000AEFCA /* AudioKit.framework */; };
 		C4BDE7ED1C12FAE600207DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EC1C12FAE600207DA9 /* AppDelegate.swift */; };
 		C4BDE7EF1C12FAE600207DA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EE1C12FAE600207DA9 /* ViewController.swift */; };
 		C4BDE7F11C12FAE600207DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */; };
 		C4BDE7F41C12FAE600207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F21C12FAE600207DA9 /* Main.storyboard */; };
-		EA2FA53D215AFA61001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5A71F50278E00B01FF7 /* AudioKitUI.framework */; };
+		EAF51B212417275B005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B1F2417275B005E7000 /* AudioKitUI.xcframework */; };
+		EAF51B232417275B005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B202417275B005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,6 @@
 		5142B91DB9126B0B2C171A7F /* Pods-HelloOSC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloOSC.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelloOSC/Pods-HelloOSC.release.xcconfig"; sourceTree = "<group>"; };
 		54581884D48211A41FBD4E74 /* Pods-HelloOSC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloOSC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelloOSC/Pods-HelloOSC.debug.xcconfig"; sourceTree = "<group>"; };
 		B8F04A1117DE587F36B728E9 /* Pods-OSCSender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OSCSender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OSCSender/Pods-OSCSender.debug.xcconfig"; sourceTree = "<group>"; };
-		C446B3F11D4552C8000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C4BDE7E91C12FAE600207DA9 /* HelloOSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloOSC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BDE7EC1C12FAE600207DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4BDE7EE1C12FAE600207DA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +41,8 @@
 		C4BDE7F31C12FAE600207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE7F51C12FAE600207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4CCBEA32019329100E002E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		EAC9C5A71F50278E00B01FF7 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		EAF51B1F2417275B005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
+		EAF51B202417275B005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 		FE10CDF9FC9A58E0EA76D9E8 /* Pods_HelloOSC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloOSC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -59,9 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C446B3F21D4552C8000AEFCA /* AudioKit.framework in Frameworks */,
-				EA2FA53D215AFA61001C210A /* AudioKitUI.framework in Frameworks */,
+				EAF51B232417275B005E7000 /* AudioKit.xcframework in Frameworks */,
 				933AACE04FD1A97B5F69B0E7 /* Pods_HelloOSC.framework in Frameworks */,
+				EAF51B212417275B005E7000 /* AudioKitUI.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,8 +128,8 @@
 		EA127F541C42123600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAC9C5A71F50278E00B01FF7 /* AudioKitUI.framework */,
-				C446B3F11D4552C8000AEFCA /* AudioKit.framework */,
+				EAF51B202417275B005E7000 /* AudioKit.xcframework */,
+				EAF51B1F2417275B005E7000 /* AudioKitUI.xcframework */,
 				FE10CDF9FC9A58E0EA76D9E8 /* Pods_HelloOSC.framework */,
 				2C308F34EFC8B1196433661B /* Pods_OSCSender.framework */,
 			);
@@ -184,7 +184,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					34D486BC21DBE8EE00F6037F = {
@@ -243,16 +243,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HelloOSC/Pods-HelloOSC-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftOSC/SwiftOSC.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HelloOSC/Pods-HelloOSC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOSC.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HelloOSC/Pods-HelloOSC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -265,16 +260,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OSCSender/Pods-OSCSender-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftOSC/SwiftOSC.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-OSCSender/Pods-OSCSender-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOSC.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-OSCSender/Pods-OSCSender-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -380,6 +370,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = OSCSender/OSCSender.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -410,6 +401,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = OSCSender/OSCSender.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -537,6 +529,7 @@
 			baseConfigurationReference = 54581884D48211A41FBD4E74 /* Pods-HelloOSC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloOSC/Info.plist;
@@ -559,6 +552,7 @@
 			baseConfigurationReference = 5142B91DB9126B0B2C171A7F /* Pods-HelloOSC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloOSC/Info.plist;
