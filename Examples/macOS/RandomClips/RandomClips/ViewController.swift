@@ -16,7 +16,7 @@ class ViewController: NSViewController {
     let guitarPlayer = AKClipPlayer()
     let mixer = AKMixer()
     var drumLooper: AKPlayer?
-    let playButton = AKButton()
+    let playButton = AKButton(frame: .zero)
     let guitarDelay = AVAudioUnitDelay()
     let reverb = AKReverb()
     let highPass = AKHighPassFilter()

@@ -18,7 +18,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        playButton = AKButton()
+        playButton = AKButton(frame: .zero)
         playButton.title = "Play"
         playButton.frame = NSRect(x: 0, y: view.bounds.height - 40, width: view.bounds.width, height: 40)
         view.addSubview(playButton)

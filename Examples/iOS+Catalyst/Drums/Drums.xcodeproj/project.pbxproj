@@ -30,8 +30,6 @@
 		69B7F0CD23294D7D00F16443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69B7F106232954B800F16443 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		C412A7942330208000EE8381 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Samples; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Playback.playground/Resources/Samples; sourceTree = "<group>"; };
-		C412A796233020B200EE8381 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		C412A797233020B200EE8381 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C43EA4BF23C180170035C563 /* Drums.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Drums.entitlements; sourceTree = "<group>"; };
 		EA31D1D323C9E18E0077BE23 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 		EA31D1D423C9E18E0077BE23 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
@@ -97,8 +95,6 @@
 			children = (
 				EA31D1D423C9E18E0077BE23 /* AudioKit.xcframework */,
 				EA31D1D323C9E18E0077BE23 /* AudioKitUI.xcframework */,
-				C412A796233020B200EE8381 /* AudioKit.framework */,
-				C412A797233020B200EE8381 /* AudioKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

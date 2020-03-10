@@ -3,19 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C42367C020A5264300507E72 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42367BE20A5264300507E72 /* AudioKit.framework */; };
 		C49BC4872079AF1C005A71A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BC4862079AF1C005A71A0 /* AppDelegate.swift */; };
 		C49BC4892079AF1C005A71A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BC4882079AF1C005A71A0 /* ViewController.swift */; };
 		C49BC48B2079AF1E005A71A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49BC48A2079AF1E005A71A0 /* Assets.xcassets */; };
 		C49BC48E2079AF1E005A71A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49BC48C2079AF1E005A71A0 /* Main.storyboard */; };
+		EAF51B5F24172AE4005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B5E24172AE4005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C42367BE20A5264300507E72 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C49BC4832079AF1C005A71A0 /* SpeechSynthesizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechSynthesizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49BC4862079AF1C005A71A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C49BC4882079AF1C005A71A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,6 +22,7 @@
 		C49BC48D2079AF1E005A71A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C49BC48F2079AF1E005A71A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49BC4902079AF1E005A71A0 /* SpeechSynthesizer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeechSynthesizer.entitlements; sourceTree = "<group>"; };
+		EAF51B5E24172AE4005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42367C020A5264300507E72 /* AudioKit.framework in Frameworks */,
+				EAF51B5F24172AE4005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 		C49BC4A12079B172005A71A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C42367BE20A5264300507E72 /* AudioKit.framework */,
+				EAF51B5E24172AE4005E7000 /* AudioKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,6 +287,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SpeechSynthesizer/SpeechSynthesizer.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -306,6 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SpeechSynthesizer/SpeechSynthesizer.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
