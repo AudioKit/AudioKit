@@ -57,8 +57,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
-    @objc public init(
-        amplitude: Double = defaultAmplitude) {
+    @objc public init(amplitude: Double = defaultAmplitude) {
 
         self.amplitude = amplitude
 
@@ -82,6 +81,10 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
         amplitudeParameter = tree["amplitude"]
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
+    }
+
+    @objc override convenience public init() {
+        self.init(amplitude: AKPinkNoise.defaultAmplitude)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
