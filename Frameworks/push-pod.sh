@@ -13,11 +13,11 @@ BETA=${BETA:-1}
 if test $1 = release;
 then
 	#SOURCE="https://files.audiokit.io/releases/v${VER}/AudioKit.framework.zip"
-	SOURCE="https://github.com/AudioKit/AudioKit/releases/download/v${VER}/AudioKit.framework.zip"
+	SOURCE="https://github.com/AudioKit/AudioKit/releases/download/v${VER}/AudioKit.xcframework.zip"
 elif test $1 = staging;
 then
 	VER="${VER}.b${BETA}"
-	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.framework.zip"
+	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.xcframework.zip"
 else
 	echo "Invalid parameter: $1"
 	exit 1
@@ -35,5 +35,5 @@ if test $1 = release;
 then
 	pod trunk push AudioKit.podspec.json --verbose --allow-warnings --skip-import-validation 
 else # Staging
-	pod repo push ak-specs AudioKit.podspec.json --verbose
+	pod repo push ak-specs AudioKit.podspec.json --verbose --allow-warnings --skip-import-validation 
 fi
