@@ -165,7 +165,7 @@ public struct AKMIDIEvent {
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     internalData += midiBytes
-                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+                    if let sysexEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                         setLength(sysexEndIndex + 1)
                         AudioKit.midi.stopReceivingSysex()
                     } else {
@@ -241,7 +241,7 @@ public struct AKMIDIEvent {
     ///
     public init(data: [MIDIByte]) {
         if AudioKit.midi.isReceivingSysex {
-            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+            if let sysexEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 internalData = Array(data[0...sysexEndIndex])
             }
         } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
