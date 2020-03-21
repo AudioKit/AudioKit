@@ -557,7 +557,6 @@ float AKCoreSampler::getPitchDecayDurationSeconds(void)
 
 void  AKCoreSampler::setPitchSustainFraction(float value)
 {
-    printf("setting pitch sustain level to %f\n", value);
     data->pitchEnvelopeParameters.sustainFraction = value;
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
 }
