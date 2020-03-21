@@ -229,7 +229,9 @@ extension AKMIDI {
     /// Close all MIDI Input ports
     public func closeAllInputs() {
         AKLog("Closing All Inputs", log: OSLog.midi)
-        closeInput()
+        for index in 0 ..< MIDISources().endIndex {
+            closeInput(index: index)
+        }
     }
 
     internal func handleMIDIMessage(_ event: AKMIDIEvent, fromInput portID: MIDIUniqueID) {
