@@ -32,7 +32,7 @@ open class AKRollingOutputPlot: AKNodeOutputPlot {
     ///
     /// - parameter coder: NSCoder
     ///
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         plotType = .rolling

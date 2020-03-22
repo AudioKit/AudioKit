@@ -88,7 +88,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         return url.pathExtension
     }
 
-    override open var description: String {
+    open override var description: String {
         return super.description + "\n" + String(describing: fileFormat)
     }
 
