@@ -54,9 +54,9 @@ class Conductor {
         oscillatorGain = SDBooster(oscillator)
 
         // Set Output & Start AudioKit
-        AudioKit.output = oscillatorGain
+        AKManager.output = oscillatorGain
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start")
         }

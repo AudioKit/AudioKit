@@ -21,7 +21,7 @@ extension Notification.Name {
 /// reception of a sysex response, or a timeout error condition.
 open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
-    let midi = AudioKit.midi
+    let midi = AKMIDI()
     let synthK5000 = K5000messages()
 //    let midiCi = MidiCiMessage(deviceId: .toFromMidiPort, subId2: <#T##midiCiSubID2#>)
 

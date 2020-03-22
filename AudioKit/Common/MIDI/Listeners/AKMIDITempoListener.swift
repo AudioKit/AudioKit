@@ -27,7 +27,7 @@ public typealias BPMType = TimeInterval
 /// Usage:
 ///
 ///     let tempoListener = AKMIDITempoListener()
-///     AudioKit.midi.addListener(tempoListener)
+///     AKMIDI().addListener(tempoListener)
 ///
 /// Make your class a AKMIDITempoObserver and you will recieve callbacks when the BPM
 /// changes.

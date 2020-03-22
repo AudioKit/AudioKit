@@ -68,7 +68,7 @@ enum Mode {
 var key = Key.C
 var mode = Mode.major
 
-let midi = AudioKit.midi
+let midi = AKMIDI()
 
 midi.inputNames
 midi.openInput()

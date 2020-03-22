@@ -14,7 +14,7 @@ extension Notification.Name {
 
 /// Plot the output from any node in an signal processing graph
 ///
-/// By default this plots the output of AudioKit.output
+/// By default this plots the output of AKManager.output
 @IBDesignable
 open class AKNodeOutputPlot: EZAudioPlot {
 
@@ -74,7 +74,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     /// The node whose output to graph
     ///
-    /// Defaults to AudioKit.output
+    /// Defaults to AKManager.output
     @objc open var node: AKNode? {
         willSet {
             pause()

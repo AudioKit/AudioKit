@@ -13,8 +13,8 @@ import CoreAudio
 ///
 /// 1. init the audio unit like this: var sampler = AKAppleSampler()
 /// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3. connect to the engine: AudioKit.output = sampler
-/// 4. start the engine AudioKit.start()
+/// 3. connect to the engine: AKManager.output = sampler
+/// 4. start the engine AKManager.start()
 ///
 open class AKAppleSampler: AKNode {
 
