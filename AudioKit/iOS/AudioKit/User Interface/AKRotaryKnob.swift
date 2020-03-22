@@ -97,7 +97,7 @@ public enum AKRotaryKnobStyle {
    }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear
 
@@ -106,7 +106,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
@@ -120,13 +120,13 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isDragging = true
         touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
@@ -194,7 +194,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Draw the knob
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))

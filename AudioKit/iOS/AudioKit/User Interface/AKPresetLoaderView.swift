@@ -81,7 +81,7 @@
     }
 
     /// Initialization with no details
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         self.callback = { filename in return }
         self.presets = ["Preset One", "Preset Two", "Preset Three"]
 
@@ -92,7 +92,7 @@
     }
 
     /// Initialize in Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.callback = { filename in return }
         self.presets = ["Preset One", "Preset Two", "Preset Three"]
 
@@ -330,7 +330,7 @@
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         if presets.isEmpty {
             return
@@ -362,7 +362,7 @@
     }
 
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if presets.isEmpty {
             return
         }

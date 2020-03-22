@@ -129,7 +129,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
 
         AKManager.detach(nodes: [inputMixer.avAudioNode,
