@@ -15,8 +15,8 @@ delay.time = 0.1 // seconds
 delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
-AudioKit.output = delay
-try AudioKit.start()
+AKManager.output = delay
+try AKManager.start()
 player.play()
 
 import AudioKitUI

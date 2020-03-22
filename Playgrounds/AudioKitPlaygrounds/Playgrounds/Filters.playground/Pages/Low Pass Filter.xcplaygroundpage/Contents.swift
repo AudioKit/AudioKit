@@ -15,8 +15,8 @@ var filter = AKLowPassFilter(player)
 filter.cutoffFrequency = 6_900 // Hz
 filter.resonance = 0 // dB
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

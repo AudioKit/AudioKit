@@ -21,8 +21,8 @@ let generator = AKOperationGenerator { _ in
     return crossingSignal * 0.2
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 //: Activate the signal
 generator.start()
 

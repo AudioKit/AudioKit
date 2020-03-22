@@ -30,8 +30,8 @@ lead.buffering = .always
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)
 let booster = AKBooster(mixer)
-AudioKit.output = booster
-try AudioKit.start()
+AKManager.output = booster
+try AKManager.start()
 
 drums.play()
 bass.play()

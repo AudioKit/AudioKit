@@ -3,10 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-// In this trivial example, we of course initialise the microphone node before we assign AudioKit.output
+// In this trivial example, we of course initialise the microphone node before we assign AKManager.output
 // - there is no other way to structure this. However, in a real world application there may be cases
 // where you could do it the other way around. If you create your microphone node after you assign to
-// AudioKit.output, your microphone node may only return zeros as samples. So, as a rule of thumb:
+// AKManager.output, your microphone node may only return zeros as samples. So, as a rule of thumb:
 // Always create your microphone node first.
 let mic = AKMicrophone()
 
@@ -26,8 +26,8 @@ let silence = AKBooster(tracker, gain: 0)
 
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
-AudioKit.output = silence
-try AudioKit.start()
+AKManager.output = silence
+try AKManager.start()
 
 //: User Interface
 import AudioKitUI
