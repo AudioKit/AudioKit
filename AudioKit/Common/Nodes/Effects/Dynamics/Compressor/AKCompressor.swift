@@ -160,7 +160,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
         AKManager.detach(nodes: [inputGain.avAudioUnitOrNode, effectGain.avAudioUnitOrNode, mixer.avAudioNode])
         AKManager.engine.detach(self.internalEffect)

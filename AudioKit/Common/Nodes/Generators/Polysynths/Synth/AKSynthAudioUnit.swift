@@ -277,7 +277,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
         doAKSynthSustainPedal(dsp, down)
     }
 
-    override public func shouldClearOutputBuffer() -> Bool {
+    public override func shouldClearOutputBuffer() -> Bool {
         return true
     }
 

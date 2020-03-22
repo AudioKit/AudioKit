@@ -25,7 +25,7 @@ open class AKAppleSequencer: NSObject {
     open private(set) var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    override public init() {
+    public override init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)

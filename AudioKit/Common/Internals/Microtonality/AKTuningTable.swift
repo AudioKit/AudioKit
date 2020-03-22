@@ -104,7 +104,7 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     /// Notes Per Octave: The count of the masterSet array
-    @objc override public var npo: Int {
+    @objc public override var npo: Int {
 
         return masterSet.count
     }

@@ -45,7 +45,7 @@ open class AKSequencer {
 
     /// Initialize with target nodes
     /// This will create a track for each node
-    required public init(targetNodes: [AKNode]? = nil) {
+    public required init(targetNodes: [AKNode]? = nil) {
         if let targetNodes = targetNodes {
             tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
         } else {

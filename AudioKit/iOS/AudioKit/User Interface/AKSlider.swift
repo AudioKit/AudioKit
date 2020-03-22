@@ -106,7 +106,7 @@ public enum AKSliderStyle {
     }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear
 
@@ -119,7 +119,7 @@ public enum AKSliderStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
@@ -130,13 +130,13 @@ public enum AKSliderStyle {
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         touchBeganCallback()
     }
     open var touchBeganCallback: () -> Void = { }
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
@@ -225,7 +225,7 @@ public enum AKSliderStyle {
     }
 
     /// Draw the slider
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return

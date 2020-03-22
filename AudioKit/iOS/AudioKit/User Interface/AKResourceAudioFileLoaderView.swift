@@ -47,7 +47,7 @@ import AudioKit
     }
 
     /// Handle touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
             guard let isPlayerPlaying = player?.isPlaying else {
@@ -93,7 +93,7 @@ import AudioKit
     }
 
     /// Initialization with no details
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         self.titles = ["File One", "File Two", "File Three"]
 
         super.init(frame: frame)
@@ -103,7 +103,7 @@ import AudioKit
     }
 
     /// Initialize in Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.titles = ["File One", "File Two", "File Three"]
 
         super.init(coder: aDecoder)

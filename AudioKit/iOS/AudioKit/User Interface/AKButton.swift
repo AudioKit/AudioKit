@@ -83,7 +83,7 @@ public enum AKButtonStyle {
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         callback(self)
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
@@ -111,7 +111,7 @@ public enum AKButtonStyle {
     }
 
     /// Initialization with no details
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
         self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
@@ -122,7 +122,7 @@ public enum AKButtonStyle {
     }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
         self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
@@ -134,7 +134,7 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         clipsToBounds = true
@@ -174,7 +174,7 @@ public enum AKButtonStyle {
     }
 
     /// Draw the button
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 
