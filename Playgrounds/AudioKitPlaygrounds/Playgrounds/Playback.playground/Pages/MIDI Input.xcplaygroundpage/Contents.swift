@@ -4,7 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let midi = AudioKit.midi
+let midi = AKMIDI()
 
 //: The input names list all of the MIDI devices currently hooked up
 midi.inputNames

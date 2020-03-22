@@ -69,7 +69,7 @@ class ViewController: NSViewController {
         osc >>> mixer
         speechSynthesizer >>> mixer
 
-        AudioKit.output = mixer
+        AKManager.output = mixer
 
         openPanel.message = "Open Audio File"
         openPanel.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
@@ -82,15 +82,15 @@ class ViewController: NSViewController {
     }
 
     @IBAction func start(_ sender: NSButton) {
-        var state = AudioKit.engine.isRunning
+        var state = AKManager.engine.isRunning
 
         do {
             if state {
-                try AudioKit.stop()
+                try AKManager.stop()
             } else {
-                try AudioKit.start()
+                try AKManager.start()
             }
-            state = AudioKit.engine.isRunning
+            state = AKManager.engine.isRunning
             sender.state = state ? .on : .off
         } catch {
             AKLog("ERROR: AudioKit did not start.")

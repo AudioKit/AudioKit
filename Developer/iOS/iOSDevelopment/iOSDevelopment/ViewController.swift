@@ -36,9 +36,9 @@ class ViewController: UIViewController {
         oscillator >>> booster
         booster.gain = 0
 
-        AudioKit.output = booster
+        AKManager.output = booster
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
