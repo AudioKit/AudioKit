@@ -29,7 +29,7 @@
     }
 
     /// Initialize the microphone
-    override public init() {
+    public override init() {
         super.init()
         self.avAudioNode = mixer
 

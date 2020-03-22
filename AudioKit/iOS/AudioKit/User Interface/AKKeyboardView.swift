@@ -95,7 +95,7 @@ import AudioKit
     }
 
     /// Initialization within Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         isMultipleTouchEnabled = true
     }
@@ -103,7 +103,7 @@ import AudioKit
     // MARK: - Storyboard Rendering
 
     /// Set up the view for rendering in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         let width = Int(self.frame.width)
@@ -116,7 +116,7 @@ import AudioKit
     }
 
     /// Keyboard view size
-    override open var intrinsicContentSize: CGSize {
+    open override var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
 
@@ -128,7 +128,7 @@ import AudioKit
     // MARK: - Drawing
 
     /// Draw the view
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
 
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
@@ -237,7 +237,7 @@ import AudioKit
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
             pressAdded(note)
@@ -247,7 +247,7 @@ import AudioKit
     }
 
     /// Handle touches completed
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let note = noteFromTouchLocation(touch.location(in: self)) {
                 // verify that there isn't still a touch remaining on same key from another finger
@@ -264,7 +264,7 @@ import AudioKit
     }
 
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
@@ -276,7 +276,7 @@ import AudioKit
     }
 
     /// Handle stopped touches
-    override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }
 
