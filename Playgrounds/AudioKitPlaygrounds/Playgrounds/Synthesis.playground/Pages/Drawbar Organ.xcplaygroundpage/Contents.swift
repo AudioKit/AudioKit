@@ -6,8 +6,8 @@ import AudioKit
 import AudioKitUI
 
 var oscillator = AKOscillatorBank()
-AudioKit.output = oscillator
-try AudioKit.start()
+AKManager.output = oscillator
+try AKManager.start()
 
 let noteCount = 9
 var amplitudes = [Double](repeating: 0.1, count: noteCount)

@@ -13,8 +13,8 @@ filter.frequency = 300 // Hz
 filter.qualityFactor = 20
 
 let balancedOutput = AKBalancer(filter, comparator: player)
-AudioKit.output = balancedOutput
-try AudioKit.start()
+AKManager.output = balancedOutput
+try AKManager.start()
 
 player.play()
 

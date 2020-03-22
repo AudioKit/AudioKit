@@ -12,8 +12,8 @@ player.looping = true
 
 var pitchshifter = AKPitchShifter(player)
 
-AudioKit.output = pitchshifter
-try AudioKit.start()
+AKManager.output = pitchshifter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

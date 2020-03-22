@@ -11,8 +11,8 @@ player.looping = true
 
 var expander = AKExpander(player)
 
-AudioKit.output = expander
-try AudioKit.start()
+AKManager.output = expander
+try AKManager.start()
 
 player.play()
 

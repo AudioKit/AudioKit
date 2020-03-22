@@ -6,8 +6,8 @@ import AudioKitUI
 
 let voc = AKVocalTract()
 
-AudioKit.output = voc
-try AudioKit.start()
+AKManager.output = voc
+try AKManager.start()
 
 class LiveView: AKLiveViewController {
 

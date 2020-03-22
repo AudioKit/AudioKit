@@ -10,8 +10,8 @@ var player = AKPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
-AudioKit.output = player
-try AudioKit.start()
+AKManager.output = player
+try AKManager.start()
 player.play()
 let fft = AKFFTTap(player)
 

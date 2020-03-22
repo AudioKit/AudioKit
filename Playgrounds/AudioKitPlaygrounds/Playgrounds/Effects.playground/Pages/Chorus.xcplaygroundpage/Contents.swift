@@ -10,8 +10,8 @@ player.looping = true
 
 var chorus = AKChorus(player)
 
-AudioKit.output = chorus
-try AudioKit.start()
+AKManager.output = chorus
+try AKManager.start()
 
 player.play()
 

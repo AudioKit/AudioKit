@@ -21,12 +21,12 @@ let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
 let performance = AKPeriodicFunction(frequency: playRate) {
     var note1: MIDINoteNumber = scale.randomElement()!
-    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement()! * 12
+    let octave1 = MIDINoteNumber([2, 3, 4, 5].randomElement()! * 12)
     let course1 = [1, 2, 3, 4].randomElement()!
     if random(in: 0...10) < 1.0 { note1 += 1 }
 
     var note2: MIDINoteNumber = scale.randomElement()!
-    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement()! * 12
+    let octave2 = MIDINoteNumber([2, 3, 4, 5].randomElement()! * 12)
     let course2 = [1, 2, 3, 4].randomElement()!
     if random(in: 0...10) < 1.0 { note2 += 1 }
 
@@ -40,8 +40,8 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     }
 }
 
-AudioKit.output = reverb
-try AudioKit.start(withPeriodicFunctions: performance)
+AKManager.output = reverb
+try AKManager.start(withPeriodicFunctions: performance)
 performance.start()
 
 import AudioKitUI

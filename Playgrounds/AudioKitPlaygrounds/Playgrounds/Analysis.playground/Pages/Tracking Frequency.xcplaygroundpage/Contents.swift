@@ -22,8 +22,8 @@ let secondaryOscillator = AKOscillator()
 
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
-AudioKit.output = AKMixer(booster, secondaryOscillator)
-try AudioKit.start()
+AKManager.output = AKMixer(booster, secondaryOscillator)
+try AKManager.start()
 
 oscillatorNode.start()
 secondaryOscillator.start()

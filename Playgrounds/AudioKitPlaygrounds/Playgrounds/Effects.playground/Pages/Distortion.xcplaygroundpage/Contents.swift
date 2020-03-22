@@ -20,8 +20,8 @@ distortion.polynomialMix = 0.5
 distortion.softClipGain = -6
 distortion.finalMix = 0.5
 
-AudioKit.output = AKBooster(distortion, gain: 0.1)
-try AudioKit.start()
+AKManager.output = AKBooster(distortion, gain: 0.1)
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

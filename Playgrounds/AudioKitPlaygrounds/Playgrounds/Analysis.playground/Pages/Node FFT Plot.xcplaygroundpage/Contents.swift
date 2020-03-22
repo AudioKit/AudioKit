@@ -7,8 +7,8 @@ import AudioKit
 var microphone = AKMicrophone()
 
 //: Zero out the microphone to prevent feedback
-AudioKit.output = AKBooster(microphone, gain: 0.0)
-try AudioKit.start()
+AKManager.output = AKBooster(microphone, gain: 0.0)
+try AKManager.start()
 
 import AudioKitUI
 

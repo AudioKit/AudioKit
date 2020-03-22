@@ -12,8 +12,8 @@ player.looping = true
 var clipper = AKClipper(player)
 clipper.limit = 0.1
 
-AudioKit.output = clipper
-try AudioKit.start()
+AKManager.output = clipper
+try AKManager.start()
 
 player.play()
 
