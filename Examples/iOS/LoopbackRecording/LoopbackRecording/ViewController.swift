@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         do {
             AKSettings.audioInputEnabled = true
             AKSettings.defaultToSpeaker = true
-//            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+//            AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
             try AKSettings.setSession(category: .playAndRecord)
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
