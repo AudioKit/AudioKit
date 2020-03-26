@@ -83,6 +83,15 @@ public:
     float getFilterSustainFraction(void);
     void  setFilterReleaseDurationSeconds(float value);
     float getFilterReleaseDurationSeconds(void);
+
+    void  setPitchAttackDurationSeconds(float value);
+    float getPitchAttackDurationSeconds(void);
+    void  setPitchDecayDurationSeconds(float value);
+    float getPitchDecayDurationSeconds(void);
+    void  setPitchSustainFraction(float value);
+    float getPitchSustainFraction(void);
+    void  setPitchReleaseDurationSeconds(float value);
+    float getPitchReleaseDurationSeconds(void);
     
 protected:
     // current sampling rate, samples/sec
@@ -131,6 +140,9 @@ protected:
 
     // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
     float linearResonance;
+
+    // how much pitch ADSR adds on top of pitch
+    float pitchADSRSemitones;
     
     // sample-related parameters
     

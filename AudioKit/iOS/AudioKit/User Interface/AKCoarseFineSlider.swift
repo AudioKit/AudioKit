@@ -192,11 +192,11 @@ import AudioKit
         nameLabel.font = titleFont
         valueLabel.font = valueFont
     }
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         genSubViews()
     }
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         super.draw(rect)
         genStackViews(rect: rect)
     }
@@ -239,13 +239,13 @@ import AudioKit
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
     open var touchBeganCallback: () -> Void = { }
     open var touchEndedCallback: () -> Void = { }
-    override open func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         genStackViews(rect: bounds)
     }

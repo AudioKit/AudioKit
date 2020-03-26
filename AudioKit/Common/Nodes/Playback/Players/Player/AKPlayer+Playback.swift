@@ -147,11 +147,15 @@ extension AKPlayer {
 
             if audioTime.isSampleTimeValid {
                 let adjustedFrames = Double(audioTime.sampleTime) * _rate
-                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+                scheduleTime = AVAudioTime(hostTime: refTime,
+                                           sampleTime: AVAudioFramePosition(adjustedFrames),
+                                           atRate: sampleRate)
 
             } else if audioTime.isHostTimeValid {
                 let adjustedFrames = (audioTime.toSeconds(hostTime: refTime) * _rate) * sampleRate
-                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+                scheduleTime = AVAudioTime(hostTime: refTime,
+                                           sampleTime: AVAudioFramePosition(adjustedFrames),
+                                           atRate: sampleRate)
             }
         }
         if isBuffered {

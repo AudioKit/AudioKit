@@ -68,22 +68,22 @@ import UIKit
     }
 
     /// Initialize within Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         generateUIComponents(frame: frame)
         checkValues()
         setupButtons(frame: frame)
         self.originalValue = currentValue
     }
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    override open func awakeFromNib() {
+    open override func awakeFromNib() {
         checkValues()
         super.awakeFromNib()
     }
     /// Draw the stepper
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         super.draw(rect)
         genStackViews(rect: rect)
     }
@@ -121,11 +121,11 @@ import UIKit
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
-    override open func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         genStackViews(rect: bounds)
     }

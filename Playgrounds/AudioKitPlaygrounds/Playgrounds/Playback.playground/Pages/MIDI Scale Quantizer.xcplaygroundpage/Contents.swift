@@ -78,7 +78,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
         var transformedList = [AKMIDIEvent]()
 
         for event in eventList {
-            guard let type = event.status else {
+            guard let type = event.status?.type else {
                 transformedList.append(event)
                 continue
             }
@@ -96,7 +96,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
                         transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
-                                                           velocity: event.data2,
+                                                           velocity: event.data[2],
                                                            channel: event.channel!))
                     }
                 }
