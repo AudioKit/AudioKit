@@ -135,7 +135,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile?
-    fileprivate var maximumSamples: Int = 0
+    fileprivate var maximumSamples: Sample = 0
 
     open var loadCompletionHandler: AKCallback = {} {
         willSet {
@@ -171,7 +171,7 @@ open class AKWaveTable: AKNode, AKComponent {
                       endPoint: Sample = 0,
                       rate: Double = 1,
                       volume: Double = 1,
-                      maximumSamples: Int = 0,
+                      maximumSamples: Sample,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
@@ -179,8 +179,8 @@ open class AKWaveTable: AKNode, AKComponent {
         self.rate = rate
         self.volume = volume
         self.endPoint = endPoint
-        if file != nil {
-            self.avAudiofile = file!
+        if let file = file {
+            self.avAudiofile = file
             self.endPoint = Sample(avAudiofile!.samplesCount)
         }
         self.maximumSamples = maximumSamples
@@ -224,8 +224,8 @@ open class AKWaveTable: AKNode, AKComponent {
         if maximumSamples != 0 {
             internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
         }
-        if file != nil {
-            load(file: file!)
+        if let file = file {
+            load(file: file)
         }
     }
 
@@ -293,7 +293,7 @@ open class AKWaveTable: AKNode, AKComponent {
             }
             let sizeToUse = UInt32(file.samplesCount * 2)
             if maximumSamples == 0 {
-                maximumSamples = Int(file.samplesCount)
+                maximumSamples = Sample(file.samplesCount)
                 internalAU?.setupAudioFileTable(sizeToUse)
             }
             avAudiofile = file

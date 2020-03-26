@@ -73,11 +73,11 @@ open class AKDevice: NSObject {
     #endif
 
     /// Printable device description
-    override open var description: String {
+    open override var description: String {
         return "<Device: \(name) (\(deviceID))>"
     }
 
-    override open func isEqual(_ object: Any?) -> Bool {
+    open override func isEqual(_ object: Any?) -> Bool {
         if let object = object as? AKDevice {
             return self.name == object.name && self.deviceID == object.deviceID
         }

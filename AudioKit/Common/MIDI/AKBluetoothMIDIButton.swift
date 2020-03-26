@@ -11,7 +11,7 @@ import CoreAudioKit
 class AKBTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
-    override public func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
@@ -35,7 +35,7 @@ public class AKBluetoothMIDIButton: UIButton {
     }
 
     /// Pull up a popover controller when the button is released
-    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
         let bluetoothMIDIViewController = AKBTMIDICentralViewController()

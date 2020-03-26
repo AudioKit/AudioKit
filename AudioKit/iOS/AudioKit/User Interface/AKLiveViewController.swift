@@ -14,7 +14,7 @@ open class AKLiveViewController: UIViewController {
 
     var stackView: UIStackView!
 
-    override open func loadView() {
+    open override func loadView() {
         stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
         stackView.axis = .vertical
         stackView.alignment = .center
