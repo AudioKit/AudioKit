@@ -85,7 +85,6 @@ namespace AudioKitCore
                 octave[0]++;
                 length >>= 1;
             }
-            //printf("%f Hz oct %d\n", frequency, octave[0]);
             return;
         }
 
@@ -110,7 +109,6 @@ namespace AudioKitCore
                 length >>= 1;
             }
         }
-        //printf("%f Hz oct %d\n", frequency, octave[0]);
     }
 
     // Mono output: no panning

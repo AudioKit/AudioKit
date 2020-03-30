@@ -101,15 +101,11 @@
              AudioBufferList *ioData) {
                AUEventSampleTime sampleTime = timeStamp->mSampleTime;
 
-               // printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
-
                // TODO: allow for a timed duration stop to end automation - don't use this:
                //AUEventSampleTime endTime = welf->endTime;
 
                for (int n = 0; n < inNumberFrames; n++) {
                    AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
-
-                   //printf("timeStamp %lld inNumberFrames %i, endTime %lld\n", sampleTimeWithOffset, inNumberFrames, endTime);
 
                    // TODO: allow for a timed duration stop to end automation - don't use this:
 //                   if (welf->endTime != 0 && sampleTimeWithOffset == welf->endTime) {
@@ -126,7 +122,6 @@
                        }
 
                        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
-                           // printf("👉 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
@@ -136,7 +131,6 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
-                           // printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
 
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,

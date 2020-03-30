@@ -30,15 +30,11 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
 {
     switch (address) {
         case AKFaderParameterLeftGain:
-            // printf("Setting AKFaderParameterLeftGain %f\n", value);
-
             data->leftGainRamp.setUIValue(value);
             // ramp to the new value
             data->leftGainRamp.dezipperCheck(1024);
             break;
         case AKFaderParameterRightGain:
-            // printf("Setting AKFaderParameterRightGain %f\n", value);
-
             data->rightGainRamp.setUIValue(value);
             // ramp to the new value
             data->rightGainRamp.dezipperCheck(1024);
@@ -80,8 +76,6 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
 void AKFaderDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    // printf("AKFaderDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
-
     // Note, if duration is 0 frames, startRamp will setImmediate
     switch (address) {
         case AKFaderParameterLeftGain:

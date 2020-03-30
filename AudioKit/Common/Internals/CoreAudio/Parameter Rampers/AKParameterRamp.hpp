@@ -133,7 +133,6 @@ struct AKParameterRamp : AKParameterRampBase {
         double scale = (maxv - minv) / (maxp - minp);
         double result = exp(minv + scale * (atSample - minp));
 
-        //printf( "From: %6.4lf, To: %6.4lf, Start: %lld, Total: S%6.4lld, Current Sample: %lld, Value: %6.4lf\n", getStartValue(), getTarget(), _startSample, getDurationInSamples(), atSample, _value );
         return result;
     }
 

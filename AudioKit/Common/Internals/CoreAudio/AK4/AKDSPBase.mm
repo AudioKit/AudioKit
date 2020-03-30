@@ -47,7 +47,6 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
 /** From Apple Example code */
 void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event)
 {
-    // printf("AKDSPBase.performAllSimultaneousEvents() now: %lld, eventSampleTime: %lld\n", now, event->head.eventSampleTime);
     do {
         handleOneEvent(event);
         event = event->head.next;
@@ -63,7 +62,6 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
         case AURenderEventParameter:
         case AURenderEventParameterRamp: {
             AUParameterEvent const& paramEvent = event->parameter;
-            //printf("Got paramEvent eventType %c, eventSampleTime %lld, value %f\n", paramEvent.eventType, paramEvent.eventSampleTime, paramEvent.value);
 
             // virtual method, will work if subclass implements it
             // See: AKFaderDSP
