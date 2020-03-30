@@ -1,5 +1,5 @@
 //
-//  AKExponentialParameterRamp.cpp
+//  AKExponentialParameterRamp.hpp
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Githbub.

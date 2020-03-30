@@ -53,7 +53,6 @@ namespace AudioKitCore
                 level[i] = 0.0f;
             }
         }
-        //printf("%f Hz oct %d\n", frequency, octave[0]);
     }
 
     float DrawbarsOscillator::getSample()

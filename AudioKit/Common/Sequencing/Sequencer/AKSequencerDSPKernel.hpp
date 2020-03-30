@@ -244,8 +244,7 @@ public:
         }
     }
 
-    void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
-//        printf("%p: sending: %i %i %i at offset %f (%f beats)\n", &midiEndpoint, status, data1, data2, offset, time);
+    void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset) {
         if (midiPort == 0 || midiEndpoint == 0) {
             MusicDeviceMIDIEvent(targetAU, status, data1, data2, offset);
         } else {
