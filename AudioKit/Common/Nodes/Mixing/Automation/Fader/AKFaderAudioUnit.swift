@@ -9,7 +9,6 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-
     var taper: Double = 1.0 {
         didSet { setParameter(.taper, value: taper) }
     }
@@ -24,13 +23,17 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
     public override var canProcessInPlace: Bool { return true }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
+    public override func initDSP(
+        withSampleRate sampleRate: Double,
+        channelCount count: AVAudioChannelCount
+    ) -> AKDSPRef {
         return createFaderDSP(Int32(count), sampleRate)
     }
 
-    public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+    public override init(
+        componentDescription: AudioComponentDescription,
+        options: AudioComponentInstantiationOptions = []
+    ) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let leftGain = AUParameter(
@@ -39,7 +42,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             address: 0,
             range: 0.0 ... 2.0,
             unit: .linearGain,
-            flags: .default)
+            flags: .default
+        )
 
         let rightGain = AUParameter(
             identifier: "rightGain",
@@ -47,7 +51,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             address: 1,
             range: 0.0 ... 2.0,
             unit: .linearGain,
-            flags: .default)
+            flags: .default
+        )
 
         let taper = AUParameter(
             identifier: "taper",
@@ -55,7 +60,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             address: 2,
             range: 0.1 ... 4.0,
             unit: .generic,
-            flags: .default)
+            flags: .default
+        )
 
         setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper]))
         leftGain.value = 1.0
