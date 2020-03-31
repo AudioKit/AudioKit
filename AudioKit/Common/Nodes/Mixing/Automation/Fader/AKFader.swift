@@ -28,6 +28,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var lastKnownLeftGain: Double = 1.0
     fileprivate var lastKnownRightGain: Double = 1.0
 
+    /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
+    @objc open dynamic var taper: Double = 1 {
+        willSet {
+            internalAU?.taper = newValue
+        }
+    }
+
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {

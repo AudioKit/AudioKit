@@ -9,6 +9,11 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
+
+    var taper: Double = 1.0 {
+        didSet { setParameter(.taper, value: taper) }
+    }
+
     var leftGain: Double = 1.0 {
         didSet { setParameter(.leftGain, value: leftGain) }
     }
@@ -44,9 +49,18 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             unit: .linearGain,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain]))
+        let taper = AUParameter(
+            identifier: "taper",
+            name: "Taper",
+            address: 2,
+            range: 0.1 ... 4.0,
+            unit: .generic,
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper]))
         leftGain.value = 1.0
         rightGain.value = 1.0
+        taper.value = 1.0
     }
 
     func setParameter(_ address: AKFaderParameter, value: Double) {

@@ -13,7 +13,8 @@
 
 typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterLeftGain,
-    AKFaderParameterRightGain
+    AKFaderParameterRightGain,
+    AKFaderParameterTaper,
 };
 
 #ifndef __cplusplus
