@@ -204,6 +204,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    rampDuration: AUAudioFrameCount = 0,
                                    taperValue: Double? = nil,
                                    skewValue: Double? = nil) {
+
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
