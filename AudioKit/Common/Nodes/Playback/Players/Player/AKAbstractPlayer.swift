@@ -16,6 +16,9 @@ open class AKAbstractPlayer: AKNode {
     // MARK: - Fade struct
 
     public struct Fade {
+        public static var linearTaper = (in: 1.0, out: 1.0)
+        public static var exponentialTaper = (in: 3.0, out: 0.45)
+
         /// So that the Fade struct can be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
         public init() {}
@@ -31,25 +34,21 @@ open class AKAbstractPlayer: AKNode {
                 if newValue != inTime { needsUpdate = true }
             }
         }
-
-        // TODO:
-        public var inRampType: AKSettings.RampType = .linear {
+        public var inTaper: Double = Fade.exponentialTaper.in {
             willSet {
-                if newValue != inRampType { needsUpdate = true }
+                if newValue != inTaper { needsUpdate = true }
             }
         }
 
-        // TODO:
-        public var outRampType: AKSettings.RampType = .linear {
-            willSet {
-                if newValue != outRampType { needsUpdate = true }
-            }
-        }
+        @available(*, deprecated, message: "Removed in favor of Taper")
+        public var inRampType: AKSettings.RampType = .linear
+        @available(*, deprecated, message: "Removed in favor of Taper")
+        public var outRampType: AKSettings.RampType = .linear
 
         // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
 
-        // Currently Unused
+        // Currently Unused, to be removed
         public var inStartGain: Double = minimumGain
 
         public var outTime: Double = 0 {
@@ -58,9 +57,15 @@ open class AKAbstractPlayer: AKNode {
             }
         }
 
+        public var outTaper: Double = Fade.exponentialTaper.out {
+            willSet {
+                if newValue != outTaper { needsUpdate = true }
+            }
+        }
+
         public var outTimeOffset: Double = 0
 
-        // Currently Unused
+        // Currently Unused, to be removed
         public var outStartGain: Double = 1
 
         // the needsUpdate flag is used by the buffering scheme
@@ -239,21 +244,21 @@ open class AKAbstractPlayer: AKNode {
 
             let rampSamples = AUAudioFrameCount(inTime * sampleRate)
 
-            AKLog("Scheduling fade IN to value: \(value) at inTimeInSamples \(inTimeInSamples) rampDuration \(rampSamples) fadeFrom \(fadeFrom) fade.inTimeOffset \(fade.inTimeOffset)")
+            AKLog("Scheduling fade IN to value: \(value) at inTimeInSamples \(inTimeInSamples) rampDuration \(rampSamples) fadeFrom \(fadeFrom) fade.inTimeOffset \(fade.inTimeOffset) taper \(fade.inTaper)")
 
             // inTimeInSamples
             faderNode.addAutomationPoint(value: fadeFrom,
                                          at: AUEventSampleTimeImmediate,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: AUAudioFrameCount(0),
-                                         rampType: fade.inRampType)
+                                         taperValue: fade.inTaper)
 
             // then fade it in
             faderNode.addAutomationPoint(value: value,
                                          at: inTimeInSamples,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: rampSamples,
-                                         rampType: fade.inRampType)
+                                         taperValue: fade.inTaper)
         }
 
         var outTime = fade.outTime
@@ -286,7 +291,7 @@ open class AKAbstractPlayer: AKNode {
                                              at: outTimeInSamples,
                                              anchorTime: audioTime.sampleTime,
                                              rampDuration: AUAudioFrameCount(0),
-                                             rampType: fade.inRampType)
+                                             taperValue: fade.outTaper)
 
                 outTime = newOutTime
                 outOffset = frameOffset
@@ -298,7 +303,7 @@ open class AKAbstractPlayer: AKNode {
                                              at: AUEventSampleTimeImmediate,
                                              anchorTime: audioTime.sampleTime,
                                              rampDuration: AUAudioFrameCount(0),
-                                             rampType: fade.inRampType)
+                                             taperValue: fade.inTaper)
             }
 
             // must adjust for _rate
@@ -306,12 +311,12 @@ open class AKAbstractPlayer: AKNode {
 
             let value = Fade.minimumGain
 
-            AKLog("Scheduling fade OUT (\(outTime) sec) to value: \(value) at outTimeInSamples \(outTimeInSamples) fadeLengthInSamples \(fadeLengthInSamples)")
+            AKLog("Scheduling fade OUT (\(outTime) sec) to value: \(value) at outTimeInSamples \(outTimeInSamples) fadeLengthInSamples \(fadeLengthInSamples) taper \(fade.outTaper)")
             faderNode.addAutomationPoint(value: value,
                                          at: outTimeInSamples + outOffset,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: fadeLengthInSamples,
-                                         rampType: fade.outRampType)
+                                         taperValue: fade.outTaper)
         }
     }
 
@@ -322,8 +327,6 @@ open class AKAbstractPlayer: AKNode {
         AKLog("Creating fader")
         faderNode = AKFader()
         faderNode?.gain = gain
-        // faderNode?.rampType = rampType
-
         initialize()
     }
 
@@ -346,14 +349,14 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.gain = fade.maximumGain
     }
 
-    public func fadeOut(with time: Double) {
+    public func fadeOut(with time: Double, taper: Double? = nil) {
         faderNode?.stopAutomation()
         let outFrames = AUAudioFrameCount(time * sampleRate)
         faderNode?.addAutomationPoint(value: Fade.minimumGain,
                                       at: AUEventSampleTimeImmediate,
                                       anchorTime: 0,
                                       rampDuration: outFrames,
-                                      rampType: fade.outRampType)
+                                      taperValue: taper ?? fade.outTaper)
 
         let now = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: 0, atRate: sampleRate)
         faderNode?.startAutomation(at: now, duration: nil)

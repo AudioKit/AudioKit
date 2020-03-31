@@ -157,12 +157,8 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     // convenience for setting both in and out fade ramp types
-    @objc public var rampType: AKSettings.RampType = .linear {
-        didSet {
-            fade.inRampType = rampType
-            fade.outRampType = rampType
-        }
-    }
+    @available(*, deprecated, message: "Removed in favor of Taper")
+    @objc public var rampType: AKSettings.RampType = .linear 
 
     /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
