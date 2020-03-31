@@ -20,7 +20,7 @@
 struct ParameterRamper::InternalData {
     float clampLow, clampHigh;
     float uiValue;
-    float taper;
+    float taper = 1;
     float startingPoint;
     float goal;
     uint32_t duration;
@@ -93,7 +93,7 @@ void ParameterRamper::dezipperCheck(uint32_t rampDuration)
     }
 }
 
-void ParameterRamper::startRamp(float newGoal, uint32_t duration, float taper)
+void ParameterRamper::startRamp(float newGoal, uint32_t duration)
 {
     if (duration == 0) {
         setImmediate(newGoal);
@@ -104,7 +104,6 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration, float taper)
          */
 //        data->inverseSlope = (get() - newGoal) / float(duration);
         data->startingPoint = data->uiValue;
-        data->taper = taper;
         data->samplesRemaining = data->duration = duration;
         data->goal = data->uiValue = newGoal;
     }
