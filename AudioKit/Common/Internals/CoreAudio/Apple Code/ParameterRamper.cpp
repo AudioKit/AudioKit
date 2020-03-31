@@ -115,8 +115,8 @@ float ParameterRamper::get() const
         float x = float(data->duration - data->samplesRemaining)/float(data->duration);
         return data->startingPoint + (data->goal - data->startingPoint) * pow(x, data->taper);
     } else {
-        float xm1 = float(data->duration - data->samplesRemaining)/float(data->duration) - 1.0;
-        return data->startingPoint + (data->goal - data->startingPoint) * (pow(xm1, abs(data->taper)) + 1.0);
+        float absxm1 = abs(float(data->duration - data->samplesRemaining)/float(data->duration) - 1.0);
+        return data->startingPoint + (data->goal - data->startingPoint) * (pow(absxm1, abs(data->taper)) + 1.0);
     }
 }
 
