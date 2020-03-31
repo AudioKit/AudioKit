@@ -16,6 +16,8 @@ open class AKAbstractPlayer: AKNode {
     // MARK: - Fade struct
 
     public struct Fade {
+
+        // a few presets
         public static var linearTaper = (in: 1.0, out: 1.0)
         public static var logTaper = (in: 0.333, out: 3.0)
         public static var exponentialTaper = (in: 3.0, out: -3.0)
