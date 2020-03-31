@@ -43,6 +43,8 @@ open class AKAbstractPlayer: AKNode {
             }
         }
 
+        public var inSkew: Double = 0
+
         @available(*, deprecated, message: "Removed in favor of Taper")
         public var inRampType: AKSettings.RampType = .linear
         @available(*, deprecated, message: "Removed in favor of Taper")
@@ -65,6 +67,8 @@ open class AKAbstractPlayer: AKNode {
                 if newValue != outTaper { needsUpdate = true }
             }
         }
+
+        public var outSkew: Double = 1
 
         public var outTimeOffset: Double = 0
 
@@ -254,14 +258,16 @@ open class AKAbstractPlayer: AKNode {
                                          at: AUEventSampleTimeImmediate,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: AUAudioFrameCount(0),
-                                         taperValue: fade.inTaper)
+                                         taperValue: fade.inTaper,
+                                         skewValue: fade.inSkew)
 
             // then fade it in
             faderNode.addAutomationPoint(value: value,
                                          at: inTimeInSamples,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: rampSamples,
-                                         taperValue: fade.inTaper)
+                                         taperValue: fade.inTaper,
+                                         skewValue: fade.inSkew)
         }
 
         var outTime = fade.outTime
@@ -294,7 +300,8 @@ open class AKAbstractPlayer: AKNode {
                                              at: outTimeInSamples,
                                              anchorTime: audioTime.sampleTime,
                                              rampDuration: AUAudioFrameCount(0),
-                                             taperValue: fade.outTaper)
+                                             taperValue: fade.outTaper,
+                                             skewValue: fade.outSkew)
 
                 outTime = newOutTime
                 outOffset = frameOffset
@@ -306,7 +313,8 @@ open class AKAbstractPlayer: AKNode {
                                              at: AUEventSampleTimeImmediate,
                                              anchorTime: audioTime.sampleTime,
                                              rampDuration: AUAudioFrameCount(0),
-                                             taperValue: fade.inTaper)
+                                             taperValue: fade.inTaper,
+                                            skewValue: fade.inSkew)
             }
 
             // must adjust for _rate
@@ -319,7 +327,8 @@ open class AKAbstractPlayer: AKNode {
                                          at: outTimeInSamples + outOffset,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: fadeLengthInSamples,
-                                         taperValue: fade.outTaper)
+                                         taperValue: fade.outTaper,
+                                         skewValue: fade.outSkew)
         }
     }
 
