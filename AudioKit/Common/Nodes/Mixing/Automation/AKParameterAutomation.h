@@ -19,17 +19,13 @@ typedef struct AutomationPoint {
     AUValue value;
     AUEventSampleTime sampleTime;
     AUEventSampleTime anchorTime;
-
     AUAudioFrameCount rampDuration;
-    /// TODO: it is up to the implementing class to support the ramping scheme
-    //var rampType: AKSettings.RampType = .linear
-
     bool triggered;
 } AutomationPoint;
 
 // The max number of automation points supported by this class
 // Can be variable in the future...
-#define MAX_NUMBER_OF_POINTS 256
+#define MAX_NUMBER_OF_POINTS 2048
 
 @interface AKParameterAutomation : NSObject
 
