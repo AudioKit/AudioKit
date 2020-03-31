@@ -16,13 +16,16 @@ open class AKAbstractPlayer: AKNode {
     // MARK: - Fade struct
 
     public struct Fade {
-
-        // a few presets
+        // a few presets for lack of a better place to put them at the moment
         public static var linearTaper = (in: 1.0, out: 1.0)
-        public static var logTaper = (in: 0.333, out: 3.0)
-        public static var exponentialTaper = (in: 3.0, out: -3.0)
 
-        /// So that the Fade struct can be used outside of AKPlayer
+        // half pipe
+        public static var audioTaper = (in: 3.0, out: 0.3333)
+
+        // flipped half pipe
+        public static var reverseAudioTaper = (in: 0.3333, out: 3.0)
+
+        /// An init is requited for the Fade struct to be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
         public init() {}
 
@@ -32,51 +35,52 @@ open class AKAbstractPlayer: AKNode {
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
 
+        // In properties
         public var inTime: Double = 0 {
             willSet {
                 if newValue != inTime { needsUpdate = true }
             }
         }
-        public var inTaper: Double = Fade.exponentialTaper.in {
+
+        // if you want to start midway into a fade
+        public var inTimeOffset: Double = 0
+
+        public var inTaper: Double = audioTaper.in {
             willSet {
                 if newValue != inTaper { needsUpdate = true }
             }
         }
 
-        public var inSkew: Double = 0
+        // the slope adjustment in the taper
+        public var inSkew: Double = 0.3333
 
-        @available(*, deprecated, message: "Removed in favor of Taper")
-        public var inRampType: AKSettings.RampType = .linear
-        @available(*, deprecated, message: "Removed in favor of Taper")
-        public var outRampType: AKSettings.RampType = .linear
-
-        // if you want to start midway into a fade
-        public var inTimeOffset: Double = 0
-
-        // Currently Unused, to be removed
-        public var inStartGain: Double = minimumGain
-
+        // Out properties
         public var outTime: Double = 0 {
             willSet {
                 if newValue != outTime { needsUpdate = true }
             }
         }
 
-        public var outTaper: Double = Fade.exponentialTaper.out {
+        public var outTaper: Double = audioTaper.out {
             willSet {
                 if newValue != outTaper { needsUpdate = true }
             }
         }
 
+        // the slope adjustment in the taper
         public var outSkew: Double = 1
 
+        // if you want to start midway into a fade
         public var outTimeOffset: Double = 0
-
-        // Currently Unused, to be removed
-        public var outStartGain: Double = 1
 
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false
+
+        // To be removed:
+        @available(*, deprecated, message: "Removed in favor of Taper")
+        public var inRampType: AKSettings.RampType = .linear
+        @available(*, deprecated, message: "Removed in favor of Taper")
+        public var outRampType: AKSettings.RampType = .linear
     }
 
     // MARK: - Loop struct
@@ -314,7 +318,7 @@ open class AKAbstractPlayer: AKNode {
                                              anchorTime: audioTime.sampleTime,
                                              rampDuration: AUAudioFrameCount(0),
                                              taperValue: fade.inTaper,
-                                            skewValue: fade.inSkew)
+                                             skewValue: fade.inSkew)
             }
 
             // must adjust for _rate
