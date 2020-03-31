@@ -43,6 +43,10 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
             data->leftGainRamp.setTaper(value);
             data->rightGainRamp.setTaper(value);
             break;
+        case AKFaderParameterSkew:
+            data->leftGainRamp.setSkew(value);
+            data->rightGainRamp.setSkew(value);
+            break;
     }
 }
 
@@ -57,6 +61,9 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
         case AKFaderParameterTaper:
             // assume both channels are the same taper?
             return data->leftGainRamp.getTaper();
+        case AKFaderParameterSkew:
+            // assume both channels are the same taper?
+            return data->leftGainRamp.getSkew();
     }
     return 0;
 }
@@ -87,14 +94,16 @@ void AKFaderDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFra
         case AKFaderParameterLeftGain:
             data->leftGainRamp.startRamp(value, duration);
             break;
-
         case AKFaderParameterRightGain:
             data->rightGainRamp.startRamp(value, duration);
             break;
-
         case AKFaderParameterTaper:
             data->leftGainRamp.setTaper(value);
             data->rightGainRamp.setTaper(value);
+            break;
+        case AKFaderParameterSkew:
+            data->leftGainRamp.setSkew(value);
+            data->rightGainRamp.setSkew(value);
             break;
     }
 }
