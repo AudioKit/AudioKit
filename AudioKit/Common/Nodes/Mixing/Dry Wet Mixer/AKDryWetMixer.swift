@@ -25,7 +25,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted = true
 
-    override init() {
+    override public init() {
         super.init()
         avAudioNode = mixer.avAudioNode
         self.input1Attenuator.connect(to: mixer)
