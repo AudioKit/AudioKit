@@ -125,11 +125,11 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
 float ParameterRamper::get() const
 {
     float x = float(data->duration - data->samplesRemaining)/float(data->duration);
-    float taper1 = data->startingPoint + (data->goal - data->startingPoint) * pow(x, data->taper);
+    float taper1 = data->startingPoint + (data->goal - data->startingPoint) * pow(x, abs(data->taper));
 
     float absxm1 = abs(float(data->duration - data->samplesRemaining)/float(data->duration) - 1.0);
 
-    float taper2 = data->startingPoint + (data->goal - data->startingPoint) * (pow(absxm1, abs(data->taper)) + 1.0);
+    float taper2 = data->startingPoint + (data->goal - data->startingPoint) * (1.0 - pow(absxm1, 1.0 / abs(data->taper)));
 
     return taper1 * (1.0 - data->skew) + taper2 * data->skew;
 }
