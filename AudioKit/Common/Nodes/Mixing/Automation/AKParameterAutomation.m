@@ -131,7 +131,6 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
-
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,
                                                                     point.address,

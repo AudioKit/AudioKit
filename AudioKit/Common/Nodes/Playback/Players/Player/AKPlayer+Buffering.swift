@@ -124,11 +124,9 @@ extension AKPlayer {
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
         guard isBuffered, let buffer = self.buffer else { return }
         if let fadedBuffer = buffer.fade(inTime: inTime,
-                                         outTime: outTime,
-                                         inRampType: fade.inRampType,
-                                         outRampType: fade.outRampType) {
+                                         outTime: outTime) {
             self.buffer = fadedBuffer
-            AKLog("Faded Buffer")
+            // AKLog("Faded Buffer")
         }
     }
 }
