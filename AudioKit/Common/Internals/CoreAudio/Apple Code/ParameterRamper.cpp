@@ -74,6 +74,12 @@ float ParameterRamper::getTaper() const
 
 void ParameterRamper::setSkew(float skew)
 {
+    if (skew > 1) {
+        skew = 1.0;
+    }
+    if (skew < 0) {
+        skew = 0.0;
+    }
     data->skew = skew;
     atomic_fetch_add(&data->changeCounter, 1);
 }
@@ -111,11 +117,6 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
     if (duration == 0) {
         setImmediate(newGoal);
     } else {
-        /*
-         Set a new ramp.
-         Assigning to inverseSlope must come before assigning to goal.
-         */
-//        data->inverseSlope = (get() - newGoal) / float(duration);
         data->startingPoint = data->uiValue;
         data->samplesRemaining = data->duration = duration;
         data->goal = data->uiValue = newGoal;
