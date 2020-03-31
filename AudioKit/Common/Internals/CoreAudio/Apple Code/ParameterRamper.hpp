@@ -33,6 +33,10 @@ public:
 
     float getTaper() const;
 
+    void setSkew(float skew);
+
+    float getSkew() const;
+
     void setUIValue(float value);
 
     float getUIValue() const;

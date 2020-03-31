@@ -25,6 +25,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var leftGainParameter: AUParameter?
     fileprivate var rightGainParameter: AUParameter?
     fileprivate var taperParameter: AUParameter?
+    fileprivate var skewParameter: AUParameter?
 
     fileprivate var lastKnownLeftGain: Double = 1.0
     fileprivate var lastKnownRightGain: Double = 1.0
@@ -91,6 +92,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Skew ranges from zero to one where zero is easing In and 1 is easing Out. default 0.
+    @objc open dynamic var skew: Double = 0 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                skewParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.skew, value: newValue)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -106,10 +118,12 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///
     @objc public init(_ input: AKNode? = nil,
                       gain: Double = 1,
-                      taper: Double = 1) {
+                      taper: Double = 1,
+                      skew: Double = 0) {
         self.leftGain = gain
         self.rightGain = gain
         self.taper = taper
+        self.skew = skew
 
         _Self.register()
 
@@ -132,10 +146,12 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         self.leftGainParameter = tree["leftGain"]
         self.rightGainParameter = tree["rightGain"]
         self.taperParameter = tree["taper"]
+        self.skewParameter = tree["skew"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
         self.internalAU?.setParameterImmediately(.taper, value: taper)
+        self.internalAU?.setParameterImmediately(.skew, value: skew)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
@@ -186,7 +202,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    at sampleTime: AUEventSampleTime,
                                    anchorTime: AUEventSampleTime,
                                    rampDuration: AUAudioFrameCount = 0,
-                                   taperValue: Double? = nil) {
+                                   taperValue: Double? = nil,
+                                   skewValue: Double? = nil) {
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
@@ -197,6 +214,14 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         if let taperValue = taperValue, let taperAddress = taperParameter?.address {
             self.parameterAutomation?.addPoint(taperAddress,
                                                value: AUValue(taperValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: 0)
+        }
+        // if a skew value is passed in, also add a point with its address to trigger at the same time
+        if let skewValue = skewValue, let skewAddress = skewParameter?.address {
+            self.parameterAutomation?.addPoint(skewAddress,
+                                               value: AUValue(skewValue),
                                                sampleTime: sampleTime,
                                                anchorTime: anchorTime,
                                                rampDuration: 0)
