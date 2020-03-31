@@ -12,6 +12,9 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
     var taper: Double = 1.0 {
         didSet { setParameter(.taper, value: taper) }
     }
+    var skew: Double = 0.0 {
+        didSet { setParameter(.skew, value: skew) }
+    }
 
     var leftGain: Double = 1.0 {
         didSet { setParameter(.leftGain, value: leftGain) }
@@ -58,15 +61,25 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "taper",
             name: "Taper",
             address: 2,
-            range: 0.1 ... 4.0,
+            range: 0.1 ... 10.0,
             unit: .generic,
             flags: .default
         )
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper]))
+        let skew = AUParameter(
+            identifier: "skew",
+            name: "Skew",
+            address: 3,
+            range: 0.0 ... 1.0,
+            unit: .generic,
+            flags: .default
+        )
+
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew]))
         leftGain.value = 1.0
         rightGain.value = 1.0
         taper.value = 1.0
+        skew.value = 0.0
     }
 
     func setParameter(_ address: AKFaderParameter, value: Double) {
