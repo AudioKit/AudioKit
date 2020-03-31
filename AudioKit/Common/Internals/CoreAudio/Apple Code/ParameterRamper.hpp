@@ -39,7 +39,7 @@ public:
 
     void dezipperCheck(uint32_t rampDuration);
 
-    void startRamp(float newGoal, uint32_t duration, float taper = 1);
+    void startRamp(float newGoal, uint32_t duration);
 
     float get() const;
 
