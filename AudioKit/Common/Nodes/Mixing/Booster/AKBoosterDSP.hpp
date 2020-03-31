@@ -10,7 +10,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKParameterRamp.hpp"
-#import "AKExponentialParameterRamp.hpp" // to be deleted
 
 typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,

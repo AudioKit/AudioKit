@@ -17,7 +17,7 @@ open class AKAbstractPlayer: AKNode {
 
     public struct Fade {
         public static var linearTaper = (in: 1.0, out: 1.0)
-        public static var exponentialTaper = (in: 3.0, out: 0.45)
+        public static var exponentialTaper = (in: 3.0, out: -3.0)
 
         /// So that the Fade struct can be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
