@@ -17,8 +17,8 @@ open class AKAbstractPlayer: AKNode {
 
     public struct Fade {
         public static var linearTaper = (in: 1.0, out: 1.0)
-        public static var easeInTaper = (in: 0.333, out: 3.0)
-        public static var easeOutTaper = (in: 3.0, out: -3.0)
+        public static var logTaper = (in: 0.333, out: 3.0)
+        public static var exponentialTaper = (in: 3.0, out: -3.0)
 
         /// So that the Fade struct can be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
@@ -35,7 +35,7 @@ open class AKAbstractPlayer: AKNode {
                 if newValue != inTime { needsUpdate = true }
             }
         }
-        public var inTaper: Double = Fade.easeOutTaper.in {
+        public var inTaper: Double = Fade.exponentialTaper.in {
             willSet {
                 if newValue != inTaper { needsUpdate = true }
             }
@@ -58,7 +58,7 @@ open class AKAbstractPlayer: AKNode {
             }
         }
 
-        public var outTaper: Double = Fade.easeOutTaper.out {
+        public var outTaper: Double = Fade.exponentialTaper.out {
             willSet {
                 if newValue != outTaper { needsUpdate = true }
             }
