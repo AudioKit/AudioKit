@@ -102,7 +102,6 @@
 		69E2694E232025E700861150 /* soundpipeextension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2694B232025E700861150 /* soundpipeextension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69E2694F232025E700861150 /* oscmorph2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 69E2694D232025E700861150 /* oscmorph2d.c */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
-		B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B11F886C2329767100CB8D3F /* AKFaderDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = B11F88682329767100CB8D3F /* AKFaderDSP.mm */; };
 		B11F886D2329767100CB8D3F /* AKFaderDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B11F88692329767100CB8D3F /* AKFaderDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B11F886E2329767100CB8D3F /* AKFader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11F886A2329767100CB8D3F /* AKFader.swift */; };
@@ -1321,7 +1320,6 @@
 		69E2694D232025E700861150 /* oscmorph2d.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph2d.c; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
-		B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
 		B11F88682329767100CB8D3F /* AKFaderDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFaderDSP.mm; sourceTree = "<group>"; };
 		B11F88692329767100CB8D3F /* AKFaderDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFaderDSP.hpp; sourceTree = "<group>"; };
 		B11F886A2329767100CB8D3F /* AKFader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFader.swift; sourceTree = "<group>"; };
@@ -5338,7 +5336,6 @@
 		C4AC0B621FC9460400EDA024 /* Parameter Rampers */ = {
 			isa = PBXGroup;
 			children = (
-				B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */,
 				C4AC0B631FC9460400EDA024 /* AKLinearParameterRamp.hpp */,
 				C4AC0B641FC9460400EDA024 /* AKParameterRampBase.hpp */,
 				B157704320937B5100830A3E /* AKParameterRamp.hpp */,
@@ -5524,7 +5521,6 @@
 				B157704420937B5100830A3E /* AKParameterRamp.hpp in Headers */,
 				34F5A354205EC31000290001 /* AdjustableDelayLine.hpp in Headers */,
 				C47C528B2093066200A6FB3C /* AKWaveTableDSPKernel.hpp in Headers */,
-				B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */,
 				C4DE8591200D6B2B0075C82B /* AKPluckedStringDSP.hpp in Headers */,
 				C49B18A1204A0AD1009C7C8E /* FFTRealSelect.hpp in Headers */,
 				C49B18A3204A0AD1009C7C8E /* FFTRealFixLenParam.h in Headers */,
