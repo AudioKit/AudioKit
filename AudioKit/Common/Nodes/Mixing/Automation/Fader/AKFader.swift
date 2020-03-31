@@ -6,7 +6,7 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-/// Stereo Fader. Almost the same as AKBooster but with the addition of
+/// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public typealias AKAudioUnitType = AKFaderAudioUnit
@@ -17,23 +17,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     private var internalAU: AKAudioUnitType?
 
-    fileprivate var leftGainParameter: AUParameter?
-    fileprivate var rightGainParameter: AUParameter?
-
     private var _parameterAutomation: AKParameterAutomation?
     public var parameterAutomation: AKParameterAutomation? {
         return self._parameterAutomation
     }
 
+    fileprivate var leftGainParameter: AUParameter?
+    fileprivate var rightGainParameter: AUParameter?
+    fileprivate var taperParameter: AUParameter?
+
     fileprivate var lastKnownLeftGain: Double = 1.0
     fileprivate var lastKnownRightGain: Double = 1.0
-
-    /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
-    @objc open dynamic var taper: Double = 1 {
-        willSet {
-            internalAU?.taper = newValue
-        }
-    }
 
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
@@ -86,6 +80,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
+    @objc open dynamic var taper: Double = 1 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                taperParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.taper, value: newValue)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -100,9 +105,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     @objc public init(_ input: AKNode? = nil,
-                      gain: Double = 1) {
+                      gain: Double = 1,
+                      taper: Double = 1) {
         self.leftGain = gain
         self.rightGain = gain
+        self.taper = taper
 
         _Self.register()
 
@@ -124,9 +131,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
         self.leftGainParameter = tree["leftGain"]
         self.rightGainParameter = tree["rightGain"]
+        self.taperParameter = tree["taper"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.taper, value: taper)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
@@ -177,14 +186,31 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    at sampleTime: AUEventSampleTime,
                                    anchorTime: AUEventSampleTime,
                                    rampDuration: AUAudioFrameCount = 0,
-                                   rampType: AKSettings.RampType = .linear) {
+                                   taperValue: Double? = nil) {
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
-        self.parameterAutomation?.addPoint(leftAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
-        self.parameterAutomation?.addPoint(rightAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
+        // if a taper value is passed in, also add a point with its address to trigger at the same time
+        if let taperValue = taperValue, let taperAddress = taperParameter?.address {
+            self.parameterAutomation?.addPoint(taperAddress,
+                                               value: AUValue(taperValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: 0)
+        }
+
+        self.parameterAutomation?.addPoint(leftAddress,
+                                           value: AUValue(value),
+                                           sampleTime: sampleTime,
+                                           anchorTime: anchorTime,
+                                           rampDuration: rampDuration)
+        self.parameterAutomation?.addPoint(rightAddress,
+                                           value: AUValue(value),
+                                           sampleTime: sampleTime,
+                                           anchorTime: anchorTime,
+                                           rampDuration: rampDuration)
     }
 }
