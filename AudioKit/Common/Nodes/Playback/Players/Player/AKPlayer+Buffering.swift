@@ -32,11 +32,11 @@ extension AKPlayer {
             startFrame != startingFrame ||
             endFrame != endingFrame
 
-        if loop.needsUpdate && isLooping {
+        if loop.needsUpdate, isLooping {
             updateNeeded = true
         }
 
-        if fade.needsUpdate && isFaded {
+        if fade.needsUpdate, isFaded {
             updateNeeded = true
         }
 

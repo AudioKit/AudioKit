@@ -22,16 +22,16 @@ public class AKDynamicPlayer: AKPlayer {
             }
 
             // timePitch is only installed if it is requested. This saves resources.
-            if timePitchNode != nil && newValue == 1 && pitch == 0 {
+            if timePitchNode != nil, newValue == 1, pitch == 0 {
                 removeTimePitch()
                 return
-            } else if timePitchNode == nil && newValue != 1 {
+            } else if timePitchNode == nil, newValue != 1 {
                 createTimePitch()
             }
 
             if let timePitchNode = self.timePitchNode {
                 timePitchNode.rate = newValue
-                if timePitchNode.isBypassed && timePitchNode.rate != 1 {
+                if timePitchNode.isBypassed, timePitchNode.rate != 1 {
                     timePitchNode.start()
                 }
             }
@@ -54,16 +54,16 @@ public class AKDynamicPlayer: AKPlayer {
                 return
             }
             // timePitch is only installed if it is requested. This saves nodes as it's expensive.
-            if timePitchNode != nil && newValue == 0 && rate == 1 && !isPlaying {
+            if timePitchNode != nil, newValue == 0, rate == 1, !isPlaying {
                 removeTimePitch()
                 return
-            } else if timePitchNode == nil && newValue != 0 {
+            } else if timePitchNode == nil, newValue != 0 {
                 createTimePitch()
             }
 
             if let timePitchNode = self.timePitchNode {
                 timePitchNode.pitch = newValue
-                if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
+                if timePitchNode.isBypassed, timePitchNode.pitch != 0 {
                     timePitchNode.start()
                 }
             }

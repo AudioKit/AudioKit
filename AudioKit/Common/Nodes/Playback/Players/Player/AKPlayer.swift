@@ -158,7 +158,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     // convenience for setting both in and out fade ramp types
     @available(*, deprecated, message: "Removed in favor of Taper")
-    @objc public var rampType: AKSettings.RampType = .linear 
+    @objc public var rampType: AKSettings.RampType = .linear
 
     /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
@@ -425,15 +425,15 @@ public class AKPlayer: AKAbstractPlayer {
 
 // This used to be in a separate file but it broke setPosition
 @objc extension AKPlayer: AKTiming {
-    @objc public func start(at audioTime: AVAudioTime?) {
+    public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
     }
 
-    @objc public var isStarted: Bool {
+    public var isStarted: Bool {
         return isPlaying
     }
 
-    @objc public func setPosition(_ position: Double) {
+    public func setPosition(_ position: Double) {
         startTime = position
         if isPlaying {
             stop()
@@ -441,21 +441,21 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    @objc public func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return startTime
         }
         return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
     }
 
-    @objc public func audioTime(at position: Double) -> AVAudioTime? {
+    public func audioTime(at position: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (position - startTime) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
         return playerNode.nodeTime(forPlayerTime: playerTime)
     }
 
-    @objc open func prepare() {
+    open func prepare() {
         preroll(from: startTime, to: endTime)
     }
 }

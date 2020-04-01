@@ -174,7 +174,7 @@ extension AKPlayer {
 
         var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        if isLooping && buffering == .always {
+        if isLooping, buffering == .always {
             bufferOptions = [.loops, .interrupts]
         }
 
@@ -244,7 +244,7 @@ extension AKPlayer {
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
-            if self.isLooping && self.buffering == .always {
+            if self.isLooping, self.buffering == .always {
                 self.startTime = self.loop.start
                 self.endTime = self.loop.end
                 self.pauseTime = nil
@@ -258,7 +258,7 @@ extension AKPlayer {
                         self.handleComplete()
                     }
                 }
-            } catch let error {
+            } catch {
                 AKLog("Failed to check currentFrame and call completion handler: \(error)... Possible Media Service Reset?")
             }
         }
