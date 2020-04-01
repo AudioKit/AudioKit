@@ -48,6 +48,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
     /// such as Perfect Looping or Reversing
+
     public enum BufferingType {
         case dynamic, always
     }
