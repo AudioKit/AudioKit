@@ -48,8 +48,8 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
             data->rightGainRamp.setSkew(value);
             break;
         case AKFaderParameterOffset:
-            data->leftGainRamp.setOffset(value);
-            data->rightGainRamp.setOffset(value);
+            data->leftGainRamp.setOffset((AUAudioFrameCount)value);
+            data->rightGainRamp.setOffset((AUAudioFrameCount)value);
             break;
     }
 }
