@@ -22,6 +22,7 @@ struct ParameterRamper::InternalData {
     float uiValue;
     float taper = 1;
     float skew = 0;
+    float offset = 0;
     float startingPoint;
     float goal;
     uint32_t duration;
@@ -74,12 +75,8 @@ float ParameterRamper::getTaper() const
 
 void ParameterRamper::setSkew(float skew)
 {
-    if (skew > 1) {
-        skew = 1.0;
-    }
-    if (skew < 0) {
-        skew = 0.0;
-    }
+    if (skew > 1) { skew = 1.0; }
+    if (skew < 0) { skew = 0.0; }
     data->skew = skew;
     atomic_fetch_add(&data->changeCounter, 1);
 }
@@ -87,6 +84,18 @@ void ParameterRamper::setSkew(float skew)
 float ParameterRamper::getSkew() const
 {
     return data->skew;
+}
+
+void ParameterRamper::setOffset(float offset)
+{
+    if (offset < 0) { offset = 0.0; }
+    data->offset = offset;
+    atomic_fetch_add(&data->changeCounter, 1);
+}
+
+float ParameterRamper::getOffset() const
+{
+    return data->offset;
 }
 
 
@@ -118,7 +127,7 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
         setImmediate(newGoal);
     } else {
         data->startingPoint = data->uiValue;
-        data->samplesRemaining = data->duration = duration;
+        data->samplesRemaining = data->duration = duration - data->offset;
         data->goal = data->uiValue = newGoal;
     }
 }
