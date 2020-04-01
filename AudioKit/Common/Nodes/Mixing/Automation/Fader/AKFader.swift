@@ -26,6 +26,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var rightGainParameter: AUParameter?
     fileprivate var taperParameter: AUParameter?
     fileprivate var skewParameter: AUParameter?
+    fileprivate var offsetParameter: AUParameter?
 
     fileprivate var lastKnownLeftGain: Double = 1.0
     fileprivate var lastKnownRightGain: Double = 1.0
@@ -103,6 +104,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Offset allows you to start a ramp somewhere in the middle of it. default 0.
+    @objc open dynamic var offset: Double = 0 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                offsetParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.offset, value: newValue)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -119,11 +131,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     @objc public init(_ input: AKNode? = nil,
                       gain: Double = 1,
                       taper: Double = 1,
-                      skew: Double = 0) {
+                      skew: Double = 0,
+                      offset: Double = 0) {
         self.leftGain = gain
         self.rightGain = gain
         self.taper = taper
         self.skew = skew
+        self.offset = offset
 
         _Self.register()
 
@@ -147,11 +161,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         self.rightGainParameter = tree["rightGain"]
         self.taperParameter = tree["taper"]
         self.skewParameter = tree["skew"]
+        self.offsetParameter = tree["offset"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
         self.internalAU?.setParameterImmediately(.taper, value: taper)
         self.internalAU?.setParameterImmediately(.skew, value: skew)
+        self.internalAU?.setParameterImmediately(.offset, value: offset)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
@@ -202,8 +218,9 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    at sampleTime: AUEventSampleTime,
                                    anchorTime: AUEventSampleTime,
                                    rampDuration: AUAudioFrameCount = 0,
-                                   taperValue: Double? = nil,
-                                   skewValue: Double? = nil) {
+                                   taper taperValue: Double? = nil,
+                                   skew skewValue: Double? = nil,
+                                   offset offsetValue: AUAudioFrameCount? = nil) {
 
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
@@ -227,6 +244,16 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                anchorTime: anchorTime,
                                                rampDuration: 0)
         }
+
+        // if an offset value is passed in, also add a point with its address to trigger at the same time
+        if let offsetValue = offsetValue, let offsetAddress = offsetParameter?.address {
+            self.parameterAutomation?.addPoint(offsetAddress,
+                                               value: AUValue(offsetValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: 0)
+        }
+
 
         self.parameterAutomation?.addPoint(leftAddress,
                                            value: AUValue(value),

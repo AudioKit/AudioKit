@@ -13,6 +13,7 @@
 
 #include "ParameterRamper.hpp"
 
+#import <AudioToolbox/AUAudioUnit.h>
 #import <libkern/OSAtomic.h>
 #import <stdatomic.h>
 #include <math.h>
@@ -22,6 +23,7 @@ struct ParameterRamper::InternalData {
     float uiValue;
     float taper = 1;
     float skew = 0;
+    uint32_t offset = 0;
     float startingPoint;
     float goal;
     uint32_t duration;
@@ -89,7 +91,19 @@ float ParameterRamper::getSkew() const
     return data->skew;
 }
 
+void ParameterRamper::setOffset(uint32_t offset)
+{
+    if (offset < 0) {
+        offset = 0.0;
+    }
+    data->offset = offset;
+    atomic_fetch_add(&data->changeCounter, 1);
+}
 
+uint32_t ParameterRamper::getOffset() const
+{
+    return data->offset;
+}
 
 void ParameterRamper::setUIValue(float value)
 {
@@ -118,17 +132,17 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
         setImmediate(newGoal);
     } else {
         data->startingPoint = data->uiValue;
-        data->samplesRemaining = data->duration = duration;
+        data->samplesRemaining = data->duration = duration - data->offset;
         data->goal = data->uiValue = newGoal;
     }
 }
 
 float ParameterRamper::get() const
 {
-    float x = float(data->duration - data->samplesRemaining)/float(data->duration);
+    float x = float(data->duration - data->samplesRemaining) / float(data->duration);
     float taper1 = data->startingPoint + (data->goal - data->startingPoint) * pow(x, abs(data->taper));
 
-    float absxm1 = abs(float(data->duration - data->samplesRemaining)/float(data->duration) - 1.0);
+    float absxm1 = abs(float(data->duration - data->samplesRemaining) / float(data->duration) - 1.0);
 
     float taper2 = data->startingPoint + (data->goal - data->startingPoint) * (1.0 - pow(absxm1, 1.0 / abs(data->taper)));
 
