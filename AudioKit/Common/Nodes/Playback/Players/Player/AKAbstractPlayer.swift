@@ -142,9 +142,9 @@ open class AKAbstractPlayer: AKNode {
         }
 
         set {
-            if newValue != 1 && faderNode == nil {
+            if newValue != 1, faderNode == nil {
                 createFader()
-            } else if newValue == 1 && faderNode != nil && !isPlaying {
+            } else if newValue == 1, faderNode != nil, !isPlaying {
                 removeFader()
             }
             // this is the value that the fader will fade to
@@ -245,14 +245,13 @@ open class AKAbstractPlayer: AKNode {
             var inTaper = fade.inTaper
 
             // starting in the middle of a fade in
-            if fade.inTimeOffset > 0 && fade.inTimeOffset < inTime {
+            if fade.inTimeOffset > 0, fade.inTimeOffset < inTime {
                 let ratio = fade.inTimeOffset / inTime
                 fadeFromValue = fadeToValue * ratio
                 inTime -= fade.inTimeOffset
 
                 // force linear in this case for now
                 inTaper = 1
-
 
                 // AKLog("In middle of a fade in... adjusted inTime to \(inTime)")
             } else {
