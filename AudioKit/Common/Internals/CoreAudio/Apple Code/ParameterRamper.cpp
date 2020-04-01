@@ -132,7 +132,8 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
         setImmediate(newGoal);
     } else {
         data->startingPoint = data->uiValue;
-        data->samplesRemaining = data->duration = duration - data->offset;
+        data->duration = duration;
+        data->samplesRemaining = duration - data->offset;
         data->goal = data->uiValue = newGoal;
     }
 }
