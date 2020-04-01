@@ -37,10 +37,9 @@ public:
 
     float getSkew() const;
 
-    void setOffset(float offset);
+    void setOffset(uint32_t offset);
 
-    float getOffset() const;
-
+    uint32_t getOffset() const;
 
     void setUIValue(float value);
 

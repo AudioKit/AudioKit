@@ -220,7 +220,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    rampDuration: AUAudioFrameCount = 0,
                                    taper taperValue: Double? = nil,
                                    skew skewValue: Double? = nil,
-                                   offset offsetValue: Double? = nil) {
+                                   offset offsetValue: AUAudioFrameCount? = nil) {
 
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
