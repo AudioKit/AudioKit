@@ -53,7 +53,7 @@ public class AKDynamicPlayer: AKPlayer {
             if newValue == pitch {
                 return
             }
-            // timePitch is only installed if it is requested. This saves CPU resources.
+            // timePitch is only installed if it is requested. This saves nodes as it's expensive.
             if timePitchNode != nil && newValue == 0 && rate == 1 && !isPlaying {
                 removeTimePitch()
                 return
