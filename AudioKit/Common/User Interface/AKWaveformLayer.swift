@@ -75,9 +75,9 @@ open class AKWaveformLayer: CAShapeLayer {
         isOpaque = false
         drawsAsynchronously = true
 
-        shadowColor = NSColor.black.cgColor
+        shadowColor = AKColor.black.cgColor
         shadowOpacity = 0.4
-        shadowOffset = NSSize(width: 1, height: -1)
+        shadowOffset = CGSize(width: 1, height: -1)
         shadowRadius = 2.0
     }
 
