@@ -68,13 +68,10 @@ open class AKWaveformLayer: CAShapeLayer {
         self.backgroundColor = backgroundColor
         self.strokeColor = strokeColor
         lineWidth = 0.5 // default if stroke is used, otherwise this does nothing
-
         self.fillColor = fillColor ?? AKColor.black.cgColor
-
         masksToBounds = false
         isOpaque = false
         drawsAsynchronously = true
-
         shadowColor = AKColor.black.cgColor
         shadowOpacity = 0.4
         shadowOffset = CGSize(width: 1, height: -1)
