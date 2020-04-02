@@ -94,8 +94,6 @@ open class AKWaveformLayer: CAShapeLayer {
             return
         }
 
-        // it could be possible switch mode, vector or bitmap
-        // vector appears to be faster at redrawing when objects are very long
         updateLayerWithPath(with: size)
     }
 
@@ -117,10 +115,6 @@ open class AKWaveformLayer: CAShapeLayer {
         let max = Double(table.max() ?? 1.0)
         let min = Double(table.min() ?? -1.0)
         absmax = [max, abs(min)].max() ?? 1.0
-    }
-
-    private func updateLayerWithImage(with size: CGSize) {
-        contents = createImage(with: size)
     }
 
     private func updateLayerWithPath(with size: CGSize) {
@@ -178,53 +172,5 @@ open class AKWaveformLayer: CAShapeLayer {
         }
 
         return path
-    }
-
-    // Unused, but also works to render the path as a bitmap
-    private func createImage(with size: CGSize) -> CGImage? {
-        // AKLog("Creating image with visualScaleFactor", visualScaleFactor, "size:", frame.size)
-
-        let width = Int(size.width)
-        let height = Int(size.height)
-        guard let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil,
-                                            pixelsWide: width,
-                                            pixelsHigh: height,
-                                            bitsPerSample: 8,
-                                            samplesPerPixel: 4,
-                                            hasAlpha: true,
-                                            isPlanar: false,
-                                            colorSpaceName: .deviceRGB,
-                                            bytesPerRow: width * 4,
-                                            bitsPerPixel: 32) else {
-            return nil
-        }
-
-        guard let context = NSGraphicsContext(bitmapImageRep: bitmap) else {
-            return nil
-        }
-        // if you don't want anti-aliased images:
-        //        context.shouldAntialias = false
-        //        context.imageInterpolation = .none
-
-        NSGraphicsContext.saveGraphicsState()
-
-        // this is so the text knows where to draw
-        NSGraphicsContext.current = context
-
-        drawImage(into: context.cgContext, with: size)
-        context.flushGraphics()
-        NSGraphicsContext.restoreGraphicsState()
-
-        return bitmap.cgImage
-    }
-
-    // Unused, but also works to render the path as a bitmap
-    private func drawImage(into context: CGContext, with size: CGSize) {
-        guard let fillColor = fillColor,
-            let path = createPath(at: size) else { return }
-        context.addPath(path)
-        context.closePath()
-        context.setFillColor(fillColor)
-        context.fillPath()
     }
 }
