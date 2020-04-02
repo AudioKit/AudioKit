@@ -69,7 +69,7 @@
     // not needed at the moment
     //[self validatePoints:audioTime];
 
-    // NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
+    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
@@ -77,7 +77,7 @@
 
 - (void)stopAutomation {
     if (!AKTimelineIsStarted(tap.timeline)) {
-        // NSLog(@"stopAutomation() Timeline isn't running");
+        NSLog(@"stopAutomation() Timeline isn't running");
         [self clear];
         return;
     }
@@ -122,6 +122,8 @@
                        }
 
                        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
+//                           printf("👉 Triggering AUEventSampleTimeImmediate: %lld: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
+//                                  AUEventSampleTimeImmediate, point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
@@ -131,6 +133,8 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
+//                           printf("👉 Triggering scheduled: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
+//                                  point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,
                                                                     point.address,

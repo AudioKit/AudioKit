@@ -30,9 +30,9 @@ open class AKAbstractPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.0002
+        public static var minimumGain: Double = 0 // 0.0002
 
-        /// the value that the booster should fade to, settable
+        /// the value that the fader should fade to, settable
         public var maximumGain: Double = 1
 
         // In properties
@@ -43,7 +43,7 @@ open class AKAbstractPlayer: AKNode {
         }
 
         // if you want to start midway into a fade
-        public var inTimeOffset: Double = 0
+        // public var inTimeOffset: Double = 0
 
         public var inTaper: Double = audioTaper.in {
             willSet {
@@ -71,7 +71,7 @@ open class AKAbstractPlayer: AKNode {
         public var outSkew: Double = 1
 
         // if you want to start midway into a fade
-        public var outTimeOffset: Double = 0
+        // public var outTimeOffset: Double = 0
 
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false
@@ -160,7 +160,6 @@ open class AKAbstractPlayer: AKNode {
     /// Get or set the start time of the player.
     @objc open var startTime: Double {
         get {
-            // return max(0, _startTime)
             return _startTime
         }
 
@@ -186,6 +185,11 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
+    // offsetTime represents where in the current edited file playback is going to start
+    // this is only relevant if the player has fades applied to it to calculate if it's
+    // now starting in the middle of a fade in or out point
+    @objc open var offsetTime: Double = 0
+
     // MARK: - public flags
 
     @objc open internal(set) var isPlaying: Bool = false
@@ -201,6 +205,10 @@ open class AKAbstractPlayer: AKNode {
 
     @objc open var duration: Double {
         return 0
+    }
+
+    internal var editedDuration: Double {
+        return (duration - startTime) - (duration - endTime)
     }
 
     @objc open var sampleRate: Double {
@@ -227,127 +235,98 @@ open class AKAbstractPlayer: AKNode {
     internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
-        // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
-        // frameOffset offsets scheduling render cycles in the future in order to put after AUEventSampleTimeImmediate events
-        // or for delayed starts
-
         // reset automation if it is running
         faderNode.stopAutomation()
 
         let inTimeInSamples: AUEventSampleTime = frameOffset
 
-        var inTime = fade.inTime
-        if inTime > 0 {
-            let value = fade.maximumGain
-            var fadeFrom = Fade.minimumGain
+        if fade.inTime > 0, offsetTime < fade.inTime {
+            // realtime, turn the gain off to be sure it's off before the fade starts
+            faderNode.gain = Fade.minimumGain
 
-            // starting in the middle of a fade in
-            if fade.inTimeOffset > 0, fade.inTimeOffset < inTime {
-                let ratio = fade.inTimeOffset / inTime
-                fadeFrom = value * ratio
-                inTime -= fade.inTimeOffset
+            let inOffset = AUAudioFrameCount(offsetTime * sampleRate)
+            let rampDuration = AUAudioFrameCount(fade.inTime * sampleRate)
 
-                AKLog("In middle of a fade in... adjusted inTime to \(inTime)")
-            } else {
-                // set immediately to 0
-                faderNode.gain = Fade.minimumGain
-            }
+//            AKLog("Scheduling fade IN to fade.maximumGain", fade.maximumGain, "rampDuration", rampDuration,
+//                  "offsetTime", offsetTime, "taper", fade.inTaper)
 
-            let rampSamples = AUAudioFrameCount(inTime * sampleRate)
-
-            AKLog("Scheduling fade IN to value: \(value) at inTimeInSamples \(inTimeInSamples) rampDuration \(rampSamples) fadeFrom \(fadeFrom) fade.inTimeOffset \(fade.inTimeOffset) taper \(fade.inTaper)")
-
-            // inTimeInSamples
-            faderNode.addAutomationPoint(value: fadeFrom,
-                                         at: AUEventSampleTimeImmediate,
-                                         anchorTime: audioTime.sampleTime,
-                                         rampDuration: AUAudioFrameCount(0),
+            // add this extra point for the case where it is offline processing
+            faderNode.addAutomationPoint(value: Fade.minimumGain,
+                                         at: 0,
+                                         anchorTime: 0,
+                                         rampDuration: 0,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew,
                                          offset: 0)
 
-            // then fade it in
-            faderNode.addAutomationPoint(value: value,
+            // then fade it in. fade.maximumGain is the ceiling it should fade to
+            faderNode.addAutomationPoint(value: fade.maximumGain,
                                          at: inTimeInSamples,
                                          anchorTime: audioTime.sampleTime,
-                                         rampDuration: rampSamples,
+                                         rampDuration: rampDuration,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew,
-                                         offset: AUAudioFrameCount(fade.inTimeOffset * sampleRate))
+                                         offset: inOffset)
+        } else {
+            // if it's past the fade.inTime that means we should set to the max gain
+            faderNode.addAutomationPoint(value: fade.maximumGain,
+                                         at: AUEventSampleTimeImmediate,
+                                         anchorTime: audioTime.sampleTime,
+                                         rampDuration: 0,
+                                         taper: fade.inTaper,
+                                         skew: fade.inSkew,
+                                         offset: 0)
         }
 
-        var outTime = fade.outTime
-        if outTime > 0 {
+        if fade.outTime > 0 {
             // when the start of the fade out should occur
-            var timeTillFadeOut = (duration - startTime) - (duration - endTime) - outTime
+            var timeTillFadeOut = editedDuration - fade.outTime
 
             // adjust the scheduled fade out based on the playback rate
             if _rate != 1 {
                 timeTillFadeOut /= _rate
             }
             var outTimeInSamples = inTimeInSamples + AUEventSampleTime(timeTillFadeOut * sampleRate)
-            var outOffset: AUEventSampleTime = 0
+            var outOffset: AUAudioFrameCount = 0
 
             // starting in the middle of a fade out
-            if fade.outTimeOffset > 0, fade.outTimeOffset > duration - outTime {
-                // just fade now the remainder of the segment
-                var newOutTime = duration - startTime
-                if endTime < duration {
-                    newOutTime -= (duration - endTime)
-                }
-
-                AKLog("In middle of a fade out... adjusted outTime to \(newOutTime)")
-
+            if offsetTime > 0, timeTillFadeOut < 0 { // duration - fade.outTime
+                outOffset = AUAudioFrameCount(abs(timeTillFadeOut) * sampleRate)
                 outTimeInSamples = 0
 
-                let ratio = newOutTime / outTime
-                let fadeFrom = fade.maximumGain * ratio
-                faderNode.addAutomationPoint(value: fadeFrom,
-                                             at: outTimeInSamples,
-                                             anchorTime: audioTime.sampleTime,
-                                             rampDuration: AUAudioFrameCount(0),
-                                             taper: fade.outTaper,
-                                             skew: fade.outSkew,
-                                             offset: 0)
-
-                outTime = newOutTime
-                outOffset = frameOffset
-
-            } else if inTime == 0 {
-                AKLog("reset to \(fade.maximumGain) if there is no fade in or are past it")
-                // inTimeInSamples
-                faderNode.addAutomationPoint(value: fade.maximumGain,
-                                             at: AUEventSampleTimeImmediate,
-                                             anchorTime: audioTime.sampleTime,
-                                             rampDuration: AUAudioFrameCount(0),
-                                             taper: fade.inTaper,
-                                             skew: fade.inSkew,
-                                             offset: 0)
+                // AKLog("In middle of a fade out... offsetTime", offsetTime, "timeTillFadeOut", timeTillFadeOut)
             }
 
             // must adjust for _rate
-            let fadeLengthInSamples = AUAudioFrameCount((outTime / _rate) * sampleRate)
+            let fadeLengthInSamples = AUAudioFrameCount((fade.outTime / _rate) * sampleRate)
 
-            let value = Fade.minimumGain
-
-            AKLog("Scheduling fade OUT (\(outTime) sec) to value: \(value) at outTimeInSamples \(outTimeInSamples) fadeLengthInSamples \(fadeLengthInSamples) taper \(fade.outTaper)")
-            faderNode.addAutomationPoint(value: value,
-                                         at: outTimeInSamples + outOffset,
+//            AKLog("Scheduling fade OUT", fade.outTime, "sec", "at outTimeInSamples",
+//                  outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples,
+//                  "taper", fade.outTaper, "outOffset", outOffset)
+            faderNode.addAutomationPoint(value: Fade.minimumGain,
+                                         at: outTimeInSamples,
                                          anchorTime: audioTime.sampleTime,
                                          rampDuration: fadeLengthInSamples,
                                          taper: fade.outTaper,
                                          skew: fade.outSkew,
-                                         offset: AUAudioFrameCount(fade.outTimeOffset * sampleRate))
+                                         offset: outOffset)
         }
+    }
+
+    func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
+        return AUAudioFrameCount(value * sampleRate)
     }
 
     public func createFader() {
         // only do this once when needed
-        guard faderNode == nil else { return }
+        guard faderNode == nil else {
+            faderNode?.gain = fade.inTime > 0 ? Fade.minimumGain : gain
+            return
+        }
 
-        AKLog("Creating fader")
+        // AKLog("Creating fader")
         faderNode = AKFader()
-        faderNode?.gain = gain
+        faderNode?.gain = fade.inTime > 0 ? Fade.minimumGain : gain
         initialize()
     }
 
@@ -359,7 +338,7 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.disconnectOutput()
         faderNode?.detach()
         faderNode = nil
-        AKLog("Fader was removed")
+        // AKLog("Fader was removed")
         initialize()
         if wasPlaying {
             play()
