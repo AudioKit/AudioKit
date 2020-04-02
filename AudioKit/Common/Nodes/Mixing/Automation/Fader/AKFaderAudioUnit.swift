@@ -12,6 +12,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
     var taper: Double = 1.0 {
         didSet { setParameter(.taper, value: taper) }
     }
+
     var skew: Double = 0.0 {
         didSet { setParameter(.skew, value: skew) }
     }
@@ -87,7 +88,6 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default
         )
-
 
         setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew, offset]))
         leftGain.value = 1.0

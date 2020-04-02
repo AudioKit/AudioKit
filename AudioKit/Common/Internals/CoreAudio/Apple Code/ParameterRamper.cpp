@@ -94,7 +94,7 @@ float ParameterRamper::getSkew() const
 void ParameterRamper::setOffset(uint32_t offset)
 {
     if (offset < 0) {
-        offset = 0.0;
+        offset = 0;
     }
     data->offset = offset;
     atomic_fetch_add(&data->changeCounter, 1);

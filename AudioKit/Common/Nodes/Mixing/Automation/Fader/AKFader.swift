@@ -179,7 +179,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         if isStopped {
-            self.leftGain = lastKnownLeftGain
+            self.leftGain = self.lastKnownLeftGain
             self.rightGain = self.lastKnownRightGain
         }
     }
@@ -187,8 +187,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         if isPlaying {
-            self.lastKnownLeftGain = leftGain
-            self.lastKnownRightGain = rightGain
+            self.lastKnownLeftGain = self.leftGain
+            self.lastKnownRightGain = self.rightGain
             self.leftGain = 1
             self.rightGain = 1
         }
@@ -221,7 +221,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    taper taperValue: Double? = nil,
                                    skew skewValue: Double? = nil,
                                    offset offsetValue: AUAudioFrameCount? = nil) {
-
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
@@ -234,7 +233,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                value: AUValue(taperValue),
                                                sampleTime: sampleTime,
                                                anchorTime: anchorTime,
-                                               rampDuration: 0)
+                                               rampDuration: rampDuration)
         }
         // if a skew value is passed in, also add a point with its address to trigger at the same time
         if let skewValue = skewValue, let skewAddress = skewParameter?.address {
@@ -242,7 +241,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                value: AUValue(skewValue),
                                                sampleTime: sampleTime,
                                                anchorTime: anchorTime,
-                                               rampDuration: 0)
+                                               rampDuration: rampDuration)
         }
 
         // if an offset value is passed in, also add a point with its address to trigger at the same time
@@ -251,9 +250,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                value: AUValue(offsetValue),
                                                sampleTime: sampleTime,
                                                anchorTime: anchorTime,
-                                               rampDuration: 0)
+                                               rampDuration: rampDuration)
         }
-
 
         self.parameterAutomation?.addPoint(leftAddress,
                                            value: AUValue(value),
