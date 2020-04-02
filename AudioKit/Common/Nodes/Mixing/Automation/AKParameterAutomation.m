@@ -77,7 +77,7 @@
 
 - (void)stopAutomation {
     if (!AKTimelineIsStarted(tap.timeline)) {
-        NSLog(@"stopAutomation() Timeline isn't running");
+        // NSLog(@"stopAutomation() Timeline isn't running");
         [self clear];
         return;
     }
