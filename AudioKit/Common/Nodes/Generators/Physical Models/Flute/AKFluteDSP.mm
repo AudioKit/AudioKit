@@ -41,7 +41,7 @@ AKFluteDSP::AKFluteDSP() : data(new InternalData)
 
 AKFluteDSP::~AKFluteDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKFluteParameterFrequency:
@@ -57,7 +57,7 @@ void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool imme
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKFluteDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKFluteParameterFrequency:

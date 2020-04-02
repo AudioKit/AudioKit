@@ -34,7 +34,7 @@ AKShakerDSP::AKShakerDSP() : data(new InternalData)
 
 AKShakerDSP::~AKShakerDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKShakerDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKShakerParameterType:
@@ -46,7 +46,7 @@ void AKShakerDSP::setParameter(AUParameterAddress address, float value, bool imm
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKShakerDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }

@@ -27,10 +27,7 @@ AKDSPRef createFaderDSP(int channelCount, double sampleRate);
 
 #import "AKDSPBase.hpp"
 
-/**
-Based heavily off AKBooster, AKFader is slightly simpler and adds parameter ramping events
- */
-
+/// Based heavily off AKBooster, AKFader is slightly simpler and adds parameter ramping events
 struct AKFaderDSP : AKDSPBase {
 private:
     struct InternalData;
