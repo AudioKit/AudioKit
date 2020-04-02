@@ -20,7 +20,7 @@ extension AVAudioConnectionPoint {
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
     @objc open var avAudioUnit: AVAudioUnit?
 
-    /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit)
+    /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
     @objc open var avAudioUnitOrNode: AVAudioNode {
         return self.avAudioUnit ?? self.avAudioNode
     }
@@ -49,7 +49,7 @@ extension AVAudioConnectionPoint {
 
     // Subclasses should override to detach all internal nodes
     open func detach() {
-        AudioKit.detach(nodes: [avAudioUnitOrNode])
+        AudioKit.detach(nodes: [self.avAudioUnitOrNode])
     }
 }
 
