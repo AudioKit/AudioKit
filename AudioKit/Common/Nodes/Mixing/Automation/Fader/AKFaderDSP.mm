@@ -73,11 +73,13 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
-void AKFaderDSP::start() {
+void AKFaderDSP::start()
+{
     isStarted = true;
 }
 
-void AKFaderDSP::stop() {
+void AKFaderDSP::stop()
+{
     isStarted = false;
 }
 

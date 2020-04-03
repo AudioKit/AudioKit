@@ -182,14 +182,14 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
-        internalAU?.shouldBypassEffect = false
-        internalAU?.start()
+        self.internalAU?.shouldBypassEffect = false
+        self.internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        internalAU?.shouldBypassEffect = true
-        internalAU?.stop()
+        self.internalAU?.shouldBypassEffect = true
+        self.internalAU?.stop()
     }
 
     // MARK: - AKAutomatable
