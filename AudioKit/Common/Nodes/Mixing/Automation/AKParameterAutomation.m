@@ -69,7 +69,7 @@
     // not needed at the moment
     //[self validatePoints:audioTime];
 
-    // NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
+    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
@@ -77,7 +77,7 @@
 
 - (void)stopAutomation {
     if (!AKTimelineIsStarted(tap.timeline)) {
-        // NSLog(@"stopAutomation() Timeline isn't running");
+        NSLog(@"stopAutomation() Timeline isn't running");
         [self clear];
         return;
     }
@@ -101,15 +101,11 @@
              AudioBufferList *ioData) {
                AUEventSampleTime sampleTime = timeStamp->mSampleTime;
 
-               // printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
-
                // TODO: allow for a timed duration stop to end automation - don't use this:
                //AUEventSampleTime endTime = welf->endTime;
 
                for (int n = 0; n < inNumberFrames; n++) {
                    AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
-
-                   //printf("timeStamp %lld inNumberFrames %i, endTime %lld\n", sampleTimeWithOffset, inNumberFrames, endTime);
 
                    // TODO: allow for a timed duration stop to end automation - don't use this:
 //                   if (welf->endTime != 0 && sampleTimeWithOffset == welf->endTime) {
@@ -126,7 +122,8 @@
                        }
 
                        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
-                           // printf("👉 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
+//                           printf("👉 Triggering AUEventSampleTimeImmediate: %lld: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
+//                                  AUEventSampleTimeImmediate, point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
@@ -136,8 +133,8 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
-                           // printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
-
+//                           printf("👉 Triggering scheduled: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
+//                                  point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,
                                                                     point.address,

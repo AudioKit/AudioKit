@@ -286,7 +286,6 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
 
     float noteFrequency = data->tuningTable[noteNumber];
     
-    //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
     // sanity check: ensure we are initialized with at least one buffer
     if (!isKeyMapValid || data->sampleBufferList.size() == 0) return;
     
@@ -298,7 +297,6 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
             AudioKitCore::SamplerVoice *pVoice = &data->voice[0];
             if (pVoice->noteNumber >= 0)
             {
-                //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
                 pVoice->restartNewNoteLegato(noteNumber, currentSampleRate, noteFrequency);
             }
             else
@@ -333,7 +331,6 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
         {
             // re-start the note
             pVoice->restartSameNote(velocity / 127.0f, lookupSample(noteNumber, velocity));
-            //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
             return;
         }
         
@@ -349,28 +346,20 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 lastPlayedNoteNumber = noteNumber;
-                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
-                //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
                 return;
             }
         }
-        
-        // all oscillators in use; do nothing
-        //printf("All oscillators in use!\n");
     }
 }
 
 void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
 {
-    //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
     AudioKitCore::SamplerVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice == 0) return;
-    //printf("stopNote pVoice is %p\n", pVoice);
-    
+
     if (immediate)
     {
         pVoice->stop();
-        //printf("Stop note %d immediate\n", noteNumber);
     }
     else if (isMonophonic)
     {
@@ -391,7 +380,6 @@ void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
     else
     {
         pVoice->release(loopThruRelease);
-        //printf("Stop note %d release\n", noteNumber);
     }
 }
 
