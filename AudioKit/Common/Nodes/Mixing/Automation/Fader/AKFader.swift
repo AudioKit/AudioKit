@@ -31,8 +31,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
-            // AKLog(newValue)
-
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp == true {
@@ -177,18 +175,20 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     @objc deinit {
-        AKLog("* { AKFader }")
+        // AKLog("* { AKFader }")
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
+        internalAU?.shouldBypassEffect = false
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
+        internalAU?.shouldBypassEffect = true
         internalAU?.stop()
     }
 
