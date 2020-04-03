@@ -2,7 +2,7 @@
 //  AKFader.swift
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
@@ -28,7 +28,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var skewParameter: AUParameter?
     fileprivate var offsetParameter: AUParameter?
 
-    /// Amplification Factor
+    /// Amplification Factor, from 0 ... 2
     @objc open dynamic var gain: Double = 1 {
         willSet {
             // ensure that the parameters aren't nil,
