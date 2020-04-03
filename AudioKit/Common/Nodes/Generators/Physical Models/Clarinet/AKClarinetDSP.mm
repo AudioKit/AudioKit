@@ -42,7 +42,7 @@ AKClarinetDSP::AKClarinetDSP() : data(new InternalData)
 AKClarinetDSP::~AKClarinetDSP() = default;
 
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKClarinetParameterFrequency:
@@ -58,7 +58,7 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKClarinetDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKClarinetParameterFrequency:

@@ -28,9 +28,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var skewParameter: AUParameter?
     fileprivate var offsetParameter: AUParameter?
 
-    fileprivate var lastKnownLeftGain: Double = 1.0
-    fileprivate var lastKnownRightGain: Double = 1.0
-
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
@@ -174,26 +171,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        if isStopped {
-            self.leftGain = self.lastKnownLeftGain
-            self.rightGain = self.lastKnownRightGain
-        }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        if isPlaying {
-            self.lastKnownLeftGain = self.leftGain
-            self.lastKnownRightGain = self.rightGain
-            self.leftGain = 1
-            self.rightGain = 1
-        }
-    }
-
     open override func detach() {
         super.detach()
         self._parameterAutomation = nil
@@ -201,6 +178,18 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     @objc deinit {
         AKLog("* { AKFader }")
+    }
+
+    // MARK: - Control
+
+    /// Function to start, play, or activate the node, all do the same thing
+    @objc open func start() {
+        internalAU?.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    @objc open func stop() {
+        internalAU?.stop()
     }
 
     // MARK: - AKAutomatable
