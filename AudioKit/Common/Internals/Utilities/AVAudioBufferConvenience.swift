@@ -134,7 +134,6 @@ extension AVAudioPCMBuffer {
         }
 
         value.amplitude = peakValue
-        // AKLog(value)
         return value
     }
 
@@ -178,7 +177,6 @@ extension AVAudioPCMBuffer {
         }
         normalizedBuffer?.frameLength = length
 
-        // AKLog("Old Peak", peakAmplitude, "New Peak", normalizedBuffer?.peak())
         return normalizedBuffer
     }
 
@@ -223,8 +221,6 @@ extension AVAudioPCMBuffer {
         let sampleRate = self.format.sampleRate
         let channelCount = Int(self.format.channelCount)
 
-        // AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
-
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
         var gain: Double = inTime > 0 ? 0.01 : 1
 
@@ -254,8 +250,6 @@ extension AVAudioPCMBuffer {
         let fadeInSamples = Int(sampleRate * inTime)
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (sampleRate * outTime))
-
-        // AKLog("rampType", rampType.rawValue, "fadeInPower", fadeInPower, "fadeOutPower", fadeOutPower)
 
         // i is the index in the buffer
         for i in 0 ..< Int(length) {

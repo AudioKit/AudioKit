@@ -389,7 +389,6 @@ public class AKPlayer: AKAbstractPlayer {
         }
         super.scheduleFader(at: faderTime, hostTime: refTime)
 
-        // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
 
         if isFaded, !isBufferFaded {
