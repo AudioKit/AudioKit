@@ -96,8 +96,6 @@ extension AKPlayer {
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
-
-        // AKLog("Filled buffer from \(startTime) to \(endTime)")
     }
 
     // Read the buffer in backwards
@@ -105,7 +103,6 @@ extension AKPlayer {
         guard isBuffered, let buffer = self.buffer else { return }
         if let reversedBuffer = buffer.reverse() {
             self.buffer = reversedBuffer
-            // AKLog("Reversed Buffer")
         }
     }
 
@@ -113,7 +110,6 @@ extension AKPlayer {
         guard isBuffered, let buffer = self.buffer else { return }
         if let normalizedBuffer = buffer.normalize() {
             self.buffer = normalizedBuffer
-            // AKLog("Normalized Buffer")
         }
     }
 
@@ -126,7 +122,6 @@ extension AKPlayer {
         if let fadedBuffer = buffer.fade(inTime: inTime,
                                          outTime: outTime) {
             self.buffer = fadedBuffer
-            // AKLog("Faded Buffer")
         }
     }
 }

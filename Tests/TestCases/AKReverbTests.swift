@@ -12,6 +12,14 @@ import XCTest
 class AKReverbTests: AKTestCase {
 
     #if os(iOS)
+
+    func testBypass() {
+        let reverb = AKReverb(input)
+        reverb.bypass()
+        output = reverb
+        AKTestNoEffect()
+    }
+
     func testCathedral() {
         let effect = AKReverb(input)
         output = effect

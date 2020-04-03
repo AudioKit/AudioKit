@@ -54,7 +54,7 @@ public:
         nasalityRamp.setDurationInSamples(10000);
     }
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override {
         switch (address) {
             case AKVocalTractParameterFrequency:
@@ -82,7 +82,7 @@ public:
         }
     }
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override {
         switch (address) {
             case AKVocalTractParameterFrequency:

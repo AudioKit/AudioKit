@@ -190,7 +190,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalEndTime {
-                // AKLog("endTime is the same, so returning: \(newValue)")
                 return
 
             } else if newValue == 0 {
@@ -557,8 +556,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile.framePosition = Int64(theStartFrame)
             framesToPlayCount = theEndFrame - theStartFrame
 
-            // AKLog("framesToPlayCount: \(framesToPlayCount) frameCapacity \(totalFrameCount)")
-
             audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: internalAudioFile.processingFormat,
                 frameCapacity: AVAudioFrameCount(totalFrameCount))
@@ -603,7 +600,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         var j: Int = 0
         let length = buffer.frameLength
-        // AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
@@ -658,8 +654,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         let fadeInSamples = Int(internalAudioFile.processingFormat.sampleRate * inTime)
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
-
-        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
 
         // i is the index in the buffer
         for i in 0 ..< Int(length) {

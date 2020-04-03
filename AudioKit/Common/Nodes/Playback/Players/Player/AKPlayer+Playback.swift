@@ -95,7 +95,6 @@ extension AKPlayer {
     /// Provides a convenience method for a quick fade out for when a user presses stop.
     public func fadeOutAndStop(time: TimeInterval) {
         guard isPlaying else {
-            // AKLog("Player isn't playing")
             return
         }
 
@@ -178,7 +177,6 @@ extension AKPlayer {
             bufferOptions = [.loops, .interrupts]
         }
 
-        // AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
@@ -238,7 +236,7 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
+
         // only forward the completion if is actually done playing without user intervention.
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
@@ -279,7 +277,6 @@ extension AKPlayer {
             startTime = 0
             pauseTime = nil
         }
-        // AKLog("Firing callback. currentFrame:", currentFrame, "frameCount:", frameCount)
 
         completionHandler?()
     }
