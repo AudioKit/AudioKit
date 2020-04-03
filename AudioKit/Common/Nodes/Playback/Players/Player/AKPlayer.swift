@@ -242,7 +242,7 @@ public class AKPlayer: AKAbstractPlayer {
         super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
         faderNode = output
 
-        AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
+        // AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
     }
 
     /// Create a player from a URL
