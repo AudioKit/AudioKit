@@ -73,6 +73,14 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
+void AKFaderDSP::start() {
+    isStarted = true;
+}
+
+void AKFaderDSP::stop() {
+    isStarted = false;
+}
+
 void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -83,10 +91,14 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            if (channel == 0) {
-                *out = *in * data->leftGainRamp.getAndStep();
+            if (isStarted) {
+                if (channel == 0) {
+                    *out = *in * data->leftGainRamp.getAndStep();
+                } else {
+                    *out = *in * data->rightGainRamp.getAndStep();
+                }
             } else {
-                *out = *in * data->rightGainRamp.getAndStep();
+                *out = *in;
             }
         }
     }
