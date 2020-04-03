@@ -23,7 +23,7 @@ jobs:
     - name: Build Frameworks
       run: |
         cd Frameworks
-	sudo xcode-select -s /Applications/Xcode_11.4.app
+        sudo xcode-select -s /Applications/Xcode_11.4.app
         ./build_frameworks.sh
       env:
         PLATFORMS: ${{ matrix.env.PLATFORMS }}
@@ -68,7 +68,7 @@ jobs:
     - name: Build XCFramework
       run: |
         cd Frameworks
-	sudo xcode-select -s /Applications/Xcode_11.4.app
+	      sudo xcode-select -s /Applications/Xcode_11.4.app
         mkdir release
         ./build_xcframework.sh release
 
@@ -100,8 +100,8 @@ jobs:
 
     - name: Run unit tests
       run: |
-	sudo xcode-select -s /Applications/Xcode_11.4.app
-	./Tests/test-${{ matrix.env.PLATFORMS }}.sh
+	      sudo xcode-select -s /Applications/Xcode_11.4.app
+        ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
 
   # Upload staging builds to S3
   staging:
