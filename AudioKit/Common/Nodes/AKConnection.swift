@@ -116,6 +116,7 @@ extension AKOutput {
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
+    ///  - returns: Array of input connections
     @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInput] {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }

@@ -30,19 +30,26 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
 {
     switch (address) {
         case AKFaderParameterLeftGain:
-            // printf("Setting AKFaderParameterLeftGain %f\n", value);
-
             data->leftGainRamp.setUIValue(value);
             // ramp to the new value
             data->leftGainRamp.dezipperCheck(1024);
             break;
         case AKFaderParameterRightGain:
-            // printf("Setting AKFaderParameterRightGain %f\n", value);
-
             data->rightGainRamp.setUIValue(value);
             // ramp to the new value
             data->rightGainRamp.dezipperCheck(1024);
-
+            break;
+        case AKFaderParameterTaper:
+            data->leftGainRamp.setTaper(value);
+            data->rightGainRamp.setTaper(value);
+            break;
+        case AKFaderParameterSkew:
+            data->leftGainRamp.setSkew(value);
+            data->rightGainRamp.setSkew(value);
+            break;
+        case AKFaderParameterOffset:
+            data->leftGainRamp.setOffset((AUAudioFrameCount)value);
+            data->rightGainRamp.setOffset((AUAudioFrameCount)value);
             break;
     }
 }
@@ -55,8 +62,23 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
             return data->leftGainRamp.getUIValue();
         case AKFaderParameterRightGain:
             return data->rightGainRamp.getUIValue();
+        case AKFaderParameterTaper:
+            // assume both channels are the same taper?
+            return data->leftGainRamp.getTaper();
+        case AKFaderParameterSkew:
+            return data->leftGainRamp.getSkew();
+        case AKFaderParameterOffset:
+            return data->leftGainRamp.getOffset();
     }
     return 0;
+}
+
+void AKFaderDSP::start() {
+    isStarted = true;
+}
+
+void AKFaderDSP::stop() {
+    isStarted = false;
 }
 
 void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
@@ -69,10 +91,14 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            if (channel == 0) {
-                *out = *in * data->leftGainRamp.getAndStep();
+            if (isStarted) {
+                if (channel == 0) {
+                    *out = *in * data->leftGainRamp.getAndStep();
+                } else {
+                    *out = *in * data->rightGainRamp.getAndStep();
+                }
             } else {
-                *out = *in * data->rightGainRamp.getAndStep();
+                *out = *in;
             }
         }
     }
@@ -80,16 +106,25 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
 void AKFaderDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    // printf("AKFaderDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
-
     // Note, if duration is 0 frames, startRamp will setImmediate
     switch (address) {
         case AKFaderParameterLeftGain:
             data->leftGainRamp.startRamp(value, duration);
             break;
-
         case AKFaderParameterRightGain:
             data->rightGainRamp.startRamp(value, duration);
+            break;
+        case AKFaderParameterTaper:
+            data->leftGainRamp.setTaper(value);
+            data->rightGainRamp.setTaper(value);
+            break;
+        case AKFaderParameterSkew:
+            data->leftGainRamp.setSkew(value);
+            data->rightGainRamp.setSkew(value);
+            break;
+        case AKFaderParameterOffset:
+            data->leftGainRamp.setOffset(value);
+            data->rightGainRamp.setOffset(value);
             break;
     }
 }

@@ -16,6 +16,13 @@ class AKBoosterTests: AKTestCase {
         AKTestNoEffect()
     }
 
+    func testBypass() {
+        let booster = AKBooster(input, gain: 2.0)
+        booster.bypass()
+        output = booster
+        AKTestNoEffect()
+    }
+
     func testParameters() {
         output = AKBooster(input, gain: 2.0)
         AKTestMD5("09fdb24adb3181f6985eba4b408d8c6d")

@@ -47,9 +47,7 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /**
-     The conversion options, leave nil to adopt the value of the input file
-     */
+    /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
         public init() {}
         public var format: String?
@@ -547,7 +545,6 @@ open class AKConverter: NSObject {
             return
         }
 
-        // no errors. yay.
         completionHandler?(nil)
     }
 

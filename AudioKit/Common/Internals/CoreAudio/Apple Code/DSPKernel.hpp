@@ -1,9 +1,9 @@
 /*
-	<samplecode>
- <abstract>
- Utility code to manage scheduled parameters in an audio unit implementation.
- </abstract>
-	</samplecode>
+<samplecode>
+    <abstract>
+    Utility code to manage scheduled parameters in an audio unit implementation.
+    </abstract>
+</samplecode>
  */
 
 #ifdef __cplusplus

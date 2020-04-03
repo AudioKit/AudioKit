@@ -11,20 +11,20 @@ import XCTest
 
 class FMOscillatorTests: AKTestCase {
 
+    var oscillator = AKOperationGenerator { _ in return AKOperation.fmOscillator() }
+
     override func setUp() {
-        super.setUp()
+        afterStart = { self.oscillator.start() }
         duration = 1.0
     }
 
     func testDefault() {
-        output = AKOperationGenerator { _ in
-            return AKOperation.fmOscillator()
-        }
+        output = oscillator
         AKTestMD5("8d80fc784da9e2f0457870f9ebdfd17f")
     }
 
     func testFMOscillatorOperation() {
-        output = AKOperationGenerator { _ in
+        oscillator = AKOperationGenerator { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
                 start: 0.001, end: 5, duration: self.duration)
@@ -35,6 +35,7 @@ class FMOscillatorTests: AKTestCase {
                 modulationIndex: line * 6,
                 amplitude: line / 5)
         }
+        output = oscillator
         AKTestMD5("4a09613948839bbe5fe458524de8176a")
     }
 

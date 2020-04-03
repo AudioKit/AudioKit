@@ -19,6 +19,15 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         }
     }
 
+    /// Output Pan (Default 0 = center)
+    @objc open dynamic var pan: Double = 1.0 {
+        didSet {
+            pan = min(pan, 1)
+            pan = max(pan, -1)
+            mixerAU.pan = Float(pan)
+        }
+    }
+
     fileprivate var lastKnownVolume: Double = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
