@@ -7,7 +7,7 @@
 //
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
-open class AKAbstractPlayer: AKNode {
+open class AKAbstractPlayer: AKDynamicNode {
     /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
         case realtime, offline
@@ -123,7 +123,7 @@ open class AKAbstractPlayer: AKNode {
     /// Holds characteristics about the loop options.
     public var loop = Loop()
 
-    /// The underlying gain booster which controls fades as well. Created on demand.
+    /// The underlying gain booster and main output which controls fades as well.
     @objc public var faderNode: AKFader?
 
     @available(*, deprecated, renamed: "fadeOutAndStop(with:)")
