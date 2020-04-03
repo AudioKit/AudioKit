@@ -304,7 +304,6 @@ open class AKConverter: NSObject {
                     writerInput.append(buffer)
 
                 } else {
-                    // AKLog("Finishing up...")
                     writerInput.markAsFinished()
 
                     switch reader.status {
@@ -321,7 +320,6 @@ open class AKConverter: NSObject {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
-                                // AKLog("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }

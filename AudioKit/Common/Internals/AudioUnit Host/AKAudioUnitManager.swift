@@ -285,7 +285,6 @@ open class AKAudioUnitManager: NSObject {
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
-            // AKLog("\(index) \(name) -- \(acd)")
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
@@ -351,7 +350,6 @@ open class AKAudioUnitManager: NSObject {
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
-            // AKLog("\(index) \(name) -- \(acd)")
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
@@ -360,7 +358,7 @@ open class AKAudioUnitManager: NSObject {
                 }
 
                 if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
-                    // AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
+                    AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
                 }
 
                 AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
@@ -390,8 +388,6 @@ open class AKAudioUnitManager: NSObject {
     public func removeEffects() {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
-                // AKLog("Detaching: \(au.auAudioUnit.audioUnitName)")
-
                 if au.engine != nil {
                     AKManager.engine.disconnectNodeInput(au)
                     AKManager.engine.detach(au)

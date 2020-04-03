@@ -95,13 +95,11 @@ public class AKDynamicPlayer: AKPlayer {
             AKManager.connect(timePitchNode.avAudioNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
             AKManager.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
             timePitchNode.bypass() // bypass timePitch by default to save CPU
-            // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch and fader")
 
         } else if let timePitchNode = timePitchNode, super.faderNode == nil {
             AKManager.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AKManager.connect(timePitchNode.avAudioNode, to: mixer, format: processingFormat)
             timePitchNode.bypass()
-            // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch")
 
         } else if let faderNode = super.faderNode {
             // if the timePitchNode isn't created connect the player directly to the faderNode
