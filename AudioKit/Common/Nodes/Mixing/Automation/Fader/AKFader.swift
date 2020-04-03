@@ -175,7 +175,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     @objc deinit {
-        // AKLog("* { AKFader }")
+        AKLog("* { AKFader }")
     }
 
     // MARK: - Control
