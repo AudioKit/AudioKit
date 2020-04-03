@@ -11,15 +11,17 @@ import XCTest
 
 class PluckedStringTests: AKTestCase {
 
+    let pluckedString = AKOperationGenerator { _ in
+        return AKOperation.pluckedString(trigger: AKOperation.metronome())
+    }
+    
     override func setUp() {
-        super.setUp()
+        afterStart = { self.pluckedString.start() }
         duration = 1.0
     }
 
     func testDefault() {
-        output = AKOperationGenerator { _ in
-            return AKOperation.pluckedString(trigger: AKOperation.metronome())
-        }
+        output = pluckedString
         AKTestMD5("382cdbd27558fed9c8723ba435cdb4cf")
     }
 

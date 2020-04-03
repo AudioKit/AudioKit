@@ -11,27 +11,28 @@ import XCTest
 
 class PinkNoiseTests: AKTestCase {
 
+    var noise = AKOperationGenerator { _ in return AKOperation.pinkNoise() }
+
     override func setUp() {
-        super.setUp()
+        afterStart = { self.noise.start() }
         duration = 1.0
     }
 
     func testDefault() {
-        output = AKOperationGenerator { _ in
-            return AKOperation.pinkNoise()
-        }
+        output = noise
         AKTestMD5("f5032eb3fc926f68a73fec67e29c6ac7")
     }
 
     func testAmplitude() {
-        output = AKOperationGenerator { _ in
+        noise = AKOperationGenerator { _ in
             return AKOperation.pinkNoise(amplitude: 0.456)
         }
+        output = noise
         AKTestMD5("fe160cb0de91109574515f9bef8e3286")
     }
 
     func testParameterSweep() {
-        output = AKOperationGenerator { _ in
+        noise = AKOperationGenerator { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,
@@ -39,6 +40,7 @@ class PinkNoiseTests: AKTestCase {
                 duration: self.duration)
             return AKOperation.pinkNoise(amplitude: line)
         }
+        output = noise
         AKTestMD5("db9904288c8872a06a87a6d4913eb942")
     }
 
