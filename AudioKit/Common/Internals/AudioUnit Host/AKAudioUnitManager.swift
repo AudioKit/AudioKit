@@ -441,11 +441,9 @@ open class AKAudioUnitManager: NSObject {
                 let prevAU = effects[i - 1]
 
                 AKManager.connect(prevAU, to: au, format: processingFormat)
-                // AKLog("Connecting \(prevAU.name) to \(au.name) with format \(processingFormat)")
             }
         }
 
-        // AKLog("Connecting \(au.name) to output: \(outputAV),  with format \(processingFormat)")
         AKManager.connect(au, to: outputAV, format: processingFormat)
     }
 

@@ -77,7 +77,6 @@
 
 - (void)stopAutomation {
     if (!AKTimelineIsStarted(tap.timeline)) {
-        // AKLog(@"stopAutomation() Timeline isn't running");
         [self clear];
         return;
     }
@@ -204,7 +203,6 @@
 #pragma mark - Deinit
 
 - (void)dealloc {
-    // AKLog(@"* { AKParameterAutomation.dealloc }");
     [self stopAutomation];
     tap = nil;
     auAudioUnit = nil;

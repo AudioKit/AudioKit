@@ -105,11 +105,9 @@ public class AKDynamicPlayer: AKPlayer {
             // if the timePitchNode isn't created connect the player directly to the faderNode
             AKManager.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
             AKManager.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
-            // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting fader")
 
         } else {
             AKManager.connect(playerNode, to: mixer, format: processingFormat)
-            // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting player to mixer")
         }
     }
 
