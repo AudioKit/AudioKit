@@ -293,16 +293,11 @@ open class AKAbstractPlayer: AKNode {
             if offsetTime > 0, timeTillFadeOut < 0 { // duration - fade.outTime
                 outOffset = AUAudioFrameCount(abs(timeTillFadeOut) * sampleRate)
                 outTimeInSamples = 0
-
-                // AKLog("In middle of a fade out... offsetTime", offsetTime, "timeTillFadeOut", timeTillFadeOut)
             }
 
             // must adjust for _rate
             let fadeLengthInSamples = AUAudioFrameCount((fade.outTime / _rate) * sampleRate)
 
-//            AKLog("Scheduling fade OUT", fade.outTime, "sec", "at outTimeInSamples",
-//                  outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples,
-//                  "taper", fade.outTaper, "outOffset", outOffset)
             faderNode.addAutomationPoint(value: Fade.minimumGain,
                                          at: outTimeInSamples,
                                          anchorTime: audioTime.sampleTime,
@@ -324,7 +319,6 @@ open class AKAbstractPlayer: AKNode {
             return
         }
 
-        // AKLog("Creating fader")
         faderNode = AKFader()
         faderNode?.gain = fade.inTime > 0 ? Fade.minimumGain : gain
         initialize()
@@ -338,7 +332,7 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.disconnectOutput()
         faderNode?.detach()
         faderNode = nil
-        // AKLog("Fader was removed")
+
         initialize()
         if wasPlaying {
             play()
