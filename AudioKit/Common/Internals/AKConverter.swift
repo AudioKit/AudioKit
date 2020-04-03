@@ -47,9 +47,7 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /**
-     The conversion options, leave nil to adopt the value of the input file
-     */
+    /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
         public init() {}
         public var format: String?
@@ -306,7 +304,6 @@ open class AKConverter: NSObject {
                     writerInput.append(buffer)
 
                 } else {
-                    // AKLog("Finishing up...")
                     writerInput.markAsFinished()
 
                     switch reader.status {
@@ -323,7 +320,6 @@ open class AKConverter: NSObject {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
-                                // AKLog("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }
@@ -547,7 +543,6 @@ open class AKConverter: NSObject {
             return
         }
 
-        // no errors. yay.
         completionHandler?(nil)
     }
 
