@@ -33,14 +33,13 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
-
         return createFaderDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let leftGain = AUParameter(
             identifier: "leftGain",
             name: "Left Gain",
