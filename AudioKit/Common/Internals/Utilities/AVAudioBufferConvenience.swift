@@ -16,15 +16,13 @@ extension AVAudioPCMBuffer {
         public var amplitude: Float = 1
     }
 
-    /**
-     Copies data from another PCM buffer.  Will copy to the end of the buffer (frameLength), and
-     increment frameLength. Will not exceed frameCapacity.
-
-     - Parameter buffer: The source buffer that data will be copied from.
-     - Parameter readOffset: The offset into the source buffer to read from.
-     - Parameter frames: The number of frames to copy from the source buffer.
-     - Returns: The number of frames copied.
-     */
+    /// Copies data from another PCM buffer.  Will copy to the end of the buffer (frameLength), and
+    /// increment frameLength. Will not exceed frameCapacity.
+    ///
+    /// - Parameter buffer: The source buffer that data will be copied from.
+    /// - Parameter readOffset: The offset into the source buffer to read from.
+    /// - Parameter frames: The number of frames to copy from the source buffer.
+    /// - Returns: The number of frames copied.
     @discardableResult open func copy(from buffer: AVAudioPCMBuffer,
                                       readOffset: AVAudioFrameCount = 0,
                                       frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {

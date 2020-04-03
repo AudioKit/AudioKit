@@ -32,9 +32,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    fileprivate var lastKnownLeftGain: Double = 1.0
-    fileprivate var lastKnownRightGain: Double = 1.0
-
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
@@ -137,19 +134,11 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
-        if isStopped {
-            self.leftGain = lastKnownLeftGain
-            self.rightGain = self.lastKnownRightGain
-        }
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        if isPlaying {
-            self.lastKnownLeftGain = leftGain
-            self.lastKnownRightGain = rightGain
-            self.leftGain = 1
-            self.rightGain = 1
-        }
+        internalAU?.stop()
     }
 }
