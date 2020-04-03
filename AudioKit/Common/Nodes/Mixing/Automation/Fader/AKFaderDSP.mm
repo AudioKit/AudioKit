@@ -25,6 +25,9 @@ AKFaderDSP::AKFaderDSP() : data(new InternalData)
 {
 }
 
+
+
+
 // Uses the ParameterAddress as a key
 void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
 {

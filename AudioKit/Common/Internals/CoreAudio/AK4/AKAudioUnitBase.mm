@@ -141,8 +141,7 @@
     }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                    channels:AKSettings.channelCount];
+    AVAudioFormat *arbitraryFormat = AKSettings.audioFormat;
 
     _dsp = [self initDSPWithSampleRate:arbitraryFormat.sampleRate
                           channelCount:arbitraryFormat.channelCount];
