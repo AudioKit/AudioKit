@@ -23,6 +23,18 @@ class AKFaderTests: AKTestCase {
         AKTestNoEffect()
     }
 
+    func testMany() {
+        let initialFader = AKFader(input, gain: 1.0)
+        var nextFader = initialFader
+        for _ in 0 ..< 200 {
+            let fader = AKFader(nextFader, gain: 1.0)
+            nextFader = fader
+        }
+        output = nextFader
+        AKTestNoEffect()
+    }
+
+
     func testParameters() {
         output = AKFader(input, gain: 2.0)
         AKTestMD5("09fdb24adb3181f6985eba4b408d8c6d")
