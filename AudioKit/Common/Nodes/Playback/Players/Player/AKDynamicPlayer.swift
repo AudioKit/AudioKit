@@ -80,7 +80,6 @@ public class AKDynamicPlayer: AKPlayer {
                 timePitchNode.disconnectOutput()
             }
         }
-
         super.initialize(restartIfPlaying: restartIfPlaying)
     }
 
@@ -90,6 +89,8 @@ public class AKDynamicPlayer: AKPlayer {
             return
         }
 
+        /*
+        // has pitch and fader
         if let timePitchNode = timePitchNode, let faderNode = super.faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
@@ -97,22 +98,26 @@ public class AKDynamicPlayer: AKPlayer {
             timePitchNode.bypass() // bypass timePitch by default to save CPU
             // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch and fader")
 
+            // just has pitch
         } else if let timePitchNode = timePitchNode, super.faderNode == nil {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: mixer, format: processingFormat)
             timePitchNode.bypass()
             // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch")
 
+            // just has fader
         } else if let faderNode = super.faderNode {
             // if the timePitchNode isn't created connect the player directly to the faderNode
             AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
             // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting fader")
 
+            // doesn't have pitch or fader
         } else {
             AudioKit.connect(playerNode, to: mixer, format: processingFormat)
             // AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting player to mixer")
         }
+    */
     }
 
     public func createTimePitch() {
