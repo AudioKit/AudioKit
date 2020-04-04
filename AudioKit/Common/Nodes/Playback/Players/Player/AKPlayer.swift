@@ -242,6 +242,9 @@ public class AKPlayer: AKAbstractPlayer {
         super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
         faderNode = output
 
+        // start this bypassed
+        faderNode?.bypass()
+
         // AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
     }
 
@@ -298,6 +301,7 @@ public class AKPlayer: AKAbstractPlayer {
             if strongMixer.engine == nil {
                 AudioKit.engine.attach(strongMixer)
             } else {
+                // intermediate nodes get disconnected and re-connected
                 strongMixer.disconnectOutput()
             }
         }
@@ -305,9 +309,9 @@ public class AKPlayer: AKAbstractPlayer {
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
                 AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
-            } else {
-                faderNode.disconnectOutput()
             }
+            // but, don't disconnect the main output!
+            // faderNode stays plugged in
         }
         loop.start = 0
         loop.end = duration
