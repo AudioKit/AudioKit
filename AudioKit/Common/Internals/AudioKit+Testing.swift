@@ -34,7 +34,7 @@ extension AudioKit {
             let maximumFrameCount: AVAudioFrameCount = 4_096
             try AKTry {
                 engine.reset()
-                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maximumFrameCount)
+                try engine.enableManualRenderingMode(.offline, format: AKSettings.audioFormat, maximumFrameCount: maximumFrameCount)
                 try engine.start()
             }
 
