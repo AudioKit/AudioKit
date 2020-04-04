@@ -102,13 +102,13 @@ public class AKDynamicPlayer: AKPlayer {
         }
 
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
-            // AKLog("👉 Player → Time Pitch → Fader")
+            // AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
             AudioKit.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
             AudioKit.connect(timePitchNode.avAudioUnitOrNode, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
             timePitchNode.bypass()
 
         } else if let faderNode = super.faderNode {
-            // AKLog("👉 Player → Fader")
+            // AKLog("👉 Player → Fader using", connectionFormat)
             AudioKit.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
 
