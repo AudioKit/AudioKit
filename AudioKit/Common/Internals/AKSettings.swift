@@ -59,21 +59,6 @@ open class AKSettings: NSObject {
         case sCurve = 3
     }
 
-    /// The sample rate in Hertz
-    @objc public static var sampleRate: Double = 44_100 {
-        didSet {
-            #if !os(macOS)
-            do {
-                try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
-            } catch {
-                AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription, log: OSLog.settings, type: .error)
-            }
-            #else
-            //nothing for macOS
-            #endif
-        }
-    }
-
     #if !os(macOS)
     /// Whether haptics and system sounds are muted while a microhpone is setup or recording is active
     @objc public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
@@ -90,8 +75,36 @@ open class AKSettings: NSObject {
     }
     #endif
 
+    /// The sample rate in Hertz, default is 44100 kHz. You will need to rebuild your audio graph on changing this value.
+    @objc public static var sampleRate: Double = 44_100 {
+        didSet {
+            audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount) ?? AVAudioFormat()
+
+            #if !os(macOS)
+            do {
+                try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
+            } catch {
+                AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription, log: OSLog.settings, type: .error)
+            }
+            #else
+            //nothing for macOS
+            #endif
+        }
+    }
+
     /// Number of audio channels: 2 for stereo, 1 for mono
-    @objc public static var channelCount: UInt32 = 2
+    @objc public static var channelCount: UInt32 = 2 {
+        didSet {
+            guard channelCount <= 2 else {
+                AKLog("standardFormatWithSampleRate doesn't support more than 2 channels")
+                return
+            }
+            audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount) ?? AVAudioFormat()
+        }
+    }
+
+    /// Global audio format AudioKit will default to
+    @objc public static var audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount) ?? AVAudioFormat()
 
     /// Whether we should be listening to audio input (microphone)
     @objc public static var audioInputEnabled: Bool = false
@@ -101,11 +114,6 @@ open class AKSettings: NSObject {
 
     /// Whether we will allow our audio to mix with other applications
     @objc public static var mixWithOthers: Bool  = true
-
-    /// Global audio format AudioKit will default to
-    @objc public static var audioFormat: AVAudioFormat {
-        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount)!
-    }
 
     /// Whether to output to the speaker (rather than receiver) when audio input is enabled
     @objc public static var defaultToSpeaker: Bool = false
