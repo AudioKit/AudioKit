@@ -135,7 +135,7 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
-    /// Amplification Factor, in the range of 0.0002 to ~
+    /// Amplification Factor, in the range of 0 to 2
     @objc public var gain: Double {
         get {
             return fade.maximumGain
