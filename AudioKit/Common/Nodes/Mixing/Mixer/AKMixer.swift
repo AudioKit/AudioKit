@@ -67,11 +67,6 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         if isStopped {
             volume = lastKnownVolume
         }
-
-        // Does this do anything?
-        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
-            mixerAU.auAudioUnit.shouldBypassEffect = false
-        }
     }
 
     /// Function to stop or bypass the node, both are equivalent
@@ -79,11 +74,6 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0
-        }
-
-        // Does this do anything?
-        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
-            mixerAU.auAudioUnit.shouldBypassEffect = true
         }
     }
 
