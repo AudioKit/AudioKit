@@ -29,15 +29,15 @@ protected:
     sp_data *sp = nullptr;
 public:
 
-    void init(int channelCount, double sampleRate) override {
+    virtual void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channelCount;
     }
 
-    ~AKSoundpipeDSPBase() {
-        // releasing the memory in the destructor only
+    virtual void deinit() override {
+        AKDSPBase::deinit();
         sp_destroy(&sp);
     }
 

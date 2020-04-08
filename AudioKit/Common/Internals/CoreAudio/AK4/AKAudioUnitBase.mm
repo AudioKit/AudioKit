@@ -77,7 +77,7 @@
  This should be overridden. All the base class does is make sure that the pointer to the
  DSP is invalid.
  */
-- (AKDSPRef)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count {
+- (AKDSPRef)createDSP {
     return (_dsp = NULL);
 }
 
@@ -127,12 +127,7 @@
         return nil;
     }
 
-    // Initialize a default format for the busses.
-    AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                    channels:AKSettings.channelCount];
-
-    _dsp = [self initDSPWithSampleRate:arbitraryFormat.sampleRate
-                          channelCount:arbitraryFormat.channelCount];
+    _dsp = [self createDSP];
 
     // Create a default empty parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:@[]];

@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTremoloDSP(int channelCount, double sampleRate);
+AKDSPRef createTremoloDSP(void);
 
 #else
 
@@ -92,6 +92,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
     }
 

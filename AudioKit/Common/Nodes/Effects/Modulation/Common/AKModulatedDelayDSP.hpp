@@ -51,8 +51,8 @@ extern const float kAKFlanger_MaxDryWetMix;
 
 #ifndef __cplusplus
 
-AKDSPRef createChorusDSP(int channelCount, double sampleRate);
-AKDSPRef createFlangerDSP(int channelCount, double sampleRate);
+AKDSPRef createChorusDSP(void);
+AKDSPRef createFlangerDSP(void);
 
 #else
 

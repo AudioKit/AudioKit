@@ -9,9 +9,8 @@
 #include "AKMoogLadderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createMoogLadderDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createMoogLadderDSP() {
     AKMoogLadderDSP *dsp = new AKMoogLadderDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -71,6 +70,7 @@ void AKMoogLadderDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKMoogLadderDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_moogladder_destroy(&data->moogladder0);
     sp_moogladder_destroy(&data->moogladder1);
 }

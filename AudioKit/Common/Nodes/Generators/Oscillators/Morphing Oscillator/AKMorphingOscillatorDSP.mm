@@ -9,9 +9,8 @@
 #include "AKMorphingOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createMorphingOscillatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createMorphingOscillatorDSP() {
     AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -93,6 +92,7 @@ void AKMorphingOscillatorDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKMorphingOscillatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_oscmorph_destroy(&data->oscmorph);
 }
 

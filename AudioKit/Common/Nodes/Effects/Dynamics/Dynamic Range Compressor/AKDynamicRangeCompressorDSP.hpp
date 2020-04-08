@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKDynamicRangeCompressorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createDynamicRangeCompressorDSP(int channelCount, double sampleRate);
+AKDSPRef createDynamicRangeCompressorDSP(void);
 
 #else
 

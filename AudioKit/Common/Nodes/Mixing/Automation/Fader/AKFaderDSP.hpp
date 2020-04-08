@@ -21,7 +21,7 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createFaderDSP(int channelCount, double sampleRate);
+AKDSPRef createFaderDSP(void);
 
 #else
 

@@ -34,9 +34,8 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createBoosterDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createBoosterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

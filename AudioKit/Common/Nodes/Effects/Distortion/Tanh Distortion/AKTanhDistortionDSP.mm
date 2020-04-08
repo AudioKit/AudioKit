@@ -9,9 +9,8 @@
 #include "AKTanhDistortionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createTanhDistortionDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createTanhDistortionDSP() {
     AKTanhDistortionDSP *dsp = new AKTanhDistortionDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -93,6 +92,7 @@ void AKTanhDistortionDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKTanhDistortionDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_dist_destroy(&data->dist0);
     sp_dist_destroy(&data->dist1);
 }

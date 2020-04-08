@@ -9,9 +9,8 @@
 #include "AKFMOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createFMOscillatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createFMOscillatorDSP() {
     AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -99,6 +98,7 @@ void AKFMOscillatorDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKFMOscillatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_fosc_destroy(&data->fosc);
 }
 

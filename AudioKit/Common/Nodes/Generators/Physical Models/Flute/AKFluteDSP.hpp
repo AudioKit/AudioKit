@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createFluteDSP(int channelCount, double sampleRate);
+AKDSPRef createFluteDSP(void);
 
 #else
 
@@ -47,7 +47,7 @@ public:
 
     void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

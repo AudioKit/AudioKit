@@ -20,7 +20,7 @@ typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createBoosterDSP(int channelCount, double sampleRate);
+AKDSPRef createBoosterDSP(void);
 
 #else
 

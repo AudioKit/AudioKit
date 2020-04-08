@@ -9,9 +9,8 @@
 #include "AKModalResonanceFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createModalResonanceFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createModalResonanceFilterDSP() {
     AKModalResonanceFilterDSP *dsp = new AKModalResonanceFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -71,6 +70,7 @@ void AKModalResonanceFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKModalResonanceFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_mode_destroy(&data->mode0);
     sp_mode_destroy(&data->mode1);
 }

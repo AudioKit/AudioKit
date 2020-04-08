@@ -9,9 +9,8 @@
 #include "AKBandPassButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createBandPassButterworthFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createBandPassButterworthFilterDSP() {
     AKBandPassButterworthFilterDSP *dsp = new AKBandPassButterworthFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 

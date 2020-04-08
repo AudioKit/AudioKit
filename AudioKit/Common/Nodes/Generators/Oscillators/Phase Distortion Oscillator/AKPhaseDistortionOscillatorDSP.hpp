@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPhaseDistortionOscillatorDSP(int channelCount, double sampleRate);
+AKDSPRef createPhaseDistortionOscillatorDSP(void);
 
 #else
 
@@ -123,7 +123,10 @@ public:
    }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_pdhalf_destroy(&pdhalf);
+        sp_tabread_destroy(&tabread);
+        sp_phasor_destroy(&phasor);
     }
 
     void setupWaveform(uint32_t size) override {

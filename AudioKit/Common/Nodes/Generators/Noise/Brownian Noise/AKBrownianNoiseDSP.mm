@@ -9,9 +9,8 @@
 #include "AKBrownianNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createBrownianNoiseDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createBrownianNoiseDSP() {
     AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -55,6 +54,7 @@ void AKBrownianNoiseDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKBrownianNoiseDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_brown_destroy(&data->brown);
 }
 

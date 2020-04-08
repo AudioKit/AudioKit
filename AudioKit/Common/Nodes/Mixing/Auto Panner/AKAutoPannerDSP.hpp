@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoPannerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createAutoPannerDSP(int channelCount, double sampleRate);
+AKDSPRef createAutoPannerDSP(void);
 
 #else
 
@@ -96,6 +96,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
         sp_panst_destroy(&panst);
     }

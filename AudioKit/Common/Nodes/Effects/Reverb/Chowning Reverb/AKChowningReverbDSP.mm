@@ -9,9 +9,8 @@
 #include "AKChowningReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createChowningReverbDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createChowningReverbDSP() {
     AKChowningReverbDSP *dsp = new AKChowningReverbDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -31,6 +30,7 @@ void AKChowningReverbDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKChowningReverbDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_jcrev_destroy(&data->jcrev0);
     sp_jcrev_destroy(&data->jcrev1);
 }
