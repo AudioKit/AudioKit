@@ -72,6 +72,15 @@ open class AKAppleSequencer: NSObject {
         self.init()
         loadMIDIFile(fromURL: fileURL)
     }
+    
+    /// Initialize the sequence with a MIDI file data representation
+    ///
+    /// - parameter fromData: Data representation of a MIDI file
+    ///
+    public convenience init(fromData data: Data) {
+        self.init()
+        loadMIDIFile(fromData: data)
+    }
 
     /// Preroll the music player. Call this function in advance of playback to reduce the sequencers
     /// startup latency. If you call `play` without first calling this function, the sequencer will
@@ -584,6 +593,18 @@ open class AKAppleSequencer: NSObject {
             let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
                 AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+            }
+        }
+        initTracks()
+    }
+    
+    /// Load a MIDI file given its data representation (removes old tracks, if present)
+    open func loadMIDIFile(fromData data: Data) {
+        removeTracks()
+        if let existingSequence = sequence {
+            let status: OSStatus = MusicSequenceFileLoadData(existingSequence, data as CFData, .midiType, MusicSequenceLoadFlags())
+            if status != OSStatus(noErr) {
+                AKLog("error reading midi data, read status: \(status)")
             }
         }
         initTracks()
