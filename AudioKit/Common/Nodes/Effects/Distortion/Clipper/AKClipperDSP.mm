@@ -9,9 +9,8 @@
 #include "AKClipperDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createClipperDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createClipperDSP() {
     AKClipperDSP *dsp = new AKClipperDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -60,6 +59,7 @@ void AKClipperDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKClipperDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_clip_destroy(&data->clip0);
     sp_clip_destroy(&data->clip1);
 }

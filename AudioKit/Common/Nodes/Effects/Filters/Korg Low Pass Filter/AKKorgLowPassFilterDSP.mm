@@ -9,9 +9,8 @@
 #include "AKKorgLowPassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createKorgLowPassFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createKorgLowPassFilterDSP() {
     AKKorgLowPassFilterDSP *dsp = new AKKorgLowPassFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKKorgLowPassFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKKorgLowPassFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_wpkorg35_destroy(&data->wpkorg350);
     sp_wpkorg35_destroy(&data->wpkorg351);
 }

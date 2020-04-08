@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseLockedVocoderParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPhaseLockedVocoderDSP(int channelCount, double sampleRate);
+AKDSPRef createPhaseLockedVocoderDSP(void);
 
 #else
 

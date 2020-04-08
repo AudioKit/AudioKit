@@ -9,9 +9,8 @@
 #include "AKOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createOscillatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createOscillatorDSP() {
     AKOscillatorDSP *dsp = new AKOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -87,6 +86,7 @@ void AKOscillatorDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKOscillatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_osc_destroy(&data->osc);
 }
 

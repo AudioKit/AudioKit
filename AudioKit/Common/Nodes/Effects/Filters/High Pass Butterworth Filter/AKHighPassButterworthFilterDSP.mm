@@ -9,9 +9,8 @@
 #include "AKHighPassButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createHighPassButterworthFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createHighPassButterworthFilterDSP() {
     AKHighPassButterworthFilterDSP *dsp = new AKHighPassButterworthFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -60,6 +59,7 @@ void AKHighPassButterworthFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKHighPassButterworthFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_buthp_destroy(&data->buthp0);
     sp_buthp_destroy(&data->buthp1);
 }

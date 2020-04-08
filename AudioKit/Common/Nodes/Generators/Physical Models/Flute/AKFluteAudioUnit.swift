@@ -29,9 +29,8 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createFluteDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createFluteDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

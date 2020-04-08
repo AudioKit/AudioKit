@@ -8,9 +8,8 @@
 
 #include "AKDCBlockDSP.hpp"
 
-extern "C" AKDSPRef createDCBlockDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createDCBlockDSP() {
     AKDCBlockDSP *dsp = new AKDCBlockDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -30,6 +29,7 @@ void AKDCBlockDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKDCBlockDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_dcblock_destroy(&data->dcblock0);
     sp_dcblock_destroy(&data->dcblock1);
 }

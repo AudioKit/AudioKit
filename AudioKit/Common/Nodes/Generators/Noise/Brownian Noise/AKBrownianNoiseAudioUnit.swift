@@ -26,9 +26,8 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createBrownianNoiseDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createBrownianNoiseDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

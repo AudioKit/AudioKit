@@ -27,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (AKDSPRef _Nonnull)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count;
+- (AKDSPRef _Nonnull)createDSP;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree

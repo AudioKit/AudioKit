@@ -9,9 +9,8 @@
 #include "AKMetalBarDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createMetalBarDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createMetalBarDSP() {
     AKMetalBarDSP *dsp = new AKMetalBarDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -116,6 +115,7 @@ void AKMetalBarDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKMetalBarDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_bar_destroy(&data->bar);
 }
 

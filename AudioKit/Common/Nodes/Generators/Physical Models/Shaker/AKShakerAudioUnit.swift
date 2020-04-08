@@ -23,9 +23,8 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createShakerDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createShakerDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

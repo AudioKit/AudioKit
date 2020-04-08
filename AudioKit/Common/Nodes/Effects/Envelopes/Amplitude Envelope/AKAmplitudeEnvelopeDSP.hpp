@@ -22,7 +22,7 @@ typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createAmplitudeEnvelopeDSP(int channelCount, double sampleRate);
+AKDSPRef createAmplitudeEnvelopeDSP(void);
 
 #else
 
@@ -111,6 +111,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_adsr_destroy(&_adsr);
     }
 

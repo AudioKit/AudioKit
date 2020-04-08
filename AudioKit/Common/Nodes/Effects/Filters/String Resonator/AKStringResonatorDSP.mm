@@ -9,9 +9,8 @@
 #include "AKStringResonatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createStringResonatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createStringResonatorDSP() {
     AKStringResonatorDSP *dsp = new AKStringResonatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -71,6 +70,7 @@ void AKStringResonatorDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKStringResonatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_streson_destroy(&data->streson0);
     sp_streson_destroy(&data->streson1);
 }

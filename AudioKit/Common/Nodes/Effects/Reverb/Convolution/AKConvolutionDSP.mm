@@ -9,9 +9,8 @@
 #include "AKConvolutionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createConvolutionDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createConvolutionDSP() {
     AKConvolutionDSP *dsp = new AKConvolutionDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -50,6 +49,7 @@ void AKConvolutionDSP::initConvolutionEngine() {
 }
 
 void AKConvolutionDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_conv_destroy(&data->conv0);
     sp_conv_destroy(&data->conv1);
 }

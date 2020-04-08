@@ -9,9 +9,8 @@
 #include "AKPhaseLockedVocoderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPhaseLockedVocoderDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
     AKPhaseLockedVocoderDSP *dsp = new AKPhaseLockedVocoderDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -83,6 +82,7 @@ void AKPhaseLockedVocoderDSP::setUpTable(float *table, UInt32 size) {
 }
 
 void AKPhaseLockedVocoderDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_ftbl_destroy(&data->ftbl);
     sp_mincer_destroy(&data->mincer);
 }

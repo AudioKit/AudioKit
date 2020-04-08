@@ -38,9 +38,8 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createRolandTB303FilterDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createRolandTB303FilterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

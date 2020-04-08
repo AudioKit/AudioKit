@@ -42,9 +42,8 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createPWMOscillatorDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createPWMOscillatorDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

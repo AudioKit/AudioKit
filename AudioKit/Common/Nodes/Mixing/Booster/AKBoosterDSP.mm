@@ -8,10 +8,9 @@
 
 #include "AKBoosterDSP.hpp"
 
-extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate)
+extern "C" AKDSPRef createBoosterDSP()
 {
     AKBoosterDSP *dsp = new AKBoosterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 

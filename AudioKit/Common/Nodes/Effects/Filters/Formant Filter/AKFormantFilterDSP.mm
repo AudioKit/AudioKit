@@ -9,9 +9,8 @@
 #include "AKFormantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createFormantFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createFormantFilterDSP() {
     AKFormantFilterDSP *dsp = new AKFormantFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKFormantFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKFormantFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_fofilt_destroy(&data->fofilt0);
     sp_fofilt_destroy(&data->fofilt1);
 }

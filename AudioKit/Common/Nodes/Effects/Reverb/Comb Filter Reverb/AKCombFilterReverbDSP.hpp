@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createCombFilterReverbDSP(int channelCount, double sampleRate);
+AKDSPRef createCombFilterReverbDSP(void);
 
 #else
 
@@ -78,6 +78,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_comb_destroy(&comb0);
         sp_comb_destroy(&comb1);
     }
