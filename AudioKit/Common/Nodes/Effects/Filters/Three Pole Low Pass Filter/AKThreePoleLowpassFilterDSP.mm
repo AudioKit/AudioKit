@@ -9,9 +9,8 @@
 #include "AKThreePoleLowpassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createThreePoleLowpassFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createThreePoleLowpassFilterDSP() {
     AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKThreePoleLowpassFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKThreePoleLowpassFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_lpf18_destroy(&data->lpf180);
     sp_lpf18_destroy(&data->lpf181);
 }

@@ -9,9 +9,8 @@
 #include "AKRolandTB303FilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createRolandTB303FilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createRolandTB303FilterDSP() {
     AKRolandTB303FilterDSP *dsp = new AKRolandTB303FilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -93,6 +92,7 @@ void AKRolandTB303FilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKRolandTB303FilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_tbvcf_destroy(&data->tbvcf0);
     sp_tbvcf_destroy(&data->tbvcf1);
 }

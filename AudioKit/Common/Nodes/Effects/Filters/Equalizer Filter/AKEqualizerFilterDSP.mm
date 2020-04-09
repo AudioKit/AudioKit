@@ -9,9 +9,8 @@
 #include "AKEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createEqualizerFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createEqualizerFilterDSP() {
     AKEqualizerFilterDSP *dsp = new AKEqualizerFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKEqualizerFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKEqualizerFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_eqfil_destroy(&data->eqfil0);
     sp_eqfil_destroy(&data->eqfil1);
 }

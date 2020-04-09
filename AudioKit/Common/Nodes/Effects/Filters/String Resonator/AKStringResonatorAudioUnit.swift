@@ -30,9 +30,8 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createStringResonatorDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createStringResonatorDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

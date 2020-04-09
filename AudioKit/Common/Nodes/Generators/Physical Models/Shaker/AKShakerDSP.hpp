@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createShakerDSP(int channelCount, double sampleRate);
+AKDSPRef createShakerDSP(void);
 
 #else
 
@@ -46,7 +46,7 @@ public:
 
     void triggerTypeAmplitude(AUValue freq, AUValue amp) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

@@ -9,9 +9,8 @@
 #include "AKHighShelfParametricEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createHighShelfParametricEqualizerFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createHighShelfParametricEqualizerFilterDSP() {
     AKHighShelfParametricEqualizerFilterDSP *dsp = new AKHighShelfParametricEqualizerFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -84,6 +83,7 @@ void AKHighShelfParametricEqualizerFilterDSP::init(int channelCount, double samp
 }
 
 void AKHighShelfParametricEqualizerFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_pareq_destroy(&data->pareq0);
     sp_pareq_destroy(&data->pareq1);
 }

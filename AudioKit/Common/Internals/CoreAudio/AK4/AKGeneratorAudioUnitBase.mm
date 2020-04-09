@@ -37,9 +37,6 @@
 - (void)setPartitionLength:(int)partitionLength {
     ((AKDSPBase *)self.dsp)->setPartitionLength(partitionLength);
 }
-- (void)initConvolutionEngine {
-    ((AKDSPBase *)self.dsp)->initConvolutionEngine();
-}
 - (bool)isLooping {
     return ((AKDSPBase *)self.dsp)->isLooping();
 }

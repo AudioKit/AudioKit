@@ -12,9 +12,8 @@
 // In this case a destructor is not needed, since the DSP object doesn't do any of
 // its own heap based allocation.
 
-extern "C" AKDSPRef createStereoFieldLimiterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createStereoFieldLimiterDSP() {
     AKStereoFieldLimiterDSP *dsp = new AKStereoFieldLimiterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 

@@ -9,9 +9,8 @@
 #include "AKPitchShifterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPitchShifterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPitchShifterDSP() {
     AKPitchShifterDSP *dsp = new AKPitchShifterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKPitchShifterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKPitchShifterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_pshift_destroy(&data->pshift0);
     sp_pshift_destroy(&data->pshift1);
 }

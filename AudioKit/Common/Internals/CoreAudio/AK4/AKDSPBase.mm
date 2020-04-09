@@ -8,6 +8,12 @@
 
 #import "AKDSPBase.hpp"
 
+AKDSPBase::AKDSPBase()
+: sampleRate(44100) // best guess
+, channelCount(2)   // best guess
+{
+}
+
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {

@@ -8,10 +8,10 @@
 
 #include "AKConvolutionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+#include <vector>
 
-extern "C" AKDSPRef createConvolutionDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createConvolutionDSP() {
     AKConvolutionDSP *dsp = new AKConvolutionDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -20,7 +20,7 @@ struct AKConvolutionDSP::InternalData {
     sp_conv *conv1;
 
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
+    std::vector<float> wavetable;
 
     int partitionLength = 2048;
 };
@@ -29,6 +29,12 @@ AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {}
 
 void AKConvolutionDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
+    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
+    sp_conv_create(&data->conv0);
+    sp_conv_create(&data->conv1);
+    sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
+    sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
 }
 
 void AKConvolutionDSP::setPartitionLength(int partLength) {
@@ -36,22 +42,14 @@ void AKConvolutionDSP::setPartitionLength(int partLength) {
 }
 
 void AKConvolutionDSP::setUpTable(float *table, UInt32 size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
-    data->ftbl->tbl = table;
-}
-
-
-void AKConvolutionDSP::initConvolutionEngine() {
-    sp_conv_create(&data->conv0);
-    sp_conv_create(&data->conv1);
-    sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
-    sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
+    data->wavetable = std::vector<float>(table, table + size);
 }
 
 void AKConvolutionDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_conv_destroy(&data->conv0);
     sp_conv_destroy(&data->conv1);
+    sp_ftbl_destroy(&data->ftbl);
 }
 
 void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

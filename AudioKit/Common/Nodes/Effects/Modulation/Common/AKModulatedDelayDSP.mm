@@ -13,12 +13,12 @@
 
 #include "AKModulatedDelayDSP.hpp"
 
-extern "C" AKDSPRef createChorusDSP(int channelCount, double sampleRate)
+extern "C" AKDSPRef createChorusDSP()
 {
     return new AKModulatedDelayDSP(kChorus);
 }
 
-extern "C" AKDSPRef createFlangerDSP(int channelCount, double sampleRate)
+extern "C" AKDSPRef createFlangerDSP()
 {
     return new AKModulatedDelayDSP(kFlanger);
 }
@@ -83,6 +83,7 @@ void AKModulatedDelayDSP::init(int channels, double sampleRate)
 
 void AKModulatedDelayDSP::deinit()
 {
+    AKDSPBase::deinit();
     AKModulatedDelay::deinit();
 }
 

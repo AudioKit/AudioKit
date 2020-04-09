@@ -27,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (AKDSPRef _Nonnull)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count;
+- (AKDSPRef _Nonnull)createDSP;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
@@ -55,7 +55,6 @@
 // Convolution and Phase-Locked Vocoder
 - (void)setupAudioFileTable:(float *_Nonnull)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
-- (void)initConvolutionEngine;
 
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;

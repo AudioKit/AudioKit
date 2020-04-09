@@ -50,9 +50,8 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createDripDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createDripDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
