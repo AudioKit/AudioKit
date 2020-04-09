@@ -76,7 +76,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
+        if (isStarted && (frameOffset & 0x7) == 0) {
             data->leftGainRamp.advanceTo(now + frameOffset);
             data->rightGainRamp.advanceTo(now + frameOffset);
         }
