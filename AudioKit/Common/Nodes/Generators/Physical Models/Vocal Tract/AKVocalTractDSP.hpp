@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createVocalTractDSP(int channelCount, double sampleRate);
+AKDSPRef createVocalTractDSP(void);
 
 #else
 
@@ -116,6 +116,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_vocwrapper_destroy(&vocwrapper);
     }
 

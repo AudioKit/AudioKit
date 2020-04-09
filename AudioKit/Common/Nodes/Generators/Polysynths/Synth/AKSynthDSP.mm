@@ -9,7 +9,7 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *createAKSynthDSP(int channelCount, double sampleRate) {
+extern "C" void *createAKSynthDSP() {
     return new AKSynthDSP();
 }
 
@@ -46,6 +46,7 @@ void AKSynthDSP::init(int channelCount, double sampleRate)
 
 void AKSynthDSP::deinit()
 {
+    AKDSPBase::deinit();
     AKCoreSynth::deinit();
 }
 

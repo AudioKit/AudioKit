@@ -33,7 +33,6 @@
 // Convolution and Phase-Locked Vocoder
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
-- (void)initConvolutionEngine;
 
 // Sequencing Tools
 - (bool)isLooping;

@@ -10,8 +10,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createPhaseDistortionOscillatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPhaseDistortionOscillatorDSP() {
     AKPhaseDistortionOscillatorDSP *dsp = new AKPhaseDistortionOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }

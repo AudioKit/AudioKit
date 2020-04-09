@@ -9,9 +9,8 @@
 #include "AKBitCrusherDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createBitCrusherDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createBitCrusherDSP() {
     AKBitCrusherDSP *dsp = new AKBitCrusherDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -71,6 +70,7 @@ void AKBitCrusherDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKBitCrusherDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_bitcrush_destroy(&data->bitcrush0);
     sp_bitcrush_destroy(&data->bitcrush1);
 }

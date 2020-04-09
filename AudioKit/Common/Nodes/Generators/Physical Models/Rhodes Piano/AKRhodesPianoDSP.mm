@@ -14,9 +14,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createRhodesPianoDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createRhodesPianoDSP() {
     AKRhodesPianoDSP *dsp = new AKRhodesPianoDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -108,7 +107,8 @@ void AKRhodesPianoDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKRhodesPianoDSP::destroy() {
+void AKRhodesPianoDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->rhodesPiano;
 }
 

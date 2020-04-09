@@ -34,9 +34,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createFormantFilterDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createFormantFilterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

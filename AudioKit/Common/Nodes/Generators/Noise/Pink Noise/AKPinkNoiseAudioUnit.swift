@@ -26,9 +26,8 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createPinkNoiseDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createPinkNoiseDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKVariableDelayParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createVariableDelayDSP(int channelCount, double sampleRate);
+AKDSPRef createVariableDelayDSP(void);
 
 #else
 

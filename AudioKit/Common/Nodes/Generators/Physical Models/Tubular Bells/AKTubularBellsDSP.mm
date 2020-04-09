@@ -14,9 +14,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createTubularBellsDSP() {
     AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -108,7 +107,8 @@ void AKTubularBellsDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKTubularBellsDSP::destroy() {
+void AKTubularBellsDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->tubularBells;
 }
 

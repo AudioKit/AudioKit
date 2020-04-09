@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate);
+AKDSPRef createTubularBellsDSP(void);
 
 #else
 
@@ -47,7 +47,7 @@ public:
 
     void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

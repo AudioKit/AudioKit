@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPWMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPWMOscillatorDSP(int channelCount, double sampleRate);
+AKDSPRef createPWMOscillatorDSP(void);
 
 #else
 
@@ -114,6 +114,7 @@ public:
    }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_blsquare_destroy(&blsquare);
     }
 

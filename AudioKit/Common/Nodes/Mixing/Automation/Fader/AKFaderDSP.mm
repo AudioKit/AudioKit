@@ -9,10 +9,9 @@
 #include "AKFaderDSP.hpp"
 #import "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createFaderDSP(int channelCount, double sampleRate)
+extern "C" AKDSPRef createFaderDSP()
 {
     AKFaderDSP *dsp = new AKFaderDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 

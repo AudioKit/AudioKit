@@ -12,9 +12,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createShakerDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createShakerDSP() {
     AKShakerDSP *dsp = new AKShakerDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -75,7 +74,8 @@ void AKShakerDSP::triggerTypeAmplitude(AUValue type, AUValue amp)  {
     trigger();
 }
 
-void AKShakerDSP::destroy() {
+void AKShakerDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->shaker;
 }
 

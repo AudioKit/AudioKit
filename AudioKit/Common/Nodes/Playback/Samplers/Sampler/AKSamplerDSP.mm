@@ -10,7 +10,7 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createAKSamplerDSP() {
     return new AKSamplerDSP();
 }
 
@@ -122,6 +122,7 @@ void AKSamplerDSP::init(int channelCount, double sampleRate)
 
 void AKSamplerDSP::deinit()
 {
+    AKDSPBase::deinit();
     AKCoreSampler::deinit();
 }
 

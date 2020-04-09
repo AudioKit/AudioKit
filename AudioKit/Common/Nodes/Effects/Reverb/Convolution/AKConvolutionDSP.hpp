@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKConvolutionParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createConvolutionDSP(int channelCount, double sampleRate);
+AKDSPRef createConvolutionDSP(void);
 
 #else
 
@@ -36,7 +36,6 @@ public:
 
     void setUpTable(float *table, UInt32 size) override;
     void setPartitionLength(int partLength) override;
-    void initConvolutionEngine() override;
 
     void deinit() override;
 

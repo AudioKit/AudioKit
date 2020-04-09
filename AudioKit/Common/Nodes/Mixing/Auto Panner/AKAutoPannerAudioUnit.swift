@@ -29,9 +29,8 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createAutoPannerDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createAutoPannerDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

@@ -20,17 +20,18 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTremoloDSP(int channelCount, double sampleRate);
+AKDSPRef createTremoloDSP(void);
 
 #else
 
 #import "AKSoundpipeDSPBase.hpp"
+#import <vector>
 
 class AKTremoloDSP : public AKSoundpipeDSPBase {
 
     sp_osc *trem;
     sp_ftbl *tbl;
-    UInt32 tbl_size = 4096;
+    std::vector<float> wavetable;
 
 private:
     AKLinearParameterRamp frequencyRamp;
@@ -76,6 +77,8 @@ public:
 
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_ftbl_create(sp, &tbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), tbl->tbl);
         sp_osc_create(&trem);
         sp_osc_init(sp, trem, tbl, 0);
         trem->freq = 10.0;
@@ -83,16 +86,17 @@ public:
     }
 
     void setupWaveform(uint32_t size) override {
-        tbl_size = size;
-        sp_ftbl_create(sp, &tbl, tbl_size);
+        wavetable.resize(size);
     }
 
     void setWaveformValue(uint32_t index, float value) override {
-        tbl->tbl[index] = value;
+        wavetable[index] = value;
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
+        sp_ftbl_destroy(&tbl);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
