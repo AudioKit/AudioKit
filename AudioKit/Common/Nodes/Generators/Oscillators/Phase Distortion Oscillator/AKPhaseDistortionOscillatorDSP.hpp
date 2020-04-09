@@ -28,6 +28,7 @@ AKDSPRef createPhaseDistortionOscillatorDSP(void);
 #else
 
 #import "AKSoundpipeDSPBase.hpp"
+#import <vector>
 
 class AKPhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
 
@@ -36,7 +37,7 @@ class AKPhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
     sp_phasor *phasor;
 
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
+    std::vector<float> wavetable;
 
 private:
     AKLinearParameterRamp frequencyRamp;
@@ -110,6 +111,9 @@ public:
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         isStarted = false;
         
+        sp_ftbl_create(sp, &ftbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
+        
         sp_pdhalf_create(&pdhalf);
         sp_tabread_create(&tabread);
         sp_tabread_init(sp, tabread, ftbl, 1);
@@ -127,15 +131,15 @@ public:
         sp_pdhalf_destroy(&pdhalf);
         sp_tabread_destroy(&tabread);
         sp_phasor_destroy(&phasor);
+        sp_ftbl_destroy(&ftbl);
     }
 
     void setupWaveform(uint32_t size) override {
-        ftbl_size = size;
-        sp_ftbl_create(sp, &ftbl, ftbl_size);
+        wavetable.resize(size);
     }
 
     void setWaveformValue(uint32_t index, float value) override {
-        ftbl->tbl[index] = value;
+        wavetable[index] = value;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

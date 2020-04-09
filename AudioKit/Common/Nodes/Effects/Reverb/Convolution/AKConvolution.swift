@@ -56,7 +56,6 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             input?.connect(to: strongSelf)
             strongSelf.internalAU?.setPartitionLength(Int32(partitionLength))
             strongSelf.readAudioFile()
-            strongSelf.internalAU?.initConvolutionEngine()
             strongSelf.internalAU?.start()
         }
     }

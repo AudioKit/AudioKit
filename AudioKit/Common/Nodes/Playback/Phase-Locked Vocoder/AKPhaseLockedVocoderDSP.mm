@@ -8,6 +8,7 @@
 
 #include "AKPhaseLockedVocoderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+#include <vector>
 
 extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
     AKPhaseLockedVocoderDSP *dsp = new AKPhaseLockedVocoderDSP();
@@ -17,7 +18,7 @@ extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
 struct AKPhaseLockedVocoderDSP::InternalData {
     sp_mincer *mincer;
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
+    std::vector<float> wavetable;
 
     AKLinearParameterRamp positionRamp;
     AKLinearParameterRamp amplitudeRamp;
@@ -33,6 +34,7 @@ void AKPhaseLockedVocoderDSP::start() {
 }
 
 AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new InternalData) {
+    data->ftbl = nullptr;
 }
 
 // Uses the ParameterAddress as a key
@@ -73,18 +75,25 @@ float AKPhaseLockedVocoderDSP::getParameter(uint64_t address) {
 void AKPhaseLockedVocoderDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_mincer_create(&data->mincer);
+    sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
+    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
 }
 
 void AKPhaseLockedVocoderDSP::setUpTable(float *table, UInt32 size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
-    data->ftbl->tbl = table;
+    data->wavetable = std::vector<float>(table, table + size);
+    if (data->ftbl) {
+        // create a new ftbl object with the new wavetable size
+        sp_ftbl_destroy(&data->ftbl);
+        sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
+        std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
+    }
 }
 
 void AKPhaseLockedVocoderDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_ftbl_destroy(&data->ftbl);
     sp_mincer_destroy(&data->mincer);
+    data->ftbl = nullptr;
 }
 
 void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
