@@ -8,6 +8,7 @@
 
 #include "AKFMOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+#include <vector>
 
 extern "C" AKDSPRef createFMOscillatorDSP() {
     AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
@@ -17,7 +18,7 @@ extern "C" AKDSPRef createFMOscillatorDSP() {
 struct AKFMOscillatorDSP::InternalData {
     sp_fosc *fosc;
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
+    std::vector<float> waveform;
     AKLinearParameterRamp baseFrequencyRamp;
     AKLinearParameterRamp carrierMultiplierRamp;
     AKLinearParameterRamp modulatingMultiplierRamp;
@@ -88,6 +89,10 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
 void AKFMOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     isStarted = false;
+    
+    sp_ftbl_create(sp, &data->ftbl, data->waveform.size());
+    std::copy(data->waveform.cbegin(), data->waveform.cend(), data->ftbl->tbl);
+    
     sp_fosc_create(&data->fosc);
     sp_fosc_init(sp, data->fosc, data->ftbl);
     data->fosc->freq = defaultBaseFrequency;
@@ -100,15 +105,15 @@ void AKFMOscillatorDSP::init(int channelCount, double sampleRate) {
 void AKFMOscillatorDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_fosc_destroy(&data->fosc);
+    sp_ftbl_destroy(&data->ftbl);
 }
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
+    data->waveform.resize(size);
 }
 
 void AKFMOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->ftbl->tbl[index] = value;
+    data->waveform[index] = value;
 }
 void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 

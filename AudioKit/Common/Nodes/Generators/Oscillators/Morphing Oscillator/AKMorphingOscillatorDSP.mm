@@ -8,6 +8,7 @@
 
 #include "AKMorphingOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+#include <vector>
 
 extern "C" AKDSPRef createMorphingOscillatorDSP() {
     AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
@@ -17,7 +18,7 @@ extern "C" AKDSPRef createMorphingOscillatorDSP() {
 struct AKMorphingOscillatorDSP::InternalData {
     sp_oscmorph *oscmorph;
     sp_ftbl *ft_array[4];
-    UInt32 ftbl_size = 4096;
+    std::vector<float> waveforms[4];
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp indexRamp;
@@ -88,12 +89,19 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
 void AKMorphingOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     isStarted = false;
+    for (uint32_t i = 0; i < 4; i++) {
+        sp_ftbl_create(sp, &data->ft_array[i], data->waveforms[i].size());
+        std::copy(data->waveforms[i].cbegin(), data->waveforms[i].cend(), data->ft_array[i]->tbl);
+    }
     sp_oscmorph_create(&data->oscmorph);
 }
 
 void AKMorphingOscillatorDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_oscmorph_destroy(&data->oscmorph);
+    for (uint32_t i = 0; i < 4; i++) {
+        sp_ftbl_destroy(&data->ft_array[i]);
+    }
 }
 
 void  AKMorphingOscillatorDSP::reset() {
@@ -105,12 +113,11 @@ void  AKMorphingOscillatorDSP::reset() {
 }
 
 void AKMorphingOscillatorDSP::setupIndividualWaveform(uint32_t waveform, uint32_t size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ft_array[waveform], data->ftbl_size);
+    data->waveforms[waveform].resize(size);
 }
 
 void AKMorphingOscillatorDSP::setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {
-    data->ft_array[waveform]->tbl[index] = value;
+    data->waveforms[waveform][index] = value;
 }
 void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 

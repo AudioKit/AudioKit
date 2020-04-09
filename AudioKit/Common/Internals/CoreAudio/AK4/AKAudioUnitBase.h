@@ -55,7 +55,6 @@
 // Convolution and Phase-Locked Vocoder
 - (void)setupAudioFileTable:(float *_Nonnull)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
-- (void)initConvolutionEngine;
 
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;

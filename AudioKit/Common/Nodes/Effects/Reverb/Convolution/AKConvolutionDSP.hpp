@@ -36,7 +36,6 @@ public:
 
     void setUpTable(float *table, UInt32 size) override;
     void setPartitionLength(int partLength) override;
-    void initConvolutionEngine() override;
 
     void deinit() override;
 
