@@ -1,10 +1,4 @@
-//
-//  AKOfflineRenderNode.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 #if !targetEnvironment(macCatalyst)
 
 /// Node to render audio quickly into a buffer of memory or into a file

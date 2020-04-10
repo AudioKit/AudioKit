@@ -1,10 +1,4 @@
-//
-//  AKAutomatedPlayer.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi on 9/12/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
 open class AKAbstractPlayer: AKNode {

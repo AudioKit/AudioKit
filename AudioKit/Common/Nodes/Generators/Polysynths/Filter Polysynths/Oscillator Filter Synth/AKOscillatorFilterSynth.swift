@@ -1,10 +1,4 @@
-//
-//  AKOscillatorFilterSynth.swift
-//  AudioKit
-//
-//  Created by Colin Hallett, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.

@@ -1,10 +1,4 @@
-//
-//  AKDynaRageCompressor.swift
-//  AudioKit
-//
-//  Created by Mike Gazzaruso, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls

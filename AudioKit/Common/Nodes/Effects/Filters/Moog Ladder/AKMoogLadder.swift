@@ -1,10 +1,4 @@
-//
-//  AKMoogLadder.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Moog Ladder is an new digital implementation of the Moog ladder filter based
 /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital

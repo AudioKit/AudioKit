@@ -1,10 +1,4 @@
-//
-//  AKDrip.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.

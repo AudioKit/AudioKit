@@ -1,10 +1,4 @@
-//
-//  AKPhaseDistortionOscillator.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Casio-style phase distortion with "pivot point" on the X axis This module is
 /// designed to emulate the classic phase distortion synthesis technique. From

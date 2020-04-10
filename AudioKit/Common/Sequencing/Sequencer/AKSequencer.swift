@@ -1,10 +1,4 @@
-//
-//  AKSequencer.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 5/8/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Open-source AudioKit Sequencer
 ///

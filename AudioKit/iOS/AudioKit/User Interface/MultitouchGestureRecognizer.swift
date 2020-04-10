@@ -1,10 +1,4 @@
-//
-//  MultitouchGestureRecognizer.swift
-//  MultitouchGestureRecognizer
-//
-//  Created by Daniel Clelland, revision history on Githbub.
-//  Copyright © 2015 Daniel Clelland. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
