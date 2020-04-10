@@ -10,8 +10,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createPluckedStringDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPluckedStringDSP() {
     AKPluckedStringDSP *dsp = new AKPluckedStringDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }

@@ -9,9 +9,8 @@
 #include "AKPhaserDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPhaserDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPhaserDSP() {
     AKPhaserDSP *dsp = new AKPhaserDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -136,6 +135,7 @@ void AKPhaserDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKPhaserDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_phaser_destroy(&data->phaser);
 }
 

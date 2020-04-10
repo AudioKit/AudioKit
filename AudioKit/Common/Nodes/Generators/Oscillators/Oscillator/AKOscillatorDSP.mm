@@ -8,17 +8,17 @@
 
 #include "AKOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+#include <vector>
 
-extern "C" AKDSPRef createOscillatorDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createOscillatorDSP() {
     AKOscillatorDSP *dsp = new AKOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
 struct AKOscillatorDSP::InternalData {
     sp_osc *osc;
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
+    std::vector<float> waveform;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp detuningOffsetRamp;
@@ -80,6 +80,10 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
 void AKOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     isStarted = false;
+    
+    sp_ftbl_create(sp, &data->ftbl, data->waveform.size());
+    std::copy(data->waveform.cbegin(), data->waveform.cend(), data->ftbl->tbl);
+    
     sp_osc_create(&data->osc);
     sp_osc_init(sp, data->osc, data->ftbl, 0);
     data->osc->freq = defaultFrequency;
@@ -87,16 +91,17 @@ void AKOscillatorDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKOscillatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_osc_destroy(&data->osc);
+    sp_ftbl_destroy(&data->ftbl);
 }
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
+    data->waveform.resize(size);
 }
 
 void AKOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->ftbl->tbl[index] = value;
+    data->waveform[index] = value;
 }
 
 void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

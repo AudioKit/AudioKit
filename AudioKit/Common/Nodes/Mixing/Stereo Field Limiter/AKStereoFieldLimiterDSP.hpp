@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createStereoFieldLimiterDSP(int channelCount, double sampleRate);
+AKDSPRef createStereoFieldLimiterDSP(void);
 
 #else
 

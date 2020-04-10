@@ -12,9 +12,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createFluteDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createFluteDSP() {
     AKFluteDSP *dsp = new AKFluteDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -88,7 +87,8 @@ void AKFluteDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKFluteDSP::destroy() {
+void AKFluteDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->flute;
 }
 

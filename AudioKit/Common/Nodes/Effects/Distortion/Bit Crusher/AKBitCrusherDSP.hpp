@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKBitCrusherParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createBitCrusherDSP(int channelCount, double sampleRate);
+AKDSPRef createBitCrusherDSP(void);
 
 #else
 

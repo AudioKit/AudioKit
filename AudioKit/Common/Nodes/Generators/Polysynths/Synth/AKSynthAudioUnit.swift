@@ -78,9 +78,8 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createAKSynthDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createAKSynthDSP()
     }
 
     override init(componentDescription: AudioComponentDescription,

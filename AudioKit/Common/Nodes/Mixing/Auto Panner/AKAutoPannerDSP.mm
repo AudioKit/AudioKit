@@ -10,8 +10,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createAutoPannerDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createAutoPannerDSP() {
     AKAutoPannerDSP *dsp = new AKAutoPannerDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }

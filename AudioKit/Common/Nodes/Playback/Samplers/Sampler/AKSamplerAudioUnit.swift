@@ -126,9 +126,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createAKSamplerDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createAKSamplerDSP()
     }
 
     override init(componentDescription: AudioComponentDescription,

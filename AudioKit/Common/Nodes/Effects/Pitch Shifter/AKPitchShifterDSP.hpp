@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPitchShifterDSP(int channelCount, double sampleRate);
+AKDSPRef createPitchShifterDSP(void);
 
 #else
 

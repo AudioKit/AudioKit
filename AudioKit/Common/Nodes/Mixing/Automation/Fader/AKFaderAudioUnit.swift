@@ -31,11 +31,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
     public override var canProcessInPlace: Bool { return true }
 
-    public override func initDSP(
-        withSampleRate sampleRate: Double,
-        channelCount count: AVAudioChannelCount
-    ) -> AKDSPRef {
-        return createFaderDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createFaderDSP()
     }
 
     public override init(

@@ -9,9 +9,8 @@
 #include "AKPeakingParametricEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP() {
     AKPeakingParametricEqualizerFilterDSP *dsp = new AKPeakingParametricEqualizerFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -84,6 +83,7 @@ void AKPeakingParametricEqualizerFilterDSP::init(int channelCount, double sample
 }
 
 void AKPeakingParametricEqualizerFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_pareq_destroy(&data->pareq0);
     sp_pareq_destroy(&data->pareq1);
 }
