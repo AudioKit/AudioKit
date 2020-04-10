@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MetronomeSamplerSync
-//
-//  Created by David O'Neill, revision history on Githbub.
-//  Copyright © 2017 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKitUI

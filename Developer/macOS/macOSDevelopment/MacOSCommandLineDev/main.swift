@@ -1,10 +1,4 @@
-//
-//  main.swift
-//  AudiKit Sysex Example/Test
-//
-//  Created by Kurt Arnlund on 1/14/19.
-//  Copyright © 2019 iatapps. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioKit

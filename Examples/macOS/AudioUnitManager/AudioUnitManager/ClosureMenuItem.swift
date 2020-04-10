@@ -1,10 +1,4 @@
-//
-//  ClosureMenuItem.swift
-//  AudioUnitManager
-//
-//  Created by Ryan Francesconi.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import Cocoa
 
 /**
