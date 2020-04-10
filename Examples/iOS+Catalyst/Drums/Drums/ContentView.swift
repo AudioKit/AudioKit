@@ -1,10 +1,4 @@
-//
-//  ContentView.swift
-//  Drums
-//
-//  Created by Matthias Frick on 11/09/2019.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import SwiftUI
 

@@ -1,10 +1,4 @@
-//
-//  TapTempo.swift
-//  MetronomeSamplerSync
-//
-//  Created by Mark Jeschke on 7/17/18, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 // Tap Tempo class by Joel Perry
 // https://gist.github.com/joel-perry/17e02a92ae93d7208887
