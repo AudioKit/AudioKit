@@ -3,8 +3,6 @@
 import Foundation
 
 extension AKManager {
-    // MARK: - Start/Stop
-
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         // ensure that an output has been set previously
@@ -128,7 +126,7 @@ extension AKManager {
                 }
 
                 if AKSettings.enableCategoryChangeHandling, !engine.isRunning, shouldBeRunning {
-                    #if !os(macOS)
+                    #if os(iOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
@@ -167,7 +165,7 @@ extension AKManager {
         let attemptRestart = {
             if AKSettings.enableRouteChangeHandling, shouldBeRunning, !engine.isRunning {
                 do {
-                    #if !os(macOS)
+                    #if os(iOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
