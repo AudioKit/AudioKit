@@ -3240,17 +3240,17 @@
 		C45664EB1D448D7E00D26565 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				C44EA2882018749A0072399F /* README.md */,
-				C45664EC1D448D7E00D26565 /* AKNode.swift */,
 				552FBD441F3F731200C02C08 /* AKConnection.swift */,
+				C45664EC1D448D7E00D26565 /* AKNode.swift */,
 				C45664ED1D448D7E00D26565 /* Analysis */,
 				FE4BDB2121925906007E3DA3 /* Callback Instrument */,
 				C45664F81D448D7E00D26565 /* Effects */,
 				C45665C71D448D7E00D26565 /* Generators */,
 				C45666291D448D7E00D26565 /* Input */,
 				C456662B1D448D7E00D26565 /* Mixing */,
-				C456663F1D448D7E00D26565 /* Playback */,
 				552CD48C1F3BBA1B005762E9 /* Offline */,
+				C456663F1D448D7E00D26565 /* Playback */,
+				C44EA2882018749A0072399F /* README.md */,
 			);
 			name = Nodes;
 			path = ../Common/Nodes;

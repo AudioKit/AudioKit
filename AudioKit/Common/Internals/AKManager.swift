@@ -76,11 +76,13 @@ open class AKManager: NSObject {
     /// An audio output operation that most applications will need to use last
     @objc public static var output: AKNode? {
         didSet {
+            #if !os(macOS)
             do {
                 try updateSessionCategoryAndOptions()
                 } catch {
                     AKLog("Could not set session category: \(error)")
             }
+            #endif
 
             // if the assigned output is already a mixer, avoid creating an additional mixer and just use
             // that input as the finalMixer

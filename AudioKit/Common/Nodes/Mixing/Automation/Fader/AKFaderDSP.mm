@@ -2,7 +2,7 @@
 //  AKFaderDSP.mm
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
@@ -23,6 +23,9 @@ struct AKFaderDSP::InternalData {
 AKFaderDSP::AKFaderDSP() : data(new InternalData)
 {
 }
+
+
+
 
 // Uses the ParameterAddress as a key
 void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
@@ -72,11 +75,13 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
-void AKFaderDSP::start() {
+void AKFaderDSP::start()
+{
     isStarted = true;
 }
 
-void AKFaderDSP::stop() {
+void AKFaderDSP::stop()
+{
     isStarted = false;
 }
 

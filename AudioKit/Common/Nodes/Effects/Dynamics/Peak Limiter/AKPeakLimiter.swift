@@ -97,9 +97,9 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         AKManager.engine.attach(effect)
 
         if let node = effectGain?.avAudioNode {
-            AKManager.engine.connect(node, to: effect, format: AKManager.format)
+            AKManager.engine.connect(node, to: effect, format: AKSettings.audioFormat)
         }
-        AKManager.engine.connect(effect, to: mixer.avAudioNode, format: AKManager.format)
+        AKManager.engine.connect(effect, to: mixer.avAudioNode, format: AKSettings.audioFormat)
 
         au[kLimiterParam_AttackTime] = attackDuration
         au[kLimiterParam_DecayTime] = decayDuration

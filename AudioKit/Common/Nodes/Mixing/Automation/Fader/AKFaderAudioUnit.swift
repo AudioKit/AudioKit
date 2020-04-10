@@ -2,7 +2,7 @@
 //  AKFaderAudioUnit.swift
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
@@ -35,10 +35,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
         return createFaderDSP()
     }
 
-    public override init(
-        componentDescription: AudioComponentDescription,
-        options: AudioComponentInstantiationOptions = []
-    ) throws {
+    public override init(componentDescription: AudioComponentDescription,
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let leftGain = AUParameter(

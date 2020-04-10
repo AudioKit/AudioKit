@@ -40,6 +40,9 @@
 
     /// Zeros
     case zero
+
+    /// Custom waveform
+    case custom
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
@@ -51,7 +54,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
 
     // MARK: - Properties    /// Values stored in the table
 
-    internal var content = [Element]()
+    public internal(set) var content = [Element]()
 
     /// Phase of the table
     public var phase: Float {
@@ -135,7 +138,17 @@ public class AKTable: NSObject, MutableCollection, Codable {
             self.positiveSquareWave()
         case .zero:
             self.zero()
+        case .custom:
+            assertionFailure("Initializing a custom waveform via this method is unsupported. Please use init(content:phase:count:).")
         }
+    }
+
+    /// Create table from an array of Element
+    @objc public init(_ content: [Element],
+                      phase: Float = 0) {
+        self.type = .custom
+        self.phase = phase
+        self.content = content
     }
 
     /// Create table from audio file
