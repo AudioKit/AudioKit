@@ -1,10 +1,4 @@
-//
-//  AKParameter.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AKParameters are simply arguments that can be passed into AKComputedParameters
 /// These could be numbers (floats, doubles, ints) or other operations themselves

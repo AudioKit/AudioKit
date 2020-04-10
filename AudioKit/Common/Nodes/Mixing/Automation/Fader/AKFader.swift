@@ -1,10 +1,4 @@
-//
-//  AKFader.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.

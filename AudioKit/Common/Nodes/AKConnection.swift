@@ -1,10 +1,4 @@
-//
-//  AKConnection.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A transitory used to pass connection information.
 open class AKInputConnection: NSObject {

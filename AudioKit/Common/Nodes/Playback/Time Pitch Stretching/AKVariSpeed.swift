@@ -1,10 +1,4 @@
-//
-//  AKVariSpeed.swift
-//  AudioKit
-//
-//  Created by Eiríkur Orri Ólafsson, revision history on GitHub
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///

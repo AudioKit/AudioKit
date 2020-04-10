@@ -1,10 +1,4 @@
-//
-//  AKModalResonanceFilter.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds
 /// can be created using  passing an impulse through a combination of modal

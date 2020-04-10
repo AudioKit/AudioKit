@@ -1,10 +1,4 @@
-//
-//  AKAUPresetBuilder.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Builds presets for Apple sampler to read from
 open class AKAUPresetBuilder {

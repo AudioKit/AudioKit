@@ -1,10 +1,4 @@
-//
-//  AKOperationGenerator.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Operation-based generator
 open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {

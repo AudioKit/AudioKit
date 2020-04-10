@@ -1,10 +1,4 @@
-//
-//  AKResourceAudioFileLoaderView.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
 
 /// View to choose from audio files to use in playgrounds
