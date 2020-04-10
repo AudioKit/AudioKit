@@ -65,7 +65,7 @@ extension AKNode {
         self.detach()
     }
 
-    @available(*, deprecated, message: "Use AudioKit.detach(nodes:) instead")
+    @available(*, deprecated, message: "Use AKManager.detach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
         AKManager.detach(nodes: nodes)
     }

@@ -118,7 +118,7 @@ open class AKSettings: NSObject {
         /// will query the hardware.
         @objc public static var ioBufferDuration: Double {
             set {
-                let node = AudioKit.engine.outputNode
+                let node = AKManager.engine.outputNode
                 guard let audioUnit = node.audioUnit else { return }
                 let samplerate = node.outputFormat(forBus: 0).sampleRate
                 var frames = UInt32(round(newValue * samplerate))
@@ -134,7 +134,7 @@ open class AKSettings: NSObject {
                 }
             }
             get {
-                let node = AudioKit.engine.outputNode
+                let node = AKManager.engine.outputNode
                 guard let audioUnit = node.audioUnit else { return 0 }
                 let sampleRate = node.outputFormat(forBus: 0).sampleRate
                 var frames = UInt32()
