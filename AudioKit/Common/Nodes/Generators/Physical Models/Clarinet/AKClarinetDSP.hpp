@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createClarinetDSP(int channelCount, double sampleRate);
+AKDSPRef createClarinetDSP(void);
 
 #else
 
@@ -47,7 +47,7 @@ public:
 
     void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

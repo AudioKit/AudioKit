@@ -9,9 +9,8 @@
 #include "AKAutoWahDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createAutoWahDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createAutoWahDSP() {
     AKAutoWahDSP *dsp = new AKAutoWahDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -82,6 +81,7 @@ void AKAutoWahDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKAutoWahDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_autowah_destroy(&data->autowah0);
     sp_autowah_destroy(&data->autowah1);
 }

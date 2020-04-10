@@ -42,9 +42,8 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createVocalTractDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createVocalTractDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

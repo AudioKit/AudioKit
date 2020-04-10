@@ -9,9 +9,8 @@
 #include "AKDripDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createDripDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createDripDSP() {
     AKDripDSP *dsp = new AKDripDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -116,6 +115,7 @@ void AKDripDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKDripDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_drip_destroy(&data->drip);
 }
 

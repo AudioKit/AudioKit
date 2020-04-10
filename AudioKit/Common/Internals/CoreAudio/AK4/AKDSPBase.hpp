@@ -36,7 +36,9 @@ protected:
     AUEventSampleTime now = 0;
 
 public:
-
+    
+    AKDSPBase();
+    
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
 
@@ -82,8 +84,6 @@ public:
     virtual void setUpTable(float *table, UInt32 size) {}
 
     virtual void setPartitionLength(int partLength) {}
-
-    virtual void initConvolutionEngine() {}
 
     virtual bool isLooping()
     {

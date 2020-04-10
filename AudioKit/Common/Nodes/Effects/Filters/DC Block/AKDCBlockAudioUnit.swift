@@ -10,9 +10,8 @@ import AVFoundation
 
 public class AKDCBlockAudioUnit: AKAudioUnitBase {
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createDCBlockDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createDCBlockDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

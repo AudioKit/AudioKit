@@ -38,9 +38,8 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createTanhDistortionDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createTanhDistortionDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

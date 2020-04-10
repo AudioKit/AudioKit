@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPluckedStringDSP(int channelCount, double sampleRate);
+AKDSPRef createPluckedStringDSP(void);
 
 #else
 
@@ -81,6 +81,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_pluck_destroy(&pluck);
     }
 

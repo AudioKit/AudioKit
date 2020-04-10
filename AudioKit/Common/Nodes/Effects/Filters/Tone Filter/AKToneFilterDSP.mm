@@ -9,9 +9,8 @@
 #include "AKToneFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createToneFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createToneFilterDSP() {
     AKToneFilterDSP *dsp = new AKToneFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -60,6 +59,7 @@ void AKToneFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKToneFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_tone_destroy(&data->tone0);
     sp_tone_destroy(&data->tone1);
 }

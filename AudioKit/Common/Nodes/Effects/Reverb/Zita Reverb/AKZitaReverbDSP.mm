@@ -9,9 +9,8 @@
 #include "AKZitaReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createZitaReverbDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createZitaReverbDSP() {
     AKZitaReverbDSP *dsp = new AKZitaReverbDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -146,6 +145,7 @@ void AKZitaReverbDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKZitaReverbDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_zitarev_destroy(&data->zitarev);
 }
 

@@ -30,9 +30,8 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createCostelloReverbDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createCostelloReverbDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

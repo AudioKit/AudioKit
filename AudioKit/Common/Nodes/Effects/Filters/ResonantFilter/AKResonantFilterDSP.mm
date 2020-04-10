@@ -9,9 +9,8 @@
 #include "AKResonantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createResonantFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createResonantFilterDSP() {
     AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -71,6 +70,7 @@ void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKResonantFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_reson_destroy(&data->reson0);
     sp_reson_destroy(&data->reson1);
 }

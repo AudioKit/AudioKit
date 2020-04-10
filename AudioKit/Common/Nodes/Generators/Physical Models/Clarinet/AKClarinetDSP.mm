@@ -12,9 +12,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createClarinetDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createClarinetDSP() {
     AKClarinetDSP *dsp = new AKClarinetDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -89,7 +88,8 @@ void AKClarinetDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKClarinetDSP::destroy() {
+void AKClarinetDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->clarinet;
 }
 

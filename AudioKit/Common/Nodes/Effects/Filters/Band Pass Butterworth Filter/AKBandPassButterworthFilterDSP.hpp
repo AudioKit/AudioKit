@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKBandPassButterworthFilterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createBandPassButterworthFilterDSP(int channelCount, double sampleRate);
+AKDSPRef createBandPassButterworthFilterDSP(void);
 
 #else
 

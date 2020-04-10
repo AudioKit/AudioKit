@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKThreePoleLowpassFilterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createThreePoleLowpassFilterDSP(int channelCount, double sampleRate);
+AKDSPRef createThreePoleLowpassFilterDSP(void);
 
 #else
 

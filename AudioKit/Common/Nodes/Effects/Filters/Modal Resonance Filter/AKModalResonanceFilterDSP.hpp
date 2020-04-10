@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKModalResonanceFilterParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createModalResonanceFilterDSP(int channelCount, double sampleRate);
+AKDSPRef createModalResonanceFilterDSP(void);
 
 #else
 

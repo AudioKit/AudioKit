@@ -9,9 +9,8 @@
 #include "AKToneComplementFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createToneComplementFilterDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createToneComplementFilterDSP() {
     AKToneComplementFilterDSP *dsp = new AKToneComplementFilterDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -60,6 +59,7 @@ void AKToneComplementFilterDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKToneComplementFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_atone_destroy(&data->atone0);
     sp_atone_destroy(&data->atone1);
 }
