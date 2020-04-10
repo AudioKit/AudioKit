@@ -1,15 +1,6 @@
-//
-//  AudioKit+StartStop.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/20/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
-#if !os(macOS)
-import UIKit
-#endif
 
 extension AKManager {
     // MARK: - Start/Stop
