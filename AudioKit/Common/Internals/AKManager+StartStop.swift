@@ -68,21 +68,6 @@ extension AKManager {
         shouldBeRunning = true
     }
 
-    @objc internal static func updateSessionCategoryAndOptions() throws {
-        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
-
-        #if !os(macOS)
-        let sessionCategory = AKSettings.computedSessionCategory()
-
-        #if os(iOS)
-        let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
-        #elseif os(tvOS)
-        try AKSettings.setSession(category: sessionCategory)
-        #endif
-        #endif
-    }
-
     /// Stop the audio engine
     @objc public static func stop() throws {
         // Stop the engine.
@@ -111,6 +96,22 @@ extension AKManager {
         output = nil
         shouldBeRunning = false
     }
+}
+
+#if !os(macOS)
+extension AKManager {
+    @objc internal static func updateSessionCategoryAndOptions() throws {
+        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+
+        let sessionCategory = AKSettings.computedSessionCategory()
+
+        #if os(iOS)
+        let sessionOptions = AKSettings.computedSessionOptions()
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
+        #elseif os(tvOS)
+        try AKSettings.setSession(category: sessionCategory)
+        #endif
+    }
 
     // MARK: - Configuration Change Response
 
@@ -126,7 +127,7 @@ extension AKManager {
                     return
                 }
 
-                if AKSettings.enableCategoryChangeHandling && !engine.isRunning && shouldBeRunning {
+                if AKSettings.enableCategoryChangeHandling, !engine.isRunning, shouldBeRunning {
                     #if !os(macOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
@@ -164,7 +165,7 @@ extension AKManager {
         // Notifications aren't guaranteed to come in on the main thread
 
         let attemptRestart = {
-            if AKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
+            if AKSettings.enableRouteChangeHandling, shouldBeRunning, !engine.isRunning {
                 do {
                     #if !os(macOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
@@ -198,3 +199,4 @@ extension AKManager {
         }
     }
 }
+#endif

@@ -58,8 +58,8 @@ public class AKPlayer: AKAbstractPlayer {
     /// The underlying player node
     @objc public var playerNode = AVAudioPlayerNode()
 
-    /// The main output
-    @objc public var mixer = AVAudioMixerNode()
+    /// If sample rate conversion is needed
+    @objc public var mixerNode: AVAudioMixerNode?
 
     // MARK: - Private Parts
 
@@ -238,7 +238,14 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Initialization
 
     public override init() {
-        super.init(avAudioNode: mixer, attach: false)
+        let output = AKFader()
+        super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
+        faderNode = output
+
+        // start this bypassed
+        faderNode?.bypass()
+
+        // AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
     }
 
     /// Create a player from a URL
@@ -268,6 +275,13 @@ public class AKPlayer: AKAbstractPlayer {
             self.audioFile = readFile
         }
 
+        if mixerNode == nil, processingFormat != AKSettings.audioFormat {
+            AKLog("⚠️ Warning: This file is a different format than AKSettings. A mixer is being placed in line.")
+            AKLog("processingFormat:", processingFormat, "AKSettings.audioFormat:", AKSettings.audioFormat)
+            let strongMixer = AVAudioMixerNode()
+            mixerNode = strongMixer
+        }
+
         initialize(restartIfPlaying: false)
     }
 
@@ -277,22 +291,27 @@ public class AKPlayer: AKAbstractPlayer {
             pause()
         }
 
-        if mixer.engine == nil {
-            AKManager.engine.attach(mixer)
-        }
-
         if playerNode.engine == nil {
             AKManager.engine.attach(playerNode)
         } else {
             playerNode.disconnectOutput()
         }
 
+        if let strongMixer = mixerNode {
+            if strongMixer.engine == nil {
+                AKManager.engine.attach(strongMixer)
+            } else {
+                // intermediate nodes get disconnected and re-connected
+                strongMixer.disconnectOutput()
+            }
+        }
+
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
                 AKManager.engine.attach(faderNode.avAudioUnitOrNode)
-            } else {
-                faderNode.disconnectOutput()
             }
+            // but, don't disconnect the main output!
+            // faderNode stays plugged in
         }
         loop.start = 0
         loop.end = duration
@@ -304,17 +323,31 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
+    // override in subclasses that have more complex signal chains
+    // see AKDynamicPlayer
     internal func connectNodes() {
         guard let processingFormat = processingFormat else {
             AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
             return
         }
-        if let faderNode = super.faderNode {
-            AKManager.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
-            AKManager.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
-        } else {
-            AKManager.connect(playerNode, to: mixer, format: processingFormat)
+
+        var connectionFormat = processingFormat
+        var playerOutput: AVAudioNode = playerNode
+
+        // if there is a mixer that was creating, insert it in line
+        // this is used only for dynamic sample rate conversion to
+        // AKSettings.audioFormat if needed
+        if let mixerNode = mixerNode {
+            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
+            connectionFormat = AKSettings.audioFormat
+            playerOutput = mixerNode
         }
+
+        if let faderNode = faderNode {
+            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+        }
+
+        faderNode?.bypass()
     }
 
     // MARK: - Loading
@@ -353,8 +386,8 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if isFaded, !isBufferFaded {
-            // make sure the fader has been installed
-            super.createFader()
+            // make sure the fader has been enabled
+            super.startFader()
         } else {
             // if there are no fades, be sure to reset this
             super.resetFader()
@@ -415,7 +448,12 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AKManager.detach(nodes: [mixer, playerNode])
+        AKManager.detach(nodes: [playerNode])
+
+        if let mixerNode = self.mixerNode {
+            AKManager.detach(nodes: [mixerNode])
+            self.mixerNode = nil
+        }
     }
 
     @objc deinit {

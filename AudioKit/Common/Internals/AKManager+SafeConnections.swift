@@ -55,7 +55,7 @@ extension AKManager {
 
         let dummy = AVAudioUnitSampler()
         engine.attach(dummy)
-        engine.connect(dummy, to: mixer, format: AKManager.format)
+        engine.connect(dummy, to: mixer, format: AKSettings.audioFormat)
         return dummy
     }
 

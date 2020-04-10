@@ -68,7 +68,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
                          AVNumberOfChannelsKey:     @(self.defaultFormat.channelCount),
                          AVSampleRateKey:           @(self.defaultFormat.sampleRate)};
         } else {
-            NSMutableDictionary *fixedSettings = AKManager.format.settings.mutableCopy;
+            NSMutableDictionary *fixedSettings = AKSettings.audioFormat.settings.mutableCopy;
             fixedSettings[AVLinearPCMIsNonInterleaved] = @(false);
             settings = fixedSettings;
         }

@@ -99,7 +99,7 @@ extension AKPlayer {
         }
 
         // creates if necessary only
-        createFader()
+        startFader()
 
         // Provides a convenience for a quick fade out when a user presses stop.
         // Only do this if it's realtime playback, as Timers aren't running
@@ -236,7 +236,6 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-
         // only forward the completion if is actually done playing without user intervention.
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
