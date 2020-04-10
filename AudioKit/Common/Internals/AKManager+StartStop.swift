@@ -165,7 +165,7 @@ extension AKManager {
         let attemptRestart = {
             if AKSettings.enableRouteChangeHandling, shouldBeRunning, !engine.isRunning {
                 do {
-                    #if os(iOS)
+                    #if os(macOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
