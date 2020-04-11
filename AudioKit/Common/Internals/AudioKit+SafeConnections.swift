@@ -61,7 +61,7 @@ extension AudioKit {
 
         let dummy = AVAudioUnitSampler()
         engine.attach(dummy)
-        engine.connect(dummy, to: mixer, format: AudioKit.format)
+        engine.connect(dummy, to: mixer, format: AKSettings.audioFormat)
         return dummy
     }
 

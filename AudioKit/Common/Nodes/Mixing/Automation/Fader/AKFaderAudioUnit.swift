@@ -2,16 +2,23 @@
 //  AKFaderAudioUnit.swift
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-
     var taper: Double = 1.0 {
         didSet { setParameter(.taper, value: taper) }
+    }
+
+    var skew: Double = 0.0 {
+        didSet { setParameter(.skew, value: skew) }
+    }
+
+    var offset: Double = 0.0 {
+        didSet { setParameter(.offset, value: offset) }
     }
 
     var leftGain: Double = 1.0 {
@@ -39,7 +46,8 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             address: 0,
             range: 0.0 ... 2.0,
             unit: .linearGain,
-            flags: .default)
+            flags: .default
+        )
 
         let rightGain = AUParameter(
             identifier: "rightGain",
@@ -47,20 +55,42 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             address: 1,
             range: 0.0 ... 2.0,
             unit: .linearGain,
-            flags: .default)
+            flags: .default
+        )
 
         let taper = AUParameter(
             identifier: "taper",
             name: "Taper",
             address: 2,
-            range: 0.1 ... 4.0,
+            range: 0.1 ... 10.0,
             unit: .generic,
-            flags: .default)
+            flags: .default
+        )
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper]))
+        let skew = AUParameter(
+            identifier: "skew",
+            name: "Skew",
+            address: 3,
+            range: 0.0 ... 1.0,
+            unit: .generic,
+            flags: .default
+        )
+
+        let offset = AUParameter(
+            identifier: "offset",
+            name: "Offset",
+            address: 4,
+            range: 0.0 ... 1000000000.0,
+            unit: .generic,
+            flags: .default
+        )
+
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew, offset]))
         leftGain.value = 1.0
         rightGain.value = 1.0
         taper.value = 1.0
+        skew.value = 0.0
+        offset.value = 0.0
     }
 
     func setParameter(_ address: AKFaderParameter, value: Double) {

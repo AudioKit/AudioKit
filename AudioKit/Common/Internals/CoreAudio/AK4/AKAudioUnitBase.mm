@@ -38,6 +38,18 @@
     self.kernel->stop();
 }
 
+- (BOOL)shouldBypassEffect {
+    return self.kernel->isPlaying();
+}
+
+- (void)setShouldBypassEffect:(BOOL)shouldBypassEffect {
+    if (shouldBypassEffect) {
+        self.kernel->stop();
+    } else {
+        self.kernel->start();
+    }
+}
+
 - (void)clear {
     self.kernel->clear();
 }
@@ -61,6 +73,7 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index {
     self.kernel->setWaveformValue(index, value);
 }
+
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
     self.kernel->setUpTable(data, size);
 }
@@ -128,8 +141,7 @@
     }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                    channels:AKSettings.channelCount];
+    AVAudioFormat *arbitraryFormat = AKSettings.audioFormat;
 
     _dsp = [self initDSPWithSampleRate:arbitraryFormat.sampleRate
                           channelCount:arbitraryFormat.channelCount];

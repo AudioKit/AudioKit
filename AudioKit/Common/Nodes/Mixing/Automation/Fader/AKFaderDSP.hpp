@@ -2,7 +2,7 @@
 //  AKFaderDSP.hpp
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
@@ -15,6 +15,8 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterLeftGain,
     AKFaderParameterRightGain,
     AKFaderParameterTaper,
+    AKFaderParameterSkew,
+    AKFaderParameterOffset
 };
 
 #ifndef __cplusplus
@@ -25,10 +27,7 @@ AKDSPRef createFaderDSP(int channelCount, double sampleRate);
 
 #import "AKDSPBase.hpp"
 
-/**
-Based heavily off AKBooster, AKFader is slightly simpler and adds parameter ramping events
- */
-
+/// Based heavily off AKBooster, AKFader is slightly simpler and adds parameter ramping events
 struct AKFaderDSP : AKDSPBase {
 private:
     struct InternalData;
@@ -41,6 +40,8 @@ public:
     float getParameter(AUParameterAddress address) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
+    void start() override;
+    void stop() override;
 };
 
 #endif

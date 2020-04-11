@@ -43,7 +43,7 @@ AKRhodesPianoDSP::AKRhodesPianoDSP() : data(new InternalData)
 
 AKRhodesPianoDSP::~AKRhodesPianoDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:
@@ -59,7 +59,7 @@ void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, boo
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:

@@ -48,6 +48,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
     /// such as Perfect Looping or Reversing
+
     public enum BufferingType {
         case dynamic, always
     }
@@ -57,8 +58,8 @@ public class AKPlayer: AKAbstractPlayer {
     /// The underlying player node
     @objc public var playerNode = AVAudioPlayerNode()
 
-    /// The main output
-    @objc public var mixer = AVAudioMixerNode()
+    /// If sample rate conversion is needed
+    @objc public var mixerNode: AVAudioMixerNode?
 
     // MARK: - Private Parts
 
@@ -157,12 +158,8 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     // convenience for setting both in and out fade ramp types
-    @objc public var rampType: AKSettings.RampType = .linear {
-        didSet {
-            fade.inRampType = rampType
-            fade.outRampType = rampType
-        }
-    }
+    @available(*, deprecated, message: "Removed in favor of Taper")
+    @objc public var rampType: AKSettings.RampType = .linear
 
     /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
@@ -241,7 +238,14 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Initialization
 
     public override init() {
-        super.init(avAudioNode: mixer, attach: false)
+        let output = AKFader()
+        super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
+        faderNode = output
+
+        // start this bypassed
+        faderNode?.bypass()
+
+        // AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
     }
 
     /// Create a player from a URL
@@ -271,6 +275,13 @@ public class AKPlayer: AKAbstractPlayer {
             self.audioFile = readFile
         }
 
+        if mixerNode == nil, processingFormat != AKSettings.audioFormat {
+            AKLog("⚠️ Warning: This file is a different format than AKSettings. A mixer is being placed in line.")
+            AKLog("processingFormat:", processingFormat, "AKSettings.audioFormat:", AKSettings.audioFormat)
+            let strongMixer = AVAudioMixerNode()
+            mixerNode = strongMixer
+        }
+
         initialize(restartIfPlaying: false)
     }
 
@@ -280,22 +291,27 @@ public class AKPlayer: AKAbstractPlayer {
             pause()
         }
 
-        if mixer.engine == nil {
-            AudioKit.engine.attach(mixer)
-        }
-
         if playerNode.engine == nil {
             AudioKit.engine.attach(playerNode)
         } else {
             playerNode.disconnectOutput()
         }
 
+        if let strongMixer = mixerNode {
+            if strongMixer.engine == nil {
+                AudioKit.engine.attach(strongMixer)
+            } else {
+                // intermediate nodes get disconnected and re-connected
+                strongMixer.disconnectOutput()
+            }
+        }
+
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
                 AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
-            } else {
-                faderNode.disconnectOutput()
             }
+            // but, don't disconnect the main output!
+            // faderNode stays plugged in
         }
         loop.start = 0
         loop.end = duration
@@ -307,17 +323,31 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
+    // override in subclasses that have more complex signal chains
+    // see AKDynamicPlayer
     internal func connectNodes() {
         guard let processingFormat = processingFormat else {
             AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
             return
         }
-        if let faderNode = super.faderNode {
-            AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
-            AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
-        } else {
-            AudioKit.connect(playerNode, to: mixer, format: processingFormat)
+
+        var connectionFormat = processingFormat
+        var playerOutput: AVAudioNode = playerNode
+
+        // if there is a mixer that was creating, insert it in line
+        // this is used only for dynamic sample rate conversion to
+        // AKSettings.audioFormat if needed
+        if let mixerNode = mixerNode {
+            AudioKit.connect(playerNode, to: mixerNode, format: processingFormat)
+            connectionFormat = AKSettings.audioFormat
+            playerOutput = mixerNode
         }
+
+        if let faderNode = faderNode {
+            AudioKit.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+        }
+
+        faderNode?.bypass()
     }
 
     // MARK: - Loading
@@ -356,8 +386,8 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if isFaded, !isBufferFaded {
-            // make sure the fader has been installed
-            super.createFader()
+            // make sure the fader has been enabled
+            super.startFader()
         } else {
             // if there are no fades, be sure to reset this
             super.resetFader()
@@ -392,7 +422,6 @@ public class AKPlayer: AKAbstractPlayer {
         }
         super.scheduleFader(at: faderTime, hostTime: refTime)
 
-        // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
 
         if isFaded, !isBufferFaded {
@@ -419,7 +448,12 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AudioKit.detach(nodes: [mixer, playerNode])
+        AudioKit.detach(nodes: [playerNode])
+
+        if let mixerNode = self.mixerNode {
+            AudioKit.detach(nodes: [mixerNode])
+            self.mixerNode = nil
+        }
     }
 
     @objc deinit {
@@ -429,15 +463,15 @@ public class AKPlayer: AKAbstractPlayer {
 
 // This used to be in a separate file but it broke setPosition
 @objc extension AKPlayer: AKTiming {
-    @objc public func start(at audioTime: AVAudioTime?) {
+    public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
     }
 
-    @objc public var isStarted: Bool {
+    public var isStarted: Bool {
         return isPlaying
     }
 
-    @objc public func setPosition(_ position: Double) {
+    public func setPosition(_ position: Double) {
         startTime = position
         if isPlaying {
             stop()
@@ -445,21 +479,21 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    @objc public func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return startTime
         }
         return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
     }
 
-    @objc public func audioTime(at position: Double) -> AVAudioTime? {
+    public func audioTime(at position: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (position - startTime) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
         return playerNode.nodeTime(forPlayerTime: playerTime)
     }
 
-    @objc open func prepare() {
+    open func prepare() {
         preroll(from: startTime, to: endTime)
     }
 }

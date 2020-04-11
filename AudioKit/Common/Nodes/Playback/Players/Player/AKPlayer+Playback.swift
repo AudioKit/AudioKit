@@ -95,12 +95,11 @@ extension AKPlayer {
     /// Provides a convenience method for a quick fade out for when a user presses stop.
     public func fadeOutAndStop(time: TimeInterval) {
         guard isPlaying else {
-            // AKLog("Player isn't playing")
             return
         }
 
         // creates if necessary only
-        createFader()
+        startFader()
 
         // Provides a convenience for a quick fade out when a user presses stop.
         // Only do this if it's realtime playback, as Timers aren't running
@@ -174,11 +173,10 @@ extension AKPlayer {
 
         var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        if isLooping && buffering == .always {
+        if isLooping, buffering == .always {
             bufferOptions = [.loops, .interrupts]
         }
 
-        // AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
@@ -238,13 +236,12 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
         // only forward the completion if is actually done playing without user intervention.
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
-            if self.isLooping && self.buffering == .always {
+            if self.isLooping, self.buffering == .always {
                 self.startTime = self.loop.start
                 self.endTime = self.loop.end
                 self.pauseTime = nil
@@ -258,7 +255,7 @@ extension AKPlayer {
                         self.handleComplete()
                     }
                 }
-            } catch let error {
+            } catch {
                 AKLog("Failed to check currentFrame and call completion handler: \(error)... Possible Media Service Reset?")
             }
         }
@@ -279,7 +276,6 @@ extension AKPlayer {
             startTime = 0
             pauseTime = nil
         }
-        // AKLog("Firing callback. currentFrame:", currentFrame, "frameCount:", frameCount)
 
         completionHandler?()
     }
