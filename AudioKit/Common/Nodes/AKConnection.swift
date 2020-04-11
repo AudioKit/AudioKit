@@ -33,7 +33,7 @@ extension AKOutput {
     /// Output connection points of outputNode.
     public var connectionPoints: [AVAudioConnectionPoint] {
         get { return outputNode.engine?.outputConnectionPoints(for: outputNode, outputBus: 0) ?? [] }
-        set { AudioKit.connect(outputNode, to: newValue, fromBus: 0, format: AudioKit.format) }
+        set { AudioKit.connect(outputNode, to: newValue, fromBus: 0, format: AKSettings.audioFormat) }
     }
 
     /// Disconnects all outputNode's output connections.
@@ -87,7 +87,7 @@ extension AKOutput {
     /// Sets output connection, removes existing output connections.
     ///   - Parameter node: Input that output will be connected to.
     @discardableResult public func setOutput(to node: AKInput) -> AKInput {
-        return setOutput(to: node, bus: node.nextInput.bus, format: AudioKit.format)
+        return setOutput(to: node, bus: node.nextInput.bus, format: AKSettings.audioFormat)
     }
 
     /// Sets output connection, removes previously existing output connections.
@@ -110,12 +110,13 @@ extension AKOutput {
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     @discardableResult public func setOutput(toInputs: [AKInputConnection]) -> [AKInput] {
-        return setOutput(toInputs: toInputs, format: AudioKit.format)
+        return setOutput(toInputs: toInputs, format: AKSettings.audioFormat)
     }
 
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
+    ///  - returns: Array of input connections
     @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInput] {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }
@@ -124,7 +125,7 @@ extension AKOutput {
     /// Sets output connections to a single connectionPoint, removes previously existing output connections.
     ///   - Parameter connectionPoint: Input that output will be connected to.
     public func setOutput(to connectionPoint: AVAudioConnectionPoint) {
-        setOutput(to: connectionPoint, format: AudioKit.format)
+        setOutput(to: connectionPoint, format: AKSettings.audioFormat)
     }
 
     /// Sets output connections to a single connectionPoint, removes previously existing output connections.

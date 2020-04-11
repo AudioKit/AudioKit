@@ -7,6 +7,7 @@
 //
 
 #import "BufferedAudioUnit.h"
+#import <AudioKit/AudioKit-Swift.h>
 
 const int kMaxChannelCount = 16;
 
@@ -17,44 +18,45 @@ static size_t  bufferListByteSize(int channelCount);
 static Boolean bufferListHasNullData(AudioBufferList *bufferList);
 static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, float *buffer);
 
-
-@implementation BufferedAudioUnit {
-    float               *_inputBuffer;
-    float               *_ouputBuffer;
+@implementation BufferedAudioUnit
+{
+    float *_inputBuffer;
+    float *_ouputBuffer;
     AUAudioUnitBusArray *_inputBusArray;
     AUAudioUnitBusArray *_outputBusArray;
-    ProcessEventsBlock  _processEventsBlock;
-    BOOL                _shouldClearOutputBuffer;
+    ProcessEventsBlock _processEventsBlock;
+    BOOL _shouldClearOutputBuffer;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
-
     self = [super initWithComponentDescription:componentDescription options:options error:outError];
-    if (self != nil) {
 
-        AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100 channels:2];
+    if (self != nil) {
+        // Initialize a default format for the busses.
+        AVAudioFormat *arbitraryFormat = AKSettings.audioFormat;
+
         if ([self shouldAllocateInputBus]) {
-            _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                     busType:AUAudioUnitBusTypeInput
-                                                                      busses: @[[[AUAudioUnitBus alloc]initWithFormat:arbitraryFormat error:NULL]]];
+            _inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                    busType:AUAudioUnitBusTypeInput
+                                                                     busses:@[[[AUAudioUnitBus alloc]initWithFormat:arbitraryFormat error:NULL]]];
         }
 
         _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                                  busType:AUAudioUnitBusTypeOutput
-                                                                  busses: @[[[AUAudioUnitBus alloc]initWithFormat:arbitraryFormat error:NULL]]];
+                                                                  busses:@[[[AUAudioUnitBus alloc]initWithFormat:arbitraryFormat error:NULL]]];
 
         _shouldClearOutputBuffer = [self shouldClearOutputBuffer];
     }
     return self;
 }
 
--(BOOL)shouldAllocateInputBus {
+- (BOOL)shouldAllocateInputBus {
     return true;
 }
 
--(BOOL)shouldClearOutputBuffer {
+- (BOOL)shouldClearOutputBuffer {
     return false;
 }
 
@@ -64,7 +66,7 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
     }
 
     AVAudioFormat *format = _outputBusArray[0].format;
-    if (_inputBusArray != NULL && [_inputBusArray[0].format isEqual: format] == false) {
+    if (_inputBusArray != NULL && [_inputBusArray[0].format isEqual:format] == false) {
         if (outError) {
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:kAudioUnitErr_FormatNotSupported userInfo:nil];
         }
@@ -84,11 +86,11 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
         _ouputBuffer = malloc(bufferSize);
     }
 
-    _processEventsBlock = [self processEventsBlock: format];
+    _processEventsBlock = [self processEventsBlock:format];
     return YES;
 }
 
--(void)deallocateRenderResources {
+- (void)deallocateRenderResources {
     if (_inputBuffer != NULL) {
         free(_inputBuffer);
     }
@@ -101,90 +103,84 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
     [super deallocateRenderResources];
 }
 
--(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
-
-    return ^(AudioBufferList       *inBuffer,
-             AudioBufferList       *outBuffer,
-             const AudioTimeStamp  *timestamp,
-             AVAudioFrameCount     frameCount,
-             const AURenderEvent   *realtimeEventListHead) {
-
-        if (inBuffer == NULL) {
-            for (int i = 0; i < outBuffer->mNumberBuffers; i++) {
-                memset(outBuffer->mBuffers[i].mData, 0, outBuffer->mBuffers[i].mDataByteSize);
-            }
-        } else {
-            for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
-                memcpy(outBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mDataByteSize);
-            }
-        }
+- (ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
+    return ^(AudioBufferList *inBuffer,
+             AudioBufferList *outBuffer,
+             const AudioTimeStamp *timestamp,
+             AVAudioFrameCount frameCount,
+             const AURenderEvent *realtimeEventListHead) {
+               if (inBuffer == NULL) {
+                   for (int i = 0; i < outBuffer->mNumberBuffers; i++) {
+                       memset(outBuffer->mBuffers[i].mData, 0, outBuffer->mBuffers[i].mDataByteSize);
+                   }
+               } else {
+                   for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
+                       memcpy(outBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mDataByteSize);
+                   }
+               }
     };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
-
     // Use untracked pointer and ivars to avoid Obj methods + ARC.
     __unsafe_unretained BufferedAudioUnit *welf = self;
-    return  ^AUAudioUnitStatus(AudioUnitRenderActionFlags    *actionFlags,
-                               const AudioTimeStamp          *timestamp,
-                               AVAudioFrameCount             frameCount,
-                               NSInteger                     outputBusNumber,
-                               AudioBufferList               *outputBufferList,
-                               const AURenderEvent           *realtimeEventListHead,
-                               AURenderPullInputBlock        pullInputBlock) {
+    return ^AUAudioUnitStatus (AudioUnitRenderActionFlags *actionFlags,
+                               const AudioTimeStamp *timestamp,
+                               AVAudioFrameCount frameCount,
+                               NSInteger outputBusNumber,
+                               AudioBufferList *outputBufferList,
+                               const AURenderEvent *realtimeEventListHead,
+                               AURenderPullInputBlock pullInputBlock) {
+               int channelCount = outputBufferList->mNumberBuffers;
 
-        int channelCount = outputBufferList->mNumberBuffers;
+               // Guard against potential stack overflow.
+               assert(channelCount <= kMaxChannelCount);
 
-        // Guard against potential stack overflow.
-        assert(channelCount <= kMaxChannelCount);
+               char inputBufferAllocation[bufferListByteSize(outputBufferList->mNumberBuffers)];
+               AudioBufferList *inputBufferList = NULL;
 
-        char inputBufferAllocation[bufferListByteSize(outputBufferList->mNumberBuffers)];
-        AudioBufferList *inputBufferList = NULL;
+               if (welf->_inputBuffer != NULL) {
+                   // Prepare buffer for pull input.
+                   inputBufferList = (AudioBufferList *)inputBufferAllocation;
+                   bufferListPrepare(inputBufferList, channelCount, frameCount);
+                   bufferListPointChannelDataToBuffer(inputBufferList, welf->_inputBuffer);
 
-        if (welf->_inputBuffer != NULL) {
+                   // Pull input into _inputBuffer.
+                   AudioUnitRenderActionFlags flags = 0;
+                   AUAudioUnitStatus status = pullInputBlock(&flags, timestamp, frameCount, 0, inputBufferList);
+                   if (status) return status;
+               }
 
-            // Prepare buffer for pull input.
-            inputBufferList = (AudioBufferList *)inputBufferAllocation;
-            bufferListPrepare(inputBufferList, channelCount, frameCount);
-            bufferListPointChannelDataToBuffer(inputBufferList, welf->_inputBuffer);
+               // If outputBufferList has null data, point to valid buffer before processing.
+               if (bufferListHasNullData(outputBufferList)) {
+                   float *buffer = welf->_ouputBuffer ? : welf->_inputBuffer;
+                   bufferListPointChannelDataToBuffer(outputBufferList, buffer);
+               }
 
-            // Pull input into _inputBuffer.
-            AudioUnitRenderActionFlags flags = 0;
-            AUAudioUnitStatus status = pullInputBlock(&flags, timestamp, frameCount, 0, inputBufferList);
-            if (status) return status;
-        }
+               if (welf->_shouldClearOutputBuffer) {
+                   bufferListClear(outputBufferList);
+               }
 
-        // If outputBufferList has null data, point to valid buffer before processing.
-        if (bufferListHasNullData(outputBufferList)) {
-            float *buffer = welf->_ouputBuffer ?: welf->_inputBuffer;
-            bufferListPointChannelDataToBuffer(outputBufferList, buffer);
-        }
-
-        if (welf->_shouldClearOutputBuffer) {
-            bufferListClear(outputBufferList);
-        }
-
-        welf->_processEventsBlock(inputBufferList, outputBufferList, timestamp, frameCount, realtimeEventListHead);
-        return noErr;
+               welf->_processEventsBlock(inputBufferList, outputBufferList, timestamp, frameCount, realtimeEventListHead);
+               return noErr;
     };
 }
 
--(AUAudioUnitBusArray *)inputBusses {
+- (AUAudioUnitBusArray *)inputBusses {
     return _inputBusArray;
 }
 
--(AUAudioUnitBusArray *)outputBusses {
+- (AUAudioUnitBusArray *)outputBusses {
     return _outputBusArray;
 }
 
 @end
 
-
 // Private AudioBufferList helpers.
 static void bufferListPrepare(AudioBufferList *audioBufferList,
-                       int             channelCount,
-                       int             frameCount) {
-
+                              int             channelCount,
+                              int             frameCount)
+{
     audioBufferList->mNumberBuffers = channelCount;
     for (int channelIndex = 0; channelIndex < channelCount; channelIndex++) {
         audioBufferList->mBuffers[channelIndex].mNumberChannels = 1;
@@ -192,21 +188,25 @@ static void bufferListPrepare(AudioBufferList *audioBufferList,
     }
 }
 
-static void bufferListClear(AudioBufferList *audioBufferList) {
+static void bufferListClear(AudioBufferList *audioBufferList)
+{
     for (int i = 0; i < audioBufferList->mNumberBuffers; i++) {
         memset(audioBufferList->mBuffers[i].mData, 0, audioBufferList->mBuffers[i].mDataByteSize);
     }
 }
 
-static size_t bufferListByteSize(int channelCount) {
+static size_t bufferListByteSize(int channelCount)
+{
     return sizeof(AudioBufferList) + (sizeof(AudioBuffer) * (channelCount - 1));
 }
 
-static Boolean bufferListHasNullData(AudioBufferList *bufferList) {
+static Boolean bufferListHasNullData(AudioBufferList *bufferList)
+{
     return bufferList->mBuffers[0].mData == NULL;
 }
 
-static void bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, float *buffer) {
+static void bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, float *buffer)
+{
     int frameCount = bufferList->mBuffers[0].mDataByteSize / sizeof(float);
     for (int channelIndex = 0; channelIndex < bufferList->mNumberBuffers; channelIndex++) {
         int offset = channelIndex * frameCount;

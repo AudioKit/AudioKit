@@ -2,11 +2,11 @@
 //  AKFader.swift
 //  AudioKit
 //
-//  Created by Ryan Francesconi, revision history on Github.
+//  Created by Aurelius Prochazka and Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-/// Stereo Fader. Almost the same as AKBooster but with the addition of
+/// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public typealias AKAudioUnitType = AKFaderAudioUnit
@@ -17,29 +17,20 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     private var internalAU: AKAudioUnitType?
 
-    fileprivate var leftGainParameter: AUParameter?
-    fileprivate var rightGainParameter: AUParameter?
-
     private var _parameterAutomation: AKParameterAutomation?
     public var parameterAutomation: AKParameterAutomation? {
         return self._parameterAutomation
     }
 
-    fileprivate var lastKnownLeftGain: Double = 1.0
-    fileprivate var lastKnownRightGain: Double = 1.0
+    fileprivate var leftGainParameter: AUParameter?
+    fileprivate var rightGainParameter: AUParameter?
+    fileprivate var taperParameter: AUParameter?
+    fileprivate var skewParameter: AUParameter?
+    fileprivate var offsetParameter: AUParameter?
 
-    /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
-    @objc open dynamic var taper: Double = 1 {
-        willSet {
-            internalAU?.taper = newValue
-        }
-    }
-
-    /// Amplification Factor
+    /// Amplification Factor, from 0 ... 2
     @objc open dynamic var gain: Double = 1 {
         willSet {
-            // AKLog(newValue)
-
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp == true {
@@ -86,6 +77,39 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
+    @objc open dynamic var taper: Double = 1 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                taperParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.taper, value: newValue)
+        }
+    }
+
+    /// Skew ranges from zero to one where zero is easing In and 1 is easing Out. default 0.
+    @objc open dynamic var skew: Double = 0 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                skewParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.skew, value: newValue)
+        }
+    }
+
+    /// Offset allows you to start a ramp somewhere in the middle of it. default 0.
+    @objc open dynamic var offset: Double = 0 {
+        willSet {
+            if internalAU?.isSetUp == true {
+                offsetParameter?.value = AUValue(newValue)
+                return
+            }
+            internalAU?.setParameterImmediately(.offset, value: newValue)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -100,9 +124,15 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     @objc public init(_ input: AKNode? = nil,
-                      gain: Double = 1) {
+                      gain: Double = 1,
+                      taper: Double = 1,
+                      skew: Double = 0,
+                      offset: Double = 0) {
         self.leftGain = gain
         self.rightGain = gain
+        self.taper = taper
+        self.skew = skew
+        self.offset = offset
 
         _Self.register()
 
@@ -124,32 +154,18 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
         self.leftGainParameter = tree["leftGain"]
         self.rightGainParameter = tree["rightGain"]
+        self.taperParameter = tree["taper"]
+        self.skewParameter = tree["skew"]
+        self.offsetParameter = tree["offset"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.taper, value: taper)
+        self.internalAU?.setParameterImmediately(.skew, value: skew)
+        self.internalAU?.setParameterImmediately(.offset, value: offset)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
-        }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        if isStopped {
-            self.leftGain = lastKnownLeftGain
-            self.rightGain = self.lastKnownRightGain
-        }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        if isPlaying {
-            self.lastKnownLeftGain = leftGain
-            self.lastKnownRightGain = rightGain
-            self.leftGain = 1
-            self.rightGain = 1
         }
     }
 
@@ -160,6 +176,20 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     @objc deinit {
         AKLog("* { AKFader }")
+    }
+
+    // MARK: - Control
+
+    /// Function to start, play, or activate the node, all do the same thing
+    @objc open func start() {
+        self.internalAU?.shouldBypassEffect = false
+        // self.internalAU?.start() // shouldn't be necessary now
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    @objc open func stop() {
+        self.internalAU?.shouldBypassEffect = true
+        // self.internalAU?.stop() // shouldn't be necessary now
     }
 
     // MARK: - AKAutomatable
@@ -177,14 +207,50 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    at sampleTime: AUEventSampleTime,
                                    anchorTime: AUEventSampleTime,
                                    rampDuration: AUAudioFrameCount = 0,
-                                   rampType: AKSettings.RampType = .linear) {
+                                   taper taperValue: Double? = nil,
+                                   skew skewValue: Double? = nil,
+                                   offset offsetValue: AUAudioFrameCount? = nil) {
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
-        self.parameterAutomation?.addPoint(leftAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
-        self.parameterAutomation?.addPoint(rightAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
+        // if a taper value is passed in, also add a point with its address to trigger at the same time
+        if let taperValue = taperValue, let taperAddress = taperParameter?.address {
+            self.parameterAutomation?.addPoint(taperAddress,
+                                               value: AUValue(taperValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: rampDuration)
+        }
+        // if a skew value is passed in, also add a point with its address to trigger at the same time
+        if let skewValue = skewValue, let skewAddress = skewParameter?.address {
+            self.parameterAutomation?.addPoint(skewAddress,
+                                               value: AUValue(skewValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: rampDuration)
+        }
+
+        // if an offset value is passed in, also add a point with its address to trigger at the same time
+        if let offsetValue = offsetValue, let offsetAddress = offsetParameter?.address {
+            self.parameterAutomation?.addPoint(offsetAddress,
+                                               value: AUValue(offsetValue),
+                                               sampleTime: sampleTime,
+                                               anchorTime: anchorTime,
+                                               rampDuration: rampDuration)
+        }
+
+        self.parameterAutomation?.addPoint(leftAddress,
+                                           value: AUValue(value),
+                                           sampleTime: sampleTime,
+                                           anchorTime: anchorTime,
+                                           rampDuration: rampDuration)
+        self.parameterAutomation?.addPoint(rightAddress,
+                                           value: AUValue(value),
+                                           sampleTime: sampleTime,
+                                           anchorTime: anchorTime,
+                                           rampDuration: rampDuration)
     }
 }
