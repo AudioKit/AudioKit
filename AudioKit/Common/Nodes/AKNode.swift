@@ -46,7 +46,11 @@ extension AVAudioConnectionPoint {
             AKManager.engine.attach(avAudioNode)
         }
     }
-
+    
+    deinit{
+        detach()
+    }
+    
     // Subclasses should override to detach all internal nodes
     open func detach() {
         AKManager.detach(nodes: [avAudioUnitOrNode])
@@ -144,10 +148,6 @@ public protocol AKPolyphonic {
     ///
     @objc open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
-    }
-
-    deinit {
-        detach()
     }
 }
 
