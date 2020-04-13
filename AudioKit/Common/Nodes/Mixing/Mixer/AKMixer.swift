@@ -70,11 +70,6 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         }
     }
 
-    /// Detach
-    @objc open override func detach() {
-      super.detach()
-    }
-
     /// Connnect another input after initialization // Deprecated
     ///
     /// - parameter input: AKNode to connect
