@@ -121,7 +121,6 @@ public class AKDynamicPlayer: AKPlayer {
         let wasPlaying = isPlaying
         stop()
         timePitchNode?.disconnectOutput()
-        timePitchNode?.detach()
         timePitchNode = nil
         initialize()
         if wasPlaying {
