@@ -27,6 +27,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var taperParameter: AUParameter?
     fileprivate var skewParameter: AUParameter?
     fileprivate var offsetParameter: AUParameter?
+    fileprivate var flipStereoParameter: AUParameter?
 
     /// Amplification Factor, from 0 ... 2
     @objc open dynamic var gain: Double = 1 {
@@ -110,6 +111,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Flip left and right signal
+    @objc open dynamic var flipStereo: Bool = false {
+        willSet {
+            if internalAU?.isSetUp == true {
+                flipStereoParameter?.value = AUValue(newValue ? 1.0 : 0.0)
+                return
+            }
+            internalAU?.setParameterImmediately(.flipStereo, value: newValue ? 1.0 : 0.0)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -157,12 +169,14 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         self.taperParameter = tree["taper"]
         self.skewParameter = tree["skew"]
         self.offsetParameter = tree["offset"]
+        self.flipStereoParameter = tree["flipStereo"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
         self.internalAU?.setParameterImmediately(.taper, value: taper)
         self.internalAU?.setParameterImmediately(.skew, value: skew)
         self.internalAU?.setParameterImmediately(.offset, value: offset)
+        self.internalAU?.setParameterImmediately(.flipStereo, value: offset)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
