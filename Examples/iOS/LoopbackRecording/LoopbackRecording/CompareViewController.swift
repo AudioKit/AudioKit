@@ -1,10 +1,4 @@
-//
-//  CompareView.swift
-//  ClipRecorderDemo
-//
-//  Created by David O'Neill on 5/4/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioKit
