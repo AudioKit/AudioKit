@@ -19,6 +19,7 @@ extern "C" AKDSPRef createFaderDSP(int channelCount, double sampleRate)
 struct AKFaderDSP::InternalData {
     ParameterRamper leftGainRamp = 1.0;
     ParameterRamper rightGainRamp = 1.0;
+    Boolean flipStereo = false;
 };
 
 AKFaderDSP::AKFaderDSP() : data(new InternalData)
@@ -54,6 +55,14 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
             data->leftGainRamp.setOffset((AUAudioFrameCount)value);
             data->rightGainRamp.setOffset((AUAudioFrameCount)value);
             break;
+        case AKFaderParameterFlipStereo:
+            if (value > 0) {
+                data->flipStereo = 1;
+            } else {
+                data->flipStereo = 0;
+            }
+
+
     }
 }
 
@@ -72,6 +81,8 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
             return data->leftGainRamp.getSkew();
         case AKFaderParameterOffset:
             return data->leftGainRamp.getOffset();
+        case AKFaderParameterFlipStereo:
+            return data->flipStereo;
     }
     return 0;
 }
@@ -94,7 +105,15 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            int swappedChannel = channel;
+            if (channelCount == 2 && data->flipStereo) {
+                if (swappedChannel == 0) {
+                    swappedChannel = 1;
+                } else {
+                    swappedChannel = 0;
+                }
+            }
+            float *in = (float *)inBufferListPtr->mBuffers[swappedChannel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (isStarted) {
                 if (channel == 0) {
