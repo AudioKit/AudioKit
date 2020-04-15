@@ -16,7 +16,8 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterRightGain,
     AKFaderParameterTaper,
     AKFaderParameterSkew,
-    AKFaderParameterOffset
+    AKFaderParameterOffset,
+    AKFaderParameterFlipStereo
 };
 
 #ifndef __cplusplus
