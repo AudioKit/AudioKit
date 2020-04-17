@@ -28,6 +28,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var skewParameter: AUParameter?
     fileprivate var offsetParameter: AUParameter?
     fileprivate var flipStereoParameter: AUParameter?
+    fileprivate var mixToMonoParameter: AUParameter?
 
     /// Amplification Factor, from 0 ... 2
     @objc open dynamic var gain: Double = 1 {
@@ -122,6 +123,17 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Make the output on left and right both be the same combination of incoming left and mixed equally
+    @objc open dynamic var mixToMono: Bool = false {
+        willSet {
+            if internalAU?.isSetUp == true {
+                mixToMonoParameter?.value = AUValue(newValue ? 1.0 : 0.0)
+                return
+            }
+            internalAU?.setParameterImmediately(.mixToMono, value: newValue ? 1.0 : 0.0)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
@@ -170,13 +182,15 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         self.skewParameter = tree["skew"]
         self.offsetParameter = tree["offset"]
         self.flipStereoParameter = tree["flipStereo"]
+        self.mixToMonoParameter = tree["mixToMono"]
 
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
         self.internalAU?.setParameterImmediately(.taper, value: taper)
         self.internalAU?.setParameterImmediately(.skew, value: skew)
         self.internalAU?.setParameterImmediately(.offset, value: offset)
-        self.internalAU?.setParameterImmediately(.flipStereo, value: offset)
+        self.internalAU?.setParameterImmediately(.flipStereo, value: flipStereo ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.mixToMono, value: mixToMono ? 1.0 : 0.0)
 
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
             self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)

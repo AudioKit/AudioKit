@@ -33,6 +33,10 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.flipStereo, value: flipStereo ? 1.0 : 0.0) }
     }
 
+    var mixToMono: Bool = false {
+        didSet { setParameter(.mixToMono, value: mixToMono ? 1.0 : 0.0) }
+    }
+
     public override var canProcessInPlace: Bool { return true }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -98,13 +102,23 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew, offset, flipStereo]))
+        let mixToMono = AUParameter(
+            identifier: "mixToMono",
+            name: "Mix To Stereo",
+            address: 6,
+            range: 0.0 ... 1.0,
+            unit: .boolean,
+            flags: .default
+        )
+
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew, offset, flipStereo, mixToMono]))
         leftGain.value = 1.0
         rightGain.value = 1.0
         taper.value = 1.0
         skew.value = 0.0
         offset.value = 0.0
         flipStereo.value = 0.0
+        mixToMono.value = 0.0
     }
 
     func setParameter(_ address: AKFaderParameter, value: Double) {
