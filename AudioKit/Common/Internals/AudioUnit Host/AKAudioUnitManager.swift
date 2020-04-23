@@ -117,7 +117,13 @@ open class AKAudioUnitManager: NSObject {
         return linkedEffects.count
     }
 
-    /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// Return the longest tail time in the currently loaded effects.
+    /// Not all audio units implement this property.
+    public var tailTime: TimeInterval {
+        linkedEffects.compactMap({ $0.auAudioUnit.tailTime }).sorted().last ?? 0
+    }
+
+    /// `availableEffects` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
     public var availableEffects: [AVAudioUnitComponent] {
         get {
             return availableEffectsAccessQueue.sync {
@@ -132,7 +138,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    /// `availableInstruments` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// `availableInstruments` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
     public var availableInstruments: [AVAudioUnitComponent] {
         get {
             return availableInstrumentsAccessQueue.sync {
@@ -147,7 +153,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    /// `availableMIDIProcessors` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// `availableMIDIProcessors` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
     public var availableMIDIProcessors: [AVAudioUnitComponent] {
         get {
             return availableMIDIProcessorsAccessQueue.sync {

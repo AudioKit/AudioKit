@@ -93,6 +93,7 @@ extension AKManager {
     //Convenience
     @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
+            guard node.engine != nil else { continue }
             engine.detach(node)
         }
     }

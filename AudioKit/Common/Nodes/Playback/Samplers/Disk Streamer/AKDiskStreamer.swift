@@ -103,6 +103,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
         }
     }
 
+    open var loadedFile: AKAudioFile?
+
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
@@ -189,6 +191,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
+        loadedFile = file
     }
 
     open func rewind() {
