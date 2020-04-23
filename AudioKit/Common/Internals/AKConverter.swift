@@ -494,40 +494,44 @@ open class AKConverter: NSObject {
             return
         }
         let bufferByteSize: UInt32 = 32_768
-        var srcBuffer = [UInt8](repeating: 0, count: 32_768)
+        let srcBuffer = [UInt8](repeating: 0, count: 32_768)
         var sourceFrameOffset: UInt32 = 0
 
-        while true {
-            var fillBufList = AudioBufferList(
-                mNumberBuffers: 1,
-                mBuffers: AudioBuffer(
-                    mNumberChannels: srcFormat.mChannelsPerFrame,
-                    mDataByteSize: UInt32(srcBuffer.count),
-                    mData: &srcBuffer
+        var srcBufferCopy = srcBuffer
+
+        srcBufferCopy.withUnsafeMutableBytes { ptr in
+            while true {
+                var fillBufList = AudioBufferList(
+                    mNumberBuffers: 1,
+                    mBuffers: AudioBuffer(
+                        mNumberChannels: srcFormat.mChannelsPerFrame,
+                        mDataByteSize: UInt32(srcBuffer.count),
+                        mData: ptr.baseAddress
+                    )
                 )
-            )
-            var numFrames: UInt32 = 0
+                var numFrames: UInt32 = 0
 
-            if dstFormat.mBytesPerFrame > 0 {
-                numFrames = bufferByteSize / dstFormat.mBytesPerFrame
-            }
+                if dstFormat.mBytesPerFrame > 0 {
+                    numFrames = bufferByteSize / dstFormat.mBytesPerFrame
+                }
 
-            error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to read input file."))
-                return
-            }
-            if numFrames == 0 {
-                error = noErr
-                break
-            }
+                error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to read input file."))
+                    return
+                }
+                if numFrames == 0 {
+                    error = noErr
+                    break
+                }
 
-            sourceFrameOffset += numFrames
+                sourceFrameOffset += numFrames
 
-            error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to write output file."))
-                return
+                error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to write output file."))
+                    return
+                }
             }
         }
 
