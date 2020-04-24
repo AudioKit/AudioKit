@@ -10,7 +10,7 @@
  options.bitDepth = 24
 
  let converter = AKConverter(inputURL: oldURL, outputURL: newURL, options: options)
- converter.start(completionHandler: { error in
+ converter.start { error in
  // check to see if error isn't nil, otherwise you're good
  })
  ```
@@ -41,7 +41,9 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /// The conversion options, leave nil to adopt the value of the input file
+    /**
+     The conversion options, leave nil to adopt the value of the input file
+     */
     public struct Options {
         public init() {}
         public var format: String?
@@ -74,6 +76,7 @@ open class AKConverter: NSObject {
     // The reader needs to exist outside the start func otherwise the async nature of the
     // AVAssetWriterInput will lose its reference
     private var reader: AVAssetReader?
+    private var writer: AVAssetWriter?
 
     // MARK: - initialization
 
@@ -82,6 +85,15 @@ open class AKConverter: NSObject {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options
+    }
+
+    deinit {
+        // AKLog("* { AKConverter \(inputURL?.lastPathComponent ?? "?") }")
+        reader = nil
+        writer = nil
+        inputURL = nil
+        outputURL = nil
+        options = nil
     }
 
     // MARK: - public functions
@@ -139,7 +151,7 @@ open class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("Converting Asset to \(outputFormat)")
+        // AKLog("Converting Asset to", outputFormat)
 
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
@@ -149,44 +161,38 @@ open class AKConverter: NSObject {
 
         let asset = AVAsset(url: inputURL)
         do {
-            reader = try AVAssetReader(asset: asset)
+            self.reader = try AVAssetReader(asset: asset)
 
         } catch let err as NSError {
             completionHandler?(err)
             return
         }
 
-        guard let reader = reader else {
+        guard let reader = self.reader else {
             completionHandler?(createError(message: "Unable to setup the AVAssetReader."))
             return
         }
 
-        var inputFile: AVAudioFile
-        do {
-            inputFile = try AVAudioFile(forReading: inputURL)
-        } catch let err as NSError {
-            // Error creating input audio file
-            completionHandler?(err)
-            return
+        var theInputFormat: AVAudioFormat?
+
+        // pull the input format out of the audio file...
+        if let source = try? AVAudioFile(forReading: inputURL) {
+            theInputFormat = source.fileFormat
         }
 
-        if options == nil {
-            options = Options()
-        }
-
-        guard let options = options else {
-            completionHandler?(createError(message: "The options are malformed."))
+        guard let inputFormat = theInputFormat else {
+            completionHandler?(createError(message: "Unable to read the input file format."))
             return
         }
+        let options = self.options ?? Options()
 
         if FileManager.default.fileExists(atPath: outputURL.path) {
             if options.eraseFile {
-                AKLog("Warning: removing existing file at \(outputURL.path)")
+                AKLog("Warning: removing existing file at", outputURL.path)
                 try? FileManager.default.removeItem(at: outputURL)
             } else {
                 let message = "The output file exists already. You need to choose a unique URL or delete the file."
-                let err = createError(message: message)
-                completionHandler?(err)
+                completionHandler?(createError(message: message))
                 return
             }
         }
@@ -212,26 +218,30 @@ open class AKConverter: NSObject {
             return
         }
 
-        var writer: AVAssetWriter
         do {
-            writer = try AVAssetWriter(outputURL: outputURL, fileType: format)
+            self.writer = try AVAssetWriter(outputURL: outputURL, fileType: format)
         } catch let err as NSError {
             completionHandler?(err)
+            return
+        }
+
+        guard let writer = self.writer else {
+            completionHandler?(createError(message: "Unable to setup the AVAssetWriter."))
             return
         }
 
         // 1. chosen option. 2. same as input file. 3. 16 bit
         // optional in case of compressed audio. That said, the other conversion methods are actually used in
         // that case
-        let bitDepth = (options.bitDepth ?? inputFile.fileFormat.settings[AVLinearPCMBitDepthKey] ?? 16) as Any
+        let bitDepth = (options.bitDepth ?? inputFormat.settings[AVLinearPCMBitDepthKey] ?? 16) as Any
         var isFloat = false
         if let intDepth = bitDepth as? Int {
             // 32 bit means it's floating point
             isFloat = intDepth == 32
         }
 
-        var sampleRate = options.sampleRate ?? inputFile.fileFormat.sampleRate
-        let channels = options.channels ?? inputFile.fileFormat.channelCount
+        var sampleRate = options.sampleRate ?? inputFormat.sampleRate
+        let channels = options.channels ?? inputFormat.channelCount
 
         var outputSettings: [String: Any] = [
             AVFormatIDKey: formatKey,
@@ -240,7 +250,7 @@ open class AKConverter: NSObject {
             AVLinearPCMBitDepthKey: bitDepth,
             AVLinearPCMIsFloatKey: isFloat,
             AVLinearPCMIsBigEndianKey: format != .wav,
-            AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFile.fileFormat.isInterleaved)
+            AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved)
         ]
 
         // Note: AVAssetReaderOutput does not currently support compressed audio?
@@ -274,7 +284,7 @@ open class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            AKLog("Failed to start writing. " + (writer.error?.localizedDescription ?? ""))
+            AKLog("Failed to start writing. Error:", writer.error?.localizedDescription)
             completionHandler?(writer.error)
             return
         }
@@ -282,12 +292,12 @@ open class AKConverter: NSObject {
         writer.startSession(atSourceTime: CMTime.zero)
 
         if !reader.startReading() {
-            AKLog("Failed to start reading. " + (reader.error?.localizedDescription ?? ""))
+            AKLog("Failed to start reading. Error:", reader.error?.localizedDescription)
             completionHandler?(reader.error)
             return
         }
 
-        let queue = DispatchQueue(label: "io.audiokit.AKConverter.convertAsset")
+        let queue = DispatchQueue(label: "com.audiodesigndesk.AKConverter.convertAsset")
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
@@ -303,18 +313,20 @@ open class AKConverter: NSObject {
 
                     switch reader.status {
                     case .failed:
-                        AKLog("Conversion failed with error" + (reader.error?.localizedDescription ?? "Unknown"))
+                        AKLog("Conversion failed with error", reader.error)
                         writer.cancelWriting()
                         completionHandler?(reader.error)
                     case .cancelled:
                         AKLog("Conversion cancelled")
                         completionHandler?(nil)
                     case .completed:
+                        // writer.endSession(atSourceTime: asset.duration)
                         writer.finishWriting {
                             switch writer.status {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
+                                // AKLog("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }
