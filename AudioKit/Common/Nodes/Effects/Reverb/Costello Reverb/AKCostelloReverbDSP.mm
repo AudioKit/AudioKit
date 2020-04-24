@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKCostelloReverbDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createCostelloReverbDSP() {
-    AKCostelloReverbDSP *dsp = new AKCostelloReverbDSP();
-    return dsp;
+    return new AKCostelloReverbDSP();
 }
 
 struct AKCostelloReverbDSP::InternalData {
@@ -21,52 +20,25 @@ struct AKCostelloReverbDSP::InternalData {
 };
 
 AKCostelloReverbDSP::AKCostelloReverbDSP() : data(new InternalData) {
-    data->feedbackRamp.setTarget(defaultFeedback, true);
-    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKCostelloReverbDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKCostelloReverbParameterFeedback:
-            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
-            break;
-        case AKCostelloReverbParameterCutoffFrequency:
-            data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
-            break;
-        case AKCostelloReverbParameterRampDuration:
-            data->feedbackRamp.setRampDuration(value, sampleRate);
-            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKCostelloReverbDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKCostelloReverbParameterFeedback:
-            return data->feedbackRamp.getTarget();
-        case AKCostelloReverbParameterCutoffFrequency:
-            return data->cutoffFrequencyRamp.getTarget();
-        case AKCostelloReverbParameterRampDuration:
-            return data->feedbackRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKCostelloReverbParameterFeedback] = &data->feedbackRamp;
+    parameters[AKCostelloReverbParameterCutoffFrequency] = &data->cutoffFrequencyRamp;
 }
 
 void AKCostelloReverbDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_revsc_create(&data->revsc);
     sp_revsc_init(sp, data->revsc);
-    data->revsc->feedback = defaultFeedback;
-    data->revsc->lpfreq = defaultCutoffFrequency;
 }
 
 void AKCostelloReverbDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_revsc_destroy(&data->revsc);
+}
+
+void AKCostelloReverbDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_revsc_init(sp, data->revsc);
 }
 
 void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -88,14 +60,15 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!isStarted) {
                 *out = *in;
+                continue;
             }
+            
         }
         if (isStarted) {
             sp_revsc_compute(sp, data->revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);

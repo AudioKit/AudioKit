@@ -15,104 +15,72 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
-    private var _parameterAutomation: AKParameterAutomation?
-    public var parameterAutomation: AKParameterAutomation? {
-        return self._parameterAutomation
-    }
-
-    fileprivate var leftGainParameter: AUParameter?
-    fileprivate var rightGainParameter: AUParameter?
-    fileprivate var taperParameter: AUParameter?
-    fileprivate var skewParameter: AUParameter?
-    fileprivate var offsetParameter: AUParameter?
+    public private(set) var parameterAutomation: AKParameterAutomation?
 
     /// Amplification Factor
-    @objc open dynamic var gain: Double = 1 {
+    open var gain: Double = 1 {
         willSet {
-            // ensure that the parameters aren't nil,
-            // if they are we're using this class directly inline as an AKNode
-            if internalAU?.isSetUp == true {
-                leftGainParameter?.value = AUValue(newValue)
-                rightGainParameter?.value = AUValue(newValue)
-                return
-            }
-
-            // this means it's direct inline
-            internalAU?.setParameterImmediately(.leftGain, value: newValue)
-            internalAU?.setParameterImmediately(.rightGain, value: newValue)
+            leftGain = gain
+            rightGain = gain
         }
     }
 
     /// Left Channel Amplification Factor
-    @objc open dynamic var leftGain: Double = 1 {
+    open var leftGain: Double = 1 {
         willSet {
-            if internalAU?.isSetUp == true {
-                leftGainParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.leftGain, value: newValue)
+            let clampedValue = (0.0 ... 2.0).clamp(newValue)
+            guard leftGain != clampedValue else { return }
+            internalAU?.leftGain.value = AUValue(clampedValue)
         }
     }
 
     /// Right Channel Amplification Factor
-    @objc open dynamic var rightGain: Double = 1 {
+    open var rightGain: Double = 1 {
         willSet {
-            if internalAU?.isSetUp == true {
-                rightGainParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.rightGain, value: newValue)
+            let clampedValue = (0.0 ... 2.0).clamp(newValue)
+            guard rightGain != clampedValue else { return }
+            internalAU?.rightGain.value = AUValue(clampedValue)
         }
     }
 
     /// Amplification Factor in db
-    @objc open dynamic var dB: Double {
-        set {
-            self.gain = pow(10.0, newValue / 20.0)
-        }
-        get {
-            return 20.0 * log10(self.gain)
-        }
+    open var dB: Double {
+        set { gain = pow(10.0, newValue / 20.0) }
+        get { return 20.0 * log10(gain) }
     }
 
     /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
-    @objc open dynamic var taper: Double = 1 {
+    open var taper: Double = 1 {
         willSet {
-            if internalAU?.isSetUp == true {
-                taperParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.taper, value: newValue)
+            let clampedValue = (0.0 ... 10.0).clamp(newValue)
+            guard taper != clampedValue else { return }
+            internalAU?.taper.value = AUValue(clampedValue)
         }
     }
 
     /// Skew ranges from zero to one where zero is easing In and 1 is easing Out. default 0.
-    @objc open dynamic var skew: Double = 0 {
+    open var skew: Double = 0 {
         willSet {
-            if internalAU?.isSetUp == true {
-                skewParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.skew, value: newValue)
+            let clampedValue = (0.0 ... 1.0).clamp(newValue)
+            guard skew != clampedValue else { return }
+            internalAU?.skew.value = AUValue(clampedValue)
         }
     }
 
     /// Offset allows you to start a ramp somewhere in the middle of it. default 0.
-    @objc open dynamic var offset: Double = 0 {
+    open var offset: Double = 0 {
         willSet {
-            if internalAU?.isSetUp == true {
-                offsetParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.offset, value: newValue)
+            let clampedValue = (0.0 ... 1000000000.0).clamp(newValue)
+            guard offset != clampedValue else { return }
+            internalAU?.offset.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return self.internalAU?.isPlaying ?? false
+    open var isStarted: Bool {
+        return self.internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -123,71 +91,48 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    @objc public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode? = nil,
                       gain: Double = 1,
                       taper: Double = 1,
                       skew: Double = 0,
-                      offset: Double = 0) {
-        self.leftGain = gain
-        self.rightGain = gain
-        self.taper = taper
-        self.skew = skew
-        self.offset = offset
+                      offset: Double = 0
+    ) {
+        super.init()
 
         _Self.register()
-
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
+            
+            self.leftGain = gain
+            self.rightGain = gain
+            self.taper = taper
+            self.skew = skew
+            self.offset = offset
+            
+            if let internalAU = self.internalAU {
+                self.parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
             }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
-        }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-        self.leftGainParameter = tree["leftGain"]
-        self.rightGainParameter = tree["rightGain"]
-        self.taperParameter = tree["taper"]
-        self.skewParameter = tree["skew"]
-        self.offsetParameter = tree["offset"]
-
-        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
-        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
-        self.internalAU?.setParameterImmediately(.taper, value: taper)
-        self.internalAU?.setParameterImmediately(.skew, value: skew)
-        self.internalAU?.setParameterImmediately(.offset, value: offset)
-
-        if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
-            self._parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
         }
     }
 
     open override func detach() {
         super.detach()
-        self._parameterAutomation = nil
-    }
-
-    @objc deinit {
-        // AKLog("* { AKFader }")
+        parameterAutomation = nil
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.shouldBypassEffect = false
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.shouldBypassEffect = true
         internalAU?.stop()
     }
@@ -195,11 +140,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     // MARK: - AKAutomatable
 
     public func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?) {
-        self.parameterAutomation?.start(at: audioTime, duration: duration)
+        parameterAutomation?.start(at: audioTime, duration: duration)
     }
 
     public func stopAutomation() {
-        self.parameterAutomation?.stop()
+        parameterAutomation?.stop()
     }
 
     /// Convenience function for adding a pair of points for both left and right addresses
@@ -210,47 +155,47 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                    taper taperValue: Double? = nil,
                                    skew skewValue: Double? = nil,
                                    offset offsetValue: AUAudioFrameCount? = nil) {
-        guard let leftAddress = leftGainParameter?.address,
-            let rightAddress = rightGainParameter?.address else {
+        guard let leftAddress = internalAU?.leftGain.address,
+            let rightAddress = internalAU?.rightGain.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
         // if a taper value is passed in, also add a point with its address to trigger at the same time
-        if let taperValue = taperValue, let taperAddress = taperParameter?.address {
-            self.parameterAutomation?.addPoint(taperAddress,
-                                               value: AUValue(taperValue),
-                                               sampleTime: sampleTime,
-                                               anchorTime: anchorTime,
-                                               rampDuration: rampDuration)
+        if let taperValue = taperValue, let taperAddress = internalAU?.taper.address {
+            parameterAutomation?.addPoint(taperAddress,
+                                          value: AUValue(taperValue),
+                                          sampleTime: sampleTime,
+                                          anchorTime: anchorTime,
+                                          rampDuration: rampDuration)
         }
         // if a skew value is passed in, also add a point with its address to trigger at the same time
-        if let skewValue = skewValue, let skewAddress = skewParameter?.address {
-            self.parameterAutomation?.addPoint(skewAddress,
-                                               value: AUValue(skewValue),
-                                               sampleTime: sampleTime,
-                                               anchorTime: anchorTime,
-                                               rampDuration: rampDuration)
+        if let skewValue = skewValue, let skewAddress = internalAU?.skew.address {
+            parameterAutomation?.addPoint(skewAddress,
+                                          value: AUValue(skewValue),
+                                          sampleTime: sampleTime,
+                                          anchorTime: anchorTime,
+                                          rampDuration: rampDuration)
         }
 
         // if an offset value is passed in, also add a point with its address to trigger at the same time
-        if let offsetValue = offsetValue, let offsetAddress = offsetParameter?.address {
-            self.parameterAutomation?.addPoint(offsetAddress,
-                                               value: AUValue(offsetValue),
-                                               sampleTime: sampleTime,
-                                               anchorTime: anchorTime,
-                                               rampDuration: rampDuration)
+        if let offsetValue = offsetValue, let offsetAddress = internalAU?.offset.address {
+            parameterAutomation?.addPoint(offsetAddress,
+                                          value: AUValue(offsetValue),
+                                          sampleTime: sampleTime,
+                                          anchorTime: anchorTime,
+                                          rampDuration: rampDuration)
         }
 
-        self.parameterAutomation?.addPoint(leftAddress,
-                                           value: AUValue(value),
-                                           sampleTime: sampleTime,
-                                           anchorTime: anchorTime,
-                                           rampDuration: rampDuration)
-        self.parameterAutomation?.addPoint(rightAddress,
-                                           value: AUValue(value),
-                                           sampleTime: sampleTime,
-                                           anchorTime: anchorTime,
-                                           rampDuration: rampDuration)
+        parameterAutomation?.addPoint(leftAddress,
+                                      value: AUValue(value),
+                                      sampleTime: sampleTime,
+                                      anchorTime: anchorTime,
+                                      rampDuration: rampDuration)
+        parameterAutomation?.addPoint(rightAddress,
+                                      value: AUValue(value),
+                                      sampleTime: sampleTime,
+                                      anchorTime: anchorTime,
+                                      rampDuration: rampDuration)
     }
 }

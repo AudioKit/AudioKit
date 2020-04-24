@@ -23,7 +23,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?

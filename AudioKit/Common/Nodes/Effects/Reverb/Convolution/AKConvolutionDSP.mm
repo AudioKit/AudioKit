@@ -3,53 +3,63 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKConvolutionDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createConvolutionDSP() {
-    AKConvolutionDSP *dsp = new AKConvolutionDSP();
-    return dsp;
+    return new AKConvolutionDSP();
+}
+
+extern "C" void setPartitionLengthConvolutionDSP(AKDSPRef dsp, int length) {
+    ((AKConvolutionDSP*)dsp)->setPartitionLength(length);
 }
 
 struct AKConvolutionDSP::InternalData {
     sp_conv *conv0;
     sp_conv *conv1;
-
     sp_ftbl *ftbl;
     std::vector<float> wavetable;
 
     int partitionLength = 2048;
 };
 
-AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {}
+AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {
+}
 
 void AKConvolutionDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
     std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
     sp_conv_create(&data->conv0);
-    sp_conv_create(&data->conv1);
     sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
+    sp_conv_create(&data->conv1);
     sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
 }
 
 void AKConvolutionDSP::setPartitionLength(int partLength) {
     data->partitionLength = partLength;
+    reset();
 }
 
-void AKConvolutionDSP::setUpTable(float *table, UInt32 size) {
-    data->wavetable = std::vector<float>(table, table + size);
+void AKConvolutionDSP::setWavetable(const float *table, size_t length, int index) {
+    data->wavetable = std::vector<float>(table, table + length);
+    reset();
 }
 
 void AKConvolutionDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_conv_destroy(&data->conv0);
     sp_conv_destroy(&data->conv1);
-    sp_ftbl_destroy(&data->ftbl);
+}
+
+void AKConvolutionDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
+    sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
 }
 
 void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -13,7 +13,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var preGainParameter: AUParameter?
     fileprivate var postGainParameter: AUParameter?

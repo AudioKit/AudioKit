@@ -15,7 +15,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     public typealias AKAudioUnitType = AKOfflineRenderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "mnrn")
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Turn on or off internal rendering
     open var internalRenderEnabled: Bool {

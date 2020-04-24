@@ -15,7 +15,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var pulseWidthParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?

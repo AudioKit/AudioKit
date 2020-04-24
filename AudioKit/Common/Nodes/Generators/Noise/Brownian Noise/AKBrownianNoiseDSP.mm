@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKBrownianNoiseDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createBrownianNoiseDSP() {
-    AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
-    return dsp;
+    return new AKBrownianNoiseDSP();
 }
 
 struct AKBrownianNoiseDSP::InternalData {
@@ -20,31 +19,7 @@ struct AKBrownianNoiseDSP::InternalData {
 };
 
 AKBrownianNoiseDSP::AKBrownianNoiseDSP() : data(new InternalData) {
-    data->amplitudeRamp.setTarget(defaultAmplitude, true);
-    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKBrownianNoiseParameterAmplitude:
-            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
-            break;
-        case AKBrownianNoiseParameterRampDuration:
-            data->amplitudeRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKBrownianNoiseDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKBrownianNoiseParameterAmplitude:
-            return data->amplitudeRamp.getTarget();
-        case AKBrownianNoiseParameterRampDuration:
-            return data->amplitudeRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKBrownianNoiseParameterAmplitude] = &data->amplitudeRamp;
 }
 
 void AKBrownianNoiseDSP::init(int channelCount, double sampleRate) {
@@ -58,8 +33,13 @@ void AKBrownianNoiseDSP::deinit() {
     sp_brown_destroy(&data->brown);
 }
 
-void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void AKBrownianNoiseDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_brown_init(sp, data->brown);
+}
 
+void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 

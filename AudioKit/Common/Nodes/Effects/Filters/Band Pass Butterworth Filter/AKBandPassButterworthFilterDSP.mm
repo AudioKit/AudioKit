@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKBandPassButterworthFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createBandPassButterworthFilterDSP() {
-    AKBandPassButterworthFilterDSP *dsp = new AKBandPassButterworthFilterDSP();
-    return dsp;
+    return new AKBandPassButterworthFilterDSP();
 }
 
 struct AKBandPassButterworthFilterDSP::InternalData {
@@ -22,39 +21,8 @@ struct AKBandPassButterworthFilterDSP::InternalData {
 };
 
 AKBandPassButterworthFilterDSP::AKBandPassButterworthFilterDSP() : data(new InternalData) {
-    data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->bandwidthRamp.setTarget(defaultBandwidth, true);
-    data->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKBandPassButterworthFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKBandPassButterworthFilterParameterCenterFrequency:
-            data->centerFrequencyRamp.setTarget(clamp(value, centerFrequencyLowerBound, centerFrequencyUpperBound), immediate);
-            break;
-        case AKBandPassButterworthFilterParameterBandwidth:
-            data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
-            break;
-        case AKBandPassButterworthFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
-            data->bandwidthRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKBandPassButterworthFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKBandPassButterworthFilterParameterCenterFrequency:
-            return data->centerFrequencyRamp.getTarget();
-        case AKBandPassButterworthFilterParameterBandwidth:
-            return data->bandwidthRamp.getTarget();
-        case AKBandPassButterworthFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKBandPassButterworthFilterParameterCenterFrequency] = &data->centerFrequencyRamp;
+    parameters[AKBandPassButterworthFilterParameterBandwidth] = &data->bandwidthRamp;
 }
 
 void AKBandPassButterworthFilterDSP::init(int channelCount, double sampleRate) {
@@ -63,15 +31,19 @@ void AKBandPassButterworthFilterDSP::init(int channelCount, double sampleRate) {
     sp_butbp_init(sp, data->butbp0);
     sp_butbp_create(&data->butbp1);
     sp_butbp_init(sp, data->butbp1);
-    data->butbp0->freq = defaultCenterFrequency;
-    data->butbp1->freq = defaultCenterFrequency;
-    data->butbp0->bw = defaultBandwidth;
-    data->butbp1->bw = defaultBandwidth;
 }
 
 void AKBandPassButterworthFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_butbp_destroy(&data->butbp0);
     sp_butbp_destroy(&data->butbp1);
+}
+
+void AKBandPassButterworthFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_butbp_init(sp, data->butbp0);
+    sp_butbp_init(sp, data->butbp1);
 }
 
 void AKBandPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

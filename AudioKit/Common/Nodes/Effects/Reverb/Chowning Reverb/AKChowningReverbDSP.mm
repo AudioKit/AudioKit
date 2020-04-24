@@ -3,15 +3,13 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKChowningReverbDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createChowningReverbDSP() {
-    AKChowningReverbDSP *dsp = new AKChowningReverbDSP();
-    return dsp;
+    return new AKChowningReverbDSP();
 }
 
 struct AKChowningReverbDSP::InternalData {
@@ -19,7 +17,8 @@ struct AKChowningReverbDSP::InternalData {
     sp_jcrev *jcrev1;
 };
 
-AKChowningReverbDSP::AKChowningReverbDSP() : data(new InternalData) {}
+AKChowningReverbDSP::AKChowningReverbDSP() : data(new InternalData) {
+}
 
 void AKChowningReverbDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
@@ -35,15 +34,17 @@ void AKChowningReverbDSP::deinit() {
     sp_jcrev_destroy(&data->jcrev1);
 }
 
+void AKChowningReverbDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_jcrev_init(sp, data->jcrev0);
+    sp_jcrev_init(sp, data->jcrev1);
+}
+
 void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-        }
-
 
         float *tmpin[2];
         float *tmpout[2];

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -16,7 +16,6 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
     AKVocalTractParameterTongueDiameter,
     AKVocalTractParameterTenseness,
     AKVocalTractParameterNasality,
-    AKVocalTractParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -42,63 +41,11 @@ private:
 
 public:
     AKVocalTractDSP() {
-        frequencyRamp.setTarget(160.0, true);
-        frequencyRamp.setDurationInSamples(10000);
-        tonguePositionRamp.setTarget(0.5, true);
-        tonguePositionRamp.setDurationInSamples(10000);
-        tongueDiameterRamp.setTarget(1.0, true);
-        tongueDiameterRamp.setDurationInSamples(10000);
-        tensenessRamp.setTarget(0.6, true);
-        tensenessRamp.setDurationInSamples(10000);
-        nasalityRamp.setTarget(0.0, true);
-        nasalityRamp.setDurationInSamples(10000);
-    }
-
-    /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKVocalTractParameterFrequency:
-                frequencyRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTonguePosition:
-                tonguePositionRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTongueDiameter:
-                tongueDiameterRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTenseness:
-                tensenessRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterNasality:
-                nasalityRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                tonguePositionRamp.setRampDuration(value, sampleRate);
-                tongueDiameterRamp.setRampDuration(value, sampleRate);
-                tensenessRamp.setRampDuration(value, sampleRate);
-                nasalityRamp.setRampDuration(value, sampleRate);
-                break;
-        }
-    }
-
-    /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKVocalTractParameterFrequency:
-                return frequencyRamp.getTarget();
-            case AKVocalTractParameterTonguePosition:
-                return tonguePositionRamp.getTarget();
-            case AKVocalTractParameterTongueDiameter:
-                return tongueDiameterRamp.getTarget();
-            case AKVocalTractParameterTenseness:
-                return tensenessRamp.getTarget();
-            case AKVocalTractParameterNasality:
-                return nasalityRamp.getTarget();
-            case AKVocalTractParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
-        }
-        return 0;
+        parameters[AKVocalTractParameterFrequency] = &frequencyRamp;
+        parameters[AKVocalTractParameterTonguePosition] = &tonguePositionRamp;
+        parameters[AKVocalTractParameterTongueDiameter] = &tongueDiameterRamp;
+        parameters[AKVocalTractParameterTenseness] = &tensenessRamp;
+        parameters[AKVocalTractParameterNasality] = &nasalityRamp;
     }
 
     void init(int channelCount, double sampleRate) override {

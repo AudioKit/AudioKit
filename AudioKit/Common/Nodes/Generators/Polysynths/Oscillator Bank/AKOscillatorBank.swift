@@ -16,7 +16,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Waveform of the oscillator
     open var waveform: AKTable? {

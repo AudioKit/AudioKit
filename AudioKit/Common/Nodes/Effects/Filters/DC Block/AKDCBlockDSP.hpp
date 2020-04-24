@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -26,11 +26,11 @@ private:
 public:
     AKDCBlockDSP();
 
-    int defaultRampDurationSamples = 10000;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

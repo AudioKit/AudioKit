@@ -18,7 +18,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
     public var targetNode: AKNode?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change

@@ -28,7 +28,10 @@ class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
     sp_data *sp = nullptr;
 public:
-
+    AKSoundpipeDSPBase() {
+        bCanProcessInPlace = true;
+    }
+    
     virtual void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
         sp_create(&sp);
@@ -40,12 +43,6 @@ public:
         AKDSPBase::deinit();
         sp_destroy(&sp);
     }
-
-    // Is this needed? Ramping should be rethought.
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {}
-
-    virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
-    virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
 
     virtual void processSample(int channel, float *in, float *out) {
         *out = *in;

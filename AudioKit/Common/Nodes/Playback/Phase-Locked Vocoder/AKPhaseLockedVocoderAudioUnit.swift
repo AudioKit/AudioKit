@@ -2,76 +2,54 @@
 //  AKPhaseLockedVocoderAudioUnit.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/31/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
-public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
+public class AKPhaseLockedVocoderAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKPhaseLockedVocoderParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var position: AUParameter!
 
-    func setParameterImmediately(_ address: AKPhaseLockedVocoderParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var amplitude: AUParameter!
 
-    var position: Double = AKPhaseLockedVocoder.defaultPosition {
-        didSet { setParameter(.position, value: position) }
-    }
-
-    var amplitude: Double = AKPhaseLockedVocoder.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var pitchRatio: Double = AKPhaseLockedVocoder.defaultPitchRatio {
-        didSet { setParameter(.pitchRatio, value: pitchRatio) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var pitchRatio: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createPhaseLockedVocoderDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let position = AUParameter(
+        position = AUParameter(
             identifier: "position",
-            name: "Position",
+            name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
             address: AKPhaseLockedVocoderParameter.position.rawValue,
             range: AKPhaseLockedVocoder.positionRange,
             unit: .generic,
             flags: .default)
-
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
-            name: "Amplitude",
+            name: "Amplitude.",
             address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
             range: AKPhaseLockedVocoder.amplitudeRange,
             unit: .generic,
             flags: .default)
-
-        let pitchRatio = AUParameter(
+        pitchRatio = AUParameter(
             identifier: "pitchRatio",
-            name: "Pitch Ratio",
+            name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
             address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,
             range: AKPhaseLockedVocoder.pitchRatioRange,
-            unit: .generic,
+            unit: .hertz,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [position, amplitude, pitchRatio]))
-        position.value = Float(AKPhaseLockedVocoder.defaultPosition)
-        amplitude.value = Float(AKPhaseLockedVocoder.defaultAmplitude)
-        pitchRatio.value = Float(AKPhaseLockedVocoder.defaultPitchRatio)
+        parameterTree = AUParameterTree.createTree(withChildren: [position, amplitude, pitchRatio])
+
+        position.value = AUValue(AKPhaseLockedVocoder.defaultPosition)
+        amplitude.value = AUValue(AKPhaseLockedVocoder.defaultAmplitude)
+        pitchRatio.value = AUValue(AKPhaseLockedVocoder.defaultPitchRatio)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

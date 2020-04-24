@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -13,10 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
     AKPluckedStringParameterFrequency,
     AKPluckedStringParameterAmplitude,
-    AKPluckedStringParameterRampDuration
 };
-
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
@@ -27,106 +24,24 @@ AKDSPRef createPluckedStringDSP(void);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKPluckedStringDSP : public AKSoundpipeDSPBase {
-    sp_pluck *pluck;
-    float internalTrigger = 0;
-
 private:
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
+ 
 public:
-    AKPluckedStringDSP() {
-        frequencyRamp.setTarget(110, true);
-        frequencyRamp.setDurationInSamples(10000);
-        amplitudeRamp.setTarget(0.5, true);
-        amplitudeRamp.setDurationInSamples(10000);
-    }
+    AKPluckedStringDSP();
 
-    /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKPluckedStringParameterFrequency:
-                frequencyRamp.setTarget(value, immediate);
-                break;
-            case AKPluckedStringParameterAmplitude:
-                amplitudeRamp.setTarget(value, immediate);
-                break;
-            case AKPluckedStringParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                amplitudeRamp.setRampDuration(value, sampleRate);
-                break;
-        }
-    }
+    void init(int channelCount, double sampleRate) override;
 
-    /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKPluckedStringParameterFrequency:
-                return frequencyRamp.getTarget();
-            case AKPluckedStringParameterAmplitude:
-                return amplitudeRamp.getTarget();
-            case AKPluckedStringParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
-        }
-        return 0;
-    }
+    void deinit() override;
 
-    void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    void reset() override;
 
-        sp_pluck_create(&pluck);
-        sp_pluck_init(sp, pluck, 110);
-        pluck->freq = 110;
-        pluck->amp = 0.5;
-    }
+    void trigger() override;
 
-    void deinit() override {
-        AKSoundpipeDSPBase::deinit();
-        sp_pluck_destroy(&pluck);
-    }
+    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void trigger() override {
-        internalTrigger = 1;
-    }
-
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override {
-        bool immediate = true;
-        frequencyRamp.setTarget(freq, immediate);
-        amplitudeRamp.setTarget(amp, immediate);
-        trigger();
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            // do ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(now + frameOffset);
-                amplitudeRamp.advanceTo(now + frameOffset);
-            }
-            float frequency = frequencyRamp.getValue();
-            float amplitude = amplitudeRamp.getValue();
-            pluck->freq = frequency;
-            pluck->amp = amplitude;
-
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    if (channel == 0) {
-                        sp_pluck_compute(sp, pluck, &internalTrigger, out);
-                    }
-                } else {
-                    *out = 0.0;
-                }
-            }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

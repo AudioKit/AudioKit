@@ -11,8 +11,7 @@
 
 extern "C" AKDSPRef createFaderDSP()
 {
-    AKFaderDSP *dsp = new AKFaderDSP();
-    return dsp;
+    return new AKFaderDSP();
 }
 
 struct AKFaderDSP::InternalData {
@@ -22,6 +21,7 @@ struct AKFaderDSP::InternalData {
 
 AKFaderDSP::AKFaderDSP() : data(new InternalData)
 {
+    bCanProcessInPlace = true;
 }
 
 // Uses the ParameterAddress as a key
@@ -70,14 +70,6 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
             return data->leftGainRamp.getOffset();
     }
     return 0;
-}
-
-void AKFaderDSP::start() {
-    isStarted = true;
-}
-
-void AKFaderDSP::stop() {
-    isStarted = false;
 }
 
 void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)

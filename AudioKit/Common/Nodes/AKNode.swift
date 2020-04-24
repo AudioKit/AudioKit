@@ -14,6 +14,7 @@ extension AVAudioConnectionPoint {
 
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
+    
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
 
@@ -47,7 +48,7 @@ extension AVAudioConnectionPoint {
         }
     }
     
-    deinit{
+    deinit {
         detach()
     }
     
@@ -152,7 +153,7 @@ public protocol AKPolyphonic {
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
-@objc public protocol AKToggleable {
+public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 

@@ -19,8 +19,7 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "AKAudioUnitBase.h"
-#import "AKGeneratorAudioUnitBase.h"
+#import "AKDSPBase.hpp"
 #import "AKSoundpipeDSPBase.hpp"
 #import "DSPKernel.hpp"
 #import "AKDSPKernel.hpp"
@@ -186,7 +185,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "ParameterRamper.hpp"
 #import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
-#import "AudioEngineUnit.h"
 
 // Sequencer
 #import "AKSamplerMetronome.h"
@@ -195,7 +193,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability
-#import "AKInterop.h"
+#import "AKInterop.hpp"
 
 // Automation
 #import "AKParameterAutomation.h"

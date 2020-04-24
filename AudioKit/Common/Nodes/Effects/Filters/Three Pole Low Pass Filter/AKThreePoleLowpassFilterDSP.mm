@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKThreePoleLowpassFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createThreePoleLowpassFilterDSP() {
-    AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
-    return dsp;
+    return new AKThreePoleLowpassFilterDSP();
 }
 
 struct AKThreePoleLowpassFilterDSP::InternalData {
@@ -23,47 +22,9 @@ struct AKThreePoleLowpassFilterDSP::InternalData {
 };
 
 AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : data(new InternalData) {
-    data->distortionRamp.setTarget(defaultDistortion, true);
-    data->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->resonanceRamp.setTarget(defaultResonance, true);
-    data->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKThreePoleLowpassFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKThreePoleLowpassFilterParameterDistortion:
-            data->distortionRamp.setTarget(clamp(value, distortionLowerBound, distortionUpperBound), immediate);
-            break;
-        case AKThreePoleLowpassFilterParameterCutoffFrequency:
-            data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
-            break;
-        case AKThreePoleLowpassFilterParameterResonance:
-            data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
-            break;
-        case AKThreePoleLowpassFilterParameterRampDuration:
-            data->distortionRamp.setRampDuration(value, sampleRate);
-            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
-            data->resonanceRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKThreePoleLowpassFilterParameterDistortion:
-            return data->distortionRamp.getTarget();
-        case AKThreePoleLowpassFilterParameterCutoffFrequency:
-            return data->cutoffFrequencyRamp.getTarget();
-        case AKThreePoleLowpassFilterParameterResonance:
-            return data->resonanceRamp.getTarget();
-        case AKThreePoleLowpassFilterParameterRampDuration:
-            return data->distortionRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKThreePoleLowpassFilterParameterDistortion] = &data->distortionRamp;
+    parameters[AKThreePoleLowpassFilterParameterCutoffFrequency] = &data->cutoffFrequencyRamp;
+    parameters[AKThreePoleLowpassFilterParameterResonance] = &data->resonanceRamp;
 }
 
 void AKThreePoleLowpassFilterDSP::init(int channelCount, double sampleRate) {
@@ -72,18 +33,19 @@ void AKThreePoleLowpassFilterDSP::init(int channelCount, double sampleRate) {
     sp_lpf18_init(sp, data->lpf180);
     sp_lpf18_create(&data->lpf181);
     sp_lpf18_init(sp, data->lpf181);
-    data->lpf180->dist = defaultDistortion;
-    data->lpf181->dist = defaultDistortion;
-    data->lpf180->cutoff = defaultCutoffFrequency;
-    data->lpf181->cutoff = defaultCutoffFrequency;
-    data->lpf180->res = defaultResonance;
-    data->lpf181->res = defaultResonance;
 }
 
 void AKThreePoleLowpassFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_lpf18_destroy(&data->lpf180);
     sp_lpf18_destroy(&data->lpf181);
+}
+
+void AKThreePoleLowpassFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_lpf18_init(sp, data->lpf180);
+    sp_lpf18_init(sp, data->lpf181);
 }
 
 void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

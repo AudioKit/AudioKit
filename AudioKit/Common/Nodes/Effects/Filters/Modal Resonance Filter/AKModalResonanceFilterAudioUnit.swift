@@ -3,49 +3,33 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKModalResonanceFilterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKModalResonanceFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var frequency: Double = AKModalResonanceFilter.defaultFrequency {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
-
-    var qualityFactor: Double = AKModalResonanceFilter.defaultQualityFactor {
-        didSet { setParameter(.qualityFactor, value: qualityFactor) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var qualityFactor: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createModalResonanceFilterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        frequency = AUParameter(
             identifier: "frequency",
             name: "Resonant Frequency (Hz)",
             address: AKModalResonanceFilterParameter.frequency.rawValue,
             range: AKModalResonanceFilter.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let qualityFactor = AUParameter(
+        qualityFactor = AUParameter(
             identifier: "qualityFactor",
             name: "Quality Factor",
             address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
@@ -53,11 +37,9 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [frequency, qualityFactor]))
-        frequency.value = Float(AKModalResonanceFilter.defaultFrequency)
-        qualityFactor.value = Float(AKModalResonanceFilter.defaultQualityFactor)
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, qualityFactor])
+
+        frequency.value = AUValue(AKModalResonanceFilter.defaultFrequency)
+        qualityFactor.value = AUValue(AKModalResonanceFilter.defaultQualityFactor)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

@@ -3,15 +3,18 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP() {
-    AKFlatFrequencyResponseReverbDSP *dsp = new AKFlatFrequencyResponseReverbDSP();
-    return dsp;
+    return new AKFlatFrequencyResponseReverbDSP();
+}
+
+extern "C" void setLoopDurationFlatFrequencyResponseReverbDSP(AKDSPRef dsp, float duration) {
+    ((AKFlatFrequencyResponseReverbDSP*)dsp)->setLoopDuration(duration);
 }
 
 struct AKFlatFrequencyResponseReverbDSP::InternalData {
@@ -21,54 +24,34 @@ struct AKFlatFrequencyResponseReverbDSP::InternalData {
     AKLinearParameterRamp reverbDurationRamp;
 };
 
-void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
-    data->loopDuration = duration;
-}
-
-
 AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new InternalData) {
-    data->reverbDurationRamp.setTarget(defaultReverbDuration, true);
-    data->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
+    parameters[AKFlatFrequencyResponseReverbParameterReverbDuration] = &data->reverbDurationRamp;
 }
 
-// Uses the ParameterAddress as a key
-void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            data->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
-            break;
-        case AKFlatFrequencyResponseReverbParameterRampDuration:
-            data->reverbDurationRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            return data->reverbDurationRamp.getTarget();
-        case AKFlatFrequencyResponseReverbParameterRampDuration:
-            return data->reverbDurationRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+void AKFlatFrequencyResponseReverbDSP::setLoopDuration(float duration) {
+    data->loopDuration = duration;
+    reset();
 }
 
 void AKFlatFrequencyResponseReverbDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_allpass_create(&data->allpass0);
-    sp_allpass_create(&data->allpass1);
     sp_allpass_init(sp, data->allpass0, data->loopDuration);
+    sp_allpass_create(&data->allpass1);
     sp_allpass_init(sp, data->allpass1, data->loopDuration);
-    data->allpass0->revtime = defaultReverbDuration;
-    data->allpass1->revtime = defaultReverbDuration;
-
 }
 
 void AKFlatFrequencyResponseReverbDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_allpass_destroy(&data->allpass0);
     sp_allpass_destroy(&data->allpass1);
+}
+
+void AKFlatFrequencyResponseReverbDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_allpass_init(sp, data->allpass0, data->loopDuration);
+    sp_allpass_init(sp, data->allpass1, data->loopDuration);
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -89,7 +72,6 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
@@ -98,12 +80,12 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
                 *out = *in;
                 continue;
             }
+
             if (channel == 0) {
                 sp_allpass_compute(sp, data->allpass0, in, out);
             } else {
                 sp_allpass_compute(sp, data->allpass1, in, out);
             }
         }
-
     }
 }

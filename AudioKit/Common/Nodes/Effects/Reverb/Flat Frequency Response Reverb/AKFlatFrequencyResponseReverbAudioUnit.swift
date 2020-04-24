@@ -3,38 +3,24 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKFlatFrequencyResponseReverbParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKFlatFrequencyResponseReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var reverbDuration: Double = AKFlatFrequencyResponseReverb.defaultReverbDuration {
-        didSet { setParameter(.reverbDuration, value: reverbDuration) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var reverbDuration: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createFlatFrequencyResponseReverbDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let reverbDuration = AUParameter(
+        reverbDuration = AUParameter(
             identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
@@ -42,10 +28,12 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [reverbDuration]))
-        reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
+        parameterTree = AUParameterTree.createTree(withChildren: [reverbDuration])
+
+        reverbDuration.value = AUValue(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
+    
+    public func setLoopDuration(_ loopDuration: Float) {
+        setLoopDurationFlatFrequencyResponseReverbDSP(dsp, loopDuration)
+    }
 }

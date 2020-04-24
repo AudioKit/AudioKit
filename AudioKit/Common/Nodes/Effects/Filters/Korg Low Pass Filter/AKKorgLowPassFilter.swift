@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 /// Analogue model of the Korg 35 Lowpass Filter
@@ -14,79 +14,56 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var cutoffFrequencyParameter: AUParameter?
-    fileprivate var resonanceParameter: AUParameter?
-    fileprivate var saturationParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange = 0.0 ... 22_050.0
+    public static let cutoffFrequencyRange: ClosedRange<Double> = 0.0 ... 22050.0
 
     /// Lower and upper bounds for Resonance
-    public static let resonanceRange = 0.0 ... 2.0
+    public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
 
     /// Lower and upper bounds for Saturation
-    public static let saturationRange = 0.0 ... 10.0
+    public static let saturationRange: ClosedRange<Double> = 0.0 ... 10.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency = 1_000.0
+    public static let defaultCutoffFrequency: Double = 1000.0
 
     /// Initial value for Resonance
-    public static let defaultResonance = 1.0
+    public static let defaultResonance: Double = 1.0
 
     /// Initial value for Saturation
-    public static let defaultSaturation = 0.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultSaturation: Double = 0.0
 
     /// Filter cutoff
-    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
+    open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            guard cutoffFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
+            let clampedValue = AKKorgLowPassFilter.cutoffFrequencyRange.clamp(newValue)
+            guard cutoffFrequency != clampedValue else { return }
+            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Filter resonance (should be between 0-2)
-    @objc open dynamic var resonance: Double = defaultResonance {
+    open var resonance: Double = defaultResonance {
         willSet {
-            guard resonance != newValue else { return }
-            if internalAU?.isSetUp == true {
-                resonanceParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.resonance, value: newValue)
+            let clampedValue = AKKorgLowPassFilter.resonanceRange.clamp(newValue)
+            guard resonance != clampedValue else { return }
+            internalAU?.resonance.value = AUValue(clampedValue)
         }
     }
 
     /// Filter saturation.
-    @objc open dynamic var saturation: Double = defaultSaturation {
+    open var saturation: Double = defaultSaturation {
         willSet {
-            guard saturation != newValue else { return }
-            if internalAU?.isSetUp == true {
-                saturationParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.saturation, value: newValue)
+            let clampedValue = AKKorgLowPassFilter.saturationRange.clamp(newValue)
+            guard saturation != clampedValue else { return }
+            internalAU?.saturation.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -99,54 +76,36 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - resonance: Filter resonance (should be between 0-2)
     ///   - saturation: Filter saturation.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = defaultCutoffFrequency,
         resonance: Double = defaultResonance,
         saturation: Double = defaultSaturation
         ) {
-
-        self.cutoffFrequency = cutoffFrequency
-        self.resonance = resonance
-        self.saturation = saturation
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.cutoffFrequency = cutoffFrequency
+            self.resonance = resonance
+            self.saturation = saturation
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter = tree["resonance"]
-        saturationParameter = tree["saturation"]
-
-        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
-        internalAU?.setParameterImmediately(.resonance, value: resonance)
-        internalAU?.setParameterImmediately(.saturation, value: saturation)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

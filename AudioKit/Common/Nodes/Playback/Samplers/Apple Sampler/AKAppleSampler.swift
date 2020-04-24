@@ -21,7 +21,7 @@ open class AKAppleSampler: AKNode {
     // MARK: - Properties
 
     /// Internal audio unit
-    private var internalAU: AUAudioUnit?
+    public private(set) var internalAU: AUAudioUnit?
 
     private var _audioFiles: [AKAudioFile] = []
 
