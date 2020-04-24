@@ -3,16 +3,15 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKOscillatorDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createOscillatorDSP() {
-    AKOscillatorDSP *dsp = new AKOscillatorDSP();
-    return dsp;
+    return new AKOscillatorDSP();
 }
 
 struct AKOscillatorDSP::InternalData {
@@ -26,68 +25,23 @@ struct AKOscillatorDSP::InternalData {
 };
 
 AKOscillatorDSP::AKOscillatorDSP() : data(new InternalData) {
-    data->frequencyRamp.setTarget(defaultFrequency, true);
-    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->amplitudeRamp.setTarget(defaultAmplitude, true);
-    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
-    data->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
-    data->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
+    parameters[AKOscillatorParameterFrequency] = &data->frequencyRamp;
+    parameters[AKOscillatorParameterAmplitude] = &data->amplitudeRamp;
+    parameters[AKOscillatorParameterDetuningOffset] = &data->detuningOffsetRamp;
+    parameters[AKOscillatorParameterDetuningMultiplier] = &data->detuningMultiplierRamp;
 }
 
-// Uses the ParameterAddress as a key
-void AKOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKOscillatorParameterFrequency:
-            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
-            break;
-        case AKOscillatorParameterAmplitude:
-            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
-            break;
-        case AKOscillatorParameterDetuningOffset:
-            data->detuningOffsetRamp.setTarget(clamp(value, detuningOffsetLowerBound, detuningOffsetUpperBound), immediate);
-            break;
-        case AKOscillatorParameterDetuningMultiplier:
-            data->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
-            break;
-        case AKOscillatorParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, sampleRate);
-            data->amplitudeRamp.setRampDuration(value, sampleRate);
-            data->detuningOffsetRamp.setRampDuration(value, sampleRate);
-            data->detuningMultiplierRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKOscillatorDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKOscillatorParameterFrequency:
-            return data->frequencyRamp.getTarget();
-        case AKOscillatorParameterAmplitude:
-            return data->amplitudeRamp.getTarget();
-        case AKOscillatorParameterDetuningOffset:
-            return data->detuningOffsetRamp.getTarget();
-        case AKOscillatorParameterDetuningMultiplier:
-            return data->detuningMultiplierRamp.getTarget();
-        case AKOscillatorParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+void AKOscillatorDSP::setWavetable(const float* table, size_t length, int index) {
+    data->waveform = std::vector<float>(table, table + length);
+    reset();
 }
 
 void AKOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    isStarted = false;
-    
     sp_ftbl_create(sp, &data->ftbl, data->waveform.size());
     std::copy(data->waveform.cbegin(), data->waveform.cend(), data->ftbl->tbl);
-    
     sp_osc_create(&data->osc);
     sp_osc_init(sp, data->osc, data->ftbl, 0);
-    data->osc->freq = defaultFrequency;
-    data->osc->amp = defaultAmplitude;
 }
 
 void AKOscillatorDSP::deinit() {
@@ -96,16 +50,13 @@ void AKOscillatorDSP::deinit() {
     sp_ftbl_destroy(&data->ftbl);
 }
 
-void AKOscillatorDSP::setupWaveform(uint32_t size) {
-    data->waveform.resize(size);
-}
-
-void AKOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->waveform[index] = value;
+void AKOscillatorDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_osc_init(sp, data->osc, data->ftbl, 0);
 }
 
 void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
@@ -116,6 +67,7 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->detuningOffsetRamp.advanceTo(now + frameOffset);
             data->detuningMultiplierRamp.advanceTo(now + frameOffset);
         }
+
         data->osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
         data->osc->amp = data->amplitudeRamp.getValue();
 

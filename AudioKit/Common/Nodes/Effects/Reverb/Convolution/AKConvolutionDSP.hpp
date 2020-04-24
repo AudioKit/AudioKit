@@ -3,20 +3,18 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(AUParameterAddress, AKConvolutionParameter) {
-    AKConvolutionParameterRampDuration
-};
-
 #ifndef __cplusplus
 
 AKDSPRef createConvolutionDSP(void);
+
+void setPartitionLengthConvolutionDSP(AKDSPRef dsp, int length);
 
 #else
 
@@ -30,14 +28,15 @@ private:
 public:
     AKConvolutionDSP();
 
-    int defaultRampDurationSamples = 10000;
-    
+    void setPartitionLength(int partLength);
+
+    void setWavetable(const float* table, size_t length, int index) override;
+
     void init(int channelCount, double sampleRate) override;
 
-    void setUpTable(float *table, UInt32 size) override;
-    void setPartitionLength(int partLength) override;
-
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

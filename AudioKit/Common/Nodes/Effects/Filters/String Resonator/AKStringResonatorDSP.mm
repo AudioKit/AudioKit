@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKStringResonatorDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createStringResonatorDSP() {
-    AKStringResonatorDSP *dsp = new AKStringResonatorDSP();
-    return dsp;
+    return new AKStringResonatorDSP();
 }
 
 struct AKStringResonatorDSP::InternalData {
@@ -22,39 +21,8 @@ struct AKStringResonatorDSP::InternalData {
 };
 
 AKStringResonatorDSP::AKStringResonatorDSP() : data(new InternalData) {
-    data->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
-    data->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->feedbackRamp.setTarget(defaultFeedback, true);
-    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKStringResonatorParameterFundamentalFrequency:
-            data->fundamentalFrequencyRamp.setTarget(clamp(value, fundamentalFrequencyLowerBound, fundamentalFrequencyUpperBound), immediate);
-            break;
-        case AKStringResonatorParameterFeedback:
-            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
-            break;
-        case AKStringResonatorParameterRampDuration:
-            data->fundamentalFrequencyRamp.setRampDuration(value, sampleRate);
-            data->feedbackRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKStringResonatorDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKStringResonatorParameterFundamentalFrequency:
-            return data->fundamentalFrequencyRamp.getTarget();
-        case AKStringResonatorParameterFeedback:
-            return data->feedbackRamp.getTarget();
-        case AKStringResonatorParameterRampDuration:
-            return data->fundamentalFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKStringResonatorParameterFundamentalFrequency] = &data->fundamentalFrequencyRamp;
+    parameters[AKStringResonatorParameterFeedback] = &data->feedbackRamp;
 }
 
 void AKStringResonatorDSP::init(int channelCount, double sampleRate) {
@@ -63,16 +31,19 @@ void AKStringResonatorDSP::init(int channelCount, double sampleRate) {
     sp_streson_init(sp, data->streson0);
     sp_streson_create(&data->streson1);
     sp_streson_init(sp, data->streson1);
-    data->streson0->freq = defaultFundamentalFrequency;
-    data->streson1->freq = defaultFundamentalFrequency;
-    data->streson0->fdbgain = defaultFeedback;
-    data->streson1->fdbgain = defaultFeedback;
 }
 
 void AKStringResonatorDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_streson_destroy(&data->streson0);
     sp_streson_destroy(&data->streson1);
+}
+
+void AKStringResonatorDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_streson_init(sp, data->streson0);
+    sp_streson_init(sp, data->streson1);
 }
 
 void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

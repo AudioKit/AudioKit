@@ -3,60 +3,42 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKFormantFilterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var centerFrequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var attackDuration: AUParameter!
 
-    var centerFrequency: Double = AKFormantFilter.defaultCenterFrequency {
-        didSet { setParameter(.centerFrequency, value: centerFrequency) }
-    }
-
-    var attackDuration: Double = AKFormantFilter.defaultAttackDuration {
-        didSet { setParameter(.attackDuration, value: attackDuration) }
-    }
-
-    var decayDuration: Double = AKFormantFilter.defaultDecayDuration {
-        didSet { setParameter(.decayDuration, value: decayDuration) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var decayDuration: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createFormantFilterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let centerFrequency = AUParameter(
+        centerFrequency = AUParameter(
             identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKFormantFilterParameter.centerFrequency.rawValue,
             range: AKFormantFilter.centerFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let attackDuration = AUParameter(
+        attackDuration = AUParameter(
             identifier: "attackDuration",
             name: "Impulse response attack time (Seconds)",
             address: AKFormantFilterParameter.attackDuration.rawValue,
             range: AKFormantFilter.attackDurationRange,
             unit: .seconds,
             flags: .default)
-        let decayDuration = AUParameter(
+        decayDuration = AUParameter(
             identifier: "decayDuration",
             name: "Impulse reponse decay time (Seconds)",
             address: AKFormantFilterParameter.decayDuration.rawValue,
@@ -64,12 +46,10 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [centerFrequency, attackDuration, decayDuration]))
-        centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
-        attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)
-        decayDuration.value = Float(AKFormantFilter.defaultDecayDuration)
+        parameterTree = AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration])
+
+        centerFrequency.value = AUValue(AKFormantFilter.defaultCenterFrequency)
+        attackDuration.value = AUValue(AKFormantFilter.defaultAttackDuration)
+        decayDuration.value = AUValue(AKFormantFilter.defaultDecayDuration)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

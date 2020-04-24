@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKClipperDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createClipperDSP() {
-    AKClipperDSP *dsp = new AKClipperDSP();
-    return dsp;
+    return new AKClipperDSP();
 }
 
 struct AKClipperDSP::InternalData {
@@ -21,31 +20,7 @@ struct AKClipperDSP::InternalData {
 };
 
 AKClipperDSP::AKClipperDSP() : data(new InternalData) {
-    data->limitRamp.setTarget(defaultLimit, true);
-    data->limitRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKClipperDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKClipperParameterLimit:
-            data->limitRamp.setTarget(clamp(value, limitLowerBound, limitUpperBound), immediate);
-            break;
-        case AKClipperParameterRampDuration:
-            data->limitRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKClipperDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKClipperParameterLimit:
-            return data->limitRamp.getTarget();
-        case AKClipperParameterRampDuration:
-            return data->limitRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKClipperParameterLimit] = &data->limitRamp;
 }
 
 void AKClipperDSP::init(int channelCount, double sampleRate) {
@@ -54,14 +29,19 @@ void AKClipperDSP::init(int channelCount, double sampleRate) {
     sp_clip_init(sp, data->clip0);
     sp_clip_create(&data->clip1);
     sp_clip_init(sp, data->clip1);
-    data->clip0->lim = defaultLimit;
-    data->clip1->lim = defaultLimit;
 }
 
 void AKClipperDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_clip_destroy(&data->clip0);
     sp_clip_destroy(&data->clip1);
+}
+
+void AKClipperDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_clip_init(sp, data->clip0);
+    sp_clip_init(sp, data->clip1);
 }
 
 void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

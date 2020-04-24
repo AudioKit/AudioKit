@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKResonantFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createResonantFilterDSP() {
-    AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
-    return dsp;
+    return new AKResonantFilterDSP();
 }
 
 struct AKResonantFilterDSP::InternalData {
@@ -22,39 +21,8 @@ struct AKResonantFilterDSP::InternalData {
 };
 
 AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
-    data->frequencyRamp.setTarget(defaultFrequency, true);
-    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->bandwidthRamp.setTarget(defaultBandwidth, true);
-    data->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKResonantFilterParameterFrequency:
-            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
-            break;
-        case AKResonantFilterParameterBandwidth:
-            data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
-            break;
-        case AKResonantFilterParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, sampleRate);
-            data->bandwidthRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKResonantFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKResonantFilterParameterFrequency:
-            return data->frequencyRamp.getTarget();
-        case AKResonantFilterParameterBandwidth:
-            return data->bandwidthRamp.getTarget();
-        case AKResonantFilterParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKResonantFilterParameterFrequency] = &data->frequencyRamp;
+    parameters[AKResonantFilterParameterBandwidth] = &data->bandwidthRamp;
 }
 
 void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
@@ -63,16 +31,19 @@ void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
     sp_reson_init(sp, data->reson0);
     sp_reson_create(&data->reson1);
     sp_reson_init(sp, data->reson1);
-    data->reson0->freq = defaultFrequency;
-    data->reson1->freq = defaultFrequency;
-    data->reson0->bw = defaultBandwidth;
-    data->reson1->bw = defaultBandwidth;
 }
 
 void AKResonantFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_reson_destroy(&data->reson0);
     sp_reson_destroy(&data->reson1);
+}
+
+void AKResonantFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_reson_init(sp, data->reson0);
+    sp_reson_init(sp, data->reson1);
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -3,16 +3,15 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKFMOscillatorDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createFMOscillatorDSP() {
-    AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
-    return dsp;
+    return new AKFMOscillatorDSP();
 }
 
 struct AKFMOscillatorDSP::InternalData {
@@ -27,79 +26,24 @@ struct AKFMOscillatorDSP::InternalData {
 };
 
 AKFMOscillatorDSP::AKFMOscillatorDSP() : data(new InternalData) {
-    data->baseFrequencyRamp.setTarget(defaultBaseFrequency, true);
-    data->baseFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->carrierMultiplierRamp.setTarget(defaultCarrierMultiplier, true);
-    data->carrierMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->modulatingMultiplierRamp.setTarget(defaultModulatingMultiplier, true);
-    data->modulatingMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->modulationIndexRamp.setTarget(defaultModulationIndex, true);
-    data->modulationIndexRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->amplitudeRamp.setTarget(defaultAmplitude, true);
-    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
+    parameters[AKFMOscillatorParameterBaseFrequency] = &data->baseFrequencyRamp;
+    parameters[AKFMOscillatorParameterCarrierMultiplier] = &data->carrierMultiplierRamp;
+    parameters[AKFMOscillatorParameterModulatingMultiplier] = &data->modulatingMultiplierRamp;
+    parameters[AKFMOscillatorParameterModulationIndex] = &data->modulationIndexRamp;
+    parameters[AKFMOscillatorParameterAmplitude] = &data->amplitudeRamp;
 }
 
-// Uses the ParameterAddress as a key
-void AKFMOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKFMOscillatorParameterBaseFrequency:
-            data->baseFrequencyRamp.setTarget(clamp(value, baseFrequencyLowerBound, baseFrequencyUpperBound), immediate);
-            break;
-        case AKFMOscillatorParameterCarrierMultiplier:
-            data->carrierMultiplierRamp.setTarget(clamp(value, carrierMultiplierLowerBound, carrierMultiplierUpperBound), immediate);
-            break;
-        case AKFMOscillatorParameterModulatingMultiplier:
-            data->modulatingMultiplierRamp.setTarget(clamp(value, modulatingMultiplierLowerBound, modulatingMultiplierUpperBound), immediate);
-            break;
-        case AKFMOscillatorParameterModulationIndex:
-            data->modulationIndexRamp.setTarget(clamp(value, modulationIndexLowerBound, modulationIndexUpperBound), immediate);
-            break;
-        case AKFMOscillatorParameterAmplitude:
-            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
-            break;
-        case AKFMOscillatorParameterRampDuration:
-            data->baseFrequencyRamp.setRampDuration(value, sampleRate);
-            data->carrierMultiplierRamp.setRampDuration(value, sampleRate);
-            data->modulatingMultiplierRamp.setRampDuration(value, sampleRate);
-            data->modulationIndexRamp.setRampDuration(value, sampleRate);
-            data->amplitudeRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKFMOscillatorDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKFMOscillatorParameterBaseFrequency:
-            return data->baseFrequencyRamp.getTarget();
-        case AKFMOscillatorParameterCarrierMultiplier:
-            return data->carrierMultiplierRamp.getTarget();
-        case AKFMOscillatorParameterModulatingMultiplier:
-            return data->modulatingMultiplierRamp.getTarget();
-        case AKFMOscillatorParameterModulationIndex:
-            return data->modulationIndexRamp.getTarget();
-        case AKFMOscillatorParameterAmplitude:
-            return data->amplitudeRamp.getTarget();
-        case AKFMOscillatorParameterRampDuration:
-            return data->baseFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+void AKFMOscillatorDSP::setWavetable(const float* table, size_t length, int index) {
+    data->waveform = std::vector<float>(table, table + length);
+    reset();
 }
 
 void AKFMOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    isStarted = false;
-    
     sp_ftbl_create(sp, &data->ftbl, data->waveform.size());
     std::copy(data->waveform.cbegin(), data->waveform.cend(), data->ftbl->tbl);
-    
     sp_fosc_create(&data->fosc);
     sp_fosc_init(sp, data->fosc, data->ftbl);
-    data->fosc->freq = defaultBaseFrequency;
-    data->fosc->car = defaultCarrierMultiplier;
-    data->fosc->mod = defaultModulatingMultiplier;
-    data->fosc->indx = defaultModulationIndex;
-    data->fosc->amp = defaultAmplitude;
 }
 
 void AKFMOscillatorDSP::deinit() {
@@ -108,15 +52,13 @@ void AKFMOscillatorDSP::deinit() {
     sp_ftbl_destroy(&data->ftbl);
 }
 
-void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
-    data->waveform.resize(size);
+void AKFMOscillatorDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_fosc_init(sp, data->fosc, data->ftbl);
 }
 
-void AKFMOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->waveform[index] = value;
-}
 void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 

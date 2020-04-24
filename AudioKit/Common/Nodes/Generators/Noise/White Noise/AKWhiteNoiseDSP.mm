@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKWhiteNoiseDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createWhiteNoiseDSP() {
-    AKWhiteNoiseDSP *dsp = new AKWhiteNoiseDSP();
-    return dsp;
+    return new AKWhiteNoiseDSP();
 }
 
 struct AKWhiteNoiseDSP::InternalData {
@@ -20,38 +19,13 @@ struct AKWhiteNoiseDSP::InternalData {
 };
 
 AKWhiteNoiseDSP::AKWhiteNoiseDSP() : data(new InternalData) {
-    data->amplitudeRamp.setTarget(defaultAmplitude, true);
-    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKWhiteNoiseDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKWhiteNoiseParameterAmplitude:
-            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
-            break;
-        case AKWhiteNoiseParameterRampDuration:
-            data->amplitudeRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKWhiteNoiseDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKWhiteNoiseParameterAmplitude:
-            return data->amplitudeRamp.getTarget();
-        case AKWhiteNoiseParameterRampDuration:
-            return data->amplitudeRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKWhiteNoiseParameterAmplitude] = &data->amplitudeRamp;
 }
 
 void AKWhiteNoiseDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_noise_create(&data->noise);
     sp_noise_init(sp, data->noise);
-    data->noise->amp = defaultAmplitude;
 }
 
 void AKWhiteNoiseDSP::deinit() {
@@ -59,8 +33,13 @@ void AKWhiteNoiseDSP::deinit() {
     sp_noise_destroy(&data->noise);
 }
 
-void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void AKWhiteNoiseDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_noise_init(sp, data->noise);
+}
 
+void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 

@@ -15,12 +15,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var frequencyParameter: AUParameter?
-    fileprivate var depthParameter: AUParameter?
-    fileprivate var feedbackParameter: AUParameter?
-    fileprivate var dryWetMixParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     public static let frequencyRange = Double(kAKFlanger_MinFrequency) ... Double(kAKFlanger_MaxFrequency)
     public static let depthRange = Double(kAKFlanger_MinDepth) ... Double(kAKFlanger_MaxDepth)
@@ -32,68 +27,45 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultFeedback = Double(kAKFlanger_DefaultFeedback)
     public static let defaultDryWetMix = Double(kAKFlanger_DefaultDryWetMix)
 
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
-
     /// Modulation Frequency (Hz)
-    @objc open dynamic var frequency: Double = defaultFrequency {
+    open var frequency: Double = defaultFrequency {
         willSet {
-            guard frequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                frequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.frequency, value: newValue)
+            let clampedValue = AKFlanger.frequencyRange.clamp(newValue)
+            guard frequency != clampedValue else { return }
+            internalAU?.frequency.value = AUValue(clampedValue)
         }
     }
 
     /// Modulation Depth (fraction)
-    @objc open dynamic var depth: Double = defaultDepth {
+    open var depth: Double = defaultDepth {
         willSet {
-            guard depth != newValue else { return }
-            if internalAU?.isSetUp == true {
-                depthParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.depth, value: newValue)
+            let clampedValue = AKFlanger.depthRange.clamp(newValue)
+            guard depth != clampedValue else { return }
+            internalAU?.depth.value = AUValue(clampedValue)
         }
     }
 
     /// Feedback (fraction)
-    @objc open dynamic var feedback: Double = defaultFeedback {
+    open var feedback: Double = defaultFeedback {
         willSet {
-            guard feedback != newValue else { return }
-            if internalAU?.isSetUp == true {
-                feedbackParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.feedback, value: newValue)
+            let clampedValue = AKFlanger.feedbackRange.clamp(newValue)
+            guard feedback != clampedValue else { return }
+            internalAU?.feedback.value = AUValue(clampedValue)
         }
     }
 
     /// Dry Wet Mix (fraction)
-    @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
+    open var dryWetMix: Double = defaultDryWetMix {
         willSet {
-            guard dryWetMix != newValue else { return }
-            if internalAU?.isSetUp == true {
-                dryWetMixParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
+            let clampedValue = AKFlanger.dryWetMixRange.clamp(newValue)
+            guard dryWetMix != clampedValue else { return }
+            internalAU?.dryWetMix.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -107,57 +79,38 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - feedback: feedback fraction
     ///   - dryWetMix: fraction of wet signal in mix  - traditionally 50%, avoid changing this value
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         frequency: Double = defaultFrequency,
         depth: Double = defaultDepth,
         feedback: Double = defaultFeedback,
-        dryWetMix: Double = defaultDryWetMix) {
-
-        self.frequency = frequency
-        self.depth = depth
-        self.feedback = feedback
-        self.dryWetMix = dryWetMix
+        dryWetMix: Double = defaultDryWetMix
+    ) {
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: strongSelf)
+            self.frequency = frequency
+            self.depth = depth
+            self.feedback = feedback
+            self.dryWetMix = dryWetMix
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        frequencyParameter = tree["frequency"]
-        depthParameter = tree["depth"]
-        feedbackParameter = tree["feedback"]
-        dryWetMixParameter = tree["dryWetMix"]
-        internalAU?.setParameterImmediately(.frequency, value: frequency)
-        internalAU?.setParameterImmediately(.depth, value: depth)
-        internalAU?.setParameterImmediately(.feedback, value: feedback)
-        internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

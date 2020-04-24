@@ -10,8 +10,7 @@
 
 extern "C" AKDSPRef createBoosterDSP()
 {
-    AKBoosterDSP *dsp = new AKBoosterDSP();
-    return dsp;
+    return new AKBoosterDSP();
 }
 
 struct AKBoosterDSP::InternalData {
@@ -21,53 +20,22 @@ struct AKBoosterDSP::InternalData {
 
 AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
 {
-    data->leftGainRamp.setTarget(1.0, true);
-    data->leftGainRamp.setDurationInSamples(10000);
-    data->rightGainRamp.setTarget(1.0, true);
-    data->rightGainRamp.setDurationInSamples(10000);
+    parameters[AKBoosterParameterLeftGain] = &data->leftGainRamp;
+    parameters[AKBoosterParameterRightGain] = &data->rightGainRamp;
+    
+    bCanProcessInPlace = true;
 }
 
 // Uses the ParameterAddress as a key
 void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
 {
-    switch (address) {
-        case AKBoosterParameterLeftGain:
-            data->leftGainRamp.setTarget(value, immediate);
-            break;
-        case AKBoosterParameterRightGain:
-            data->rightGainRamp.setTarget(value, immediate);
-            break;
-        case AKBoosterParameterRampDuration:
-            data->leftGainRamp.setRampDuration(value, sampleRate);
-            data->rightGainRamp.setRampDuration(value, sampleRate);
-            break;
-        case AKBoosterParameterRampType:
-            data->leftGainRamp.setRampType(value);
-            data->rightGainRamp.setRampType(value);
-            break;
+    if (address == AKBoosterParameterRampType) {
+        data->leftGainRamp.setRampType(value);
+        data->rightGainRamp.setRampType(value);
     }
-}
-
-// Uses the ParameterAddress as a key
-float AKBoosterDSP::getParameter(AUParameterAddress address)
-{
-    switch (address) {
-        case AKBoosterParameterLeftGain:
-            return data->leftGainRamp.getTarget();
-        case AKBoosterParameterRightGain:
-            return data->rightGainRamp.getTarget();
-        case AKBoosterParameterRampDuration:
-            return data->leftGainRamp.getRampDuration(sampleRate);
+    else {
+        AKDSPBase::setParameter(address, value, immediate);
     }
-    return 0;
-}
-
-void AKBoosterDSP::start() {
-    isStarted = true;
-}
-
-void AKBoosterDSP::stop() {
-    isStarted = false;
 }
 
 void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)

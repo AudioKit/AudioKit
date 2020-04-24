@@ -15,7 +15,7 @@ open class AKMandolin: AKNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var detuneParameter: AUParameter?
     fileprivate var bodySizeParameter: AUParameter?

@@ -16,7 +16,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     // Compressor Processor
     fileprivate var ratioParameter: AUParameter?

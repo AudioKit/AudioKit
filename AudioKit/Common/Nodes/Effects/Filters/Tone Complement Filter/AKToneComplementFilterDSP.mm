@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKToneComplementFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createToneComplementFilterDSP() {
-    AKToneComplementFilterDSP *dsp = new AKToneComplementFilterDSP();
-    return dsp;
+    return new AKToneComplementFilterDSP();
 }
 
 struct AKToneComplementFilterDSP::InternalData {
@@ -21,31 +20,7 @@ struct AKToneComplementFilterDSP::InternalData {
 };
 
 AKToneComplementFilterDSP::AKToneComplementFilterDSP() : data(new InternalData) {
-    data->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    data->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKToneComplementFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKToneComplementFilterParameterHalfPowerPoint:
-            data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
-            break;
-        case AKToneComplementFilterParameterRampDuration:
-            data->halfPowerPointRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKToneComplementFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKToneComplementFilterParameterHalfPowerPoint:
-            return data->halfPowerPointRamp.getTarget();
-        case AKToneComplementFilterParameterRampDuration:
-            return data->halfPowerPointRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKToneComplementFilterParameterHalfPowerPoint] = &data->halfPowerPointRamp;
 }
 
 void AKToneComplementFilterDSP::init(int channelCount, double sampleRate) {
@@ -54,14 +29,19 @@ void AKToneComplementFilterDSP::init(int channelCount, double sampleRate) {
     sp_atone_init(sp, data->atone0);
     sp_atone_create(&data->atone1);
     sp_atone_init(sp, data->atone1);
-    data->atone0->hp = defaultHalfPowerPoint;
-    data->atone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneComplementFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_atone_destroy(&data->atone0);
     sp_atone_destroy(&data->atone1);
+}
+
+void AKToneComplementFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_atone_init(sp, data->atone0);
+    sp_atone_init(sp, data->atone1);
 }
 
 void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

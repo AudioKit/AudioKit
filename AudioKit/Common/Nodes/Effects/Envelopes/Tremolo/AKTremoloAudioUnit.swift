@@ -3,49 +3,33 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKTremoloAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKTremoloParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKTremoloParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var frequency: Double = AKTremolo.defaultFrequency {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
-
-    var depth: Double = AKTremolo.defaultDepth {
-        didSet { setParameter(.depth, value: depth) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var depth: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createTremoloDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKTremoloParameter.frequency.rawValue,
             range: AKTremolo.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let depth = AUParameter(
+        depth = AUParameter(
             identifier: "depth",
             name: "Depth",
             address: AKTremoloParameter.depth.rawValue,
@@ -53,11 +37,9 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [frequency, depth]))
-        frequency.value = Float(AKTremolo.defaultFrequency)
-        depth.value = Float(AKTremolo.defaultDepth)
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, depth])
+
+        frequency.value = AUValue(AKTremolo.defaultFrequency)
+        depth.value = AUValue(AKTremolo.defaultDepth)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

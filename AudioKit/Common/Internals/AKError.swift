@@ -16,6 +16,7 @@ enum AKError: Error, LocalizedError {
     case AudioKitNotRunning
     case CouldNotOpenFile
     case DeviceNotFound
+    case InvalidDSPObject
     case Unexplained
     public var errorDescription: String? {
         switch self {

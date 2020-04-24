@@ -21,6 +21,8 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
 
 AKDSPRef createShakerDSP(void);
 
+void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
+
 #else
 
 class AKShakerDSP : public AKDSPBase {
@@ -44,7 +46,7 @@ public:
 
     void trigger() override;
 
-    void triggerTypeAmplitude(AUValue freq, AUValue amp) override;
+    void triggerTypeAmplitude(AUValue freq, AUValue amp);
 
     void deinit() override;
 

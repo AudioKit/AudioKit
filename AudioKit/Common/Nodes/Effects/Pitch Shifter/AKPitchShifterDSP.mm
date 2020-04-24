@@ -3,15 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #include "AKPitchShifterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createPitchShifterDSP() {
-    AKPitchShifterDSP *dsp = new AKPitchShifterDSP();
-    return dsp;
+    return new AKPitchShifterDSP();
 }
 
 struct AKPitchShifterDSP::InternalData {
@@ -23,47 +22,9 @@ struct AKPitchShifterDSP::InternalData {
 };
 
 AKPitchShifterDSP::AKPitchShifterDSP() : data(new InternalData) {
-    data->shiftRamp.setTarget(defaultShift, true);
-    data->shiftRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->windowSizeRamp.setTarget(defaultWindowSize, true);
-    data->windowSizeRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->crossfadeRamp.setTarget(defaultCrossfade, true);
-    data->crossfadeRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKPitchShifterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKPitchShifterParameterShift:
-            data->shiftRamp.setTarget(clamp(value, shiftLowerBound, shiftUpperBound), immediate);
-            break;
-        case AKPitchShifterParameterWindowSize:
-            data->windowSizeRamp.setTarget(clamp(value, windowSizeLowerBound, windowSizeUpperBound), immediate);
-            break;
-        case AKPitchShifterParameterCrossfade:
-            data->crossfadeRamp.setTarget(clamp(value, crossfadeLowerBound, crossfadeUpperBound), immediate);
-            break;
-        case AKPitchShifterParameterRampDuration:
-            data->shiftRamp.setRampDuration(value, sampleRate);
-            data->windowSizeRamp.setRampDuration(value, sampleRate);
-            data->crossfadeRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKPitchShifterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKPitchShifterParameterShift:
-            return data->shiftRamp.getTarget();
-        case AKPitchShifterParameterWindowSize:
-            return data->windowSizeRamp.getTarget();
-        case AKPitchShifterParameterCrossfade:
-            return data->crossfadeRamp.getTarget();
-        case AKPitchShifterParameterRampDuration:
-            return data->shiftRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKPitchShifterParameterShift] = &data->shiftRamp;
+    parameters[AKPitchShifterParameterWindowSize] = &data->windowSizeRamp;
+    parameters[AKPitchShifterParameterCrossfade] = &data->crossfadeRamp;
 }
 
 void AKPitchShifterDSP::init(int channelCount, double sampleRate) {
@@ -72,18 +33,19 @@ void AKPitchShifterDSP::init(int channelCount, double sampleRate) {
     sp_pshift_init(sp, data->pshift0);
     sp_pshift_create(&data->pshift1);
     sp_pshift_init(sp, data->pshift1);
-    *data->pshift0->shift = defaultShift;
-    *data->pshift1->shift = defaultShift;
-    *data->pshift0->window = defaultWindowSize;
-    *data->pshift1->window = defaultWindowSize;
-    *data->pshift0->xfade = defaultCrossfade;
-    *data->pshift1->xfade = defaultCrossfade;
 }
 
 void AKPitchShifterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_pshift_destroy(&data->pshift0);
     sp_pshift_destroy(&data->pshift1);
+}
+
+void AKPitchShifterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_pshift_init(sp, data->pshift0);
+    sp_pshift_init(sp, data->pshift1);
 }
 
 void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
