@@ -1,10 +1,4 @@
-//
-//  AKAudioFile+ProcessingAsynchronously.swift
-//  AudioKit
-//
-//  Created by Laurent Veliscek and Brandon Barber, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 ///  Major Revision: Async process objects are now handled by AKAudioFile ProcessFactory singleton.
 ///  So there's no more need to handle asyncProcess objects.

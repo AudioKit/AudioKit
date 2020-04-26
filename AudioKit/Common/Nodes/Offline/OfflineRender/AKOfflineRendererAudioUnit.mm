@@ -1,10 +1,4 @@
-//
-//  AKOfflineRenderAudioUnit.m
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKOfflineRenderAudioUnit.h"
 #import <algorithm>
@@ -68,7 +62,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
                          AVNumberOfChannelsKey:     @(self.defaultFormat.channelCount),
                          AVSampleRateKey:           @(self.defaultFormat.sampleRate)};
         } else {
-            NSMutableDictionary *fixedSettings = AKManager.format.settings.mutableCopy;
+            NSMutableDictionary *fixedSettings = AKSettings.audioFormat.settings.mutableCopy;
             fixedSettings[AVLinearPCMIsNonInterleaved] = @(false);
             settings = fixedSettings;
         }

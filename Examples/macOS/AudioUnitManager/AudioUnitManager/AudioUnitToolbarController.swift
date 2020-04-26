@@ -1,10 +1,4 @@
-//
-//  AudioUnitToolbarController.swift
-//  AudioUnitManager
-//
-//  Created by Ryan Francesconi on 8/5/18.
-//  Copyright © 2018 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AVFoundation

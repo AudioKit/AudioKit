@@ -1,10 +1,4 @@
-//
-//  AKCompressor.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///

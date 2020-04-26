@@ -1,10 +1,4 @@
-//
-//  AudioKit+SafeConnections.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/20/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -61,7 +55,7 @@ extension AKManager {
 
         let dummy = AVAudioUnitSampler()
         engine.attach(dummy)
-        engine.connect(dummy, to: mixer, format: AKManager.format)
+        engine.connect(dummy, to: mixer, format: AKSettings.audioFormat)
         return dummy
     }
 
@@ -99,6 +93,7 @@ extension AKManager {
     //Convenience
     @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
+            guard node.engine != nil else { continue }
             engine.detach(node)
         }
     }

@@ -1,10 +1,4 @@
-//
-//  AKMIDICallbackInstrument
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef

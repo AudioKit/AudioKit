@@ -1,10 +1,5 @@
-//
-//  AKMorphingOscillatorFilterSynthAudioUnit.mm
-//  AudioKit
-//
-//  Created by Colin Hallett, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 #import <AudioKit/AudioKit-Swift.h>
 
 #import "AKMorphingOscillatorFilterSynthAudioUnit.h"

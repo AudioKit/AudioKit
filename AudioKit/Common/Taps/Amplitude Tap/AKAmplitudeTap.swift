@@ -1,10 +1,4 @@
-//
-//  AKAmplitudeTap.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Accelerate
 
@@ -12,7 +6,7 @@ import Accelerate
 /// start() will add the tap, and stop() will remove it.
 public class AKAmplitudeTap: AKToggleable {
     private var amp: [Float] = Array(repeating: 0, count: 2)
-    private let bufferSize: UInt32 = 2_048
+    private let bufferSize: UInt32 = 1_024
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public private(set) var isStarted: Bool = false
@@ -78,9 +72,15 @@ public class AKAmplitudeTap: AKToggleable {
         // was installed on the same bus as our bus var.
         removeTap()
 
+        // just double check this here
+        guard input.avAudioUnitOrNode.engine != nil else {
+            AKLog("The tapped node isn't attached to the engine")
+            return
+        }
+
         input.avAudioUnitOrNode.installTap(onBus: bus,
                                            bufferSize: bufferSize,
-                                           format: AKManager.format,
+                                           format: AKSettings.audioFormat,
                                            block: handleTapBlock(buffer:at:))
     }
 
@@ -110,6 +110,11 @@ public class AKAmplitudeTap: AKToggleable {
     }
 
     private func removeTap() {
+        guard input?.avAudioUnitOrNode.engine != nil else {
+            AKLog("The tapped node isn't attached to the engine")
+            return
+        }
+
         input?.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 

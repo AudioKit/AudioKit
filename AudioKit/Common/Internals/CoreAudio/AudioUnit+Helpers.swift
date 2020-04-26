@@ -1,12 +1,4 @@
-//
-//  AudioUnit+Helpers.swift
-//  AudioKit
-//
-//  Created by Daniel Clelland, revision history on GitHub.
-//  Updated for AudioKit by Aurelius Prochazka.
-//
-//  Copyright © 2017 Daniel Clelland. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CoreAudio
 

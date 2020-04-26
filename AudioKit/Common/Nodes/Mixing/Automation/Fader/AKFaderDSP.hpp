@@ -1,10 +1,4 @@
-//
-//  AKFaderDSP.hpp
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -16,7 +10,9 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterRightGain,
     AKFaderParameterTaper,
     AKFaderParameterSkew,
-    AKFaderParameterOffset
+    AKFaderParameterOffset,
+    AKFaderParameterFlipStereo,
+    AKFaderParameterMixToMono
 };
 
 #ifndef __cplusplus

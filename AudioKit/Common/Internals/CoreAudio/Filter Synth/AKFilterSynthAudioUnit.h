@@ -1,10 +1,4 @@
-//
-//  AKFilterSynthAudioUnit.h
-//  AudioKit
-//
-//  Created by Colin Hallett, revision history on GitHub.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 

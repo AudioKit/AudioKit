@@ -1,13 +1,6 @@
-//
-//  AKPinkNoiseTest.swift
-//  AudioKitTestSuite
-//
-//  Created by Nicholas Arner, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKPinkNoiseTests: AKTestCase {
 

@@ -1,10 +1,4 @@
-//
-//  AKAudioUnitInstrument.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {

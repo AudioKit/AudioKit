@@ -1,10 +1,4 @@
-//
-//  AKAudioUnitManager+Utilities.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi on 5/10/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Utility methods for common tasks related to Audio Units
 extension AKAudioUnitManager {

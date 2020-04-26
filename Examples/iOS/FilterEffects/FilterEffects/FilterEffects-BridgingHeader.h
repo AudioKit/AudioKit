@@ -1,10 +1,4 @@
-//
-//  FilterEffects-BridgingHeader.h
-//  FilterEffects
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #ifndef FilterEffects_BridgingHeader_h
 #define FilterEffects_BridgingHeader_h
