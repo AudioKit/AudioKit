@@ -6,10 +6,7 @@
 
 typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
     AKStereoFieldLimiterParameterAmount,
-    AKStereoFieldLimiterParameterRampDuration
 };
-
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
@@ -17,51 +14,21 @@ AKDSPRef createStereoFieldLimiterDSP(void);
 
 #else
 
-#import <AudioToolbox/AudioToolbox.h>
-#import <AudioUnit/AudioUnit.h>
-#import <AVFoundation/AVFoundation.h>
+#import "AKDSPBase.hpp"
+#import "AKLinearParameterRamp.hpp"
 
 struct AKStereoFieldLimiterDSP : AKDSPBase {
-
 private:
     AKLinearParameterRamp amountRamp;
 
 public:
 
     AKStereoFieldLimiterDSP() {
-        amountRamp.setTarget(1.0, true);
-        amountRamp.setDurationInSamples(10000);
+        parameters[AKStereoFieldLimiterParameterAmount] = &amountRamp;
+        bCanProcessInPlace = true;
     }
-
-    /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKStereoFieldLimiterParameterAmount:
-                amountRamp.setTarget(value, immediate);
-                break;
-            case AKStereoFieldLimiterParameterRampDuration:
-                amountRamp.setRampDuration(value, sampleRate);
-                break;
-        }
-    }
-
-    /// Uses the ParameterAddress as a key 
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKStereoFieldLimiterParameterAmount:
-                return amountRamp.getTarget();
-            case AKStereoFieldLimiterParameterRampDuration:
-                return amountRamp.getRampDuration(sampleRate);
-        }
-        return 0;
-    }
-
-    // Largely lifted from the example code, though this is simpler since the Apple code
-    // implements a time varying filter
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             // do ramping every 8 samples

@@ -6,7 +6,6 @@
 
 typedef NS_ENUM(AUParameterAddress, AKToneComplementFilterParameter) {
     AKToneComplementFilterParameterHalfPowerPoint,
-    AKToneComplementFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -25,22 +24,11 @@ private:
 public:
     AKToneComplementFilterDSP();
 
-    float halfPowerPointLowerBound = 12.0;
-    float halfPowerPointUpperBound = 20000.0;
-
-    float defaultHalfPowerPoint = 1000.0;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

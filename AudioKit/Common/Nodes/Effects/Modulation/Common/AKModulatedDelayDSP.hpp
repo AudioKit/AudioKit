@@ -9,7 +9,6 @@ typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
     AKModulatedDelayParameterDepth,
     AKModulatedDelayParameterFeedback,
     AKModulatedDelayParameterDryWetMix,
-    AKModulatedDelayParameterRampDuration
 };
 
 // constants
@@ -55,20 +54,20 @@ AKDSPRef createFlangerDSP(void);
 
 struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
 {
+private:
     // ramped parameters
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp depthRamp;
     AKLinearParameterRamp feedbackRamp;
     AKLinearParameterRamp dryWetMixRamp;
-    
+
+public:
     AKModulatedDelayDSP(AKModulatedDelayType type);
-    
+
     void init(int channelCount, double sampleRate) override;
+
     void deinit() override;
-    
-    void setParameter(uint64_t address, float value, bool immediate) override;
-    float getParameter(uint64_t address) override;
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 

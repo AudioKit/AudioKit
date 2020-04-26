@@ -2,33 +2,19 @@
 
 import AVFoundation
 
-public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
+public class AKBrownianNoiseAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKBrownianNoiseParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKBrownianNoiseParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var amplitude: Double = AKBrownianNoise.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createBrownianNoiseDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKBrownianNoiseParameter.amplitude.rawValue,
@@ -36,10 +22,8 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [amplitude]))
-        amplitude.value = Float(AKBrownianNoise.defaultAmplitude)
+        parameterTree = AUParameterTree.createTree(withChildren: [amplitude])
+
+        amplitude.value = AUValue(AKBrownianNoise.defaultAmplitude)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

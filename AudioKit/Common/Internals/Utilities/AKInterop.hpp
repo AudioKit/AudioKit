@@ -24,6 +24,9 @@
  let direction: AKDirection = .up
 */
 
-/// Pointer to an instance of an AKDSPBase subclass 
+/// Pointer to an instance of an AKDSPBase subclass
+#ifndef __cplusplus
 typedef void* AKDSPRef AK_SWIFT_TYPE;
-
+#else
+typedef class AKDSPBase* AKDSPRef;
+#endif

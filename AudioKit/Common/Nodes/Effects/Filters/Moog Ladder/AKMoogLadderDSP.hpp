@@ -7,7 +7,6 @@
 typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
     AKMoogLadderParameterCutoffFrequency,
     AKMoogLadderParameterResonance,
-    AKMoogLadderParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -26,25 +25,11 @@ private:
 public:
     AKMoogLadderDSP();
 
-    float cutoffFrequencyLowerBound = 12.0;
-    float cutoffFrequencyUpperBound = 20000.0;
-    float resonanceLowerBound = 0.0;
-    float resonanceUpperBound = 2.0;
-
-    float defaultCutoffFrequency = 1000;
-    float defaultResonance = 0.5;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

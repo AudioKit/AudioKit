@@ -4,10 +4,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(AUParameterAddress, AKChowningReverbParameter) {
-    AKChowningReverbParameterRampDuration
-};
-
 #ifndef __cplusplus
 
 AKDSPRef createChowningReverbDSP(void);
@@ -23,10 +19,12 @@ private:
  
 public:
     AKChowningReverbDSP();
-    
+
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

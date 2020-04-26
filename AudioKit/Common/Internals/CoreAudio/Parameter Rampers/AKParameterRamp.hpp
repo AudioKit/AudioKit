@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  Fade code inspired by SoX's fade.c:
 //  https://github.com/chirlu/sox/blob/master/src/fade.c
 

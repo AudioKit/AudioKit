@@ -1,10 +1,67 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKPannerDSP.hpp"
-
-// "Constructor" function for interop with Swift
+#include "AKPannerDSP.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createPannerDSP() {
-    AKPannerDSP *dsp = new AKPannerDSP();
-    return dsp;
+    return new AKPannerDSP();
+}
+
+struct AKPannerDSP::InternalData {
+    sp_panst *panst;
+    AKLinearParameterRamp panRamp;
+};
+
+AKPannerDSP::AKPannerDSP() : data(new InternalData) {
+    parameters[AKPannerParameterPan] = &data->panRamp;
+}
+
+void AKPannerDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_panst_create(&data->panst);
+    sp_panst_init(sp, data->panst);
+}
+
+void AKPannerDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
+    sp_panst_destroy(&data->panst);
+}
+
+void AKPannerDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_panst_init(sp, data->panst);
+}
+
+void AKPannerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+
+    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+        int frameOffset = int(frameIndex + bufferOffset);
+
+        // do ramping every 8 samples
+        if ((frameOffset & 0x7) == 0) {
+            data->panRamp.advanceTo(now + frameOffset);
+        }
+
+        data->panst->pan = data->panRamp.getValue();
+
+        float *tmpin[2];
+        float *tmpout[2];
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            if (channel < 2) {
+                tmpin[channel] = in;
+                tmpout[channel] = out;
+            }
+            if (!isStarted) {
+                *out = *in;
+                continue;
+            }
+            
+        }
+        if (isStarted) {
+            sp_panst_compute(sp, data->panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+        }
+    }
 }

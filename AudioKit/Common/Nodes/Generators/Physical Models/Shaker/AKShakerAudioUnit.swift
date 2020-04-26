@@ -1,21 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
+public class AKShakerAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKShakerParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKShakerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var type: Double = 0 {
-        didSet { setParameter(.type, value: type) }
-    }
-    var amplitude: Double = 1 {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
+    var type: AUParameter!
+    
+    var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createShakerDSP()
@@ -25,25 +14,28 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let type = AUParameter(
+        type = AUParameter(
             identifier: "Type",
             name: "type",
             address: 0,
             range: 0...22,
             unit: .generic,
             flags: .default)
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,
             range: 0...10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree(children: [type, amplitude]))
+
+        parameterTree = AUParameterTree.createTree(withChildren: [type, amplitude])
+
         type.value = 0
         amplitude.value = 0.5
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
+    
+    public func triggerType(_ type: AUValue, amplitude: AUValue) {
+        triggerTypeShakerDSP(dsp, type, amplitude)
+    }
 }

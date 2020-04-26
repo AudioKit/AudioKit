@@ -3,8 +3,7 @@
 #include "AKDCBlockDSP.hpp"
 
 extern "C" AKDSPRef createDCBlockDSP() {
-    AKDCBlockDSP *dsp = new AKDCBlockDSP();
-    return dsp;
+    return new AKDCBlockDSP();
 }
 
 struct AKDCBlockDSP::InternalData {
@@ -12,7 +11,8 @@ struct AKDCBlockDSP::InternalData {
     sp_dcblock *dcblock1;
 };
 
-AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {}
+AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {
+}
 
 void AKDCBlockDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
@@ -26,6 +26,13 @@ void AKDCBlockDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_dcblock_destroy(&data->dcblock0);
     sp_dcblock_destroy(&data->dcblock1);
+}
+
+void AKDCBlockDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_dcblock_init(sp, data->dcblock0);
+    sp_dcblock_init(sp, data->dcblock1);
 }
 
 void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

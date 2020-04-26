@@ -8,7 +8,6 @@
 typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,
-    AKBoosterParameterRampDuration,
     AKBoosterParameterRampType
 };
 
@@ -36,10 +35,8 @@ public:
     AKBoosterDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
-    float getParameter(AUParameterAddress address) override;
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-    void start() override;
-    void stop() override;
 };
 
 #endif

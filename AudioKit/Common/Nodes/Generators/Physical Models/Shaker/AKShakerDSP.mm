@@ -11,6 +11,10 @@ extern "C" AKDSPRef createShakerDSP() {
     return dsp;
 }
 
+extern "C" void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
+    ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
+}
+
 // AKShakerDSP method implementations
 
 struct AKShakerDSP::InternalData
