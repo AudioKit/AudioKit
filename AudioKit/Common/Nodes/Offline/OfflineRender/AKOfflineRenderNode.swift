@@ -14,8 +14,8 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     /// Turn on or off internal rendering
     open var internalRenderEnabled: Bool {
-        get { return internalAU!.internalRenderEnabled }
-        set { internalAU!.internalRenderEnabled = newValue }
+        get { return internalAU?.internalRenderEnabled ?? false }
+        set { internalAU?.internalRenderEnabled = newValue }
     }
 
     /// Render audio to a file given by a URL

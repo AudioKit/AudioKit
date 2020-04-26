@@ -174,8 +174,8 @@ open class AKWaveTable: AKNode, AKComponent {
         self.volume = volume
         self.endPoint = endPoint
         if let file = file {
-            self.avAudiofile = file
-            self.endPoint = Sample(avAudiofile!.samplesCount)
+            avAudiofile = file
+            self.endPoint = Sample(file.samplesCount)
         }
         self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
@@ -193,8 +193,8 @@ open class AKWaveTable: AKNode, AKComponent {
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU!.completionHandler = completionHandler
-            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
+            strongSelf.internalAU?.completionHandler = completionHandler
+            strongSelf.internalAU?.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
