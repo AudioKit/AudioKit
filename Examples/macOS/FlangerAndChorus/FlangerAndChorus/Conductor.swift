@@ -1,10 +1,4 @@
-//
-//  Conductor.swift
-//  AKTest1
-//
-//  Created by Shane Dunne, revision history on Githbub.
-//  Copyright © 2018 Shane Dunne. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 

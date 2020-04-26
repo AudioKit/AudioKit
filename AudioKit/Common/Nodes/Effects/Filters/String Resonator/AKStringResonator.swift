@@ -1,10 +1,4 @@
-//
-//  AKStringResonator.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AKStringResonator passes the input through a network composed of comb,
 /// low-pass and all-pass filters, similar to the one used in some versions of

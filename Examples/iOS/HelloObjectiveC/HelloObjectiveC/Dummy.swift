@@ -1,10 +1,4 @@
-//
-//  Dummy.swift
-//  HelloObjectiveC
-//
-//  Created by Stéphane Peter on 3/29/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 

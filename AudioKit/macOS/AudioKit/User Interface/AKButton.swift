@@ -1,10 +1,4 @@
-//
-//  AKButton.swift
-//  AudioKit for macOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
 import AudioKit

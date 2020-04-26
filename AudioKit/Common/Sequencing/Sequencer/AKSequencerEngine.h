@@ -1,10 +1,4 @@
-//
-//  AKSequencerEngine.h
-//  AudioKit
-//
-//  Created by Jeff Cooper on 1/25/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 #import "AKAudioUnit.h"

@@ -1,10 +1,4 @@
-//
-//  AudioKit+Testing.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/20/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -34,7 +28,7 @@ extension AKManager {
             let maximumFrameCount: AVAudioFrameCount = 4_096
             try AKTry {
                 engine.reset()
-                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maximumFrameCount)
+                try engine.enableManualRenderingMode(.offline, format: AKSettings.audioFormat, maximumFrameCount: maximumFrameCount)
                 try engine.start()
             }
 

@@ -1,10 +1,4 @@
-//
-//  AKBoosterDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBoosterDSP.hpp"
 
@@ -43,7 +37,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
+        if (isStarted && (frameOffset & 0x7) == 0) {
             data->leftGainRamp.advanceTo(now + frameOffset);
             data->rightGainRamp.advanceTo(now + frameOffset);
         }

@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  MetronomeSamplerSync
-//
-//  Created by David O'Neill, revision history on Githbub.
-//  Copyright © 2017 O'Neill. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 

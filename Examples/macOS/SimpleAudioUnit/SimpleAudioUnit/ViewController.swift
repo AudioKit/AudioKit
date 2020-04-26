@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  SimpleAudioUnit
-//
-//  Created by Ryan Francesconi on 5/4/18.
-//  Copyright © 2018 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import Cocoa

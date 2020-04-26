@@ -1,10 +1,4 @@
-//
-//  AKDualButton.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/28/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import UIKit

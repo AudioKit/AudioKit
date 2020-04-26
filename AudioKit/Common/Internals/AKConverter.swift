@@ -1,10 +1,4 @@
-//
-//  AKConverter.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /**
  AKConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
@@ -16,7 +10,7 @@
  options.bitDepth = 24
 
  let converter = AKConverter(inputURL: oldURL, outputURL: newURL, options: options)
- converter.start(completionHandler: { error in
+ converter.start { error in
  // check to see if error isn't nil, otherwise you're good
  })
  ```
@@ -47,7 +41,9 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /// The conversion options, leave nil to adopt the value of the input file
+    /**
+     The conversion options, leave nil to adopt the value of the input file
+     */
     public struct Options {
         public init() {}
         public var format: String?
@@ -62,6 +58,7 @@ open class AKConverter: NSObject {
                 }
             }
         }
+
         public var channels: UInt32?
         public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this before you call start()
@@ -79,6 +76,7 @@ open class AKConverter: NSObject {
     // The reader needs to exist outside the start func otherwise the async nature of the
     // AVAssetWriterInput will lose its reference
     private var reader: AVAssetReader?
+    private var writer: AVAssetWriter?
 
     // MARK: - initialization
 
@@ -87,6 +85,15 @@ open class AKConverter: NSObject {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options
+    }
+
+    deinit {
+        // AKLog("* { AKConverter \(inputURL?.lastPathComponent ?? "?") }")
+        reader = nil
+        writer = nil
+        inputURL = nil
+        outputURL = nil
+        options = nil
     }
 
     // MARK: - public functions
@@ -115,7 +122,7 @@ open class AKConverter: NSObject {
         }
 
         // Format checks are necessary as AVAssetReader has opinions about compressed audio for some reason
-        if isCompressed(url: inputURL) && isCompressed(url: outputURL) {
+        if isCompressed(url: inputURL), isCompressed(url: outputURL) {
             // Compressed input and output
             convertCompressed(completionHandler: completionHandler)
 
@@ -144,7 +151,7 @@ open class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("Converting Asset to \(outputFormat)")
+        // AKLog("Converting Asset to", outputFormat)
 
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
@@ -154,44 +161,38 @@ open class AKConverter: NSObject {
 
         let asset = AVAsset(url: inputURL)
         do {
-            reader = try AVAssetReader(asset: asset)
+            self.reader = try AVAssetReader(asset: asset)
 
         } catch let err as NSError {
             completionHandler?(err)
             return
         }
 
-        guard let reader = reader else {
+        guard let reader = self.reader else {
             completionHandler?(createError(message: "Unable to setup the AVAssetReader."))
             return
         }
 
-        var inputFile: AVAudioFile
-        do {
-            inputFile = try AVAudioFile(forReading: inputURL)
-        } catch let err as NSError {
-            // Error creating input audio file
-            completionHandler?(err)
-            return
+        var theInputFormat: AVAudioFormat?
+
+        // pull the input format out of the audio file...
+        if let source = try? AVAudioFile(forReading: inputURL) {
+            theInputFormat = source.fileFormat
         }
 
-        if options == nil {
-            options = Options()
-        }
-
-        guard let options = options else {
-            completionHandler?(createError(message: "The options are malformed."))
+        guard let inputFormat = theInputFormat else {
+            completionHandler?(createError(message: "Unable to read the input file format."))
             return
         }
+        let options = self.options ?? Options()
 
         if FileManager.default.fileExists(atPath: outputURL.path) {
             if options.eraseFile {
-                AKLog("Warning: removing existing file at \(outputURL.path)")
+                AKLog("Warning: removing existing file at", outputURL.path)
                 try? FileManager.default.removeItem(at: outputURL)
             } else {
                 let message = "The output file exists already. You need to choose a unique URL or delete the file."
-                let err = createError(message: message)
-                completionHandler?(err)
+                completionHandler?(createError(message: message))
                 return
             }
         }
@@ -217,26 +218,30 @@ open class AKConverter: NSObject {
             return
         }
 
-        var writer: AVAssetWriter
         do {
-            writer = try AVAssetWriter(outputURL: outputURL, fileType: format)
+            self.writer = try AVAssetWriter(outputURL: outputURL, fileType: format)
         } catch let err as NSError {
             completionHandler?(err)
+            return
+        }
+
+        guard let writer = self.writer else {
+            completionHandler?(createError(message: "Unable to setup the AVAssetWriter."))
             return
         }
 
         // 1. chosen option. 2. same as input file. 3. 16 bit
         // optional in case of compressed audio. That said, the other conversion methods are actually used in
         // that case
-        let bitDepth = (options.bitDepth ?? inputFile.fileFormat.settings[AVLinearPCMBitDepthKey] ?? 16) as Any
+        let bitDepth = (options.bitDepth ?? inputFormat.settings[AVLinearPCMBitDepthKey] ?? 16) as Any
         var isFloat = false
         if let intDepth = bitDepth as? Int {
             // 32 bit means it's floating point
             isFloat = intDepth == 32
         }
 
-        var sampleRate = options.sampleRate ?? inputFile.fileFormat.sampleRate
-        let channels = options.channels ?? inputFile.fileFormat.channelCount
+        var sampleRate = options.sampleRate ?? inputFormat.sampleRate
+        let channels = options.channels ?? inputFormat.channelCount
 
         var outputSettings: [String: Any] = [
             AVFormatIDKey: formatKey,
@@ -245,7 +250,7 @@ open class AKConverter: NSObject {
             AVLinearPCMBitDepthKey: bitDepth,
             AVLinearPCMIsFloatKey: isFloat,
             AVLinearPCMIsBigEndianKey: format != .wav,
-            AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFile.fileFormat.isInterleaved)
+            AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved)
         ]
 
         // Note: AVAssetReaderOutput does not currently support compressed audio?
@@ -279,7 +284,7 @@ open class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            AKLog("Failed to start writing. " + (writer.error?.localizedDescription ?? ""))
+            AKLog("Failed to start writing. Error:", writer.error?.localizedDescription)
             completionHandler?(writer.error)
             return
         }
@@ -287,18 +292,18 @@ open class AKConverter: NSObject {
         writer.startSession(atSourceTime: CMTime.zero)
 
         if !reader.startReading() {
-            AKLog("Failed to start reading. " + (reader.error?.localizedDescription ?? ""))
+            AKLog("Failed to start reading. Error:", reader.error?.localizedDescription)
             completionHandler?(reader.error)
             return
         }
 
-        let queue = DispatchQueue(label: "io.audiokit.AKConverter.convertAsset")
+        let queue = DispatchQueue(label: "com.audiodesigndesk.AKConverter.convertAsset")
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
             var processing = true // safety flag to prevent runaway loops if errors
 
-            while writerInput.isReadyForMoreMediaData && processing {
+            while writerInput.isReadyForMoreMediaData, processing {
                 if reader.status == .reading,
                     let buffer = readerOutput.copyNextSampleBuffer() {
                     writerInput.append(buffer)
@@ -308,18 +313,20 @@ open class AKConverter: NSObject {
 
                     switch reader.status {
                     case .failed:
-                        AKLog("Conversion failed with error" + (reader.error?.localizedDescription ?? "Unknown"))
+                        AKLog("Conversion failed with error", reader.error)
                         writer.cancelWriting()
                         completionHandler?(reader.error)
                     case .cancelled:
                         AKLog("Conversion cancelled")
                         completionHandler?(nil)
                     case .completed:
+                        // writer.endSession(atSourceTime: asset.duration)
                         writer.finishWriting {
                             switch writer.status {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
+                                // AKLog("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }
@@ -437,7 +444,7 @@ open class AKConverter: NSObject {
         var outputBytesPerFrame = outputBitRate * outputChannels / 8
         var outputBytesPerPacket = options?.bitDepth == nil ? srcFormat.mBytesPerPacket : outputBytesPerFrame
 
-        // outputBitRate == 0 : in the input file this indicates a compressed format such as mp3
+        // in the input file this indicates a compressed format such as mp3
         if outputBitRate == 0 {
             outputBitRate = 16
             outputBytesPerPacket = 2 * outputChannels
@@ -458,13 +465,12 @@ open class AKConverter: NSObject {
         }
 
         // Create destination file
-        error = ExtAudioFileCreateWithURL(
-            outputURL as CFURL,
-            format,
-            &dstFormat,
-            nil,
-            AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
-            &destinationFile)
+        error = ExtAudioFileCreateWithURL(outputURL as CFURL,
+                                          format,
+                                          &dstFormat,
+                                          nil,
+                                          AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
+                                          &destinationFile)
 
         if error != noErr {
             completionHandler?(createError(message: "Unable to create output file."))
@@ -494,40 +500,39 @@ open class AKConverter: NSObject {
             return
         }
         let bufferByteSize: UInt32 = 32_768
-        var srcBuffer = [UInt8](repeating: 0, count: 32_768)
+        var srcBuffer = [UInt8](repeating: 0, count: Int(bufferByteSize))
         var sourceFrameOffset: UInt32 = 0
 
-        while true {
-            var fillBufList = AudioBufferList(
-                mNumberBuffers: 1,
-                mBuffers: AudioBuffer(
-                    mNumberChannels: srcFormat.mChannelsPerFrame,
-                    mDataByteSize: UInt32(srcBuffer.count),
-                    mData: &srcBuffer
-                )
-            )
-            var numFrames: UInt32 = 0
+        srcBuffer.withUnsafeMutableBytes { ptr in
+            while true {
+                let mBuffer = AudioBuffer(mNumberChannels: srcFormat.mChannelsPerFrame,
+                                          mDataByteSize: bufferByteSize,
+                                          mData: ptr.baseAddress)
 
-            if dstFormat.mBytesPerFrame > 0 {
-                numFrames = bufferByteSize / dstFormat.mBytesPerFrame
-            }
+                var fillBufList = AudioBufferList(mNumberBuffers: 1, mBuffers: mBuffer)
+                var numFrames: UInt32 = 0
 
-            error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to read input file."))
-                return
-            }
-            if numFrames == 0 {
-                error = noErr
-                break
-            }
+                if dstFormat.mBytesPerFrame > 0 {
+                    numFrames = bufferByteSize / dstFormat.mBytesPerFrame
+                }
 
-            sourceFrameOffset += numFrames
+                error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to read input file."))
+                    return
+                }
+                if numFrames == 0 {
+                    error = noErr
+                    break
+                }
 
-            error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to write output file."))
-                return
+                sourceFrameOffset += numFrames
+
+                error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to write output file."))
+                    return
+                }
             }
         }
 

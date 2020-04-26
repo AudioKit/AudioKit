@@ -1,10 +1,4 @@
-//
-//  AKParameterAutomation.m
-//  AudioKit
-//
-//  Created by Ryan Francesconi on 9/9/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKParameterAutomation.h"
 #import "AKTimelineTap.h"
@@ -48,7 +42,7 @@
     }
 
     // Note: offline rendering is only available in 10.13+
-    // See: AudioKit.renderToFile
+    // See: AKManager.renderToFile
     if (@available(iOS 11.0, macOS 10.13, tvOS 11.0, *)) {
         if ([[avAudioUnit engine] manualRenderingMode] == AVAudioEngineManualRenderingModeOffline) {
             AudioTimeStamp zero = { 0 };

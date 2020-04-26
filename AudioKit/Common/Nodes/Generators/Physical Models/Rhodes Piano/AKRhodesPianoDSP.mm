@@ -1,10 +1,4 @@
-//
-//  AKRhodesPianoDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/22/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKRhodesPianoDSP.hpp"
 

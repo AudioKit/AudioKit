@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  SpeechSynthesizer
-//
-//  Created by Aurelius Prochazka on 4/7/18.
-//  Copyright © 2018 AudioKit Pro. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 

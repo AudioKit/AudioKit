@@ -1,10 +1,4 @@
-//
-//  AKAudioFile+Peripherals.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka and Laurent Veliscek, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AKAudioFile {
 

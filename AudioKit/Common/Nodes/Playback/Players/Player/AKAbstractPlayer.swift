@@ -1,10 +1,4 @@
-//
-//  AKAutomatedPlayer.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi on 9/12/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
 open class AKAbstractPlayer: AKNode {
@@ -123,29 +117,29 @@ open class AKAbstractPlayer: AKNode {
     /// Holds characteristics about the loop options.
     public var loop = Loop()
 
-    /// The underlying gain booster which controls fades as well. Created on demand.
+    /// The underlying gain booster and main output which controls fades as well.
     @objc public var faderNode: AKFader?
 
     @available(*, deprecated, renamed: "fadeOutAndStop(with:)")
     @objc public var stopEnvelopeTime: Double = 0 {
         didSet {
-            if faderNode == nil {
-                createFader()
+            if stopEnvelopeTime > 0 {
+                startFader()
             }
         }
     }
 
-    /// Amplification Factor, in the range of 0.0002 to ~
+    /// Amplification Factor, in the range of 0 to 2
     @objc public var gain: Double {
         get {
             return fade.maximumGain
         }
 
         set {
-            if newValue != 1, faderNode == nil {
-                createFader()
-            } else if newValue == 1, faderNode != nil, !isPlaying {
-                removeFader()
+            if newValue != 1 {
+                startFader()
+            } else if newValue == 1 {
+                bypassFader()
             }
             // this is the value that the fader will fade to
             fade.maximumGain = newValue
@@ -312,30 +306,17 @@ open class AKAbstractPlayer: AKNode {
         return AUAudioFrameCount(value * sampleRate)
     }
 
-    public func createFader() {
-        // only do this once when needed
-        guard faderNode == nil else {
-            faderNode?.gain = fade.inTime > 0 ? Fade.minimumGain : gain
-            return
+    // Enables the internal fader from the signal chain if it is bypassed
+    public func startFader() {
+        if faderNode?.isBypassed == true {
+            faderNode?.start()
         }
-
-        faderNode = AKFader()
-        faderNode?.gain = fade.inTime > 0 ? Fade.minimumGain : gain
-        initialize()
     }
 
-    // Removes the internal fader from the signal chain
-    public func removeFader() {
-        guard faderNode != nil else { return }
-        let wasPlaying = isPlaying
-        stop()
-        faderNode?.disconnectOutput()
-        faderNode?.detach()
-        faderNode = nil
-
-        initialize()
-        if wasPlaying {
-            play()
+    // Bypasses the internal fader from the signal chain
+    public func bypassFader() {
+        if faderNode?.isBypassed == false {
+            faderNode?.bypass()
         }
     }
 
@@ -361,4 +342,12 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.detach()
         faderNode = nil
     }
+}
+
+extension AKAbstractPlayer {
+    @available(*, unavailable, renamed: "startFader")
+    public func createFader() {}
+
+    @available(*, unavailable, renamed: "bypassFader")
+    public func removeFader() {}
 }

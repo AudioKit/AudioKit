@@ -1,10 +1,4 @@
-//
-//  AudioKit+Status.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/19/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioToolbox
@@ -14,7 +8,10 @@ extension AKManager {
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    @objc public static var format = AKSettings.audioFormat
+    @available(*, deprecated, renamed: "AKSettings.audioFormat")
+    @objc public static var format: AVAudioFormat {
+        return AKSettings.audioFormat
+    }
 
     @objc static var shouldBeRunning = false
 

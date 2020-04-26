@@ -1,10 +1,4 @@
-//
-//  AKFFTTap.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// FFT Calculation for any node
 open class AKFFTTap: NSObject, EZAudioFFTDelegate {
@@ -27,7 +21,7 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
         input.avAudioUnitOrNode.installTap(
             onBus: 0,
             bufferSize: bufferSize,
-            format: AKManager.format) { [weak self] (buffer, _) -> Void in
+            format: AKSettings.audioFormat) { [weak self] (buffer, _) -> Void in
                 guard let strongSelf = self else {
                     AKLog("Unable to create strong reference to self")
                     return
