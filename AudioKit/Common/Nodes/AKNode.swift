@@ -133,7 +133,6 @@ public protocol AKPolyphonic {
 
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        //        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
         self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency, channel: channel)
     }
 

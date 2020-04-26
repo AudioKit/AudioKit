@@ -102,10 +102,10 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: AKNode? = nil,
-                      gain: Double = 1,
-                      taper: Double = 1,
-                      skew: Double = 0,
-                      offset: Double = 0
+                gain: Double = 1,
+                taper: Double = 1,
+                skew: Double = 0,
+                offset: Double = 0
     ) {
         super.init()
 

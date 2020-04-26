@@ -90,7 +90,7 @@ struct BPMHistoryStatistics {
 
         let maxCount = historyCounts.max() ?? 1
         if maxCount > 1 {
-            if (bpmHistory.count > maxCount) {
+            if bpmHistory.count > maxCount {
                 bpmHistory = bpmHistory.dropFirst(1).compactMap({ $0 })
             }
         }
@@ -103,13 +103,13 @@ struct BPMHistoryStatistics {
 
         let maxCount = historyCounts.max() ?? 1
         if maxCount > 1 {
-            if (bpmHistory.count > maxCount) {
+            if bpmHistory.count > maxCount {
                 bpmHistory = bpmHistory.dropFirst().compactMap({ $0 })
             }
-            if (timeHistory.count > maxCount) {
+            if timeHistory.count > maxCount {
                 timeHistory = timeHistory.dropFirst().compactMap({ $0 })
             }
-            if (actualTimeHistory.count > maxCount) {
+            if actualTimeHistory.count > maxCount {
                 actualTimeHistory = actualTimeHistory.dropFirst().compactMap({ $0 })
             }
         }

@@ -100,8 +100,8 @@ public class AKTable: NSObject, MutableCollection, Codable {
     ///   - count: Size of the table (multiple of 2)
     ///
     @objc public init(_ type: AKTableType = .sine,
-                phase: Float = 0,
-                count: IndexDistance = 4_096) {
+                      phase: Float = 0,
+                      count: IndexDistance = 4_096) {
         self.type = type
         self.phase = phase
 

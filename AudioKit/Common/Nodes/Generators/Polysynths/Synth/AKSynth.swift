@@ -187,9 +187,9 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
     }
 
     open override func play(noteNumber: MIDINoteNumber,
-                                  velocity: MIDIVelocity,
-                                  frequency: Double,
-                                  channel: MIDIChannel = 0) {
+                            velocity: MIDIVelocity,
+                            frequency: Double,
+                            channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
     }
 
