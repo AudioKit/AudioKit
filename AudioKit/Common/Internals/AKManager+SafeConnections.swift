@@ -60,9 +60,9 @@ extension AKManager {
     }
 
     @objc public static func connect(_ sourceNode: AVAudioNode,
-                                   to destNodes: [AVAudioConnectionPoint],
-                                   fromBus sourceBus: AVAudioNodeBus,
-                                   format: AVAudioFormat?) {
+                                     to destNodes: [AVAudioConnectionPoint],
+                                     fromBus sourceBus: AVAudioNodeBus,
+                                     format: AVAudioFormat?) {
 
         let connectionsWithNodes = destNodes.filter { $0.node != nil }
         safeAttach([sourceNode] + connectionsWithNodes.map { $0.node! })
@@ -74,10 +74,10 @@ extension AKManager {
     }
 
     @objc public static func connect(_ node1: AVAudioNode,
-                                   to node2: AVAudioNode,
-                                   fromBus bus1: AVAudioNodeBus,
-                                   toBus bus2: AVAudioNodeBus,
-                                   format: AVAudioFormat?) {
+                                     to node2: AVAudioNode,
+                                     fromBus bus1: AVAudioNodeBus,
+                                     toBus bus2: AVAudioNodeBus,
+                                     format: AVAudioFormat?) {
 
         safeAttach([node1, node2])
         // See addDummyOnEmptyMixer for dummyNode explanation.

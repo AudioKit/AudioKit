@@ -75,7 +75,7 @@ open class AKMIDIClockListener: NSObject {
             let prefix = spaces.prefix( Int(fourCount) )
             AKLog("\(prefix) \(fourCount)", log: OSLog.midi)
 
-            if (sendStart || sendContinue) {
+            if sendStart || sendContinue {
                 sendStartContinueToObservers()
                 sendContinue = false
                 sendStart = false
@@ -89,7 +89,7 @@ open class AKMIDIClockListener: NSObject {
 
         if sppMIDIBeatQuantumCounter == 6 { sppMIDIBeatQuantumCounter = 0; sppMIDIBeatCounter += 1 }
         sppMIDIBeatQuantumCounter += 1
-        if (sppMIDIBeatQuantumCounter == 1) {
+        if sppMIDIBeatQuantumCounter == 1 {
             sendMIDIBeatUpdateToObservers()
 
             let beat = (sppMIDIBeatCounter % 16) + 1

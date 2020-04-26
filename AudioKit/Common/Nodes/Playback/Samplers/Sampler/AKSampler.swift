@@ -369,8 +369,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     }
 
     open override func play(noteNumber: MIDINoteNumber,
-                                  velocity: MIDIVelocity,
-                                  channel: MIDIChannel = 0) {
+                            velocity: MIDIVelocity,
+                            channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 

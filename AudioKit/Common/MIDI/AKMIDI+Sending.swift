@@ -244,7 +244,9 @@ extension AKMIDI {
         // the discussion section of MIDIPacketListAdd states that "The maximum
         // size of a packet list is 65536 bytes." Checking for that limit here.
         if bufferSize > 65_536 {
-            AKLog("error sending midi : data array is too large, requires a buffer larger than 65536", log: OSLog.midi, type: .error)
+            AKLog("error sending midi : data array is too large, requires a buffer larger than 65536",
+                  log: OSLog.midi,
+                  type: .error)
             return
         }
 
