@@ -28,9 +28,9 @@ class AKPWMOscillatorTests: AKTestCase {
                                      amplitude: 0.5,
                                      pulseWidth: 0.75,
                                      detuningOffset: 1.234,
-                                     detuningMultiplier: 1.234)
+                                     detuningMultiplier: 1.1)
         output = oscillator
-        AKTestMD5("c6900108acaf6ecba12409938715ea75")
+        AKTestMD5("84dbd535733cad9824b2ffe4da298274")
     }
 
     func testFrequency() {
@@ -58,9 +58,9 @@ class AKPWMOscillatorTests: AKTestCase {
     }
 
     func testDetuningMultiplier() {
-        oscillator = AKPWMOscillator(frequency: 1_234, detuningMultiplier: 1.234)
+        oscillator = AKPWMOscillator(frequency: 1_234, detuningMultiplier: 1.1)
         output = oscillator
-        AKTestMD5("133d7d153c3e42a42cebfcb4b89c714b")
+        AKTestMD5("07e093a22f65700ad79e128ede1a993d")
     }
 
     func testParametersSetAfterInit() {
@@ -70,7 +70,7 @@ class AKPWMOscillatorTests: AKTestCase {
         oscillator.amplitude = 0.5
         oscillator.pulseWidth = 0.75
         oscillator.detuningOffset = 1.234
-        oscillator.detuningMultiplier = 1.234
+        oscillator.detuningMultiplier = 1.11
         output = oscillator
-        AKTestMD5("c6900108acaf6ecba12409938715ea75")
+        AKTestMD5("7701ba67e7b7ddf5fb374d06b2601855")
     }}
