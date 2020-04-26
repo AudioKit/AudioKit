@@ -89,7 +89,13 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        parameterTree = AUParameterTree.createTree(withChildren: [leftGain, rightGain, taper, skew, offset, flipStereo, mixToMono])
+        parameterTree = AUParameterTree.createTree(withChildren: [leftGain,
+                                                                  rightGain,
+                                                                  taper,
+                                                                  skew,
+                                                                  offset,
+                                                                  flipStereo,
+                                                                  mixToMono])
 
         leftGain.value = 1.0
         rightGain.value = 1.0

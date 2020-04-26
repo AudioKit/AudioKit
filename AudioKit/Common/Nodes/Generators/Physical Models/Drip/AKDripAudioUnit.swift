@@ -76,7 +76,13 @@ public class AKDripAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude])
+        parameterTree = AUParameterTree.createTree(withChildren: [intensity,
+                                                                  dampingFactor,
+                                                                  energyReturn,
+                                                                  mainResonantFrequency,
+                                                                  firstResonantFrequency,
+                                                                  secondResonantFrequency,
+                                                                  amplitude])
 
         intensity.value = AUValue(AKDrip.defaultIntensity)
         dampingFactor.value = AUValue(AKDrip.defaultDampingFactor)

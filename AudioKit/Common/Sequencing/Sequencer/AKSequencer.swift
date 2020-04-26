@@ -86,7 +86,8 @@ open class AKSequencer {
     open func load(midiFile: AKMIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
-            AKLog("Error: Track count and file track count do not match, dropped \(midiTracks.count - tracks.count) tracks")
+            AKLog("Error: Track count and file track count do not match ",
+                  "dropped \(midiTracks.count - tracks.count) tracks")
         }
         if tracks.count > midiTracks.count {
             AKLog("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")

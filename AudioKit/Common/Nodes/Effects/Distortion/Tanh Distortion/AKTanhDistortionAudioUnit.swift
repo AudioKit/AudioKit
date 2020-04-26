@@ -49,7 +49,10 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [pregain, postgain, positiveShapeParameter, negativeShapeParameter])
+        parameterTree = AUParameterTree.createTree(withChildren: [pregain,
+                                                                  postgain,
+                                                                  positiveShapeParameter,
+                                                                  negativeShapeParameter])
 
         pregain.value = AUValue(AKTanhDistortion.defaultPregain)
         postgain.value = AUValue(AKTanhDistortion.defaultPostgain)

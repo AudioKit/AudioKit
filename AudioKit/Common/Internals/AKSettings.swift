@@ -166,7 +166,9 @@ open class AKSettings: NSObject {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
                 } catch {
-                    AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription, log: OSLog.settings, type: .error)
+                    AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
+                          log: OSLog.settings,
+                          type: .error)
                 }
             }
         }
@@ -232,7 +234,9 @@ open class AKSettings: NSObject {
                     try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
                 } catch {
-                    AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)", log: OSLog.settings, type: .error)
+                    AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)",
+                        log: OSLog.settings,
+                        type: .error)
                 }
             }
             get {
@@ -270,7 +274,8 @@ open class AKSettings: NSObject {
                 }
             } catch let error as NSError {
                 AKLog("Cannot set AVAudioSession Category to \(category) with options: \(options) " + error.localizedDescription,
-                      log: OSLog.settings, type: .error)
+                      log: OSLog.settings,
+                      type: .error)
                 throw error
             }
 
