@@ -274,15 +274,16 @@ open class AKAppleSequencer: NSObject {
         var tempoTrack: MusicTrack?
         guard let existingSequence = sequence else { return [] }
         MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        guard tempoTrack != nil else { return [] }
 
         var tempos = [(MusicTimeStamp, Double)]()
 
-        AKMusicTrack.iterateMusicTrack(tempoTrack!) { _, eventTime, eventType, eventData, _, _ in
-            if eventType == kMusicEventType_ExtendedTempo {
-                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
-                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
-                    tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+        if let tempoTrack = tempoTrack {
+            AKMusicTrack.iterateMusicTrack(tempoTrack) { _, eventTime, eventType, eventData, _, _ in
+                if eventType == kMusicEventType_ExtendedTempo {
+                    if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
+                        let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
+                        tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+                    }
                 }
             }
         }
