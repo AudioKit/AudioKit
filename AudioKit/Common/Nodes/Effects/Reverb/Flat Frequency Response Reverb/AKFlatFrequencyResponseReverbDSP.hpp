@@ -6,12 +6,13 @@
 
 typedef NS_ENUM(AUParameterAddress, AKFlatFrequencyResponseReverbParameter) {
     AKFlatFrequencyResponseReverbParameterReverbDuration,
-    AKFlatFrequencyResponseReverbParameterRampDuration
 };
 
 #ifndef __cplusplus
 
 AKDSPRef createFlatFrequencyResponseReverbDSP(void);
+
+void setLoopDurationFlatFrequencyResponseReverbDSP(AKDSPRef dsp, float duration);
 
 #else
 
@@ -25,24 +26,13 @@ private:
 public:
     AKFlatFrequencyResponseReverbDSP();
 
-    float reverbDurationLowerBound = 0;
-    float reverbDurationUpperBound = 10;
+    void setLoopDuration(float duration);
 
-    float defaultReverbDuration = 0.5;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
-    void initializeConstant(float duration) override;
-
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -8,7 +8,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
     fileprivate var testedNode: AKToggleable?
     fileprivate var token: AUParameterObserverToken?
     var totalSamples = 0

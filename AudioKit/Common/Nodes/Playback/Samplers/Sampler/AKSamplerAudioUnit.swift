@@ -2,123 +2,59 @@
 
 import AVFoundation
 
-public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
+public class AKSamplerAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKSamplerParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var masterVolume: AUParameter!
 
-    func setParameterImmediately(_ address: AKSamplerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    var pitchBend: AUParameter!
 
-    var masterVolume: Double = 0.0 {
-        didSet { setParameter(.masterVolume, value: masterVolume) }
-    }
+    var vibratoDepth: AUParameter!
 
-    var pitchBend: Double = 0.0 {
-        didSet { setParameter(.pitchBend, value: pitchBend) }
-    }
+    var filterCutoff: AUParameter!
 
-    var vibratoDepth: Double = 1.0 {
-        didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
-    }
+    var filterStrength: AUParameter!
 
-    var filterCutoff: Double = 4.0 {
-        didSet { setParameter(.filterCutoff, value: filterCutoff) }
-    }
+    var filterResonance: AUParameter!
 
-    var filterStrength: Double = 20.0 {
-        didSet { setParameter(.filterStrength, value: filterCutoff) }
-    }
+    var glideRate: AUParameter!
 
-    var filterResonance: Double = 0.0 {
-        didSet { setParameter(.filterResonance, value: filterResonance) }
-    }
+    var attackDuration: AUParameter!
 
-    var glideRate: Double = 0.0 {
-        didSet { setParameter(.glideRate, value: glideRate) }
-    }
+    var decayDuration: AUParameter!
 
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    var sustainLevel: AUParameter!
 
-    var attackDuration: Double = 0.0 {
-        didSet { setParameter(.attackDuration, value: attackDuration) }
-    }
+    var releaseDuration: AUParameter!
 
-    var decayDuration: Double = 0.0 {
-        didSet { setParameter(.decayDuration, value: decayDuration) }
-    }
+    var filterAttackDuration: AUParameter!
 
-    var sustainLevel: Double = 0.0 {
-        didSet { setParameter(.sustainLevel, value: sustainLevel) }
-    }
+    var filterDecayDuration: AUParameter!
 
-    var releaseDuration: Double = 0.0 {
-        didSet { setParameter(.releaseDuration, value: releaseDuration) }
-    }
+    var filterSustainLevel: AUParameter!
 
-    var filterAttackDuration: Double = 0.0 {
-        didSet { setParameter(.filterAttackDuration, value: filterAttackDuration) }
-    }
+    var filterReleaseDuration: AUParameter!
 
-    var filterDecayDuration: Double = 0.0 {
-        didSet { setParameter(.filterDecayDuration, value: filterDecayDuration) }
-    }
+    var pitchAttackDuration: AUParameter!
 
-    var filterSustainLevel: Double = 0.0 {
-        didSet { setParameter(.filterSustainLevel, value: filterSustainLevel) }
-    }
+    var pitchDecayDuration: AUParameter!
 
-    var filterReleaseDuration: Double = 0.0 {
-        didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
-    }
+    var pitchSustainLevel: AUParameter!
 
-    var pitchAttackDuration: Double = 0.0 {
-        didSet { setParameter(.pitchAttackDuration, value: pitchAttackDuration) }
-    }
+    var pitchReleaseDuration: AUParameter!
 
-    var pitchDecayDuration: Double = 0.0 {
-        didSet { setParameter(.pitchDecayDuration, value: pitchDecayDuration) }
-    }
+    var pitchADSRSemitones: AUParameter!
 
-    var pitchSustainLevel: Double = 0.0 {
-        didSet { setParameter(.pitchSustainLevel, value: pitchSustainLevel) }
-    }
+    var filterEnable: AUParameter!
 
-    var pitchReleaseDuration: Double = 0.0 {
-        didSet { setParameter(.pitchReleaseDuration, value: pitchReleaseDuration) }
-    }
+    var loopThruRelease: AUParameter!
 
-    var pitchADSRSemitones: Double = 0.0 {
-        didSet { setParameter(.pitchADSRSemitones, value: pitchADSRSemitones) }
-    }
+    var isMonophonic: AUParameter!
 
-    var filterEnable: Double = 0.0 {
-        didSet { setParameter(.filterEnable, value: filterEnable) }
-    }
+    var isLegato: AUParameter!
 
-    var loopThruRelease: Double = 0.0 {
-        didSet { setParameter(.loopThruRelease, value: loopThruRelease) }
-    }
+    var keyTrackingFraction: AUParameter!
 
-    var isMonophonic: Double = 0.0 {
-        didSet { setParameter(.monophonic, value: isMonophonic) }
-    }
-
-    var isLegato: Double = 0.0 {
-        didSet { setParameter(.legato, value: isLegato) }
-    }
-
-    var keyTrackingFraction: Double = 1.0 {
-        didSet { setParameter(.keyTrackingFraction, value: keyTrackingFraction) }
-    }
-
-    var filterEnvelopeVelocityScaling: Double = 0.0 {
-        didSet { setParameter(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling) }
-    }
+    var filterEnvelopeVelocityScaling: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createAKSamplerDSP()
@@ -131,7 +67,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
         var parameterAddress: AUParameterAddress = 0
-        let masterVolumeParameter = AUParameter(
+        masterVolume = AUParameter(
             identifier: "masterVolume",
             name: "Master Volume",
             address: parameterAddress,
@@ -141,7 +77,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchBendParameter = AUParameter(
+        pitchBend = AUParameter(
             identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
             address: parameterAddress,
@@ -151,7 +87,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let vibratoDepthParameter = AUParameter(
+        vibratoDepth = AUParameter(
             identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
             address: parameterAddress,
@@ -161,7 +97,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterCutoffParameter = AUParameter(
+        filterCutoff = AUParameter(
             identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
             address: parameterAddress,
@@ -171,7 +107,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterStrengthParameter = AUParameter(
+        filterStrength = AUParameter(
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
@@ -181,7 +117,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterResonanceParameter = AUParameter(
+        filterResonance = AUParameter(
             identifier: "filterResonance",
             name: "Filter resonance (dB))",
             address: parameterAddress,
@@ -191,7 +127,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let glideRateParameter = AUParameter(
+        glideRate = AUParameter(
             identifier: "glideRate",
             name: "Glide rate (sec/octave))",
             address: parameterAddress,
@@ -201,7 +137,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let attackDurationParameter = AUParameter(
+        attackDuration = AUParameter(
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
@@ -211,7 +147,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let decayDurationParameter = AUParameter(
+        decayDuration = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
@@ -221,7 +157,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let sustainLevelParameter = AUParameter(
+        sustainLevel = AUParameter(
             identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
             address: parameterAddress,
@@ -231,7 +167,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let releaseDurationParameter = AUParameter(
+        releaseDuration = AUParameter(
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
@@ -241,7 +177,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterAttackDurationParameter = AUParameter(
+        filterAttackDuration = AUParameter(
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
@@ -251,7 +187,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterDecayDurationParameter = AUParameter(
+        filterDecayDuration = AUParameter(
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
@@ -261,7 +197,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterSustainLevelParameter = AUParameter(
+        filterSustainLevel = AUParameter(
             identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
             address: parameterAddress,
@@ -271,7 +207,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterReleaseDurationParameter = AUParameter(
+        filterReleaseDuration = AUParameter(
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
@@ -281,7 +217,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterEnableParameter = AUParameter(
+        filterEnable = AUParameter(
             identifier: "filterEnable",
             name: "Filter Enable",
             address: parameterAddress,
@@ -291,7 +227,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchAttackDurationParameter = AUParameter(
+        pitchAttackDuration = AUParameter(
             identifier: "pitchAttackDuration",
             name: "Pitch Attack duration (seconds)",
             address: parameterAddress,
@@ -301,7 +237,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchDecayDurationParameter = AUParameter(
+        pitchDecayDuration = AUParameter(
             identifier: "pitchDecayDuration",
             name: "Pitch Decay duration (seconds)",
             address: parameterAddress,
@@ -311,7 +247,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchSustainLevelParameter = AUParameter(
+        pitchSustainLevel = AUParameter(
             identifier: "pitchSustainLevel",
             name: "Pitch Sustain level (fraction)",
             address: parameterAddress,
@@ -321,7 +257,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchReleaseDurationParameter = AUParameter(
+        pitchReleaseDuration = AUParameter(
             identifier: "pitchReleaseDuration",
             name: "Pitch Release duration (seconds)",
             address: parameterAddress,
@@ -331,7 +267,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchADSRSemitonesParameter = AUParameter(
+        pitchADSRSemitones = AUParameter(
             identifier: "pitchADSRSemitones",
             name: "Pitch EG Amount",
             address: parameterAddress,
@@ -341,7 +277,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let loopThruReleaseParameter = AUParameter(
+        loopThruRelease = AUParameter(
             identifier: "loopThruRelease",
             name: "Loop Thru Release",
             address: parameterAddress,
@@ -351,7 +287,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let monophonicParameter = AUParameter(
+        isMonophonic = AUParameter(
             identifier: "monophonic",
             name: "Monophonic Mode",
             address: parameterAddress,
@@ -361,7 +297,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let legatoParameter = AUParameter(
+        isLegato = AUParameter(
             identifier: "legato",
             name: "Legato Mode",
             address: parameterAddress,
@@ -371,7 +307,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let keyTrackingParameter = AUParameter(
+        keyTrackingFraction = AUParameter(
             identifier: "keyTracking",
             name: "Key Tracking",
             address: parameterAddress,
@@ -381,7 +317,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterEnvelopeVelocityScalingParameter = AUParameter(
+        filterEnvelopeVelocityScaling = AUParameter(
             identifier: "filterEnvelopeVelocityScaling",
             name: "Filter Envelope Velocity Scaling",
             address: parameterAddress,
@@ -389,58 +325,62 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: nonRampFlags)
 
-        setParameterTree(AUParameterTree(children: [masterVolumeParameter,
-                                                                   pitchBendParameter,
-                                                                   vibratoDepthParameter,
-                                                                   filterCutoffParameter,
-                                                                   filterStrengthParameter,
-                                                                   filterResonanceParameter,
-                                                                   glideRateParameter,
-                                                                   attackDurationParameter,
-                                                                   decayDurationParameter,
-                                                                   sustainLevelParameter,
-                                                                   releaseDurationParameter,
-                                                                   filterAttackDurationParameter,
-                                                                   filterDecayDurationParameter,
-                                                                   filterSustainLevelParameter,
-                                                                   filterReleaseDurationParameter,
-                                                                   filterEnableParameter,
-                                                                   pitchAttackDurationParameter,
-                                                                   pitchDecayDurationParameter,
-                                                                   pitchSustainLevelParameter,
-                                                                   pitchReleaseDurationParameter,
-                                                                   pitchADSRSemitonesParameter,
-                                                                   loopThruReleaseParameter,
-                                                                   monophonicParameter,
-                                                                   legatoParameter,
-                                                                   keyTrackingParameter,
-                                                                   filterEnvelopeVelocityScalingParameter]))
-        masterVolumeParameter.value = 1.0
-        pitchBendParameter.value = 0.0
-        vibratoDepthParameter.value = 0.0
-        filterCutoffParameter.value = 4.0
-        filterStrengthParameter.value = 20.0
-        filterResonanceParameter.value = 0.0
-        glideRateParameter.value = 0.0
-        attackDurationParameter.value = 0.0
-        decayDurationParameter.value = 0.0
-        sustainLevelParameter.value = 1.0
-        releaseDurationParameter.value = 0.0
-        filterAttackDurationParameter.value = 0.0
-        filterDecayDurationParameter.value = 0.0
-        filterSustainLevelParameter.value = 1.0
-        filterReleaseDurationParameter.value = 0.0
-        filterEnableParameter.value = 0.0
-        pitchAttackDurationParameter.value = 0.0
-        pitchDecayDurationParameter.value = 0.0
-        pitchSustainLevelParameter.value = 0.0
-        pitchReleaseDurationParameter.value = 0.0
-        pitchADSRSemitonesParameter.value = 0.0
-        loopThruReleaseParameter.value = 0.0
-        monophonicParameter.value = 0.0
-        legatoParameter.value = 0.0
-        keyTrackingParameter.value = 1.0
-        filterEnvelopeVelocityScalingParameter.value = 0.0
+        let children: [AUParameterNode] = [
+            masterVolume,
+            pitchBend,
+            vibratoDepth,
+            filterCutoff,
+            filterStrength,
+            filterResonance,
+            glideRate,
+            attackDuration,
+            decayDuration,
+            sustainLevel,
+            releaseDuration,
+            filterAttackDuration,
+            filterDecayDuration,
+            filterSustainLevel,
+            filterReleaseDuration,
+            filterEnable,
+            pitchAttackDuration,
+            pitchDecayDuration,
+            pitchSustainLevel,
+            pitchReleaseDuration,
+            pitchADSRSemitones,
+            loopThruRelease,
+            isMonophonic,
+            isLegato,
+            keyTrackingFraction,
+            filterEnvelopeVelocityScaling]
+
+        parameterTree = AUParameterTree.createTree(withChildren: children)
+
+        masterVolume.value = 1.0
+        pitchBend.value = 0.0
+        vibratoDepth.value = 0.0
+        filterCutoff.value = 4.0
+        filterStrength.value = 20.0
+        filterResonance.value = 0.0
+        glideRate.value = 0.0
+        attackDuration.value = 0.0
+        decayDuration.value = 0.0
+        sustainLevel.value = 1.0
+        releaseDuration.value = 0.0
+        filterAttackDuration.value = 0.0
+        filterDecayDuration.value = 0.0
+        filterSustainLevel.value = 1.0
+        filterReleaseDuration.value = 0.0
+        filterEnable.value = 0.0
+        pitchAttackDuration.value = 0.0
+        pitchDecayDuration.value = 0.0
+        pitchSustainLevel.value = 0.0
+        pitchReleaseDuration.value = 0.0
+        pitchADSRSemitones.value = 0.0
+        loopThruRelease.value = 0.0
+        isMonophonic.value = 0.0
+        isLegato.value = 0.0
+        keyTrackingFraction.value = 1.0
+        filterEnvelopeVelocityScaling.value = 0.0
     }
 
     public override var canProcessInPlace: Bool { return true }
@@ -495,8 +435,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerSustainPedal(dsp, down)
     }
 
-    public override func shouldClearOutputBuffer() -> Bool {
-        return true
-    }
-
+//    public override func shouldClearOutputBuffer() -> Bool {
+//        return true
+//    }
 }

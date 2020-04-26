@@ -4,53 +4,35 @@ import AVFoundation
 
 public class AKPitchShifterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKPitchShifterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var shift: AUParameter!
 
-    func setParameterImmediately(_ address: AKPitchShifterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var windowSize: AUParameter!
 
-    var shift: Double = AKPitchShifter.defaultShift {
-        didSet { setParameter(.shift, value: shift) }
-    }
-
-    var windowSize: Double = AKPitchShifter.defaultWindowSize {
-        didSet { setParameter(.windowSize, value: windowSize) }
-    }
-
-    var crossfade: Double = AKPitchShifter.defaultCrossfade {
-        didSet { setParameter(.crossfade, value: crossfade) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var crossfade: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createPitchShifterDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let shift = AUParameter(
+        shift = AUParameter(
             identifier: "shift",
             name: "Pitch shift (in semitones)",
             address: AKPitchShifterParameter.shift.rawValue,
             range: AKPitchShifter.shiftRange,
             unit: .relativeSemiTones,
             flags: .default)
-        let windowSize = AUParameter(
+        windowSize = AUParameter(
             identifier: "windowSize",
             name: "Window size (in samples)",
             address: AKPitchShifterParameter.windowSize.rawValue,
             range: AKPitchShifter.windowSizeRange,
             unit: .hertz,
             flags: .default)
-        let crossfade = AUParameter(
+        crossfade = AUParameter(
             identifier: "crossfade",
             name: "Crossfade (in samples)",
             address: AKPitchShifterParameter.crossfade.rawValue,
@@ -58,12 +40,10 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [shift, windowSize, crossfade]))
-        shift.value = Float(AKPitchShifter.defaultShift)
-        windowSize.value = Float(AKPitchShifter.defaultWindowSize)
-        crossfade.value = Float(AKPitchShifter.defaultCrossfade)
+        parameterTree = AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade])
+
+        shift.value = AUValue(AKPitchShifter.defaultShift)
+        windowSize.value = AUValue(AKPitchShifter.defaultWindowSize)
+        crossfade.value = AUValue(AKPitchShifter.defaultCrossfade)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

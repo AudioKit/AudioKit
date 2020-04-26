@@ -20,7 +20,9 @@ extension AUEffect {
 
 /// Helpful in reducing repetitive code in AudioKit
 public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AnyObject
+    associatedtype AKAudioUnitType: AnyObject // eventually AKAudioUnitBase
+    var internalAU: AKAudioUnitType? { get }
+    var rampDuration: Double { get set }
 }
 
 extension AKComponent {
@@ -30,6 +32,11 @@ extension AKComponent {
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
                                      version: .max)
+    }
+    
+    public var rampDuration: Double {
+        get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
+        set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }
     }
 }
 

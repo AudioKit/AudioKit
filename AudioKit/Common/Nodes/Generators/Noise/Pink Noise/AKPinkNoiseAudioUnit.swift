@@ -2,33 +2,19 @@
 
 import AVFoundation
 
-public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
+public class AKPinkNoiseAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKPinkNoiseParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKPinkNoiseParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var amplitude: Double = AKPinkNoise.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createPinkNoiseDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPinkNoiseParameter.amplitude.rawValue,
@@ -36,10 +22,8 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [amplitude]))
-        amplitude.value = Float(AKPinkNoise.defaultAmplitude)
+        parameterTree = AUParameterTree.createTree(withChildren: [amplitude])
+
+        amplitude.value = AUValue(AKPinkNoise.defaultAmplitude)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

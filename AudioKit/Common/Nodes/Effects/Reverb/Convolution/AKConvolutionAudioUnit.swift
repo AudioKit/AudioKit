@@ -3,29 +3,21 @@
 import AVFoundation
 
 public class AKConvolutionAudioUnit: AKAudioUnitBase {
-
-    func setParameter(_ address: AKConvolutionParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
+    
+    public func setPartitionLength(_ length: Int) {
+        setPartitionLengthConvolutionDSP(dsp, Int32(length))
     }
-
-    func setParameterImmediately(_ address: AKConvolutionParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
+    
     public override func createDSP() -> AKDSPRef {
         return createConvolutionDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        setParameterTree(AUParameterTree(children: []))
+
+
+        parameterTree = AUParameterTree.createTree(withChildren: [])
+
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

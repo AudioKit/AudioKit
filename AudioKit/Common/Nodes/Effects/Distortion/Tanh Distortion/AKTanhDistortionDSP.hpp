@@ -9,7 +9,6 @@ typedef NS_ENUM(AUParameterAddress, AKTanhDistortionParameter) {
     AKTanhDistortionParameterPostgain,
     AKTanhDistortionParameterPositiveShapeParameter,
     AKTanhDistortionParameterNegativeShapeParameter,
-    AKTanhDistortionParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -28,31 +27,11 @@ private:
 public:
     AKTanhDistortionDSP();
 
-    float pregainLowerBound = 0.0;
-    float pregainUpperBound = 10.0;
-    float postgainLowerBound = 0.0;
-    float postgainUpperBound = 10.0;
-    float positiveShapeParameterLowerBound = -10.0;
-    float positiveShapeParameterUpperBound = 10.0;
-    float negativeShapeParameterLowerBound = -10.0;
-    float negativeShapeParameterUpperBound = 10.0;
-
-    float defaultPregain = 2.0;
-    float defaultPostgain = 0.5;
-    float defaultPositiveShapeParameter = 0.0;
-    float defaultNegativeShapeParameter = 0.0;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

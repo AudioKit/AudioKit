@@ -2,75 +2,35 @@
 
 import AVFoundation
 
-public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
+public class AKSynthAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKSynthParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var masterVolume: AUParameter!
 
-    func setParameterImmediately(_ address: AKSynthParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    var pitchBend: AUParameter!
 
-    var masterVolume: Double = 0.0 {
-        didSet { setParameter(.masterVolume, value: masterVolume) }
-    }
+    var vibratoDepth: AUParameter!
 
-    var pitchBend: Double = 0.0 {
-        didSet { setParameter(.pitchBend, value: pitchBend) }
-    }
+    var filterCutoff: AUParameter!
 
-    var vibratoDepth: Double = 1.0 {
-        didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
-    }
+    var filterStrength: AUParameter!
 
-    var filterCutoff: Double = 4.0 {
-        didSet { setParameter(.filterCutoff, value: filterCutoff) }
-    }
+    var filterResonance: AUParameter!
 
-    var filterStrength: Double = 20.0 {
-        didSet { setParameter(.filterStrength, value: filterCutoff) }
-    }
+    var attackDuration: AUParameter!
 
-    var filterResonance: Double = 0.0 {
-        didSet { setParameter(.filterResonance, value: filterResonance) }
-    }
+    var decayDuration: AUParameter!
 
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    var sustainLevel: AUParameter!
 
-    var attackDuration: Double = 0.0 {
-        didSet { setParameter(.attackDuration, value: attackDuration) }
-    }
+    var releaseDuration: AUParameter!
 
-    var decayDuration: Double = 0.0 {
-        didSet { setParameter(.decayDuration, value: decayDuration) }
-    }
+    var filterAttackDuration: AUParameter!
 
-    var sustainLevel: Double = 0.0 {
-        didSet { setParameter(.sustainLevel, value: sustainLevel) }
-    }
+    var filterDecayDuration: AUParameter!
 
-    var releaseDuration: Double = 0.0 {
-        didSet { setParameter(.releaseDuration, value: releaseDuration) }
-    }
+    var filterSustainLevel: AUParameter!
 
-    var filterAttackDuration: Double = 0.0 {
-        didSet { setParameter(.filterAttackDuration, value: filterAttackDuration) }
-    }
-
-    var filterDecayDuration: Double = 0.0 {
-        didSet { setParameter(.filterDecayDuration, value: filterDecayDuration) }
-    }
-
-    var filterSustainLevel: Double = 0.0 {
-        didSet { setParameter(.filterSustainLevel, value: filterSustainLevel) }
-    }
-
-    var filterReleaseDuration: Double = 0.0 {
-        didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
-    }
+    var filterReleaseDuration: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createAKSynthDSP()
@@ -83,7 +43,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
         var parameterAddress: AUParameterAddress = 0
-        let masterVolumeParameter = AUParameter(
+        masterVolume = AUParameter(
             identifier: "masterVolume",
             name: "Master Volume",
             address: parameterAddress,
@@ -93,7 +53,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchBendParameter = AUParameter(
+        pitchBend = AUParameter(
             identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
             address: parameterAddress,
@@ -103,7 +63,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let vibratoDepthParameter = AUParameter(
+        vibratoDepth = AUParameter(
             identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
             address: parameterAddress,
@@ -113,7 +73,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterCutoffParameter = AUParameter(
+        filterCutoff = AUParameter(
             identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
             address: parameterAddress,
@@ -123,7 +83,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterStrengthParameter = AUParameter(
+        filterStrength = AUParameter(
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
@@ -133,7 +93,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterResonanceParameter = AUParameter(
+        filterResonance = AUParameter(
             identifier: "filterResonance",
             name: "Filter resonance (dB))",
             address: parameterAddress,
@@ -143,7 +103,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let attackDurationParameter = AUParameter(
+        attackDuration = AUParameter(
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
@@ -153,7 +113,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let decayDurationParameter = AUParameter(
+        decayDuration = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
@@ -163,7 +123,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let sustainLevelParameter = AUParameter(
+        sustainLevel = AUParameter(
             identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
             address: parameterAddress,
@@ -173,7 +133,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let releaseDurationParameter = AUParameter(
+        releaseDuration = AUParameter(
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
@@ -183,7 +143,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterAttackDurationParameter = AUParameter(
+        filterAttackDuration = AUParameter(
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
@@ -193,7 +153,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterDecayDurationParameter = AUParameter(
+        filterDecayDuration = AUParameter(
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
@@ -203,7 +163,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterSustainLevelParameter = AUParameter(
+        filterSustainLevel = AUParameter(
             identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
             address: parameterAddress,
@@ -213,7 +173,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterReleaseDurationParameter = AUParameter(
+        filterReleaseDuration = AUParameter(
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
@@ -221,40 +181,38 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             unit: .seconds,
             flags: nonRampFlags)
 
-        setParameterTree(AUParameterTree(children: [
-            masterVolumeParameter,
-            pitchBendParameter,
-            vibratoDepthParameter,
-            filterCutoffParameter,
-            filterStrengthParameter,
-            filterResonanceParameter,
-            attackDurationParameter,
-            decayDurationParameter,
-            sustainLevelParameter,
-            releaseDurationParameter,
-            filterAttackDurationParameter,
-            filterDecayDurationParameter,
-            filterSustainLevelParameter,
-            filterReleaseDurationParameter
-            ]))
+        parameterTree = AUParameterTree.createTree(withChildren: [
+            masterVolume,
+            pitchBend,
+            vibratoDepth,
+            filterCutoff,
+            filterStrength,
+            filterResonance,
+            attackDuration,
+            decayDuration,
+            sustainLevel,
+            releaseDuration,
+            filterAttackDuration,
+            filterDecayDuration,
+            filterSustainLevel,
+            filterReleaseDuration
+            ])
 
-        masterVolumeParameter.value = 1.0
-        pitchBendParameter.value = 0.0
-        vibratoDepthParameter.value = 0.0
-        filterCutoffParameter.value = 4.0
-        filterStrengthParameter.value = 20.0
-        filterResonanceParameter.value = 0.0
-        attackDurationParameter.value = 0.0
-        decayDurationParameter.value = 0.0
-        sustainLevelParameter.value = 1.0
-        releaseDurationParameter.value = 0.0
-        filterAttackDurationParameter.value = 0.0
-        filterDecayDurationParameter.value = 0.0
-        filterSustainLevelParameter.value = 1.0
-        filterReleaseDurationParameter.value = 0.0
+        masterVolume.value = 1.0
+        pitchBend.value = 0.0
+        vibratoDepth.value = 0.0
+        filterCutoff.value = 4.0
+        filterStrength.value = 20.0
+        filterResonance.value = 0.0
+        attackDuration.value = 0.0
+        decayDuration.value = 0.0
+        sustainLevel.value = 1.0
+        releaseDuration.value = 0.0
+        filterAttackDuration.value = 0.0
+        filterDecayDuration.value = 0.0
+        filterSustainLevel.value = 1.0
+        filterReleaseDuration.value = 0.0
     }
-
-    public override var canProcessInPlace: Bool { return true }
 
     public func playNote(noteNumber: UInt8,
                          velocity: UInt8,
@@ -270,8 +228,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
         doAKSynthSustainPedal(dsp, down)
     }
 
-    public override func shouldClearOutputBuffer() -> Bool {
-        return true
-    }
-
+//    public override func shouldClearOutputBuffer() -> Bool {
+//        return true
+//    }
 }

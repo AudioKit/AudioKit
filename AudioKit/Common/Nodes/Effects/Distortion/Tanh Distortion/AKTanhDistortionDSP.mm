@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKTanhDistortionDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createTanhDistortionDSP() {
-    AKTanhDistortionDSP *dsp = new AKTanhDistortionDSP();
-    return dsp;
+    return new AKTanhDistortionDSP();
 }
 
 struct AKTanhDistortionDSP::InternalData {
@@ -18,55 +17,10 @@ struct AKTanhDistortionDSP::InternalData {
 };
 
 AKTanhDistortionDSP::AKTanhDistortionDSP() : data(new InternalData) {
-    data->pregainRamp.setTarget(defaultPregain, true);
-    data->pregainRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->postgainRamp.setTarget(defaultPostgain, true);
-    data->postgainRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->positiveShapeParameterRamp.setTarget(defaultPositiveShapeParameter, true);
-    data->positiveShapeParameterRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->negativeShapeParameterRamp.setTarget(defaultNegativeShapeParameter, true);
-    data->negativeShapeParameterRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKTanhDistortionDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKTanhDistortionParameterPregain:
-            data->pregainRamp.setTarget(clamp(value, pregainLowerBound, pregainUpperBound), immediate);
-            break;
-        case AKTanhDistortionParameterPostgain:
-            data->postgainRamp.setTarget(clamp(value, postgainLowerBound, postgainUpperBound), immediate);
-            break;
-        case AKTanhDistortionParameterPositiveShapeParameter:
-            data->positiveShapeParameterRamp.setTarget(clamp(value, positiveShapeParameterLowerBound, positiveShapeParameterUpperBound), immediate);
-            break;
-        case AKTanhDistortionParameterNegativeShapeParameter:
-            data->negativeShapeParameterRamp.setTarget(clamp(value, negativeShapeParameterLowerBound, negativeShapeParameterUpperBound), immediate);
-            break;
-        case AKTanhDistortionParameterRampDuration:
-            data->pregainRamp.setRampDuration(value, sampleRate);
-            data->postgainRamp.setRampDuration(value, sampleRate);
-            data->positiveShapeParameterRamp.setRampDuration(value, sampleRate);
-            data->negativeShapeParameterRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKTanhDistortionDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKTanhDistortionParameterPregain:
-            return data->pregainRamp.getTarget();
-        case AKTanhDistortionParameterPostgain:
-            return data->postgainRamp.getTarget();
-        case AKTanhDistortionParameterPositiveShapeParameter:
-            return data->positiveShapeParameterRamp.getTarget();
-        case AKTanhDistortionParameterNegativeShapeParameter:
-            return data->negativeShapeParameterRamp.getTarget();
-        case AKTanhDistortionParameterRampDuration:
-            return data->pregainRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKTanhDistortionParameterPregain] = &data->pregainRamp;
+    parameters[AKTanhDistortionParameterPostgain] = &data->postgainRamp;
+    parameters[AKTanhDistortionParameterPositiveShapeParameter] = &data->positiveShapeParameterRamp;
+    parameters[AKTanhDistortionParameterNegativeShapeParameter] = &data->negativeShapeParameterRamp;
 }
 
 void AKTanhDistortionDSP::init(int channelCount, double sampleRate) {
@@ -75,20 +29,19 @@ void AKTanhDistortionDSP::init(int channelCount, double sampleRate) {
     sp_dist_init(sp, data->dist0);
     sp_dist_create(&data->dist1);
     sp_dist_init(sp, data->dist1);
-    data->dist0->pregain = defaultPregain;
-    data->dist1->pregain = defaultPregain;
-    data->dist0->postgain = defaultPostgain;
-    data->dist1->postgain = defaultPostgain;
-    data->dist0->shape1 = defaultPositiveShapeParameter;
-    data->dist1->shape1 = defaultPositiveShapeParameter;
-    data->dist0->shape2 = defaultNegativeShapeParameter;
-    data->dist1->shape2 = defaultNegativeShapeParameter;
 }
 
 void AKTanhDistortionDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_dist_destroy(&data->dist0);
     sp_dist_destroy(&data->dist1);
+}
+
+void AKTanhDistortionDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_dist_init(sp, data->dist0);
+    sp_dist_init(sp, data->dist1);
 }
 
 void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

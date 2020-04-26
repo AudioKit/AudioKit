@@ -9,59 +9,41 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var frequencyParameter: AUParameter?
-    fileprivate var bandwidthParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 100.0 ... 20_000.0
+    public static let frequencyRange: ClosedRange<Double> = 100.0 ... 20000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange = 0.0 ... 10_000.0
+    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 10000.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency = 4_000.0
+    public static let defaultFrequency: Double = 4000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth = 1_000.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultBandwidth: Double = 1000.0
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    @objc open dynamic var frequency: Double = defaultFrequency {
+    open var frequency: Double = defaultFrequency {
         willSet {
-            guard frequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                frequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.frequency, value: newValue)
+            let clampedValue = AKResonantFilter.frequencyRange.clamp(newValue)
+            guard frequency != clampedValue else { return }
+            internalAU?.frequency.value = AUValue(clampedValue)
         }
     }
 
     /// Bandwidth of the filter.
-    @objc open dynamic var bandwidth: Double = defaultBandwidth {
+    open var bandwidth: Double = defaultBandwidth {
         willSet {
-            guard bandwidth != newValue else { return }
-            if internalAU?.isSetUp == true {
-                bandwidthParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.bandwidth, value: newValue)
+            let clampedValue = AKResonantFilter.bandwidthRange.clamp(newValue)
+            guard bandwidth != clampedValue else { return }
+            internalAU?.bandwidth.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -73,50 +55,34 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - frequency: Center frequency of the filter, or frequency position of the peak response.
     ///   - bandwidth: Bandwidth of the filter.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         frequency: Double = defaultFrequency,
         bandwidth: Double = defaultBandwidth
         ) {
-
-        self.frequency = frequency
-        self.bandwidth = bandwidth
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.frequency = frequency
+            self.bandwidth = bandwidth
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        frequencyParameter = tree["frequency"]
-        bandwidthParameter = tree["bandwidth"]
-
-        internalAU?.setParameterImmediately(.frequency, value: frequency)
-        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

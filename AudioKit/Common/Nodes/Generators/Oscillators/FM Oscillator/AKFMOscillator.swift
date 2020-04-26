@@ -9,121 +9,88 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var waveform: AKTable?
 
-    fileprivate var baseFrequencyParameter: AUParameter?
-    fileprivate var carrierMultiplierParameter: AUParameter?
-    fileprivate var modulatingMultiplierParameter: AUParameter?
-    fileprivate var modulationIndexParameter: AUParameter?
-    fileprivate var amplitudeParameter: AUParameter?
-
     /// Lower and upper bounds for Base Frequency
-    public static let baseFrequencyRange = 0.0 ... 20_000.0
+    public static let baseFrequencyRange: ClosedRange<Double> = 0.0 ... 20000.0
 
     /// Lower and upper bounds for Carrier Multiplier
-    public static let carrierMultiplierRange = 0.0 ... 1_000.0
+    public static let carrierMultiplierRange: ClosedRange<Double> = 0.0 ... 1000.0
 
     /// Lower and upper bounds for Modulating Multiplier
-    public static let modulatingMultiplierRange = 0.0 ... 1_000.0
+    public static let modulatingMultiplierRange: ClosedRange<Double> = 0.0 ... 1000.0
 
     /// Lower and upper bounds for Modulation Index
-    public static let modulationIndexRange = 0.0 ... 1_000.0
+    public static let modulationIndexRange: ClosedRange<Double> = 0.0 ... 1000.0
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange = 0.0 ... 10.0
+    public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 10.0
 
     /// Initial value for Base Frequency
-    public static let defaultBaseFrequency = 440.0
+    public static let defaultBaseFrequency: Double = 440.0
 
     /// Initial value for Carrier Multiplier
-    public static let defaultCarrierMultiplier = 1.0
+    public static let defaultCarrierMultiplier: Double = 1.0
 
     /// Initial value for Modulating Multiplier
-    public static let defaultModulatingMultiplier = 1.0
+    public static let defaultModulatingMultiplier: Double = 1.0
 
     /// Initial value for Modulation Index
-    public static let defaultModulationIndex = 1.0
+    public static let defaultModulationIndex: Double = 1.0
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude = 1.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultAmplitude: Double = 1.0
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    @objc open dynamic var baseFrequency: Double = defaultBaseFrequency {
+    open var baseFrequency: Double = defaultBaseFrequency {
         willSet {
-            guard baseFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                baseFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.baseFrequency, value: newValue)
+            let clampedValue = AKFMOscillator.baseFrequencyRange.clamp(newValue)
+            guard baseFrequency != clampedValue else { return }
+            internalAU?.baseFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    @objc open dynamic var carrierMultiplier: Double = defaultCarrierMultiplier {
+    open var carrierMultiplier: Double = defaultCarrierMultiplier {
         willSet {
-            guard carrierMultiplier != newValue else { return }
-            if internalAU?.isSetUp == true {
-                carrierMultiplierParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.carrierMultiplier, value: newValue)
+            let clampedValue = AKFMOscillator.carrierMultiplierRange.clamp(newValue)
+            guard carrierMultiplier != clampedValue else { return }
+            internalAU?.carrierMultiplier.value = AUValue(clampedValue)
         }
     }
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    @objc open dynamic var modulatingMultiplier: Double = defaultModulatingMultiplier {
+    open var modulatingMultiplier: Double = defaultModulatingMultiplier {
         willSet {
-            guard modulatingMultiplier != newValue else { return }
-            if internalAU?.isSetUp == true {
-                modulatingMultiplierParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.modulatingMultiplier, value: newValue)
+            let clampedValue = AKFMOscillator.modulatingMultiplierRange.clamp(newValue)
+            guard modulatingMultiplier != clampedValue else { return }
+            internalAU?.modulatingMultiplier.value = AUValue(clampedValue)
         }
     }
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    @objc open dynamic var modulationIndex: Double = defaultModulationIndex {
+    open var modulationIndex: Double = defaultModulationIndex {
         willSet {
-            guard modulationIndex != newValue else { return }
-            if internalAU?.isSetUp == true {
-                modulationIndexParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.modulationIndex, value: newValue)
+            let clampedValue = AKFMOscillator.modulationIndexRange.clamp(newValue)
+            guard modulationIndex != clampedValue else { return }
+            internalAU?.modulationIndex.value = AUValue(clampedValue)
         }
     }
 
     /// Output Amplitude.
-    @objc open dynamic var amplitude: Double = defaultAmplitude {
+    open var amplitude: Double = defaultAmplitude {
         willSet {
-            guard amplitude != newValue else { return }
-            if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.amplitude, value: newValue)
+            let clampedValue = AKFMOscillator.amplitudeRange.clamp(newValue)
+            guard amplitude != clampedValue else { return }
+            internalAU?.amplitude.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -143,53 +110,31 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
     ///   - amplitude: Output Amplitude.
     ///
-    @objc public init(
+    public init(
         waveform: AKTable,
         baseFrequency: Double = defaultBaseFrequency,
         carrierMultiplier: Double = defaultCarrierMultiplier,
         modulatingMultiplier: Double = defaultModulatingMultiplier,
         modulationIndex: Double = defaultModulationIndex,
-        amplitude: Double = defaultAmplitude) {
-
-        self.waveform = waveform
-        self.baseFrequency = baseFrequency
-        self.carrierMultiplier = carrierMultiplier
-        self.modulatingMultiplier = modulatingMultiplier
-        self.modulationIndex = modulationIndex
-        self.amplitude = amplitude
+        amplitude: Double = defaultAmplitude
+    ) {
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
-            for (i, sample) in waveform.enumerated() {
-                strongSelf.internalAU?.setWaveformValue(sample, at: UInt32(i))
-            }
+            self.waveform = waveform
+            self.baseFrequency = baseFrequency
+            self.carrierMultiplier = carrierMultiplier
+            self.modulatingMultiplier = modulatingMultiplier
+            self.modulationIndex = modulationIndex
+            self.amplitude = amplitude
+
+            self.internalAU?.setWavetable(waveform.content)
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        baseFrequencyParameter = tree["baseFrequency"]
-        carrierMultiplierParameter = tree["carrierMultiplier"]
-        modulatingMultiplierParameter = tree["modulatingMultiplier"]
-        modulationIndexParameter = tree["modulationIndex"]
-        amplitudeParameter = tree["amplitude"]
-        internalAU?.setParameterImmediately(.baseFrequency, value: baseFrequency)
-        internalAU?.setParameterImmediately(.carrierMultiplier, value: carrierMultiplier)
-        internalAU?.setParameterImmediately(.modulatingMultiplier, value: modulatingMultiplier)
-        internalAU?.setParameterImmediately(.modulationIndex, value: modulationIndex)
-        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
