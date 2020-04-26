@@ -226,7 +226,9 @@ open class AKAbstractPlayer: AKNode {
     // MARK: internal functions to be used by subclasses
 
     /// This is used to schedule the fade in and out for a region. It uses values from the fade struct.
-    internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
+    internal func scheduleFader(at audioTime: AVAudioTime?,
+                                hostTime: UInt64?,
+                                frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
         // reset automation if it is running
@@ -240,9 +242,6 @@ open class AKAbstractPlayer: AKNode {
 
             let inOffset = AUAudioFrameCount(offsetTime * sampleRate)
             let rampDuration = AUAudioFrameCount(fade.inTime * sampleRate)
-
-//            AKLog("Scheduling fade IN to fade.maximumGain", fade.maximumGain, "rampDuration", rampDuration,
-//                  "offsetTime", offsetTime, "taper", fade.inTaper)
 
             // add this extra point for the case where it is offline processing
             faderNode.addAutomationPoint(value: Fade.minimumGain,
