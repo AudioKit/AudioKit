@@ -18,7 +18,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var waveform: AKTable?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0 ... 20000
+    public static let frequencyRange: ClosedRange<Double> = 0 ... 20_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<Double> = 0 ... 10
@@ -27,7 +27,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public static let phaseDistortionRange: ClosedRange<Double> = -1 ... 1
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<Double> = -1000 ... 1000
+    public static let detuningOffsetRange: ClosedRange<Double> = -1_000 ... 1_000
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange: ClosedRange<Double> = 0.9 ... 1.11

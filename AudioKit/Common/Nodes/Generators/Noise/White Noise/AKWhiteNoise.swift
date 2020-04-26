@@ -33,7 +33,6 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-
     /// Initialize this noise node
     ///
     /// - Parameters:
@@ -49,7 +48,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             self.amplitude = amplitude
         }
 

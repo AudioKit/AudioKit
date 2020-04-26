@@ -66,7 +66,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Offset allows you to start a ramp somewhere in the middle of it. default 0.
     open var offset: Double = 0 {
         willSet {
-            let clampedValue = (0.0 ... 1000000000.0).clamp(newValue)
+            let clampedValue = (0.0 ... 1_000_000_000.0).clamp(newValue)
             guard offset != clampedValue else { return }
             internalAU?.offset.value = AUValue(clampedValue)
         }
@@ -115,13 +115,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: self)
-            
+
             self.leftGain = gain
             self.rightGain = gain
             self.taper = taper
             self.skew = skew
             self.offset = offset
-            
+
             if let internalAU = self.internalAU {
                 self.parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
             }
@@ -131,7 +131,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     deinit {
         AKLog("* { AKFader }")
     }
-    
+
     open override func detach() {
         super.detach()
         parameterAutomation = nil

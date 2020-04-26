@@ -66,7 +66,7 @@ open class AKAppleSequencer: NSObject {
         self.init()
         loadMIDIFile(fromURL: fileURL)
     }
-    
+
     /// Initialize the sequence with a MIDI file data representation
     ///
     /// - parameter fromData: Data representation of a MIDI file
@@ -591,7 +591,7 @@ open class AKAppleSequencer: NSObject {
         }
         initTracks()
     }
-    
+
     /// Load a MIDI file given its data representation (removes old tracks, if present)
     open func loadMIDIFile(fromData data: Data) {
         removeTracks()

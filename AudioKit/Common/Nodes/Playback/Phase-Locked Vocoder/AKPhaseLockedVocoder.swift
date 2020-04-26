@@ -19,7 +19,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
 
     /// Lower and upper bounds for Pitch Ratio
-    public static let pitchRatioRange: ClosedRange<Double> = 0 ... 1000
+    public static let pitchRatioRange: ClosedRange<Double> = 0 ... 1_000
 
     /// Initial value for Position
     public static let defaultPosition: Double = 0

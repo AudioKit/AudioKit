@@ -96,7 +96,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: self)
-            
+
             self.time = time
             self.feedback = feedback
             self.dryWetMix = dryWetMix

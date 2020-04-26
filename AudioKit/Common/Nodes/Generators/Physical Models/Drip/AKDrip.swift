@@ -22,13 +22,13 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     public static let energyReturnRange: ClosedRange<Double> = 0 ... 100
 
     /// Lower and upper bounds for Main Resonant Frequency
-    public static let mainResonantFrequencyRange: ClosedRange<Double> = 0 ... 22000
+    public static let mainResonantFrequencyRange: ClosedRange<Double> = 0 ... 22_000
 
     /// Lower and upper bounds for First Resonant Frequency
-    public static let firstResonantFrequencyRange: ClosedRange<Double> = 0 ... 22000
+    public static let firstResonantFrequencyRange: ClosedRange<Double> = 0 ... 22_000
 
     /// Lower and upper bounds for Second Resonant Frequency
-    public static let secondResonantFrequencyRange: ClosedRange<Double> = 0 ... 22000
+    public static let secondResonantFrequencyRange: ClosedRange<Double> = 0 ... 22_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
@@ -123,7 +123,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this drip node
     ///

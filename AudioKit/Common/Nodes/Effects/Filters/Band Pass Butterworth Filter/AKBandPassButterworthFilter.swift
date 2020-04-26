@@ -12,13 +12,13 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20000.0
+    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20_000.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 2000.0
+    public static let defaultCenterFrequency: Double = 2_000.0
 
     /// Initial value for Bandwidth
     public static let defaultBandwidth: Double = 100.0

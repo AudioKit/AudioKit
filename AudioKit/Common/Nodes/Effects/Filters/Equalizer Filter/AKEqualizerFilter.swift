@@ -14,16 +14,16 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20000.0
+    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Gain
     public static let gainRange: ClosedRange<Double> = -100.0 ... 100.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 1000.0
+    public static let defaultCenterFrequency: Double = 1_000.0
 
     /// Initial value for Bandwidth
     public static let defaultBandwidth: Double = 100.0

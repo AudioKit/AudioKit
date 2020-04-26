@@ -13,7 +13,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let frequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Quality Factor
     public static let qualityFactorRange: ClosedRange<Double> = 0.0 ... 100.0

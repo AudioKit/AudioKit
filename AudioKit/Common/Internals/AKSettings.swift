@@ -82,7 +82,7 @@ open class AKSettings: NSObject {
     @objc public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    @objc public static var rampDuration: Double = 0.0002
+    @objc public static var rampDuration: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     @objc public static var notificationsEnabled: Bool = false

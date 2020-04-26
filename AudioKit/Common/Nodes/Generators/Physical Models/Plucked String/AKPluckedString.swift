@@ -12,7 +12,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0 ... 22000
+    public static let frequencyRange: ClosedRange<Double> = 0 ... 22_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
@@ -50,7 +50,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this pluck node
     ///

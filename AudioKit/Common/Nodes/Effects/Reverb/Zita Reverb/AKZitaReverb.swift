@@ -14,7 +14,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let predelayRange: ClosedRange<Double> = 0.0 ... 200.0
 
     /// Lower and upper bounds for Crossover Frequency
-    public static let crossoverFrequencyRange: ClosedRange<Double> = 10.0 ... 1000.0
+    public static let crossoverFrequencyRange: ClosedRange<Double> = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Low Release Time
     public static let lowReleaseTimeRange: ClosedRange<Double> = 0.0 ... 10.0
@@ -23,16 +23,16 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let midReleaseTimeRange: ClosedRange<Double> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Damping Frequency
-    public static let dampingFrequencyRange: ClosedRange<Double> = 10.0 ... 22050.0
+    public static let dampingFrequencyRange: ClosedRange<Double> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Frequency1
-    public static let equalizerFrequency1Range: ClosedRange<Double> = 10.0 ... 1000.0
+    public static let equalizerFrequency1Range: ClosedRange<Double> = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Equalizer Level1
     public static let equalizerLevel1Range: ClosedRange<Double> = -100.0 ... 10.0
 
     /// Lower and upper bounds for Equalizer Frequency2
-    public static let equalizerFrequency2Range: ClosedRange<Double> = 10.0 ... 22050.0
+    public static let equalizerFrequency2Range: ClosedRange<Double> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Level2
     public static let equalizerLevel2Range: ClosedRange<Double> = -100.0 ... 10.0
@@ -53,7 +53,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultMidReleaseTime: Double = 2.0
 
     /// Initial value for Damping Frequency
-    public static let defaultDampingFrequency: Double = 6000.0
+    public static let defaultDampingFrequency: Double = 6_000.0
 
     /// Initial value for Equalizer Frequency1
     public static let defaultEqualizerFrequency1: Double = 315.0
@@ -62,7 +62,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultEqualizerLevel1: Double = 0.0
 
     /// Initial value for Equalizer Frequency2
-    public static let defaultEqualizerFrequency2: Double = 1500.0
+    public static let defaultEqualizerFrequency2: Double = 1_500.0
 
     /// Initial value for Equalizer Level2
     public static let defaultEqualizerLevel2: Double = 0.0

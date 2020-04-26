@@ -129,7 +129,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             self.type = type
             self.amplitude = amplitude
         }

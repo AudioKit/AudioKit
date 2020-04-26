@@ -125,7 +125,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             self.frequency = frequency
             self.amplitude = amplitude
             self.pulseWidth = pulseWidth

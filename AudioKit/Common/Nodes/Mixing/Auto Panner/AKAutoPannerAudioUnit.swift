@@ -5,7 +5,7 @@ import AVFoundation
 public class AKAutoPannerAudioUnit: AKAudioUnitBase {
 
     var frequency: AUParameter!
-    
+
     var depth: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
@@ -32,7 +32,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             flags: .default)
 
         parameterTree = AUParameterTree.createTree(withChildren: [frequency, depth])
-        
+
         frequency.value = 10.0
         depth.value = 1.0
     }

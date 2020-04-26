@@ -12,13 +12,13 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Notch Minimum Frequency
-    public static let notchMinimumFrequencyRange: ClosedRange<Double> = 20 ... 5000
+    public static let notchMinimumFrequencyRange: ClosedRange<Double> = 20 ... 5_000
 
     /// Lower and upper bounds for Notch Maximum Frequency
-    public static let notchMaximumFrequencyRange: ClosedRange<Double> = 20 ... 10000
+    public static let notchMaximumFrequencyRange: ClosedRange<Double> = 20 ... 10_000
 
     /// Lower and upper bounds for Notch Width
-    public static let notchWidthRange: ClosedRange<Double> = 10 ... 5000
+    public static let notchWidthRange: ClosedRange<Double> = 10 ... 5_000
 
     /// Lower and upper bounds for Notch Frequency
     public static let notchFrequencyRange: ClosedRange<Double> = 1.1 ... 4.0
@@ -45,7 +45,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultNotchMaximumFrequency: Double = 800
 
     /// Initial value for Notch Width
-    public static let defaultNotchWidth: Double = 1000
+    public static let defaultNotchWidth: Double = 1_000
 
     /// Initial value for Notch Frequency
     public static let defaultNotchFrequency: Double = 1.5

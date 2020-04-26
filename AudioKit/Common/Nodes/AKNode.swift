@@ -8,7 +8,7 @@ extension AVAudioConnectionPoint {
 
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
-    
+
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
 
@@ -41,11 +41,11 @@ extension AVAudioConnectionPoint {
             AKManager.engine.attach(avAudioNode)
         }
     }
-    
+
     deinit {
         detach()
     }
-    
+
     // Subclasses should override to detach all internal nodes
     open func detach() {
         AKManager.detach(nodes: [avAudioUnitOrNode])

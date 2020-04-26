@@ -26,7 +26,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
 
         reverbDuration.value = AUValue(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }
-    
+
     public func setLoopDuration(_ loopDuration: Float) {
         setLoopDurationFlatFrequencyResponseReverbDSP(dsp, loopDuration)
     }

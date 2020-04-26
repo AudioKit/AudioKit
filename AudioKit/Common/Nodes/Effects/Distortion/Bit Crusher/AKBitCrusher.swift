@@ -14,13 +14,13 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     public static let bitDepthRange: ClosedRange<Double> = 1 ... 24
 
     /// Lower and upper bounds for Sample Rate
-    public static let sampleRateRange: ClosedRange<Double> = 0.0 ... 20000.0
+    public static let sampleRateRange: ClosedRange<Double> = 0.0 ... 20_000.0
 
     /// Initial value for Bit Depth
     public static let defaultBitDepth: Double = 8
 
     /// Initial value for Sample Rate
-    public static let defaultSampleRate: Double = 10000
+    public static let defaultSampleRate: Double = 10_000
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     open var bitDepth: Double = defaultBitDepth {

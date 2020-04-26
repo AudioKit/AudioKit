@@ -16,7 +16,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Fundamental Frequency
-    public static let fundamentalFrequencyRange: ClosedRange<Double> = 12.0 ... 10000.0
+    public static let fundamentalFrequencyRange: ClosedRange<Double> = 12.0 ... 10_000.0
 
     /// Lower and upper bounds for Feedback
     public static let feedbackRange: ClosedRange<Double> = 0.0 ... 1.0

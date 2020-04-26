@@ -11,10 +11,10 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Half Power Point
-    public static let halfPowerPointRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let halfPowerPointRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Initial value for Half Power Point
-    public static let defaultHalfPowerPoint: Double = 1000.0
+    public static let defaultHalfPowerPoint: Double = 1_000.0
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     open var halfPowerPoint: Double = defaultHalfPowerPoint {
