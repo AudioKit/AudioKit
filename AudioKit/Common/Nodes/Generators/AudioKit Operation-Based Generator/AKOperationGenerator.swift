@@ -89,7 +89,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         self.customUgens = []
         super.init()
     }
-    
+
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code

@@ -36,7 +36,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             internalAU?.rightGain.value = AUValue(clampedValue)
         }
     }
-    
+
     open var rampType: AKSettings.RampType = .linear {
         willSet {
             guard rampType != newValue else { return }
@@ -75,7 +75,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: self)
-            
+
             self.leftGain = gain
             self.rightGain = gain
         }

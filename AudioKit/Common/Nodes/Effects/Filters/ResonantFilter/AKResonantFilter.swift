@@ -12,16 +12,16 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 100.0 ... 20000.0
+    public static let frequencyRange: ClosedRange<Double> = 100.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 10000.0
+    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 10_000.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 4000.0
+    public static let defaultFrequency: Double = 4_000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth: Double = 1000.0
+    public static let defaultBandwidth: Double = 1_000.0
 
     /// Center frequency of the filter, or frequency position of the peak response.
     open var frequency: Double = defaultFrequency {

@@ -59,7 +59,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
             flags: .default)
 
         parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier])
-        
+
         frequency.value = AUValue(AKPWMOscillator.defaultFrequency)
         amplitude.value = AUValue(AKPWMOscillator.defaultAmplitude)
         pulseWidth.value = AUValue(AKPWMOscillator.defaultPulseWidth)

@@ -14,16 +14,16 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let shiftRange: ClosedRange<Double> = -24.0 ... 24.0
 
     /// Lower and upper bounds for Window Size
-    public static let windowSizeRange: ClosedRange<Double> = 0.0 ... 10000.0
+    public static let windowSizeRange: ClosedRange<Double> = 0.0 ... 10_000.0
 
     /// Lower and upper bounds for Crossfade
-    public static let crossfadeRange: ClosedRange<Double> = 0.0 ... 10000.0
+    public static let crossfadeRange: ClosedRange<Double> = 0.0 ... 10_000.0
 
     /// Initial value for Shift
     public static let defaultShift: Double = 0
 
     /// Initial value for Window Size
-    public static let defaultWindowSize: Double = 1024
+    public static let defaultWindowSize: Double = 1_024
 
     /// Initial value for Crossfade
     public static let defaultCrossfade: Double = 512

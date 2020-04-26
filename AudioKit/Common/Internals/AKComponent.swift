@@ -33,7 +33,7 @@ extension AKComponent {
                                      name: "Local \(Self.self)",
                                      version: .max)
     }
-    
+
     public var rampDuration: Double {
         get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
         set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }

@@ -35,7 +35,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     ) {
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
-    
+
         super.init()
 
         _Self.register()
@@ -62,7 +62,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     open func stop() {
         internalAU?.stop()
     }
-    
+
     private func readAudioFile() {
         Exit: do {
             var err: OSStatus = noErr

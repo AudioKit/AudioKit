@@ -15,7 +15,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var waveformArray = [AKTable]()
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22050.0
+    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22_050.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 1.0
@@ -24,7 +24,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public static let indexRange: ClosedRange<Double> = 0.0 ... 3.0
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<Double> = -1000.0 ... 1000.0
+    public static let detuningOffsetRange: ClosedRange<Double> = -1_000.0 ... 1_000.0
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange: ClosedRange<Double> = 0.9 ... 1.11

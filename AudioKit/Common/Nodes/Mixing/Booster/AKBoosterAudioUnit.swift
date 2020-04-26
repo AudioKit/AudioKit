@@ -3,7 +3,7 @@
 import AVFoundation
 
 public class AKBoosterAudioUnit: AKAudioUnitBase {
-    
+
     var leftGain: AUParameter!
 
     var rightGain: AUParameter!
@@ -33,7 +33,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             range: 0.0...2.0,
             unit: .linearGain,
             flags: .default)
-        
+
         rampType = AUParameter(
             identifier: "rampType",
             name: "Ramp Type",
@@ -43,7 +43,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             flags: .default)
 
         parameterTree = AUParameterTree.createTree(withChildren: [leftGain, rightGain, rampType])
-        
+
         leftGain.value = 1.0
         rightGain.value = 1.0
         rampType.value = AUValue(AKSettings.RampType.linear.rawValue)

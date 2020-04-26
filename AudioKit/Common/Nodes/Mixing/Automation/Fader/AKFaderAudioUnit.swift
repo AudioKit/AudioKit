@@ -3,7 +3,7 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-    
+
     var taper: AUParameter!
 
     var skew: AUParameter!
@@ -66,7 +66,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "offset",
             name: "Offset",
             address: 4,
-            range: 0.0 ... 1000000000.0,
+            range: 0.0 ... 1_000_000_000.0,
             unit: .generic,
             flags: .default
         )

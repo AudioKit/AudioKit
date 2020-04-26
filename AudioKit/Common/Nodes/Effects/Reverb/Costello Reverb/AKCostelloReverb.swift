@@ -16,13 +16,13 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let feedbackRange: ClosedRange<Double> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Initial value for Feedback
     public static let defaultFeedback: Double = 0.6
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 4000.0
+    public static let defaultCutoffFrequency: Double = 4_000.0
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     open var feedback: Double = defaultFeedback {

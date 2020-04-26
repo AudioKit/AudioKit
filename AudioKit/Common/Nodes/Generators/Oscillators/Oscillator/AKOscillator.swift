@@ -15,13 +15,13 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var waveform: AKTable?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 20000.0
+    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<Double> = -1000.0 ... 1000.0
+    public static let detuningOffsetRange: ClosedRange<Double> = -1_000.0 ... 1_000.0
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange: ClosedRange<Double> = 0.9 ... 1.11

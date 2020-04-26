@@ -15,13 +15,13 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Resonance
     public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 1000
+    public static let defaultCutoffFrequency: Double = 1_000
 
     /// Initial value for Resonance
     public static let defaultResonance: Double = 0.5

@@ -15,7 +15,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22050.0
+    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22_050.0
 
     /// Lower and upper bounds for Tongue Position
     public static let tonguePositionRange: ClosedRange<Double> = 0.0 ... 1.0
@@ -95,7 +95,6 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this vocal tract node
     ///

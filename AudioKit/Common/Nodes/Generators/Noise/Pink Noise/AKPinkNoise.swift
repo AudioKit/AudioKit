@@ -33,7 +33,6 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-
     /// Initialize this noise node
     ///
     /// - Parameters:

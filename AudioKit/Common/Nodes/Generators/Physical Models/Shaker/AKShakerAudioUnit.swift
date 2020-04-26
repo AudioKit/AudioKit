@@ -3,7 +3,7 @@
 public class AKShakerAudioUnit: AKAudioUnitBase {
 
     var type: AUParameter!
-    
+
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
@@ -34,7 +34,7 @@ public class AKShakerAudioUnit: AKAudioUnitBase {
         type.value = 0
         amplitude.value = 0.5
     }
-    
+
     public func triggerType(_ type: AUValue, amplitude: AUValue) {
         triggerTypeShakerDSP(dsp, type, amplitude)
     }

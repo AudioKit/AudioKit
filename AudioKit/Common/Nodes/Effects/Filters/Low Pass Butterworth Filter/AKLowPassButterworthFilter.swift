@@ -12,10 +12,10 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 1000.0
+    public static let defaultCutoffFrequency: Double = 1_000.0
 
     /// Cutoff frequency. (in Hertz)
     open var cutoffFrequency: Double = defaultCutoffFrequency {

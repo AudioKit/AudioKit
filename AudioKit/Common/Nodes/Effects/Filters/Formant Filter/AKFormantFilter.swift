@@ -13,7 +13,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Attack Duration
     public static let attackDurationRange: ClosedRange<Double> = 0.0 ... 0.1
@@ -22,7 +22,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let decayDurationRange: ClosedRange<Double> = 0.0 ... 0.1
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 1000
+    public static let defaultCenterFrequency: Double = 1_000
 
     /// Initial value for Attack Duration
     public static let defaultAttackDuration: Double = 0.007

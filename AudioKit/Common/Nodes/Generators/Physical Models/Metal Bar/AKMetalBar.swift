@@ -27,7 +27,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     public static let positionRange: ClosedRange<Double> = 0 ... 1
 
     /// Lower and upper bounds for Strike Velocity
-    public static let strikeVelocityRange: ClosedRange<Double> = 0 ... 1000
+    public static let strikeVelocityRange: ClosedRange<Double> = 0 ... 1_000
 
     /// Lower and upper bounds for Strike Width
     public static let strikeWidthRange: ClosedRange<Double> = 0 ... 1
@@ -128,7 +128,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this Bar node
     ///

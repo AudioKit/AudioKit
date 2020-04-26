@@ -11,7 +11,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Corner Frequency
-    public static let cornerFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let cornerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Gain
     public static let gainRange: ClosedRange<Double> = 0.0 ... 10.0
@@ -20,7 +20,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     public static let qRange: ClosedRange<Double> = 0.0 ... 2.0
 
     /// Initial value for Corner Frequency
-    public static let defaultCornerFrequency: Double = 1000
+    public static let defaultCornerFrequency: Double = 1_000
 
     /// Initial value for Gain
     public static let defaultGain: Double = 1.0

@@ -11,7 +11,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Gain
     public static let gainRange: ClosedRange<Double> = 0.0 ... 10.0
@@ -20,7 +20,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public static let qRange: ClosedRange<Double> = 0.0 ... 2.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 1000
+    public static let defaultCenterFrequency: Double = 1_000
 
     /// Initial value for Gain
     public static let defaultGain: Double = 1.0

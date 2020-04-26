@@ -33,7 +33,6 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-
     /// Initialize this brown-noise node
     ///
     /// - Parameters:
