@@ -76,7 +76,13 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth])
+        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition,
+                                                                  rightBoundaryCondition,
+                                                                  decayDuration,
+                                                                  scanSpeed,
+                                                                  position,
+                                                                  strikeVelocity,
+                                                                  strikeWidth])
 
         leftBoundaryCondition.value = AUValue(AKMetalBar.defaultLeftBoundaryCondition)
         rightBoundaryCondition.value = AUValue(AKMetalBar.defaultRightBoundaryCondition)

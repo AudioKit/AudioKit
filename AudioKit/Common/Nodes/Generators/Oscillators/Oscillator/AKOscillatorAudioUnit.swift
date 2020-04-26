@@ -49,7 +49,10 @@ public class AKOscillatorAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  amplitude,
+                                                                  detuningOffset,
+                                                                  detuningMultiplier])
 
         frequency.value = AUValue(AKOscillator.defaultFrequency)
         amplitude.value = AUValue(AKOscillator.defaultAmplitude)

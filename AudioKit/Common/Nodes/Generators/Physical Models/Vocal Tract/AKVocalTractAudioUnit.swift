@@ -58,7 +58,11 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, tonguePosition, tongueDiameter, tenseness, nasality])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  tonguePosition,
+                                                                  tongueDiameter,
+                                                                  tenseness,
+                                                                  nasality])
 
         frequency.value = AUValue(AKVocalTract.defaultFrequency)
         tonguePosition.value = AUValue(AKVocalTract.defaultTonguePosition)

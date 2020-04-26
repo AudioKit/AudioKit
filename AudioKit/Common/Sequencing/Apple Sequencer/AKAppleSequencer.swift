@@ -584,7 +584,10 @@ open class AKAppleSequencer: NSObject {
     open func loadMIDIFile(fromURL fileURL: URL) {
         removeTracks()
         if let existingSequence = sequence {
-            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence,
+                                                         fileURL as CFURL,
+                                                         .midiType,
+                                                         MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
                 AKLog("error reading midi file url: \(fileURL), read status: \(status)")
             }
@@ -596,7 +599,10 @@ open class AKAppleSequencer: NSObject {
     open func loadMIDIFile(fromData data: Data) {
         removeTracks()
         if let existingSequence = sequence {
-            let status: OSStatus = MusicSequenceFileLoadData(existingSequence, data as CFData, .midiType, MusicSequenceLoadFlags())
+            let status: OSStatus = MusicSequenceFileLoadData(existingSequence,
+                                                             data as CFData,
+                                                             .midiType,
+                                                             MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
                 AKLog("error reading midi data, read status: \(status)")
             }

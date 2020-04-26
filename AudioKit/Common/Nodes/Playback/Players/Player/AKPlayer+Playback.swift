@@ -248,7 +248,8 @@ extension AKPlayer {
                     }
                 }
             } catch {
-                AKLog("Failed to check currentFrame and call completion handler: \(error)... Possible Media Service Reset?")
+                AKLog("Failed to check currentFrame and call completion handler: \(error)... ",
+                    "Possible Media Service Reset?")
             }
         }
     }

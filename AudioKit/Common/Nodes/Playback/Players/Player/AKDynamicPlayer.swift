@@ -98,7 +98,9 @@ public class AKDynamicPlayer: AKPlayer {
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
             AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
             AKManager.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
-            AKManager.connect(timePitchNode.avAudioUnitOrNode, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+            AKManager.connect(timePitchNode.avAudioUnitOrNode,
+                              to: faderNode.avAudioUnitOrNode,
+                              format: connectionFormat)
             timePitchNode.bypass()
 
         } else if let faderNode = super.faderNode {
@@ -128,7 +130,10 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    public override func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+    public override func play(from startingTime: Double,
+                              to endingTime: Double,
+                              at audioTime: AVAudioTime?,
+                              hostTime: UInt64?) {
         timePitchNode?.start()
         super.play(from: startingTime, to: endingTime, at: audioTime, hostTime: hostTime)
     }

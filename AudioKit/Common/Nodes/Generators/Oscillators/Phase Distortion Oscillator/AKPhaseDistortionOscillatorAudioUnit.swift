@@ -58,7 +58,11 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, phaseDistortion, detuningOffset, detuningMultiplier])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  amplitude,
+                                                                  phaseDistortion,
+                                                                  detuningOffset,
+                                                                  detuningMultiplier])
 
         frequency.value = AUValue(AKPhaseDistortionOscillator.defaultFrequency)
         amplitude.value = AUValue(AKPhaseDistortionOscillator.defaultAmplitude)
