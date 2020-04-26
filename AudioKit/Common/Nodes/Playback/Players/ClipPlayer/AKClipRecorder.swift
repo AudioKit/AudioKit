@@ -170,7 +170,9 @@ open class AKClipRecorder {
             audioFile.length > 0 {
             let duration = audioFile.duration
             clip.audioFile = nil
-            clip.completion(ClipRecordingResult.clip(ClipRecording(url: url, startTime: clip.startTime, duration: duration)))
+            clip.completion(ClipRecordingResult.clip(ClipRecording(url: url,
+                                                                   startTime: clip.startTime,
+                                                                   duration: duration)))
             completion?()
         } else {
             clip.completion(ClipRecordingResult.error(error ?? ClipRecordingError.timingError))

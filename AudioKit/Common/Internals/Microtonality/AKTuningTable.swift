@@ -226,8 +226,8 @@ open class AKTuningTable: AKTuningTableBase {
 
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
                 if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
-                    nnAs12ETNN = nnAs12ETNN + 1
-                    etnnpbf = etnnpbf - 100
+                    nnAs12ETNN += 1
+                    etnnpbf -= 100
                 }
                 let delta12ETpbf = etnnpbf // defensive, in case you further modify etnnpbf
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)

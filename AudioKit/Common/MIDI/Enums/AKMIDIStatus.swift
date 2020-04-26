@@ -17,7 +17,7 @@ public struct AKMIDIStatus: AKMIDIMessage {
     }
 
     public init?(byte: MIDIByte) {
-        if let _ = AKMIDIStatusType.from(byte: byte) {
+        if AKMIDIStatusType.from(byte: byte) != nil {
             self.byte = byte
         } else {
             return nil

@@ -193,6 +193,8 @@ extension AKInput {
 // Set output connection(s)
 infix operator >>>: AdditionPrecedence
 
+//swiftlint:disable operator_whitespace
+
 @discardableResult public func >>>(left: AKOutput, right: AKInput) -> AKInput {
     return left.connect(to: right)
 }
