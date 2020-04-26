@@ -100,8 +100,8 @@ open class AKWaveTable: AKNode, AKComponent {
 
     /// Number of samples in the audio stored in memory
     open var size: Sample {
-        if avAudiofile != nil {
-            return Sample(avAudiofile!.samplesCount)
+        if let avAudiofile = avAudiofile {
+            return Sample(avAudiofile.samplesCount)
         }
         return Sample(maximumSamples)
     }

@@ -49,7 +49,7 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi note message")
                         return
                 }
-                AKLog("MIDI Note @: \(event.time) - note: \(note) - velocity: \(velocity) - duration: \(dur) - channel: \(channel)")
+                AKLog("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
             case kMusicEventType_Meta:
                 let data = UnsafePointer<MIDIMetaEvent>(event.data?.assumingMemoryBound(to: MIDIMetaEvent.self))
                 guard let midiData = data?.pointee.data,
@@ -72,7 +72,7 @@ extension AKMusicTrack {
                     case .programChange:
                         AKLog("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
                     default:
-                        AKLog("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(statusType)")
+                        AKLog("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusType)")
                     }
                 }
             default:
