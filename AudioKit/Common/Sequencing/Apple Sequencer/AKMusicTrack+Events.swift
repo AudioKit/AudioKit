@@ -15,20 +15,19 @@ extension AKMusicTrack {
     open var programChangeEvents: [MIDIProgramChangeEvent] {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {
-            for event in events {
-                if event.type == kMusicEventType_MIDIChannelMessage {
-                    let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
-                    guard let data1 = data?.pointee.data1,
-                        let statusData: MIDIByte = data?.pointee.status else {
-                            break
-                    }
-                    let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
-                    let channel = statusData.lowBit
-                    if statusType == .programChange {
-                        let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
-                        pgmEvents.append(pgmEvent)
-                    }
+            for event in events where event.type == kMusicEventType_MIDIChannelMessage {
+                let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
+                guard let data1 = data?.pointee.data1,
+                    let statusData: MIDIByte = data?.pointee.status else {
+                        break
                 }
+                let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
+                let channel = statusData.lowBit
+                if statusType == .programChange {
+                    let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
+                    pgmEvents.append(pgmEvent)
+                }
+                
             }
         }
         return pgmEvents
