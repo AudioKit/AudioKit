@@ -98,17 +98,21 @@ extension AKSampler {
                                                               endPoint: 0.0)
                     let sampleFileURL = samplesBaseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                              path: sampleFileURL.path))
+                        sampleFileURL.path.withCString { path in
+                            loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                                  path: path))
+                        }
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
                             let compressedFileURL = samplesBaseURL
                                 .appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(
-                                    from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                 path: compressedFileURL.path))
+                                compressedFileURL.path.withCString { path in
+                                    loadCompressedSampleFile(
+                                        from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                     path: path))
+                                }
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
                                 loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
