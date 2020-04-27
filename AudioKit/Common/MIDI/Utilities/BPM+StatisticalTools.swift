@@ -22,7 +22,7 @@ extension Array where Element: Numeric {
     }
 
     func avg() -> Float64 {
-        guard self.count > 0 else { return 0 }
+        guard !isEmpty else { return 0 }
         return Float64(self.sum()) / Float64(self.count)
     }
 
