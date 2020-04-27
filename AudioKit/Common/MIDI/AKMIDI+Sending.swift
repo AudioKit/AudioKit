@@ -221,7 +221,7 @@ extension AKMIDI {
         if endpoints[outputUid] != nil {
             endpoints.removeValue(forKey: outputUid)
             AKLog("Disconnected \(name) and removed it from endpoints", log: OSLog.midi)
-            if endpoints.count == 0 {
+            if endpoints.isEmpty {
                 // if there are no more endpoints, dispose of midi output port
                 result = MIDIPortDispose(outputPort)
                 if result == noErr {
