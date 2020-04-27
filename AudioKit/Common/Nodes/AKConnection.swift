@@ -193,26 +193,24 @@ extension AKInput {
 // Set output connection(s)
 infix operator >>>: AdditionPrecedence
 
-//swiftlint:disable operator_whitespace
-
-@discardableResult public func >>>(left: AKOutput, right: AKInput) -> AKInput {
+@discardableResult public func >>> (left: AKOutput, right: AKInput) -> AKInput {
     return left.connect(to: right)
 }
-@discardableResult public func >>>(left: AKOutput, right: [AKInput]) -> [AKInput] {
+@discardableResult public func >>> (left: AKOutput, right: [AKInput]) -> [AKInput] {
     return left.connect(to: right)
 }
-@discardableResult public func >>>(left: [AKOutput], right: AKInput) -> AKInput {
+@discardableResult public func >>> (left: [AKOutput], right: AKInput) -> AKInput {
     for node in left {
         node.connect(to: right)
     }
     return right
 }
-@discardableResult public func >>>(left: AKOutput, right: AKInputConnection) -> AKInput {
+@discardableResult public func >>> (left: AKOutput, right: AKInputConnection) -> AKInput {
     return left.connect(to: right.node, bus: right.bus)
 }
-@discardableResult public func >>>(left: AKOutput, right: [AKInputConnection]) -> [AKInput] {
+@discardableResult public func >>> (left: AKOutput, right: [AKInputConnection]) -> [AKInput] {
     return left.connect(toInputs: right)
 }
-public func >>>(left: AKOutput, right: AVAudioConnectionPoint) {
+public func >>> (left: AKOutput, right: AVAudioConnectionPoint) {
     return left.connect(to: right)
 }
