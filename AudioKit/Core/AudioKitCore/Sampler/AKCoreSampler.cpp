@@ -331,8 +331,10 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
         AudioKitCore::SamplerVoice *pVoice = voicePlayingNote(noteNumber);
         if (pVoice)
         {
+            AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
+            if (pBuf == 0) return; // don't crash if someone forgets to build map
             // re-start the note
-            pVoice->restartSameNote(velocity / 127.0f, lookupSample(noteNumber, velocity));
+            pVoice->restartSameNote(velocity / 127.0f, pBuf);
             //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
             return;
         }
