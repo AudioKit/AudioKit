@@ -140,6 +140,17 @@ namespace AudioKitCore
         {
             tempGain = masterVolume * tempNoteVolume;
             volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
+            // FIXME - is the following 'if' code (Exhibit B) ever executed if previous
+            // 'if (adsrEnvelope.isPreStarting())' (Exhibit A) has already been checked, and is true?
+            if (!adsrEnvelope.isPreStarting()) //FIXME: EXHIBIT B
+            {
+                tempGain = masterVolume * noteVolume;
+                volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
+                sampleBuffer = newSampleBuffer;
+                oscillator.increment = (sampleBuffer->sampleRate / samplingRate) * (noteFrequency / sampleBuffer->noteFrequency);
+                oscillator.indexPoint = sampleBuffer->startPoint;
+                oscillator.isLooping = sampleBuffer->isLooping;
+            }
         }
         else
         {
