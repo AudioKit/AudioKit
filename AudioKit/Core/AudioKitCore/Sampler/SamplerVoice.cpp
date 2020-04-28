@@ -136,13 +136,13 @@ namespace AudioKitCore
     {
         if (adsrEnvelope.isIdle()) return true;
 
-        if (adsrEnvelope.isPreStarting()) //FIXME: EXHIBIT A
+        if (adsrEnvelope.isPreStarting())
         {
             tempGain = masterVolume * tempNoteVolume;
             volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
-            // FIXME - is the following 'if' code (Exhibit B) ever executed if previous
-            // 'if (adsrEnvelope.isPreStarting())' (Exhibit A) has already been checked, and is true?
-            if (!adsrEnvelope.isPreStarting()) //FIXME: EXHIBIT B
+            // This can execute as part of the voice-stealing mechanism, and will be executed rarely.
+            // To test, set MAX_POLYPHONY in AKCoreSampler.cpp to something small like 2 or 3.
+            if (!adsrEnvelope.isPreStarting())
             {
                 tempGain = masterVolume * noteVolume;
                 volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
