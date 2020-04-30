@@ -1,10 +1,4 @@
-//
-//  RageProcessor.cpp
-//  DynaRage
-//
-//  Created by Mike Gazzaruso, revision history on Githbub.
-//  Copyright © 2015 Mike Gazzaruso. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "RageProcessor.h"
 #include <math.h>

@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  AudioUnitManagerExample-iOS
-//
-//  Created by Ryan Francesconi, revision history on Githbub.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 

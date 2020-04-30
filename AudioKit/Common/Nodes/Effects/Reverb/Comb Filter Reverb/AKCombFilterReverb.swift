@@ -1,10 +1,4 @@
-//
-//  AKCombFilterReverb.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// This filter reiterates input with an echo density determined by
 /// loopDuration. The attenuation rate is independent and is determined by

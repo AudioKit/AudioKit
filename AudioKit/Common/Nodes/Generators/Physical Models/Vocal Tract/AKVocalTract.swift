@@ -1,10 +1,4 @@
-//
-//  AKVocalTract.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Based on the Pink Trombone algorithm by Neil Thapen, this implements a
 /// physical model of the vocal tract glottal pulse wave. The tract model is

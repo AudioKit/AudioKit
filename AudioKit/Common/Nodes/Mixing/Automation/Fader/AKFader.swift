@@ -1,10 +1,4 @@
-//
-//  AKFader.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
@@ -19,7 +13,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public private(set) var parameterAutomation: AKParameterAutomation?
 
-    /// Amplification Factor
+    /// Amplification Factor, from 0 ... 2
     open var gain: Double = 1 {
         willSet {
             leftGain = gain
@@ -78,6 +72,22 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    /// Flip left and right signal
+    open var flipStereo: Bool = false {
+        willSet {
+            guard flipStereo != newValue else { return }
+            internalAU?.flipStereo.value = newValue ? 1.0 : 0.0
+        }
+    }
+
+    /// Make the output on left and right both be the same combination of incoming left and mixed equally
+    open var mixToMono: Bool = false {
+        willSet {
+            guard mixToMono != newValue else { return }
+            internalAU?.mixToMono.value = newValue ? 1.0 : 0.0
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return self.internalAU?.isStarted ?? false
@@ -118,6 +128,10 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         }
     }
 
+    deinit {
+        AKLog("* { AKFader }")
+    }
+    
     open override func detach() {
         super.detach()
         parameterAutomation = nil

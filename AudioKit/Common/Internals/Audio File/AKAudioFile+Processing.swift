@@ -1,10 +1,5 @@
-//
-//  AKAudioFile+Processing.swift
-//  AudioKit
-//
-//  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //
 //  IMPORTANT: Any AKAudioFile process will output a .caf AKAudioFile
 //  set with a PCM Linear Encoding (no compression)

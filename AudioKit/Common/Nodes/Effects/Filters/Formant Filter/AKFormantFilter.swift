@@ -1,10 +1,4 @@
-//
-//  AKFormantFilter.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// When fed with a pulse train, it will generate a series of overlapping
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper

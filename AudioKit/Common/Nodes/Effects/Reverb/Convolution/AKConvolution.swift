@@ -1,10 +1,4 @@
-//
-//  AKConvolution.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.

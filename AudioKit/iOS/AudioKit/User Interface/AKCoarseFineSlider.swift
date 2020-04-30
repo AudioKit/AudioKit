@@ -1,10 +1,4 @@
-//
-//  AKCoarseFineSlider.swift
-//  AudioKitUI
-//
-//  Created by Jeff Cooper on 5/9/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioKit

@@ -1,10 +1,4 @@
-//
-//  AKAutomatable.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi on 9/10/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 @objc public protocol AKAutomatable: AnyObject {
     var parameterAutomation: AKParameterAutomation? { get }

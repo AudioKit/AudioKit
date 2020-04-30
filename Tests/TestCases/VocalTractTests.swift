@@ -1,13 +1,6 @@
-//
-//  VocalTractTests.swift
-//  iOSTestSuiteTests
-//
-//  Created by Aurelius Prochazka on 11/26/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class VocalTractTests: AKTestCase {
 

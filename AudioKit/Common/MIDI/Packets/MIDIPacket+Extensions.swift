@@ -1,10 +1,4 @@
-//
-//  MIDIPacket+Extensions.swift
-//  AudioKit
-//
-//  Created by Kurt Arnlund on 1/18/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CoreMIDI
 

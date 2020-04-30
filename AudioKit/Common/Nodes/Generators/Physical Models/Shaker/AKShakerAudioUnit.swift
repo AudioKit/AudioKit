@@ -1,10 +1,4 @@
-//
-//  AKShakerAudioUnit.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/30/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public class AKShakerAudioUnit: AKAudioUnitBase {
 

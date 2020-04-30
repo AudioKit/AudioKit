@@ -1,10 +1,4 @@
-//
-//  InputDeviceTableViewController.swift
-//  MicrophoneAnalysis
-//
-//  Created by Dean Woodward on 22/03/19.
-//  Copyright © 2019 Dean Woodward. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit

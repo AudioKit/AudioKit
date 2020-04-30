@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  AudiobusMIDISender
-//
-//  Created by Jeff Holtzkener on 2018/03/28.
-//  Copyright © 2018 Jeff Holtzkener. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 

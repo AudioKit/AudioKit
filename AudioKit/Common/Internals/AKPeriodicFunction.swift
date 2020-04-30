@@ -1,10 +1,4 @@
-//
-//  AKPeriodicFunction.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A class to periodically perform a callback
 public class AKPeriodicFunction: AKOperationGenerator {

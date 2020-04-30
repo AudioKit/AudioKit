@@ -1,10 +1,4 @@
-//
-//  AKSporthStack.m
-//  AudioKit
-//
-//  Created by Joseph Constantakis, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKSporthStack.h"
 #import "AKOperationEffectDSPKernel.hpp"
