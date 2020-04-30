@@ -1,10 +1,4 @@
-//
-//  AKFlanger.swift
-//  AudioKit
-//
-//  Created by Shane Dunne
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Stereo Flanger
 ///

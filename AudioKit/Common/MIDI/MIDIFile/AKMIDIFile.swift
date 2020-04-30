@@ -1,10 +1,4 @@
-//
-//  AKMIDIFile.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 11/5/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 

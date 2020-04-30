@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MIDIUtility
-//
-//  Created by Aurelius Prochazka and Jeff Cooper, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import Cocoa

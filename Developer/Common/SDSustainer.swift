@@ -1,10 +1,4 @@
-//
-//  Sustainer.swift
-//  ExtendingAudioKit
-//
-//  Created by Shane Dunne, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 //  Wraps a reference to any AKPolyphonicNode and interprets play()/stop() as key up/down
 //  together with state of a sustain pedal, to add pedal-sustain capability to nodes
 //  which don't have their own.

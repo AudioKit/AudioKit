@@ -1,10 +1,4 @@
-//
-//  AKRenderTap.m
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKRenderTap.h"
 #import "TPCircularBuffer+AudioBufferList.h"

@@ -1,10 +1,4 @@
-//
-//  AKNotifications.swift
-//  AudioKit
-//
-//  Created by John Groenhof, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Object to handle notifications for events that can affect the audio
 

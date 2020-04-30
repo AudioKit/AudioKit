@@ -1,10 +1,4 @@
-//
-//  AKDiskStreamer.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that
 /// will playback samples from disk, without incurring lots of memory usage
@@ -109,6 +103,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
         }
     }
 
+    open var loadedFile: AKAudioFile?
+
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
@@ -195,6 +191,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
+        loadedFile = file
     }
 
     open func rewind() {

@@ -1,10 +1,4 @@
-//
-//  AKFaderAudioUnit.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
@@ -20,14 +14,16 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
     var rightGain: AUParameter!
 
+    var flipStereo: AUParameter!
+
+    var mixToMono: AUParameter!
+
     public override func createDSP() -> AKDSPRef {
         return createFaderDSP()
     }
 
-    public override init(
-        componentDescription: AudioComponentDescription,
-        options: AudioComponentInstantiationOptions = []
-    ) throws {
+    public override init(componentDescription: AudioComponentDescription,
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         leftGain = AUParameter(
@@ -75,12 +71,32 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        parameterTree = AUParameterTree.createTree(withChildren: [leftGain, rightGain, taper, skew, offset])
-        
+        flipStereo = AUParameter(
+            identifier: "flipStereo",
+            name: "Flip Stereo",
+            address: 5,
+            range: 0.0 ... 1.0,
+            unit: .boolean,
+            flags: .default
+        )
+
+        mixToMono = AUParameter(
+            identifier: "mixToMono",
+            name: "Mix To Stereo",
+            address: 6,
+            range: 0.0 ... 1.0,
+            unit: .boolean,
+            flags: .default
+        )
+
+        parameterTree = AUParameterTree.createTree(withChildren: [leftGain, rightGain, taper, skew, offset, flipStereo, mixToMono])
+
         leftGain.value = 1.0
         rightGain.value = 1.0
         taper.value = 1.0
         skew.value = 0.0
         offset.value = 0.0
+        flipStereo.value = 0.0
+        mixToMono.value = 0.0
     }
 }

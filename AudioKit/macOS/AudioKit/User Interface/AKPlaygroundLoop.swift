@@ -1,10 +1,4 @@
-//
-//  AKPlaygroundLoop.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop: NSObject {

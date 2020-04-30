@@ -1,10 +1,4 @@
-//
-//  AKNode.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AVAudioConnectionPoint {
     convenience init(_ node: AKNode, to bus: Int) {
@@ -76,7 +70,7 @@ extension AKNode {
         self.detach()
     }
 
-    @available(*, deprecated, message: "Use AudioKit.detach(nodes:) instead")
+    @available(*, deprecated, message: "Use AKManager.detach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
         AKManager.detach(nodes: nodes)
     }

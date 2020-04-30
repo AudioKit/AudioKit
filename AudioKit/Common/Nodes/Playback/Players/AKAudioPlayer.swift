@@ -1,10 +1,4 @@
-//
-//  AKAudioPlayer.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, Laurent Veliscek & Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Not so simple audio playback class
 

@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MicrophoneAnalysis
-//
-//  Created by Kanstantsin Linou, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
