@@ -89,8 +89,4 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open func stop() {
         internalAU?.stop()
     }
-
-    @objc open func clear() {
-        internalAU?.clear()
-    }
 }

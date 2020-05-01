@@ -93,7 +93,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
