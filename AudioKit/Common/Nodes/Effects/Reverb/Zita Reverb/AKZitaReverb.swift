@@ -71,7 +71,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDryWetMix: Double = 1.0
 
     /// Delay in ms before reverberation begins.
-    open var predelay: Double = defaultPredelay {
+    @objc open var predelay: Double = defaultPredelay {
         willSet {
             let clampedValue = AKZitaReverb.predelayRange.clamp(newValue)
             guard predelay != clampedValue else { return }
@@ -80,7 +80,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    open var crossoverFrequency: Double = defaultCrossoverFrequency {
+    @objc open var crossoverFrequency: Double = defaultCrossoverFrequency {
         willSet {
             let clampedValue = AKZitaReverb.crossoverFrequencyRange.clamp(newValue)
             guard crossoverFrequency != clampedValue else { return }
@@ -89,7 +89,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    open var lowReleaseTime: Double = defaultLowReleaseTime {
+    @objc open var lowReleaseTime: Double = defaultLowReleaseTime {
         willSet {
             let clampedValue = AKZitaReverb.lowReleaseTimeRange.clamp(newValue)
             guard lowReleaseTime != clampedValue else { return }
@@ -98,7 +98,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    open var midReleaseTime: Double = defaultMidReleaseTime {
+    @objc open var midReleaseTime: Double = defaultMidReleaseTime {
         willSet {
             let clampedValue = AKZitaReverb.midReleaseTimeRange.clamp(newValue)
             guard midReleaseTime != clampedValue else { return }
@@ -107,7 +107,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    open var dampingFrequency: Double = defaultDampingFrequency {
+    @objc open var dampingFrequency: Double = defaultDampingFrequency {
         willSet {
             let clampedValue = AKZitaReverb.dampingFrequencyRange.clamp(newValue)
             guard dampingFrequency != clampedValue else { return }
@@ -116,7 +116,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    open var equalizerFrequency1: Double = defaultEqualizerFrequency1 {
+    @objc open var equalizerFrequency1: Double = defaultEqualizerFrequency1 {
         willSet {
             let clampedValue = AKZitaReverb.equalizerFrequency1Range.clamp(newValue)
             guard equalizerFrequency1 != clampedValue else { return }
@@ -125,7 +125,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    open var equalizerLevel1: Double = defaultEqualizerLevel1 {
+    @objc open var equalizerLevel1: Double = defaultEqualizerLevel1 {
         willSet {
             let clampedValue = AKZitaReverb.equalizerLevel1Range.clamp(newValue)
             guard equalizerLevel1 != clampedValue else { return }
@@ -134,7 +134,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    open var equalizerFrequency2: Double = defaultEqualizerFrequency2 {
+    @objc open var equalizerFrequency2: Double = defaultEqualizerFrequency2 {
         willSet {
             let clampedValue = AKZitaReverb.equalizerFrequency2Range.clamp(newValue)
             guard equalizerFrequency2 != clampedValue else { return }
@@ -143,7 +143,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    open var equalizerLevel2: Double = defaultEqualizerLevel2 {
+    @objc open var equalizerLevel2: Double = defaultEqualizerLevel2 {
         willSet {
             let clampedValue = AKZitaReverb.equalizerLevel2Range.clamp(newValue)
             guard equalizerLevel2 != clampedValue else { return }
@@ -152,7 +152,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// 0 = all dry, 1 = all wet
-    open var dryWetMix: Double = defaultDryWetMix {
+    @objc open var dryWetMix: Double = defaultDryWetMix {
         willSet {
             let clampedValue = AKZitaReverb.dryWetMixRange.clamp(newValue)
             guard dryWetMix != clampedValue else { return }
@@ -161,7 +161,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -220,12 +220,12 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

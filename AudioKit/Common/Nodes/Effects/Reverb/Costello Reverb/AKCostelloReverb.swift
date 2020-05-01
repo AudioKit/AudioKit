@@ -25,7 +25,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultCutoffFrequency: Double = 4_000.0
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKCostelloReverb.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -34,7 +34,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Low-pass cutoff frequency.
-    open var cutoffFrequency: Double = defaultCutoffFrequency {
+    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             let clampedValue = AKCostelloReverb.cutoffFrequencyRange.clamp(newValue)
             guard cutoffFrequency != clampedValue else { return }
@@ -43,7 +43,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -78,12 +78,12 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

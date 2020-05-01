@@ -24,7 +24,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultLoopDuration: Double = 0.1
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    open var reverbDuration: Double = defaultReverbDuration {
+    @objc open var reverbDuration: Double = defaultReverbDuration {
         willSet {
             let clampedValue = AKCombFilterReverb.reverbDurationRange.clamp(newValue)
             guard reverbDuration != clampedValue else { return }
@@ -33,7 +33,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -67,12 +67,12 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -35,7 +35,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultResonanceAsymmetry: Double = 0.5
 
     /// Cutoff frequency. (in Hertz)
-    open var cutoffFrequency: Double = defaultCutoffFrequency {
+    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             let clampedValue = AKRolandTB303Filter.cutoffFrequencyRange.clamp(newValue)
             guard cutoffFrequency != clampedValue else { return }
@@ -44,7 +44,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    open var resonance: Double = defaultResonance {
+    @objc open var resonance: Double = defaultResonance {
         willSet {
             let clampedValue = AKRolandTB303Filter.resonanceRange.clamp(newValue)
             guard resonance != clampedValue else { return }
@@ -53,7 +53,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    open var distortion: Double = defaultDistortion {
+    @objc open var distortion: Double = defaultDistortion {
         willSet {
             let clampedValue = AKRolandTB303Filter.distortionRange.clamp(newValue)
             guard distortion != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Asymmetry of resonance. Value is between 0-1
-    open var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
+    @objc open var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
         willSet {
             let clampedValue = AKRolandTB303Filter.resonanceAsymmetryRange.clamp(newValue)
             guard resonanceAsymmetry != clampedValue else { return }
@@ -71,7 +71,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -112,12 +112,12 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

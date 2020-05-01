@@ -18,7 +18,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultLimit: Double = 1.0
 
     /// Threshold / limiting value.
-    open var limit: Double = defaultLimit {
+    @objc open var limit: Double = defaultLimit {
         willSet {
             let clampedValue = AKClipper.limitRange.clamp(newValue)
             guard limit != clampedValue else { return }
@@ -27,7 +27,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -59,12 +59,12 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

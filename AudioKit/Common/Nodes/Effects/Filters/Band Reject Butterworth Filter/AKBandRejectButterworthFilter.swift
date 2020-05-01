@@ -24,7 +24,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let defaultBandwidth: Double = 2_000.0
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = defaultCenterFrequency {
+    @objc open var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             let clampedValue = AKBandRejectButterworthFilter.centerFrequencyRange.clamp(newValue)
             guard centerFrequency != clampedValue else { return }
@@ -33,7 +33,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     }
 
     /// Bandwidth. (in Hertz)
-    open var bandwidth: Double = defaultBandwidth {
+    @objc open var bandwidth: Double = defaultBandwidth {
         willSet {
             let clampedValue = AKBandRejectButterworthFilter.bandwidthRange.clamp(newValue)
             guard bandwidth != clampedValue else { return }
@@ -42,7 +42,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -77,12 +77,12 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

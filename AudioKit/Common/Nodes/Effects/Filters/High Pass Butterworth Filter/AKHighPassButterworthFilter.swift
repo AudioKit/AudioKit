@@ -18,7 +18,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public static let defaultCutoffFrequency: Double = 500.0
 
     /// Cutoff frequency. (in Hertz)
-    open var cutoffFrequency: Double = defaultCutoffFrequency {
+    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             let clampedValue = AKHighPassButterworthFilter.cutoffFrequencyRange.clamp(newValue)
             guard cutoffFrequency != clampedValue else { return }
@@ -27,7 +27,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -59,12 +59,12 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -29,7 +29,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultCrossfade: Double = 512
 
     /// Pitch shift (in semitones)
-    open var shift: Double = defaultShift {
+    @objc open var shift: Double = defaultShift {
         willSet {
             let clampedValue = AKPitchShifter.shiftRange.clamp(newValue)
             guard shift != clampedValue else { return }
@@ -38,7 +38,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Window size (in samples)
-    open var windowSize: Double = defaultWindowSize {
+    @objc open var windowSize: Double = defaultWindowSize {
         willSet {
             let clampedValue = AKPitchShifter.windowSizeRange.clamp(newValue)
             guard windowSize != clampedValue else { return }
@@ -47,7 +47,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Crossfade (in samples)
-    open var crossfade: Double = defaultCrossfade {
+    @objc open var crossfade: Double = defaultCrossfade {
         willSet {
             let clampedValue = AKPitchShifter.crossfadeRange.clamp(newValue)
             guard crossfade != clampedValue else { return }
@@ -56,7 +56,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -94,12 +94,12 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

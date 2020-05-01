@@ -29,7 +29,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     public static let defaultResonance: Double = 0.5
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    open var distortion: Double = defaultDistortion {
+    @objc open var distortion: Double = defaultDistortion {
         willSet {
             let clampedValue = AKThreePoleLowpassFilter.distortionRange.clamp(newValue)
             guard distortion != clampedValue else { return }
@@ -38,7 +38,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Filter cutoff frequency in Hertz.
-    open var cutoffFrequency: Double = defaultCutoffFrequency {
+    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             let clampedValue = AKThreePoleLowpassFilter.cutoffFrequencyRange.clamp(newValue)
             guard cutoffFrequency != clampedValue else { return }
@@ -47,7 +47,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    open var resonance: Double = defaultResonance {
+    @objc open var resonance: Double = defaultResonance {
         willSet {
             let clampedValue = AKThreePoleLowpassFilter.resonanceRange.clamp(newValue)
             guard resonance != clampedValue else { return }
@@ -56,7 +56,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -94,12 +94,12 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

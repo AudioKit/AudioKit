@@ -29,7 +29,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     public static let defaultQ: Double = 0.707
 
     /// Center frequency.
-    open var centerFrequency: Double = defaultCenterFrequency {
+    @objc open var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             let clampedValue = AKPeakingParametricEqualizerFilter.centerFrequencyRange.clamp(newValue)
             guard centerFrequency != clampedValue else { return }
@@ -38,7 +38,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-    open var gain: Double = defaultGain {
+    @objc open var gain: Double = defaultGain {
         willSet {
             let clampedValue = AKPeakingParametricEqualizerFilter.gainRange.clamp(newValue)
             guard gain != clampedValue else { return }
@@ -47,7 +47,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    open var q: Double = defaultQ {
+    @objc open var q: Double = defaultQ {
         willSet {
             let clampedValue = AKPeakingParametricEqualizerFilter.qRange.clamp(newValue)
             guard q != clampedValue else { return }
@@ -56,7 +56,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -94,12 +94,12 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

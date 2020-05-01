@@ -31,7 +31,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultPitchRatio: Double = 1
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    open var position: Double = defaultPosition {
+    @objc open var position: Double = defaultPosition {
         willSet {
             let clampedValue = AKPhaseLockedVocoder.positionRange.clamp(newValue)
             guard position != clampedValue else { return }
@@ -40,7 +40,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKPhaseLockedVocoder.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -49,7 +49,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    open var pitchRatio: Double = defaultPitchRatio {
+    @objc open var pitchRatio: Double = defaultPitchRatio {
         willSet {
             let clampedValue = AKPhaseLockedVocoder.pitchRatioRange.clamp(newValue)
             guard pitchRatio != clampedValue else { return }
@@ -58,7 +58,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -98,12 +98,12 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }
