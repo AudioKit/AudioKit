@@ -32,7 +32,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultGain: Double = 10.0
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = defaultCenterFrequency {
+    @objc open var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             let clampedValue = AKEqualizerFilter.centerFrequencyRange.clamp(newValue)
             guard centerFrequency != clampedValue else { return }
@@ -41,7 +41,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The peak/notch bandwidth in Hertz
-    open var bandwidth: Double = defaultBandwidth {
+    @objc open var bandwidth: Double = defaultBandwidth {
         willSet {
             let clampedValue = AKEqualizerFilter.bandwidthRange.clamp(newValue)
             guard bandwidth != clampedValue else { return }
@@ -50,7 +50,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The peak/notch gain
-    open var gain: Double = defaultGain {
+    @objc open var gain: Double = defaultGain {
         willSet {
             let clampedValue = AKEqualizerFilter.gainRange.clamp(newValue)
             guard gain != clampedValue else { return }
@@ -59,7 +59,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -97,12 +97,12 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

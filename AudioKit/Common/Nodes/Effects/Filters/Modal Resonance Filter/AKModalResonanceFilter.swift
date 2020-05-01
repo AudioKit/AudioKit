@@ -25,7 +25,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultQualityFactor: Double = 50.0
 
     /// Resonant frequency of the filter.
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKModalResonanceFilter.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -34,7 +34,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    open var qualityFactor: Double = defaultQualityFactor {
+    @objc open var qualityFactor: Double = defaultQualityFactor {
         willSet {
             let clampedValue = AKModalResonanceFilter.qualityFactorRange.clamp(newValue)
             guard qualityFactor != clampedValue else { return }
@@ -43,7 +43,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -78,12 +78,12 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

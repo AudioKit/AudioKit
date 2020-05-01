@@ -31,7 +31,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDecayDuration: Double = 0.04
 
     /// Center frequency.
-    open var centerFrequency: Double = defaultCenterFrequency {
+    @objc open var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             let clampedValue = AKFormantFilter.centerFrequencyRange.clamp(newValue)
             guard centerFrequency != clampedValue else { return }
@@ -40,7 +40,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Impulse response attack time (in seconds).
-    open var attackDuration: Double = defaultAttackDuration {
+    @objc open var attackDuration: Double = defaultAttackDuration {
         willSet {
             let clampedValue = AKFormantFilter.attackDurationRange.clamp(newValue)
             guard attackDuration != clampedValue else { return }
@@ -49,7 +49,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Impulse reponse decay time (in seconds)
-    open var decayDuration: Double = defaultDecayDuration {
+    @objc open var decayDuration: Double = defaultDecayDuration {
         willSet {
             let clampedValue = AKFormantFilter.decayDurationRange.clamp(newValue)
             guard decayDuration != clampedValue else { return }
@@ -58,7 +58,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -96,12 +96,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

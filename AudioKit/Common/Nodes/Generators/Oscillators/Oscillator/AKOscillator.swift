@@ -39,7 +39,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultDetuningMultiplier: Double = 1.0
 
     /// Frequency in cycles per second
-    @objc open var frequency: Double = defaultFrequency {
+    open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKOscillator.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -48,7 +48,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    @objc open var amplitude: Double = defaultAmplitude {
+    open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -57,7 +57,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    @objc open var detuningOffset: Double = defaultDetuningOffset {
+    open var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             let clampedValue = AKOscillator.detuningOffsetRange.clamp(newValue)
             guard detuningOffset != clampedValue else { return }
@@ -66,7 +66,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
+    open var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             let clampedValue = AKOscillator.detuningMultiplierRange.clamp(newValue)
             guard detuningMultiplier != clampedValue else { return }
@@ -75,14 +75,14 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
+    public convenience override init() {
         self.init(waveform: AKTable(.sine))
     }
 
@@ -95,7 +95,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    @objc public init(
+    public init(
         waveform: AKTable,
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,

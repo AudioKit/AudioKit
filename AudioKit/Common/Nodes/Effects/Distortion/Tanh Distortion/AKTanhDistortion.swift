@@ -35,7 +35,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultNegativeShapeParameter: Double = 0.0
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    open var pregain: Double = defaultPregain {
+    @objc open var pregain: Double = defaultPregain {
         willSet {
             let clampedValue = AKTanhDistortion.pregainRange.clamp(newValue)
             guard pregain != clampedValue else { return }
@@ -44,7 +44,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Gain applied after waveshaping
-    open var postgain: Double = defaultPostgain {
+    @objc open var postgain: Double = defaultPostgain {
         willSet {
             let clampedValue = AKTanhDistortion.postgainRange.clamp(newValue)
             guard postgain != clampedValue else { return }
@@ -53,7 +53,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    open var positiveShapeParameter: Double = defaultPositiveShapeParameter {
+    @objc open var positiveShapeParameter: Double = defaultPositiveShapeParameter {
         willSet {
             let clampedValue = AKTanhDistortion.positiveShapeParameterRange.clamp(newValue)
             guard positiveShapeParameter != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Like the positive shape parameter, only for the negative part.
-    open var negativeShapeParameter: Double = defaultNegativeShapeParameter {
+    @objc open var negativeShapeParameter: Double = defaultNegativeShapeParameter {
         willSet {
             let clampedValue = AKTanhDistortion.negativeShapeParameterRange.clamp(newValue)
             guard negativeShapeParameter != clampedValue else { return }
@@ -71,7 +71,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -112,12 +112,12 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

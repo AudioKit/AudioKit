@@ -66,7 +66,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultLfoBPM: Double = 30
 
     /// Notch Minimum Frequency
-    open var notchMinimumFrequency: Double = defaultNotchMinimumFrequency {
+    @objc open var notchMinimumFrequency: Double = defaultNotchMinimumFrequency {
         willSet {
             let clampedValue = AKPhaser.notchMinimumFrequencyRange.clamp(newValue)
             guard notchMinimumFrequency != clampedValue else { return }
@@ -75,7 +75,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Notch Maximum Frequency
-    open var notchMaximumFrequency: Double = defaultNotchMaximumFrequency {
+    @objc open var notchMaximumFrequency: Double = defaultNotchMaximumFrequency {
         willSet {
             let clampedValue = AKPhaser.notchMaximumFrequencyRange.clamp(newValue)
             guard notchMaximumFrequency != clampedValue else { return }
@@ -84,7 +84,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 10 and 5000
-    open var notchWidth: Double = defaultNotchWidth {
+    @objc open var notchWidth: Double = defaultNotchWidth {
         willSet {
             let clampedValue = AKPhaser.notchWidthRange.clamp(newValue)
             guard notchWidth != clampedValue else { return }
@@ -93,7 +93,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 1.1 and 4
-    open var notchFrequency: Double = defaultNotchFrequency {
+    @objc open var notchFrequency: Double = defaultNotchFrequency {
         willSet {
             let clampedValue = AKPhaser.notchFrequencyRange.clamp(newValue)
             guard notchFrequency != clampedValue else { return }
@@ -102,7 +102,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Direct or Vibrato (default)
-    open var vibratoMode: Double = defaultVibratoMode {
+    @objc open var vibratoMode: Double = defaultVibratoMode {
         willSet {
             let clampedValue = AKPhaser.vibratoModeRange.clamp(newValue)
             guard vibratoMode != clampedValue else { return }
@@ -111,7 +111,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 0 and 1
-    open var depth: Double = defaultDepth {
+    @objc open var depth: Double = defaultDepth {
         willSet {
             let clampedValue = AKPhaser.depthRange.clamp(newValue)
             guard depth != clampedValue else { return }
@@ -120,7 +120,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 0 and 1
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKPhaser.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -129,7 +129,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// 1 or 0
-    open var inverted: Double = defaultInverted {
+    @objc open var inverted: Double = defaultInverted {
         willSet {
             let clampedValue = AKPhaser.invertedRange.clamp(newValue)
             guard inverted != clampedValue else { return }
@@ -138,7 +138,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 24 and 360
-    open var lfoBPM: Double = defaultLfoBPM {
+    @objc open var lfoBPM: Double = defaultLfoBPM {
         willSet {
             let clampedValue = AKPhaser.lfoBPMRange.clamp(newValue)
             guard lfoBPM != clampedValue else { return }
@@ -147,7 +147,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -203,12 +203,12 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

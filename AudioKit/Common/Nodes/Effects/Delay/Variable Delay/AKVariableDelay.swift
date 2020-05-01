@@ -26,7 +26,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultMaximumDelayTime: Double = 5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    open var time: Double = defaultTime {
+    @objc open var time: Double = defaultTime {
         willSet {
             let clampedValue = AKVariableDelay.timeRange.clamp(newValue)
             guard time != clampedValue else { return }
@@ -35,7 +35,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback amount. Should be a value between 0-1.
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKVariableDelay.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -44,7 +44,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -81,12 +81,16 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
+    }
+
+    @objc open func clear() {
+        internalAU?.clear()
     }
 }

@@ -23,7 +23,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultSampleRate: Double = 10_000
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    open var bitDepth: Double = defaultBitDepth {
+    @objc open var bitDepth: Double = defaultBitDepth {
         willSet {
             let clampedValue = AKBitCrusher.bitDepthRange.clamp(newValue)
             guard bitDepth != clampedValue else { return }
@@ -32,7 +32,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The sample rate of signal output.
-    open var sampleRate: Double = defaultSampleRate {
+    @objc open var sampleRate: Double = defaultSampleRate {
         willSet {
             let clampedValue = AKBitCrusher.sampleRateRange.clamp(newValue)
             guard sampleRate != clampedValue else { return }
@@ -41,7 +41,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -76,12 +76,12 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

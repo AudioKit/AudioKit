@@ -35,7 +35,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultReleaseDuration: Double = 0.1
 
     /// Attack time
-    open var attackDuration: Double = defaultAttackDuration {
+    @objc open var attackDuration: Double = defaultAttackDuration {
         willSet {
             let clampedValue = AKAmplitudeEnvelope.attackDurationRange.clamp(newValue)
             guard attackDuration != clampedValue else { return }
@@ -44,7 +44,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Decay time
-    open var decayDuration: Double = defaultDecayDuration {
+    @objc open var decayDuration: Double = defaultDecayDuration {
         willSet {
             let clampedValue = AKAmplitudeEnvelope.decayDurationRange.clamp(newValue)
             guard decayDuration != clampedValue else { return }
@@ -53,7 +53,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Sustain Level
-    open var sustainLevel: Double = defaultSustainLevel {
+    @objc open var sustainLevel: Double = defaultSustainLevel {
         willSet {
             let clampedValue = AKAmplitudeEnvelope.sustainLevelRange.clamp(newValue)
             guard sustainLevel != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Release time
-    open var releaseDuration: Double = defaultReleaseDuration {
+    @objc open var releaseDuration: Double = defaultReleaseDuration {
         willSet {
             let clampedValue = AKAmplitudeEnvelope.releaseDurationRange.clamp(newValue)
             guard releaseDuration != clampedValue else { return }
@@ -71,7 +71,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -112,12 +112,12 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

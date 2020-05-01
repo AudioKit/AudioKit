@@ -35,7 +35,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDryWetMix: Double = 0.0
 
     /// Frequency. (in Hertz)
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKChorus.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -44,7 +44,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Depth
-    open var depth: Double = defaultDepth {
+    @objc open var depth: Double = defaultDepth {
         willSet {
             let clampedValue = AKChorus.depthRange.clamp(newValue)
             guard depth != clampedValue else { return }
@@ -53,7 +53,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKChorus.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry Wet Mix
-    open var dryWetMix: Double = defaultDryWetMix {
+    @objc open var dryWetMix: Double = defaultDryWetMix {
         willSet {
             let clampedValue = AKChorus.dryWetMixRange.clamp(newValue)
             guard dryWetMix != clampedValue else { return }
@@ -71,7 +71,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -112,12 +112,12 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }
