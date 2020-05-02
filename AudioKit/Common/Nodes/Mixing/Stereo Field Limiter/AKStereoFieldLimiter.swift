@@ -12,7 +12,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Limiting Factor
-    open var amount: Double = 1 {
+    @objc open var amount: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 1.0).clamp(newValue)
             guard amount != clampedValue else { return }

@@ -29,7 +29,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDryWetMix: Double = 0.5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    open var time: Double = defaultTime {
+    @objc open var time: Double = defaultTime {
         willSet {
             let clampedValue = AKStereoDelay.timeRange.clamp(newValue)
             guard time != clampedValue else { return }
@@ -38,7 +38,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback amount. Should be a value between 0-1.
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKStereoDelay.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -47,7 +47,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry/wet mix. Should be a value between 0-1.
-    open var dryWetMix: Double = defaultDryWetMix {
+    @objc open var dryWetMix: Double = defaultDryWetMix {
         willSet {
             let clampedValue = AKStereoDelay.dryWetMixRange.clamp(newValue)
             guard dryWetMix != clampedValue else { return }
@@ -56,7 +56,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Ping-pong mode: true or false (stereo mode)
-    open var pingPong: Bool = false {
+    @objc open var pingPong: Bool = false {
         willSet {
             guard pingPong != newValue else { return }
             internalAU?.pingPong.value = AUValue(newValue ? 1.0 : 0.0)

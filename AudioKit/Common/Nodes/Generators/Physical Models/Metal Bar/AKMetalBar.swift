@@ -60,7 +60,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     public static let defaultHighFrequencyDamping: Double = 0.001
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    open var leftBoundaryCondition: Double = defaultLeftBoundaryCondition {
+    @objc open var leftBoundaryCondition: Double = defaultLeftBoundaryCondition {
         willSet {
             let clampedValue = AKMetalBar.leftBoundaryConditionRange.clamp(newValue)
             guard leftBoundaryCondition != clampedValue else { return }
@@ -69,7 +69,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    open var rightBoundaryCondition: Double = defaultRightBoundaryCondition {
+    @objc open var rightBoundaryCondition: Double = defaultRightBoundaryCondition {
         willSet {
             let clampedValue = AKMetalBar.rightBoundaryConditionRange.clamp(newValue)
             guard rightBoundaryCondition != clampedValue else { return }
@@ -78,7 +78,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// 30db decay time (in seconds).
-    open var decayDuration: Double = defaultDecayDuration {
+    @objc open var decayDuration: Double = defaultDecayDuration {
         willSet {
             let clampedValue = AKMetalBar.decayDurationRange.clamp(newValue)
             guard decayDuration != clampedValue else { return }
@@ -87,7 +87,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Speed of scanning the output location.
-    open var scanSpeed: Double = defaultScanSpeed {
+    @objc open var scanSpeed: Double = defaultScanSpeed {
         willSet {
             let clampedValue = AKMetalBar.scanSpeedRange.clamp(newValue)
             guard scanSpeed != clampedValue else { return }
@@ -96,7 +96,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Position along bar that strike occurs.
-    open var position: Double = defaultPosition {
+    @objc open var position: Double = defaultPosition {
         willSet {
             let clampedValue = AKMetalBar.positionRange.clamp(newValue)
             guard position != clampedValue else { return }
@@ -105,7 +105,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Normalized strike velocity
-    open var strikeVelocity: Double = defaultStrikeVelocity {
+    @objc open var strikeVelocity: Double = defaultStrikeVelocity {
         willSet {
             let clampedValue = AKMetalBar.strikeVelocityRange.clamp(newValue)
             guard strikeVelocity != clampedValue else { return }
@@ -114,7 +114,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Spatial width of strike.
-    open var strikeWidth: Double = defaultStrikeWidth {
+    @objc open var strikeWidth: Double = defaultStrikeWidth {
         willSet {
             let clampedValue = AKMetalBar.strikeWidthRange.clamp(newValue)
             guard strikeWidth != clampedValue else { return }

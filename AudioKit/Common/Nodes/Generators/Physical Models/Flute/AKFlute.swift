@@ -11,7 +11,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    open var frequency: Double = 110 {
+    @objc open var frequency: Double = 110 {
         willSet {
             let clampedValue = (0.0 ... 20_000.0).clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -20,7 +20,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    open var amplitude: Double = 0.5 {
+    @objc open var amplitude: Double = 0.5 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard amplitude != clampedValue else { return }

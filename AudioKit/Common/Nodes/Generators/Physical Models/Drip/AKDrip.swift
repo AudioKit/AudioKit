@@ -55,7 +55,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     public static let defaultAmplitude: Double = 0.3
 
     /// The intensity of the dripping sound.
-    open var intensity: Double = defaultIntensity {
+    @objc open var intensity: Double = defaultIntensity {
         willSet {
             let clampedValue = AKDrip.intensityRange.clamp(newValue)
             guard intensity != clampedValue else { return }
@@ -64,7 +64,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// The damping factor. Maximum value is 2.0.
-    open var dampingFactor: Double = defaultDampingFactor {
+    @objc open var dampingFactor: Double = defaultDampingFactor {
         willSet {
             let clampedValue = AKDrip.dampingFactorRange.clamp(newValue)
             guard dampingFactor != clampedValue else { return }
@@ -73,7 +73,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// The amount of energy to add back into the system.
-    open var energyReturn: Double = defaultEnergyReturn {
+    @objc open var energyReturn: Double = defaultEnergyReturn {
         willSet {
             let clampedValue = AKDrip.energyReturnRange.clamp(newValue)
             guard energyReturn != clampedValue else { return }
@@ -82,7 +82,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// Main resonant frequency.
-    open var mainResonantFrequency: Double = defaultMainResonantFrequency {
+    @objc open var mainResonantFrequency: Double = defaultMainResonantFrequency {
         willSet {
             let clampedValue = AKDrip.mainResonantFrequencyRange.clamp(newValue)
             guard mainResonantFrequency != clampedValue else { return }
@@ -91,7 +91,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// The first resonant frequency.
-    open var firstResonantFrequency: Double = defaultFirstResonantFrequency {
+    @objc open var firstResonantFrequency: Double = defaultFirstResonantFrequency {
         willSet {
             let clampedValue = AKDrip.firstResonantFrequencyRange.clamp(newValue)
             guard firstResonantFrequency != clampedValue else { return }
@@ -100,7 +100,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// The second resonant frequency.
-    open var secondResonantFrequency: Double = defaultSecondResonantFrequency {
+    @objc open var secondResonantFrequency: Double = defaultSecondResonantFrequency {
         willSet {
             let clampedValue = AKDrip.secondResonantFrequencyRange.clamp(newValue)
             guard secondResonantFrequency != clampedValue else { return }
@@ -109,7 +109,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKDrip.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }

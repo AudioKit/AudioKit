@@ -105,7 +105,7 @@ public protocol AKPolyphonic {
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
-    open var midiInstrument: AVAudioUnitMIDIInstrument?
+    @objc open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
