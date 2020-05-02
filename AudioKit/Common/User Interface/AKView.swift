@@ -57,13 +57,11 @@ public class AKStylist {
     }
 
     public var nextColor: AKColor {
-        get {
-            counter += 1
-            if counter >= colorCycle[theme]!.count {
-                counter = 0
-            }
-            return colorCycle[theme]![counter]
+        counter += 1
+        if counter >= colorCycle[theme]!.count {
+            counter = 0
         }
+        return colorCycle[theme]![counter]
     }
 
     public var colorForTrueValue: AKColor {
