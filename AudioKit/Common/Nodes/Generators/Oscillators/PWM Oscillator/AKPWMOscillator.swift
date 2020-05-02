@@ -46,7 +46,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultDetuningMultiplier = 1.0
 
     /// Frequency in cycles per second
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKPWMOscillator.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -55,7 +55,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKPWMOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -64,7 +64,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Duty Cycle Width 0 - 1
-    open var pulseWidth: Double = defaultPulseWidth {
+    @objc open var pulseWidth: Double = defaultPulseWidth {
         willSet {
             let clampedValue = AKPWMOscillator.pulseWidthRange.clamp(newValue)
             guard pulseWidth != clampedValue else { return }
@@ -73,7 +73,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = defaultDetuningOffset {
+    @objc open var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             let clampedValue = AKPWMOscillator.detuningOffsetRange.clamp(newValue)
             guard detuningOffset != clampedValue else { return }
@@ -82,7 +82,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = defaultDetuningMultiplier {
+    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             let clampedValue = AKPWMOscillator.detuningMultiplierRange.clamp(newValue)
             guard detuningMultiplier != clampedValue else { return }

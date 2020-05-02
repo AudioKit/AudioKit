@@ -48,7 +48,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultPhase: Double = 0
 
     /// Frequency (in Hz)
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKMorphingOscillator.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -57,7 +57,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude (typically a value between 0 and 1).
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKMorphingOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -66,7 +66,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Index of the wavetable to use (fractional are okay).
-    open var index: Double = defaultIndex {
+    @objc open var index: Double = defaultIndex {
         willSet {
             let clampedValue = AKMorphingOscillator.indexRange.clamp(newValue)
             guard index != clampedValue else { return }
@@ -76,7 +76,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = defaultDetuningOffset {
+    @objc open var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             let clampedValue = AKMorphingOscillator.detuningOffsetRange.clamp(newValue)
             guard detuningOffset != clampedValue else { return }
@@ -85,7 +85,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = defaultDetuningMultiplier {
+    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             let clampedValue = AKMorphingOscillator.detuningMultiplierRange.clamp(newValue)
             guard detuningMultiplier != clampedValue else { return }

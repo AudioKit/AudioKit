@@ -27,7 +27,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public static let defaultLowestFrequency: Double = 110
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKPluckedString.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -36,7 +36,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKPluckedString.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }

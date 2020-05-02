@@ -22,7 +22,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDryWetMix = Double(kAKFlanger_DefaultDryWetMix)
 
     /// Modulation Frequency (Hz)
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKFlanger.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -31,7 +31,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Depth (fraction)
-    open var depth: Double = defaultDepth {
+    @objc open var depth: Double = defaultDepth {
         willSet {
             let clampedValue = AKFlanger.depthRange.clamp(newValue)
             guard depth != clampedValue else { return }
@@ -40,7 +40,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback (fraction)
-    open var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
             let clampedValue = AKFlanger.feedbackRange.clamp(newValue)
             guard feedback != clampedValue else { return }
@@ -49,7 +49,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry Wet Mix (fraction)
-    open var dryWetMix: Double = defaultDryWetMix {
+    @objc open var dryWetMix: Double = defaultDryWetMix {
         willSet {
             let clampedValue = AKFlanger.dryWetMixRange.clamp(newValue)
             guard dryWetMix != clampedValue else { return }

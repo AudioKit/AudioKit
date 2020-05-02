@@ -76,11 +76,11 @@ open class AKDryWetMixer: AKNode, AKInput {
                                 input2Attentuator.avAudioUnitOrNode])
     }
 
-    open var dryInput: AVAudioConnectionPoint {
+    @objc open var dryInput: AVAudioConnectionPoint {
         return AVAudioConnectionPoint(node: input1Attenuator.avAudioUnitOrNode, bus: 0)
     }
 
-    open var wetInput: AVAudioConnectionPoint {
+    @objc open var wetInput: AVAudioConnectionPoint {
         return AVAudioConnectionPoint(node: input2Attentuator.avAudioUnitOrNode, bus: 0)
     }
 

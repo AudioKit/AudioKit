@@ -48,7 +48,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultDetuningMultiplier: Double = 1
 
     /// Frequency in cycles per second
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKPhaseDistortionOscillator.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -57,7 +57,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKPhaseDistortionOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -66,7 +66,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
-    open var phaseDistortion: Double = defaultPhaseDistortion {
+    @objc open var phaseDistortion: Double = defaultPhaseDistortion {
         willSet {
             let clampedValue = AKPhaseDistortionOscillator.phaseDistortionRange.clamp(newValue)
             guard phaseDistortion != clampedValue else { return }
@@ -75,7 +75,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = defaultDetuningOffset {
+    @objc open var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             let clampedValue = AKPhaseDistortionOscillator.detuningOffsetRange.clamp(newValue)
             guard detuningOffset != clampedValue else { return }
@@ -84,7 +84,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = defaultDetuningMultiplier {
+    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             let clampedValue = AKPhaseDistortionOscillator.detuningMultiplierRange.clamp(newValue)
             guard detuningMultiplier != clampedValue else { return }

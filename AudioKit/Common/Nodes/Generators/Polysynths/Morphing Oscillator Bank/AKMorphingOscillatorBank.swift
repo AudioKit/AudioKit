@@ -13,7 +13,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// An array of tables to morph between
-    open var waveformArray = [AKTable]() {
+    @objc open var waveformArray = [AKTable]() {
         willSet {
             self.waveformArray = newValue
             for (i, waveform) in self.waveformArray.enumerated() {

@@ -93,7 +93,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    open var amplitude: Double = 0.5 {
+    @objc open var amplitude: Double = 0.5 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard amplitude != clampedValue else { return }

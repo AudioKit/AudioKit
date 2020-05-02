@@ -14,7 +14,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     /// Amplification Factor, from 0 ... 2
-    open var gain: Double = 1 {
+    @objc open var gain: Double = 1 {
         willSet {
             leftGain = gain
             rightGain = gain
@@ -22,7 +22,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Left Channel Amplification Factor
-    open var leftGain: Double = 1 {
+    @objc open var leftGain: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 2.0).clamp(newValue)
             guard leftGain != clampedValue else { return }
@@ -31,7 +31,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Right Channel Amplification Factor
-    open var rightGain: Double = 1 {
+    @objc open var rightGain: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 2.0).clamp(newValue)
             guard rightGain != clampedValue else { return }
@@ -40,13 +40,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Amplification Factor in db
-    open var dB: Double {
+    @objc open var dB: Double {
         set { gain = pow(10.0, newValue / 20.0) }
         get { return 20.0 * log10(gain) }
     }
 
     /// Taper is a positive number where 1=Linear and the 0->1 and 1 and up represent curves on each side of linearity
-    open var taper: Double = 1 {
+    @objc open var taper: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard taper != clampedValue else { return }
@@ -55,7 +55,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Skew ranges from zero to one where zero is easing In and 1 is easing Out. default 0.
-    open var skew: Double = 0 {
+    @objc open var skew: Double = 0 {
         willSet {
             let clampedValue = (0.0 ... 1.0).clamp(newValue)
             guard skew != clampedValue else { return }
@@ -64,7 +64,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Offset allows you to start a ramp somewhere in the middle of it. default 0.
-    open var offset: Double = 0 {
+    @objc open var offset: Double = 0 {
         willSet {
             let clampedValue = (0.0 ... 1_000_000_000.0).clamp(newValue)
             guard offset != clampedValue else { return }
@@ -73,7 +73,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Flip left and right signal
-    open var flipStereo: Bool = false {
+    @objc open var flipStereo: Bool = false {
         willSet {
             guard flipStereo != newValue else { return }
             internalAU?.flipStereo.value = newValue ? 1.0 : 0.0
@@ -81,7 +81,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    open var mixToMono: Bool = false {
+    @objc open var mixToMono: Bool = false {
         willSet {
             guard mixToMono != newValue else { return }
             internalAU?.mixToMono.value = newValue ? 1.0 : 0.0

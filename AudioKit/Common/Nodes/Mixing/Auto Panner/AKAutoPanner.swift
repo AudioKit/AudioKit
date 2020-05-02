@@ -14,7 +14,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var waveform: AKTable?
 
     /// Frequency (Hz)
-    open var frequency: Double = 10.0 {
+    @objc open var frequency: Double = 10.0 {
         willSet {
             guard frequency != newValue else { return }
             internalAU?.frequency.value = AUValue(newValue)
@@ -22,7 +22,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Depth
-    open var depth: Double = 1.0 {
+    @objc open var depth: Double = 1.0 {
         willSet {
             guard depth != newValue else { return }
             internalAU?.depth.value = AUValue(newValue)

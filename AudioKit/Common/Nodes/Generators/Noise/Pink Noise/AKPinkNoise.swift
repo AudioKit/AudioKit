@@ -18,7 +18,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     public static let defaultAmplitude: Double = 1.0
 
     /// Amplitude. (Value between 0-1).
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKPinkNoise.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }

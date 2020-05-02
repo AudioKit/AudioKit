@@ -53,7 +53,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Attack time
-    open var attackDuration: Double = defaultAttackDuration {
+    @objc open var attackDuration: Double = defaultAttackDuration {
         willSet {
             let clampedValue = AKDynamicRangeCompressor.attackDurationRange.clamp(newValue)
             guard attackDuration != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Release time
-    open var releaseDuration: Double = defaultReleaseDuration {
+    @objc open var releaseDuration: Double = defaultReleaseDuration {
         willSet {
             let clampedValue = AKDynamicRangeCompressor.releaseDurationRange.clamp(newValue)
             guard releaseDuration != clampedValue else { return }

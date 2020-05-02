@@ -12,7 +12,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Amplification Factor
-    open var gain: Double = 1 {
+    @objc open var gain: Double = 1 {
         didSet {
             leftGain = gain
             rightGain = gain
@@ -20,7 +20,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Left Channel Amplification Factor
-    open var leftGain: Double = 1 {
+    @objc open var leftGain: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 2.0).clamp(newValue)
             guard leftGain != clampedValue else { return }
@@ -29,7 +29,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Right Channel Amplification Factor
-    open var rightGain: Double = 1 {
+    @objc open var rightGain: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 2.0).clamp(newValue)
             guard rightGain != clampedValue else { return }
@@ -37,7 +37,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    open var rampType: AKSettings.RampType = .linear {
+    @objc open var rampType: AKSettings.RampType = .linear {
         willSet {
             guard rampType != newValue else { return }
             internalAU?.rampType.value = AUValue(newValue.rawValue)
@@ -45,7 +45,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amplification Factor in db
-    open var dB: Double {
+    @objc open var dB: Double {
         set { gain = pow(10.0, newValue / 20.0) }
         get { return 20.0 * log10(gain) }
     }

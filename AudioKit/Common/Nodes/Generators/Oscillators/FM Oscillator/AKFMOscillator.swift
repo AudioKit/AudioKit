@@ -44,7 +44,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultAmplitude: Double = 1.0
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    open var baseFrequency: Double = defaultBaseFrequency {
+    @objc open var baseFrequency: Double = defaultBaseFrequency {
         willSet {
             let clampedValue = AKFMOscillator.baseFrequencyRange.clamp(newValue)
             guard baseFrequency != clampedValue else { return }
@@ -53,7 +53,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    open var carrierMultiplier: Double = defaultCarrierMultiplier {
+    @objc open var carrierMultiplier: Double = defaultCarrierMultiplier {
         willSet {
             let clampedValue = AKFMOscillator.carrierMultiplierRange.clamp(newValue)
             guard carrierMultiplier != clampedValue else { return }
@@ -62,7 +62,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    open var modulatingMultiplier: Double = defaultModulatingMultiplier {
+    @objc open var modulatingMultiplier: Double = defaultModulatingMultiplier {
         willSet {
             let clampedValue = AKFMOscillator.modulatingMultiplierRange.clamp(newValue)
             guard modulatingMultiplier != clampedValue else { return }
@@ -71,7 +71,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    open var modulationIndex: Double = defaultModulationIndex {
+    @objc open var modulationIndex: Double = defaultModulationIndex {
         willSet {
             let clampedValue = AKFMOscillator.modulationIndexRange.clamp(newValue)
             guard modulationIndex != clampedValue else { return }
@@ -80,7 +80,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKFMOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }

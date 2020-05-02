@@ -45,7 +45,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     public static let defaultNasality: Double = 0.0
 
     /// Glottal frequency.
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKVocalTract.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -54,7 +54,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue position (0-1)
-    open var tonguePosition: Double = defaultTonguePosition {
+    @objc open var tonguePosition: Double = defaultTonguePosition {
         willSet {
             let clampedValue = AKVocalTract.tonguePositionRange.clamp(newValue)
             guard tonguePosition != clampedValue else { return }
@@ -63,7 +63,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue diameter (0-1)
-    open var tongueDiameter: Double = defaultTongueDiameter {
+    @objc open var tongueDiameter: Double = defaultTongueDiameter {
         willSet {
             let clampedValue = AKVocalTract.tongueDiameterRange.clamp(newValue)
             guard tongueDiameter != clampedValue else { return }
@@ -72,7 +72,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    open var tenseness: Double = defaultTenseness {
+    @objc open var tenseness: Double = defaultTenseness {
         willSet {
             let clampedValue = AKVocalTract.tensenessRange.clamp(newValue)
             guard tenseness != clampedValue else { return }
@@ -81,7 +81,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    open var nasality: Double = defaultNasality {
+    @objc open var nasality: Double = defaultNasality {
         willSet {
             let clampedValue = AKVocalTract.nasalityRange.clamp(newValue)
             guard nasality != clampedValue else { return }
@@ -105,7 +105,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     ///   - tenseness: Vocal tenseness. 0 = all breath. 1=fully saturated.
     ///   - nasality: Sets the velum size. Larger values of this creates more nasally sounds.
     ///
-    public init(
+    @objc public init(
         frequency: Double = defaultFrequency,
         tonguePosition: Double = defaultTonguePosition,
         tongueDiameter: Double = defaultTongueDiameter,

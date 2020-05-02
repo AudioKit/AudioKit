@@ -39,7 +39,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public static let defaultDetuningMultiplier: Double = 1.0
 
     /// Frequency in cycles per second
-    open var frequency: Double = defaultFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
             let clampedValue = AKOscillator.frequencyRange.clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -48,7 +48,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
             let clampedValue = AKOscillator.amplitudeRange.clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -57,7 +57,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = defaultDetuningOffset {
+    @objc open var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             let clampedValue = AKOscillator.detuningOffsetRange.clamp(newValue)
             guard detuningOffset != clampedValue else { return }
@@ -66,7 +66,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = defaultDetuningMultiplier {
+    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             let clampedValue = AKOscillator.detuningMultiplierRange.clamp(newValue)
             guard detuningMultiplier != clampedValue else { return }
