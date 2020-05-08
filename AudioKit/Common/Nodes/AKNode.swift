@@ -8,6 +8,7 @@ extension AVAudioConnectionPoint {
 
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
+
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
 
@@ -40,11 +41,11 @@ extension AVAudioConnectionPoint {
             AKManager.engine.attach(avAudioNode)
         }
     }
-    
-    deinit{
+
+    deinit {
         detach()
     }
-    
+
     // Subclasses should override to detach all internal nodes
     open func detach() {
         AKManager.detach(nodes: [avAudioUnitOrNode])
@@ -104,7 +105,7 @@ public protocol AKPolyphonic {
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
-    open var midiInstrument: AVAudioUnitMIDIInstrument?
+    @objc open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
@@ -132,7 +133,6 @@ public protocol AKPolyphonic {
 
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        //        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
         self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency, channel: channel)
     }
 
@@ -146,7 +146,7 @@ public protocol AKPolyphonic {
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
-@objc public protocol AKToggleable {
+public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 

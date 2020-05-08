@@ -29,7 +29,7 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     }
 
     var timeFormat: MIDITimeFormat {
-        if((timeDivision & 0x8000) == 0) {
+        if (timeDivision & 0x8000) == 0 {
             return .ticksPerBeat
         } else {
             return .framesPerSecond

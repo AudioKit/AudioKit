@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKToneFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createToneFilterDSP() {
-    AKToneFilterDSP *dsp = new AKToneFilterDSP();
-    return dsp;
+    return new AKToneFilterDSP();
 }
 
 struct AKToneFilterDSP::InternalData {
@@ -15,31 +14,7 @@ struct AKToneFilterDSP::InternalData {
 };
 
 AKToneFilterDSP::AKToneFilterDSP() : data(new InternalData) {
-    data->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    data->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKToneFilterParameterHalfPowerPoint:
-            data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
-            break;
-        case AKToneFilterParameterRampDuration:
-            data->halfPowerPointRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKToneFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKToneFilterParameterHalfPowerPoint:
-            return data->halfPowerPointRamp.getTarget();
-        case AKToneFilterParameterRampDuration:
-            return data->halfPowerPointRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKToneFilterParameterHalfPowerPoint] = &data->halfPowerPointRamp;
 }
 
 void AKToneFilterDSP::init(int channelCount, double sampleRate) {
@@ -48,14 +23,19 @@ void AKToneFilterDSP::init(int channelCount, double sampleRate) {
     sp_tone_init(sp, data->tone0);
     sp_tone_create(&data->tone1);
     sp_tone_init(sp, data->tone1);
-    data->tone0->hp = defaultHalfPowerPoint;
-    data->tone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_tone_destroy(&data->tone0);
     sp_tone_destroy(&data->tone1);
+}
+
+void AKToneFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_tone_init(sp, data->tone0);
+    sp_tone_init(sp, data->tone1);
 }
 
 void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AVFoundation
 import Foundation
 
@@ -81,7 +82,7 @@ open class AKSettings: NSObject {
     @objc public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    @objc public static var rampDuration: Double = 0.0002
+    @objc public static var rampDuration: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     @objc public static var notificationsEnabled: Bool = false
@@ -165,7 +166,9 @@ open class AKSettings: NSObject {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
                 } catch {
-                    AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription, log: OSLog.settings, type: .error)
+                    AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
+                          log: OSLog.settings,
+                          type: .error)
                 }
             }
         }
@@ -231,7 +234,9 @@ open class AKSettings: NSObject {
                     try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
                 } catch {
-                    AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)", log: OSLog.settings, type: .error)
+                    AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)",
+                        log: OSLog.settings,
+                        type: .error)
                 }
             }
             get {
@@ -269,7 +274,8 @@ open class AKSettings: NSObject {
                 }
             } catch let error as NSError {
                 AKLog("Cannot set AVAudioSession Category to \(category) with options: \(options) " + error.localizedDescription,
-                      log: OSLog.settings, type: .error)
+                      log: OSLog.settings,
+                      type: .error)
                 throw error
             }
 

@@ -1,13 +1,38 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
-#ifdef __cplusplus
+
+#import "AKInterop.hpp"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
+#ifndef __cplusplus
+
+AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
+void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* inputBuffer, AVAudioPCMBuffer* outputBuffer);
+void deallocateRenderResourcesDSP(AKDSPRef pDSP);
+void resetDSP(AKDSPRef pDSP);
+bool canProcessInPlaceDSP(AKDSPRef pDSP);
+
+void setRampDurationDSP(AKDSPRef pDSP, float rampDuration);
+void setParameterDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
+AUValue getParameterDSP(AKDSPRef pDSP, AUParameterAddress address);
+
+void startDSP(AKDSPRef pDSP);
+void stopDSP(AKDSPRef pDSP);
+
+void triggerDSP(AKDSPRef pDSP);
+void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude);
+
+void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index);
+
+void deleteDSP(AKDSPRef pDSP);
+
+#else
 
 #import <Foundation/Foundation.h>
-#import <AVFoundation/AVFoundation.h>
-#import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
-#import "AKInterop.h"
+#import <map>
 
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class
@@ -15,19 +40,31 @@
  */
 
 class AKDSPBase {
+    
+    const AVAudioPCMBuffer *inputBuffer;
+    const AVAudioPCMBuffer *outputBuffer;
+    
+    /// Ramp rate for ramped parameters
+    float rampDuration;
+    
 protected:
 
     int channelCount;
     double sampleRate;
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
-
+    
+    /// Subclasses should process in place and set this to true if possible
+    bool bCanProcessInPlace = false;
+    
     // To support AKAudioUnit functions
-    bool isInitialized = true;
+    bool isInitialized = false;
     bool isStarted = true;
 
     // current time in samples
     AUEventSampleTime now = 0;
+    
+    std::map<AUParameterAddress, class AKParameterRampBase*> parameters;
 
 public:
     
@@ -35,32 +72,32 @@ public:
     
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
-
+    
+    void setBuffers(const AVAudioPCMBuffer* inputBuffer, const AVAudioPCMBuffer* outputBuffer);
+    
+    AUInternalRenderBlock internalRenderBlock();
+    
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
+    
+    void setRampDuration(float duration);
+    
+    /// Uses the ParameterAddress as a key
+    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false);
 
     /// Uses the ParameterAddress as a key
-    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false) {}
-
-    /// Uses the ParameterAddress as a key
-    virtual float getParameter(AUParameterAddress address)
-    {
-        return 0.0;
-    }
+    virtual float getParameter(AUParameterAddress address);
 
     /// Get the DSP into initialized state
     virtual void reset() {}
+    
+    inline bool canProcessInPlace() const { return bCanProcessInPlace; }
 
     /// Don't necessarily reset, but clear out the buffers if applicable
     virtual void clear() {}
 
-    /// Many effects have a single value that is a constant for the lifetime of the effect
-    virtual void initializeConstant(AUValue value) {}
-
     /// Common for oscillators
-    virtual void setupWaveform(uint32_t size) {}
-
-    virtual void setWaveformValue(uint32_t index, float value) {}
+    virtual void setWavetable(const float* table, size_t length, int index) {}
 
     /// Multiple waveform oscillators
     virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size) {}
@@ -71,13 +108,6 @@ public:
     virtual void trigger() {}
 
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
-
-    virtual void triggerTypeAmplitude(AUValue type, AUValue amplitude) {}
-
-    /// File-based effects convolution and phase locked vocoder
-    virtual void setUpTable(float *table, UInt32 size) {}
-
-    virtual void setPartitionLength(int partLength) {}
 
     virtual bool isLooping()
     {
@@ -101,20 +131,12 @@ public:
         inBufferListPtr = inBufs;
         outBufferListPtr = outBufs;
     }
-
-    virtual void setBuffer(AudioBufferList *outBufs)
-    {
-        outBufferListPtr = outBufs;
-    }
-
-    virtual void init(int channelCount, double sampleRate)
-    {
-        this->channelCount = channelCount;
-        this->sampleRate = sampleRate;
-    }
+    
+    /// override this if your DSP kernel allocates memory or requires the session sample rate for initialization
+    virtual void init(int channelCount, double sampleRate);
 
     /// override this if your DSP kernel allocates memory; free it here
-    virtual void deinit() {}
+    virtual void deinit();
 
     // Add for compatibility with AKAudioUnit
     virtual void start()

@@ -8,7 +8,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
     fileprivate var testedNode: AKToggleable?
     fileprivate var token: AUParameterObserverToken?
     var totalSamples = 0
@@ -19,7 +19,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Flag on whether or not the test is still in progress
-    open var isStarted: Bool {
+    @objc open var isStarted: Bool {
         if let samplesIn = internalAU?.samples {
             return Int(samplesIn) < totalSamples
         } else {

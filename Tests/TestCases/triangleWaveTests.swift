@@ -4,7 +4,6 @@ import AudioKit
 
 class TriangleWaveTests: AKTestCase {
 
-
     var triangle = AKOperationGenerator { _ in return AKOperation.triangleWave() }
 
     override func setUp() {

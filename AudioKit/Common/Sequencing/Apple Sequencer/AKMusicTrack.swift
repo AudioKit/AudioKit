@@ -615,7 +615,8 @@ open class AKMusicTrack {
     ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///
-    class func iterateMusicTrack(_ track: MusicTrack, midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
+    class func iterateMusicTrack(_ track: MusicTrack,
+                                 midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {

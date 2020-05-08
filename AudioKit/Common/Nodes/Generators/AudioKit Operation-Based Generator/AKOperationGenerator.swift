@@ -8,7 +8,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
@@ -89,7 +89,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         self.customUgens = []
         super.init()
     }
-    
+
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code

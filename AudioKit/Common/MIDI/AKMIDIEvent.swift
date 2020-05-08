@@ -45,7 +45,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         return splitData
     }
     #endif
-    
+
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     public var length: Int {
         return data.count

@@ -82,29 +82,28 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var amplitudeParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Type of shaker to use
     open var type: AKShakerType = .maraca {
         willSet {
             guard type != newValue else { return }
-            internalAU?.type = Double(newValue.rawValue)
+            internalAU?.type.value = AUValue(newValue.rawValue)
         }
     }
 
     /// Amplitude
-    @objc open dynamic var amplitude: Double = 0.5 {
+    @objc open var amplitude: Double = 0.5 {
         willSet {
-            guard amplitude != newValue else { return }
-            amplitudeParameter?.value = AUValue(newValue)
+            let clampedValue = (0.0 ... 10.0).clamp(newValue)
+            guard amplitude != clampedValue else { return }
+            internalAU?.amplitude.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -119,29 +118,21 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - amplitude: Overall level
     ///
-    public init(type: AKShakerType = .maraca, amplitude: Double = 0.5) {
-
-        self.type = type
-        self.amplitude = amplitude
+    public init(
+        type: AKShakerType = .maraca,
+        amplitude: Double = 0.5
+    ) {
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.type = type
+            self.amplitude = amplitude
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        amplitudeParameter = tree["amplitude"]
-        internalAU?.type = Double(type.rawValue)
-        internalAU?.amplitude = Double(amplitude)
     }
 
     /// Trigger the sound with an optional set of parameters
@@ -152,7 +143,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
             self.amplitude = amplitude
         }
         internalAU?.start()
-        internalAU?.triggerType(type.rawValue, amplitude: Float(self.amplitude))
+        internalAU?.triggerType(AUValue(type.rawValue), amplitude: AUValue(self.amplitude))
     }
 
     /// Function to start, play, or activate the node, all do the same thing

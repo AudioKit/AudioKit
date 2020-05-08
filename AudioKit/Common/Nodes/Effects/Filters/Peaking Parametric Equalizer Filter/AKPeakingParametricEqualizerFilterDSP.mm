@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPeakingParametricEqualizerFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP() {
-    AKPeakingParametricEqualizerFilterDSP *dsp = new AKPeakingParametricEqualizerFilterDSP();
-    return dsp;
+    return new AKPeakingParametricEqualizerFilterDSP();
 }
 
 struct AKPeakingParametricEqualizerFilterDSP::InternalData {
@@ -17,47 +16,9 @@ struct AKPeakingParametricEqualizerFilterDSP::InternalData {
 };
 
 AKPeakingParametricEqualizerFilterDSP::AKPeakingParametricEqualizerFilterDSP() : data(new InternalData) {
-    data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->gainRamp.setTarget(defaultGain, true);
-    data->gainRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->qRamp.setTarget(defaultQ, true);
-    data->qRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKPeakingParametricEqualizerFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKPeakingParametricEqualizerFilterParameterCenterFrequency:
-            data->centerFrequencyRamp.setTarget(clamp(value, centerFrequencyLowerBound, centerFrequencyUpperBound), immediate);
-            break;
-        case AKPeakingParametricEqualizerFilterParameterGain:
-            data->gainRamp.setTarget(clamp(value, gainLowerBound, gainUpperBound), immediate);
-            break;
-        case AKPeakingParametricEqualizerFilterParameterQ:
-            data->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
-            break;
-        case AKPeakingParametricEqualizerFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
-            data->gainRamp.setRampDuration(value, sampleRate);
-            data->qRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKPeakingParametricEqualizerFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKPeakingParametricEqualizerFilterParameterCenterFrequency:
-            return data->centerFrequencyRamp.getTarget();
-        case AKPeakingParametricEqualizerFilterParameterGain:
-            return data->gainRamp.getTarget();
-        case AKPeakingParametricEqualizerFilterParameterQ:
-            return data->qRamp.getTarget();
-        case AKPeakingParametricEqualizerFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKPeakingParametricEqualizerFilterParameterCenterFrequency] = &data->centerFrequencyRamp;
+    parameters[AKPeakingParametricEqualizerFilterParameterGain] = &data->gainRamp;
+    parameters[AKPeakingParametricEqualizerFilterParameterQ] = &data->qRamp;
 }
 
 void AKPeakingParametricEqualizerFilterDSP::init(int channelCount, double sampleRate) {
@@ -66,20 +27,19 @@ void AKPeakingParametricEqualizerFilterDSP::init(int channelCount, double sample
     sp_pareq_init(sp, data->pareq0);
     sp_pareq_create(&data->pareq1);
     sp_pareq_init(sp, data->pareq1);
-    data->pareq0->fc = defaultCenterFrequency;
-    data->pareq1->fc = defaultCenterFrequency;
-    data->pareq0->v = defaultGain;
-    data->pareq1->v = defaultGain;
-    data->pareq0->q = defaultQ;
-    data->pareq1->q = defaultQ;
-    data->pareq0->mode = 0;
-    data->pareq1->mode = 0;
 }
 
 void AKPeakingParametricEqualizerFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_pareq_destroy(&data->pareq0);
     sp_pareq_destroy(&data->pareq1);
+}
+
+void AKPeakingParametricEqualizerFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_pareq_init(sp, data->pareq0);
+    sp_pareq_init(sp, data->pareq1);
 }
 
 void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

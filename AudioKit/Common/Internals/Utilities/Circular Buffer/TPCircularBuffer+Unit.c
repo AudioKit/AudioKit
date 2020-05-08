@@ -1,9 +1,4 @@
-//
-//  TPCircularBuffer+Unit.c
-//
-//  Created by David O'Neill, revision history on Github.
-//  Copyright © 2017 O'Neill. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "TPCircularBuffer+Unit.h"
 

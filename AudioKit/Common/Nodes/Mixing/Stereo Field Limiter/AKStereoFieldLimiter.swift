@@ -9,33 +9,20 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var amountParameter: AUParameter?
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Limiting Factor
-    @objc open dynamic var amount: Double = 1 {
+    @objc open var amount: Double = 1 {
         willSet {
-            guard amount != newValue else { return }
-
-            if internalAU?.isSetUp == true {
-                amountParameter?.value = AUValue(newValue)
-                return
-            }
-            internalAU?.setParameterImmediately(.amount, value: newValue)
+            let clampedValue = (0.0 ... 1.0).clamp(newValue)
+            guard amount != clampedValue else { return }
+            internalAU?.amount.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return self.internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return self.internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -46,33 +33,18 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    @objc public init(_ input: AKNode? = nil, amount: Double = 1) {
-
-        self.amount = amount
+    public init(_ input: AKNode? = nil, amount: Double = 1) {
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: strongSelf)
+            self.amount = amount
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        self.amountParameter = tree["amount"]
-
-        internalAU?.setParameterImmediately(.amount, value: amount)
     }
 
     // MARK: - Control

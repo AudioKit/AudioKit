@@ -109,7 +109,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    public static func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
         return lhs.beats == rhs.beats
     }
 

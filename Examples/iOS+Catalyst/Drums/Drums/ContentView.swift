@@ -17,8 +17,8 @@ struct PadsView: View {
             }) {
               ZStack {
                 Rectangle()
-                  .fill(Color(self.conductor.drumSamples.map({$0.color})[getPadId(row: row, column: column)]))
-                Text(self.conductor.drumSamples.map({$0.name})[getPadId(row: row, column: column)])
+                  .fill(Color(self.conductor.drumSamples.map({ $0.color })[getPadId(row: row, column: column)]))
+                Text(self.conductor.drumSamples.map({ $0.name })[getPadId(row: row, column: column)])
                   .foregroundColor(Color("FontColor")).fontWeight(.bold)
 
               }

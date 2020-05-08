@@ -29,7 +29,9 @@ open class AKMIDIClockListener: NSObject {
     private var observers: [AKMIDIBeatObserver] = []
 
     /// AKMIDIClockListener requires to be an observer of both SRT and BPM events
-    init(srtListener srt: AKMIDISystemRealTimeListener, quantumsPerQuarterNote count: UInt8 = 24, tempoListener tempo: AKMIDITempoListener) {
+    init(srtListener srt: AKMIDISystemRealTimeListener,
+         quantumsPerQuarterNote count: UInt8 = 24,
+         tempoListener tempo: AKMIDITempoListener) {
         quantumsPerQuarterNote = count
         srtListener = srt
         tempoListener = tempo
@@ -75,7 +77,7 @@ open class AKMIDIClockListener: NSObject {
             let prefix = spaces.prefix( Int(fourCount) )
             AKLog("\(prefix) \(fourCount)", log: OSLog.midi)
 
-            if (sendStart || sendContinue) {
+            if sendStart || sendContinue {
                 sendStartContinueToObservers()
                 sendContinue = false
                 sendStart = false
@@ -89,7 +91,7 @@ open class AKMIDIClockListener: NSObject {
 
         if sppMIDIBeatQuantumCounter == 6 { sppMIDIBeatQuantumCounter = 0; sppMIDIBeatCounter += 1 }
         sppMIDIBeatQuantumCounter += 1
-        if (sppMIDIBeatQuantumCounter == 1) {
+        if sppMIDIBeatQuantumCounter == 1 {
             sendMIDIBeatUpdateToObservers()
 
             let beat = (sppMIDIBeatCounter % 16) + 1
@@ -133,7 +135,10 @@ extension AKMIDIClockListener: AKMIDIBeatObserver {
 
     internal func sendQuantumUpdateToObservers(time: MIDITimeStamp) {
         observers.forEach { (observer) in
-            observer.receivedQuantum(time: time, quarterNote: fourCount, beat: sppMIDIBeatCounter, quantum: quantumCounter)
+            observer.receivedQuantum(time: time,
+                                     quarterNote: fourCount,
+                                     beat: sppMIDIBeatCounter,
+                                     quantum: quantumCounter)
         }
     }
 

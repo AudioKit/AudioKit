@@ -21,7 +21,10 @@ import Foundation
     var disableSuccess = false
     var disableFailure = false
 
-    public init(timeoutInterval time: TimeInterval, onMainThread: Bool = true, success: @escaping ActionClosureType, timeout: @escaping ActionClosureType) {
+    public init(timeoutInterval time: TimeInterval,
+                onMainThread: Bool = true,
+                success: @escaping ActionClosureType,
+                timeout: @escaping ActionClosureType) {
         mainThread = onMainThread
         timeoutInterval = time
         onSuccess = success
@@ -46,7 +49,9 @@ import Foundation
 
     @objc func mainthreadSuccessCall() {
         let action: ActionClosureType = {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.messageTimeout), object: nil)
+            NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                   selector: #selector(self.messageTimeout),
+                                                   object: nil)
             if self.disableSuccess == false {
                 self.onSuccess?()
             }

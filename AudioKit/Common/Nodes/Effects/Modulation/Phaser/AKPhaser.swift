@@ -9,199 +9,146 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var notchMinimumFrequencyParameter: AUParameter?
-    fileprivate var notchMaximumFrequencyParameter: AUParameter?
-    fileprivate var notchWidthParameter: AUParameter?
-    fileprivate var notchFrequencyParameter: AUParameter?
-    fileprivate var vibratoModeParameter: AUParameter?
-    fileprivate var depthParameter: AUParameter?
-    fileprivate var feedbackParameter: AUParameter?
-    fileprivate var invertedParameter: AUParameter?
-    fileprivate var lfoBPMParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Notch Minimum Frequency
-    public static let notchMinimumFrequencyRange = 20.0 ... 5_000.0
+    public static let notchMinimumFrequencyRange: ClosedRange<Double> = 20 ... 5_000
 
     /// Lower and upper bounds for Notch Maximum Frequency
-    public static let notchMaximumFrequencyRange = 20.0 ... 10_000.0
+    public static let notchMaximumFrequencyRange: ClosedRange<Double> = 20 ... 10_000
 
     /// Lower and upper bounds for Notch Width
-    public static let notchWidthRange = 10.0 ... 5_000.0
+    public static let notchWidthRange: ClosedRange<Double> = 10 ... 5_000
 
     /// Lower and upper bounds for Notch Frequency
-    public static let notchFrequencyRange = 1.1 ... 4.0
+    public static let notchFrequencyRange: ClosedRange<Double> = 1.1 ... 4.0
 
     /// Lower and upper bounds for Vibrato Mode
-    public static let vibratoModeRange = 0.0 ... 1.0
+    public static let vibratoModeRange: ClosedRange<Double> = 0 ... 1
 
     /// Lower and upper bounds for Depth
-    public static let depthRange = 0.0 ... 1.0
+    public static let depthRange: ClosedRange<Double> = 0 ... 1
 
     /// Lower and upper bounds for Feedback
-    public static let feedbackRange = 0.0 ... 1.0
+    public static let feedbackRange: ClosedRange<Double> = 0 ... 1
 
     /// Lower and upper bounds for Inverted
-    public static let invertedRange = 0.0 ... 1.0
+    public static let invertedRange: ClosedRange<Double> = 0 ... 1
 
-    /// Lower and upper bounds for Lfo BPM
-    public static let lfoBPMRange = 24.0 ... 360.0
+    /// Lower and upper bounds for Lfo Bpm
+    public static let lfoBPMRange: ClosedRange<Double> = 24 ... 360
 
     /// Initial value for Notch Minimum Frequency
-    public static let defaultNotchMinimumFrequency = 100.0
+    public static let defaultNotchMinimumFrequency: Double = 100
 
     /// Initial value for Notch Maximum Frequency
-    public static let defaultNotchMaximumFrequency = 800.0
+    public static let defaultNotchMaximumFrequency: Double = 800
 
     /// Initial value for Notch Width
-    public static let defaultNotchWidth = 1_000.0
+    public static let defaultNotchWidth: Double = 1_000
 
     /// Initial value for Notch Frequency
-    public static let defaultNotchFrequency = 1.5
+    public static let defaultNotchFrequency: Double = 1.5
 
     /// Initial value for Vibrato Mode
-    public static let defaultVibratoMode = 1.0
+    public static let defaultVibratoMode: Double = 1
 
     /// Initial value for Depth
-    public static let defaultDepth = 1.0
+    public static let defaultDepth: Double = 1
 
     /// Initial value for Feedback
-    public static let defaultFeedback = 0.0
+    public static let defaultFeedback: Double = 0
 
     /// Initial value for Inverted
-    public static let defaultInverted = 0.0
+    public static let defaultInverted: Double = 0
 
-    /// Initial value for Lfo BPM
-    public static let defaultLfoBPM = 30.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    /// Initial value for Lfo Bpm
+    public static let defaultLfoBPM: Double = 30
 
     /// Notch Minimum Frequency
-    @objc open dynamic var notchMinimumFrequency: Double = defaultNotchMinimumFrequency {
+    @objc open var notchMinimumFrequency: Double = defaultNotchMinimumFrequency {
         willSet {
-            guard notchMinimumFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                notchMinimumFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.notchMinimumFrequency, value: newValue)
+            let clampedValue = AKPhaser.notchMinimumFrequencyRange.clamp(newValue)
+            guard notchMinimumFrequency != clampedValue else { return }
+            internalAU?.notchMinimumFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Notch Maximum Frequency
-    @objc open dynamic var notchMaximumFrequency: Double = defaultNotchMaximumFrequency {
+    @objc open var notchMaximumFrequency: Double = defaultNotchMaximumFrequency {
         willSet {
-            guard notchMaximumFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                notchMaximumFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.notchMaximumFrequency, value: newValue)
+            let clampedValue = AKPhaser.notchMaximumFrequencyRange.clamp(newValue)
+            guard notchMaximumFrequency != clampedValue else { return }
+            internalAU?.notchMaximumFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Between 10 and 5000
-    @objc open dynamic var notchWidth: Double = defaultNotchWidth {
+    @objc open var notchWidth: Double = defaultNotchWidth {
         willSet {
-            guard notchWidth != newValue else { return }
-            if internalAU?.isSetUp == true {
-                notchWidthParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.notchWidth, value: newValue)
+            let clampedValue = AKPhaser.notchWidthRange.clamp(newValue)
+            guard notchWidth != clampedValue else { return }
+            internalAU?.notchWidth.value = AUValue(clampedValue)
         }
     }
 
     /// Between 1.1 and 4
-    @objc open dynamic var notchFrequency: Double = defaultNotchFrequency {
+    @objc open var notchFrequency: Double = defaultNotchFrequency {
         willSet {
-            guard notchFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                notchFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.notchFrequency, value: newValue)
+            let clampedValue = AKPhaser.notchFrequencyRange.clamp(newValue)
+            guard notchFrequency != clampedValue else { return }
+            internalAU?.notchFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Direct or Vibrato (default)
-    @objc open dynamic var vibratoMode: Double = defaultVibratoMode {
+    @objc open var vibratoMode: Double = defaultVibratoMode {
         willSet {
-            guard vibratoMode != newValue else { return }
-            if internalAU?.isSetUp == true {
-                vibratoModeParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.vibratoMode, value: newValue)
+            let clampedValue = AKPhaser.vibratoModeRange.clamp(newValue)
+            guard vibratoMode != clampedValue else { return }
+            internalAU?.vibratoMode.value = AUValue(clampedValue)
         }
     }
 
     /// Between 0 and 1
-    @objc open dynamic var depth: Double = defaultDepth {
+    @objc open var depth: Double = defaultDepth {
         willSet {
-            guard depth != newValue else { return }
-            if internalAU?.isSetUp == true {
-                depthParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.depth, value: newValue)
+            let clampedValue = AKPhaser.depthRange.clamp(newValue)
+            guard depth != clampedValue else { return }
+            internalAU?.depth.value = AUValue(clampedValue)
         }
     }
 
     /// Between 0 and 1
-    @objc open dynamic var feedback: Double = defaultFeedback {
+    @objc open var feedback: Double = defaultFeedback {
         willSet {
-            guard feedback != newValue else { return }
-            if internalAU?.isSetUp == true {
-                feedbackParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.feedback, value: newValue)
+            let clampedValue = AKPhaser.feedbackRange.clamp(newValue)
+            guard feedback != clampedValue else { return }
+            internalAU?.feedback.value = AUValue(clampedValue)
         }
     }
 
     /// 1 or 0
-    @objc open dynamic var inverted: Double = defaultInverted {
+    @objc open var inverted: Double = defaultInverted {
         willSet {
-            guard inverted != newValue else { return }
-            if internalAU?.isSetUp == true {
-                invertedParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.inverted, value: newValue)
+            let clampedValue = AKPhaser.invertedRange.clamp(newValue)
+            guard inverted != clampedValue else { return }
+            internalAU?.inverted.value = AUValue(clampedValue)
         }
     }
 
     /// Between 24 and 360
-    @objc open dynamic var lfoBPM: Double = defaultLfoBPM {
+    @objc open var lfoBPM: Double = defaultLfoBPM {
         willSet {
-            guard lfoBPM != newValue else { return }
-            if internalAU?.isSetUp == true {
-                lfoBPMParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.lfoBPM, value: newValue)
+            let clampedValue = AKPhaser.lfoBPMRange.clamp(newValue)
+            guard lfoBPM != clampedValue else { return }
+            internalAU?.lfoBPM.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -220,7 +167,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - inverted: 1 or 0
     ///   - lfoBPM: Between 24 and 360
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         notchMinimumFrequency: Double = defaultNotchMinimumFrequency,
         notchMaximumFrequency: Double = defaultNotchMaximumFrequency,
@@ -232,55 +179,25 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         inverted: Double = defaultInverted,
         lfoBPM: Double = defaultLfoBPM
         ) {
-
-        self.notchMinimumFrequency = notchMinimumFrequency
-        self.notchMaximumFrequency = notchMaximumFrequency
-        self.notchWidth = notchWidth
-        self.notchFrequency = notchFrequency
-        self.vibratoMode = vibratoMode
-        self.depth = depth
-        self.feedback = feedback
-        self.inverted = inverted
-        self.lfoBPM = lfoBPM
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.notchMinimumFrequency = notchMinimumFrequency
+            self.notchMaximumFrequency = notchMaximumFrequency
+            self.notchWidth = notchWidth
+            self.notchFrequency = notchFrequency
+            self.vibratoMode = vibratoMode
+            self.depth = depth
+            self.feedback = feedback
+            self.inverted = inverted
+            self.lfoBPM = lfoBPM
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        notchMinimumFrequencyParameter = tree["notchMinimumFrequency"]
-        notchMaximumFrequencyParameter = tree["notchMaximumFrequency"]
-        notchWidthParameter = tree["notchWidth"]
-        notchFrequencyParameter = tree["notchFrequency"]
-        vibratoModeParameter = tree["vibratoMode"]
-        depthParameter = tree["depth"]
-        feedbackParameter = tree["feedback"]
-        invertedParameter = tree["inverted"]
-        lfoBPMParameter = tree["lfoBPM"]
-
-        internalAU?.setParameterImmediately(.notchMinimumFrequency, value: notchMinimumFrequency)
-        internalAU?.setParameterImmediately(.notchMaximumFrequency, value: notchMaximumFrequency)
-        internalAU?.setParameterImmediately(.notchWidth, value: notchWidth)
-        internalAU?.setParameterImmediately(.notchFrequency, value: notchFrequency)
-        internalAU?.setParameterImmediately(.vibratoMode, value: vibratoMode)
-        internalAU?.setParameterImmediately(.depth, value: depth)
-        internalAU?.setParameterImmediately(.feedback, value: feedback)
-        internalAU?.setParameterImmediately(.inverted, value: inverted)
-        internalAU?.setParameterImmediately(.lfoBPM, value: lfoBPM)
     }
 
     // MARK: - Control

@@ -36,8 +36,6 @@ public:
     float getParameter(AUParameterAddress address) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
-    void start() override;
-    void stop() override;
 };
 
 #endif

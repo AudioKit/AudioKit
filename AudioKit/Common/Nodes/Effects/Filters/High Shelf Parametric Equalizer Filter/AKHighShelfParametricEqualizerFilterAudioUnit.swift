@@ -4,29 +4,11 @@ import AVFoundation
 
 public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKHighShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var centerFrequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKHighShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var gain: AUParameter!
 
-    var centerFrequency: Double = AKHighShelfParametricEqualizerFilter.defaultCenterFrequency {
-        didSet { setParameter(.centerFrequency, value: centerFrequency) }
-    }
-
-    var gain: Double = AKHighShelfParametricEqualizerFilter.defaultGain {
-        didSet { setParameter(.gain, value: gain) }
-    }
-
-    var q: Double = AKHighShelfParametricEqualizerFilter.defaultQ {
-        didSet { setParameter(.Q, value: q) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var q: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createHighShelfParametricEqualizerFilterDSP()
@@ -36,21 +18,21 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let centerFrequency = AUParameter(
+        centerFrequency = AUParameter(
             identifier: "centerFrequency",
             name: "Corner Frequency (Hz)",
             address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
             range: AKHighShelfParametricEqualizerFilter.centerFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let gain = AUParameter(
+        gain = AUParameter(
             identifier: "gain",
             name: "Gain",
             address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
             range: AKHighShelfParametricEqualizerFilter.gainRange,
             unit: .generic,
             flags: .default)
-        let q = AUParameter(
+        q = AUParameter(
             identifier: "q",
             name: "Q",
             address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,
@@ -58,12 +40,10 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [centerFrequency, gain, q]))
-        centerFrequency.value = Float(AKHighShelfParametricEqualizerFilter.defaultCenterFrequency)
-        gain.value = Float(AKHighShelfParametricEqualizerFilter.defaultGain)
-        q.value = Float(AKHighShelfParametricEqualizerFilter.defaultQ)
+        parameterTree = AUParameterTree.createTree(withChildren: [centerFrequency, gain, q])
+
+        centerFrequency.value = AUValue(AKHighShelfParametricEqualizerFilter.defaultCenterFrequency)
+        gain.value = AUValue(AKHighShelfParametricEqualizerFilter.defaultGain)
+        q.value = AUValue(AKHighShelfParametricEqualizerFilter.defaultQ)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

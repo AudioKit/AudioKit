@@ -60,8 +60,8 @@ open class AKNodeRecorder: NSObject {
     ///   - bus: Integer index of the bus to use
     ///
     @objc public init(node: AKNode? = AKManager.output,
-                file: AKAudioFile? = nil,
-                bus: Int = 0) throws {
+                      file: AKAudioFile? = nil,
+                      bus: Int = 0) throws {
         guard let existingFile = file else {
             // We create a record file in temp directory
             do {

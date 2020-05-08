@@ -127,11 +127,13 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     break
                 }
                 if type != chunkEvent.typeByte {
-                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))", log: OSLog.midi)
+                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))",
+                        log: OSLog.midi)
                     break
                 }
                 if length != chunkEvent.length {
-                    AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)", log: OSLog.midi)
+                    AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)",
+                        log: OSLog.midi)
                     break
                 }
                 accumulatedDeltaTime += chunkEvent.deltaTime

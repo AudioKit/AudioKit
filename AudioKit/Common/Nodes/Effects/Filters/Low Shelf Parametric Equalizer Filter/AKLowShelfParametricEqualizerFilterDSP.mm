@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKLowShelfParametricEqualizerFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createLowShelfParametricEqualizerFilterDSP() {
-    AKLowShelfParametricEqualizerFilterDSP *dsp = new AKLowShelfParametricEqualizerFilterDSP();
-    return dsp;
+    return new AKLowShelfParametricEqualizerFilterDSP();
 }
 
 struct AKLowShelfParametricEqualizerFilterDSP::InternalData {
@@ -17,47 +16,9 @@ struct AKLowShelfParametricEqualizerFilterDSP::InternalData {
 };
 
 AKLowShelfParametricEqualizerFilterDSP::AKLowShelfParametricEqualizerFilterDSP() : data(new InternalData) {
-    data->cornerFrequencyRamp.setTarget(defaultCornerFrequency, true);
-    data->cornerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->gainRamp.setTarget(defaultGain, true);
-    data->gainRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->qRamp.setTarget(defaultQ, true);
-    data->qRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKLowShelfParametricEqualizerFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKLowShelfParametricEqualizerFilterParameterCornerFrequency:
-            data->cornerFrequencyRamp.setTarget(clamp(value, cornerFrequencyLowerBound, cornerFrequencyUpperBound), immediate);
-            break;
-        case AKLowShelfParametricEqualizerFilterParameterGain:
-            data->gainRamp.setTarget(clamp(value, gainLowerBound, gainUpperBound), immediate);
-            break;
-        case AKLowShelfParametricEqualizerFilterParameterQ:
-            data->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
-            break;
-        case AKLowShelfParametricEqualizerFilterParameterRampDuration:
-            data->cornerFrequencyRamp.setRampDuration(value, sampleRate);
-            data->gainRamp.setRampDuration(value, sampleRate);
-            data->qRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKLowShelfParametricEqualizerFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKLowShelfParametricEqualizerFilterParameterCornerFrequency:
-            return data->cornerFrequencyRamp.getTarget();
-        case AKLowShelfParametricEqualizerFilterParameterGain:
-            return data->gainRamp.getTarget();
-        case AKLowShelfParametricEqualizerFilterParameterQ:
-            return data->qRamp.getTarget();
-        case AKLowShelfParametricEqualizerFilterParameterRampDuration:
-            return data->cornerFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKLowShelfParametricEqualizerFilterParameterCornerFrequency] = &data->cornerFrequencyRamp;
+    parameters[AKLowShelfParametricEqualizerFilterParameterGain] = &data->gainRamp;
+    parameters[AKLowShelfParametricEqualizerFilterParameterQ] = &data->qRamp;
 }
 
 void AKLowShelfParametricEqualizerFilterDSP::init(int channelCount, double sampleRate) {
@@ -66,12 +27,6 @@ void AKLowShelfParametricEqualizerFilterDSP::init(int channelCount, double sampl
     sp_pareq_init(sp, data->pareq0);
     sp_pareq_create(&data->pareq1);
     sp_pareq_init(sp, data->pareq1);
-    data->pareq0->fc = defaultCornerFrequency;
-    data->pareq1->fc = defaultCornerFrequency;
-    data->pareq0->v = defaultGain;
-    data->pareq1->v = defaultGain;
-    data->pareq0->q = defaultQ;
-    data->pareq1->q = defaultQ;
     data->pareq0->mode = 1;
     data->pareq1->mode = 1;
 }
@@ -80,6 +35,15 @@ void AKLowShelfParametricEqualizerFilterDSP::deinit() {
     AKSoundpipeDSPBase::deinit();
     sp_pareq_destroy(&data->pareq0);
     sp_pareq_destroy(&data->pareq1);
+}
+
+void AKLowShelfParametricEqualizerFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_pareq_init(sp, data->pareq0);
+    sp_pareq_init(sp, data->pareq1);
+    data->pareq0->mode = 1;
+    data->pareq1->mode = 1;
 }
 
 void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

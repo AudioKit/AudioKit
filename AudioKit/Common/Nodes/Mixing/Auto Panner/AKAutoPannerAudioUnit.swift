@@ -4,24 +4,9 @@ import AVFoundation
 
 public class AKAutoPannerAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var frequency: Double = 10.0 {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
-    var depth: Double = 1.0 {
-        didSet { setParameter(.depth, value: depth) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    var depth: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createAutoPannerDSP()
@@ -31,14 +16,14 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
             range: 0.0...100.0,
             unit: .hertz,
             flags: .default)
-        let depth = AUParameter(
+        depth = AUParameter(
             identifier: "depth",
             name: "Depth",
             address: 1,
@@ -46,11 +31,9 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [frequency, depth]))
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, depth])
+
         frequency.value = 10.0
         depth.value = 1.0
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }
