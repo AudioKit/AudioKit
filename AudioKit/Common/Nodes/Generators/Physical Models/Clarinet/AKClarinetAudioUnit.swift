@@ -2,26 +2,11 @@
 
 import AVFoundation
 
-public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
+public class AKClarinetAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKClarinetParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKClarinetParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var frequency: Double = 440 {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
-    var amplitude: Double = 1 {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createClarinetDSP()
@@ -31,25 +16,24 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
             range: 0...20_000,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,
             range: 0...10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
+
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude])
+
         frequency.value = 440
         amplitude.value = 1
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

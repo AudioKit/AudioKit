@@ -14,7 +14,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var volumeParameter: AUParameter?
 

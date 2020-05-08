@@ -4,21 +4,7 @@ import AVFoundation
 
 public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKHighPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKHighPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var cutoffFrequency: Double = AKHighPassButterworthFilter.defaultCutoffFrequency {
-        didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var cutoffFrequency: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createHighPassButterworthFilterDSP()
@@ -28,7 +14,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let cutoffFrequency = AUParameter(
+        cutoffFrequency = AUParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKHighPassButterworthFilterParameter.cutoffFrequency.rawValue,
@@ -36,10 +22,8 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [cutoffFrequency]))
-        cutoffFrequency.value = Float(AKHighPassButterworthFilter.defaultCutoffFrequency)
+        parameterTree = AUParameterTree.createTree(withChildren: [cutoffFrequency])
+
+        cutoffFrequency.value = AUValue(AKHighPassButterworthFilter.defaultCutoffFrequency)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

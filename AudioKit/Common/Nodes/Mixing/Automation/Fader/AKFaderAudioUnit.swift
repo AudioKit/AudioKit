@@ -3,35 +3,20 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-    var taper: Double = 1.0 {
-        didSet { setParameter(.taper, value: taper) }
-    }
 
-    var skew: Double = 0.0 {
-        didSet { setParameter(.skew, value: skew) }
-    }
+    var taper: AUParameter!
 
-    var offset: Double = 0.0 {
-        didSet { setParameter(.offset, value: offset) }
-    }
+    var skew: AUParameter!
 
-    var leftGain: Double = 1.0 {
-        didSet { setParameter(.leftGain, value: leftGain) }
-    }
+    var offset: AUParameter!
 
-    var rightGain: Double = 1.0 {
-        didSet { setParameter(.rightGain, value: rightGain) }
-    }
+    var leftGain: AUParameter!
 
-    var flipStereo: Bool = false {
-        didSet { setParameter(.flipStereo, value: flipStereo ? 1.0 : 0.0) }
-    }
+    var rightGain: AUParameter!
 
-    var mixToMono: Bool = false {
-        didSet { setParameter(.mixToMono, value: mixToMono ? 1.0 : 0.0) }
-    }
+    var flipStereo: AUParameter!
 
-    public override var canProcessInPlace: Bool { return true }
+    var mixToMono: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createFaderDSP()
@@ -41,7 +26,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let leftGain = AUParameter(
+        leftGain = AUParameter(
             identifier: "leftGain",
             name: "Left Gain",
             address: 0,
@@ -50,7 +35,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        let rightGain = AUParameter(
+        rightGain = AUParameter(
             identifier: "rightGain",
             name: "Right Gain",
             address: 1,
@@ -59,7 +44,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        let taper = AUParameter(
+        taper = AUParameter(
             identifier: "taper",
             name: "Taper",
             address: 2,
@@ -68,7 +53,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        let skew = AUParameter(
+        skew = AUParameter(
             identifier: "skew",
             name: "Skew",
             address: 3,
@@ -77,16 +62,16 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        let offset = AUParameter(
+        offset = AUParameter(
             identifier: "offset",
             name: "Offset",
             address: 4,
-            range: 0.0 ... 1000000000.0,
+            range: 0.0 ... 1_000_000_000.0,
             unit: .generic,
             flags: .default
         )
 
-        let flipStereo = AUParameter(
+        flipStereo = AUParameter(
             identifier: "flipStereo",
             name: "Flip Stereo",
             address: 5,
@@ -95,7 +80,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        let mixToMono = AUParameter(
+        mixToMono = AUParameter(
             identifier: "mixToMono",
             name: "Mix To Stereo",
             address: 6,
@@ -104,7 +89,14 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             flags: .default
         )
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain, taper, skew, offset, flipStereo, mixToMono]))
+        parameterTree = AUParameterTree.createTree(withChildren: [leftGain,
+                                                                  rightGain,
+                                                                  taper,
+                                                                  skew,
+                                                                  offset,
+                                                                  flipStereo,
+                                                                  mixToMono])
+
         leftGain.value = 1.0
         rightGain.value = 1.0
         taper.value = 1.0
@@ -112,13 +104,5 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
         offset.value = 0.0
         flipStereo.value = 0.0
         mixToMono.value = 0.0
-    }
-
-    func setParameter(_ address: AKFaderParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKFaderParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 }

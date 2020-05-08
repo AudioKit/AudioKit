@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 #if !targetEnvironment(macCatalyst)
 
 /// Node to render audio quickly into a buffer of memory or into a file
@@ -9,12 +10,12 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     public typealias AKAudioUnitType = AKOfflineRenderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "mnrn")
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Turn on or off internal rendering
     open var internalRenderEnabled: Bool {
-        get { return internalAU!.internalRenderEnabled }
-        set { internalAU!.internalRenderEnabled = newValue }
+        get { return internalAU?.internalRenderEnabled ?? false }
+        set { internalAU?.internalRenderEnabled = newValue }
     }
 
     /// Render audio to a file given by a URL

@@ -8,62 +8,45 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
 
-    fileprivate var frequencyParameter: AUParameter?
-    fileprivate var amplitudeParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 0 ... 22_000.0
+    public static let frequencyRange: ClosedRange<Double> = 0 ... 22_000
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange = 0 ... 1.0
+    public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
 
     /// Initial value for Frequency
-    public static let defaultFrequency = 110.0
+    public static let defaultFrequency: Double = 110
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude = 0.5
+    public static let defaultAmplitude: Double = 0.5
 
     /// Initial value for Lowest Frequency
-    public static let defaultLowestFrequency = 110.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultLowestFrequency: Double = 110
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open dynamic var frequency: Double = defaultLowestFrequency {
+    @objc open var frequency: Double = defaultFrequency {
         willSet {
-            guard frequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                frequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.frequency, value: newValue)
+            let clampedValue = AKPluckedString.frequencyRange.clamp(newValue)
+            guard frequency != clampedValue else { return }
+            internalAU?.frequency.value = AUValue(clampedValue)
         }
     }
 
     /// Amplitude
-    @objc open dynamic var amplitude: Double = defaultAmplitude {
+    @objc open var amplitude: Double = defaultAmplitude {
         willSet {
-            guard amplitude != newValue else { return }
-            if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.amplitude, value: newValue)
+            let clampedValue = AKPluckedString.amplitudeRange.clamp(newValue)
+            guard amplitude != clampedValue else { return }
+            internalAU?.amplitude.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -73,57 +56,24 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     ///   - amplitude: Amplitude
+    ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
-    @objc public init(
-        frequency: Double = defaultLowestFrequency,
-        amplitude: Double = defaultAmplitude) {
-
-        self.frequency = frequency
-        self.amplitude = amplitude
+    public init(
+        frequency: Double = defaultFrequency,
+        amplitude: Double = defaultAmplitude,
+        lowestFrequency: Double = defaultLowestFrequency
+    ) {
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.frequency = frequency
+            self.amplitude = amplitude
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        frequencyParameter = tree["frequency"]
-        amplitudeParameter = tree["amplitude"]
-
-        internalAU?.setParameterImmediately(.frequency, value: frequency)
-        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
-    }
-
-    /// Trigger the sound with current parameters
-    ///
-    open func trigger() {
-        internalAU?.start()
-        internalAU?.trigger()
-    }
-
-    /// Trigger the sound with a set of parameters
-    ///
-    /// - Parameters:
-    ///   - frequency: Frequency in Hz
-    ///   - amplitude amplitude: Volume
-    ///
-    open func trigger(frequency: Double, amplitude: Double = 1) {
-        self.frequency = frequency
-        self.amplitude = amplitude
-        internalAU?.start()
-        internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
     }
 
     /// Function to start, play, or activate the node, all do the same thing

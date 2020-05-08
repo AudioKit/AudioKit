@@ -32,7 +32,7 @@ int sp_wavin_init(sp_data *sp, sp_wavin *p, const char *filename)
 static void read_block(sp_data *sp, sp_wavin *p, unsigned long position)
 {
     sp_wavin_seek(sp, p, position);
-    unsigned long samps_read = drwav_read_f32(&p->wav, WAVIN_BUFSIZE, p->buf);
+    unsigned long samps_read = (unsigned long)drwav_read_f32(&p->wav, WAVIN_BUFSIZE, p->buf);
     p->buf_start = position;
     p->buf_end = position + samps_read - 1;
 }

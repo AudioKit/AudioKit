@@ -15,20 +15,19 @@ extension AKMusicTrack {
     open var programChangeEvents: [MIDIProgramChangeEvent] {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {
-            for event in events {
-                if event.type == kMusicEventType_MIDIChannelMessage {
-                    let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
-                    guard let data1 = data?.pointee.data1,
-                        let statusData: MIDIByte = data?.pointee.status else {
-                            break
-                    }
-                    let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
-                    let channel = statusData.lowBit
-                    if statusType == .programChange {
-                        let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
-                        pgmEvents.append(pgmEvent)
-                    }
+            for event in events where event.type == kMusicEventType_MIDIChannelMessage {
+                let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
+                guard let data1 = data?.pointee.data1,
+                    let statusData: MIDIByte = data?.pointee.status else {
+                        break
                 }
+                let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
+                let channel = statusData.lowBit
+                if statusType == .programChange {
+                    let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
+                    pgmEvents.append(pgmEvent)
+                }
+                
             }
         }
         return pgmEvents
@@ -49,7 +48,7 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi note message")
                         return
                 }
-                AKLog("MIDI Note @: \(event.time) - note: \(note) - velocity: \(velocity) - duration: \(dur) - channel: \(channel)")
+                AKLog("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
             case kMusicEventType_Meta:
                 let data = UnsafePointer<MIDIMetaEvent>(event.data?.assumingMemoryBound(to: MIDIMetaEvent.self))
                 guard let midiData = data?.pointee.data,
@@ -72,7 +71,7 @@ extension AKMusicTrack {
                     case .programChange:
                         AKLog("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
                     default:
-                        AKLog("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(statusType)")
+                        AKLog("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusType)")
                     }
                 }
             default:

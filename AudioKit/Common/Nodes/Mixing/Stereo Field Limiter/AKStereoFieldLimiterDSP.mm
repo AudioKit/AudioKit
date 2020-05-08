@@ -7,8 +7,7 @@
 // its own heap based allocation.
 
 extern "C" AKDSPRef createStereoFieldLimiterDSP() {
-    AKStereoFieldLimiterDSP *dsp = new AKStereoFieldLimiterDSP();
-    return dsp;
+    return new AKStereoFieldLimiterDSP();
 }
 
 

@@ -28,7 +28,7 @@ class AKFaderTests: AKTestCase {
     }
 
     let flippedMD5 = "8c774ff60ef1a5c47f8beec155d25f11"
-    
+
     func testFlipStereo() {
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)

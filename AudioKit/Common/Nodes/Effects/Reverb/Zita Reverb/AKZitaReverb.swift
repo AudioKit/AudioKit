@@ -8,219 +8,161 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var predelayParameter: AUParameter?
-    fileprivate var crossoverFrequencyParameter: AUParameter?
-    fileprivate var lowReleaseTimeParameter: AUParameter?
-    fileprivate var midReleaseTimeParameter: AUParameter?
-    fileprivate var dampingFrequencyParameter: AUParameter?
-    fileprivate var equalizerFrequency1Parameter: AUParameter?
-    fileprivate var equalizerLevel1Parameter: AUParameter?
-    fileprivate var equalizerFrequency2Parameter: AUParameter?
-    fileprivate var equalizerLevel2Parameter: AUParameter?
-    fileprivate var dryWetMixParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Predelay
-    public static let predelayRange = 0.0 ... 200.0
+    public static let predelayRange: ClosedRange<Double> = 0.0 ... 200.0
 
     /// Lower and upper bounds for Crossover Frequency
-    public static let crossoverFrequencyRange = 10.0 ... 1_000.0
+    public static let crossoverFrequencyRange: ClosedRange<Double> = 10.0 ... 1_000.0
 
-    /// Lower and upper bounds for Low Release Duration
-    public static let lowReleaseTimeRange = 0.0 ... 10.0
+    /// Lower and upper bounds for Low Release Time
+    public static let lowReleaseTimeRange: ClosedRange<Double> = 0.0 ... 10.0
 
-    /// Lower and upper bounds for Mid Release Duration
-    public static let midReleaseTimeRange = 0.0 ... 10.0
+    /// Lower and upper bounds for Mid Release Time
+    public static let midReleaseTimeRange: ClosedRange<Double> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Damping Frequency
-    public static let dampingFrequencyRange = 10.0 ... 22_050.0
+    public static let dampingFrequencyRange: ClosedRange<Double> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Frequency1
-    public static let equalizerFrequency1Range = 10.0 ... 1_000.0
+    public static let equalizerFrequency1Range: ClosedRange<Double> = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Equalizer Level1
-    public static let equalizerLevel1Range = -100.0 ... 10.0
+    public static let equalizerLevel1Range: ClosedRange<Double> = -100.0 ... 10.0
 
     /// Lower and upper bounds for Equalizer Frequency2
-    public static let equalizerFrequency2Range = 10.0 ... 22_050.0
+    public static let equalizerFrequency2Range: ClosedRange<Double> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Level2
-    public static let equalizerLevel2Range = -100.0 ... 10.0
+    public static let equalizerLevel2Range: ClosedRange<Double> = -100.0 ... 10.0
 
     /// Lower and upper bounds for Dry Wet Mix
-    public static let dryWetMixRange = 0.0 ... 1.0
+    public static let dryWetMixRange: ClosedRange<Double> = 0.0 ... 1.0
 
     /// Initial value for Predelay
-    public static let defaultPredelay = 60.0
+    public static let defaultPredelay: Double = 60.0
 
     /// Initial value for Crossover Frequency
-    public static let defaultCrossoverFrequency = 200.0
+    public static let defaultCrossoverFrequency: Double = 200.0
 
-    /// Initial value for Low Release Duration
-    public static let defaultLowReleaseTime = 3.0
+    /// Initial value for Low Release Time
+    public static let defaultLowReleaseTime: Double = 3.0
 
-    /// Initial value for Mid Release Duration
-    public static let defaultMidReleaseTime = 2.0
+    /// Initial value for Mid Release Time
+    public static let defaultMidReleaseTime: Double = 2.0
 
     /// Initial value for Damping Frequency
-    public static let defaultDampingFrequency = 6_000.0
+    public static let defaultDampingFrequency: Double = 6_000.0
 
     /// Initial value for Equalizer Frequency1
-    public static let defaultEqualizerFrequency1 = 315.0
+    public static let defaultEqualizerFrequency1: Double = 315.0
 
     /// Initial value for Equalizer Level1
-    public static let defaultEqualizerLevel1 = 0.0
+    public static let defaultEqualizerLevel1: Double = 0.0
 
     /// Initial value for Equalizer Frequency2
-    public static let defaultEqualizerFrequency2 = 1_500.0
+    public static let defaultEqualizerFrequency2: Double = 1_500.0
 
     /// Initial value for Equalizer Level2
-    public static let defaultEqualizerLevel2 = 0.0
+    public static let defaultEqualizerLevel2: Double = 0.0
 
     /// Initial value for Dry Wet Mix
-    public static let defaultDryWetMix = 1.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultDryWetMix: Double = 1.0
 
     /// Delay in ms before reverberation begins.
-    @objc open dynamic var predelay: Double = defaultPredelay {
+    @objc open var predelay: Double = defaultPredelay {
         willSet {
-            guard predelay != newValue else { return }
-            if internalAU?.isSetUp == true {
-                predelayParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.predelay, value: newValue)
+            let clampedValue = AKZitaReverb.predelayRange.clamp(newValue)
+            guard predelay != clampedValue else { return }
+            internalAU?.predelay.value = AUValue(clampedValue)
         }
     }
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    @objc open dynamic var crossoverFrequency: Double = defaultCrossoverFrequency {
+    @objc open var crossoverFrequency: Double = defaultCrossoverFrequency {
         willSet {
-            guard crossoverFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                crossoverFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.crossoverFrequency, value: newValue)
+            let clampedValue = AKZitaReverb.crossoverFrequencyRange.clamp(newValue)
+            guard crossoverFrequency != clampedValue else { return }
+            internalAU?.crossoverFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    @objc open dynamic var lowReleaseTime: Double = defaultLowReleaseTime {
+    @objc open var lowReleaseTime: Double = defaultLowReleaseTime {
         willSet {
-            guard lowReleaseTime != newValue else { return }
-            if internalAU?.isSetUp == true {
-                lowReleaseTimeParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.lowReleaseTime, value: newValue)
+            let clampedValue = AKZitaReverb.lowReleaseTimeRange.clamp(newValue)
+            guard lowReleaseTime != clampedValue else { return }
+            internalAU?.lowReleaseTime.value = AUValue(clampedValue)
         }
     }
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    @objc open dynamic var midReleaseTime: Double = defaultMidReleaseTime {
+    @objc open var midReleaseTime: Double = defaultMidReleaseTime {
         willSet {
-            guard midReleaseTime != newValue else { return }
-            if internalAU?.isSetUp == true {
-                midReleaseTimeParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.midReleaseTime, value: newValue)
+            let clampedValue = AKZitaReverb.midReleaseTimeRange.clamp(newValue)
+            guard midReleaseTime != clampedValue else { return }
+            internalAU?.midReleaseTime.value = AUValue(clampedValue)
         }
     }
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    @objc open dynamic var dampingFrequency: Double = defaultDampingFrequency {
+    @objc open var dampingFrequency: Double = defaultDampingFrequency {
         willSet {
-            guard dampingFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                dampingFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.dampingFrequency, value: newValue)
+            let clampedValue = AKZitaReverb.dampingFrequencyRange.clamp(newValue)
+            guard dampingFrequency != clampedValue else { return }
+            internalAU?.dampingFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    @objc open dynamic var equalizerFrequency1: Double = defaultEqualizerFrequency1 {
+    @objc open var equalizerFrequency1: Double = defaultEqualizerFrequency1 {
         willSet {
-            guard equalizerFrequency1 != newValue else { return }
-            if internalAU?.isSetUp == true {
-                equalizerFrequency1Parameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.equalizerFrequency1, value: newValue)
+            let clampedValue = AKZitaReverb.equalizerFrequency1Range.clamp(newValue)
+            guard equalizerFrequency1 != clampedValue else { return }
+            internalAU?.equalizerFrequency1.value = AUValue(clampedValue)
         }
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    @objc open dynamic var equalizerLevel1: Double = defaultEqualizerLevel1 {
+    @objc open var equalizerLevel1: Double = defaultEqualizerLevel1 {
         willSet {
-            guard equalizerLevel1 != newValue else { return }
-            if internalAU?.isSetUp == true {
-                equalizerLevel1Parameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.equalizerLevel1, value: newValue)
+            let clampedValue = AKZitaReverb.equalizerLevel1Range.clamp(newValue)
+            guard equalizerLevel1 != clampedValue else { return }
+            internalAU?.equalizerLevel1.value = AUValue(clampedValue)
         }
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    @objc open dynamic var equalizerFrequency2: Double = defaultEqualizerFrequency2 {
+    @objc open var equalizerFrequency2: Double = defaultEqualizerFrequency2 {
         willSet {
-            guard equalizerFrequency2 != newValue else { return }
-            if internalAU?.isSetUp == true {
-                equalizerFrequency2Parameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.equalizerFrequency2, value: newValue)
+            let clampedValue = AKZitaReverb.equalizerFrequency2Range.clamp(newValue)
+            guard equalizerFrequency2 != clampedValue else { return }
+            internalAU?.equalizerFrequency2.value = AUValue(clampedValue)
         }
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    @objc open dynamic var equalizerLevel2: Double = defaultEqualizerLevel2 {
+    @objc open var equalizerLevel2: Double = defaultEqualizerLevel2 {
         willSet {
-            guard equalizerLevel2 != newValue else { return }
-            if internalAU?.isSetUp == true {
-                equalizerLevel2Parameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.equalizerLevel2, value: newValue)
+            let clampedValue = AKZitaReverb.equalizerLevel2Range.clamp(newValue)
+            guard equalizerLevel2 != clampedValue else { return }
+            internalAU?.equalizerLevel2.value = AUValue(clampedValue)
         }
     }
 
     /// 0 = all dry, 1 = all wet
-    @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
+    @objc open var dryWetMix: Double = defaultDryWetMix {
         willSet {
-            guard dryWetMix != newValue else { return }
-            if internalAU?.isSetUp == true {
-                dryWetMixParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
+            let clampedValue = AKZitaReverb.dryWetMixRange.clamp(newValue)
+            guard dryWetMix != clampedValue else { return }
+            internalAU?.dryWetMix.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -240,7 +182,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - equalizerLevel2: Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         predelay: Double = defaultPredelay,
         crossoverFrequency: Double = defaultCrossoverFrequency,
@@ -253,58 +195,26 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         equalizerLevel2: Double = defaultEqualizerLevel2,
         dryWetMix: Double = defaultDryWetMix
         ) {
-
-        self.predelay = predelay
-        self.crossoverFrequency = crossoverFrequency
-        self.lowReleaseTime = lowReleaseTime
-        self.midReleaseTime = midReleaseTime
-        self.dampingFrequency = dampingFrequency
-        self.equalizerFrequency1 = equalizerFrequency1
-        self.equalizerLevel1 = equalizerLevel1
-        self.equalizerFrequency2 = equalizerFrequency2
-        self.equalizerLevel2 = equalizerLevel2
-        self.dryWetMix = dryWetMix
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.predelay = predelay
+            self.crossoverFrequency = crossoverFrequency
+            self.lowReleaseTime = lowReleaseTime
+            self.midReleaseTime = midReleaseTime
+            self.dampingFrequency = dampingFrequency
+            self.equalizerFrequency1 = equalizerFrequency1
+            self.equalizerLevel1 = equalizerLevel1
+            self.equalizerFrequency2 = equalizerFrequency2
+            self.equalizerLevel2 = equalizerLevel2
+            self.dryWetMix = dryWetMix
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        predelayParameter = tree["predelay"]
-        crossoverFrequencyParameter = tree["crossoverFrequency"]
-        lowReleaseTimeParameter = tree["lowReleaseTime"]
-        midReleaseTimeParameter = tree["midReleaseTime"]
-        dampingFrequencyParameter = tree["dampingFrequency"]
-        equalizerFrequency1Parameter = tree["equalizerFrequency1"]
-        equalizerLevel1Parameter = tree["equalizerLevel1"]
-        equalizerFrequency2Parameter = tree["equalizerFrequency2"]
-        equalizerLevel2Parameter = tree["equalizerLevel2"]
-        dryWetMixParameter = tree["dryWetMix"]
-
-        internalAU?.setParameterImmediately(.predelay, value: predelay)
-        internalAU?.setParameterImmediately(.crossoverFrequency, value: crossoverFrequency)
-        internalAU?.setParameterImmediately(.lowReleaseTime, value: lowReleaseTime)
-        internalAU?.setParameterImmediately(.midReleaseTime, value: midReleaseTime)
-        internalAU?.setParameterImmediately(.dampingFrequency, value: dampingFrequency)
-        internalAU?.setParameterImmediately(.equalizerFrequency1, value: equalizerFrequency1)
-        internalAU?.setParameterImmediately(.equalizerLevel1, value: equalizerLevel1)
-        internalAU?.setParameterImmediately(.equalizerFrequency2, value: equalizerFrequency2)
-        internalAU?.setParameterImmediately(.equalizerLevel2, value: equalizerLevel2)
-        internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
     }
 
     // MARK: - Control

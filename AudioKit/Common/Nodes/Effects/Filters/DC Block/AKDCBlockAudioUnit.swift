@@ -11,9 +11,8 @@ public class AKDCBlockAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        setParameterTree(AUParameterTree(children: []))
+
+        parameterTree = AUParameterTree.createTree(withChildren: [])
+
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

@@ -9,7 +9,6 @@ typedef NS_ENUM(AUParameterAddress, AKStereoDelayParameter) {
     AKStereoDelayParameterFeedback,
     AKStereoDelayParameterDryWetMix,
     AKStereoDelayParameterPingPong,
-    AKStereoDelayParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -18,7 +17,7 @@ AKDSPRef createStereoDelayDSP(void);
 
 #else
 
-#import "AKLinearParameterRamp.hpp"
+#include "AKDSPBase.hpp"
 
 class AKStereoDelayDSP : public AKDSPBase
 {
@@ -29,29 +28,15 @@ private:
 public:
     AKStereoDelayDSP();
 
-    float timeLowerBound = 0;
-    float timeUpperBound = 2;
-    float feedbackLowerBound = 0;
-    float feedbackUpperBound = 1;
-    float dryWetMixLowerBound = 0;
-    float dryWetMixUpperBound = 1;
-
-    float defaultTime = 0.5;
-    float defaultFeedback = 0;
-    float defaultDryWetMix = 0.5;
-    bool defaultPingPong = false;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
-    
+
     void init(int channelCount, double sampleRate) override;
-    void clear() override;
+
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

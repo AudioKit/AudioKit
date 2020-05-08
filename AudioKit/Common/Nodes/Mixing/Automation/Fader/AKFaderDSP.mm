@@ -5,23 +5,20 @@
 
 extern "C" AKDSPRef createFaderDSP()
 {
-    AKFaderDSP *dsp = new AKFaderDSP();
-    return dsp;
+    return new AKFaderDSP();
 }
 
 struct AKFaderDSP::InternalData {
     ParameterRamper leftGainRamp = 1.0;
     ParameterRamper rightGainRamp = 1.0;
-    Boolean flipStereo = false;
-    Boolean mixToMono = false;
+    bool flipStereo = false;
+    bool mixToMono = false;
 };
 
 AKFaderDSP::AKFaderDSP() : data(new InternalData)
 {
+    bCanProcessInPlace = true;
 }
-
-
-
 
 // Uses the ParameterAddress as a key
 void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
@@ -86,16 +83,6 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
             return data->mixToMono;
     }
     return 0;
-}
-
-void AKFaderDSP::start()
-{
-    isStarted = true;
-}
-
-void AKFaderDSP::stop()
-{
-    isStarted = false;
 }
 
 void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)

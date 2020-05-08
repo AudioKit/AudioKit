@@ -12,59 +12,41 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var cutoffFrequencyParameter: AUParameter?
-    fileprivate var resonanceParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Resonance
-    public static let resonanceRange = 0.0 ... 2.0
+    public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency = 1_000.0
+    public static let defaultCutoffFrequency: Double = 1_000
 
     /// Initial value for Resonance
-    public static let defaultResonance = 0.5
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultResonance: Double = 0.5
 
     /// Filter cutoff frequency.
-    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
+    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            guard cutoffFrequency != newValue else { return }
-            if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
+            let clampedValue = AKMoogLadder.cutoffFrequencyRange.clamp(newValue)
+            guard cutoffFrequency != clampedValue else { return }
+            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
         }
     }
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @objc open dynamic var resonance: Double = defaultResonance {
+    @objc open var resonance: Double = defaultResonance {
         willSet {
-            guard resonance != newValue else { return }
-            if internalAU?.isSetUp == true {
-                resonanceParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.resonance, value: newValue)
+            let clampedValue = AKMoogLadder.resonanceRange.clamp(newValue)
+            guard resonance != clampedValue else { return }
+            internalAU?.resonance.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -76,39 +58,23 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - cutoffFrequency: Filter cutoff frequency.
     ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = defaultCutoffFrequency,
         resonance: Double = defaultResonance
         ) {
-
-        self.cutoffFrequency = cutoffFrequency
-        self.resonance = resonance
+        super.init()
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.cutoffFrequency = cutoffFrequency
+            self.resonance = resonance
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter = tree["resonance"]
-
-        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
-        internalAU?.setParameterImmediately(.resonance, value: resonance)
     }
 
     // MARK: - Control

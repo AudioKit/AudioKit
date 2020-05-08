@@ -14,10 +14,10 @@ open class AKAbstractPlayer: AKNode {
         public static var linearTaper = (in: 1.0, out: 1.0)
 
         // half pipe
-        public static var audioTaper = (in: 3.0, out: 0.3333)
+        public static var audioTaper = (in: 3.0, out: 0.333_3)
 
         // flipped half pipe
-        public static var reverseAudioTaper = (in: 0.3333, out: 3.0)
+        public static var reverseAudioTaper = (in: 0.333_3, out: 3.0)
 
         /// An init is requited for the Fade struct to be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
@@ -46,7 +46,7 @@ open class AKAbstractPlayer: AKNode {
         }
 
         // the slope adjustment in the taper
-        public var inSkew: Double = 0.3333
+        public var inSkew: Double = 0.333_3
 
         // Out properties
         public var outTime: Double = 0 {
@@ -226,7 +226,9 @@ open class AKAbstractPlayer: AKNode {
     // MARK: internal functions to be used by subclasses
 
     /// This is used to schedule the fade in and out for a region. It uses values from the fade struct.
-    internal func scheduleFader(at audioTime: AVAudioTime?, hostTime: UInt64?, frameOffset: AVAudioFramePosition = 512) {
+    internal func scheduleFader(at audioTime: AVAudioTime?,
+                                hostTime: UInt64?,
+                                frameOffset: AVAudioFramePosition = 512) {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
         // reset automation if it is running
@@ -240,9 +242,6 @@ open class AKAbstractPlayer: AKNode {
 
             let inOffset = AUAudioFrameCount(offsetTime * sampleRate)
             let rampDuration = AUAudioFrameCount(fade.inTime * sampleRate)
-
-//            AKLog("Scheduling fade IN to fade.maximumGain", fade.maximumGain, "rampDuration", rampDuration,
-//                  "offsetTime", offsetTime, "taper", fade.inTaper)
 
             // add this extra point for the case where it is offline processing
             faderNode.addAutomationPoint(value: Fade.minimumGain,

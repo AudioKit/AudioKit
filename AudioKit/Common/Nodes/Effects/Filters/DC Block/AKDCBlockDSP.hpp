@@ -20,11 +20,11 @@ private:
 public:
     AKDCBlockDSP();
 
-    int defaultRampDurationSamples = 10000;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

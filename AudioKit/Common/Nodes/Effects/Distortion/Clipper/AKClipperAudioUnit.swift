@@ -4,21 +4,7 @@ import AVFoundation
 
 public class AKClipperAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKClipperParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKClipperParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
-    var limit: Double = AKClipper.defaultLimit {
-        didSet { setParameter(.limit, value: limit) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    private(set) var limit: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createClipperDSP()
@@ -27,7 +13,8 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let limit = AUParameter(
+
+        limit = AUParameter(
             identifier: "limit",
             name: "Threshold",
             address: AKClipperParameter.limit.rawValue,
@@ -35,10 +22,8 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [limit]))
-        limit.value = Float(AKClipper.defaultLimit)
+        parameterTree = AUParameterTree.createTree(withChildren: [limit])
+
+        limit.value = AUValue(AKClipper.defaultLimit)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

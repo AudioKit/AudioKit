@@ -185,20 +185,20 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         case custom
 
         func create(file path: String, write: Bool = false) throws -> String {
-          switch (self, write) {
+            switch (self, write) {
             case (.temp, _):
-              return NSTemporaryDirectory() + path
+                return NSTemporaryDirectory() + path
             case (.documents, _):
-              return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
+                return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
             case (.resources, false):
-              return try Bundle.main.path(forResource: path, ofType: "") ??
-                         NSError.fileCreateError
+                return try Bundle.main.path(forResource: path, ofType: "") ??
+                    NSError.fileCreateError
             case (.custom, _):
-              AKLog("AKAudioFile: custom directory not implemented", log: OSLog.fileHandling, type: .error)
-              fallthrough
+                AKLog("AKAudioFile: custom directory not implemented", log: OSLog.fileHandling, type: .error)
+                fallthrough
             default:
-              throw NSError.fileCreateError
-          }
+                throw NSError.fileCreateError
+            }
         }
     }
 

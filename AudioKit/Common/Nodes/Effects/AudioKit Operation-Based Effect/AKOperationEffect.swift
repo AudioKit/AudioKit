@@ -8,7 +8,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {

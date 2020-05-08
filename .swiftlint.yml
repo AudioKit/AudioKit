@@ -3,7 +3,8 @@ disabled_rules: # rule identifiers to exclude from running
   - attributes
   - cyclomatic_complexity
   - type_name
-
+  - large_tuple
+  - identifier_name
 
 type_body_length:
   - 400 # warning
@@ -20,10 +21,6 @@ line_length:
 file_length:
   - 400 # warning
   - 10000 # error
-
-identifier_name:
-  min_length:
-    - 1 # warning
 
 force_cast: warning
 empty_count:
@@ -45,7 +42,6 @@ opt_in_rules:
   - legacy_constructor
   - closure_spacing
   - closure_end_indentation
-  - conditional_returns_on_newline
   - empty_count
   - explicit_init
   - first_where
@@ -64,7 +60,6 @@ opt_in_rules:
   - line_length
   - attributes
   - force_unwrapping
-  - identifier_name
   - type_name
   - type_body_length
   - function_parameter_count

@@ -7,7 +7,7 @@ class PluckedStringTests: AKTestCase {
     let pluckedString = AKOperationGenerator { _ in
         return AKOperation.pluckedString(trigger: AKOperation.metronome())
     }
-    
+
     override func setUp() {
         afterStart = { self.pluckedString.start() }
         duration = 1.0

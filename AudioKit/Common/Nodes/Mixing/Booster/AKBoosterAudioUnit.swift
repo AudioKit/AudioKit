@@ -1,32 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AVFoundation
 
 public class AKBoosterAudioUnit: AKAudioUnitBase {
-    func setParameter(_ address: AKBoosterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
 
-    func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    var leftGain: AUParameter!
 
-    var leftGain: Double = 1.0 {
-        didSet { setParameter(.leftGain, value: leftGain) }
-    }
+    var rightGain: AUParameter!
 
-    var rightGain: Double = 1.0 {
-        didSet { setParameter(.rightGain, value: rightGain) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    var rampType: Int = 0 {
-        didSet {
-            setParameter(.rampType, value: Double(rampType))
-        }
-    }
+    var rampType: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createBoosterDSP()
@@ -36,7 +18,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let leftGain = AUParameter(
+        leftGain = AUParameter(
             identifier: "leftGain",
             name: "Left Boosting Amount",
             address: 0,
@@ -44,7 +26,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             unit: .linearGain,
             flags: .default)
 
-        let rightGain = AUParameter(
+        rightGain = AUParameter(
             identifier: "rightGain",
             name: "Right Boosting Amount",
             address: 1,
@@ -52,10 +34,18 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             unit: .linearGain,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [leftGain, rightGain]))
+        rampType = AUParameter(
+            identifier: "rampType",
+            name: "Ramp Type",
+            address: 2,
+            range: 0.0...3.0,
+            unit: .indexed,
+            flags: .default)
+
+        parameterTree = AUParameterTree.createTree(withChildren: [leftGain, rightGain, rampType])
+
         leftGain.value = 1.0
         rightGain.value = 1.0
+        rampType.value = AUValue(AKSettings.RampType.linear.rawValue)
     }
-
-    public override var canProcessInPlace: Bool { return true }
 }

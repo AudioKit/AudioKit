@@ -50,23 +50,12 @@ AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
     : AKModulatedDelay(type)
     , AKDSPBase()
 {
-    depthRamp.setTarget(0.0f, true);
-    depthRamp.setDurationInSamples(10000);
-    feedbackRamp.setTarget(0.0f, true);
-    feedbackRamp.setDurationInSamples(10000);
-    switch (type) {
-        case kFlanger:
-            frequencyRamp.setTarget(kAKFlanger_DefaultFrequency, true);
-            dryWetMixRamp.setTarget(kAKFlanger_DefaultDryWetMix, true);
-            break;
-        case kChorus:
-        default:
-            frequencyRamp.setTarget(kAKChorus_DefaultFrequency, true);
-            dryWetMixRamp.setTarget(kAKChorus_DefaultDryWetMix, true);
-            break;
-    }
-    dryWetMixRamp.setDurationInSamples(10000);
-    frequencyRamp.setDurationInSamples(10000);
+    parameters[AKModulatedDelayParameterFrequency] = &frequencyRamp;
+    parameters[AKModulatedDelayParameterDepth] = &depthRamp;
+    parameters[AKModulatedDelayParameterFeedback] = &feedbackRamp;
+    parameters[AKModulatedDelayParameterDryWetMix] = &dryWetMixRamp;
+    
+    bCanProcessInPlace = true;
 }
 
 void AKModulatedDelayDSP::init(int channels, double sampleRate)
@@ -79,47 +68,6 @@ void AKModulatedDelayDSP::deinit()
 {
     AKDSPBase::deinit();
     AKModulatedDelay::deinit();
-}
-
-void AKModulatedDelayDSP::setParameter(AUParameterAddress address, float value, bool immediate)
-{
-    switch (address) {
-        case AKModulatedDelayParameterFrequency:
-            frequencyRamp.setTarget(value, immediate);
-            break;
-        case AKModulatedDelayParameterDepth:
-            depthRamp.setTarget(value, immediate);
-            break;
-        case AKModulatedDelayParameterFeedback:
-            feedbackRamp.setTarget(value, immediate);
-            break;
-        case AKModulatedDelayParameterDryWetMix:
-            dryWetMixRamp.setTarget(value, immediate);
-            break;
-        case AKModulatedDelayParameterRampDuration:
-            frequencyRamp.setRampDuration(value, sampleRate);
-            depthRamp.setRampDuration(value, sampleRate);
-            feedbackRamp.setRampDuration(value, sampleRate);
-            dryWetMixRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-float AKModulatedDelayDSP::getParameter(AUParameterAddress address)
-{
-    switch (address) {
-        case AKModulatedDelayParameterFrequency:
-            return frequencyRamp.getTarget();
-        case AKModulatedDelayParameterDepth:
-            return depthRamp.getTarget();
-        case AKModulatedDelayParameterFeedback:
-            return feedbackRamp.getTarget();
-        case AKModulatedDelayParameterDryWetMix:
-            return dryWetMixRamp.getTarget();
-        case AKModulatedDelayParameterRampDuration:
-            return frequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
 }
 
 #define CHUNKSIZE 8     // defines ramp interval

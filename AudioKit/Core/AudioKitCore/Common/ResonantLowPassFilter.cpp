@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 // ResonantLowPassFilter implements a simple digital low-pass filter with dynamically
 // adjustable cutoff frequency and resonance.
 

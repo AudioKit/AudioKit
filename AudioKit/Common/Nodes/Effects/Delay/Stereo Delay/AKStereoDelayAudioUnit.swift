@@ -4,63 +4,43 @@ import AVFoundation
 
 public class AKStereoDelayAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKStereoDelayParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var time: AUParameter!
 
-    func setParameterImmediately(_ address: AKStereoDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    var feedback: AUParameter!
 
-    var time: Double = AKStereoDelay.defaultTime {
-        didSet { setParameter(.time, value: time) }
-    }
+    var dryWetMix: AUParameter!
 
-    var feedback: Double = AKStereoDelay.defaultFeedback {
-        didSet { setParameter(.feedback, value: feedback) }
-    }
-
-    var dryWetMix: Double = AKStereoDelay.defaultDryWetMix {
-        didSet { setParameter(.dryWetMix, value: dryWetMix) }
-    }
-
-    var pingPong: Bool = false {
-        didSet { setParameter(.pingPong, value: pingPong ? 1.0 : 0.0) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
+    var pingPong: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
         return createStereoDelayDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                                      options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let time = AUParameter(
+        time = AUParameter(
             identifier: "time",
             name: "Delay time (Seconds)",
             address: AKStereoDelayParameter.time.rawValue,
             range: AKStereoDelay.timeRange,
             unit: .seconds,
             flags: .default)
-        let feedback = AUParameter(
+        feedback = AUParameter(
             identifier: "feedback",
             name: "Feedback (%)",
             address: AKStereoDelayParameter.feedback.rawValue,
             range: AKStereoDelay.feedbackRange,
             unit: .generic,
             flags: .default)
-        let dryWetMix = AUParameter(
+        dryWetMix = AUParameter(
             identifier: "dryWetMix",
             name: "Dry-Wet Mix",
             address: AKStereoDelayParameter.dryWetMix.rawValue,
             range: AKStereoDelay.dryWetMixRange,
             unit: .generic,
             flags: .default)
-        let pingPong = AUParameter(
+        pingPong = AUParameter(
             identifier: "pingPong",
             name: "Ping-Pong Mode",
             address: AKStereoDelayParameter.pingPong.rawValue,
@@ -68,13 +48,11 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             unit: .boolean,
             flags: [.flag_IsReadable, .flag_IsWritable])
 
-        setParameterTree(AUParameterTree(children: [time, feedback, dryWetMix, pingPong]))
+        parameterTree = AUParameterTree.createTree(withChildren: [time, feedback, dryWetMix, pingPong])
+
         time.value = Float(AKStereoDelay.defaultTime)
         feedback.value = Float(AKStereoDelay.defaultFeedback)
         dryWetMix.value = Float(AKStereoDelay.defaultDryWetMix)
         pingPong.value = 0.0
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

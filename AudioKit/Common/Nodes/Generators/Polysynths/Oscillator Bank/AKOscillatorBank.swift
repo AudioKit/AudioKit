@@ -10,10 +10,10 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Waveform of the oscillator
-    open var waveform: AKTable? {
+    @objc open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
