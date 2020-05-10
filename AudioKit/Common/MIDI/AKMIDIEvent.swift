@@ -208,8 +208,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     init(command: AKMIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
         var data = [byte1]
-        if byte2 != nil {
-            data.append(byte2!)
+        if let byte2 = byte2 {
+            data.append(byte2)
         }
         fillData(command: command, bytes: data)
     }
