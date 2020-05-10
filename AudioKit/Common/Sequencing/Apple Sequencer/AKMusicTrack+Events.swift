@@ -27,7 +27,6 @@ extension AKMusicTrack {
                     let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
                     pgmEvents.append(pgmEvent)
                 }
-                
             }
         }
         return pgmEvents
