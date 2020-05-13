@@ -19,6 +19,8 @@ extern "C" AKDSPRef createFaderDSP(int channelCount, double sampleRate)
 struct AKFaderDSP::InternalData {
     ParameterRamper leftGainRamp = 1.0;
     ParameterRamper rightGainRamp = 1.0;
+    Boolean flipStereo = false;
+    Boolean mixToMono = false;
 };
 
 AKFaderDSP::AKFaderDSP() : data(new InternalData)
@@ -54,6 +56,19 @@ void AKFaderDSP::setParameter(AUParameterAddress address, AUValue value, bool im
             data->leftGainRamp.setOffset((AUAudioFrameCount)value);
             data->rightGainRamp.setOffset((AUAudioFrameCount)value);
             break;
+        case AKFaderParameterFlipStereo:
+            if (value > 0) {
+                data->flipStereo = true;
+            } else {
+                data->flipStereo = false;
+            }
+            break;
+        case AKFaderParameterMixToMono:
+            if (value > 0) {
+                data->mixToMono = true;
+            } else {
+                data->mixToMono = false;
+            }
     }
 }
 
@@ -72,6 +87,10 @@ float AKFaderDSP::getParameter(AUParameterAddress address)
             return data->leftGainRamp.getSkew();
         case AKFaderParameterOffset:
             return data->leftGainRamp.getOffset();
+        case AKFaderParameterFlipStereo:
+            return data->flipStereo;
+        case AKFaderParameterMixToMono:
+            return data->mixToMono;
     }
     return 0;
 }
@@ -91,19 +110,32 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do actual signal processing
-        // After all this scaffolding, the only thing we are doing is scaling the input
+        float *tmpin[2];
+        float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            if (isStarted) {
-                if (channel == 0) {
-                    *out = *in * data->leftGainRamp.getAndStep();
-                } else {
-                    *out = *in * data->rightGainRamp.getAndStep();
-                }
-            } else {
+
+            if (channel < 2) {
+                tmpin[channel] = in;
+                tmpout[channel] = out;
+            }
+            if (!isStarted) {
                 *out = *in;
+            }
+        }
+        if (isStarted) {
+            if (channelCount == 2 && data->mixToMono) {
+                *tmpout[0] = 0.5 * (*tmpin[0] * data->leftGainRamp.getAndStep() + *tmpin[1] * data->rightGainRamp.getAndStep());
+                *tmpout[1] = *tmpout[0];
+            } else {
+                if (channelCount == 2 && data->flipStereo) {
+                    *tmpout[0] = *tmpin[1] * data->leftGainRamp.getAndStep();
+                    *tmpout[1] = *tmpin[0] * data->rightGainRamp.getAndStep();
+                } else {
+                    *tmpout[0] = *tmpin[0] * data->leftGainRamp.getAndStep();
+                    *tmpout[1] = *tmpin[1] * data->rightGainRamp.getAndStep();
+                }
             }
         }
     }
