@@ -94,9 +94,7 @@ extension AKPlayer {
 
     /// Provides a convenience method for a quick fade out for when a user presses stop.
     public func fadeOutAndStop(time: TimeInterval) {
-        guard isPlaying else {
-            return
-        }
+        guard isPlaying else { return }
 
         // creates if necessary only
         startFader()
@@ -128,8 +126,8 @@ extension AKPlayer {
     }
 
     @objc internal func stopCompletion() {
+        guard isPlaying else { return }
         playerNode.stop()
-
         if isFaded {
             super.faderNode?.stopAutomation()
         }
