@@ -25,7 +25,6 @@ public:
 
     AKStereoFieldLimiterDSP() {
         parameters[AKStereoFieldLimiterParameterAmount] = &amountRamp;
-        bCanProcessInPlace = true;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

@@ -9,7 +9,7 @@
 #ifndef __cplusplus
 
 AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
-void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* inputBuffer, AVAudioPCMBuffer* outputBuffer);
+void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* buffer);
 void deallocateRenderResourcesDSP(AKDSPRef pDSP);
 void resetDSP(AKDSPRef pDSP);
 bool canProcessInPlaceDSP(AKDSPRef pDSP);
@@ -41,8 +41,7 @@ void deleteDSP(AKDSPRef pDSP);
 
 class AKDSPBase {
     
-    const AVAudioPCMBuffer *inputBuffer;
-    const AVAudioPCMBuffer *outputBuffer;
+    const AVAudioPCMBuffer* internalBuffer;
     
     /// Ramp rate for ramped parameters
     float rampDuration;
@@ -73,7 +72,7 @@ public:
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
     
-    void setBuffers(const AVAudioPCMBuffer* inputBuffer, const AVAudioPCMBuffer* outputBuffer);
+    void setBuffers(const AVAudioPCMBuffer* buffer);
     
     AUInternalRenderBlock internalRenderBlock();
     

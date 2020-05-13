@@ -17,6 +17,7 @@ struct AKVariableDelayDSP::InternalData {
 AKVariableDelayDSP::AKVariableDelayDSP() : data(new InternalData) {
     parameters[AKVariableDelayParameterTime] = &data->timeRamp;
     parameters[AKVariableDelayParameterFeedback] = &data->feedbackRamp;
+    bCanProcessInPlace = false;
 }
 
 void AKVariableDelayDSP::init(int channelCount, double sampleRate) {

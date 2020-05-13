@@ -15,6 +15,7 @@ struct AKToneComplementFilterDSP::InternalData {
 
 AKToneComplementFilterDSP::AKToneComplementFilterDSP() : data(new InternalData) {
     parameters[AKToneComplementFilterParameterHalfPowerPoint] = &data->halfPowerPointRamp;
+    bCanProcessInPlace = false;
 }
 
 void AKToneComplementFilterDSP::init(int channelCount, double sampleRate) {
