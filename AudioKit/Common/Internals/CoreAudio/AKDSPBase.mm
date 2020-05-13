@@ -14,9 +14,9 @@ extern "C" AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
     return pDSP->internalRenderBlock();
 }
 
-extern "C" void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* inputBuffer, AVAudioPCMBuffer* outputBuffer)
+extern "C" void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* buffer)
 {
-    pDSP->setBuffers(inputBuffer, outputBuffer);
+    pDSP->setBuffers(buffer);
     pDSP->init(format.channelCount, format.sampleRate);
 }
 
@@ -86,10 +86,9 @@ AKDSPBase::AKDSPBase()
 {
 }
 
-void AKDSPBase::setBuffers(const AVAudioPCMBuffer* inputBuffer, const AVAudioPCMBuffer* outputBuffer)
+void AKDSPBase::setBuffers(const AVAudioPCMBuffer* buffer)
 {
-    this->inputBuffer = inputBuffer;
-    this->outputBuffer = outputBuffer;
+    internalBuffer = buffer;
 }
 
 AUInternalRenderBlock AKDSPBase::internalRenderBlock()
@@ -103,39 +102,26 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
         const AURenderEvent        *realtimeEventListHead,
         AURenderPullInputBlock      pullInputBlock)
     {
-        if (pullInputBlock) { // should only be valid if AU accepts input
-            inBufferListPtr = inputBuffer.mutableAudioBufferList;
-            
-            UInt32 byteSize = frameCount * sizeof(float);
-            inBufferListPtr->mNumberBuffers = inputBuffer.audioBufferList->mNumberBuffers;
-            for (UInt32 i = 0; i < inBufferListPtr->mNumberBuffers; i++) {
-                inBufferListPtr->mBuffers[i].mDataByteSize = byteSize;
-                inBufferListPtr->mBuffers[i].mNumberChannels = inputBuffer.audioBufferList->mBuffers[i].mNumberChannels;
-                inBufferListPtr->mBuffers[i].mData = inputBuffer.audioBufferList->mBuffers[i].mData;
+        if (pullInputBlock) {
+            if (bCanProcessInPlace) {
+                // pull input directly to output buffer
+                inBufferListPtr = outputData;
+            }
+            else {
+                // pull input to internal buffer
+                inBufferListPtr = internalBuffer.mutableAudioBufferList;
+                
+                UInt32 byteSize = frameCount * sizeof(float);
+                inBufferListPtr->mNumberBuffers = internalBuffer.audioBufferList->mNumberBuffers;
+                for (UInt32 i = 0; i < inBufferListPtr->mNumberBuffers; i++) {
+                    inBufferListPtr->mBuffers[i].mDataByteSize = byteSize;
+                    inBufferListPtr->mBuffers[i].mNumberChannels = internalBuffer.audioBufferList->mBuffers[i].mNumberChannels;
+                    inBufferListPtr->mBuffers[i].mData = internalBuffer.audioBufferList->mBuffers[i].mData;
+                }
             }
             
             AudioUnitRenderActionFlags inputFlags = 0;
             pullInputBlock(&inputFlags, timestamp, frameCount, 0, inBufferListPtr);
-        }
-        
-        if (!outputData->mBuffers[0].mData) {
-            if (bCanProcessInPlace) {
-                // use input buffer
-                for (UInt32 i = 0; i < outputData->mNumberBuffers; ++i) {
-                    outputData->mBuffers[i].mData = inBufferListPtr->mBuffers[i].mData;
-                }
-            }
-            else
-            {
-                // use internal buffer
-                UInt32 byteSize = frameCount * sizeof(float);
-                outputData->mNumberBuffers = outputBuffer.audioBufferList->mNumberBuffers;
-                for (UInt32 i = 0; i < outputData->mNumberBuffers; i++) {
-                    outputData->mBuffers[i].mDataByteSize = byteSize;
-                    outputData->mBuffers[i].mNumberChannels = outputBuffer.audioBufferList->mBuffers[i].mNumberChannels;
-                    outputData->mBuffers[i].mData = outputBuffer.audioBufferList->mBuffers[i].mData;
-                }
-            }
         }
         
         outBufferListPtr = outputData;
@@ -182,8 +168,7 @@ void AKDSPBase::init(int channelCount, double sampleRate)
 
 void AKDSPBase::deinit()
 {
-    inputBuffer = nullptr;
-    outputBuffer = nullptr;
+    internalBuffer = nullptr;
     isInitialized = false;
 }
 
