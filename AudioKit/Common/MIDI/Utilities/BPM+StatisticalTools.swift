@@ -27,7 +27,7 @@ extension Array where Element: Numeric {
     }
 
     func std() -> Float64 {
-        guard self.count > 1 else { return 0 }
+        guard count > 1 else { return 0 }
         let mean = self.avg()
         let start = Float64(0)
         let v = self.reduce(start) { (priorResult, item) -> Float64 in
@@ -77,11 +77,11 @@ struct BPMHistoryStatistics {
     }
 
     func timeAt(ratio: Float) -> UInt64 {
-        guard timeHistory.count != 0 else { return 0 }
-        guard timeHistory.count != 1 else { return UInt64(timeHistory.first!) }
+        guard timeHistory.isNotEmpty else { return 0 }
+        guard timeHistory.count != 1 else { return UInt64(timeHistory.first ?? 0) }
         let firstIndex = max(timeHistory.count - historyCounts[regressionCountIndex], 0)
         let first = timeHistory[firstIndex]
-        let last = timeHistory.last!
+        let last = timeHistory.last ?? first
         let value = first + ((last - first) * ratio)
         return UInt64(value)
     }

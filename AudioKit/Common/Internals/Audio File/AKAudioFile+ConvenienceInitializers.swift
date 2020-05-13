@@ -124,11 +124,13 @@ extension AKAudioFile {
         }
 
         // set the buffer frameLength
-        buffer?.frameLength = (buffer?.frameCapacity)!
+        buffer?.frameLength = buffer?.frameCapacity ?? 0
 
         // Write the buffer in file
         do {
-            try self.write(from: buffer!)
+            if let buf = buffer {
+                try write(from: buf)
+            }
         } catch let error as NSError {
             AKLog("Cannot writeFromBuffer: \(error)")
             throw error

@@ -262,7 +262,7 @@ extension AKMIDI {
                                                  portID: portID,
                                                  offset: offset)
                 case .pitchWheel:
-                    listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
+                    listener.receivedMIDIPitchWheel(event.pitchbendAmount ?? 0,
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
                                                     offset: offset)
