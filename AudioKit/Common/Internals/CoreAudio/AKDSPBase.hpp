@@ -92,9 +92,6 @@ public:
     
     inline bool canProcessInPlace() const { return bCanProcessInPlace; }
 
-    /// Don't necessarily reset, but clear out the buffers if applicable
-    virtual void clear() {}
-
     /// Common for oscillators
     virtual void setWavetable(const float* table, size_t length, int index) {}
 
@@ -107,23 +104,6 @@ public:
     virtual void trigger() {}
 
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
-
-    virtual bool isLooping()
-    {
-        return false;
-    }
-
-    virtual void toggleLooping() {}
-
-    virtual void setTargetAU(AudioUnit target) {}
-
-    virtual void addMIDIEvent(UInt8 status, UInt8 data1, UInt8 data2, double beat) {}
-
-    /// Musical file
-    virtual double getTempo()
-    {
-        return 0.0;
-    }
 
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs)
     {
