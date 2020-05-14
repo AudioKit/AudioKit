@@ -5,7 +5,7 @@ import Foundation
 /// Audio player that loads a sample into memory
 open class AKSequencerTrack: AKNode, AKComponent {
 
-    public typealias AKAudioUnitType = AKSequencerEngine
+    public typealias AKAudioUnitType = AKSequencerEngineAudioUnit
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "sqcr")
@@ -15,61 +15,51 @@ open class AKSequencerTrack: AKNode, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
     public var targetNode: AKNode?
 
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet { internalAU?.rampDuration = newValue }
-    }
-
     /// Length of the track in beats
     public var length: Double {
-        get { return internalAU?.length ?? 0 }
-        set { internalAU?.length = newValue }
+        get { return Double(internalAU?.length.value ?? 0) }
+        set { internalAU?.length.value = AUValue(newValue) }
     }
 
     /// Speed of the track in beats per minute
     public var tempo: BPM {
-        get { return internalAU?.tempo ?? 0 }
-        set { internalAU?.tempo = newValue }
+        get { return BPM(internalAU?.tempo.value ?? 0) }
+        set { internalAU?.tempo.value = AUValue(newValue) }
     }
 
     /// Maximum number of times to play, ie. loop the track
     public var maximumPlayCount: Double {
-        get { return internalAU?.maximumPlayCount ?? 0 }
-        set { internalAU?.maximumPlayCount = newValue }
+        get { return Double(internalAU?.maximumPlayCount.value ?? 0) }
+        set { internalAU?.maximumPlayCount.value = AUValue(newValue) }
     }
 
     /// Is looping enabled?
     public var loopEnabled: Bool {
-        set { internalAU?.loopEnabled = newValue }
-        get { return internalAU?.loopEnabled ?? false }
+        set { internalAU?.loopEnabled.value = newValue ? 1 : 0 }
+        get { return (internalAU?.loopEnabled.value ?? 0) > 0.5 }
     }
 
     /// Is the track currently playing?
     public var isPlaying: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
     /// Current position of the track
     public var currentPosition: Double {
-        return internalAU?.currentPosition ?? 0
+        return Double(internalAU?.position.value ?? 0)
     }
 
     // MARK: - Initialization
 
     /// Initialize the track
     @objc public override init() {
-        _Self.register()
-
         super.init()
-
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        
+        _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         AKManager.internalConnections.append(self)
@@ -84,7 +74,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
     /// Set the target node
     public func setTarget(node: AKNode) {
         targetNode = node
-        internalAU?.setTarget(targetNode?.avAudioUnit?.audioUnit)
+        internalAU?.setTarget(targetNode!.avAudioUnit!.audioUnit)
     }
 
     /// Start the track
@@ -111,12 +101,12 @@ open class AKSequencerTrack: AKNode, AKComponent {
 
     /// Set the current position to the start ofthe track
     public func rewind() {
-        internalAU?.rewind()
+        internalAU?.position.value = 0
     }
 
     /// Move to a position in the track
     public func seek(to position: Double) {
-        internalAU?.seek(to: position)
+        internalAU?.position.value = AUValue(position)
     }
 
     /// Add a MIDI note to the track
@@ -129,7 +119,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
         while noteOffPosition >= length && length != 0 {
             noteOffPosition -= length
         }
-        internalAU?.addMIDINote(noteNumber,
+        internalAU?.addMIDINote(number: noteNumber,
                                 velocity: velocity,
                                 beat: position,
                                 duration: duration)
@@ -137,7 +127,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
 
     /// Add MIDI data to the track as an event
     open func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
-        internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: position)
+        internalAU?.addMIDIEvent(status: status.byte, data1: data1, data2: data2, beat: position)
     }
 
     /// Add a MIDI event to the track at a specific position
@@ -148,11 +138,11 @@ open class AKSequencerTrack: AKNode, AKComponent {
     }
 
     open func removeEvent(at position: Double) {
-        internalAU?.removeEvent(position)
+        internalAU?.removeEvent(beat: position)
     }
 
     open func removeNote(at position: Double) {
-        internalAU?.removeNote(position)
+        internalAU?.removeNote(beat: position)
     }
 
     /// Remove the notes in the track
