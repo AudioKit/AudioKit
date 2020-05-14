@@ -1,50 +1,60 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include <stdio.h>
 #pragma once
+
+#import <AVFoundation/AVFoundation.h>
+
+typedef NS_ENUM(AUParameterAddress, AKSequencerEngineParameter) {
+    AKSequencerEngineParameterTempo,
+    AKSequencerEngineParameterLength,
+    AKSequencerEngineParameterMaximumPlayCount,
+    AKSequencerEngineParameterPosition,
+    AKSequencerEngineParameterLoopEnabled
+};
+
+#ifndef __cplusplus
+
+AKDSPRef createAKSequencerEngineDSP(void);
+
+void sequencerEngineAddMIDIEvent(AKDSPRef dsp, uint8_t status, uint8_t data1, uint8_t data2, double beat);
+void sequencerEngineAddMIDINote(AKDSPRef dsp, uint8_t noteNumber, uint8_t velocity, double beat, double duration);
+void sequencerEngineRemoveMIDIEvent(AKDSPRef dsp, double beat);
+void sequencerEngineRemoveMIDINote(AKDSPRef dsp, double beat);
+
+void sequencerEngineStopPlayingNotes(AKDSPRef dsp);
+void sequencerEngineClear(AKDSPRef dsp);
+
+void sequencerEngineSetAUTarget(AKDSPRef dsp, AudioUnit audioUnit);
+
+#else
+
+#include "AKDSPBase.hpp"
 #include <vector>
-using std::vector;
+#include <stdio.h>
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
-struct MIDIEvent {
-    uint8_t status;
-    uint8_t data1;
-    uint8_t data2;
-    double beat;
-};
+class AKSequencerEngineDSP : public AKDSPBase {
+    
+    struct MIDIEvent {
+        uint8_t status;
+        uint8_t data1;
+        uint8_t data2;
+        double beat;
+    };
 
-struct MIDINote {
-    struct MIDIEvent noteOn;
-    struct MIDIEvent noteOff;
-};
-
-enum {
-    startPointAddress = 0,
-};
-
-class AKSequencerEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+    struct MIDINote {
+        struct MIDIEvent noteOn;
+        struct MIDIEvent noteOff;
+    };
+    
 public:
 
-    AKSequencerEngineDSPKernel() {}
-
-    void init(int channelCount, double sampleRate) override {
-
-    }
+    AKSequencerEngineDSP() {}
 
     void setTargetAU(AudioUnit target) {
         targetAU = target;
-    }
-
-    void start() {
-        started = true;
-        isPlaying = true;
-    }
-
-    void stop() {
-        started = false;
-        isPlaying = false;
     }
 
     void seekTo(double position) {
@@ -57,42 +67,8 @@ public:
         seekTo(lastPosition);                           // 3) go back to where we were before time manipulation
     }
 
-    void reset() {
-        resetted = true;
-        startPointRamper.reset();
-    }
-
-    void destroy() {
-
-    }
-
     void setStartPoint(float value) {
         startPoint = value;
-    }
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-            case startPointAddress:
-                startPointRamper.setUIValue(clamp(value, 0.0f, 10.0f));
-                break;
-        }
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case startPointAddress:
-                return startPointRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case startPointAddress:
-                startPointRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
-                break;
-        }
     }
 
     void addPlayingNote(MIDINote note, int offset) {
@@ -108,9 +84,48 @@ public:
         sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOff.beat);
         playingNotes.erase(playingNotes.begin() + index);
     }
+    
+    void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
+        switch (address) {
+            case AKSequencerEngineParameterTempo:
+                setTempo(value);
+                break;
+            case AKSequencerEngineParameterLength:
+                length = value;
+                break;
+            case AKSequencerEngineParameterMaximumPlayCount:
+                maximumPlayCount = value;
+                break;
+            case AKSequencerEngineParameterPosition:
+                seekTo(value);
+                break;
+            case AKSequencerEngineParameterLoopEnabled:
+                loopEnabled = value > 0.5f;
+                break;
+        }
+    }
+
+    AUValue getParameter(AUParameterAddress address) override {
+        switch (address) {
+            case AKSequencerEngineParameterTempo:
+                return tempo;
+            case AKSequencerEngineParameterLength:
+                return length;
+            case AKSequencerEngineParameterMaximumPlayCount:
+                return maximumPlayCount;
+                break;
+            case AKSequencerEngineParameterPosition:
+                return currentPositionInBeats();
+                break;
+            case AKSequencerEngineParameterLoopEnabled:
+                return loopEnabled ? 1.f : 0.f;
+            default:
+                return 0.f;
+        }
+    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        if (isPlaying) {
+        if (isStarted) {
             if (positionInSamples >= lengthInSamples()){
                 if (!loopEnabled) { //stop if played enough
                     stop();
@@ -278,7 +293,7 @@ public:
         return (double)positionModulo() / sampleRate * (tempo / 60);
     }
 
-    bool validTriggerTime(double beat){
+    bool validTriggerTime(double beat) {
         return true;
     }
 
@@ -290,20 +305,16 @@ private:
     long positionInSamples = 0;
 
 public:
-    bool started = false;
-    bool resetted = false;
-    ParameterRamper startPointRamper = 1;
-
-    bool isPlaying = false;
     MIDIPortRef midiPort;
     MIDIEndpointRef midiEndpoint;
-    AKCCallback loopCallback = nullptr;
-    vector<MIDIEvent> events;
-    vector<MIDINote> notes;
-    vector<MIDINote> playingNotes;
+    std::vector<MIDIEvent> events;
+    std::vector<MIDINote> notes;
+    std::vector<MIDINote> playingNotes;
     int maximumPlayCount = 0;
     double length = 4.0;
     double tempo = 120.0;
     bool loopEnabled = true;
     uint numberOfLoops = 0;
 };
+
+#endif
