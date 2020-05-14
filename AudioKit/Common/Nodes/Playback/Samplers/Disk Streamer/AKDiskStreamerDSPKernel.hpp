@@ -39,7 +39,6 @@ public:
         started = false;
         useTempStartPoint = false;
         useTempEndPoint = false;
-        rewind();
     }
 
     void rewind() {
