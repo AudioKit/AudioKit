@@ -77,7 +77,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (channel == 0) {

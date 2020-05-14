@@ -110,8 +110,8 @@ void AKDynaRageCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
         data->right_compressor->setParameters(threshold, ratio, attack, release);
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (channel == 0) {
