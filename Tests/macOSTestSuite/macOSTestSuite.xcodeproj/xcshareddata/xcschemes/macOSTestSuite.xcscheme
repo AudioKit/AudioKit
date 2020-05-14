@@ -46,6 +46,11 @@
                BlueprintName = "macOSTestSuiteTests"
                ReferencedContainer = "container:macOSTestSuite.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AKBoosterTests/testRamp()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
