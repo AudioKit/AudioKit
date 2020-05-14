@@ -17,7 +17,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -29,18 +29,16 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - comparator: Audio to match power with
     ///
     @objc public init(_ input: AKNode? = nil, comparator: AKNode) {
-        _Self.register()
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
-            comparator.connectionPoints.append(AVAudioConnectionPoint(node: strongSelf.avAudioUnitOrNode, bus: 1))
+        
+        _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            
+            input?.connect(to: self)
+            comparator.connect(to: self, bus: 1)
         }
     }
 
