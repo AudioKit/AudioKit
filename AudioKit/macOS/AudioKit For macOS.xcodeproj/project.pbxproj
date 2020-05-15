@@ -91,9 +91,6 @@
 		482DA1611DD91607009742BD /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482DA15E1DD91607009742BD /* AKClarinet.swift */; };
 		531CD8F3207BA1B0006C15E0 /* CDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F1207BA1B0006C15E0 /* CDelay.cpp */; };
 		531CD8F4207BA1B0006C15E0 /* CDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 531CD8F2207BA1B0006C15E0 /* CDelay.h */; };
-		552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		552CD4911F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */; };
-		552CD4921F3BBA34005762E9 /* AKOfflineRenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */; };
 		552FBD451F3F731200C02C08 /* AKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552FBD441F3F731200C02C08 /* AKConnection.swift */; };
 		555857D41F6217DB00C73F59 /* AVAudioBufferConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857D21F6217DA00C73F59 /* AVAudioBufferConvenience.swift */; };
 		555857D51F6217DB00C73F59 /* AVAudioTimeShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857D31F6217DB00C73F59 /* AVAudioTimeShim.swift */; };
@@ -1300,9 +1297,6 @@
 		482DA15E1DD91607009742BD /* AKClarinet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AKClarinet.swift; path = Clarinet/AKClarinet.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		531CD8F1207BA1B0006C15E0 /* CDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDelay.cpp; sourceTree = "<group>"; };
 		531CD8F2207BA1B0006C15E0 /* CDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDelay.h; sourceTree = "<group>"; };
-		552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKOfflineRenderAudioUnit.h; path = Offline/OfflineRender/AKOfflineRenderAudioUnit.h; sourceTree = "<group>"; };
-		552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKOfflineRendererAudioUnit.mm; path = Offline/OfflineRender/AKOfflineRendererAudioUnit.mm; sourceTree = "<group>"; };
-		552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOfflineRenderNode.swift; path = Offline/OfflineRender/AKOfflineRenderNode.swift; sourceTree = "<group>"; };
 		552FBD441F3F731200C02C08 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
 		555857D21F6217DA00C73F59 /* AVAudioBufferConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioBufferConvenience.swift; sourceTree = "<group>"; };
 		555857D31F6217DB00C73F59 /* AVAudioTimeShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioTimeShim.swift; sourceTree = "<group>"; };
@@ -2655,16 +2649,6 @@
 			name = Clarinet;
 			sourceTree = "<group>";
 		};
-		552CD48C1F3BBA1B005762E9 /* Offline */ = {
-			isa = PBXGroup;
-			children = (
-				552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */,
-				552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */,
-				552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */,
-			);
-			name = Offline;
-			sourceTree = "<group>";
-		};
 		555857D61F6217FF00C73F59 /* ClipPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3227,7 +3211,6 @@
 				C45665C71D448D7E00D26565 /* Generators */,
 				C45666291D448D7E00D26565 /* Input */,
 				C456662B1D448D7E00D26565 /* Mixing */,
-				552CD48C1F3BBA1B005762E9 /* Offline */,
 				C456663F1D448D7E00D26565 /* Playback */,
 				C44EA2882018749A0072399F /* README.md */,
 			);
@@ -5505,7 +5488,6 @@
 				C49B1B4A204A0C48009C7C8E /* Function.h in Headers */,
 				C49B1B04204A0C48009C7C8E /* dsound.h in Headers */,
 				C49B1B3D204A0C48009C7C8E /* DelayA.h in Headers */,
-				552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */,
 				C49B1AEA204A0C48009C7C8E /* Voicer.h in Headers */,
 				C49B1AF2204A0C48009C7C8E /* FreeVerb.h in Headers */,
 				B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */,
@@ -6075,7 +6057,6 @@
 				C45669AC1D448D7E00D26565 /* AKMixer.swift in Sources */,
 				C49B192D204A0AD1009C7C8E /* butlp.c in Sources */,
 				3492774921C8153500EB0892 /* AKStereoDelayAudioUnit.swift in Sources */,
-				552CD4911F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm in Sources */,
 				C47C528C2093066200A6FB3C /* AKWaveTable.swift in Sources */,
 				C49B1926204A0AD1009C7C8E /* slice.c in Sources */,
 				C4812AF3202854E100D4AFB1 /* AKModalResonanceFilterDSP.mm in Sources */,
@@ -6422,7 +6403,6 @@
 				C49B1950204A0AD1009C7C8E /* parse.c in Sources */,
 				C49B1946204A0AD1009C7C8E /* p.c in Sources */,
 				C4BC74802030217900062B11 /* ExceptionCatcher.m in Sources */,
-				552CD4921F3BBA34005762E9 /* AKOfflineRenderNode.swift in Sources */,
 				C45668AB1D448D7E00D26565 /* AKMIDIInstrument.swift in Sources */,
 				C49B192F204A0AD1009C7C8E /* fm.c in Sources */,
 				34BB66C6205ABBC0000E5450 /* unpack_dsd.c in Sources */,
