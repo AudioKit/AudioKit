@@ -14,9 +14,28 @@ extern "C" AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
     return pDSP->internalRenderBlock();
 }
 
-extern "C" void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* buffer)
+extern "C" size_t inputBusCountDSP(AKDSPRef pDSP)
 {
-    pDSP->setBuffers(buffer);
+    return pDSP->inputBufferLists.size();
+}
+
+extern "C" size_t outputBusCountDSP(AKDSPRef pDSP)
+{
+    return pDSP->outputBufferLists.size();
+}
+
+extern "C" bool canProcessInPlaceDSP(AKDSPRef pDSP)
+{
+    return pDSP->canProcessInPlace();
+}
+
+extern "C" void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+{
+    pDSP->setBuffer(buffer, busIndex);
+}
+
+extern "C" void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format)
+{
     pDSP->init(format.channelCount, format.sampleRate);
 }
 
@@ -28,11 +47,6 @@ extern "C" void deallocateRenderResourcesDSP(AKDSPRef pDSP)
 extern "C" void resetDSP(AKDSPRef pDSP)
 {
     pDSP->reset();
-}
-
-extern "C" bool canProcessInPlaceDSP(AKDSPRef pDSP)
-{
-    return pDSP->canProcessInPlace();
 }
 
 extern "C" void setRampDurationDSP(AKDSPRef pDSP, float rampDuration)
@@ -81,14 +95,17 @@ extern "C" void deleteDSP(AKDSPRef pDSP)
 }
 
 AKDSPBase::AKDSPBase()
-: sampleRate(44100) // best guess
-, channelCount(2)   // best guess
+: channelCount(2)   // best guess
+, sampleRate(44100) // best guess
+, inputBufferLists(1)
+, outputBufferLists(1)
 {
 }
 
-void AKDSPBase::setBuffers(const AVAudioPCMBuffer* buffer)
+void AKDSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
 {
-    internalBuffer = buffer;
+    if (internalBuffers.size() <= busIndex) internalBuffers.resize(busIndex + 1);
+    internalBuffers[busIndex] = buffer;
 }
 
 AUInternalRenderBlock AKDSPBase::internalRenderBlock()
@@ -103,28 +120,32 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
         AURenderPullInputBlock      pullInputBlock)
     {
         if (pullInputBlock) {
-            if (bCanProcessInPlace) {
+            if (bCanProcessInPlace && inputBufferLists.size() == 1) {
                 // pull input directly to output buffer
-                inBufferListPtr = outputData;
+                inputBufferLists[0] = outputData;
+                AudioUnitRenderActionFlags inputFlags = 0;
+                pullInputBlock(&inputFlags, timestamp, frameCount, 0, inputBufferLists[0]);
             }
             else {
                 // pull input to internal buffer
-                inBufferListPtr = internalBuffer.mutableAudioBufferList;
-                
-                UInt32 byteSize = frameCount * sizeof(float);
-                inBufferListPtr->mNumberBuffers = internalBuffer.audioBufferList->mNumberBuffers;
-                for (UInt32 i = 0; i < inBufferListPtr->mNumberBuffers; i++) {
-                    inBufferListPtr->mBuffers[i].mDataByteSize = byteSize;
-                    inBufferListPtr->mBuffers[i].mNumberChannels = internalBuffer.audioBufferList->mBuffers[i].mNumberChannels;
-                    inBufferListPtr->mBuffers[i].mData = internalBuffer.audioBufferList->mBuffers[i].mData;
+                for (size_t i = 0; i < inputBufferLists.size(); i++) {
+                    inputBufferLists[i] = internalBuffers[i].mutableAudioBufferList;
+                    
+                    UInt32 byteSize = frameCount * sizeof(float);
+                    inputBufferLists[i]->mNumberBuffers = internalBuffers[i].audioBufferList->mNumberBuffers;
+                    for (UInt32 ch = 0; ch < inputBufferLists[i]->mNumberBuffers; ch++) {
+                        inputBufferLists[i]->mBuffers[ch].mDataByteSize = byteSize;
+                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBuffers[i].audioBufferList->mBuffers[ch].mNumberChannels;
+                        inputBufferLists[i]->mBuffers[ch].mData = internalBuffers[i].audioBufferList->mBuffers[ch].mData;
+                    }
+                    
+                    AudioUnitRenderActionFlags inputFlags = 0;
+                    pullInputBlock(&inputFlags, timestamp, frameCount, i, inputBufferLists[i]);
                 }
             }
-            
-            AudioUnitRenderActionFlags inputFlags = 0;
-            pullInputBlock(&inputFlags, timestamp, frameCount, 0, inBufferListPtr);
         }
         
-        outBufferListPtr = outputData;
+        outputBufferLists[0] = outputData;
         
         processWithEvents(timestamp, frameCount, realtimeEventListHead);
         
@@ -168,7 +189,6 @@ void AKDSPBase::init(int channelCount, double sampleRate)
 
 void AKDSPBase::deinit()
 {
-    internalBuffer = nullptr;
     isInitialized = false;
 }
 

@@ -120,7 +120,7 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

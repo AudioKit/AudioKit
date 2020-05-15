@@ -12,50 +12,55 @@ open class AKAudioUnitBase: AUAudioUnit {
 
     // MARK: AUAudioUnit Overrides
     
-    private var inputBus: AUAudioUnitBus
-    private var outputBus: AUAudioUnitBus
+    private var inputBusArray: [AUAudioUnitBus] = []
+    private var outputBusArray: [AUAudioUnitBus] = []
     
-    private var pcmBuffer: AVAudioPCMBuffer?
+    private var pcmBufferArray: [AVAudioPCMBuffer?] = []
 
     public override func allocateRenderResources() throws {
         try super.allocateRenderResources()
         
         let format = AKSettings.audioFormat
-        if inputBus.format != format { try inputBus.setFormat(format) }
-        if outputBus.format != format { try outputBus.setFormat(format) }
         
-        if !canProcessInPlace {
-            // we don't need to allocate a buffer if we can process in place
-            pcmBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: maximumFramesToRender)
+        try inputBusArray.forEach{ if $0.format != format { try $0.setFormat(format) }}
+        try outputBusArray.forEach{ if $0.format != format { try $0.setFormat(format) }}
+        
+        // we don't need to allocate a buffer if we can process in place
+        if !canProcessInPlace || inputBusArray.count > 1 {
+            for i in inputBusArray.indices {
+                let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: maximumFramesToRender)
+                pcmBufferArray.append(buffer)
+                setBufferDSP(dsp, buffer, i)
+            }
         }
         
-        allocateRenderResourcesDSP(dsp, format, pcmBuffer)
+        allocateRenderResourcesDSP(dsp, format)
     }
 
     public override func deallocateRenderResources() {
         super.deallocateRenderResources()
         deallocateRenderResourcesDSP(dsp)
-        pcmBuffer = nil
+        pcmBufferArray.removeAll()
     }
 
     public override func reset() {
         resetDSP(dsp)
     }
 
-    lazy private var inputBusArray: AUAudioUnitBusArray = {
-        AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [inputBus])
+    lazy private var auInputBusArray: AUAudioUnitBusArray = {
+        AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: inputBusArray)
     }()
     
     public override var inputBusses: AUAudioUnitBusArray {
-        return inputBusArray
+        return auInputBusArray
     }
     
-    lazy private var outputBusArray: AUAudioUnitBusArray = {
-        AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [outputBus])
+    lazy private var auOutputBusArray: AUAudioUnitBusArray = {
+        AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: outputBusArray)
     }()
 
     public override var outputBusses: AUAudioUnitBusArray {
-        return outputBusArray
+        return auOutputBusArray
     }
     
     public override var internalRenderBlock: AUInternalRenderBlock {
@@ -92,17 +97,23 @@ open class AKAudioUnitBase: AUAudioUnit {
     
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
-        let format = AKSettings.audioFormat
-        inputBus = try AUAudioUnitBus(format: format)
-        outputBus = try AUAudioUnitBus(format: format)
-
         try super.init(componentDescription: componentDescription, options: options)
 
         // Create pointer to the underlying C++ DSP code
         dsp = createDSP()
         if dsp == nil { throw AKError.InvalidDSPObject }
-
+        
+        // set default ramp duration
         setRampDurationDSP(dsp, Float(rampDuration))
+        
+        // create audio bus connection points
+        let format = AKSettings.audioFormat
+        for _ in 0..<inputBusCountDSP(dsp) {
+            inputBusArray.append(try AUAudioUnitBus(format: format))
+        }
+        for _ in 0..<outputBusCountDSP(dsp) {
+            outputBusArray.append(try AUAudioUnitBus(format: format))
+        }
     }
 
     deinit {
