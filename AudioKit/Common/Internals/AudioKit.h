@@ -163,9 +163,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // EZAudio
 #import "EZAudio.h"
 
-// Offline
-#import "AKOfflineRenderAudioUnit.h"
-
 // Taps
 #import "AKRenderTap.h"
 #import "AKLazyTap.h"
