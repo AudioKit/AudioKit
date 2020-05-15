@@ -72,21 +72,6 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         }
     }
 
-    /// Connnect another input after initialization // Deprecated
-    ///
-    /// - parameter input: AKNode to connect
-    /// - parameter bus: what channel of the mixer to connect on.
-    /// If you use this it is up to your application to keep track of what inputs are in use to make sure you
-    /// don't overwrite an existing channel with an active node that is active.
-
-    // swiftlint:disable line_length
-    @available(*, deprecated, message: "use connect(to:AKNode) or connect(to:AKNode, bus:Int) from the upstream node instead")
-    open func connect(_ input: AKNode?, bus: Int? = nil) {
-        input?.connect(to: self, bus: bus ?? nextInput.bus)
-    }
-
-    // swiftlint:enable line_length
-
     // It is not possible to use @objc on AKOutput extension, so [connectWithInput:bus:]
     /// Connect for Objectivec access, with bus definition
     @objc open func connect(input: AKNode?, bus: Int) {
