@@ -20,9 +20,9 @@ open class AKMIDISampler: AKAppleSampler {
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
     ///
-    public init(midiOutputName: String? = nil) {
+    public init(name midiOutputName: String) {
         super.init()
-        enableMIDI(name: midiOutputName ?? name)
+        enableMIDI(name: midiOutputName)
         hideVirtualMIDIPort()
     }
 

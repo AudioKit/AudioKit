@@ -20,11 +20,6 @@ extension AVAudioConnectionPoint {
         return self.avAudioUnit ?? self.avAudioNode
     }
 
-    /// Create the node
-    public override init() {
-        self.avAudioNode = AVAudioNode()
-    }
-
     /// Initialize the node from an AVAudioUnit
     @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit

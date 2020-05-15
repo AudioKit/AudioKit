@@ -61,7 +61,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
         frequency: Double = defaultFrequency,
         qualityFactor: Double = defaultQualityFactor
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

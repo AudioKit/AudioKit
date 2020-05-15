@@ -26,7 +26,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///
     @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         avAudioNode = internalNode.avAudioNode
         avAudioUnit = internalNode.avAudioUnit
       enableMIDI(name: midiOutputName ?? "Unnamed")

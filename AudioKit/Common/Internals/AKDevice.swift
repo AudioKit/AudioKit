@@ -36,8 +36,8 @@ open class AKDevice: NSObject {
     #if os(macOS)
     public convenience init(ezAudioDevice: EZAudioDevice) {
         self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
-        self.nInputChannels = ezAudioDevice.inputChannelCount
-        self.nOutputChannels = ezAudioDevice.outputChannelCount
+        nInputChannels = ezAudioDevice.inputChannelCount
+        nOutputChannels = ezAudioDevice.outputChannelCount
     }
     #endif
 

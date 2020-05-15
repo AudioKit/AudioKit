@@ -64,7 +64,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         feedback: Double = defaultFeedback,
         maximumDelayTime: Double = defaultMaximumDelayTime
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
