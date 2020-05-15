@@ -17,10 +17,10 @@ enum Sound: String {
 class Conductor {
     private var sequencer: AKAppleSequencer!
     private var mixer = AKMixer()
-    private var arpeggioSynthesizer = AKMIDISampler()
-    private var padSynthesizer = AKMIDISampler()
-    private var bassSynthesizer = AKMIDISampler()
-    private var drumKit = AKMIDISampler()
+    private var arpeggioSynthesizer = AKMIDISampler(name: "Arpeggio Synth")
+    private var padSynthesizer = AKMIDISampler(name: "Pad Synth")
+    private var bassSynthesizer = AKMIDISampler(name: "Bass Synth")
+    private var drumKit = AKMIDISampler(name: "Drums")
     private var filter: AKMoogLadder?
 
     init() {
