@@ -163,11 +163,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    @objc public convenience init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -184,7 +179,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate:          Frequency of vibrato in Hz
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         carrierMultiplier: Double = 1,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,

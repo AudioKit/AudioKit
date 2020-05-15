@@ -52,7 +52,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the track
-    @objc public init() {
+    @objc public init(targetNode: AKNode?) {
         super.init(avAudioNode: AVAudioNode())
         
         _Self.register()
@@ -63,13 +63,11 @@ open class AKSequencerTrack: AKNode, AKComponent {
         }
 
         AKManager.internalConnections.append(self)
+        if let target = targetNode {
+            setTarget(node: target)
+        }
     }
 
-    /// Initialize the track with a target node
-    @objc public convenience init(targetNode: AKNode) {
-        self.init()
-        setTarget(node: targetNode)
-    }
 
     /// Set the target node
     public func setTarget(node: AKNode) {

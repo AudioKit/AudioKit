@@ -99,11 +99,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -114,8 +109,8 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    public init(
-        waveform: AKTable,
+    @objc public init(
+        waveform: AKTable = AKTable(.sine),
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
         phaseDistortion: Double = defaultPhaseDistortion,

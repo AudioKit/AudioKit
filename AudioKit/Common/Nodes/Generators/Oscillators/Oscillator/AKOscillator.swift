@@ -81,11 +81,6 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -96,7 +91,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
         detuningOffset: Double = defaultDetuningOffset,
