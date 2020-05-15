@@ -202,7 +202,7 @@ class ViewController: UIViewController {
                     AKLog(error.localizedDescription)
                 }
             @unknown default:
-                <#fatalError()#>
+                fatalError()
             }
 
         }
