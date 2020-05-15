@@ -8,11 +8,18 @@
 
 #ifndef __cplusplus
 
+#include <stdarg.h>
+
 AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
-void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format, AVAudioPCMBuffer* buffer);
+
+size_t inputBusCountDSP(AKDSPRef pDSP);
+size_t outputBusCountDSP(AKDSPRef pDSP);
+bool canProcessInPlaceDSP(AKDSPRef pDSP);
+
+void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
+void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
 void deallocateRenderResourcesDSP(AKDSPRef pDSP);
 void resetDSP(AKDSPRef pDSP);
-bool canProcessInPlaceDSP(AKDSPRef pDSP);
 
 void setRampDurationDSP(AKDSPRef pDSP, float rampDuration);
 void setParameterDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
@@ -32,6 +39,7 @@ void deleteDSP(AKDSPRef pDSP);
 
 #import <Foundation/Foundation.h>
 #import <algorithm>
+#import <vector>
 #import <map>
 
 /**
@@ -41,7 +49,7 @@ void deleteDSP(AKDSPRef pDSP);
 
 class AKDSPBase {
     
-    const AVAudioPCMBuffer* internalBuffer;
+    std::vector<const AVAudioPCMBuffer*> internalBuffers;
     
     /// Ramp rate for ramped parameters
     float rampDuration;
@@ -50,8 +58,6 @@ protected:
 
     int channelCount;
     double sampleRate;
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
     
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
@@ -72,9 +78,14 @@ public:
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
     
-    void setBuffers(const AVAudioPCMBuffer* buffer);
+    std::vector<AudioBufferList*> inputBufferLists;
+    std::vector<AudioBufferList*> outputBufferLists;
     
     AUInternalRenderBlock internalRenderBlock();
+    
+    inline bool canProcessInPlace() const { return bCanProcessInPlace; }
+    
+    void setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex);
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
@@ -89,8 +100,6 @@ public:
 
     /// Get the DSP into initialized state
     virtual void reset() {}
-    
-    inline bool canProcessInPlace() const { return bCanProcessInPlace; }
 
     /// Common for oscillators
     virtual void setWavetable(const float* table, size_t length, int index) {}
@@ -104,12 +113,6 @@ public:
     virtual void trigger() {}
 
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
-
-    virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs)
-    {
-        inBufferListPtr = inBufs;
-        outBufferListPtr = outBufs;
-    }
     
     /// override this if your DSP kernel allocates memory or requires the session sample rate for initialization
     virtual void init(int channelCount, double sampleRate);

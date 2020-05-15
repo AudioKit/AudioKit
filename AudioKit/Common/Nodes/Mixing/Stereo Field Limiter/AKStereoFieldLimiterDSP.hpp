@@ -37,16 +37,16 @@ public:
             float amount = amountRamp.getValue();
 
             if (!isStarted) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
+                outputBufferLists[0]->mBuffers[0] = inputBufferLists[0]->mBuffers[0];
+                outputBufferLists[0]->mBuffers[1] = inputBufferLists[0]->mBuffers[1];
                 return;
             }
 
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
                 if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
