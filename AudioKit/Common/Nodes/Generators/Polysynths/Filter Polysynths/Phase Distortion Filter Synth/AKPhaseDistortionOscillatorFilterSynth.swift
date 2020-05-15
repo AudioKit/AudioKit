@@ -237,11 +237,6 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     }
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -265,7 +260,7 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     ///   - filterLFORate: Speed of filter LFO
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         phaseDistortion: Double = 0.0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,

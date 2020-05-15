@@ -34,12 +34,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
-    /// Initialize the mandolin with defaults
-    convenience init() {
-        self.init(frequency: 110)
-    }
-
+    
     /// Initialize the STK Flute model
     ///
     /// - Parameters:

@@ -124,11 +124,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(pulseWidth: 0.5)
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:

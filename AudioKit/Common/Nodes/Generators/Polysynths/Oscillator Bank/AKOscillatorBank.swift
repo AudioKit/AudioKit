@@ -125,11 +125,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -144,7 +139,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
