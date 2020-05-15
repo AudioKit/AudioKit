@@ -201,6 +201,8 @@ class ViewController: UIViewController {
                 } catch {
                     AKLog(error.localizedDescription)
                 }
+            @unknown default:
+                <#fatalError()#>
             }
 
         }
@@ -222,6 +224,8 @@ class ViewController: UIViewController {
                 } catch {
                     AKLog(error.localizedDescription)
                 }
+            @unknown default:
+                fatalError()
             }
         }
 
