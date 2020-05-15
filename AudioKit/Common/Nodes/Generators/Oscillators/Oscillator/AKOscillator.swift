@@ -90,7 +90,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    public init(
+    @objc public init(
         waveform: AKTable = AKTable(.sine),
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
