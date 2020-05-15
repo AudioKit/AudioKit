@@ -115,7 +115,7 @@ open class AKSpeechSynthesizer: AKNode {
         SpeakCFString(speechChannel, text as CFString, nil)
     }
 
-    @objc public override init() {
+    @objc public init() {
         super.init(avAudioNode: speechAU, attach: true)
 
         // Grab the speech channel
