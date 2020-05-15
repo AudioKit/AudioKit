@@ -101,7 +101,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    public convenience init() {
         self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
 
@@ -126,7 +126,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         detuningMultiplier: Double = defaultDetuningMultiplier,
         phase: Double = defaultPhase
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

@@ -85,7 +85,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         rage: Double = 0.1,
         rageIsOn: Bool = true
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

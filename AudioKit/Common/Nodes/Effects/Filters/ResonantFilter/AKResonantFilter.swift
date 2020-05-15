@@ -60,7 +60,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         frequency: Double = defaultFrequency,
         bandwidth: Double = defaultBandwidth
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

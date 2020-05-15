@@ -96,7 +96,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    public convenience init() {
         self.init(waveform: AKTable(.sine))
     }
 
@@ -118,7 +118,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         modulationIndex: Double = defaultModulationIndex,
         amplitude: Double = defaultAmplitude
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

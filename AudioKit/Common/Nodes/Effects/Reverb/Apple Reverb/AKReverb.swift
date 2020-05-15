@@ -26,7 +26,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     ///
     @objc public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         avAudioUnit = reverbAU
         avAudioNode = reverbAU

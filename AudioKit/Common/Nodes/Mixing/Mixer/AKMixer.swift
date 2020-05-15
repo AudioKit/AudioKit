@@ -30,7 +30,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    @objc public override init() {
+    @objc public init() {
         super.init(avAudioNode: mixerAU, attach: true)
     }
 

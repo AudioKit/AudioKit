@@ -88,7 +88,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         dryWetMix: Double = defaultDryWetMix,
         pingPong: Bool = false
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

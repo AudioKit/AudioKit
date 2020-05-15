@@ -82,7 +82,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    public convenience init() {
         self.init(waveform: AKTable(.sine))
     }
 
@@ -102,7 +102,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffset: Double = defaultDetuningOffset,
         detuningMultiplier: Double = defaultDetuningMultiplier
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
