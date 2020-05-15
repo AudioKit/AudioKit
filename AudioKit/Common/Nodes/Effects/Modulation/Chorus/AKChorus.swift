@@ -93,7 +93,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
         feedback: Double = defaultFeedback,
         dryWetMix: Double = defaultDryWetMix
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

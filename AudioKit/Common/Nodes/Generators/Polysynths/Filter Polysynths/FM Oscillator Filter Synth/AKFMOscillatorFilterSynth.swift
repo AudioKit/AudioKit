@@ -273,11 +273,6 @@ open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -303,7 +298,7 @@ open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     ///   - filterLFORate: Speed of filter LFO
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         carrierMultiplier: Double = 1,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
@@ -348,7 +343,7 @@ open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

@@ -177,7 +177,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
-            super.init()
+            super.init(avAudioNode: AVAudioNode())
             avAudioUnit = internalEffect
             AKManager.engine.attach(avAudioUnitOrNode)
             input?.connect(to: self)

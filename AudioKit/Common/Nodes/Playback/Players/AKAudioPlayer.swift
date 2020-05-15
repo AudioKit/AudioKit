@@ -262,7 +262,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         internalAudioFile = readFile
         self.completionHandler = completionHandler
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         self.looping = looping
         AKManager.engine.attach(internalPlayer)
         AKManager.engine.attach(internalMixer)

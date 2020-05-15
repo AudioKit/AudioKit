@@ -179,7 +179,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         inverted: Double = defaultInverted,
         lfoBPM: Double = defaultLfoBPM
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

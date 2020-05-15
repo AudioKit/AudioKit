@@ -64,7 +64,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
         fundamentalFrequency: Double = defaultFundamentalFrequency,
         feedback: Double = defaultFeedback
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

@@ -125,11 +125,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -144,7 +139,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
@@ -164,7 +159,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit
