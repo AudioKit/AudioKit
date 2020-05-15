@@ -106,11 +106,15 @@ open class AKClipPlayer: AKNode {
     }
     // swiftlint:enable force_cast
 
-    public init() {
+    public init(clips: [FileClip]? = nil) {
         AKManager.engine.attach(playerNode)
         AKManager.engine.attach(mixer)
         AKManager.engine.connect(playerNode, to: mixer)
         super.init(avAudioNode: mixer, attach: false)
+
+        if let clips = clips {
+            self.clips = clips
+        }
     }
 
     // Converts clip's parameters into sample times, and schedules the internal player to play them.
