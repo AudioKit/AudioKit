@@ -35,11 +35,6 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the mandolin with defaults
-    public convenience init() {
-        self.init(frequency: 440)
-    }
-
     /// Initialize the STK TubularBells model
     ///
     /// - Parameters:

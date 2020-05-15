@@ -100,11 +100,6 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience init() {
-        self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
-    }
-
     /// Initialize this Morpher node
     ///
     /// - Parameters:
@@ -118,7 +113,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     ///   - phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
-        waveformArray: [AKTable],
+        waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
         index: Double = defaultIndex,
