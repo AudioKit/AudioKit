@@ -30,8 +30,9 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    @objc public init() {
+    @objc public init(volume: Double = 1.0) {
         super.init(avAudioNode: mixerAU, attach: true)
+        self.volume = volume
     }
 
     /// Initialize the mixer node with multiple inputs
