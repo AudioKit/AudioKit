@@ -327,11 +327,3 @@ open class AKAbstractPlayer: AKNode {
         faderNode = nil
     }
 }
-
-extension AKAbstractPlayer {
-    @available(*, unavailable, renamed: "startFader")
-    public func createFader() {}
-
-    @available(*, unavailable, renamed: "bypassFader")
-    public func removeFader() {}
-}
