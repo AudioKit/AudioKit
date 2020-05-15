@@ -108,11 +108,6 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the mandolin with defaults
-    public convenience init() {
-        self.init(type: .maraca)
-    }
-
     /// Initialize the STK Shaker model
     ///
     /// - Parameters:

@@ -35,11 +35,6 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the mandolin with defaults
-    public convenience init() {
-        self.init(frequency: 110)
-    }
-
     /// Initialize the STK RhodesPiano model
     ///
     /// - Parameters:
