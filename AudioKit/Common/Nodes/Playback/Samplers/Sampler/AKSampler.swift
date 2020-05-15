@@ -279,7 +279,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         keyTracking: Double = 1.0,
         filterEnvelopeVelocityScaling: Double = 0.0
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         AKSampler.register()
         AVAudioUnit._instantiate(with: AKSampler.ComponentDescription) { avAudioUnit in

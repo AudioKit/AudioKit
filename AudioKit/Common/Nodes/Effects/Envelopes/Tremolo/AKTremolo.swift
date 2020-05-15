@@ -60,7 +60,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         depth: Double = defaultDepth,
         waveform: AKTable = AKTable(.positiveSine)
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

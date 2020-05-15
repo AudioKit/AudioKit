@@ -36,8 +36,8 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the mandolin with defaults
-    override convenience init() {
-        self.init(frequency: 110)
+    public convenience init() {
+        self.init(frequency: 440)
     }
 
     /// Initialize the STK TubularBells model
@@ -51,7 +51,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
         frequency: Double = 440,
         amplitude: Double = 0.5
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

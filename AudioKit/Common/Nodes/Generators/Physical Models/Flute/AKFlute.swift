@@ -36,7 +36,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the mandolin with defaults
-    override convenience init() {
+    convenience init() {
         self.init(frequency: 110)
     }
 
@@ -51,7 +51,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
         frequency: Double = 440,
         amplitude: Double = 0.5
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

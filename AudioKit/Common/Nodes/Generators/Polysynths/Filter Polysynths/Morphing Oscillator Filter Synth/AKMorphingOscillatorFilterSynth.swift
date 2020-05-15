@@ -251,7 +251,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
+    @objc public convenience init() {
         self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
 
@@ -319,7 +319,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit

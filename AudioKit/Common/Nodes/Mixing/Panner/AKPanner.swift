@@ -42,7 +42,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         pan: Double = defaultPan
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

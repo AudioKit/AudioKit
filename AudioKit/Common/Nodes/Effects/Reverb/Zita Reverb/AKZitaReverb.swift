@@ -195,7 +195,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         equalizerLevel2: Double = defaultEqualizerLevel2,
         dryWetMix: Double = defaultDryWetMix
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

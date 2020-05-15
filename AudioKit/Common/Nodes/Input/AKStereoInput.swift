@@ -23,8 +23,8 @@
     }
 
     /// Initialize the microphone
-    public override init() {
-        super.init()
+    public init() {
+        super.init(avAudioNode: AVAudioNode())
         self.avAudioNode = mixer
 
         #if !os(tvOS)

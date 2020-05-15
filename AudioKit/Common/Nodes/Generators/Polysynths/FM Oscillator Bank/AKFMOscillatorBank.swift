@@ -164,7 +164,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
+    @objc public convenience init() {
         self.init(waveform: AKTable(.sine))
     }
 
@@ -211,7 +211,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

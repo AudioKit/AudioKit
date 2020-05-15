@@ -106,7 +106,7 @@ open class AKClipPlayer: AKNode {
     }
     // swiftlint:enable force_cast
 
-    public override init() {
+    public init() {
         AKManager.engine.attach(playerNode)
         AKManager.engine.attach(mixer)
         AKManager.engine.connect(playerNode, to: mixer)

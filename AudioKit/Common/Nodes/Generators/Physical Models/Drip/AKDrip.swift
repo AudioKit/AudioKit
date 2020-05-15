@@ -144,7 +144,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         secondResonantFrequency: Double = defaultSecondResonantFrequency,
         amplitude: Double = defaultAmplitude
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

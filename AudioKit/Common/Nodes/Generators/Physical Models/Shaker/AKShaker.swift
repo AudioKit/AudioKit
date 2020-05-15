@@ -109,7 +109,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the mandolin with defaults
-    override convenience init() {
+    public convenience init() {
         self.init(type: .maraca)
     }
 
@@ -122,7 +122,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
         type: AKShakerType = .maraca,
         amplitude: Double = 0.5
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

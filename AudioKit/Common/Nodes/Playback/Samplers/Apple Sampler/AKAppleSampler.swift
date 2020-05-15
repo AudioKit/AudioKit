@@ -52,8 +52,8 @@ open class AKAppleSampler: AKNode {
     // MARK: - Initializers
 
     /// Initialize the sampler node
-    public override init() {
-        super.init()
+    public init() {
+        super.init(avAudioNode: AVAudioNode())
         avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit

@@ -85,9 +85,9 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     }
 
     // Mostly here to placate LLVM into generating the proper Swift interface file - do not use
-    public override init() {
+    public init() {
         self.customUgens = []
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
     }
 
     /// Initialize this generator node with a generic sporth stack and a triggering flag
@@ -100,7 +100,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

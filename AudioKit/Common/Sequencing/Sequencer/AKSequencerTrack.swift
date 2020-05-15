@@ -52,8 +52,8 @@ open class AKSequencerTrack: AKNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the track
-    @objc public override init() {
-        super.init()
+    @objc public init() {
+        super.init(avAudioNode: AVAudioNode())
         
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
