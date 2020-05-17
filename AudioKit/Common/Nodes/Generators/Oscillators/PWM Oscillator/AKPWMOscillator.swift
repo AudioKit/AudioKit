@@ -97,11 +97,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(frequency: 440)
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -112,13 +107,13 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     @objc public init(
-        frequency: Double,
+        frequency: Double = 440,
         amplitude: Double = defaultAmplitude,
         pulseWidth: Double = defaultPulseWidth,
         detuningOffset: Double = defaultDetuningOffset,
         detuningMultiplier: Double = defaultDetuningMultiplier
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

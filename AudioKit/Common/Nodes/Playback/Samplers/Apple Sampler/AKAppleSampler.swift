@@ -52,13 +52,21 @@ open class AKAppleSampler: AKNode {
     // MARK: - Initializers
 
     /// Initialize the sampler node
-    public override init() {
-        super.init()
+    public init(file: String? = nil) {
+        super.init(avAudioNode: AVAudioNode())
         avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
         AKManager.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
+
+        if let newFile = file {
+            do {
+                try loadWav(newFile)
+            } catch {
+                AKLog("Could not load \(newFile)")
+            }
+        }
     }
 
     /// Utility method to find a file either in the main bundle or at an absolute path

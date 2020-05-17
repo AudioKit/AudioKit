@@ -50,7 +50,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
         depth: Double = 1.0,
         waveform: AKTable = AKTable(.positiveSine)
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

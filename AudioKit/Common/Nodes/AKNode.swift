@@ -20,11 +20,6 @@ extension AVAudioConnectionPoint {
         return self.avAudioUnit ?? self.avAudioNode
     }
 
-    /// Create the node
-    public override init() {
-        self.avAudioNode = AVAudioNode()
-    }
-
     /// Initialize the node from an AVAudioUnit
     @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
@@ -55,24 +50,6 @@ extension AVAudioConnectionPoint {
 extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
         return self.avAudioUnitOrNode
-    }
-
-    @available(*, deprecated, renamed: "connect(to:bus:)")
-    open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
-        connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
-    }
-}
-
-// Deprecated
-extension AKNode {
-    @objc @available(*, deprecated, renamed: "detach")
-    open func disconnect() {
-        self.detach()
-    }
-
-    @available(*, deprecated, message: "Use AKManager.detach(nodes:) instead")
-    open func disconnect(nodes: [AVAudioNode]) {
-        AKManager.detach(nodes: nodes)
     }
 }
 

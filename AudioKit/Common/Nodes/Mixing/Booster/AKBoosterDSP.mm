@@ -44,8 +44,8 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (isStarted) {
                 if (channel == 0) {
                     *out = *in * data->leftGainRamp.getValue();

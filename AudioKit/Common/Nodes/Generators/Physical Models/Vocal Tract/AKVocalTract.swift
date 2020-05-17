@@ -112,7 +112,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         tenseness: Double = defaultTenseness,
         nasality: Double = defaultNasality
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

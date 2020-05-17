@@ -381,9 +381,6 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    @available(*, unavailable, renamed: "removeEffects")
-    public func resetEffects() {}
-
     /// Removes all effects from the effectsChain
     public func removeEffects() {
         for i in 0 ..< _effectsChain.count {

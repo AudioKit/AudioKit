@@ -161,7 +161,7 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
         filterSustainLevel: Double = 1.0,
         filterReleaseDuration: Double = 0.0
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         AKSynth.register()
         AVAudioUnit._instantiate(with: AKSynth.ComponentDescription) { avAudioUnit in

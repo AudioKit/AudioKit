@@ -93,8 +93,8 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (channel < 2) {
                 tmpin[channel] = in;
@@ -110,8 +110,9 @@ void AKFaderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
                 *tmpout[1] = *tmpout[0];
             } else {
                 if (channelCount == 2 && data->flipStereo) {
+                    float leftSaved = *tmpin[0];
                     *tmpout[0] = *tmpin[1] * data->leftGainRamp.getAndStep();
-                    *tmpout[1] = *tmpin[0] * data->rightGainRamp.getAndStep();
+                    *tmpout[1] = leftSaved * data->rightGainRamp.getAndStep();
                 } else {
                     *tmpout[0] = *tmpin[0] * data->leftGainRamp.getAndStep();
                     *tmpout[1] = *tmpin[1] * data->rightGainRamp.getAndStep();

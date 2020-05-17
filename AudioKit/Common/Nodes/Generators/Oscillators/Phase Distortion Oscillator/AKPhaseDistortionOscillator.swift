@@ -99,11 +99,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -114,15 +109,15 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    public init(
-        waveform: AKTable,
+    @objc public init(
+        waveform: AKTable = AKTable(.sine),
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
         phaseDistortion: Double = defaultPhaseDistortion,
         detuningOffset: Double = defaultDetuningOffset,
         detuningMultiplier: Double = defaultDetuningMultiplier
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

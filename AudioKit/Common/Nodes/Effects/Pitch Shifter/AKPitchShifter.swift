@@ -76,7 +76,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
         windowSize: Double = defaultWindowSize,
         crossfade: Double = defaultCrossfade
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

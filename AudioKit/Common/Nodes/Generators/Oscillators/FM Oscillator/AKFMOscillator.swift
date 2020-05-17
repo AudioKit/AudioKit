@@ -95,11 +95,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -111,14 +106,14 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Output Amplitude.
     ///
     public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         baseFrequency: Double = defaultBaseFrequency,
         carrierMultiplier: Double = defaultCarrierMultiplier,
         modulatingMultiplier: Double = defaultModulatingMultiplier,
         modulationIndex: Double = defaultModulationIndex,
         amplitude: Double = defaultAmplitude
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

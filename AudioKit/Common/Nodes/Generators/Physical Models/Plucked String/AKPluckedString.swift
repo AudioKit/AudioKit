@@ -63,7 +63,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         amplitude: Double = defaultAmplitude,
         lowestFrequency: Double = defaultLowestFrequency
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
