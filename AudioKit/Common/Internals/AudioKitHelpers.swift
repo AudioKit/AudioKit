@@ -50,17 +50,6 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Random double between bounds
-///
-/// - Parameters:
-///   - minimum: Lower bound of randomization
-///   - maximum: Upper bound of randomization
-///
-@available(*, deprecated, renamed: "random(in:)")
-public func random(_ minimum: Double, _ maximum: Double) -> Double {
-    return random(in: minimum ... maximum)
-}
-
 /// Random double in range
 ///
 /// - parameter in: Range of randomization
@@ -94,30 +83,6 @@ extension Double {
         }
     }
 
-    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the source range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the source range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "normalized(from:taper:)")
-    public func normalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
-        return self.normalized(from: minimum ... maximum, taper: taper)
-    }
-
-    /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the source range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the source range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "normalize(from:taper:)")
-    public mutating func normalize(minimum: Double, maximum: Double, taper: Double = 1) {
-        self = self.normalized(from: minimum ... maximum, taper: taper)
-    }
-
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
     ///
     /// - Parameters:
@@ -144,30 +109,6 @@ extension Double {
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
-    }
-
-    /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the target range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the target range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "denormalized(to:taper:)")
-    public func denormalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
-        return self.denormalized(to: minimum ... maximum, taper: taper)
-    }
-
-    /// Convert a value on [0, 1] to a [min, max] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the target range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the target range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "denormalize(to:taper:)")
-    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double = 1) {
-        self = self.denormalized(to: minimum ... maximum, taper: taper)
     }
 }
 

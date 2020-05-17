@@ -43,7 +43,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         _ input: AKNode? = nil,
         cutoffFrequency: Double = defaultCutoffFrequency
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

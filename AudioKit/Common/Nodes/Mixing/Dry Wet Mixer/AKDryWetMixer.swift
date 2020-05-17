@@ -19,15 +19,6 @@ open class AKDryWetMixer: AKNode, AKInput {
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted = true
 
-    override public init() {
-        super.init()
-        avAudioNode = mixer.avAudioNode
-        self.input1Attenuator.connect(to: mixer)
-        self.input2Attentuator.connect(to: mixer)
-
-        setGainsViaBalance()
-    }
-
     /// Initialize this dry wet mixer node
     ///
     /// - Parameters:
@@ -35,11 +26,20 @@ open class AKDryWetMixer: AKNode, AKInput {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    @objc public convenience init(_ input1: AKNode, _ input2: AKNode, balance: Double = 0.5) {
-        self.init()
+    @objc public init(_ input1: AKNode? = nil, _ input2: AKNode? = nil, balance: Double = 0.5) {
+        super.init(avAudioNode: AVAudioNode())
+        avAudioNode = mixer.avAudioNode
+        self.input1Attenuator.connect(to: mixer)
+        self.input2Attentuator.connect(to: mixer)
 
-        connectInput1(using: input1)
-        connectInput2(using: input2)
+        setGainsViaBalance()
+
+        if let input1 = input1 {
+            connectInput1(using: input1)
+        }
+        if let input2 = input2 {
+            connectInput2(using: input2)
+        }
         self.balance = balance
     }
 

@@ -51,7 +51,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
         reverbDuration: Double = defaultReverbDuration,
         loopDuration: Double = defaultLoopDuration
         ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

@@ -155,7 +155,7 @@ class Audiobus {
 private extension ABAudiobusController {
 
     var isConnectedToAudiobus: Bool {
-        return connected && memberOfActiveAudiobusSession
+        return connected
     }
 
     func isConnectedToAudiobus(portOfType type: ABPortType) -> Bool {

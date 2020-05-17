@@ -83,7 +83,7 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
         int frameOffset = int(frameIndex + bufferOffset);
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

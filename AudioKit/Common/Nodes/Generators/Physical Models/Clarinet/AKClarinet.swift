@@ -35,11 +35,6 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the mandolin with defaults
-    override convenience init() {
-        self.init(frequency: 110)
-    }
-
     /// Initialize the STK Clarinet model
     ///
     /// - Parameters:
@@ -51,7 +46,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
         frequency: Double = 440,
         amplitude: Double = 0.5
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

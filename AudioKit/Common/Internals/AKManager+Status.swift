@@ -7,12 +7,6 @@ extension AKManager {
 
     // MARK: Global audio format (44.1K, Stereo)
 
-    /// Format of AudioKit Nodes
-    @available(*, deprecated, renamed: "AKSettings.audioFormat")
-    @objc public static var format: AVAudioFormat {
-        return AKSettings.audioFormat
-    }
-
     @objc static var shouldBeRunning = false
 
     #if os(iOS)

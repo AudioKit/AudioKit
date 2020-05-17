@@ -49,8 +49,9 @@ open class AKMusicTrack {
 
     @objc public init(name: String = "Unnamed") {
         self.name = name
-        MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
-        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
+        guard let seq = sequencer.sequence else { fatalError() }
+        MusicSequenceNewTrack(seq, &internalMusicTrack)
+        MusicSequenceNewTrack(seq, &initMusicTrack)
         trackPointer = UnsafeMutablePointer(internalMusicTrack!)
         initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
 

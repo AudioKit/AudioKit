@@ -22,7 +22,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// - Parameter midiInputName: Name of the instrument's MIDI input
     ///
     public init(midiInputName: String? = nil) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         name = midiInputName ?? name
         enableMIDI(name: midiInputName ?? name)
         hideVirtualMIDIPort()

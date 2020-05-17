@@ -73,10 +73,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
-#import "AKDynaRageCompressorAudioUnit.h"
-#import "AKDynaRageCompressorDSPKernel.hpp"
-#import "AKRhinoGuitarProcessorAudioUnit.h"
-#import "AKRhinoGuitarProcessorDSPKernel.hpp"
+#import "AKDynaRageCompressorDSP.hpp"
+#import "AKRhinoGuitarProcessorDSP.hpp"
 
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
@@ -139,7 +137,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Mixing
 #import "AKAutoPannerDSP.hpp"
-#import "AKBalancerAudioUnit.h"
+#import "AKBalancerDSP.hpp"
 #import "AKBoosterDSP.hpp"
 #import "AKFaderDSP.hpp"
 #import "AKPannerDSP.hpp"
@@ -165,9 +163,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // EZAudio
 #import "EZAudio.h"
 
-// Offline
-#import "AKOfflineRenderAudioUnit.h"
-
 // Taps
 #import "AKRenderTap.h"
 #import "AKLazyTap.h"
@@ -184,7 +179,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Sequencer
 #import "AKSamplerMetronome.h"
 #if !TARGET_OS_TV
-#import "AKSequencerEngine.h"
+#import "AKSequencerEngineDSP.hpp"
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability

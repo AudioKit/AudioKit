@@ -34,7 +34,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: AKNode? = nil, amount: Double = 1) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

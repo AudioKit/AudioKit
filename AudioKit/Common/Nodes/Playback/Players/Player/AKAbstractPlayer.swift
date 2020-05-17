@@ -69,12 +69,6 @@ open class AKAbstractPlayer: AKNode {
 
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false
-
-        // To be removed:
-        @available(*, deprecated, message: "Removed in favor of Taper")
-        public var inRampType: AKSettings.RampType = .linear
-        @available(*, deprecated, message: "Removed in favor of Taper")
-        public var outRampType: AKSettings.RampType = .linear
     }
 
     // MARK: - Loop struct
@@ -119,15 +113,6 @@ open class AKAbstractPlayer: AKNode {
 
     /// The underlying gain booster and main output which controls fades as well.
     @objc public var faderNode: AKFader?
-
-    @available(*, deprecated, renamed: "fadeOutAndStop(with:)")
-    @objc public var stopEnvelopeTime: Double = 0 {
-        didSet {
-            if stopEnvelopeTime > 0 {
-                startFader()
-            }
-        }
-    }
 
     /// Amplification Factor, in the range of 0 to 2
     @objc public var gain: Double {
@@ -341,12 +326,4 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.detach()
         faderNode = nil
     }
-}
-
-extension AKAbstractPlayer {
-    @available(*, unavailable, renamed: "startFader")
-    public func createFader() {}
-
-    @available(*, unavailable, renamed: "bypassFader")
-    public func removeFader() {}
 }

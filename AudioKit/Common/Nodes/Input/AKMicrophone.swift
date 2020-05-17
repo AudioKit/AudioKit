@@ -31,7 +31,7 @@
 
     /// Initialize the microphone
 	@objc public init?(with format: AVAudioFormat? = nil) {
-		super.init()
+		super.init(avAudioNode: AVAudioNode())
 		guard let formatForDevice = getFormatForDevice() else {
 			AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
 			return nil

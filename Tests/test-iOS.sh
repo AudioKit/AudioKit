@@ -15,9 +15,6 @@ xcodebuild -project Examples/iOS/AppleSamplerDemo/SamplerDemo.xcodeproj -sdk iph
 echo "Building iOS AudioUnitManager"
 xcodebuild -project Examples/iOS/AudioUnitManager/AudioUnitManager.xcodeproj -sdk iphonesimulator -scheme AudioUnitManager -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 1
 
-echo "Building iOS HelloObjectiveC"
-xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean 	build | xcpretty -c || exit 13
-
 echo "Building iOS LoopbackRecording"
 xcodebuild -project Examples/iOS/LoopbackRecording/LoopbackRecording.xcodeproj -sdk iphonesimulator -scheme LoopbackRecording -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
 

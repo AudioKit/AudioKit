@@ -23,14 +23,16 @@
     }
 
     /// Initialize the microphone
-    public override init() {
-        super.init()
+    public init(volume: Double = 0.0) {
+        super.init(avAudioNode: AVAudioNode())
         self.avAudioNode = mixer
 
         #if !os(tvOS)
         AKSettings.audioInputEnabled = true
         AKManager.engine.inputNode.connect(to: self.avAudioNode)
         #endif
+
+        self.volume = volume
     }
 
     deinit {

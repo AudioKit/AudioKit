@@ -153,7 +153,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         stiffness: Double = defaultStiffness,
         highFrequencyDamping: Double = defaultHighFrequencyDamping
     ) {
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in

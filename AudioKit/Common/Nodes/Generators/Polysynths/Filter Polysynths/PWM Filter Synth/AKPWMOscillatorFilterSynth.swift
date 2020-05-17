@@ -234,11 +234,6 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(pulseWidth: 0.5)
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -299,7 +294,7 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit
