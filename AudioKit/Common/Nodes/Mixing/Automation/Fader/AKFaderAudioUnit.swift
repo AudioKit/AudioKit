@@ -3,7 +3,6 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-
     var taper: AUParameter!
 
     var skew: AUParameter!
