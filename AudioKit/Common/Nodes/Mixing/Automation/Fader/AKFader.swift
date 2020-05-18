@@ -91,7 +91,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open var isStarted: Bool {
-        return self.internalAU?.isStarted ?? false
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -106,8 +106,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                 gain: Double = 1,
                 taper: Double = 1,
                 skew: Double = 0,
-                offset: Double = 0
-    ) {
+                offset: Double = 0) {
         super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
