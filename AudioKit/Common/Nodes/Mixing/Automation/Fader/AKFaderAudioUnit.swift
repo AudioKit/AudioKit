@@ -30,7 +30,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "leftGain",
             name: "Left Gain",
             address: 0,
-            range: 0.0 ... 4.0,
+            range: AKFader.gainRange,
             unit: .linearGain,
             flags: .default
         )
@@ -39,7 +39,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "rightGain",
             name: "Right Gain",
             address: 1,
-            range: 0.0 ... 4.0,
+            range: AKFader.gainRange,
             unit: .linearGain,
             flags: .default
         )
