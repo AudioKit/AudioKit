@@ -24,7 +24,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Left Channel Amplification Factor
     @objc open var leftGain: Double = 1 {
         willSet {
-            let clampedValue = (0.0 ... 2.0).clamp(newValue)
+            let clampedValue = (0.0 ... 4.0).clamp(newValue)
             guard leftGain != clampedValue else { return }
             internalAU?.leftGain.value = AUValue(clampedValue)
         }
@@ -33,7 +33,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Right Channel Amplification Factor
     @objc open var rightGain: Double = 1 {
         willSet {
-            let clampedValue = (0.0 ... 2.0).clamp(newValue)
+            let clampedValue = (0.0 ... 4.0).clamp(newValue)
             guard rightGain != clampedValue else { return }
             internalAU?.rightGain.value = AUValue(clampedValue)
         }
