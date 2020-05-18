@@ -3,7 +3,6 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-
     var taper: AUParameter!
 
     var skew: AUParameter!
@@ -30,7 +29,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "leftGain",
             name: "Left Gain",
             address: 0,
-            range: 0.0 ... 2.0,
+            range: AKFader.gainRange,
             unit: .linearGain,
             flags: .default
         )
@@ -39,7 +38,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
             identifier: "rightGain",
             name: "Right Gain",
             address: 1,
-            range: 0.0 ... 2.0,
+            range: AKFader.gainRange,
             unit: .linearGain,
             flags: .default
         )
