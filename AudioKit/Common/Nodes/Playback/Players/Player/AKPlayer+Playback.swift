@@ -137,12 +137,14 @@ extension AKPlayer {
             let refTime = hostTime ?? mach_absolute_time()
 
             if audioTime.isSampleTimeValid {
+                // offline
                 let adjustedFrames = Double(audioTime.sampleTime) * _rate
                 scheduleTime = AVAudioTime(hostTime: refTime,
                                            sampleTime: AVAudioFramePosition(adjustedFrames),
                                            atRate: sampleRate)
 
             } else if audioTime.isHostTimeValid {
+                // realtime
                 let adjustedFrames = (audioTime.toSeconds(hostTime: refTime) * _rate) * sampleRate
                 scheduleTime = AVAudioTime(hostTime: refTime,
                                            sampleTime: AVAudioFramePosition(adjustedFrames),
@@ -163,7 +165,7 @@ extension AKPlayer {
             initialize()
         }
 
-        var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
+        var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts]
 
         if isLooping, buffering == .always {
             bufferOptions = [.loops, .interrupts]
