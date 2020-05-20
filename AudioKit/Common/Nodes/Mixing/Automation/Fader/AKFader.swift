@@ -13,6 +13,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
+    public static var gainRange: ClosedRange<Double> = (0 ... 4)
+
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
@@ -30,7 +32,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     fileprivate var flipStereoParameter: AUParameter?
     fileprivate var mixToMonoParameter: AUParameter?
 
-    /// Amplification Factor, from 0 ... 2
+    /// Amplification Factor, from 0 ... 4
     @objc open dynamic var gain: Double = 1 {
         willSet {
             // ensure that the parameters aren't nil,
