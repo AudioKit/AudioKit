@@ -34,6 +34,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoFrequency, value: vibratoFrequency) }
     }
 
+    var voiceVibratoDepth: Double = 1.0 {
+        didSet { setParameter(.voiceVibratoDepth, value: voiceVibratoDepth) }
+    }
+
+    var voiceVibratoFrequency: Double = 5.0 {
+        didSet { setParameter(.voiceVibratoFrequency, value: voiceVibratoFrequency) }
+    }
+
     var filterCutoff: Double = 4.0 {
         didSet { setParameter(.filterCutoff, value: filterCutoff) }
     }
@@ -175,6 +183,26 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         let vibratoFrequencyParameter = AUParameter(
             identifier: "vibratoFrequency",
             name: "Vibrato Speed (hz)",
+            address: parameterAddress,
+            range: 0.0...200.0,
+            unit: .hertz,
+            flags: .default)
+
+        parameterAddress += 1
+
+        let voiceVibratoDepthParameter = AUParameter(
+            identifier: "voiceVibratoDepth",
+            name: "Per-Voice Vibrato amount (semitones)",
+            address: parameterAddress,
+            range: 0.0...24.0,
+            unit: .relativeSemiTones,
+            flags: .default)
+
+        parameterAddress += 1
+
+        let voiceVibratoFrequencyParameter = AUParameter(
+            identifier: "voiceVibratoFrequency",
+            name: "Per-Voice Vibrato Speed (hz)",
             address: parameterAddress,
             range: 0.0...200.0,
             unit: .hertz,
@@ -414,6 +442,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
                                                                    vibratoFrequencyParameter,
+                                                                   voiceVibratoDepthParameter,
+                                                                   voiceVibratoFrequencyParameter,
                                                                    filterCutoffParameter,
                                                                    filterStrengthParameter,
                                                                    filterResonanceParameter,
@@ -441,6 +471,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
         vibratoFrequencyParameter.value = 5.0
+        voiceVibratoDepthParameter.value = 0.0
+        voiceVibratoFrequencyParameter.value = 5.0
         filterCutoffParameter.value = 4.0
         filterStrengthParameter.value = 20.0
         filterResonanceParameter.value = 0.0
