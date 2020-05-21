@@ -108,6 +108,8 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
     vibratoFrequencyRamp.setTarget(5.0, true);
+    voiceVibratoDepthRamp.setTarget(0.0, true);
+    voiceVibratoFrequencyRamp.setTarget(5.0, true);
     filterCutoffRamp.setTarget(4, true);
     filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
@@ -134,6 +136,8 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             pitchBendRamp.setRampDuration(value, sampleRate);
             vibratoDepthRamp.setRampDuration(value, sampleRate);
             vibratoFrequencyRamp.setRampDuration(value, sampleRate);
+            voiceVibratoDepthRamp.setRampDuration(value, sampleRate);
+            voiceVibratoFrequencyRamp.setRampDuration(value, sampleRate);
             filterCutoffRamp.setRampDuration(value, sampleRate);
             filterStrengthRamp.setRampDuration(value, sampleRate);
             filterResonanceRamp.setRampDuration(value, sampleRate);
@@ -152,6 +156,12 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             break;
         case AKSamplerParameterVibratoFrequency:
             vibratoFrequencyRamp.setTarget(value, immediate);
+            break;
+        case AKSamplerParameterVoiceVibratoDepth:
+            voiceVibratoDepthRamp.setTarget(value, immediate);
+            break;
+        case AKSamplerParameterVoiceVibratoFrequency:
+            voiceVibratoFrequencyRamp.setTarget(value, immediate);
             break;
         case AKSamplerParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
@@ -243,6 +253,10 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return vibratoDepthRamp.getTarget();
         case AKSamplerParameterVibratoFrequency:
             return vibratoFrequencyRamp.getTarget();
+        case AKSamplerParameterVoiceVibratoDepth:
+            return voiceVibratoDepthRamp.getTarget();
+        case AKSamplerParameterVoiceVibratoFrequency:
+            return voiceVibratoFrequencyRamp.getTarget();
         case AKSamplerParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
         case AKSamplerParameterFilterStrength:
@@ -344,6 +358,10 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         vibratoFrequencyRamp.advanceTo(now + frameOffset);
         vibratoFrequency = (float)vibratoFrequencyRamp.getValue();
+        voiceVibratoDepthRamp.advanceTo(now + frameOffset);
+        voiceVibratoDepth = (float)voiceVibratoDepthRamp.getValue();
+        voiceVibratoFrequencyRamp.advanceTo(now + frameOffset);
+        voiceVibratoFrequency = (float)voiceVibratoFrequencyRamp.getValue();
         filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
         filterStrengthRamp.advanceTo(now + frameOffset);
