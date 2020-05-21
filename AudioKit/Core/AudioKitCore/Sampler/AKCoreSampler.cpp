@@ -53,7 +53,7 @@ AKCoreSampler::AKCoreSampler()
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
 , vibratoDepth(0.0f)
-, vibratoFrequency(1.0f)
+, vibratoFrequency(5.0f)
 , glideRate(0.0f)   // 0 sec/octave means "no glide"
 , isMonophonic(false)
 , isLegato(false)
