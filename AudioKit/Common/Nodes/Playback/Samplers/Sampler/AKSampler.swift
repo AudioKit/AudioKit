@@ -35,6 +35,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
+    /// Vibrato speed (hz)
+    open var vibratoFrequency: Double = 5.0 {
+        willSet {
+            guard vibratoFrequency != newValue else { return }
+            internalAU?.vibratoFrequency.value = AUValue(newValue)
+        }
+    }
+
     /// Filter cutoff (harmonic ratio)
     open var filterCutoff: Double = 4.0 {
         willSet {
@@ -227,6 +235,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     ///   - masterVolume: 0.0 - 1.0
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
+    ///   - vibratoFrequency: LFO in Hz
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
@@ -255,6 +264,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
+        vibratoFrequency: Double = 5.0,
         filterCutoff: Double = 4.0,
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
@@ -290,6 +300,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
             self.masterVolume = masterVolume
             self.pitchBend = pitchBend
             self.vibratoDepth = vibratoDepth
+            self.vibratoFrequency = vibratoFrequency
             self.filterCutoff = filterCutoff
             self.filterStrength = filterStrength
             self.filterResonance = filterResonance
