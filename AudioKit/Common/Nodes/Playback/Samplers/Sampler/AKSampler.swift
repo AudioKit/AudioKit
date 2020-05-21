@@ -28,7 +28,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato amount (semitones)
-    open var vibratoDepth: Double = 1.0 {
+    open var vibratoDepth: Double = 0.0 {
         willSet {
             guard vibratoDepth != newValue else { return }
             internalAU?.vibratoDepth.value = AUValue(newValue)
@@ -40,6 +40,22 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoFrequency != newValue else { return }
             internalAU?.vibratoFrequency.value = AUValue(newValue)
+        }
+    }
+
+    /// Voice Vibrato amount (semitones)
+    open var voiceVibratoDepth: Double = 0.0 {
+        willSet {
+            guard voiceVibratoDepth != newValue else { return }
+            internalAU?.voiceVibratoDepth.value = AUValue(newValue)
+        }
+    }
+
+    /// VoiceVibrato speed (hz)
+    open var voiceVibratoFrequency: Double = 5.0 {
+        willSet {
+            guard voiceVibratoFrequency != newValue else { return }
+            internalAU?.voiceVibratoFrequency.value = AUValue(newValue)
         }
     }
 
@@ -236,6 +252,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - vibratoFrequency: LFO in Hz
+    ///   - voiceVibratoDepth: semitones, typically less than 1.0
+    ///   - voiceVibratoFrequency: LFO in Hz
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
@@ -265,6 +283,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         vibratoFrequency: Double = 5.0,
+        voiceVibratoDepth: Double = 0.0,
+        voiceVibratoFrequency: Double = 5.0,
         filterCutoff: Double = 4.0,
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
@@ -301,6 +321,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
             self.pitchBend = pitchBend
             self.vibratoDepth = vibratoDepth
             self.vibratoFrequency = vibratoFrequency
+            self.voiceVibratoDepth = voiceVibratoDepth
+            self.voiceVibratoFrequency = voiceVibratoFrequency
             self.filterCutoff = filterCutoff
             self.filterStrength = filterStrength
             self.filterResonance = filterResonance
