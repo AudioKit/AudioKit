@@ -26,7 +26,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.pitchBend, value: pitchBend) }
     }
 
-    var vibratoDepth: Double = 1.0 {
+    var vibratoDepth: Double = 0.0 {
         didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
 
@@ -34,7 +34,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoFrequency, value: vibratoFrequency) }
     }
 
-    var voiceVibratoDepth: Double = 1.0 {
+    var voiceVibratoDepth: Double = 0.0 {
         didSet { setParameter(.voiceVibratoDepth, value: voiceVibratoDepth) }
     }
 
