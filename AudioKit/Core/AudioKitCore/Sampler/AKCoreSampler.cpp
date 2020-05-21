@@ -30,7 +30,7 @@ struct AKCoreSampler::InternalData {
     // maps MIDI note numbers to "closest" samples (all velocity layers)
     std::list<AudioKitCore::KeyMappedSampleBuffer*> keyMap[MIDI_NOTENUMBERS];
     
-    AudioKitCore::AHDSHREnvelopeParameters ahdshrEnvelopeParameters;
+    AudioKitCore::AHDSHREnvelopeParameters ampEnvelopeParameters;
     AudioKitCore::ADSREnvelopeParameters filterEnvelopeParameters;
     AudioKitCore::ADSREnvelopeParameters pitchEnvelopeParameters;
     
@@ -73,7 +73,7 @@ AKCoreSampler::AKCoreSampler()
     AudioKitCore::SamplerVoice *pVoice = data->voice;
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
     {
-        pVoice->ampEnvelope.pParameters = &data->ahdshrEnvelopeParameters;
+        pVoice->ampEnvelope.pParameters = &data->ampEnvelopeParameters;
         pVoice->filterEnvelope.pParameters = &data->filterEnvelopeParameters;
         pVoice->pitchEnvelope.pParameters = &data->pitchEnvelopeParameters;
         pVoice->noteFrequency = 0.0f;
@@ -92,7 +92,7 @@ AKCoreSampler::~AKCoreSampler()
 int AKCoreSampler::init(double sampleRate)
 {
     currentSampleRate = (float)sampleRate;
-    data->ahdshrEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
+    data->ampEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->filterEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->pitchEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->vibratoLFO.waveTable.sinusoid();
@@ -438,68 +438,68 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
 
 void  AKCoreSampler::setADSRAttackDurationSeconds(float value)
 {
-    data->ahdshrEnvelopeParameters.setAttackDurationSeconds(value);
+    data->ampEnvelopeParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRAttackDurationSeconds(void)
 {
-    return data->ahdshrEnvelopeParameters.getAttackDurationSeconds();
+    return data->ampEnvelopeParameters.getAttackDurationSeconds();
 }
 
 void  AKCoreSampler::setADSRHoldDurationSeconds(float value)
 {
-    data->ahdshrEnvelopeParameters.setHoldDurationSeconds(value);
+    data->ampEnvelopeParameters.setHoldDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRHoldDurationSeconds(void)
 {
-    return data->ahdshrEnvelopeParameters.getHoldDurationSeconds();
+    return data->ampEnvelopeParameters.getHoldDurationSeconds();
 }
 
 void  AKCoreSampler::setADSRDecayDurationSeconds(float value)
 {
-    data->ahdshrEnvelopeParameters.setDecayDurationSeconds(value);
+    data->ampEnvelopeParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRDecayDurationSeconds(void)
 {
-    return data->ahdshrEnvelopeParameters.getDecayDurationSeconds();
+    return data->ampEnvelopeParameters.getDecayDurationSeconds();
 }
 
 void  AKCoreSampler::setADSRSustainFraction(float value)
 {
-    data->ahdshrEnvelopeParameters.sustainFraction = value;
+    data->ampEnvelopeParameters.sustainFraction = value;
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRSustainFraction(void)
 {
-    return data->ahdshrEnvelopeParameters.sustainFraction;
+    return data->ampEnvelopeParameters.sustainFraction;
 }
 
 void  AKCoreSampler::setADSRReleaseHoldDurationSeconds(float value)
 {
-    data->ahdshrEnvelopeParameters.setReleaseHoldDurationSeconds(value);
+    data->ampEnvelopeParameters.setReleaseHoldDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRReleaseHoldDurationSeconds(void)
 {
-    return data->ahdshrEnvelopeParameters.getReleaseHoldDurationSeconds();
+    return data->ampEnvelopeParameters.getReleaseHoldDurationSeconds();
 }
 
 void  AKCoreSampler::setADSRReleaseDurationSeconds(float value)
 {
-    data->ahdshrEnvelopeParameters.setReleaseDurationSeconds(value);
+    data->ampEnvelopeParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRReleaseDurationSeconds(void)
 {
-    return data->ahdshrEnvelopeParameters.getReleaseDurationSeconds();
+    return data->ampEnvelopeParameters.getReleaseDurationSeconds();
 }
 
 void  AKCoreSampler::setFilterAttackDurationSeconds(float value)
