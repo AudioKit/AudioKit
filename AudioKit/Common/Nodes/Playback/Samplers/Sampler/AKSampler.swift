@@ -87,7 +87,7 @@
     }
 
     /// Vibrato amount (semitones)
-    @objc open dynamic var vibratoDepth: Double = 1.0 {
+    @objc open dynamic var vibratoDepth: Double = 0.0 {
         willSet {
             guard vibratoDepth != newValue else { return }
 
@@ -115,7 +115,7 @@
     }
 
     /// Voice Vibrato amount (semitones) - each voice behaves indpendently
-    @objc open dynamic var voiceVibratoDepth: Double = 1.0 {
+    @objc open dynamic var voiceVibratoDepth: Double = 0.0 {
         willSet {
             guard voiceVibratoDepth != newValue else { return }
 
