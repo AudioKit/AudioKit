@@ -20,6 +20,7 @@
     fileprivate var masterVolumeParameter: AUParameter?
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
+    fileprivate var vibratoFrequencyParameter: AUParameter?
     fileprivate var filterCutoffParameter: AUParameter?
     fileprivate var filterStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
@@ -94,6 +95,20 @@
             }
 
             internalAU?.vibratoDepth = newValue
+        }
+    }
+
+    /// Vibrato speed (hz)
+    @objc open dynamic var vibratoFrequency: Double = 5.0 {
+        willSet {
+            guard vibratoFrequency != newValue else { return }
+
+            if internalAU?.isSetUp == true {
+                vibratoFrequencyParameter?.value = AUValue(newValue)
+                return
+            }
+
+            internalAU?.vibratoFrequency = newValue
         }
     }
 
@@ -313,6 +328,7 @@
     ///   - masterVolume: 0.0 - 1.0
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
+    ///   - vibratoFrequency: hertz
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
@@ -341,6 +357,7 @@
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
+        vibratoFrequency: Double = 5.0,
         filterCutoff: Double = 4.0,
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
@@ -368,6 +385,7 @@
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
+        self.vibratoFrequency = vibratoFrequency
         self.filterCutoff = filterCutoff
         self.filterStrength = filterStrength
         self.filterResonance = filterResonance
@@ -414,6 +432,7 @@
         self.masterVolumeParameter = tree["masterVolume"]
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
+        self.vibratoFrequencyParameter = tree["vibratoFrequency"]
         self.filterCutoffParameter = tree["filterCutoff"]
         self.filterStrengthParameter = tree["filterStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
@@ -441,6 +460,7 @@
         self.internalAU?.setParameterImmediately(.masterVolume, value: masterVolume)
         self.internalAU?.setParameterImmediately(.pitchBend, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepth, value: vibratoDepth)
+        self.internalAU?.setParameterImmediately(.vibratoFrequency, value: vibratoFrequency)
         self.internalAU?.setParameterImmediately(.filterCutoff, value: filterCutoff)
         self.internalAU?.setParameterImmediately(.filterStrength, value: filterStrength)
         self.internalAU?.setParameterImmediately(.filterResonance, value: filterResonance)

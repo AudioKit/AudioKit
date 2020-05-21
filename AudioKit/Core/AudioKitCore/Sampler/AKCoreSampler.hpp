@@ -107,7 +107,7 @@ protected:
     bool isFilterEnabled;
     
     // performance parameters
-    float masterVolume, pitchOffset, vibratoDepth, glideRate;
+    float masterVolume, pitchOffset, vibratoDepth, vibratoFrequency, glideRate;
     
     // parameters for mono-mode only
     
