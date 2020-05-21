@@ -18,7 +18,7 @@ namespace AudioKitCore
         samplingRate = float(sampleRate);
         leftFilter.init(sampleRate);
         rightFilter.init(sampleRate);
-        ahdshrEnvelope.init();
+        ampEnvelope.init();
         filterEnvelope.init();
         pitchEnvelope.init();
         vibratoLFO.waveTable.sinusoid();
@@ -36,7 +36,7 @@ namespace AudioKitCore
         oscillator.isLooping = buffer->isLooping;
         
         noteVolume = volume;
-        ahdshrEnvelope.start();
+        ampEnvelope.start();
         volumeRamper.init(0.0f);
         
         samplingRate = sampleRate;
@@ -84,7 +84,7 @@ namespace AudioKitCore
         noteNumber = note;
         tempNoteVolume = noteVolume;
         newSampleBuffer = buffer;
-        ahdshrEnvelope.restart();
+        ampEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
@@ -113,7 +113,7 @@ namespace AudioKitCore
     {
         tempNoteVolume = noteVolume;
         newSampleBuffer = buffer;
-        ahdshrEnvelope.restart();
+        ampEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
@@ -123,7 +123,7 @@ namespace AudioKitCore
     void SamplerVoice::release(bool loopThruRelease)
     {
         if (!loopThruRelease) oscillator.isLooping = false;
-        ahdshrEnvelope.release();
+        ampEnvelope.release();
         filterEnvelope.release();
         pitchEnvelope.release();
     }
@@ -131,7 +131,7 @@ namespace AudioKitCore
     void SamplerVoice::stop()
     {
         noteNumber = -1;
-        ahdshrEnvelope.reset();
+        ampEnvelope.reset();
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
         pitchEnvelope.reset();
@@ -144,18 +144,18 @@ namespace AudioKitCore
                                         float resLinear, float pitchADSRSemitones,
                                         float voiceLFODepthSemitones, float voiceLFOFrequencyHz)
     {
-        if (ahdshrEnvelope.isIdle()) return true;
+        if (ampEnvelope.isIdle()) return true;
 
-        if (ahdshrEnvelope.isPreStarting())
+        if (ampEnvelope.isPreStarting())
         {
             tempGain = masterVolume * tempNoteVolume;
-            volumeRamper.reinit(ahdshrEnvelope.getSample(), sampleCount);
+            volumeRamper.reinit(ampEnvelope.getSample(), sampleCount);
             // This can execute as part of the voice-stealing mechanism, and will be executed rarely.
             // To test, set MAX_POLYPHONY in AKCoreSampler.cpp to something small like 2 or 3.
-            if (!ahdshrEnvelope.isPreStarting())
+            if (!ampEnvelope.isPreStarting())
             {
                 tempGain = masterVolume * noteVolume;
-                volumeRamper.reinit(ahdshrEnvelope.getSample(), sampleCount);
+                volumeRamper.reinit(ampEnvelope.getSample(), sampleCount);
                 sampleBuffer = newSampleBuffer;
                 oscillator.increment = (sampleBuffer->sampleRate / samplingRate) * (noteFrequency / sampleBuffer->noteFrequency);
                 oscillator.indexPoint = sampleBuffer->startPoint;
@@ -165,7 +165,7 @@ namespace AudioKitCore
         else
         {
             tempGain = masterVolume * noteVolume;
-            volumeRamper.reinit(ahdshrEnvelope.getSample(), sampleCount);
+            volumeRamper.reinit(ampEnvelope.getSample(), sampleCount);
         }
 
         if (*glideSecPerOctave != 0.0f && glideSemitones != 0.0f)
