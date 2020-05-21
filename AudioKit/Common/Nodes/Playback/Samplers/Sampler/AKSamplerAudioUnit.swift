@@ -10,6 +10,8 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
 
     var vibratoDepth: AUParameter!
 
+    var vibratoFrequency: AUParameter!
+
     var filterCutoff: AUParameter!
 
     var filterStrength: AUParameter!
@@ -93,6 +95,16 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
             address: parameterAddress,
             range: 0.0...24.0,
             unit: .relativeSemiTones,
+            flags: .default)
+
+        parameterAddress += 1
+
+        vibratoFrequency = AUParameter(
+            identifier: "vibratoFrequency",
+            name: "Vibrato Speed (hz)",
+            address: parameterAddress,
+            range: 0.0...200.0,
+            unit: .hertz,
             flags: .default)
 
         parameterAddress += 1
@@ -329,6 +341,7 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
             masterVolume,
             pitchBend,
             vibratoDepth,
+            vibratoFrequency,
             filterCutoff,
             filterStrength,
             filterResonance,
@@ -358,6 +371,7 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
         masterVolume.value = 1.0
         pitchBend.value = 0.0
         vibratoDepth.value = 0.0
+        vibratoFrequency.value = 5.0
         filterCutoff.value = 4.0
         filterStrength.value = 20.0
         filterResonance.value = 0.0
