@@ -34,7 +34,7 @@ namespace AudioKitCore
 
         /// two filters (left/right)
         ResonantLowPassFilter leftFilter, rightFilter;
-        AHDSHREnvelope ahdshrEnvelope;
+        AHDSHREnvelope ampEnvelope;
         ADSREnvelope filterEnvelope, pitchEnvelope;
 
         // per-voice vibrato LFO
@@ -82,7 +82,7 @@ namespace AudioKitCore
 
         void init(double sampleRate);
 
-        void updateAmpAdsrParameters() { ahdshrEnvelope.updateParams(); }
+        void updateAmpAdsrParameters() { ampEnvelope.updateParams(); }
         void updateFilterAdsrParameters() { filterEnvelope.updateParams(); }
         void updatePitchAdsrParameters() { pitchEnvelope.updateParams(); }
         

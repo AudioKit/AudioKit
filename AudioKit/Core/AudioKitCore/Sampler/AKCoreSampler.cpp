@@ -73,7 +73,7 @@ AKCoreSampler::AKCoreSampler()
     AudioKitCore::SamplerVoice *pVoice = data->voice;
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
     {
-        pVoice->ahdshrEnvelope.pParameters = &data->ahdshrEnvelopeParameters;
+        pVoice->ampEnvelope.pParameters = &data->ahdshrEnvelopeParameters;
         pVoice->filterEnvelope.pParameters = &data->filterEnvelopeParameters;
         pVoice->pitchEnvelope.pParameters = &data->pitchEnvelopeParameters;
         pVoice->noteFrequency = 0.0f;
