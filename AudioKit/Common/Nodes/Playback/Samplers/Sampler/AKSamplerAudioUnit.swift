@@ -30,7 +30,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
 
-    var vibratoFrequency: Double = 1.0 {
+    var vibratoFrequency: Double = 5.0 {
         didSet { setParameter(.vibratoFrequency, value: vibratoFrequency) }
     }
 
@@ -440,7 +440,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
-        vibratoFrequencyParameter.value = 1.0
+        vibratoFrequencyParameter.value = 5.0
         filterCutoffParameter.value = 4.0
         filterStrengthParameter.value = 20.0
         filterResonanceParameter.value = 0.0

@@ -107,7 +107,7 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
-    vibratoFrequencyRamp.setTarget(1.0, true);
+    vibratoFrequencyRamp.setTarget(5.0, true);
     filterCutoffRamp.setTarget(4, true);
     filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);

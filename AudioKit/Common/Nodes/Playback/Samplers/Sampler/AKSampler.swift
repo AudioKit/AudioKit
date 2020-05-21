@@ -99,7 +99,7 @@
     }
 
     /// Vibrato speed (hz)
-    @objc open dynamic var vibratoFrequency: Double = 1.0 {
+    @objc open dynamic var vibratoFrequency: Double = 5.0 {
         willSet {
             guard vibratoFrequency != newValue else { return }
 
@@ -357,7 +357,7 @@
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
-        vibratoFrequency: Double = 1.0,
+        vibratoFrequency: Double = 5.0,
         filterCutoff: Double = 4.0,
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
