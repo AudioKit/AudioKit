@@ -30,8 +30,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
 
-    var vibratoSpeed: Double = 1.0 {
-        didSet { setParameter(.vibratoSpeed, value: vibratoSpeed) }
+    var vibratoFrequency: Double = 1.0 {
+        didSet { setParameter(.vibratoFrequency, value: vibratoFrequency) }
     }
 
     var filterCutoff: Double = 4.0 {
@@ -172,8 +172,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let vibratoSpeedParameter = AUParameter(
-            identifier: "vibratoSpeed",
+        let vibratoFrequencyParameter = AUParameter(
+            identifier: "vibratoFrequency",
             name: "Vibrato Speed (hz)",
             address: parameterAddress,
             range: 0.0...200.0,
@@ -413,7 +413,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         setParameterTree(AUParameterTree(children: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
-                                                                   vibratoSpeedParameter,
+                                                                   vibratoFrequencyParameter,
                                                                    filterCutoffParameter,
                                                                    filterStrengthParameter,
                                                                    filterResonanceParameter,
@@ -440,7 +440,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
-        vibratoSpeedParameter.value = 1.0
+        vibratoFrequencyParameter.value = 1.0
         filterCutoffParameter.value = 4.0
         filterStrengthParameter.value = 20.0
         filterResonanceParameter.value = 0.0
