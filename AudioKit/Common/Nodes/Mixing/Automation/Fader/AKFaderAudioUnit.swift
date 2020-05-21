@@ -3,19 +3,67 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-    var taper: AUParameter!
+    @objc var taper = AUParameter(
+        identifier: "taper",
+        name: "Taper",
+        address: 2,
+        range: 0.1 ... 10.0,
+        unit: .generic,
+        flags: .default
+    )
 
-    var skew: AUParameter!
+    @objc var skew = AUParameter(
+        identifier: "skew",
+        name: "Skew",
+        address: 3,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default
+    )
 
-    var offset: AUParameter!
+    @objc var offset = AUParameter(
+        identifier: "offset",
+        name: "Offset",
+        address: 4,
+        range: 0.0 ... 1_000_000_000.0,
+        unit: .generic,
+        flags: .default
+    )
 
-    var leftGain: AUParameter!
+    @objc var leftGain = AUParameter(
+        identifier: "leftGain",
+        name: "Left Gain",
+        address: 0,
+        range: AKFader.gainRange,
+        unit: .linearGain,
+        flags: .default
+    )
 
-    var rightGain: AUParameter!
+    @objc var rightGain = AUParameter(
+        identifier: "rightGain",
+        name: "Right Gain",
+        address: 1,
+        range: AKFader.gainRange,
+        unit: .linearGain,
+        flags: .default
+    )
+    @objc var flipStereo = AUParameter(
+        identifier: "flipStereo",
+        name: "Flip Stereo",
+        address: 5,
+        range: 0.0 ... 1.0,
+        unit: .boolean,
+        flags: .default
+    )
 
-    var flipStereo: AUParameter!
-
-    var mixToMono: AUParameter!
+    @objc var mixToMono = AUParameter(
+        identifier: "mixToMono",
+        name: "Mix To Mono",
+        address: 6,
+        range: 0.0 ... 1.0,
+        unit: .boolean,
+        flags: .default
+    )
 
     public override func createDSP() -> AKDSPRef {
         return createFaderDSP()
@@ -24,69 +72,6 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        leftGain = AUParameter(
-            identifier: "leftGain",
-            name: "Left Gain",
-            address: 0,
-            range: AKFader.gainRange,
-            unit: .linearGain,
-            flags: .default
-        )
-
-        rightGain = AUParameter(
-            identifier: "rightGain",
-            name: "Right Gain",
-            address: 1,
-            range: AKFader.gainRange,
-            unit: .linearGain,
-            flags: .default
-        )
-
-        taper = AUParameter(
-            identifier: "taper",
-            name: "Taper",
-            address: 2,
-            range: 0.1 ... 10.0,
-            unit: .generic,
-            flags: .default
-        )
-
-        skew = AUParameter(
-            identifier: "skew",
-            name: "Skew",
-            address: 3,
-            range: 0.0 ... 1.0,
-            unit: .generic,
-            flags: .default
-        )
-
-        offset = AUParameter(
-            identifier: "offset",
-            name: "Offset",
-            address: 4,
-            range: 0.0 ... 1_000_000_000.0,
-            unit: .generic,
-            flags: .default
-        )
-
-        flipStereo = AUParameter(
-            identifier: "flipStereo",
-            name: "Flip Stereo",
-            address: 5,
-            range: 0.0 ... 1.0,
-            unit: .boolean,
-            flags: .default
-        )
-
-        mixToMono = AUParameter(
-            identifier: "mixToMono",
-            name: "Mix To Stereo",
-            address: 6,
-            range: 0.0 ... 1.0,
-            unit: .boolean,
-            flags: .default
-        )
 
         parameterTree = AUParameterTree.createTree(withChildren: [leftGain,
                                                                   rightGain,
