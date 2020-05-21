@@ -30,6 +30,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
 
+    var vibratoSpeed: Double = 1.0 {
+        didSet { setParameter(.vibratoSpeed, value: vibratoSpeed) }
+    }
+
     var filterCutoff: Double = 4.0 {
         didSet { setParameter(.filterCutoff, value: filterCutoff) }
     }
@@ -164,6 +168,16 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             address: parameterAddress,
             range: 0.0...24.0,
             unit: .relativeSemiTones,
+            flags: .default)
+
+        parameterAddress += 1
+
+        let vibratoSpeedParameter = AUParameter(
+            identifier: "vibratoSpeed",
+            name: "Vibrato Speed (hz)",
+            address: parameterAddress,
+            range: 0.0...200.0,
+            unit: .hertz,
             flags: .default)
 
         parameterAddress += 1
@@ -399,6 +413,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         setParameterTree(AUParameterTree(children: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
+                                                                   vibratoSpeedParameter,
                                                                    filterCutoffParameter,
                                                                    filterStrengthParameter,
                                                                    filterResonanceParameter,
@@ -425,6 +440,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
+        vibratoSpeedParameter.value = 1.0
         filterCutoffParameter.value = 4.0
         filterStrengthParameter.value = 20.0
         filterResonanceParameter.value = 0.0

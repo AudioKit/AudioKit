@@ -16,6 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterMasterVolume,
     AKSamplerParameterPitchBend,
     AKSamplerParameterVibratoDepth,
+    AKSamplerParameterVibratoSpeed,
     AKSamplerParameterFilterCutoff,
     AKSamplerParameterFilterStrength,
     AKSamplerParameterFilterResonance,
@@ -76,6 +77,7 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp masterVolumeRamp;
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
+    AKLinearParameterRamp vibratoSpeedRamp;
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
