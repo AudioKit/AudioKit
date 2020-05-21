@@ -100,8 +100,8 @@ namespace AudioKitCore
         double sustainFraction = double(pParameters->sustainFraction);
 
         envDesc[kAttack].lengthSamples = int(pParameters->attackSamples);
-        envDesc[kHold].initialValue = sustainFraction;
-        envDesc[kHold].finalValue = sustainFraction;
+        envDesc[kHold].initialValue = 1.0;
+        envDesc[kHold].finalValue = 1.0;
         envDesc[kHold].lengthSamples = int(pParameters->holdSamples);
         envDesc[kDecay].finalValue = sustainFraction;
         envDesc[kDecay].lengthSamples = int(pParameters->decaySamples);
