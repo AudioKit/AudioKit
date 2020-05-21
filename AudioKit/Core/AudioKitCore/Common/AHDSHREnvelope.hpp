@@ -75,7 +75,9 @@ namespace AudioKitCore
         void reset();       // reset to idle state
         bool isIdle() { return env.getCurrentSegmentIndex() == kIdle; }
         bool isPreStarting() { return env.getCurrentSegmentIndex() == kSilence; }
-        bool isReleasing() { return env.getCurrentSegmentIndex() == kRelease; }
+        bool isReleasing() {
+            return env.getCurrentSegmentIndex() == kReleaseHold || env.getCurrentSegmentIndex() == kRelease;
+        }
 
         inline float getValue()
         {
