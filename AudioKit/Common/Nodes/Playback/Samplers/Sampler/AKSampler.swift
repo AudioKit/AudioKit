@@ -29,8 +29,10 @@
     fileprivate var glideRateParameter: AUParameter?
 
     fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var holdDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
+    fileprivate var releaseHoldDurationParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
 
     fileprivate var filterAttackDurationParameter: AUParameter?
@@ -206,6 +208,14 @@
         }
     }
 
+    /// Amplitude hold duration (seconds)
+    @objc open dynamic var holdDuration: Double = 0.0 {
+        willSet {
+            guard holdDuration != newValue else { return }
+            internalAU?.holdDuration = newValue
+        }
+    }
+
     /// Amplitude Decay duration (seconds)
     @objc open dynamic var decayDuration: Double = 0.0 {
         willSet {
@@ -219,6 +229,14 @@
         willSet {
             guard sustainLevel != newValue else { return }
             internalAU?.sustainLevel = newValue
+        }
+    }
+
+    /// Amplitude Release Hold duration (seconds)
+    @objc open dynamic var releaseHoldDuration: Double = 0.0 {
+        willSet {
+            guard releaseHoldDuration != newValue else { return }
+            internalAU?.releaseHoldDuration = newValue
         }
     }
 
@@ -365,8 +383,10 @@
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - attackDuration: seconds, 0.0 - 10.0
+    ///   - holdDuration: seconds, 0.0 - 10.0
     ///   - decayDuration: seconds, 0.0 - 10.0
     ///   - sustainLevel: 0.0 - 1.0
+    ///   - releaseHoldDuration: seconds, 0.0 - 10.0
     ///   - releaseDuration: seconds, 0.0 - 10.0
     ///   - filterEnable: true to enable per-voice filters
     ///   - filterAttackDuration: seconds, 0.0 - 10.0
@@ -396,8 +416,10 @@
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         attackDuration: Double = 0.0,
+        holdDuration: Double = 0.0,
         decayDuration: Double = 0.0,
         sustainLevel: Double = 1.0,
+        releaseHoldDuration: Double = 0.0,
         releaseDuration: Double = 0.0,
         filterEnable: Bool = false,
         filterAttackDuration: Double = 0.0,
@@ -426,8 +448,10 @@
         self.filterStrength = filterStrength
         self.filterResonance = filterResonance
         self.attackDuration = attackDuration
+        self.holdDuration = holdDuration
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
+        self.releaseHoldDuration = releaseHoldDuration
         self.releaseDuration = releaseDuration
         self.filterEnable = filterEnable
         self.filterAttackDuration = filterAttackDuration
@@ -475,8 +499,10 @@
         self.filterStrengthParameter = tree["filterStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
         self.attackDurationParameter = tree["attackDuration"]
+        self.holdDurationParameter = tree["holdDuration"]
         self.decayDurationParameter = tree["decayDuration"]
         self.sustainLevelParameter = tree["sustainLevel"]
+        self.releaseHoldDurationParameter = tree["releaseHoldDuration"]
         self.releaseDurationParameter = tree["releaseDuration"]
         self.filterAttackDurationParameter = tree["filterAttackDuration"]
         self.filterDecayDurationParameter = tree["filterDecayDuration"]
@@ -505,8 +531,10 @@
         self.internalAU?.setParameterImmediately(.filterStrength, value: filterStrength)
         self.internalAU?.setParameterImmediately(.filterResonance, value: filterResonance)
         self.internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        self.internalAU?.setParameterImmediately(.holdDuration, value: holdDuration)
         self.internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
         self.internalAU?.setParameterImmediately(.sustainLevel, value: sustainLevel)
+        self.internalAU?.setParameterImmediately(.releaseHoldDuration, value: releaseHoldDuration)
         self.internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
         self.internalAU?.setParameterImmediately(.filterAttackDuration, value: filterAttackDuration)
         self.internalAU?.setParameterImmediately(.filterDecayDuration, value: filterDecayDuration)
