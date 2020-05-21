@@ -53,6 +53,7 @@ AKCoreSampler::AKCoreSampler()
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
 , vibratoDepth(0.0f)
+, vibratoSpeed(1.0f)
 , glideRate(0.0f)   // 0 sec/octave means "no glide"
 , isMonophonic(false)
 , isLegato(false)
@@ -410,7 +411,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
 {
     float *pOutLeft = outBuffers[0];
     float *pOutRight = outBuffers[1];
-    
+    data->vibratoLFO.setFrequency(vibratoSpeed);
     float pitchDev = this->pitchOffset + vibratoDepth * data->vibratoLFO.getSample();
     float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
     
