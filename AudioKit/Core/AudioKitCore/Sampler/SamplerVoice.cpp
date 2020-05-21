@@ -21,6 +21,8 @@ namespace AudioKitCore
         adsrEnvelope.init();
         filterEnvelope.init();
         pitchEnvelope.init();
+        vibratoLFO.waveTable.sinusoid();
+        vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
         volumeRamper.init(0.0f);
         tempGain = 0.0f;
     }
@@ -45,6 +47,8 @@ namespace AudioKitCore
         pitchEnvelope.start();
 
         pitchEnvelopeSemitones = 0.0f;
+
+        voiceLFOSemitones = 0.0f;
 
         glideSemitones = 0.0f;
         if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
@@ -74,6 +78,8 @@ namespace AudioKitCore
 
         pitchEnvelopeSemitones = 0.0f;
 
+        voiceLFOSemitones = 0.0f;
+
         noteFrequency = frequency;
         noteNumber = note;
         tempNoteVolume = noteVolume;
@@ -82,6 +88,7 @@ namespace AudioKitCore
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
+        vibratoLFO.phase = 0;
     }
 
     void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
@@ -110,6 +117,7 @@ namespace AudioKitCore
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
+        vibratoLFO.phase = 0;
     }
     
     void SamplerVoice::release(bool loopThruRelease)
@@ -127,12 +135,14 @@ namespace AudioKitCore
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
         pitchEnvelope.reset();
+        vibratoLFO.phase = 0;
     }
 
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
                                         float cutoffMultiple, float keyTracking,
                                         float cutoffEnvelopeStrength, float cutoffEnvelopeVelocityScaling,
-                                        float resLinear, float pitchADSRSemitones)
+                                        float resLinear, float pitchADSRSemitones,
+                                        float voiceLFODepthSemitones, float voiceLFOFrequencyHz)
     {
         if (adsrEnvelope.isIdle()) return true;
 
@@ -178,7 +188,10 @@ namespace AudioKitCore
         if (pitchCurveAmount < 0) { pitchCurveAmount = 0; }
         pitchEnvelopeSemitones = pow(pitchEnvelope.getSample(), pitchCurveAmount) * pitchADSRSemitones;
 
-        float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones;
+        vibratoLFO.setFrequency(voiceLFOFrequencyHz);
+        voiceLFOSemitones = vibratoLFO.getSample() * voiceLFODepthSemitones;
+
+        float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones + voiceLFOSemitones;
         oscillator.setPitchOffsetSemitones(pitchOffsetModified);
 
         // negative value of cutoffMultiple means filters are disabled

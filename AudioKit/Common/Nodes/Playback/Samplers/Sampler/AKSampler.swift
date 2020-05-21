@@ -21,6 +21,8 @@
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoFrequencyParameter: AUParameter?
+    fileprivate var voiceVibratoDepthParameter: AUParameter?
+    fileprivate var voiceVibratoFrequencyParameter: AUParameter?
     fileprivate var filterCutoffParameter: AUParameter?
     fileprivate var filterStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
@@ -109,6 +111,34 @@
             }
 
             internalAU?.vibratoFrequency = newValue
+        }
+    }
+
+    /// Voice Vibrato amount (semitones) - each voice behaves indpendently
+    @objc open dynamic var voiceVibratoDepth: Double = 1.0 {
+        willSet {
+            guard voiceVibratoDepth != newValue else { return }
+
+            if internalAU?.isSetUp == true {
+                voiceVibratoDepthParameter?.value = AUValue(newValue)
+                return
+            }
+
+            internalAU?.voiceVibratoDepth = newValue
+        }
+    }
+
+    /// Vibrato speed (hz)
+    @objc open dynamic var voiceVibratoFrequency: Double = 5.0 {
+        willSet {
+            guard voiceVibratoFrequency != newValue else { return }
+
+            if internalAU?.isSetUp == true {
+                voiceVibratoFrequencyParameter?.value = AUValue(newValue)
+                return
+            }
+
+            internalAU?.voiceVibratoFrequency = newValue
         }
     }
 
@@ -329,6 +359,8 @@
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - vibratoFrequency: hertz
+    ///   - voiceVibratoDepth: semitones, typically less than 1.0
+    ///   - voiceVibratoFrequency: hertz
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
@@ -358,6 +390,8 @@
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         vibratoFrequency: Double = 5.0,
+        voiceVibratoDepth: Double = 0.0,
+        voiceVibratoFrequency: Double = 5.0,
         filterCutoff: Double = 4.0,
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
@@ -386,6 +420,8 @@
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.vibratoFrequency = vibratoFrequency
+        self.voiceVibratoDepth = voiceVibratoDepth
+        self.voiceVibratoFrequency = voiceVibratoFrequency
         self.filterCutoff = filterCutoff
         self.filterStrength = filterStrength
         self.filterResonance = filterResonance
@@ -433,6 +469,8 @@
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
         self.vibratoFrequencyParameter = tree["vibratoFrequency"]
+        self.voiceVibratoDepthParameter = tree["voiceVibratoDepth"]
+        self.voiceVibratoFrequencyParameter = tree["voiceVibratoFrequency"]
         self.filterCutoffParameter = tree["filterCutoff"]
         self.filterStrengthParameter = tree["filterStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
@@ -461,6 +499,8 @@
         self.internalAU?.setParameterImmediately(.pitchBend, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepth, value: vibratoDepth)
         self.internalAU?.setParameterImmediately(.vibratoFrequency, value: vibratoFrequency)
+        self.internalAU?.setParameterImmediately(.voiceVibratoDepth, value: voiceVibratoDepth)
+        self.internalAU?.setParameterImmediately(.voiceVibratoFrequency, value: voiceVibratoFrequency)
         self.internalAU?.setParameterImmediately(.filterCutoff, value: filterCutoff)
         self.internalAU?.setParameterImmediately(.filterStrength, value: filterStrength)
         self.internalAU?.setParameterImmediately(.filterResonance, value: filterResonance)
