@@ -125,6 +125,10 @@ namespace AudioKitCore
 
     void AHDSHREnvelope::release()
     {
+        //update the 'release section' envelope values to be where the envelope currently is
+        envDesc[kReleaseHold].initialValue = env.getValue();
+        envDesc[kReleaseHold].finalValue = env.getValue();
+        envDesc[kRelease].initialValue = env.getValue();
         env.advanceToSegment(kReleaseHold);
     }
 
