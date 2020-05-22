@@ -42,9 +42,9 @@ namespace AudioKitCore
         samplingRate = sampleRate;
         leftFilter.updateSampleRate(double(samplingRate));
         rightFilter.updateSampleRate(double(samplingRate));
-//        filterEnvelope.start();
-//
-//        pitchEnvelope.start();
+        filterEnvelope.start();
+
+        pitchEnvelope.start();
 
         pitchEnvelopeSemitones = 0.0f;
 
@@ -86,8 +86,8 @@ namespace AudioKitCore
         newSampleBuffer = buffer;
         ampEnvelope.restart();
         noteVolume = volume;
-//        filterEnvelope.restart();
-//        pitchEnvelope.restart();
+        filterEnvelope.restart();
+        pitchEnvelope.restart();
         vibratoLFO.phase = 0;
     }
 
@@ -115,8 +115,8 @@ namespace AudioKitCore
         newSampleBuffer = buffer;
         ampEnvelope.restart();
         noteVolume = volume;
-//        filterEnvelope.restart();
-//        pitchEnvelope.restart();
+        filterEnvelope.restart();
+        pitchEnvelope.restart();
         vibratoLFO.phase = 0;
     }
     
@@ -124,8 +124,8 @@ namespace AudioKitCore
     {
         if (!loopThruRelease) oscillator.isLooping = false;
         ampEnvelope.release();
-//        filterEnvelope.release();
-//        pitchEnvelope.release();
+        filterEnvelope.release();
+        pitchEnvelope.release();
     }
     
     void SamplerVoice::stop()
@@ -133,8 +133,8 @@ namespace AudioKitCore
         noteNumber = -1;
         ampEnvelope.reset();
         volumeRamper.init(0.0f);
-//        filterEnvelope.reset();
-//        pitchEnvelope.reset();
+        filterEnvelope.reset();
+        pitchEnvelope.reset();
         vibratoLFO.phase = 0;
     }
 
