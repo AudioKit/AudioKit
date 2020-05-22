@@ -94,7 +94,7 @@ namespace AudioKitCore
 
     void ADSREnvelope::start()
     {
-        env.advanceToSegment(kAttack);
+        env.startAtSegment(kAttack);
     }
 
     void ADSREnvelope::restart()
@@ -104,6 +104,7 @@ namespace AudioKitCore
 
     void ADSREnvelope::release()
     {
+        envDesc[kRelease].initialValue = env.getValue();
         env.advanceToSegment(kRelease);
     }
 
