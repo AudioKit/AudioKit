@@ -59,7 +59,7 @@ namespace AudioKitCore
         double initValue = seg.initialValue;
         double targetValue = seg.finalValue;
         bool isHorizontal = seg.initialValue == seg.finalValue;
-        if (seg.lengthSamples == 0 && isHorizontal) { // if flat and 0 len, skip it completely
+        if (isHorizontal) { // if flat, use current values
             targetValue = output;
             initValue = output;
         }
@@ -72,11 +72,10 @@ namespace AudioKitCore
         SegmentDescriptor& seg = (*segments)[curSegIndex];
         double targetValue = seg.finalValue;
         bool isHorizontal = seg.initialValue == seg.finalValue;
-        int length = seg.lengthSamples;
-        if (seg.lengthSamples == 0 && isHorizontal) { // if flat and 0 len, skip it completely
-            targetValue = output;
+        if (isHorizontal) { // if flat, use current values
+            targetValue = initValue;
         }
-        printf("manualAdvance %i: init %f final %f len %i - init %f target %f \n", curSegIndex, seg.initialValue, seg.finalValue, length, initValue, targetValue);
+        printf("manualAdvance %i: init %f final %f len %i - init %f target %f \n", curSegIndex, seg.initialValue, seg.finalValue, seg.lengthSamples, initValue, targetValue);
         ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
     }
 
@@ -90,6 +89,9 @@ namespace AudioKitCore
     void MultiSegmentEnvelopeGenerator::advanceToSegment(int segIndex)
     {
         curSegIndex = segIndex;
+        SegmentDescriptor& seg = (*segments)[curSegIndex];
+        int length = seg.lengthSamples;
+        printf("advance seg %i is %i\n", curSegIndex, length);
         skipEmptySegments();
         setupCurSeg(output); //we are advancing, not restarting, so always start from the value we are currently at
     }
@@ -106,8 +108,10 @@ namespace AudioKitCore
     {
         SegmentDescriptor& seg = (*segments)[curSegIndex];
         int length = seg.lengthSamples;
+        printf("seg %i is %i\n", curSegIndex, length);
         while (length == 0) { //skip any segments that are 0-length
-            curSegIndex++;
+            printf("skipping seg %i\n", curSegIndex);
+            ++curSegIndex;
             seg = (*segments)[curSegIndex];
             length = seg.lengthSamples;
         }
