@@ -8,7 +8,7 @@
 
 import AudioToolbox
 
-open class AKAudioUnitBase: AUAudioUnit {
+@objc open class AKAudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
     private var inputBusArray: [AUAudioUnitBus] = []
@@ -66,17 +66,22 @@ open class AKAudioUnitBase: AUAudioUnit {
         internalRenderBlockDSP(dsp)
     }
 
+    private var _parameterTree: AUParameterTree?
+
     @objc public override var parameterTree: AUParameterTree? {
-        didSet {
-            parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
+        get { return _parameterTree }
+        set {
+            _parameterTree = newValue
+
+            _parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
                 setParameterDSP(self.dsp, parameter.address, value)
             }
 
-            parameterTree?.implementorValueProvider = { [unowned self] parameter in
+            _parameterTree?.implementorValueProvider = { [unowned self] parameter in
                 getParameterDSP(self.dsp, parameter.address)
             }
 
-            parameterTree?.implementorStringFromValueCallback = { parameter, value in
+            _parameterTree?.implementorStringFromValueCallback = { parameter, value in
                 if let value = value {
                     return String(format: "%.f", value)
                 } else {

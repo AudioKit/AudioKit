@@ -2,7 +2,7 @@
 
 import AVFoundation
 
-public class AKFaderAudioUnit: AKAudioUnitBase {
+@objc public class AKFaderAudioUnit: AKAudioUnitBase {
     @objc var taper = AUParameter(
         identifier: "taper",
         name: "Taper",
