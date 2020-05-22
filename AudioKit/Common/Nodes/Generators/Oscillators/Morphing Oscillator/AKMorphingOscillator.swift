@@ -109,7 +109,6 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     ///   - index: Index of the wavetable to use (fractional are okay).
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
-    ///   - waveformCount: Number of waveforms.
     ///   - phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(

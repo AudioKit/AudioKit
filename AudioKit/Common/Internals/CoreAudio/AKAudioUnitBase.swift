@@ -136,7 +136,7 @@ import AudioToolbox
     }
 
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    public func createDSP() -> AKDSPRef? {
+    open func createDSP() -> AKDSPRef? {
         return nil
     }
 
