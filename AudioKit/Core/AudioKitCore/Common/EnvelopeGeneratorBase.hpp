@@ -72,6 +72,7 @@ namespace AudioKitCore
         typedef std::vector<SegmentDescriptor> Descriptor;
 
         void reset(Descriptor* pDesc, int initialSegmentIndex = 0);
+        void startAtSegment(int segIndex);
         void advanceToSegment(int segIndex);
 
         inline bool getSample(float& out)
@@ -88,8 +89,8 @@ namespace AudioKitCore
 //            if (segLength == 0) {
 //
 //            }
-SegmentDescriptor& seg = (*segments)[curSegIndex];
-int currentLength = seg.lengthSamples;
+            SegmentDescriptor& seg = (*segments)[curSegIndex];
+            int currentLength = seg.lengthSamples;
             if (ExponentialSegmentGenerator::getSample(out))
             {
                 if (++curSegIndex >= int(segments->size()))

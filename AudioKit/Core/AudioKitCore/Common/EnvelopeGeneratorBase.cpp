@@ -91,6 +91,17 @@ namespace AudioKitCore
         setupCurSeg();
     }
 
+    void MultiSegmentEnvelopeGenerator::startAtSegment(int segIndex)
+    {
+        curSegIndex = segIndex;
+        SegmentDescriptor& seg = (*segments)[curSegIndex];
+        while (seg.lengthSamples == 0) {
+            curSegIndex++;
+            seg = (*segments)[curSegIndex];
+        }
+        setupCurSeg(seg.initialValue);
+    }
+
     void MultiSegmentEnvelopeGenerator::advanceToSegment(int segIndex)
     {
         curSegIndex = segIndex;
