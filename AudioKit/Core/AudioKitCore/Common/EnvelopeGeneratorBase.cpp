@@ -19,6 +19,7 @@ namespace AudioKitCore
         isLinear = tco <= 0.0;
         isRising = targetValue > initialValue;
 
+        printf("initVal %f targetVal %f output %f target %f  len %i\n\n", initialValue, targetValue, output, target, segmentLengthSamples);
         if (isHorizontal)
         {
             tcount = 0;
@@ -52,36 +53,43 @@ namespace AudioKitCore
         }
     }
 
-
     void MultiSegmentEnvelopeGenerator::setupCurSeg()
     {
         SegmentDescriptor& seg = (*segments)[curSegIndex];
-//        double targetValue = seg.lengthSamples < 0 || (seg.initialValue != seg.finalValue && seg.lengthSamples > 0) ? seg.finalValue : initValue;
-        if (seg.lengthSamples > -1) {
-            printf("auto advance seg: %i : len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
-        }
-//        printf("auto advance: current seg is %i, target set %f\n", curSegIndex, seg.finalValue);
+        double initValue = output;
+        double targetValue = seg.finalValue;
+        bool isHorizontal = seg.initialValue == seg.finalValue;
         if (seg.lengthSamples == 0) {
-            printf("skip segment %i\n", curSegIndex);
-            return;
+            initValue = output;
+            targetValue = output;
         }
-        ExponentialSegmentGenerator::reset(seg.initialValue, seg.finalValue, seg.tco, seg.lengthSamples);
+        if (!isHorizontal) {
+            targetValue = seg.finalValue;
+        }
+//        if (seg.lengthSamples > -1) {
+            printf("auto advance seg: %i : len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
+//        }
+        ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
     }
 
     void MultiSegmentEnvelopeGenerator::setupCurSeg(double initValue)
     {
         SegmentDescriptor& seg = (*segments)[curSegIndex];
-        double targetValue = seg.lengthSamples < 0 || (seg.initialValue != seg.finalValue && seg.lengthSamples > 0) ? seg.finalValue : initValue;
-//        double targetValue = ((seg.initialValue == seg.finalValue || seg.lengthSamples == 0) && seg.lengthSamples >= 0) ? initValue : seg.finalValue;
-        if (seg.lengthSamples > -1) {
-            printf("manual advance seg: %i: len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
-            printf("manual advance: current seg is %i, target set %f\n", curSegIndex, targetValue);
-        }
+        double initVal = initValue;
+        double targetValue = seg.finalValue;
+        bool isHorizontal = seg.initialValue == seg.finalValue;
         if (seg.lengthSamples == 0) {
-            printf("skip segment %i\n", curSegIndex);
-            targetValue = initValue;
+            initVal = output;
+            targetValue = output;
         }
-        ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
+        if (!isHorizontal) {
+            targetValue = seg.finalValue;
+        }
+        if (seg.lengthSamples > -1) {
+            printf("manual advance seg: %i: len: %i, init: %f final %f target %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue, targetValue);
+//            printf("manual advance: current seg is %i, target set %f\n", curSegIndex, targetValue);
+        }
+        ExponentialSegmentGenerator::reset(initVal, targetValue, seg.tco, seg.lengthSamples);
     }
 
     void MultiSegmentEnvelopeGenerator::reset(Descriptor* pDesc, int initialSegmentIndex)
@@ -89,17 +97,6 @@ namespace AudioKitCore
         segments = pDesc;
         curSegIndex = initialSegmentIndex;
         setupCurSeg();
-    }
-
-    void MultiSegmentEnvelopeGenerator::startAtSegment(int segIndex)
-    {
-        curSegIndex = segIndex;
-        SegmentDescriptor& seg = (*segments)[curSegIndex];
-        while (seg.lengthSamples == 0) {
-            curSegIndex++;
-            seg = (*segments)[curSegIndex];
-        }
-        setupCurSeg(seg.initialValue);
     }
 
     void MultiSegmentEnvelopeGenerator::advanceToSegment(int segIndex)

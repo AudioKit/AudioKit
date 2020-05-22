@@ -115,7 +115,7 @@ namespace AudioKitCore
 
     void AHDSHREnvelope::start()
     {
-        env.startAtSegment(kAttack);
+        env.advanceToSegment(kAttack);
     }
 
     void AHDSHREnvelope::restart()
