@@ -104,7 +104,7 @@ namespace AudioKitCore
 
     void ADSREnvelope::release()
     {
-        envDesc[kRelease].initialValue = env.getValue();
+        envDesc[kRelease].initialValue = env.getValue(); //update release start value to current val of envelope
         env.advanceToSegment(kRelease);
     }
 
