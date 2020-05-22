@@ -79,19 +79,21 @@ namespace AudioKitCore
     void MultiSegmentEnvelopeGenerator::startAtSegment(int segIndex) //puts the envelope in a 'fresh' state, allows sudden jumps to first segment
     {
         curSegIndex = segIndex;
-        skipEmptySegments();
-        SegmentDescriptor& seg = (*segments)[curSegIndex];
-        setupCurSeg(seg.initialValue); // we are restarting, not advancing, so  always start from the first vlaue we get to
+        if (skipEmptySegments()) {
+            SegmentDescriptor& seg = (*segments)[curSegIndex];
+            setupCurSeg(seg.initialValue); // we are restarting, not advancing, so  always start from the first vlaue we get to
+        };
     }
 
     void MultiSegmentEnvelopeGenerator::advanceToSegment(int segIndex) //advances w/ awareness of state, so as to not make sudden jumps
     {
         curSegIndex = segIndex;
-        skipEmptySegments();
-        setupCurSeg(output); //we are advancing, not restarting, so always start from the value we are currently at
+        if (skipEmptySegments()) {
+            setupCurSeg(output); //we are advancing, not restarting, so always start from the value we are currently at
+        };
     }
 
-    void MultiSegmentEnvelopeGenerator::skipEmptySegments() //skips over any segment w/ length 0, so as to not influence the state of the envelope
+    bool MultiSegmentEnvelopeGenerator::skipEmptySegments() //skips over any segment w/ length 0, so as to not influence the state of the envelope
     {
         SegmentDescriptor seg = (*segments)[curSegIndex];
         int length = seg.lengthSamples;
@@ -100,6 +102,12 @@ namespace AudioKitCore
             seg = (*segments)[curSegIndex];
             length = seg.lengthSamples;
         }
+        if (curSegIndex >= int(segments->size())) // if at end of the envelope, reset
+        {
+            reset(segments);
+            return false;
+        }
+        return true;
     }
 
 }

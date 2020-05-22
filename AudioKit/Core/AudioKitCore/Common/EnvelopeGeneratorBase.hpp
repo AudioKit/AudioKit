@@ -100,7 +100,7 @@ namespace AudioKitCore
 
         void setupCurSeg();
         void setupCurSeg(double initValue);
-        void skipEmptySegments();
+        bool skipEmptySegments();
     };
 
 }
