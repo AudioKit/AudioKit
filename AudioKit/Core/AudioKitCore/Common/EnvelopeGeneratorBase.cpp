@@ -58,11 +58,8 @@ namespace AudioKitCore
         SegmentDescriptor& seg = (*segments)[curSegIndex];
         double targetValue = seg.finalValue;
         bool isHorizontal = seg.initialValue == seg.finalValue;
-        if (seg.lengthSamples == 0) {
+        if (seg.lengthSamples == 0 && isHorizontal) {
             targetValue = output;
-        }
-        if (!isHorizontal) {
-            targetValue = seg.finalValue;
         }
         printf("auto advance seg: %i : len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
         ExponentialSegmentGenerator::reset(output, targetValue, seg.tco, seg.lengthSamples);
