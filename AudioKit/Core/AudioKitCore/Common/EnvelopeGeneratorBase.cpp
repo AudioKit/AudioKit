@@ -19,7 +19,6 @@ namespace AudioKitCore
         isLinear = tco <= 0.0;
         isRising = targetValue > initialValue;
 
-        printf("initVal %f targetVal %f output %f target %f  len %i\n\n", initialValue, targetValue, output, target, segmentLengthSamples);
         if (isHorizontal)
         {
             tcount = 0;
