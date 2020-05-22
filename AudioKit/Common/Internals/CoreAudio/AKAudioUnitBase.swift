@@ -8,7 +8,7 @@
 
 import AudioToolbox
 
-@objc open class AKAudioUnitBase: AUAudioUnit {
+open class AKAudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
     private var inputBusArray: [AUAudioUnitBus] = []
@@ -67,8 +67,7 @@ import AudioToolbox
     }
 
     private var _parameterTree: AUParameterTree?
-
-    @objc public override var parameterTree: AUParameterTree? {
+    public override var parameterTree: AUParameterTree? {
         get { return _parameterTree }
         set {
             _parameterTree = newValue
