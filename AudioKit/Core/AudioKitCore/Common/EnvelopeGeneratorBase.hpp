@@ -76,6 +76,20 @@ namespace AudioKitCore
 
         inline bool getSample(float& out)
         {
+
+////            printf("currentLength of seg %i is %i\n", curSegIndex, currentLength);
+//            while (currentLength == 0) {
+//                printf("skipping segment %i\n", curSegIndex);
+//                curSegIndex++;
+//                setupCurSeg();
+//                seg = (*segments)[curSegIndex];
+//                currentLength = seg.lengthSamples;
+//            }
+//            if (segLength == 0) {
+//
+//            }
+SegmentDescriptor& seg = (*segments)[curSegIndex];
+int currentLength = seg.lengthSamples;
             if (ExponentialSegmentGenerator::getSample(out))
             {
                 if (++curSegIndex >= int(segments->size()))
@@ -85,7 +99,11 @@ namespace AudioKitCore
                 }
                 else
                 {
-                    setupCurSeg();
+                    if (currentLength == 0) {
+                        setupCurSeg(output);
+                    } else {
+                        setupCurSeg();
+                    }
                 }
             }
             return false;

@@ -56,13 +56,32 @@ namespace AudioKitCore
     void MultiSegmentEnvelopeGenerator::setupCurSeg()
     {
         SegmentDescriptor& seg = (*segments)[curSegIndex];
+//        double targetValue = seg.lengthSamples < 0 || (seg.initialValue != seg.finalValue && seg.lengthSamples > 0) ? seg.finalValue : initValue;
+        if (seg.lengthSamples > -1) {
+            printf("auto advance seg: %i : len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
+        }
+//        printf("auto advance: current seg is %i, target set %f\n", curSegIndex, seg.finalValue);
+        if (seg.lengthSamples == 0) {
+            printf("skip segment %i\n", curSegIndex);
+            return;
+        }
         ExponentialSegmentGenerator::reset(seg.initialValue, seg.finalValue, seg.tco, seg.lengthSamples);
     }
 
     void MultiSegmentEnvelopeGenerator::setupCurSeg(double initValue)
     {
         SegmentDescriptor& seg = (*segments)[curSegIndex];
-        ExponentialSegmentGenerator::reset(initValue, seg.finalValue, seg.tco, seg.lengthSamples);
+        double targetValue = seg.lengthSamples < 0 || (seg.initialValue != seg.finalValue && seg.lengthSamples > 0) ? seg.finalValue : initValue;
+//        double targetValue = ((seg.initialValue == seg.finalValue || seg.lengthSamples == 0) && seg.lengthSamples >= 0) ? initValue : seg.finalValue;
+        if (seg.lengthSamples > -1) {
+            printf("manual advance seg: %i: len: %i, init: %f final %f\n", curSegIndex, seg.lengthSamples, seg.initialValue, seg.finalValue);
+            printf("manual advance: current seg is %i, target set %f\n", curSegIndex, targetValue);
+        }
+        if (seg.lengthSamples == 0) {
+            printf("skip segment %i\n", curSegIndex);
+            targetValue = initValue;
+        }
+        ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
     }
 
     void MultiSegmentEnvelopeGenerator::reset(Descriptor* pDesc, int initialSegmentIndex)
