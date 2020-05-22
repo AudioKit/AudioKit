@@ -56,10 +56,7 @@ namespace AudioKitCore
     void MultiSegmentEnvelopeGenerator::setupCurSeg()
     {
         SegmentDescriptor seg = (*segments)[curSegIndex];
-        double initValue = seg.initialValue;
-        double targetValue = seg.finalValue;
-        printf("autoAdvance %i: init %f final %f len %i - init %f target %f \n", curSegIndex, seg.initialValue, seg.finalValue, seg.lengthSamples, initValue, targetValue);
-        ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
+        ExponentialSegmentGenerator::reset(seg.initialValue, seg.finalValue, seg.tco, seg.lengthSamples);
     }
 
     void MultiSegmentEnvelopeGenerator::setupCurSeg(double initValue)
@@ -70,7 +67,6 @@ namespace AudioKitCore
         if (isHorizontal) { // if flat (hold) then use same value
             targetValue = initValue;
         }
-        printf("manualAdvance %i: init %f final %f len %i - init %f target %f \n", curSegIndex, seg.initialValue, seg.finalValue, seg.lengthSamples, initValue, targetValue);
         ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
     }
 
@@ -101,7 +97,6 @@ namespace AudioKitCore
         SegmentDescriptor seg = (*segments)[curSegIndex];
         int length = seg.lengthSamples;
         while (length == 0) { //skip any segments that are 0-length
-            printf("skipping seg %i\n",  curSegIndex);
             curSegIndex++;
             seg = (*segments)[curSegIndex];
             length = seg.lengthSamples;
