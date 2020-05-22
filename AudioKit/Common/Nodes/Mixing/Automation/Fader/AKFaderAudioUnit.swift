@@ -2,8 +2,8 @@
 
 import AVFoundation
 
-@objc public class AKFaderAudioUnit: AKAudioUnitBase {
-    @objc var taper = AUParameter(
+public class AKFaderAudioUnit: AKAudioUnitBase {
+    var taper = AUParameter(
         identifier: "taper",
         name: "Taper",
         address: 2,
@@ -12,7 +12,7 @@ import AVFoundation
         flags: .default
     )
 
-    @objc var skew = AUParameter(
+    var skew = AUParameter(
         identifier: "skew",
         name: "Skew",
         address: 3,
@@ -21,7 +21,7 @@ import AVFoundation
         flags: .default
     )
 
-    @objc var offset = AUParameter(
+    var offset = AUParameter(
         identifier: "offset",
         name: "Offset",
         address: 4,
@@ -30,7 +30,7 @@ import AVFoundation
         flags: .default
     )
 
-    @objc var leftGain = AUParameter(
+    var leftGain = AUParameter(
         identifier: "leftGain",
         name: "Left Gain",
         address: 0,
@@ -39,7 +39,7 @@ import AVFoundation
         flags: .default
     )
 
-    @objc var rightGain = AUParameter(
+    var rightGain = AUParameter(
         identifier: "rightGain",
         name: "Right Gain",
         address: 1,
@@ -47,7 +47,7 @@ import AVFoundation
         unit: .linearGain,
         flags: .default
     )
-    @objc var flipStereo = AUParameter(
+    var flipStereo = AUParameter(
         identifier: "flipStereo",
         name: "Flip Stereo",
         address: 5,
@@ -56,7 +56,7 @@ import AVFoundation
         flags: .default
     )
 
-    @objc var mixToMono = AUParameter(
+    var mixToMono = AUParameter(
         identifier: "mixToMono",
         name: "Mix To Mono",
         address: 6,
