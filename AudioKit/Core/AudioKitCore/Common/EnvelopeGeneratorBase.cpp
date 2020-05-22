@@ -64,7 +64,7 @@ namespace AudioKitCore
         SegmentDescriptor seg = (*segments)[curSegIndex];
         double targetValue = seg.finalValue;
         bool isHorizontal = seg.initialValue == seg.finalValue;
-        if (isHorizontal) { // if flat (hold) then use same value
+        if (isHorizontal) { // if flat (hold) then use same value, prevents fades from currentVal to hold val
             targetValue = initValue;
         }
         ExponentialSegmentGenerator::reset(initValue, targetValue, seg.tco, seg.lengthSamples);
