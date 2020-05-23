@@ -41,7 +41,7 @@ extension CGRect {
 ///
 public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
-    precondition(utf8.count == 4, "Must be a 4 char string")
+    precondition(utf8.count == 4, "Must be a 4 character string")
     var out: UInt32 = 0
     for char in utf8 {
         out <<= 8
