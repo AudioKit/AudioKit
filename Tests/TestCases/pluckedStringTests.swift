@@ -1,25 +1,20 @@
-//
-//  pluckedStringTests.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class PluckedStringTests: AKTestCase {
 
+    let pluckedString = AKOperationGenerator { _ in
+        return AKOperation.pluckedString(trigger: AKOperation.metronome())
+    }
+
     override func setUp() {
-        super.setUp()
+        afterStart = { self.pluckedString.start() }
         duration = 1.0
     }
 
     func testDefault() {
-        output = AKOperationGenerator { _ in
-            return AKOperation.pluckedString(trigger: AKOperation.metronome())
-        }
+        output = pluckedString
         AKTestMD5("382cdbd27558fed9c8723ba435cdb4cf")
     }
 

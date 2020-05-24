@@ -1,19 +1,19 @@
-//
-//  AKAutoWahTests.swift
-//  AudioKitTestSuite
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKAutoWahTests: AKTestCase {
 
     func testAmplitude() {
         output = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
         AKTestMD5("786f65133d587399be35aa789e287815")
+    }
+
+    func testBypass() {
+        let wah = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
+        wah.bypass()
+        output = wah
+        AKTestNoEffect()
     }
 
     func testDefault() {

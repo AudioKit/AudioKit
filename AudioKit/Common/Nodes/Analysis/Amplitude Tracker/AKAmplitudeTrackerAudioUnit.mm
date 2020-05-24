@@ -1,10 +1,4 @@
-//
-//  AKAmplitudeTrackerAudioUnit.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKAmplitudeTrackerDSPKernel.hpp"
@@ -34,6 +28,10 @@
 
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
+}
+
+- (void)setMode:(int)mode {
+    _kernel.mode = mode;
 }
 //- (void)setSmoothness:(float)smoothness {
 //    _kernel.setSmoothness(smoothness);

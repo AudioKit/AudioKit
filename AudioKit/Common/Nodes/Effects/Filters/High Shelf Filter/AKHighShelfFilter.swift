@@ -1,10 +1,4 @@
-//
-//  AKHighShelfFilter.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
@@ -85,11 +79,11 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         au = AUWrapper(effect)
         super.init(avAudioNode: mixer.avAudioNode)
 
-        AudioKit.engine.attach(effect)
+        AKManager.engine.attach(effect)
         if let node = effectGain?.avAudioNode {
-            AudioKit.engine.connect(node, to: effect)
+            AKManager.engine.connect(node, to: effect)
         }
-        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+        AKManager.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         au[kHighShelfParam_Gain] = gain
@@ -117,13 +111,13 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
 
-        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+        AKManager.detach(nodes: [inputMixer.avAudioNode,
                                 inputGain!.avAudioNode,
                                 effectGain!.avAudioNode,
                                 mixer.avAudioNode])
-        AudioKit.engine.detach(self.internalEffect)
+        AKManager.engine.detach(self.internalEffect)
     }
 }

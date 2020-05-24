@@ -15,8 +15,8 @@ let effect = AKOperationEffect(player) { player, _ in
     return player.moogLadderFilter(cutoffFrequency: frequency, resonance: resonance) * 3
 }
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 import PlaygroundSupport

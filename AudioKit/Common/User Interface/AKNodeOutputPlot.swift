@@ -1,10 +1,5 @@
-//
-//  AKNodeOutputPlot.swift
-//  AudioKitUI
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AudioKit
 
 extension Notification.Name {
@@ -14,7 +9,7 @@ extension Notification.Name {
 
 /// Plot the output from any node in an signal processing graph
 ///
-/// By default this plots the output of AudioKit.output
+/// By default this plots the output of AKManager.output
 @IBDesignable
 open class AKNodeOutputPlot: EZAudioPlot {
 
@@ -74,7 +69,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     /// The node whose output to graph
     ///
-    /// Defaults to AudioKit.output
+    /// Defaults to AKManager.output
     @objc open var node: AKNode? {
         willSet {
             pause()
@@ -92,9 +87,9 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///
     /// - parameter coder: NSCoder
     ///
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(AudioKit.output)
+        setupNode(AKManager.output)
         setupReconnection()
     }
 
@@ -105,7 +100,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    @objc public init(_ input: AKNode? = AudioKit.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    @objc public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

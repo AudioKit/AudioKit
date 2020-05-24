@@ -1,10 +1,4 @@
-//
-//  AKWaveTable.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that
 /// doesn't rely on an as much Apple AV foundation/engine code as the others.
@@ -19,11 +13,11 @@ open class AKWaveTable: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKWaveTableAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "smpl")
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
@@ -106,8 +100,8 @@ open class AKWaveTable: AKNode, AKComponent {
 
     /// Number of samples in the audio stored in memory
     open var size: Sample {
-        if avAudiofile != nil {
-            return Sample(avAudiofile!.samplesCount)
+        if let avAudiofile = avAudiofile {
+            return Sample(avAudiofile.samplesCount)
         }
         return Sample(maximumSamples)
     }
@@ -135,7 +129,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile?
-    fileprivate var maximumSamples: Int = 0
+    fileprivate var maximumSamples: Sample = 0
 
     open var loadCompletionHandler: AKCallback = {} {
         willSet {
@@ -155,7 +149,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this SamplePlayer node
+    /// Initialize this WaveTable node
     ///
     /// - Parameters:
     ///   - file: Initial file to load (defining maximum size unless maximum samples are also set
@@ -171,7 +165,7 @@ open class AKWaveTable: AKNode, AKComponent {
                       endPoint: Sample = 0,
                       rate: Double = 1,
                       volume: Double = 1,
-                      maximumSamples: Int = 0,
+                      maximumSamples: Sample,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
@@ -179,9 +173,9 @@ open class AKWaveTable: AKNode, AKComponent {
         self.rate = rate
         self.volume = volume
         self.endPoint = endPoint
-        if file != nil {
-            self.avAudiofile = file!
-            self.endPoint = Sample(avAudiofile!.samplesCount)
+        if let file = file {
+            avAudiofile = file
+            self.endPoint = Sample(file.samplesCount)
         }
         self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
@@ -189,7 +183,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
@@ -199,8 +193,8 @@ open class AKWaveTable: AKNode, AKComponent {
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU!.completionHandler = completionHandler
-            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
+            strongSelf.internalAU?.completionHandler = completionHandler
+            strongSelf.internalAU?.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -224,8 +218,8 @@ open class AKWaveTable: AKNode, AKComponent {
         if maximumSamples != 0 {
             internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
         }
-        if file != nil {
-            load(file: file!)
+        if let file = file {
+            load(file: file)
         }
     }
 
@@ -293,7 +287,7 @@ open class AKWaveTable: AKNode, AKComponent {
             }
             let sizeToUse = UInt32(file.samplesCount * 2)
             if maximumSamples == 0 {
-                maximumSamples = Int(file.samplesCount)
+                maximumSamples = Sample(file.samplesCount)
                 internalAU?.setupAudioFileTable(sizeToUse)
             }
             avAudiofile = file
@@ -309,5 +303,18 @@ open class AKWaveTable: AKNode, AKComponent {
 
     deinit {
         internalAU?.destroy()
+    }
+
+    // Function to start, play, or activate the node at frequency
+    open func play(noteNumber: MIDINoteNumber,
+                   velocity: MIDIVelocity,
+                   frequency: Double,
+                   channel: MIDIChannel = 0) {
+        internalAU?.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    open func stop(noteNumber: MIDINoteNumber) {
+        internalAU?.stop()
     }
 }

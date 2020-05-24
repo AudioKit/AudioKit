@@ -1,18 +1,18 @@
-//
-//  AKBoosterTests.swift
-//  AudioKitTestSuiteTests
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKBoosterTests: AKTestCase {
 
     func testDefault() {
         output = AKBooster(input)
+        AKTestNoEffect()
+    }
+
+    func testBypass() {
+        let booster = AKBooster(input, gain: 2.0)
+        booster.bypass()
+        output = booster
         AKTestNoEffect()
     }
 
@@ -38,8 +38,8 @@ class AKBoosterTests: AKTestCase {
         booster.leftGain = 0.0
         booster.rightGain = 0.0
         osc.connect(to: booster)
-        AudioKit.output = booster
-        try! AudioKit.renderToFile(audioFile, duration: 4, prerender: {
+        AKManager.output = booster
+        try! AKManager.renderToFile(audioFile, duration: 4, prerender: {
             osc.start()
         })
     }

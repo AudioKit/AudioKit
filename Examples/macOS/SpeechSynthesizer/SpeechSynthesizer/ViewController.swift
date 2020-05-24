@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  SpeechSynthesizer
-//
-//  Created by Aurelius Prochazka on 4/7/18.
-//  Copyright © 2018 AudioKit Pro. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -33,9 +27,9 @@ class ViewController: NSViewController {
         let reverb = AKReverb(delay)
         reverb.loadFactoryPreset(.cathedral)
 
-        AudioKit.output = reverb
+        AKManager.output = reverb
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

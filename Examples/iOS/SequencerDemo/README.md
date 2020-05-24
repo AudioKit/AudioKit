@@ -40,8 +40,8 @@ During the init() function we initialize the instruments, mix them to a single o
 
     pumper = AKCompressor(mixer)
 
-    AudioKit.output = pumper
-    AudioKit.start()
+    AKManager.output = pumper
+    AKManager.start()
 ```
 
 And then we're able to generate a new track for our sequence for every instrument we've got so far (bass drum, snare drum, snare ghost):

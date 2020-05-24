@@ -1,25 +1,18 @@
-//
-//  AKVocalTractTests.swift
-//  iOSTestSuiteTests
-//
-//  Created by Aurelius Prochazka on 11/26/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKVocalTractTests: AKTestCase {
-    let vocalTract = AKVocalTract()
+    var vocalTract = AKVocalTract()
 
     override func setUp() {
-        super.setUp()
+        afterStart = { self.vocalTract.start() }
         vocalTract.rampDuration = 0
         vocalTract.start()
     }
 
     func testDefault() {
-        output = AKVocalTract()
+        output = vocalTract
         AKTestMD5("1e99cc28428af7353ca4f1dc1ba7cbca")
     }
 
@@ -64,11 +57,12 @@ class AKVocalTractTests: AKTestCase {
     }
 
     func testParametersSetOnInit() {
-        output = AKVocalTract(frequency: 234.5,
-                              tonguePosition: 0.3,
-                              tongueDiameter: 0.4,
-                              tenseness: 0.5,
-                              nasality: 0.6)
+        vocalTract = AKVocalTract(frequency: 234.5,
+                                  tonguePosition: 0.3,
+                                  tongueDiameter: 0.4,
+                                  tenseness: 0.5,
+                                  nasality: 0.6)
+        output = vocalTract
         AKTestMD5("0501c323ab9f99c3f6c8a43c74983eec")
     }
 

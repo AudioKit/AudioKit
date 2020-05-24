@@ -1,85 +1,56 @@
-//
-//  AKMorphingOscillatorAudioUnit.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
-public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
+public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var amplitude: AUParameter!
 
-    var frequency: Double = AKMorphingOscillator.defaultFrequency {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
+    private(set) var index: AUParameter!
 
-    var amplitude: Double = AKMorphingOscillator.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
+    private(set) var detuningOffset: AUParameter!
 
-    var index: Double = AKMorphingOscillator.defaultIndex {
-        didSet { setParameter(.index, value: index) }
-    }
+    private(set) var detuningMultiplier: AUParameter!
 
-    var detuningOffset: Double = AKMorphingOscillator.defaultDetuningOffset {
-        didSet { setParameter(.detuningOffset, value: detuningOffset) }
-    }
-
-    var detuningMultiplier: Double = AKMorphingOscillator.defaultDetuningMultiplier {
-        didSet { setParameter(.detuningMultiplier, value: detuningMultiplier) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createMorphingOscillatorDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createMorphingOscillatorDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (in Hz)",
             address: AKMorphingOscillatorParameter.frequency.rawValue,
             range: AKMorphingOscillator.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude (typically a value between 0 and 1).",
             address: AKMorphingOscillatorParameter.amplitude.rawValue,
             range: AKMorphingOscillator.amplitudeRange,
             unit: .hertz,
             flags: .default)
-        let index = AUParameter(
+        index = AUParameter(
             identifier: "index",
             name: "Index of the wavetable to use (fractional are okay).",
             address: AKMorphingOscillatorParameter.index.rawValue,
             range: AKMorphingOscillator.indexRange,
             unit: .hertz,
             flags: .default)
-        let detuningOffset = AUParameter(
+        detuningOffset = AUParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
             range: AKMorphingOscillator.detuningOffsetRange,
             unit: .hertz,
             flags: .default)
-        let detuningMultiplier = AUParameter(
+        detuningMultiplier = AUParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
@@ -87,14 +58,16 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
-        frequency.value = Float(AKMorphingOscillator.defaultFrequency)
-        amplitude.value = Float(AKMorphingOscillator.defaultAmplitude)
-        index.value = Float(AKMorphingOscillator.defaultIndex)
-        detuningOffset.value = Float(AKMorphingOscillator.defaultDetuningOffset)
-        detuningMultiplier.value = Float(AKMorphingOscillator.defaultDetuningMultiplier)
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  amplitude,
+                                                                  index,
+                                                                  detuningOffset,
+                                                                  detuningMultiplier])
+
+        frequency.value = AUValue(AKMorphingOscillator.defaultFrequency)
+        amplitude.value = AUValue(AKMorphingOscillator.defaultAmplitude)
+        index.value = AUValue(AKMorphingOscillator.defaultIndex)
+        detuningOffset.value = AUValue(AKMorphingOscillator.defaultDetuningOffset)
+        detuningMultiplier.value = AUValue(AKMorphingOscillator.defaultDetuningMultiplier)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

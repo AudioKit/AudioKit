@@ -1,10 +1,4 @@
-//
-//  AKDevice.swift
-//  AudioKit
-//
-//  Created by Stéphane Peter, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
 public typealias DeviceID = AudioDeviceID
@@ -42,8 +36,8 @@ open class AKDevice: NSObject {
     #if os(macOS)
     public convenience init(ezAudioDevice: EZAudioDevice) {
         self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
-        self.nInputChannels = ezAudioDevice.inputChannelCount
-        self.nOutputChannels = ezAudioDevice.outputChannelCount
+        nInputChannels = ezAudioDevice.inputChannelCount
+        nOutputChannels = ezAudioDevice.outputChannelCount
     }
     #endif
 
@@ -73,11 +67,11 @@ open class AKDevice: NSObject {
     #endif
 
     /// Printable device description
-    override open var description: String {
+    open override var description: String {
         return "<Device: \(name) (\(deviceID))>"
     }
 
-    override open func isEqual(_ object: Any?) -> Bool {
+    open override func isEqual(_ object: Any?) -> Bool {
         if let object = object as? AKDevice {
             return self.name == object.name && self.deviceID == object.deviceID
         }

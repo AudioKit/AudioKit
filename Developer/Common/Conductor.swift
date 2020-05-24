@@ -1,10 +1,4 @@
-//
-//  Conductor.swift
-//  ExtendingAudioKit
-//
-//  Created by Shane Dunne, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 
@@ -54,9 +48,9 @@ class Conductor {
         oscillatorGain = SDBooster(oscillator)
 
         // Set Output & Start AudioKit
-        AudioKit.output = oscillatorGain
+        AKManager.output = oscillatorGain
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start")
         }
@@ -121,7 +115,7 @@ class Conductor {
         }
     }
 
-    func afterTouch(_ pressure: MIDIByte) {
+    func aftertouch(_ pressure: MIDIByte) {
     }
 
     func controller(_ controller: MIDIByte, value: MIDIByte) {

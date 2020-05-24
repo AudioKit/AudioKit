@@ -1,10 +1,4 @@
-//
-//  AKReverb2.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
@@ -183,9 +177,9 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
-            super.init()
+            super.init(avAudioNode: AVAudioNode())
             avAudioUnit = internalEffect
-            AudioKit.engine.attach(avAudioUnitOrNode)
+            AKManager.engine.attach(avAudioUnitOrNode)
             input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 

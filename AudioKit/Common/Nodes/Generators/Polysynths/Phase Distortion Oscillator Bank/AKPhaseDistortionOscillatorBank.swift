@@ -1,10 +1,4 @@
-//
-//  AKPhaseDistortionOscillatorBank.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Phase Distortion Oscillator Bank
 ///
@@ -15,7 +9,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var waveform: AKTable?
     fileprivate var phaseDistortionParameter: AUParameter?
@@ -133,11 +127,6 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -153,7 +142,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         phaseDistortion: Double = 0.0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
@@ -176,7 +165,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

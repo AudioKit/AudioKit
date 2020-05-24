@@ -1,10 +1,5 @@
-//
-//  AKMIDITempoListener.swift
-//  AudioKit
-//
-//  Created by Kurt Arnlund on 1/18/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  MIDI Spec
 //      24 clocks/quarternote
 //      96 clocks/4_beat_measure
@@ -27,7 +22,7 @@ public typealias BPMType = TimeInterval
 /// Usage:
 ///
 ///     let tempoListener = AKMIDITempoListener()
-///     AudioKit.midi.addListener(tempoListener)
+///     AKMIDI().addListener(tempoListener)
 ///
 /// Make your class a AKMIDITempoObserver and you will recieve callbacks when the BPM
 /// changes.

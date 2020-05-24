@@ -25,8 +25,8 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     }
 }
 
-AudioKit.output = reverb
-try AudioKit.start(withPeriodicFunctions: performance)
+AKManager.output = reverb
+try AKManager.start(withPeriodicFunctions: performance)
 performance.start()
 
 import PlaygroundSupport

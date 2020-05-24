@@ -1,10 +1,4 @@
-//
-//  AKPanner.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Stereo Panner
 ///
@@ -14,39 +8,26 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var panParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Pan
-    public static let panRange = -1.0 ... 1.0
+    public static let panRange: ClosedRange<Double> = -1 ... 1
 
     /// Initial value for Pan
-    public static let defaultPan = 0.0
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
+    public static let defaultPan: Double = 0
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    @objc open dynamic var pan: Double = defaultPan {
+    @objc open var pan: Double = defaultPan {
         willSet {
-            guard pan != newValue else { return }
-            if internalAU?.isSetUp == true {
-                panParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.pan, value: newValue)
+            let clampedValue = AKPanner.panRange.clamp(newValue)
+            guard pan != clampedValue else { return }
+            internalAU?.pan.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -57,35 +38,21 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         pan: Double = defaultPan
         ) {
-
-        self.pan = pan
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.pan = pan
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        panParameter = tree["pan"]
-
-        internalAU?.setParameterImmediately(.pan, value: pan)
     }
 
     // MARK: - Control

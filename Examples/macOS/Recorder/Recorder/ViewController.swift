@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  Recorder
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -69,9 +63,9 @@ class ViewController: NSViewController {
 
         mainMixer = AKMixer(moogLadder, micBooster)
 
-        AudioKit.output = mainMixer
+        AKManager.output = mainMixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

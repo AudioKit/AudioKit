@@ -1,16 +1,12 @@
-//
-//  AKLinearParameterRamp.hpp
-//  AudioKit
-//
-//  Created by Andrew Voelkel, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
 #import "AKParameterRampBase.hpp" // have to put this here to get it included in umbrella header
 
 #ifdef __cplusplus
+
+// Currently Unused
 
 struct AKLinearParameterRamp : AKParameterRampBase {
 

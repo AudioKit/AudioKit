@@ -1,10 +1,4 @@
-//
-//  AKSoundpipeDSPBase.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -13,12 +7,14 @@
 #ifndef __cplusplus
 
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 
 #else
 
 extern "C" {
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 }
 
@@ -26,25 +22,21 @@ class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
     sp_data *sp = nullptr;
 public:
-
-    void init(int channelCount, double sampleRate) override {
+    AKSoundpipeDSPBase() {
+        bCanProcessInPlace = true;
+    }
+    
+    virtual void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channelCount;
     }
 
-    ~AKSoundpipeDSPBase() {
-        //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
-        // releasing the memory in the destructor only
+    virtual void deinit() override {
+        AKDSPBase::deinit();
         sp_destroy(&sp);
     }
-
-    // Is this needed? Ramping should be rethought
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
-
-    virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
-    virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
 
     virtual void processSample(int channel, float *in, float *out) {
         *out = *in;
@@ -54,8 +46,8 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             for (int channel = 0; channel <  channelCount; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
                     processSample(channel, in, out);

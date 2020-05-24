@@ -11,8 +11,8 @@ player.looping = true
 var reverb = AKReverb(player)
 reverb.dryWetMix = 0.5
 
-AudioKit.output = reverb
-try AudioKit.start()
+AKManager.output = reverb
+try AKManager.start()
 
 player.play()
 

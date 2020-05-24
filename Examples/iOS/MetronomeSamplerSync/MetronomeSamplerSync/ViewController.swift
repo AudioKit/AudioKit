@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MetronomeSamplerSync
-//
-//  Created by David O'Neill, revision history on Githbub.
-//  Copyright © 2017 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKitUI
@@ -32,9 +26,9 @@ class ViewController: UIViewController {
 
         metronome1 >>> mixer
         metronome2 >>> mixer
-        AudioKit.output = mixer
+        AKManager.output = mixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

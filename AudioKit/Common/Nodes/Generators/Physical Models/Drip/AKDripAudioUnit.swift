@@ -1,107 +1,74 @@
-//
-//  AKDripAudioUnit.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
-public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
+public class AKDripAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKDripParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var intensity: AUParameter!
 
-    func setParameterImmediately(_ address: AKDripParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var dampingFactor: AUParameter!
 
-    var intensity: Double = AKDrip.defaultIntensity {
-        didSet { setParameter(.intensity, value: intensity) }
-    }
+    private(set) var energyReturn: AUParameter!
 
-    var dampingFactor: Double = AKDrip.defaultDampingFactor {
-        didSet { setParameter(.dampingFactor, value: dampingFactor) }
-    }
+    private(set) var mainResonantFrequency: AUParameter!
 
-    var energyReturn: Double = AKDrip.defaultEnergyReturn {
-        didSet { setParameter(.energyReturn, value: energyReturn) }
-    }
+    private(set) var firstResonantFrequency: AUParameter!
 
-    var mainResonantFrequency: Double = AKDrip.defaultMainResonantFrequency {
-        didSet { setParameter(.mainResonantFrequency, value: mainResonantFrequency) }
-    }
+    private(set) var secondResonantFrequency: AUParameter!
 
-    var firstResonantFrequency: Double = AKDrip.defaultFirstResonantFrequency {
-        didSet { setParameter(.firstResonantFrequency, value: firstResonantFrequency) }
-    }
+    private(set) var amplitude: AUParameter!
 
-    var secondResonantFrequency: Double = AKDrip.defaultSecondResonantFrequency {
-        didSet { setParameter(.secondResonantFrequency, value: secondResonantFrequency) }
-    }
-
-    var amplitude: Double = AKDrip.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createDripDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createDripDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let intensity = AUParameter(
+        intensity = AUParameter(
             identifier: "intensity",
             name: "The intensity of the dripping sounds.",
             address: AKDripParameter.intensity.rawValue,
             range: AKDrip.intensityRange,
             unit: .generic,
             flags: .default)
-        let dampingFactor = AUParameter(
+        dampingFactor = AUParameter(
             identifier: "dampingFactor",
             name: "The damping factor. Maximum value is 2.0.",
             address: AKDripParameter.dampingFactor.rawValue,
             range: AKDrip.dampingFactorRange,
             unit: .generic,
             flags: .default)
-        let energyReturn = AUParameter(
+        energyReturn = AUParameter(
             identifier: "energyReturn",
             name: "The amount of energy to add back into the system.",
             address: AKDripParameter.energyReturn.rawValue,
             range: AKDrip.energyReturnRange,
             unit: .generic,
             flags: .default)
-        let mainResonantFrequency = AUParameter(
+        mainResonantFrequency = AUParameter(
             identifier: "mainResonantFrequency",
             name: "Main resonant frequency.",
             address: AKDripParameter.mainResonantFrequency.rawValue,
             range: AKDrip.mainResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let firstResonantFrequency = AUParameter(
+        firstResonantFrequency = AUParameter(
             identifier: "firstResonantFrequency",
             name: "The first resonant frequency.",
             address: AKDripParameter.firstResonantFrequency.rawValue,
             range: AKDrip.firstResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let secondResonantFrequency = AUParameter(
+        secondResonantFrequency = AUParameter(
             identifier: "secondResonantFrequency",
             name: "The second resonant frequency.",
             address: AKDripParameter.secondResonantFrequency.rawValue,
             range: AKDrip.secondResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude.",
             address: AKDripParameter.amplitude.rawValue,
@@ -109,16 +76,20 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude]))
-        intensity.value = Float(AKDrip.defaultIntensity)
-        dampingFactor.value = Float(AKDrip.defaultDampingFactor)
-        energyReturn.value = Float(AKDrip.defaultEnergyReturn)
-        mainResonantFrequency.value = Float(AKDrip.defaultMainResonantFrequency)
-        firstResonantFrequency.value = Float(AKDrip.defaultFirstResonantFrequency)
-        secondResonantFrequency.value = Float(AKDrip.defaultSecondResonantFrequency)
-        amplitude.value = Float(AKDrip.defaultAmplitude)
+        parameterTree = AUParameterTree.createTree(withChildren: [intensity,
+                                                                  dampingFactor,
+                                                                  energyReturn,
+                                                                  mainResonantFrequency,
+                                                                  firstResonantFrequency,
+                                                                  secondResonantFrequency,
+                                                                  amplitude])
+
+        intensity.value = AUValue(AKDrip.defaultIntensity)
+        dampingFactor.value = AUValue(AKDrip.defaultDampingFactor)
+        energyReturn.value = AUValue(AKDrip.defaultEnergyReturn)
+        mainResonantFrequency.value = AUValue(AKDrip.defaultMainResonantFrequency)
+        firstResonantFrequency.value = AUValue(AKDrip.defaultFirstResonantFrequency)
+        secondResonantFrequency.value = AUValue(AKDrip.defaultSecondResonantFrequency)
+        amplitude.value = AUValue(AKDrip.defaultAmplitude)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

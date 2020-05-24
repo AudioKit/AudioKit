@@ -1,10 +1,5 @@
-//
-//  AKRotaryKnob.swift
-//  AudioKit for macOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AudioKit
 
 public enum AKRotaryKnobStyle {
@@ -126,29 +121,41 @@ public enum AKRotaryKnobStyle {
     }
 
     open func indicatorColorForTheme() -> AKColor {
-        if let indicatorColor = indicatorColor { return indicatorColor }
+        if let indicatorColor = indicatorColor {
+            return indicatorColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     open func knobBorderColorForTheme() -> AKColor {
-        if let knobBorderColor = knobBorderColor { return knobBorderColor }
+        if let knobBorderColor = knobBorderColor {
+            return knobBorderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.2, alpha: 1.0)
-        case .midnight: return AKColor(white: 1.0, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 1.0, alpha: 1.0)
         }
     }
 
     open func textColorForTheme() -> AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 

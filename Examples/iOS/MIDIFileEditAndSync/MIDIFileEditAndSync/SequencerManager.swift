@@ -1,10 +1,4 @@
-//
-//  SequencerManager.swift
-//  MIDIFileEditAndSync
-//
-//  Created by Jeff Holtzkener on 2018/04/15.
-//  Copyright © 2018 Jeff Holtzkener. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import Foundation
@@ -31,12 +25,12 @@ class SequencerManager {
         node = AKMIDINode(node: oscBank)
         seq?.setGlobalMIDIOutput(node.midiIn)
         oscBank >>> mixer
-        AudioKit.output = mixer
+        AKManager.output = mixer
     }
 
     fileprivate func startAudioKit() {
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("Couldn't start AudioKit")
         }

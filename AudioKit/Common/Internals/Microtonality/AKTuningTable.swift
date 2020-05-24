@@ -1,10 +1,4 @@
-//
-//  AKTuningTable.swift
-//  AudioKit
-//
-//  Created by Marcus W. Hobbs, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 open class AKTuningTableETNN: NSObject {
@@ -104,7 +98,7 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     /// Notes Per Octave: The count of the masterSet array
-    @objc override public var npo: Int {
+    @objc public override var npo: Int {
 
         return masterSet.count
     }
@@ -232,8 +226,8 @@ open class AKTuningTable: AKTuningTableBase {
 
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
                 if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
-                    nnAs12ETNN = nnAs12ETNN + 1
-                    etnnpbf = etnnpbf - 100
+                    nnAs12ETNN += 1
+                    etnnpbf -= 100
                 }
                 let delta12ETpbf = etnnpbf // defensive, in case you further modify etnnpbf
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)

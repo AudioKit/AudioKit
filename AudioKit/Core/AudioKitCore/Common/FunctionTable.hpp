@@ -1,10 +1,4 @@
-//
-//  FunctionTable.hpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -38,6 +32,7 @@ namespace AudioKitCore
         void triangle(float amplitude=1.0f);
         void sawtooth(float amplitude=1.0f);
         void sinusoid(float amplitude=1.0f);
+        void hammond(float amplitude=1.0f);
         void square(float amplitude=1.0f, float dutyCycle=0.5f);
         
         inline float interp_cyclic(float phase)
@@ -56,6 +51,7 @@ namespace AudioKitCore
         }
         
         // functions for use by class AKWaveShaper (see comments in .cpp file)
+        void linearCurve(float gain = 1.0f);
         void exponentialCurve(float left, float right);
         void powerCurve(float exponent);
         
@@ -64,7 +60,7 @@ namespace AudioKitCore
             if (phase < 0) return pWaveTable[0];
             if (phase >= 1.0) return pWaveTable[nTableSize-1];
             
-            float readIndex = phase * nTableSize;
+            float readIndex = phase * (nTableSize - 1);
             int ri = int(readIndex);
             float f = readIndex - ri;
             int rj = ri + 1; if (rj >= nTableSize) rj = nTableSize - 1;
@@ -126,7 +122,7 @@ namespace AudioKitCore
         ~WaveShaper() { deinit(); }
         void deinit() { waveTable.deinit(); }
         
-        void init(int tableLength=DEFAULT_WAVETABLE_SIZE) { waveTable.init(tableLength); }
+        void init(int tableLength = DEFAULT_WAVETABLE_SIZE);
         
         inline float interp(float x)
         {

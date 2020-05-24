@@ -1,10 +1,4 @@
-//
-//  AKRhodesPianoDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/22/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKRhodesPianoDSP.hpp"
 
@@ -14,9 +8,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createRhodesPianoDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createRhodesPianoDSP() {
     AKRhodesPianoDSP *dsp = new AKRhodesPianoDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -43,7 +36,7 @@ AKRhodesPianoDSP::AKRhodesPianoDSP() : data(new InternalData)
 
 AKRhodesPianoDSP::~AKRhodesPianoDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:
@@ -59,7 +52,7 @@ void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, boo
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:
@@ -108,7 +101,8 @@ void AKRhodesPianoDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKRhodesPianoDSP::destroy() {
+void AKRhodesPianoDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->rhodesPiano;
 }
 
@@ -126,7 +120,7 @@ void AKRhodesPianoDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

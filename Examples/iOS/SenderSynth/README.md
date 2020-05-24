@@ -36,9 +36,9 @@ and then use oscillator as AudioKit's output and start things up:
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()         
+            try AKManager.start()         
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -56,9 +56,9 @@ Next, build the views:
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()         
+            try AKManager.start()         
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -193,9 +193,9 @@ Next grab the [Audiobus.swift](https://github.com/audiokit/AudioKit/blob/master/
 Back in your ViewController.swift file:
 
 ```
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()         
+            try AKManager.start()         
         } catch {
             AKLog("AudioKit did not start!")
         }

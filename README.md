@@ -1,7 +1,7 @@
-AudioKit V4.8
+AudioKit V5.0
 ===
 
-[![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
+[![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/master/LICENSE)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://cocoapods.org/pods/AudioKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -10,12 +10,16 @@ AudioKit V4.8
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
 | [AudioKitPro.com](http://audiokitpro.com/)|[AudioKit.io](http://audiokit.io/)|
 |:--:|:--:|
 | Features, News, Blog, and Highlighted Apps | Developer Documentation |
 | [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
+
+## Sponsor AudioKit!
+
+If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
 
 ## Key Concepts
 
@@ -30,7 +34,7 @@ Installation details are found in the [Frameworks README file](https://github.co
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
 ```
-    pod 'AudioKit', '~> 4.0'
+    pod 'AudioKit', '~> 5.0'
 ```
 
 If you do not need the UI components, you can select just the Core pod, like so:
@@ -49,8 +53,8 @@ For Hello World, you only need to understand a few lines of code:
 | Code                                           | Description                  |
 |------------------------------------------------|------------------------------|
 | `var oscillator = AKOscillator()`              | Create the sound generator   |
-| `AudioKit.output = oscillator`                 | Tell AudioKit what to output |
-| `AudioKit.start()`                             | Start up AudioKit            |
+| `AKManager.output = oscillator`                | Tell AudioKit what to output |
+| `AKManager.start()`                            | Start up AudioKit            |
 | `oscillator.start()`                           | Start the oscillator         |
 | `oscillator.frequency = random(in: 220...880)` | Set oscillator parameters    |
 | `oscillator.stop()`                            | Stop the oscillator          |
@@ -111,7 +115,7 @@ But, there are many other important people in our family:
 
 ### Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
 <a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 

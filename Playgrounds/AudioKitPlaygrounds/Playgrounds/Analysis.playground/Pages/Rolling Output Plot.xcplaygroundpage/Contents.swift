@@ -13,8 +13,8 @@ player.looping = true
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0
 
-AudioKit.output = variSpeed
-try AudioKit.start()
+AKManager.output = variSpeed
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

@@ -26,8 +26,8 @@ let generator = AKOperationGenerator { _ in
         amplitude: 0.2)
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 
 generator.start()
 

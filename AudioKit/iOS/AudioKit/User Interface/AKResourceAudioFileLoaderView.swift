@@ -1,10 +1,4 @@
-//
-//  AKResourceAudioFileLoaderView.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
 
 /// View to choose from audio files to use in playgrounds
@@ -47,7 +41,7 @@ import AudioKit
     }
 
     /// Handle touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
             guard let isPlayerPlaying = player?.isPlaying else {
@@ -93,7 +87,7 @@ import AudioKit
     }
 
     /// Initialization with no details
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         self.titles = ["File One", "File Two", "File Three"]
 
         super.init(frame: frame)
@@ -103,7 +97,7 @@ import AudioKit
     }
 
     /// Initialize in Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.titles = ["File One", "File Two", "File Three"]
 
         super.init(coder: aDecoder)
@@ -114,31 +108,43 @@ import AudioKit
 
     // Default background color per theme
     var bgColorForTheme: AKColor {
-        if let bgColor = bgColor { return bgColor }
+        if let bgColor = bgColor {
+            return bgColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.8, alpha: 1.0)
-        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.8, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 0.7, alpha: 1.0)
         }
     }
 
     // Default border color per theme
     var borderColorForTheme: AKColor {
-        if let borderColor = borderColor { return borderColor }
+        if let borderColor = borderColor {
+            return borderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
-        case .midnight: return AKColor.white.withAlphaComponent(0.8)
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
+        case .midnight:
+            return AKColor.white.withAlphaComponent(0.8)
         }
     }
 
     // Default text color per theme
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
@@ -189,7 +195,8 @@ import AudioKit
         playOuterPath.fill()
 
         //// playInner Drawing
-        let playRect = CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
+        let playRect = CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 +
+            borderWidth + rect.width * 0.13 + borderWidth,
                               y: rect.height * 0.25,
                               width: rect.height * 0.5,
                               height: rect.height * 0.5)

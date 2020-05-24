@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
 
-        AudioKit.output = microphone
+        AKManager.output = microphone
         AKSettings.ioBufferDuration = 0.002 // This is to decrease latency for faster callbacks.
 
         tap = AKLazyTap(node: microphone.avAudioNode)
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         }
 
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -1,10 +1,4 @@
-//
-//  AKAudioUnitInstrument.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
@@ -16,7 +10,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         super.init()
         midiInstrument = audioUnit
 
-        AudioKit.engine.attach(audioUnit)
+        AKManager.engine.attach(audioUnit)
 
         // assign the output to the mixer
         avAudioUnit = audioUnit
@@ -31,7 +25,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - velocity: MIDI velocity to play the note at
     ///   - channel: MIDI channel to play the note on
     ///
-    override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
@@ -60,6 +54,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func receivedMIDIController(_ controller: MIDIByte,
                                               value: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -71,6 +66,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                               pressure: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -79,8 +75,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         midiInstrument.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+    open override func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -91,6 +88,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
 
     open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -98,5 +96,4 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         }
         midiInstrument.sendPitchBend(pitchWheelValue, onChannel: channel)
     }
-
 }

@@ -1,10 +1,4 @@
-//
-//  AKSampler+SFZ.swift
-//  AKSampler
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
 /// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
@@ -14,10 +8,19 @@ extension AKSampler {
     /// Load an SFZ at the given location
     ///
     /// Parameters:
-    ///   - path: Path tothe file as a string
+    ///   - path: Path to the file as a string
     ///   - fileName: Name of the SFZ file
     ///
     open func loadSFZ(path: String, fileName: String) {
+        loadSFZ(url: URL(fileURLWithPath: path).appendingPathComponent(fileName))
+    }
+
+    /// Load an SFZ at the given location
+    ///
+    /// Parameters:
+    ///   - url: File url to the SFZ file
+    ///
+    open func loadSFZ(url: URL) {
 
         stopAllVoices()
         unloadAllSamples()
@@ -32,10 +35,10 @@ extension AKSampler {
         var loopStartPoint: Float32 = 0
         var loopEndPoint: Float32 = 0
 
-        let baseURL = URL(fileURLWithPath: path)
-        let sfzURL = baseURL.appendingPathComponent(fileName)
+        let samplesBaseURL = url.deletingLastPathComponent()
+
         do {
-            let data = try String(contentsOf: sfzURL, encoding: .ascii)
+            let data = try String(contentsOf: url, encoding: .ascii)
             let lines = data.components(separatedBy: .newlines)
             for line in lines {
                 let trimmed = String(line.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -47,15 +50,15 @@ extension AKSampler {
                     // parse a <group> line
                     for part in trimmed.dropFirst(7).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("key") {
-                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
+                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1]) ?? 0
                             lowNoteNumber = noteNumber
                             highNoteNumber = noteNumber
                         } else if part.hasPrefix("lokey") {
-                            lowNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
+                            lowNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("hikey") {
-                            highNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
+                            highNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("pitch_keycenter") {
-                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
+                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1]) ?? 0
                         }
                     }
                 }
@@ -63,15 +66,15 @@ extension AKSampler {
                     // parse a <region> line
                     for part in trimmed.dropFirst(8).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("lovel") {
-                            lowVelocity = MIDIVelocity(part.components(separatedBy: "=")[1])!
+                            lowVelocity = MIDIVelocity(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("hivel") {
-                            highVelocity = MIDIVelocity(part.components(separatedBy: "=")[1])!
+                            highVelocity = MIDIVelocity(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("loop_mode") {
                             loopMode = part.components(separatedBy: "=")[1]
                         } else if part.hasPrefix("loop_start") {
-                            loopStartPoint = Float32(part.components(separatedBy: "=")[1])!
+                            loopStartPoint = Float32(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("loop_end") {
-                            loopEndPoint = Float32(part.components(separatedBy: "=")[1])!
+                            loopEndPoint = Float32(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("sample") {
                             sample = trimmed.components(separatedBy: "sample=")[1]
                         }
@@ -93,18 +96,23 @@ extension AKSampler {
                                                               loopEndPoint: loopEndPoint,
                                                               startPoint: 0.0,
                                                               endPoint: 0.0)
-                    let sampleFileURL = baseURL.appendingPathComponent(sample)
+                    let sampleFileURL = samplesBaseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                              path: sampleFileURL.path))
+                        sampleFileURL.path.withCString { path in
+                            loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                                  path: path))
+                        }
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
-                            let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
+                            let compressedFileURL = samplesBaseURL
+                                .appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(
-                                    from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                 path: compressedFileURL.path))
+                                compressedFileURL.path.withCString { path in
+                                    loadCompressedSampleFile(
+                                        from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                     path: path))
+                                }
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
                                 loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
@@ -114,7 +122,7 @@ extension AKSampler {
                 }
             }
         } catch {
-            AKLog(error)
+            AKLog("Could not load SFZ: \(error.localizedDescription)")
         }
 
         buildKeyMap()

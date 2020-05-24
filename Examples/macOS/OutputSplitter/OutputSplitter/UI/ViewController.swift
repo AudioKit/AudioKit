@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  OutputSplitter
-//
-//  Created by Romans Kisils on 26/11/2018.
-//  Copyright © 2018 Roman Kisil. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKitUI
@@ -18,7 +12,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        playButton = AKButton()
+        playButton = AKButton(frame: .zero)
         playButton.title = "Play"
         playButton.frame = NSRect(x: 0, y: view.bounds.height - 40, width: view.bounds.width, height: 40)
         view.addSubview(playButton)

@@ -1,10 +1,4 @@
-//
-//  AKComponent.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Helpful in reducing repetitive code in AudioKit
 public protocol Aliased {
@@ -12,7 +6,7 @@ public protocol Aliased {
 }
 
 /// Helpful in reducing repetitive code in AudioKit
-public protocol AUComponent: class, Aliased {
+public protocol AUComponent: AnyObject, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
@@ -26,7 +20,9 @@ extension AUEffect {
 
 /// Helpful in reducing repetitive code in AudioKit
 public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AnyObject
+    associatedtype AKAudioUnitType: AnyObject // eventually AKAudioUnitBase
+    var internalAU: AKAudioUnitType? { get }
+    var rampDuration: Double { get set }
 }
 
 extension AKComponent {
@@ -36,6 +32,11 @@ extension AKComponent {
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
                                      version: .max)
+    }
+
+    public var rampDuration: Double {
+        get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
+        set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }
     }
 }
 

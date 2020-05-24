@@ -1,10 +1,4 @@
-//
-//  AKRhinoGuitarProcessor.swift
-//  AudioKit
-//
-//  Created by Mike Gazzaruso, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Guitar head and cab simulator.
 ///
@@ -13,31 +7,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var preGainParameter: AUParameter?
-    fileprivate var postGainParameter: AUParameter?
-    fileprivate var lowGainParameter: AUParameter?
-    fileprivate var midGainParameter: AUParameter?
-    fileprivate var highGainParameter: AUParameter?
-    fileprivate var distortionParameter: AUParameter?
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = rampDuration
-        }
-    }
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Determines the amount of gain applied to the signal before processing.
     @objc open dynamic var preGain: Double = 5.0 {
         willSet {
             guard preGain != newValue else { return }
-            if internalAU?.isSetUp == true {
-                preGainParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.preGain = AUValue(newValue)
-            }
+            internalAU?.preGain.value = AUValue(newValue)
         }
     }
 
@@ -45,11 +21,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var postGain: Double = 0.7 {
         willSet {
             guard postGain != newValue else { return }
-            if internalAU?.isSetUp == true {
-                postGainParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.postGain = AUValue(newValue)
-            }
+            internalAU?.postGain.value = (AUValue(0)...AUValue(1)).clamp(AUValue(newValue))
         }
     }
 
@@ -57,11 +29,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var lowGain: Double = 0.0 {
         willSet {
             guard lowGain != newValue else { return }
-            if internalAU?.isSetUp == true {
-                lowGainParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.lowGain = AUValue(newValue)
-            }
+            internalAU?.lowGain.value = AUValue(newValue)
         }
     }
 
@@ -69,11 +37,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var midGain: Double = 0.0 {
         willSet {
             guard midGain != newValue else { return }
-            if internalAU?.isSetUp == true {
-                midGainParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.midGain = AUValue(newValue)
-            }
+            internalAU?.midGain.value = AUValue(newValue)
         }
     }
 
@@ -81,11 +45,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var highGain: Double = 0.0 {
         willSet {
             guard highGain != newValue else { return }
-            if internalAU?.isSetUp == true {
-                highGainParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.highGain = AUValue(newValue)
-            }
+            internalAU?.highGain.value = AUValue(newValue)
         }
     }
 
@@ -93,17 +53,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var distortion: Double = 1.0 {
         willSet {
             guard distortion != newValue else { return }
-            if internalAU?.isSetUp == true {
-                distortionParameter?.value = AUValue(newValue)
-            } else {
-                internalAU?.distortion = AUValue(newValue)
-            }
+            internalAU?.distortion.value = AUValue(newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -126,48 +82,25 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         lowGain: Double = 0.0,
         midGain: Double = 0.0,
         highGain: Double = 0.0,
-        distortion: Double = 1.0) {
-
-        self.preGain = preGain
-        self.postGain = postGain
-        self.lowGain = lowGain
-        self.midGain = midGain
-        self.highGain = highGain
-        self.distortion = distortion
+        distortion: Double = 1.0
+    ) {
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: strongSelf)
+            input?.connect(to: self)
+            
+            self.preGain = preGain
+            self.postGain = postGain
+            self.lowGain = lowGain
+            self.midGain = midGain
+            self.highGain = highGain
+            self.distortion = distortion
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        preGainParameter = tree["preGain"]
-        postGainParameter = tree["postGain"]
-        lowGainParameter = tree["lowGain"]
-        midGainParameter = tree["midGain"]
-        highGainParameter = tree["highGain"]
-        distortionParameter = tree["distortion"]
-
-        internalAU?.preGain = Float(preGain)
-        internalAU?.postGain = Float(postGain)
-        internalAU?.lowGain = Float(lowGain)
-        internalAU?.midGain = Float(midGain)
-        internalAU?.highGain = Float(highGain)
-        internalAU?.distortion = Float(distortion)
     }
 
     // MARK: - Control

@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  HelloWorld
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -19,9 +13,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         do {
-            try AudioKit.stop()
+            try AKManager.stop()
         } catch {
-            AKLog("Problem in AudioKit.stop()")
+            AKLog("Problem in AKManager.stop()")
         }
     }
 

@@ -1,19 +1,19 @@
-//
-//  AKBitCrusherTests.swift
-//  AudioKitTestSuite
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKBitCrusherTests: AKTestCase {
 
     func testBitDepth() {
         output = AKBitCrusher(input, bitDepth: 12)
         AKTestMD5("4903010e3f4e3b933870cbdf0dd85c9b")
+    }
+
+    func testBypass() {
+        let crush = AKBitCrusher(input, bitDepth: 12)
+        crush.bypass()
+        output = crush
+        AKTestNoEffect()
     }
 
     func testDefault() {

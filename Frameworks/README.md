@@ -4,14 +4,21 @@ AudioKit is distributed as a couple of universal static frameworks with minimal 
 
 AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your deployment target needs to be set to at least one of these versions to link with AudioKit.
 
+Starting with AudioKit 5, the new XCFramework format will be the prefered way to distribute and use AudioKit, whether through your own builds or through a third-party package manager like CocoaPods.
+
 ## Using the compiled frameworks in your projects
 
+<img src="DragAndDropFrameworks.gif"/>
+
+
 * Select the target in your Xcode project that will link with AudioKit.
+* Go to [AudoKit Downloads](https://audiokit.io/downloads/) and download the AudioKit-\*.zip archives that contain universal precompiled frameworks to be able to drag and drop them in the project folder.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
+* Also for **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 * For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
 
 ## Alternative: include the AudioKit library from source
@@ -23,6 +30,7 @@ You may obtain the source code archive directly from [GitHub](https://github.com
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
 * In the **Build Phases** tab, add `AudioKit.framework` in **Target Dependencies** for your target. Also add `AudioKitUI.framework` as needed.
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
+* For **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 
 ## Building universal frameworks from scratch
 
@@ -35,6 +43,12 @@ The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directo
 Optionally, you may restrict which platforms to build the frameworks for by setting the `PLATFORMS` environment variable prior to calling the script. The following example only builds for iOS and tvOS, skipping macOS:
 
 `PLATFORMS="iOS tvOS" ./build_frameworks.sh`
+
+## Universal XCFramework on Xcode 11 / Catalina
+
+If you are running at least macOS 10.15 (Catalina), you can now build XCFramework archives containing all supported platforms in a singular archive - including the Mac Catalyst versions.
+
+Note that these can only be built on a Mac running Catalina, and you need to explicitly run the `build_xcframework.sh` script after building the individual frameworks first with `build_frameworks.sh`. You will need binaries for all supported platforms to be able to generate the XCFramework with this script.
 
 ## Distribution to other projects
 

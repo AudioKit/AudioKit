@@ -1,10 +1,5 @@
-//
-//  AudioKit.h
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 #pragma once
 
 #import <Foundation/Foundation.h>
@@ -19,13 +14,13 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "AKAudioUnitBase.h"
-#import "AKGeneratorAudioUnitBase.h"
+#import "AKDSPBase.hpp"
 #import "AKSoundpipeDSPBase.hpp"
 #import "DSPKernel.hpp"
 #import "AKDSPKernel.hpp"
 #import "AKSoundpipeKernel.hpp"
 #import "AKBankDSPKernel.hpp"
+#import "AKFilterSynthDSPKernel.hpp"
 #import "ExceptionCatcher.h"
 
 // Analysis
@@ -78,10 +73,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
-#import "AKDynaRageCompressorAudioUnit.h"
-#import "AKDynaRageCompressorDSPKernel.hpp"
-#import "AKRhinoGuitarProcessorAudioUnit.h"
-#import "AKRhinoGuitarProcessorDSPKernel.hpp"
+#import "AKDynaRageCompressorDSP.hpp"
+#import "AKRhinoGuitarProcessorDSP.hpp"
 
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
@@ -135,10 +128,18 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKSynthDSP.hpp"
 
+// Generators / Filter Polysynths
+#import "AKFMOscillatorFilterSynthAudioUnit.h"
+#import "AKMorphingOscillatorFilterSynthAudioUnit.h"
+#import "AKOscillatorFilterSynthAudioUnit.h"
+#import "AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+#import "AKPWMOscillatorFilterSynthAudioUnit.h"
+
 // Mixing
 #import "AKAutoPannerDSP.hpp"
-#import "AKBalancerAudioUnit.h"
+#import "AKBalancerDSP.hpp"
 #import "AKBoosterDSP.hpp"
+#import "AKFaderDSP.hpp"
 #import "AKPannerDSP.hpp"
 #import "AKStereoFieldLimiterDSP.hpp"
 
@@ -162,9 +163,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // EZAudio
 #import "EZAudio.h"
 
-// Offline
-#import "AKOfflineRenderAudioUnit.h"
-
 // Taps
 #import "AKRenderTap.h"
 #import "AKLazyTap.h"
@@ -177,14 +175,15 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "ParameterRamper.hpp"
 #import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
-#import "AudioEngineUnit.h"
 
 // Sequencer
 #import "AKSamplerMetronome.h"
 #if !TARGET_OS_TV
-#import "AKSequencerEngine.h"
+#import "AKSequencerEngineDSP.hpp"
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability
-#import "AKInterop.h"
+#import "AKInterop.hpp"
 
+// Automation
+#import "AKParameterAutomation.h"

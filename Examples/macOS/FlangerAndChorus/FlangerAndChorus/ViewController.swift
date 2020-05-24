@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  HelloWorld
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
@@ -158,8 +152,8 @@ extension ViewController: AKMIDIListener {
     }
 
     // After touch
-    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
-        conductor.afterTouch(pressure)
+    func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+        conductor.aftertouch(pressure)
     }
 
     // MIDI Setup Change

@@ -1,10 +1,4 @@
-//
-//  AKPhaseDistortionOscillatorBankAudioUnit.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPhaseDistortionOscillatorBankDSPKernel.hpp"
@@ -32,9 +26,9 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(PhaseDistortionOscillatorBank)
-
+    
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameterWithIdentifier:@"phaseDistortion"
                                                                               name:@"Phase Distortion"
@@ -42,14 +36,14 @@
                                                                                min:0.0
                                                                                max:1.0
                                                                               unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
-
+    
     _kernel.setParameter(AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress, phaseDistortionAUParameter.value);
-
+    
     [self setKernelPtr:&_kernel];
-
+    
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];

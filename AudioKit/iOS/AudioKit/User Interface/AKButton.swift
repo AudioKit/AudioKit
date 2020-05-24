@@ -1,10 +1,4 @@
-//
-//  AKButton.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Different looks the button can have
 public enum AKButtonStyle {
@@ -41,21 +35,21 @@ public enum AKButtonStyle {
     }
 
     /// Background color of the button
-    @IBInspectable open var color: AKColor {
+    open var color: AKColor {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Button border color
-    @IBInspectable open var borderColor: AKColor? {
+    open var borderColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Color when the button is highlighted
-    @IBInspectable open var highlightedColor: AKColor {
+    open var highlightedColor: AKColor {
         didSet {
             setNeedsDisplay()
         }
@@ -69,7 +63,7 @@ public enum AKButtonStyle {
     }
 
     /// Text color
-    @IBInspectable open var textColor: AKColor? {
+    open var textColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
@@ -83,7 +77,7 @@ public enum AKButtonStyle {
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         callback(self)
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
@@ -104,17 +98,17 @@ public enum AKButtonStyle {
         self.init(frame: frame)
         self.title = title
         self.color = color
-        self.highlightedColor = color.darker(by: 11)!
+        self.highlightedColor = color.darker(by: 11) ?? color
         self.callback = callback
 
         clipsToBounds = true
     }
 
     /// Initialization with no details
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11)!
+        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
         super.init(frame: frame)
 
         self.backgroundColor = AKColor.clear
@@ -122,10 +116,10 @@ public enum AKButtonStyle {
     }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11)!
+        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
         super.init(coder: coder)
 
         self.clipsToBounds = true
@@ -134,7 +128,7 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         clipsToBounds = true
@@ -147,26 +141,34 @@ public enum AKButtonStyle {
 
     // Default border color per theme
     var borderColorForTheme: AKColor {
-        if let borderColor = borderColor { return borderColor }
+        if let borderColor = borderColor {
+            return borderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     // Default text color per theme
     var textColorForTheme: AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     /// Draw the button
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 
@@ -176,8 +178,10 @@ public enum AKButtonStyle {
 
         let cornerRadius: CGFloat = {
             switch self.style {
-            case .standard: return AKButton.standardCornerRadius
-            case .round: return rect.height / 2.0
+            case .standard:
+                return AKButton.standardCornerRadius
+            case .round:
+                return rect.height / 2.0
             }
         }()
 

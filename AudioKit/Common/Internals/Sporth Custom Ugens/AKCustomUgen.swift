@@ -1,10 +1,4 @@
-//
-//  AKCustomUgen.swift
-//  AudioKit
-//
-//  Created by Joseph Constantakis, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Custom Sporth Unit Generator (Ugen)
 open class AKCustomUgen: NSObject {
@@ -43,7 +37,7 @@ open class AKCustomUgen: NSObject {
                             computeFunction: self.computeFunction)
     }
 
-    /// Executre the compute function
+    /// Execute the compute function
     @objc public let callComputeFunction: @convention(c) (AKCustomUgen) -> Void
         = { ugen in
             ugen.computeFunction(ugen, ugen.stack, &(ugen.userData))

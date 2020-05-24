@@ -1,10 +1,4 @@
-//
-//  AKShaker.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Type of shaker to use
 public enum AKShakerType: UInt8 {
@@ -83,70 +77,57 @@ public enum AKShakerType: UInt8 {
 ///
 open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "shak")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
     public typealias AKAudioUnitType = AKShakerAudioUnit
+
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var amplitudeParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Type of shaker to use
     open var type: AKShakerType = .maraca {
         willSet {
             guard type != newValue else { return }
-            internalAU?.type = Double(type.rawValue)
+            internalAU?.type.value = AUValue(newValue.rawValue)
         }
     }
 
     /// Amplitude
-    @objc open dynamic var amplitude: Double = 0.5 {
+    @objc open var amplitude: Double = 0.5 {
         willSet {
-            guard amplitude != newValue else { return }
-            amplitudeParameter?.value = AUValue(newValue)
+            let clampedValue = (0.0 ... 10.0).clamp(newValue)
+            guard amplitude != clampedValue else { return }
+            internalAU?.amplitude.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
-
-    /// Initialize the mandolin with defaults
-    override convenience init() {
-        self.init(type: .maraca)
-    }
 
     /// Initialize the STK Shaker model
     ///
     /// - Parameters:
     ///   - amplitude: Overall level
     ///
-    public init(type: AKShakerType = .maraca, amplitude: Double = 0.5) {
-
-        self.type = type
-        self.amplitude = amplitude
+    public init(
+        type: AKShakerType = .maraca,
+        amplitude: Double = 0.5
+    ) {
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-        super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.type = type
+            self.amplitude = amplitude
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        amplitudeParameter = tree["amplitude"]
-        internalAU?.type = Double(type.rawValue)
-        internalAU?.amplitude = Double(amplitude)
     }
 
     /// Trigger the sound with an optional set of parameters
@@ -157,7 +138,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
             self.amplitude = amplitude
         }
         internalAU?.start()
-        internalAU?.triggerType(type.rawValue, amplitude: Float(self.amplitude))
+        internalAU?.triggerType(AUValue(type.rawValue), amplitude: AUValue(self.amplitude))
     }
 
     /// Function to start, play, or activate the node, all do the same thing

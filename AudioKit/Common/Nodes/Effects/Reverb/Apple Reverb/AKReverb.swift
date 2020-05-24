@@ -1,10 +1,4 @@
-//
-//  AKReverb.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
@@ -32,11 +26,11 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     ///
     @objc public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
 
         avAudioUnit = reverbAU
         avAudioNode = reverbAU
-        AudioKit.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
 
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0

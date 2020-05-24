@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  LoopbackRecording
-//
-//  Created by David O'Neill on 5/3/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit
@@ -27,6 +21,7 @@ import AudioKit
 
 class ViewController: UIViewController {
 
+    let mic = AKMicrophone()
     var metronome = AKSamplerMetronome()
     var mixer = AKMixer()
     var loopBackRecorder: AKClipRecorder?
@@ -73,7 +68,7 @@ class ViewController: UIViewController {
         do {
             AKSettings.audioInputEnabled = true
             AKSettings.defaultToSpeaker = true
-            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+//            AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
             try AKSettings.setSession(category: .playAndRecord)
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
@@ -87,15 +82,20 @@ class ViewController: UIViewController {
         }
 
         // Make connections
-        metronome.connect(to: mixer.inputNode)
-        player.connect(to: mixer.inputNode)
-        AudioKit.output = mixer
+
+        let muter = AKMixer()
+        muter.volume = 0
+
+        mic! >>> muter >>> mixer
+        metronome >>> mixer
+        player >>> mixer
+        AKManager.output = mixer
 
         // Set up recorders
-        loopBackRecorder = AKClipRecorder(node: AudioKit.engine.inputNode)
+        loopBackRecorder = AKClipRecorder(node: mic!)
         directRecorder = AKClipRecorder(node: metronome)
 
-        do { try AudioKit.start() } catch {
+        do { try AKManager.start() } catch {
             fatalError(error.localizedDescription)
         }
 
@@ -165,7 +165,7 @@ class ViewController: UIViewController {
 
             switch result {
             case .error(let error):
-                AKLog(error)
+                AKLog(error.localizedDescription)
                 return
             case .clip(let clip):
                 AKLog("loopback.duration \(clip.duration)")
@@ -199,8 +199,10 @@ class ViewController: UIViewController {
                     })
 
                 } catch {
-                    AKLog(error)
+                    AKLog(error.localizedDescription)
                 }
+            @unknown default:
+                fatalError()
             }
 
         }
@@ -209,7 +211,7 @@ class ViewController: UIViewController {
         try? directRecorder?.recordClip(time: 0, duration: targetDuration, tap: nil) { result in
             switch result {
             case .error(let error):
-                AKLog(error)
+                AKLog(error.localizedDescription)
                 return
             case .clip(let clip):
                 AKLog("direct.duration \(clip.duration)")
@@ -220,8 +222,10 @@ class ViewController: UIViewController {
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
                     AKLog("Direct saved at " + urlInDocs.path)
                 } catch {
-                    AKLog(error)
+                    AKLog(error.localizedDescription)
                 }
+            @unknown default:
+                fatalError()
             }
         }
 
@@ -276,7 +280,7 @@ extension FileManager {
                 try fileManager.removeItem(at: docs.appendingPathComponent(fileName))
             }
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
     }
 }

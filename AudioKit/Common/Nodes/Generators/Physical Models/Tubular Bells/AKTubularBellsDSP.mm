@@ -1,10 +1,4 @@
-//
-//  AKTubularBellsDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/22/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKTubularBellsDSP.hpp"
 
@@ -14,9 +8,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createTubularBellsDSP() {
     AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -43,7 +36,7 @@ AKTubularBellsDSP::AKTubularBellsDSP() : data(new InternalData)
 
 AKTubularBellsDSP::~AKTubularBellsDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:
@@ -59,7 +52,7 @@ void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bo
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKTubularBellsDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:
@@ -108,7 +101,8 @@ void AKTubularBellsDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKTubularBellsDSP::destroy() {
+void AKTubularBellsDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->tubularBells;
 }
 
@@ -126,7 +120,7 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

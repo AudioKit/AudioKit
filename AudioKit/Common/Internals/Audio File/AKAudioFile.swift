@@ -1,10 +1,4 @@
-//
-//  AKAudioFile.swift
-//  AudioKit
-//
-//  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Adding description property
 extension AVAudioCommonFormat: CustomStringConvertible {
@@ -88,7 +82,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         return url.pathExtension
     }
 
-    override open var description: String {
+    open override var description: String {
         return super.description + "\n" + String(describing: fileFormat)
     }
 
@@ -138,11 +132,11 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
                     try fileManager.removeItem(atPath: filePathName)
-                    AKLog("\"\(fileName)\" deleted.")
+                    AKLog("\"\(fileName)\" deleted.", log: OSLog.fileHandling)
                     deletedFilesCount += 1
                 } catch let error as NSError {
-                    AKLog("Couldn't delete \(fileName) from Temp Directory")
-                    AKLog("Error: \(error)")
+                    AKLog("Couldn't delete \(fileName) from Temp Directory " + error.localizedDescription,
+                          log: OSLog.fileHandling, type: .error)
                 }
             }
 
@@ -156,11 +150,10 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 }
             }
 
-            AKLog(deletedFilesCount, "files deleted")
+            AKLog("\(deletedFilesCount) files deleted", log: OSLog.fileHandling, type: .error)
 
         } catch let error as NSError {
-            AKLog("Couldn't access Temp Directory")
-            AKLog("Error:", error)
+            AKLog("Couldn't access Temp Directory " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
     }
 
@@ -192,20 +185,20 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         case custom
 
         func create(file path: String, write: Bool = false) throws -> String {
-          switch (self, write) {
+            switch (self, write) {
             case (.temp, _):
-              return NSTemporaryDirectory() + path
+                return NSTemporaryDirectory() + path
             case (.documents, _):
-              return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
+                return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
             case (.resources, false):
-              return try Bundle.main.path(forResource: path, ofType: "") ??
-                         NSError.fileCreateError
+                return try Bundle.main.path(forResource: path, ofType: "") ??
+                    NSError.fileCreateError
             case (.custom, _):
-              AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
-              fallthrough
+                AKLog("AKAudioFile: custom directory not implemented", log: OSLog.fileHandling, type: .error)
+                fallthrough
             default:
-              throw NSError.fileCreateError
-          }
+                throw NSError.fileCreateError
+            }
         }
     }
 
@@ -267,7 +260,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         do {
             try self.read(into: buffer!)
         } catch let error as NSError {
-            AKLog("error cannot readIntBuffer, Error: \(error)")
+            AKLog("Cannot readIntBuffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
 
         return buffer!

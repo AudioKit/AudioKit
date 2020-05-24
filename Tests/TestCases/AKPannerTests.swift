@@ -1,19 +1,19 @@
-//
-//  AKPannerTests.swift
-//  AudioKitTestSuite
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 
 class AKPannerTests: AKTestCase {
 
     func testDefault() {
         output = AKPanner(input)
         AKTestMD5("33dcb14448f8bda9174797a47178cd9f")
+    }
+
+    func testBypass() {
+        let pan = AKPanner(input, pan: -1)
+        pan.bypass()
+        output = pan
+        AKTestNoEffect()
     }
 
     func testPanLeft() {

@@ -1,10 +1,5 @@
-//
-//  EZMicrophone.h
-//  EZAudio
-//
-//  Created by Syed Haris Ali, revision history on Githbub.
-//  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -96,6 +91,40 @@
       hasAudioReceived:(float **)buffer
         withBufferSize:(UInt32)bufferSize
   withNumberOfChannels:(UInt32)numberOfChannels;
+
+//------------------------------------------------------------------------------
+
+/**
+ This method provides an array of float arrays of the audio received, each float array representing a channel of audio data This occurs on the background thread so any drawing code must explicity perform its functions on the main thread.
+ @param microphone       The instance of the EZMicrophone that triggered the event.
+ @param buffer           The audio data as an array of float arrays. In a stereo signal buffer[0] represents the left channel while buffer[1] would represent the right channel.
+ @param bufferSize       The size of each of the buffers (the length of each float array).
+ @param numberOfChannels The number of channels for the incoming audio.
+ @param timestamp        The timestamp of the incoming buffers
+ @warning This function executes on a background thread to avoid blocking any audio operations. If operations should be performed on any other thread (like the main thread) it should be performed within a dispatch block like so: dispatch_async(dispatch_get_main_queue(), ^{ ...Your Code... })
+ */
+- (void)    microphone:(EZMicrophone *)microphone
+      hasAudioReceived:(float **)buffer
+        withBufferSize:(UInt32)bufferSize
+  withNumberOfChannels:(UInt32)numberOfChannels
+                atTime:(const AudioTimeStamp *)timestamp;
+
+//------------------------------------------------------------------------------
+
+/**
+ Returns back the buffer list containing the audio received. This occurs on the background thread so any drawing code must explicity perform its functions on the main thread.
+ @param microphone       The instance of the EZMicrophone that triggered the event.
+ @param bufferList       The AudioBufferList holding the audio data.
+ @param bufferSize       The size of each of the buffers of the AudioBufferList.
+ @param numberOfChannels The number of channels for the incoming audio.
+ @param timestamp        The timestamp of the incoming buffers
+ @warning This function executes on a background thread to avoid blocking any audio operations. If operations should be performed on any other thread (like the main thread) it should be performed within a dispatch block like so: dispatch_async(dispatch_get_main_queue(), ^{ ...Your Code... })
+ */
+- (void)    microphone:(EZMicrophone *)microphone
+         hasBufferList:(AudioBufferList *)bufferList
+        withBufferSize:(UInt32)bufferSize
+  withNumberOfChannels:(UInt32)numberOfChannels
+                atTime:(const AudioTimeStamp *)timestamp;
 
 //------------------------------------------------------------------------------
 

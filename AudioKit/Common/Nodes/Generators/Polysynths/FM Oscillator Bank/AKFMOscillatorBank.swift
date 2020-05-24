@@ -1,10 +1,4 @@
-//
-//  AKFMOscillatorBank.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Frequency Modulation Polyphonic Oscillator
 ///
@@ -15,10 +9,10 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Waveform of the oscillator
-    open var waveform: AKTable? {
+    @objc open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
@@ -169,11 +163,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -190,7 +179,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate:          Frequency of vibrato in Hz
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         carrierMultiplier: Double = 1,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
@@ -217,7 +206,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

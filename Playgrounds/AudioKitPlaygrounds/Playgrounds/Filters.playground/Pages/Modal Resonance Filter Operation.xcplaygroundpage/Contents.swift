@@ -14,8 +14,8 @@ let effect = AKOperationEffect(player) { player, _ in
     return player.modalResonanceFilter(frequency: frequency, qualityFactor: 50) * 0.2
 }
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 import PlaygroundSupport

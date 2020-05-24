@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MicrophoneAnalysis
-//
-//  Created by Kanstantsin Linou, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
@@ -55,9 +49,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        AudioKit.output = silence
+        AKManager.output = silence
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -71,9 +65,16 @@ class ViewController: UIViewController {
 
     @objc func updateUI() {
         if tracker.amplitude > 0.1 {
+            let trackerFrequency = Float(tracker.frequency)
+
+            guard trackerFrequency < 7_000 else {
+                // This is a bit of hack because of modern Macbooks giving super high frequencies
+                return
+            }
+
             frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
 
-            var frequency = Float(tracker.frequency)
+            var frequency = trackerFrequency
             while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
                 frequency /= 2.0
             }
@@ -91,7 +92,7 @@ class ViewController: UIViewController {
                     minDistance = distance
                 }
             }
-            let octave = Int(log2f(Float(tracker.frequency) / frequency))
+            let octave = Int(log2f(trackerFrequency / frequency))
             noteNameWithSharpsLabel.text = "\(noteNamesWithSharps[index])\(octave)"
             noteNameWithFlatsLabel.text = "\(noteNamesWithFlats[index])\(octave)"
         }

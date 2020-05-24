@@ -1,10 +1,4 @@
-//
-//  Sampler.hpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #ifdef __cplusplus
 #ifdef _WIN32
@@ -42,6 +36,9 @@ public:
     
     /// call to load samples
     void loadSampleData(AKSampleDataDescriptor& sdd);
+
+    /// call to unload samples, freeing memory
+    void unloadAllSamples();
     
     // after loading samples, call one of these to build the key map
     
@@ -80,6 +77,15 @@ public:
     float getFilterSustainFraction(void);
     void  setFilterReleaseDurationSeconds(float value);
     float getFilterReleaseDurationSeconds(void);
+
+    void  setPitchAttackDurationSeconds(float value);
+    float getPitchAttackDurationSeconds(void);
+    void  setPitchDecayDurationSeconds(float value);
+    float getPitchDecayDurationSeconds(void);
+    void  setPitchSustainFraction(float value);
+    float getPitchSustainFraction(void);
+    void  setPitchReleaseDurationSeconds(float value);
+    float getPitchReleaseDurationSeconds(void);
     
 protected:
     // current sampling rate, samples/sec
@@ -95,7 +101,8 @@ protected:
     bool isFilterEnabled;
     
     // performance parameters
-    float masterVolume, pitchOffset, vibratoDepth, glideRate;
+    float masterVolume, pitchOffset, vibratoDepth, vibratoFrequency,
+    voiceVibratoDepth, voiceVibratoFrequency, glideRate;
     
     // parameters for mono-mode only
     
@@ -128,6 +135,9 @@ protected:
 
     // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
     float linearResonance;
+
+    // how much pitch ADSR adds on top of pitch
+    float pitchADSRSemitones;
     
     // sample-related parameters
     

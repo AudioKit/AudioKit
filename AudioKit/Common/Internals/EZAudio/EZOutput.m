@@ -1,10 +1,5 @@
-//
-//  EZOutput.m
-//  EZAudio
-//
-//  Created by Syed Haris Ali, revision history on Githbub.
-//  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -332,6 +327,22 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
                                                        &maximumFramesPerSlice,
                                                        sizeof(maximumFramesPerSlice))
                         operation:"Failed to set maximum frames per slice on mixer node"];
+    
+    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->converterNodeInfo.audioUnit,
+                                                       kAudioUnitProperty_MaximumFramesPerSlice,
+                                                       kAudioUnitScope_Global,
+                                                       0,
+                                                       &maximumFramesPerSlice,
+                                                       sizeof(maximumFramesPerSlice))
+                        operation:"Failed to set maximum frames per slice on converter node"];
+    
+    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->outputNodeInfo.audioUnit,
+                                                       kAudioUnitProperty_MaximumFramesPerSlice,
+                                                       kAudioUnitScope_Global,
+                                                       0,
+                                                       &maximumFramesPerSlice,
+                                                       sizeof(maximumFramesPerSlice))
+                        operation:"Failed to set maximum frames per slice on output node"];
 
     //
     // Initialize all the audio units in the graph

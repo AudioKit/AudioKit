@@ -1,10 +1,4 @@
-//
-//  AKFMOscillatorDSP.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -16,12 +10,11 @@ typedef NS_ENUM(AUParameterAddress, AKFMOscillatorParameter) {
     AKFMOscillatorParameterModulatingMultiplier,
     AKFMOscillatorParameterModulationIndex,
     AKFMOscillatorParameterAmplitude,
-    AKFMOscillatorParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-AKDSPRef createFMOscillatorDSP(int channelCount, double sampleRate);
+AKDSPRef createFMOscillatorDSP(void);
 
 #else
 
@@ -35,40 +28,15 @@ private:
 public:
     AKFMOscillatorDSP();
 
-    float baseFrequencyLowerBound = 0.0;
-    float baseFrequencyUpperBound = 20000.0;
-    float carrierMultiplierLowerBound = 0.0;
-    float carrierMultiplierUpperBound = 1000.0;
-    float modulatingMultiplierLowerBound = 0.0;
-    float modulatingMultiplierUpperBound = 1000.0;
-    float modulationIndexLowerBound = 0.0;
-    float modulationIndexUpperBound = 1000.0;
-    float amplitudeLowerBound = 0.0;
-    float amplitudeUpperBound = 10.0;
+    void setWavetable(const float* table, size_t length, int index) override;
 
-    float defaultBaseFrequency = 440.0;
-    float defaultCarrierMultiplier = 1.0;
-    float defaultModulatingMultiplier = 1.0;
-    float defaultModulationIndex = 1.0;
-    float defaultAmplitude = 1.0;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void reset() override;
 
-    // Generator Stuff
-    void setupWaveform(uint32_t size) override;
-    void setWaveformValue(uint32_t index, float value) override;
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

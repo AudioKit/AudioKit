@@ -1,10 +1,4 @@
-//
-//  AKPWMOscillatorBank.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Pulse-Width Modulating Oscillator Bank
 ///
@@ -15,7 +9,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var pulseWidthParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?
@@ -130,11 +124,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(pulseWidth: 0.5)
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -168,7 +157,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

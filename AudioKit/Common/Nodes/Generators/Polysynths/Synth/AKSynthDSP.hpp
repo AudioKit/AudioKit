@@ -1,10 +1,4 @@
-//
-//  AKSynthDSP.hpp
-//  AudioKit
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -38,7 +32,7 @@ typedef NS_ENUM(AUParameterAddress, AKSynthParameter)
 
 #ifndef __cplusplus
 
-AKDSPRef createAKSynthDSP(int channelCount, double sampleRate);
+AKDSPRef createAKSynthDSP(void);
 void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
 void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
 void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);

@@ -42,7 +42,7 @@ class Audiobus {
     var controller: ABAudiobusController
 
     var audioUnit: AudioUnit {
-        return AudioKit.engine.outputNode.audioUnit!
+        return AKManager.engine.outputNode.audioUnit!
     }
 
     init(apiKey: String) {
@@ -155,7 +155,7 @@ class Audiobus {
 private extension ABAudiobusController {
 
     var isConnectedToAudiobus: Bool {
-        return connected && memberOfActiveAudiobusSession
+        return connected
     }
 
     func isConnectedToAudiobus(portOfType type: ABPortType) -> Bool {

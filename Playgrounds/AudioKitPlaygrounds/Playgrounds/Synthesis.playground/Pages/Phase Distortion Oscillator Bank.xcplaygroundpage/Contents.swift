@@ -5,8 +5,8 @@ import AudioKitUI
 
 let bank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
 
-AudioKit.output = bank
-try AudioKit.start()
+AKManager.output = bank
+try AKManager.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 

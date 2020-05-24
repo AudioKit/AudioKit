@@ -1,10 +1,4 @@
-//
-//  AKShakerDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/30/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKShakerDSP.hpp"
 
@@ -12,10 +6,13 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createShakerDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createShakerDSP() {
     AKShakerDSP *dsp = new AKShakerDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
+}
+
+extern "C" void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
+    ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
 }
 
 // AKShakerDSP method implementations
@@ -34,11 +31,19 @@ AKShakerDSP::AKShakerDSP() : data(new InternalData)
 
 AKShakerDSP::~AKShakerDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKShakerDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
+    switch (address) {
+        case AKShakerParameterType:
+            data->type = (UInt8)value;
+            break;
+        case AKShakerParameterAmplitude:
+            data->amplitude = value;
+            break;
+    }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKShakerDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
@@ -54,13 +59,21 @@ void AKShakerDSP::trigger() {
     data->internalTrigger = 1;
 }
 
+void AKShakerDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
+    uint8_t veloc = midiEvent.data[2];
+    data->type = (UInt8)midiEvent.data[1];
+    data->amplitude = (AUValue)veloc / 127.0;
+    trigger();
+}
+
 void AKShakerDSP::triggerTypeAmplitude(AUValue type, AUValue amp)  {
     data->type = type;
     data->amplitude = amp;
     trigger();
 }
 
-void AKShakerDSP::destroy() {
+void AKShakerDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->shaker;
 }
 
@@ -70,11 +83,12 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
         int frameOffset = int(frameIndex + bufferOffset);
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {
-                    data->shaker->noteOn(data->type, data->amplitude);
+                    float frequency = pow(2.0, (data->type - 69.0) / 12.0) * 440.0;
+                    data->shaker->noteOn(frequency, data->amplitude);
                 }
                 *out = data->shaker->tick();
             } else {

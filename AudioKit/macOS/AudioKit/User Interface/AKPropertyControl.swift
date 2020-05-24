@@ -1,10 +1,4 @@
-//
-//  AKPropertyControl.swift
-//  AudioKit For macOS
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -33,7 +27,7 @@ import AudioKit
     @IBInspectable public var value: Double = 0 {
         didSet {
             value = range.clamp(value)
-            if discreteValues.count > 0 {
+            if discreteValues.isNotEmpty {
                 value = closest(to: value)
             }
 

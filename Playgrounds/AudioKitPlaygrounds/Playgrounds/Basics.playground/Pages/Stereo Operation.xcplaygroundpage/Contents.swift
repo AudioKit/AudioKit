@@ -21,8 +21,8 @@ let generator = AKOperationGenerator(channelCount: 2) { _ in
     return [leftOutput, rightOutput]
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 generator.start()
 
 import PlaygroundSupport

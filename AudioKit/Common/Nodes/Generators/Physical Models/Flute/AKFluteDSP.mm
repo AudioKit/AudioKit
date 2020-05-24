@@ -1,10 +1,4 @@
-//
-//  AKFlute.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKFluteDSP.hpp"
 
@@ -12,9 +6,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createFluteDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createFluteDSP() {
     AKFluteDSP *dsp = new AKFluteDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -41,7 +34,7 @@ AKFluteDSP::AKFluteDSP() : data(new InternalData)
 
 AKFluteDSP::~AKFluteDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKFluteParameterFrequency:
@@ -57,7 +50,7 @@ void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool imme
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKFluteDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKFluteParameterFrequency:
@@ -88,7 +81,8 @@ void AKFluteDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKFluteDSP::destroy() {
+void AKFluteDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->flute;
 }
 
@@ -106,7 +100,7 @@ void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

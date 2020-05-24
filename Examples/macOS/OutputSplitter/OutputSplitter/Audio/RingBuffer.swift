@@ -1,10 +1,4 @@
-//
-//  RingBuffer.swift
-//  WaveLabs
-//
-//  Created by Vlad Gorlov on 31.05.16.
-//  Copyright © 2016 WaveLabs. All rights reserved.
-//  Modified by Roman Kisil on 20.01.18
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/  Modified by Roman Kisil on 20.01.18
 
 import CoreAudio
 

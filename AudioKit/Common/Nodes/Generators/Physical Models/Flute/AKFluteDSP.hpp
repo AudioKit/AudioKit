@@ -1,10 +1,4 @@
-//
-//  AKFluteDSP.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -20,7 +14,7 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createFluteDSP(int channelCount, double sampleRate);
+AKDSPRef createFluteDSP(void);
 
 #else
 
@@ -35,10 +29,10 @@ public:
 
     ~AKFluteDSP();
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
 
     void init(int channelCount, double sampleRate) override;
@@ -47,7 +41,7 @@ public:
 
     void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

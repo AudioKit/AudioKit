@@ -1,16 +1,8 @@
-//
-//  AKMusicTrack+Load.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 7/6/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
-
-import Foundation
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AKMusicTrack {
     func loadMIDI(filePath: String) {
-        print("loading file from exists @ \(filePath)")
+        AKLog("loading file from exists @ \(filePath)")
         let fileURL = URL(fileURLWithPath: filePath)
         var tempSeq: MusicSequence?
         NewMusicSequence(&tempSeq)
@@ -21,7 +13,7 @@ extension AKMusicTrack {
             }
             var numTracks = UInt32(0)
             MusicSequenceGetTrackCount(newSeq, &numTracks)
-            print("newSeq has \(numTracks) tracks")
+            AKLog("Sequencer has \(numTracks) tracks")
             var tempTrack: MusicTrack?
             MusicSequenceGetIndTrack(newSeq, 0, &tempTrack)
             if let sourceTrack = tempTrack, let destTrack = self.internalMusicTrack {
@@ -40,7 +32,7 @@ extension AKMusicTrack {
                         var eventDataSize: UInt32 = 0
                         MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
                         if let event = AKMusicEventType(rawValue: eventType) {
-                            print("event \(i) at time \(eventTime) type is \(event.description)")
+                            AKLog("event \(i) at time \(eventTime) type is \(event.description)")
                         }
                         MusicEventIteratorHasCurrentEvent(iterator, &hasEvent)
                         i += 1

@@ -1,10 +1,4 @@
-//
-//  MIDIWord+Sysex.swift
-//  MacOSCommandLineDev
-//
-//  Created by Kurt Arnlund on 1/16/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioKit

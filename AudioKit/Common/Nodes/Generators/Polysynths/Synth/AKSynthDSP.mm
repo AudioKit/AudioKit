@@ -1,15 +1,9 @@
-//
-//  AKSynthDSP.cpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *createAKSynthDSP(int channelCount, double sampleRate) {
+extern "C" void *createAKSynthDSP() {
     return new AKSynthDSP();
 }
 
@@ -46,6 +40,7 @@ void AKSynthDSP::init(int channelCount, double sampleRate)
 
 void AKSynthDSP::deinit()
 {
+    AKDSPBase::deinit();
     AKCoreSynth::deinit();
 }
 
@@ -171,9 +166,9 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
-        unsigned channelCount = outBufferListPtr->mNumberBuffers;
+        outBuffers[0] = (float *)outputBufferLists[0]->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;
+        unsigned channelCount = outputBufferLists[0]->mNumberBuffers;
         AKCoreSynth::render(channelCount, chunkSize, outBuffers);
     }
 }

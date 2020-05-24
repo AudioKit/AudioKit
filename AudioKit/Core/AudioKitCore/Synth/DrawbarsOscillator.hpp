@@ -1,10 +1,4 @@
-//
-//  DrawbarsOscillator.hpp
-//  AudioKit
-//
-//  Created by Shane Dunne on 2018-04-02.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -38,8 +32,9 @@ namespace AudioKitCore
         // normalized frequency: cycles per sample
         float phaseDelta[phaseCount];
 
-        // relative level of this phase (fraction)
-        float level[phaseCount];
+        // relative level of each phase (fraction)
+        float *level;
+        float safetyLevels[phaseCount];
 
         // performance variables
 
@@ -47,11 +42,13 @@ namespace AudioKitCore
         float phaseDeltaMultiplier;
 
         void init(double sampleRate, WaveStack* pStack);
-        void setDrawbars(float levels[]);
         void setFrequency(float frequency);
 
         float getSample();
         void getSamples(float *pLeft, float *pRight, float gain);
+
+        // 9 Hammond-like drawbars mapped to level[] indices
+        static const int drawBarMap[9];
     };
 
 }

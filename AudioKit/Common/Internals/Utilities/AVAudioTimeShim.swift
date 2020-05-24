@@ -1,10 +1,4 @@
-//
-//  AVAudioTimeShim.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 Audive Inc. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Utility to convert between host time and seconds
 private let ticksToSeconds: Double = {
@@ -13,6 +7,7 @@ private let ticksToSeconds: Double = {
     let timecon = Double(tinfo.numer) / Double(tinfo.denom)
     return timecon * 0.000_000_001
 }()
+
 /// Utility to convert between seconds to host time.
 private let secondsToTicks: Double = {
     var tinfo = mach_timebase_info()
@@ -22,14 +17,13 @@ private let secondsToTicks: Double = {
 }()
 
 extension AVAudioTime {
-
     /// AVAudioTime.extrapolateTime fails for host time valid times, use
     /// extrapolateTimeShimmed instead. https://bugreport.apple.com/web/?problemID=34249528
     open func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
         guard ((isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid) &&
             !(isSampleTimeValid && isHostTimeValid) &&
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
-                return self
+            return self
         }
         if isHostTimeValid && anchorTime.isHostTimeValid {
             let secondsDiff = Double(hostTime.safeSubtract(anchorTime.hostTime)) * ticksToSeconds
@@ -50,7 +44,6 @@ extension AVAudioTime {
 
     /// Returns an AVAudioTime offset by seconds.
     open func offset(seconds: Double) -> AVAudioTime {
-
         if isSampleTimeValid && isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
@@ -103,12 +96,15 @@ extension AVAudioTime {
 public func + (left: AVAudioTime, right: Double) -> AVAudioTime {
     return left.offset(seconds: right)
 }
+
 public func + (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(right))
 }
+
 public func - (left: AVAudioTime, right: Double) -> AVAudioTime {
     return left.offset(seconds: -right)
 }
+
 public func - (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(-right))
 }
@@ -117,6 +113,7 @@ fileprivate extension UInt64 {
     func safeSubtract(_ other: UInt64) -> Int64 {
         return self > other ? Int64(self - other) : -Int64(other - self)
     }
+
     static func + (left: UInt64, right: Double) -> UInt64 {
         return right >= 0 ? left + UInt64(right) : left - UInt64(-right)
     }

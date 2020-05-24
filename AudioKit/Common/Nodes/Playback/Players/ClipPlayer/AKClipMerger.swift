@@ -1,15 +1,9 @@
-//
-//  AKClipMerger.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 Audive Inc. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// The protocol for the AKClipMerger's delegate
 /// It is the responsibility of the delegate to create a new clip when a an existing clip
 /// has been altered or split.
-@objc public protocol ClipMergeDelegate: class {
+@objc public protocol ClipMergeDelegate: AnyObject {
 
     /// A new clip, derived from an existing clip, with specified values.
     ///
@@ -184,7 +178,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
                 let clips = try AKClipMerger.validateClips(newValue) as! [AKFileClip]
                 _clips = clips
             } catch {
-                AKLog(error)
+                AKLog(error.localizedDescription)
             }
         }
     }

@@ -1,13 +1,8 @@
-//
-//  AKWaveTableDSPKernel.hpp
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 #import "AKSoundpipeKernel.hpp"
+#import "AKDSPKernel.hpp"
 
 enum {
     startPointAddress = 0,
@@ -313,6 +308,29 @@ public:
             loopCallback();
         }
     }
+
+
+    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+        if (midiEvent.length != 3) return;
+        uint8_t status = midiEvent.data[0] & 0xF0;
+        switch (status) {
+            case 0x80 : { //note off
+                uint8_t note = midiEvent.data[1];
+                if (note > 127) break;
+                stop();
+                break;
+            }
+            case 0x90 : { //note on
+                uint8_t note = midiEvent.data[1];
+                uint8_t veloc = midiEvent.data[2];
+                if (note > 127 || veloc > 127) break;
+                setVolume(float(veloc) / 127.0f);
+                start();
+                break;
+            }
+        }
+    }
+    
 private:
 
     sp_tabread *tabread1;

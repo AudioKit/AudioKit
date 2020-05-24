@@ -1,10 +1,4 @@
-//
-//  AKModulatedDelayDSP.hpp
-//  AudioKit
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -15,7 +9,6 @@ typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
     AKModulatedDelayParameterDepth,
     AKModulatedDelayParameterFeedback,
     AKModulatedDelayParameterDryWetMix,
-    AKModulatedDelayParameterRampDuration
 };
 
 // constants
@@ -51,8 +44,8 @@ extern const float kAKFlanger_MaxDryWetMix;
 
 #ifndef __cplusplus
 
-AKDSPRef createChorusDSP(int channelCount, double sampleRate);
-AKDSPRef createFlangerDSP(int channelCount, double sampleRate);
+AKDSPRef createChorusDSP(void);
+AKDSPRef createFlangerDSP(void);
 
 #else
 
@@ -61,20 +54,20 @@ AKDSPRef createFlangerDSP(int channelCount, double sampleRate);
 
 struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
 {
+private:
     // ramped parameters
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp depthRamp;
     AKLinearParameterRamp feedbackRamp;
     AKLinearParameterRamp dryWetMixRamp;
-    
+
+public:
     AKModulatedDelayDSP(AKModulatedDelayType type);
-    
+
     void init(int channelCount, double sampleRate) override;
+
     void deinit() override;
-    
-    void setParameter(uint64_t address, float value, bool immediate) override;
-    float getParameter(uint64_t address) override;
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 

@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  FilterEffects
-//
-//  Created by Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
@@ -32,9 +26,9 @@ class ViewController: UIViewController {
 
         booster = AKBooster(reverbMixer)
 
-        AudioKit.output = booster
+        AKManager.output = booster
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

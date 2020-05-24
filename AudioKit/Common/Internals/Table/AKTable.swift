@@ -1,13 +1,7 @@
-//
-//  AKTable.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Supported default table types
-@objc public enum AKTableType: Int, Codable {
+@objc public enum AKTableType: Int, Codable, CaseIterable {
     /// Standard sine waveform
     case sine
 
@@ -40,6 +34,9 @@
 
     /// Zeros
     case zero
+
+    /// Custom waveform
+    case custom
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
@@ -51,7 +48,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
 
     // MARK: - Properties    /// Values stored in the table
 
-    internal var content = [Element]()
+    public internal(set) var content = [Element]()
 
     /// Phase of the table
     public var phase: Float {
@@ -103,8 +100,8 @@ public class AKTable: NSObject, MutableCollection, Codable {
     ///   - count: Size of the table (multiple of 2)
     ///
     @objc public init(_ type: AKTableType = .sine,
-                phase: Float = 0,
-                count: IndexDistance = 4_096) {
+                      phase: Float = 0,
+                      count: IndexDistance = 4_096) {
         self.type = type
         self.phase = phase
 
@@ -135,7 +132,17 @@ public class AKTable: NSObject, MutableCollection, Codable {
             self.positiveSquareWave()
         case .zero:
             self.zero()
+        case .custom:
+            assertionFailure("Initializing a custom waveform via this method is unsupported. Please use init(content:phase:count:).")
         }
+    }
+
+    /// Create table from an array of Element
+    @objc public init(_ content: [Element],
+                      phase: Float = 0) {
+        self.type = .custom
+        self.phase = phase
+        self.content = content
     }
 
     /// Create table from audio file

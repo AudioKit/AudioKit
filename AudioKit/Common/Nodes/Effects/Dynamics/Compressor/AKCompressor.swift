@@ -1,10 +1,4 @@
-//
-//  AKCompressor.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///
@@ -122,7 +116,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
 
         let effect = _Self.effect
         self.internalEffect = effect
-        AudioKit.engine.attach(effect)
+        AKManager.engine.attach(effect)
         au = AUWrapper(effect)
 
         input?.connect(to: inputMixer)
@@ -160,9 +154,9 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
-        AudioKit.detach(nodes: [inputGain.avAudioUnitOrNode, effectGain.avAudioUnitOrNode, mixer.avAudioNode])
-        AudioKit.engine.detach(self.internalEffect)
+        AKManager.detach(nodes: [inputGain.avAudioUnitOrNode, effectGain.avAudioUnitOrNode, mixer.avAudioNode])
+        AKManager.engine.detach(self.internalEffect)
     }
 }

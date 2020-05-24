@@ -1,10 +1,4 @@
-//
-//  AKCoreSynth.cpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKCoreSynth.hpp"
 #include "FunctionTable.hpp"
@@ -182,15 +176,12 @@ AudioKitCore::SynthVoice *AKCoreSynth::voicePlayingNote(unsigned noteNumber)
 
 void AKCoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
 {
-    //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
-    
     // is any voice already playing this note?
     AudioKitCore::SynthVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice)
     {
         // re-start the note
         pVoice->restart(eventCounter, velocity / 127.0f);
-        //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
         return;
     }
     
@@ -202,7 +193,6 @@ void AKCoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequen
         {
             // found a free voice: assign it to play this note
             pVoice->start(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
-            //printf("Play note %d (%.2f Hz) vel %d\n", noteNumber, noteFrequency, velocity);
             return;
         }
     }
@@ -234,33 +224,27 @@ void AKCoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequen
     if (pStalestVoiceInRelease != 0)
     {
         // We have a stalest note in its release phase: restart that one
-        //printf("Restart note %d in release phase as %d\n", noteNumber, pVoice->noteNumber);
         pStalestVoiceInRelease->restart(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
     }
     else
     {
         // No notes in release phase: restart the "stalest" one we could find
-        //printf("Restart stalest note %d as %d\n", noteNumber, pVoice->noteNumber);
         pStalestVoiceOfAll->restart(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
     }
 }
 
 void AKCoreSynth::stop(unsigned noteNumber, bool immediate)
 {
-    //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
     AudioKitCore::SynthVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice == 0) return;
-    //printf("stopNote pVoice is %p\n", pVoice);
-    
+
     if (immediate)
     {
         pVoice->stop(eventCounter);
-        //printf("Stop note %d immediate\n", noteNumber);
     }
     else
     {
         pVoice->release(eventCounter);
-        //printf("Stop note %d release\n", noteNumber);
     }
 }
 
