@@ -96,6 +96,14 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
     func removeNote(beat: Double) {
         sequencerEngineRemoveMIDINote(dsp, beat)
     }
+    
+    func removeNote(number: MIDINoteNumber, beat: Double) {
+        sequencerEngineRemoveSpecificMIDINote(dsp, beat, number)
+    }
+    
+    func removeAllNotes(number: MIDINoteNumber) {
+        sequencerEngineRemoveAllMIDINotes(dsp, number)
+    }
 
     func clear() {
         sequencerEngineClear(dsp)
