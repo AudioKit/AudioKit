@@ -142,6 +142,14 @@ open class AKSequencerTrack: AKNode, AKComponent {
     open func removeNote(at position: Double) {
         internalAU?.removeNote(beat: position)
     }
+    
+    open func removeNote(noteNumber: MIDINoteNumber, position: Double) {
+        internalAU?.removeNote(number: noteNumber, beat: position)
+    }
+    
+    open func removeAllNotes(noteNumber: MIDINoteNumber) {
+        internalAU?.removeAllNotes(number: noteNumber)
+    }
 
     /// Remove the notes in the track
     open func clear() {
