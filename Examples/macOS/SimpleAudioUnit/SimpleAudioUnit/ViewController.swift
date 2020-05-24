@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  SimpleAudioUnit
-//
-//  Created by Ryan Francesconi on 5/4/18.
-//  Copyright © 2018 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import Cocoa
@@ -28,7 +22,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = mixer
+        AKManager.output = mixer
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             let player = AKPlayer(audioFile: audioFile)
@@ -38,9 +32,9 @@ class ViewController: NSViewController {
         }
 
         do {
-            try AudioKit.start()
-        } catch let err as NSError {
-            AKLog(err)
+            try AKManager.start()
+        } catch let error as NSError {
+            AKLog(error.localizedDescription)
             return
         }
 
@@ -86,10 +80,10 @@ class ViewController: NSViewController {
         let processingFormat = player.avAudioNode.outputFormat(forBus: 0)
 
         // connect the player to the delay
-        AudioKit.connect(player.avAudioNode, to: avUnit, format: processingFormat)
+        AKManager.connect(player.avAudioNode, to: avUnit, format: processingFormat)
 
         // connect the delay to the mixer
-        AudioKit.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
+        AKManager.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
 
         // ask the audio unit for a view controller, if it is an AU with no UI this will return nil
         // it's the job of the host to then create an interface. See the AudioUnitManager example.

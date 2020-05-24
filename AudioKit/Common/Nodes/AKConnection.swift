@@ -1,10 +1,4 @@
-//
-//  AKConnection.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A transitory used to pass connection information.
 open class AKInputConnection: NSObject {
@@ -22,7 +16,7 @@ open class AKInputConnection: NSObject {
 }
 
 /// Simplify making connections from a node.
-@objc public protocol AKOutput: class {
+@objc public protocol AKOutput: AnyObject {
 
     /// The output of this node can be connected to the inputNode of an AKInput.
     var outputNode: AVAudioNode { get }
@@ -33,12 +27,12 @@ extension AKOutput {
     /// Output connection points of outputNode.
     public var connectionPoints: [AVAudioConnectionPoint] {
         get { return outputNode.engine?.outputConnectionPoints(for: outputNode, outputBus: 0) ?? [] }
-        set { AudioKit.connect(outputNode, to: newValue, fromBus: 0, format: AudioKit.format) }
+        set { AKManager.connect(outputNode, to: newValue, fromBus: 0, format: AKSettings.audioFormat) }
     }
 
     /// Disconnects all outputNode's output connections.
     public func disconnectOutput() {
-        AudioKit.engine.disconnectNodeOutput(outputNode)
+        AKManager.engine.disconnectNodeOutput(outputNode)
     }
 
     /// Breaks connection from outputNode to an input's node if exists.
@@ -87,7 +81,7 @@ extension AKOutput {
     /// Sets output connection, removes existing output connections.
     ///   - Parameter node: Input that output will be connected to.
     @discardableResult public func setOutput(to node: AKInput) -> AKInput {
-        return setOutput(to: node, bus: node.nextInput.bus, format: AudioKit.format)
+        return setOutput(to: node, bus: node.nextInput.bus, format: AKSettings.audioFormat)
     }
 
     /// Sets output connection, removes previously existing output connections.
@@ -95,7 +89,7 @@ extension AKOutput {
     ///   - Parameter bus: The bus on the input that the output will connect to.
     ///   - Parameter format: The format of the connection.
     @discardableResult public func setOutput(to node: AKInput, bus: Int, format: AVAudioFormat?) -> AKInput {
-        AudioKit.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
+        AKManager.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
         return node
     }
 
@@ -110,12 +104,13 @@ extension AKOutput {
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     @discardableResult public func setOutput(toInputs: [AKInputConnection]) -> [AKInput] {
-        return setOutput(toInputs: toInputs, format: AudioKit.format)
+        return setOutput(toInputs: toInputs, format: AKSettings.audioFormat)
     }
 
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
+    ///  - returns: Array of input connections
     @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInput] {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }
@@ -124,7 +119,7 @@ extension AKOutput {
     /// Sets output connections to a single connectionPoint, removes previously existing output connections.
     ///   - Parameter connectionPoint: Input that output will be connected to.
     public func setOutput(to connectionPoint: AVAudioConnectionPoint) {
-        setOutput(to: connectionPoint, format: AudioKit.format)
+        setOutput(to: connectionPoint, format: AKSettings.audioFormat)
     }
 
     /// Sets output connections to a single connectionPoint, removes previously existing output connections.
@@ -138,7 +133,7 @@ extension AKOutput {
     ///   - Parameter connectionPoints: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
     public func setOutput(to connectionPoints: [AVAudioConnectionPoint], format: AVAudioFormat?) {
-        AudioKit.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
+        AKManager.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
     }
 
 }
@@ -171,10 +166,10 @@ extension AKInput {
         return outputNode
     }
     public func disconnectInput() {
-        AudioKit.engine.disconnectNodeInput(inputNode)
+        AKManager.engine.disconnectNodeInput(inputNode)
     }
     public func disconnectInput(bus: Int) {
-        AudioKit.engine.disconnectNodeInput(inputNode, bus: bus )
+        AKManager.engine.disconnectNodeInput(inputNode, bus: bus )
     }
     public var nextInput: AKInputConnection {
 
@@ -198,24 +193,24 @@ extension AKInput {
 // Set output connection(s)
 infix operator >>>: AdditionPrecedence
 
-@discardableResult public func >>>(left: AKOutput, right: AKInput) -> AKInput {
+@discardableResult public func >>> (left: AKOutput, right: AKInput) -> AKInput {
     return left.connect(to: right)
 }
-@discardableResult public func >>>(left: AKOutput, right: [AKInput]) -> [AKInput] {
+@discardableResult public func >>> (left: AKOutput, right: [AKInput]) -> [AKInput] {
     return left.connect(to: right)
 }
-@discardableResult public func >>>(left: [AKOutput], right: AKInput) -> AKInput {
+@discardableResult public func >>> (left: [AKOutput], right: AKInput) -> AKInput {
     for node in left {
         node.connect(to: right)
     }
     return right
 }
-@discardableResult public func >>>(left: AKOutput, right: AKInputConnection) -> AKInput {
+@discardableResult public func >>> (left: AKOutput, right: AKInputConnection) -> AKInput {
     return left.connect(to: right.node, bus: right.bus)
 }
-@discardableResult public func >>>(left: AKOutput, right: [AKInputConnection]) -> [AKInput] {
+@discardableResult public func >>> (left: AKOutput, right: [AKInputConnection]) -> [AKInput] {
     return left.connect(toInputs: right)
 }
-public func >>>(left: AKOutput, right: AVAudioConnectionPoint) {
+public func >>> (left: AKOutput, right: AVAudioConnectionPoint) {
     return left.connect(to: right)
 }

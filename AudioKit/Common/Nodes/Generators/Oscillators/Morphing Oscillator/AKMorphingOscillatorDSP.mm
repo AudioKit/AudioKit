@@ -1,24 +1,17 @@
-//
-//  AKMorphingOscillatorDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKMorphingOscillatorDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
+#include <vector>
 
-extern "C" AKDSPRef createMorphingOscillatorDSP(int channelCount, double sampleRate) {
-    AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createMorphingOscillatorDSP() {
+    return new AKMorphingOscillatorDSP();
 }
 
 struct AKMorphingOscillatorDSP::InternalData {
     sp_oscmorph *oscmorph;
     sp_ftbl *ft_array[4];
-    UInt32 ftbl_size = 4096;
+    std::vector<float> waveforms[4];
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp indexRamp;
@@ -27,93 +20,45 @@ struct AKMorphingOscillatorDSP::InternalData {
 };
 
 AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : data(new InternalData) {
-    data->frequencyRamp.setTarget(defaultFrequency, true);
-    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->amplitudeRamp.setTarget(defaultAmplitude, true);
-    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->indexRamp.setTarget(defaultIndex, true);
-    data->indexRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
-    data->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
-    data->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
+    parameters[AKMorphingOscillatorParameterFrequency] = &data->frequencyRamp;
+    parameters[AKMorphingOscillatorParameterAmplitude] = &data->amplitudeRamp;
+    parameters[AKMorphingOscillatorParameterIndex] = &data->indexRamp;
+    parameters[AKMorphingOscillatorParameterDetuningOffset] = &data->detuningOffsetRamp;
+    parameters[AKMorphingOscillatorParameterDetuningMultiplier] = &data->detuningMultiplierRamp;
+    
+    isStarted = false;
 }
 
-// Uses the ParameterAddress as a key
-void AKMorphingOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKMorphingOscillatorParameterFrequency:
-            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
-            break;
-        case AKMorphingOscillatorParameterAmplitude:
-            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
-            break;
-        case AKMorphingOscillatorParameterIndex:
-            data->indexRamp.setTarget(clamp(value, indexLowerBound, indexUpperBound), immediate);
-            break;
-        case AKMorphingOscillatorParameterDetuningOffset:
-            data->detuningOffsetRamp.setTarget(clamp(value, detuningOffsetLowerBound, detuningOffsetUpperBound), immediate);
-            break;
-        case AKMorphingOscillatorParameterDetuningMultiplier:
-            data->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
-            break;
-        case AKMorphingOscillatorParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, sampleRate);
-            data->amplitudeRamp.setRampDuration(value, sampleRate);
-            data->indexRamp.setRampDuration(value, sampleRate);
-            data->detuningOffsetRamp.setRampDuration(value, sampleRate);
-            data->detuningMultiplierRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKMorphingOscillatorParameterFrequency:
-            return data->frequencyRamp.getTarget();
-        case AKMorphingOscillatorParameterAmplitude:
-            return data->amplitudeRamp.getTarget();
-        case AKMorphingOscillatorParameterIndex:
-            return data->indexRamp.getTarget();
-        case AKMorphingOscillatorParameterDetuningOffset:
-            return data->detuningOffsetRamp.getTarget();
-        case AKMorphingOscillatorParameterDetuningMultiplier:
-            return data->detuningMultiplierRamp.getTarget();
-        case AKMorphingOscillatorParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+void AKMorphingOscillatorDSP::setWavetable(const float* table, size_t length, int index) {
+    data->waveforms[index] = std::vector<float>(table, table + length);
+    reset();
 }
 
 void AKMorphingOscillatorDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    isStarted = false;
+    for (uint32_t i = 0; i < 4; i++) {
+        sp_ftbl_create(sp, &data->ft_array[i], data->waveforms[i].size());
+        std::copy(data->waveforms[i].cbegin(), data->waveforms[i].cend(), data->ft_array[i]->tbl);
+    }
     sp_oscmorph_create(&data->oscmorph);
+    sp_oscmorph_init(sp, data->oscmorph, data->ft_array, 4, 0);
 }
 
 void AKMorphingOscillatorDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_oscmorph_destroy(&data->oscmorph);
+    for (uint32_t i = 0; i < 4; i++) {
+        sp_ftbl_destroy(&data->ft_array[i]);
+    }
 }
 
-void  AKMorphingOscillatorDSP::reset() {
-    sp_oscmorph_init(sp, data->oscmorph, data->ft_array, 4, 0);
-    data->oscmorph->freq = defaultFrequency;
-    data->oscmorph->amp = defaultAmplitude;
-    data->oscmorph->wtpos = defaultIndex;
+void AKMorphingOscillatorDSP::reset() {
     AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_oscmorph_init(sp, data->oscmorph, data->ft_array, 4, 0);
 }
 
-void AKMorphingOscillatorDSP::setupIndividualWaveform(uint32_t waveform, uint32_t size) {
-    data->ftbl_size = size;
-    sp_ftbl_create(sp, &data->ft_array[waveform], data->ftbl_size);
-}
-
-void AKMorphingOscillatorDSP::setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {
-    data->ft_array[waveform]->tbl[index] = value;
-}
 void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
@@ -132,7 +77,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (channel == 0) {

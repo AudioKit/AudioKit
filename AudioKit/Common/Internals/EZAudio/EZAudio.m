@@ -1,10 +1,4 @@
-//
-//  EZAudio.m
-//  EZAudioCoreGraphicsWaveformExample
-//
-//  Created by Syed Haris Ali, revision history on Githbub.
-//  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "EZAudio.h"
 

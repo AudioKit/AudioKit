@@ -1,10 +1,4 @@
-//
-//  AKClipRecorder.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 Audive Inc. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A closure that will be called when the clip is finished recording.
 /// Result will be an error or a clip. ClipRecording.url is the location
@@ -176,7 +170,9 @@ open class AKClipRecorder {
             audioFile.length > 0 {
             let duration = audioFile.duration
             clip.audioFile = nil
-            clip.completion(ClipRecordingResult.clip(ClipRecording(url: url, startTime: clip.startTime, duration: duration)))
+            clip.completion(ClipRecordingResult.clip(ClipRecording(url: url,
+                                                                   startTime: clip.startTime,
+                                                                   duration: duration)))
             completion?()
         } else {
             clip.completion(ClipRecordingResult.error(error ?? ClipRecordingError.timingError))
@@ -186,7 +182,7 @@ open class AKClipRecorder {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
             } catch let error {
-                AKLog(error)
+                AKLog(error.localizedDescription)
             }
         }
     }

@@ -1,17 +1,9 @@
-//
-//  AKDCBlockDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKDCBlockDSP.hpp"
 
-extern "C" AKDSPRef createDCBlockDSP(int channelCount, double sampleRate) {
-    AKDCBlockDSP *dsp = new AKDCBlockDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createDCBlockDSP() {
+    return new AKDCBlockDSP();
 }
 
 struct AKDCBlockDSP::InternalData {
@@ -19,7 +11,8 @@ struct AKDCBlockDSP::InternalData {
     sp_dcblock *dcblock1;
 };
 
-AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {}
+AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {
+}
 
 void AKDCBlockDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
@@ -30,8 +23,16 @@ void AKDCBlockDSP::init(int channelCount, double sampleRate) {
 }
 
 void AKDCBlockDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_dcblock_destroy(&data->dcblock0);
     sp_dcblock_destroy(&data->dcblock1);
+}
+
+void AKDCBlockDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_dcblock_init(sp, data->dcblock0);
+    sp_dcblock_init(sp, data->dcblock1);
 }
 
 void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -42,8 +43,8 @@ void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

@@ -1,10 +1,4 @@
-//
-//  AKOscillatorBankAudioUnit.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKOscillatorBankAudioUnit.h"
 #import "AKOscillatorBankDSPKernel.hpp"
@@ -32,14 +26,14 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(OscillatorBank)
-
+    
     [self setKernelPtr:&_kernel];
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:[self standardParameters]];
-
+    
     parameterTreeBlock(OscillatorBank)
 }
 

@@ -1,10 +1,4 @@
-//
-//  AKView.swift
-//  AudioKitUI
-//
-//  Created by Stéphane Peter, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
     public typealias AKView = NSView
@@ -63,26 +57,32 @@ public class AKStylist {
     }
 
     public var nextColor: AKColor {
-        get {
-            counter += 1
-            if counter >= colorCycle[theme]!.count {
+        counter += 1
+        if let currentColorCycle = colorCycle[theme] {
+            if counter >= currentColorCycle.count {
                 counter = 0
             }
-            return colorCycle[theme]![counter]
+            return currentColorCycle[counter]
+        } else {
+            fatalError()
         }
     }
 
     public var colorForTrueValue: AKColor {
         switch theme {
-        case .basic: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
-        case .midnight: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+        case .basic:
+            return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+        case .midnight:
+            return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
         }
     }
 
     public var colorForFalseValue: AKColor {
         switch theme {
-        case .basic: return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
-        case .midnight: return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
+        case .basic:
+            return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
+        case .midnight:
+            return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
         }
     }
 }

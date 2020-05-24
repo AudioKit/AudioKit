@@ -1,10 +1,4 @@
-//
-//  SampleOscillator.hpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 #include <math.h>
@@ -32,7 +26,7 @@ namespace AudioKitCore
             indexPoint += multiplier * increment;
             if (sampleBuffer->isLooping && isLooping)
             {
-                if (indexPoint >= sampleBuffer->loopEndPoint)
+                if (indexPoint > sampleBuffer->loopEndPoint)
                     indexPoint = indexPoint - sampleBuffer->loopEndPoint + sampleBuffer->loopStartPoint;
             }
             return false;
@@ -47,7 +41,7 @@ namespace AudioKitCore
             indexPoint += multiplier * increment;
             if (sampleBuffer->isLooping && isLooping)
             {
-                if (indexPoint >= sampleBuffer->loopEndPoint)
+                if (indexPoint > sampleBuffer->loopEndPoint)
                     indexPoint = indexPoint - sampleBuffer->loopEndPoint + sampleBuffer->loopStartPoint;
             }
             return false;

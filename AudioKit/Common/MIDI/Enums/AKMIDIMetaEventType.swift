@@ -1,10 +1,4 @@
-//
-//  AKMIDIMetaEventType.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 11/1/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -86,7 +80,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
 public struct AKMIDIMetaEvent: AKMIDIMessage {
 
     public init?(data: [MIDIByte]) {
-        if data.count > 02,
+        if data.count > 2,
             data[0] == 0xFF,
             let type = AKMIDIMetaEventType(rawValue: data[1]) {
             self.data = data

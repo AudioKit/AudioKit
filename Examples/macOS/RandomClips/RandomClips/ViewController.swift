@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  RandomClips
-//
-//  Created by David O'Neill, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -16,7 +10,7 @@ class ViewController: NSViewController {
     let guitarPlayer = AKClipPlayer()
     let mixer = AKMixer()
     var drumLooper: AKPlayer?
-    let playButton = AKButton()
+    let playButton = AKButton(frame: .zero)
     let guitarDelay = AVAudioUnitDelay()
     let reverb = AKReverb()
     let highPass = AKHighPassFilter()
@@ -76,9 +70,9 @@ class ViewController: NSViewController {
         drumPlayer.volume = 0.6
         ambientGuitar.volume = 0.3
 
-        AudioKit.output = mixer
+        AKManager.output = mixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

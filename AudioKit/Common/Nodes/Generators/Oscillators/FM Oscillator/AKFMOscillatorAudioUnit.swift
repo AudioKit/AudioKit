@@ -1,85 +1,56 @@
-//
-//  AKFMOscillatorAudioUnit.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
-public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
+public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var baseFrequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    private(set) var carrierMultiplier: AUParameter!
 
-    var baseFrequency: Double = AKFMOscillator.defaultBaseFrequency {
-        didSet { setParameter(.baseFrequency, value: baseFrequency) }
-    }
+    private(set) var modulatingMultiplier: AUParameter!
 
-    var carrierMultiplier: Double = AKFMOscillator.defaultCarrierMultiplier {
-        didSet { setParameter(.carrierMultiplier, value: carrierMultiplier) }
-    }
+    private(set) var modulationIndex: AUParameter!
 
-    var modulatingMultiplier: Double = AKFMOscillator.defaultModulatingMultiplier {
-        didSet { setParameter(.modulatingMultiplier, value: modulatingMultiplier) }
-    }
+    private(set) var amplitude: AUParameter!
 
-    var modulationIndex: Double = AKFMOscillator.defaultModulationIndex {
-        didSet { setParameter(.modulationIndex, value: modulationIndex) }
-    }
-
-    var amplitude: Double = AKFMOscillator.defaultAmplitude {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createFMOscillatorDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createFMOscillatorDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let baseFrequency = AUParameter(
+        baseFrequency = AUParameter(
             identifier: "baseFrequency",
             name: "Base Frequency (Hz)",
             address: AKFMOscillatorParameter.baseFrequency.rawValue,
             range: AKFMOscillator.baseFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let carrierMultiplier = AUParameter(
+        carrierMultiplier = AUParameter(
             identifier: "carrierMultiplier",
             name: "Carrier Multiplier",
             address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
             range: AKFMOscillator.carrierMultiplierRange,
             unit: .generic,
             flags: .default)
-        let modulatingMultiplier = AUParameter(
+        modulatingMultiplier = AUParameter(
             identifier: "modulatingMultiplier",
             name: "Modulating Multiplier",
             address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
             range: AKFMOscillator.modulatingMultiplierRange,
             unit: .generic,
             flags: .default)
-        let modulationIndex = AUParameter(
+        modulationIndex = AUParameter(
             identifier: "modulationIndex",
             name: "Modulation Index",
             address: AKFMOscillatorParameter.modulationIndex.rawValue,
             range: AKFMOscillator.modulationIndexRange,
             unit: .generic,
             flags: .default)
-        let amplitude = AUParameter(
+        amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKFMOscillatorParameter.amplitude.rawValue,
@@ -87,14 +58,16 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree(children: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
-        baseFrequency.value = Float(AKFMOscillator.defaultBaseFrequency)
-        carrierMultiplier.value = Float(AKFMOscillator.defaultCarrierMultiplier)
-        modulatingMultiplier.value = Float(AKFMOscillator.defaultModulatingMultiplier)
-        modulationIndex.value = Float(AKFMOscillator.defaultModulationIndex)
-        amplitude.value = Float(AKFMOscillator.defaultAmplitude)
+        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency,
+                                                                  carrierMultiplier,
+                                                                  modulatingMultiplier,
+                                                                  modulationIndex,
+                                                                  amplitude])
+
+        baseFrequency.value = AUValue(AKFMOscillator.defaultBaseFrequency)
+        carrierMultiplier.value = AUValue(AKFMOscillator.defaultCarrierMultiplier)
+        modulatingMultiplier.value = AUValue(AKFMOscillator.defaultModulatingMultiplier)
+        modulationIndex.value = AUValue(AKFMOscillator.defaultModulationIndex)
+        amplitude.value = AUValue(AKFMOscillator.defaultAmplitude)
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

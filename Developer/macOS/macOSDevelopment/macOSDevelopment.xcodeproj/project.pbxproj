@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4AF13A120319E45002E0FD8 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139320319D42002E0FD8 /* AudioKit.framework */; };
-		C4AF13A220319E45002E0FD8 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139520319D42002E0FD8 /* AudioKitUI.framework */; };
+		B174FEB123200D9100C51BD1 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = B174FEAE23200D9100C51BD1 /* PinkNoise.wav */; };
+		B1FC57FD2328A5AD0098C14F /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1FC57FA2328A5AC0098C14F /* drumloop.wav */; };
+		B1FCAC432322C1F40058C5BF /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139320319D42002E0FD8 /* AudioKit.framework */; };
+		B1FCAC442322C1F40058C5BF /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139520319D42002E0FD8 /* AudioKitUI.framework */; };
 		C4AF13A620319EB5002E0FD8 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4AF13A320319EB4002E0FD8 /* sinechirp.wav */; };
 		C4AF13A720319EB5002E0FD8 /* AKTestTriggers.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AF13A520319EB4002E0FD8 /* AKTestTriggers.m */; };
 		C4BDE7ED1C12FAE600207DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EC1C12FAE600207DA9 /* AppDelegate.swift */; };
@@ -56,6 +58,8 @@
 
 /* Begin PBXFileReference section */
 		55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "macOSDevelopment-Bridging-Header.h"; sourceTree = "<group>"; };
+		B174FEAE23200D9100C51BD1 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Common/PinkNoise.wav; sourceTree = "<group>"; };
+		B1FC57FA2328A5AC0098C14F /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../Common/drumloop.wav; sourceTree = "<group>"; };
 		C4AF138D20319D41002E0FD8 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 		C4AF13A320319EB4002E0FD8 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Common/sinechirp.wav; sourceTree = "<group>"; };
 		C4AF13A420319EB4002E0FD8 /* AKTestTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKTestTriggers.h; path = ../../../Common/AKTestTriggers.h; sourceTree = "<group>"; };
@@ -81,8 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4AF13A120319E45002E0FD8 /* AudioKit.framework in Frameworks */,
-				C4AF13A220319E45002E0FD8 /* AudioKitUI.framework in Frameworks */,
+				B1FCAC432322C1F40058C5BF /* AudioKit.framework in Frameworks */,
+				B1FCAC442322C1F40058C5BF /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +141,8 @@
 				55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */,
 				C4AF13A420319EB4002E0FD8 /* AKTestTriggers.h */,
 				C4AF13A520319EB4002E0FD8 /* AKTestTriggers.m */,
+				B174FEAE23200D9100C51BD1 /* PinkNoise.wav */,
+				B1FC57FA2328A5AC0098C14F /* drumloop.wav */,
 				C4AF13A320319EB4002E0FD8 /* sinechirp.wav */,
 			);
 			path = macOSDevelopment;
@@ -269,7 +275,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1FC57FD2328A5AD0098C14F /* drumloop.wav in Resources */,
 				C4BDE7F11C12FAE600207DA9 /* Assets.xcassets in Resources */,
+				B174FEB123200D9100C51BD1 /* PinkNoise.wav in Resources */,
 				C4AF13A620319EB5002E0FD8 /* sinechirp.wav in Resources */,
 				C4BDE7F41C12FAE600207DA9 /* Main.storyboard in Resources */,
 			);
@@ -433,6 +441,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,6 +464,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";

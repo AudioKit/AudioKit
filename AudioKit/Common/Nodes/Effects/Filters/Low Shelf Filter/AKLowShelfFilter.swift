@@ -1,10 +1,4 @@
-//
-//  AKLowShelfFilter.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
@@ -86,11 +80,11 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
 
         super.init(avAudioNode: mixer.avAudioNode)
 
-        AudioKit.engine.attach(effect)
+        AKManager.engine.attach(effect)
         if let node = effectGain?.avAudioNode {
-            AudioKit.engine.connect(node, to: effect)
+            AKManager.engine.connect(node, to: effect)
         }
-        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+        AKManager.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
         au[kAULowShelfParam_Gain] = gain
@@ -119,13 +113,13 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
 
-        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+        AKManager.detach(nodes: [inputMixer.avAudioNode,
                                 inputGain!.avAudioNode,
                                 effectGain!.avAudioNode,
                                 mixer.avAudioNode])
-        AudioKit.engine.detach(self.internalEffect)
+        AKManager.engine.detach(self.internalEffect)
     }
 }

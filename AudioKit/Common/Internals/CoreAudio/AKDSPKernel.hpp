@@ -1,10 +1,4 @@
-//
-//  AKDSPKernel.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #ifdef __cplusplus
 #pragma once
@@ -85,6 +79,12 @@ static inline double noteToHz(int noteNumber)
 {
     return 440. * exp2((noteNumber - 69)/12.);
 }
+
+static inline double floatToHz(float noteNumber)
+{
+    return 440. * exp2((noteNumber - 69.0)/12.);
+}
+
 
 #endif
 

@@ -1,18 +1,10 @@
-//
-//  AKFormantFilterDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKFormantFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createFormantFilterDSP(int channelCount, double sampleRate) {
-    AKFormantFilterDSP *dsp = new AKFormantFilterDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createFormantFilterDSP() {
+    return new AKFormantFilterDSP();
 }
 
 struct AKFormantFilterDSP::InternalData {
@@ -24,47 +16,9 @@ struct AKFormantFilterDSP::InternalData {
 };
 
 AKFormantFilterDSP::AKFormantFilterDSP() : data(new InternalData) {
-    data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->attackDurationRamp.setTarget(defaultAttackDuration, true);
-    data->attackDurationRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->decayDurationRamp.setTarget(defaultDecayDuration, true);
-    data->decayDurationRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKFormantFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKFormantFilterParameterCenterFrequency:
-            data->centerFrequencyRamp.setTarget(clamp(value, centerFrequencyLowerBound, centerFrequencyUpperBound), immediate);
-            break;
-        case AKFormantFilterParameterAttackDuration:
-            data->attackDurationRamp.setTarget(clamp(value, attackDurationLowerBound, attackDurationUpperBound), immediate);
-            break;
-        case AKFormantFilterParameterDecayDuration:
-            data->decayDurationRamp.setTarget(clamp(value, decayDurationLowerBound, decayDurationUpperBound), immediate);
-            break;
-        case AKFormantFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
-            data->attackDurationRamp.setRampDuration(value, sampleRate);
-            data->decayDurationRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKFormantFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKFormantFilterParameterCenterFrequency:
-            return data->centerFrequencyRamp.getTarget();
-        case AKFormantFilterParameterAttackDuration:
-            return data->attackDurationRamp.getTarget();
-        case AKFormantFilterParameterDecayDuration:
-            return data->decayDurationRamp.getTarget();
-        case AKFormantFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKFormantFilterParameterCenterFrequency] = &data->centerFrequencyRamp;
+    parameters[AKFormantFilterParameterAttackDuration] = &data->attackDurationRamp;
+    parameters[AKFormantFilterParameterDecayDuration] = &data->decayDurationRamp;
 }
 
 void AKFormantFilterDSP::init(int channelCount, double sampleRate) {
@@ -73,17 +27,19 @@ void AKFormantFilterDSP::init(int channelCount, double sampleRate) {
     sp_fofilt_init(sp, data->fofilt0);
     sp_fofilt_create(&data->fofilt1);
     sp_fofilt_init(sp, data->fofilt1);
-    data->fofilt0->freq = defaultCenterFrequency;
-    data->fofilt1->freq = defaultCenterFrequency;
-    data->fofilt0->atk = defaultAttackDuration;
-    data->fofilt1->atk = defaultAttackDuration;
-    data->fofilt0->dec = defaultDecayDuration;
-    data->fofilt1->dec = defaultDecayDuration;
 }
 
 void AKFormantFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_fofilt_destroy(&data->fofilt0);
     sp_fofilt_destroy(&data->fofilt1);
+}
+
+void AKFormantFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_fofilt_init(sp, data->fofilt0);
+    sp_fofilt_init(sp, data->fofilt1);
 }
 
 void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -108,8 +64,8 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

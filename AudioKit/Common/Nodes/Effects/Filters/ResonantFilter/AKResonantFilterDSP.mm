@@ -1,18 +1,10 @@
-//
-//  AKResonantFilterDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKResonantFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createResonantFilterDSP(int channelCount, double sampleRate) {
-    AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createResonantFilterDSP() {
+    return new AKResonantFilterDSP();
 }
 
 struct AKResonantFilterDSP::InternalData {
@@ -23,39 +15,8 @@ struct AKResonantFilterDSP::InternalData {
 };
 
 AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
-    data->frequencyRamp.setTarget(defaultFrequency, true);
-    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->bandwidthRamp.setTarget(defaultBandwidth, true);
-    data->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKResonantFilterParameterFrequency:
-            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
-            break;
-        case AKResonantFilterParameterBandwidth:
-            data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
-            break;
-        case AKResonantFilterParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, sampleRate);
-            data->bandwidthRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKResonantFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKResonantFilterParameterFrequency:
-            return data->frequencyRamp.getTarget();
-        case AKResonantFilterParameterBandwidth:
-            return data->bandwidthRamp.getTarget();
-        case AKResonantFilterParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKResonantFilterParameterFrequency] = &data->frequencyRamp;
+    parameters[AKResonantFilterParameterBandwidth] = &data->bandwidthRamp;
 }
 
 void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
@@ -64,15 +25,19 @@ void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
     sp_reson_init(sp, data->reson0);
     sp_reson_create(&data->reson1);
     sp_reson_init(sp, data->reson1);
-    data->reson0->freq = defaultFrequency;
-    data->reson1->freq = defaultFrequency;
-    data->reson0->bw = defaultBandwidth;
-    data->reson1->bw = defaultBandwidth;
 }
 
 void AKResonantFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_reson_destroy(&data->reson0);
     sp_reson_destroy(&data->reson1);
+}
+
+void AKResonantFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_reson_init(sp, data->reson0);
+    sp_reson_init(sp, data->reson1);
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -94,8 +59,8 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

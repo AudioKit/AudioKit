@@ -1,10 +1,4 @@
-//
-//  LinearRamper.hpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -70,9 +64,9 @@ namespace AudioKitCore
             return value;
         }
         
-        inline void getValues(int count, float *pOut)
+        inline void getValues(int nValuesNeeded, float *pOut)
         {
-            for (int i=0; i < count; i++) *pOut++ = getNextValue();
+            for (int i=0; i < nValuesNeeded; i++) *pOut++ = getNextValue();
         }
     };
 

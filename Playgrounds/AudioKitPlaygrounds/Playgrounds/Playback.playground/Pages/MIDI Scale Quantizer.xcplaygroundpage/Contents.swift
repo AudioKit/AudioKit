@@ -13,8 +13,8 @@ reverb.loadFactoryPreset(.largeRoom)
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
-AudioKit.output = mixer
-try AudioKit.start()
+AKManager.output = mixer
+try AKManager.start()
 
 enum Key {
     case C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
@@ -68,7 +68,7 @@ enum Mode {
 var key = Key.C
 var mode = Mode.major
 
-let midi = AudioKit.midi
+let midi = AKMIDI()
 
 midi.inputNames
 midi.openInput()
@@ -78,7 +78,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
         var transformedList = [AKMIDIEvent]()
 
         for event in eventList {
-            guard let type = event.status else {
+            guard let type = event.status?.type else {
                 transformedList.append(event)
                 continue
             }
@@ -96,7 +96,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
                         transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
-                                                           velocity: event.data2,
+                                                           velocity: event.data[2],
                                                            channel: event.channel!))
                     }
                 }

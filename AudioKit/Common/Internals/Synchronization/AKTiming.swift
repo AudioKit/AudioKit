@@ -1,10 +1,4 @@
-//
-//  AKTiming.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 Audive Inc. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A timing protocol used for syncronizing different audio sources.
 @objc public protocol AKTiming {
@@ -63,7 +57,7 @@ extension AKTiming {
         }
 
         let bufferDuration = AKSettings.ioBufferDuration
-        let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+        let referenceTime = AKManager.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
         let startTime = referenceTime + bufferDuration
         for node in nodes {
             node.start(at: startTime)
@@ -87,7 +81,7 @@ extension AKTiming {
         var startTime = audioTime
         if startTime == nil {
             let bufferDuration = AKSettings.ioBufferDuration
-            let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+            let referenceTime = AKManager.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
             startTime = referenceTime + bufferDuration
         }
 

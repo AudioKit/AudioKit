@@ -1,18 +1,10 @@
-//
-//  AKBandRejectButterworthFilterDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBandRejectButterworthFilterDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createBandRejectButterworthFilterDSP(int channelCount, double sampleRate) {
-    AKBandRejectButterworthFilterDSP *dsp = new AKBandRejectButterworthFilterDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createBandRejectButterworthFilterDSP() {
+    return new AKBandRejectButterworthFilterDSP();
 }
 
 struct AKBandRejectButterworthFilterDSP::InternalData {
@@ -23,39 +15,8 @@ struct AKBandRejectButterworthFilterDSP::InternalData {
 };
 
 AKBandRejectButterworthFilterDSP::AKBandRejectButterworthFilterDSP() : data(new InternalData) {
-    data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->bandwidthRamp.setTarget(defaultBandwidth, true);
-    data->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKBandRejectButterworthFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKBandRejectButterworthFilterParameterCenterFrequency:
-            data->centerFrequencyRamp.setTarget(clamp(value, centerFrequencyLowerBound, centerFrequencyUpperBound), immediate);
-            break;
-        case AKBandRejectButterworthFilterParameterBandwidth:
-            data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
-            break;
-        case AKBandRejectButterworthFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
-            data->bandwidthRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKBandRejectButterworthFilterDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKBandRejectButterworthFilterParameterCenterFrequency:
-            return data->centerFrequencyRamp.getTarget();
-        case AKBandRejectButterworthFilterParameterBandwidth:
-            return data->bandwidthRamp.getTarget();
-        case AKBandRejectButterworthFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKBandRejectButterworthFilterParameterCenterFrequency] = &data->centerFrequencyRamp;
+    parameters[AKBandRejectButterworthFilterParameterBandwidth] = &data->bandwidthRamp;
 }
 
 void AKBandRejectButterworthFilterDSP::init(int channelCount, double sampleRate) {
@@ -64,15 +25,19 @@ void AKBandRejectButterworthFilterDSP::init(int channelCount, double sampleRate)
     sp_butbr_init(sp, data->butbr0);
     sp_butbr_create(&data->butbr1);
     sp_butbr_init(sp, data->butbr1);
-    data->butbr0->freq = defaultCenterFrequency;
-    data->butbr1->freq = defaultCenterFrequency;
-    data->butbr0->bw = defaultBandwidth;
-    data->butbr1->bw = defaultBandwidth;
 }
 
 void AKBandRejectButterworthFilterDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_butbr_destroy(&data->butbr0);
     sp_butbr_destroy(&data->butbr1);
+}
+
+void AKBandRejectButterworthFilterDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_butbr_init(sp, data->butbr0);
+    sp_butbr_init(sp, data->butbr1);
 }
 
 void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -94,8 +59,8 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

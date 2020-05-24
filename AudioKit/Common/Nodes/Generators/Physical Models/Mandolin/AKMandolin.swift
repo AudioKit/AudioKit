@@ -1,10 +1,4 @@
-//
-//  AKMandolin.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Physical model of a 4 course mandolin
 ///
@@ -15,7 +9,7 @@ open class AKMandolin: AKNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var detuneParameter: AUParameter?
     fileprivate var bodySizeParameter: AUParameter?
@@ -74,7 +68,7 @@ open class AKMandolin: AKNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

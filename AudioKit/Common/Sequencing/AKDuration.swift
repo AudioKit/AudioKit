@@ -1,10 +1,4 @@
-//
-//  AKDuration.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public typealias BPM = Double
 
@@ -115,7 +109,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    public static func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
         return lhs.beats == rhs.beats
     }
 

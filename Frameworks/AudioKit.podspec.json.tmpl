@@ -5,11 +5,10 @@
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
     "license": {
-        "type": "MIT",
-        "file": "LICENSE"
+        "type": "MIT"
     },
     "homepage": "http://audiokit.io/",
-    "social_media_url": "http://twitter.com/AudioKitMan",
+    "social_media_url": "https://twitter.com/AudioKitMan",
     "documentation_url": "http://audiokit.io/docs/",
     "static_framework": true,
     "source": {
@@ -22,7 +21,7 @@
         "tvos": "10.0"
     },
     "swift_version": "5.0",
-    "cocoapods_version": ">= 1.5.0",
+    "cocoapods_version": ">= 1.9.0",
     "frameworks": [
 	"AVFoundation"
     ],
@@ -30,83 +29,18 @@
         "c++"
     ],
     "user_target_xcconfig": {
-	"ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
+	    "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "LIBRARY_SEARCH_PATHS": "$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)"
     },
     "subspecs" : [
       {
         "name": "Core",
-        "osx": {
-            "source_files": [
-                "macOS/AudioKit.framework/Versions/A/Headers/*.h"
-            ],
-            "public_header_files": [
-                "macOS/AudioKit.framework/Versions/A/Headers/*.h"
-            ],
-            "vendored_frameworks": [
-                "macOS/AudioKit.framework"
-            ]
-        },
-        "ios": {
-            "source_files": [
-                "iOS/AudioKit.framework/Headers/*.h"
-            ],
-            "public_header_files": [
-                "iOS/AudioKit.framework/Headers/*.h"
-            ],
-            "vendored_frameworks": [
-                "iOS/AudioKit.framework"
-            ]
-        },
-        "tvos": {
-            "source_files": [
-                "tvOS/AudioKit.framework/Headers/*.h"
-            ],
-            "public_header_files": [
-                "tvOS/AudioKit.framework/Headers/*.h"
-            ],
-            "vendored_frameworks": [
-                "tvOS/AudioKit.framework"
-            ]
-        }
-
+        "vendored_frameworks": "AudioKit.xcframework"
       },
       {
         "name": "UI",
         "dependencies": { "AudioKit/Core" : [] },
-        "osx": {
-            "source_files": [
-		"macOS/AudioKitUI.framework/Versions/A/Headers/*.h"
-	    ],
-            "public_header_files": [
-		"macOS/AudioKitUI.framework/Versions/A/Headers/*.h"
-	    ],
-            "vendored_frameworks": [
-		"macOS/AudioKitUI.framework"
-	    ]
-        },
-        "ios": {
-            "source_files": [
-		"iOS/AudioKitUI.framework/Headers/*.h"
-	    ],
-            "public_header_files": [
-		"iOS/AudioKitUI.framework/Headers/*.h"
-	    ],
-            "vendored_frameworks": [
-		"iOS/AudioKitUI.framework"
-	    ]
-        },
-        "tvos": {
-            "source_files": [
-		"tvOS/AudioKitUI.framework/Headers/*.h"
-	    ],
-            "public_header_files": [
-		"tvOS/AudioKitUI.framework/Headers/*.h"
-	    ],
-            "vendored_frameworks": [
-		"tvOS/AudioKitUI.framework"
-	    ]
-        }
+        "vendored_frameworks": "AudioKitUI.xcframework"
       }
     ]
 }

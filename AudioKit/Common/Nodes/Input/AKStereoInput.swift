@@ -1,10 +1,4 @@
-//
-//  AKStereoInput.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
 @objc open class AKStereoInput: AKNode, AKToggleable {
@@ -29,14 +23,16 @@
     }
 
     /// Initialize the microphone
-    override public init() {
-        super.init()
+    public init(volume: Double = 0.0) {
+        super.init(avAudioNode: AVAudioNode())
         self.avAudioNode = mixer
 
         #if !os(tvOS)
         AKSettings.audioInputEnabled = true
-        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
+        AKManager.engine.inputNode.connect(to: self.avAudioNode)
         #endif
+
+        self.volume = volume
     }
 
     deinit {

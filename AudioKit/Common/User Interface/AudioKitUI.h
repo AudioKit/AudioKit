@@ -1,10 +1,4 @@
-//
-//  AudioKitUI.h
-//  AudioKitUI
-//
-//  Created by Stéphane Peter, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import <Foundation/Foundation.h>
 #if TARGET_OS_IPHONE || TARGET_OS_TV
@@ -28,4 +22,3 @@ FOUNDATION_EXPORT const unsigned char AudioKitUIVersionString[];
 #import "EZPlot.h"
 #import "EZAudioDisplayLink.h"
 #import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"

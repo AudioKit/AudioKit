@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  AudioUnitManager
-//
-//  Created by Ryan Francesconi, revision history on Githbub.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
@@ -67,9 +61,9 @@ class ViewController: UIViewController {
         }
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
-        AudioKit.output = mixer
+        AKManager.output = mixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -78,8 +72,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             let kframe = CGRect(x: 0,
                                 y: 0,
-                                width:
-                                    self.keyboardContainer.bounds.size.width,
+                                width: self.keyboardContainer.bounds.size.width,
                                 height: self.keyboardContainer.bounds.size.height)
             let keyboard = AKKeyboardView(frame: kframe)
             keyboard.delegate = self

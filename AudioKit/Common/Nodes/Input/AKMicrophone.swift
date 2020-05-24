@@ -1,10 +1,4 @@
-//
-//  AKMicrophone.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Audio from the standard input
 @objc open class AKMicrophone: AKNode, AKToggleable {
@@ -22,7 +16,7 @@
     /// Set the actual microphone device
     @objc public func setDevice(_ device: AKDevice) throws {
         do {
-            try AudioKit.setInputDevice(device)
+            try AKManager.setInputDevice(device)
         } catch {
             AKLog("Could not set input device")
         }
@@ -37,7 +31,7 @@
 
     /// Initialize the microphone
 	@objc public init?(with format: AVAudioFormat? = nil) {
-		super.init()
+		super.init(avAudioNode: AVAudioNode())
 		guard let formatForDevice = getFormatForDevice() else {
 			AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
 			return nil
@@ -46,26 +40,10 @@
 		AKSettings.audioInputEnabled = true
 
 		#if os(iOS)
-		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
-		do {
-			try setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
-		} catch {
-			AKLog(error)
-			return nil
-		}
-
-		AudioKit.engine.attach(avAudioUnitOrNode)
-		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
-
-		//Now set samplerate to your AKSettings sampling rate, it may be heavy handed to make the init fail here, but taking all percautions to avoid all the hard crashes with AKMicrohpone init issues of late.
-		do {
-			try setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
-		} catch {
-			AKLog(error)
-			return nil
-		}
+		AKManager.engine.attach(avAudioUnitOrNode)
+		AKManager.engine.connect(AKManager.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
 		#elseif !os(tvOS)
-		AudioKit.engine.inputNode.connect(to: self.avAudioNode)
+		AKManager.engine.inputNode.connect(to: self.avAudioNode)
 		#endif
 	}
 
@@ -75,7 +53,7 @@
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
 			throw error
         }
         #endif
@@ -100,8 +78,8 @@
     private func getFormatForDevice() -> AVAudioFormat? {
         let audioFormat: AVAudioFormat?
         #if os(iOS) && !targetEnvironment(simulator)
-        let currentFormat = AudioKit.engine.inputNode.inputFormat(forBus: 0)
-        let desiredFS = AudioKit.deviceSampleRate
+        let currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        let desiredFS = AVAudioSession.sharedInstance().sampleRate
         if let layout = currentFormat.channelLayout {
             audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,
                                         sampleRate: desiredFS,

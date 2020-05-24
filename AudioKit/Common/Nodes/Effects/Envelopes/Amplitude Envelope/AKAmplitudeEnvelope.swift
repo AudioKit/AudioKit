@@ -1,10 +1,4 @@
-//
-//  AKAmplitudeEnvelope.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Triggerable classic ADSR envelope
 ///
@@ -14,99 +8,71 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
-
-    fileprivate var attackDurationParameter: AUParameter?
-    fileprivate var decayDurationParameter: AUParameter?
-    fileprivate var sustainLevelParameter: AUParameter?
-    fileprivate var releaseDurationParameter: AUParameter?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Lower and upper bounds for Attack Duration
-    public static let attackDurationRange = 0.0 ... 99.0
+    public static let attackDurationRange: ClosedRange<Double> = 0 ... 99
 
     /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange = 0.0 ... 99.0
+    public static let decayDurationRange: ClosedRange<Double> = 0 ... 99
 
     /// Lower and upper bounds for Sustain Level
-    public static let sustainLevelRange = 0.0 ... 99.0
+    public static let sustainLevelRange: ClosedRange<Double> = 0 ... 99
 
     /// Lower and upper bounds for Release Duration
-    public static let releaseDurationRange = 0.0 ... 99.0
+    public static let releaseDurationRange: ClosedRange<Double> = 0 ... 99
 
     /// Initial value for Attack Duration
-    public static let defaultAttackDuration = 0.1
+    public static let defaultAttackDuration: Double = 0.1
 
     /// Initial value for Decay Duration
-    public static let defaultDecayDuration = 0.1
+    public static let defaultDecayDuration: Double = 0.1
 
     /// Initial value for Sustain Level
-    public static let defaultSustainLevel = 1.0
+    public static let defaultSustainLevel: Double = 1.0
 
     /// Initial value for Release Duration
-    public static let defaultReleaseDuration = 0.1
+    public static let defaultReleaseDuration: Double = 0.1
 
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    /// Attack time
+    @objc open var attackDuration: Double = defaultAttackDuration {
         willSet {
-            internalAU?.rampDuration = newValue
+            let clampedValue = AKAmplitudeEnvelope.attackDurationRange.clamp(newValue)
+            guard attackDuration != clampedValue else { return }
+            internalAU?.attackDuration.value = AUValue(clampedValue)
         }
     }
 
-    /// Attack Duration in seconds
-    @objc open dynamic var attackDuration: Double = defaultAttackDuration {
+    /// Decay time
+    @objc open var decayDuration: Double = defaultDecayDuration {
         willSet {
-            guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
-        }
-    }
-
-    /// Decay Duration in seconds
-    @objc open dynamic var decayDuration: Double = defaultDecayDuration {
-        willSet {
-            guard decayDuration != newValue else { return }
-            if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.decayDuration, value: newValue)
+            let clampedValue = AKAmplitudeEnvelope.decayDurationRange.clamp(newValue)
+            guard decayDuration != clampedValue else { return }
+            internalAU?.decayDuration.value = AUValue(clampedValue)
         }
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: Double = defaultSustainLevel {
+    @objc open var sustainLevel: Double = defaultSustainLevel {
         willSet {
-            guard sustainLevel != newValue else { return }
-            if internalAU?.isSetUp == true {
-                sustainLevelParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.sustainLevel, value: newValue)
+            let clampedValue = AKAmplitudeEnvelope.sustainLevelRange.clamp(newValue)
+            guard sustainLevel != clampedValue else { return }
+            internalAU?.sustainLevel.value = AUValue(clampedValue)
         }
     }
 
-    /// Release Duration in seconds
-    @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
+    /// Release time
+    @objc open var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            guard releaseDuration != newValue else { return }
-            if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = AUValue(newValue)
-                return
-            }
-
-            internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
+            let clampedValue = AKAmplitudeEnvelope.releaseDurationRange.clamp(newValue)
+            guard releaseDuration != clampedValue else { return }
+            internalAU?.releaseDuration.value = AUValue(clampedValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+    @objc open var isStarted: Bool {
+        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -115,52 +81,32 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - attackDuration: Attack Duration in seconds
-    ///   - decayDuration: Decay Duration in seconds
+    ///   - attackDuration: Attack time
+    ///   - decayDuration: Decay time
     ///   - sustainLevel: Sustain Level
-    ///   - releaseDuration: Release Duration in seconds
+    ///   - releaseDuration: Release time
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         attackDuration: Double = defaultAttackDuration,
         decayDuration: Double = defaultDecayDuration,
         sustainLevel: Double = defaultSustainLevel,
         releaseDuration: Double = defaultReleaseDuration
         ) {
-
-        self.attackDuration = attackDuration
-        self.decayDuration = decayDuration
-        self.sustainLevel = sustainLevel
-        self.releaseDuration = releaseDuration
+        super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
-        super.init()
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: self)
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: strongSelf)
+            self.attackDuration = attackDuration
+            self.decayDuration = decayDuration
+            self.sustainLevel = sustainLevel
+            self.releaseDuration = releaseDuration
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        attackDurationParameter = tree["attackDuration"]
-        decayDurationParameter = tree["decayDuration"]
-        sustainLevelParameter = tree["sustainLevel"]
-        releaseDurationParameter = tree["releaseDuration"]
-
-        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
-        internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
-        internalAU?.setParameterImmediately(.sustainLevel, value: sustainLevel)
-        internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
     }
 
     // MARK: - Control

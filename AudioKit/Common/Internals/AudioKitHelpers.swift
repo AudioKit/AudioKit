@@ -1,10 +1,4 @@
-//
-//  AudioKitHelpers.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioToolbox
 import CoreAudio
@@ -23,31 +17,6 @@ public typealias AKCCallback = @convention(block) () -> Void
 
 /// Callback function that can be called from C
 public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
-
-// extension Collection {
-//    /// Return a random element from the collection
-//    public var randomIndex: Index {
-//        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
-//        return index(startIndex, offsetBy: offset)
-//    }
-// }
-
-// extension Collection where Element == CGPoint {
-//
-//    public func bezier() -> NSBezierPath {
-//        let path = NSBezierPath()
-//
-//        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
-//        path.move(to: fst)
-//
-//        dropFirst().forEach {
-//            path.line(to: $0)
-//        }
-//
-//        path.close()
-//        return path
-//    }
-// }
 
 extension AudioUnitParameterOptions {
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
@@ -72,42 +41,13 @@ extension CGRect {
 ///
 public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
-    precondition(utf8.count == 4, "Must be a 4 char string")
+    precondition(utf8.count == 4, "Must be a 4 character string")
     var out: UInt32 = 0
     for char in utf8 {
         out <<= 8
         out |= UInt32(char)
     }
     return out
-}
-
-/// Wrapper for printing out status messages to the console,
-/// eventually it could be expanded with log levels
-/// - items: Zero or more items to print.
-///
-@inline(__always)
-public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any?...) {
-    guard AKSettings.enableLogging else { return }
-    let fileName = (file as NSString).lastPathComponent
-    let content = (items.map {
-        if let item = $0 {
-            return String(describing: item)
-        } else {
-            return "nil"
-        }
-    }).joined(separator: " ")
-    Swift.print("\(fileName):\(fullname):\(line):\(content)")
-}
-
-/// Random double between bounds
-///
-/// - Parameters:
-///   - minimum: Lower bound of randomization
-///   - maximum: Upper bound of randomization
-///
-@available(*, deprecated, renamed: "random(in:)")
-public func random(_ minimum: Double, _ maximum: Double) -> Double {
-    return random(in: minimum ... maximum)
 }
 
 /// Random double in range
@@ -129,42 +69,11 @@ extension Double {
     ///
     /// - Parameters:
     ///   - to: Source range (cannot include zero if taper is not positive)
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///   - taper:Must be a postive number, taper = 1 is linear
     ///
     public func normalized(from range: ClosedRange<Double>, taper: Double = 1) -> Double {
-        assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
-
-        if taper > 0 {
-            // algebraic taper
-            return pow(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
-        } else {
-            // exponential taper
-            return range.lowerBound * exp(log(range.upperBound / range.lowerBound) * self)
-        }
-    }
-
-    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the source range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the source range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "normalized(from:taper:)")
-    public func normalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
-        return self.normalized(from: minimum ... maximum, taper: taper)
-    }
-
-    /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the source range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the source range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "normalize(from:taper:)")
-    public mutating func normalize(minimum: Double, maximum: Double, taper: Double = 1) {
-        self = self.normalized(from: minimum ... maximum, taper: taper)
+        assert(taper > 0, "Cannot have non-positive taper.")
+        return pow(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
     }
 
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
@@ -174,49 +83,33 @@ extension Double {
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func denormalized(to range: ClosedRange<Double>, taper: Double = 1) -> Double {
-        assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
+        assert(taper > 0, "Cannot have non-positive taper.")
+        return range.lowerBound + (range.upperBound - range.lowerBound) * pow(self, taper)
+    }
+}
 
-        // Avoiding division by zero in this trivial case
-        if range.upperBound - range.lowerBound < 0.00001 {
-            return range.lowerBound
-        }
-
-        if taper > 0 {
-            // algebraic taper
-            return range.lowerBound + (range.upperBound - range.lowerBound) * pow(self, taper)
-        } else {
-            // exponential taper
-            var adjustedMinimum: Double = 0.0
-            var adjustedMaximum: Double = 0.0
-            if range.lowerBound == 0 { adjustedMinimum = 0.00_000_000_001 }
-            if range.upperBound == 0 { adjustedMaximum = 0.00_000_000_001 }
-
-            return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
-        }
+/// Extension to calculate scaling factors, useful for UI controls
+extension AUValue {
+    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
+    ///
+    /// - Parameters:
+    ///   - to: Source range (cannot include zero if taper is not positive)
+    ///   - taper:Must be a postive number, taper = 1 is linear
+    ///
+    public func normalized(from range: ClosedRange<AUValue>, taper: AUValue = 1) -> AUValue {
+        assert(taper > 0, "Cannot have non-positive taper.")
+        return powf(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
     }
 
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
     ///
     /// - Parameters:
-    ///   - minimum: Minimum of the target range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the target range
+    ///   - to: Target range (cannot contain zero if taper is not positive)
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    @available(*, deprecated, renamed: "denormalized(to:taper:)")
-    public func denormalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
-        return self.denormalized(to: minimum ... maximum, taper: taper)
-    }
-
-    /// Convert a value on [0, 1] to a [min, max] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - minimum: Minimum of the target range (cannot be zero if taper is not positive)
-    ///   - maximum: Maximum of the target range
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    @available(*, deprecated, renamed: "denormalize(to:taper:)")
-    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double = 1) {
-        self = self.denormalized(to: minimum ... maximum, taper: taper)
+    public func denormalized(to range: ClosedRange<AUValue>, taper: AUValue = 1) -> AUValue {
+        assert(taper > 0, "Cannot have non-positive taper.")
+        return range.lowerBound + (range.upperBound - range.lowerBound) * powf(self, taper)
     }
 }
 
@@ -350,7 +243,7 @@ public extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
             avAudioUnit.map {
-                AudioKit.engine.attach($0)
+                AKManager.engine.attach($0)
                 callback($0)
             }
         }
@@ -417,6 +310,6 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 prefix operator ❗️
 
 /// Negative logic can be confusing, so we draw special attention to those cases
-prefix public func ❗️(a: Bool) -> Bool {
+public prefix func ❗️(a: Bool) -> Bool {
     return !a
 }

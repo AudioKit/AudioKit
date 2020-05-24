@@ -1,10 +1,4 @@
-//
-//  AKSequencer.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 5/8/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Open-source AudioKit Sequencer
 ///
@@ -37,6 +31,27 @@ open class AKSequencer {
         return tracks.first?.isPlaying ?? false
     }
 
+    /// Initialize with a single node or with no node at all
+    /// You must provide a target node for the sequencer to drive or it will not run at all
+    public convenience init(targetNode: AKNode) {
+        self.init(targetNodes: [targetNode])
+    }
+
+    /// Initialize with target nodes
+    /// This will create a track for each node
+    public required init(targetNodes: [AKNode]? = nil) {
+        if let targetNodes = targetNodes {
+            tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+        } else {
+            AKLog("no nodes connected to sequencer at init - be sure to connect some via addTrack")
+        }
+    }
+
+    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
+        self.init(targetNodes: targetNodes)
+        load(midiFileURL: fileURL)
+    }
+
     /// Start playback of the track from the current position (like unpause)
     open func play() {
         for track in tracks { track.play() }
@@ -57,6 +72,11 @@ open class AKSequencer {
         for track in tracks { track.stop() }
     }
 
+    /// Rewind playback
+    open func rewind() {
+        for track in tracks { track.rewind() }
+    }
+
     /// Load MIDI data from a file URL
     open func load(midiFileURL: URL) {
         load(midiFile: AKMIDIFile(url: midiFileURL))
@@ -66,7 +86,8 @@ open class AKSequencer {
     open func load(midiFile: AKMIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
-            AKLog("Error: Track count and file track count do not match, dropped \(midiTracks.count - tracks.count) tracks")
+            AKLog("Error: Track count and file track count do not match ",
+                  "dropped \(midiTracks.count - tracks.count) tracks")
         }
         if tracks.count > midiTracks.count {
             AKLog("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")
@@ -108,27 +129,32 @@ open class AKSequencer {
         tracks[trackIndex].add(event: event, position: position)
     }
 
-    /// Initialize with target nodes
-    required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
-    }
-
-    /// Initialize with a sinze node or with no node at all
-    public convenience init(targetNode: AKNode? = nil) {
-        if let node = targetNode {
-            self.init(targetNodes: [node])
-        } else {
-            self.init(targetNodes: [AKNode]())
+    open func clear() {
+        for track in tracks {
+            track.clear()
         }
     }
 
-    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
-        self.init(targetNodes: targetNodes)
-        load(midiFileURL: fileURL)
+    open func seek(to position: Double) {
+        tracks.forEach({ $0.seek(to: position) })
+    }
+
+    open func pause() {
+        stop()
+    }
+
+    open func getTrackFor(node: AKNode) -> AKSequencerTrack? {
+        return tracks.first(where: { $0.targetNode == node })
+    }
+
+    open func addTrack(for node: AKNode) -> AKSequencerTrack {
+        let track = AKSequencerTrack(targetNode: node)
+        tracks.append(track)
+        return track
     }
 }
 
-/* functions from aksequencer to implement
+/* functions from AKAppleSequencer  to implement
 
  public convenience init(fromURL fileURL: URL) {
  open func enableLooping(_ loopLength: AKDuration) {

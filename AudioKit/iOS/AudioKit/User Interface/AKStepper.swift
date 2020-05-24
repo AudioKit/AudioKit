@@ -1,10 +1,4 @@
-//
-//  AKStepper.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import UIKit
@@ -36,7 +30,7 @@ import UIKit
     @IBInspectable public var maximum: Double = 1
     internal var originalValue: Double = 0.5
     open var callback: (Double) -> Void = {val in
-        print("akstepper callback: \(val)")
+        AKLog("AKStepper callback: \(val)")
     }
     internal func doPlusAction() {
         currentValue += min(increment, maximum - currentValue)
@@ -62,33 +56,33 @@ import UIKit
         checkValues()
         setupButtons(frame: frame)
         addSubview(label)
-        if showsValue {
-            addSubview(valueLabel!)
+        if showsValue, let valueLabel = valueLabel {
+            addSubview(valueLabel)
         }
     }
 
     /// Initialize within Interface Builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         generateUIComponents(frame: frame)
         checkValues()
         setupButtons(frame: frame)
         self.originalValue = currentValue
     }
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    override open func awakeFromNib() {
+    open override func awakeFromNib() {
         checkValues()
         super.awakeFromNib()
     }
     /// Draw the stepper
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         super.draw(rect)
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect) {
-        let borderWidth = minusButton!.borderWidth
+        let borderWidth = minusButton?.borderWidth ?? 0
         label.frame = CGRect(x: rect.origin.x + borderWidth,
                              y: rect.origin.y,
                              width: rect.width,
@@ -121,17 +115,17 @@ import UIKit
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
-    override open func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         genStackViews(rect: bounds)
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
-        if view != nil {
-            stack.addArrangedSubview(view!)
+        if let view = view {
+            stack.addArrangedSubview(view)
         }
     }
     internal func checkValues() {
@@ -144,25 +138,33 @@ import UIKit
     internal func setupButtons(frame: CGRect) {
         let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
         plusButton = AKButton(title: "+", frame: buttonFrame, callback: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doPlusAction()
             strongSelf.touchBeganCallback()
         })
         plusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
         minusButton = AKButton(title: "-", frame: buttonFrame, callback: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.doMinusAction()
             strongSelf.touchBeganCallback()
         })
         minusButton.releaseCallback = { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             strongSelf.touchEndedCallback()
         }
-        plusButton.font = buttonFont!
-        minusButton.font = buttonFont!
+        plusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
+        minusButton.font = buttonFont ?? UIFont.systemFont(ofSize: 12)
         plusButton.borderWidth = buttonBorderWidth
         minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)

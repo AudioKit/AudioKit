@@ -1,14 +1,8 @@
-//
-//  AKClip.swift
-//  AudioKit
-//
-//  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 Audive Inc. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A protocol containing timing information for scheduling audio clips in a timeline.  All
 /// properties are time values in seconds, relative to a zero based timeline.
-@objc public protocol AKClip: class {
+@objc public protocol AKClip: AnyObject {
 
     /// The time in the timeline that the clip should begin playing.
     var time: Double { get }
@@ -88,7 +82,7 @@ open class AKFileClip: NSObject, FileClip {
             self.init(audioFile: audioFile)
             return
         } catch {
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
         return nil
     }

@@ -9,9 +9,9 @@ player.looping = true
 
 var delay = AKVariableDelay(player)
 delay.rampDuration = 0.2
-AudioKit.output = AKMixer(player, delay)
+AKManager.output = AKMixer(player, delay)
 
-try AudioKit.start()
+try AKManager.start()
 
 import AudioKitUI
 

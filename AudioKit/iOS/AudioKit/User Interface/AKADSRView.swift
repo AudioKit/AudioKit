@@ -1,10 +1,4 @@
-//
-//  AKADSRView.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 
@@ -109,14 +103,14 @@ import UIKit
     }
 
     /// Initialization of the view from within interface builder
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     // MARK: - Storyboard Rendering
 
     /// Perform necessary operation to allow the view to be rendered in interface builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         contentMode = .scaleAspectFill
@@ -124,7 +118,7 @@ import UIKit
     }
 
     /// Size of the view
-    override open var intrinsicContentSize: CGSize {
+    open override var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
 
@@ -136,7 +130,7 @@ import UIKit
     // MARK: - Touch Handling
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -155,7 +149,7 @@ import UIKit
     }
 
     /// Handle moving touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -363,7 +357,7 @@ import UIKit
     }
 
     /// Draw the view
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,
                         decayDurationMS: decayTime,
                         releaseDurationMS: releaseTime,

@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  HelloOSC
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import AudioKitUI
@@ -32,9 +26,9 @@ class ViewController: NSViewController, NSWindowDelegate, OSCServerDelegate {
 
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
-        AudioKit.output = mixer
+        AKManager.output = mixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

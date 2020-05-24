@@ -1,18 +1,10 @@
-//
-//  AKPhaserDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPhaserDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#include "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPhaserDSP(int channelCount, double sampleRate) {
-    AKPhaserDSP *dsp = new AKPhaserDSP();
-    dsp->init(channelCount, sampleRate);
-    return dsp;
+extern "C" AKDSPRef createPhaserDSP() {
+    return new AKPhaserDSP();
 }
 
 struct AKPhaserDSP::InternalData {
@@ -29,114 +21,32 @@ struct AKPhaserDSP::InternalData {
 };
 
 AKPhaserDSP::AKPhaserDSP() : data(new InternalData) {
-    data->notchMinimumFrequencyRamp.setTarget(defaultNotchMinimumFrequency, true);
-    data->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->notchMaximumFrequencyRamp.setTarget(defaultNotchMaximumFrequency, true);
-    data->notchMaximumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->notchWidthRamp.setTarget(defaultNotchWidth, true);
-    data->notchWidthRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->notchFrequencyRamp.setTarget(defaultNotchFrequency, true);
-    data->notchFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->vibratoModeRamp.setTarget(defaultVibratoMode, true);
-    data->vibratoModeRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->depthRamp.setTarget(defaultDepth, true);
-    data->depthRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->feedbackRamp.setTarget(defaultFeedback, true);
-    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->invertedRamp.setTarget(defaultInverted, true);
-    data->invertedRamp.setDurationInSamples(defaultRampDurationSamples);
-    data->lfoBPMRamp.setTarget(defaultLfoBPM, true);
-    data->lfoBPMRamp.setDurationInSamples(defaultRampDurationSamples);
-}
-
-// Uses the ParameterAddress as a key
-void AKPhaserDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
-    switch (address) {
-        case AKPhaserParameterNotchMinimumFrequency:
-            data->notchMinimumFrequencyRamp.setTarget(clamp(value, notchMinimumFrequencyLowerBound, notchMinimumFrequencyUpperBound), immediate);
-            break;
-        case AKPhaserParameterNotchMaximumFrequency:
-            data->notchMaximumFrequencyRamp.setTarget(clamp(value, notchMaximumFrequencyLowerBound, notchMaximumFrequencyUpperBound), immediate);
-            break;
-        case AKPhaserParameterNotchWidth:
-            data->notchWidthRamp.setTarget(clamp(value, notchWidthLowerBound, notchWidthUpperBound), immediate);
-            break;
-        case AKPhaserParameterNotchFrequency:
-            data->notchFrequencyRamp.setTarget(clamp(value, notchFrequencyLowerBound, notchFrequencyUpperBound), immediate);
-            break;
-        case AKPhaserParameterVibratoMode:
-            data->vibratoModeRamp.setTarget(clamp(value, vibratoModeLowerBound, vibratoModeUpperBound), immediate);
-            break;
-        case AKPhaserParameterDepth:
-            data->depthRamp.setTarget(clamp(value, depthLowerBound, depthUpperBound), immediate);
-            break;
-        case AKPhaserParameterFeedback:
-            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
-            break;
-        case AKPhaserParameterInverted:
-            data->invertedRamp.setTarget(clamp(value, invertedLowerBound, invertedUpperBound), immediate);
-            break;
-        case AKPhaserParameterLfoBPM:
-            data->lfoBPMRamp.setTarget(clamp(value, lfoBPMLowerBound, lfoBPMUpperBound), immediate);
-            break;
-        case AKPhaserParameterRampDuration:
-            data->notchMinimumFrequencyRamp.setRampDuration(value, sampleRate);
-            data->notchMaximumFrequencyRamp.setRampDuration(value, sampleRate);
-            data->notchWidthRamp.setRampDuration(value, sampleRate);
-            data->notchFrequencyRamp.setRampDuration(value, sampleRate);
-            data->vibratoModeRamp.setRampDuration(value, sampleRate);
-            data->depthRamp.setRampDuration(value, sampleRate);
-            data->feedbackRamp.setRampDuration(value, sampleRate);
-            data->invertedRamp.setRampDuration(value, sampleRate);
-            data->lfoBPMRamp.setRampDuration(value, sampleRate);
-            break;
-    }
-}
-
-// Uses the ParameterAddress as a key
-float AKPhaserDSP::getParameter(uint64_t address) {
-    switch (address) {
-        case AKPhaserParameterNotchMinimumFrequency:
-            return data->notchMinimumFrequencyRamp.getTarget();
-        case AKPhaserParameterNotchMaximumFrequency:
-            return data->notchMaximumFrequencyRamp.getTarget();
-        case AKPhaserParameterNotchWidth:
-            return data->notchWidthRamp.getTarget();
-        case AKPhaserParameterNotchFrequency:
-            return data->notchFrequencyRamp.getTarget();
-        case AKPhaserParameterVibratoMode:
-            return data->vibratoModeRamp.getTarget();
-        case AKPhaserParameterDepth:
-            return data->depthRamp.getTarget();
-        case AKPhaserParameterFeedback:
-            return data->feedbackRamp.getTarget();
-        case AKPhaserParameterInverted:
-            return data->invertedRamp.getTarget();
-        case AKPhaserParameterLfoBPM:
-            return data->lfoBPMRamp.getTarget();
-        case AKPhaserParameterRampDuration:
-            return data->notchMinimumFrequencyRamp.getRampDuration(sampleRate);
-    }
-    return 0;
+    parameters[AKPhaserParameterNotchMinimumFrequency] = &data->notchMinimumFrequencyRamp;
+    parameters[AKPhaserParameterNotchMaximumFrequency] = &data->notchMaximumFrequencyRamp;
+    parameters[AKPhaserParameterNotchWidth] = &data->notchWidthRamp;
+    parameters[AKPhaserParameterNotchFrequency] = &data->notchFrequencyRamp;
+    parameters[AKPhaserParameterVibratoMode] = &data->vibratoModeRamp;
+    parameters[AKPhaserParameterDepth] = &data->depthRamp;
+    parameters[AKPhaserParameterFeedback] = &data->feedbackRamp;
+    parameters[AKPhaserParameterInverted] = &data->invertedRamp;
+    parameters[AKPhaserParameterLfoBPM] = &data->lfoBPMRamp;
 }
 
 void AKPhaserDSP::init(int channelCount, double sampleRate) {
     AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_phaser_create(&data->phaser);
     sp_phaser_init(sp, data->phaser);
-    *data->phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
-    *data->phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
-    *data->phaser->Notch_width = defaultNotchWidth;
-    *data->phaser->NotchFreq = defaultNotchFrequency;
-    *data->phaser->VibratoMode = defaultVibratoMode;
-    *data->phaser->depth = defaultDepth;
-    *data->phaser->feedback_gain = defaultFeedback;
-    *data->phaser->invert = defaultInverted;
-    *data->phaser->lfobpm = defaultLfoBPM;
 }
 
 void AKPhaserDSP::deinit() {
+    AKSoundpipeDSPBase::deinit();
     sp_phaser_destroy(&data->phaser);
+}
+
+void AKPhaserDSP::reset() {
+    AKSoundpipeDSPBase::reset();
+    if (!isInitialized) return;
+    sp_phaser_init(sp, data->phaser);
 }
 
 void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -170,16 +80,17 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!isStarted) {
                 *out = *in;
+                continue;
             }
-
+            
         }
         if (isStarted) {
             sp_phaser_compute(sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);

@@ -1,10 +1,5 @@
-//
-//  AKMIDI+Receiving.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 // AKMIDI+Receiving Goals
 //      * Simplicty in discovery and presentation of available source inputs
 //      * Simplicty in inserting multiple midi transformations between a source and listeners
@@ -157,7 +152,7 @@ extension AKMIDI {
                     }
 
                     if result != noErr {
-                        AKLog("Error creating MIDI Input Port : \(result)")
+                        AKLog("Error creating MIDI Input Port: \(result)")
                     }
 
                     MIDIPortConnectSource(port, src, nil)
@@ -199,10 +194,10 @@ extension AKMIDI {
     ///
     public func closeInput(uid inputUID: MIDIUniqueID) {
         guard let name = inputName(for: inputUID) else {
-            AKLog("Trying to close midi input \(inputUID), but no name was found")
+            AKLog("Trying to close midi input \(inputUID), but no name was found", log: OSLog.midi)
             return
         }
-        AKLog("Closing MIDI Input '\(name)'")
+        AKLog("Closing MIDI Input '\(name)'", log: OSLog.midi)
         var result = noErr
         for uid in inputPorts.keys {
             if inputUID == 0 || uid == inputUID {
@@ -211,15 +206,15 @@ extension AKMIDI {
                     if result == noErr {
                         endpoints.removeValue(forKey: uid)
                         inputPorts.removeValue(forKey: uid)
-                        AKLog("Disconnected \(name) and removed it from endpoints and input ports")
+                        AKLog("Disconnected \(name) and removed it from endpoints and input ports", log: OSLog.midi)
                     } else {
-                        AKLog("Error disconnecting MIDI port: \(result)")
+                        AKLog("Error disconnecting MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                     result = MIDIPortDispose(port)
                     if result == noErr {
-                        AKLog("Disposed \(name)")
+                        AKLog("Disposed \(name)", log: OSLog.midi)
                     } else {
-                        AKLog("Error displosing  MIDI port: \(result)")
+                        AKLog("Error displosing  MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
             }
@@ -228,8 +223,10 @@ extension AKMIDI {
 
     /// Close all MIDI Input ports
     public func closeAllInputs() {
-        AKLog("Closing All Inputs")
-        closeInput()
+        AKLog("Closing All Inputs", log: OSLog.midi)
+        for index in 0 ..< MIDISources().endIndex {
+            closeInput(index: index)
+        }
     }
 
     internal func handleMIDIMessage(_ event: AKMIDIEvent, fromInput portID: MIDIUniqueID) {
@@ -237,7 +234,7 @@ extension AKMIDI {
             let offset = event.offset
             if let type = event.status?.type {
                 guard let eventChannel = event.channel else {
-                    AKLog("No channel detected in handleMIDIMessage")
+                    AKLog("No channel detected in handleMIDIMessage", log: OSLog.midi)
                     continue
                 }
                 switch type {
@@ -248,7 +245,7 @@ extension AKMIDI {
                                                     portID: portID,
                                                     offset: offset)
                 case .channelAftertouch:
-                    listener.receivedMIDIAfterTouch(event.data[1],
+                    listener.receivedMIDIAftertouch(event.data[1],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
                                                     offset: offset)
@@ -265,7 +262,7 @@ extension AKMIDI {
                                                  portID: portID,
                                                  offset: offset)
                 case .pitchWheel:
-                    listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
+                    listener.receivedMIDIPitchWheel(event.pitchbendAmount ?? 0,
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
                                                     offset: offset)
@@ -282,10 +279,9 @@ extension AKMIDI {
                                                        offset: offset)
                 }
             } else if event.command != nil {
-                //AKLog("Passing [\(event.command?.description ?? "unknown")] to listener \(listener)")
                 listener.receivedMIDISystemCommand(event.data, portID: portID, offset: offset )
             } else {
-                AKLog("No usable status detected in handleMIDIMessage")
+                AKLog("No usable status detected in handleMIDIMessage", log: OSLog.midi)
             }
         }
     }

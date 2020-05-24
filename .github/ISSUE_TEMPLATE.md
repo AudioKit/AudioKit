@@ -3,6 +3,8 @@ If your issue is implementing AudioKit in your own code, post your problem to [S
 GitHub Issues should only be used for confirmed problems with AudioKit and
 well-defined feature requests.
 
+Sponsors will get more attention: https://github.com/sponsors/aure
+
 Make sure you know about the common gotcha's outlined in this video:
 https://vimeo.com/audiokit/connecting-nodes-part-2
 

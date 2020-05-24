@@ -1,10 +1,4 @@
-//
-//  ViewController.swift
-//  MIDIFileEditAndSync
-//
-//  Created by Jeff Holtzkener on 2018/04/11.
-//  Copyright © 2018 Jeff Holtzkener. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit

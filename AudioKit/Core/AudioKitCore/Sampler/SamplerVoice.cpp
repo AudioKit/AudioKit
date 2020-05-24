@@ -1,10 +1,4 @@
-//
-//  SamplerVoice.cpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "SamplerVoice.hpp"
 #include <stdio.h>
@@ -20,6 +14,9 @@ namespace AudioKitCore
         rightFilter.init(sampleRate);
         adsrEnvelope.init();
         filterEnvelope.init();
+        pitchEnvelope.init();
+        vibratoLFO.waveTable.sinusoid();
+        vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
         volumeRamper.init(0.0f);
         tempGain = 0.0f;
     }
@@ -40,7 +37,13 @@ namespace AudioKitCore
         leftFilter.updateSampleRate(double(samplingRate));
         rightFilter.updateSampleRate(double(samplingRate));
         filterEnvelope.start();
-        
+
+        pitchEnvelope.start();
+
+        pitchEnvelopeSemitones = 0.0f;
+
+        voiceLFOSemitones = 0.0f;
+
         glideSemitones = 0.0f;
         if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
         {
@@ -66,6 +69,11 @@ namespace AudioKitCore
             glideSemitones = -12.0f * log2f(frequency / noteFrequency);
             if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
         }
+
+        pitchEnvelopeSemitones = 0.0f;
+
+        voiceLFOSemitones = 0.0f;
+
         noteFrequency = frequency;
         noteNumber = note;
         tempNoteVolume = noteVolume;
@@ -73,6 +81,8 @@ namespace AudioKitCore
         adsrEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
+        pitchEnvelope.restart();
+        vibratoLFO.phase = 0;
     }
 
     void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
@@ -100,6 +110,8 @@ namespace AudioKitCore
         adsrEnvelope.restart();
         noteVolume = volume;
         filterEnvelope.restart();
+        pitchEnvelope.restart();
+        vibratoLFO.phase = 0;
     }
     
     void SamplerVoice::release(bool loopThruRelease)
@@ -107,6 +119,7 @@ namespace AudioKitCore
         if (!loopThruRelease) oscillator.isLooping = false;
         adsrEnvelope.release();
         filterEnvelope.release();
+        pitchEnvelope.release();
     }
     
     void SamplerVoice::stop()
@@ -115,12 +128,15 @@ namespace AudioKitCore
         adsrEnvelope.reset();
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
+        pitchEnvelope.reset();
+        vibratoLFO.phase = 0;
     }
 
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
                                         float cutoffMultiple, float keyTracking,
                                         float cutoffEnvelopeStrength, float cutoffEnvelopeVelocityScaling,
-                                        float resLinear)
+                                        float resLinear, float pitchADSRSemitones,
+                                        float voiceLFODepthSemitones, float voiceLFOFrequencyHz)
     {
         if (adsrEnvelope.isIdle()) return true;
 
@@ -128,6 +144,8 @@ namespace AudioKitCore
         {
             tempGain = masterVolume * tempNoteVolume;
             volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
+            // This can execute as part of the voice-stealing mechanism, and will be executed rarely.
+            // To test, set MAX_POLYPHONY in AKCoreSampler.cpp to something small like 2 or 3.
             if (!adsrEnvelope.isPreStarting())
             {
                 tempGain = masterVolume * noteVolume;
@@ -159,7 +177,16 @@ namespace AudioKitCore
                 if (glideSemitones < 0.0f) glideSemitones = 0.0f;
             }
         }
-        oscillator.setPitchOffsetSemitones(pitchOffset + glideSemitones);
+
+        float pitchCurveAmount = 1.0f; // >1 = faster curve, 0 < curve < 1 = slower curve - make this a parameter
+        if (pitchCurveAmount < 0) { pitchCurveAmount = 0; }
+        pitchEnvelopeSemitones = pow(pitchEnvelope.getSample(), pitchCurveAmount) * pitchADSRSemitones;
+
+        vibratoLFO.setFrequency(voiceLFOFrequencyHz);
+        voiceLFOSemitones = vibratoLFO.getSample() * voiceLFODepthSemitones;
+
+        float pitchOffsetModified = pitchOffset + glideSemitones + pitchEnvelopeSemitones + voiceLFOSemitones;
+        oscillator.setPitchOffsetSemitones(pitchOffsetModified);
 
         // negative value of cutoffMultiple means filters are disabled
         if (cutoffMultiple < 0.0f)
@@ -169,7 +196,7 @@ namespace AudioKitCore
         else
         {
             isFilterEnabled = true;
-            float noteHz = noteFrequency * powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
+            float noteHz = noteFrequency * powf(2.0f, (pitchOffsetModified) / 12.0f);
             float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteHz - MIDDLE_C_HZ);
             float envStrength = ((1.0f - cutoffEnvelopeVelocityScaling) + cutoffEnvelopeVelocityScaling * noteVolume);
             double cutoffFrequency = baseFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * envStrength * filterEnvelope.getSample());

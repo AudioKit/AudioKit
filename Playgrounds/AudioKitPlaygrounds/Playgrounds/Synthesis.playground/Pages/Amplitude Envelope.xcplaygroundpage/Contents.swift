@@ -12,8 +12,8 @@ import AudioKit
 
 var fmWithADSR = AKOscillatorBank()
 var amplitudeTracker = AKAmplitudeTracker(fmWithADSR)
-AudioKit.output = AKBooster(amplitudeTracker, gain: 5)
-try AudioKit.start()
+AKManager.output = AKBooster(amplitudeTracker, gain: 5)
+try AKManager.start()
 amplitudeTracker.start()
 
 //: User Interface Set up

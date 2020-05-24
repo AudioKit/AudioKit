@@ -1,10 +1,4 @@
-//
-//  AKMIDITimeout.swift
-//  AudioKit
-//
-//  Created by Kurt Arnlund on 1/21/19.
-//  Copyright © 2019 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -27,7 +21,10 @@ import Foundation
     var disableSuccess = false
     var disableFailure = false
 
-    public init(timeoutInterval time: TimeInterval, onMainThread: Bool = true, success: @escaping ActionClosureType, timeout: @escaping ActionClosureType) {
+    public init(timeoutInterval time: TimeInterval,
+                onMainThread: Bool = true,
+                success: @escaping ActionClosureType,
+                timeout: @escaping ActionClosureType) {
         mainThread = onMainThread
         timeoutInterval = time
         onSuccess = success
@@ -37,11 +34,9 @@ import Foundation
 
     deinit {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
-//        AKLog("AKMIDITimeout - deallocated")
     }
 
     public func perform(_ block: () -> Void) {
-//        AKLog("AKMIDITimeout - starting timeout timer")
         DispatchQueue.main.async {
             self.perform(#selector(self.messageTimeout), with: nil, afterDelay: self.timeoutInterval)
         }
@@ -49,13 +44,14 @@ import Foundation
     }
 
     public func succeed() {
-//        AKLog("AKMIDITimeout - success")
         mainthreadSuccessCall()
     }
 
     @objc func mainthreadSuccessCall() {
         let action: ActionClosureType = {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.messageTimeout), object: nil)
+            NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                   selector: #selector(self.messageTimeout),
+                                                   object: nil)
             if self.disableSuccess == false {
                 self.onSuccess?()
             }
@@ -70,7 +66,6 @@ import Foundation
 
     @objc func messageTimeout() {
         let action: ActionClosureType = {
-//            AKLog("AKMIDITimeout - timed out")
             if self.disableFailure == false {
                 self.onTimeout?()
             }

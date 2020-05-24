@@ -1,10 +1,4 @@
-//
-//  AKMIDIFileHeaderChunk.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 11/7/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -35,7 +29,7 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     }
 
     var timeFormat: MIDITimeFormat {
-        if((timeDivision & 0x8000) == 0) {
+        if (timeDivision & 0x8000) == 0 {
             return .ticksPerBeat
         } else {
             return .framesPerSecond

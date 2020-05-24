@@ -1,10 +1,4 @@
-//
-//  AKAudioFile+ConvenienceInitializers.swift
-//  AudioKit
-//
-//  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension NSError {
   static var fileCreateError: NSError {
@@ -84,7 +78,7 @@ extension AKAudioFile {
             do {
                 try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
-                AKLog("ERROR: Couldn't create an AKAudioFile", error)
+                AKLog("Couldn't create an AKAudioFile \(error)")
                 throw NSError.fileCreateError
             }
     }
@@ -130,13 +124,15 @@ extension AKAudioFile {
         }
 
         // set the buffer frameLength
-        buffer?.frameLength = (buffer?.frameCapacity)!
+        buffer?.frameLength = buffer?.frameCapacity ?? 0
 
         // Write the buffer in file
         do {
-            try self.write(from: buffer!)
+            if let buf = buffer {
+                try write(from: buf)
+            }
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
+            AKLog("Cannot writeFromBuffer: \(error)")
             throw error
         }
     }

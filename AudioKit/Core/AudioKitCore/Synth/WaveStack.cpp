@@ -1,10 +1,4 @@
-//
-//  WaveStack.cpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "WaveStack.hpp"
 #include "kiss_fftr.h"
@@ -31,7 +25,7 @@ namespace AudioKitCore
     void WaveStack::initStack(float *pWaveData, int maxHarmonic)
     {
         // setup
-        int fftLength = 1 << maxBits;
+        const int fftLength = 1 << maxBits;
         float *buf = new float[fftLength];
         kiss_fftr_cfg fwd = kiss_fftr_alloc(fftLength, 0, 0, 0);
         kiss_fftr_cfg inv = kiss_fftr_alloc(fftLength, 1, 0, 0);

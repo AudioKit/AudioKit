@@ -19,8 +19,8 @@ let generator = AKOperationGenerator { _ in
     return mixer(oscillator, reverb, balance: 0.6)
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 generator.start()
 
 import PlaygroundSupport

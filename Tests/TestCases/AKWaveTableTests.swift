@@ -1,10 +1,4 @@
-//
-//  AKWaveTableTests.swift
-//  AudioKitTestSuite
-//
-//  Created by Jeff Cooper and Aurelius Prochazka, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import XCTest
@@ -134,7 +128,7 @@ class AKWaveTableTests: AKTestCase {
         if let path = Bundle.main.path(forResource: "sinechirp", ofType: "wav") {
             let url = URL(fileURLWithPath: path)
             let file = try! AKAudioFile(forReading: url)
-            sampler = AKWaveTable(file: file)
+            sampler = AKWaveTable(file: file, maximumSamples: 1_024)
             output = sampler
         } else {
             XCTFail("Could not load sinechirp.wav")

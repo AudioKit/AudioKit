@@ -1,10 +1,4 @@
-//
-//  AKFrequencyTracker.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
@@ -15,7 +9,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
@@ -47,7 +41,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")

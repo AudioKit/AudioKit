@@ -1,10 +1,5 @@
-//
-//  EZAudioFloatConverter.m
-//  EZAudio
-//
-//  Created by Syed Haris Ali, revision history on Githbub.
-//  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -213,13 +208,17 @@ OSStatus EZAudioFloatConverterCallback(AudioConverterRef             inAudioConv
         //
         // Fill out the audio converter with the source buffer
         //
-        [EZAudioUtilities checkResult:AudioConverterFillComplexBuffer(self.info->converterRef,
-                                                                      EZAudioFloatConverterCallback,
-                                                                      audioBufferList,
-                                                                      &frames,
-                                                                      self.info->floatAudioBufferList,
-                                                                      packetDescriptions ? packetDescriptions : self.info->packetDescriptions)
-                            operation:"Failed to fill complex buffer in float converter"];
+       OSStatus status =     AudioConverterFillComplexBuffer(self.info->converterRef,
+                                                  EZAudioFloatConverterCallback,
+                                                  audioBufferList,
+                                                  &frames,
+                                                  self.info->floatAudioBufferList,
+                                        packetDescriptions ? packetDescriptions : self.info->packetDescriptions);
+       
+        
+        if (status > 0 ) {
+            AudioConverterReset(self.info->converterRef);
+        }
 
         //
         // Copy the converted buffers into the float buffer array stored

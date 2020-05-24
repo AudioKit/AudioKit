@@ -1,10 +1,4 @@
-//
-//  AKBrownianNoiseDSP.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -12,12 +6,11 @@
 
 typedef NS_ENUM(AUParameterAddress, AKBrownianNoiseParameter) {
     AKBrownianNoiseParameterAmplitude,
-    AKBrownianNoiseParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-AKDSPRef createBrownianNoiseDSP(int channelCount, double sampleRate);
+AKDSPRef createBrownianNoiseDSP(void);
 
 #else
 
@@ -31,22 +24,11 @@ private:
 public:
     AKBrownianNoiseDSP();
 
-    float amplitudeLowerBound = 0.0;
-    float amplitudeUpperBound = 1.0;
-
-    float defaultAmplitude = 1.0;
-
-    int defaultRampDurationSamples = 10000;
-
-    // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-    
     void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
+
+    void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

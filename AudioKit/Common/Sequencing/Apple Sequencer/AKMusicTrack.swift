@@ -1,10 +1,4 @@
-//
-//  AKMusicTrack.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Wrapper for internal Apple MusicTrack
 open class AKMusicTrack {
@@ -55,8 +49,9 @@ open class AKMusicTrack {
 
     @objc public init(name: String = "Unnamed") {
         self.name = name
-        MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
-        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
+        guard let seq = sequencer.sequence else { fatalError() }
+        MusicSequenceNewTrack(seq, &internalMusicTrack)
+        MusicSequenceNewTrack(seq, &initMusicTrack)
         trackPointer = UnsafeMutablePointer(internalMusicTrack!)
         initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
 
@@ -455,7 +450,7 @@ open class AKMusicTrack {
     ///   - pressure: Amount of pressure
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
-    open func addAfterTouch(_ noteNumber: MIDINoteNumber,
+    open func addAftertouch(_ noteNumber: MIDINoteNumber,
                             pressure: MIDIByte,
                             position: AKDuration, channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
@@ -476,7 +471,7 @@ open class AKMusicTrack {
     ///   - pressure: Amount of pressure
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
-    open func addChannelAfterTouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+    open func addChannelAftertouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -621,7 +616,8 @@ open class AKMusicTrack {
     ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///
-    class func iterateMusicTrack(_ track: MusicTrack, midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
+    class func iterateMusicTrack(_ track: MusicTrack,
+                                 midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {

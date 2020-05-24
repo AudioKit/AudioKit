@@ -1,10 +1,4 @@
-//
-//  AKMorphingOscillatorBank.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
@@ -16,10 +10,10 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// An array of tables to morph between
-    open var waveformArray = [AKTable]() {
+    @objc open var waveformArray = [AKTable]() {
         willSet {
             self.waveformArray = newValue
             for (i, waveform) in self.waveformArray.enumerated() {
@@ -146,11 +140,6 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    @objc public convenience override init() {
-        self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -165,7 +154,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate:        Frequency of vibrato in Hz
     ///
     @objc public init(
-        waveformArray: [AKTable],
+        waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
         index: Double = 0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
@@ -188,7 +177,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit

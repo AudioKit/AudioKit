@@ -1,10 +1,4 @@
-//
-//  AKDelayPresets.swift
-//  AudioKit
-//
-//  Created by Nicholas Arner, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Preset for the AKDelay
 public extension AKDelay {
@@ -35,12 +29,12 @@ public extension AKDelay {
 
     /// Print out current values in case you want to save it as a preset
     func printCurrentValuesAsPreset() {
-        AKLog("public func presetSomeNewDelay() {")
-        AKLog("    time = \(String(format: "%0.3f", time))")
-        AKLog("    feedback = \(String(format: "%0.3f", feedback))")
-        AKLog("    lowPassCutoff = \(String(format: "%0.3f", lowPassCutoff))")
-        AKLog("    dryWetMix = \(String(format: "%0.3f", dryWetMix))")
-        AKLog("}\n")
+        print("public func presetSomeNewDelay() {")
+        print("    time = \(String(format: "%0.3f", time))")
+        print("    feedback = \(String(format: "%0.3f", feedback))")
+        print("    lowPassCutoff = \(String(format: "%0.3f", lowPassCutoff))")
+        print("    dryWetMix = \(String(format: "%0.3f", dryWetMix))")
+        print("}\n")
     }
 
 }

@@ -1,17 +1,11 @@
-//
-//  AKBluetoothMIDIButton.swift
-//  AudioKit For iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CoreAudioKit
 
 class AKBTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
-    override public func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
@@ -34,8 +28,8 @@ public class AKBluetoothMIDIButton: UIButton {
         realSuperView = view
     }
 
-    /// Handle touches
-    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /// Pull up a popover controller when the button is released
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
         let bluetoothMIDIViewController = AKBTMIDICentralViewController()
@@ -48,17 +42,17 @@ public class AKBluetoothMIDIButton: UIButton {
         let displayView = realSuperView ?? self.superview
 
         popC?.permittedArrowDirections = centerPopup ? [] : .any
-        popC?.sourceRect = centerPopup ? CGRect(x: displayView!.bounds.midX,
-                                                y: displayView!.bounds.midY,
-                                                width: 0,
-                                                height: 0) : self.frame
+        if let displayView = displayView {
+            popC?.sourceRect = centerPopup ? CGRect(x: displayView.bounds.midX,
+                                                    y: displayView.bounds.midY,
+                                                    width: 0,
+                                                    height: 0) : self.frame
+            let controller = displayView.next as? UIViewController
+            controller?.present(navController, animated: true, completion: nil)
 
-        let controller = displayView!.next as? UIViewController
-        controller?.present(navController, animated: true, completion: nil)
-
-        popC?.sourceView = controller?.view
-        bluetoothMIDIViewController.uiViewController = controller
-
+            popC?.sourceView = controller?.view
+            bluetoothMIDIViewController.uiViewController = controller
+        }
     }
 
 }

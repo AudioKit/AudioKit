@@ -1,10 +1,4 @@
-//
-//  AVAudioEngine+Extensions.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 4/20/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -12,7 +6,7 @@ extension AVAudioEngine {
 
     /// Adding connection between nodes with default format
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        connect(node1, to: node2, format: AudioKit.format)
+        connect(node1, to: node2, format: AKSettings.audioFormat)
     }
 
     /// Render output to an AVAudioFile for a duration.
@@ -20,9 +14,15 @@ extension AVAudioEngine {
     ///         - audioFile: An file initialized for writing
     ///         - duration: Duration to render, in seconds
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///         - progress: A closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
-    public func renderToFile(_ audioFile: AVAudioFile, maximumFrameCount: AVAudioFrameCount = 4_096, duration: Double, prerender: (() -> Void)? = nil) throws {
+    public func renderToFile(_ audioFile: AVAudioFile,
+                             maximumFrameCount: AVAudioFrameCount = 4_096,
+                             duration: Double,
+                             prerender: (() -> Void)? = nil,
+                             progress: ((Double) -> Void)? = nil) throws {
+
         guard duration >= 0 else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
@@ -53,6 +53,7 @@ extension AVAudioEngine {
             switch status {
             case .success:
                 try audioFile.write(from: buffer)
+                progress?(min(Double(audioFile.framePosition) / Double(targetSamples), 1.0))
             case .cannotDoInCurrentContext:
                 AKLog("renderToFile cannotDoInCurrentContext")
                 continue

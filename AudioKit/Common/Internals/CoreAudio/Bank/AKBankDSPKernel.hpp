@@ -1,10 +1,4 @@
-//
-//  AKBankDSPKernel.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #ifdef __cplusplus
 #pragma once
@@ -60,7 +54,7 @@ protected:
         virtual ~NoteState() {
             sp_adsr_destroy(&adsr);
         }
-
+        
         virtual void init() = 0;
         
         virtual void clear() {
@@ -68,7 +62,7 @@ protected:
             amp = 0;
         }
         
-        void noteOn(int noteNumber, int velocity)
+        virtual void noteOn(int noteNumber, int velocity)
         {
             noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
         }
@@ -90,7 +84,7 @@ protected:
         virtual void run(int frameCount, float *outL, float *outR) = 0;
         
     };
-
+    
 public:
     enum BankAddresses {
         attackDurationAddress = 0,
@@ -100,15 +94,16 @@ public:
         pitchBendAddress,
         vibratoDepthAddress,
         vibratoRateAddress,
+        detuningOffsetAddress,
         numberOfBankEnumElements
     };
-
+    
 public:
     
     // MARK: Member Functions
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeKernel::init(channelCount, sampleRate);
-
+        
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
@@ -116,14 +111,15 @@ public:
         pitchBendRamper.init();
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
+        detuningOffsetRamper.init();
     }
-
+    
     virtual void reset() {
         for (auto& state : noteStates) state->clear();
         playingNotes = nullptr;
         playingNotesCount = 0;
         resetted = true;
-
+        
         attackDurationRamper.reset();
         decayDurationRamper.reset();
         sustainLevelRamper.reset();
@@ -131,26 +127,29 @@ public:
         pitchBendRamper.reset();
         vibratoDepthRamper.reset();
         vibratoRateRamper.reset();
+        detuningOffsetRamper.reset();
     }
-
+    
     double frequencyScale = 2. * M_PI / sampleRate;
-
+    
     float attackDuration = 0.1;
     float decayDuration = 0.1;
     float sustainLevel = 1.0;
     float releaseDuration = 0.1;
-
+    
     float pitchBend = 0;
     float vibratoDepth = 0;
     float vibratoRate = 0;
+    float detuningOffset = 0;
+    int transposition = 0;
 
     UInt64 currentRunningIndex = 0;
-
+    
     std::vector< std::unique_ptr<NoteState> > noteStates;
     NoteState *playingNotes = nullptr;
     int playingNotesCount = 0;
     bool resetted = false;
-
+    
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;
     ParameterRamper sustainLevelRamper = 1.0;
@@ -158,15 +157,16 @@ public:
     ParameterRamper pitchBendRamper = 0;
     ParameterRamper vibratoDepthRamper = 0;
     ParameterRamper vibratoRateRamper = 0;
-    
+    ParameterRamper detuningOffsetRamper = 0;
+
     // standard bank kernel functions
-    void startNote(int note, int velocity) {
+    virtual void startNote(int note, int velocity) {
         noteStates[note]->noteOn(note, velocity);
     }
-    void startNote(int note, int velocity, float frequency) {
+    virtual void startNote(int note, int velocity, float frequency) {
         noteStates[note]->noteOn(note, velocity, frequency);
     }
-    void stopNote(int note) {
+    virtual void stopNote(int note) {
         noteStates[note]->noteOn(note, 0);
     }
     void setAttackDuration(float value) {
@@ -196,6 +196,10 @@ public:
     void setVibratoRate(float value) {
         vibratoRate = clamp(value, (float)0, (float)600);
         vibratoRateRamper.setImmediate(vibratoRate);
+    }
+    void setDetuningOffset(float value) {
+        detuningOffset = clamp(value, (float)-100, (float)100);
+        detuningOffsetRamper.setImmediate(detuningOffset);
     }
     
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
@@ -230,7 +234,7 @@ public:
             }
         }
     }
-
+    
     void standardBankGetAndSteps() {
         attackDuration = attackDurationRamper.getAndStep();
         decayDuration = decayDurationRamper.getAndStep();
@@ -239,8 +243,9 @@ public:
         pitchBend = double(pitchBendRamper.getAndStep());
         vibratoDepth = double(vibratoDepthRamper.getAndStep());
         vibratoRate = double(vibratoRateRamper.getAndStep());
+        detuningOffset = double(detuningOffsetRamper.getAndStep());
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
@@ -264,9 +269,12 @@ public:
             case vibratoRateAddress:
                 vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600));
                 break;
+            case detuningOffsetAddress:
+                detuningOffsetRamper.setUIValue(clamp(value, (float)-100, (float)100));
+                break;
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackDurationAddress: \
@@ -283,10 +291,12 @@ public:
                 return vibratoDepthRamper.getUIValue(); \
             case vibratoRateAddress: \
                 return vibratoRateRamper.getUIValue(); \
+            case detuningOffsetAddress: \
+                return detuningOffsetRamper.getUIValue(); \
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case attackDurationAddress:
@@ -309,6 +319,9 @@ public:
                 break;
             case vibratoRateAddress:
                 vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration);
+                break;
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-100, (float)100), duration);
                 break;
         }
     }

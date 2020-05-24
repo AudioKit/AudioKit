@@ -1,10 +1,4 @@
-//
-//  AKClarinet.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKClarinetDSP.hpp"
 
@@ -12,9 +6,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createClarinetDSP(int channelCount, double sampleRate) {
+extern "C" AKDSPRef createClarinetDSP() {
     AKClarinetDSP *dsp = new AKClarinetDSP();
-    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -42,7 +35,7 @@ AKClarinetDSP::AKClarinetDSP() : data(new InternalData)
 AKClarinetDSP::~AKClarinetDSP() = default;
 
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKClarinetParameterFrequency:
@@ -58,7 +51,7 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKClarinetDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKClarinetParameterFrequency:
@@ -89,7 +82,8 @@ void AKClarinetDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     trigger();
 }
 
-void AKClarinetDSP::destroy() {
+void AKClarinetDSP::deinit() {
+    AKDSPBase::deinit();
     delete data->clarinet;
 }
 
@@ -107,7 +101,7 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
             if (isStarted) {
                 if (data->internalTrigger == 1) {

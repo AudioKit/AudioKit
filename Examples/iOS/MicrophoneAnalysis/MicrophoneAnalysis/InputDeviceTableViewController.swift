@@ -1,10 +1,4 @@
-//
-//  InputDeviceTableViewController.swift
-//  MicrophoneAnalysis
-//
-//  Created by Dean Woodward on 22/03/19.
-//  Copyright © 2019 Dean Woodward. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit
@@ -15,8 +9,8 @@ protocol InputDeviceDelegate: AnyObject {
 
 class InputDeviceTableViewController: UITableViewController {
 
-    private var currentInputDevice = AudioKit.inputDevice
-    private var inputDevices = AudioKit.inputDevices ?? []
+    private var currentInputDevice = AKManager.inputDevice
+    private var inputDevices = AKManager.inputDevices ?? []
     private let reuseIdentifier = "inputCell"
     weak var settingsDelegate: InputDeviceDelegate?
 

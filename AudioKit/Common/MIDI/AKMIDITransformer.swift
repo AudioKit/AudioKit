@@ -1,10 +1,4 @@
-//
-//  AKMIDITransformer.swift
-//  AudioKit
-//
-//  Created by Eric George, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public protocol AKMIDITransformer {
     func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent]
@@ -13,7 +7,7 @@ public protocol AKMIDITransformer {
 /// Default transformer function
 public extension AKMIDITransformer {
     func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        AKLog("MIDI Transformer called")
+        AKLog("MIDI Transformer called", log: OSLog.midi)
         return eventList
     }
 

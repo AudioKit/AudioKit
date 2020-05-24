@@ -1,10 +1,4 @@
-//
-//  MIDIByte+Extensions.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 10/31/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -20,11 +14,11 @@ extension MIDIByte {
     /// it sounds like your are referring to the highest bit and the lowest bit
 
     /// This limits the range to be from 0 to 16
-    var lowBit: MIDIByte {
+    public var lowBit: MIDIByte {
         return self & 0xF
     }
 
-    var highBit: MIDIByte {
+    public var highBit: MIDIByte {
         return self >> 4
     }
 

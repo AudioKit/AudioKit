@@ -1,10 +1,4 @@
-//
-//  AKRingModulator.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
@@ -110,8 +104,8 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func detach() {
+    open override func detach() {
         stop()
-        AudioKit.detach(nodes: [self.avAudioNode])
+        AKManager.detach(nodes: [self.avAudioNode])
     }
 }

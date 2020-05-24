@@ -1,10 +1,5 @@
-//
-//  ResonantLowPassFilter.hpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne
-//  Copyright © 2018 AudioKit and Apple.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 // ResonantLowPassFilter implements a simple digital low-pass filter with dynamically
 // adjustable cutoff frequency and resonance.
 //
@@ -30,7 +25,7 @@ namespace AudioKitCore
         ResonantLowPassFilter();
         
         void init(double sampleRateHz);
-        void updateSampleRate(double sampleRateHz) { this->sampleRateHz = sampleRateHz; }
+        void updateSampleRate(double sampleRate) { sampleRateHz = sampleRate; }
         
         void setParameters(double newCutoffHz, double newResLinear);
         void setCutoff(double newCutoffHz) { setParameters(newCutoffHz, mLastResLinear); }

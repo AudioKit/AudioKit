@@ -1,10 +1,4 @@
-//
-//  AKMIDISampler.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 import CoreAudio
@@ -26,9 +20,9 @@ open class AKMIDISampler: AKAppleSampler {
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
     ///
-    public init(midiOutputName: String? = nil) {
+    public init(name midiOutputName: String) {
         super.init()
-        enableMIDI(name: midiOutputName ?? name)
+        enableMIDI(name: midiOutputName)
         hideVirtualMIDIPort()
     }
 
@@ -39,7 +33,7 @@ open class AKMIDISampler: AKAppleSampler {
     ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
                          name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
@@ -47,7 +41,7 @@ open class AKMIDISampler: AKAppleSampler {
                 do {
                     try self.handle(event: event)
                 } catch let exception {
-                    AKLog("Exception handling MIDI event: \(exception)")
+                    AKLog("Exception handling MIDI event: \(exception)", log: OSLog.midi, type: .error)
                 }
             }
         })

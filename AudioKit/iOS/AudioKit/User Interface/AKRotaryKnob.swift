@@ -1,10 +1,4 @@
-//
-//  AKBypassButton.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit
@@ -97,7 +91,7 @@ public enum AKRotaryKnobStyle {
    }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear
 
@@ -106,7 +100,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
@@ -120,13 +114,13 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isDragging = true
         touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
@@ -153,36 +147,48 @@ public enum AKRotaryKnobStyle {
 
     /// Color for the arrow on the knob for the current theme
     open func indicatorColorForTheme() -> AKColor {
-        if let indicatorColor = indicatorColor { return indicatorColor }
+        if let indicatorColor = indicatorColor {
+            return indicatorColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     /// Color for the border for the current theme
     open func knobBorderColorForTheme() -> AKColor {
-        if let knobBorderColor = knobBorderColor { return knobBorderColor }
+        if let knobBorderColor = knobBorderColor {
+            return knobBorderColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.2, alpha: 1.0)
-        case .midnight: return AKColor(white: 1.0, alpha: 1.0)
+        case .basic:
+            return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight:
+            return AKColor(white: 1.0, alpha: 1.0)
         }
     }
 
     /// Text color for the current theme
     open func textColorForTheme() -> AKColor {
-        if let textColor = textColor { return textColor }
+        if let textColor = textColor {
+            return textColor
+        }
 
         switch AKStylist.sharedInstance.theme {
-        case .basic: return AKColor(white: 0.3, alpha: 1.0)
-        case .midnight: return AKColor.white
+        case .basic:
+            return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight:
+            return AKColor.white
         }
     }
 
     /// Draw the knob
-    override open func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))
@@ -369,7 +375,9 @@ public enum AKRotaryKnobStyle {
                                      curvature: Double,
                                      startPoint: CGPoint,
                                      offsetAngle: Double) -> UIBezierPath {
-        guard numberOfSides > 2 else { return UIBezierPath(rect: rect) }
+        guard numberOfSides > 2 else {
+            return UIBezierPath(rect: rect)
+        }
 
         let path = UIBezierPath()
         path.move(to: startPoint)

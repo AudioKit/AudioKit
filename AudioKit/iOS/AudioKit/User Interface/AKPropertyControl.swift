@@ -1,10 +1,4 @@
-//
-//  AKPropertyControl.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 import AudioKit
@@ -30,7 +24,7 @@ import AudioKit
     @IBInspectable public var value: Double = 0 {
         didSet {
             value = range.clamp(value)
-            if discreteValues.count > 0 {
+            if discreteValues.isNotEmpty {
                 value = closest(to: value)
             }
 
@@ -65,7 +59,7 @@ import AudioKit
     public var callback: ((Double) -> Void) = { _ in }
 
     // Only integer
-    @IBInspectable public var discreteValues: [Double]  = []
+    public var discreteValues: [Double]  = []
 
     // Current dragging state, used to show/hide the value bubble
     public var isDragging: Bool = false
@@ -98,7 +92,7 @@ import AudioKit
         super.init(frame: frame)
     }
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
@@ -107,13 +101,13 @@ import AudioKit
     }
 
     /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isDragging = true
         touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         setNeedsDisplay()
     }
 

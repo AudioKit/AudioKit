@@ -1,37 +1,15 @@
-//
-//  AKTubularBellsAudioUnit.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/22/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
-public class AKTubularBellsAudioUnit: AKGeneratorAudioUnitBase {
+public class AKTubularBellsAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKTubularBellsParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
+    var frequency: AUParameter!
 
-    func setParameterImmediately(_ address: AKTubularBellsParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
+    var amplitude: AUParameter!
 
-    var frequency: Double = 440 {
-        didSet { setParameter(.frequency, value: frequency) }
-    }
-    var amplitude: Double = 1 {
-        didSet { setParameter(.amplitude, value: amplitude) }
-    }
-
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createTubularBellsDSP(Int32(count), sampleRate)
+    public override func createDSP() -> AKDSPRef {
+        return createTubularBellsDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
@@ -52,11 +30,10 @@ public class AKTubularBellsAudioUnit: AKGeneratorAudioUnitBase {
             range: 0...10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
-        frequency.value = 110
+
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude])
+
+        frequency.value = 440
         amplitude.value = 0.5
     }
-
-    public override var canProcessInPlace: Bool { return true }
-
 }

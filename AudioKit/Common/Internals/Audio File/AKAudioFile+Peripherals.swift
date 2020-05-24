@@ -1,10 +1,4 @@
-//
-//  AKAudioFile+Peripherals.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka and Laurent Veliscek, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AKAudioFile {
 
@@ -14,18 +8,18 @@ extension AKAudioFile {
         do {
             try fileSampler.loadAudioFile(self)
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot create sampler: \(error)")
+            AKLog("Cannot create sampler: " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
         return fileSampler
     }
 
     /// Create an AKMIDISampler loaded with the current AKAudioFile
     public var midiSampler: AKMIDISampler? {
-        let fileSampler = AKMIDISampler()
+        let fileSampler = AKMIDISampler(name: "File Sampler")
         do {
             try fileSampler.loadAudioFile(self)
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot create sampler: \(error)")
+            AKLog("Cannot create sampler: " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
         return fileSampler
     }

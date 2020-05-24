@@ -12,8 +12,8 @@ var piano = try AKAudioFile(readFileName: "poney.mp3")
 let player = try AKAudioPlayer(file: piano)
 player.looping = true
 
-AudioKit.output = player
-try AudioKit.start()
+AKManager.output = player
+try AKManager.start()
 player.start()
 
 //: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory

@@ -1,10 +1,4 @@
-//
-//  AudioUnitManager+Player.swift
-//  AudioUnitManager
-//
-//  Created by Ryan Francesconi, revision history on Githbub.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
 import Cocoa
@@ -43,7 +37,7 @@ extension AudioUnitManager {
                 self.startAudioTimer()
             })
         } else {
-            if AudioKit.engine.isRunning {
+            if AKManager.engine.isRunning {
                 // just turns off reverb tails or delay lines etc
                 internalManager.reset()
             }
@@ -80,7 +74,7 @@ extension AudioUnitManager {
 
     /// open an audio URL for playing
     func open(url: URL) {
-        try? AudioKit.stop()
+        try? AKManager.stop()
 
         peak = nil
 

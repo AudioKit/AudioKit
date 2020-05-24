@@ -1,10 +1,4 @@
-//
-//  Sampler.cpp
-//  AudioKit Core
-//
-//  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKCoreSampler.hpp"
 #include "SamplerVoice.hpp"
@@ -32,6 +26,7 @@ struct AKCoreSampler::InternalData {
     
     AudioKitCore::ADSREnvelopeParameters adsrEnvelopeParameters;
     AudioKitCore::ADSREnvelopeParameters filterEnvelopeParameters;
+    AudioKitCore::ADSREnvelopeParameters pitchEnvelopeParameters;
     
     // table of voice resources
     AudioKitCore::SamplerVoice voice[MAX_POLYPHONY];
@@ -52,6 +47,9 @@ AKCoreSampler::AKCoreSampler()
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
 , vibratoDepth(0.0f)
+, vibratoFrequency(5.0f)
+, voiceVibratoDepth(0.0f)
+, voiceVibratoFrequency(5.0f)
 , glideRate(0.0f)   // 0 sec/octave means "no glide"
 , isMonophonic(false)
 , isLegato(false)
@@ -61,6 +59,7 @@ AKCoreSampler::AKCoreSampler()
 , cutoffEnvelopeStrength(20.0f)
 , filterEnvelopeVelocityScaling(0.0f)
 , linearResonance(0.5f)
+, pitchADSRSemitones(0.0f)
 , loopThruRelease(false)
 , stoppingAllVoices(false)
 , data(new InternalData)
@@ -70,6 +69,7 @@ AKCoreSampler::AKCoreSampler()
     {
         pVoice->adsrEnvelope.pParameters = &data->adsrEnvelopeParameters;
         pVoice->filterEnvelope.pParameters = &data->filterEnvelopeParameters;
+        pVoice->pitchEnvelope.pParameters = &data->pitchEnvelopeParameters;
         pVoice->noteFrequency = 0.0f;
         pVoice->glideSecPerOctave = &glideRate;
     }
@@ -80,6 +80,7 @@ AKCoreSampler::AKCoreSampler()
 
 AKCoreSampler::~AKCoreSampler()
 {
+    unloadAllSamples();
 }
 
 int AKCoreSampler::init(double sampleRate)
@@ -87,16 +88,20 @@ int AKCoreSampler::init(double sampleRate)
     currentSampleRate = (float)sampleRate;
     data->adsrEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->filterEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
+    data->pitchEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->vibratoLFO.waveTable.sinusoid();
     data->vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
     
     for (int i=0; i<MAX_POLYPHONY; i++)
         data->voice[i].init(sampleRate);
-    
     return 0;   // no error
 }
 
 void AKCoreSampler::deinit()
+{
+}
+
+void AKCoreSampler::unloadAllSamples()
 {
     isKeyMapValid = false;
     for (AudioKitCore::KeyMappedSampleBuffer *pBuf : data->sampleBufferList)
@@ -129,6 +134,10 @@ void AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
     pBuf->noteNumber = sdd.sampleDescriptor.noteNumber;
     pBuf->noteFrequency = sdd.sampleDescriptor.noteFrequency;
     
+    // Handle rare case where loopEndPoint is 0 (due to being uninitialized)
+    if (sdd.sampleDescriptor.loopEndPoint == 0.0f)
+        sdd.sampleDescriptor.loopEndPoint = float(sdd.sampleCount - 1);
+
     if (sdd.sampleDescriptor.startPoint > 0.0f) pBuf->startPoint = sdd.sampleDescriptor.startPoint;
     if (sdd.sampleDescriptor.endPoint > 0.0f)   pBuf->endPoint = sdd.sampleDescriptor.endPoint;
     
@@ -141,6 +150,10 @@ void AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
         else pBuf->loopStartPoint = pBuf->endPoint * sdd.sampleDescriptor.loopStartPoint;
         if (sdd.sampleDescriptor.loopEndPoint > 1.0f) pBuf->loopEndPoint = sdd.sampleDescriptor.loopEndPoint;
         else pBuf->loopEndPoint = pBuf->endPoint * sdd.sampleDescriptor.loopEndPoint;
+
+        // Clamp loop endpoints to valid range
+        if (pBuf->loopStartPoint < pBuf->startPoint) pBuf->loopStartPoint = pBuf->startPoint;
+        if (pBuf->loopEndPoint > pBuf->endPoint) pBuf->loopEndPoint = pBuf->endPoint;
     }
 }
 
@@ -269,7 +282,6 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
 
     float noteFrequency = data->tuningTable[noteNumber];
     
-    //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
     // sanity check: ensure we are initialized with at least one buffer
     if (!isKeyMapValid || data->sampleBufferList.size() == 0) return;
     
@@ -281,7 +293,6 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
             AudioKitCore::SamplerVoice *pVoice = &data->voice[0];
             if (pVoice->noteNumber >= 0)
             {
-                //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
                 pVoice->restartNewNoteLegato(noteNumber, currentSampleRate, noteFrequency);
             }
             else
@@ -314,9 +325,10 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
         AudioKitCore::SamplerVoice *pVoice = voicePlayingNote(noteNumber);
         if (pVoice)
         {
+            AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
+            if (pBuf == 0) return; // don't crash if someone forgets to build map
             // re-start the note
-            pVoice->restartSameNote(velocity / 127.0f, lookupSample(noteNumber, velocity));
-            //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
+            pVoice->restartSameNote(velocity / 127.0f, pBuf);
             return;
         }
         
@@ -332,28 +344,20 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 lastPlayedNoteNumber = noteNumber;
-                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
-                //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
                 return;
             }
         }
-        
-        // all oscillators in use; do nothing
-        //printf("All oscillators in use!\n");
     }
 }
 
 void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
 {
-    //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
     AudioKitCore::SamplerVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice == 0) return;
-    //printf("stopNote pVoice is %p\n", pVoice);
-    
+
     if (immediate)
     {
         pVoice->stop();
-        //printf("Stop note %d immediate\n", noteNumber);
     }
     else if (isMonophonic)
     {
@@ -374,7 +378,6 @@ void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
     else
     {
         pVoice->release(loopThruRelease);
-        //printf("Stop note %d release\n", noteNumber);
     }
 }
 
@@ -403,7 +406,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
 {
     float *pOutLeft = outBuffers[0];
     float *pOutRight = outBuffers[1];
-    
+    data->vibratoLFO.setFrequency(vibratoFrequency);
     float pitchDev = this->pitchOffset + vibratoDepth * data->vibratoLFO.getSample();
     float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
     
@@ -417,7 +420,8 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
         {
             if (stoppingAllVoices ||
                 pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul, keyTracking,
-                                         cutoffEnvelopeStrength, filterEnvelopeVelocityScaling, linearResonance) ||
+                                         cutoffEnvelopeStrength, filterEnvelopeVelocityScaling, linearResonance,
+                                         pitchADSRSemitones, voiceVibratoDepth, voiceVibratoFrequency) ||
                 (pVoice->getSamples(sampleCount, pOutLeft, pOutRight) && allowSampleRunout))
             {
                 stopNote(nn, true);
@@ -512,4 +516,49 @@ void  AKCoreSampler::setFilterReleaseDurationSeconds(float value)
 float AKCoreSampler::getFilterReleaseDurationSeconds(void)
 {
     return data->filterEnvelopeParameters.getReleaseDurationSeconds();
+}
+
+
+void  AKCoreSampler::setPitchAttackDurationSeconds(float value)
+{
+    data->pitchEnvelopeParameters.setAttackDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
+}
+
+float AKCoreSampler::getPitchAttackDurationSeconds(void)
+{
+    return data->pitchEnvelopeParameters.getAttackDurationSeconds();
+}
+
+void  AKCoreSampler::setPitchDecayDurationSeconds(float value)
+{
+    data->pitchEnvelopeParameters.setDecayDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
+}
+
+float AKCoreSampler::getPitchDecayDurationSeconds(void)
+{
+    return data->pitchEnvelopeParameters.getDecayDurationSeconds();
+}
+
+void  AKCoreSampler::setPitchSustainFraction(float value)
+{
+    data->pitchEnvelopeParameters.sustainFraction = value;
+    for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
+}
+
+float AKCoreSampler::getPitchSustainFraction(void)
+{
+    return data->pitchEnvelopeParameters.sustainFraction;
+}
+
+void  AKCoreSampler::setPitchReleaseDurationSeconds(float value)
+{
+    data->pitchEnvelopeParameters.setReleaseDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
+}
+
+float AKCoreSampler::getPitchReleaseDurationSeconds(void)
+{
+    return data->pitchEnvelopeParameters.getReleaseDurationSeconds();
 }

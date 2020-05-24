@@ -1,10 +1,4 @@
-//
-//  AKPlaygroundResources.swift
-//  AudioKit Playgrounds
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public var playgroundAudioFiles: [String] {
     let mp3URLs = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "", localization: "")

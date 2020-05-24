@@ -1,10 +1,4 @@
-//
-//  AKLiveViewController.swift
-//  AudioKit for iOS
-//
-//  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import UIKit
 
@@ -14,7 +8,7 @@ open class AKLiveViewController: UIViewController {
 
     var stackView: UIStackView!
 
-    override open func loadView() {
+    open override func loadView() {
         stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
         stackView.axis = .vertical
         stackView.alignment = .center

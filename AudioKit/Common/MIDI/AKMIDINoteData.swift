@@ -1,10 +1,4 @@
-//
-//  AKMIDINoteData.swift
-//  AudioKit
-//
-//  Created by Jeff Holtzkener on 2018/04/11.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Struct holding revelant data for AKMusicTrack note events
 public struct AKMIDINoteData: CustomStringConvertible, Equatable {
@@ -30,9 +24,9 @@ public struct AKMIDINoteData: CustomStringConvertible, Equatable {
         return """
         note: \(noteNumber)
         velocity: \(velocity)
-        chan: \(channel)
+        channel: \(channel)
         duration: \(duration.beats)
-        position \(position.beats)
+        position: \(position.beats)
         """
     }
 }

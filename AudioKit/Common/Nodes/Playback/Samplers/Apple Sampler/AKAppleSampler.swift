@@ -1,10 +1,4 @@
-//
-//  AKAppleSampler.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 import CoreAudio
@@ -13,15 +7,15 @@ import CoreAudio
 ///
 /// 1. init the audio unit like this: var sampler = AKAppleSampler()
 /// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3. connect to the engine: AudioKit.output = sampler
-/// 4. start the engine AudioKit.start()
+/// 3. connect to the engine: AKManager.output = sampler
+/// 4. start the engine AKManager.start()
 ///
 open class AKAppleSampler: AKNode {
 
     // MARK: - Properties
 
     /// Internal audio unit
-    private var internalAU: AUAudioUnit?
+    public private(set) var internalAU: AUAudioUnit?
 
     private var _audioFiles: [AKAudioFile] = []
 
@@ -58,13 +52,21 @@ open class AKAppleSampler: AKNode {
     // MARK: - Initializers
 
     /// Initialize the sampler node
-    override public init() {
-        super.init()
+    public init(file: String? = nil) {
+        super.init(avAudioNode: AVAudioNode())
         avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AudioKit.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
+
+        if let newFile = file {
+            do {
+                try loadWav(newFile)
+            } catch {
+                AKLog("Could not load \(newFile)")
+            }
+        }
     }
 
     /// Utility method to find a file either in the main bundle or at an absolute path
@@ -89,6 +91,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [url])
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading wav file at \(url)")
@@ -114,6 +117,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [file.url])
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading audio file \"\(file.fileNamePlusExtension)\"")
@@ -134,6 +138,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: urls)
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading audio files \(urls)")
@@ -151,6 +156,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+                self.samplerUnit.reset()
             }
         } catch {
             AKLog("Error AKSampler.loadPath loading file at \(filePath)")
@@ -167,6 +173,7 @@ open class AKAppleSampler: AKNode {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: url)
+                self.samplerUnit.reset()
             }
         } catch let error as NSError {
             AKLog("Error loading instrument resource \(file)")
@@ -212,7 +219,7 @@ open class AKAppleSampler: AKNode {
                          velocity: MIDIVelocity = 127,
                          channel: MIDIChannel = 0) throws {
         try AKTry {
-            if AudioKit.engine.isRunning == false {
+            if AKManager.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")
                 throw AKError.AudioKitNotRunning
             } else {
@@ -248,6 +255,7 @@ open class AKAppleSampler: AKNode {
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(type),
                 bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+            samplerUnit.reset()
         } catch let error as NSError {
             AKLog("Error loading SoundFont \(file)")
             throw error
@@ -279,6 +287,7 @@ open class AKAppleSampler: AKNode {
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(bMSB),
                 bankLSB: MIDIByte(bLSB))
+            samplerUnit.reset()
         } catch let error as NSError {
             AKLog("Error loading SoundFont \(file)")
             throw error

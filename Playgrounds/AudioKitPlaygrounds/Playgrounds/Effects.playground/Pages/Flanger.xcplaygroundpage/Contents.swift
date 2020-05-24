@@ -10,9 +10,9 @@ player.looping = true
 
 var flanger = AKFlanger(player)
 
-AudioKit.output = flanger
+AKManager.output = flanger
 
-try AudioKit.start()
+try AKManager.start()
 
 player.play()
 

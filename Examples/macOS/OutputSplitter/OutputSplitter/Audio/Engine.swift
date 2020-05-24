@@ -1,10 +1,4 @@
-//
-//  Engine.swift
-//  OutputSplitter
-//
-//  Created by Romans Kisils on 26/11/2018.
-//  Copyright © 2018 Roman Kisil. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 import AudioKit
@@ -85,9 +79,9 @@ class Engine {
         sink = AKBooster(renderer, gain: 0)
 
         // Set output Node and start Engine
-        AudioKit.output = sink
+        AKManager.output = sink
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -1,14 +1,7 @@
-//
-//  AKAudioPlayer.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, Laurent Veliscek & Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Not so simple audio playback class
 
-// AURE: ? @available(*, deprecated, renamed: "AKPlayer")
 open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
@@ -190,7 +183,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalEndTime {
-                // AKLog("endTime is the same, so returning: \(newValue)")
                 return
 
             } else if newValue == 0 {
@@ -269,13 +261,13 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         internalAudioFile = readFile
         self.completionHandler = completionHandler
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         self.looping = looping
-        AudioKit.engine.attach(internalPlayer)
-        AudioKit.engine.attach(internalMixer)
+        AKManager.engine.attach(internalPlayer)
+        AKManager.engine.attach(internalMixer)
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
                                    channels: internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        AKManager.engine.connect(internalPlayer, to: internalMixer, format: format)
         avAudioNode = internalMixer
         internalPlayer.volume = 1.0
 
@@ -376,7 +368,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.reset()
 
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        AKManager.engine.connect(internalPlayer, to: internalMixer, format: format)
 
         initialize()
 
@@ -413,6 +405,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Play the file back from a certain time, to an end time (if set).
     /// You can optionally set a scheduled time to play (in seconds).
+    /// Scheduling via scheduledTime works only if the player was not paused before. Stop it before actually scheduling
     ///
     ///  - Parameters:
     ///    - startTime: Time into the file at which to start playing back
@@ -428,6 +421,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time
     /// to play (in seconds).
+    /// Scheduling via avTime works only if the player was not paused before. Stop it before actually scheduling
     ///
     ///  - Parameters:
     ///    - startTime: Time into the file at which to start playing back
@@ -555,8 +549,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile.framePosition = Int64(theStartFrame)
             framesToPlayCount = theEndFrame - theStartFrame
 
-            // AKLog("framesToPlayCount: \(framesToPlayCount) frameCapacity \(totalFrameCount)")
-
             audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: internalAudioFile.processingFormat,
                 frameCapacity: AVAudioFrameCount(totalFrameCount))
@@ -601,7 +593,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         var j: Int = 0
         let length = buffer.frameLength
-        // AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
@@ -657,8 +648,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
 
-        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
-
         // i is the index in the buffer
         for i in 0 ..< Int(length) {
             // n is the channel
@@ -699,7 +688,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // Disconnect the node
     open override func detach() {
-        AudioKit.detach(nodes: [self.avAudioNode])
-        AudioKit.engine.detach(internalPlayer)
+        AKManager.detach(nodes: [self.avAudioNode])
+        AKManager.engine.detach(internalPlayer)
     }
 }

@@ -1,10 +1,4 @@
-//
-//  AKMIDIFile.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 11/5/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 
@@ -104,8 +98,10 @@ public struct AKMIDIFile {
                     if sizeIndex == sizeLength {
                         isParsingLength = false
                         sizeIndex = 0
-                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0], data1: currentLengthChunk[1],
-                                                    data2: currentLengthChunk[2], lsb: currentLengthChunk[3])
+                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0],
+                                                               data1: currentLengthChunk[1],
+                                                               data2: currentLengthChunk[2],
+                                                               lsb: currentLengthChunk[3])
                     }
                 } else { //get chunk data
                     var tempChunk: AKMIDIFileChunk
@@ -113,10 +109,12 @@ public struct AKMIDIFile {
                     if UInt32(currentDataChunk.count) == dataLength {
                         if isParsingHeader {
                             tempChunk = MIDIFileHeaderChunk(typeData: currentTypeChunk,
-                                                            lengthData: currentLengthChunk, data: currentDataChunk)
+                                                            lengthData: currentLengthChunk,
+                                                            data: currentDataChunk)
                         } else {
                             tempChunk = MIDIFileTrackChunk(typeData: currentTypeChunk,
-                                                           lengthData: currentLengthChunk, data: currentDataChunk)
+                                                           lengthData: currentLengthChunk,
+                                                           data: currentDataChunk)
                         }
                         newChunk = true
                         isParsingHeader = false

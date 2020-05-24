@@ -1,10 +1,4 @@
-//
-//  AKVocalTractDSP.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -16,14 +10,13 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
     AKVocalTractParameterTongueDiameter,
     AKVocalTractParameterTenseness,
     AKVocalTractParameterNasality,
-    AKVocalTractParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
-AKDSPRef createVocalTractDSP(int channelCount, double sampleRate);
+AKDSPRef createVocalTractDSP(void);
 
 #else
 
@@ -42,63 +35,11 @@ private:
 
 public:
     AKVocalTractDSP() {
-        frequencyRamp.setTarget(160.0, true);
-        frequencyRamp.setDurationInSamples(10000);
-        tonguePositionRamp.setTarget(0.5, true);
-        tonguePositionRamp.setDurationInSamples(10000);
-        tongueDiameterRamp.setTarget(1.0, true);
-        tongueDiameterRamp.setDurationInSamples(10000);
-        tensenessRamp.setTarget(0.6, true);
-        tensenessRamp.setDurationInSamples(10000);
-        nasalityRamp.setTarget(0.0, true);
-        nasalityRamp.setDurationInSamples(10000);
-    }
-
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKVocalTractParameterFrequency:
-                frequencyRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTonguePosition:
-                tonguePositionRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTongueDiameter:
-                tongueDiameterRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterTenseness:
-                tensenessRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterNasality:
-                nasalityRamp.setTarget(value, immediate);
-                break;
-            case AKVocalTractParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                tonguePositionRamp.setRampDuration(value, sampleRate);
-                tongueDiameterRamp.setRampDuration(value, sampleRate);
-                tensenessRamp.setRampDuration(value, sampleRate);
-                nasalityRamp.setRampDuration(value, sampleRate);
-                break;
-        }
-    }
-
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKVocalTractParameterFrequency:
-                return frequencyRamp.getTarget();
-            case AKVocalTractParameterTonguePosition:
-                return tonguePositionRamp.getTarget();
-            case AKVocalTractParameterTongueDiameter:
-                return tongueDiameterRamp.getTarget();
-            case AKVocalTractParameterTenseness:
-                return tensenessRamp.getTarget();
-            case AKVocalTractParameterNasality:
-                return nasalityRamp.getTarget();
-            case AKVocalTractParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
-        }
-        return 0;
+        parameters[AKVocalTractParameterFrequency] = &frequencyRamp;
+        parameters[AKVocalTractParameterTonguePosition] = &tonguePositionRamp;
+        parameters[AKVocalTractParameterTongueDiameter] = &tongueDiameterRamp;
+        parameters[AKVocalTractParameterTenseness] = &tensenessRamp;
+        parameters[AKVocalTractParameterNasality] = &nasalityRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -116,6 +57,7 @@ public:
     }
 
     void deinit() override {
+        AKSoundpipeDSPBase::deinit();
         sp_vocwrapper_destroy(&vocwrapper);
     }
 
@@ -146,7 +88,7 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
                     if (channel == 0) {

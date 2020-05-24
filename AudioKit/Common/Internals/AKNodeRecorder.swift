@@ -1,10 +1,4 @@
-//
-//  AKNodeRecorder.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Simple audio recorder class
 open class AKNodeRecorder: NSObject {
@@ -17,10 +11,10 @@ open class AKNodeRecorder: NSObject {
     @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
-    open var durationToRecord: Double = 0
+    @objc open var durationToRecord: Double = 0
 
     /// Duration of recording
-    open var recordedDuration: Double {
+    @objc open var recordedDuration: Double {
         return internalAudioFile.duration
     }
 
@@ -43,7 +37,7 @@ open class AKNodeRecorder: NSObject {
     private var recordBufferDuration: Double = 16_384 / AKSettings.sampleRate
 
     /// return the AKAudioFile for reading
-    open var audioFile: AKAudioFile? {
+    @objc open var audioFile: AKAudioFile? {
         do {
             return try AKAudioFile(forReading: internalAudioFile.url)
 
@@ -63,10 +57,11 @@ open class AKNodeRecorder: NSObject {
     /// - Parameters:
     ///   - node: Node to record from
     ///   - file: Audio file to record to
+    ///   - bus: Integer index of the bus to use
     ///
-    public init(node: AKNode? = AudioKit.output,
-                file: AKAudioFile? = nil,
-                bus: Int = 0) throws {
+    @objc public init(node: AKNode? = AKManager.output,
+                      file: AKAudioFile? = nil,
+                      bus: Int = 0) throws {
         guard let existingFile = file else {
             // We create a record file in temp directory
             do {
@@ -110,7 +105,7 @@ open class AKNodeRecorder: NSObject {
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
-        AKLog("Recording using format", internalAudioFile.processingFormat.debugDescription)
+        AKLog("Recording using format \(internalAudioFile.processingFormat.debugDescription)")
 
         // note, format should be nil as per the documentation for installTap:
         // "If non-nil, attempts to apply this as the format of the specified output bus. This should
@@ -126,7 +121,6 @@ open class AKNodeRecorder: NSObject {
         do {
             recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
             try internalAudioFile.write(from: buffer)
-            // AKLog("AKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)")
 
             // allow an optional timed stop
             if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
@@ -156,7 +150,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Reset the AKAudioFile to clear previous recordings
-    open func reset() throws {
+    @objc open func reset() throws {
         // Stop recording
         if isRecording == true {
             stop()
@@ -172,7 +166,7 @@ open class AKNodeRecorder: NSObject {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete", audioFile?.fileNamePlusExtension ?? "nil", error.localizedDescription)
+            AKLog("Error: Can't delete" + (audioFile?.fileNamePlusExtension ?? "nil") + error.localizedDescription)
         }
 
         // Creates a blank new file
@@ -180,7 +174,7 @@ open class AKNodeRecorder: NSObject {
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
             AKLog("File has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to", internalAudioFile.fileNamePlusExtension)
+            AKLog("Error: Can't record to" + internalAudioFile.fileNamePlusExtension)
             throw error
         }
     }

@@ -1,10 +1,4 @@
-//
-//  AKKeyboardView.swift
-//  AudioKit for macOS
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
 import AudioKit
@@ -49,7 +43,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    let midi = AudioKit.midi
+    let midi = AKManager.midi
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]

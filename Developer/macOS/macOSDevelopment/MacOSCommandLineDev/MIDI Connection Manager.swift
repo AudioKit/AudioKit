@@ -11,7 +11,7 @@ import AudioKit
 
 class MIDIConnectionManger {
 
-    let midi = AudioKit.midi
+    let midi = AKMIDI()
     var input: MIDIUniqueID = 0
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0

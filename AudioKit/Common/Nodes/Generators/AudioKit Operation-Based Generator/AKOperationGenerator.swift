@@ -1,10 +1,4 @@
-//
-//  AKOperationGenerator.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Operation-based generator
 open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
@@ -14,7 +8,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
@@ -94,13 +88,13 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    @objc public init(sporth: String, customUgens: [AKCustomUgen] = []) {
+    @objc public init(sporth: String = "", customUgens: [AKCustomUgen] = []) {
         self.sporth = sporth
         self.customUgens = customUgens
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

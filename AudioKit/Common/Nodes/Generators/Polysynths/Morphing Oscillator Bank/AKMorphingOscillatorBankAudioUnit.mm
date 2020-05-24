@@ -1,10 +1,5 @@
-//
-//  AKMorphingOscillatorBankAudioUnit.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 #import <AudioKit/AudioKit-Swift.h>
 
 #import "AKMorphingOscillatorBankAudioUnit.h"
@@ -36,9 +31,9 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(MorphingOscillatorBank)
-
+    
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameterWithIdentifier:@"index"
                                                                     name:@"Index"
@@ -46,14 +41,14 @@
                                                                      min:0.0
                                                                      max:1.0
                                                                     unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
-
+    
     _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
-
+    
     [self setKernelPtr:&_kernel];
-
+    
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];

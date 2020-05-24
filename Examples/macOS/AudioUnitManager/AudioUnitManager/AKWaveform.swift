@@ -1,10 +1,4 @@
-//
-//  AKWaveform.swift
-//  AudioUnitManager
-//
-//  Created by Ryan Francesconi, revision history on Githbub.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
 import AudioKitUI
 
@@ -89,7 +83,7 @@ public class AKWaveform: AKView {
 
     public var gain: Float = 1 {
         didSet {
-            AKLog(gain)
+            AKLog("Setting gain to \(gain)")
             guard let data = file?.getWaveformData(withNumberOfPoints: 256) else { return }
             for i in 0 ..< plots.count {
                 plots[i]?.gain = gain

@@ -1,10 +1,4 @@
-//
-//  AKTimePitch.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
@@ -59,10 +53,10 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         self.pitch = pitch
         self.overlap = overlap
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
-        AudioKit.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 

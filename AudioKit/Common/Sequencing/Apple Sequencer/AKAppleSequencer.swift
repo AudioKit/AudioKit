@@ -1,10 +1,4 @@
-//
-//  AKAppleSequencer.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka and Jeff Cooper, revision history on GitHub.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
 open class AKAppleSequencer: NSObject {
@@ -25,7 +19,7 @@ open class AKAppleSequencer: NSObject {
     open private(set) var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    override public init() {
+    public override init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
@@ -71,6 +65,15 @@ open class AKAppleSequencer: NSObject {
     public convenience init(fromURL fileURL: URL) {
         self.init()
         loadMIDIFile(fromURL: fileURL)
+    }
+
+    /// Initialize the sequence with a MIDI file data representation
+    ///
+    /// - parameter fromData: Data representation of a MIDI file
+    ///
+    public convenience init(fromData data: Data) {
+        self.init()
+        loadMIDIFile(fromData: data)
     }
 
     /// Preroll the music player. Call this function in advance of playback to reduce the sequencers
@@ -271,15 +274,16 @@ open class AKAppleSequencer: NSObject {
         var tempoTrack: MusicTrack?
         guard let existingSequence = sequence else { return [] }
         MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        guard tempoTrack != nil else { return [] }
 
         var tempos = [(MusicTimeStamp, Double)]()
 
-        AKMusicTrack.iterateMusicTrack(tempoTrack!) { _, eventTime, eventType, eventData, _, _ in
-            if eventType == kMusicEventType_ExtendedTempo {
-                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
-                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
-                    tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+        if let tempoTrack = tempoTrack {
+            AKMusicTrack.iterateMusicTrack(tempoTrack) { _, eventTime, eventType, eventData, _, _ in
+                if eventType == kMusicEventType_ExtendedTempo {
+                    if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
+                        let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
+                        tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+                    }
                 }
             }
         }
@@ -581,9 +585,27 @@ open class AKAppleSequencer: NSObject {
     open func loadMIDIFile(fromURL fileURL: URL) {
         removeTracks()
         if let existingSequence = sequence {
-            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence,
+                                                         fileURL as CFURL,
+                                                         .midiType,
+                                                         MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
                 AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+            }
+        }
+        initTracks()
+    }
+
+    /// Load a MIDI file given its data representation (removes old tracks, if present)
+    open func loadMIDIFile(fromData data: Data) {
+        removeTracks()
+        if let existingSequence = sequence {
+            let status: OSStatus = MusicSequenceFileLoadData(existingSequence,
+                                                             data as CFData,
+                                                             .midiType,
+                                                             MusicSequenceLoadFlags())
+            if status != OSStatus(noErr) {
+                AKLog("error reading midi data, read status: \(status)")
             }
         }
         initTracks()

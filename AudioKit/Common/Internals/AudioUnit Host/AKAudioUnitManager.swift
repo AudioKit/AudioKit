@@ -1,10 +1,4 @@
-//
-//  AKAudioUnitManager.swift
-//  AudioKit
-//
-//  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension Notification.Name {
     static let ComponentRegistrationsChanged = Notification.Name(rawValue:
@@ -21,6 +15,7 @@ open class AKAudioUnitManager: NSObject {
     public enum Notification {
         case effectsAvailable(effects: [AVAudioUnitComponent])
         case instrumentsAvailable(instruments: [AVAudioUnitComponent])
+        case midiProcessorsAvailable(midiProcessors: [AVAudioUnitComponent])
         case changed
         case crashed(audioUnit: AUAudioUnit?)
     }
@@ -29,10 +24,16 @@ open class AKAudioUnitManager: NSObject {
     public typealias AKComponentListCallback = ([AVAudioUnitComponent]) -> Void
     public typealias AKEffectCallback = (AVAudioUnit?) -> Void
     public typealias AKInstrumentCallback = (AVAudioUnitMIDIInstrument?) -> Void
+    public typealias AKMIDIProcessorCallback = (AVAudioUnit?) -> Void
     private typealias NotificationCallback = (Notification) -> Void
 
     /// Delegate that will be sent notifications
-    public weak var delegate: AKAudioUnitManagerDelegate?
+    public weak var delegate: AKAudioUnitManagerDelegate? {
+        didSet {
+            // only add/remove observors if there is a delegate set that wants to know about it
+            delegate != nil ? addObservors() : removeObservors()
+        }
+    }
 
     /// first node in chain, generally a player or instrument
     public var input: AKNode?
@@ -56,6 +57,13 @@ open class AKAudioUnitManager: NSObject {
 
     // List of available audio unit components.
     private var _availableInstruments = [AVAudioUnitComponent]()
+
+    // Serializes all access to `_availableMIDIProcessors`.
+    private let availableMIDIProcessorsAccessQueue = DispatchQueue(label:
+        "AKAudioUnitManager.availableMIDIProcessorsAccessQueue")
+
+    // List of available audio unit components.
+    private var _availableMIDIProcessors = [AVAudioUnitComponent]()
 
     // Defaults to a chain of 6 effects
     private var _effectsChain = [AVAudioUnit?](repeating: nil, count: 6)
@@ -109,7 +117,13 @@ open class AKAudioUnitManager: NSObject {
         return linkedEffects.count
     }
 
-    /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// Return the longest tail time in the currently loaded effects.
+    /// Not all audio units implement this property.
+    public var tailTime: TimeInterval {
+        linkedEffects.compactMap({ $0.auAudioUnit.tailTime }).sorted().last ?? 0
+    }
+
+    /// `availableEffects` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
     public var availableEffects: [AVAudioUnitComponent] {
         get {
             return availableEffectsAccessQueue.sync {
@@ -124,7 +138,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    /// `availableInstruments` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// `availableInstruments` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
     public var availableInstruments: [AVAudioUnitComponent] {
         get {
             return availableInstrumentsAccessQueue.sync {
@@ -139,11 +153,22 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
+    /// `availableMIDIProcessors` is accessed from multiple thread contexts. Uses a dispatch queue for synchronization.
+    public var availableMIDIProcessors: [AVAudioUnitComponent] {
+        get {
+            return availableMIDIProcessorsAccessQueue.sync {
+                self._availableMIDIProcessors
+            }
+        }
+
+        set {
+            availableMIDIProcessorsAccessQueue.sync {
+                self._availableMIDIProcessors = newValue
+            }
+        }
+    }
 
     // MARK: - Initialization
-
-    // ------------------------------------------
 
     /// Initialize the manager with arbritary amount of inserts
     public convenience init(inserts: Int) {
@@ -157,55 +182,42 @@ open class AKAudioUnitManager: NSObject {
 
         // regardless of how they're organized above, this'll sort them out
         AKAudioUnitManager.internalAudioUnits.sort()
-
-        addObservors()
     }
-
-    // ------------------------------------------
 
     // MARK: - Observation
 
-    // ------------------------------------------
+    // Only add if there is a delegate to receive the messages
 
     private func addObservors() {
         // Sign up for a notification when the list of available components changes.
-        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
-                                               object: nil,
-                                               queue: nil,
-                                               using: componentRegistrationObservor)
-        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation,
-                                               object: nil,
-                                               queue: nil,
-                                               using: componentInstanceObservor)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(componentRegistrationObservor),
+                                               name: .ComponentRegistrationsChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(componentInstanceObservor),
+                                               name: .ComponentInstanceInvalidation,
+                                               object: nil)
     }
 
     private func removeObservors() {
-        // remove Notification Observers
-        NotificationCenter.default.removeObserver(componentRegistrationObservor,
-                                                  name: .ComponentRegistrationsChanged,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(componentInstanceObservor,
-                                                  name: .ComponentInstanceInvalidation,
-                                                  object: nil)
+        NotificationCenter.default.removeObserver(componentRegistrationObservor)
+        NotificationCenter.default.removeObserver(componentInstanceObservor)
     }
 
-    private func componentRegistrationObservor(notification: Foundation.Notification) {
+    @objc private func componentRegistrationObservor(notification: Foundation.Notification) {
         AKLog("* Audio Units available changed *")
         delegate?.handleAudioUnitManagerNotification(.changed, audioUnitManager: self)
     }
 
-    private func componentInstanceObservor(notification: Foundation.Notification) {
+    @objc private func componentInstanceObservor(notification: Foundation.Notification) {
         // TODO: remove from signal chain
         let crashedAU = notification.object as? AUAudioUnit
-        AKLog("Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
+        AKLog("* Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
         delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
     }
 
-    // ------------------------------------------
-
     // MARK: - Requesting Effects and Instruments
-
-    // ------------------------------------------
 
     /// requests a list of Effects, and caches the results
     public func requestEffects(completionHandler: AKComponentListCallback? = nil) {
@@ -227,11 +239,25 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitManagerNotification(
-                    .instrumentsAvailable(instruments: self.availableInstruments),
-                    audioUnitManager: self)
+                self.delegate?.handleAudioUnitManagerNotification(.instrumentsAvailable(instruments: self.availableInstruments),
+                                                                  audioUnitManager: self)
 
                 completionHandler?(self.availableInstruments)
+            }
+        }
+    }
+
+    /// request a list of Instruments and caches the results
+    public func requestMIDIProcessors(completionHandler: AKComponentListCallback? = nil) {
+        AKAudioUnitManager.midiProcessorComponents { components in
+            self.availableMIDIProcessors = components
+
+            DispatchQueue.main.async {
+                // notify delegate
+                self.delegate?.handleAudioUnitManagerNotification(.midiProcessorsAvailable(midiProcessors: self.availableMIDIProcessors),
+                                                                  audioUnitManager: self)
+
+                completionHandler?(self.availableMIDIProcessors)
             }
         }
     }
@@ -259,7 +285,6 @@ open class AKAudioUnitManager: NSObject {
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
-            // AKLog("\(index) \(name) -- \(acd)")
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
@@ -273,24 +298,33 @@ open class AKAudioUnitManager: NSObject {
             completionHandler(audioUnit)
 
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
             completionHandler(nil)
         }
     }
 
-    // ------------------------------------------
+    /// Create a MIDI Processor by name. The Audio Unit will be returned in the callback.
+    public func createMIDIProcessor(name: String, completionHandler: @escaping AKMIDIProcessorCallback) {
+        guard let desc = (availableMIDIProcessors.first { $0.name == name })?.audioComponentDescription else { return }
+        AKAudioUnitManager.createMIDIProcessorAudioUnit(desc) { audioUnit in
+            guard let audioUnit = audioUnit else {
+                AKLog("Unable to create audioUnit")
+                completionHandler(nil)
+                return
+            }
+            completionHandler(audioUnit)
+        }
+    }
 
     // MARK: - Effects Chain management
-
-    // ------------------------------------------
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
         if let au = _effectsChain[index] {
             AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
             if au.engine != nil {
-                AudioKit.engine.disconnectNodeInput(au)
-                AudioKit.engine.detach(au)
+                AKManager.engine.disconnectNodeInput(au)
+                AKManager.engine.detach(au)
             }
         }
         _effectsChain[index] = nil
@@ -305,7 +339,7 @@ open class AKAudioUnitManager: NSObject {
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else {
-            AKLog(index, "index is invalid.")
+            AKLog("\(index) index is invalid.")
             return
         }
 
@@ -316,7 +350,6 @@ open class AKAudioUnitManager: NSObject {
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
-            // AKLog("\(index) \(name) -- \(acd)")
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
@@ -325,7 +358,7 @@ open class AKAudioUnitManager: NSObject {
                 }
 
                 if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
-                    // AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
+                    AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
                 }
 
                 AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
@@ -344,22 +377,17 @@ open class AKAudioUnitManager: NSObject {
                 self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
             }
         } else {
-            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.")
         }
     }
-
-    @available(*, unavailable, renamed: "removeEffects")
-    public func resetEffects() {}
 
     /// Removes all effects from the effectsChain
     public func removeEffects() {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
-                // AKLog("Detaching: \(au.auAudioUnit.audioUnitName)")
-
                 if au.engine != nil {
-                    AudioKit.engine.disconnectNodeInput(au)
-                    AudioKit.engine.detach(au)
+                    AKManager.engine.disconnectNodeInput(au)
+                    AKManager.engine.detach(au)
                 }
                 _effectsChain[i] = nil
             }
@@ -397,25 +425,23 @@ open class AKAudioUnitManager: NSObject {
         AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
-            AudioKit.connect(inputAV, to: outputAV, format: processingFormat)
+            AKManager.connect(inputAV, to: outputAV, format: processingFormat)
             return
         }
         var au = effects[0]
 
-        AudioKit.connect(inputAV, to: au, format: processingFormat)
+        AKManager.connect(inputAV, to: au, format: processingFormat)
 
         if effects.count > 1 {
             for i in 1 ..< effects.count {
                 au = effects[i]
                 let prevAU = effects[i - 1]
 
-                AudioKit.connect(prevAU, to: au, format: processingFormat)
-                // AKLog("Connecting \(prevAU.name) to \(au.name) with format \(processingFormat)")
+                AKManager.connect(prevAU, to: au, format: processingFormat)
             }
         }
 
-        // AKLog("Connecting \(au.name) to output: \(outputAV),  with format \(processingFormat)")
-        AudioKit.connect(au, to: outputAV, format: processingFormat)
+        AKManager.connect(au, to: outputAV, format: processingFormat)
     }
 
     /// Clear all linked units previous processing state. IE, Panic button.
@@ -425,12 +451,9 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Dispose
 
-    // ------------------------------------------
-
+    /// Should be called when done with this class to release references
     public func dispose() {
         AKLog("disposing AKAudioUnitManager")
         removeEffects()
@@ -439,16 +462,16 @@ open class AKAudioUnitManager: NSObject {
         _effectsChain.removeAll()
         input = nil
         output = nil
+        // this will also remove the observors if added
         delegate = nil
-        removeObservors()
     }
 
     deinit {
-        AKLog("* deinit AKAudioUnitManager")
+        AKLog("* { AKAudioUnitManager }")
     }
 }
 
-public protocol AKAudioUnitManagerDelegate: class {
+public protocol AKAudioUnitManagerDelegate: AnyObject {
     func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
                                             audioUnitManager: AKAudioUnitManager)
     func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didAddEffectAtIndex index: Int)

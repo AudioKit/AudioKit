@@ -1,10 +1,4 @@
-//
-//  AKTimeSignature.swift
-//  AudioKit
-//
-//  Created by Jeff Holtzkener on 2018/05/12.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public struct AKTimeSignature: CustomStringConvertible, Equatable {
     public enum TimeSignatureBottomValue: UInt8 {

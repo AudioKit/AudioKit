@@ -9,13 +9,14 @@ SKIP_JAZZY=1 # Broken for now
 SUBDIR=${SUBDIR:-"packages"}
 STAGING_BRANCH="staging"
 VERSION=$(cat ../VERSION)
+SED=${SED:-"sed"}
 
 if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH";
 then
 	VERSION="${VERSION}.b1"
 fi
 
-if ! which gsed > /dev/null 2>&1;
+if ! which $SED > /dev/null 2>&1;
 then
 	echo "You need GNU sed installed to run this script properly!"
 	echo "  brew install gnu-sed"
@@ -54,10 +55,10 @@ create_package()
 	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
-	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
+	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor Examples/Drums
-	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
+	find Examples -name project.pbxproj -exec $SED -i -f ../fix_paths.sed {} \;
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
@@ -76,12 +77,12 @@ create_playgrounds()
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
 	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	$SED -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find . -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
-        zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
+    zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 }
 
 rm -rf Carthage
@@ -102,4 +103,10 @@ rm -f ${SUBDIR}/AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
 zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
+cd ..
 
+if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
+	echo "Packaging the XCFrameworks ..."
+	rm -f ${SUBDIR}/AudioKit.xcframework.zip
+	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+fi

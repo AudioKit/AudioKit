@@ -1,10 +1,4 @@
-//
-//  AKShakerDSP.hpp
-//  AudioKit
-//
-//  Created by Aurelius Prochazka on 12/30/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
@@ -19,7 +13,9 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createShakerDSP(int channelCount, double sampleRate);
+AKDSPRef createShakerDSP(void);
+
+void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
 
 #else
 
@@ -34,21 +30,23 @@ public:
 
     ~AKShakerDSP();
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
 
     void init(int channelCount, double sampleRate) override;
 
     void trigger() override;
 
-    void triggerTypeAmplitude(AUValue freq, AUValue amp) override;
+    void triggerTypeAmplitude(AUValue freq, AUValue amp);
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
 };
 
 #endif

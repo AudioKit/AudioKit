@@ -1,10 +1,4 @@
-//
-//  AKOscillatorBank.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
@@ -16,10 +10,10 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AKAudioUnitType?
 
     /// Waveform of the oscillator
-    open var waveform: AKTable? {
+    @objc open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
@@ -131,11 +125,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the oscillator with defaults
-    public convenience override init() {
-        self.init(waveform: AKTable(.sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -150,7 +139,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     ///
     @objc public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.sine),
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
@@ -170,7 +159,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
         _Self.register()
 
-        super.init()
+        super.init(avAudioNode: AVAudioNode())
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit

@@ -1,10 +1,4 @@
-//
-//  AKAUPresetBuilder.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Builds presets for Apple sampler to read from
 open class AKAUPresetBuilder {
@@ -61,10 +55,10 @@ open class AKAUPresetBuilder {
     ///   - release:        Release duration in seconds
     ///
     public static func createAUPreset(dict: [NSMutableDictionary],
-                                    path: String,
-                                    instrumentName: String,
-                                    attack: Double? = 0,
-                                    release: Double? = 0) {
+                                      path: String,
+                                      instrumentName: String,
+                                      attack: Double? = 0,
+                                      release: Double? = 0) {
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -228,7 +222,7 @@ open class AKAUPresetBuilder {
             try str.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
         } catch let error as NSError {
             AKLog("Could not write to \(path)")
-            AKLog(error)
+            AKLog(error.localizedDescription)
         }
     }
 
@@ -276,13 +270,13 @@ open class AKAUPresetBuilder {
     ///   - layers:      Combined xml
     ///
     public static func buildInstrument(name: String = "Coded Instrument Name",
-                                     connections: String = "",
-                                     envelopes: String = "",
-                                     filter: String = "",
-                                     lfos: String = "",
-                                     zones: String = "***ZONES***\n",
-                                     filerefs: String = "***FILEREFS***\n",
-                                     layers: String = "") -> String {
+                                       connections: String = "",
+                                       envelopes: String = "",
+                                       filter: String = "",
+                                       lfos: String = "",
+                                       zones: String = "***ZONES***\n",
+                                       filerefs: String = "***FILEREFS***\n",
+                                       layers: String = "") -> String {
         var presetXML = openPreset()
         presetXML.append(openInstrument())
         presetXML.append(openLayers())

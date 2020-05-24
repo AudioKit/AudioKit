@@ -1,11 +1,6 @@
-//
-//  ExceptionCatcher.h
-//  AudioKit
-//
-//  Created by Stéphane Peter, revision history on Github.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 //  Inspired by https://github.com/RedRoma/SwiftExceptionCatcher
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
 
 #ifndef ExceptionCatcher_h
 #define ExceptionCatcher_h

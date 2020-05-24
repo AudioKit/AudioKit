@@ -1,10 +1,4 @@
-//
-//  AKSpeechSynthesizer.swift
-//  AudioKit
-//
-//  Created by Wangchou Lu, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
@@ -121,7 +115,7 @@ open class AKSpeechSynthesizer: AKNode {
         SpeakCFString(speechChannel, text as CFString, nil)
     }
 
-    @objc public override init() {
+    @objc public init(rate: Int = 200, frequency: Int = 200, modulation: Int = 0) {
         super.init(avAudioNode: speechAU, attach: true)
 
         // Grab the speech channel
@@ -132,5 +126,8 @@ open class AKSpeechSynthesizer: AKNode {
                                         &channel,
                                         &propsize))
 
+        self.rate = rate
+        self.frequency = frequency
+        self.modulation = modulation
     }
 }

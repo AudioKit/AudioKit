@@ -1,10 +1,4 @@
-//
-//  AKMIDIPlayer.swift
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AVAudioSequencer: Collection {
     public typealias Element = AVMusicTrack
@@ -42,7 +36,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
 
     /// Sequencer Initialization
     public override init() {
-        super.init(audioEngine: AudioKit.engine)
+        super.init(audioEngine: AKManager.engine)
     }
 
     /// Initialize the sequence with a MIDI file
@@ -50,7 +44,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
     /// - parameter filename: Location of the MIDI File
     ///
     public init(filename: String) {
-        super.init(audioEngine: AudioKit.engine)
+        super.init(audioEngine: AKManager.engine)
         loadMIDIFile(filename)
     }
 

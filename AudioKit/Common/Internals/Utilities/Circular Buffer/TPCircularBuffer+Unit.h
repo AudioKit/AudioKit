@@ -1,14 +1,9 @@
-//
-//  TPCircularBuffer+Unit.h
-//
-//  Created by David O'Neill, revision history on Github.
-//  Copyright © 2017 O'Neill. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
 
 #ifdef __cplusplus
-extern "C" {
+extern "C++" {
 #endif
 
 #import "TPCircularBuffer.h"

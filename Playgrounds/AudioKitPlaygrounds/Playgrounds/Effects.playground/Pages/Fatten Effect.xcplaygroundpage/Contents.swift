@@ -19,8 +19,8 @@ let fatten = AKOperationEffect(player) { input, parameters in
     return AKStereoOperation(fatten)
 }
 
-AudioKit.output = fatten
-try AudioKit.start()
+AKManager.output = fatten
+try AKManager.start()
 
 player.play()
 
