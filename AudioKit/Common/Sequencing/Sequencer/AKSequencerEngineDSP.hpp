@@ -21,7 +21,7 @@ void sequencerEngineAddMIDINote(AKDSPRef dsp, uint8_t noteNumber, uint8_t veloci
 void sequencerEngineRemoveMIDIEvent(AKDSPRef dsp, double beat);
 void sequencerEngineRemoveMIDINote(AKDSPRef dsp, double beat);
 void sequencerEngineRemoveSpecificMIDINote(AKDSPRef dsp, double beat, uint8_t noteNumber);
-void sequencerEngineRemoveAllMIDINotes(AKDSPRef dsp, uint8_t noteNumber);
+void sequencerEngineRemoveAllInstancesOf(AKDSPRef dsp, uint8_t noteNumber);
 
 void sequencerEngineStopPlayingNotes(AKDSPRef dsp);
 void sequencerEngineClear(AKDSPRef dsp);
@@ -220,7 +220,7 @@ public:
         }
     }
     
-    void removeAllNotes(uint8_t noteToRemove) {
+    void removeAllInstancesOf(uint8_t noteToRemove) {
         
          for (auto itr1 = notes.rbegin(); itr1 < notes.rend(); itr1++) {
              if (itr1->noteOn.data1 == noteToRemove) {
