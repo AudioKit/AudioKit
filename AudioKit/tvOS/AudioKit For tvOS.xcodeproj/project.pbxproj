@@ -1117,6 +1117,7 @@
 		FE8FE9CD20E42BBC00F15B7E /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9C920E42BBC00F15B7E /* AKDiskStreamerDSPKernel.hpp */; };
 		FE8FE9CE20E42BBC00F15B7E /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9CA20E42BBC00F15B7E /* AKDiskStreamerAudioUnit.mm */; };
 		FE8FE9CF20E42BBC00F15B7E /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9CB20E42BBC00F15B7E /* AKDiskStreamer.swift */; };
+		FECD6B2D247C732C0066432E /* AHDSHREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECD6B2B247C732B0066432E /* AHDSHREnvelope.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2304,6 +2305,8 @@
 		FE8FE9C920E42BBC00F15B7E /* AKDiskStreamerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDiskStreamerDSPKernel.hpp; sourceTree = "<group>"; };
 		FE8FE9CA20E42BBC00F15B7E /* AKDiskStreamerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiskStreamerAudioUnit.mm; sourceTree = "<group>"; };
 		FE8FE9CB20E42BBC00F15B7E /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
+		FECD6B2B247C732B0066432E /* AHDSHREnvelope.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AHDSHREnvelope.cpp; sourceTree = "<group>"; };
+		FECD6B2C247C732C0066432E /* AHDSHREnvelope.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AHDSHREnvelope.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2387,6 +2390,8 @@
 				344E88EC217E8C7800D58551 /* EnvelopeGeneratorBase.cpp */,
 				EAB403CC2258A9A100EB0A24 /* ADSREnvelope.hpp */,
 				34F5A36C205ED22C00290001 /* ADSREnvelope.cpp */,
+				FECD6B2C247C732C0066432E /* AHDSHREnvelope.hpp */,
+				FECD6B2B247C732B0066432E /* AHDSHREnvelope.cpp */,
 				34F5A36D205ED22C00290001 /* SustainPedalLogic.hpp */,
 				34F5A36E205ED22C00290001 /* ResonantLowPassFilter.cpp */,
 			);
@@ -5803,6 +5808,7 @@
 				C49B1EFD204A0CFB009C7C8E /* tick.c in Sources */,
 				C49B1EC8204A0CFB009C7C8E /* tenvx.c in Sources */,
 				C470D03E20174A5F003D1AFA /* AKWhiteNoiseAudioUnit.swift in Sources */,
+				FECD6B2D247C732C0066432E /* AHDSHREnvelope.cpp in Sources */,
 				C453820F1C3A5CBD00A51738 /* AKWhiteNoise.swift in Sources */,
 				C49B1E1C204A0CFA009C7C8E /* metro.c in Sources */,
 				C49B1E2A204A0CFA009C7C8E /* trand.c in Sources */,
@@ -6475,6 +6481,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 5.0.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6501,6 +6508,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 5.0.0;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6534,6 +6542,7 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -6567,6 +6576,7 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

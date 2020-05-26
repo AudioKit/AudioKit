@@ -26,9 +26,13 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
 
     var attackDuration: AUParameter!
 
+    var holdDuration: AUParameter!
+
     var decayDuration: AUParameter!
 
     var sustainLevel: AUParameter!
+
+    var releaseHoldDuration: AUParameter!
 
     var releaseDuration: AUParameter!
 
@@ -183,6 +187,16 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
 
         parameterAddress += 1
 
+        holdDuration = AUParameter(
+            identifier: "holdDuration",
+            name: "Amplitude Hold duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         decayDuration = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
@@ -199,6 +213,16 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
             address: parameterAddress,
             range: 0.0...1.0,
             unit: .generic,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        releaseHoldDuration = AUParameter(
+            identifier: "releaseHoldDuration",
+            name: "Amplitude Release Hold duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
             flags: nonRampFlags)
 
         parameterAddress += 1
@@ -373,8 +397,10 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
             filterResonance,
             glideRate,
             attackDuration,
+            holdDuration,
             decayDuration,
             sustainLevel,
+            releaseHoldDuration,
             releaseDuration,
             filterAttackDuration,
             filterDecayDuration,
@@ -405,8 +431,10 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
         filterResonance.value = 0.0
         glideRate.value = 0.0
         attackDuration.value = 0.0
+        holdDuration.value = 0.0
         decayDuration.value = 0.0
         sustainLevel.value = 1.0
+        releaseHoldDuration.value = 0.0
         releaseDuration.value = 0.0
         filterAttackDuration.value = 0.0
         filterDecayDuration.value = 0.0

@@ -447,6 +447,8 @@
 		C4775846202FD66F00159BA7 /* AKOscillatorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4775845202FD66F00159BA7 /* AKOscillatorDSP.mm */; };
 		C4775855202FDC2600159BA7 /* AKFMOscillatorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4775854202FDC2500159BA7 /* AKFMOscillatorDSP.mm */; };
 		C4775857202FDEE600159BA7 /* AKWhiteNoiseDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4775856202FDEE500159BA7 /* AKWhiteNoiseDSP.mm */; };
+		C47776D1247DDA9A0012F825 /* AHDSHREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C47776CF247DDA9A0012F825 /* AHDSHREnvelope.cpp */; };
+		C47776D2247DDA9A0012F825 /* AHDSHREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47776D0247DDA9A0012F825 /* AHDSHREnvelope.hpp */; };
 		C47AE4B81D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4B41D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift */; };
 		C47AE4B91D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47AE4B51D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47AE4BA1D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4B61D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm */; };
@@ -1696,6 +1698,8 @@
 		C4775845202FD66F00159BA7 /* AKOscillatorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKOscillatorDSP.mm; sourceTree = "<group>"; };
 		C4775854202FDC2500159BA7 /* AKFMOscillatorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFMOscillatorDSP.mm; sourceTree = "<group>"; };
 		C4775856202FDEE500159BA7 /* AKWhiteNoiseDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKWhiteNoiseDSP.mm; sourceTree = "<group>"; };
+		C47776CF247DDA9A0012F825 /* AHDSHREnvelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AHDSHREnvelope.cpp; sourceTree = "<group>"; };
+		C47776D0247DDA9A0012F825 /* AHDSHREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AHDSHREnvelope.hpp; sourceTree = "<group>"; };
 		C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
 		C47AE4B41D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseDistortionOscillatorBank.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C47AE4B51D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseDistortionOscillatorBankAudioUnit.h; sourceTree = "<group>"; };
@@ -2550,6 +2554,8 @@
 				344E88E6217E8C1300D58551 /* EnvelopeGeneratorBase.cpp */,
 				344E88E5217E8C1200D58551 /* ADSREnvelope.hpp */,
 				3404A78B20507B1500A2C9E4 /* ADSREnvelope.cpp */,
+				C47776CF247DDA9A0012F825 /* AHDSHREnvelope.cpp */,
+				C47776D0247DDA9A0012F825 /* AHDSHREnvelope.hpp */,
 				3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */,
 				3404A78D20507B1500A2C9E4 /* ResonantLowPassFilter.cpp */,
 				3404A78C20507B1500A2C9E4 /* SustainPedalLogic.hpp */,
@@ -5765,6 +5771,7 @@
 				C4DA1E3E21D9B31600D03B37 /* AKShakerDSP.hpp in Headers */,
 				C43323041FE05F0200330AEC /* AKTimeline.h in Headers */,
 				C49B1530204A06B8009C7C8E /* PoleZero.h in Headers */,
+				C47776D2247DDA9A0012F825 /* AHDSHREnvelope.hpp in Headers */,
 				3404A7A420507B1600A2C9E4 /* SampleBuffer.hpp in Headers */,
 				FE771CF12192162200C7EB7E /* AKCallbackInstrumentDSPKernel.hpp in Headers */,
 				C4077B5620087B3200E5923C /* AKResonantFilterDSP.hpp in Headers */,
@@ -6641,6 +6648,7 @@
 				C49B1454204A06B7009C7C8E /* osc.c in Sources */,
 				C49B1455204A06B7009C7C8E /* butbr.c in Sources */,
 				C48F4D7E21CED91C006381F3 /* AKRhodesPianoAudioUnit.swift in Sources */,
+				C47776D1247DDA9A0012F825 /* AHDSHREnvelope.cpp in Sources */,
 				C4171899202837320060BC00 /* AKLowPassButterworthFilterDSP.mm in Sources */,
 				C4537FD31C3A438D00A51738 /* AKLowPassFilter.swift in Sources */,
 				C4BC74FC2030245800062B11 /* AKDripDSP.mm in Sources */,

@@ -531,6 +531,8 @@
 		C4775835202FD10B00159BA7 /* AKDynaRageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4775830202FD10B00159BA7 /* AKDynaRageCompressor.swift */; };
 		C4775837202FD10B00159BA7 /* AKDynaRageCompressorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4775832202FD10B00159BA7 /* AKDynaRageCompressorDSP.mm */; };
 		C4775838202FD10B00159BA7 /* AKDynaRageCompressorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4775833202FD10B00159BA7 /* AKDynaRageCompressorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C47776D5247DDAB00012F825 /* AHDSHREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47776D3247DDAB00012F825 /* AHDSHREnvelope.hpp */; };
+		C47776D6247DDAB00012F825 /* AHDSHREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C47776D4247DDAB00012F825 /* AHDSHREnvelope.cpp */; };
 		C47B3F3A1FBD74B40097EC15 /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F391FBD74B30097EC15 /* AKScheduledAction.swift */; };
 		C47B3F451FBE1FD00097EC15 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F441FBE1FD00097EC15 /* AKTable.swift */; };
 		C47C52892093066200A6FB3C /* AKWaveTableAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47C52852093066200A6FB3C /* AKWaveTableAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1764,6 +1766,8 @@
 		C4775830202FD10B00159BA7 /* AKDynaRageCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressor.swift; sourceTree = "<group>"; };
 		C4775832202FD10B00159BA7 /* AKDynaRageCompressorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDynaRageCompressorDSP.mm; sourceTree = "<group>"; };
 		C4775833202FD10B00159BA7 /* AKDynaRageCompressorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDynaRageCompressorDSP.hpp; sourceTree = "<group>"; };
+		C47776D3247DDAB00012F825 /* AHDSHREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AHDSHREnvelope.hpp; sourceTree = "<group>"; };
+		C47776D4247DDAB00012F825 /* AHDSHREnvelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AHDSHREnvelope.cpp; sourceTree = "<group>"; };
 		C47B3F391FBD74B30097EC15 /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
 		C47B3F441FBE1FD00097EC15 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C47C52852093066200A6FB3C /* AKWaveTableAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWaveTableAudioUnit.h; sourceTree = "<group>"; };
@@ -2501,6 +2505,8 @@
 				EAB403D12258A9D400EB0A24 /* EnvelopeGeneratorBase.hpp */,
 				3404A76F204F879500A2C9E4 /* ADSREnvelope.cpp */,
 				EAB403D02258A9D400EB0A24 /* ADSREnvelope.hpp */,
+				C47776D4247DDAB00012F825 /* AHDSHREnvelope.cpp */,
+				C47776D3247DDAB00012F825 /* AHDSHREnvelope.hpp */,
 				3404A772204F879600A2C9E4 /* ResonantLowPassFilter.hpp */,
 				3404A771204F879500A2C9E4 /* ResonantLowPassFilter.cpp */,
 				3404A76A204F879300A2C9E4 /* SustainPedalLogic.hpp */,
@@ -5697,6 +5703,7 @@
 				C49B194D204A0AD1009C7C8E /* plumber.h in Headers */,
 				C4DA1E4321D9B7A700D03B37 /* AKShakerDSP.hpp in Headers */,
 				C4077ABE20082C0400E5923C /* AKHighPassButterworthFilterDSP.hpp in Headers */,
+				C47776D5247DDAB00012F825 /* AHDSHREnvelope.hpp in Headers */,
 				C433231A1FE05F8700330AEC /* TPCircularBuffer.h in Headers */,
 				C49E9D05201488AC006599B4 /* AKAmplitudeEnvelopeDSP.hpp in Headers */,
 				C403F41B231A3ECA00A81C0E /* AKFilterSynthAudioUnit.h in Headers */,
@@ -6501,6 +6508,7 @@
 				C49B18C5204A0AD1009C7C8E /* eval.c in Sources */,
 				C49B18F4204A0AD1009C7C8E /* scrambler.c in Sources */,
 				C45669CA1D448D7E00D26565 /* moogLadderFilter.swift in Sources */,
+				C47776D6247DDAB00012F825 /* AHDSHREnvelope.cpp in Sources */,
 				C49B1B52204A0C48009C7C8E /* FileRead.cpp in Sources */,
 				C49B1862204A0AD0009C7C8E /* scale.c in Sources */,
 				FE11CFB8224C3E3700E6D289 /* AKMIDIFileTrack.swift in Sources */,
