@@ -6886,7 +6886,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -6949,7 +6949,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -7006,7 +7006,7 @@
 		C42F36D51C0582E6000E937C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -7026,7 +7026,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.6;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7039,7 +7039,7 @@
 		C42F36D61C0582E6000E937C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -7057,7 +7057,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.6;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7069,7 +7069,7 @@
 		EAFECEC21F4EBBFE00A2B046 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7089,7 +7089,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.6;
+				MARKETING_VERSION = 4.10;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7101,7 +7101,7 @@
 		EAFECEC31F4EBBFE00A2B046 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.6;
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7120,7 +7120,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.6;
+				MARKETING_VERSION = 4.10;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
