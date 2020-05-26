@@ -43,7 +43,7 @@ AKTubularBellsDSP::AKTubularBellsDSP() : data(new InternalData)
 
 AKTubularBellsDSP::~AKTubularBellsDSP() = default;
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:
@@ -59,7 +59,7 @@ void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bo
     }
 }
 
-/** Uses the ParameterAddress as a key */
+/// Uses the ParameterAddress as a key
 float AKTubularBellsDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:

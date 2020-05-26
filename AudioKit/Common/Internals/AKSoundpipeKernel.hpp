@@ -43,7 +43,6 @@ public:
     }
 
     ~AKSoundpipeKernel() {
-        //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
         sp_destroy(&sp);
     }

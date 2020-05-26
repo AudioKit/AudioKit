@@ -127,7 +127,6 @@ open class AKNodeRecorder: NSObject {
         do {
             recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
             try internalAudioFile.write(from: buffer)
-            // AKLog("AKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)")
 
             // allow an optional timed stop
             if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {

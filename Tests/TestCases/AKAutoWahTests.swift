@@ -16,6 +16,13 @@ class AKAutoWahTests: AKTestCase {
         AKTestMD5("786f65133d587399be35aa789e287815")
     }
 
+    func testBypass() {
+        let wah = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
+        wah.bypass()
+        output = wah
+        AKTestNoEffect()
+    }
+
     func testDefault() {
         output = AKAutoWah(input)
         AKTestNoEffect()

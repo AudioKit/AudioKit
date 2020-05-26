@@ -47,9 +47,7 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /**
-     The conversion options, leave nil to adopt the value of the input file
-     */
+    /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
         public init() {}
         public var format: String?
@@ -64,6 +62,7 @@ open class AKConverter: NSObject {
                 }
             }
         }
+
         public var channels: UInt32?
         public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this before you call start()
@@ -117,7 +116,7 @@ open class AKConverter: NSObject {
         }
 
         // Format checks are necessary as AVAssetReader has opinions about compressed audio for some reason
-        if isCompressed(url: inputURL) && isCompressed(url: outputURL) {
+        if isCompressed(url: inputURL), isCompressed(url: outputURL) {
             // Compressed input and output
             convertCompressed(completionHandler: completionHandler)
 
@@ -300,13 +299,12 @@ open class AKConverter: NSObject {
         writerInput.requestMediaDataWhenReady(on: queue, using: {
             var processing = true // safety flag to prevent runaway loops if errors
 
-            while writerInput.isReadyForMoreMediaData && processing {
+            while writerInput.isReadyForMoreMediaData, processing {
                 if reader.status == .reading,
                     let buffer = readerOutput.copyNextSampleBuffer() {
                     writerInput.append(buffer)
 
                 } else {
-                    // AKLog("Finishing up...")
                     writerInput.markAsFinished()
 
                     switch reader.status {
@@ -323,7 +321,6 @@ open class AKConverter: NSObject {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
-                                // AKLog("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }
@@ -441,7 +438,7 @@ open class AKConverter: NSObject {
         var outputBytesPerFrame = outputBitRate * outputChannels / 8
         var outputBytesPerPacket = options?.bitDepth == nil ? srcFormat.mBytesPerPacket : outputBytesPerFrame
 
-        // outputBitRate == 0 : in the input file this indicates a compressed format such as mp3
+        // in the input file this indicates a compressed format such as mp3
         if outputBitRate == 0 {
             outputBitRate = 16
             outputBytesPerPacket = 2 * outputChannels
@@ -462,13 +459,12 @@ open class AKConverter: NSObject {
         }
 
         // Create destination file
-        error = ExtAudioFileCreateWithURL(
-            outputURL as CFURL,
-            format,
-            &dstFormat,
-            nil,
-            AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
-            &destinationFile)
+        error = ExtAudioFileCreateWithURL(outputURL as CFURL,
+                                          format,
+                                          &dstFormat,
+                                          nil,
+                                          AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
+                                          &destinationFile)
 
         if error != noErr {
             completionHandler?(createError(message: "Unable to create output file."))
@@ -498,40 +494,39 @@ open class AKConverter: NSObject {
             return
         }
         let bufferByteSize: UInt32 = 32_768
-        var srcBuffer = [UInt8](repeating: 0, count: 32_768)
+        var srcBuffer = [UInt8](repeating: 0, count: Int(bufferByteSize))
         var sourceFrameOffset: UInt32 = 0
 
-        while true {
-            var fillBufList = AudioBufferList(
-                mNumberBuffers: 1,
-                mBuffers: AudioBuffer(
-                    mNumberChannels: srcFormat.mChannelsPerFrame,
-                    mDataByteSize: UInt32(srcBuffer.count),
-                    mData: &srcBuffer
-                )
-            )
-            var numFrames: UInt32 = 0
+        srcBuffer.withUnsafeMutableBytes { ptr in
+            while true {
+                let mBuffer = AudioBuffer(mNumberChannels: srcFormat.mChannelsPerFrame,
+                                          mDataByteSize: bufferByteSize,
+                                          mData: ptr.baseAddress)
 
-            if dstFormat.mBytesPerFrame > 0 {
-                numFrames = bufferByteSize / dstFormat.mBytesPerFrame
-            }
+                var fillBufList = AudioBufferList(mNumberBuffers: 1, mBuffers: mBuffer)
+                var numFrames: UInt32 = 0
 
-            error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to read input file."))
-                return
-            }
-            if numFrames == 0 {
-                error = noErr
-                break
-            }
+                if dstFormat.mBytesPerFrame > 0 {
+                    numFrames = bufferByteSize / dstFormat.mBytesPerFrame
+                }
 
-            sourceFrameOffset += numFrames
+                error = ExtAudioFileRead(inputFile, &numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to read input file."))
+                    return
+                }
+                if numFrames == 0 {
+                    error = noErr
+                    break
+                }
 
-            error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
-            if error != noErr {
-                completionHandler?(createError(message: "Unable to write output file."))
-                return
+                sourceFrameOffset += numFrames
+
+                error = ExtAudioFileWrite(outputFile, numFrames, &fillBufList)
+                if error != noErr {
+                    completionHandler?(createError(message: "Unable to write output file."))
+                    return
+                }
             }
         }
 
@@ -547,7 +542,6 @@ open class AKConverter: NSObject {
             return
         }
 
-        // no errors. yay.
         completionHandler?(nil)
     }
 

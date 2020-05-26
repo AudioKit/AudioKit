@@ -11,20 +11,20 @@ import XCTest
 
 class VocalTractTests: AKTestCase {
 
+    var vocalTract = AKOperationGenerator { _ in return AKOperation.vocalTract() }
+
     override func setUp() {
-        super.setUp()
+        afterStart = { self.vocalTract.start() }
         duration = 1.0
     }
 
     func testDefault() {
-        output = AKOperationGenerator { _ in
-            return AKOperation.vocalTract()
-        }
+        output = vocalTract
         AKTestMD5("08151832dac3e5d23d194b4004dc9916")
     }
 
     func testParameterSweep() {
-        output = AKOperationGenerator { _ in
+        vocalTract = AKOperationGenerator { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,
@@ -36,6 +36,7 @@ class VocalTractTests: AKTestCase {
                                           tenseness: line,
                                           nasality: line)
         }
+        output = vocalTract
         AKTestMD5("73de198b2746be67144e9cd865815f4b")
     }
 

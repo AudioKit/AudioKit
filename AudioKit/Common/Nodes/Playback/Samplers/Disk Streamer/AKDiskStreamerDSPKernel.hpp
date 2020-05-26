@@ -45,7 +45,6 @@ public:
         started = false;
         useTempStartPoint = false;
         useTempEndPoint = false;
-        rewind();
     }
 
     void rewind() {
@@ -151,7 +150,7 @@ public:
 
             float startPointToUse = startPointViaRate();
             float endPointToUse = endPointViaRate();
-            double nextPosition = position + sampleRateRatio() * rate;
+            double nextPosition = position + sampleStep();
 
             if (started){
                 calculateMainPlayComplete(nextPosition);
@@ -163,7 +162,7 @@ public:
                         calculateShouldLoop(nextPosition);
                     }
                 }
-                if (!loop && calculateHasEnded(nextPosition)) {
+                if (!loop && calculateHasEnded(nextPosition / (float)wavin->wav.channels)) {
                     stop();
                     completionHandler();
                 } else {
@@ -175,11 +174,12 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        wavin->pos = (unsigned long)floor(position);
                         sp_wavin_get_sample(sp, wavin, out, position);
-                        position += sampleStep();
                     } else {
-//                        sp_wavplay_compute(sp, wavin, NULL, out);
+                        sp_wavin_get_sample(sp, wavin, out, position + channel);
+                    }
+                    if (channel == wavin->wav.channels - 1) {
+                        position += sampleStep();
                     }
                     *out *= volume;
                 } else {
@@ -223,7 +223,7 @@ public:
         if (!inLoopPhase && startEndReversed()){
             reverseMultiplier = -1;
         }
-        return sampleRateRatio() * fabs(rate) * reverseMultiplier;
+        return sampleRateRatio() * fabs(rate) * reverseMultiplier * wavin->wav.channels;
     }
     double sampleRateRatio(){
         return sourceSampleRate / AKSettings.sampleRate;
@@ -257,7 +257,8 @@ public:
         }
     }
     bool calculateHasEnded(double nextPosition){
-        if ((nextPosition > endPointViaRate() && !startEndReversed()) || (nextPosition < endPointViaRate() && startEndReversed())){
+        if ((nextPosition > endPointViaRate() && !startEndReversed()) ||
+            (nextPosition < endPointViaRate() && startEndReversed())){
             return true;
         }
         return false;

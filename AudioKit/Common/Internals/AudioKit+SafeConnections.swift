@@ -61,7 +61,7 @@ extension AudioKit {
 
         let dummy = AVAudioUnitSampler()
         engine.attach(dummy)
-        engine.connect(dummy, to: mixer, format: AudioKit.format)
+        engine.connect(dummy, to: mixer, format: AKSettings.audioFormat)
         return dummy
     }
 
@@ -99,6 +99,7 @@ extension AudioKit {
     //Convenience
     @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
+            guard node.engine != nil else { continue }
             engine.detach(node)
         }
     }

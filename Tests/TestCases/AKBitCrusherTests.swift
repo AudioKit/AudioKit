@@ -16,6 +16,13 @@ class AKBitCrusherTests: AKTestCase {
         AKTestMD5("4903010e3f4e3b933870cbdf0dd85c9b")
     }
 
+    func testBypass() {
+        let crush = AKBitCrusher(input, bitDepth: 12)
+        crush.bypass()
+        output = crush
+        AKTestNoEffect()
+    }
+
     func testDefault() {
         output = AKBitCrusher(input)
         AKTestMD5("fb92c496b84bb0e9d77ce35ec3effa95")

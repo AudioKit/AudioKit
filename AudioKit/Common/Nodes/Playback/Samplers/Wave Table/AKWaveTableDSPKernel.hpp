@@ -330,6 +330,7 @@ public:
                 uint8_t note = midiEvent.data[1];
                 uint8_t veloc = midiEvent.data[2];
                 if (note > 127 || veloc > 127) break;
+                setVolume(float(veloc) / 127.0f);
                 start();
                 break;
             }
