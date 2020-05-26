@@ -12,6 +12,7 @@
 #include "SampleBuffer.hpp"
 #include "SampleOscillator.hpp"
 #include "ADSREnvelope.hpp"
+#include "AHDSHREnvelope.hpp"
 #include "FunctionTable.hpp"
 #include "ResonantLowPassFilter.hpp"
 #include "LinearRamper.hpp"
@@ -33,7 +34,8 @@ namespace AudioKitCore
 
         /// two filters (left/right)
         ResonantLowPassFilter leftFilter, rightFilter;
-        ADSREnvelope adsrEnvelope, filterEnvelope, pitchEnvelope;
+        AHDSHREnvelope ampEnvelope;
+        ADSREnvelope filterEnvelope, pitchEnvelope;
 
         // per-voice vibrato LFO
         FunctionTableOscillator vibratoLFO;
@@ -80,7 +82,7 @@ namespace AudioKitCore
 
         void init(double sampleRate);
 
-        void updateAmpAdsrParameters() { adsrEnvelope.updateParams(); }
+        void updateAmpAdsrParameters() { ampEnvelope.updateParams(); }
         void updateFilterAdsrParameters() { filterEnvelope.updateParams(); }
         void updatePitchAdsrParameters() { pitchEnvelope.updateParams(); }
         
