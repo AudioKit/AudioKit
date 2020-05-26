@@ -20,7 +20,7 @@ extension AUEffect {
 
 /// Helpful in reducing repetitive code in AudioKit
 public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AnyObject // eventually AKAudioUnitBase
+    associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
     var internalAU: AKAudioUnitType? { get }
     var rampDuration: Double { get set }
 }
@@ -33,7 +33,20 @@ extension AKComponent {
                                      name: "Local \(Self.self)",
                                      version: .max)
     }
-
+    
+    public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
+        AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
+                                     as: Self.ComponentDescription,
+                                     name: "Local \(Self.self)",
+                                     version: .max)
+        
+        AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
+            guard let au = avAudioUnit else { return }
+            AKManager.engine.attach(au)
+            callback(au)
+        }
+    }
+    
     public var rampDuration: Double {
         get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
         set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }
@@ -45,43 +58,6 @@ extension AUParameterTree {
     public subscript (key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
-
-    public class func createParameter(identifier: String,
-                                      name: String,
-                                      address: AUParameterAddress,
-                                      range: ClosedRange<Double>,
-                                      unit: AudioUnitParameterUnit,
-                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
-        return createParameter(withIdentifier: identifier,
-                               name: name,
-                               address: address,
-                               min: AUValue(range.lowerBound),
-                               max: AUValue(range.upperBound),
-                               unit: unit,
-                               unitName: nil,
-                               flags: flags,
-                               valueStrings: nil,
-                               dependentParameters: nil)
-    }
-//
-//    public class func createParameter(identifier: String,
-//                                      name: String,
-//                                      address: AUParameterAddress,
-//                                      min: AUValue,
-//                                      max: AUValue,
-//                                      unit: AudioUnitParameterUnit,
-//                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
-//        return createParameter(withIdentifier: identifier,
-//                               name: name,
-//                               address: address,
-//                               min: min,
-//                               max: max,
-//                               unit: unit,
-//                               unitName: nil,
-//                               flags: flags,
-//                               valueStrings: nil,
-//                               dependentParameters: nil)
-//    }
 }
 
 /// Adding convenience initializers

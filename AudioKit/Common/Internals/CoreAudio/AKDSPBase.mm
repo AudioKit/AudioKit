@@ -49,19 +49,29 @@ extern "C" void resetDSP(AKDSPRef pDSP)
     pDSP->reset();
 }
 
-extern "C" void setRampDurationDSP(AKDSPRef pDSP, float rampDuration)
-{
-    pDSP->setRampDuration(rampDuration);
-}
-
-extern "C" void setParameterDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value)
+extern "C" void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value)
 {
     pDSP->setParameter(address, value, false);
 }
 
-extern "C" AUValue getParameterDSP(AKDSPRef pDSP, AUParameterAddress address)
+extern "C" AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
 {
     return pDSP->getParameter(address);
+}
+
+extern "C" void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
+{
+    pDSP->setRampDuration(rampDuration);
+}
+
+extern "C" void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
+{
+    
+}
+
+extern "C" void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
+{
+    
 }
 
 extern "C" void startDSP(AKDSPRef pDSP)

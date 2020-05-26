@@ -80,3 +80,26 @@ void AKAutoPannerDSP::process(uint32_t frameCount, uint32_t bufferOffset) {
         }
     }
 }
+
+void AKAutoPannerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
+{
+    switch (address) {
+        case AKAutoPannerParameterDepth:
+            data->depthRamp.setTarget(value, true);
+            break;
+        case AKAutoPannerParameterFrequency:
+            data->frequencyRamp.setTarget(value, true);
+    }
+}
+
+float AKAutoPannerDSP::getParameter(AUParameterAddress address)
+{
+    switch (address) {
+        case AKAutoPannerParameterDepth:
+            return data->depthRamp.getTarget();
+        case AKAutoPannerParameterFrequency:
+            return data->frequencyRamp.getTarget();
+        default:
+            return 0.f;
+    }
+}

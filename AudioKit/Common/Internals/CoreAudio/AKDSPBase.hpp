@@ -21,9 +21,12 @@ void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
 void deallocateRenderResourcesDSP(AKDSPRef pDSP);
 void resetDSP(AKDSPRef pDSP);
 
-void setRampDurationDSP(AKDSPRef pDSP, float rampDuration);
-void setParameterDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
-AUValue getParameterDSP(AKDSPRef pDSP, AUParameterAddress address);
+void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
+AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
+
+void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration);
+void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper);
+void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew);
 
 void startDSP(AKDSPRef pDSP);
 void stopDSP(AKDSPRef pDSP);
@@ -145,15 +148,15 @@ public:
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
+private:
+
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
      */
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                            AURenderEvent const *events);
-
-private:
-
+    
     void handleOneEvent(AURenderEvent const *event);
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
 };
