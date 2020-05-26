@@ -99,6 +99,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
+    /// Amplitude hold duration (seconds)
+    open var holdDuration: Double = 0.0 {
+        willSet {
+            guard holdDuration != newValue else { return }
+            internalAU?.holdDuration.value = AUValue(newValue)
+        }
+    }
+
     /// Amplitude Decay duration (seconds)
     open var decayDuration: Double = 0.0 {
         willSet {
@@ -112,6 +120,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         willSet {
             guard sustainLevel != newValue else { return }
             internalAU?.sustainLevel.value = AUValue(newValue)
+        }
+    }
+
+    /// Amplitude Release Hold duration (seconds)
+    open var releaseHoldDuration: Double = 0.0 {
+        willSet {
+            guard releaseHoldDuration != newValue else { return }
+            internalAU?.releaseHoldDuration.value = AUValue(newValue)
         }
     }
 
@@ -258,8 +274,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - attackDuration: seconds, 0.0 - 10.0
+    ///   - holdDuration: seconds, 0.0 - 10.0
     ///   - decayDuration: seconds, 0.0 - 10.0
     ///   - sustainLevel: 0.0 - 1.0
+    ///   - releaseHoldDuration: seconds, 0.0 - 10.0
     ///   - releaseDuration: seconds, 0.0 - 10.0
     ///   - filterEnable: true to enable per-voice filters
     ///   - filterAttackDuration: seconds, 0.0 - 10.0
@@ -289,8 +307,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         attackDuration: Double = 0.0,
+        holdDuration: Double = 0.0,
         decayDuration: Double = 0.0,
         sustainLevel: Double = 1.0,
+        releaseHoldDuration: Double = 0.0,
         releaseDuration: Double = 0.0,
         filterEnable: Bool = false,
         filterAttackDuration: Double = 0.0,
@@ -327,8 +347,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
             self.filterStrength = filterStrength
             self.filterResonance = filterResonance
             self.attackDuration = attackDuration
+            self.holdDuration = holdDuration
             self.decayDuration = decayDuration
             self.sustainLevel = sustainLevel
+            self.releaseHoldDuration = releaseHoldDuration
             self.releaseDuration = releaseDuration
             self.filterEnable = filterEnable
             self.filterAttackDuration = filterAttackDuration

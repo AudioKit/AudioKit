@@ -68,9 +68,10 @@ namespace AudioKitCore
 
         void reset(Descriptor* pDesc, int initialSegmentIndex = 0);
         void advanceToSegment(int segIndex);
+        void startAtSegment(int segIndex);
 
         inline bool getSample(float& out)
-        {
+        {            
             if (ExponentialSegmentGenerator::getSample(out))
             {
                 if (++curSegIndex >= int(segments->size()))
@@ -94,6 +95,7 @@ namespace AudioKitCore
 
         void setupCurSeg();
         void setupCurSeg(double initValue);
+        bool skipEmptySegments();
     };
 
 }

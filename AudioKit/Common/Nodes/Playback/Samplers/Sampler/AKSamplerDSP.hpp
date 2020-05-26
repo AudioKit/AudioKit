@@ -20,8 +20,10 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 
     // simple parameters
     AKSamplerParameterAttackDuration,
+    AKSamplerParameterHoldDuration,
     AKSamplerParameterDecayDuration,
     AKSamplerParameterSustainLevel,
+    AKSamplerParameterReleaseHoldDuration,
     AKSamplerParameterReleaseDuration,
     AKSamplerParameterFilterAttackDuration,
     AKSamplerParameterFilterDecayDuration,
