@@ -1,23 +1,32 @@
 //
-//  ParameterRamper.cpp
-//  AudioKit
+// ParameterRamper.cpp
+// AudioKit
 //
-//  Created by Stéphane Peter, revision history on Githbub.
-//  Copyright © 2018 AudioKit. All rights reserved.
+// Utility class to manage DSP parameters which can change value smoothly (be ramped) while rendering, without introducing clicks or other distortion into the signal.
+//
+// Originally based on Apple sample code, but significantly altered by Aurelius Prochazka
+//
+//  Copyright © 2020 AudioKit. All rights reserved.
 //
 
 #import <cstdint>
 
 #include "ParameterRamper.hpp"
 
+#import <AudioToolbox/AUAudioUnit.h>
 #import <libkern/OSAtomic.h>
 #import <stdatomic.h>
+#include <math.h>
 
 struct ParameterRamper::InternalData {
     float clampLow, clampHigh;
     float uiValue;
+    float taper = 1;
+    float skew = 0;
+    uint32_t offset = 0;
+    float startingPoint;
     float goal;
-    float inverseSlope;
+    uint32_t duration;
     uint32_t samplesRemaining;
     volatile atomic_int changeCounter = 0;
     int32_t updateCounter = 0;
@@ -36,8 +45,7 @@ ParameterRamper::~ParameterRamper()
 void ParameterRamper::setImmediate(float value)
 {
     // only to be called from the render thread or when resources are not allocated.
-    data->goal = data->uiValue = value;
-    data->inverseSlope = 0.0;
+    data->goal = data->uiValue = data->startingPoint = value;
     data->samplesRemaining = 0;
 }
 
@@ -53,6 +61,48 @@ void ParameterRamper::init()
 void ParameterRamper::reset()
 {
     data->changeCounter = data->updateCounter = 0;
+}
+
+void ParameterRamper::setTaper(float taper)
+{
+    data->taper = taper;
+    atomic_fetch_add(&data->changeCounter, 1);
+}
+
+float ParameterRamper::getTaper() const
+{
+    return data->taper;
+}
+
+void ParameterRamper::setSkew(float skew)
+{
+    if (skew > 1) {
+        skew = 1.0;
+    }
+    if (skew < 0) {
+        skew = 0.0;
+    }
+    data->skew = skew;
+    atomic_fetch_add(&data->changeCounter, 1);
+}
+
+float ParameterRamper::getSkew() const
+{
+    return data->skew;
+}
+
+void ParameterRamper::setOffset(uint32_t offset)
+{
+    if (offset < 0) {
+        offset = 0;
+    }
+    data->offset = offset;
+    atomic_fetch_add(&data->changeCounter, 1);
+}
+
+uint32_t ParameterRamper::getOffset() const
+{
+    return data->offset;
 }
 
 void ParameterRamper::setUIValue(float value)
@@ -81,23 +131,23 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
     if (duration == 0) {
         setImmediate(newGoal);
     } else {
-        /*
-         Set a new ramp.
-         Assigning to inverseSlope must come before assigning to goal.
-         */
-        data->inverseSlope = (get() - newGoal) / float(duration);
-        data->samplesRemaining = duration;
+        data->startingPoint = data->uiValue;
+        data->duration = duration;
+        data->samplesRemaining = duration - data->offset;
         data->goal = data->uiValue = newGoal;
     }
 }
 
 float ParameterRamper::get() const
 {
-    /*
-     For long ramps, integrating a sum loses precision and does not reach
-     the goal at the right time. So instead, a line equation is used. y = m * x + b.
-     */
-    return data->inverseSlope * float(data->samplesRemaining) + data->goal;
+    float x = float(data->duration - data->samplesRemaining) / float(data->duration);
+    float taper1 = data->startingPoint + (data->goal - data->startingPoint) * pow(x, abs(data->taper));
+
+    float absxm1 = abs(float(data->duration - data->samplesRemaining) / float(data->duration) - 1.0);
+
+    float taper2 = data->startingPoint + (data->goal - data->startingPoint) * (1.0 - pow(absxm1, 1.0 / abs(data->taper)));
+
+    return taper1 * (1.0 - data->skew) + taper2 * data->skew;
 }
 
 void ParameterRamper::step()

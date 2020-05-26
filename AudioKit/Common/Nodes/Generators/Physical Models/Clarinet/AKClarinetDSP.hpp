@@ -35,10 +35,10 @@ public:
     
     ~AKClarinetDSP();
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
 
     void init(int channelCount, double sampleRate) override;

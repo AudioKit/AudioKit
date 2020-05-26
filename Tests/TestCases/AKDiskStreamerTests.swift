@@ -24,10 +24,10 @@ class AKDiskStreamerTests: AKTestCase {
             self.loadFile()
             self.streamer?.play()
         }
-        AKTestMD5("d8bf32699a72873551a44e0a2758a5da")
+        AKTestMD5("5d836377d0098d7c1e3624a94e86e03d")
     }
 
-    let testCompletionHandlerMD5 = "e561e0d540fe09b09f7e3399d09829f5"
+    let testCompletionHandlerMD5 = "5f306e81c0e36951a048aae9874e9b40"
 
     func testCompletionHandler() {
         streamer?.completionHandler = {
@@ -55,7 +55,7 @@ class AKDiskStreamerTests: AKTestCase {
             self.streamer?.rate = 0.5
             self.streamer?.play()
         }
-        AKTestMD5("71f031bac4f9c935c8a8ddf653b02f7c")
+        AKTestMD5("c1f8dcf69cd781fdc94dc9866660fd79")
     }
 
     func testSpeedup() {
@@ -64,7 +64,7 @@ class AKDiskStreamerTests: AKTestCase {
             self.streamer?.rate = 1.5
             self.streamer?.play()
         }
-        AKTestMD5("347e2708deb5684ebf97817e3b72f279")
+        AKTestMD5("4615ccfa3a8fc8872197d604d835f57e")
     }
 
     func testSeek() {
@@ -73,7 +73,7 @@ class AKDiskStreamerTests: AKTestCase {
             self.streamer?.play()
             self.streamer?.seek(to: 1_000)
         }
-        AKTestMD5("c8da2c623a280eb9284bb41202d06d13")
+        AKTestMD5("e448e20b096fa6e341ba6a419b1b4760")
     }
 
     func setupStreamer() {

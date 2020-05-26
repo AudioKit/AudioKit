@@ -10,7 +10,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKParameterRamp.hpp"
-#import "AKExponentialParameterRamp.hpp" // to be deleted
 
 typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
@@ -45,6 +44,8 @@ public:
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void start() override;
+    void stop() override;
 };
 
 #endif

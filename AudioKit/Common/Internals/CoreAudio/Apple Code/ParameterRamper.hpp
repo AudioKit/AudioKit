@@ -1,11 +1,13 @@
-/*
-<samplecode>
-     <abstract>
-     Utility class to manage DSP parameters which can change value smoothly (be ramped) while rendering, without introducing clicks or other distortion into the signal.
-     </abstract>
-</samplecode>
- */
-
+//
+// ParameterRamper.hpp
+// AudioKit
+//
+// Utility class to manage DSP parameters which can change value smoothly (be ramped) while rendering, without introducing clicks or other distortion into the signal.
+//
+// Originally based on Apple sample code, but significantly altered by Aurelius Prochazka
+//
+//  Copyright © 2020 AudioKit. All rights reserved.
+//
 #pragma once
 
 #ifdef __cplusplus
@@ -26,6 +28,18 @@ public:
     void init();
 
     void reset();
+
+    void setTaper(float taper);
+
+    float getTaper() const;
+
+    void setSkew(float skew);
+
+    float getSkew() const;
+
+    void setOffset(uint32_t offset);
+
+    uint32_t getOffset() const;
 
     void setUIValue(float value);
 

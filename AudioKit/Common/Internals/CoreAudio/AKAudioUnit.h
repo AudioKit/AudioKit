@@ -6,7 +6,6 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-
 #import <AVFoundation/AVFoundation.h>
 
 @protocol AKKernelUnit

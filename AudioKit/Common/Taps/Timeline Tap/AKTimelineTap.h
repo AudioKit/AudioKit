@@ -51,9 +51,7 @@ typedef void (^AKTimelineBlock)(AKTimeline *_Nonnull      timeline,
  */
 @property BOOL preRender;
 
-/**
- The underlying timeline.
- */
+/// The underlying timeline.
 @property (readonly) AKTimeline *_Nonnull timeline;
 
 /**

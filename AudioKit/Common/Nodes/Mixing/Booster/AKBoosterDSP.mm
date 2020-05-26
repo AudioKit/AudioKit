@@ -63,12 +63,20 @@ float AKBoosterDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
+void AKBoosterDSP::start() {
+    isStarted = true;
+}
+
+void AKBoosterDSP::stop() {
+    isStarted = false;
+}
+
 void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
+        if (isStarted && (frameOffset & 0x7) == 0) {
             data->leftGainRamp.advanceTo(now + frameOffset);
             data->rightGainRamp.advanceTo(now + frameOffset);
         }
@@ -77,10 +85,14 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            if (channel == 0) {
-                *out = *in * data->leftGainRamp.getValue();
+            if (isStarted) {
+                if (channel == 0) {
+                    *out = *in * data->leftGainRamp.getValue();
+                } else {
+                    *out = *in * data->rightGainRamp.getValue();
+                }
             } else {
-                *out = *in * data->rightGainRamp.getValue();
+                *out = *in;
             }
         }
     }
