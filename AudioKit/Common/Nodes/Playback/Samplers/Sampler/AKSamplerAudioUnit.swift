@@ -66,12 +66,20 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.attackDuration, value: attackDuration) }
     }
 
+    var holdDuration: Double = 0.0 {
+        didSet { setParameter(.holdDuration, value: holdDuration) }
+    }
+
     var decayDuration: Double = 0.0 {
         didSet { setParameter(.decayDuration, value: decayDuration) }
     }
 
     var sustainLevel: Double = 0.0 {
         didSet { setParameter(.sustainLevel, value: sustainLevel) }
+    }
+
+    var releaseHoldDuration: Double = 0.0 {
+        didSet { setParameter(.releaseHoldDuration, value: releaseHoldDuration) }
     }
 
     var releaseDuration: Double = 0.0 {
@@ -260,6 +268,16 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
+        let holdDurationParameter = AUParameter(
+            identifier: "holdDuration",
+            name: "Amplitude Hold duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         let decayDurationParameter = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
@@ -276,6 +294,16 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             address: parameterAddress,
             range: 0.0...1.0,
             unit: .generic,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
+        let releaseHoldDurationParameter = AUParameter(
+            identifier: "releaseHoldDuration",
+            name: "Amplitude Release-Hold duration (seconds)",
+            address: parameterAddress,
+            range: 0.0...1_000.0,
+            unit: .seconds,
             flags: nonRampFlags)
 
         parameterAddress += 1
@@ -449,8 +477,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterResonanceParameter,
                                                                    glideRateParameter,
                                                                    attackDurationParameter,
+                                                                   holdDurationParameter,
                                                                    decayDurationParameter,
                                                                    sustainLevelParameter,
+                                                                   releaseHoldDurationParameter,
                                                                    releaseDurationParameter,
                                                                    filterAttackDurationParameter,
                                                                    filterDecayDurationParameter,
@@ -478,8 +508,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterResonanceParameter.value = 0.0
         glideRateParameter.value = 0.0
         attackDurationParameter.value = 0.0
+        holdDurationParameter.value = 0.0
         decayDurationParameter.value = 0.0
         sustainLevelParameter.value = 1.0
+        releaseHoldDurationParameter.value = 0.0
         releaseDurationParameter.value = 0.0
         filterAttackDurationParameter.value = 0.0
         filterDecayDurationParameter.value = 0.0

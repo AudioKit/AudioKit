@@ -179,11 +179,17 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterAttackDuration:
             setADSRAttackDurationSeconds(value);
             break;
+        case AKSamplerParameterHoldDuration:
+            setADSRHoldDurationSeconds(value);
+            break;
         case AKSamplerParameterDecayDuration:
             setADSRDecayDurationSeconds(value);
             break;
         case AKSamplerParameterSustainLevel:
             setADSRSustainFraction(value);
+            break;
+        case AKSamplerParameterReleaseHoldDuration:
+            setADSRReleaseHoldDurationSeconds(value);
             break;
         case AKSamplerParameterReleaseDuration:
             setADSRReleaseDurationSeconds(value);
@@ -269,10 +275,14 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
 
         case AKSamplerParameterAttackDuration:
             return getADSRAttackDurationSeconds();
+        case AKSamplerParameterHoldDuration:
+            return getADSRHoldDurationSeconds();
         case AKSamplerParameterDecayDuration:
             return getADSRDecayDurationSeconds();
         case AKSamplerParameterSustainLevel:
             return getADSRSustainFraction();
+        case AKSamplerParameterReleaseHoldDuration:
+            return getADSRReleaseHoldDurationSeconds();
         case AKSamplerParameterReleaseDuration:
             return getADSRReleaseDurationSeconds();
 
