@@ -22,6 +22,14 @@ extern "C" void sequencerEngineRemoveMIDINote(AKDSPRef dsp, double beat) {
     ((AKSequencerEngineDSP*)dsp)->removeNoteAt(beat);
 }
 
+extern "C" void sequencerEngineRemoveSpecificMIDINote(AKDSPRef dsp, double beat, uint8_t noteNumber) {
+    ((AKSequencerEngineDSP*)dsp)->removeNoteAt(noteNumber, beat);
+}
+
+extern "C" void sequencerEngineRemoveAllInstancesOf(AKDSPRef dsp, uint8_t noteNumber) {
+    ((AKSequencerEngineDSP*)dsp)->removeAllInstancesOf(noteNumber);
+}
+
 extern "C" void sequencerEngineStopPlayingNotes(AKDSPRef dsp) {
     ((AKSequencerEngineDSP*)dsp)->stopPlayingNotes();
 }

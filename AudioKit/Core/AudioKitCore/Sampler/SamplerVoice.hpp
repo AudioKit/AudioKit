@@ -6,8 +6,12 @@
 #include "SampleBuffer.hpp"
 #include "SampleOscillator.hpp"
 #include "ADSREnvelope.hpp"
+#include "FunctionTable.hpp"
 #include "ResonantLowPassFilter.hpp"
 #include "LinearRamper.hpp"
+
+// process samples in "chunks" this size
+#define AKCORESAMPLER_CHUNKSIZE 16 // should probably be set elsewhere - currently only use this for setting up lfo
 
 namespace AudioKitCore
 {
@@ -25,6 +29,9 @@ namespace AudioKitCore
         ResonantLowPassFilter leftFilter, rightFilter;
         ADSREnvelope adsrEnvelope, filterEnvelope, pitchEnvelope;
 
+        // per-voice vibrato LFO
+        FunctionTableOscillator vibratoLFO;
+
         /// common glide rate, seconds per octave
         float *glideSecPerOctave;
 
@@ -39,6 +46,9 @@ namespace AudioKitCore
 
         /// amount of semitone change via pitch envelope
         float pitchEnvelopeSemitones;
+
+        /// amount of semitone change via voice lfo
+        float voiceLFOSemitones;
 
         /// fraction 0.0 - 1.0, based on MIDI velocity
         float noteVolume;
@@ -88,7 +98,9 @@ namespace AudioKitCore
                               float cutoffEnvelopeStrength,
                               float cutoffEnvelopeVelocityScaling,
                               float resLinear,
-                              float pitchADSRSemitones);
+                              float pitchADSRSemitones,
+                              float voiceLFOFrequencyHz,
+                              float voiceLFODepthSemitones);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
     };
