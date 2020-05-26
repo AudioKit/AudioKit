@@ -7,21 +7,21 @@ extension AVAudioConnectionPoint {
 }
 
 /// Parent class for all nodes in AudioKit
-@objc open class AKNode: NSObject {
+open class AKNode: NSObject {
 
     /// The internal AVAudioEngine AVAudioNode
-    @objc open var avAudioNode: AVAudioNode
+    open var avAudioNode: AVAudioNode
 
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
-    @objc open var avAudioUnit: AVAudioUnit?
+    open var avAudioUnit: AVAudioUnit?
 
     /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
-    @objc open var avAudioUnitOrNode: AVAudioNode {
+    open var avAudioUnitOrNode: AVAudioNode {
         return self.avAudioUnit ?? self.avAudioNode
     }
 
     /// Initialize the node from an AVAudioUnit
-    @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+    public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
         if attach {
@@ -30,7 +30,7 @@ extension AVAudioConnectionPoint {
     }
 
     /// Initialize the node from an AVAudioNode
-    @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
             AKManager.engine.attach(avAudioNode)
@@ -41,9 +41,83 @@ extension AVAudioConnectionPoint {
         detach()
     }
 
-    // Subclasses should override to detach all internal nodes
+    /// Subclasses should override to detach all internal nodes
     open func detach() {
         AKManager.detach(nodes: [avAudioUnitOrNode])
+    }
+}
+
+/// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
+open class AKNodeParameter {
+    
+    private var dsp: AKDSPRef?
+    
+    private var parameter: AUParameter?
+    
+    // MARK: Parameter properties
+    
+    public private(set) var identifier: String
+    
+    public var value: AUValue = 0 {
+        didSet {
+            guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
+            value = (min...max).clamp(value)
+            if (value == oldValue) { return }
+            parameter?.value = value
+        }
+    }
+    
+    public var boolValue: Bool {
+        get { value > 0.5 }
+        set { value = newValue ? 1.0 : 0.0 }
+    }
+    
+    public var rampDuration: Float = Float(AKSettings.rampDuration) {
+        didSet {
+            guard let dsp = dsp, let addr = parameter?.address else { return }
+            setParameterRampDurationDSP(dsp, addr, rampDuration)
+        }
+    }
+
+    public var rampTaper: Float = 1 {
+        didSet {
+            guard let dsp = dsp, let addr = parameter?.address else { return }
+            setParameterRampTaperDSP(dsp, addr, rampTaper)
+        }
+    }
+
+    public var rampSkew: Float = 0 {
+        didSet {
+            guard let dsp = dsp, let addr = parameter?.address else { return }
+            setParameterRampSkewDSP(dsp, addr, rampSkew)
+        }
+    }
+    
+    // MARK: Lifecycle
+    
+    public init(identifier: String) {
+        self.identifier = identifier
+    }
+    
+    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
+    public func associate(with au: AKAudioUnitBase?, value: AUValue) {
+        dsp = au?.dsp
+        parameter = au?.parameterTree?[identifier]
+        
+        // set initial value (and ensure initial value is set)
+        self.value = value
+        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
+        parameter?.value = (min...max).clamp(value)
+        
+        guard let dsp = dsp, let addr = parameter?.address else { return }
+        setParameterRampDurationDSP(dsp, addr, rampDuration)
+        setParameterRampTaperDSP(dsp, addr, rampTaper)
+        setParameterRampSkewDSP(dsp, addr, rampSkew)
+    }
+    
+    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
+    public func associate(with au: AKAudioUnitBase?, value: Bool) {
+        associate(with: au, value: value ? 1.0 : 0.0)
     }
 }
 
@@ -159,5 +233,20 @@ public extension AKToggleable {
     /// Synonym for stop that may make more sense with effects
     func bypass() {
         stop()
+    }
+}
+
+public extension AKToggleable where Self: AKComponent {
+    
+    var isStarted: Bool {
+        return (internalAU as? AKAudioUnitBase)?.isStarted ?? false
+    }
+    
+    func start() {
+        (internalAU as? AKAudioUnitBase)?.start()
+    }
+    
+    func stop() {
+        (internalAU as? AKAudioUnitBase)?.stop()
     }
 }

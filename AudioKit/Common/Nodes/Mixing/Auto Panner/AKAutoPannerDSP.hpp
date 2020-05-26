@@ -32,6 +32,10 @@ public:
     void deinit() override;
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override;
+    
+    virtual void setParameter(AUParameterAddress address, float value, bool immediate) override;
+    
+    virtual float getParameter(AUParameterAddress address) override;
 };
 
 #endif
