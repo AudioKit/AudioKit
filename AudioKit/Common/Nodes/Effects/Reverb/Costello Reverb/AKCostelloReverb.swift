@@ -4,48 +4,40 @@
 /// modeling scattering junction of 8 lossless waveguides of equal
 /// characteristic impedance.
 ///
-open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
+open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Initial value for Feedback
-    public static let defaultFeedback: Double = 0.6
+    public static let defaultFeedback: AUValue = 0.6
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 4_000.0
+    public static let defaultCutoffFrequency: AUValue = 4000.0
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    @objc open var feedback: Double = defaultFeedback {
-        willSet {
-            let clampedValue = AKCostelloReverb.feedbackRange.clamp(newValue)
-            guard feedback != clampedValue else { return }
-            internalAU?.feedback.value = AUValue(clampedValue)
-        }
-    }
+    public let feedback = AKNodeParameter(identifier: "feedback")
 
     /// Low-pass cutoff frequency.
-    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
-        willSet {
-            let clampedValue = AKCostelloReverb.cutoffFrequencyRange.clamp(newValue)
-            guard cutoffFrequency != clampedValue else { return }
-            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     // MARK: - Initialization
 
@@ -58,32 +50,22 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        feedback: Double = defaultFeedback,
-        cutoffFrequency: Double = defaultCutoffFrequency
+        feedback: AUValue = defaultFeedback,
+        cutoffFrequency: AUValue = defaultCutoffFrequency
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.feedback.associate(with: self.internalAU, value: feedback)
+            self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
+
             input?.connect(to: self)
-
-            self.feedback = feedback
-            self.cutoffFrequency = cutoffFrequency
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

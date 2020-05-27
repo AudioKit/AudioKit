@@ -2,63 +2,49 @@
 
 /// Faust-based pitch shfiter
 ///
-open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKPitchShifterAudioUnit
+open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKPitchShifterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Shift
-    public static let shiftRange: ClosedRange<Double> = -24.0 ... 24.0
+    public static let shiftRange: ClosedRange<AUValue> = -24.0 ... 24.0
 
     /// Lower and upper bounds for Window Size
-    public static let windowSizeRange: ClosedRange<Double> = 0.0 ... 10_000.0
+    public static let windowSizeRange: ClosedRange<AUValue> = 0.0 ... 10000.0
 
     /// Lower and upper bounds for Crossfade
-    public static let crossfadeRange: ClosedRange<Double> = 0.0 ... 10_000.0
+    public static let crossfadeRange: ClosedRange<AUValue> = 0.0 ... 10000.0
 
     /// Initial value for Shift
-    public static let defaultShift: Double = 0
+    public static let defaultShift: AUValue = 0
 
     /// Initial value for Window Size
-    public static let defaultWindowSize: Double = 1_024
+    public static let defaultWindowSize: AUValue = 1024
 
     /// Initial value for Crossfade
-    public static let defaultCrossfade: Double = 512
+    public static let defaultCrossfade: AUValue = 512
 
     /// Pitch shift (in semitones)
-    @objc open var shift: Double = defaultShift {
-        willSet {
-            let clampedValue = AKPitchShifter.shiftRange.clamp(newValue)
-            guard shift != clampedValue else { return }
-            internalAU?.shift.value = AUValue(clampedValue)
-        }
-    }
+    public let shift = AKNodeParameter(identifier: "shift")
 
     /// Window size (in samples)
-    @objc open var windowSize: Double = defaultWindowSize {
-        willSet {
-            let clampedValue = AKPitchShifter.windowSizeRange.clamp(newValue)
-            guard windowSize != clampedValue else { return }
-            internalAU?.windowSize.value = AUValue(clampedValue)
-        }
-    }
+    public let windowSize = AKNodeParameter(identifier: "windowSize")
 
     /// Crossfade (in samples)
-    @objc open var crossfade: Double = defaultCrossfade {
-        willSet {
-            let clampedValue = AKPitchShifter.crossfadeRange.clamp(newValue)
-            guard crossfade != clampedValue else { return }
-            internalAU?.crossfade.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let crossfade = AKNodeParameter(identifier: "crossfade")
 
     // MARK: - Initialization
 
@@ -72,34 +58,24 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        shift: Double = defaultShift,
-        windowSize: Double = defaultWindowSize,
-        crossfade: Double = defaultCrossfade
+        shift: AUValue = defaultShift,
+        windowSize: AUValue = defaultWindowSize,
+        crossfade: AUValue = defaultCrossfade
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.shift.associate(with: self.internalAU, value: shift)
+            self.windowSize.associate(with: self.internalAU, value: windowSize)
+            self.crossfade.associate(with: self.internalAU, value: crossfade)
+
             input?.connect(to: self)
-
-            self.shift = shift
-            self.windowSize = windowSize
-            self.crossfade = crossfade
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

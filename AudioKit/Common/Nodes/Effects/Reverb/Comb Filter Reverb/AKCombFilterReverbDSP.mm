@@ -1,13 +1,7 @@
-//
-//  AKCombFilterReverbDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKCombFilterReverbDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createCombFilterReverbDSP() {
     return new AKCombFilterReverbDSP();
@@ -17,7 +11,7 @@ struct AKCombFilterReverbDSP::InternalData {
     sp_comb *comb0;
     sp_comb *comb1;
     float loopDuration = 0.1;
-    AKLinearParameterRamp reverbDurationRamp;
+    ParameterRamper reverbDurationRamp;
 };
 
 AKCombFilterReverbDSP::AKCombFilterReverbDSP() : data(new InternalData) {
@@ -50,13 +44,9 @@ void AKCombFilterReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCo
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->reverbDurationRamp.advanceTo(now + frameOffset);
-        }
-
-        data->comb0->revtime = data->reverbDurationRamp.getValue();
-        data->comb1->revtime = data->reverbDurationRamp.getValue();
+        float reverbDuration = data->reverbDurationRamp.getAndStep();
+        data->comb0->revtime = reverbDuration;
+        data->comb1->revtime = reverbDuration;
 
         float *tmpin[2];
         float *tmpout[2];

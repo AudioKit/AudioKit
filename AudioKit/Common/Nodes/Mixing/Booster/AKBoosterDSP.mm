@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBoosterDSP.hpp"
+#import "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createBoosterDSP()
 {
@@ -8,8 +9,8 @@ extern "C" AKDSPRef createBoosterDSP()
 }
 
 struct AKBoosterDSP::InternalData {
-    AKParameterRamp leftGainRamp;
-    AKParameterRamp rightGainRamp;
+    ParameterRamper leftGainRamp;
+    ParameterRamper rightGainRamp;
 };
 
 AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
@@ -20,37 +21,22 @@ AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
     bCanProcessInPlace = true;
 }
 
-// Uses the ParameterAddress as a key
-void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
-{
-    if (address == AKBoosterParameterRampType) {
-        data->leftGainRamp.setRampType(value);
-        data->rightGainRamp.setRampType(value);
-    }
-    else {
-        AKDSPBase::setParameter(address, value, immediate);
-    }
-}
-
 void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-        // do ramping every 8 samples
-        if (isStarted && (frameOffset & 0x7) == 0) {
-            data->leftGainRamp.advanceTo(now + frameOffset);
-            data->rightGainRamp.advanceTo(now + frameOffset);
-        }
-        // do actual signal processing
-        // After all this scaffolding, the only thing we are doing is scaling the input
+        
+        float lgain = data->leftGainRamp.getAndStep();
+        float rgain = data->rightGainRamp.getAndStep();
+        
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             if (isStarted) {
                 if (channel == 0) {
-                    *out = *in * data->leftGainRamp.getValue();
+                    *out = *in * lgain;
                 } else {
-                    *out = *in * data->rightGainRamp.getValue();
+                    *out = *in * rgain;
                 }
             } else {
                 *out = *in;

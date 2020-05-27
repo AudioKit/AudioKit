@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKEqualizerFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createEqualizerFilterDSP() {
     return new AKEqualizerFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createEqualizerFilterDSP() {
 struct AKEqualizerFilterDSP::InternalData {
     sp_eqfil *eqfil0;
     sp_eqfil *eqfil1;
-    AKLinearParameterRamp centerFrequencyRamp;
-    AKLinearParameterRamp bandwidthRamp;
-    AKLinearParameterRamp gainRamp;
+    ParameterRamper centerFrequencyRamp;
+    ParameterRamper bandwidthRamp;
+    ParameterRamper gainRamp;
 };
 
 AKEqualizerFilterDSP::AKEqualizerFilterDSP() : data(new InternalData) {
@@ -47,19 +47,17 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(now + frameOffset);
-            data->bandwidthRamp.advanceTo(now + frameOffset);
-            data->gainRamp.advanceTo(now + frameOffset);
-        }
+        float centerFrequency = data->centerFrequencyRamp.getAndStep();
+        data->eqfil0->freq = centerFrequency;
+        data->eqfil1->freq = centerFrequency;
 
-        data->eqfil0->freq = data->centerFrequencyRamp.getValue();
-        data->eqfil1->freq = data->centerFrequencyRamp.getValue();
-        data->eqfil0->bw = data->bandwidthRamp.getValue();
-        data->eqfil1->bw = data->bandwidthRamp.getValue();
-        data->eqfil0->gain = data->gainRamp.getValue();
-        data->eqfil1->gain = data->gainRamp.getValue();
+        float bandwidth = data->bandwidthRamp.getAndStep();
+        data->eqfil0->bw = bandwidth;
+        data->eqfil1->bw = bandwidth;
+
+        float gain = data->gainRamp.getAndStep();
+        data->eqfil0->gain = gain;
+        data->eqfil1->gain = gain;
 
         float *tmpin[2];
         float *tmpout[2];

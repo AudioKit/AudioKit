@@ -73,11 +73,11 @@ open class AKAudioUnitBase: AUAudioUnit {
             _parameterTree = newValue
 
             _parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
-                setParameterDSP(self.dsp, parameter.address, value)
+                setParameterValueDSP(self.dsp, parameter.address, value)
             }
 
             _parameterTree?.implementorValueProvider = { [unowned self] parameter in
-                getParameterDSP(self.dsp, parameter.address)
+                getParameterValueDSP(self.dsp, parameter.address)
             }
 
             _parameterTree?.implementorStringFromValueCallback = { parameter, value in
@@ -105,10 +105,7 @@ open class AKAudioUnitBase: AUAudioUnit {
         // Create pointer to the underlying C++ DSP code
         dsp = createDSP()
         if dsp == nil { throw AKError.InvalidDSPObject }
-
-        // set default ramp duration
-        setRampDurationDSP(dsp, Float(rampDuration))
-
+        
         // create audio bus connection points
         let format = AKSettings.audioFormat
         for _ in 0..<inputBusCountDSP(dsp) {
@@ -130,7 +127,7 @@ open class AKAudioUnitBase: AUAudioUnit {
     /// Paramater ramp duration (seconds)
     public var rampDuration: Double = AKSettings.rampDuration {
         didSet {
-            setRampDurationDSP(dsp, Float(rampDuration))
+            setParameterRampDurationDSP(dsp, 0, Float(rampDuration))
         }
     }
 

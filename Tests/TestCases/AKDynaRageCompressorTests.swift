@@ -10,7 +10,7 @@ class AKDynaRangeCompressorTests: AKTestCase {
         // Need to have a longer test duration to allow for envelope to progress
         duration = 1.0
         input.rampDuration = 0.0
-        input.amplitude = 0.1
+        input.amplitude.value = 0.1
     }
 
     func testAttackTime() {

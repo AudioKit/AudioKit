@@ -5,97 +5,70 @@
 /// based on the classic Kelly-Lochbaum segmented cylindrical 1d waveguide
 /// model, and the glottal pulse wave is a LF glottal pulse model.
 ///
-open class AKVocalTract: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKVocalTractAudioUnit
+open class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKVocalTractAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22_050.0
+    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 22050.0
 
     /// Lower and upper bounds for Tongue Position
-    public static let tonguePositionRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let tonguePositionRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Tongue Diameter
-    public static let tongueDiameterRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let tongueDiameterRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Tenseness
-    public static let tensenessRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let tensenessRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Nasality
-    public static let nasalityRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let nasalityRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 160.0
+    public static let defaultFrequency: AUValue = 160.0
 
     /// Initial value for Tongue Position
-    public static let defaultTonguePosition: Double = 0.5
+    public static let defaultTonguePosition: AUValue = 0.5
 
     /// Initial value for Tongue Diameter
-    public static let defaultTongueDiameter: Double = 1.0
+    public static let defaultTongueDiameter: AUValue = 1.0
 
     /// Initial value for Tenseness
-    public static let defaultTenseness: Double = 0.6
+    public static let defaultTenseness: AUValue = 0.6
 
     /// Initial value for Nasality
-    public static let defaultNasality: Double = 0.0
+    public static let defaultNasality: AUValue = 0.0
 
     /// Glottal frequency.
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKVocalTract.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Tongue position (0-1)
-    @objc open var tonguePosition: Double = defaultTonguePosition {
-        willSet {
-            let clampedValue = AKVocalTract.tonguePositionRange.clamp(newValue)
-            guard tonguePosition != clampedValue else { return }
-            internalAU?.tonguePosition.value = AUValue(clampedValue)
-        }
-    }
+    public let tonguePosition = AKNodeParameter(identifier: "tonguePosition")
 
     /// Tongue diameter (0-1)
-    @objc open var tongueDiameter: Double = defaultTongueDiameter {
-        willSet {
-            let clampedValue = AKVocalTract.tongueDiameterRange.clamp(newValue)
-            guard tongueDiameter != clampedValue else { return }
-            internalAU?.tongueDiameter.value = AUValue(clampedValue)
-        }
-    }
+    public let tongueDiameter = AKNodeParameter(identifier: "tongueDiameter")
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    @objc open var tenseness: Double = defaultTenseness {
-        willSet {
-            let clampedValue = AKVocalTract.tensenessRange.clamp(newValue)
-            guard tenseness != clampedValue else { return }
-            internalAU?.tenseness.value = AUValue(clampedValue)
-        }
-    }
+    public let tenseness = AKNodeParameter(identifier: "tenseness")
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    @objc open var nasality: Double = defaultNasality {
-        willSet {
-            let clampedValue = AKVocalTract.nasalityRange.clamp(newValue)
-            guard nasality != clampedValue else { return }
-            internalAU?.nasality.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let nasality = AKNodeParameter(identifier: "nasality")
 
     // MARK: - Initialization
-
+    
     /// Initialize this vocal tract node
     ///
     /// - Parameters:
@@ -105,36 +78,28 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     ///   - tenseness: Vocal tenseness. 0 = all breath. 1=fully saturated.
     ///   - nasality: Sets the velum size. Larger values of this creates more nasally sounds.
     ///
-    @objc public init(
-        frequency: Double = defaultFrequency,
-        tonguePosition: Double = defaultTonguePosition,
-        tongueDiameter: Double = defaultTongueDiameter,
-        tenseness: Double = defaultTenseness,
-        nasality: Double = defaultNasality
+    public init(
+        frequency: AUValue = defaultFrequency,
+        tonguePosition: AUValue = defaultTonguePosition,
+        tongueDiameter: AUValue = defaultTongueDiameter,
+        tenseness: AUValue = defaultTenseness,
+        nasality: AUValue = defaultNasality
     ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.frequency = frequency
-            self.tonguePosition = tonguePosition
-            self.tongueDiameter = tongueDiameter
-            self.tenseness = tenseness
-            self.nasality = nasality
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.tonguePosition.associate(with: self.internalAU, value: tonguePosition)
+            self.tongueDiameter.associate(with: self.internalAU, value: tongueDiameter)
+            self.tenseness.associate(with: self.internalAU, value: tenseness)
+            self.nasality.associate(with: self.internalAU, value: nasality)
         }
-    }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

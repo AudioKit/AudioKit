@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKKorgLowPassFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createKorgLowPassFilterDSP() {
     return new AKKorgLowPassFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createKorgLowPassFilterDSP() {
 struct AKKorgLowPassFilterDSP::InternalData {
     sp_wpkorg35 *wpkorg350;
     sp_wpkorg35 *wpkorg351;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
-    AKLinearParameterRamp saturationRamp;
+    ParameterRamper cutoffFrequencyRamp;
+    ParameterRamper resonanceRamp;
+    ParameterRamper saturationRamp;
 };
 
 AKKorgLowPassFilterDSP::AKKorgLowPassFilterDSP() : data(new InternalData) {
@@ -47,19 +47,17 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-            data->resonanceRamp.advanceTo(now + frameOffset);
-            data->saturationRamp.advanceTo(now + frameOffset);
-        }
+        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep() - 0.0001f;
+        data->wpkorg350->cutoff = cutoffFrequency;
+        data->wpkorg351->cutoff = cutoffFrequency;
 
-        data->wpkorg350->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
-        data->wpkorg351->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
-        data->wpkorg350->res = data->resonanceRamp.getValue();
-        data->wpkorg351->res = data->resonanceRamp.getValue();
-        data->wpkorg350->saturation = data->saturationRamp.getValue();
-        data->wpkorg351->saturation = data->saturationRamp.getValue();
+        float resonance = data->resonanceRamp.getAndStep();
+        data->wpkorg350->res = resonance;
+        data->wpkorg351->res = resonance;
+
+        float saturation = data->saturationRamp.getAndStep();
+        data->wpkorg350->saturation = saturation;
+        data->wpkorg351->saturation = saturation;
 
         float *tmpin[2];
         float *tmpout[2];

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP() {
     return new AKFlatFrequencyResponseReverbDSP();
@@ -15,7 +15,7 @@ struct AKFlatFrequencyResponseReverbDSP::InternalData {
     sp_allpass *allpass0;
     sp_allpass *allpass1;
     float loopDuration = 0.1;
-    AKLinearParameterRamp reverbDurationRamp;
+    ParameterRamper reverbDurationRamp;
 };
 
 AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new InternalData) {
@@ -53,13 +53,9 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->reverbDurationRamp.advanceTo(now + frameOffset);
-        }
-
-        data->allpass0->revtime = data->reverbDurationRamp.getValue();
-        data->allpass1->revtime = data->reverbDurationRamp.getValue();
+        float reverbDuration = data->reverbDurationRamp.getAndStep();
+        data->allpass0->revtime = reverbDuration;
+        data->allpass1->revtime = reverbDuration;
 
         float *tmpin[2];
         float *tmpout[2];

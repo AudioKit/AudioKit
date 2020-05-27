@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKTanhDistortionDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createTanhDistortionDSP() {
     return new AKTanhDistortionDSP();
@@ -10,10 +10,10 @@ extern "C" AKDSPRef createTanhDistortionDSP() {
 struct AKTanhDistortionDSP::InternalData {
     sp_dist *dist0;
     sp_dist *dist1;
-    AKLinearParameterRamp pregainRamp;
-    AKLinearParameterRamp postgainRamp;
-    AKLinearParameterRamp positiveShapeParameterRamp;
-    AKLinearParameterRamp negativeShapeParameterRamp;
+    ParameterRamper pregainRamp;
+    ParameterRamper postgainRamp;
+    ParameterRamper positiveShapeParameterRamp;
+    ParameterRamper negativeShapeParameterRamp;
 };
 
 AKTanhDistortionDSP::AKTanhDistortionDSP() : data(new InternalData) {
@@ -49,22 +49,21 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->pregainRamp.advanceTo(now + frameOffset);
-            data->postgainRamp.advanceTo(now + frameOffset);
-            data->positiveShapeParameterRamp.advanceTo(now + frameOffset);
-            data->negativeShapeParameterRamp.advanceTo(now + frameOffset);
-        }
+        float pregain = data->pregainRamp.getAndStep();
+        data->dist0->pregain = pregain;
+        data->dist1->pregain = pregain;
 
-        data->dist0->pregain = data->pregainRamp.getValue();
-        data->dist1->pregain = data->pregainRamp.getValue();
-        data->dist0->postgain = data->postgainRamp.getValue();
-        data->dist1->postgain = data->postgainRamp.getValue();
-        data->dist0->shape1 = data->positiveShapeParameterRamp.getValue();
-        data->dist1->shape1 = data->positiveShapeParameterRamp.getValue();
-        data->dist0->shape2 = data->negativeShapeParameterRamp.getValue();
-        data->dist1->shape2 = data->negativeShapeParameterRamp.getValue();
+        float postgain = data->postgainRamp.getAndStep();
+        data->dist0->postgain = postgain;
+        data->dist1->postgain = postgain;
+
+        float positiveShapeParameter = data->positiveShapeParameterRamp.getAndStep();
+        data->dist0->shape1 = positiveShapeParameter;
+        data->dist1->shape1 = positiveShapeParameter;
+
+        float negativeShapeParameter = data->negativeShapeParameterRamp.getAndStep();
+        data->dist0->shape2 = negativeShapeParameter;
+        data->dist1->shape2 = negativeShapeParameter;
 
         float *tmpin[2];
         float *tmpout[2];

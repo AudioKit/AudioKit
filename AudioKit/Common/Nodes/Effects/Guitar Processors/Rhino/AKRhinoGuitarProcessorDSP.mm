@@ -5,7 +5,7 @@
 #include "RageProcessor.h"
 #include "Filter.h"
 #include "Equalisator.h"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <math.h>
 #include <iostream>
 
@@ -27,12 +27,12 @@ struct AKRhinoGuitarProcessorDSP::InternalData {
     MikeFilter *mikeFilterL;
     MikeFilter *mikeFilterR;
 
-    AKLinearParameterRamp preGainRamper;
-    AKLinearParameterRamp postGainRamper;
-    AKLinearParameterRamp lowGainRamper;
-    AKLinearParameterRamp midGainRamper;
-    AKLinearParameterRamp highGainRamper;
-    AKLinearParameterRamp distortionRamper;
+    ParameterRamper preGainRamper;
+    ParameterRamper postGainRamper;
+    ParameterRamper lowGainRamper;
+    ParameterRamper midGainRamper;
+    ParameterRamper highGainRamper;
+    ParameterRamper distortionRamper;
 };
 
 AKRhinoGuitarProcessorDSP::AKRhinoGuitarProcessorDSP() : data(new InternalData) {
@@ -88,22 +88,12 @@ void AKRhinoGuitarProcessorDSP::process(AUAudioFrameCount frameCount, AUAudioFra
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->preGainRamper.advanceTo(now + frameOffset);
-            data->postGainRamper.advanceTo(now + frameOffset);
-            data->lowGainRamper.advanceTo(now + frameOffset);
-            data->midGainRamper.advanceTo(now + frameOffset);
-            data->highGainRamper.advanceTo(now + frameOffset);
-            data->distortionRamper.advanceTo(now + frameOffset);
-        }
-        
-        float preGain = data->preGainRamper.getValue();
-        float postGain = data->postGainRamper.getValue();
-        float lowGain = data->lowGainRamper.getValue();
-        float midGain = data->midGainRamper.getValue();
-        float highGain = data->highGainRamper.getValue();
-        float distortion = data->distortionRamper.getValue();
+        float preGain = data->preGainRamper.getAndStep();
+        float postGain = data->postGainRamper.getAndStep();
+        float lowGain = data->lowGainRamper.getAndStep();
+        float midGain = data->midGainRamper.getAndStep();
+        float highGain = data->highGainRamper.getAndStep();
+        float distortion = data->distortionRamper.getAndStep();
 
         data->leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -lowGain, false);
         data->rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -lowGain, false);

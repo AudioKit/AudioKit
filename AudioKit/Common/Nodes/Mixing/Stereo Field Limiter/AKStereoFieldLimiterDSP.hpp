@@ -15,26 +15,28 @@ AKDSPRef createStereoFieldLimiterDSP(void);
 #else
 
 #import "AKDSPBase.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "ParameterRamper.hpp"
 
 struct AKStereoFieldLimiterDSP : AKDSPBase {
 private:
-    AKLinearParameterRamp amountRamp;
+    ParameterRamper amountRamp;
 
 public:
 
     AKStereoFieldLimiterDSP() {
         parameters[AKStereoFieldLimiterParameterAmount] = &amountRamp;
     }
+    
+    void init(int channelCount, double sampleRate) override {
+        AKDSPBase::init(channelCount, sampleRate);
+        amountRamp.init(sampleRate);
+    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
-            // do ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                amountRamp.advanceTo(now + frameOffset);
-            }
-            float amount = amountRamp.getValue();
+            
+            float amount = amountRamp.getAndStep();
 
             if (!isStarted) {
                 outputBufferLists[0]->mBuffers[0] = inputBufferLists[0]->mBuffers[0];

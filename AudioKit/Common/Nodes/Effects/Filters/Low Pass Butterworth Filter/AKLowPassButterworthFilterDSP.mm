@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKLowPassButterworthFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createLowPassButterworthFilterDSP() {
     return new AKLowPassButterworthFilterDSP();
@@ -10,7 +10,7 @@ extern "C" AKDSPRef createLowPassButterworthFilterDSP() {
 struct AKLowPassButterworthFilterDSP::InternalData {
     sp_butlp *butlp0;
     sp_butlp *butlp1;
-    AKLinearParameterRamp cutoffFrequencyRamp;
+    ParameterRamper cutoffFrequencyRamp;
 };
 
 AKLowPassButterworthFilterDSP::AKLowPassButterworthFilterDSP() : data(new InternalData) {
@@ -43,13 +43,9 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-        }
-
-        data->butlp0->freq = data->cutoffFrequencyRamp.getValue();
-        data->butlp1->freq = data->cutoffFrequencyRamp.getValue();
+        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep();
+        data->butlp0->freq = cutoffFrequency;
+        data->butlp1->freq = cutoffFrequency;
 
         float *tmpin[2];
         float *tmpout[2];

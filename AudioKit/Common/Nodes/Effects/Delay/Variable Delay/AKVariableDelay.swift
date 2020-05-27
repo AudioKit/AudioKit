@@ -2,51 +2,43 @@
 
 /// A delay line with cubic interpolation.
 ///
-open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKVariableDelayAudioUnit
+open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKVariableDelayAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Time
-    public static let timeRange: ClosedRange<Double> = 0 ... 10
+    public static let timeRange: ClosedRange<AUValue> = 0 ... 10
 
     /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<Double> = 0 ... 1
+    public static let feedbackRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Initial value for Time
-    public static let defaultTime: Double = 0
+    public static let defaultTime: AUValue = 0
 
     /// Initial value for Feedback
-    public static let defaultFeedback: Double = 0
+    public static let defaultFeedback: AUValue = 0
 
     /// Initial value for Maximum Delay Time
-    public static let defaultMaximumDelayTime: Double = 5
+    public static let defaultMaximumDelayTime: AUValue = 5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @objc open var time: Double = defaultTime {
-        willSet {
-            let clampedValue = AKVariableDelay.timeRange.clamp(newValue)
-            guard time != clampedValue else { return }
-            internalAU?.time.value = AUValue(clampedValue)
-        }
-    }
+    public let time = AKNodeParameter(identifier: "time")
 
     /// Feedback amount. Should be a value between 0-1.
-    @objc open var feedback: Double = defaultFeedback {
-        willSet {
-            let clampedValue = AKVariableDelay.feedbackRange.clamp(newValue)
-            guard feedback != clampedValue else { return }
-            internalAU?.feedback.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let feedback = AKNodeParameter(identifier: "feedback")
 
     // MARK: - Initialization
 
@@ -60,33 +52,23 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        time: Double = defaultTime,
-        feedback: Double = defaultFeedback,
-        maximumDelayTime: Double = defaultMaximumDelayTime
+        time: AUValue = defaultTime,
+        feedback: AUValue = defaultFeedback,
+        maximumDelayTime: AUValue = defaultMaximumDelayTime
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.time.associate(with: self.internalAU, value: time)
+            self.feedback.associate(with: self.internalAU, value: feedback)
+
             input?.connect(to: self)
-
-            self.time = time
-            self.feedback = feedback
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

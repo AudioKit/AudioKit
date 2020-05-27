@@ -11,26 +11,26 @@ open class AKAbstractPlayer: AKNode {
 
     public struct Fade {
         // a few presets for lack of a better place to put them at the moment
-        public static var linearTaper = (in: 1.0, out: 1.0)
+        public static var linearTaper = (in: AUValue(1.0), out: AUValue(1.0))
 
         // half pipe
-        public static var audioTaper = (in: 3.0, out: 0.333_3)
+        public static var audioTaper = (in: AUValue(3.0), out: AUValue(0.333_3))
 
         // flipped half pipe
-        public static var reverseAudioTaper = (in: 0.333_3, out: 3.0)
+        public static var reverseAudioTaper = (in: AUValue(0.333_3), out: AUValue(3.0))
 
         /// An init is requited for the Fade struct to be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0 // 0.0002
+        public static var minimumGain: AUValue = 0 // 0.0002
 
         /// the value that the fader should fade to, settable
-        public var maximumGain: Double = 1
+        public var maximumGain: AUValue = 1
 
         // In properties
-        public var inTime: Double = 0 {
+        public var inTime: AVMusicTimeStamp = 0 {
             willSet {
                 if newValue != inTime { needsUpdate = true }
             }
@@ -39,14 +39,14 @@ open class AKAbstractPlayer: AKNode {
         // if you want to start midway into a fade
         // public var inTimeOffset: Double = 0
 
-        public var inTaper: Double = audioTaper.in {
+        public var inTaper: AUValue = audioTaper.in {
             willSet {
                 if newValue != inTaper { needsUpdate = true }
             }
         }
 
         // the slope adjustment in the taper
-        public var inSkew: Double = 0.333_3
+        public var inSkew: AUValue = 0.333_3
 
         // Out properties
         public var outTime: Double = 0 {
@@ -55,14 +55,14 @@ open class AKAbstractPlayer: AKNode {
             }
         }
 
-        public var outTaper: Double = audioTaper.out {
+        public var outTaper: AUValue = audioTaper.out {
             willSet {
                 if newValue != outTaper { needsUpdate = true }
             }
         }
 
         // the slope adjustment in the taper
-        public var outSkew: Double = 1
+        public var outSkew: AUValue = 1
 
         // if you want to start midway into a fade
         // public var outTimeOffset: Double = 0
@@ -115,7 +115,7 @@ open class AKAbstractPlayer: AKNode {
     @objc public var faderNode: AKFader?
 
     /// Amplification Factor, in the range of 0 to 2
-    @objc public var gain: Double {
+    @objc public var gain: AUValue {
         get {
             return fade.maximumGain
         }
@@ -130,7 +130,7 @@ open class AKAbstractPlayer: AKNode {
             fade.maximumGain = newValue
 
             // this is the current value of the fader, set immediately
-            faderNode?.gain = newValue
+            faderNode?.gain = AUValue(newValue)
         }
     }
 
@@ -217,7 +217,7 @@ open class AKAbstractPlayer: AKNode {
         guard let audioTime = audioTime, let faderNode = faderNode else { return }
 
         // reset automation if it is running
-        faderNode.stopAutomation()
+        faderNode.parameterAutomation?.stop()
 
         let inTimeInSamples: AUEventSampleTime = frameOffset
 
@@ -308,8 +308,8 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.gain = fade.maximumGain
     }
 
-    public func fadeOut(with time: Double, taper: Double? = nil) {
-        faderNode?.stopAutomation()
+    public func fadeOut(with time: Double, taper: AUValue? = nil) {
+        faderNode?.parameterAutomation?.stop()
         let outFrames = AUAudioFrameCount(time * sampleRate)
         faderNode?.addAutomationPoint(value: Fade.minimumGain,
                                       at: AUEventSampleTimeImmediate,
@@ -318,7 +318,7 @@ open class AKAbstractPlayer: AKNode {
                                       taper: taper ?? fade.outTaper)
 
         let now = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: 0, atRate: sampleRate)
-        faderNode?.startAutomation(at: now, duration: nil)
+        faderNode?.parameterAutomation?.start(at: now, duration: nil)
     }
 
     open override func detach() {

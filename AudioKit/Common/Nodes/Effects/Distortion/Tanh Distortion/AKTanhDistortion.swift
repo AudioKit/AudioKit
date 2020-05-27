@@ -2,78 +2,58 @@
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
+open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Pregain
-    public static let pregainRange: ClosedRange<Double> = 0.0 ... 10.0
+    public static let pregainRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Postgain
-    public static let postgainRange: ClosedRange<Double> = 0.0 ... 10.0
+    public static let postgainRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Positive Shape Parameter
-    public static let positiveShapeParameterRange: ClosedRange<Double> = -10.0 ... 10.0
+    public static let positiveShapeParameterRange: ClosedRange<AUValue> = -10.0 ... 10.0
 
     /// Lower and upper bounds for Negative Shape Parameter
-    public static let negativeShapeParameterRange: ClosedRange<Double> = -10.0 ... 10.0
+    public static let negativeShapeParameterRange: ClosedRange<AUValue> = -10.0 ... 10.0
 
     /// Initial value for Pregain
-    public static let defaultPregain: Double = 2.0
+    public static let defaultPregain: AUValue = 2.0
 
     /// Initial value for Postgain
-    public static let defaultPostgain: Double = 0.5
+    public static let defaultPostgain: AUValue = 0.5
 
     /// Initial value for Positive Shape Parameter
-    public static let defaultPositiveShapeParameter: Double = 0.0
+    public static let defaultPositiveShapeParameter: AUValue = 0.0
 
     /// Initial value for Negative Shape Parameter
-    public static let defaultNegativeShapeParameter: Double = 0.0
+    public static let defaultNegativeShapeParameter: AUValue = 0.0
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @objc open var pregain: Double = defaultPregain {
-        willSet {
-            let clampedValue = AKTanhDistortion.pregainRange.clamp(newValue)
-            guard pregain != clampedValue else { return }
-            internalAU?.pregain.value = AUValue(clampedValue)
-        }
-    }
+    public let pregain = AKNodeParameter(identifier: "pregain")
 
     /// Gain applied after waveshaping
-    @objc open var postgain: Double = defaultPostgain {
-        willSet {
-            let clampedValue = AKTanhDistortion.postgainRange.clamp(newValue)
-            guard postgain != clampedValue else { return }
-            internalAU?.postgain.value = AUValue(clampedValue)
-        }
-    }
+    public let postgain = AKNodeParameter(identifier: "postgain")
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @objc open var positiveShapeParameter: Double = defaultPositiveShapeParameter {
-        willSet {
-            let clampedValue = AKTanhDistortion.positiveShapeParameterRange.clamp(newValue)
-            guard positiveShapeParameter != clampedValue else { return }
-            internalAU?.positiveShapeParameter.value = AUValue(clampedValue)
-        }
-    }
+    public let positiveShapeParameter = AKNodeParameter(identifier: "positiveShapeParameter")
 
     /// Like the positive shape parameter, only for the negative part.
-    @objc open var negativeShapeParameter: Double = defaultNegativeShapeParameter {
-        willSet {
-            let clampedValue = AKTanhDistortion.negativeShapeParameterRange.clamp(newValue)
-            guard negativeShapeParameter != clampedValue else { return }
-            internalAU?.negativeShapeParameter.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let negativeShapeParameter = AKNodeParameter(identifier: "negativeShapeParameter")
 
     // MARK: - Initialization
 
@@ -88,36 +68,26 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        pregain: Double = defaultPregain,
-        postgain: Double = defaultPostgain,
-        positiveShapeParameter: Double = defaultPositiveShapeParameter,
-        negativeShapeParameter: Double = defaultNegativeShapeParameter
+        pregain: AUValue = defaultPregain,
+        postgain: AUValue = defaultPostgain,
+        positiveShapeParameter: AUValue = defaultPositiveShapeParameter,
+        negativeShapeParameter: AUValue = defaultNegativeShapeParameter
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.pregain.associate(with: self.internalAU, value: pregain)
+            self.postgain.associate(with: self.internalAU, value: postgain)
+            self.positiveShapeParameter.associate(with: self.internalAU, value: positiveShapeParameter)
+            self.negativeShapeParameter.associate(with: self.internalAU, value: negativeShapeParameter)
+
             input?.connect(to: self)
-
-            self.pregain = pregain
-            self.postgain = postgain
-            self.positiveShapeParameter = positiveShapeParameter
-            self.negativeShapeParameter = negativeShapeParameter
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

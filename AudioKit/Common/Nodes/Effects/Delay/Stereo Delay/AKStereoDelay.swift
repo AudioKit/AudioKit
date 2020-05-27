@@ -2,71 +2,52 @@
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKStereoDelayAudioUnit
+open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+    
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKStereoDelayAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Time
-    public static let timeRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let timeRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Dry/wet mix
-    public static let dryWetMixRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let dryWetMixRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Time
-    public static let defaultTime: Double = 0.0
+    public static let defaultTime: AUValue = 0.0
 
     /// Initial value for Feedback
-    public static let defaultFeedback: Double = 0.0
+    public static let defaultFeedback: AUValue = 0.0
 
     /// Initial default value for Dry/wet mix
-    public static let defaultDryWetMix: Double = 0.5
+    public static let defaultDryWetMix: AUValue = 0.5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @objc open var time: Double = defaultTime {
-        willSet {
-            let clampedValue = AKStereoDelay.timeRange.clamp(newValue)
-            guard time != clampedValue else { return }
-            internalAU?.time.value = AUValue(clampedValue)
-        }
-    }
+    public let time = AKNodeParameter(identifier: "time")
 
     /// Feedback amount. Should be a value between 0-1.
-    @objc open var feedback: Double = defaultFeedback {
-        willSet {
-            let clampedValue = AKStereoDelay.feedbackRange.clamp(newValue)
-            guard feedback != clampedValue else { return }
-            internalAU?.feedback.value = AUValue(clampedValue)
-        }
-    }
+    public let feedback = AKNodeParameter(identifier: "feedback")
 
     /// Dry/wet mix. Should be a value between 0-1.
-    @objc open var dryWetMix: Double = defaultDryWetMix {
-        willSet {
-            let clampedValue = AKStereoDelay.dryWetMixRange.clamp(newValue)
-            guard dryWetMix != clampedValue else { return }
-            internalAU?.dryWetMix.value = AUValue(clampedValue)
-        }
-    }
+    public let dryWetMix = AKNodeParameter(identifier: "dryWetMix")
 
     /// Ping-pong mode: true or false (stereo mode)
-    @objc open var pingPong: Bool = false {
-        willSet {
-            guard pingPong != newValue else { return }
-            internalAU?.pingPong.value = AUValue(newValue ? 1.0 : 0.0)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let pingPong = AKNodeParameter(identifier: "pingPong")
 
     // MARK: - Initialization
 
@@ -82,37 +63,27 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        maximumDelayTime: Double = AKStereoDelay.timeRange.upperBound,
-        time: Double = defaultTime,
-        feedback: Double = defaultFeedback,
-        dryWetMix: Double = defaultDryWetMix,
+        maximumDelayTime: AUValue = AKStereoDelay.timeRange.upperBound,
+        time: AUValue = defaultTime,
+        feedback: AUValue = defaultFeedback,
+        dryWetMix: AUValue = defaultDryWetMix,
         pingPong: Bool = false
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+
+            self.time.associate(with: self.internalAU, value: time)
+            self.feedback.associate(with: self.internalAU, value: feedback)
+            self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
+            self.pingPong.associate(with: self.internalAU, value: pingPong)
+            
             input?.connect(to: self)
-
-            self.time = time
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-            self.pingPong = pingPong
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKMorphingOscillatorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createMorphingOscillatorDSP() {
@@ -12,11 +12,11 @@ struct AKMorphingOscillatorDSP::InternalData {
     sp_oscmorph *oscmorph;
     sp_ftbl *ft_array[4];
     std::vector<float> waveforms[4];
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp indexRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper amplitudeRamp;
+    ParameterRamper indexRamp;
+    ParameterRamper detuningOffsetRamp;
+    ParameterRamper detuningMultiplierRamp;
 };
 
 AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : data(new InternalData) {
@@ -62,18 +62,9 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-            data->indexRamp.advanceTo(now + frameOffset);
-            data->detuningOffsetRamp.advanceTo(now + frameOffset);
-            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
-        }
-
-        data->oscmorph->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
-        data->oscmorph->amp = data->amplitudeRamp.getValue();
-        data->oscmorph->wtpos = data->indexRamp.getValue();
+        data->oscmorph->freq = data->frequencyRamp.getAndStep() * data->detuningMultiplierRamp.getAndStep() + data->detuningOffsetRamp.getAndStep();
+        data->oscmorph->amp = data->amplitudeRamp.getAndStep();
+        data->oscmorph->wtpos = data->indexRamp.getAndStep() / 3.f;
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

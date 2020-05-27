@@ -94,7 +94,7 @@ public:
     
     void init(int channelCount, double sampleRate) override {
         AKBankDSPKernel::init(channelCount, sampleRate);
-        pulseWidthRamper.init();
+        pulseWidthRamper.init(sampleRate);
     }
     
     void reset() override {

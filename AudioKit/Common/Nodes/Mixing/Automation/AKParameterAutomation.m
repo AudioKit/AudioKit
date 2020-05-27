@@ -3,6 +3,11 @@
 #import "AKParameterAutomation.h"
 #import "AKTimelineTap.h"
 
+typedef struct AutomationPointInternal {
+    AutomationPoint automation;
+    AUParameterAddress address;
+} AutomationPointInternal;
+
 @implementation AKParameterAutomation
 {
     AKTimelineTap *tap;
@@ -13,7 +18,7 @@
     AUEventSampleTime endTime;
 
     // currently a fixed buffer of automation points
-    AutomationPoint automationPoints[MAX_NUMBER_OF_POINTS];
+    AutomationPointInternal automationPoints[MAX_NUMBER_OF_POINTS];
     int numberOfPoints;
 }
 
@@ -63,8 +68,6 @@
     // not needed at the moment
     //[self validatePoints:audioTime];
 
-    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
-
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
 }
@@ -83,6 +86,20 @@
 
 #pragma mark - Render Block
 
+void scheduleAutomation(AUAudioUnit *au, AUEventSampleTime time, const AutomationPointInternal* point) {
+    // set taper (mask = 1 << 63, taper is "value" parameter)
+    au.scheduleParameterBlock(time, 0, point->address | ((AUParameterAddress)1 << 63), point->automation.taper);
+    
+    // set skew (mask = 1 << 62, skew is "value" parameter)
+    au.scheduleParameterBlock(time, 0, point->address | ((AUParameterAddress)1 << 62), point->automation.skew);
+    
+    // set offset (mask = 1 << 61, offset is "duration" parameter)
+    au.scheduleParameterBlock(time, point->automation.offset, point->address | ((AUParameterAddress)1 << 61), 0);
+    
+    // set value
+    au.scheduleParameterBlock(time, point->automation.rampDuration, point->address, point->automation.value);
+}
+
 - (AKTimelineBlock)timelineBlock {
     // Use untracked pointer and ivars to avoid Obj methods + ARC.
     __unsafe_unretained AKParameterAutomation *welf = self;
@@ -92,67 +109,68 @@
              UInt32 offset,
              UInt32 inNumberFrames,
              AudioBufferList *ioData) {
-               AUEventSampleTime sampleTime = timeStamp->mSampleTime;
+       AUEventSampleTime sampleTime = timeStamp->mSampleTime;
 
-               // TODO: allow for a timed duration stop to end automation - don't use this:
-               //AUEventSampleTime endTime = welf->endTime;
+       // TODO: allow for a timed duration stop to end automation - don't use this:
+       //AUEventSampleTime endTime = welf->endTime;
 
-               for (int n = 0; n < inNumberFrames; n++) {
-                   AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
+       for (int n = 0; n < inNumberFrames; n++) {
+           AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
+           for (int p = 0; p < welf->numberOfPoints; p++) {
+               AutomationPointInternal point = welf->automationPoints[p];
+               if (point.automation.triggered) continue;
 
-                   // TODO: allow for a timed duration stop to end automation - don't use this:
-//                   if (welf->endTime != 0 && sampleTimeWithOffset == welf->endTime) {
-//                       printf("🛑 auto stop at at %lld\n", sampleTimeWithOffset);
-//                       [welf stopAutomation];
-//                       return;
-//                   }
-
-                   for (int p = 0; p < welf->numberOfPoints; p++) {
-                       AutomationPoint point = welf->automationPoints[p];
-
-                       if (point.triggered) {
-                           continue;
-                       }
-
-                       if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
-//                           printf("👉 Triggering AUEventSampleTimeImmediate: %lld: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
-//                                  AUEventSampleTimeImmediate, point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
-                           welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
-                                                                    point.rampDuration,
-                                                                    point.address,
-                                                                    point.value);
-                           welf->automationPoints[p].triggered = true;
-                           continue;
-                       }
-
-                       if (sampleTimeWithOffset == point.sampleTime) {
-//                           printf("👉 Triggering scheduled: %f, sampleTime: %lld, sampleTimeWithOffset: %lld, rampDuration: %d\n",
-//                                  point.value, point.sampleTime, sampleTimeWithOffset, point.rampDuration);
-                           welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
-                                                                    point.rampDuration,
-                                                                    point.address,
-                                                                    point.value);
-                           welf->automationPoints[p].triggered = true;
-                       }
-                   }
+               if (point.automation.sampleTime == AUEventSampleTimeImmediate || point.automation.sampleTime < sampleTimeWithOffset) {
+                   scheduleAutomation(welf->auAudioUnit, AUEventSampleTimeImmediate, &point);
+                   automationPoints[p].automation.triggered = true;
+                   continue;
                }
+
+               if (sampleTimeWithOffset == point.automation.sampleTime) {
+                   scheduleAutomation(welf->auAudioUnit, AUEventSampleTimeImmediate + n, &point);
+                   automationPoints[p].automation.triggered = true;
+               }
+           }
+       }
     };
 }
 
 #pragma mark - Add and remove points
 
-- (void)addPoint:(AUParameterAddress)address
+- (void)addPoint:(NSString *)identifier
            value:(AUValue)value
       sampleTime:(AUEventSampleTime)sampleTime
       anchorTime:(AUEventSampleTime)anchorTime
     rampDuration:(AUAudioFrameCount)rampDuration {
     struct AutomationPoint point = {};
-    point.address = address;
+    point.identifier = identifier;
     point.value = value;
     point.sampleTime = sampleTime;
     point.anchorTime = anchorTime;
     point.rampDuration = rampDuration;
+    point.taper = 1;
 
+    [self addPoint:point];
+}
+
+- (void)addPoint:(NSString *)identifier
+           value:(AUValue)value
+      sampleTime:(AUEventSampleTime)sampleTime
+      anchorTime:(AUEventSampleTime)anchorTime
+    rampDuration:(AUAudioFrameCount)rampDuration
+           taper:(AUValue)taper
+            skew:(AUValue)skew
+          offset:(AUAudioFrameCount)offset{
+    struct AutomationPoint point = {};
+    point.identifier = identifier;
+    point.value = value;
+    point.sampleTime = sampleTime;
+    point.anchorTime = anchorTime;
+    point.rampDuration = rampDuration;
+    point.taper = taper;
+    point.skew = skew;
+    point.offset = offset;
+    
     [self addPoint:point];
 }
 
@@ -163,10 +181,14 @@
         NSLog(@"Max number of points was reached.");
         return;
     }
-
-    automationPoints[numberOfPoints] = point;
-    // NSLog(@"addPoint %i at time %lld, value %f", numberOfPoints, point.sampleTime, point.value);
-
+    
+    AUParameter *param = [auAudioUnit.parameterTree valueForKey:point.identifier];
+    
+    AutomationPointInternal _point;
+    _point.address = param.address;
+    _point.automation = point;
+    
+    automationPoints[numberOfPoints] = _point;
     numberOfPoints++;
 }
 
@@ -181,15 +203,15 @@
     Float64 sampleTime = audioTime.audioTimeStamp.mSampleTime;
 
     for (int i = 0; i <= numberOfPoints; i++) {
-        AutomationPoint point = automationPoints[i];
+        AutomationPointInternal point = automationPoints[i];
 
-        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime == 0) {
+        if (point.automation.sampleTime == AUEventSampleTimeImmediate || point.automation.sampleTime == 0) {
             continue;
         }
 
-        if (point.sampleTime < sampleTime) {
-            automationPoints[i].sampleTime = sampleTime;
-            printf("→→→ Adjusted late point's time to %f was %lld\n", sampleTime, point.sampleTime);
+        if (point.automation.sampleTime < sampleTime) {
+            automationPoints[i].automation.sampleTime = sampleTime;
+            printf("→→→ Adjusted late point's time to %f was %lld\n", sampleTime, point.automation.sampleTime);
         }
     }
 }

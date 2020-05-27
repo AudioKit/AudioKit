@@ -2,48 +2,40 @@
 
 /// This will digitally degrade a signal.
 ///
-open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKBitCrusherAudioUnit
+open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKBitCrusherAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Bit Depth
-    public static let bitDepthRange: ClosedRange<Double> = 1 ... 24
+    public static let bitDepthRange: ClosedRange<AUValue> = 1 ... 24
 
     /// Lower and upper bounds for Sample Rate
-    public static let sampleRateRange: ClosedRange<Double> = 0.0 ... 20_000.0
+    public static let sampleRateRange: ClosedRange<AUValue> = 0.0 ... 20000.0
 
     /// Initial value for Bit Depth
-    public static let defaultBitDepth: Double = 8
+    public static let defaultBitDepth: AUValue = 8
 
     /// Initial value for Sample Rate
-    public static let defaultSampleRate: Double = 10_000
+    public static let defaultSampleRate: AUValue = 10000
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    @objc open var bitDepth: Double = defaultBitDepth {
-        willSet {
-            let clampedValue = AKBitCrusher.bitDepthRange.clamp(newValue)
-            guard bitDepth != clampedValue else { return }
-            internalAU?.bitDepth.value = AUValue(clampedValue)
-        }
-    }
+    public let bitDepth = AKNodeParameter(identifier: "bitDepth")
 
     /// The sample rate of signal output.
-    @objc open var sampleRate: Double = defaultSampleRate {
-        willSet {
-            let clampedValue = AKBitCrusher.sampleRateRange.clamp(newValue)
-            guard sampleRate != clampedValue else { return }
-            internalAU?.sampleRate.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let sampleRate = AKNodeParameter(identifier: "sampleRate")
 
     // MARK: - Initialization
 
@@ -56,32 +48,22 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        bitDepth: Double = defaultBitDepth,
-        sampleRate: Double = defaultSampleRate
+        bitDepth: AUValue = defaultBitDepth,
+        sampleRate: AUValue = defaultSampleRate
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.bitDepth.associate(with: self.internalAU, value: bitDepth)
+            self.sampleRate.associate(with: self.internalAU, value: sampleRate)
+
             input?.connect(to: self)
-
-            self.bitDepth = bitDepth
-            self.sampleRate = sampleRate
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

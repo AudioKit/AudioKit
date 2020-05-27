@@ -2,33 +2,31 @@
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKToneFilterAudioUnit
+open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKToneFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Half Power Point
-    public static let halfPowerPointRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let halfPowerPointRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Initial value for Half Power Point
-    public static let defaultHalfPowerPoint: Double = 1_000.0
+    public static let defaultHalfPowerPoint: AUValue = 1000.0
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    @objc open var halfPowerPoint: Double = defaultHalfPowerPoint {
-        willSet {
-            let clampedValue = AKToneFilter.halfPowerPointRange.clamp(newValue)
-            guard halfPowerPoint != clampedValue else { return }
-            internalAU?.halfPowerPoint.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let halfPowerPoint = AKNodeParameter(identifier: "halfPowerPoint")
 
     // MARK: - Initialization
 
@@ -40,30 +38,20 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        halfPowerPoint: Double = defaultHalfPowerPoint
+        halfPowerPoint: AUValue = defaultHalfPowerPoint
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.halfPowerPoint.associate(with: self.internalAU, value: halfPowerPoint)
+
             input?.connect(to: self)
-
-            self.halfPowerPoint = halfPowerPoint
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }
