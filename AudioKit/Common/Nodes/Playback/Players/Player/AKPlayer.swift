@@ -418,7 +418,7 @@ public class AKPlayer: AKAbstractPlayer {
             // NOTE: duration is currently not implemented
             let audioEndTime = faderTime.offset(seconds: endingTime)
             // turn on the render notification
-            super.faderNode?.startAutomation(at: faderTime, duration: audioEndTime)
+            super.faderNode?.parameterAutomation?.start(at: faderTime, duration: audioEndTime)
         }
 
         pauseTime = nil

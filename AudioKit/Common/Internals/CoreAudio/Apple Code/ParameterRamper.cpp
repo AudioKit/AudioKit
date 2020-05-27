@@ -130,6 +130,7 @@ void ParameterRamper::dezipperCheck(uint32_t rampDuration)
     int32_t changeCounterSnapshot = data->changeCounter;
     if (data->updateCounter != changeCounterSnapshot) {
         data->updateCounter = changeCounterSnapshot;
+        data->offset = 0; // only use offset for automation
         startRamp(data->uiValue, rampDuration);
     }
 }

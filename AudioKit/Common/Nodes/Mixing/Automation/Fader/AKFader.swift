@@ -86,63 +86,31 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKAutomatable
 
-    public func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?) {
-        parameterAutomation?.start(at: audioTime, duration: duration)
-    }
-
-    public func stopAutomation() {
-        parameterAutomation?.stop()
-    }
-
     /// Convenience function for adding a pair of points for both left and right addresses
-    public func addAutomationPoint(value: Double,
+    public func addAutomationPoint(value: AUValue,
                                    at sampleTime: AUEventSampleTime,
                                    anchorTime: AUEventSampleTime,
                                    rampDuration: AUAudioFrameCount = 0,
-                                   taper taperValue: Double? = nil,
-                                   skew skewValue: Double? = nil,
+                                   taper taperValue: AUValue = 1,
+                                   skew skewValue: AUValue = 0,
                                    offset offsetValue: AUAudioFrameCount? = nil) {
-//        guard let leftAddress = internalAU?.leftGain.address,
-//            let rightAddress = internalAU?.rightGain.address else {
-//            AKLog("Param addresses aren't valid")
-//            return
-//        }
-//
-//        // if a taper value is passed in, also add a point with its address to trigger at the same time
-//        if let taperValue = taperValue, let taperAddress = internalAU?.taper.address {
-//            parameterAutomation?.addPoint(taperAddress,
-//                                          value: AUValue(taperValue),
-//                                          sampleTime: sampleTime,
-//                                          anchorTime: anchorTime,
-//                                          rampDuration: rampDuration)
-//        }
-//        // if a skew value is passed in, also add a point with its address to trigger at the same time
-//        if let skewValue = skewValue, let skewAddress = internalAU?.skew.address {
-//            parameterAutomation?.addPoint(skewAddress,
-//                                          value: AUValue(skewValue),
-//                                          sampleTime: sampleTime,
-//                                          anchorTime: anchorTime,
-//                                          rampDuration: rampDuration)
-//        }
-//
-//        // if an offset value is passed in, also add a point with its address to trigger at the same time
-//        if let offsetValue = offsetValue, let offsetAddress = internalAU?.offset.address {
-//            parameterAutomation?.addPoint(offsetAddress,
-//                                          value: AUValue(offsetValue),
-//                                          sampleTime: sampleTime,
-//                                          anchorTime: anchorTime,
-//                                          rampDuration: rampDuration)
-//        }
-//
-//        parameterAutomation?.addPoint(leftAddress,
-//                                      value: AUValue(value),
-//                                      sampleTime: sampleTime,
-//                                      anchorTime: anchorTime,
-//                                      rampDuration: rampDuration)
-//        parameterAutomation?.addPoint(rightAddress,
-//                                      value: AUValue(value),
-//                                      sampleTime: sampleTime,
-//                                      anchorTime: anchorTime,
-//                                      rampDuration: rampDuration)
+
+        parameterAutomation?.addPoint("leftGain",
+                                      value: value,
+                                      sampleTime: sampleTime,
+                                      anchorTime: anchorTime,
+                                      rampDuration: rampDuration,
+                                      taper: taperValue,
+                                      skew: skewValue,
+                                      offset: offsetValue ?? 0)
+        
+        parameterAutomation?.addPoint("rightGain",
+                                      value: value,
+                                      sampleTime: sampleTime,
+                                      anchorTime: anchorTime,
+                                      rampDuration: rampDuration,
+                                      taper: taperValue,
+                                      skew: skewValue,
+                                      offset: offsetValue ?? 0)
     }
 }
