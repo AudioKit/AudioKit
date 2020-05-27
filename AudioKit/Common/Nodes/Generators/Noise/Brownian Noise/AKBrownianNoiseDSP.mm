@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBrownianNoiseDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createBrownianNoiseDSP() {
     return new AKBrownianNoiseDSP();
@@ -9,7 +9,7 @@ extern "C" AKDSPRef createBrownianNoiseDSP() {
 
 struct AKBrownianNoiseDSP::InternalData {
     sp_brown *brown;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKBrownianNoiseDSP::AKBrownianNoiseDSP() : data(new InternalData) {
@@ -37,10 +37,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
+        float amplitude = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {
@@ -50,7 +47,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
                 if (channel == 0) {
                     sp_brown_compute(sp, data->brown, nil, &temp);
                 }
-                *out = temp * data->amplitudeRamp.getValue();
+                *out = temp * amplitude;
             } else {
                 *out = 0.0;
             }

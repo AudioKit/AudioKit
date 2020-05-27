@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBandPassButterworthFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createBandPassButterworthFilterDSP() {
     return new AKBandPassButterworthFilterDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createBandPassButterworthFilterDSP() {
 struct AKBandPassButterworthFilterDSP::InternalData {
     sp_butbp *butbp0;
     sp_butbp *butbp1;
-    AKLinearParameterRamp centerFrequencyRamp;
-    AKLinearParameterRamp bandwidthRamp;
+    ParameterRamper centerFrequencyRamp;
+    ParameterRamper bandwidthRamp;
 };
 
 AKBandPassButterworthFilterDSP::AKBandPassButterworthFilterDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKBandPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAud
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(now + frameOffset);
-            data->bandwidthRamp.advanceTo(now + frameOffset);
-        }
+        float centerFrequency = data->centerFrequencyRamp.getAndStep();
+        data->butbp0->freq = centerFrequency;
+        data->butbp1->freq = centerFrequency;
 
-        data->butbp0->freq = data->centerFrequencyRamp.getValue();
-        data->butbp1->freq = data->centerFrequencyRamp.getValue();
-        data->butbp0->bw = data->bandwidthRamp.getValue();
-        data->butbp1->bw = data->bandwidthRamp.getValue();
+        float bandwidth = data->bandwidthRamp.getAndStep();
+        data->butbp0->bw = bandwidth;
+        data->butbp1->bw = bandwidth;
 
         float *tmpin[2];
         float *tmpout[2];

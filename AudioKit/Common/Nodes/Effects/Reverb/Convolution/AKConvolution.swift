@@ -4,18 +4,18 @@
 /// ftable as an impulse response.
 ///
 open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKConvolutionAudioUnit
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKConvolutionAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
+    
+    // MARK: - Parameters
+    
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
 
@@ -24,10 +24,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initialize this convolution node
     ///
     /// - Parameters:
-    ///   - input: Input node to process
-    ///   - impulseResponseFileURL: Location of the imulseResponse audio File
-    ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency,
-    ///                      at the cost of requiring more CPU power.
+    ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
     ///
     public init(_ input: AKNode? = nil,
                 impulseResponseFileURL: URL,
@@ -37,32 +34,21 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
         self.partitionLength = partitionLength
 
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self)
 
             self.internalAU?.setPartitionLength(partitionLength)
             self.readAudioFile()
             self.internalAU?.start()
+            
+            input?.connect(to: self)
         }
     }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
-    }
-
+    
     private func readAudioFile() {
         Exit: do {
             var err: OSStatus = noErr

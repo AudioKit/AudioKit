@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKStringResonatorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createStringResonatorDSP() {
     return new AKStringResonatorDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createStringResonatorDSP() {
 struct AKStringResonatorDSP::InternalData {
     sp_streson *streson0;
     sp_streson *streson1;
-    AKLinearParameterRamp fundamentalFrequencyRamp;
-    AKLinearParameterRamp feedbackRamp;
+    ParameterRamper fundamentalFrequencyRamp;
+    ParameterRamper feedbackRamp;
 };
 
 AKStringResonatorDSP::AKStringResonatorDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->fundamentalFrequencyRamp.advanceTo(now + frameOffset);
-            data->feedbackRamp.advanceTo(now + frameOffset);
-        }
+        float fundamentalFrequency = data->fundamentalFrequencyRamp.getAndStep();
+        data->streson0->freq = fundamentalFrequency;
+        data->streson1->freq = fundamentalFrequency;
 
-        data->streson0->freq = data->fundamentalFrequencyRamp.getValue();
-        data->streson1->freq = data->fundamentalFrequencyRamp.getValue();
-        data->streson0->fdbgain = data->feedbackRamp.getValue();
-        data->streson1->fdbgain = data->feedbackRamp.getValue();
+        float feedback = data->feedbackRamp.getAndStep();
+        data->streson0->fdbgain = feedback;
+        data->streson1->fdbgain = feedback;
 
         float *tmpin[2];
         float *tmpout[2];

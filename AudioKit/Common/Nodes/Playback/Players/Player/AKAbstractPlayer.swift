@@ -130,7 +130,7 @@ open class AKAbstractPlayer: AKNode {
             fade.maximumGain = newValue
 
             // this is the current value of the fader, set immediately
-            faderNode?.gain = newValue
+            faderNode?.gain = AUValue(newValue)
         }
     }
 
@@ -223,7 +223,7 @@ open class AKAbstractPlayer: AKNode {
 
         if fade.inTime > 0, offsetTime < fade.inTime {
             // realtime, turn the gain off to be sure it's off before the fade starts
-            faderNode.gain = Fade.minimumGain
+            faderNode.gain = AUValue(Fade.minimumGain)
 
             let inOffset = AUAudioFrameCount(offsetTime * sampleRate)
             let rampDuration = AUAudioFrameCount(fade.inTime * sampleRate)
@@ -305,7 +305,7 @@ open class AKAbstractPlayer: AKNode {
     }
 
     public func resetFader() {
-        faderNode?.gain = fade.maximumGain
+        faderNode?.gain = AUValue(fade.maximumGain)
     }
 
     public func fadeOut(with time: Double, taper: Double? = nil) {

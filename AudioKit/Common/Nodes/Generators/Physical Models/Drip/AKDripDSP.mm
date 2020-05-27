@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKDripDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createDripDSP() {
     return new AKDripDSP();
@@ -10,13 +10,13 @@ extern "C" AKDSPRef createDripDSP() {
 struct AKDripDSP::InternalData {
     sp_drip *drip;
     float internalTrigger = 0;
-    AKLinearParameterRamp intensityRamp;
-    AKLinearParameterRamp dampingFactorRamp;
-    AKLinearParameterRamp energyReturnRamp;
-    AKLinearParameterRamp mainResonantFrequencyRamp;
-    AKLinearParameterRamp firstResonantFrequencyRamp;
-    AKLinearParameterRamp secondResonantFrequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper intensityRamp;
+    ParameterRamper dampingFactorRamp;
+    ParameterRamper energyReturnRamp;
+    ParameterRamper mainResonantFrequencyRamp;
+    ParameterRamper firstResonantFrequencyRamp;
+    ParameterRamper secondResonantFrequencyRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKDripDSP::AKDripDSP() : data(new InternalData) {
@@ -54,24 +54,13 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->intensityRamp.advanceTo(now + frameOffset);
-            data->dampingFactorRamp.advanceTo(now + frameOffset);
-            data->energyReturnRamp.advanceTo(now + frameOffset);
-            data->mainResonantFrequencyRamp.advanceTo(now + frameOffset);
-            data->firstResonantFrequencyRamp.advanceTo(now + frameOffset);
-            data->secondResonantFrequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
-
-        data->drip->num_tubes = data->intensityRamp.getValue();
-        data->drip->damp = data->dampingFactorRamp.getValue();
-        data->drip->shake_max = data->energyReturnRamp.getValue();
-        data->drip->freq = data->mainResonantFrequencyRamp.getValue();
-        data->drip->freq1 = data->firstResonantFrequencyRamp.getValue();
-        data->drip->freq2 = data->secondResonantFrequencyRamp.getValue();
-        data->drip->amp = data->amplitudeRamp.getValue();
+        data->drip->num_tubes = data->intensityRamp.getAndStep();
+        data->drip->damp = data->dampingFactorRamp.getAndStep();
+        data->drip->shake_max = data->energyReturnRamp.getAndStep();
+        data->drip->freq = data->mainResonantFrequencyRamp.getAndStep();
+        data->drip->freq1 = data->firstResonantFrequencyRamp.getAndStep();
+        data->drip->freq2 = data->secondResonantFrequencyRamp.getAndStep();
+        data->drip->amp = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

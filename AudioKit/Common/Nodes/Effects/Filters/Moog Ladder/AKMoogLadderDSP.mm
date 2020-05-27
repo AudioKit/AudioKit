@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKMoogLadderDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createMoogLadderDSP() {
     return new AKMoogLadderDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createMoogLadderDSP() {
 struct AKMoogLadderDSP::InternalData {
     sp_moogladder *moogladder0;
     sp_moogladder *moogladder1;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
+    ParameterRamper cutoffFrequencyRamp;
+    ParameterRamper resonanceRamp;
 };
 
 AKMoogLadderDSP::AKMoogLadderDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-            data->resonanceRamp.advanceTo(now + frameOffset);
-        }
+        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep();
+        data->moogladder0->freq = cutoffFrequency;
+        data->moogladder1->freq = cutoffFrequency;
 
-        data->moogladder0->freq = data->cutoffFrequencyRamp.getValue();
-        data->moogladder1->freq = data->cutoffFrequencyRamp.getValue();
-        data->moogladder0->res = data->resonanceRamp.getValue();
-        data->moogladder1->res = data->resonanceRamp.getValue();
+        float resonance = data->resonanceRamp.getAndStep();
+        data->moogladder0->res = resonance;
+        data->moogladder1->res = resonance;
 
         float *tmpin[2];
         float *tmpout[2];

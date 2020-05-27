@@ -54,9 +54,6 @@ class AKDSPBase {
     
     std::vector<const AVAudioPCMBuffer*> internalBuffers;
     
-    /// Ramp rate for ramped parameters
-    float rampDuration;
-    
 protected:
 
     int channelCount;
@@ -72,7 +69,7 @@ protected:
     // current time in samples
     AUEventSampleTime now = 0;
     
-    std::map<AUParameterAddress, class AKParameterRampBase*> parameters;
+    std::map<AUParameterAddress, class ParameterRamper*> parameters;
 
 public:
     
@@ -92,8 +89,6 @@ public:
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
-    
-    void setRampDuration(float duration);
     
     /// Uses the ParameterAddress as a key
     virtual void setParameter(AUParameterAddress address, float value, bool immediate = false);
@@ -144,9 +139,13 @@ public:
         return isInitialized;
     }
 
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
-
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
+    
+    void setParameterRampDuration(AUParameterAddress address, float duration);
+    
+    void setParameterRampTaper(AUParameterAddress address, float taper);
+    
+    void setParameterRampSkew(AUParameterAddress address, float skew);
 
 private:
 

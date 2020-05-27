@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPitchShifterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPitchShifterDSP() {
     return new AKPitchShifterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createPitchShifterDSP() {
 struct AKPitchShifterDSP::InternalData {
     sp_pshift *pshift0;
     sp_pshift *pshift1;
-    AKLinearParameterRamp shiftRamp;
-    AKLinearParameterRamp windowSizeRamp;
-    AKLinearParameterRamp crossfadeRamp;
+    ParameterRamper shiftRamp;
+    ParameterRamper windowSizeRamp;
+    ParameterRamper crossfadeRamp;
 };
 
 AKPitchShifterDSP::AKPitchShifterDSP() : data(new InternalData) {
@@ -47,19 +47,15 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->shiftRamp.advanceTo(now + frameOffset);
-            data->windowSizeRamp.advanceTo(now + frameOffset);
-            data->crossfadeRamp.advanceTo(now + frameOffset);
-        }
-
-        *data->pshift0->shift = data->shiftRamp.getValue();
-        *data->pshift1->shift = data->shiftRamp.getValue();
-        *data->pshift0->window = data->windowSizeRamp.getValue();
-        *data->pshift1->window = data->windowSizeRamp.getValue();
-        *data->pshift0->xfade = data->crossfadeRamp.getValue();
-        *data->pshift1->xfade = data->crossfadeRamp.getValue();
+        float shift = data->shiftRamp.getAndStep();
+        float windowSize = data->windowSizeRamp.getAndStep();
+        float crossfade = data->crossfadeRamp.getAndStep();
+        *data->pshift0->shift = shift;
+        *data->pshift1->shift = shift;
+        *data->pshift0->window = windowSize;
+        *data->pshift1->window = windowSize;
+        *data->pshift0->xfade = crossfade;
+        *data->pshift1->xfade = crossfade;
 
         float *tmpin[2];
         float *tmpout[2];

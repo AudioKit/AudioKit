@@ -6,48 +6,40 @@
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKMoogLadderAudioUnit
+open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKMoogLadderAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Resonance
-    public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let resonanceRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 1_000
+    public static let defaultCutoffFrequency: AUValue = 1000
 
     /// Initial value for Resonance
-    public static let defaultResonance: Double = 0.5
+    public static let defaultResonance: AUValue = 0.5
 
     /// Filter cutoff frequency.
-    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
-        willSet {
-            let clampedValue = AKMoogLadder.cutoffFrequencyRange.clamp(newValue)
-            guard cutoffFrequency != clampedValue else { return }
-            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @objc open var resonance: Double = defaultResonance {
-        willSet {
-            let clampedValue = AKMoogLadder.resonanceRange.clamp(newValue)
-            guard resonance != clampedValue else { return }
-            internalAU?.resonance.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let resonance = AKNodeParameter(identifier: "resonance")
 
     // MARK: - Initialization
 
@@ -60,32 +52,22 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = defaultCutoffFrequency,
-        resonance: Double = defaultResonance
+        cutoffFrequency: AUValue = defaultCutoffFrequency,
+        resonance: AUValue = defaultResonance
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
+            self.resonance.associate(with: self.internalAU, value: resonance)
+
             input?.connect(to: self)
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

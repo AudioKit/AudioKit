@@ -2,55 +2,46 @@
 
 /// Karplus-Strong plucked string instrument.
 ///
-open class AKPluckedString: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKPluckedStringAudioUnit
+open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKPluckedStringAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0 ... 22_000
+    public static let frequencyRange: ClosedRange<AUValue> = 0 ... 22000
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
+    public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 110
+    public static let defaultFrequency: AUValue = 110
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude: Double = 0.5
+    public static let defaultAmplitude: AUValue = 0.5
 
     /// Initial value for Lowest Frequency
-    public static let defaultLowestFrequency: Double = 110
+    public static let defaultLowestFrequency: AUValue = 110
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKPluckedString.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Amplitude
-    @objc open var amplitude: Double = defaultAmplitude {
-        willSet {
-            let clampedValue = AKPluckedString.amplitudeRange.clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-
+    
     /// Initialize this pluck node
     ///
     /// - Parameters:
@@ -59,30 +50,22 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
-        frequency: Double = defaultFrequency,
-        amplitude: Double = defaultAmplitude,
-        lowestFrequency: Double = defaultLowestFrequency
+        frequency: AUValue = defaultFrequency,
+        amplitude: AUValue = defaultAmplitude,
+        lowestFrequency: AUValue = defaultLowestFrequency
     ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.frequency = frequency
-            self.amplitude = amplitude
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.amplitude.associate(with: self.internalAU, value: amplitude)
         }
-    }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

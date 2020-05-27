@@ -35,8 +35,8 @@ class AKBoosterTests: AKTestCase {
         let osc = AKOscillator()
         let booster = AKBooster(osc, gain: 1.0)
         booster.rampDuration = 1
-        booster.leftGain = 0.0
-        booster.rightGain = 0.0
+        booster.leftGain.value = 0.0
+        booster.rightGain.value = 0.0
         osc.connect(to: booster)
         AKManager.output = booster
         try! AKManager.renderToFile(audioFile, duration: 4, prerender: {

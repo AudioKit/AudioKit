@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKOscillatorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createOscillatorDSP() {
@@ -12,10 +12,10 @@ struct AKOscillatorDSP::InternalData {
     sp_osc *osc;
     sp_ftbl *ftbl;
     std::vector<float> waveform;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper amplitudeRamp;
+    ParameterRamper detuningOffsetRamp;
+    ParameterRamper detuningMultiplierRamp;
 };
 
 AKOscillatorDSP::AKOscillatorDSP() : data(new InternalData) {
@@ -54,16 +54,11 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-            data->detuningOffsetRamp.advanceTo(now + frameOffset);
-            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
-        }
-
-        data->osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
-        data->osc->amp = data->amplitudeRamp.getValue();
+        float frequency = data->frequencyRamp.getAndStep();
+        float detuneMultiplier = data->detuningMultiplierRamp.getAndStep();
+        float detuneOffset = data->detuningOffsetRamp.getAndStep();
+        data->osc->freq = frequency * detuneMultiplier + detuneOffset;
+        data->osc->amp = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

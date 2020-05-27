@@ -2,63 +2,49 @@
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
-open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
+open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Distortion
-    public static let distortionRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let distortionRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Resonance
-    public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let resonanceRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Initial value for Distortion
-    public static let defaultDistortion: Double = 0.5
+    public static let defaultDistortion: AUValue = 0.5
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 1_500
+    public static let defaultCutoffFrequency: AUValue = 1500
 
     /// Initial value for Resonance
-    public static let defaultResonance: Double = 0.5
+    public static let defaultResonance: AUValue = 0.5
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    @objc open var distortion: Double = defaultDistortion {
-        willSet {
-            let clampedValue = AKThreePoleLowpassFilter.distortionRange.clamp(newValue)
-            guard distortion != clampedValue else { return }
-            internalAU?.distortion.value = AUValue(clampedValue)
-        }
-    }
+    public let distortion = AKNodeParameter(identifier: "distortion")
 
     /// Filter cutoff frequency in Hertz.
-    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
-        willSet {
-            let clampedValue = AKThreePoleLowpassFilter.cutoffFrequencyRange.clamp(newValue)
-            guard cutoffFrequency != clampedValue else { return }
-            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    @objc open var resonance: Double = defaultResonance {
-        willSet {
-            let clampedValue = AKThreePoleLowpassFilter.resonanceRange.clamp(newValue)
-            guard resonance != clampedValue else { return }
-            internalAU?.resonance.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let resonance = AKNodeParameter(identifier: "resonance")
 
     // MARK: - Initialization
 
@@ -72,34 +58,24 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     ///
     public init(
         _ input: AKNode? = nil,
-        distortion: Double = defaultDistortion,
-        cutoffFrequency: Double = defaultCutoffFrequency,
-        resonance: Double = defaultResonance
+        distortion: AUValue = defaultDistortion,
+        cutoffFrequency: AUValue = defaultCutoffFrequency,
+        resonance: AUValue = defaultResonance
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.distortion.associate(with: self.internalAU, value: distortion)
+            self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
+            self.resonance.associate(with: self.internalAU, value: resonance)
+
             input?.connect(to: self)
-
-            self.distortion = distortion
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

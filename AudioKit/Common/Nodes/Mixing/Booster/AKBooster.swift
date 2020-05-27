@@ -2,57 +2,41 @@
 
 /// Stereo Booster
 ///
-open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKBoosterAudioUnit
+open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+    
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
-
-    // MARK: - Properties
-
+    
+    public typealias AKAudioUnitType = AKBoosterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Amplification Factor
-    @objc open var gain: Double = 1 {
+    open var gain: AUValue = 1 {
         didSet {
-            leftGain = gain
-            rightGain = gain
+            leftGain.value = gain
+            rightGain.value = gain
         }
     }
 
     /// Left Channel Amplification Factor
-    @objc open var leftGain: Double = 1 {
-        willSet {
-            let clampedValue = (0.0 ... 2.0).clamp(newValue)
-            guard leftGain != clampedValue else { return }
-            internalAU?.leftGain.value = AUValue(clampedValue)
-        }
-    }
+    public let leftGain = AKNodeParameter(identifier: "leftGain")
 
     /// Right Channel Amplification Factor
-    @objc open var rightGain: Double = 1 {
-        willSet {
-            let clampedValue = (0.0 ... 2.0).clamp(newValue)
-            guard rightGain != clampedValue else { return }
-            internalAU?.rightGain.value = AUValue(clampedValue)
-        }
-    }
-
-    @objc open var rampType: AKSettings.RampType = .linear {
-        willSet {
-            guard rampType != newValue else { return }
-            internalAU?.rampType.value = AUValue(newValue.rawValue)
-        }
-    }
+    public let rightGain = AKNodeParameter(identifier: "rightGain")
 
     /// Amplification Factor in db
-    @objc open var dB: Double {
+    open var dB: AUValue {
         set { gain = pow(10.0, newValue / 20.0) }
         get { return 20.0 * log10(gain) }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
     }
 
     // MARK: - Initialization
@@ -65,7 +49,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        gain: Double = 1
+        gain: AUValue = 1
     ) {
         super.init(avAudioNode: AVAudioNode())
 
@@ -73,23 +57,14 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+
+            self.leftGain.associate(with: self.internalAU, value: gain)
+            self.rightGain.associate(with: self.internalAU, value: gain)
+            
             input?.connect(to: self)
-
-            self.leftGain = gain
-            self.rightGain = gain
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

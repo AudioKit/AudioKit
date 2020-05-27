@@ -261,14 +261,14 @@ public extension AUParameter {
     convenience init(identifier: String,
                      name: String,
                      address: AUParameterAddress,
-                     range: ClosedRange<Double>,
+                     range: ClosedRange<AUValue>,
                      unit: AudioUnitParameterUnit,
                      flags: AudioUnitParameterOptions) {
         self.init(identifier: identifier,
                   name: name,
                   address: address,
-                  min: AUValue(range.lowerBound),
-                  max: AUValue(range.upperBound),
+                  min: range.lowerBound,
+                  max: range.upperBound,
                   unit: unit,
                   flags: flags)
     }

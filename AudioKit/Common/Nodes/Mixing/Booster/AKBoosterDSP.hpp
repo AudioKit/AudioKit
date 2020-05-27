@@ -3,12 +3,10 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import "AKParameterRamp.hpp"
 
 typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
-    AKBoosterParameterRightGain,
-    AKBoosterParameterRampType
+    AKBoosterParameterRightGain
 };
 
 #ifndef __cplusplus
@@ -33,8 +31,6 @@ private:
 
 public:
     AKBoosterDSP();
-
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

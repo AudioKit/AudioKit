@@ -8,9 +8,6 @@
 typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterLeftGain,
     AKFaderParameterRightGain,
-    AKFaderParameterTaper,
-    AKFaderParameterSkew,
-    AKFaderParameterOffset,
     AKFaderParameterFlipStereo,
     AKFaderParameterMixToMono
 };
@@ -35,7 +32,6 @@ public:
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 };
 
 #endif

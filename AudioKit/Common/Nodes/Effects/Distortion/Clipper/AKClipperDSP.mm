@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKClipperDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createClipperDSP() {
     return new AKClipperDSP();
@@ -10,7 +10,7 @@ extern "C" AKDSPRef createClipperDSP() {
 struct AKClipperDSP::InternalData {
     sp_clip *clip0;
     sp_clip *clip1;
-    AKLinearParameterRamp limitRamp;
+    ParameterRamper limitRamp;
 };
 
 AKClipperDSP::AKClipperDSP() : data(new InternalData) {
@@ -43,13 +43,9 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->limitRamp.advanceTo(now + frameOffset);
-        }
-
-        data->clip0->lim = data->limitRamp.getValue();
-        data->clip1->lim = data->limitRamp.getValue();
+        float limit = data->limitRamp.getAndStep();
+        data->clip0->lim = limit;
+        data->clip1->lim = limit;
 
         float *tmpin[2];
         float *tmpout[2];

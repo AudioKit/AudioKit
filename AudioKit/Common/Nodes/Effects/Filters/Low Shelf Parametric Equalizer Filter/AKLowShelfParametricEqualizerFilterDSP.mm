@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKLowShelfParametricEqualizerFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createLowShelfParametricEqualizerFilterDSP() {
     return new AKLowShelfParametricEqualizerFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createLowShelfParametricEqualizerFilterDSP() {
 struct AKLowShelfParametricEqualizerFilterDSP::InternalData {
     sp_pareq *pareq0;
     sp_pareq *pareq1;
-    AKLinearParameterRamp cornerFrequencyRamp;
-    AKLinearParameterRamp gainRamp;
-    AKLinearParameterRamp qRamp;
+    ParameterRamper cornerFrequencyRamp;
+    ParameterRamper gainRamp;
+    ParameterRamper qRamp;
 };
 
 AKLowShelfParametricEqualizerFilterDSP::AKLowShelfParametricEqualizerFilterDSP() : data(new InternalData) {
@@ -51,19 +51,17 @@ void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCoun
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->cornerFrequencyRamp.advanceTo(now + frameOffset);
-            data->gainRamp.advanceTo(now + frameOffset);
-            data->qRamp.advanceTo(now + frameOffset);
-        }
+        float cornerFrequency = data->cornerFrequencyRamp.getAndStep();
+        data->pareq0->fc = cornerFrequency;
+        data->pareq1->fc = cornerFrequency;
 
-        data->pareq0->fc = data->cornerFrequencyRamp.getValue();
-        data->pareq1->fc = data->cornerFrequencyRamp.getValue();
-        data->pareq0->v = data->gainRamp.getValue();
-        data->pareq1->v = data->gainRamp.getValue();
-        data->pareq0->q = data->qRamp.getValue();
-        data->pareq1->q = data->qRamp.getValue();
+        float gain = data->gainRamp.getAndStep();
+        data->pareq0->v = gain;
+        data->pareq1->v = gain;
+
+        float q = data->qRamp.getAndStep();
+        data->pareq0->q = q;
+        data->pareq1->q = q;
 
         float *tmpin[2];
         float *tmpout[2];

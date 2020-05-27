@@ -1,13 +1,7 @@
-//
-//  AKTremoloDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKTremoloDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createTremoloDSP() {
@@ -18,8 +12,8 @@ struct AKTremoloDSP::InternalData {
     sp_osc *trem;
     sp_ftbl *ftbl;
     std::vector<float> wavetable;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp depthRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper depthRamp;
 };
 
 AKTremoloDSP::AKTremoloDSP() : data(new InternalData) {
@@ -56,15 +50,9 @@ void AKTremoloDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->depthRamp.advanceTo(now + frameOffset);
-        }
-
-        data->trem->freq = data->frequencyRamp.getValue() * 0.5;
-        data->trem->amp = data->depthRamp.getValue();
+        
+        data->trem->freq = data->frequencyRamp.getAndStep() * 0.5;
+        data->trem->amp = data->depthRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKPWMOscillatorDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "ParameterRamper.hpp"
 
 // "Constructor" function for interop with Swift
 
@@ -11,11 +11,11 @@ extern "C" AKDSPRef createPWMOscillatorDSP() {
 
 struct AKPWMOscillatorDSP::InternalData {
     sp_blsquare *blsquare;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp pulseWidthRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper amplitudeRamp;
+    ParameterRamper pulseWidthRamp;
+    ParameterRamper detuningOffsetRamp;
+    ParameterRamper detuningMultiplierRamp;
 };
 
 AKPWMOscillatorDSP::AKPWMOscillatorDSP() : data(new InternalData) {
@@ -48,20 +48,13 @@ void AKPWMOscillatorDSP::reset() {
 void AKPWMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-            data->pulseWidthRamp.advanceTo(now + frameOffset);
-            data->detuningOffsetRamp.advanceTo(now + frameOffset);
-            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
-        }
-        float frequency = data->frequencyRamp.getValue();
-        float amplitude = data->amplitudeRamp.getValue();
-        float pulseWidth = data->pulseWidthRamp.getValue();
-        float detuningOffset = data->detuningOffsetRamp.getValue();
-        float detuningMultiplier = data->detuningMultiplierRamp.getValue();
+        
+        float frequency = data->frequencyRamp.getAndStep();
+        float amplitude = data->amplitudeRamp.getAndStep();
+        float pulseWidth = data->pulseWidthRamp.getAndStep();
+        float detuningOffset = data->detuningOffsetRamp.getAndStep();
+        float detuningMultiplier = data->detuningMultiplierRamp.getAndStep();
+        
         *data->blsquare->freq = frequency * detuningMultiplier + detuningOffset;
         *data->blsquare->amp = amplitude;
         *data->blsquare->width = pulseWidth;

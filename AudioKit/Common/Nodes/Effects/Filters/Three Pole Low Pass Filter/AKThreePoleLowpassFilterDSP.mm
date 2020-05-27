@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKThreePoleLowpassFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createThreePoleLowpassFilterDSP() {
     return new AKThreePoleLowpassFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createThreePoleLowpassFilterDSP() {
 struct AKThreePoleLowpassFilterDSP::InternalData {
     sp_lpf18 *lpf180;
     sp_lpf18 *lpf181;
-    AKLinearParameterRamp distortionRamp;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
+    ParameterRamper distortionRamp;
+    ParameterRamper cutoffFrequencyRamp;
+    ParameterRamper resonanceRamp;
 };
 
 AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : data(new InternalData) {
@@ -47,19 +47,17 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->distortionRamp.advanceTo(now + frameOffset);
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-            data->resonanceRamp.advanceTo(now + frameOffset);
-        }
+        float distortion = data->distortionRamp.getAndStep();
+        data->lpf180->dist = distortion;
+        data->lpf181->dist = distortion;
 
-        data->lpf180->dist = data->distortionRamp.getValue();
-        data->lpf181->dist = data->distortionRamp.getValue();
-        data->lpf180->cutoff = data->cutoffFrequencyRamp.getValue();
-        data->lpf181->cutoff = data->cutoffFrequencyRamp.getValue();
-        data->lpf180->res = data->resonanceRamp.getValue();
-        data->lpf181->res = data->resonanceRamp.getValue();
+        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep();
+        data->lpf180->cutoff = cutoffFrequency;
+        data->lpf181->cutoff = cutoffFrequency;
+
+        float resonance = data->resonanceRamp.getAndStep();
+        data->lpf180->res = resonance;
+        data->lpf181->res = resonance;
 
         float *tmpin[2];
         float *tmpout[2];

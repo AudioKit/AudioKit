@@ -2,78 +2,58 @@
 
 /// Shane's Chorus
 ///
-open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKChorusAudioUnit
+open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKChorusAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.1 ... 10.0
+    public static let frequencyRange: ClosedRange<AUValue> = 0.1 ... 10.0
 
     /// Lower and upper bounds for Depth
-    public static let depthRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let depthRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<Double> = 0.0 ... 0.25
+    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 0.25
 
     /// Lower and upper bounds for Dry Wet Mix
-    public static let dryWetMixRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let dryWetMixRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 1.0
+    public static let defaultFrequency: AUValue = 1.0
 
     /// Initial value for Depth
-    public static let defaultDepth: Double = 0.0
+    public static let defaultDepth: AUValue = 0.0
 
     /// Initial value for Feedback
-    public static let defaultFeedback: Double = 0.0
+    public static let defaultFeedback: AUValue = 0.0
 
     /// Initial value for Dry Wet Mix
-    public static let defaultDryWetMix: Double = 0.0
+    public static let defaultDryWetMix: AUValue = 0.0
 
     /// Frequency. (in Hertz)
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKChorus.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Depth
-    @objc open var depth: Double = defaultDepth {
-        willSet {
-            let clampedValue = AKChorus.depthRange.clamp(newValue)
-            guard depth != clampedValue else { return }
-            internalAU?.depth.value = AUValue(clampedValue)
-        }
-    }
+    public let depth = AKNodeParameter(identifier: "depth")
 
     /// Feedback
-    @objc open var feedback: Double = defaultFeedback {
-        willSet {
-            let clampedValue = AKChorus.feedbackRange.clamp(newValue)
-            guard feedback != clampedValue else { return }
-            internalAU?.feedback.value = AUValue(clampedValue)
-        }
-    }
+    public let feedback = AKNodeParameter(identifier: "feedback")
 
     /// Dry Wet Mix
-    @objc open var dryWetMix: Double = defaultDryWetMix {
-        willSet {
-            let clampedValue = AKChorus.dryWetMixRange.clamp(newValue)
-            guard dryWetMix != clampedValue else { return }
-            internalAU?.dryWetMix.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let dryWetMix = AKNodeParameter(identifier: "dryWetMix")
 
     // MARK: - Initialization
 
@@ -88,36 +68,26 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: Double = defaultFrequency,
-        depth: Double = defaultDepth,
-        feedback: Double = defaultFeedback,
-        dryWetMix: Double = defaultDryWetMix
+        frequency: AUValue = defaultFrequency,
+        depth: AUValue = defaultDepth,
+        feedback: AUValue = defaultFeedback,
+        dryWetMix: AUValue = defaultDryWetMix
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.depth.associate(with: self.internalAU, value: depth)
+            self.feedback.associate(with: self.internalAU, value: feedback)
+            self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
+
             input?.connect(to: self)
-
-            self.frequency = frequency
-            self.depth = depth
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

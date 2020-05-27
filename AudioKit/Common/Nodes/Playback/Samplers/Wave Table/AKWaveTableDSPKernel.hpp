@@ -25,8 +25,8 @@ public:
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
         
-        rateRamper.init();
-        volumeRamper.init();
+        rateRamper.init(sampleRate);
+        volumeRamper.init(sampleRate);
     }
 
 

@@ -2,64 +2,53 @@
 
 /// Faust-based pink noise generator
 ///
-open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKPinkNoiseAudioUnit
+open class AKPinkNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKPinkNoiseAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude: Double = 1.0
+    public static let defaultAmplitude: AUValue = 1.0
 
     /// Amplitude. (Value between 0-1).
-    @objc open var amplitude: Double = defaultAmplitude {
-        willSet {
-            let clampedValue = AKPinkNoise.amplitudeRange.clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-
+    
     /// Initialize this noise node
     ///
     /// - Parameters:
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
     public init(
-        amplitude: Double = defaultAmplitude
+        amplitude: AUValue = defaultAmplitude
     ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.amplitude = amplitude
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.amplitude.associate(with: self.internalAU, value: amplitude)
         }
-    }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

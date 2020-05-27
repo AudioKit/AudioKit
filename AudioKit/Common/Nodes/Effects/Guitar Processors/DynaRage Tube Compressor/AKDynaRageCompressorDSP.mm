@@ -4,7 +4,7 @@
 
 #include "Compressor.h"
 #include "RageProcessor.h"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createDynaRageCompressorDSP() {
     return new AKDynaRageCompressorDSP();
@@ -17,11 +17,11 @@ struct AKDynaRageCompressorDSP::InternalData {
     std::unique_ptr<RageProcessor> left_rageprocessor;
     std::unique_ptr<RageProcessor> right_rageprocessor;
     
-    AKLinearParameterRamp ratioRamp;
-    AKLinearParameterRamp thresholdRamp;
-    AKLinearParameterRamp attackRamp;
-    AKLinearParameterRamp releaseRamp;
-    AKLinearParameterRamp rageRamp;
+    ParameterRamper ratioRamp;
+    ParameterRamper thresholdRamp;
+    ParameterRamper attackRamp;
+    ParameterRamper releaseRamp;
+    ParameterRamper rageRamp;
     
     bool rageIsOn = true;
 };
@@ -37,10 +37,10 @@ AKDynaRageCompressorDSP::AKDynaRageCompressorDSP() : data(new InternalData) {
 void AKDynaRageCompressorDSP::init(int channelCount, double sampleRate) {
     AKDSPBase::init(channelCount, sampleRate);
     
-    float ratio = data->ratioRamp.getValue();
-    float threshold = data->thresholdRamp.getValue();
-    float attack = data->attackRamp.getValue();
-    float release = data->releaseRamp.getValue();
+    float ratio = data->ratioRamp.get();
+    float threshold = data->thresholdRamp.get();
+    float attack = data->attackRamp.get();
+    float release = data->releaseRamp.get();
     
     data->left_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
     data->right_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
@@ -57,10 +57,10 @@ void AKDynaRageCompressorDSP::deinit() {
 }
 
 void AKDynaRageCompressorDSP::reset() {
-    float ratio = data->ratioRamp.getValue();
-    float threshold = data->thresholdRamp.getValue();
-    float attack = data->attackRamp.getValue();
-    float release = data->releaseRamp.getValue();
+    float ratio = data->ratioRamp.get();
+    float threshold = data->thresholdRamp.get();
+    float attack = data->attackRamp.get();
+    float release = data->releaseRamp.get();
     
     data->left_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
     data->right_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
@@ -90,21 +90,12 @@ void AKDynaRageCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->ratioRamp.advanceTo(now + frameOffset);
-            data->thresholdRamp.advanceTo(now + frameOffset);
-            data->attackRamp.advanceTo(now + frameOffset);
-            data->releaseRamp.advanceTo(now + frameOffset);
-            data->rageRamp.advanceTo(now + frameOffset);
-        }
         
-        float ratio = data->ratioRamp.getValue();
-        float threshold = data->thresholdRamp.getValue();
-        float attack = data->attackRamp.getValue();
-        float release = data->releaseRamp.getValue();
-        float rage = data->rageRamp.getValue();
+        float ratio = data->ratioRamp.getAndStep();
+        float threshold = data->thresholdRamp.getAndStep();
+        float attack = data->attackRamp.getAndStep();
+        float release = data->releaseRamp.getAndStep();
+        float rage = data->rageRamp.getAndStep();
 
         data->left_compressor->setParameters(threshold, ratio, attack, release);
         data->right_compressor->setParameters(threshold, ratio, attack, release);
