@@ -9,11 +9,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct AutomationPoint {
-    AUParameterAddress address;
+    NSString *identifier;
     AUValue value;
     AUEventSampleTime sampleTime;
     AUEventSampleTime anchorTime;
+    AUAudioFrameCount offset;
     AUAudioFrameCount rampDuration;
+    AUValue taper;
+    AUValue skew;
     bool triggered;
 } AutomationPoint;
 
@@ -37,11 +40,21 @@ typedef struct AutomationPoint {
 - (void)stopAutomation;
 
 /// Add a single automation point to the collection
-- (void)addPoint:(AUParameterAddress)address
+- (void)addPoint:(NSString *)identifier
            value:(AUValue)value
       sampleTime:(AUEventSampleTime)sampleTime
       anchorTime:(AUEventSampleTime)anchorTime
     rampDuration:(AUAudioFrameCount)rampDuration;
+
+/// Add a single automation point to the collection with specified taper and skew
+- (void)addPoint:(NSString *)identifier
+           value:(AUValue)value
+      sampleTime:(AUEventSampleTime)sampleTime
+      anchorTime:(AUEventSampleTime)anchorTime
+    rampDuration:(AUAudioFrameCount)rampDuration
+           taper:(AUValue)taper
+            skew:(AUValue)skew
+          offset:(AUAudioFrameCount)offset;
 
 /// Add a single automation point to the collection
 - (void)addPoint:(struct AutomationPoint)point;

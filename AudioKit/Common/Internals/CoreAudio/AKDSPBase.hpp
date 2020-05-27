@@ -157,7 +157,10 @@ private:
                            AURenderEvent const *events);
     
     void handleOneEvent(AURenderEvent const *event);
+    
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
+    
+    void startRamp(const AUParameterEvent& event);
 };
 
 #endif

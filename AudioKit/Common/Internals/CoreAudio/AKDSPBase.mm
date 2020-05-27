@@ -273,11 +273,7 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
     switch (event->head.eventType) {
         case AURenderEventParameter:
         case AURenderEventParameterRamp: {
-            AUParameterEvent const& paramEvent = event->parameter;
-
-            // virtual method, will work if subclass implements it
-            // See: AKFaderDSP
-            // startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
+            startRamp(event->parameter);
             break;
         }
         case AURenderEventMIDI:
@@ -285,5 +281,26 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
             break;
         default:
             break;
+    }
+}
+
+void AKDSPBase::startRamp(const AUParameterEvent& event)
+{
+    const auto& parameterIter = parameters.find(event.parameterAddress & 0xFFFFFFFF);
+    if (parameterIter == parameters.cend()) return;
+    
+    auto& ramper = parameterIter->second;
+    switch (event.parameterAddress >> 61) {
+        case 0x4: // taper
+            ramper->setTaper(event.value);
+            break;
+        case 0x2: // skew
+            ramper->setSkew(event.value);
+            break;
+        case 0x1: // offset
+            ramper->setOffset(event.rampDurationSampleFrames);
+            break;
+        case 0x0:
+            ramper->startRamp(event.value, event.rampDurationSampleFrames);
     }
 }
