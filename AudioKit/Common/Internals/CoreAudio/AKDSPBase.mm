@@ -7,7 +7,7 @@
 //
 
 #import "AKDSPBase.hpp"
-#import "AKParameterRampBase.hpp"
+#import "ParameterRamper.hpp"
 
 extern "C" AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
 {
@@ -61,17 +61,17 @@ extern "C" AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress addres
 
 extern "C" void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
 {
-    pDSP->setRampDuration(rampDuration);
+    pDSP->setParameterRampDuration(address, rampDuration);
 }
 
 extern "C" void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
 {
-    
+    pDSP->setParameterRampTaper(address, taper);
 }
 
 extern "C" void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
 {
-    
+    pDSP->setParameterRampSkew(address, skew);
 }
 
 extern "C" void startDSP(AKDSPRef pDSP)
@@ -163,28 +163,25 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
     };
 }
 
-void AKDSPBase::setRampDuration(float duration)
-{
-    rampDuration = duration;
-    if (isInitialized) {
-        for (const auto& parameter : parameters) {
-            parameter.second->setRampDuration(rampDuration, sampleRate);
-        }
-    }
-}
-
 void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
 {
     const auto& parameter = parameters.find(address);
     if (parameter == parameters.cend()) return;
-    parameter->second->setTarget(value, immediate || !isInitialized);
+    
+    if (immediate || !isInitialized) {
+        parameter->second->setImmediate(value);
+    }
+    else {
+        parameter->second->setUIValue(value);
+        parameter->second->dezipperCheck();
+    }
 }
 
 float AKDSPBase::getParameter(AUParameterAddress address)
 {
     const auto& parameter = parameters.find(address);
     if (parameter == parameters.cend()) return 0.f;
-    return parameter->second->getTarget();
+    return parameter->second->getUIValue();
 }
 
 void AKDSPBase::init(int channelCount, double sampleRate)
@@ -194,12 +191,33 @@ void AKDSPBase::init(int channelCount, double sampleRate)
     isInitialized = true;
     
     // update parameter ramp durations with new sample rate
-    setRampDuration(rampDuration);
+    for (const auto& parameter : parameters) parameter.second->init(sampleRate);
 }
 
 void AKDSPBase::deinit()
 {
     isInitialized = false;
+}
+
+void AKDSPBase::setParameterRampDuration(AUParameterAddress address, float duration)
+{
+    const auto& parameter = parameters.find(address);
+    if (parameter == parameters.cend()) return;
+    parameter->second->setDefaultRampDuration(duration);
+}
+
+void AKDSPBase::setParameterRampTaper(AUParameterAddress address, float taper)
+{
+    const auto& parameter = parameters.find(address);
+    if (parameter == parameters.cend()) return;
+    parameter->second->setTaper(taper);
+}
+
+void AKDSPBase::setParameterRampSkew(AUParameterAddress address, float skew)
+{
+    const auto& parameter = parameters.find(address);
+    if (parameter == parameters.cend()) return;
+    parameter->second->setSkew(skew);
 }
 
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
@@ -259,7 +277,7 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
 
             // virtual method, will work if subclass implements it
             // See: AKFaderDSP
-            startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
+            // startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
             break;
         }
         case AURenderEventMIDI:

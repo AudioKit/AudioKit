@@ -5,41 +5,41 @@ public extension AKFMOscillator {
 
     /// Stun Ray Preset
     func presetStunRay() {
-        baseFrequency = 200
-        carrierMultiplier = 90
-        modulatingMultiplier = 10
-        modulationIndex = 25
+        baseFrequency.value = 200
+        carrierMultiplier.value = 90
+        modulatingMultiplier.value = 10
+        modulationIndex.value = 25
     }
 
     /// Fog Horn Preset
     func presetFogHorn() {
-        baseFrequency = 25
-        carrierMultiplier = 10
-        modulatingMultiplier = 5
-        modulationIndex = 10
+        baseFrequency.value = 25
+        carrierMultiplier.value = 10
+        modulatingMultiplier.value = 5
+        modulationIndex.value = 10
     }
 
     /// Buzzer Preset
     func presetBuzzer() {
-        baseFrequency = 400
-        carrierMultiplier = 28
-        modulatingMultiplier = 0.5
-        modulationIndex = 100
+        baseFrequency.value = 400
+        carrierMultiplier.value = 28
+        modulatingMultiplier.value = 0.5
+        modulationIndex.value = 100
     }
 
     /// Spiral Preset
     func presetSpiral() {
-        baseFrequency = 5
-        carrierMultiplier = 280
-        modulatingMultiplier = 0.2
-        modulationIndex = 100
+        baseFrequency.value = 5
+        carrierMultiplier.value = 280
+        modulatingMultiplier.value = 0.2
+        modulationIndex.value = 100
     }
 
     /// Wobble Preset
     func presetWobble() {
-        baseFrequency = 20
-        carrierMultiplier = 10
-        modulatingMultiplier = 0.9
-        modulationIndex = 20
+        baseFrequency.value = 20
+        carrierMultiplier.value = 10
+        modulatingMultiplier.value = 0.9
+        modulationIndex.value = 20
     }
 }

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPhaseLockedVocoderDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
@@ -13,9 +13,9 @@ struct AKPhaseLockedVocoderDSP::InternalData {
     sp_ftbl *ftbl;
     std::vector<float> wavetable;
 
-    AKLinearParameterRamp positionRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp pitchRatioRamp;
+    ParameterRamper positionRamp;
+    ParameterRamper amplitudeRamp;
+    ParameterRamper pitchRatioRamp;
 };
 
 AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new InternalData) {
@@ -58,16 +58,9 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->positionRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-            data->pitchRatioRamp.advanceTo(now + frameOffset);
-        }
-
-        data->mincer->time = data->positionRamp.getValue();
-        data->mincer->amp = data->amplitudeRamp.getValue();
-        data->mincer->pitch = data->pitchRatioRamp.getValue();
+        data->mincer->time = data->positionRamp.getAndStep();
+        data->mincer->amp = data->amplitudeRamp.getAndStep();
+        data->mincer->pitch = data->pitchRatioRamp.getAndStep();
 
         float *outL = (float *)outputBufferLists[0]->mBuffers[0].mData  + frameOffset;
         float *outR = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;

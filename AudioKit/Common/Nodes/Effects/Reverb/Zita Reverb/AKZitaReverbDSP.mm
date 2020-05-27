@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKZitaReverbDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createZitaReverbDSP() {
     return new AKZitaReverbDSP();
@@ -9,16 +9,16 @@ extern "C" AKDSPRef createZitaReverbDSP() {
 
 struct AKZitaReverbDSP::InternalData {
     sp_zitarev *zitarev;
-    AKLinearParameterRamp predelayRamp;
-    AKLinearParameterRamp crossoverFrequencyRamp;
-    AKLinearParameterRamp lowReleaseTimeRamp;
-    AKLinearParameterRamp midReleaseTimeRamp;
-    AKLinearParameterRamp dampingFrequencyRamp;
-    AKLinearParameterRamp equalizerFrequency1Ramp;
-    AKLinearParameterRamp equalizerLevel1Ramp;
-    AKLinearParameterRamp equalizerFrequency2Ramp;
-    AKLinearParameterRamp equalizerLevel2Ramp;
-    AKLinearParameterRamp dryWetMixRamp;
+    ParameterRamper predelayRamp;
+    ParameterRamper crossoverFrequencyRamp;
+    ParameterRamper lowReleaseTimeRamp;
+    ParameterRamper midReleaseTimeRamp;
+    ParameterRamper dampingFrequencyRamp;
+    ParameterRamper equalizerFrequency1Ramp;
+    ParameterRamper equalizerLevel1Ramp;
+    ParameterRamper equalizerFrequency2Ramp;
+    ParameterRamper equalizerLevel2Ramp;
+    ParameterRamper dryWetMixRamp;
 };
 
 AKZitaReverbDSP::AKZitaReverbDSP() : data(new InternalData) {
@@ -56,30 +56,16 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->predelayRamp.advanceTo(now + frameOffset);
-            data->crossoverFrequencyRamp.advanceTo(now + frameOffset);
-            data->lowReleaseTimeRamp.advanceTo(now + frameOffset);
-            data->midReleaseTimeRamp.advanceTo(now + frameOffset);
-            data->dampingFrequencyRamp.advanceTo(now + frameOffset);
-            data->equalizerFrequency1Ramp.advanceTo(now + frameOffset);
-            data->equalizerLevel1Ramp.advanceTo(now + frameOffset);
-            data->equalizerFrequency2Ramp.advanceTo(now + frameOffset);
-            data->equalizerLevel2Ramp.advanceTo(now + frameOffset);
-            data->dryWetMixRamp.advanceTo(now + frameOffset);
-        }
-
-        *data->zitarev->in_delay = data->predelayRamp.getValue();
-        *data->zitarev->lf_x = data->crossoverFrequencyRamp.getValue();
-        *data->zitarev->rt60_low = data->lowReleaseTimeRamp.getValue();
-        *data->zitarev->rt60_mid = data->midReleaseTimeRamp.getValue();
-        *data->zitarev->hf_damping = data->dampingFrequencyRamp.getValue();
-        *data->zitarev->eq1_freq = data->equalizerFrequency1Ramp.getValue();
-        *data->zitarev->eq1_level = data->equalizerLevel1Ramp.getValue();
-        *data->zitarev->eq2_freq = data->equalizerFrequency2Ramp.getValue();
-        *data->zitarev->eq2_level = data->equalizerLevel2Ramp.getValue();
-        *data->zitarev->mix = data->dryWetMixRamp.getValue();
+        *data->zitarev->in_delay = data->predelayRamp.getAndStep();
+        *data->zitarev->lf_x = data->crossoverFrequencyRamp.getAndStep();
+        *data->zitarev->rt60_low = data->lowReleaseTimeRamp.getAndStep();
+        *data->zitarev->rt60_mid = data->midReleaseTimeRamp.getAndStep();
+        *data->zitarev->hf_damping = data->dampingFrequencyRamp.getAndStep();
+        *data->zitarev->eq1_freq = data->equalizerFrequency1Ramp.getAndStep();
+        *data->zitarev->eq1_level = data->equalizerLevel1Ramp.getAndStep();
+        *data->zitarev->eq2_freq = data->equalizerFrequency2Ramp.getAndStep();
+        *data->zitarev->eq2_level = data->equalizerLevel2Ramp.getAndStep();
+        *data->zitarev->mix = data->dryWetMixRamp.getAndStep();
 
         float *tmpin[2];
         float *tmpout[2];

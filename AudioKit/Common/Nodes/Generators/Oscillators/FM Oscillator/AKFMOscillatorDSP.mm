@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKFMOscillatorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createFMOscillatorDSP() {
@@ -12,11 +12,11 @@ struct AKFMOscillatorDSP::InternalData {
     sp_fosc *fosc;
     sp_ftbl *ftbl;
     std::vector<float> waveform;
-    AKLinearParameterRamp baseFrequencyRamp;
-    AKLinearParameterRamp carrierMultiplierRamp;
-    AKLinearParameterRamp modulatingMultiplierRamp;
-    AKLinearParameterRamp modulationIndexRamp;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper baseFrequencyRamp;
+    ParameterRamper carrierMultiplierRamp;
+    ParameterRamper modulatingMultiplierRamp;
+    ParameterRamper modulationIndexRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKFMOscillatorDSP::AKFMOscillatorDSP() : data(new InternalData) {
@@ -56,20 +56,11 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->baseFrequencyRamp.advanceTo(now + frameOffset);
-            data->carrierMultiplierRamp.advanceTo(now + frameOffset);
-            data->modulatingMultiplierRamp.advanceTo(now + frameOffset);
-            data->modulationIndexRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
-
-        data->fosc->freq = data->baseFrequencyRamp.getValue();
-        data->fosc->car = data->carrierMultiplierRamp.getValue();
-        data->fosc->mod = data->modulatingMultiplierRamp.getValue();
-        data->fosc->indx = data->modulationIndexRamp.getValue();
-        data->fosc->amp = data->amplitudeRamp.getValue();
+        data->fosc->freq = data->baseFrequencyRamp.getAndStep();
+        data->fosc->car = data->carrierMultiplierRamp.getAndStep();
+        data->fosc->mod = data->modulatingMultiplierRamp.getAndStep();
+        data->fosc->indx = data->modulationIndexRamp.getAndStep();
+        data->fosc->amp = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

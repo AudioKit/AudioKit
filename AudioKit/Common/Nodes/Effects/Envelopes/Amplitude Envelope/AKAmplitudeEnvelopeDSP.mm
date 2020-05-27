@@ -1,13 +1,7 @@
-//
-//  AKAmplitudeEnvelopeDSP.mm
-//  AudioKit
-//
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKAmplitudeEnvelopeDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createAmplitudeEnvelopeDSP() {
     return new AKAmplitudeEnvelopeDSP();
@@ -17,10 +11,10 @@ struct AKAmplitudeEnvelopeDSP::InternalData {
     sp_adsr *adsr;
     float internalGate = 0;
     float amp = 0;
-    AKLinearParameterRamp attackDurationRamp;
-    AKLinearParameterRamp decayDurationRamp;
-    AKLinearParameterRamp sustainLevelRamp;
-    AKLinearParameterRamp releaseDurationRamp;
+    ParameterRamper attackDurationRamp;
+    ParameterRamper decayDurationRamp;
+    ParameterRamper sustainLevelRamp;
+    ParameterRamper releaseDurationRamp;
 };
 
 AKAmplitudeEnvelopeDSP::AKAmplitudeEnvelopeDSP() : data(new InternalData) {
@@ -62,18 +56,10 @@ void AKAmplitudeEnvelopeDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->attackDurationRamp.advanceTo(now + frameOffset);
-            data->decayDurationRamp.advanceTo(now + frameOffset);
-            data->sustainLevelRamp.advanceTo(now + frameOffset);
-            data->releaseDurationRamp.advanceTo(now + frameOffset);
-        }
-
-        data->adsr->atk = data->attackDurationRamp.getValue();
-        data->adsr->dec = data->decayDurationRamp.getValue();
-        data->adsr->sus = data->sustainLevelRamp.getValue();
-        data->adsr->rel = data->releaseDurationRamp.getValue();
+        data->adsr->atk = data->attackDurationRamp.getAndStep();
+        data->adsr->dec = data->decayDurationRamp.getAndStep();
+        data->adsr->sus = data->sustainLevelRamp.getAndStep();
+        data->adsr->rel = data->releaseDurationRamp.getAndStep();
 
         sp_adsr_compute(sp, data->adsr, &data->internalGate, &data->amp);
 

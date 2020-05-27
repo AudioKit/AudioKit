@@ -6,36 +6,34 @@
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
+open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Reverb Duration
-    public static let reverbDurationRange: ClosedRange<Double> = 0.0 ... 10.0
+    public static let reverbDurationRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
     /// Initial value for Reverb Duration
-    public static let defaultReverbDuration: Double = 1.0
+    public static let defaultReverbDuration: AUValue = 1.0
 
     /// Initial value for Loop Duration
-    public static let defaultLoopDuration: Double = 0.1
+    public static let defaultLoopDuration: AUValue = 0.1
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    @objc open var reverbDuration: Double = defaultReverbDuration {
-        willSet {
-            let clampedValue = AKCombFilterReverb.reverbDurationRange.clamp(newValue)
-            guard reverbDuration != clampedValue else { return }
-            internalAU?.reverbDuration.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let reverbDuration = AKNodeParameter(identifier: "reverbDuration")
 
     // MARK: - Initialization
 
@@ -48,31 +46,21 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        reverbDuration: Double = defaultReverbDuration,
-        loopDuration: Double = defaultLoopDuration
+        reverbDuration: AUValue = defaultReverbDuration,
+        loopDuration: AUValue = defaultLoopDuration
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.reverbDuration.associate(with: self.internalAU, value: reverbDuration)
+
             input?.connect(to: self)
-
-            self.reverbDuration = reverbDuration
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

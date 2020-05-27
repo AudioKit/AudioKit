@@ -4,63 +4,49 @@
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
+open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "minc")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Position
-    public static let positionRange: ClosedRange<Double> = 0 ... 1
+    public static let positionRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<Double> = 0 ... 1
+    public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Lower and upper bounds for Pitch Ratio
-    public static let pitchRatioRange: ClosedRange<Double> = 0 ... 1_000
+    public static let pitchRatioRange: ClosedRange<AUValue> = 0 ... 1000
 
     /// Initial value for Position
-    public static let defaultPosition: Double = 0
+    public static let defaultPosition: AUValue = 0
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude: Double = 1
+    public static let defaultAmplitude: AUValue = 1
 
     /// Initial value for Pitch Ratio
-    public static let defaultPitchRatio: Double = 1
+    public static let defaultPitchRatio: AUValue = 1
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    @objc open var position: Double = defaultPosition {
-        willSet {
-            let clampedValue = AKPhaseLockedVocoder.positionRange.clamp(newValue)
-            guard position != clampedValue else { return }
-            internalAU?.position.value = AUValue(clampedValue)
-        }
-    }
+    public let position = AKNodeParameter(identifier: "position")
 
     /// Amplitude.
-    @objc open var amplitude: Double = defaultAmplitude {
-        willSet {
-            let clampedValue = AKPhaseLockedVocoder.amplitudeRange.clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
+    public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @objc open var pitchRatio: Double = defaultPitchRatio {
-        willSet {
-            let clampedValue = AKPhaseLockedVocoder.pitchRatioRange.clamp(newValue)
-            guard pitchRatio != clampedValue else { return }
-            internalAU?.pitchRatio.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let pitchRatio = AKNodeParameter(identifier: "pitchRatio")
 
     // MARK: - Initialization
 
@@ -72,38 +58,28 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
     public init(
-        position: Double = defaultPosition,
-        amplitude: Double = defaultAmplitude,
-        pitchRatio: Double = defaultPitchRatio
+        position: AUValue = defaultPosition,
+        amplitude: AUValue = defaultAmplitude,
+        pitchRatio: AUValue = defaultPitchRatio
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.position.associate(with: self.internalAU, value: position)
+            self.amplitude.associate(with: self.internalAU, value: amplitude)
+            self.pitchRatio.associate(with: self.internalAU, value: pitchRatio)
 
-            self.position = position
-            self.amplitude = amplitude
-            self.pitchRatio = pitchRatio
         }
     }
-
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> AKPhaseLockedVocoder {
-        let copy = AKPhaseLockedVocoder(position: self.position, amplitude: self.amplitude, pitchRatio: self.pitchRatio)
+        let copy = AKPhaseLockedVocoder(position: self.position.value, amplitude: self.amplitude.value, pitchRatio: self.pitchRatio.value)
         return copy
-    }
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

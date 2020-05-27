@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKVariableDelayDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createVariableDelayDSP() {
     return new AKVariableDelayDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createVariableDelayDSP() {
 struct AKVariableDelayDSP::InternalData {
     sp_vdelay *vdelay0;
     sp_vdelay *vdelay1;
-    AKLinearParameterRamp timeRamp;
-    AKLinearParameterRamp feedbackRamp;
+    ParameterRamper timeRamp;
+    ParameterRamper feedbackRamp;
 };
 
 AKVariableDelayDSP::AKVariableDelayDSP() : data(new InternalData) {
@@ -46,16 +46,13 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->timeRamp.advanceTo(now + frameOffset);
-            data->feedbackRamp.advanceTo(now + frameOffset);
-        }
+        float time = data->timeRamp.getAndStep();
+        data->vdelay0->del = time;
+        data->vdelay1->del = time;
 
-        data->vdelay0->del = data->timeRamp.getValue();
-        data->vdelay1->del = data->timeRamp.getValue();
-        data->vdelay0->feedback = data->feedbackRamp.getValue();
-        data->vdelay1->feedback = data->feedbackRamp.getValue();
+        float feedback = data->feedbackRamp.getAndStep();
+        data->vdelay0->feedback = feedback;
+        data->vdelay1->feedback = feedback;
 
         float *tmpin[2];
         float *tmpout[2];

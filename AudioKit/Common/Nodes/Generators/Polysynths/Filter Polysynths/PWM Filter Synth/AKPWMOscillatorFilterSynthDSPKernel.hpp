@@ -123,7 +123,7 @@ public:
 
     void init(int channelCount, double sampleRate) override {
         AKFilterSynthDSPKernel::init(channelCount, sampleRate);
-        pulseWidthRamper.init();
+        pulseWidthRamper.init(sampleRate);
     }
 
     void reset() override {

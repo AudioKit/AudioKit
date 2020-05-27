@@ -4,66 +4,40 @@
 /// by Devoloop Srls
 ///
 
-open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKDynaRageCompressorAudioUnit
+open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+    
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKDynaRageCompressorAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Ratio to compress with, a value > 1 will compress
-    @objc open dynamic var ratio: Double = 1 {
-        willSet {
-            guard ratio != newValue else { return }
-            internalAU?.ratio.value = AUValue(newValue)
-        }
-    }
+    public let ratio = AKNodeParameter(identifier: "ratio")
 
     /// Threshold (in dB) 0 = max
-    @objc open dynamic var threshold: Double = 0.0 {
-        willSet {
-            guard threshold != newValue else { return }
-            internalAU?.threshold.value = AUValue(newValue)
-        }
-    }
+    public let threshold = AKNodeParameter(identifier: "threshold")
 
     /// Attack dration
-    @objc open dynamic var attackDuration: Double = 0.1 {
-        willSet {
-            guard attackDuration != newValue else { return }
-            internalAU?.attack.value = AUValue(newValue)
-        }
-    }
+    public let attackDuration = AKNodeParameter(identifier: "attackDuration")
 
     /// Release duration
-    @objc open dynamic var releaseDuration: Double = 0.1 {
-        willSet {
-            guard releaseDuration != newValue else { return }
-            internalAU?.release.value = AUValue(newValue)
-        }
-    }
+    public let releaseDuration = AKNodeParameter(identifier: "releaseDuration")
 
     /// Rage Amount
-    @objc open dynamic var rage: Double = 0.1 {
-        willSet {
-            guard rage != newValue else { return }
-            internalAU?.rageAmount.value = AUValue(newValue)
-        }
-    }
+    public let rage = AKNodeParameter(identifier: "rage")
 
     /// Rage ON/OFF Switch
-    @objc open dynamic var rageIsOn: Bool = true {
-        willSet {
-            guard rageIsOn != newValue else { return }
-            internalAU?.rageEnabled.value = AUValue(newValue ? 1 : 0)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let rageIsOn = AKNodeParameter(identifier: "rageIsOn")
 
     // MARK: - Initialization
 
@@ -78,11 +52,11 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        ratio: Double = 1,
-        threshold: Double = 0.0,
-        attackDuration: Double = 0.1,
-        releaseDuration: Double = 0.1,
-        rage: Double = 0.1,
+        ratio: AUValue = 1,
+        threshold: AUValue = 0.0,
+        attackDuration: AUValue = 0.1,
+        releaseDuration: AUValue = 0.1,
+        rage: AUValue = 0.1,
         rageIsOn: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
@@ -91,27 +65,18 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self)
             
-            self.ratio = ratio
-            self.threshold = threshold
-            self.attackDuration = attackDuration
-            self.releaseDuration = releaseDuration
-            self.rage = rage
-            self.rageIsOn = rageIsOn
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.ratio.associate(with: self.internalAU, value: ratio)
+            self.threshold.associate(with: self.internalAU, value: threshold)
+            self.attackDuration.associate(with: self.internalAU, value: attackDuration)
+            self.releaseDuration.associate(with: self.internalAU, value: releaseDuration)
+            self.rage.associate(with: self.internalAU, value: rage)
+            self.rageIsOn.associate(with: self.internalAU, value: rageIsOn)
+            
+            input?.connect(to: self)
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

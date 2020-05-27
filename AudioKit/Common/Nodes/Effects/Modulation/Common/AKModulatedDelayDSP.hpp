@@ -49,17 +49,18 @@ AKDSPRef createFlangerDSP(void);
 
 #else
 
+#import "AKDSPBase.hpp"
 #import "AKModulatedDelay.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "ParameterRamper.hpp"
 
 struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
 {
 private:
     // ramped parameters
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp depthRamp;
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp dryWetMixRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper depthRamp;
+    ParameterRamper feedbackRamp;
+    ParameterRamper dryWetMixRamp;
 
 public:
     AKModulatedDelayDSP(AKModulatedDelayType type);

@@ -6,36 +6,34 @@
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
+open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Reverb Duration
-    public static let reverbDurationRange: ClosedRange<Double> = 0 ... 10
+    public static let reverbDurationRange: ClosedRange<AUValue> = 0 ... 10
 
     /// Initial value for Reverb Duration
-    public static let defaultReverbDuration: Double = 0.5
+    public static let defaultReverbDuration: AUValue = 0.5
 
     /// Initial value for Loop Duration
-    public static let defaultLoopDuration: Double = 0.1
+    public static let defaultLoopDuration: AUValue = 0.1
 
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    @objc open var reverbDuration: Double = defaultReverbDuration {
-        willSet {
-            let clampedValue = AKFlatFrequencyResponseReverb.reverbDurationRange.clamp(newValue)
-            guard reverbDuration != clampedValue else { return }
-            internalAU?.reverbDuration.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let reverbDuration = AKNodeParameter(identifier: "reverbDuration")
 
     // MARK: - Initialization
 
@@ -48,32 +46,21 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     ///
     public init(
         _ input: AKNode? = nil,
-        reverbDuration: Double = defaultReverbDuration,
-        loopDuration: Double = defaultLoopDuration
+        reverbDuration: AUValue = defaultReverbDuration,
+        loopDuration: AUValue = defaultLoopDuration
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.reverbDuration.associate(with: self.internalAU, value: reverbDuration)
+
             input?.connect(to: self)
-
-            self.reverbDuration = reverbDuration
-            self.internalAU?.setLoopDuration(Float(loopDuration))
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

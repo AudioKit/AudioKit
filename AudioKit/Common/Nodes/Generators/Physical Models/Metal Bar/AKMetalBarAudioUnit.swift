@@ -4,92 +4,70 @@ import AVFoundation
 
 public class AKMetalBarAudioUnit: AKAudioUnitBase {
 
-    private(set) var leftBoundaryCondition: AUParameter!
+    let leftBoundaryCondition = AUParameter(
+        identifier: "leftBoundaryCondition",
+        name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+        address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
+        range: AKMetalBar.leftBoundaryConditionRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var rightBoundaryCondition: AUParameter!
+    let rightBoundaryCondition = AUParameter(
+        identifier: "rightBoundaryCondition",
+        name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
+        address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
+        range: AKMetalBar.rightBoundaryConditionRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var decayDuration: AUParameter!
+    let decayDuration = AUParameter(
+        identifier: "decayDuration",
+        name: "30db decay time (in seconds).",
+        address: AKMetalBarParameter.decayDuration.rawValue,
+        range: AKMetalBar.decayDurationRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var scanSpeed: AUParameter!
+    let scanSpeed = AUParameter(
+        identifier: "scanSpeed",
+        name: "Speed of scanning the output location.",
+        address: AKMetalBarParameter.scanSpeed.rawValue,
+        range: AKMetalBar.scanSpeedRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var position: AUParameter!
+    let position = AUParameter(
+        identifier: "position",
+        name: "Position along bar that strike occurs.",
+        address: AKMetalBarParameter.position.rawValue,
+        range: AKMetalBar.positionRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var strikeVelocity: AUParameter!
+    let strikeVelocity = AUParameter(
+        identifier: "strikeVelocity",
+        name: "Normalized strike velocity",
+        address: AKMetalBarParameter.strikeVelocity.rawValue,
+        range: AKMetalBar.strikeVelocityRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var strikeWidth: AUParameter!
+    let strikeWidth = AUParameter(
+        identifier: "strikeWidth",
+        name: "Spatial width of strike.",
+        address: AKMetalBarParameter.strikeWidth.rawValue,
+        range: AKMetalBar.strikeWidthRange,
+        unit: .generic,
+        flags: .default)
 
     public override func createDSP() -> AKDSPRef {
         return createMetalBarDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        leftBoundaryCondition = AUParameter(
-            identifier: "leftBoundaryCondition",
-            name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
-            address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
-            range: AKMetalBar.leftBoundaryConditionRange,
-            unit: .hertz,
-            flags: .default)
-        rightBoundaryCondition = AUParameter(
-            identifier: "rightBoundaryCondition",
-            name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
-            address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
-            range: AKMetalBar.rightBoundaryConditionRange,
-            unit: .hertz,
-            flags: .default)
-        decayDuration = AUParameter(
-            identifier: "decayDuration",
-            name: "30db decay time (in seconds).",
-            address: AKMetalBarParameter.decayDuration.rawValue,
-            range: AKMetalBar.decayDurationRange,
-            unit: .hertz,
-            flags: .default)
-        scanSpeed = AUParameter(
-            identifier: "scanSpeed",
-            name: "Speed of scanning the output location.",
-            address: AKMetalBarParameter.scanSpeed.rawValue,
-            range: AKMetalBar.scanSpeedRange,
-            unit: .hertz,
-            flags: .default)
-        position = AUParameter(
-            identifier: "position",
-            name: "Position along bar that strike occurs.",
-            address: AKMetalBarParameter.position.rawValue,
-            range: AKMetalBar.positionRange,
-            unit: .generic,
-            flags: .default)
-        strikeVelocity = AUParameter(
-            identifier: "strikeVelocity",
-            name: "Normalized strike velocity",
-            address: AKMetalBarParameter.strikeVelocity.rawValue,
-            range: AKMetalBar.strikeVelocityRange,
-            unit: .generic,
-            flags: .default)
-        strikeWidth = AUParameter(
-            identifier: "strikeWidth",
-            name: "Spatial width of strike.",
-            address: AKMetalBarParameter.strikeWidth.rawValue,
-            range: AKMetalBar.strikeWidthRange,
-            unit: .generic,
-            flags: .default)
-
-        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition,
-                                                                  rightBoundaryCondition,
-                                                                  decayDuration,
-                                                                  scanSpeed,
-                                                                  position,
-                                                                  strikeVelocity,
-                                                                  strikeWidth])
-
-        leftBoundaryCondition.value = AUValue(AKMetalBar.defaultLeftBoundaryCondition)
-        rightBoundaryCondition.value = AUValue(AKMetalBar.defaultRightBoundaryCondition)
-        decayDuration.value = AUValue(AKMetalBar.defaultDecayDuration)
-        scanSpeed.value = AUValue(AKMetalBar.defaultScanSpeed)
-        position.value = AUValue(AKMetalBar.defaultPosition)
-        strikeVelocity.value = AUValue(AKMetalBar.defaultStrikeVelocity)
-        strikeWidth.value = AUValue(AKMetalBar.defaultStrikeWidth)
+        
+        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth])
     }
 }

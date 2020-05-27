@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPeakingParametricEqualizerFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP() {
     return new AKPeakingParametricEqualizerFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP() {
 struct AKPeakingParametricEqualizerFilterDSP::InternalData {
     sp_pareq *pareq0;
     sp_pareq *pareq1;
-    AKLinearParameterRamp centerFrequencyRamp;
-    AKLinearParameterRamp gainRamp;
-    AKLinearParameterRamp qRamp;
+    ParameterRamper centerFrequencyRamp;
+    ParameterRamper gainRamp;
+    ParameterRamper qRamp;
 };
 
 AKPeakingParametricEqualizerFilterDSP::AKPeakingParametricEqualizerFilterDSP() : data(new InternalData) {
@@ -27,6 +27,8 @@ void AKPeakingParametricEqualizerFilterDSP::init(int channelCount, double sample
     sp_pareq_init(sp, data->pareq0);
     sp_pareq_create(&data->pareq1);
     sp_pareq_init(sp, data->pareq1);
+    data->pareq0->mode = 0;
+    data->pareq1->mode = 0;
 }
 
 void AKPeakingParametricEqualizerFilterDSP::deinit() {
@@ -40,6 +42,8 @@ void AKPeakingParametricEqualizerFilterDSP::reset() {
     if (!isInitialized) return;
     sp_pareq_init(sp, data->pareq0);
     sp_pareq_init(sp, data->pareq1);
+    data->pareq0->mode = 0;
+    data->pareq1->mode = 0;
 }
 
 void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -47,19 +51,17 @@ void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(now + frameOffset);
-            data->gainRamp.advanceTo(now + frameOffset);
-            data->qRamp.advanceTo(now + frameOffset);
-        }
+        float centerFrequency = data->centerFrequencyRamp.getAndStep();
+        data->pareq0->fc = centerFrequency;
+        data->pareq1->fc = centerFrequency;
 
-        data->pareq0->fc = data->centerFrequencyRamp.getValue();
-        data->pareq1->fc = data->centerFrequencyRamp.getValue();
-        data->pareq0->v = data->gainRamp.getValue();
-        data->pareq1->v = data->gainRamp.getValue();
-        data->pareq0->q = data->qRamp.getValue();
-        data->pareq1->q = data->qRamp.getValue();
+        float gain = data->gainRamp.getAndStep();
+        data->pareq0->v = gain;
+        data->pareq1->v = gain;
+
+        float q = data->qRamp.getAndStep();
+        data->pareq0->q = q;
+        data->pareq1->q = q;
 
         float *tmpin[2];
         float *tmpout[2];

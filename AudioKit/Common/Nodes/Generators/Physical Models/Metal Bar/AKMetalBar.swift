@@ -2,133 +2,94 @@
 
 /// 
 ///
-open class AKMetalBar: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKMetalBarAudioUnit
+open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKMetalBarAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Left Boundary Condition
-    public static let leftBoundaryConditionRange: ClosedRange<Double> = 1 ... 3
+    public static let leftBoundaryConditionRange: ClosedRange<AUValue> = 1 ... 3
 
     /// Lower and upper bounds for Right Boundary Condition
-    public static let rightBoundaryConditionRange: ClosedRange<Double> = 1 ... 3
+    public static let rightBoundaryConditionRange: ClosedRange<AUValue> = 1 ... 3
 
     /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange: ClosedRange<Double> = 0 ... 10
+    public static let decayDurationRange: ClosedRange<AUValue> = 0 ... 10
 
     /// Lower and upper bounds for Scan Speed
-    public static let scanSpeedRange: ClosedRange<Double> = 0 ... 100
+    public static let scanSpeedRange: ClosedRange<AUValue> = 0 ... 100
 
     /// Lower and upper bounds for Position
-    public static let positionRange: ClosedRange<Double> = 0 ... 1
+    public static let positionRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Lower and upper bounds for Strike Velocity
-    public static let strikeVelocityRange: ClosedRange<Double> = 0 ... 1_000
+    public static let strikeVelocityRange: ClosedRange<AUValue> = 0 ... 1000
 
     /// Lower and upper bounds for Strike Width
-    public static let strikeWidthRange: ClosedRange<Double> = 0 ... 1
+    public static let strikeWidthRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Initial value for Left Boundary Condition
-    public static let defaultLeftBoundaryCondition: Double = 1
+    public static let defaultLeftBoundaryCondition: AUValue = 1
 
     /// Initial value for Right Boundary Condition
-    public static let defaultRightBoundaryCondition: Double = 1
+    public static let defaultRightBoundaryCondition: AUValue = 1
 
     /// Initial value for Decay Duration
-    public static let defaultDecayDuration: Double = 3
+    public static let defaultDecayDuration: AUValue = 3
 
     /// Initial value for Scan Speed
-    public static let defaultScanSpeed: Double = 0.25
+    public static let defaultScanSpeed: AUValue = 0.25
 
     /// Initial value for Position
-    public static let defaultPosition: Double = 0.2
+    public static let defaultPosition: AUValue = 0.2
 
     /// Initial value for Strike Velocity
-    public static let defaultStrikeVelocity: Double = 500
+    public static let defaultStrikeVelocity: AUValue = 500
 
     /// Initial value for Strike Width
-    public static let defaultStrikeWidth: Double = 0.05
+    public static let defaultStrikeWidth: AUValue = 0.05
 
     /// Initial value for Stiffness
-    public static let defaultStiffness: Double = 3
+    public static let defaultStiffness: AUValue = 3
 
     /// Initial value for High Frequency Damping
-    public static let defaultHighFrequencyDamping: Double = 0.001
+    public static let defaultHighFrequencyDamping: AUValue = 0.001
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @objc open var leftBoundaryCondition: Double = defaultLeftBoundaryCondition {
-        willSet {
-            let clampedValue = AKMetalBar.leftBoundaryConditionRange.clamp(newValue)
-            guard leftBoundaryCondition != clampedValue else { return }
-            internalAU?.leftBoundaryCondition.value = AUValue(clampedValue)
-        }
-    }
+    public let leftBoundaryCondition = AKNodeParameter(identifier: "leftBoundaryCondition")
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @objc open var rightBoundaryCondition: Double = defaultRightBoundaryCondition {
-        willSet {
-            let clampedValue = AKMetalBar.rightBoundaryConditionRange.clamp(newValue)
-            guard rightBoundaryCondition != clampedValue else { return }
-            internalAU?.rightBoundaryCondition.value = AUValue(clampedValue)
-        }
-    }
+    public let rightBoundaryCondition = AKNodeParameter(identifier: "rightBoundaryCondition")
 
     /// 30db decay time (in seconds).
-    @objc open var decayDuration: Double = defaultDecayDuration {
-        willSet {
-            let clampedValue = AKMetalBar.decayDurationRange.clamp(newValue)
-            guard decayDuration != clampedValue else { return }
-            internalAU?.decayDuration.value = AUValue(clampedValue)
-        }
-    }
+    public let decayDuration = AKNodeParameter(identifier: "decayDuration")
 
     /// Speed of scanning the output location.
-    @objc open var scanSpeed: Double = defaultScanSpeed {
-        willSet {
-            let clampedValue = AKMetalBar.scanSpeedRange.clamp(newValue)
-            guard scanSpeed != clampedValue else { return }
-            internalAU?.scanSpeed.value = AUValue(clampedValue)
-        }
-    }
+    public let scanSpeed = AKNodeParameter(identifier: "scanSpeed")
 
     /// Position along bar that strike occurs.
-    @objc open var position: Double = defaultPosition {
-        willSet {
-            let clampedValue = AKMetalBar.positionRange.clamp(newValue)
-            guard position != clampedValue else { return }
-            internalAU?.position.value = AUValue(clampedValue)
-        }
-    }
+    public let position = AKNodeParameter(identifier: "position")
 
     /// Normalized strike velocity
-    @objc open var strikeVelocity: Double = defaultStrikeVelocity {
-        willSet {
-            let clampedValue = AKMetalBar.strikeVelocityRange.clamp(newValue)
-            guard strikeVelocity != clampedValue else { return }
-            internalAU?.strikeVelocity.value = AUValue(clampedValue)
-        }
-    }
+    public let strikeVelocity = AKNodeParameter(identifier: "strikeVelocity")
 
     /// Spatial width of strike.
-    @objc open var strikeWidth: Double = defaultStrikeWidth {
-        willSet {
-            let clampedValue = AKMetalBar.strikeWidthRange.clamp(newValue)
-            guard strikeWidth != clampedValue else { return }
-            internalAU?.strikeWidth.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let strikeWidth = AKNodeParameter(identifier: "strikeWidth")
 
     // MARK: - Initialization
-
+    
     /// Initialize this Bar node
     ///
     /// - Parameters:
@@ -143,41 +104,33 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
-        leftBoundaryCondition: Double = defaultLeftBoundaryCondition,
-        rightBoundaryCondition: Double = defaultRightBoundaryCondition,
-        decayDuration: Double = defaultDecayDuration,
-        scanSpeed: Double = defaultScanSpeed,
-        position: Double = defaultPosition,
-        strikeVelocity: Double = defaultStrikeVelocity,
-        strikeWidth: Double = defaultStrikeWidth,
-        stiffness: Double = defaultStiffness,
-        highFrequencyDamping: Double = defaultHighFrequencyDamping
+        leftBoundaryCondition: AUValue = defaultLeftBoundaryCondition,
+        rightBoundaryCondition: AUValue = defaultRightBoundaryCondition,
+        decayDuration: AUValue = defaultDecayDuration,
+        scanSpeed: AUValue = defaultScanSpeed,
+        position: AUValue = defaultPosition,
+        strikeVelocity: AUValue = defaultStrikeVelocity,
+        strikeWidth: AUValue = defaultStrikeWidth,
+        stiffness: AUValue = defaultStiffness,
+        highFrequencyDamping: AUValue = defaultHighFrequencyDamping
     ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.leftBoundaryCondition = leftBoundaryCondition
-            self.rightBoundaryCondition = rightBoundaryCondition
-            self.decayDuration = decayDuration
-            self.scanSpeed = scanSpeed
-            self.position = position
-            self.strikeVelocity = strikeVelocity
-            self.strikeWidth = strikeWidth
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.leftBoundaryCondition.associate(with: self.internalAU, value: leftBoundaryCondition)
+            self.rightBoundaryCondition.associate(with: self.internalAU, value: rightBoundaryCondition)
+            self.decayDuration.associate(with: self.internalAU, value: decayDuration)
+            self.scanSpeed.associate(with: self.internalAU, value: scanSpeed)
+            self.position.associate(with: self.internalAU, value: position)
+            self.strikeVelocity.associate(with: self.internalAU, value: strikeVelocity)
+            self.strikeWidth.associate(with: self.internalAU, value: strikeWidth)
         }
-    }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

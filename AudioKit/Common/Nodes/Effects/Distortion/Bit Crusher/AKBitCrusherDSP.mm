@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKBitCrusherDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createBitCrusherDSP() {
     return new AKBitCrusherDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createBitCrusherDSP() {
 struct AKBitCrusherDSP::InternalData {
     sp_bitcrush *bitcrush0;
     sp_bitcrush *bitcrush1;
-    AKLinearParameterRamp bitDepthRamp;
-    AKLinearParameterRamp sampleRateRamp;
+    ParameterRamper bitDepthRamp;
+    ParameterRamper sampleRateRamp;
 };
 
 AKBitCrusherDSP::AKBitCrusherDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->bitDepthRamp.advanceTo(now + frameOffset);
-            data->sampleRateRamp.advanceTo(now + frameOffset);
-        }
+        float bitDepth = data->bitDepthRamp.getAndStep();
+        data->bitcrush0->bitdepth = bitDepth;
+        data->bitcrush1->bitdepth = bitDepth;
 
-        data->bitcrush0->bitdepth = data->bitDepthRamp.getValue();
-        data->bitcrush1->bitdepth = data->bitDepthRamp.getValue();
-        data->bitcrush0->srate = data->sampleRateRamp.getValue();
-        data->bitcrush1->srate = data->sampleRateRamp.getValue();
+        float sampleRate = data->sampleRateRamp.getAndStep();
+        data->bitcrush0->srate = sampleRate;
+        data->bitcrush1->srate = sampleRate;
 
         float *tmpin[2];
         float *tmpout[2];

@@ -3,63 +3,38 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-    var taper = AUParameter(
-        identifier: "taper",
-        name: "Taper",
-        address: 2,
-        range: 0.1 ... 10.0,
-        unit: .generic,
-        flags: .default
-    )
-
-    var skew = AUParameter(
-        identifier: "skew",
-        name: "Skew",
-        address: 3,
-        range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default
-    )
-
-    var offset = AUParameter(
-        identifier: "offset",
-        name: "Offset",
-        address: 4,
-        range: 0.0 ... 1_000_000_000.0,
-        unit: .generic,
-        flags: .default
-    )
-
-    var leftGain = AUParameter(
+    
+    let leftGain = AUParameter(
         identifier: "leftGain",
         name: "Left Gain",
-        address: 0,
+        address: AKFaderParameter.leftGain.rawValue,
         range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default
     )
 
-    var rightGain = AUParameter(
+    let rightGain = AUParameter(
         identifier: "rightGain",
         name: "Right Gain",
-        address: 1,
+        address: AKFaderParameter.rightGain.rawValue,
         range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default
     )
-    var flipStereo = AUParameter(
+    
+    let flipStereo = AUParameter(
         identifier: "flipStereo",
         name: "Flip Stereo",
-        address: 5,
+        address: AKFaderParameter.flipStereo.rawValue,
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default
     )
 
-    var mixToMono = AUParameter(
+    let mixToMono = AUParameter(
         identifier: "mixToMono",
         name: "Mix To Mono",
-        address: 6,
+        address: AKFaderParameter.mixToMono.rawValue,
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default
@@ -75,18 +50,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
         parameterTree = AUParameterTree.createTree(withChildren: [leftGain,
                                                                   rightGain,
-                                                                  taper,
-                                                                  skew,
-                                                                  offset,
                                                                   flipStereo,
                                                                   mixToMono])
-
-        leftGain.value = 1.0
-        rightGain.value = 1.0
-        taper.value = 1.0
-        skew.value = 0.0
-        offset.value = 0.0
-        flipStereo.value = 0.0
-        mixToMono.value = 0.0
     }
 }

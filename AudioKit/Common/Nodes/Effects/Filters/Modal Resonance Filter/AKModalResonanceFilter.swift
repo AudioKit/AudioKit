@@ -4,48 +4,40 @@
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
+open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let frequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Quality Factor
-    public static let qualityFactorRange: ClosedRange<Double> = 0.0 ... 100.0
+    public static let qualityFactorRange: ClosedRange<AUValue> = 0.0 ... 100.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 500.0
+    public static let defaultFrequency: AUValue = 500.0
 
     /// Initial value for Quality Factor
-    public static let defaultQualityFactor: Double = 50.0
+    public static let defaultQualityFactor: AUValue = 50.0
 
     /// Resonant frequency of the filter.
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKModalResonanceFilter.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    @objc open var qualityFactor: Double = defaultQualityFactor {
-        willSet {
-            let clampedValue = AKModalResonanceFilter.qualityFactorRange.clamp(newValue)
-            guard qualityFactor != clampedValue else { return }
-            internalAU?.qualityFactor.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let qualityFactor = AKNodeParameter(identifier: "qualityFactor")
 
     // MARK: - Initialization
 
@@ -58,32 +50,22 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: Double = defaultFrequency,
-        qualityFactor: Double = defaultQualityFactor
+        frequency: AUValue = defaultFrequency,
+        qualityFactor: AUValue = defaultQualityFactor
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.qualityFactor.associate(with: self.internalAU, value: qualityFactor)
+
             input?.connect(to: self)
-
-            self.frequency = frequency
-            self.qualityFactor = qualityFactor
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

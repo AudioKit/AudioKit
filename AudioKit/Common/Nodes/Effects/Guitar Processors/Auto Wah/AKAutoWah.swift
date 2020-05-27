@@ -2,63 +2,49 @@
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKAutoWahAudioUnit
+open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKAutoWahAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Wah
-    public static let wahRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let wahRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Mix
-    public static let mixRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let mixRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Wah
-    public static let defaultWah: Double = 0.0
+    public static let defaultWah: AUValue = 0.0
 
     /// Initial value for Mix
-    public static let defaultMix: Double = 1.0
+    public static let defaultMix: AUValue = 1.0
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude: Double = 0.1
+    public static let defaultAmplitude: AUValue = 0.1
 
     /// Wah Amount
-    @objc open var wah: Double = defaultWah {
-        willSet {
-            let clampedValue = AKAutoWah.wahRange.clamp(newValue)
-            guard wah != clampedValue else { return }
-            internalAU?.wah.value = AUValue(clampedValue)
-        }
-    }
+    public let wah = AKNodeParameter(identifier: "wah")
 
     /// Dry/Wet Mix
-    @objc open var mix: Double = defaultMix {
-        willSet {
-            let clampedValue = AKAutoWah.mixRange.clamp(newValue)
-            guard mix != clampedValue else { return }
-            internalAU?.mix.value = AUValue(clampedValue)
-        }
-    }
+    public let mix = AKNodeParameter(identifier: "mix")
 
     /// Overall level
-    @objc open var amplitude: Double = defaultAmplitude {
-        willSet {
-            let clampedValue = AKAutoWah.amplitudeRange.clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 
@@ -72,34 +58,24 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        wah: Double = defaultWah,
-        mix: Double = defaultMix,
-        amplitude: Double = defaultAmplitude
+        wah: AUValue = defaultWah,
+        mix: AUValue = defaultMix,
+        amplitude: AUValue = defaultAmplitude
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.wah.associate(with: self.internalAU, value: wah)
+            self.mix.associate(with: self.internalAU, value: mix)
+            self.amplitude.associate(with: self.internalAU, value: amplitude)
+
             input?.connect(to: self)
-
-            self.wah = wah
-            self.mix = mix
-            self.amplitude = amplitude
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

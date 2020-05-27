@@ -104,14 +104,14 @@ public:
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeKernel::init(channelCount, sampleRate);
         
-        attackDurationRamper.init();
-        decayDurationRamper.init();
-        sustainLevelRamper.init();
-        releaseDurationRamper.init();
-        pitchBendRamper.init();
-        vibratoDepthRamper.init();
-        vibratoRateRamper.init();
-        detuningOffsetRamper.init();
+        attackDurationRamper.init(sampleRate);
+        decayDurationRamper.init(sampleRate);
+        sustainLevelRamper.init(sampleRate);
+        releaseDurationRamper.init(sampleRate);
+        pitchBendRamper.init(sampleRate);
+        vibratoDepthRamper.init(sampleRate);
+        vibratoRateRamper.init(sampleRate);
+        detuningOffsetRamper.init(sampleRate);
     }
     
     virtual void reset() {

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPhaserDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPhaserDSP() {
     return new AKPhaserDSP();
@@ -9,15 +9,15 @@ extern "C" AKDSPRef createPhaserDSP() {
 
 struct AKPhaserDSP::InternalData {
     sp_phaser *phaser;
-    AKLinearParameterRamp notchMinimumFrequencyRamp;
-    AKLinearParameterRamp notchMaximumFrequencyRamp;
-    AKLinearParameterRamp notchWidthRamp;
-    AKLinearParameterRamp notchFrequencyRamp;
-    AKLinearParameterRamp vibratoModeRamp;
-    AKLinearParameterRamp depthRamp;
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp invertedRamp;
-    AKLinearParameterRamp lfoBPMRamp;
+    ParameterRamper notchMinimumFrequencyRamp;
+    ParameterRamper notchMaximumFrequencyRamp;
+    ParameterRamper notchWidthRamp;
+    ParameterRamper notchFrequencyRamp;
+    ParameterRamper vibratoModeRamp;
+    ParameterRamper depthRamp;
+    ParameterRamper feedbackRamp;
+    ParameterRamper invertedRamp;
+    ParameterRamper lfoBPMRamp;
 };
 
 AKPhaserDSP::AKPhaserDSP() : data(new InternalData) {
@@ -54,28 +54,15 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->notchMinimumFrequencyRamp.advanceTo(now + frameOffset);
-            data->notchMaximumFrequencyRamp.advanceTo(now + frameOffset);
-            data->notchWidthRamp.advanceTo(now + frameOffset);
-            data->notchFrequencyRamp.advanceTo(now + frameOffset);
-            data->vibratoModeRamp.advanceTo(now + frameOffset);
-            data->depthRamp.advanceTo(now + frameOffset);
-            data->feedbackRamp.advanceTo(now + frameOffset);
-            data->invertedRamp.advanceTo(now + frameOffset);
-            data->lfoBPMRamp.advanceTo(now + frameOffset);
-        }
-
-        *data->phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getValue();
-        *data->phaser->MaxNotch1Freq = data->notchMaximumFrequencyRamp.getValue();
-        *data->phaser->Notch_width = data->notchWidthRamp.getValue();
-        *data->phaser->NotchFreq = data->notchFrequencyRamp.getValue();
-        *data->phaser->VibratoMode = data->vibratoModeRamp.getValue();
-        *data->phaser->depth = data->depthRamp.getValue();
-        *data->phaser->feedback_gain = data->feedbackRamp.getValue();
-        *data->phaser->invert = data->invertedRamp.getValue();
-        *data->phaser->lfobpm = data->lfoBPMRamp.getValue();
+        *data->phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getAndStep();
+        *data->phaser->MaxNotch1Freq = data->notchMaximumFrequencyRamp.getAndStep();
+        *data->phaser->Notch_width = data->notchWidthRamp.getAndStep();
+        *data->phaser->NotchFreq = data->notchFrequencyRamp.getAndStep();
+        *data->phaser->VibratoMode = data->vibratoModeRamp.getAndStep();
+        *data->phaser->depth = data->depthRamp.getAndStep();
+        *data->phaser->feedback_gain = data->feedbackRamp.getAndStep();
+        *data->phaser->invert = data->invertedRamp.getAndStep();
+        *data->phaser->lfobpm = data->lfoBPMRamp.getAndStep();
 
         float *tmpin[2];
         float *tmpout[2];

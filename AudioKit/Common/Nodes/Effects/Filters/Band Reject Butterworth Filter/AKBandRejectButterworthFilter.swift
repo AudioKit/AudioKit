@@ -3,48 +3,40 @@
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKBandRejectButterworthFilterAudioUnit
+open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKBandRejectButterworthFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20_000.0
+    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20000.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 3_000.0
+    public static let defaultCenterFrequency: AUValue = 3000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth: Double = 2_000.0
+    public static let defaultBandwidth: AUValue = 2000.0
 
     /// Center frequency. (in Hertz)
-    @objc open var centerFrequency: Double = defaultCenterFrequency {
-        willSet {
-            let clampedValue = AKBandRejectButterworthFilter.centerFrequencyRange.clamp(newValue)
-            guard centerFrequency != clampedValue else { return }
-            internalAU?.centerFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// Bandwidth. (in Hertz)
-    @objc open var bandwidth: Double = defaultBandwidth {
-        willSet {
-            let clampedValue = AKBandRejectButterworthFilter.bandwidthRange.clamp(newValue)
-            guard bandwidth != clampedValue else { return }
-            internalAU?.bandwidth.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     // MARK: - Initialization
 
@@ -57,32 +49,22 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///
     public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = defaultCenterFrequency,
-        bandwidth: Double = defaultBandwidth
+        centerFrequency: AUValue = defaultCenterFrequency,
+        bandwidth: AUValue = defaultBandwidth
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
+            self.bandwidth.associate(with: self.internalAU, value: bandwidth)
+
             input?.connect(to: self)
-
-            self.centerFrequency = centerFrequency
-            self.bandwidth = bandwidth
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }
