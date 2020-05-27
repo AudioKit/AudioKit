@@ -64,7 +64,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         data->oscmorph->freq = data->frequencyRamp.getAndStep() * data->detuningMultiplierRamp.getAndStep() + data->detuningOffsetRamp.getAndStep();
         data->oscmorph->amp = data->amplitudeRamp.getAndStep();
-        data->oscmorph->wtpos = data->indexRamp.getAndStep();
+        data->oscmorph->wtpos = data->indexRamp.getAndStep() / 3.f;
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {
