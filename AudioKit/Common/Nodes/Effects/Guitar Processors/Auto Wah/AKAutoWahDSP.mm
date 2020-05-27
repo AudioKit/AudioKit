@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKAutoWahDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createAutoWahDSP() {
     return new AKAutoWahDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createAutoWahDSP() {
 struct AKAutoWahDSP::InternalData {
     sp_autowah *autowah0;
     sp_autowah *autowah1;
-    AKLinearParameterRamp wahRamp;
-    AKLinearParameterRamp mixRamp;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper wahRamp;
+    ParameterRamper mixRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKAutoWahDSP::AKAutoWahDSP() : data(new InternalData) {
@@ -47,19 +47,17 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->wahRamp.advanceTo(now + frameOffset);
-            data->mixRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
+        float wah = data->wahRamp.getAndStep();
+        *data->autowah0->wah = wah;
+        *data->autowah1->wah = wah;
 
-        *data->autowah0->wah = data->wahRamp.getValue();
-        *data->autowah1->wah = data->wahRamp.getValue();
-        *data->autowah0->mix = data->mixRamp.getValue() * 100;
-        *data->autowah1->mix = data->mixRamp.getValue() * 100;
-        *data->autowah0->level = data->amplitudeRamp.getValue();
-        *data->autowah1->level = data->amplitudeRamp.getValue();
+        float mix = data->mixRamp.getAndStep() * 100.f;
+        *data->autowah0->mix = mix;
+        *data->autowah1->mix = mix;
+
+        float amplitude = data->amplitudeRamp.getAndStep();
+        *data->autowah0->level = amplitude;
+        *data->autowah1->level = amplitude;
 
         float *tmpin[2];
         float *tmpout[2];

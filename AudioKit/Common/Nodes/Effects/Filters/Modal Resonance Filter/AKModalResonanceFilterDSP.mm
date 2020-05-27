@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKModalResonanceFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createModalResonanceFilterDSP() {
     return new AKModalResonanceFilterDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createModalResonanceFilterDSP() {
 struct AKModalResonanceFilterDSP::InternalData {
     sp_mode *mode0;
     sp_mode *mode1;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp qualityFactorRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper qualityFactorRamp;
 };
 
 AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->qualityFactorRamp.advanceTo(now + frameOffset);
-        }
+        float frequency = data->frequencyRamp.getAndStep();
+        data->mode0->freq = frequency;
+        data->mode1->freq = frequency;
 
-        data->mode0->freq = data->frequencyRamp.getValue();
-        data->mode1->freq = data->frequencyRamp.getValue();
-        data->mode0->q = data->qualityFactorRamp.getValue();
-        data->mode1->q = data->qualityFactorRamp.getValue();
+        float qualityFactor = data->qualityFactorRamp.getAndStep();
+        data->mode0->q = qualityFactor;
+        data->mode1->q = qualityFactor;
 
         float *tmpin[2];
         float *tmpout[2];

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKRolandTB303FilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createRolandTB303FilterDSP() {
     return new AKRolandTB303FilterDSP();
@@ -10,10 +10,10 @@ extern "C" AKDSPRef createRolandTB303FilterDSP() {
 struct AKRolandTB303FilterDSP::InternalData {
     sp_tbvcf *tbvcf0;
     sp_tbvcf *tbvcf1;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
-    AKLinearParameterRamp distortionRamp;
-    AKLinearParameterRamp resonanceAsymmetryRamp;
+    ParameterRamper cutoffFrequencyRamp;
+    ParameterRamper resonanceRamp;
+    ParameterRamper distortionRamp;
+    ParameterRamper resonanceAsymmetryRamp;
 };
 
 AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : data(new InternalData) {
@@ -49,22 +49,21 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-            data->resonanceRamp.advanceTo(now + frameOffset);
-            data->distortionRamp.advanceTo(now + frameOffset);
-            data->resonanceAsymmetryRamp.advanceTo(now + frameOffset);
-        }
+        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep();
+        data->tbvcf0->fco = cutoffFrequency;
+        data->tbvcf1->fco = cutoffFrequency;
 
-        data->tbvcf0->fco = data->cutoffFrequencyRamp.getValue();
-        data->tbvcf1->fco = data->cutoffFrequencyRamp.getValue();
-        data->tbvcf0->res = data->resonanceRamp.getValue();
-        data->tbvcf1->res = data->resonanceRamp.getValue();
-        data->tbvcf0->dist = data->distortionRamp.getValue();
-        data->tbvcf1->dist = data->distortionRamp.getValue();
-        data->tbvcf0->asym = data->resonanceAsymmetryRamp.getValue();
-        data->tbvcf1->asym = data->resonanceAsymmetryRamp.getValue();
+        float resonance = data->resonanceRamp.getAndStep();
+        data->tbvcf0->res = resonance;
+        data->tbvcf1->res = resonance;
+
+        float distortion = data->distortionRamp.getAndStep();
+        data->tbvcf0->dist = distortion;
+        data->tbvcf1->dist = distortion;
+
+        float resonanceAsymmetry = data->resonanceAsymmetryRamp.getAndStep();
+        data->tbvcf0->asym = resonanceAsymmetry;
+        data->tbvcf1->asym = resonanceAsymmetry;
 
         float *tmpin[2];
         float *tmpout[2];

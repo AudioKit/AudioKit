@@ -4,114 +4,86 @@ import AVFoundation
 
 public class AKPhaserAudioUnit: AKAudioUnitBase {
 
-    private(set) var notchMinimumFrequency: AUParameter!
+    let notchMinimumFrequency = AUParameter(
+        identifier: "notchMinimumFrequency",
+        name: "Notch Minimum Frequency",
+        address: AKPhaserParameter.notchMinimumFrequency.rawValue,
+        range: AKPhaser.notchMinimumFrequencyRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var notchMaximumFrequency: AUParameter!
+    let notchMaximumFrequency = AUParameter(
+        identifier: "notchMaximumFrequency",
+        name: "Notch Maximum Frequency",
+        address: AKPhaserParameter.notchMaximumFrequency.rawValue,
+        range: AKPhaser.notchMaximumFrequencyRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var notchWidth: AUParameter!
+    let notchWidth = AUParameter(
+        identifier: "notchWidth",
+        name: "Between 10 and 5000",
+        address: AKPhaserParameter.notchWidth.rawValue,
+        range: AKPhaser.notchWidthRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var notchFrequency: AUParameter!
+    let notchFrequency = AUParameter(
+        identifier: "notchFrequency",
+        name: "Between 1.1 and 4",
+        address: AKPhaserParameter.notchFrequency.rawValue,
+        range: AKPhaser.notchFrequencyRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var vibratoMode: AUParameter!
+    let vibratoMode = AUParameter(
+        identifier: "vibratoMode",
+        name: "Direct or Vibrato (default)",
+        address: AKPhaserParameter.vibratoMode.rawValue,
+        range: AKPhaser.vibratoModeRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var depth: AUParameter!
+    let depth = AUParameter(
+        identifier: "depth",
+        name: "Between 0 and 1",
+        address: AKPhaserParameter.depth.rawValue,
+        range: AKPhaser.depthRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var feedback: AUParameter!
+    let feedback = AUParameter(
+        identifier: "feedback",
+        name: "Between 0 and 1",
+        address: AKPhaserParameter.feedback.rawValue,
+        range: AKPhaser.feedbackRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var inverted: AUParameter!
+    let inverted = AUParameter(
+        identifier: "inverted",
+        name: "1 or 0",
+        address: AKPhaserParameter.inverted.rawValue,
+        range: AKPhaser.invertedRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var lfoBPM: AUParameter!
+    let lfoBPM = AUParameter(
+        identifier: "lfoBPM",
+        name: "Between 24 and 360",
+        address: AKPhaserParameter.lfoBPM.rawValue,
+        range: AKPhaser.lfoBPMRange,
+        unit: .generic,
+        flags: .default)
 
     public override func createDSP() -> AKDSPRef {
         return createPhaserDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        notchMinimumFrequency = AUParameter(
-            identifier: "notchMinimumFrequency",
-            name: "Notch Minimum Frequency",
-            address: AKPhaserParameter.notchMinimumFrequency.rawValue,
-            range: AKPhaser.notchMinimumFrequencyRange,
-            unit: .hertz,
-            flags: .default)
-        notchMaximumFrequency = AUParameter(
-            identifier: "notchMaximumFrequency",
-            name: "Notch Maximum Frequency",
-            address: AKPhaserParameter.notchMaximumFrequency.rawValue,
-            range: AKPhaser.notchMaximumFrequencyRange,
-            unit: .hertz,
-            flags: .default)
-        notchWidth = AUParameter(
-            identifier: "notchWidth",
-            name: "Between 10 and 5000",
-            address: AKPhaserParameter.notchWidth.rawValue,
-            range: AKPhaser.notchWidthRange,
-            unit: .hertz,
-            flags: .default)
-        notchFrequency = AUParameter(
-            identifier: "notchFrequency",
-            name: "Between 1.1 and 4",
-            address: AKPhaserParameter.notchFrequency.rawValue,
-            range: AKPhaser.notchFrequencyRange,
-            unit: .hertz,
-            flags: .default)
-        vibratoMode = AUParameter(
-            identifier: "vibratoMode",
-            name: "Direct or Vibrato (default)",
-            address: AKPhaserParameter.vibratoMode.rawValue,
-            range: AKPhaser.vibratoModeRange,
-            unit: .generic,
-            flags: .default)
-        depth = AUParameter(
-            identifier: "depth",
-            name: "Between 0 and 1",
-            address: AKPhaserParameter.depth.rawValue,
-            range: AKPhaser.depthRange,
-            unit: .generic,
-            flags: .default)
-        feedback = AUParameter(
-            identifier: "feedback",
-            name: "Between 0 and 1",
-            address: AKPhaserParameter.feedback.rawValue,
-            range: AKPhaser.feedbackRange,
-            unit: .generic,
-            flags: .default)
-        inverted = AUParameter(
-            identifier: "inverted",
-            name: "1 or 0",
-            address: AKPhaserParameter.inverted.rawValue,
-            range: AKPhaser.invertedRange,
-            unit: .generic,
-            flags: .default)
-        lfoBPM = AUParameter(
-            identifier: "lfoBPM",
-            name: "Between 24 and 360",
-            address: AKPhaserParameter.lfoBPM.rawValue,
-            range: AKPhaser.lfoBPMRange,
-            unit: .generic,
-            flags: .default)
-
-        parameterTree = AUParameterTree.createTree(withChildren: [notchMinimumFrequency,
-                                                                  notchMaximumFrequency,
-                                                                  notchWidth,
-                                                                  notchFrequency,
-                                                                  vibratoMode,
-                                                                  depth,
-                                                                  feedback,
-                                                                  inverted,
-                                                                  lfoBPM])
-
-        notchMinimumFrequency.value = AUValue(AKPhaser.defaultNotchMinimumFrequency)
-        notchMaximumFrequency.value = AUValue(AKPhaser.defaultNotchMaximumFrequency)
-        notchWidth.value = AUValue(AKPhaser.defaultNotchWidth)
-        notchFrequency.value = AUValue(AKPhaser.defaultNotchFrequency)
-        vibratoMode.value = AUValue(AKPhaser.defaultVibratoMode)
-        depth.value = AUValue(AKPhaser.defaultDepth)
-        feedback.value = AUValue(AKPhaser.defaultFeedback)
-        inverted.value = AUValue(AKPhaser.defaultInverted)
-        lfoBPM.value = AUValue(AKPhaser.defaultLfoBPM)
+        
+        parameterTree = AUParameterTree.createTree(withChildren: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM])
     }
 }

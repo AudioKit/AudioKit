@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKWhiteNoiseDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createWhiteNoiseDSP() {
     return new AKWhiteNoiseDSP();
@@ -9,7 +9,7 @@ extern "C" AKDSPRef createWhiteNoiseDSP() {
 
 struct AKWhiteNoiseDSP::InternalData {
     sp_noise *noise;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKWhiteNoiseDSP::AKWhiteNoiseDSP() : data(new InternalData) {
@@ -37,12 +37,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
-
-        data->noise->amp = data->amplitudeRamp.getValue();
+        data->noise->amp = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

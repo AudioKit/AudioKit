@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKFormantFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createFormantFilterDSP() {
     return new AKFormantFilterDSP();
@@ -10,9 +10,9 @@ extern "C" AKDSPRef createFormantFilterDSP() {
 struct AKFormantFilterDSP::InternalData {
     sp_fofilt *fofilt0;
     sp_fofilt *fofilt1;
-    AKLinearParameterRamp centerFrequencyRamp;
-    AKLinearParameterRamp attackDurationRamp;
-    AKLinearParameterRamp decayDurationRamp;
+    ParameterRamper centerFrequencyRamp;
+    ParameterRamper attackDurationRamp;
+    ParameterRamper decayDurationRamp;
 };
 
 AKFormantFilterDSP::AKFormantFilterDSP() : data(new InternalData) {
@@ -47,19 +47,17 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(now + frameOffset);
-            data->attackDurationRamp.advanceTo(now + frameOffset);
-            data->decayDurationRamp.advanceTo(now + frameOffset);
-        }
+        float centerFrequency = data->centerFrequencyRamp.getAndStep();
+        data->fofilt0->freq = centerFrequency;
+        data->fofilt1->freq = centerFrequency;
 
-        data->fofilt0->freq = data->centerFrequencyRamp.getValue();
-        data->fofilt1->freq = data->centerFrequencyRamp.getValue();
-        data->fofilt0->atk = data->attackDurationRamp.getValue();
-        data->fofilt1->atk = data->attackDurationRamp.getValue();
-        data->fofilt0->dec = data->decayDurationRamp.getValue();
-        data->fofilt1->dec = data->decayDurationRamp.getValue();
+        float attackDuration = data->attackDurationRamp.getAndStep();
+        data->fofilt0->atk = attackDuration;
+        data->fofilt1->atk = attackDuration;
+
+        float decayDuration = data->decayDurationRamp.getAndStep();
+        data->fofilt0->dec = decayDuration;
+        data->fofilt1->dec = decayDuration;
 
         float *tmpin[2];
         float *tmpout[2];

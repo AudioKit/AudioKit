@@ -3,100 +3,69 @@
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
+open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     fileprivate var waveformArray = [AKTable]()
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 0.0 ... 22_050.0
+    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 22_050.0
 
     /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Index
-    public static let indexRange: ClosedRange<Double> = 0.0 ... 3.0
+    public static let indexRange: ClosedRange<AUValue> = 0.0 ... 3.0
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<Double> = -1_000.0 ... 1_000.0
+    public static let detuningOffsetRange: ClosedRange<AUValue> = -1_000.0 ... 1_000.0
 
     /// Lower and upper bounds for Detuning Multiplier
-    public static let detuningMultiplierRange: ClosedRange<Double> = 0.9 ... 1.11
+    public static let detuningMultiplierRange: ClosedRange<AUValue> = 0.9 ... 1.11
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 440
+    public static let defaultFrequency: AUValue = 440
 
     /// Initial value for Amplitude
-    public static let defaultAmplitude: Double = 0.5
+    public static let defaultAmplitude: AUValue = 0.5
 
     /// Initial value for Index
-    public static let defaultIndex: Double = 0.0
+    public static let defaultIndex: AUValue = 0.0
 
     /// Initial value for Detuning Offset
-    public static let defaultDetuningOffset: Double = 0
+    public static let defaultDetuningOffset: AUValue = 0
 
     /// Initial value for Detuning Multiplier
-    public static let defaultDetuningMultiplier: Double = 1
-
-    /// Initial value for Phase
-    public static let defaultPhase: Double = 0
+    public static let defaultDetuningMultiplier: AUValue = 1
 
     /// Frequency (in Hz)
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKMorphingOscillator.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Amplitude (typically a value between 0 and 1).
-    @objc open var amplitude: Double = defaultAmplitude {
-        willSet {
-            let clampedValue = AKMorphingOscillator.amplitudeRange.clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
+    public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Index of the wavetable to use (fractional are okay).
-    @objc open var index: Double = defaultIndex {
-        willSet {
-            let clampedValue = AKMorphingOscillator.indexRange.clamp(newValue)
-            guard index != clampedValue else { return }
-            let transformedValue = clampedValue / (waveformArray.count - 1)
-            internalAU?.index.value = AUValue(transformedValue)
-        }
-    }
+    public let index = AKNodeParameter(identifier: "index")
 
     /// Frequency offset in Hz.
-    @objc open var detuningOffset: Double = defaultDetuningOffset {
-        willSet {
-            let clampedValue = AKMorphingOscillator.detuningOffsetRange.clamp(newValue)
-            guard detuningOffset != clampedValue else { return }
-            internalAU?.detuningOffset.value = AUValue(clampedValue)
-        }
-    }
+    public let detuningOffset = AKNodeParameter(identifier: "detuningOffset")
 
     /// Frequency detuning multiplier
-    @objc open var detuningMultiplier: Double = defaultDetuningMultiplier {
-        willSet {
-            let clampedValue = AKMorphingOscillator.detuningMultiplierRange.clamp(newValue)
-            guard detuningMultiplier != clampedValue else { return }
-            internalAU?.detuningMultiplier.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
 
     // MARK: - Initialization
 
@@ -109,45 +78,35 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     ///   - index: Index of the wavetable to use (fractional are okay).
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
-    ///   - phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
         waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
-        frequency: Double = defaultFrequency,
-        amplitude: Double = defaultAmplitude,
-        index: Double = defaultIndex,
-        detuningOffset: Double = defaultDetuningOffset,
-        detuningMultiplier: Double = defaultDetuningMultiplier,
-        phase: Double = defaultPhase
+        frequency: AUValue = defaultFrequency,
+        amplitude: AUValue = defaultAmplitude,
+        index: AUValue = defaultIndex,
+        detuningOffset: AUValue = defaultDetuningOffset,
+        detuningMultiplier: AUValue = defaultDetuningMultiplier
     ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
             self.waveformArray = waveformArray
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.index = index
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.amplitude.associate(with: self.internalAU, value: amplitude)
+            self.index.associate(with: self.internalAU, value: index)
+            self.detuningOffset.associate(with: self.internalAU, value: detuningOffset)
+            self.detuningMultiplier.associate(with: self.internalAU, value: detuningMultiplier)
 
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setWavetable(waveform.content, index: i)
             }
         }
-    }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

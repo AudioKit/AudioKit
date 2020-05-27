@@ -48,7 +48,6 @@ const float kAKFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
     : AKModulatedDelay(type)
-    , AKDSPBase()
 {
     parameters[AKModulatedDelayParameterFrequency] = &frequencyRamp;
     parameters[AKModulatedDelayParameterDepth] = &depthRamp;
@@ -92,23 +91,22 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
     // process in chunks of maximum length CHUNKSIZE
     for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
-        int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
 
         // ramp parameters
-        frequencyRamp.advanceTo(now + frameOffset);
-        depthRamp.advanceTo(now + frameOffset);
-        feedbackRamp.advanceTo(now + frameOffset);
-        dryWetMixRamp.advanceTo(now + frameOffset);
+        frequencyRamp.stepBy(chunkSize);
+        depthRamp.stepBy(chunkSize);
+        feedbackRamp.stepBy(chunkSize);
+        dryWetMixRamp.stepBy(chunkSize);
 
         // apply changes
-        setModFrequencyHz(frequencyRamp.getValue());
-        modDepthFraction = depthRamp.getValue();
-        float fb = feedbackRamp.getValue();
+        setModFrequencyHz(frequencyRamp.get());
+        modDepthFraction = depthRamp.get();
+        float fb = feedbackRamp.get();
         setLeftFeedback(fb);
         setRightFeedback(fb);
-        dryWetMix = dryWetMixRamp.getValue();
+        dryWetMix = dryWetMixRamp.get();
 
         // process
         Render(channelCount, chunkSize, inBuffers, outBuffers);

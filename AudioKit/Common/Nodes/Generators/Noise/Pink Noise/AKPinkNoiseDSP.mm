@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPinkNoiseDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPinkNoiseDSP() {
     return new AKPinkNoiseDSP();
@@ -9,7 +9,7 @@ extern "C" AKDSPRef createPinkNoiseDSP() {
 
 struct AKPinkNoiseDSP::InternalData {
     sp_pinknoise *pinknoise;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKPinkNoiseDSP::AKPinkNoiseDSP() : data(new InternalData) {
@@ -37,12 +37,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
-
-        data->pinknoise->amp = data->amplitudeRamp.getValue();
+        data->pinknoise->amp = data->amplitudeRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

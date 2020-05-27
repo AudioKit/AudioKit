@@ -21,9 +21,12 @@ void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
 void deallocateRenderResourcesDSP(AKDSPRef pDSP);
 void resetDSP(AKDSPRef pDSP);
 
-void setRampDurationDSP(AKDSPRef pDSP, float rampDuration);
-void setParameterDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
-AUValue getParameterDSP(AKDSPRef pDSP, AUParameterAddress address);
+void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
+AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
+
+void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration);
+void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper);
+void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew);
 
 void startDSP(AKDSPRef pDSP);
 void stopDSP(AKDSPRef pDSP);
@@ -51,9 +54,6 @@ class AKDSPBase {
     
     std::vector<const AVAudioPCMBuffer*> internalBuffers;
     
-    /// Ramp rate for ramped parameters
-    float rampDuration;
-    
 protected:
 
     int channelCount;
@@ -69,7 +69,7 @@ protected:
     // current time in samples
     AUEventSampleTime now = 0;
     
-    std::map<AUParameterAddress, class AKParameterRampBase*> parameters;
+    std::map<AUParameterAddress, class ParameterRamper*> parameters;
 
 public:
     
@@ -89,8 +89,6 @@ public:
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
-    
-    void setRampDuration(float duration);
     
     /// Uses the ParameterAddress as a key
     virtual void setParameter(AUParameterAddress address, float value, bool immediate = false);
@@ -141,9 +139,15 @@ public:
         return isInitialized;
     }
 
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
-
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
+    
+    void setParameterRampDuration(AUParameterAddress address, float duration);
+    
+    void setParameterRampTaper(AUParameterAddress address, float taper);
+    
+    void setParameterRampSkew(AUParameterAddress address, float skew);
+
+private:
 
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
@@ -151,11 +155,12 @@ public:
      */
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                            AURenderEvent const *events);
-
-private:
-
+    
     void handleOneEvent(AURenderEvent const *event);
+    
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
+    
+    void startRamp(const AUParameterEvent& event);
 };
 
 #endif

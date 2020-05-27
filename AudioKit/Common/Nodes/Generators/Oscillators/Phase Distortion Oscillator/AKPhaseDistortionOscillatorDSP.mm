@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPhaseDistortionOscillatorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 #include <vector>
 
 extern "C" AKDSPRef createPhaseDistortionOscillatorDSP() {
@@ -14,11 +14,11 @@ struct AKPhaseDistortionOscillatorDSP::InternalData {
     sp_phasor *phasor;
     sp_ftbl *ftbl;
     std::vector<float> waveform;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp phaseDistortionRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper amplitudeRamp;
+    ParameterRamper phaseDistortionRamp;
+    ParameterRamper detuningOffsetRamp;
+    ParameterRamper detuningMultiplierRamp;
 };
 
 AKPhaseDistortionOscillatorDSP::AKPhaseDistortionOscillatorDSP() : data(new InternalData) {
@@ -68,19 +68,11 @@ void AKPhaseDistortionOscillatorDSP::process(AUAudioFrameCount frameCount, AUAud
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-            data->phaseDistortionRamp.advanceTo(now + frameOffset);
-            data->detuningOffsetRamp.advanceTo(now + frameOffset);
-            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
-        }
-        float frequency = data->frequencyRamp.getValue();
-        float amplitude = data->amplitudeRamp.getValue();
-        float phaseDistortion = data->phaseDistortionRamp.getValue();
-        float detuningOffset = data->detuningOffsetRamp.getValue();
-        float detuningMultiplier = data->detuningMultiplierRamp.getValue();
+        float frequency = data->frequencyRamp.getAndStep();
+        float amplitude = data->amplitudeRamp.getAndStep();
+        float phaseDistortion = data->phaseDistortionRamp.getAndStep();
+        float detuningOffset = data->detuningOffsetRamp.getAndStep();
+        float detuningMultiplier = data->detuningMultiplierRamp.getAndStep();
         data->phasor->freq = frequency * detuningMultiplier + detuningOffset;
         data->pdhalf->amount = phaseDistortion;
 

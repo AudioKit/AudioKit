@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKAutoPannerDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "ParameterRamper.hpp"
 #import <vector>
 
 extern "C" AKDSPRef createAutoPannerDSP() {
@@ -14,8 +14,8 @@ struct AKAutoPannerDSP::InternalData {
     sp_ftbl *tbl;
     sp_panst *panst;
     std::vector<float> wavetable;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp depthRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper depthRamp;
 };
 
 AKAutoPannerDSP::AKAutoPannerDSP() : data(new InternalData) {
@@ -50,12 +50,7 @@ void AKAutoPannerDSP::process(uint32_t frameCount, uint32_t bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->depthRamp.advanceTo(now + frameOffset);
-        }
-        data->trem->freq = data->frequencyRamp.getValue();
+        data->trem->freq = data->frequencyRamp.getAndStep();
         data->trem->amp = 1;
 
         float temp = 0;
@@ -75,7 +70,7 @@ void AKAutoPannerDSP::process(uint32_t frameCount, uint32_t bufferOffset) {
         }
         if (isStarted) {
             sp_osc_compute(sp, data->trem, NULL, &temp);
-            data->panst->pan = (2.0 * temp - 1.0) * data->depthRamp.getValue();
+            data->panst->pan = (2.0 * temp - 1.0) * data->depthRamp.getAndStep();
             sp_panst_compute(sp, data->panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }

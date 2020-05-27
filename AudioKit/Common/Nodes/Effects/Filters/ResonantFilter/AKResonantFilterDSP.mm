@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKResonantFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createResonantFilterDSP() {
     return new AKResonantFilterDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createResonantFilterDSP() {
 struct AKResonantFilterDSP::InternalData {
     sp_reson *reson0;
     sp_reson *reson1;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp bandwidthRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper bandwidthRamp;
 };
 
 AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
@@ -45,16 +45,13 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->bandwidthRamp.advanceTo(now + frameOffset);
-        }
+        float frequency = data->frequencyRamp.getAndStep();
+        data->reson0->freq = frequency;
+        data->reson1->freq = frequency;
 
-        data->reson0->freq = data->frequencyRamp.getValue();
-        data->reson1->freq = data->frequencyRamp.getValue();
-        data->reson0->bw = data->bandwidthRamp.getValue();
-        data->reson1->bw = data->bandwidthRamp.getValue();
+        float bandwidth = data->bandwidthRamp.getAndStep();
+        data->reson0->bw = bandwidth;
+        data->reson1->bw = bandwidth;
 
         float *tmpin[2];
         float *tmpout[2];

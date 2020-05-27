@@ -2,63 +2,49 @@
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
+open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Corner Frequency
-    public static let cornerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let cornerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Gain
-    public static let gainRange: ClosedRange<Double> = 0.0 ... 10.0
+    public static let gainRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Q
-    public static let qRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let qRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Initial value for Corner Frequency
-    public static let defaultCornerFrequency: Double = 1_000
+    public static let defaultCornerFrequency: AUValue = 1000
 
     /// Initial value for Gain
-    public static let defaultGain: Double = 1.0
+    public static let defaultGain: AUValue = 1.0
 
     /// Initial value for Q
-    public static let defaultQ: Double = 0.707
+    public static let defaultQ: AUValue = 0.707
 
     /// Corner frequency.
-    @objc open var cornerFrequency: Double = defaultCornerFrequency {
-        willSet {
-            let clampedValue = AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.clamp(newValue)
-            guard cornerFrequency != clampedValue else { return }
-            internalAU?.cornerFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let cornerFrequency = AKNodeParameter(identifier: "cornerFrequency")
 
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    @objc open var gain: Double = defaultGain {
-        willSet {
-            let clampedValue = AKLowShelfParametricEqualizerFilter.gainRange.clamp(newValue)
-            guard gain != clampedValue else { return }
-            internalAU?.gain.value = AUValue(clampedValue)
-        }
-    }
+    public let gain = AKNodeParameter(identifier: "gain")
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @objc open var q: Double = defaultQ {
-        willSet {
-            let clampedValue = AKLowShelfParametricEqualizerFilter.qRange.clamp(newValue)
-            guard q != clampedValue else { return }
-            internalAU?.q.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let q = AKNodeParameter(identifier: "q")
 
     // MARK: - Initialization
 
@@ -72,34 +58,24 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///
     public init(
         _ input: AKNode? = nil,
-        cornerFrequency: Double = defaultCornerFrequency,
-        gain: Double = defaultGain,
-        q: Double = defaultQ
+        cornerFrequency: AUValue = defaultCornerFrequency,
+        gain: AUValue = defaultGain,
+        q: AUValue = defaultQ
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.cornerFrequency.associate(with: self.internalAU, value: cornerFrequency)
+            self.gain.associate(with: self.internalAU, value: gain)
+            self.q.associate(with: self.internalAU, value: q)
+
             input?.connect(to: self)
-
-            self.cornerFrequency = cornerFrequency
-            self.gain = gain
-            self.q = q
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

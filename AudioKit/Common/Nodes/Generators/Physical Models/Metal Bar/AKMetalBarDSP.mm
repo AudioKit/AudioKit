@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKMetalBarDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createMetalBarDSP() {
     return new AKMetalBarDSP();
@@ -9,13 +9,13 @@ extern "C" AKDSPRef createMetalBarDSP() {
 
 struct AKMetalBarDSP::InternalData {
     sp_bar *bar;
-    AKLinearParameterRamp leftBoundaryConditionRamp;
-    AKLinearParameterRamp rightBoundaryConditionRamp;
-    AKLinearParameterRamp decayDurationRamp;
-    AKLinearParameterRamp scanSpeedRamp;
-    AKLinearParameterRamp positionRamp;
-    AKLinearParameterRamp strikeVelocityRamp;
-    AKLinearParameterRamp strikeWidthRamp;
+    ParameterRamper leftBoundaryConditionRamp;
+    ParameterRamper rightBoundaryConditionRamp;
+    ParameterRamper decayDurationRamp;
+    ParameterRamper scanSpeedRamp;
+    ParameterRamper positionRamp;
+    ParameterRamper strikeVelocityRamp;
+    ParameterRamper strikeWidthRamp;
 };
 
 AKMetalBarDSP::AKMetalBarDSP() : data(new InternalData) {
@@ -49,24 +49,13 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->leftBoundaryConditionRamp.advanceTo(now + frameOffset);
-            data->rightBoundaryConditionRamp.advanceTo(now + frameOffset);
-            data->decayDurationRamp.advanceTo(now + frameOffset);
-            data->scanSpeedRamp.advanceTo(now + frameOffset);
-            data->positionRamp.advanceTo(now + frameOffset);
-            data->strikeVelocityRamp.advanceTo(now + frameOffset);
-            data->strikeWidthRamp.advanceTo(now + frameOffset);
-        }
-
-        data->bar->bcL = data->leftBoundaryConditionRamp.getValue();
-        data->bar->bcR = data->rightBoundaryConditionRamp.getValue();
-        data->bar->T30 = data->decayDurationRamp.getValue();
-        data->bar->scan = data->scanSpeedRamp.getValue();
-        data->bar->pos = data->positionRamp.getValue();
-        data->bar->vel = data->strikeVelocityRamp.getValue();
-        data->bar->wid = data->strikeWidthRamp.getValue();
+        data->bar->bcL = data->leftBoundaryConditionRamp.getAndStep();
+        data->bar->bcR = data->rightBoundaryConditionRamp.getAndStep();
+        data->bar->T30 = data->decayDurationRamp.getAndStep();
+        data->bar->scan = data->scanSpeedRamp.getAndStep();
+        data->bar->pos = data->positionRamp.getAndStep();
+        data->bar->vel = data->strikeVelocityRamp.getAndStep();
+        data->bar->wid = data->strikeWidthRamp.getAndStep();
 
         float temp = 0;
         for (int channel = 0; channel < channelCount; ++channel) {

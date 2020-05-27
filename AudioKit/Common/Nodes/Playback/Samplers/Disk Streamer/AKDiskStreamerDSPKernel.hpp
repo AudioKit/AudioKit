@@ -22,8 +22,8 @@ public:
 
         sp_wavin_create(&wavin);
 
-        rateRamper.init();
-        volumeRamper.init();
+        rateRamper.init(sampleRate);
+        volumeRamper.init(sampleRate);
     }
 
     void start() {

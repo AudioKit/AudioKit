@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPannerDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPannerDSP() {
     return new AKPannerDSP();
@@ -9,7 +9,7 @@ extern "C" AKDSPRef createPannerDSP() {
 
 struct AKPannerDSP::InternalData {
     sp_panst *panst;
-    AKLinearParameterRamp panRamp;
+    ParameterRamper panRamp;
 };
 
 AKPannerDSP::AKPannerDSP() : data(new InternalData) {
@@ -38,12 +38,7 @@ void AKPannerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->panRamp.advanceTo(now + frameOffset);
-        }
-
-        data->panst->pan = data->panRamp.getValue();
+        data->panst->pan = data->panRamp.getAndStep();
 
         float *tmpin[2];
         float *tmpout[2];

@@ -4,70 +4,54 @@ import AVFoundation
 
 public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
 
-    private(set) var baseFrequency: AUParameter!
+    let baseFrequency = AUParameter(
+        identifier: "baseFrequency",
+        name: "Base Frequency (Hz)",
+        address: AKFMOscillatorParameter.baseFrequency.rawValue,
+        range: AKFMOscillator.baseFrequencyRange,
+        unit: .hertz,
+        flags: .default)
 
-    private(set) var carrierMultiplier: AUParameter!
+    let carrierMultiplier = AUParameter(
+        identifier: "carrierMultiplier",
+        name: "Carrier Multiplier",
+        address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
+        range: AKFMOscillator.carrierMultiplierRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var modulatingMultiplier: AUParameter!
+    let modulatingMultiplier = AUParameter(
+        identifier: "modulatingMultiplier",
+        name: "Modulating Multiplier",
+        address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
+        range: AKFMOscillator.modulatingMultiplierRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var modulationIndex: AUParameter!
+    let modulationIndex = AUParameter(
+        identifier: "modulationIndex",
+        name: "Modulation Index",
+        address: AKFMOscillatorParameter.modulationIndex.rawValue,
+        range: AKFMOscillator.modulationIndexRange,
+        unit: .generic,
+        flags: .default)
 
-    private(set) var amplitude: AUParameter!
+    let amplitude = AUParameter(
+        identifier: "amplitude",
+        name: "Amplitude",
+        address: AKFMOscillatorParameter.amplitude.rawValue,
+        range: AKFMOscillator.amplitudeRange,
+        unit: .generic,
+        flags: .default)
 
     public override func createDSP() -> AKDSPRef {
         return createFMOscillatorDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        baseFrequency = AUParameter(
-            identifier: "baseFrequency",
-            name: "Base Frequency (Hz)",
-            address: AKFMOscillatorParameter.baseFrequency.rawValue,
-            range: AKFMOscillator.baseFrequencyRange,
-            unit: .hertz,
-            flags: .default)
-        carrierMultiplier = AUParameter(
-            identifier: "carrierMultiplier",
-            name: "Carrier Multiplier",
-            address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
-            range: AKFMOscillator.carrierMultiplierRange,
-            unit: .generic,
-            flags: .default)
-        modulatingMultiplier = AUParameter(
-            identifier: "modulatingMultiplier",
-            name: "Modulating Multiplier",
-            address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
-            range: AKFMOscillator.modulatingMultiplierRange,
-            unit: .generic,
-            flags: .default)
-        modulationIndex = AUParameter(
-            identifier: "modulationIndex",
-            name: "Modulation Index",
-            address: AKFMOscillatorParameter.modulationIndex.rawValue,
-            range: AKFMOscillator.modulationIndexRange,
-            unit: .generic,
-            flags: .default)
-        amplitude = AUParameter(
-            identifier: "amplitude",
-            name: "Amplitude",
-            address: AKFMOscillatorParameter.amplitude.rawValue,
-            range: AKFMOscillator.amplitudeRange,
-            unit: .generic,
-            flags: .default)
-
-        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency,
-                                                                  carrierMultiplier,
-                                                                  modulatingMultiplier,
-                                                                  modulationIndex,
-                                                                  amplitude])
-
-        baseFrequency.value = AUValue(AKFMOscillator.defaultBaseFrequency)
-        carrierMultiplier.value = AUValue(AKFMOscillator.defaultCarrierMultiplier)
-        modulatingMultiplier.value = AUValue(AKFMOscillator.defaultModulatingMultiplier)
-        modulationIndex.value = AUValue(AKFMOscillator.defaultModulationIndex)
-        amplitude.value = AUValue(AKFMOscillator.defaultAmplitude)
+        
+        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude])
     }
 }

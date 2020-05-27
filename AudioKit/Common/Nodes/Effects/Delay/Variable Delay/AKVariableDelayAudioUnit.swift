@@ -4,36 +4,30 @@ import AVFoundation
 
 public class AKVariableDelayAudioUnit: AKAudioUnitBase {
 
-    private(set) var time: AUParameter!
+    let time = AUParameter(
+        identifier: "time",
+        name: "Delay time (Seconds)",
+        address: AKVariableDelayParameter.time.rawValue,
+        range: AKVariableDelay.timeRange,
+        unit: .seconds,
+        flags: .default)
 
-    private(set) var feedback: AUParameter!
+    let feedback = AUParameter(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: AKVariableDelayParameter.feedback.rawValue,
+        range: AKVariableDelay.feedbackRange,
+        unit: .generic,
+        flags: .default)
 
     public override func createDSP() -> AKDSPRef {
         return createVariableDelayDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
+                  options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        time = AUParameter(
-            identifier: "time",
-            name: "Delay time (Seconds)",
-            address: AKVariableDelayParameter.time.rawValue,
-            range: AKVariableDelay.timeRange,
-            unit: .seconds,
-            flags: .default)
-        feedback = AUParameter(
-            identifier: "feedback",
-            name: "Feedback (%)",
-            address: AKVariableDelayParameter.feedback.rawValue,
-            range: AKVariableDelay.feedbackRange,
-            unit: .generic,
-            flags: .default)
-
+        
         parameterTree = AUParameterTree.createTree(withChildren: [time, feedback])
-
-        time.value = AUValue(AKVariableDelay.defaultTime)
-        feedback.value = AUValue(AKVariableDelay.defaultFeedback)
     }
 }

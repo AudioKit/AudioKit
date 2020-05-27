@@ -3,33 +3,31 @@
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKClipperAudioUnit
+open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKClipperAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Limit
-    public static let limitRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let limitRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Limit
-    public static let defaultLimit: Double = 1.0
+    public static let defaultLimit: AUValue = 1.0
 
     /// Threshold / limiting value.
-    @objc open var limit: Double = defaultLimit {
-        willSet {
-            let clampedValue = AKClipper.limitRange.clamp(newValue)
-            guard limit != clampedValue else { return }
-            internalAU?.limit.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let limit = AKNodeParameter(identifier: "limit")
 
     // MARK: - Initialization
 
@@ -41,30 +39,20 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        limit: Double = defaultLimit
+        limit: AUValue = defaultLimit
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.limit.associate(with: self.internalAU, value: limit)
+
             input?.connect(to: self)
-
-            self.limit = limit
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

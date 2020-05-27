@@ -34,7 +34,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             identifier: "length",
             name: "Length of the sequence",
             address: AKSequencerEngineParameter.length.rawValue,
-            range: 0.0 ... Double(Float.greatestFiniteMagnitude),
+            range: 0.0 ... Float.greatestFiniteMagnitude,
             unit: .beats,
             flags: .default)
         
@@ -42,7 +42,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             identifier: "maximumPlayCount",
             name: "Maximum times to loop before stopping",
             address: AKSequencerEngineParameter.maximumPlayCount.rawValue,
-            range: 0.0 ... Double(Int.max),
+            range: 0.0 ... Float(Int.max),
             unit: .generic,
             flags: .default)
         
@@ -50,7 +50,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             identifier: "position",
             name: "Release Duration",
             address: AKSequencerEngineParameter.position.rawValue,
-            range: 0.0 ... Double(Float.greatestFiniteMagnitude),
+            range: 0.0 ... Float.greatestFiniteMagnitude,
             unit: .beats,
             flags: .default)
         

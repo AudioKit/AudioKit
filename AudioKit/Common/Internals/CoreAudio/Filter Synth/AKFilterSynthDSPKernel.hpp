@@ -121,22 +121,22 @@ public:
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeKernel::init(channelCount, sampleRate);
         
-        attackDurationRamper.init();
-        decayDurationRamper.init();
-        sustainLevelRamper.init();
-        releaseDurationRamper.init();
-        pitchBendRamper.init();
-        vibratoDepthRamper.init();
-        vibratoRateRamper.init();
-        filterCutoffFrequencyRamper.init();
-        filterResonanceRamper.init();
-        filterAttackDurationRamper.init();
-        filterDecayDurationRamper.init();
-        filterSustainLevelRamper.init();
-        filterReleaseDurationRamper.init();
-        filterEnvelopeStrengthRamper.init();
-        filterLFODepthRamper.init();
-        filterLFORateRamper.init();
+        attackDurationRamper.init(sampleRate);
+        decayDurationRamper.init(sampleRate);
+        sustainLevelRamper.init(sampleRate);
+        releaseDurationRamper.init(sampleRate);
+        pitchBendRamper.init(sampleRate);
+        vibratoDepthRamper.init(sampleRate);
+        vibratoRateRamper.init(sampleRate);
+        filterCutoffFrequencyRamper.init(sampleRate);
+        filterResonanceRamper.init(sampleRate);
+        filterAttackDurationRamper.init(sampleRate);
+        filterDecayDurationRamper.init(sampleRate);
+        filterSustainLevelRamper.init(sampleRate);
+        filterReleaseDurationRamper.init(sampleRate);
+        filterEnvelopeStrengthRamper.init(sampleRate);
+        filterLFODepthRamper.init(sampleRate);
+        filterLFORateRamper.init(sampleRate);
     }
     
     virtual void reset() {

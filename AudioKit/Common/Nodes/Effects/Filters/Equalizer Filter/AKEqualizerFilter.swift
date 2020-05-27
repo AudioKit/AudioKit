@@ -5,63 +5,49 @@
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
 /// is less than 1, a notch is formed around the center frequency.
 ///
-open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
+open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 20_000.0
+    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20000.0
 
     /// Lower and upper bounds for Gain
-    public static let gainRange: ClosedRange<Double> = -100.0 ... 100.0
+    public static let gainRange: ClosedRange<AUValue> = -100.0 ... 100.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: Double = 1_000.0
+    public static let defaultCenterFrequency: AUValue = 1000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth: Double = 100.0
+    public static let defaultBandwidth: AUValue = 100.0
 
     /// Initial value for Gain
-    public static let defaultGain: Double = 10.0
+    public static let defaultGain: AUValue = 10.0
 
     /// Center frequency. (in Hertz)
-    @objc open var centerFrequency: Double = defaultCenterFrequency {
-        willSet {
-            let clampedValue = AKEqualizerFilter.centerFrequencyRange.clamp(newValue)
-            guard centerFrequency != clampedValue else { return }
-            internalAU?.centerFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// The peak/notch bandwidth in Hertz
-    @objc open var bandwidth: Double = defaultBandwidth {
-        willSet {
-            let clampedValue = AKEqualizerFilter.bandwidthRange.clamp(newValue)
-            guard bandwidth != clampedValue else { return }
-            internalAU?.bandwidth.value = AUValue(clampedValue)
-        }
-    }
+    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     /// The peak/notch gain
-    @objc open var gain: Double = defaultGain {
-        willSet {
-            let clampedValue = AKEqualizerFilter.gainRange.clamp(newValue)
-            guard gain != clampedValue else { return }
-            internalAU?.gain.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let gain = AKNodeParameter(identifier: "gain")
 
     // MARK: - Initialization
 
@@ -75,34 +61,24 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = defaultCenterFrequency,
-        bandwidth: Double = defaultBandwidth,
-        gain: Double = defaultGain
+        centerFrequency: AUValue = defaultCenterFrequency,
+        bandwidth: AUValue = defaultBandwidth,
+        gain: AUValue = defaultGain
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
+            self.bandwidth.associate(with: self.internalAU, value: bandwidth)
+            self.gain.associate(with: self.internalAU, value: gain)
+
             input?.connect(to: self)
-
-            self.centerFrequency = centerFrequency
-            self.bandwidth = bandwidth
-            self.gain = gain
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

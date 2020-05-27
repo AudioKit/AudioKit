@@ -2,78 +2,58 @@
 
 /// Emulation of the Roland TB-303 filter
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
+open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<Double> = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Resonance
-    public static let resonanceRange: ClosedRange<Double> = 0.0 ... 2.0
+    public static let resonanceRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
     /// Lower and upper bounds for Distortion
-    public static let distortionRange: ClosedRange<Double> = 0.0 ... 4.0
+    public static let distortionRange: ClosedRange<AUValue> = 0.0 ... 4.0
 
     /// Lower and upper bounds for Resonance Asymmetry
-    public static let resonanceAsymmetryRange: ClosedRange<Double> = 0.0 ... 1.0
+    public static let resonanceAsymmetryRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: Double = 500
+    public static let defaultCutoffFrequency: AUValue = 500
 
     /// Initial value for Resonance
-    public static let defaultResonance: Double = 0.5
+    public static let defaultResonance: AUValue = 0.5
 
     /// Initial value for Distortion
-    public static let defaultDistortion: Double = 2.0
+    public static let defaultDistortion: AUValue = 2.0
 
     /// Initial value for Resonance Asymmetry
-    public static let defaultResonanceAsymmetry: Double = 0.5
+    public static let defaultResonanceAsymmetry: AUValue = 0.5
 
     /// Cutoff frequency. (in Hertz)
-    @objc open var cutoffFrequency: Double = defaultCutoffFrequency {
-        willSet {
-            let clampedValue = AKRolandTB303Filter.cutoffFrequencyRange.clamp(newValue)
-            guard cutoffFrequency != clampedValue else { return }
-            internalAU?.cutoffFrequency.value = AUValue(clampedValue)
-        }
-    }
+    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @objc open var resonance: Double = defaultResonance {
-        willSet {
-            let clampedValue = AKRolandTB303Filter.resonanceRange.clamp(newValue)
-            guard resonance != clampedValue else { return }
-            internalAU?.resonance.value = AUValue(clampedValue)
-        }
-    }
+    public let resonance = AKNodeParameter(identifier: "resonance")
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    @objc open var distortion: Double = defaultDistortion {
-        willSet {
-            let clampedValue = AKRolandTB303Filter.distortionRange.clamp(newValue)
-            guard distortion != clampedValue else { return }
-            internalAU?.distortion.value = AUValue(clampedValue)
-        }
-    }
+    public let distortion = AKNodeParameter(identifier: "distortion")
 
     /// Asymmetry of resonance. Value is between 0-1
-    @objc open var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
-        willSet {
-            let clampedValue = AKRolandTB303Filter.resonanceAsymmetryRange.clamp(newValue)
-            guard resonanceAsymmetry != clampedValue else { return }
-            internalAU?.resonanceAsymmetry.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let resonanceAsymmetry = AKNodeParameter(identifier: "resonanceAsymmetry")
 
     // MARK: - Initialization
 
@@ -88,36 +68,26 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = defaultCutoffFrequency,
-        resonance: Double = defaultResonance,
-        distortion: Double = defaultDistortion,
-        resonanceAsymmetry: Double = defaultResonanceAsymmetry
+        cutoffFrequency: AUValue = defaultCutoffFrequency,
+        resonance: AUValue = defaultResonance,
+        distortion: AUValue = defaultDistortion,
+        resonanceAsymmetry: AUValue = defaultResonanceAsymmetry
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
+            self.resonance.associate(with: self.internalAU, value: resonance)
+            self.distortion.associate(with: self.internalAU, value: distortion)
+            self.resonanceAsymmetry.associate(with: self.internalAU, value: resonanceAsymmetry)
+
             input?.connect(to: self)
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-            self.distortion = distortion
-            self.resonanceAsymmetry = resonanceAsymmetry
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

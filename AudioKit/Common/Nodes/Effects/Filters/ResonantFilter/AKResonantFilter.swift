@@ -3,48 +3,40 @@
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKResonantFilterAudioUnit
+open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
+    // MARK: - AKComponent
+    
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
-
-    // MARK: - Properties
+    
+    public typealias AKAudioUnitType = AKResonantFilterAudioUnit
+    
     public private(set) var internalAU: AKAudioUnitType?
-
+    
+    // MARK: - AKAutomatable
+    
+    public private(set) var parameterAutomation: AKParameterAutomation?
+    
+    // MARK: - Parameters
+    
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<Double> = 100.0 ... 20_000.0
+    public static let frequencyRange: ClosedRange<AUValue> = 100.0 ... 20000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<Double> = 0.0 ... 10_000.0
+    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 10000.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency: Double = 4_000.0
+    public static let defaultFrequency: AUValue = 4000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth: Double = 1_000.0
+    public static let defaultBandwidth: AUValue = 1000.0
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    @objc open var frequency: Double = defaultFrequency {
-        willSet {
-            let clampedValue = AKResonantFilter.frequencyRange.clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
-        }
-    }
+    public let frequency = AKNodeParameter(identifier: "frequency")
 
     /// Bandwidth of the filter.
-    @objc open var bandwidth: Double = defaultBandwidth {
-        willSet {
-            let clampedValue = AKResonantFilter.bandwidthRange.clamp(newValue)
-            guard bandwidth != clampedValue else { return }
-            internalAU?.bandwidth.value = AUValue(clampedValue)
-        }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     // MARK: - Initialization
 
@@ -57,32 +49,22 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: Double = defaultFrequency,
-        bandwidth: Double = defaultBandwidth
+        frequency: AUValue = defaultFrequency,
+        bandwidth: AUValue = defaultBandwidth
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        
+        instantiateAudioUnit() { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
+            
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            
+            self.frequency.associate(with: self.internalAU, value: frequency)
+            self.bandwidth.associate(with: self.internalAU, value: bandwidth)
+
             input?.connect(to: self)
-
-            self.frequency = frequency
-            self.bandwidth = bandwidth
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 }

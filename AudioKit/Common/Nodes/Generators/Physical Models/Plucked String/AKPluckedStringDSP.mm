@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKPluckedStringDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createPluckedStringDSP() {
     return new AKPluckedStringDSP();
@@ -10,8 +10,8 @@ extern "C" AKDSPRef createPluckedStringDSP() {
 struct AKPluckedStringDSP::InternalData {
     sp_pluck *pluck;
     float internalTrigger = 0;
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
+    ParameterRamper frequencyRamp;
+    ParameterRamper amplitudeRamp;
 };
 
 AKPluckedStringDSP::AKPluckedStringDSP() : data(new InternalData) {
@@ -41,8 +41,8 @@ void AKPluckedStringDSP::trigger() {
 }
 
 void AKPluckedStringDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp) {
-    data->frequencyRamp.setTarget(freq, true);
-    data->amplitudeRamp.setTarget(amp, true);
+    data->frequencyRamp.setImmediate(freq);
+    data->amplitudeRamp.setImmediate(amp);
     trigger();
 }
 
@@ -50,14 +50,8 @@ void AKPluckedStringDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(now + frameOffset);
-            data->amplitudeRamp.advanceTo(now + frameOffset);
-        }
-
-        data->pluck->freq = data->frequencyRamp.getValue();
-        data->pluck->amp = data->amplitudeRamp.getValue();
+        data->pluck->freq = data->frequencyRamp.getAndStep();
+        data->pluck->amp = data->amplitudeRamp.getAndStep();
 
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;

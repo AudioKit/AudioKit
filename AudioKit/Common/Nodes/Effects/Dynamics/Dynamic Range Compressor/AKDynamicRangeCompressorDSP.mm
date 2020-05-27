@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKDynamicRangeCompressorDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createDynamicRangeCompressorDSP() {
     return new AKDynamicRangeCompressorDSP();
@@ -10,10 +10,10 @@ extern "C" AKDSPRef createDynamicRangeCompressorDSP() {
 struct AKDynamicRangeCompressorDSP::InternalData {
     sp_compressor *compressor0;
     sp_compressor *compressor1;
-    AKLinearParameterRamp ratioRamp;
-    AKLinearParameterRamp thresholdRamp;
-    AKLinearParameterRamp attackTimeRamp;
-    AKLinearParameterRamp releaseTimeRamp;
+    ParameterRamper ratioRamp;
+    ParameterRamper thresholdRamp;
+    ParameterRamper attackTimeRamp;
+    ParameterRamper releaseTimeRamp;
 };
 
 AKDynamicRangeCompressorDSP::AKDynamicRangeCompressorDSP() : data(new InternalData) {
@@ -49,22 +49,21 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->ratioRamp.advanceTo(now + frameOffset);
-            data->thresholdRamp.advanceTo(now + frameOffset);
-            data->attackTimeRamp.advanceTo(now + frameOffset);
-            data->releaseTimeRamp.advanceTo(now + frameOffset);
-        }
+        float ratio = data->ratioRamp.getAndStep();
+        *data->compressor0->ratio = ratio;
+        *data->compressor1->ratio = ratio;
 
-        *data->compressor0->ratio = data->ratioRamp.getValue();
-        *data->compressor1->ratio = data->ratioRamp.getValue();
-        *data->compressor0->thresh = data->thresholdRamp.getValue();
-        *data->compressor1->thresh = data->thresholdRamp.getValue();
-        *data->compressor0->atk = data->attackTimeRamp.getValue();
-        *data->compressor1->atk = data->attackTimeRamp.getValue();
-        *data->compressor0->rel = data->releaseTimeRamp.getValue();
-        *data->compressor1->rel = data->releaseTimeRamp.getValue();
+        float threshold = data->thresholdRamp.getAndStep();
+        *data->compressor0->thresh = threshold;
+        *data->compressor1->thresh = threshold;
+
+        float attackTime = data->attackTimeRamp.getAndStep();
+        *data->compressor0->atk = attackTime;
+        *data->compressor1->atk = attackTime;
+
+        float releaseTime = data->releaseTimeRamp.getAndStep();
+        *data->compressor0->rel = releaseTime;
+        *data->compressor1->rel = releaseTime;
 
         float *tmpin[2];
         float *tmpout[2];

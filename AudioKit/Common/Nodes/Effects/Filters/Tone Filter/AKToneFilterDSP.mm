@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKToneFilterDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createToneFilterDSP() {
     return new AKToneFilterDSP();
@@ -10,7 +10,7 @@ extern "C" AKDSPRef createToneFilterDSP() {
 struct AKToneFilterDSP::InternalData {
     sp_tone *tone0;
     sp_tone *tone1;
-    AKLinearParameterRamp halfPowerPointRamp;
+    ParameterRamper halfPowerPointRamp;
 };
 
 AKToneFilterDSP::AKToneFilterDSP() : data(new InternalData) {
@@ -43,13 +43,9 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->halfPowerPointRamp.advanceTo(now + frameOffset);
-        }
-
-        data->tone0->hp = data->halfPowerPointRamp.getValue();
-        data->tone1->hp = data->halfPowerPointRamp.getValue();
+        float halfPowerPoint = data->halfPowerPointRamp.getAndStep();
+        data->tone0->hp = halfPowerPoint;
+        data->tone1->hp = halfPowerPoint;
 
         float *tmpin[2];
         float *tmpout[2];

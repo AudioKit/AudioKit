@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKCostelloReverbDSP.hpp"
-#include "AKLinearParameterRamp.hpp"
+#include "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createCostelloReverbDSP() {
     return new AKCostelloReverbDSP();
@@ -9,8 +9,8 @@ extern "C" AKDSPRef createCostelloReverbDSP() {
 
 struct AKCostelloReverbDSP::InternalData {
     sp_revsc *revsc;
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp cutoffFrequencyRamp;
+    ParameterRamper feedbackRamp;
+    ParameterRamper cutoffFrequencyRamp;
 };
 
 AKCostelloReverbDSP::AKCostelloReverbDSP() : data(new InternalData) {
@@ -40,14 +40,9 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            data->feedbackRamp.advanceTo(now + frameOffset);
-            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
-        }
+        data->revsc->feedback = data->feedbackRamp.getAndStep();
 
-        data->revsc->feedback = data->feedbackRamp.getValue();
-        data->revsc->lpfreq = data->cutoffFrequencyRamp.getValue();
+        data->revsc->lpfreq = data->cutoffFrequencyRamp.getAndStep();
 
         float *tmpin[2];
         float *tmpout[2];

@@ -2,7 +2,7 @@
 
 #include "AKStereoDelayDSP.hpp"
 #include "StereoDelay.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createStereoDelayDSP() {
     return new AKStereoDelayDSP();
@@ -11,9 +11,9 @@ extern "C" AKDSPRef createStereoDelayDSP() {
 struct AKStereoDelayDSP::InternalData {
     AudioKitCore::StereoDelay delay;
     float timeUpperBound = 2.f;
-    AKLinearParameterRamp timeRamp;
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp dryWetMixRamp;
+    ParameterRamper timeRamp;
+    ParameterRamper feedbackRamp;
+    ParameterRamper dryWetMixRamp;
 };
 
 AKStereoDelayDSP::AKStereoDelayDSP() : data(new InternalData) {
@@ -82,19 +82,18 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
     // process in chunks of maximum length CHUNKSIZE
     for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE)
     {
-        int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
 
         // ramp parameters
-        data->timeRamp.advanceTo(now + frameOffset);
-        data->feedbackRamp.advanceTo(now + frameOffset);
-        data->dryWetMixRamp.advanceTo(now + frameOffset);
-
+        data->timeRamp.stepBy(chunkSize);
+        data->feedbackRamp.stepBy(chunkSize);
+        data->dryWetMixRamp.stepBy(chunkSize);
+        
         // apply changes
-        data->delay.setDelayMs(1000.0 * data->timeRamp.getValue());
-        data->delay.setFeedback(data->feedbackRamp.getValue());
-        data->delay.setDryWetMix(data->dryWetMixRamp.getValue());
+        data->delay.setDelayMs(1000.0 * data->timeRamp.get());
+        data->delay.setFeedback(data->feedbackRamp.get());
+        data->delay.setDryWetMix(data->dryWetMixRamp.get());
 
         // process
         data->delay.render(chunkSize, inBuffers, outBuffers);
