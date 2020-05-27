@@ -55,8 +55,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: AKNode? = nil,
-                gain: AUValue = 1,
-                offset: AUValue = 0) {
+                gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         
         instantiateAudioUnit() { avAudioUnit in
