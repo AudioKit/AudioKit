@@ -54,8 +54,8 @@ class Conductor {
         sequencer.play()
     }
 
-    func adjustVolume(_ volume: Double, instrument: Instrument) {
-        let vol = volume * 2.0 // useful for gain
+    func adjustVolume(_ volume: AUValue, instrument: Instrument) {
+        let vol = Double(volume * 2.0) // useful for gain
         switch instrument {
         case .arpeggio:
             arpeggioSynthesizer.volume = vol

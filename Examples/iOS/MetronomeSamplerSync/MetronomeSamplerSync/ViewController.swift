@@ -80,7 +80,7 @@ class ViewController: UIViewController {
                 let now = AVAudioTime(hostTime: mach_absolute_time())
                 otherMet.setTempo(newTempo, at: now)
                 met.setTempo(newTempo, at: now)
-                self?.tempoSlider.value = newTempo
+                self?.tempoSlider.value = AUValue(newTempo)
             }
         }
 
@@ -94,8 +94,8 @@ class ViewController: UIViewController {
         tempoSlider.callback = { [weak self] tempo in
 
             let now = AVAudioTime(hostTime: mach_absolute_time())
-            self?.metronome1.setTempo(tempo, at: now)
-            self?.metronome2.setTempo(tempo, at: now)
+            self?.metronome1.setTempo(Double(tempo), at: now)
+            self?.metronome2.setTempo(Double(tempo), at: now)
 
         }
         tempoSlider.range = 30 ... 4_000
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         tempoSlider.format = "%0.0f"
         tempoSlider.color = .blue
         tempoSlider.frame = CGRect()
-        tempoSlider.value = metronome1.tempo
+        tempoSlider.value = AUValue(metronome1.tempo)
 
         addView(AKSlider(property: "Down Beat Volume",
                          value: 1.0,
