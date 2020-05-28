@@ -14,7 +14,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     }
 
     fileprivate var input1Attenuator = AKMixer()
-    fileprivate var input2Attentuator = AKMixer()
+    fileprivate var input2Attenuator = AKMixer()
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted = true
@@ -30,7 +30,7 @@ open class AKDryWetMixer: AKNode, AKInput {
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = mixer.avAudioNode
         self.input1Attenuator.connect(to: mixer)
-        self.input2Attentuator.connect(to: mixer)
+        self.input2Attenuator.connect(to: mixer)
 
         setGainsViaBalance()
 
@@ -61,19 +61,19 @@ open class AKDryWetMixer: AKNode, AKInput {
     }
 
     func connectInput2(using node: AKNode) {
-        node.connect(to: input2Attentuator)
+        node.connect(to: input2Attenuator)
     }
 
     private func setGainsViaBalance() {
         input1Attenuator.volume = AUValue(1 - balance)
-        input2Attentuator.volume = AUValue(balance)
+        input2Attenuator.volume = AUValue(balance)
     }
 
     // Disconnect the node
     open override func detach() {
         AKManager.detach(nodes: [mixer.avAudioUnitOrNode,
                                 input1Attenuator.avAudioUnitOrNode,
-                                input2Attentuator.avAudioUnitOrNode])
+                                input2Attenuator.avAudioUnitOrNode])
     }
 
     @objc open var dryInput: AVAudioConnectionPoint {
@@ -81,7 +81,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     }
 
     @objc open var wetInput: AVAudioConnectionPoint {
-        return AVAudioConnectionPoint(node: input2Attentuator.avAudioUnitOrNode, bus: 0)
+        return AVAudioConnectionPoint(node: input2Attenuator.avAudioUnitOrNode, bus: 0)
     }
 
 }
