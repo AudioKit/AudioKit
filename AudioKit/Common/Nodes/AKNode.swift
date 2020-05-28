@@ -49,15 +49,15 @@ open class AKNode: NSObject {
 
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 open class AKNodeParameter {
-    
+
     private var dsp: AKDSPRef?
-    
+
     private var parameter: AUParameter?
-    
+
     // MARK: Parameter properties
-    
+
     public private(set) var identifier: String
-    
+
     public var value: AUValue = 0 {
         didSet {
             guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
@@ -66,12 +66,12 @@ open class AKNodeParameter {
             parameter?.value = value
         }
     }
-    
+
     public var boolValue: Bool {
         get { value > 0.5 }
         set { value = newValue ? 1.0 : 0.0 }
     }
-    
+
     public var rampDuration: Float = Float(AKSettings.rampDuration) {
         didSet {
             guard let dsp = dsp, let addr = parameter?.address else { return }
@@ -92,29 +92,29 @@ open class AKNodeParameter {
             setParameterRampSkewDSP(dsp, addr, rampSkew)
         }
     }
-    
+
     // MARK: Lifecycle
-    
+
     public init(identifier: String) {
         self.identifier = identifier
     }
-    
+
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
     public func associate(with au: AKAudioUnitBase?, value: AUValue) {
         dsp = au?.dsp
         parameter = au?.parameterTree?[identifier]
-        
+
         // set initial value (and ensure initial value is set)
         self.value = value
         guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
         parameter?.value = (min...max).clamp(value)
-        
+
         guard let dsp = dsp, let addr = parameter?.address else { return }
         setParameterRampDurationDSP(dsp, addr, rampDuration)
         setParameterRampTaperDSP(dsp, addr, rampTaper)
         setParameterRampSkewDSP(dsp, addr, rampSkew)
     }
-    
+
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
     public func associate(with au: AKAudioUnitBase?, value: Bool) {
         associate(with: au, value: value ? 1.0 : 0.0)
@@ -237,15 +237,15 @@ public extension AKToggleable {
 }
 
 public extension AKToggleable where Self: AKComponent {
-    
+
     var isStarted: Bool {
         return (internalAU as? AKAudioUnitBase)?.isStarted ?? false
     }
-    
+
     func start() {
         (internalAU as? AKAudioUnitBase)?.start()
     }
-    
+
     func stop() {
         (internalAU as? AKAudioUnitBase)?.stop()
     }

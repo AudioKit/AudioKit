@@ -105,7 +105,7 @@ open class AKAudioUnitBase: AUAudioUnit {
         // Create pointer to the underlying C++ DSP code
         dsp = createDSP()
         if dsp == nil { throw AKError.InvalidDSPObject }
-        
+
         // create audio bus connection points
         let format = AKSettings.audioFormat
         for _ in 0..<inputBusCountDSP(dsp) {

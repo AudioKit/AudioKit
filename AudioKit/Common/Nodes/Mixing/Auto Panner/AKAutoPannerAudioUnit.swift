@@ -12,7 +12,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
         unit: .hertz,
         flags: .default
     )
-    
+
     let depth = AUParameter(
         identifier: "depth",
         name: "Depth",
@@ -21,7 +21,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
         unit: .generic,
         flags: .default
     )
-    
+
     public override func createDSP() -> AKDSPRef {
         return createAutoPannerDSP()
     }

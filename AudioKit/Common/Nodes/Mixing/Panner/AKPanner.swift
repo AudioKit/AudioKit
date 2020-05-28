@@ -5,20 +5,20 @@
 open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
-    
+
     public typealias AKAudioUnitType = AKPannerAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Pan
     public static let panRange: ClosedRange<AUValue> = -1 ... 1
 
@@ -41,14 +41,14 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         pan: AUValue = defaultPan
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.pan.associate(with: self.internalAU, value: pan)
 
             input?.connect(to: self)

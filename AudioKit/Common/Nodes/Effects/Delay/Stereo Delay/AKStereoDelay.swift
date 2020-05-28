@@ -3,22 +3,22 @@
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
 open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
-    
+
     public typealias AKAudioUnitType = AKStereoDelayAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Time
     public static let timeRange: ClosedRange<AUValue> = 0.0 ... 2.0
 
@@ -71,10 +71,10 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomata
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit() { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
 
@@ -82,7 +82,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomata
             self.feedback.associate(with: self.internalAU, value: feedback)
             self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
             self.pingPong.associate(with: self.internalAU, value: pingPong)
-            
+
             input?.connect(to: self)
         }
     }

@@ -11,7 +11,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
-    
+
     let threshold = AUParameter(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
@@ -19,7 +19,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         range: -100.0 ... 0.0,
         unit: .decibels,
         flags: .default)
-    
+
     let attack = AUParameter(
         identifier: "attackDuration",
         name: "Attack Duration",
@@ -27,7 +27,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         range: 0.1 ... 500.0,
         unit: .seconds,
         flags: .default)
-    
+
     let release = AUParameter(
         identifier: "releaseDuration",
         name: "Release Duration",
@@ -35,7 +35,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         range: 1.0 ... 20.0,
         unit: .seconds,
         flags: .default)
-    
+
     let rageAmount = AUParameter(
         identifier: "rageAmount",
         name: "Rage Amount",
@@ -43,7 +43,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         range: 0.1 ... 20.0,
         unit: .generic,
         flags: .default)
-    
+
     let rageEnabled = AUParameter(
         identifier: "rageEnabled",
         name: "Rage Enabled",
@@ -59,7 +59,7 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [ratio, threshold, attack, release, rageAmount, rageEnabled])
     }
 }

@@ -6,25 +6,25 @@
 open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btlp")
-    
+
     public typealias AKAudioUnitType = AKLowPassButterworthFilterAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: AUValue = 1000.0
+    public static let defaultCutoffFrequency: AUValue = 1_000.0
 
     /// Cutoff frequency. (in Hertz)
     public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
@@ -42,14 +42,14 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         cutoffFrequency: AUValue = defaultCutoffFrequency
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
 
             input?.connect(to: self)

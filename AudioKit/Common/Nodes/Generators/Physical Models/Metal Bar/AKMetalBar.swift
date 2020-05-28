@@ -5,20 +5,20 @@
 open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
-    
+
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Left Boundary Condition
     public static let leftBoundaryConditionRange: ClosedRange<AUValue> = 1 ... 3
 
@@ -35,7 +35,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let positionRange: ClosedRange<AUValue> = 0 ... 1
 
     /// Lower and upper bounds for Strike Velocity
-    public static let strikeVelocityRange: ClosedRange<AUValue> = 0 ... 1000
+    public static let strikeVelocityRange: ClosedRange<AUValue> = 0 ... 1_000
 
     /// Lower and upper bounds for Strike Width
     public static let strikeWidthRange: ClosedRange<AUValue> = 0 ... 1
@@ -89,7 +89,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let strikeWidth = AKNodeParameter(identifier: "strikeWidth")
 
     // MARK: - Initialization
-    
+
     /// Initialize this Bar node
     ///
     /// - Parameters:
@@ -115,14 +115,14 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
         highFrequencyDamping: AUValue = defaultHighFrequencyDamping
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.leftBoundaryCondition.associate(with: self.internalAU, value: leftBoundaryCondition)
             self.rightBoundaryCondition.associate(with: self.internalAU, value: rightBoundaryCondition)
             self.decayDuration.associate(with: self.internalAU, value: decayDuration)

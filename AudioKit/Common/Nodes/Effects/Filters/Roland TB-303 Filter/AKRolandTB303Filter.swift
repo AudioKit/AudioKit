@@ -5,22 +5,22 @@
 open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
-    
+
     public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Resonance
     public static let resonanceRange: ClosedRange<AUValue> = 0.0 ... 2.0
@@ -74,14 +74,14 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
         resonanceAsymmetry: AUValue = defaultResonanceAsymmetry
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
             self.resonance.associate(with: self.internalAU, value: resonance)
             self.distortion.associate(with: self.internalAU, value: distortion)

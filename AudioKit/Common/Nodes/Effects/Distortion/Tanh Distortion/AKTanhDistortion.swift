@@ -5,20 +5,20 @@
 open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
-    
+
     public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Pregain
     public static let pregainRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
@@ -74,14 +74,14 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
         negativeShapeParameter: AUValue = defaultNegativeShapeParameter
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.pregain.associate(with: self.internalAU, value: pregain)
             self.postgain.associate(with: self.internalAU, value: postgain)
             self.positiveShapeParameter.associate(with: self.internalAU, value: positiveShapeParameter)
