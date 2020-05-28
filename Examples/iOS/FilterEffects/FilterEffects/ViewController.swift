@@ -62,9 +62,9 @@ class ViewController: UIViewController {
 
         stackView.addArrangedSubview(AKSlider(
             property: "Delay Mix",
-            value: self.delayMixer.balance,
+            value: AUValue(self.delayMixer.balance),
             format: "%0.2f") { sliderValue in
-                self.delayMixer.balance = sliderValue
+                self.delayMixer.balance = Double(sliderValue)
         })
 
         stackView.addArrangedSubview(AKSlider(
@@ -77,9 +77,9 @@ class ViewController: UIViewController {
 
         stackView.addArrangedSubview(AKSlider(
             property: "Reverb Mix",
-            value: self.reverbMixer.balance,
+            value: AUValue(self.reverbMixer.balance),
             format: "%0.2f") { sliderValue in
-                self.reverbMixer.balance = sliderValue
+                self.reverbMixer.balance = Double(sliderValue)
         })
 
         stackView.addArrangedSubview(AKSlider(

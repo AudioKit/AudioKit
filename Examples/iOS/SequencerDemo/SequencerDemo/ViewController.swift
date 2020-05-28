@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         snareButton?.isEnabled = true
     }
 
-    func updateTempo(value: Double) {
+    func updateTempo(value: AUValue) {
         conductor.currentTempo = value
     }
 }

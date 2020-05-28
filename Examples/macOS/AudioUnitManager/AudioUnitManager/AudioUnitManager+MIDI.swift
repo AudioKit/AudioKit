@@ -50,7 +50,7 @@ extension AudioUnitManager: AKMIDIListener {
                 fmTimer?.invalidate()
             }
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-            fmOscillator.baseFrequency.value = frequency
+            fmOscillator.baseFrequency.value = AUValue(frequency)
         }
         lastMIDIEvent = currentTime
     }
@@ -95,8 +95,8 @@ extension AudioUnitManager: AKMIDIListener {
     @objc func randomFM() {
         let noteNumber = randomNumber(range: 0...127)
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(noteNumber))
-        fmOscillator.baseFrequency.value = frequency
-        fmOscillator.carrierMultiplier.value = randomNumber(range: 10...100) / 100
+        fmOscillator.baseFrequency.value = AUValue(frequency)
+        fmOscillator.carrierMultiplier.value = AUValue(randomNumber(range: 10...100) / 100)
         fmOscillator.amplitude.value = AUValue(randomNumber(range: 10...100)) / 100
     }
 
