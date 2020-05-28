@@ -43,7 +43,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration])
     }
 }

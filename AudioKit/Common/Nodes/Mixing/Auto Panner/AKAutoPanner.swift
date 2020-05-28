@@ -3,22 +3,22 @@
 /// Table-lookup panning with linear interpolation
 ///
 open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
-    
+
     public typealias AKAudioUnitType = AKAutoPannerAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
-    
+
     /// Frequency (Hz)
     public let frequency = AKNodeParameter(identifier: "frequency")
 
@@ -42,19 +42,19 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
         waveform: AKTable = AKTable(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.depth.associate(with: self.internalAU, value: depth)
 
             self.internalAU?.setWavetable(waveform.content)
-            
+
             input?.connect(to: self)
         }
     }

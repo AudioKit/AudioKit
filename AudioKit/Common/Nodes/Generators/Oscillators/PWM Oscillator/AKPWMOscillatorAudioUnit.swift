@@ -11,7 +11,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         range: AKPWMOscillator.frequencyRange,
         unit: .hertz,
         flags: .default)
-    
+
     let amplitude = AUParameter(
         identifier: "amplitude",
         name: "Amplitude",
@@ -19,7 +19,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         range: AKPWMOscillator.amplitudeRange,
         unit: .hertz,
         flags: .default)
-    
+
     let pulseWidth = AUParameter(
         identifier: "pulseWidth",
         name: "Pulse Width",
@@ -27,7 +27,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         range: AKPWMOscillator.pulseWidthRange,
         unit: .generic,
         flags: .default)
-    
+
     let detuningOffset = AUParameter(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
@@ -35,7 +35,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         range: AKPWMOscillator.detuningOffsetRange,
         unit: .hertz,
         flags: .default)
-    
+
     let detuningMultiplier = AUParameter(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
@@ -51,7 +51,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [frequency,
                                                                   amplitude,
                                                                   pulseWidth,

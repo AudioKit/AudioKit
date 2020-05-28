@@ -6,16 +6,16 @@
 open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
-    
+
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - Parameters
-    
+
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
 
@@ -34,21 +34,21 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
         self.partitionLength = partitionLength
 
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self.internalAU?.setPartitionLength(partitionLength)
             self.readAudioFile()
             self.internalAU?.start()
-            
+
             input?.connect(to: self)
         }
     }
-    
+
     private func readAudioFile() {
         Exit: do {
             var err: OSStatus = noErr

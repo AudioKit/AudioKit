@@ -3,21 +3,21 @@
 import AVFoundation
 
 public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
-    
+
     private(set) var tempo: AUParameter!
-    
+
     private(set) var length: AUParameter!
-    
+
     private(set) var maximumPlayCount: AUParameter!
-    
+
     private(set) var position: AUParameter!
-    
+
     private(set) var loopEnabled: AUParameter!
-    
+
     public override func createDSP() -> AKDSPRef {
         return createAKSequencerEngineDSP()
     }
-    
+
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
@@ -29,7 +29,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             range: 1.0 ... 20.0,
             unit: .BPM,
             flags: .default)
-        
+
         length = AUParameter(
             identifier: "length",
             name: "Length of the sequence",
@@ -37,7 +37,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             range: 0.0 ... Float.greatestFiniteMagnitude,
             unit: .beats,
             flags: .default)
-        
+
         maximumPlayCount = AUParameter(
             identifier: "maximumPlayCount",
             name: "Maximum times to loop before stopping",
@@ -45,7 +45,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             range: 0.0 ... Float(Int.max),
             unit: .generic,
             flags: .default)
-        
+
         position = AUParameter(
             identifier: "position",
             name: "Release Duration",
@@ -53,7 +53,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             range: 0.0 ... Float.greatestFiniteMagnitude,
             unit: .beats,
             flags: .default)
-        
+
         loopEnabled = AUParameter(
             identifier: "loopEnabled",
             name: "Looping Enabled",
@@ -61,7 +61,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             range: 0.0 ... 1.0,
             unit: .boolean,
             flags: .default)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [tempo, length, maximumPlayCount, position, loopEnabled])
 
         tempo.value = AUValue(120)
@@ -96,11 +96,11 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
     func removeNote(beat: Double) {
         sequencerEngineRemoveMIDINote(dsp, beat)
     }
-    
+
     func removeNote(number: MIDINoteNumber, beat: Double) {
         sequencerEngineRemoveSpecificMIDINote(dsp, beat, number)
     }
-    
+
     func removeAllInstancesOf(number: MIDINoteNumber) {
         sequencerEngineRemoveAllInstancesOf(dsp, number)
     }

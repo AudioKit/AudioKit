@@ -33,20 +33,20 @@ extension AKComponent {
                                      name: "Local \(Self.self)",
                                      version: .max)
     }
-    
+
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
                                      version: .max)
-        
+
         AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
             guard let au = avAudioUnit else { return }
             AKManager.engine.attach(au)
             callback(au)
         }
     }
-    
+
     public var rampDuration: Double {
         get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
         set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }

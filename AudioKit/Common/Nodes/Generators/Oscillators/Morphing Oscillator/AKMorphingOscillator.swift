@@ -6,20 +6,20 @@
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
-    
+
     public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     fileprivate var waveformArray = [AKTable]()
 
     /// Lower and upper bounds for Frequency
@@ -88,14 +88,14 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
         detuningMultiplier: AUValue = defaultDetuningMultiplier
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.waveformArray = waveformArray
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.amplitude.associate(with: self.internalAU, value: amplitude)

@@ -8,31 +8,31 @@
 open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
-    
+
     public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20000.0
+    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Gain
     public static let gainRange: ClosedRange<AUValue> = -100.0 ... 100.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: AUValue = 1000.0
+    public static let defaultCenterFrequency: AUValue = 1_000.0
 
     /// Initial value for Bandwidth
     public static let defaultBandwidth: AUValue = 100.0
@@ -66,14 +66,14 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         gain: AUValue = defaultGain
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
             self.bandwidth.associate(with: self.internalAU, value: bandwidth)
             self.gain.associate(with: self.internalAU, value: gain)

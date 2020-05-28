@@ -5,20 +5,20 @@
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
-    
+
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Attack Duration
     public static let attackDurationRange: ClosedRange<AUValue> = 0 ... 99
 
@@ -74,14 +74,14 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAu
         releaseDuration: AUValue = defaultReleaseDuration
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.attackDuration.associate(with: self.internalAU, value: attackDuration)
             self.decayDuration.associate(with: self.internalAU, value: decayDuration)
             self.sustainLevel.associate(with: self.internalAU, value: sustainLevel)

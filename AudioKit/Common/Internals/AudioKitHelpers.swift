@@ -72,7 +72,6 @@ public func random(in range: ClosedRange<AUValue>) -> AUValue {
     return AUValue(arc4random_uniform(UInt32(precision))) / AUValue(precision) * width + range.lowerBound
 }
 
-
 // MARK: - Normalization Helpers
 
 /// Extension to calculate scaling factors, useful for UI controls

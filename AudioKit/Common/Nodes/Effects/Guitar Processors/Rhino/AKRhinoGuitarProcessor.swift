@@ -93,7 +93,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: self)
-            
+
             self.preGain = preGain
             self.postGain = postGain
             self.lowGain = lowGain
