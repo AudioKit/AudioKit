@@ -65,8 +65,8 @@ open class AKDryWetMixer: AKNode, AKInput {
     }
 
     private func setGainsViaBalance() {
-        input1Attenuator.volume = 1 - balance
-        input2Attentuator.volume = balance
+        input1Attenuator.volume = AUValue(1 - balance)
+        input2Attentuator.volume = AUValue(balance)
     }
 
     // Disconnect the node

@@ -30,8 +30,8 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     @objc open dynamic var dryWetMix: Double = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = 1 - dryWetMix
-            effectGain?.volume = dryWetMix
+            inputGain?.volume = AUValue(1 - dryWetMix)
+            effectGain?.volume = AUValue(dryWetMix)
         }
     }
 
