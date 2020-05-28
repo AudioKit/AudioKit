@@ -41,15 +41,15 @@ class ViewController: NSViewController {
         flangerDryWetMixSlider.minValue = AKFlanger.dryWetMixRange.lowerBound
         flangerDryWetMixSlider.maxValue = AKFlanger.dryWetMixRange.upperBound
 
-        flangerFrequencySlider.doubleValue = conductor.flanger.frequency
-        flangerDepthSlider.doubleValue = conductor.flanger.depth
-        flangerDryWetMixSlider.doubleValue = conductor.flanger.dryWetMix
-        flangerFeedbackSlider.doubleValue = conductor.flanger.feedback
+        flangerFrequencySlider.floatValue = conductor.flanger.frequency.value
+        flangerDepthSlider.floatValue = conductor.flanger.depth.value
+        flangerDryWetMixSlider.floatValue = conductor.flanger.dryWetMix.value
+        flangerFeedbackSlider.floatValue = conductor.flanger.feedback.value
 
-        flangerFrequencyReadout.doubleValue = conductor.flanger.frequency
-        flangerDepthReadout.doubleValue = conductor.flanger.depth
-        flangerDryWetMixReadout.doubleValue = conductor.flanger.dryWetMix
-        flangerFeedbackReadout.doubleValue = conductor.flanger.feedback
+        flangerFrequencyReadout.floatValue = conductor.flanger.frequency.value
+        flangerDepthReadout.floatValue = conductor.flanger.depth.value
+        flangerDryWetMixReadout.floatValue = conductor.flanger.dryWetMix.value
+        flangerFeedbackReadout.floatValue = conductor.flanger.feedback.value
 
         chorusFrequencySlider.minValue = AKChorus.frequencyRange.lowerBound
         chorusFrequencySlider.maxValue = AKChorus.frequencyRange.upperBound
@@ -60,15 +60,15 @@ class ViewController: NSViewController {
         chorusDryWetMixSlider.minValue = AKChorus.dryWetMixRange.lowerBound
         chorusDryWetMixSlider.maxValue = AKChorus.dryWetMixRange.upperBound
 
-        chorusFrequencySlider.doubleValue = conductor.chorus.frequency
-        chorusDepthSlider.doubleValue = conductor.chorus.depth
-        chorusDryWetMixSlider.doubleValue = conductor.chorus.dryWetMix
-        chorusFeedbackSlider.doubleValue = conductor.chorus.feedback
+        chorusFrequencySlider.floatValue = conductor.chorus.frequency.value
+        chorusDepthSlider.floatValue = conductor.chorus.depth.value
+        chorusDryWetMixSlider.floatValue = conductor.chorus.dryWetMix.value
+        chorusFeedbackSlider.floatValue = conductor.chorus.feedback.value
 
-        chorusFrequencyReadout.doubleValue = conductor.chorus.frequency
-        chorusDepthReadout.doubleValue = conductor.chorus.depth
-        chorusDryWetMixReadout.doubleValue = conductor.chorus.dryWetMix
-        chorusFeedbackReadout.doubleValue = conductor.chorus.feedback
+        chorusFrequencyReadout.floatValue = conductor.chorus.frequency.value
+        chorusDepthReadout.floatValue = conductor.chorus.depth.value
+        chorusDryWetMixReadout.floatValue = conductor.chorus.dryWetMix.value
+        chorusFeedbackReadout.floatValue = conductor.chorus.feedback.value
     }
 
     @IBAction func toggleSound(_ sender: NSButton) {
@@ -86,43 +86,43 @@ class ViewController: NSViewController {
     }
 
     @IBAction func on_flModFreqSlider(_ sender: Any) {
-        conductor.flanger.frequency = flangerFrequencySlider.doubleValue
-        flangerFrequencyReadout.doubleValue = flangerFrequencySlider.doubleValue
+        conductor.flanger.frequency.value = flangerFrequencySlider.floatValue
+        flangerFrequencyReadout.floatValue = flangerFrequencySlider.floatValue
     }
 
     @IBAction func on_flModDepthSlider(_ sender: Any) {
-        conductor.flanger.depth = flangerDepthSlider.doubleValue
-        flangerDepthReadout.doubleValue = flangerDepthSlider.doubleValue
+        conductor.flanger.depth.value = flangerDepthSlider.floatValue
+        flangerDepthReadout.floatValue = flangerDepthSlider.floatValue
     }
 
     @IBAction func on_flWetFractionSlider(_ sender: Any) {
-        conductor.flanger.dryWetMix = flangerDryWetMixSlider.doubleValue
-        flangerDryWetMixReadout.doubleValue = flangerDryWetMixSlider.doubleValue
+        conductor.flanger.dryWetMix.value = flangerDryWetMixSlider.floatValue
+        flangerDryWetMixReadout.floatValue = flangerDryWetMixSlider.floatValue
     }
 
     @IBAction func on_flFeedbackSlider(_ sender: Any) {
-        conductor.flanger.feedback = flangerFeedbackSlider.doubleValue
-        flangerFeedbackReadout.doubleValue = flangerFeedbackSlider.doubleValue
+        conductor.flanger.feedback.value = flangerFeedbackSlider.floatValue
+        flangerFeedbackReadout.floatValue = flangerFeedbackSlider.floatValue
     }
 
     @IBAction func on_chModFreqSlider(_ sender: Any) {
-        conductor.chorus.frequency = chorusFrequencySlider.doubleValue
-        chorusFrequencyReadout.doubleValue = chorusFrequencySlider.doubleValue
+        conductor.chorus.frequency.value = chorusFrequencySlider.floatValue
+        chorusFrequencyReadout.floatValue = chorusFrequencySlider.floatValue
     }
 
     @IBAction func on_chModDepthSlider(_ sender: Any) {
-        conductor.chorus.depth = chorusDepthSlider.doubleValue
-        chorusDepthReadout.doubleValue = chorusDepthSlider.doubleValue
+        conductor.chorus.depth.value = chorusDepthSlider.floatValue
+        chorusDepthReadout.floatValue = chorusDepthSlider.floatValue
     }
 
     @IBAction func on_chWetFractionSlider(_ sender: Any) {
-        conductor.chorus.dryWetMix = chorusDryWetMixSlider.doubleValue
-        chorusDryWetMixReadout.doubleValue = chorusDryWetMixSlider.doubleValue
+        conductor.chorus.dryWetMix.value = chorusDryWetMixSlider.floatValue
+        chorusDryWetMixReadout.floatValue = chorusDryWetMixSlider.floatValue
     }
 
     @IBAction func on_chFeedbackSlider(_ sender: Any) {
-        conductor.chorus.feedback = chorusFeedbackSlider.doubleValue
-        chorusFeedbackReadout.doubleValue = chorusFeedbackSlider.doubleValue
+        conductor.chorus.feedback.value = chorusFeedbackSlider.floatValue
+        chorusFeedbackReadout.floatValue = chorusFeedbackSlider.floatValue
     }
 }
 
