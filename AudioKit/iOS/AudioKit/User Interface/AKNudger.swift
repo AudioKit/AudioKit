@@ -36,7 +36,7 @@ import AudioKit
     }
     private var frameRate = TimeInterval(1.0 / 50.0)
     private var animationTimer: Timer?
-    private var lastValue: Double = 0
+    private var lastValue: AUValue = 0
     private func animateValue() {
         if plusButton.isPressed == false {
             if plusHeldCounter > 0 {
@@ -56,11 +56,11 @@ import AudioKit
                 minusHeldCounter += 1
             }
         }
-        let addValue = Double(increment * plusHeldCounter) *
-            (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
-        let subValue = Double(increment * minusHeldCounter) *
-            (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
-        currentValue = originalValue + addValue - subValue
+        let addValue = AUValue(increment * plusHeldCounter) *
+            (linear ? 1 : AUValue(plusHeldCounter) / AUValue(maxPlusCounter))
+        let subValue = AUValue(increment * minusHeldCounter) *
+            (linear ? 1 : AUValue(minusHeldCounter) / AUValue(maxMinusCounter))
+        currentValue = AUValue(originalValue + addValue - subValue)
         callbackOnChange()
         lastValue = currentValue
     }
@@ -98,7 +98,7 @@ import AudioKit
             }
         }
     }
-    open func setStable(value: Double) {
+    open func setStable(value: AUValue) {
         let diff = value - originalValue
         originalValue = value
         maximum += diff
@@ -148,13 +148,13 @@ import AudioKit
         super.init(coder: aDecoder)
     }
     public override init(text: String,
-                         value: Double,
-                         minimum: Double,
-                         maximum: Double,
-                         increment: Double,
+                         value: AUValue,
+                         minimum: AUValue,
+                         maximum: AUValue,
+                         increment: AUValue,
                          frame: CGRect,
                          showsValue: Bool = true,
-                         callback: @escaping (Double) -> Void) {
+                         callback: @escaping (AUValue) -> Void) {
         super.init(text: text,
                    value: value,
                    minimum: minimum,

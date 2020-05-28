@@ -17,7 +17,7 @@ import UIKit
     var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton!
-    @IBInspectable public var currentValue: Double = 0.5 {
+    public var currentValue: AUValue = 0.5 {
         didSet {
             DispatchQueue.main.async {
                 self.valueLabel?.text = String(format: "%.3f", self.currentValue)
@@ -25,11 +25,11 @@ import UIKit
 
         }
     }
-    @IBInspectable public var increment: Double = 0.1
-    @IBInspectable public var minimum: Double = 0
-    @IBInspectable public var maximum: Double = 1
-    internal var originalValue: Double = 0.5
-    open var callback: (Double) -> Void = {val in
+    public var increment: AUValue = 0.1
+    public var minimum: AUValue = 0
+    public var maximum: AUValue = 1
+    internal var originalValue: AUValue = 0.5
+    open var callback: (AUValue) -> Void = {val in
         AKLog("AKStepper callback: \(val)")
     }
     internal func doPlusAction() {
@@ -41,8 +41,14 @@ import UIKit
         callback(currentValue)
     }
     /// Initialize the stepper view
-    public init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double,
-                frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+    public init(text: String,
+                value: AUValue,
+                minimum: AUValue,
+                maximum: AUValue,
+                increment: AUValue,
+                frame: CGRect,
+                showsValue: Bool = true,
+                callback: @escaping (AUValue) -> Void) {
         self.callback = callback
         self.minimum = minimum
         self.maximum = maximum
