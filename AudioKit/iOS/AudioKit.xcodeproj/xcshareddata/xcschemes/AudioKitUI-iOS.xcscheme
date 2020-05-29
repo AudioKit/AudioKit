@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EA7D07001F4E63C200707706"
                BuildableName = "AudioKitUI.framework"
-               BlueprintName = "AudioKitUI"
-               ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
+               BlueprintName = "AudioKitUI-iOS"
+               ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,8 +45,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA7D07001F4E63C200707706"
             BuildableName = "AudioKitUI.framework"
-            BlueprintName = "AudioKitUI"
-            ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
+            BlueprintName = "AudioKitUI-iOS"
+            ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -61,8 +61,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA7D07001F4E63C200707706"
             BuildableName = "AudioKitUI.framework"
-            BlueprintName = "AudioKitUI"
-            ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
+            BlueprintName = "AudioKitUI-iOS"
+            ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
