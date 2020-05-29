@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func slid1(_ sender: UISlider) {
-        booster.gain = Double(slider1.value)
+        booster.gain = AUValue(slider1.value)
         updateText("booster gain = \(booster.gain)")
     }
 
