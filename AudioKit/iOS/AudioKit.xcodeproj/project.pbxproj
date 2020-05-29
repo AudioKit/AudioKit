@@ -3454,7 +3454,6 @@
 		EAA6323A247F559400BF4CDB /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41481C40E3A5009D870B /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6323B247F559400BF4CDB /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63253247F56D400BF4CDB /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63245247F56D400BF4CDB /* AKPresetLoaderView.swift */; };
-		EAA63254247F56D400BF4CDB /* AKPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63246247F56D400BF4CDB /* AKPlaygroundViewController.swift */; };
 		EAA63255247F56D400BF4CDB /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63247247F56D400BF4CDB /* AKButton.swift */; };
 		EAA63256247F56D400BF4CDB /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63248247F56D400BF4CDB /* AKRotaryKnob.swift */; };
 		EAA63257247F56D400BF4CDB /* AKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63249247F56D400BF4CDB /* AKSlider.swift */; };
@@ -3463,10 +3462,8 @@
 		EAA6325A247F56D400BF4CDB /* AKTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6324C247F56D400BF4CDB /* AKTableView.swift */; };
 		EAA6325B247F56D400BF4CDB /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6324D247F56D400BF4CDB /* AKPlaygroundLoop.swift */; };
 		EAA6325C247F56D400BF4CDB /* AKResourceAudioFileLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6324E247F56D400BF4CDB /* AKResourceAudioFileLoaderView.swift */; };
-		EAA6325D247F56D400BF4CDB /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6324F247F56D400BF4CDB /* AKPlaygroundView.swift */; };
 		EAA6325E247F56D400BF4CDB /* AKPropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63250247F56D400BF4CDB /* AKPropertyControl.swift */; };
 		EAA6325F247F56D400BF4CDB /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63251247F56D400BF4CDB /* AKADSRView.swift */; };
-		EAA63260247F56D400BF4CDB /* AKMIDIPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63252247F56D400BF4CDB /* AKMIDIPlaygroundView.swift */; };
 		EAA63261247FB5E800BF4CDB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA63210247F44E200BF4CDB /* AudioKit.framework */; };
 		EAAC547D224DB8A000DC5E6D /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAAC547C224DB8A000DC5E6D /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
@@ -4779,9 +4776,8 @@
 		EAA62D3D247F3A5B00BF4CDB /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA62D6F247F410100BF4CDB /* AudioKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA63210247F44E200BF4CDB /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAA63240247F559400BF4CDB /* AudioKitUI-macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "AudioKitUI-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAA63240247F559400BF4CDB /* AudioKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA63245247F56D400BF4CDB /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
-		EAA63246247F56D400BF4CDB /* AKPlaygroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundViewController.swift; sourceTree = "<group>"; };
 		EAA63247247F56D400BF4CDB /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		EAA63248247F56D400BF4CDB /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		EAA63249247F56D400BF4CDB /* AKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
@@ -4790,10 +4786,8 @@
 		EAA6324C247F56D400BF4CDB /* AKTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTableView.swift; sourceTree = "<group>"; };
 		EAA6324D247F56D400BF4CDB /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		EAA6324E247F56D400BF4CDB /* AKResourceAudioFileLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResourceAudioFileLoaderView.swift; sourceTree = "<group>"; };
-		EAA6324F247F56D400BF4CDB /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		EAA63250247F56D400BF4CDB /* AKPropertyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertyControl.swift; sourceTree = "<group>"; };
 		EAA63251247F56D400BF4CDB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
-		EAA63252247F56D400BF4CDB /* AKMIDIPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIPlaygroundView.swift; sourceTree = "<group>"; };
 		EAA63266247FC3EB00BF4CDB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		EAAC547C224DB8A000DC5E6D /* AKCoreSynth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCoreSynth.hpp; sourceTree = "<group>"; };
 		EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
@@ -5552,7 +5546,7 @@
 				EAA62D3D247F3A5B00BF4CDB /* AudioKit.framework */,
 				EAA62D6F247F410100BF4CDB /* AudioKitUI.framework */,
 				EAA63210247F44E200BF4CDB /* AudioKit.framework */,
-				EAA63240247F559400BF4CDB /* AudioKitUI-macOS.framework */,
+				EAA63240247F559400BF4CDB /* AudioKitUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7800,20 +7794,17 @@
 		EAA63244247F56D400BF4CDB /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				EAA63245247F56D400BF4CDB /* AKPresetLoaderView.swift */,
-				EAA63246247F56D400BF4CDB /* AKPlaygroundViewController.swift */,
+				EAA63251247F56D400BF4CDB /* AKADSRView.swift */,
+				EAA6324C247F56D400BF4CDB /* AKTableView.swift */,
 				EAA63247247F56D400BF4CDB /* AKButton.swift */,
+				EAA6324B247F56D400BF4CDB /* AKKeyboardView.swift */,
+				EAA6324A247F56D400BF4CDB /* AKLiveViewController.swift */,
+				EAA6324D247F56D400BF4CDB /* AKPlaygroundLoop.swift */,
+				EAA63245247F56D400BF4CDB /* AKPresetLoaderView.swift */,
+				EAA63250247F56D400BF4CDB /* AKPropertyControl.swift */,
+				EAA6324E247F56D400BF4CDB /* AKResourceAudioFileLoaderView.swift */,
 				EAA63248247F56D400BF4CDB /* AKRotaryKnob.swift */,
 				EAA63249247F56D400BF4CDB /* AKSlider.swift */,
-				EAA6324A247F56D400BF4CDB /* AKLiveViewController.swift */,
-				EAA6324B247F56D400BF4CDB /* AKKeyboardView.swift */,
-				EAA6324C247F56D400BF4CDB /* AKTableView.swift */,
-				EAA6324D247F56D400BF4CDB /* AKPlaygroundLoop.swift */,
-				EAA6324E247F56D400BF4CDB /* AKResourceAudioFileLoaderView.swift */,
-				EAA6324F247F56D400BF4CDB /* AKPlaygroundView.swift */,
-				EAA63250247F56D400BF4CDB /* AKPropertyControl.swift */,
-				EAA63251247F56D400BF4CDB /* AKADSRView.swift */,
-				EAA63252247F56D400BF4CDB /* AKMIDIPlaygroundView.swift */,
 			);
 			name = macOS;
 			path = ../../macOS/AudioKit/macOS;
@@ -9103,7 +9094,7 @@
 			);
 			name = "AudioKitUI-macOS";
 			productName = AudioKitUI;
-			productReference = EAA63240247F559400BF4CDB /* AudioKitUI-macOS.framework */;
+			productReference = EAA63240247F559400BF4CDB /* AudioKitUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -11802,10 +11793,8 @@
 				EAA6325A247F56D400BF4CDB /* AKTableView.swift in Sources */,
 				EAA6321A247F559400BF4CDB /* AKView.swift in Sources */,
 				EAA6321B247F559400BF4CDB /* EZAudioPlot.m in Sources */,
-				EAA6325D247F56D400BF4CDB /* AKPlaygroundView.swift in Sources */,
 				EAA6321E247F559400BF4CDB /* EZPlot.m in Sources */,
 				EAA63229247F559400BF4CDB /* EZAudioDisplayLink.m in Sources */,
-				EAA63260247F56D400BF4CDB /* AKMIDIPlaygroundView.swift in Sources */,
 				EAA6322A247F559400BF4CDB /* AKNodeFFTPlot.swift in Sources */,
 				EAA6325F247F56D400BF4CDB /* AKADSRView.swift in Sources */,
 				EAA6325B247F56D400BF4CDB /* AKPlaygroundLoop.swift in Sources */,
@@ -11813,7 +11802,6 @@
 				EAA63253247F56D400BF4CDB /* AKPresetLoaderView.swift in Sources */,
 				EAA63257247F56D400BF4CDB /* AKSlider.swift in Sources */,
 				EAA63255247F56D400BF4CDB /* AKButton.swift in Sources */,
-				EAA63254247F56D400BF4CDB /* AKPlaygroundViewController.swift in Sources */,
 				EAA6325E247F56D400BF4CDB /* AKPropertyControl.swift in Sources */,
 				EAA63230247F559400BF4CDB /* AKWaveformLayer.swift in Sources */,
 			);
@@ -12286,6 +12274,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
 		};
@@ -12324,6 +12313,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
 		};
@@ -12348,17 +12338,18 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AudioKitUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "AudioKitUI-Swift.h";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -12383,16 +12374,17 @@
 				INFOPLIST_FILE = AudioKitUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AudioKitUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "AudioKitUI-Swift.h";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};

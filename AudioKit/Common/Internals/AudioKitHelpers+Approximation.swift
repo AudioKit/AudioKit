@@ -2,7 +2,7 @@
 
 import Foundation
 
-/// Approximation Operators - for when Swift gets double / float arithmetic wrong
+// Approximation Operators - for when Swift gets double / float arithmetic wrong
 infix operator ~== : ComparisonPrecedence
 public func ~== (left: Double, right: Double) -> Bool {
     return fabs(left.distance(to: right)) <= 1e-15

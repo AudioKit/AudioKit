@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+import AudioKit
 
 /// A CAShapeLayer rendering of a mono waveform. Can be updated on any thread.
 open class AKWaveformLayer: CAShapeLayer {
