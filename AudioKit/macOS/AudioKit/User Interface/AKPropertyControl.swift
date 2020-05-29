@@ -8,11 +8,11 @@ import AudioKit
         return true
     }
 
-    var initialValue: Double = 0
+    var initialValue: AUValue = 0
 
-    func closest(to userValue: Double) -> Double {
+    func closest(to userValue: AUValue) -> AUValue {
         var index = 0
-        var minimum: Double = 1_000_000
+        var minimum: AUValue = 1_000_000
 
         for i in 0 ..< discreteValues.count {
             if abs(discreteValues[i] - userValue) < minimum {
@@ -24,7 +24,7 @@ import AudioKit
     }
 
     /// Current value of the control
-    @IBInspectable public var value: Double = 0 {
+    @IBInspectable public var value: AUValue = 0 {
         didSet {
             value = range.clamp(value)
             if discreteValues.isNotEmpty {
@@ -35,19 +35,19 @@ import AudioKit
         }
     }
 
-    public var val: Double = 0 {
+    public var val: AUValue = 0 {
         didSet {
             needsDisplay = true
         }
     }
 
-    public var range: ClosedRange<Double> = 0 ... 1 {
+    public var range: ClosedRange<AUValue> = 0 ... 1 {
         didSet {
             val = value.normalized(from: range, taper: taper)
         }
     }
 
-    public var taper: Double = 1 // Default Linear
+    public var taper: AUValue = 1 // Default Linear
 
     /// Text shown on the control
     @IBInspectable public var property: String = "Property"
@@ -59,10 +59,10 @@ import AudioKit
     @IBInspectable public var fontSize: CGFloat = 20
 
     /// Function to call when value changes
-    public var callback: ((Double) -> Void) = { _ in }
+    public var callback: ((AUValue) -> Void) = { _ in }
 
     // Only integer
-    public var discreteValues: [Double]  = []
+    public var discreteValues: [AUValue]  = []
 
     // Current dragging state, used to show/hide the value bubble
     public var isDragging: Bool = false
@@ -70,12 +70,12 @@ import AudioKit
     public var lastTouch = CGPoint.zero
 
     public init(property: String,
-                value: Double = 0.0,
-                range: ClosedRange<Double> = 0 ... 1,
-                taper: Double = 1,
+                value: AUValue = 0.0,
+                range: ClosedRange<AUValue> = 0 ... 1,
+                taper: AUValue = 1,
                 format: String = "%0.3f",
                 frame: CGRect = CGRect(width: 440, height: 60),
-                callback: @escaping (_ x: Double) -> Void = { _ in }) {
+                callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
         self.value = value
         self.initialValue = value
         self.range = range
@@ -120,7 +120,7 @@ import AudioKit
         needsDisplay = true
     }
 
-    public func randomize() -> Double {
+    public func randomize() -> AUValue {
         value = random(in: range)
         needsDisplay = true
         return value
