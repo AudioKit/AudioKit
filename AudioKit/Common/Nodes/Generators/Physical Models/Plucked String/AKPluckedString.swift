@@ -68,4 +68,24 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
     }
+
+    /// Trigger the sound with current parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
+
+    /// Trigger the sound with a set of parameters
+    ///
+    /// - Parameters:
+    ///   - frequency: Frequency in Hz
+    ///   - amplitude amplitude: Volume
+    ///
+    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+        self.frequency.value = frequency
+        self.amplitude.value = amplitude
+        internalAU?.start()
+        internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
+    }
 }
