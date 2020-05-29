@@ -3468,7 +3468,6 @@
 		EAAC547D224DB8A000DC5E6D /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAAC547C224DB8A000DC5E6D /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
 		EAF299F524812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
-		EAF299F624812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
 		EAF299F724812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
@@ -10682,7 +10681,6 @@
 				EAA62ACD247F3A5B00BF4CDB /* ADSR.cpp in Sources */,
 				EAA62ACE247F3A5B00BF4CDB /* fog.c in Sources */,
 				EAA62ACF247F3A5B00BF4CDB /* phasor.c in Sources */,
-				EAF299F624812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */,
 				EAA62AD0247F3A5B00BF4CDB /* pan.swift in Sources */,
 				EAA62AD1247F3A5B00BF4CDB /* AKDelay.swift in Sources */,
 				EAA62AD2247F3A5B00BF4CDB /* AKTable+AKAudioFile.swift in Sources */,
