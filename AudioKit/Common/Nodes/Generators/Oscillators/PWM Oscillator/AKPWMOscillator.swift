@@ -7,22 +7,22 @@
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 ///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
-    
+
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Frequency
     public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
 
@@ -61,7 +61,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Duty Cycle Width 0 - 1
     public let pulseWidth = AKNodeParameter(identifier: "pulseWidth")
-    
+
     /// Frequency offset in Hz.
     public let detuningOffset = AKNodeParameter(identifier: "detuningOffset")
 
@@ -87,11 +87,11 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
         detuningMultiplier: AUValue = defaultDetuningMultiplier
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
 

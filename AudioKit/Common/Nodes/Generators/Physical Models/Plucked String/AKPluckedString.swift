@@ -5,22 +5,22 @@
 open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
-    
+
     public typealias AKAudioUnitType = AKPluckedStringAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0 ... 22000
+    public static let frequencyRange: ClosedRange<AUValue> = 0 ... 22_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
@@ -41,7 +41,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-    
+
     /// Initialize this pluck node
     ///
     /// - Parameters:
@@ -55,14 +55,14 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
         lowestFrequency: AUValue = defaultLowestFrequency
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.amplitude.associate(with: self.internalAU, value: amplitude)
         }

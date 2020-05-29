@@ -9,24 +9,24 @@
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
-    
+
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     fileprivate var waveform: AKTable?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0 ... 20000
+    public static let frequencyRange: ClosedRange<AUValue> = 0 ... 20_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 10
@@ -35,7 +35,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAut
     public static let phaseDistortionRange: ClosedRange<AUValue> = -1 ... 1
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<AUValue> = -1000 ... 1000
+    public static let detuningOffsetRange: ClosedRange<AUValue> = -1_000 ... 1_000
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange: ClosedRange<AUValue> = 0.9 ... 1.11
@@ -71,7 +71,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAut
     public let detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
 
     // MARK: - Initialization
-    
+
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -91,14 +91,14 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAut
         detuningMultiplier: AUValue = defaultDetuningMultiplier
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.waveform = waveform
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.amplitude.associate(with: self.internalAU, value: amplitude)

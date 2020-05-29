@@ -5,20 +5,20 @@
 open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
-    
+
     public typealias AKAudioUnitType = AKDynamicRangeCompressorAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Ratio
     public static let ratioRange: ClosedRange<AUValue> = 0.01 ... 100.0
 
@@ -74,14 +74,14 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput,
         releaseDuration: AUValue = defaultReleaseDuration
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.ratio.associate(with: self.internalAU, value: ratio)
             self.threshold.associate(with: self.internalAU, value: threshold)
             self.attackDuration.associate(with: self.internalAU, value: attackDuration)

@@ -5,25 +5,25 @@
 open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
-    
+
     public typealias AKAudioUnitType = AKZitaReverbAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Predelay
     public static let predelayRange: ClosedRange<AUValue> = 0.0 ... 200.0
 
     /// Lower and upper bounds for Crossover Frequency
-    public static let crossoverFrequencyRange: ClosedRange<AUValue> = 10.0 ... 1000.0
+    public static let crossoverFrequencyRange: ClosedRange<AUValue> = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Low Release Time
     public static let lowReleaseTimeRange: ClosedRange<AUValue> = 0.0 ... 10.0
@@ -32,16 +32,16 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let midReleaseTimeRange: ClosedRange<AUValue> = 0.0 ... 10.0
 
     /// Lower and upper bounds for Damping Frequency
-    public static let dampingFrequencyRange: ClosedRange<AUValue> = 10.0 ... 22050.0
+    public static let dampingFrequencyRange: ClosedRange<AUValue> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Frequency1
-    public static let equalizerFrequency1Range: ClosedRange<AUValue> = 10.0 ... 1000.0
+    public static let equalizerFrequency1Range: ClosedRange<AUValue> = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Equalizer Level1
     public static let equalizerLevel1Range: ClosedRange<AUValue> = -100.0 ... 10.0
 
     /// Lower and upper bounds for Equalizer Frequency2
-    public static let equalizerFrequency2Range: ClosedRange<AUValue> = 10.0 ... 22050.0
+    public static let equalizerFrequency2Range: ClosedRange<AUValue> = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Level2
     public static let equalizerLevel2Range: ClosedRange<AUValue> = -100.0 ... 10.0
@@ -62,7 +62,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let defaultMidReleaseTime: AUValue = 2.0
 
     /// Initial value for Damping Frequency
-    public static let defaultDampingFrequency: AUValue = 6000.0
+    public static let defaultDampingFrequency: AUValue = 6_000.0
 
     /// Initial value for Equalizer Frequency1
     public static let defaultEqualizerFrequency1: AUValue = 315.0
@@ -71,7 +71,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let defaultEqualizerLevel1: AUValue = 0.0
 
     /// Initial value for Equalizer Frequency2
-    public static let defaultEqualizerFrequency2: AUValue = 1500.0
+    public static let defaultEqualizerFrequency2: AUValue = 1_500.0
 
     /// Initial value for Equalizer Level2
     public static let defaultEqualizerLevel2: AUValue = 0.0
@@ -140,14 +140,14 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
         dryWetMix: AUValue = defaultDryWetMix
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.predelay.associate(with: self.internalAU, value: predelay)
             self.crossoverFrequency.associate(with: self.internalAU, value: crossoverFrequency)
             self.lowReleaseTime.associate(with: self.internalAU, value: lowReleaseTime)

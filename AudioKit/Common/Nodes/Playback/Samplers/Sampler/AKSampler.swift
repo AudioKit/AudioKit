@@ -261,74 +261,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this sampler node
+    /// Initialize this sampler node. There are many parameters, change them after initialization
     ///
-    /// - Parameters:
-    ///   - masterVolume: 0.0 - 1.0
-    ///   - pitchBend: semitones, signed
-    ///   - vibratoDepth: semitones, typically less than 1.0
-    ///   - vibratoFrequency: LFO in Hz
-    ///   - voiceVibratoDepth: semitones, typically less than 1.0
-    ///   - voiceVibratoFrequency: LFO in Hz
-    ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
-    ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
-    ///   - filterResonance: dB, -20.0 - 20.0
-    ///   - attackDuration: seconds, 0.0 - 10.0
-    ///   - holdDuration: seconds, 0.0 - 10.0
-    ///   - decayDuration: seconds, 0.0 - 10.0
-    ///   - sustainLevel: 0.0 - 1.0
-    ///   - releaseHoldDuration: seconds, 0.0 - 10.0
-    ///   - releaseDuration: seconds, 0.0 - 10.0
-    ///   - filterEnable: true to enable per-voice filters
-    ///   - filterAttackDuration: seconds, 0.0 - 10.0
-    ///   - filterDecayDuration: seconds, 0.0 - 10.0
-    ///   - filterSustainLevel: 0.0 - 1.0
-    ///   - filterReleaseDuration: seconds, 0.0 - 10.0
-    ///   - pitchAttackDuration: seconds, 0.0 - 10.0
-    ///   - pitchDecayDuration: seconds, 0.0 - 10.0
-    ///   - pitchSustainLevel: 0.0 - 1.0
-    ///   - pitchReleaseDuration: seconds, 0.0 - 10.0
-    ///   - pitchADSRSemitones: semitones, -100.0 - 100.0   
-    ///   - glideRate: seconds/octave, 0.0 - 10.0
-    ///   - loopThruRelease: if true, sample will continue looping after key release
-    ///   - isMonophonic: true for mono, false for polyphonic
-    ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
-    ///   - keyTracking: -2.0 - 2.0, 1.0 means perfect key tracking, 0.0 means none
-    ///   - filterEnvelopeVelocityScaling: fraction, 0.0 - 1.0
-    ///
-    public init(
-        masterVolume: Double = 1.0,
-        pitchBend: Double = 0.0,
-        vibratoDepth: Double = 0.0,
-        vibratoFrequency: Double = 5.0,
-        voiceVibratoDepth: Double = 0.0,
-        voiceVibratoFrequency: Double = 5.0,
-        filterCutoff: Double = 4.0,
-        filterStrength: Double = 20.0,
-        filterResonance: Double = 0.0,
-        attackDuration: Double = 0.0,
-        holdDuration: Double = 0.0,
-        decayDuration: Double = 0.0,
-        sustainLevel: Double = 1.0,
-        releaseHoldDuration: Double = 0.0,
-        releaseDuration: Double = 0.0,
-        filterEnable: Bool = false,
-        filterAttackDuration: Double = 0.0,
-        filterDecayDuration: Double = 0.0,
-        filterSustainLevel: Double = 1.0,
-        filterReleaseDuration: Double = 0.0,
-        pitchAttackDuration: Double = 0.0,
-        pitchDecayDuration: Double = 0.0,
-        pitchSustainLevel: Double = 0.0,
-        pitchReleaseDuration: Double = 0.0,
-        pitchADSRSemitones: Double = 0.0,
-        glideRate: Double = 0.0,
-        loopThruRelease: Bool = true,
-        isMonophonic: Bool = false,
-        isLegato: Bool = false,
-        keyTracking: Double = 1.0,
-        filterEnvelopeVelocityScaling: Double = 0.0
-    ) {
+    public init() {
         super.init(avAudioNode: AVAudioNode())
 
         AKSampler.register()
@@ -336,38 +271,6 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.masterVolume = masterVolume
-            self.pitchBend = pitchBend
-            self.vibratoDepth = vibratoDepth
-            self.vibratoFrequency = vibratoFrequency
-            self.voiceVibratoDepth = voiceVibratoDepth
-            self.voiceVibratoFrequency = voiceVibratoFrequency
-            self.filterCutoff = filterCutoff
-            self.filterStrength = filterStrength
-            self.filterResonance = filterResonance
-            self.attackDuration = attackDuration
-            self.holdDuration = holdDuration
-            self.decayDuration = decayDuration
-            self.sustainLevel = sustainLevel
-            self.releaseHoldDuration = releaseHoldDuration
-            self.releaseDuration = releaseDuration
-            self.filterEnable = filterEnable
-            self.filterAttackDuration = filterAttackDuration
-            self.filterDecayDuration = filterDecayDuration
-            self.filterSustainLevel = filterSustainLevel
-            self.filterReleaseDuration = filterReleaseDuration
-            self.pitchAttackDuration = pitchAttackDuration
-            self.pitchDecayDuration = pitchDecayDuration
-            self.pitchSustainLevel = pitchSustainLevel
-            self.pitchReleaseDuration = pitchReleaseDuration
-            self.pitchADSRSemitones = pitchADSRSemitones
-            self.glideRate = glideRate
-            self.loopThruRelease = loopThruRelease
-            self.isMonophonic = isMonophonic
-            self.isLegato = isLegato
-            self.keyTrackingFraction = keyTracking
-            self.filterEnvelopeVelocityScaling = filterEnvelopeVelocityScaling
         }
     }
 

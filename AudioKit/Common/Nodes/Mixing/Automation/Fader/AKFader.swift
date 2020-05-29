@@ -3,23 +3,23 @@
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     public typealias AKAudioUnitType = AKFaderAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     public static var gainRange: ClosedRange<AUValue> = (0 ... 4)
-    
+
     /// Amplification Factor, from 0 ... 4
     open var gain: AUValue = 1 {
         willSet {
@@ -57,11 +57,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public init(_ input: AKNode? = nil,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
 
@@ -69,7 +69,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
             self.rightGain.associate(with: self.internalAU, value: gain)
             self.flipStereo.associate(with: self.internalAU, value: false)
             self.mixToMono.associate(with: self.internalAU, value: false)
-            
+
             input?.connect(to: self)
         }
     }
@@ -102,7 +102,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                       taper: taperValue,
                                       skew: skewValue,
                                       offset: offsetValue ?? 0)
-        
+
         parameterAutomation?.addPoint("rightGain",
                                       value: value,
                                       sampleTime: sampleTime,

@@ -6,7 +6,7 @@ import AudioKit
 @IBDesignable open class AKTweaker: AKCoarseFineSlider {
 
     var nudger: AKNudger!
-    public override func setStable(value: Double) {
+    public override func setStable(value: AUValue) {
         nudger.setStable(value: value)
         coarseStepper.currentValue = value
         fineStepper.currentValue = value

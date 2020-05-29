@@ -5,22 +5,22 @@
 ///
 
 open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
-    
+
     public typealias AKAudioUnitType = AKDynaRageCompressorAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Ratio to compress with, a value > 1 will compress
     public let ratio = AKNodeParameter(identifier: "ratio")
 
@@ -60,22 +60,22 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
         rageIsOn: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
+
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.ratio.associate(with: self.internalAU, value: ratio)
             self.threshold.associate(with: self.internalAU, value: threshold)
             self.attackDuration.associate(with: self.internalAU, value: attackDuration)
             self.releaseDuration.associate(with: self.internalAU, value: releaseDuration)
             self.rage.associate(with: self.internalAU, value: rage)
             self.rageIsOn.associate(with: self.internalAU, value: rageIsOn)
-            
+
             input?.connect(to: self)
         }
     }

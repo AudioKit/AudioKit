@@ -6,28 +6,28 @@
 open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
-    
+
     public typealias AKAudioUnitType = AKPhaserAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Notch Minimum Frequency
-    public static let notchMinimumFrequencyRange: ClosedRange<AUValue> = 20 ... 5000
+    public static let notchMinimumFrequencyRange: ClosedRange<AUValue> = 20 ... 5_000
 
     /// Lower and upper bounds for Notch Maximum Frequency
-    public static let notchMaximumFrequencyRange: ClosedRange<AUValue> = 20 ... 10000
+    public static let notchMaximumFrequencyRange: ClosedRange<AUValue> = 20 ... 10_000
 
     /// Lower and upper bounds for Notch Width
-    public static let notchWidthRange: ClosedRange<AUValue> = 10 ... 5000
+    public static let notchWidthRange: ClosedRange<AUValue> = 10 ... 5_000
 
     /// Lower and upper bounds for Notch Frequency
     public static let notchFrequencyRange: ClosedRange<AUValue> = 1.1 ... 4.0
@@ -54,7 +54,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public static let defaultNotchMaximumFrequency: AUValue = 800
 
     /// Initial value for Notch Width
-    public static let defaultNotchWidth: AUValue = 1000
+    public static let defaultNotchWidth: AUValue = 1_000
 
     /// Initial value for Notch Frequency
     public static let defaultNotchFrequency: AUValue = 1.5
@@ -130,14 +130,14 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
         lfoBPM: AUValue = defaultLfoBPM
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.notchMinimumFrequency.associate(with: self.internalAU, value: notchMinimumFrequency)
             self.notchMaximumFrequency.associate(with: self.internalAU, value: notchMaximumFrequency)
             self.notchWidth.associate(with: self.internalAU, value: notchWidth)

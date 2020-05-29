@@ -3,22 +3,22 @@
 /// Stereo Booster
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
-    
+
     public typealias AKAudioUnitType = AKBoosterAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Amplification Factor
     open var gain: AUValue = 1 {
         didSet {
@@ -57,13 +57,13 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
 
             self.leftGain.associate(with: self.internalAU, value: gain)
             self.rightGain.associate(with: self.internalAU, value: gain)
-            
+
             input?.connect(to: self)
         }
     }

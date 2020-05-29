@@ -171,9 +171,9 @@ class ViewController: UIViewController {
         resetButton.isHidden = false
         resetButton.isEnabled = true
         setSliders(active: true)
-        moogLadder.cutoffFrequency = frequencySlider.range.upperBound
-        frequencySlider.value = moogLadder.cutoffFrequency
-        resonanceSlider.value = moogLadder.resonance
+        moogLadder.cutoffFrequency.value = frequencySlider.range.upperBound
+        frequencySlider.value = moogLadder.cutoffFrequency.value
+        resonanceSlider.value = moogLadder.resonance.value
     }
 
     func setSliders(active: Bool) {
@@ -211,14 +211,14 @@ class ViewController: UIViewController {
         setupUIForRecording()
     }
 
-    func updateFrequency(value: Double) {
-        moogLadder.cutoffFrequency = value
+    func updateFrequency(value: AUValue) {
+        moogLadder.cutoffFrequency.value = value
         frequencySlider.property = "Frequency"
         frequencySlider.format = "%0.0f"
     }
 
-    func updateResonance(value: Double) {
-        moogLadder.resonance = value
+    func updateResonance(value: AUValue) {
+        moogLadder.resonance.value = value
         resonanceSlider.property = "Resonance"
         resonanceSlider.format = "%0.3f"
     }

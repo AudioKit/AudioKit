@@ -20,42 +20,42 @@ import AudioKit
     private var buttonPercent: CGFloat = 0.5
     private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
-    @IBInspectable public var minimum: Double = -2.0 {
+    public var minimum: AUValue = -2.0 {
         didSet {
             slider.range = minimum...maximum
             coarseStepper.minimum = minimum
             fineStepper.minimum = minimum
         }
     }
-    @IBInspectable public var maximum: Double = 2.0 {
+    public var maximum: AUValue = 2.0 {
         didSet {
             slider.range = minimum...maximum
             coarseStepper.maximum = maximum
             fineStepper.maximum = maximum
         }
     }
-    @IBInspectable public var coarseIncrement: Double = 1 {
+    public var coarseIncrement: AUValue = 1 {
         didSet { coarseStepper.increment = coarseIncrement }
     }
-    @IBInspectable public var fineIncrement: Double = 0.1 {
+    public var fineIncrement: AUValue = 0.1 {
         didSet { fineStepper.increment = fineIncrement }
     }
-    @IBInspectable public var currentValue: Double = 1.0 {
+    public var currentValue: AUValue = 1.0 {
         didSet {
             DispatchQueue.main.async {
                 self.valueLabel.text = String(format: self.stringFormat, self.currentValue)
             }
         }
     }
-    public var callback: (Double) -> Void = {val in
+    public var callback: (AUValue) -> Void = {val in
         AKLog("Course fine slider: \(val)")
     }
-    public func reset(to value: Double) {
+    public func reset(to value: AUValue) {
         setStable(value: value)
         currentValue = value
         slider.value = value
     }
-    public func setStable(value: Double) {
+    public func setStable(value: AUValue) {
         coarseStepper.currentValue = value
         fineStepper.currentValue = value
     }

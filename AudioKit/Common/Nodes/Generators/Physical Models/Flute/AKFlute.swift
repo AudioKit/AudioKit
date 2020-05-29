@@ -34,7 +34,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the STK Flute model
     ///
     /// - Parameters:
