@@ -3804,8 +3804,6 @@
 		C40C413D1C40E3A5009D870B /* EZAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlayer.m; sourceTree = "<group>"; };
 		C40C413E1C40E3A5009D870B /* EZAudioPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioPlot.h; path = "../../User Interface/EZAudio/EZAudioPlot.h"; sourceTree = "<group>"; };
 		C40C413F1C40E3A5009D870B /* EZAudioPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZAudioPlot.m; path = "../../User Interface/EZAudio/EZAudioPlot.m"; sourceTree = "<group>"; };
-		C40C41401C40E3A5009D870B /* EZAudioPlotGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioPlotGL.h; path = "../../User Interface/EZAudio/EZAudioPlotGL.h"; sourceTree = "<group>"; };
-		C40C41411C40E3A5009D870B /* EZAudioPlotGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZAudioPlotGL.m; path = "../../User Interface/EZAudio/EZAudioPlotGL.m"; sourceTree = "<group>"; };
 		C40C41421C40E3A5009D870B /* EZAudioUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioUtilities.h; sourceTree = "<group>"; };
 		C40C41431C40E3A5009D870B /* EZAudioUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioUtilities.m; sourceTree = "<group>"; };
 		C40C41441C40E3A5009D870B /* EZMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZMicrophone.h; sourceTree = "<group>"; };
@@ -3856,7 +3854,7 @@
 		C42BF6CB1CE80E6600155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 		C42F35001C057E03000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42F35031C057E03000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
-		C42F35051C057E03000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../iOS/AudioKit/Info.plist; sourceTree = "<group>"; };
+		C42F35051C057E03000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../AudioKit/Info.plist; sourceTree = "<group>"; };
 		C42FFBE31C3D195000823BD4 /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C42FFBEB1C3D1FD100823BD4 /* AKDryWetMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDryWetMixer.swift; sourceTree = "<group>"; };
 		C430E2BD21F2A12000B010CC /* MIDIPacket+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacket+Extensions.swift"; sourceTree = "<group>"; };
@@ -3888,7 +3886,7 @@
 		C44EA24A2018704D0072399F /* AKPhaserAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaserAudioUnit.swift; sourceTree = "<group>"; };
 		C44EA24B2018704D0072399F /* AKPhaser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaser.swift; sourceTree = "<group>"; };
 		C44EA24D2018704D0072399F /* AKChorus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChorus.swift; sourceTree = "<group>"; };
-		C44EA27C201872C10072399F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../Common/README.md; sourceTree = "<group>"; };
+		C44EA27C201872C10072399F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Common/README.md; sourceTree = "<group>"; };
 		C44EA27E2018731A0072399F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C44EA280201873550072399F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C44EA282201873A80072399F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -4060,7 +4058,7 @@
 		C4894016203A3D6C008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterDSP.mm; sourceTree = "<group>"; };
 		C48A30422045428500334C35 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
+		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dev.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C48DB7921CD5373000D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C48DB7A91CD554A000D1EC13 /* AKMIDI+Receiving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Receiving.swift"; sourceTree = "<group>"; };
 		C48DB7AA1CD554A000D1EC13 /* AKMIDI+Sending.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Sending.swift"; sourceTree = "<group>"; };
@@ -4793,6 +4791,7 @@
 		EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EAF2998F24811C3E00C3804E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = "Dev Playgrounds/macOS/Dev.playground"; sourceTree = SOURCE_ROOT; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "Sporth Custom Ugens/AKCustomUgen.swift"; sourceTree = "<group>"; };
@@ -5291,7 +5290,7 @@
 				C446B3E61D454AB6000AEFCA /* iOS */,
 			);
 			name = "User Interface";
-			path = "../../Common/User Interface";
+			path = "Common/User Interface";
 			sourceTree = "<group>";
 		};
 		C40BB0731C4715BC004C138D /* Comb Filter Reverb */ = {
@@ -5348,8 +5347,6 @@
 				C40C413D1C40E3A5009D870B /* EZAudioPlayer.m */,
 				C40C413E1C40E3A5009D870B /* EZAudioPlot.h */,
 				C40C413F1C40E3A5009D870B /* EZAudioPlot.m */,
-				C40C41401C40E3A5009D870B /* EZAudioPlotGL.h */,
-				C40C41411C40E3A5009D870B /* EZAudioPlotGL.m */,
 				C40C41421C40E3A5009D870B /* EZAudioUtilities.h */,
 				C40C41431C40E3A5009D870B /* EZAudioUtilities.m */,
 				C40C41441C40E3A5009D870B /* EZMicrophone.h */,
@@ -5460,7 +5457,7 @@
 				C4A916491C24F95E006C1A15 /* Music */,
 			);
 			name = Operations;
-			path = ../../Common/Operations;
+			path = Common/Operations;
 			sourceTree = "<group>";
 		};
 		C41863731C23FE6600A06E41 /* Random Number Generators */ = {
@@ -5524,15 +5521,15 @@
 				C4AA7BF51FD2A7BF00040720 /* Timeline Tap */,
 			);
 			name = Taps;
-			path = ../../Common/Taps;
+			path = Common/Taps;
 			sourceTree = "<group>";
 		};
 		C42F34F61C057E03000E937C = {
 			isa = PBXGroup;
 			children = (
 				C42F35021C057E03000E937C /* AudioKit */,
-				C48B8EEE1EB7048300B1BC0E /* Dev.playground */,
 				EA7D07021F4E63C200707706 /* AudioKitUI */,
+				EAF2998C24811BCC00C3804E /* Dev Playgrounds */,
 				C42F35011C057E03000E937C /* Products */,
 				EA7D070B1F4E63EB00707706 /* Frameworks */,
 			);
@@ -5564,7 +5561,7 @@
 				C4299C491CE14002007A3CBB /* Taps */,
 				C40869661C192C5E00EF9DED /* User Interface */,
 			);
-			path = AudioKit;
+			name = AudioKit;
 			sourceTree = "<group>";
 		};
 		C42F350D1C057F4C000E937C /* Internals */ = {
@@ -5607,7 +5604,7 @@
 				558D80871F4D2D9D001E7BC1 /* Utilities */,
 			);
 			name = Internals;
-			path = ../../Common/Internals;
+			path = Common/Internals;
 			sourceTree = "<group>";
 		};
 		C42F353F1C057F4C000E937C /* MIDI */ = {
@@ -5636,7 +5633,7 @@
 				C539CCCB21F823CF0096AF95 /* Utilities */,
 			);
 			name = MIDI;
-			path = ../../Common/MIDI;
+			path = Common/MIDI;
 			sourceTree = "<group>";
 		};
 		C42F35421C057F4C000E937C /* Nodes */ = {
@@ -5654,7 +5651,7 @@
 				C46303D91C2126A2009B44D9 /* Playback */,
 			);
 			name = Nodes;
-			path = ../../Common/Nodes;
+			path = Common/Nodes;
 			sourceTree = "<group>";
 		};
 		C42F35471C057F4C000E937C /* Analysis */ = {
@@ -5805,7 +5802,7 @@
 				FE2C8B1D20D9C80300009BAC /* AKTweaker.swift */,
 			);
 			name = iOS;
-			path = "AudioKit/User Interface";
+			path = "iOS/AudioKit/User Interface";
 			sourceTree = SOURCE_ROOT;
 		};
 		C44B59701C4B5FA00008507F /* Morphing Oscillator */ = {
@@ -6758,8 +6755,7 @@
 				C49B12A7204A06B6009C7C8E /* STK */,
 				3404A7AC20507B8800A2C9E4 /* Wavpack */,
 			);
-			name = Core;
-			path = ../../Core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		C49B1149204A06B6009C7C8E /* Soundpipe */ = {
@@ -7810,6 +7806,31 @@
 			path = ../../macOS/AudioKit/macOS;
 			sourceTree = "<group>";
 		};
+		EAF2998C24811BCC00C3804E /* Dev Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2998E24811C1100C3804E /* macOS */,
+				EAF2998D24811BFF00C3804E /* iOS */,
+			);
+			path = "Dev Playgrounds";
+			sourceTree = "<group>";
+		};
+		EAF2998D24811BFF00C3804E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C48B8EEE1EB7048300B1BC0E /* Dev.playground */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		EAF2998E24811C1100C3804E /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2998F24811C3E00C3804E /* Dev.playground */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
 		F02767351E79D2C60099CA47 /* Sporth Custom Ugens */ = {
 			isa = PBXGroup;
 			children = (
@@ -7903,7 +7924,7 @@
 				FEB3AB2522DFE06B0080A5CB /* Sequencer */,
 			);
 			name = Sequencing;
-			path = ../../Common/Sequencing;
+			path = Common/Sequencing;
 			sourceTree = "<group>";
 		};
 		FEB3AB1F22DFE06B0080A5CB /* Apple Sequencer */ = {
@@ -9209,7 +9230,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\ncd ..; swiftlint --config ./../.swiftlint.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		EAA62D39247F3A5B00BF4CDB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9227,7 +9248,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\ncd ..; swiftlint --config ./../.swiftlint.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		EAA6320C247F44E200BF4CDB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9245,7 +9266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\ncd ..; swiftlint --config ./../.swiftlint.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
