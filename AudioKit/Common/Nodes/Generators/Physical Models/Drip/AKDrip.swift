@@ -124,4 +124,13 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
     }
+
+    // MARK: - Control
+
+    /// Trigger the sound with an optional set of parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
 }
