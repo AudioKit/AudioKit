@@ -5,15 +5,15 @@ import AVFoundation
 public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
 
     private(set) var preGain: AUParameter!
-    
+
     private(set) var postGain: AUParameter!
-    
+
     private(set) var lowGain: AUParameter!
-    
+
     private(set) var midGain: AUParameter!
-    
+
     private(set) var highGain: AUParameter!
-    
+
     private(set) var distortion: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
@@ -31,7 +31,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: 0.0 ... 10.0,
             unit: .generic,
             flags: .default)
-        
+
         postGain = AUParameter(
             identifier: "postGain",
             name: "PostGain",
@@ -39,7 +39,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: 0.0 ... 1.0,
             unit: .linearGain,
             flags: .default)
-        
+
         lowGain = AUParameter(
             identifier: "lowGain",
             name: "Low Frequency Gain",
@@ -47,7 +47,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: -1.0 ... 1.0,
             unit: .generic,
             flags: .default)
-        
+
         midGain = AUParameter(
             identifier: "midGain",
             name: "Mid Frequency Gain",
@@ -55,7 +55,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: -1.0 ... 1.0,
             unit: .generic,
             flags: .default)
-        
+
         highGain = AUParameter(
             identifier: "highGain",
             name: "High Frequency Gain",
@@ -63,7 +63,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: -1.0 ... 1.0,
             unit: .generic,
             flags: .default)
-        
+
         distortion = AUParameter(
             identifier: "distortion",
             name: "Distortion Amount",
@@ -71,7 +71,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             range: 1.0 ... 20.0,
             unit: .generic,
             flags: .default)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [preGain, postGain, lowGain, midGain, highGain, distortion])
 
         preGain.value = 5.0

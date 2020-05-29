@@ -5,33 +5,33 @@
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
-    
+
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     fileprivate var waveform: AKTable?
 
     /// Lower and upper bounds for Base Frequency
-    public static let baseFrequencyRange: ClosedRange<AUValue> = 0.0 ... 20000.0
+    public static let baseFrequencyRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Carrier Multiplier
-    public static let carrierMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1000.0
+    public static let carrierMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
 
     /// Lower and upper bounds for Modulating Multiplier
-    public static let modulatingMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1000.0
+    public static let modulatingMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
 
     /// Lower and upper bounds for Modulation Index
-    public static let modulationIndexRange: ClosedRange<AUValue> = 0.0 ... 1000.0
+    public static let modulationIndexRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 10.0
@@ -67,7 +67,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-    
+
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -87,14 +87,14 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
         amplitude: AUValue = defaultAmplitude
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.waveform = waveform
             self.baseFrequency.associate(with: self.internalAU, value: baseFrequency)
             self.carrierMultiplier.associate(with: self.internalAU, value: carrierMultiplier)

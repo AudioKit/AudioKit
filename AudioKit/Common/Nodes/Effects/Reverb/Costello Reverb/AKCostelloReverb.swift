@@ -7,31 +7,31 @@
 open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
-    
+
     public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Feedback
     public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
 
     /// Initial value for Feedback
     public static let defaultFeedback: AUValue = 0.6
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: AUValue = 4000.0
+    public static let defaultCutoffFrequency: AUValue = 4_000.0
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     public let feedback = AKNodeParameter(identifier: "feedback")
@@ -54,14 +54,14 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
         cutoffFrequency: AUValue = defaultCutoffFrequency
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.feedback.associate(with: self.internalAU, value: feedback)
             self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
 

@@ -5,20 +5,20 @@
 open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
-    
+
     public typealias AKAudioUnitType = AKTremoloAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Frequency
     public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 100.0
 
@@ -53,17 +53,17 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         waveform: AKTable = AKTable(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.depth.associate(with: self.internalAU, value: depth)
-            
+
             self.internalAU?.setWavetable(waveform.content)
 
             input?.connect(to: self)

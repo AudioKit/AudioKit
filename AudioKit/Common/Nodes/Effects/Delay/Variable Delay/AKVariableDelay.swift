@@ -5,20 +5,20 @@
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
-    
+
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Time
     public static let timeRange: ClosedRange<AUValue> = 0 ... 10
 
@@ -57,14 +57,14 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
         maximumDelayTime: AUValue = defaultMaximumDelayTime
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.time.associate(with: self.internalAU, value: time)
             self.feedback.associate(with: self.internalAU, value: feedback)
 

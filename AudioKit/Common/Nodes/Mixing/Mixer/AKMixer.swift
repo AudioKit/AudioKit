@@ -6,23 +6,23 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     fileprivate var mixerAU = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    @objc open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: AUValue = 1.0 {
         didSet {
             volume = max(volume, 0)
-            mixerAU.outputVolume = Float(volume)
+            mixerAU.outputVolume = volume
         }
     }
 
     /// Output Pan (Default 0 = center)
-    @objc open dynamic var pan: Double = 1.0 {
+    @objc open dynamic var pan: AUValue = 1.0 {
         didSet {
             pan = min(pan, 1)
             pan = max(pan, -1)
-            mixerAU.pan = Float(pan)
+            mixerAU.pan = pan
         }
     }
 
-    fileprivate var lastKnownVolume: Double = 1.0
+    fileprivate var lastKnownVolume: AUValue = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
     @objc open dynamic var isStarted: Bool {
@@ -30,7 +30,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    @objc public init(volume: Double = 1.0) {
+    @objc public init(volume: AUValue = 1.0) {
         super.init(avAudioNode: mixerAU, attach: true)
         self.volume = volume
     }

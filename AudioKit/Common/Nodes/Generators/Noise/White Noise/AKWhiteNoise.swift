@@ -5,20 +5,20 @@
 open class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
-    
+
     public typealias AKAudioUnitType = AKWhiteNoiseAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
@@ -29,7 +29,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-    
+
     /// Initialize this noise node
     ///
     /// - Parameters:
@@ -39,14 +39,14 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
         amplitude: AUValue = defaultAmplitude
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.amplitude.associate(with: self.internalAU, value: amplitude)
         }
 

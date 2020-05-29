@@ -3,7 +3,7 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-    
+
     let leftGain = AUParameter(
         identifier: "leftGain",
         name: "Left Gain",
@@ -21,7 +21,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
         unit: .linearGain,
         flags: .default
     )
-    
+
     let flipStereo = AUParameter(
         identifier: "flipStereo",
         name: "Flip Stereo",

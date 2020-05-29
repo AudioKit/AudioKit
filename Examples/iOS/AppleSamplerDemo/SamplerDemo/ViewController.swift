@@ -53,27 +53,27 @@ class ViewController: UIViewController {
         conductor.useSound(sound, synthesizer: .bass)
     }
 
-    func adjustArpeggioVolume(newValue: Double) {
+    func adjustArpeggioVolume(newValue: AUValue) {
         conductor.adjustVolume(newValue, instrument: .arpeggio)
     }
 
-    func adjustPadSynthesizerVolume(newValue: Double) {
+    func adjustPadSynthesizerVolume(newValue: AUValue) {
         conductor.adjustVolume(newValue, instrument: .pad)
     }
 
-    func adjustBassSynthesizerVolume(newValue: Double) {
+    func adjustBassSynthesizerVolume(newValue: AUValue) {
         conductor.adjustVolume(newValue, instrument: .bass)
     }
 
-    func adjustDrumKitVolume(newValue: Double) {
+    func adjustDrumKitVolume(newValue: AUValue) {
         conductor.adjustVolume(newValue, instrument: .drum)
     }
 
-    func adjustFilterFrequency(newValue: Double) {
+    func adjustFilterFrequency(newValue: AUValue) {
         conductor.adjustFilterFrequency(Float(newValue))
     }
 
-    func adjustTempo(newValue: Double) {
+    func adjustTempo(newValue: AUValue) {
         conductor.adjustTempo(Float(newValue))
     }
 

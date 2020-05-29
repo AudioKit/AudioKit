@@ -54,7 +54,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
     /// Initialize the track
     @objc public init(targetNode: AKNode?) {
         super.init(avAudioNode: AVAudioNode())
-        
+
         _Self.register()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -67,7 +67,6 @@ open class AKSequencerTrack: AKNode, AKComponent {
             setTarget(node: target)
         }
     }
-
 
     /// Set the target node
     public func setTarget(node: AKNode) {
@@ -142,11 +141,11 @@ open class AKSequencerTrack: AKNode, AKComponent {
     open func removeNote(at position: Double) {
         internalAU?.removeNote(beat: position)
     }
-    
+
     open func removeNote(noteNumber: MIDINoteNumber, position: Double) {
         internalAU?.removeNote(number: noteNumber, beat: position)
     }
-    
+
     open func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
         internalAU?.removeAllInstancesOf(number: noteNumber)
     }

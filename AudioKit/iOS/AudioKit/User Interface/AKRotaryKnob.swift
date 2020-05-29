@@ -70,13 +70,13 @@ public enum AKRotaryKnobStyle {
 
     /// Initialize the slider
     public init(property: String,
-                value: Double,
-                range: ClosedRange<Double> = 0 ... 1,
-                taper: Double = 1,
+                value: AUValue,
+                range: ClosedRange<AUValue> = 0 ... 1,
+                taper: AUValue = 1,
                 format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
-                callback: @escaping (_ x: Double) -> Void) {
+                callback: @escaping (_ x: AUValue) -> Void) {
 
         self.knobColor = color
 
@@ -126,9 +126,9 @@ public enum AKRotaryKnobStyle {
             if lastTouch.x != touchLocation.x {
                 let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
                 if angle < 0.0 {
-                    val = (0.5 + 0.5 * (180.0 + angle) / 105.0)
+                    val = (0.5 + 0.5 * (180.0 + AUValue(angle)) / 105.0)
                 } else {
-                    val = ((angle - 75.0) / 110.0) * 0.5
+                    val = AUValue(((angle - 75.0) / 110.0) * 0.5)
                 }
                 value = val.denormalized(to: range, taper: taper)
                 callback(value)
@@ -304,7 +304,7 @@ public enum AKRotaryKnobStyle {
                                          byRoundingCorners: .allCorners,
                                          cornerRadii: CGSize(width: AKRotaryKnob.indicatorPointRadius,
                                                              height: AKRotaryKnob.indicatorPointRadius))
-            if valuePercent > 0.0 && pointPercent <= valuePercent {
+            if valuePercent > 0.0 && pointPercent <= Double(valuePercent) {
                 knobColor.setFill()
             } else {
                 knobColor.withAlphaComponent(0.2).setFill()

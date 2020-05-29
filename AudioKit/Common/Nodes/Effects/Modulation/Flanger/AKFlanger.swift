@@ -3,20 +3,20 @@
 /// Stereo Flanger
 ///
 open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    
+
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
-    
+
     public typealias AKAudioUnitType = AKFlangerAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
 
     public static let frequencyRange: ClosedRange<AUValue> = kAKFlanger_MinFrequency ... kAKFlanger_MaxFrequency
@@ -62,10 +62,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
-        instantiateAudioUnit() { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
 
@@ -73,7 +73,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
             self.depth.associate(with: self.internalAU, value: depth)
             self.feedback.associate(with: self.internalAU, value: feedback)
             self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
-            
+
             input?.connect(to: self)
         }
     }

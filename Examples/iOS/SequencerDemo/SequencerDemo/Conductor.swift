@@ -18,9 +18,9 @@ class Conductor {
     var mixer = AKMixer()
     var pumper: AKCompressor!
 
-    var currentTempo = 110.0 {
+    var currentTempo: AUValue = 110.0 {
         didSet {
-            sequencer.setTempo(currentTempo)
+            sequencer.setTempo(Double(currentTempo))
         }
     }
 

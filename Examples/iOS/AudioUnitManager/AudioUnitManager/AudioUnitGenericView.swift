@@ -16,8 +16,8 @@ class AudioUnitGenericView: UIView {
         var y = 5
         for param in tree.allParameters {
             let slider = AKSlider(property: param.displayName,
-                                  value: Double(param.value),
-                                  range: Double(param.minValue) ... Double(param.maxValue),
+                                  value: param.value,
+                                  range: param.minValue ... param.maxValue,
                                   format: "%0.1f",
                                   color: UIColor.darkGray,
                                   frame: CGRect(x: 20, y: y, width: 250, height: 50),

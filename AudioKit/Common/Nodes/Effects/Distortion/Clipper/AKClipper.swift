@@ -6,20 +6,20 @@
 open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
-    
+
     public typealias AKAudioUnitType = AKClipperAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Limit
     public static let limitRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
@@ -42,14 +42,14 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         limit: AUValue = defaultLimit
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.limit.associate(with: self.internalAU, value: limit)
 
             input?.connect(to: self)

@@ -6,20 +6,20 @@
 open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
-    
+
     public typealias AKAudioUnitType = AKDripAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Intensity
     public static let intensityRange: ClosedRange<AUValue> = 0 ... 100
 
@@ -30,13 +30,13 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let energyReturnRange: ClosedRange<AUValue> = 0 ... 100
 
     /// Lower and upper bounds for Main Resonant Frequency
-    public static let mainResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22000
+    public static let mainResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
 
     /// Lower and upper bounds for First Resonant Frequency
-    public static let firstResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22000
+    public static let firstResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
 
     /// Lower and upper bounds for Second Resonant Frequency
-    public static let secondResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22000
+    public static let secondResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
@@ -84,7 +84,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
-    
+
     /// Initialize this drip node
     ///
     /// - Parameters:
@@ -106,14 +106,14 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
         amplitude: AUValue = defaultAmplitude
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.intensity.associate(with: self.internalAU, value: intensity)
             self.dampingFactor.associate(with: self.internalAU, value: dampingFactor)
             self.energyReturn.associate(with: self.internalAU, value: energyReturn)

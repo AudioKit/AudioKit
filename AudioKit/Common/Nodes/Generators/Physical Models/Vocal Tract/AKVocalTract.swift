@@ -8,22 +8,22 @@
 open class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
-    
+
     public typealias AKAudioUnitType = AKVocalTractAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 22050.0
+    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 22_050.0
 
     /// Lower and upper bounds for Tongue Position
     public static let tonguePositionRange: ClosedRange<AUValue> = 0.0 ... 1.0
@@ -68,7 +68,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public let nasality = AKNodeParameter(identifier: "nasality")
 
     // MARK: - Initialization
-    
+
     /// Initialize this vocal tract node
     ///
     /// - Parameters:
@@ -86,14 +86,14 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
         nasality: AUValue = defaultNasality
     ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.tonguePosition.associate(with: self.internalAU, value: tonguePosition)
             self.tongueDiameter.associate(with: self.internalAU, value: tongueDiameter)

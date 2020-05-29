@@ -7,22 +7,22 @@
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
-    
+
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
+    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Attack Duration
     public static let attackDurationRange: ClosedRange<AUValue> = 0.0 ... 0.1
@@ -31,7 +31,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let decayDurationRange: ClosedRange<AUValue> = 0.0 ... 0.1
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: AUValue = 1000
+    public static let defaultCenterFrequency: AUValue = 1_000
 
     /// Initial value for Attack Duration
     public static let defaultAttackDuration: AUValue = 0.007
@@ -65,14 +65,14 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
         decayDuration: AUValue = defaultDecayDuration
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
             self.attackDuration.associate(with: self.internalAU, value: attackDuration)
             self.decayDuration.associate(with: self.internalAU, value: decayDuration)

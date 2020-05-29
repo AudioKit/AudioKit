@@ -5,20 +5,20 @@
 open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     // MARK: - AKComponent
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
-    
+
     public typealias AKAudioUnitType = AKAutoWahAudioUnit
-    
+
     public private(set) var internalAU: AKAudioUnitType?
-    
+
     // MARK: - AKAutomatable
-    
+
     public private(set) var parameterAutomation: AKParameterAutomation?
-    
+
     // MARK: - Parameters
-    
+
     /// Lower and upper bounds for Wah
     public static let wahRange: ClosedRange<AUValue> = 0.0 ... 1.0
 
@@ -63,14 +63,14 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         amplitude: AUValue = defaultAmplitude
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
-        instantiateAudioUnit() { avAudioUnit in
+
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            
+
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
-            
+
             self.wah.associate(with: self.internalAU, value: wah)
             self.mix.associate(with: self.internalAU, value: mix)
             self.amplitude.associate(with: self.internalAU, value: amplitude)

@@ -35,7 +35,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [position, amplitude, pitchRatio])
     }
 }
