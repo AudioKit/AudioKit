@@ -65,13 +65,13 @@ public enum AKSliderStyle {
     private var sliderHeight: CGFloat = 0.0
 
     public init(property: String,
-                value: Double = 0.0,
-                range: ClosedRange<Double> = 0 ... 1,
-                taper: Double = 1,
+                value: AUValue = 0.0,
+                range: ClosedRange<AUValue> = 0 ... 1,
+                taper: AUValue = 1,
                 format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(width: 440, height: 60),
-                callback: @escaping (_ x: Double) -> Void = { _ in }) {
+                callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
 
         self.color = color
 
@@ -96,7 +96,7 @@ public enum AKSliderStyle {
         let loc = convert(theEvent.locationInWindow, from: nil)
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
 
-        val = (0 ... 1).clamp(Double( (loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0) ))
+        val = (0 ... 1).clamp(AUValue( (loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0) ))
 
         value = val.denormalized(to: range, taper: taper)
         callback(value)
