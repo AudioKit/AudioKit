@@ -10,17 +10,24 @@ This is where all of Apple-platform code that is relevant to at least two of the
 
 This contains the platform-independent code on which AudioKit runs. This includes DSP libraries that we leverage as well as our own custom DSP that we are striving to make cross-platform.
 
+As of AudioKit 5.0, all platforms are managed through the single `AudioKit.xcodeproj` project file, which includes targets for each of the supported platforms (macOS, iOS, tvOS).
+
+## Playgrounds
+
+The `Dev.playground` playgrounds for iOS and macOS are now included as part of the main `AudioKit.xcodeproj`, with respective dependencies on the platform targets.
+Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
+
 ## iOS
 
-This directory contains the "AudioKit for iOS.xcodeproj" which contains all iOS-compatible components from `Common/` and UIKit user interface elements that are only accessible to iOS. `iOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project. The AudioKit Test Suite for iOS is also kept in `iOS/`.
+This directory contains all iOS-specific components including UIKit user interface elements that are only accessible to iOS.  The AudioKit Test Suite for iOS is also kept in `iOS/`.
 
 ## macOS
 
-This directory contains the "AudioKit for macOS.xcodeproj" which contains all macOS-compatible components from `Common/` as well as Cocoa user interface elements that are only accessible to macOS. `macOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
+This directory contains all macOS-specific components including Cocoa user interface elements that are only accessible to macOS. 
 
 ## tvOS
 
-The "AudioKit for tvOS.xcodeproj" contains components from `Common/` that work on tvOS.  Since tvOS does not currently support MIDI, AudioKit's MIDI enabled components are omitted.
+Since tvOS does not currently support MIDI, AudioKit's MIDI enabled components are omitted.
 
 ## .jazzy.yaml
 

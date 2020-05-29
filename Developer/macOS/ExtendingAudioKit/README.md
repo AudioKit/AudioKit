@@ -8,7 +8,7 @@ The example also illustrates a few useful techniques for using MIDI to control a
 ## The basic approach
 In this example, we create an Xcode project which contains:
 
-* The AudioKit frameworks, either the pre-compiled versions, or the entire *AudioKit For macOS.xcodeproj* Xcode project (a sub-project inside the main project)
+* The AudioKit frameworks, either the pre-compiled versions, or the entire *AudioKit.xcodeproj* Xcode project (a sub-project inside the main project)
 * The new extension code, and
 * A full-fledged macOS application, for testing the new code together with established **AudioKit** modules.
 
@@ -41,7 +41,7 @@ At this point you should build your project to make sure everything is OK. This 
 
 ### Option 2: Add AudioKit as a sub-project
 
-In the Mac Finder, locate the *AudioKit For macOS.xcodeproj* project and drag it into the your own Xcode project:
+In the Mac Finder, locate the *AudioKit.xcodeproj* project and drag it into the your own Xcode project:
 
 * In the leftmost pane, make sure the Project Navigator is showing
 * Drag the AudioKit project file and drop it directly under the top line which represents your new project.

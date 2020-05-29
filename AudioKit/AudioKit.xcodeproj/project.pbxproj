@@ -3467,6 +3467,9 @@
 		EAA63261247FB5E800BF4CDB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA63210247F44E200BF4CDB /* AudioKit.framework */; };
 		EAAC547D224DB8A000DC5E6D /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAAC547C224DB8A000DC5E6D /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
+		EAF299F524812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
+		EAF299F624812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
+		EAF299F724812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		EAFECEC51F4EBD3900A2B046 /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4792,6 +4795,7 @@
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAF2998F24811C3E00C3804E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = "Dev Playgrounds/macOS/Dev.playground"; sourceTree = SOURCE_ROOT; };
+		EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "Sporth Custom Ugens/AKCustomUgen.swift"; sourceTree = "<group>"; };
@@ -5667,6 +5671,7 @@
 		C42F35531C057F4C000E937C /* Generators */ = {
 			isa = PBXGroup;
 			children = (
+				EAF299F324812BAE00C3804E /* Speech Synthesizer */,
 				C453804D1C3A5A4300A51738 /* AudioKit Operation-Based Generator */,
 				C48AA6631C0FA382006EB131 /* Noise */,
 				C42F35561C057F4C000E937C /* Oscillators */,
@@ -7829,6 +7834,14 @@
 				EAF2998F24811C3E00C3804E /* Dev.playground */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		EAF299F324812BAE00C3804E /* Speech Synthesizer */ = {
+			isa = PBXGroup;
+			children = (
+				EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */,
+			);
+			path = "Speech Synthesizer";
 			sourceTree = "<group>";
 		};
 		F02767351E79D2C60099CA47 /* Sporth Custom Ugens */ = {
@@ -10043,6 +10056,7 @@
 				C49D695A1D1F1C6500BF018A /* AKPWMOscillatorBank.swift in Sources */,
 				C49B14CD204A06B8009C7C8E /* randi.c in Sources */,
 				C4775857202FDEE600159BA7 /* AKWhiteNoiseDSP.mm in Sources */,
+				EAF299F524812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */,
 				34BB6749205AC238000E5450 /* pack.c in Sources */,
 				C48444E71C36FB2C007BE794 /* triangle.swift in Sources */,
 				C49B1469204A06B7009C7C8E /* gen_line.c in Sources */,
@@ -10668,6 +10682,7 @@
 				EAA62ACD247F3A5B00BF4CDB /* ADSR.cpp in Sources */,
 				EAA62ACE247F3A5B00BF4CDB /* fog.c in Sources */,
 				EAA62ACF247F3A5B00BF4CDB /* phasor.c in Sources */,
+				EAF299F624812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */,
 				EAA62AD0247F3A5B00BF4CDB /* pan.swift in Sources */,
 				EAA62AD1247F3A5B00BF4CDB /* AKDelay.swift in Sources */,
 				EAA62AD2247F3A5B00BF4CDB /* AKTable+AKAudioFile.swift in Sources */,
@@ -11167,6 +11182,7 @@
 				EAA62E43247F44E200BF4CDB /* AKFluteAudioUnit.swift in Sources */,
 				EAA62E44247F44E200BF4CDB /* AKMIDI+VirtualPorts.swift in Sources */,
 				EAA62E45247F44E200BF4CDB /* AKPhaser.swift in Sources */,
+				EAF299F724812BAE00C3804E /* AKSpeechSynthesizer.swift in Sources */,
 				EAA62E46247F44E200BF4CDB /* write_words.c in Sources */,
 				EAA62E47247F44E200BF4CDB /* AKParameterAutomation.m in Sources */,
 				EAA62E48247F44E200BF4CDB /* AKConnection.swift in Sources */,
