@@ -61,7 +61,7 @@ extension AKAudioFile {
     public func reversed(baseDir: BaseDirectory = .temp,
                          name: String = UUID().uuidString ) throws -> AKAudioFile {
 
-        var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
+        var outputFile = try AKAudioFile(writeIn: baseDir, name: name)
 
         if self.samplesCount == 0 {
             return try AKAudioFile(forReading: outputFile.url)
