@@ -12,11 +12,6 @@ This contains the platform-independent code on which AudioKit runs. This include
 
 As of AudioKit 5.0, all platforms are managed through the single `AudioKit.xcodeproj` project file, which includes targets for each of the supported platforms (macOS, iOS, tvOS).
 
-## Playgrounds
-
-The `Dev.playground` playgrounds for iOS and macOS are now included as part of the main `AudioKit.xcodeproj`, with respective dependencies on the platform targets.
-Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
-
 ## iOS
 
 This directory contains all iOS-specific components including UIKit user interface elements that are only accessible to iOS.  The AudioKit Test Suite for iOS is also kept in `iOS/`.
@@ -25,10 +20,12 @@ This directory contains all iOS-specific components including UIKit user interfa
 
 This directory contains all macOS-specific components including Cocoa user interface elements that are only accessible to macOS. 
 
-## tvOS
+##  `Dev.playground`
 
-Since tvOS does not currently support MIDI, AudioKit's MIDI enabled components are omitted.
+The `Dev.playground` playgrounds for iOS and macOS are now included as part of the main `AudioKit.xcodeproj`, with respective dependencies on the platform targets.
+Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
 
-## .jazzy.yaml
+
+## `.jazzy.yaml`
 
 This is a configuration file for the Jazzy documentation generation system that generates the [AudioKit docs](http://audiokit.io/docs/).
