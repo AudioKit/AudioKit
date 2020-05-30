@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C51D172821EE85A9008EB51F"
-               BuildableName = "MacOSCommandLineDev"
-               BlueprintName = "MacOSCommandLineDev"
-               ReferencedContainer = "container:macOSDevelopment.xcodeproj">
+               BlueprintIdentifier = "EAA63212247F559400BF4CDB"
+               BuildableName = "AudioKitUI.framework"
+               BlueprintName = "AudioKitUI-macOS"
+               ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,15 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C51D172821EE85A9008EB51F"
-            BuildableName = "MacOSCommandLineDev"
-            BlueprintName = "MacOSCommandLineDev"
-            ReferencedContainer = "container:macOSDevelopment.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -49,16 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C51D172821EE85A9008EB51F"
-            BuildableName = "MacOSCommandLineDev"
-            BlueprintName = "MacOSCommandLineDev"
-            ReferencedContainer = "container:macOSDevelopment.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -66,16 +47,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C51D172821EE85A9008EB51F"
-            BuildableName = "MacOSCommandLineDev"
-            BlueprintName = "MacOSCommandLineDev"
-            ReferencedContainer = "container:macOSDevelopment.xcodeproj">
+            BlueprintIdentifier = "EAA63212247F559400BF4CDB"
+            BuildableName = "AudioKitUI.framework"
+            BlueprintName = "AudioKitUI-macOS"
+            ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

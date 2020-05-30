@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+import Foundation
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop: NSObject {

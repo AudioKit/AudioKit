@@ -11,7 +11,7 @@ open class SDBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var leftGainParameter: AUParameter?
