@@ -4084,7 +4084,6 @@
 		C4894016203A3D6C008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterDSP.mm; sourceTree = "<group>"; };
 		C48A30422045428500334C35 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dev.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C48DB7921CD5373000D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C48DB7A91CD554A000D1EC13 /* AKMIDI+Receiving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Receiving.swift"; sourceTree = "<group>"; };
 		C48DB7AA1CD554A000D1EC13 /* AKMIDI+Sending.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Sending.swift"; sourceTree = "<group>"; };
@@ -7817,17 +7816,8 @@
 			isa = PBXGroup;
 			children = (
 				EAF2998E24811C1100C3804E /* macOS */,
-				EAF2998D24811BFF00C3804E /* iOS */,
 			);
 			path = "Dev Playgrounds";
-			sourceTree = "<group>";
-		};
-		EAF2998D24811BFF00C3804E /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				C48B8EEE1EB7048300B1BC0E /* Dev.playground */,
-			);
-			path = iOS;
 			sourceTree = "<group>";
 		};
 		EAF2998E24811C1100C3804E /* macOS */ = {
