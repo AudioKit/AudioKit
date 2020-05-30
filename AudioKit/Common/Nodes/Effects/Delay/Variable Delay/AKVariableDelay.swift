@@ -19,12 +19,6 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Time
-    public static let timeRange: ClosedRange<AUValue> = 0 ... 10
-
-    /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<AUValue> = 0 ... 1
-
     /// Initial value for Time
     public static let defaultTime: AUValue = 0
 
