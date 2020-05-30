@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         } else {
             oscillator.start()
             button1.titleLabel?.text = "Stop"
-            updateText("Playing \(Int(oscillator.frequency))Hz")
+            updateText("Playing \(Int(oscillator.frequency.value))Hz")
         }
     }
     @IBAction func slid1(_ sender: UISlider) {

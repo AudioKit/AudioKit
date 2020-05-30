@@ -56,8 +56,8 @@ class ViewController: NSViewController {
         view.appearance = NSAppearance(named: .vibrantDark)
 
         // osc.start()
-        osc.frequency = 220
-        osc.amplitude = 1
+        osc.frequency.value = 220
+        osc.amplitude.value = 1
         osc.rampDuration = 0.0
 
         osc >>> mixer
@@ -172,7 +172,6 @@ class ViewController: NSViewController {
         player = AKDynamicPlayer(url: url)
         player?.completionHandler = handleAudioComplete
         player?.isLooping = loopButton.state == .on
-        player?.createFader()
         initPlayer()
 
         AKLog("Opened", url.path, "duration", player?.duration)
@@ -220,7 +219,7 @@ class ViewController: NSViewController {
 
             let plus = dB > 0 ? "+" : ""
             gainSlider.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
-            player.gain = gain
+            player.gain = AUValue(gain)
         } else if sender == rateSlider {
             player.rate = rateSlider.doubleValue
             rateValue.stringValue = String(describing: roundTo(rateSlider.doubleValue, decimalPlaces: 3))
@@ -237,32 +236,31 @@ class ViewController: NSViewController {
             player.fade.outTime = fadeInSlider.doubleValue
             fadeOutValue.stringValue = String(describing: roundTo(fadeOutSlider.doubleValue, decimalPlaces: 3))
 
-            // Currently unused
         } else if sender == slider3 {
-            let value = Int(slider3.intValue)
-            if value == AKSettings.RampType.linear.rawValue {
-                player.fade.inRampType = .linear
-                player.fade.outRampType = .linear
-                slider3Value.stringValue = "Linear"
-
-            } else if value == AKSettings.RampType.exponential.rawValue {
-                player.fade.inRampType = .exponential
-                player.fade.outRampType = .exponential
-
-                slider3Value.stringValue = "Exponential"
-
-            } else if value == AKSettings.RampType.logarithmic.rawValue {
-                player.fade.inRampType = .logarithmic
-                player.fade.outRampType = .logarithmic
-
-                slider3Value.stringValue = "Logarithmic"
-
-            } else if value == AKSettings.RampType.sCurve.rawValue {
-                player.fade.inRampType = .sCurve
-                player.fade.outRampType = .sCurve
-
-                slider3Value.stringValue = "S Curve"
-            }
+//            let value = Int(slider3.intValue)
+//            if value == AKSettings.RampType.linear.rawValue {
+//                player.fade.inRampType = .linear
+//                player.fade.outRampType = .linear
+//                slider3Value.stringValue = "Linear"
+//
+//            } else if value == AKSettings.RampType.exponential.rawValue {
+//                player.fade.inRampType = .exponential
+//                player.fade.outRampType = .exponential
+//
+//                slider3Value.stringValue = "Exponential"
+//
+//            } else if value == AKSettings.RampType.logarithmic.rawValue {
+//                player.fade.inRampType = .logarithmic
+//                player.fade.outRampType = .logarithmic
+//
+//                slider3Value.stringValue = "Logarithmic"
+//
+//            } else if value == AKSettings.RampType.sCurve.rawValue {
+//                player.fade.inRampType = .sCurve
+//                player.fade.outRampType = .sCurve
+//
+//                slider3Value.stringValue = "S Curve"
+//            }
         }
     }
 
