@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,13 @@
 		345BB9472018FF9A00324D55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB9462018FF9A00324D55 /* ViewController.swift */; };
 		345BB9492018FF9A00324D55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345BB9482018FF9A00324D55 /* Assets.xcassets */; };
 		345BB94C2018FF9A00324D55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 345BB94A2018FF9A00324D55 /* Main.storyboard */; };
+		C468CD80248205FF00456291 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C468CD7F248205FF00456291 /* AudioKit.xcframework */; };
+		C468CD81248205FF00456291 /* AudioKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C468CD7F248205FF00456291 /* AudioKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C4A7667B203195E100583F47 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A76677203195E100583F47 /* SDBooster.swift */; };
 		C4A7667C203195E100583F47 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A76678203195E100583F47 /* SDBoosterAudioUnit.swift */; };
 		C4A76698203199FF00583F47 /* SDSustainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A76696203199FF00583F47 /* SDSustainer.swift */; };
 		C4A76699203199FF00583F47 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A76697203199FF00583F47 /* Conductor.swift */; };
 		C4E7A019203C0F8F0061C33C /* SDBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E7A018203C0F8F0061C33C /* SDBoosterDSP.mm */; };
-		EA03BFC5201C609D00E8BE2C /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */; };
-		EA03BFC6201C609D00E8BE2C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA03BFC4201C609D00E8BE2C /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C468CD81248205FF00456291 /* AudioKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +42,7 @@
 		345BB94B2018FF9A00324D55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		345BB94D2018FF9A00324D55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		345BB94E2018FF9A00324D55 /* ExtendingAudioKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExtendingAudioKit.entitlements; sourceTree = "<group>"; };
+		C468CD7F248205FF00456291 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 		C4A76677203195E100583F47 /* SDBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBooster.swift; sourceTree = "<group>"; };
 		C4A76678203195E100583F47 /* SDBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBoosterAudioUnit.swift; sourceTree = "<group>"; };
 		C4A76679203195E100583F47 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
@@ -48,8 +50,6 @@
 		C4A76697203199FF00583F47 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = ../../../Common/Conductor.swift; sourceTree = "<group>"; };
 		C4DD02BB2023061400AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4E7A018203C0F8F0061C33C /* SDBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBoosterDSP.mm; sourceTree = "<group>"; };
-		EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		EA03BFC4201C609D00E8BE2C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA03BFC6201C609D00E8BE2C /* AudioKit.framework in Frameworks */,
-				EA03BFC5201C609D00E8BE2C /* AudioKitUI.framework in Frameworks */,
+				C468CD80248205FF00456291 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +71,7 @@
 				C4A76676203195E100583F47 /* SDBooster */,
 				345BB9432018FF9A00324D55 /* ExtendingAudioKit */,
 				345BB9422018FF9A00324D55 /* Products */,
-				EA03BFC4201C609D00E8BE2C /* AudioKit.framework */,
-				EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */,
+				C468CD7E248205FE00456291 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +96,14 @@
 				345BB94E2018FF9A00324D55 /* ExtendingAudioKit.entitlements */,
 			);
 			path = ExtendingAudioKit;
+			sourceTree = "<group>";
+		};
+		C468CD7E248205FE00456291 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C468CD7F248205FF00456291 /* AudioKit.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4A76676203195E100583F47 /* SDBooster */ = {
@@ -140,7 +146,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					345BB9402018FF9A00324D55 = {
@@ -322,7 +328,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -331,6 +338,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = (
@@ -338,7 +346,10 @@
 					"\"$(SRCROOT)/../../../AudioKit/Common/Internals/Utilities\"",
 				);
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
@@ -351,6 +362,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = (
@@ -358,7 +370,10 @@
 					"\"$(SRCROOT)/../../../AudioKit/Common/Internals/Utilities\"",
 				);
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
