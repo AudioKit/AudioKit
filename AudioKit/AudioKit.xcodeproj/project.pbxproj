@@ -448,7 +448,6 @@
 		C468CD6A2481E71C00456291 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD362481E70000456291 /* AKButton.swift */; };
 		C468CD6B2481E71C00456291 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD372481E70000456291 /* AKRotaryKnob.swift */; };
 		C468CD6C2481E71C00456291 /* AKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD382481E70000456291 /* AKSlider.swift */; };
-		C468CD6D2481E71C00456291 /* AKLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD392481E70000456291 /* AKLiveViewController.swift */; };
 		C468CD6E2481E71C00456291 /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD3A2481E70000456291 /* AKKeyboardView.swift */; };
 		C468CD6F2481E71C00456291 /* AKTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD3B2481E70000456291 /* AKTableView.swift */; };
 		C468CD702481E71C00456291 /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD3C2481E70000456291 /* AKPlaygroundLoop.swift */; };
@@ -4031,7 +4030,6 @@
 		C468CD362481E70000456291 /* AKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C468CD372481E70000456291 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		C468CD382481E70000456291 /* AKSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
-		C468CD392481E70000456291 /* AKLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKLiveViewController.swift; sourceTree = "<group>"; };
 		C468CD3A2481E70000456291 /* AKKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C468CD3B2481E70000456291 /* AKTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTableView.swift; sourceTree = "<group>"; };
 		C468CD3C2481E70000456291 /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
@@ -6574,7 +6572,6 @@
 				C468CD362481E70000456291 /* AKButton.swift */,
 				C468CD372481E70000456291 /* AKRotaryKnob.swift */,
 				C468CD382481E70000456291 /* AKSlider.swift */,
-				C468CD392481E70000456291 /* AKLiveViewController.swift */,
 				C468CD3A2481E70000456291 /* AKKeyboardView.swift */,
 				C468CD3B2481E70000456291 /* AKTableView.swift */,
 				C468CD3C2481E70000456291 /* AKPlaygroundLoop.swift */,
@@ -11828,7 +11825,6 @@
 				C468CD6C2481E71C00456291 /* AKSlider.swift in Sources */,
 				C468CD682481E71C00456291 /* AKPresetLoaderView.swift in Sources */,
 				C468CD6A2481E71C00456291 /* AKButton.swift in Sources */,
-				C468CD6D2481E71C00456291 /* AKLiveViewController.swift in Sources */,
 				C468CD752481E71C00456291 /* AKMIDIPlaygroundView.swift in Sources */,
 				C468CD732481E71C00456291 /* AKPropertyControl.swift in Sources */,
 				C468CD702481E71C00456291 /* AKPlaygroundLoop.swift in Sources */,
