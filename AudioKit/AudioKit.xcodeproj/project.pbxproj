@@ -4038,6 +4038,7 @@
 		C468CD3F2481E70000456291 /* AKPropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPropertyControl.swift; sourceTree = "<group>"; };
 		C468CD402481E70000456291 /* AKADSRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C468CD412481E70000456291 /* AKMIDIPlaygroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIPlaygroundView.swift; sourceTree = "<group>"; };
+		C468CD762481F27100456291 /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dev.playground; sourceTree = "<group>"; };
 		C468D0611E9CD4B3005FACFA /* AKPeriodicFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPeriodicFunction.swift; sourceTree = "<group>"; };
 		C46960171C0F8C3900A65FBF /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
 		C46B27A12029A2E000EC0E87 /* AKPhaserDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaserDSP.mm; sourceTree = "<group>"; };
@@ -4799,7 +4800,6 @@
 		EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		EAF2998F24811C3E00C3804E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = "Dev Playgrounds/macOS/Dev.playground"; sourceTree = SOURCE_ROOT; };
 		EAF299F424812BAE00C3804E /* AKSpeechSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
@@ -5532,8 +5532,8 @@
 		C42F34F61C057E03000E937C = {
 			isa = PBXGroup;
 			children = (
+				C468CD762481F27100456291 /* Dev.playground */,
 				C42F35021C057E03000E937C /* AudioKit */,
-				EAF2998C24811BCC00C3804E /* Dev Playgrounds */,
 				C42F35011C057E03000E937C /* Products */,
 				EA7D070B1F4E63EB00707706 /* Frameworks */,
 			);
@@ -7801,22 +7801,6 @@
 				EAC4FC031F56A4E3003B692B /* UIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EAF2998C24811BCC00C3804E /* Dev Playgrounds */ = {
-			isa = PBXGroup;
-			children = (
-				EAF2998E24811C1100C3804E /* macOS */,
-			);
-			path = "Dev Playgrounds";
-			sourceTree = "<group>";
-		};
-		EAF2998E24811C1100C3804E /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				EAF2998F24811C3E00C3804E /* Dev.playground */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 		EAF299F324812BAE00C3804E /* Speech Synthesizer */ = {

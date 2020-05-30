@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EAA628A3247F3A5B00BF4CDB"
-               BuildableName = "AudioKit-tvOS.framework"
+               BuildableName = "AudioKit.framework"
                BlueprintName = "AudioKit-tvOS"
-               ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
+               ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,15 +47,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EAA628A3247F3A5B00BF4CDB"
-            BuildableName = "AudioKit-tvOS.framework"
-            BlueprintName = "AudioKit-tvOS"
-            ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
