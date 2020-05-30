@@ -72,6 +72,18 @@ open class AKNodeParameter {
         set { value = newValue ? 1.0 : 0.0 }
     }
 
+    public var minValue: AUValue {
+        parameter?.minValue ?? 0
+    }
+
+    public var maxValue: AUValue {
+        parameter?.maxValue ?? 1
+    }
+
+    public var range: ClosedRange<AUValue> {
+        (parameter?.minValue ?? 0) ... (parameter?.maxValue ?? 1)
+    }
+
     public var rampDuration: Float = Float(AKSettings.rampDuration) {
         didSet {
             guard let dsp = dsp, let addr = parameter?.address else { return }
