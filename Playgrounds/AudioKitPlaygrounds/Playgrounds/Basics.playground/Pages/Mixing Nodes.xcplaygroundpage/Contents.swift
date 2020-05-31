@@ -7,104 +7,117 @@
 //: feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import AudioKitPlaygrounds
 import AudioKit
-//: This section prepares the players
-let drumFile = try AKAudioFile(readFileName: "drumloop.wav")
-let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
-let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav")
-let leadFile = try AKAudioFile(readFileName: "leadloop.wav")
 
-var drums = AKPlayer(audioFile: drumFile)
-var bass = AKPlayer(audioFile: bassFile)
-var guitar = AKPlayer(audioFile: guitarFile)
-var lead = AKPlayer(audioFile: leadFile)
+class Conductor: ObservableObject {
 
-drums.isLooping = true
-drums.buffering = .always
-bass.isLooping = true
-bass.buffering = .always
-guitar.isLooping = true
-guitar.buffering = .always
-lead.isLooping = true
-lead.buffering = .always
+    var drums: AKPlayer
+    var bass: AKPlayer
+    var guitar: AKPlayer
+    var lead: AKPlayer
+    var mixer: AKMixer
+    var booster: AKBooster
 
-//: Any number of inputs can be summed into one output
-let mixer = AKMixer(drums, bass, guitar, lead)
-let booster = AKBooster(mixer)
-AKManager.output = booster
-try AKManager.start()
+    init() {
 
-drums.play()
-bass.play()
-guitar.play()
-lead.play()
+        let drumFile = try! AKAudioFile(readFileName: "drumloop.wav")
+        let bassFile = try! AKAudioFile(readFileName: "bassloop.wav")
+        let guitarFile = try! AKAudioFile(readFileName: "guitarloop.wav")
+        let leadFile = try! AKAudioFile(readFileName: "leadloop.wav")
 
-//: Adjust the individual track volumes here
-drums.volume = 0.9
-bass.volume = 0.9
-guitar.volume = 0.6
-lead.volume = 0.7
+        drums = AKPlayer(audioFile: drumFile)
+        bass = AKPlayer(audioFile: bassFile)
+        guitar = AKPlayer(audioFile: guitarFile)
+        lead = AKPlayer(audioFile: leadFile)
 
-drums.pan = 0.0
-bass.pan = 0.0
-guitar.pan = 0.2
-lead.pan   = -0.2
+        mixer = AKMixer(drums, bass, guitar, lead)
+        booster = AKBooster(mixer)
 
-//: User Interface Set up
-import AudioKitUI
+        drums.isLooping = true
+        drums.buffering = .always
+        bass.isLooping = true
+        bass.buffering = .always
+        guitar.isLooping = true
+        guitar.buffering = .always
+        lead.isLooping = true
+        lead.buffering = .always
 
-class LiveView: AKLiveViewController {
+        drums.volume = 0.9
+        bass.volume = 0.9
+        guitar.volume = 0.6
+        lead.volume = 0.7
 
-    override func viewDidLoad() {
-        addTitle("Mixer")
+        drums.pan = 0.0
+        bass.pan = 0.0
+        guitar.pan = 0.2
+        lead.pan   = -0.2
+    }
 
-        addView(AKButton(title: "Stop All") { button in
-            drums.isPlaying  ? drums.stop()  : drums.play()
-            bass.isPlaying   ? bass.stop()   : bass.play()
-            guitar.isPlaying ? guitar.stop() : guitar.play()
-            lead.isPlaying   ? lead.stop()   : lead.play()
+    func start() {
+        AKManager.output = booster
+        try! AKManager.start()
+    }
 
-            if drums.isPlaying {
-                button.title = "Stop All"
-            } else {
-                button.title = "Start All"
-            }
-        })
+    func play() {
+        drums.play()
+        bass.play()
+        guitar.play()
+        lead.play()
+    }
 
-        addView(AKSlider(property: "Drums Volume", value: drums.volume) { sliderValue in
-            drums.volume = sliderValue
-        })
-        addView(AKSlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
-            drums.pan = sliderValue
-        })
-
-        addView(AKSlider(property: "Bass Volume", value: bass.volume) { sliderValue in
-            bass.volume = sliderValue
-        })
-        addView(AKSlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
-            bass.pan = sliderValue
-        })
-
-        addView(AKSlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
-            guitar.volume = sliderValue
-        })
-        addView(AKSlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
-            guitar.pan = sliderValue
-        })
-
-        addView(AKSlider(property: "Lead Volume", value: lead.volume) { sliderValue in
-            lead.volume = sliderValue
-        })
-        addView(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
-            lead.pan = sliderValue
-        })
-
-        addView(AKSlider(property: "Overall Volume", value: booster.gain, range: 0 ... 2) { sliderValue in
-            booster.gain = sliderValue
-        })
+    func stop() {
+        drums.stop()
+        bass.stop()
+        guitar.stop()
+        lead.stop()
     }
 }
 
+import Cocoa
 import PlaygroundSupport
+import SwiftUI
+
+let conductor = Conductor()
+let view = NSHostingView(rootView: ContentView().environmentObject(conductor))
+PlaygroundPage.current.liveView = view
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = LiveView()
+
+// Make a SwiftUI view
+struct ContentView: View {
+    @EnvironmentObject var conductor: Conductor
+    var body: some View {
+        VStack {
+            Text("Mixing Nodes").font(.title)
+            Divider()
+
+            HStack {
+                Button(action: { self.conductor.play() }) {
+                    Text("Play")
+                }
+                Button(action: { self.conductor.stop() }) {
+                    Text("Stop")
+                }
+            }
+            Divider()
+
+            Text("Volume").font(.headline)
+            VStack {
+                Slider(value: $conductor.drums.volume,  label: { Text("Drums") .frame(width: 100) } )
+                Slider(value: $conductor.bass.volume,   label: { Text("Bass")  .frame(width: 100) } )
+                Slider(value: $conductor.guitar.volume, label: { Text("Guitar").frame(width: 100) } )
+                Slider(value: $conductor.lead.volume,   label: { Text("Lead")  .frame(width: 100) } )
+                Slider(value: $conductor.booster.gain,  label: { Text("All")   .frame(width: 100) } )
+            }
+            Divider()
+            Text("Pan").font(.headline)
+            VStack {
+                Slider(value: $conductor.drums.pan, in: -1...1, label: { Text("Drums").frame(width: 100) } )
+                Slider(value: $conductor.bass.pan,  in: -1...1, label: { Text("Bass") .frame(width: 100) } )
+                Slider(value: $conductor.guitar.pan, in: -1...1, label: { Text("Guitar").frame(width: 100) } )
+                Slider(value: $conductor.lead.pan, in: -1...1, label: { Text("Lead").frame(width: 100) } )
+            }
+
+            }.frame(width: 300).onAppear(perform: { self.conductor.start() })
+    }
+}
+
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
