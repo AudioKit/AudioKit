@@ -7,7 +7,7 @@ import AudioKit
 import AudioKitUI
 
 var oscillator = AKFMOscillator()
-oscillator.amplitude = 0.1
+oscillator.amplitude.value = 0.1
 oscillator.rampDuration = 0.1
 AKManager.output = oscillator
 try AKManager.start()
