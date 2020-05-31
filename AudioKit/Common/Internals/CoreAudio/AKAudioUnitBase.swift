@@ -137,11 +137,13 @@ open class AKAudioUnitBase: AUAudioUnit {
     }
 
     public func start() {
+        shouldBypassEffect = false
         isStarted = true
         startDSP(dsp)
     }
 
     public func stop() {
+        shouldBypassEffect = true
         isStarted = false
         stopDSP(dsp)
     }
