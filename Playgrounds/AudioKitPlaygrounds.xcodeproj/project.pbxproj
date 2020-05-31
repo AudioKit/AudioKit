@@ -3,16 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46F73242294A3C80081A2A0 /* AudioKitUI.framework */; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
 		C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */; };
-		DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */; };
+		C49F577D2480D6E9002E32E2 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49F577C2480D6E9002E32E2 /* AudioKit.xcframework */; };
+		C49F577F2480D982002E32E2 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49F577E2480D982002E32E2 /* AudioKitUI.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,9 +32,10 @@
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46F73242294A3C80081A2A0 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundUgens.swift; sourceTree = "<group>"; };
 		C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneView.swift; sourceTree = "<group>"; };
+		C49F577C2480D6E9002E32E2 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		C49F577E2480D982002E32E2 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 		C4F1DB441E94F5ED000D5022 /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C4F1DB451E94F5ED000D5022 /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Basics.playground; sourceTree = "<group>"; };
 		C4F1DB461E94F5ED000D5022 /* Effects.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Effects.playground; sourceTree = "<group>"; };
@@ -42,7 +43,6 @@
 		C4F1DB481E94F5ED000D5022 /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playback.playground; sourceTree = "<group>"; };
 		C4F1DB491E94F5ED000D5022 /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
 		DC8194AA1F66D42E00F55FF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../Frameworks/build/Release-iphonesimulator/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */,
-				DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */,
+				C49F577D2480D6E9002E32E2 /* AudioKit.xcframework in Frameworks */,
+				C49F577F2480D982002E32E2 /* AudioKitUI.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +105,8 @@
 		DC8194A91F66D42E00F55FF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C46F73242294A3C80081A2A0 /* AudioKitUI.framework */,
-				DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */,
+				C49F577E2480D982002E32E2 /* AudioKitUI.xcframework */,
+				C49F577C2480D6E9002E32E2 /* AudioKit.xcframework */,
 				DC8194AA1F66D42E00F55FF6 /* AVKit.framework */,
 			);
 			name = Frameworks;
