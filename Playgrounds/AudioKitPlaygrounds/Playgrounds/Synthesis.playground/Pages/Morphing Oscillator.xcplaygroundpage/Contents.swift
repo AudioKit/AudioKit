@@ -8,9 +8,9 @@ var morph = AKMorphingOscillator(waveformArray: [AKTable(.sine),
                                                  AKTable(.triangle),
                                                  AKTable(.sawtooth),
                                                  AKTable(.square)])
-morph.frequency = 400
-morph.amplitude = 0.1
-morph.index = 0.8
+morph.frequency.value = 400
+morph.amplitude.value = 0.1
+morph.index.value = 0.8
 
 AKManager.output = morph
 try AKManager.start()
@@ -32,21 +32,21 @@ class LiveView: AKLiveViewController {
         })
 
         addView(AKSlider(property: "Frequency",
-                         value: morph.frequency,
+                         value: morph.frequency.value,
                          range: 220 ... 880,
                          format: "%0.2f Hz"
         ) { frequency in
-            morph.frequency = frequency
+            morph.frequency.value = frequency
         })
 
-        addView(AKSlider(property: "Amplitude", value: morph.amplitude) { amplitude in
-            morph.amplitude = amplitude
+        addView(AKSlider(property: "Amplitude", value: morph.amplitude.value) { amplitude in
+            morph.amplitude.value = amplitude
         })
 
         addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
 
-        addView(AKSlider(property: "Morph Index", value: morph.index, range: 0 ... 3) { index in
-            morph.index = index
+        addView(AKSlider(property: "Morph Index", value: morph.index.value, range: 0 ... 3) { index in
+            morph.index.value = index
         })
 
         addView(AKOutputWaveformPlot.createView(width: 440, height: 400))

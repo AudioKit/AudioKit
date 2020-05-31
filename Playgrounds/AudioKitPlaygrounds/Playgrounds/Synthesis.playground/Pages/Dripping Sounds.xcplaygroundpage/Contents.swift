@@ -8,7 +8,7 @@ import AudioKitUI
 var playRate = 2.0
 
 let drip = AKDrip(intensity: 1)
-drip.intensity = 100
+drip.intensity.value = 100
 
 let reverb = AKReverb(drip)
 
@@ -26,36 +26,36 @@ class LiveView: AKLiveViewController {
 
         addTitle("Dripping Sounds")
 
-        addView(AKSlider(property: "Intensity", value: drip.intensity, range: 0 ... 300) { sliderValue in
-            drip.intensity = sliderValue
+        addView(AKSlider(property: "Intensity", value: drip.intensity.value, range: 0 ... 300) { sliderValue in
+            drip.intensity.value = sliderValue
         })
 
-        addView(AKSlider(property: "Damping Factor", value: drip.dampingFactor, range: 0 ... 2) { sliderValue in
-            drip.dampingFactor = sliderValue
+        addView(AKSlider(property: "Damping Factor", value: drip.dampingFactor.value, range: 0 ... 2) { sliderValue in
+            drip.dampingFactor.value = sliderValue
         })
-        addView(AKSlider(property: "Energy Return", value: drip.energyReturn, range: 0 ... 5) { sliderValue in
-            drip.energyReturn = sliderValue
+        addView(AKSlider(property: "Energy Return", value: drip.energyReturn.value, range: 0 ... 5) { sliderValue in
+            drip.energyReturn.value = sliderValue
         })
         addView(AKSlider(property: "Main Resonant Frequency",
-                         value: drip.mainResonantFrequency,
+                         value: drip.mainResonantFrequency.value,
                          range: 0 ... 800,
                          format: "%0.1f Hz"
         ) { sliderValue in
-            drip.mainResonantFrequency = sliderValue
+            drip.mainResonantFrequency.value = sliderValue
         })
         addView(AKSlider(property: "1st Resonant Frequency",
-                         value: drip.firstResonantFrequency,
+                         value: drip.firstResonantFrequency.value,
                          range: 0 ... 800,
                          format: "%0.1f Hz"
         ) { sliderValue in
-            drip.firstResonantFrequency = sliderValue
+            drip.firstResonantFrequency.value = sliderValue
         })
         addView(AKSlider(property: "2nd Resonant Frequency",
-                         value: drip.secondResonantFrequency,
+                         value: drip.secondResonantFrequency.value,
                          range: 0 ... 800,
                          format: "%0.1f Hz"
         ) { sliderValue in
-            drip.secondResonantFrequency = sliderValue
+            drip.secondResonantFrequency.value = sliderValue
         })
     }
 
