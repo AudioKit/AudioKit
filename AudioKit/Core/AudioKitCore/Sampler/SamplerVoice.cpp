@@ -17,6 +17,7 @@ namespace AudioKitCore
         pitchEnvelope.init();
         vibratoLFO.waveTable.sinusoid();
         vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
+        restartVoiceLFO = false;
         volumeRamper.init(0.0f);
         tempGain = 0.0f;
     }
@@ -53,6 +54,8 @@ namespace AudioKitCore
         }
         noteFrequency = frequency;
         noteNumber = note;
+
+        restartVoiceLFOIfNeeded();
     }
     
     void SamplerVoice::restartNewNote(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
@@ -82,7 +85,7 @@ namespace AudioKitCore
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
-        vibratoLFO.phase = 0;
+        restartVoiceLFOIfNeeded();
     }
 
     void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
@@ -111,7 +114,7 @@ namespace AudioKitCore
         noteVolume = volume;
         filterEnvelope.restart();
         pitchEnvelope.restart();
-        vibratoLFO.phase = 0;
+        restartVoiceLFOIfNeeded();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
@@ -129,7 +132,6 @@ namespace AudioKitCore
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
         pitchEnvelope.reset();
-        vibratoLFO.phase = 0;
     }
 
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
@@ -227,6 +229,14 @@ namespace AudioKitCore
             }
         }
         return false;
+    }
+
+    void SamplerVoice::restartVoiceLFOIfNeeded() {
+        if (restartVoiceLFO || !hasStartedVoiceLFO) {
+            vibratoLFO.phase = 0;
+            hasStartedVoiceLFO = true;
+            printf("restarting lfo\n");
+        }
     }
 
 }

@@ -62,6 +62,8 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
 
     var isLegato: AUParameter!
 
+    var restartVoiceLFO: AUParameter!
+
     var keyTrackingFraction: AUParameter!
 
     var filterEnvelopeVelocityScaling: AUParameter!
@@ -287,6 +289,16 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
 
         parameterAddress += 1
 
+        restartVoiceLFO = AUParameter(
+            identifier: "restartVoiceLFO",
+            name: "Restart Voice LFO",
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         pitchAttackDuration = AUParameter(
             identifier: "pitchAttackDuration",
             name: "Pitch Attack duration (seconds)",
@@ -449,6 +461,7 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
         loopThruRelease.value = 0.0
         isMonophonic.value = 0.0
         isLegato.value = 0.0
+        restartVoiceLFO.value = 0.0
         keyTrackingFraction.value = 1.0
         filterEnvelopeVelocityScaling.value = 0.0
     }
