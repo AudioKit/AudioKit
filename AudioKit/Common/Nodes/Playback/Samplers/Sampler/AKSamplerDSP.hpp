@@ -30,6 +30,7 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterSustainLevel,
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
+    AKSamplerParameterRestartVoiceLFO,
     AKSamplerParameterPitchAttackDuration,
     AKSamplerParameterPitchDecayDuration,
     AKSamplerParameterPitchSustainLevel,

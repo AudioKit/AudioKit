@@ -34,6 +34,9 @@ namespace AudioKitCore
         // per-voice vibrato LFO
         FunctionTableOscillator vibratoLFO;
 
+        // restart phase of per-voice vibrato LFO
+        bool restartVoiceLFO;
+
         /// common glide rate, seconds per octave
         float *glideSecPerOctave;
 
@@ -105,6 +108,10 @@ namespace AudioKitCore
                               float voiceLFODepthSemitones);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
+
+    private:
+        bool hasStartedVoiceLFO;
+        void restartVoiceLFOIfNeeded();
     };
 
 }

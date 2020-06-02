@@ -219,6 +219,10 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             pitchADSRSemitonesRamp.setTarget(value, immediate);
             break;
 
+        case AKSamplerParameterRestartVoiceLFO:
+            restartVoiceLFO = value > 0.5f;
+            break;
+
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
             break;
@@ -300,6 +304,8 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return getPitchReleaseDurationSeconds();
         case AKSamplerParameterPitchADSRSemitones:
             return pitchADSRSemitonesRamp.getTarget();
+        case AKSamplerParameterRestartVoiceLFO:
+            return restartVoiceLFO ? 1.0f : 0.0f;
 
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
