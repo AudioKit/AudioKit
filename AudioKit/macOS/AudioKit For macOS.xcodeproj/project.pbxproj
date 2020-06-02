@@ -1207,6 +1207,8 @@
 		FEB3AB4222DFF8530080A5CB /* AKSequencerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB3D22DFF8520080A5CB /* AKSequencerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEB3AB4322DFF8530080A5CB /* AKSequencerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB3E22DFF8520080A5CB /* AKSequencerTrack.swift */; };
 		FEB3AB4422DFF8530080A5CB /* AKSequencerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB3F22DFF8520080A5CB /* AKSequencerDSPKernel.hpp */; };
+		FECD6B29247C730D0066432E /* AHDSHREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FECD6B27247C730D0066432E /* AHDSHREnvelope.hpp */; };
+		FECD6B2A247C730D0066432E /* AHDSHREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECD6B28247C730D0066432E /* AHDSHREnvelope.cpp */; };
 		FEF991AB21E9114A00F8CAD3 /* MIDI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */; };
 		FEF991AF21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AE21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift */; };
 /* End PBXBuildFile section */
@@ -2491,6 +2493,8 @@
 		FEB3AB3D22DFF8520080A5CB /* AKSequencerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequencerEngine.h; sourceTree = "<group>"; };
 		FEB3AB3E22DFF8520080A5CB /* AKSequencerTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrack.swift; sourceTree = "<group>"; };
 		FEB3AB3F22DFF8520080A5CB /* AKSequencerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSequencerDSPKernel.hpp; sourceTree = "<group>"; };
+		FECD6B27247C730D0066432E /* AHDSHREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AHDSHREnvelope.hpp; sourceTree = "<group>"; };
+		FECD6B28247C730D0066432E /* AHDSHREnvelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AHDSHREnvelope.cpp; sourceTree = "<group>"; };
 		FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDI+Extensions.swift"; sourceTree = "<group>"; };
 		FEF991AE21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMetaEventType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2525,6 +2529,8 @@
 				EAB403D12258A9D400EB0A24 /* EnvelopeGeneratorBase.hpp */,
 				3404A76F204F879500A2C9E4 /* ADSREnvelope.cpp */,
 				EAB403D02258A9D400EB0A24 /* ADSREnvelope.hpp */,
+				FECD6B28247C730D0066432E /* AHDSHREnvelope.cpp */,
+				FECD6B27247C730D0066432E /* AHDSHREnvelope.hpp */,
 				3404A772204F879600A2C9E4 /* ResonantLowPassFilter.hpp */,
 				3404A771204F879500A2C9E4 /* ResonantLowPassFilter.cpp */,
 				3404A76A204F879300A2C9E4 /* SustainPedalLogic.hpp */,
@@ -5587,6 +5593,7 @@
 				C49B18A7204A0AD1009C7C8E /* FFTReal.hpp in Headers */,
 				C45666B11D448D7E00D26565 /* EZAudioDevice.h in Headers */,
 				34F5A350205EC31000290001 /* AKModulatedDelay_Typedefs.h in Headers */,
+				FECD6B29247C730D0066432E /* AHDSHREnvelope.hpp in Headers */,
 				C4077BD420096CA700E5923C /* AKCombFilterReverbDSP.hpp in Headers */,
 				C49B1B0A204A0C48009C7C8E /* Granulate.h in Headers */,
 				C4077BCE2009573F00E5923C /* AKVariableDelayDSP.hpp in Headers */,
@@ -5935,7 +5942,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -6805,6 +6812,7 @@
 				C4077A9C2008219A00E5923C /* AKHighShelfParametricEqualizerFilterAudioUnit.swift in Sources */,
 				C49B1921204A0AD1009C7C8E /* count.c in Sources */,
 				C4A43288200616560005BFE4 /* AKCostelloReverbAudioUnit.swift in Sources */,
+				FECD6B2A247C730D0066432E /* AHDSHREnvelope.cpp in Sources */,
 				C49B1945204A0AD1009C7C8E /* nsmp.c in Sources */,
 				C4077AD72008726600E5923C /* AKKorgLowPassFilterAudioUnit.swift in Sources */,
 				C49B1B50204A0C48009C7C8E /* Envelope.cpp in Sources */,
@@ -6878,7 +6886,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -6941,7 +6949,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -6998,6 +7006,7 @@
 		C42F36D51C0582E6000E937C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -7017,7 +7026,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7030,6 +7039,7 @@
 		C42F36D61C0582E6000E937C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -7047,7 +7057,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7059,6 +7069,7 @@
 		EAFECEC21F4EBBFE00A2B046 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7078,7 +7089,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7090,6 +7101,7 @@
 		EAFECEC31F4EBBFE00A2B046 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUDIOKIT_VERSION = 4.10;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7108,7 +7120,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7119,7 +7131,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
