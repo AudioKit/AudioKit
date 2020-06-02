@@ -2,7 +2,7 @@
 
 /// Open-source AudioKit Sequencer
 ///
-/// If your code used to use AKSequencer, as of AudioKit 4.8 you probably want AKAppleSequencer
+/// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AKAppleSequencer"
 open class AKSequencer {
 
     /// Array of sequencer tracks
