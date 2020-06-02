@@ -122,6 +122,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.pitchADSRSemitones, value: pitchADSRSemitones) }
     }
 
+    var restartVoiceLFO: Double = 0.0 {
+        didSet { setParameter(.restartVoiceLFO, value: restartVoiceLFO) }
+    }
+
     var filterEnable: Double = 0.0 {
         didSet { setParameter(.filterEnable, value: filterEnable) }
     }
@@ -368,6 +372,16 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
+        let restartVoiceLFOParameter = AUParameter(
+            identifier: "restartVoiceLFO",
+            name: "Restart Voice LFO",
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
+
+        parameterAddress += 1
+
         let pitchAttackDurationParameter = AUParameter(
             identifier: "pitchAttackDuration",
             name: "Pitch Attack duration (seconds)",
@@ -487,6 +501,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterSustainLevelParameter,
                                                                    filterReleaseDurationParameter,
                                                                    filterEnableParameter,
+                                                                   restartVoiceLFOParameter,
                                                                    pitchAttackDurationParameter,
                                                                    pitchDecayDurationParameter,
                                                                    pitchSustainLevelParameter,
@@ -518,6 +533,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterSustainLevelParameter.value = 1.0
         filterReleaseDurationParameter.value = 0.0
         filterEnableParameter.value = 0.0
+        restartVoiceLFOParameter.value = 0.0
         pitchAttackDurationParameter.value = 0.0
         pitchDecayDurationParameter.value = 0.0
         pitchSustainLevelParameter.value = 0.0
