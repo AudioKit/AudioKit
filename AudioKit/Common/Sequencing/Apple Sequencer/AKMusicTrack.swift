@@ -89,9 +89,11 @@ open class AKMusicTrack {
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
 
-        for i in 0 ..< data.count {
-            metaEvent.data = data[i]
-        }
+        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
+            for idx in 0 ..< data.count {
+                pointer[idx] = data[idx]
+            }
+        })
 
         let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
