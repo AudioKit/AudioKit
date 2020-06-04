@@ -47,6 +47,7 @@
     fileprivate var pitchADSRSemitonesParameter: AUParameter?
 
     fileprivate var filterEnableParameter: AUParameter?
+    fileprivate var restartVoiceLFOParameter: AUParameter?
     fileprivate var loopThruReleaseParameter: AUParameter?
     fileprivate var monophonicParameter: AUParameter?
     fileprivate var legatoParameter: AUParameter?
@@ -320,6 +321,14 @@
         }
     }
 
+    /// Voice LFO restart (boolean, 0.0 for false or 1.0 for true) - resets the phase of each voice lfo on keydown
+    @objc open dynamic var restartVoiceLFO: Bool = false {
+        willSet {
+            guard restartVoiceLFO != newValue else { return }
+            internalAU?.restartVoiceLFO = newValue ? 1.0 : 0.0
+        }
+    }
+
     /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var filterEnable: Bool = false {
         willSet {
@@ -388,6 +397,7 @@
     ///   - sustainLevel: 0.0 - 1.0
     ///   - releaseHoldDuration: seconds, 0.0 - 10.0
     ///   - releaseDuration: seconds, 0.0 - 10.0
+    ///   - restartVoiceLFO: true to reset each voice vibrato lfo on noteOn
     ///   - filterEnable: true to enable per-voice filters
     ///   - filterAttackDuration: seconds, 0.0 - 10.0
     ///   - filterDecayDuration: seconds, 0.0 - 10.0
@@ -421,6 +431,7 @@
         sustainLevel: Double = 1.0,
         releaseHoldDuration: Double = 0.0,
         releaseDuration: Double = 0.0,
+        restartVoiceLFO: Bool = false,
         filterEnable: Bool = false,
         filterAttackDuration: Double = 0.0,
         filterDecayDuration: Double = 0.0,
@@ -453,6 +464,7 @@
         self.sustainLevel = sustainLevel
         self.releaseHoldDuration = releaseHoldDuration
         self.releaseDuration = releaseDuration
+        self.restartVoiceLFO = restartVoiceLFO
         self.filterEnable = filterEnable
         self.filterAttackDuration = filterAttackDuration
         self.filterDecayDuration = filterDecayDuration
@@ -508,6 +520,7 @@
         self.filterDecayDurationParameter = tree["filterDecayDuration"]
         self.filterSustainLevelParameter = tree["filterSustainLevel"]
         self.filterReleaseDurationParameter = tree["filterReleaseDuration"]
+        self.restartVoiceLFOParameter = tree["restartVoiceLFO"]
         self.filterEnableParameter = tree["filterEnable"]
         self.pitchAttackDurationParameter = tree["pitchAttackDuration"]
         self.pitchDecayDurationParameter = tree["pitchDecayDuration"]
@@ -541,6 +554,7 @@
         self.internalAU?.setParameterImmediately(.filterSustainLevel, value: filterSustainLevel)
         self.internalAU?.setParameterImmediately(.filterReleaseDuration, value: filterReleaseDuration)
         self.internalAU?.setParameterImmediately(.filterEnable, value: filterEnable ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.restartVoiceLFO, value: restartVoiceLFO ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.pitchAttackDuration, value: pitchAttackDuration)
         self.internalAU?.setParameterImmediately(.pitchDecayDuration, value: pitchDecayDuration)
         self.internalAU?.setParameterImmediately(.pitchSustainLevel, value: pitchSustainLevel)

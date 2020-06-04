@@ -50,6 +50,7 @@ AKCoreSampler::AKCoreSampler()
 : currentSampleRate(44100.0f)    // sensible guess
 , isKeyMapValid(false)
 , isFilterEnabled(false)
+, restartVoiceLFO(false)
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
 , vibratoDepth(0.0f)
@@ -421,6 +422,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
     AudioKitCore::SamplerVoice *pVoice = &data->voice[0];
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
     {
+        pVoice->restartVoiceLFO = restartVoiceLFO;
         int nn = pVoice->noteNumber;
         if (nn >= 0)
         {
