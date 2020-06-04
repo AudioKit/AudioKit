@@ -108,7 +108,7 @@ protected:
     bool isKeyMapValid;
     
     // simple parameters
-    bool isFilterEnabled;
+    bool isFilterEnabled, restartVoiceLFO;
     
     // performance parameters
     float masterVolume, pitchOffset, vibratoDepth, vibratoFrequency,
