@@ -122,13 +122,13 @@ void scheduleAutomation(AUAudioUnit *au, AUEventSampleTime time, const Automatio
 
                if (point.automation.sampleTime == AUEventSampleTimeImmediate || point.automation.sampleTime < sampleTimeWithOffset) {
                    scheduleAutomation(welf->auAudioUnit, AUEventSampleTimeImmediate, &point);
-                   automationPoints[p].automation.triggered = true;
+                   welf->automationPoints[p].automation.triggered = true;
                    continue;
                }
 
                if (sampleTimeWithOffset == point.automation.sampleTime) {
                    scheduleAutomation(welf->auAudioUnit, AUEventSampleTimeImmediate + n, &point);
-                   automationPoints[p].automation.triggered = true;
+                   welf->automationPoints[p].automation.triggered = true;
                }
            }
        }
