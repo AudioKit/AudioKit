@@ -238,8 +238,6 @@ extension AVAudioPCMBuffer {
             fadeOutPower = exp(-log(25) * sampleTime / outTime)
         }
 
-        // TODO: .logarithmic
-
         // where in the buffer to end the fade in
         let fadeInSamples = Int(sampleRate * inTime)
         // where in the buffer to start the fade out
