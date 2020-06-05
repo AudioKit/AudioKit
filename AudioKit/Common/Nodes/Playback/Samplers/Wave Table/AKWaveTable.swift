@@ -112,15 +112,15 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Position in the audio file from 0 - 1
-    open var normalizedPosition: Double {
+    open var normalizedPosition: AUValue {
         guard let internalAU = internalAU else { return 0 }
-        return Double(internalAU.position())
+        return internalAU.position()
     }
 
     /// Position in the audio in samples, but represented as a double since
     /// you could conceivably be at a non-integer sample
-    open var position: Double {
-        return normalizedPosition * Double(size)
+    open var position: AUValue {
+        return normalizedPosition * AUValue(size)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
