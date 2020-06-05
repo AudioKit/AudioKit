@@ -206,7 +206,8 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBendParameter = tree["pitchBend"]
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
-        internalAU?.index = Float(index)
+
+        internalAU?.index = index
 
         internalAU?.attackDuration = attackDuration
         internalAU?.decayDuration = decayDuration
