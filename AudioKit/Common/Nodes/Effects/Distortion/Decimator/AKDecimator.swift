@@ -9,10 +9,10 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
     private var au: AUWrapper
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var decimation: Double = 0.5 {
+    @objc open dynamic var decimation: AUValue = 0.5 {
         didSet {
             decimation = (0...1).clamp(decimation)
             au[kDistortionParam_Decimation] = decimation * 100
@@ -20,7 +20,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
-    @objc open dynamic var rounding: Double = 0 {
+    @objc open dynamic var rounding: AUValue = 0 {
         didSet {
             rounding = (0...1).clamp(rounding)
             au[kDistortionParam_Rounding] = rounding * 100
@@ -28,7 +28,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    @objc open dynamic var mix: Double = 1 {
+    @objc open dynamic var mix: AUValue = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -50,9 +50,9 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        decimation: Double = 0.5,
-        rounding: Double = 0,
-        mix: Double = 1) {
+        decimation: AUValue = 0.5,
+        rounding: AUValue = 0,
+        mix: AUValue = 1) {
 
         self.decimation = decimation
         self.rounding = rounding

@@ -11,7 +11,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
-    @objc open dynamic var cutoffFrequency: Double = 80 {
+    @objc open dynamic var cutoffFrequency: AUValue = 80 {
         didSet {
             cutoffFrequency = (10...200).clamp(cutoffFrequency)
             au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
@@ -19,7 +19,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: AUValue = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kAULowShelfParam_Gain] = gain
@@ -27,15 +27,15 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: Double = 1 {
+    @objc open dynamic var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = AUValue(1 - dryWetMix)
-            effectGain?.volume = AUValue(dryWetMix)
+            inputGain?.volume = 1 - dryWetMix
+            effectGain?.volume = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     var inputMixer = AKMixer()
@@ -57,8 +57,8 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 80,
-        gain: Double = 0) {
+        cutoffFrequency: AUValue = 80,
+        gain: AUValue = 0) {
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain

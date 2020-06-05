@@ -40,9 +40,9 @@ open class AKAppleSampler: AKNode {
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the accoring zone and layer)
     /// but bends the sound up and down like tuning.
-    @objc open dynamic var tuning: Double {
+    @objc open dynamic var tuning: AUValue {
         get {
-            return Double(samplerUnit.globalTuning / 100.0)
+            return AUValue(samplerUnit.globalTuning / 100.0)
         }
         set {
             samplerUnit.globalTuning = Float(newValue * 100.0)
@@ -182,14 +182,14 @@ open class AKAppleSampler: AKNode {
     }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
-    @objc open dynamic var amplitude: Double = 0 {
+    @objc open dynamic var amplitude: AUValue = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
 
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
-    @objc open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: AUValue = 1 {
         didSet {
             let newGain = volume.denormalized(to: -90.0 ... 0.0)
             samplerUnit.masterGain = Float(newGain)
@@ -197,7 +197,7 @@ open class AKAppleSampler: AKNode {
     }
 
     /// Pan. Range: -1 -> 1, Default: 0
-    @objc open dynamic var pan: Double = 0 {
+    @objc open dynamic var pan: AUValue = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }

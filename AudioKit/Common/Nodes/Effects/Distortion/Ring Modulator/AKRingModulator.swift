@@ -9,10 +9,10 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
     private var au: AUWrapper
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
 
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @objc open dynamic var frequency1: Double = 100 {
+    @objc open dynamic var frequency1: AUValue = 100 {
         didSet {
             frequency1 = (0.5...8_000).clamp(frequency1)
             au[kDistortionParam_RingModFreq1] = frequency1
@@ -20,7 +20,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @objc open dynamic var frequency2: Double = 100 {
+    @objc open dynamic var frequency2: AUValue = 100 {
         didSet {
             frequency2 = (0.5...8_000).clamp(frequency2)
             au[kDistortionParam_RingModFreq2] = frequency2
@@ -28,7 +28,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var balance: Double = 0.5 {
+    @objc open dynamic var balance: AUValue = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             au[kDistortionParam_RingModBalance] = balance * 100
@@ -36,7 +36,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    @objc open dynamic var mix: Double = 1 {
+    @objc open dynamic var mix: AUValue = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -59,10 +59,10 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency1: Double = 100,
-        frequency2: Double = 100,
-        balance: Double = 0.5,
-        mix: Double = 1) {
+        frequency1: AUValue = 100,
+        frequency2: AUValue = 100,
+        balance: AUValue = 0.5,
+        mix: AUValue = 1) {
 
         self.frequency1 = frequency1
         self.frequency2 = frequency2
