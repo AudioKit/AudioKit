@@ -73,8 +73,8 @@ open class AKManager: NSObject {
             #if !os(macOS)
             do {
                 try updateSessionCategoryAndOptions()
-                } catch {
-                    AKLog("Could not set session category: \(error)")
+            } catch {
+                AKLog("Could not set session category: \(error)")
             }
             #endif
 
@@ -90,7 +90,6 @@ open class AKManager: NSObject {
             }
             guard let finalMixer = finalMixer else { return }
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: AKSettings.audioFormat)
-
         }
     }
 
@@ -98,7 +97,10 @@ open class AKManager: NSObject {
     /// Enumerate the list of available devices.
     @objc public static var devices: [AKDevice]? {
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.devices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
+        return EZAudioDevice.devices().compactMap {
+            guard let device = $0 as? EZAudioDevice else { return nil }
+            return AKDevice(ezAudioDevice: device)
+        }
     }
     #endif
 
@@ -106,15 +108,20 @@ open class AKManager: NSObject {
     @objc public static var inputDevices: [AKDevice]? {
         #if os(macOS)
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.inputDevices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
+
+        return EZAudioDevice.inputDevices().compactMap {
+            guard let device = $0 as? EZAudioDevice else { return nil }
+            return AKDevice(ezAudioDevice: device)
+        }
         #else
         var returnDevices = [AKDevice]()
         if let devices = AVAudioSession.sharedInstance().availableInputs {
             for device in devices {
-                if device.dataSources == nil || device.dataSources!.isEmpty {
+                if device.dataSources == nil || device.dataSources?.isEmpty == true {
                     returnDevices.append(AKDevice(portDescription: device))
-                } else {
-                    for dataSource in device.dataSources! {
+
+                } else if let dataSources = device.dataSources {
+                    for dataSource in dataSources {
                         returnDevices.append(AKDevice(name: device.portName,
                                                       deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
                     }
@@ -130,7 +137,10 @@ open class AKManager: NSObject {
     @objc public static var outputDevices: [AKDevice]? {
         #if os(macOS)
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.outputDevices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
+        return EZAudioDevice.outputDevices().compactMap {
+            guard let device = $0 as? EZAudioDevice else { return nil }
+            return AKDevice(ezAudioDevice: device)
+        }
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {

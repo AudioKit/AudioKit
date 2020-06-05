@@ -55,7 +55,8 @@ extension AKPlayer {
         // AVAudioFrameCount is unsigned so cast it after the zero check
         frameCount = AVAudioFrameCount(framesToRead)
 
-        guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
+        guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
+                                               frameCapacity: frameCount) else { return }
 
         do {
             audioFile.framePosition = startFrame

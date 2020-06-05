@@ -7,7 +7,6 @@
 //
 
 extension AKAudioFile {
-
     /// Normalize an AKAudioFile to have a peak of newMaxLevel dB.
     ///
     /// - Parameters:
@@ -19,10 +18,9 @@ extension AKAudioFile {
     ///
     public func normalized(baseDir: BaseDirectory = .temp,
                            name: String = UUID().uuidString,
-                           newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
-
+                           newMaxLevel: Float = 0.0) throws -> AKAudioFile {
         let level = self.maxLevel
-        var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
+        var outputFile = try AKAudioFile(writeIn: baseDir, name: name)
 
         if self.samplesCount == 0 {
             AKLog("WARNING AKAudioFile: cannot normalize an empty file")
@@ -34,7 +32,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: outputFile.url)
         }
 
-        let gainFactor = Float( pow(10.0, newMaxLevel / 20.0) / pow(10.0, level / 20.0))
+        let gainFactor = Float(pow(10.0, newMaxLevel / 20.0) / pow(10.0, level / 20.0))
 
         let arrays = self.floatChannelData ?? [[]]
 
@@ -59,8 +57,7 @@ extension AKAudioFile {
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func reversed(baseDir: BaseDirectory = .temp,
-                         name: String = UUID().uuidString ) throws -> AKAudioFile {
-
+                         name: String = UUID().uuidString) throws -> AKAudioFile {
         var outputFile = try AKAudioFile(writeIn: baseDir, name: name)
 
         if self.samplesCount == 0 {
@@ -92,8 +89,7 @@ extension AKAudioFile {
     ///
     public func appendedBy(file: AKAudioFile,
                            baseDir: BaseDirectory = .temp,
-                           name: String = UUID().uuidString) throws -> AKAudioFile {
-
+                           name: String = UUID().uuidString) throws -> AKAudioFile? {
         var sourceBuffer = self.pcmBuffer
         var appendedBuffer = file.pcmBuffer
 
@@ -105,7 +101,9 @@ extension AKAudioFile {
             do {
                 // First, we convert the source file to .CAF using extract()
                 let convertedFile = try self.extracted()
+
                 sourceBuffer = convertedFile.pcmBuffer
+
                 AKLog("AKAudioFile.append: source file has been successfully converted")
 
                 if convertedFile.fileFormat != file.fileFormat {
@@ -113,6 +111,7 @@ extension AKAudioFile {
                         // If still don't match we convert the appended file to .CAF using extract()
                         let convertedAppendFile = try file.extracted()
                         appendedBuffer = convertedAppendFile.pcmBuffer
+
                         AKLog("AKAudioFile.append: appended file has been successfully converted")
                     } catch let error as NSError {
                         AKLog("ERROR AKAudioFile.append: cannot set append file format match source file format")
@@ -126,7 +125,7 @@ extension AKAudioFile {
         }
 
         // We check that both pcm buffers share the same format
-        if appendedBuffer.format != sourceBuffer.format {
+        if appendedBuffer?.format != sourceBuffer?.format {
             AKLog("ERROR AKAudioFile.append: Couldn't match source file format with appended file format")
             let userInfo: [AnyHashable: Any] = [
                 NSLocalizedDescriptionKey: NSLocalizedString(
@@ -138,21 +137,24 @@ extension AKAudioFile {
                     value: "Couldn't match source file format with appended file format",
                     comment: "")
             ]
-            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo as? [String: Any])
+            throw NSError(domain: "AKAudioFile ASync Process Unknown Error",
+                          code: 0, userInfo: userInfo as? [String: Any])
         }
 
-        let outputFile = try AKAudioFile (writeIn: baseDir, name: name)
+        let outputFile = try AKAudioFile(writeIn: baseDir, name: name)
+
+        guard let strongSource = sourceBuffer, let strongAppended = appendedBuffer else { return nil }
 
         // Write the buffer in file
         do {
-            try outputFile.write(from: sourceBuffer)
+            try outputFile.write(from: strongSource)
         } catch let error as NSError {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
 
         do {
-            try outputFile.write(from: appendedBuffer)
+            try outputFile.write(from: strongAppended)
         } catch let error as NSError {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
@@ -175,7 +177,6 @@ extension AKAudioFile {
                           toSample: Int64 = 0,
                           baseDir: BaseDirectory = .temp,
                           name: String = UUID().uuidString) throws -> AKAudioFile {
-
         let fixedFrom = abs(fromSample)
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
