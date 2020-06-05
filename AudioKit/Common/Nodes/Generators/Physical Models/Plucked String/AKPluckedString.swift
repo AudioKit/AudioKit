@@ -86,6 +86,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
         self.frequency.value = frequency
         self.amplitude.value = amplitude
         internalAU?.start()
-        internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
+        internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
 }

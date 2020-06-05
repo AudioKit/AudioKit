@@ -59,9 +59,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
     ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     ///
-    @objc public init(
-        detune: AUValue = 1,
-        bodySize: AUValue = 1) {
+    @objc public init(detune: AUValue = 1, bodySize: AUValue = 1) {
 
         self.detune = detune
         self.bodySize = bodySize
@@ -83,8 +81,8 @@ open class AKMandolin: AKNode, AKComponent {
 
         detuneParameter = tree["detune"]
         bodySizeParameter = tree["bodySize"]
-        internalAU?.detune = Float(detune)
-        internalAU?.bodySize = Float(bodySize)
+        internalAU?.detune = detune
+        internalAU?.bodySize = bodySize
     }
 
     /// Virutally pressing fingers on all the strings of the mandolin
@@ -111,7 +109,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - course:     Which set of strings to press
     ///
     open func fret(noteNumber: MIDINoteNumber, course: Int) {
-        internalAU?.setFrequency(Float(noteNumber.midiNoteToFrequency()), course: Int32(course))
+        internalAU?.setFrequency(noteNumber.midiNoteToFrequency(), course: Int32(course))
     }
 
     /// Pluck an individual course
@@ -122,7 +120,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
     open func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
-        internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
+        internalAU?.pluckCourse(Int32(course), position: position, velocity: Int32(velocity))
     }
 
     /// Strum all strings of the mandolin
