@@ -145,7 +145,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
         volumeParameter = tree["volume"]
 
-        internalAU?.volume = Float(volume)
+        internalAU?.volume = volume
     }
 
     // MARK: - Control

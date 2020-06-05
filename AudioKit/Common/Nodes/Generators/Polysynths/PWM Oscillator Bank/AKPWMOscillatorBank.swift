@@ -196,7 +196,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
                             velocity: MIDIVelocity,
                             frequency: AUValue,
                             channel: MIDIChannel = 0) {
-        internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
+        internalAU?.startNote(noteNumber, velocity: velocity, frequency: frequency)
     }
 
     /// Function to stop or bypass the node, both are equivalent
