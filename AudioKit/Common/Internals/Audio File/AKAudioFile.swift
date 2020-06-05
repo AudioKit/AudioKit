@@ -2,13 +2,12 @@
 
 /// Adding description property
 extension AVAudioCommonFormat: CustomStringConvertible {
-
     /// Text version of the format
     public var description: String {
         switch self {
         case .otherFormat:
             return "OtherFormat"
-        case .pcmFormatFloat32 :
+        case .pcmFormatFloat32:
             return "PCMFormatFloat32"
         case .pcmFormatFloat64:
             return "PCMFormatFloat64"
@@ -24,7 +23,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 
 /// Helpful additions for using AVAudioFiles within AudioKit
 @objc extension AVAudioFile {
-
     // MARK: - Public Properties
 
     /// The number of samples can be accessed by .length property,
@@ -37,6 +35,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     open var sampleRate: Double {
         return fileFormat.sampleRate
     }
+
     /// Number of channels, 1 for mono, 2 for stereo
     open var channelCount: UInt32 {
         return fileFormat.channelCount
@@ -44,7 +43,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 
     /// Duration in seconds
     open var duration: Double {
-        return Double(samplesCount) / (sampleRate)
+        return Double(samplesCount) / sampleRate
     }
 
     /// true if Audio Samples are interleaved
@@ -156,12 +155,10 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             AKLog("Couldn't access Temp Directory " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
     }
-
 }
 
 /// Audio file, inherits from AVAudioFile and adds functionality
 @objc open class AKAudioFile: AVAudioFile {
-
     // MARK: - embedded enums
 
     /// Common places for files
@@ -228,14 +225,16 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     /// - `floatChannelData?[0]` will contain an Array of left channel samples as `Float`
     /// - `floatChannelData?[1]` will contains an Array of right channel samples as `Float`
     open lazy var floatChannelData: FloatChannelData? = {
+        guard let pcmBuffer = self.pcmBuffer else { return nil }
+
         // Do we have PCM channel data?
-        guard let pcmFloatChannelData = self.pcmBuffer.floatChannelData else {
+        guard let pcmFloatChannelData = pcmBuffer.floatChannelData else {
             return nil
         }
 
-        let channelCount = Int(self.pcmBuffer.format.channelCount)
-        let frameLength = Int(self.pcmBuffer.frameLength)
-        let stride = self.pcmBuffer.stride
+        let channelCount = Int(pcmBuffer.format.channelCount)
+        let frameLength = Int(pcmBuffer.frameLength)
+        let stride = pcmBuffer.stride
 
         // Preallocate our Array so we're not constantly thrashing while resizing as we append.
         var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
@@ -252,26 +251,24 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     }()
 
     /// returns audio data as an AVAudioPCMBuffer
-    open lazy var pcmBuffer: AVAudioPCMBuffer = {
-
-        let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
-                                      frameCapacity: AVAudioFrameCount(self.length))
+    open lazy var pcmBuffer: AVAudioPCMBuffer? = {
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
+                                            frameCapacity: AVAudioFrameCount(self.length)) else { return nil }
 
         do {
-            try self.read(into: buffer!)
+            try self.read(into: buffer)
         } catch let error as NSError {
             AKLog("Cannot readIntBuffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
 
-        return buffer!
-
+        return buffer
     }()
 
     /// returns the peak level expressed in dB ( -> Float).
     open lazy var maxLevel: Float = {
         var maxLev: Float = 0
 
-        let buffer = self.pcmBuffer
+        guard let buffer = self.pcmBuffer else { return maxLev }
 
         if self.samplesCount > 0 {
             for c in 0..<Int(self.channelCount) {
@@ -316,7 +313,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     public override init(forReading fileURL: URL,
                          commonFormat format: AVAudioCommonFormat,
                          interleaved: Bool) throws {
-
         try super.init(forReading: fileURL, commonFormat: format, interleaved: interleaved)
     }
 
