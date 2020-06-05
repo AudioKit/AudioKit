@@ -11,20 +11,20 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open var frequency: Double = 110 {
+    @objc open var frequency: AUValue = 110 {
         willSet {
             let clampedValue = (0.0 ... 20_000.0).clamp(newValue)
             guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = AUValue(clampedValue)
+            internalAU?.frequency.value = clampedValue
         }
     }
 
     /// Amplitude
-    @objc open var amplitude: Double = 0.5 {
+    @objc open var amplitude: AUValue = 0.5 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
+            internalAU?.amplitude.value = clampedValue
         }
     }
 
@@ -42,10 +42,7 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(
-        frequency: Double = 440,
-        amplitude: Double = 0.5
-    ) {
+    public init(frequency: AUValue = 440, amplitude: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
@@ -64,11 +61,11 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Frequency in Hz
     ///   - amplitude amplitude: Volume
     ///
-    open func trigger(frequency: Double, amplitude: Double = 1) {
+    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()
-        internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
+        internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
