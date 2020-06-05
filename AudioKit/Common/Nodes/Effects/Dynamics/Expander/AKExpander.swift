@@ -14,7 +14,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     private var internalOutputAmplitude: AudioUnitParameterValue = 0.0
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-    @objc open dynamic var expansionRatio: Double = 2 {
+    @objc open dynamic var expansionRatio: AUValue = 2 {
         didSet {
             expansionRatio = (1...50).clamp(expansionRatio)
             au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
@@ -22,7 +22,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    @objc open dynamic var expansionThreshold: Double = 2 {
+    @objc open dynamic var expansionThreshold: AUValue = 2 {
         didSet {
             expansionThreshold = (1...50).clamp(expansionThreshold)
             au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
@@ -30,7 +30,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Attack Duration (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    @objc open dynamic var attackDuration: Double = 0.001 {
+    @objc open dynamic var attackDuration: AUValue = 0.001 {
         didSet {
             attackDuration = (0.000_1...0.2).clamp(attackDuration)
             au[kDynamicsProcessorParam_AttackTime] = attackDuration
@@ -38,7 +38,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
-    @objc open dynamic var releaseDuration: Double = 0.05 {
+    @objc open dynamic var releaseDuration: AUValue = 0.05 {
         didSet {
             releaseDuration = (0.01...3).clamp(releaseDuration)
             au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
@@ -46,7 +46,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var masterGain: Double = 0 {
+    @objc open dynamic var masterGain: AUValue = 0 {
         didSet {
             masterGain = (-40...40).clamp(masterGain)
             au[kDynamicsProcessorParam_MasterGain] = masterGain
@@ -54,31 +54,31 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Compression Amount (dB) read only
-    @objc open dynamic var compressionAmount: Double {
+    @objc open dynamic var compressionAmount: AUValue {
         return au[kDynamicsProcessorParam_CompressionAmount]
     }
 
     /// Input Amplitude (dB) read only
-    @objc open dynamic var inputAmplitude: Double {
+    @objc open dynamic var inputAmplitude: AUValue {
         return au[kDynamicsProcessorParam_InputAmplitude]
     }
 
     /// Output Amplitude (dB) read only
-    @objc open dynamic var outputAmplitude: Double {
+    @objc open dynamic var outputAmplitude: AUValue {
         return au[kDynamicsProcessorParam_OutputAmplitude]
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: Double = 1 {
+    @objc open dynamic var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain.volume = AUValue(1 - dryWetMix)
-            effectGain.volume = AUValue(dryWetMix)
+            inputGain.volume = 1 - dryWetMix
+            effectGain.volume = dryWetMix
         }
     }
 
     private var mixer = AKMixer()
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
     private var inputMixer = AKMixer()
     private var inputGain = AKMixer()
     private var effectGain = AKMixer()
@@ -101,16 +101,16 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        threshold: Double = -20,
-        headRoom: Double = 5,
-        expansionRatio: Double = 2,
-        expansionThreshold: Double = 2,
-        attackDuration: Double = 0.001,
-        releaseDuration: Double = 0.05,
-        masterGain: Double = 0,
-        compressionAmount: Double = 0,
-        inputAmplitude: Double = 0,
-        outputAmplitude: Double = 0) {
+        threshold: AUValue = -20,
+        headRoom: AUValue = 5,
+        expansionRatio: AUValue = 2,
+        expansionThreshold: AUValue = 2,
+        attackDuration: AUValue = 0.001,
+        releaseDuration: AUValue = 0.05,
+        masterGain: AUValue = 0,
+        compressionAmount: AUValue = 0,
+        inputAmplitude: AUValue = 0,
+        outputAmplitude: AUValue = 0) {
 
         self.expansionRatio = expansionRatio
         self.expansionThreshold = expansionThreshold
