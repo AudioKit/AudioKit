@@ -12,114 +12,114 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Master volume (fraction)
-    @objc open var masterVolume: Double = 1.0 {
+    @objc open var masterVolume: AUValue = 1.0 {
         willSet {
             guard masterVolume != newValue else { return }
-            internalAU?.masterVolume.value = AUValue(newValue)
+            internalAU?.masterVolume.value = newValue
         }
     }
 
     /// Pitch offset (semitones)
-    @objc open var pitchBend: Double = 0.0 {
+    @objc open var pitchBend: AUValue = 0.0 {
         willSet {
             guard pitchBend != newValue else { return }
-            internalAU?.pitchBend.value = AUValue(newValue)
+            internalAU?.pitchBend.value = newValue
         }
     }
 
     /// Vibrato amount (semitones)
-    @objc open var vibratoDepth: Double = 1.0 {
+    @objc open var vibratoDepth: AUValue = 1.0 {
         willSet {
             guard vibratoDepth != newValue else { return }
-            internalAU?.vibratoDepth.value = AUValue(newValue)
+            internalAU?.vibratoDepth.value = newValue
         }
     }
 
     /// Filter cutoff (harmonic ratio)
-    @objc open var filterCutoff: Double = 4.0 {
+    @objc open var filterCutoff: AUValue = 4.0 {
         willSet {
             guard filterCutoff != newValue else { return }
-            internalAU?.filterCutoff.value = AUValue(newValue)
+            internalAU?.filterCutoff.value = newValue
         }
     }
 
     /// Filter EG strength (harmonic ratio)
-    @objc open var filterStrength: Double = 20.0 {
+    @objc open var filterStrength: AUValue = 20.0 {
         willSet {
             guard filterStrength != newValue else { return }
-            internalAU?.filterStrength.value = AUValue(newValue)
+            internalAU?.filterStrength.value = newValue
         }
     }
 
     /// Filter resonance (dB)
-    @objc open var filterResonance: Double = 0.0 {
+    @objc open var filterResonance: AUValue = 0.0 {
         willSet {
             guard filterResonance != newValue else { return }
-            internalAU?.filterResonance.value = AUValue(newValue)
+            internalAU?.filterResonance.value = newValue
         }
     }
 
     /// Amplitude attack duration (seconds)
-    @objc open var attackDuration: Double = 0.0 {
+    @objc open var attackDuration: AUValue = 0.0 {
         willSet {
             guard attackDuration != newValue else { return }
-            internalAU?.attackDuration.value = AUValue(newValue)
+            internalAU?.attackDuration.value = newValue
         }
     }
 
     /// Amplitude Decay duration (seconds)
-    @objc open var decayDuration: Double = 0.0 {
+    @objc open var decayDuration: AUValue = 0.0 {
         willSet {
             guard decayDuration != newValue else { return }
-            internalAU?.decayDuration.value = AUValue(newValue)
+            internalAU?.decayDuration.value = newValue
         }
     }
 
     /// Amplitude sustain level (fraction)
-    @objc open var sustainLevel: Double = 1.0 {
+    @objc open var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
-            internalAU?.sustainLevel.value = AUValue(newValue)
+            internalAU?.sustainLevel.value = newValue
         }
     }
 
     /// Amplitude Release duration (seconds)
-    @objc open var releaseDuration: Double = 0.0 {
+    @objc open var releaseDuration: AUValue = 0.0 {
         willSet {
             guard releaseDuration != newValue else { return }
-            internalAU?.releaseDuration.value = AUValue(newValue)
+            internalAU?.releaseDuration.value = newValue
         }
     }
 
     /// Filter attack duration (seconds)
-    @objc open var filterAttackDuration: Double = 0.0 {
+    @objc open var filterAttackDuration: AUValue = 0.0 {
         willSet {
             guard filterAttackDuration != newValue else { return }
-            internalAU?.filterAttackDuration.value = AUValue(newValue)
+            internalAU?.filterAttackDuration.value = newValue
         }
     }
 
     /// Filter Decay duration (seconds)
-    @objc open var filterDecayDuration: Double = 0.0 {
+    @objc open var filterDecayDuration: AUValue = 0.0 {
         willSet {
             guard filterDecayDuration != newValue else { return }
-            internalAU?.filterDecayDuration.value = AUValue(newValue)
+            internalAU?.filterDecayDuration.value = newValue
         }
     }
 
     /// Filter sustain level (fraction)
-    @objc open var filterSustainLevel: Double = 1.0 {
+    @objc open var filterSustainLevel: AUValue = 1.0 {
         willSet {
             guard filterSustainLevel != newValue else { return }
-            internalAU?.filterSustainLevel.value = AUValue(newValue)
+            internalAU?.filterSustainLevel.value = newValue
         }
     }
 
     /// Filter Release duration (seconds)
-    @objc open var filterReleaseDuration: Double = 0.0 {
+    @objc open var filterReleaseDuration: AUValue = 0.0 {
         willSet {
             guard filterReleaseDuration != newValue else { return }
-            internalAU?.filterReleaseDuration.value = AUValue(newValue)
+            internalAU?.filterReleaseDuration.value = newValue
         }
     }
 
@@ -145,21 +145,21 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///
     public init(
-        masterVolume: Double = 1.0,
-        pitchBend: Double = 0.0,
-        vibratoDepth: Double = 0.0,
-        filterCutoff: Double = 4.0,
-        filterStrength: Double = 20.0,
-        filterResonance: Double = 0.0,
-        attackDuration: Double = 0.0,
-        decayDuration: Double = 0.0,
-        sustainLevel: Double = 1.0,
-        releaseDuration: Double = 0.0,
+        masterVolume: AUValue = 1.0,
+        pitchBend: AUValue = 0.0,
+        vibratoDepth: AUValue = 0.0,
+        filterCutoff: AUValue = 4.0,
+        filterStrength: AUValue = 20.0,
+        filterResonance: AUValue = 0.0,
+        attackDuration: AUValue = 0.0,
+        decayDuration: AUValue = 0.0,
+        sustainLevel: AUValue = 1.0,
+        releaseDuration: AUValue = 0.0,
         filterEnable: Bool = false,
-        filterAttackDuration: Double = 0.0,
-        filterDecayDuration: Double = 0.0,
-        filterSustainLevel: Double = 1.0,
-        filterReleaseDuration: Double = 0.0
+        filterAttackDuration: AUValue = 0.0,
+        filterDecayDuration: AUValue = 0.0,
+        filterSustainLevel: AUValue = 1.0,
+        filterReleaseDuration: AUValue = 0.0
     ) {
         super.init(avAudioNode: AVAudioNode())
 
@@ -188,7 +188,7 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
 
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
-                            frequency: Double,
+                            frequency: AUValue,
                             channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
     }
