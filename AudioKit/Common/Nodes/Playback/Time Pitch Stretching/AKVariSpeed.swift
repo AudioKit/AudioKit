@@ -7,10 +7,10 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
-    @objc open dynamic var rate: Double = 1.0 {
+    @objc open dynamic var rate: AUValue = 1.0 {
         didSet {
             rate = (0.25...4).clamp(rate)
-            variSpeedAU.rate = Float(rate)
+            variSpeedAU.rate = rate
         }
     }
 
@@ -19,7 +19,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
         return rate != 1.0
     }
 
-    fileprivate var lastKnownRate: Double = 1.0
+    fileprivate var lastKnownRate: AUValue = 1.0
 
     /// Initialize the varispeed node
     ///
@@ -27,7 +27,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    @objc public init(_ input: AKNode? = nil, rate: Double = 1.0) {
+    @objc public init(_ input: AKNode? = nil, rate: AUValue = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 

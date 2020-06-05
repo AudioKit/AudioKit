@@ -130,7 +130,7 @@ open class AKAbstractPlayer: AKNode {
             fade.maximumGain = newValue
 
             // this is the current value of the fader, set immediately
-            faderNode?.gain = AUValue(newValue)
+            faderNode?.gain = newValue
         }
     }
 

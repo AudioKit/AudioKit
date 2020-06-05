@@ -131,23 +131,23 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Volume 0.0 -> 1.0, default 1.0
     /// This is different than gain
-    @objc public var volume: Double {
+    @objc public var volume: AUValue {
         get {
-            return Double(playerNode.volume)
+            return playerNode.volume
         }
 
         set {
-            playerNode.volume = AUValue(newValue)
+            playerNode.volume = newValue
         }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    @objc public var pan: Double {
+    @objc public var pan: AUValue {
         get {
-            return Double(playerNode.pan)
+            return playerNode.pan
         }
         set {
-            playerNode.pan = AUValue(newValue)
+            playerNode.pan = newValue
         }
     }
 

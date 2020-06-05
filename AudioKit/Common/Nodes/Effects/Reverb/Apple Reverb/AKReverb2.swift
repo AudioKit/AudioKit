@@ -14,10 +14,10 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit?
 
-    fileprivate var lastKnownMix: Double = 50
+    fileprivate var lastKnownMix: AUValue = 50
 
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var dryWetMix: Double = 0.5 {
+    @objc open dynamic var dryWetMix: AUValue = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -29,13 +29,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_DryWetMix,
                                       kAudioUnitScope_Global, 0,
-                                      Float(dryWetMix * 100.0), 0)
+                                      dryWetMix * 100.0, 0)
             }
         }
     }
 
     /// Gain (Decibels) ranges from -20 to 20 (Default: 0)
-    @objc open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: AUValue = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -47,13 +47,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_Gain,
                                       kAudioUnitScope_Global, 0,
-                                      Float(gain), 0)
+                                      gain, 0)
             }
         }
     }
 
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-    @objc open dynamic var minDelayTime: Double = 0.008 {
+    @objc open dynamic var minDelayTime: AUValue = 0.008 {
         didSet {
             if minDelayTime < 0.000_1 {
                 minDelayTime = 0.000_1
@@ -65,13 +65,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_MinDelayTime,
                                       kAudioUnitScope_Global, 0,
-                                      Float(minDelayTime), 0)
+                                      minDelayTime, 0)
             }
         }
     }
 
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-    @objc open dynamic var maxDelayTime: Double = 0.050 {
+    @objc open dynamic var maxDelayTime: AUValue = 0.050 {
         didSet {
             if maxDelayTime < 0.000_1 {
                 maxDelayTime = 0.000_1
@@ -83,13 +83,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_MaxDelayTime,
                                       kAudioUnitScope_Global, 0,
-                                      Float(maxDelayTime), 0)
+                                      maxDelayTime, 0)
             }
         }
     }
 
     /// Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-    @objc open dynamic var decayTimeAt0Hz: Double = 1.0 {
+    @objc open dynamic var decayTimeAt0Hz: AUValue = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
@@ -101,13 +101,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_DecayTimeAt0Hz,
                                       kAudioUnitScope_Global, 0,
-                                      Float(decayTimeAt0Hz), 0)
+                                      decayTimeAt0Hz, 0)
             }
         }
     }
 
     /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-    @objc open dynamic var decayTimeAtNyquist: Double = 0.5 {
+    @objc open dynamic var decayTimeAtNyquist: AUValue = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
@@ -119,13 +119,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_DecayTimeAtNyquist,
                                       kAudioUnitScope_Global, 0,
-                                      Float(decayTimeAtNyquist), 0)
+                                      decayTimeAtNyquist, 0)
             }
         }
     }
 
     /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
-    @objc open dynamic var randomizeReflections: Double = 1 {
+    @objc open dynamic var randomizeReflections: AUValue = 1 {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
@@ -137,7 +137,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_RandomizeReflections,
                                       kAudioUnitScope_Global, 0,
-                                      Float(randomizeReflections), 0)
+                                      randomizeReflections, 0)
             }
         }
     }
@@ -159,13 +159,13 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        dryWetMix: Double = 0.5,
-        gain: Double = 0,
-        minDelayTime: Double = 0.008,
-        maxDelayTime: Double = 0.050,
-        decayTimeAt0Hz: Double = 1.0,
-        decayTimeAtNyquist: Double = 0.5,
-        randomizeReflections: Double = 1) {
+        dryWetMix: AUValue = 0.5,
+        gain: AUValue = 0,
+        minDelayTime: AUValue = 0.008,
+        maxDelayTime: AUValue = 0.050,
+        decayTimeAt0Hz: AUValue = 1.0,
+        decayTimeAtNyquist: AUValue = 0.5,
+        randomizeReflections: AUValue = 1) {
 
             self.dryWetMix = dryWetMix
             self.gain = gain
@@ -188,43 +188,43 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
                                       kReverb2Param_DryWetMix,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(dryWetMix * 100.0),
+                                      dryWetMix * 100.0,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_Gain,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(gain),
+                                      gain,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_MinDelayTime,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(minDelayTime),
+                                      minDelayTime,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_MaxDelayTime,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(maxDelayTime),
+                                      maxDelayTime,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_DecayTimeAt0Hz,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(decayTimeAt0Hz),
+                                      decayTimeAt0Hz,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_DecayTimeAtNyquist,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(decayTimeAtNyquist),
+                                      decayTimeAtNyquist,
                                       0)
                 AudioUnitSetParameter(audioUnit,
                                       kReverb2Param_RandomizeReflections,
                                       kAudioUnitScope_Global,
                                       0,
-                                      Float(randomizeReflections),
+                                      randomizeReflections,
                                       0)
             }
     }

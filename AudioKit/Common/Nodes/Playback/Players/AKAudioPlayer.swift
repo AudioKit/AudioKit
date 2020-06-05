@@ -91,10 +91,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Output Volume (Default 1)
-    @objc open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: AUValue = 1.0 {
         didSet {
             volume = max(volume, 0)
-            internalPlayer.volume = Float(volume)
+            internalPlayer.volume = volume
         }
     }
 
@@ -135,10 +135,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pan (Default Center = 0)
-    @objc open dynamic var pan: Double = 0.0 {
+    @objc open dynamic var pan: AUValue = 0.0 {
         didSet {
             pan = (-1 ... 1).clamp(pan)
-            internalPlayer.pan = Float(pan)
+            internalPlayer.pan = pan
         }
     }
 
