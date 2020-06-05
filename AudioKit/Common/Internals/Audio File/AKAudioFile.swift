@@ -29,8 +29,8 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 
     /// The number of samples can be accessed by .length property,
     /// but samplesCount has a less ambiguous meaning
-    open var samplesCount: Int64 {
-        return length
+    open var samplesCount: Sample {
+        return Sample(length)
     }
 
     /// strange that sampleRate is a Double and not an Integer

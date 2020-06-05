@@ -271,8 +271,8 @@ extension AKAudioFile {
     public func exportAsynchronously(name: String,
                                      baseDir: BaseDirectory,
                                      exportFormat: ExportFormat,
-                                     fromSample: Int64 = 0,
-                                     toSample: Int64 = 0,
+                                     fromSample: Sample = 0,
+                                     toSample: Sample = 0,
                                      callback: @escaping AsyncProcessCallback) {
         // clear this initially
         currentExportSession = nil
@@ -309,8 +309,8 @@ extension AKAudioFile {
         }
 
         // In and OUT times trimming settings
-        let inFrame: Int64
-        let outFrame: Int64
+        let inFrame: Sample
+        let outFrame: Sample
 
         if toSample == 0 {
             outFrame = samplesCount
@@ -318,7 +318,7 @@ extension AKAudioFile {
             outFrame = min(samplesCount, toSample)
         }
 
-        inFrame = abs(min(samplesCount, fromSample))
+        inFrame = min(samplesCount, fromSample)
 
         if outFrame <= inFrame {
             AKLog("ERROR AKAudioFile export: In time must be less than Out time")
@@ -401,8 +401,8 @@ extension AKAudioFile {
             // Sets the output file encoding (avoid .wav encoded as m4a...)
             internalExportSession.outputFileType = AVFileType(rawValue: exportFormat.UTI as String as String)
 
-            let startTime = CMTimeMake(value: inFrame, timescale: Int32(sampleRate))
-            let stopTime = CMTimeMake(value: outFrame, timescale: Int32(sampleRate))
+            let startTime = CMTimeMake(value: Int64(inFrame), timescale: Int32(sampleRate))
+            let stopTime = CMTimeMake(value: Int64(outFrame), timescale: Int32(sampleRate))
             let timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
             internalExportSession.timeRange = timeRange
 

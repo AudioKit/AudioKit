@@ -107,24 +107,31 @@ open class AKNodeParameter {
 
     // MARK: Lifecycle
 
-    public init(identifier: String) {
+    public init(identifier: String, value: AUValue = 0) {
         self.identifier = identifier
-    }
-
-    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase?, value: AUValue) {
-        dsp = au?.dsp
-        parameter = au?.parameterTree?[identifier]
+        self.value = value
 
         // set initial value (and ensure initial value is set)
         self.value = value
         guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
         parameter?.value = (min...max).clamp(value)
+    }
+
+    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
+    public func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
+        dsp = au?.dsp
+        parameter = au?.parameterTree?[identifier]
 
         guard let dsp = dsp, let addr = parameter?.address else { return }
         setParameterRampDurationDSP(dsp, addr, rampDuration)
         setParameterRampTaperDSP(dsp, addr, rampTaper)
         setParameterRampSkewDSP(dsp, addr, rampSkew)
+
+        let value = value ?? self.value
+        // set initial value (and ensure initial value is set)
+        self.value = value
+        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
+        parameter?.value = (min...max).clamp(value)
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
