@@ -11,7 +11,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    @objc open dynamic var attackDuration: Double = 0.012 {
+    @objc open dynamic var attackDuration: AUValue = 0.012 {
         didSet {
             attackDuration = (0.001...0.03).clamp(attackDuration)
             au[kLimiterParam_AttackTime] = attackDuration
@@ -19,7 +19,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    @objc open dynamic var decayDuration: Double = 0.024 {
+    @objc open dynamic var decayDuration: AUValue = 0.024 {
         didSet {
             decayDuration = (0.001...0.06).clamp(decayDuration)
             au[kLimiterParam_DecayTime] = decayDuration
@@ -27,7 +27,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var preGain: Double = 0 {
+    @objc open dynamic var preGain: AUValue = 0 {
         didSet {
             preGain = (-40...40).clamp(preGain)
             au[kLimiterParam_PreGain] = preGain
@@ -35,15 +35,15 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: Double = 1 {
+    @objc open dynamic var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = AUValue(1 - dryWetMix)
-            effectGain?.volume = AUValue(dryWetMix)
+            inputGain?.volume = 1 - dryWetMix
+            effectGain?.volume = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     private var inputMixer = AKMixer()
@@ -64,9 +64,9 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        attackDuration: Double = 0.012,
-        decayDuration: Double = 0.024,
-        preGain: Double = 0) {
+        attackDuration: AUValue = 0.012,
+        decayDuration: AUValue = 0.024,
+        preGain: AUValue = 0) {
 
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration

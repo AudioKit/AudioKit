@@ -11,7 +11,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    @objc open dynamic var cutoffFrequency: Double = 6_900 {
+    @objc open dynamic var cutoffFrequency: AUValue = 6_900 {
         didSet {
             cutoffFrequency = (10...22_050).clamp(cutoffFrequency)
             au[kHipassParam_CutoffFrequency] = cutoffFrequency
@@ -19,7 +19,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Resonance (dB) ranges from -20 to 40 (Default: 0)
-    @objc open dynamic var resonance: Double = 0 {
+    @objc open dynamic var resonance: AUValue = 0 {
         didSet {
             resonance = (-20...40).clamp(resonance)
             au[kHipassParam_Resonance] = resonance
@@ -27,15 +27,15 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default: 1)
-    @objc open dynamic var dryWetMix: Double = 1 {
+    @objc open dynamic var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = AUValue(1 - dryWetMix)
-            effectGain?.volume = AUValue(dryWetMix)
+            inputGain?.volume = 1 - dryWetMix
+            effectGain?.volume = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 1
+    private var lastKnownMix: AUValue = 1
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     var inputMixer = AKMixer()
@@ -57,8 +57,8 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 6_900,
-        resonance: Double = 0) {
+        cutoffFrequency: AUValue = 6_900,
+        resonance: AUValue = 0) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

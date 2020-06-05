@@ -50,17 +50,6 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Random double in range
-///
-/// - parameter in: Range of randomization
-///
-public func random(in range: ClosedRange<Double>) -> Double {
-    let precision = 1_000_000
-    let width = range.upperBound - range.lowerBound
-
-    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + range.lowerBound
-}
-
 /// Random AUValue(float) in range
 ///
 /// - parameter in: Range of randomization
@@ -73,31 +62,6 @@ public func random(in range: ClosedRange<AUValue>) -> AUValue {
 }
 
 // MARK: - Normalization Helpers
-
-/// Extension to calculate scaling factors, useful for UI controls
-extension Double {
-    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - to: Source range (cannot include zero if taper is not positive)
-    ///   - taper:Must be a postive number, taper = 1 is linear
-    ///
-    public func normalized(from range: ClosedRange<Double>, taper: Double = 1) -> Double {
-        assert(taper > 0, "Cannot have non-positive taper.")
-        return pow(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
-    }
-
-    /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
-    ///
-    /// - Parameters:
-    ///   - to: Target range (cannot contain zero if taper is not positive)
-    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    ///
-    public func denormalized(to range: ClosedRange<Double>, taper: Double = 1) -> Double {
-        assert(taper > 0, "Cannot have non-positive taper.")
-        return range.lowerBound + (range.upperBound - range.lowerBound) * pow(self, taper)
-    }
-}
 
 /// Extension to calculate scaling factors, useful for UI controls
 extension AUValue {
@@ -130,8 +94,8 @@ extension Int {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return Double(self).midiNoteToFrequency(aRef)
+    public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
+        return AUValue(self).midiNoteToFrequency(aRef)
     }
 }
 
@@ -141,18 +105,18 @@ extension UInt8 {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return Double(self).midiNoteToFrequency(aRef)
+    public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
+        return AUValue(self).midiNoteToFrequency(aRef)
     }
 }
 
-/// Extension to Double to get the frequency from a MIDI Note Number
-extension Double {
+/// Extension to get the frequency from a MIDI Note Number
+extension AUValue {
     /// Calculate frequency from a floating point MIDI Note Number
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
+    public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
         return pow(2.0, (self - 69.0) / 12.0) * aRef
     }
 }
@@ -162,18 +126,18 @@ extension Int {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return Double(self).frequencyToMIDINote(aRef)
+    public func frequencyToMIDINote(_ aRef: AUValue = 440.0) -> AUValue {
+        return AUValue(self).frequencyToMIDINote(aRef)
     }
 }
 
-/// Extension to Double to get the frequency from a MIDI Note Number
-extension Double {
+/// Extension to get the frequency from a MIDI Note Number
+extension AUValue {
     /// Calculate MIDI Note Number from a frequency in Hz
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
+    public func frequencyToMIDINote(_ aRef: AUValue = 440.0) -> AUValue {
         return 69 + 12 * log2(self / aRef)
     }
 }
@@ -209,20 +173,20 @@ extension Sequence where Iterator.Element: Hashable {
 }
 
 @inline(__always)
-internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> Double {
+internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> AUValue {
     var val: AudioUnitParameterValue = 0
     AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
-    return Double(val)
+    return val
 }
 
 @inline(__always)
-internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: Double) {
+internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: AUValue) {
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
 /// Adding subscript
 extension AVAudioUnit {
-    subscript(param: AudioUnitParameterID) -> Double {
+    subscript(param: AudioUnitParameterID) -> AUValue {
         get {
             return AudioUnitGetParameter(audioUnit, param: param)
         }
@@ -239,7 +203,7 @@ internal struct AUWrapper {
         self.avAudioUnit = avAudioUnit
     }
 
-    subscript(param: AudioUnitParameterID) -> Double {
+    subscript(param: AudioUnitParameterID) -> AUValue {
         get {
             return self.avAudioUnit[param]
         }
