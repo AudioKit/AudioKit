@@ -5,13 +5,13 @@
 open class AKReverb: AKNode, AKToggleable, AKInput {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
-    fileprivate var lastKnownMix: Double = 0.5
+    fileprivate var lastKnownMix: AUValue = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
-    @objc open dynamic var dryWetMix: Double = 0.5 {
+    @objc open dynamic var dryWetMix: AUValue = 0.5 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            reverbAU.wetDryMix = Float(dryWetMix) * 100
+            reverbAU.wetDryMix = dryWetMix * 100
         }
     }
 
@@ -24,7 +24,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     ///   - input: AKNode to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
-    @objc public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
+    @objc public init(_ input: AKNode? = nil, dryWetMix: AUValue = 0.5) {
         self.dryWetMix = dryWetMix
         super.init(avAudioNode: AVAudioNode())
 
@@ -33,7 +33,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
         AKManager.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
 
-        reverbAU.wetDryMix = Float(dryWetMix) * 100.0
+        reverbAU.wetDryMix = dryWetMix * 100.0
     }
 
     /// Load an Apple Factory Preset

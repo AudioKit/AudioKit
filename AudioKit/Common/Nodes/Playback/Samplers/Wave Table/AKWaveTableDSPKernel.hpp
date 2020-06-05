@@ -113,7 +113,7 @@ public:
         loop = value;
     }
 
-    void setRate(double value) {
+    void setRate(float value) {
         rate = value;
         rateRamper.setImmediate(rate);
     }
@@ -165,12 +165,12 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
             
-            rate = double(rateRamper.getAndStep());
-            volume = double(volumeRamper.getAndStep());
+            rate = rateRamper.getAndStep();
+            volume = volumeRamper.getAndStep();
 
             float startPointToUse = startPointViaRate();
             float endPointToUse = endPointViaRate();
-            double nextPosition = position + sampleRateRatio() * rate;
+            float nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
                 calculateMainPlayComplete(nextPosition);
@@ -235,7 +235,7 @@ public:
         if (rate == 0) {return 0;}
         return (rate > 0 ? loopEndPoint : loopStartPoint);
     }
-    double sampleStep(){
+    float sampleStep(){
         int reverseMultiplier = 1;
         if (inLoopPhase && loopReversed()){
             reverseMultiplier = -1;
@@ -245,7 +245,7 @@ public:
         }
         return sampleRateRatio() * abs(rate) * reverseMultiplier;
     }
-    double sampleRateRatio(){
+    float sampleRateRatio(){
         return sourceSampleRate / AKSettings.sampleRate;
     }
     // MARK: Member Variables
@@ -269,20 +269,20 @@ public:
         return (endPointViaRate() < startPointViaRate() ? true : false);
     }
     
-    void calculateMainPlayComplete(double nextPosition){
+    void calculateMainPlayComplete(float nextPosition){
         if (nextPosition > endPointViaRate() && !startEndReversed()){
             mainPlayComplete = true;
         }else if (nextPosition < endPointViaRate() && startEndReversed()){
             mainPlayComplete = true;
         }
     }
-    bool calculateHasEnded(double nextPosition){
+    bool calculateHasEnded(float nextPosition){
         if ((nextPosition > endPointViaRate() && !startEndReversed()) || (nextPosition < endPointViaRate() && startEndReversed())){
             return true;
         }
         return false;
     }
-    void calculateLoopPhase(double nextPosition){
+    void calculateLoopPhase(float nextPosition){
         if (!inLoopPhase && mainPlayComplete){
             if (nextPosition > endPointViaRate() && !startEndReversed()){
                 inLoopPhase = true;
@@ -293,7 +293,7 @@ public:
             }
         }
     }
-    void calculateShouldLoop(double nextPosition){
+    void calculateShouldLoop(float nextPosition){
         if (mainPlayComplete){
             if (nextPosition > loopEndPointViaRate() && !loopReversed()){
                 doLoopActions();
@@ -363,6 +363,6 @@ public:
     AKCCallback loopCallback = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
-    double position = 0.0;
-    double rate = 1;
+    float position = 0.0;
+    float rate = 1;
 };

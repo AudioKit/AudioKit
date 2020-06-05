@@ -10,50 +10,50 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Determines the amount of gain applied to the signal before processing.
-    @objc open dynamic var preGain: Double = 5.0 {
+    @objc open dynamic var preGain: AUValue = 5.0 {
         willSet {
             guard preGain != newValue else { return }
-            internalAU?.preGain.value = AUValue(newValue)
+            internalAU?.preGain.value = newValue
         }
     }
 
     /// Gain applied after processing.
-    @objc open dynamic var postGain: Double = 0.7 {
+    @objc open dynamic var postGain: AUValue = 0.7 {
         willSet {
             guard postGain != newValue else { return }
-            internalAU?.postGain.value = (AUValue(0)...AUValue(1)).clamp(AUValue(newValue))
+            internalAU?.postGain.value = (AUValue(0)...AUValue(1)).clamp(newValue)
         }
     }
 
     /// Amount of Low frequencies.
-    @objc open dynamic var lowGain: Double = 0.0 {
+    @objc open dynamic var lowGain: AUValue = 0.0 {
         willSet {
             guard lowGain != newValue else { return }
-            internalAU?.lowGain.value = AUValue(newValue)
+            internalAU?.lowGain.value = newValue
         }
     }
 
     /// Amount of Middle frequencies.
-    @objc open dynamic var midGain: Double = 0.0 {
+    @objc open dynamic var midGain: AUValue = 0.0 {
         willSet {
             guard midGain != newValue else { return }
-            internalAU?.midGain.value = AUValue(newValue)
+            internalAU?.midGain.value = newValue
         }
     }
 
     /// Amount of High frequencies.
-    @objc open dynamic var highGain: Double = 0.0 {
+    @objc open dynamic var highGain: AUValue = 0.0 {
         willSet {
             guard highGain != newValue else { return }
-            internalAU?.highGain.value = AUValue(newValue)
+            internalAU?.highGain.value = newValue
         }
     }
 
     /// Distortion Amount
-    @objc open dynamic var distortion: Double = 1.0 {
+    @objc open dynamic var distortion: AUValue = 1.0 {
         willSet {
             guard distortion != newValue else { return }
-            internalAU?.distortion.value = AUValue(newValue)
+            internalAU?.distortion.value = newValue
         }
     }
 
@@ -77,12 +77,12 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        preGain: Double = 5.0,
-        postGain: Double = 0.7,
-        lowGain: Double = 0.0,
-        midGain: Double = 0.0,
-        highGain: Double = 0.0,
-        distortion: Double = 1.0
+        preGain: AUValue = 5.0,
+        postGain: AUValue = 0.7,
+        lowGain: AUValue = 0.0,
+        midGain: AUValue = 0.0,
+        highGain: AUValue = 0.0,
+        distortion: AUValue = 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
 

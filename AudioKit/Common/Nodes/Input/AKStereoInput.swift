@@ -6,16 +6,16 @@
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    @objc open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: AUValue = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
             }
-            mixer.outputVolume = Float(volume)
+            mixer.outputVolume = volume
         }
     }
 
-    fileprivate var lastKnownVolume: Double = 1.0
+    fileprivate var lastKnownVolume: AUValue = 1.0
 
     /// Determine if the microphone is currently on.
     @objc open dynamic var isStarted: Bool {
@@ -23,7 +23,7 @@
     }
 
     /// Initialize the microphone
-    public init(volume: Double = 0.0) {
+    public init(volume: AUValue = 0.0) {
         super.init(avAudioNode: AVAudioNode())
         self.avAudioNode = mixer
 

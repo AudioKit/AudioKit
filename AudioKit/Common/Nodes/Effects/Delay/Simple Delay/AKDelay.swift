@@ -71,8 +71,8 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
         input?.connect(to: self)
 
         delayAU.delayTime = self.time
-        delayAU.feedback = Float(feedback) * 100.0
-        delayAU.lowPassCutoff = Float(lowPassCutoff)
+        delayAU.feedback = feedback * 100.0
+        delayAU.lowPassCutoff = lowPassCutoff
         internalSetDryWetMix(dryWetMix)
     }
 
