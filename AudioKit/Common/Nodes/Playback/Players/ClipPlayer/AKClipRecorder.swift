@@ -134,7 +134,8 @@ open class AKClipRecorder {
     ///   - duration: The duration in seconds of the clip to record, will be adjusted if start time
     /// was adjusted.
     ///   - tap: An optional tap to access audio as it's being recorded.
-    ///   - completion: A closure that will be called when the clip is finished recording. time and duration may be different in the result.
+    ///   - completion: A closure that will be called when the clip is finished recording.
+    ///   time and duration may be different in the result.
     ///
     public func recordClip(time: Double = 0,
                            duration: Double = Double.greatestFiniteMagnitude,
