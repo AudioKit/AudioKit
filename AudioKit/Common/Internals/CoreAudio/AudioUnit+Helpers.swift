@@ -7,8 +7,6 @@ import CoreAudio
 /// Get, set, and listen to properties
 public extension AudioUnit {
 
-    //swiftlint:disable force_try
-
     /// Get value for a property
     func getValue<T>(forProperty property: AudioUnitPropertyID) throws -> T {
         let (dataSize, _) = try getPropertyInfo(propertyID: property)
