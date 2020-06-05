@@ -194,7 +194,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
 
-        internalAU?.phaseDistortion = Float(phaseDistortion)
+        internalAU?.phaseDistortion = phaseDistortion
 
         internalAU?.attackDuration = attackDuration
         internalAU?.decayDuration = decayDuration
