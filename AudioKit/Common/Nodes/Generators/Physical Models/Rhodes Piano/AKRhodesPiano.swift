@@ -67,14 +67,4 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
         internalAU?.start()
         internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
-    }
 }
