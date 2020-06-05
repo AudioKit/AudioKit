@@ -20,11 +20,11 @@ typedef void (^AKCCallback)(void);
 
 - (void)loadFile:(const char*)filename;
 - (int)size;
-- (double)position;
+- (float)position;
 - (void)rewind;
-- (void)seekTo:(double)sample;
-- (void)setRate:(double)rate;
-- (double)getRate;
+- (void)seekTo:(float)sample;
+- (void)setRate:(float)rate;
+- (float)getRate;
 
 @end
 

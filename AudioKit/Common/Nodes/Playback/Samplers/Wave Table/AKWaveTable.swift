@@ -46,7 +46,7 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             guard endPoint != newValue else { return }
-            internalAU?.endPoint = Float(safeSample(newValue))
+            internalAU?.endPoint = AUValue(safeSample(newValue))
         }
     }
 
@@ -54,7 +54,7 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             guard loopStartPoint != newValue else { return }
-            internalAU?.loopStartPoint = Float(safeSample(newValue))
+            internalAU?.loopStartPoint = AUValue(safeSample(newValue))
         }
     }
 
@@ -62,16 +62,16 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             guard endPoint != newValue else { return }
-            internalAU?.loopEndPoint = Float(safeSample(newValue))
+            internalAU?.loopEndPoint = AUValue(safeSample(newValue))
         }
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @objc open dynamic var rate: Double = 1 {
+    @objc open dynamic var rate: AUValue = 1 {
         willSet {
             guard rate != newValue else { return }
             if internalAU?.isSetUp == true {
-                rateParameter?.value = AUValue(newValue)
+                rateParameter?.value = newValue
             } else {
                 internalAU?.rate = newValue
             }
@@ -79,13 +79,13 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Volume - amplitude adjustment
-    @objc open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: AUValue = 1 {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                volumeParameter?.value = AUValue(newValue)
+                volumeParameter?.value = newValue
             } else {
-                internalAU?.volume = AUValue(newValue)
+                internalAU?.volume = newValue
             }
         }
     }
@@ -163,8 +163,8 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc public init(file: AKAudioFile? = nil,
                       startPoint: Sample = 0,
                       endPoint: Sample = 0,
-                      rate: Double = 1,
-                      volume: Double = 1,
+                      rate: AUValue = 1,
+                      volume: AUValue = 1,
                       maximumSamples: Sample,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {

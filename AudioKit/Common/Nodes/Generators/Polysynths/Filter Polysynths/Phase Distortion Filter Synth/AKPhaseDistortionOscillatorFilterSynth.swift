@@ -39,199 +39,199 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     }
 
     /// Duty cycle width (range -1 - 1).
-    @objc open dynamic var phaseDistortion: Double = 0.0 {
+    @objc open dynamic var phaseDistortion: AUValue = 0.0 {
         willSet {
             guard phaseDistortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                phaseDistortionParameter?.value = AUValue(newValue)
+                phaseDistortionParameter?.value = newValue
             } else {
-                internalAU?.phaseDistortion = AUValue(newValue)
+                internalAU?.phaseDistortion = newValue
             }
         }
     }
 
     /// Attack duration in seconds
-    @objc open dynamic var attackDuration: Double = 0.1 {
+    @objc open dynamic var attackDuration: AUValue = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = AUValue(newValue)
+                attackDurationParameter?.value = newValue
             } else {
-                internalAU?.attackDuration = AUValue(newValue)
+                internalAU?.attackDuration = newValue
             }
         }
     }
 
     /// Decay duration in seconds
-    @objc open dynamic var decayDuration: Double = 0.1 {
+    @objc open dynamic var decayDuration: AUValue = 0.1 {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = AUValue(newValue)
+                decayDurationParameter?.value = newValue
             } else {
-                internalAU?.decayDuration = AUValue(newValue)
+                internalAU?.decayDuration = newValue
             }
         }
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: Double = 1.0 {
+    @objc open dynamic var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                sustainLevelParameter?.value = AUValue(newValue)
+                sustainLevelParameter?.value = newValue
             } else {
-                internalAU?.sustainLevel = AUValue(newValue)
+                internalAU?.sustainLevel = newValue
             }
         }
     }
 
     /// Release duration in seconds
-    @objc open dynamic var releaseDuration: Double = 0.1 {
+    @objc open dynamic var releaseDuration: AUValue = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = AUValue(newValue)
+                releaseDurationParameter?.value = newValue
             } else {
-                internalAU?.releaseDuration = AUValue(newValue)
+                internalAU?.releaseDuration = newValue
             }
         }
     }
 
     /// Pitch Bend as number of semitones
-    @objc open dynamic var pitchBend: Double = 0 {
+    @objc open dynamic var pitchBend: AUValue = 0 {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                pitchBendParameter?.value = AUValue(newValue)
+                pitchBendParameter?.value = newValue
             } else {
-                internalAU?.pitchBend = AUValue(newValue)
+                internalAU?.pitchBend = newValue
             }
         }
     }
 
     /// Vibrato Depth in semitones
-    @objc open dynamic var vibratoDepth: Double = 0 {
+    @objc open dynamic var vibratoDepth: AUValue = 0 {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoDepthParameter?.value = AUValue(newValue)
+                vibratoDepthParameter?.value = newValue
             } else {
-                internalAU?.vibratoDepth = AUValue(newValue)
+                internalAU?.vibratoDepth = newValue
             }
         }
     }
 
     /// Vibrato Rate in Hz
-    @objc open dynamic var vibratoRate: Double = 0 {
+    @objc open dynamic var vibratoRate: AUValue = 0 {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoRateParameter?.value = AUValue(newValue)
+                vibratoRateParameter?.value = newValue
             } else {
-                internalAU?.vibratoRate = AUValue(newValue)
+                internalAU?.vibratoRate = newValue
             }
         }
     }
     /// Filter Cutoff Frequency in Hz
-    @objc open dynamic var filterCutoffFrequency: Double = 22_050.0 {
+    @objc open dynamic var filterCutoffFrequency: AUValue = 22_050.0 {
         willSet {
             guard filterCutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterCutoffFrequencyParameter?.value = AUValue(newValue)
+                filterCutoffFrequencyParameter?.value = newValue
             } else {
-                internalAU?.filterCutoffFrequency = AUValue(newValue)
+                internalAU?.filterCutoffFrequency = newValue
             }
         }
     }
 
     /// Filter Resonance
-    @objc open dynamic var filterResonance: Double = 22_050.0 {
+    @objc open dynamic var filterResonance: AUValue = 22_050.0 {
         willSet {
             guard filterResonance != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterResonanceParameter?.value = AUValue(newValue)
+                filterResonanceParameter?.value = newValue
             } else {
-                internalAU?.filterResonance = AUValue(newValue)
+                internalAU?.filterResonance = newValue
             }
         }
     }
 
     /// Filter Attack Duration in seconds
-    @objc open dynamic var filterAttackDuration: Double = 0.1 {
+    @objc open dynamic var filterAttackDuration: AUValue = 0.1 {
         willSet {
             guard filterAttackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterAttackDurationParameter?.value = AUValue(newValue)
+                filterAttackDurationParameter?.value = newValue
             } else {
-                internalAU?.filterAttackDuration = AUValue(newValue)
+                internalAU?.filterAttackDuration = newValue
             }
         }
     }
 
     /// Filter Decay Duration in seconds
-    @objc open dynamic var filterDecayDuration: Double = 0.1 {
+    @objc open dynamic var filterDecayDuration: AUValue = 0.1 {
         willSet {
             guard filterDecayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterDecayDurationParameter?.value = AUValue(newValue)
+                filterDecayDurationParameter?.value = newValue
             } else {
-                internalAU?.filterDecayDuration = AUValue(newValue)
+                internalAU?.filterDecayDuration = newValue
             }
         }
     }
     /// Filter Sustain Level
-    @objc open dynamic var filterSustainLevel: Double = 1.0 {
+    @objc open dynamic var filterSustainLevel: AUValue = 1.0 {
         willSet {
             guard filterSustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterSustainLevelParameter?.value = AUValue(newValue)
+                filterSustainLevelParameter?.value = newValue
             } else {
-                internalAU?.filterSustainLevel = AUValue(newValue)
+                internalAU?.filterSustainLevel = newValue
             }
         }
     }
     /// Filter Release Duration in seconds
-    @objc open dynamic var filterReleaseDuration: Double = 0.1 {
+    @objc open dynamic var filterReleaseDuration: AUValue = 0.1 {
         willSet {
             guard filterReleaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterReleaseDurationParameter?.value = AUValue(newValue)
+                filterReleaseDurationParameter?.value = newValue
             } else {
-                internalAU?.filterReleaseDuration = AUValue(newValue)
+                internalAU?.filterReleaseDuration = newValue
             }
         }
     }
     ///Filter Envelope Strength
-    @objc open dynamic var filterEnvelopeStrength: Double = 0.1 {
+    @objc open dynamic var filterEnvelopeStrength: AUValue = 0.1 {
         willSet {
             guard filterEnvelopeStrength != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterEnvelopeStrengthParameter?.value = AUValue(newValue)
+                filterEnvelopeStrengthParameter?.value = newValue
             } else {
-                internalAU?.filterEnvelopeStrength = AUValue(newValue)
+                internalAU?.filterEnvelopeStrength = newValue
             }
         }
     }
     ///Filter LFO Depth
-    @objc open dynamic var filterLFODepth: Double = 0.1 {
+    @objc open dynamic var filterLFODepth: AUValue = 0.1 {
         willSet {
             guard filterLFODepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterLFODepthParameter?.value = AUValue(newValue)
+                filterLFODepthParameter?.value = newValue
             } else {
-                internalAU?.filterLFODepth = AUValue(newValue)
+                internalAU?.filterLFODepth = newValue
             }
         }
     }
     ///Filter LFO Rate
-    @objc open dynamic var filterLFORate: Double = 0.1 {
+    @objc open dynamic var filterLFORate: AUValue = 0.1 {
         willSet {
             guard filterLFORate != newValue else { return }
             if internalAU?.isSetUp == true {
-                filterLFORateParameter?.value = AUValue(newValue)
+                filterLFORateParameter?.value = newValue
             } else {
-                internalAU?.filterLFORate = AUValue(newValue)
+                internalAU?.filterLFORate = newValue
             }
         }
     }
@@ -261,23 +261,23 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     ///
     @objc public init(
         waveform: AKTable = AKTable(.sine),
-        phaseDistortion: Double = 0.0,
-        attackDuration: Double = 0.1,
-        decayDuration: Double = 0.1,
-        sustainLevel: Double = 1.0,
-        releaseDuration: Double = 0.1,
-        pitchBend: Double = 0,
-        vibratoDepth: Double = 0,
-        vibratoRate: Double = 0,
-        filterCutoffFrequency: Double = 22_050.0,
-        filterResonance: Double = 0.0,
-        filterAttackDuration: Double = 0.1,
-        filterDecayDuration: Double = 0.1,
-        filterSustainLevel: Double = 1.0,
-        filterReleaseDuration: Double = 1.0,
-        filterEnvelopeStrength: Double = 0.0,
-        filterLFODepth: Double = 0.0,
-        filterLFORate: Double = 0.0) {
+        phaseDistortion: AUValue = 0.0,
+        attackDuration: AUValue = 0.1,
+        decayDuration: AUValue = 0.1,
+        sustainLevel: AUValue = 1.0,
+        releaseDuration: AUValue = 0.1,
+        pitchBend: AUValue = 0,
+        vibratoDepth: AUValue = 0,
+        vibratoRate: AUValue = 0,
+        filterCutoffFrequency: AUValue = 22_050.0,
+        filterResonance: AUValue = 0.0,
+        filterAttackDuration: AUValue = 0.1,
+        filterDecayDuration: AUValue = 0.1,
+        filterSustainLevel: AUValue = 1.0,
+        filterReleaseDuration: AUValue = 1.0,
+        filterEnvelopeStrength: AUValue = 0.0,
+        filterLFODepth: AUValue = 0.0,
+        filterLFORate: AUValue = 0.0) {
 
         self.waveform = waveform
         self.phaseDistortion = phaseDistortion
@@ -339,24 +339,23 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
         filterLFODepthParameter = tree["filterLFODepth"]
         filterLFORateParameter = tree["filterLFORate"]
 
-        internalAU?.phaseDistortion = Float(phaseDistortion)
-
-        internalAU?.attackDuration = Float(attackDuration)
-        internalAU?.decayDuration = Float(decayDuration)
-        internalAU?.sustainLevel = Float(sustainLevel)
-        internalAU?.releaseDuration = Float(releaseDuration)
-        internalAU?.pitchBend = Float(pitchBend)
-        internalAU?.vibratoDepth = Float(vibratoDepth)
-        internalAU?.vibratoRate = Float(vibratoRate)
-        internalAU?.filterCutoffFrequency = Float(filterCutoffFrequency)
-        internalAU?.filterResonance = Float(filterResonance)
-        internalAU?.filterAttackDuration = Float(filterAttackDuration)
-        internalAU?.filterDecayDuration = Float(filterDecayDuration)
-        internalAU?.filterSustainLevel = Float(filterSustainLevel)
-        internalAU?.filterReleaseDuration = Float(filterReleaseDuration)
-        internalAU?.filterEnvelopeStrength = Float(filterEnvelopeStrength)
-        internalAU?.filterLFODepth = Float(filterLFODepth)
-        internalAU?.filterLFORate = Float(filterLFORate)
+        internalAU?.phaseDistortion = phaseDistortion
+        internalAU?.attackDuration = attackDuration
+        internalAU?.decayDuration = decayDuration
+        internalAU?.sustainLevel = sustainLevel
+        internalAU?.releaseDuration = releaseDuration
+        internalAU?.pitchBend = pitchBend
+        internalAU?.vibratoDepth = vibratoDepth
+        internalAU?.vibratoRate = vibratoRate
+        internalAU?.filterCutoffFrequency = filterCutoffFrequency
+        internalAU?.filterResonance = filterResonance
+        internalAU?.filterAttackDuration = filterAttackDuration
+        internalAU?.filterDecayDuration = filterDecayDuration
+        internalAU?.filterSustainLevel = filterSustainLevel
+        internalAU?.filterReleaseDuration = filterReleaseDuration
+        internalAU?.filterEnvelopeStrength = filterEnvelopeStrength
+        internalAU?.filterLFODepth = filterLFODepth
+        internalAU?.filterLFORate = filterLFORate
     }
 
     // MARK: - AKPolyphonic
@@ -364,9 +363,9 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
-                            frequency: Double,
+                            frequency: AUValue,
                             channel: MIDIChannel = 0) {
-        internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
+        internalAU?.startNote(noteNumber, velocity: velocity, frequency: frequency)
     }
     /// Function to stop or bypass the node, both are equivalent
     open override func stop(noteNumber: MIDINoteNumber) {

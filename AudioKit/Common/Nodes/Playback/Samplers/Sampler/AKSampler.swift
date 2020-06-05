@@ -12,202 +12,202 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     public var internalAU: AKAudioUnitType?
 
     /// Master volume (fraction)
-    open var masterVolume: Double = 1.0 {
+    open var masterVolume: AUValue = 1.0 {
         willSet {
             guard masterVolume != newValue else { return }
-            internalAU?.masterVolume.value = AUValue(newValue)
+            internalAU?.masterVolume.value = newValue
         }
     }
 
     /// Pitch offset (semitones)
-    open var pitchBend: Double = 0.0 {
+    open var pitchBend: AUValue = 0.0 {
         willSet {
             guard pitchBend != newValue else { return }
-            internalAU?.pitchBend.value = AUValue(newValue)
+            internalAU?.pitchBend.value = newValue
         }
     }
 
     /// Vibrato amount (semitones)
-    open var vibratoDepth: Double = 0.0 {
+    open var vibratoDepth: AUValue = 0.0 {
         willSet {
             guard vibratoDepth != newValue else { return }
-            internalAU?.vibratoDepth.value = AUValue(newValue)
+            internalAU?.vibratoDepth.value = newValue
         }
     }
 
     /// Vibrato speed (hz)
-    open var vibratoFrequency: Double = 5.0 {
+    open var vibratoFrequency: AUValue = 5.0 {
         willSet {
             guard vibratoFrequency != newValue else { return }
-            internalAU?.vibratoFrequency.value = AUValue(newValue)
+            internalAU?.vibratoFrequency.value = newValue
         }
     }
 
     /// Voice Vibrato amount (semitones)
-    open var voiceVibratoDepth: Double = 0.0 {
+    open var voiceVibratoDepth: AUValue = 0.0 {
         willSet {
             guard voiceVibratoDepth != newValue else { return }
-            internalAU?.voiceVibratoDepth.value = AUValue(newValue)
+            internalAU?.voiceVibratoDepth.value = newValue
         }
     }
 
     /// VoiceVibrato speed (hz)
-    open var voiceVibratoFrequency: Double = 5.0 {
+    open var voiceVibratoFrequency: AUValue = 5.0 {
         willSet {
             guard voiceVibratoFrequency != newValue else { return }
-            internalAU?.voiceVibratoFrequency.value = AUValue(newValue)
+            internalAU?.voiceVibratoFrequency.value = newValue
         }
     }
 
     /// Filter cutoff (harmonic ratio)
-    open var filterCutoff: Double = 4.0 {
+    open var filterCutoff: AUValue = 4.0 {
         willSet {
             guard filterCutoff != newValue else { return }
-            internalAU?.filterCutoff.value = AUValue(newValue)
+            internalAU?.filterCutoff.value = newValue
         }
     }
 
     /// Filter EG strength (harmonic ratio)
-    open var filterStrength: Double = 20.0 {
+    open var filterStrength: AUValue = 20.0 {
         willSet {
             guard filterStrength != newValue else { return }
-            internalAU?.filterStrength.value = AUValue(newValue)
+            internalAU?.filterStrength.value = newValue
         }
     }
 
     /// Filter resonance (dB)
-    open var filterResonance: Double = 0.0 {
+    open var filterResonance: AUValue = 0.0 {
         willSet {
             guard filterResonance != newValue else { return }
-            internalAU?.filterResonance.value = AUValue(newValue)
+            internalAU?.filterResonance.value = newValue
         }
     }
 
     /// Glide rate (seconds per octave)
-    open var glideRate: Double = 0.0 {
+    open var glideRate: AUValue = 0.0 {
         willSet {
             guard glideRate != newValue else { return }
-            internalAU?.glideRate.value = AUValue(newValue)
+            internalAU?.glideRate.value = newValue
         }
     }
 
     /// Amplitude attack duration (seconds)
-    open var attackDuration: Double = 0.0 {
+    open var attackDuration: AUValue = 0.0 {
         willSet {
             guard attackDuration != newValue else { return }
-            internalAU?.attackDuration.value = AUValue(newValue)
+            internalAU?.attackDuration.value = newValue
         }
     }
 
     /// Amplitude hold duration (seconds)
-    open var holdDuration: Double = 0.0 {
+    open var holdDuration: AUValue = 0.0 {
         willSet {
             guard holdDuration != newValue else { return }
-            internalAU?.holdDuration.value = AUValue(newValue)
+            internalAU?.holdDuration.value = newValue
         }
     }
 
     /// Amplitude Decay duration (seconds)
-    open var decayDuration: Double = 0.0 {
+    open var decayDuration: AUValue = 0.0 {
         willSet {
             guard decayDuration != newValue else { return }
-            internalAU?.decayDuration.value = AUValue(newValue)
+            internalAU?.decayDuration.value = newValue
         }
     }
 
     /// Amplitude sustain level (fraction)
-    open var sustainLevel: Double = 1.0 {
+    open var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
-            internalAU?.sustainLevel.value = AUValue(newValue)
+            internalAU?.sustainLevel.value = newValue
         }
     }
 
     /// Amplitude Release Hold duration (seconds)
-    open var releaseHoldDuration: Double = 0.0 {
+    open var releaseHoldDuration: AUValue = 0.0 {
         willSet {
             guard releaseHoldDuration != newValue else { return }
-            internalAU?.releaseHoldDuration.value = AUValue(newValue)
+            internalAU?.releaseHoldDuration.value = newValue
         }
     }
 
     /// Amplitude Release duration (seconds)
-    open var releaseDuration: Double = 0.0 {
+    open var releaseDuration: AUValue = 0.0 {
         willSet {
             guard releaseDuration != newValue else { return }
-            internalAU?.releaseDuration.value = AUValue(newValue)
+            internalAU?.releaseDuration.value = newValue
         }
     }
 
     /// Filter attack duration (seconds)
-    open var filterAttackDuration: Double = 0.0 {
+    open var filterAttackDuration: AUValue = 0.0 {
         willSet {
             guard filterAttackDuration != newValue else { return }
-            internalAU?.filterAttackDuration.value = AUValue(newValue)
+            internalAU?.filterAttackDuration.value = newValue
         }
     }
 
     /// Filter Decay duration (seconds)
-    open var filterDecayDuration: Double = 0.0 {
+    open var filterDecayDuration: AUValue = 0.0 {
         willSet {
             guard filterDecayDuration != newValue else { return }
-            internalAU?.filterDecayDuration.value = AUValue(newValue)
+            internalAU?.filterDecayDuration.value = newValue
         }
     }
 
     /// Filter sustain level (fraction)
-    open var filterSustainLevel: Double = 1.0 {
+    open var filterSustainLevel: AUValue = 1.0 {
         willSet {
             guard filterSustainLevel != newValue else { return }
-            internalAU?.filterSustainLevel.value = AUValue(newValue)
+            internalAU?.filterSustainLevel.value = newValue
         }
     }
 
     /// Filter Release duration (seconds)
-    open var filterReleaseDuration: Double = 0.0 {
+    open var filterReleaseDuration: AUValue = 0.0 {
         willSet {
             guard filterReleaseDuration != newValue else { return }
-            internalAU?.filterReleaseDuration.value = AUValue(newValue)
+            internalAU?.filterReleaseDuration.value = newValue
         }
     }
 
     /// Pitch attack duration (seconds)
-    open var pitchAttackDuration: Double = 0.0 {
+    open var pitchAttackDuration: AUValue = 0.0 {
         willSet {
             guard pitchAttackDuration != newValue else { return }
-            internalAU?.pitchAttackDuration.value = AUValue(newValue)
+            internalAU?.pitchAttackDuration.value = newValue
         }
     }
 
     /// Pitch Decay duration (seconds)
-    open var pitchDecayDuration: Double = 0.0 {
+    open var pitchDecayDuration: AUValue = 0.0 {
         willSet {
             guard pitchDecayDuration != newValue else { return }
-            internalAU?.pitchDecayDuration.value = AUValue(newValue)
+            internalAU?.pitchDecayDuration.value = newValue
         }
     }
 
     /// Pitch sustain level (fraction)
-    open var pitchSustainLevel: Double = 1.0 {
+    open var pitchSustainLevel: AUValue = 1.0 {
         willSet {
             guard pitchSustainLevel != newValue else { return }
-            internalAU?.pitchSustainLevel.value = AUValue(newValue)
+            internalAU?.pitchSustainLevel.value = newValue
         }
     }
 
     /// Pitch Release duration (seconds)
-    open var pitchReleaseDuration: Double = 0.0 {
+    open var pitchReleaseDuration: AUValue = 0.0 {
         willSet {
             guard pitchReleaseDuration != newValue else { return }
-            internalAU?.pitchReleaseDuration.value = AUValue(newValue)
+            internalAU?.pitchReleaseDuration.value = newValue
         }
     }
 
     /// Pitch EG Amount duration (semitones)
-    open var pitchADSRSemitones: Double = 0.0 {
+    open var pitchADSRSemitones: AUValue = 0.0 {
         willSet {
             guard pitchADSRSemitones != newValue else { return }
-            internalAU?.pitchADSRSemitones.value = AUValue(newValue)
+            internalAU?.pitchADSRSemitones.value = newValue
         }
     }
 
@@ -252,18 +252,18 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     }
 
     /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
-    open var keyTrackingFraction: Double = 1.0 {
+    open var keyTrackingFraction: AUValue = 1.0 {
         willSet {
             guard keyTrackingFraction != newValue else { return }
-            internalAU?.keyTrackingFraction.value = AUValue(newValue)
+            internalAU?.keyTrackingFraction.value = newValue
         }
     }
 
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
-    open var filterEnvelopeVelocityScaling: Double = 0.0 {
+    open var filterEnvelopeVelocityScaling: AUValue = 0.0 {
         willSet {
             guard filterEnvelopeVelocityScaling != newValue else { return }
-            internalAU?.filterEnvelopeVelocityScaling.value = AUValue(newValue)
+            internalAU?.filterEnvelopeVelocityScaling.value = newValue
         }
     }
 
@@ -318,8 +318,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         internalAU?.unloadAllSamples()
     }
 
-    open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: Double) {
-        internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: Float(frequency))
+    open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
+        internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
     }
 
     open func buildSimpleKeyMap() {

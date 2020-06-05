@@ -28,25 +28,25 @@ open class AKMandolin: AKNode, AKComponent {
     }
 
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
-    @objc open dynamic var detune: Double = 1 {
+    @objc open dynamic var detune: AUValue = 1 {
         willSet {
             guard detune != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuneParameter?.value = AUValue(newValue)
+                detuneParameter?.value = newValue
             } else {
-                internalAU?.detune = AUValue(newValue)
+                internalAU?.detune = newValue
             }
         }
     }
 
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
-    @objc open dynamic var bodySize: Double = 1 {
+    @objc open dynamic var bodySize: AUValue = 1 {
         willSet {
             guard bodySize != newValue else { return }
             if internalAU?.isSetUp == true {
-                bodySizeParameter?.value = AUValue(newValue)
+                bodySizeParameter?.value = newValue
             } else {
-                internalAU?.bodySize = AUValue(newValue)
+                internalAU?.bodySize = newValue
             }
         }
     }
@@ -60,8 +60,8 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     ///
     @objc public init(
-        detune: Double = 1,
-        bodySize: Double = 1) {
+        detune: AUValue = 1,
+        bodySize: AUValue = 1) {
 
         self.detune = detune
         self.bodySize = bodySize
@@ -121,7 +121,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func pluck(course: Int, position: Double, velocity: MIDIVelocity) {
+    open func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
     }
 
@@ -131,7 +131,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    @objc open func strum(_ position: Double, velocity: MIDIVelocity) {
+    @objc open func strum(_ position: AUValue, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)

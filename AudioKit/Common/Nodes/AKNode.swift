@@ -147,7 +147,7 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
-    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double, channel: MIDIChannel)
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: AUValue, channel: MIDIChannel)
 
     /// Play a sound corresponding to a MIDI note
     ///
@@ -179,7 +179,7 @@ public protocol AKPolyphonic {
     ///
     @objc open func play(noteNumber: MIDINoteNumber,
                          velocity: MIDIVelocity,
-                         frequency: Double,
+                         frequency: AUValue,
                          channel: MIDIChannel = 0) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
             "override in subclass")
@@ -196,7 +196,7 @@ public protocol AKPolyphonic {
 
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency, channel: channel)
+        self.play(noteNumber: noteNumber, velocity: velocity, frequency: AUValue(frequency), channel: channel)
     }
 
     /// Stop a sound corresponding to a MIDI note

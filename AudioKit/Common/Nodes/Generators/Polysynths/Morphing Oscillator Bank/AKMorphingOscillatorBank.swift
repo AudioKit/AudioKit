@@ -42,98 +42,98 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Index of the wavetable to use (fractional are okay).
-    @objc open dynamic var index: Double = 0.0 {
+    @objc open dynamic var index: AUValue = 0.0 {
         willSet {
             guard index != newValue else { return }
             if internalAU?.isSetUp == true {
-                indexParameter?.value = AUValue(newValue)
+                indexParameter?.value = newValue
                 return
             } else {
-                internalAU?.index = AUValue(newValue)
+                internalAU?.index = newValue
             }
         }
     }
 
     /// Attack duration in seconds
-    @objc open dynamic var attackDuration: Double = 0.1 {
+    @objc open dynamic var attackDuration: AUValue = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = AUValue(newValue)
+                attackDurationParameter?.value = newValue
             } else {
-                internalAU?.attackDuration = AUValue(newValue)
+                internalAU?.attackDuration = newValue
             }
         }
     }
 
     /// Decay duration in seconds
-    @objc open dynamic var decayDuration: Double = 0.1 {
+    @objc open dynamic var decayDuration: AUValue = 0.1 {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = AUValue(newValue)
+                decayDurationParameter?.value = newValue
             } else {
-                internalAU?.decayDuration = AUValue(newValue)
+                internalAU?.decayDuration = newValue
             }
         }
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: Double = 1.0 {
+    @objc open dynamic var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                sustainLevelParameter?.value = AUValue(newValue)
+                sustainLevelParameter?.value = newValue
             } else {
-                internalAU?.sustainLevel = AUValue(newValue)
+                internalAU?.sustainLevel = newValue
             }
         }
     }
 
     /// Release duration in seconds
-    @objc open dynamic var releaseDuration: Double = 0.1 {
+    @objc open dynamic var releaseDuration: AUValue = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = AUValue(newValue)
+                releaseDurationParameter?.value = newValue
             } else {
-                internalAU?.releaseDuration = AUValue(newValue)
+                internalAU?.releaseDuration = newValue
             }
         }
     }
 
     /// Pitch Bend as number of semitones
-    @objc open dynamic var pitchBend: Double = 0 {
+    @objc open dynamic var pitchBend: AUValue = 0 {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                pitchBendParameter?.value = AUValue(newValue)
+                pitchBendParameter?.value = newValue
             } else {
-                internalAU?.pitchBend = AUValue(newValue)
+                internalAU?.pitchBend = newValue
             }
         }
     }
 
     /// Vibrato Depth in semitones
-    @objc open dynamic var vibratoDepth: Double = 0 {
+    @objc open dynamic var vibratoDepth: AUValue = 0 {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoDepthParameter?.value = AUValue(newValue)
+                vibratoDepthParameter?.value = newValue
             } else {
-                internalAU?.vibratoDepth = AUValue(newValue)
+                internalAU?.vibratoDepth = newValue
             }
         }
     }
 
     /// Vibrato Rate in Hz
-    @objc open dynamic var vibratoRate: Double = 0 {
+    @objc open dynamic var vibratoRate: AUValue = 0 {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoRateParameter?.value = AUValue(newValue)
+                vibratoRateParameter?.value = newValue
             } else {
-                internalAU?.vibratoRate = AUValue(newValue)
+                internalAU?.vibratoRate = newValue
             }
         }
     }
@@ -155,14 +155,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     ///
     @objc public init(
         waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
-        index: Double = 0,
-        attackDuration: Double = 0.1,
-        decayDuration: Double = 0.1,
-        sustainLevel: Double = 1.0,
-        releaseDuration: Double = 0.1,
-        pitchBend: Double = 0,
-        vibratoDepth: Double = 0,
-        vibratoRate: Double = 0) {
+        index: AUValue = 0,
+        attackDuration: AUValue = 0.1,
+        decayDuration: AUValue = 0.1,
+        sustainLevel: AUValue = 1.0,
+        releaseDuration: AUValue = 0.1,
+        pitchBend: AUValue = 0,
+        vibratoDepth: AUValue = 0,
+        vibratoRate: AUValue = 0) {
 
         self.waveformArray = waveformArray
         self.index = index
@@ -208,13 +208,13 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         vibratoRateParameter = tree["vibratoRate"]
         internalAU?.index = Float(index)
 
-        internalAU?.attackDuration = Float(attackDuration)
-        internalAU?.decayDuration = Float(decayDuration)
-        internalAU?.sustainLevel = Float(sustainLevel)
-        internalAU?.releaseDuration = Float(releaseDuration)
-        internalAU?.pitchBend = Float(pitchBend)
-        internalAU?.vibratoDepth = Float(vibratoDepth)
-        internalAU?.vibratoRate = Float(vibratoRate)
+        internalAU?.attackDuration = attackDuration
+        internalAU?.decayDuration = decayDuration
+        internalAU?.sustainLevel = sustainLevel
+        internalAU?.releaseDuration = releaseDuration
+        internalAU?.pitchBend = pitchBend
+        internalAU?.vibratoDepth = vibratoDepth
+        internalAU?.vibratoRate = vibratoRate
     }
 
     /// stops all notes
@@ -227,7 +227,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
-                            frequency: Double,
+                            frequency: AUValue,
                             channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
