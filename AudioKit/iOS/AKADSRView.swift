@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
 import UIKit
 
 /// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
@@ -9,16 +10,16 @@ import UIKit
     public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
     /// Attack duration in seconds, Default: 0.1
-    @IBInspectable open var attackDuration: AUValue = 0.100
+    open var attackDuration: AUValue = 0.100
 
     /// Decay duration in seconds, Default: 0.1
-    @IBInspectable open var decayDuration: AUValue = 0.100
+    open var decayDuration: AUValue = 0.100
 
     /// Sustain Level (0-1), Default: 0.5
-    @IBInspectable open var sustainLevel: AUValue = 0.50
+    open var sustainLevel: AUValue = 0.50
 
     /// Release duration in seconds, Default: 0.1
-    @IBInspectable open var releaseDuration: AUValue = 0.100
+    open var releaseDuration: AUValue = 0.100
 
     /// Attack duration in milliseconds
     var attackTime: CGFloat {
