@@ -6,19 +6,19 @@ import UIKit
 @IBDesignable open class AKADSRView: UIView {
 
     /// Type of function to call when values of the ADSR have changed
-    public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
+    public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
     /// Attack duration in seconds, Default: 0.1
-    @IBInspectable open var attackDuration: Double = 0.100
+    @IBInspectable open var attackDuration: AUValue = 0.100
 
     /// Decay duration in seconds, Default: 0.1
-    @IBInspectable open var decayDuration: Double = 0.100
+    @IBInspectable open var decayDuration: AUValue = 0.100
 
     /// Sustain Level (0-1), Default: 0.5
-    @IBInspectable open var sustainLevel: Double = 0.50
+    @IBInspectable open var sustainLevel: AUValue = 0.50
 
     /// Release duration in seconds, Default: 0.1
-    @IBInspectable open var releaseDuration: Double = 0.100
+    @IBInspectable open var releaseDuration: AUValue = 0.100
 
     /// Attack duration in milliseconds
     var attackTime: CGFloat {
@@ -26,7 +26,7 @@ import UIKit
             return CGFloat(attackDuration * 1_000.0)
         }
         set {
-            attackDuration = Double(newValue / 1_000.0)
+            attackDuration = AUValue(newValue / 1_000.0)
         }
     }
 
@@ -36,7 +36,7 @@ import UIKit
             return CGFloat(decayDuration * 1_000.0)
         }
         set {
-            decayDuration = Double(newValue / 1_000.0)
+            decayDuration = AUValue(newValue / 1_000.0)
         }
     }
 
@@ -46,7 +46,7 @@ import UIKit
             return CGFloat(sustainLevel * 100.0)
         }
         set {
-            sustainLevel = Double(newValue / 100.0)
+            sustainLevel = AUValue(newValue / 100.0)
         }
     }
 
@@ -56,7 +56,7 @@ import UIKit
             return CGFloat(releaseDuration * 1_000.0)
         }
         set {
-            releaseDuration = Double(newValue / 1_000.0)
+            releaseDuration = AUValue(newValue / 1_000.0)
         }
     }
 
@@ -173,10 +173,10 @@ import UIKit
             sustainPercent = min(max(sustainPercent, 0), 100)
 
             if let realCallback = self.callback {
-                realCallback(Double(attackTime / 1_000.0),
-                             Double(decayTime / 1_000.0),
-                             Double(sustainPercent / 100.0),
-                             Double(releaseTime / 1_000.0))
+                realCallback(AUValue(attackTime / 1_000.0),
+                             AUValue(decayTime / 1_000.0),
+                             AUValue(sustainPercent / 100.0),
+                             AUValue(releaseTime / 1_000.0))
             }
             lastPoint = touchLocation
         }
