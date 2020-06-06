@@ -114,19 +114,19 @@ class Conductor {
     func controller(_ controller: MIDIByte, value: MIDIByte) {
         switch controller {
         case AKMIDIControl.modulationWheel.rawValue:
-            oscillator.vibratoDepth = 0.5 * Double(value) / 128.0
+            oscillator.vibratoDepth = 0.5 * AUValue(value) / 128.0
         default:
             break
         }
     }
 
     func pitchBend(_ pitchWheelValue: MIDIWord) {
-        let pwValue = Double(pitchWheelValue)
-        let scale = (pwValue - 8_192.0) / 8_192.0
+        let pwValue = AUValue(pitchWheelValue)
+        let scale: AUValue = (pwValue - 8_192.0) / 8_192.0
         if scale >= 0.0 {
-            oscillator.pitchBend = scale * self.pitchBendUpSemitones
+            oscillator.pitchBend = AUValue(scale * self.pitchBendUpSemitones)
         } else {
-            oscillator.pitchBend = scale * self.pitchBendDownSemitones
+            oscillator.pitchBend = AUValue(scale * self.pitchBendDownSemitones)
         }
     }
 

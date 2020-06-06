@@ -41,7 +41,7 @@ class AKDistortionTests: AKTestCase {
 
     func testDelayMix() {
         output = AKDistortion(input, delayMix: 0.6)
-        AKTestMD5("1a499e4fe4b036950c85f48832cf0b75")
+        AKTestMD5("e95d00be31d88dafd2c915b643f60542")
     }
 
     func testFinalMix() {
@@ -72,7 +72,7 @@ class AKDistortionTests: AKTestCase {
                               ringModMix: 0.68,
                               softClipGain: 0,
                               finalMix: 0.69)
-        AKTestMD5("b20419cbe57b8ff46b7082ccec6fb9f5")
+        AKTestMD5("f777cc1eca5ca00b3b977ada7bec95ab")
     }
 
     func testPolynomialMix() {

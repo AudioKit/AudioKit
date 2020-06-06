@@ -2,14 +2,14 @@
 
 import AudioKit
 
-public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
+public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
 public class AKADSRView: NSView {
 
-    public var attackDuration = 0.1
-    public var decayDuration = 0.1
-    public var sustainLevel = 0.1
-    public var releaseDuration = 0.1
+    public var attackDuration: AUValue = 0.1
+    public var decayDuration: AUValue = 0.1
+    public var sustainLevel: AUValue = 0.1
+    public var releaseDuration: AUValue = 0.1
 
     var decaySustainTouchAreaPath = NSBezierPath()
     var attackTouchAreaPath = NSBezierPath()
@@ -49,16 +49,16 @@ public class AKADSRView: NSView {
 
         if currentDragArea != "" {
             if currentDragArea == "ds" {
-                sustainLevel = 1.0 - Double(touchLocation.y) / Double(frame.height)
-                decayDuration += Double(touchLocation.x - lastPoint.x) / 1_000.0
+                sustainLevel = 1.0 - AUValue(touchLocation.y) / AUValue(frame.height)
+                decayDuration += AUValue(touchLocation.x - lastPoint.x) / 1_000.0
             }
             if currentDragArea == "a" {
-                attackDuration += Double(touchLocation.x - lastPoint.x) / 1_000.0
-                attackDuration -= Double(touchLocation.y - lastPoint.y) / 1_000.0
+                attackDuration += AUValue(touchLocation.x - lastPoint.x) / 1_000.0
+                attackDuration -= AUValue(touchLocation.y - lastPoint.y) / 1_000.0
             }
             if currentDragArea == "r" {
-                releaseDuration += Double(touchLocation.x - lastPoint.x) / 500.0
-                releaseDuration -= Double(touchLocation.y - lastPoint.y) / 500.0
+                releaseDuration += AUValue(touchLocation.x - lastPoint.x) / 500.0
+                releaseDuration -= AUValue(touchLocation.y - lastPoint.y) / 500.0
             }
         }
         if attackDuration < 0 { attackDuration = 0 }
