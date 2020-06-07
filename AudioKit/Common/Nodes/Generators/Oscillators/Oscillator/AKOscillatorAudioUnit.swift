@@ -44,6 +44,9 @@ public class AKOscillatorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  amplitude,
+                                                                  detuningOffset,
+                                                                  detuningMultiplier])
     }
 }

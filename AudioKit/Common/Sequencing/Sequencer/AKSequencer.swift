@@ -159,7 +159,6 @@ open class AKSequencer {
         tracks.forEach({ $0.seek(to: position) })
     }
 
-
     /// Equivalent to stop
     open func pause() {
         stop()

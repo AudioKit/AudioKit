@@ -113,10 +113,11 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Disconnect the node
     open override func detach() {
         stop()
+        guard let inputGain = inputGain, let effectGain = effectGain else { return }
 
         AKManager.detach(nodes: [inputMixer.avAudioNode,
-                                inputGain!.avAudioNode,
-                                effectGain!.avAudioNode,
+                                inputGain.avAudioNode,
+                                effectGain.avAudioNode,
                                 mixer.avAudioNode])
         AKManager.engine.detach(self.internalEffect)
     }

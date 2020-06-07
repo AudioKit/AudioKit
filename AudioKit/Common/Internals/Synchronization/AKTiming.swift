@@ -31,7 +31,7 @@
     func audioTime(at position: Double) -> AVAudioTime?
 
     /// Prepare for playback.  After prepare has been called, the node should be ready to begine playback immediately.
-    /// Any time consuming operations necessary for playback (eg. disk reads) should be complete once prepare has been called.
+    /// Time consuming operations necessary for playback (eg. disk reads) should be complete once prepare is called.
     ///
     @objc optional func prepare()
 

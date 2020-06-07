@@ -44,6 +44,9 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration])
+        parameterTree = AUParameterTree.createTree(withChildren: [attackDuration,
+                                                                  decayDuration,
+                                                                  sustainLevel,
+                                                                  releaseDuration])
     }
 }

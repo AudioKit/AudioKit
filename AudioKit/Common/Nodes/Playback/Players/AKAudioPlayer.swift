@@ -359,7 +359,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         internalPlayer.reset()
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
+                                   channels: internalAudioFile.channelCount)
         AKManager.engine.connect(internalPlayer, to: internalMixer, format: format)
 
         initialize()

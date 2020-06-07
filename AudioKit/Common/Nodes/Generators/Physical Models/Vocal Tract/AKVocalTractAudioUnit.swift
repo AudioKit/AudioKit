@@ -52,6 +52,10 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, tonguePosition, tongueDiameter, tenseness, nasality])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  tonguePosition,
+                                                                  tongueDiameter,
+                                                                  tenseness,
+                                                                  nasality])
     }
 }

@@ -178,7 +178,8 @@ open class AKSettings: NSObject {
             didSet {
                 if #available(iOS 13.0, tvOS 13.0, *) {
                     do {
-                        try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+                        try AVAudioSession.sharedInstance()
+                            .setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                     } catch {
                         AKLog("Could not set allow haptics to \(allowHapticsAndSystemSoundsDuringRecording)" +
                             error.localizedDescription, log: OSLog.settings, type: .error)
@@ -245,11 +246,12 @@ open class AKSettings: NSObject {
         }
 
         /// Checks the application's info.plist to see if UIBackgroundModes includes "audio".
-        /// If background audio is supported then the system will allow the AVAudioEngine to start even if the app is in,
-        /// or entering, a background state. This can help prevent a potential crash
+        /// If background audio is supported then the system will allow the AVAudioEngine to start even if
+        /// the app is in, or entering, a background state. This can help prevent a potential crash
         /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
         /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
-        @objc public static let appSupportsBackgroundAudio = (Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
+        @objc public static let appSupportsBackgroundAudio = (
+            Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
 
         /// Shortcut for AVAudioSession.sharedInstance()
         @objc public static let session = AVAudioSession.sharedInstance()
@@ -282,7 +284,9 @@ open class AKSettings: NSObject {
             // Core Haptics
             do {
                 if #available(iOS 13.0, tvOS 13.0, *) {
-                    try session.setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
+                    try session.setAllowHapticsAndSystemSoundsDuringRecording(
+                        allowHapticsAndSystemSoundsDuringRecording
+                    )
                 }
             } catch {
                 AKLog("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)

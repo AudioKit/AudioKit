@@ -38,7 +38,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     /// Filter cutoff frequency.
     public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it.
+    /// Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     public let resonance = AKNodeParameter(identifier: "resonance")
 
     // MARK: - Initialization
@@ -48,7 +49,9 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it.
+    ///     Higher than 1 resonance values might cause aliasing,
+    ///     analogue synths generally allow resonances to be above 1.
     ///
     public init(
         _ input: AKNode? = nil,

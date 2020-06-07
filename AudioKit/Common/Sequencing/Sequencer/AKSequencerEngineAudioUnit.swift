@@ -62,7 +62,11 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
             unit: .boolean,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [tempo, length, maximumPlayCount, position, loopEnabled])
+        parameterTree = AUParameterTree.createTree(withChildren: [tempo,
+                                                                  length,
+                                                                  maximumPlayCount,
+                                                                  position,
+                                                                  loopEnabled])
 
         tempo.value = AUValue(120)
         length.value = AUValue(4)

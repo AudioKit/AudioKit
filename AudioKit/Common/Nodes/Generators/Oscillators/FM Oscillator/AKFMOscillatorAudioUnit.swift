@@ -52,6 +52,10 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude])
+        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency,
+                                                                  carrierMultiplier,
+                                                                  modulatingMultiplier,
+                                                                  modulationIndex,
+                                                                  amplitude])
     }
 }

@@ -68,6 +68,12 @@ public class AKDripAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude])
+        parameterTree = AUParameterTree.createTree(withChildren: [intensity,
+                                                                  dampingFactor,
+                                                                  energyReturn,
+                                                                  mainResonantFrequency,
+                                                                  firstResonantFrequency,
+                                                                  secondResonantFrequency,
+                                                                  amplitude])
     }
 }

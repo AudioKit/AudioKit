@@ -44,6 +44,9 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, distortion, resonanceAsymmetry])
+        parameterTree = AUParameterTree.createTree(withChildren: [cutoffFrequency,
+                                                                  resonance,
+                                                                  distortion,
+                                                                  resonanceAsymmetry])
     }
 }

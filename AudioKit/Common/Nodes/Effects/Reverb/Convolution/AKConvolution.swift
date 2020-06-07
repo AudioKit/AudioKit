@@ -24,7 +24,8 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initialize this convolution node
     ///
     /// - Parameters:
-    ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
+    ///   - partitionLength: Partition length (in samples). Must be a power of 2.
+    ///     Lower values will add less latency, at the cost of requiring more CPU power.
     ///
     public init(_ input: AKNode? = nil,
                 impulseResponseFileURL: URL,
@@ -125,7 +126,9 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
                 if err == noErr {
                     // success
-                    let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
+                    let data = UnsafeMutablePointer<Float>(
+                        bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
+                    )
                     internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure

@@ -72,7 +72,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     /// - Parameters:
     ///   - waveform: The waveform of oscillation
-    ///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    ///   - baseFrequency: In cycles per second, the common denominator for the carrier and modulating frequencies.
     ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
     ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
     ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.

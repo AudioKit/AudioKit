@@ -33,7 +33,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     /// Initial value for Cutoff Frequency
     public static let defaultCutoffFrequency: AUValue = 4_000.0
 
-    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    /// Feedback level in the range 0 to 1. 0.6 is good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall.
+    /// A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     public let feedback = AKNodeParameter(identifier: "feedback")
 
     /// Low-pass cutoff frequency.
@@ -45,7 +46,9 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    ///   - feedback: Feedback level in the range 0 to 1.
+    ///     0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall.
+    ///     A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(

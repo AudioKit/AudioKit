@@ -11,10 +11,10 @@ extension AVAudioEngine {
 
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
-    ///         - audioFile: An file initialized for writing
+    ///         - audioFile: A file initialized for writing
     ///         - duration: Duration to render, in seconds
-    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
-    ///         - progress: A closure called while rendering, use this to fetch render progress
+    ///         - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
+    ///         - progress: Closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
     public func renderToFile(_ audioFile: AVAudioFile,
@@ -30,14 +30,17 @@ extension AVAudioEngine {
         try AKTry {
             // Engine can't be running when switching to offline render mode.
             if self.isRunning { self.stop() }
-            try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: maximumFrameCount)
+            try self.enableManualRenderingMode(.offline,
+                                               format: audioFile.processingFormat,
+                                               maximumFrameCount: maximumFrameCount)
 
             // This resets the sampleTime of offline rendering to 0.
             self.reset()
             try self.start()
         }
 
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat,
+                                            frameCapacity: manualRenderingMaximumFrameCount) else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Couldn't create buffer in renderToFile"])
         }

@@ -57,7 +57,8 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     /// Range of downwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend DOWN range
-    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave.
+    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is
+    /// greater than the maximum distance between two notes in your octave.
     @objc public var etNNPitchBendRangeDown: Cents = -50 {
 
         didSet {
@@ -68,7 +69,8 @@ open class AKTuningTable: AKTuningTableBase {
     internal let pitchBendLow: Double = 0
 
     /// Range of upwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend UP range
-    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave.
+    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is
+    /// greater than the maximum distance between two notes in your octave.
     @objc public var etNNPitchBendRangeUp: Cents = 50 {
 
         didSet {
@@ -78,19 +80,20 @@ open class AKTuningTable: AKTuningTableBase {
 
     internal let pitchBendHigh: Double = 16_383
 
-    internal var etNNDictionary = Dictionary<MIDINoteNumber, AKTuningTableETNN>()
+    internal var etNNDictionary = [MIDINoteNumber: AKTuningTableETNN]()
 
-    /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
+    /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN
+    /// of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
     @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
-
         return etNNDictionary[nn]
     }
 
-    internal var delta12ETDictionary = Dictionary<MIDINoteNumber, AKTuningTableDelta12ET>()
+    internal var delta12ETDictionary = [MIDINoteNumber: AKTuningTableDelta12ET]()
 
-    /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
+    /// Given the tuning table's MIDINoteNumber NN return an
+    /// AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
     @objc public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
@@ -235,11 +238,7 @@ open class AKTuningTable: AKTuningTableBase {
                     let netnnpb = Int( (netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow )
                     etNNDictionary[MIDINoteNumber(i)] = AKTuningTableETNN(nnAs12ETNN, netnnpb)
                     delta12ETDictionary[MIDINoteNumber(i)] = AKTuningTableDelta12ET(nnAs12ETNN, delta12ETpbf)
-                } else {
-                    //AKLog("this tuning's note number:\(i) is in range of 12ET note numbers:\(freqAs12ETNN) but pitch bend is not:\(etnnpbf)")
                 }
-            } else {
-                //AKLog("this tuning's note number:\(i) is out of range of 12ET note numbers:\(freqAs12ETNN)")
             }
         }
         //AKLog("etnn dictionary:\(etNNDictionary)")
