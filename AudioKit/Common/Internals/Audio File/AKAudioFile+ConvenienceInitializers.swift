@@ -1,25 +1,24 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension NSError {
-  static var fileCreateError: NSError {
-    return NSError(domain: NSURLErrorDomain,
-                   code: NSURLErrorCannotCreateFile,
-                   userInfo: nil)
-  }
+    static var fileCreateError: NSError {
+        return NSError(domain: NSURLErrorDomain,
+                       code: NSURLErrorCannotCreateFile,
+                       userInfo: nil)
+    }
 }
 
-func ??<T> (lhs: T?, rhs: NSError) throws -> T {
-  guard let l = lhs else { throw rhs }
-  return l
+func ?? <T>(lhs: T?, rhs: NSError) throws -> T {
+    guard let l = lhs else { throw rhs }
+    return l
 }
 
 func || (lhs: Bool, rhs: NSError) throws -> Bool {
-  guard lhs else { throw rhs }
-  return lhs
+    guard lhs else { throw rhs }
+    return lhs
 }
 
 extension AKAudioFile {
-
     /// Opens a file for reading.
     ///
     /// - parameter name:    Filename, including the extension
@@ -61,26 +60,26 @@ extension AKAudioFile {
                             name: String? = nil,
                             settings: [String: Any] = AKSettings.audioFormat.settings)
         throws {
-            let extPath: String = "\(name ?? UUID().uuidString).caf"
-            let filePath: String = try baseDir.create(file: extPath, write: true)
-            let fileURL = URL(fileURLWithPath: filePath)
+        let extPath: String = "\(name ?? UUID().uuidString).caf"
+        let filePath: String = try baseDir.create(file: extPath, write: true)
+        let fileURL = URL(fileURLWithPath: filePath)
 
-            // Directory exists ?
-            let absDirPath = fileURL.deletingLastPathComponent().path
+        // Directory exists ?
+        let absDirPath = fileURL.deletingLastPathComponent().path
 
-            _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
+        _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
 
-            // AVLinearPCMIsNonInterleaved cannot be set to false (ignored but throw a warning)
-            var fixedSettings = settings
+        // AVLinearPCMIsNonInterleaved cannot be set to false (ignored but throw a warning)
+        var fixedSettings = settings
 
-            fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+        fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
-            do {
-                try self.init(forWriting: fileURL, settings: fixedSettings)
-            } catch let error as NSError {
-                AKLog("Couldn't create an AKAudioFile \(error)")
-                throw NSError.fileCreateError
-            }
+        do {
+            try self.init(forWriting: fileURL, settings: fixedSettings)
+        } catch let error as NSError {
+            AKLog("Couldn't create an AKAudioFile \(error)")
+            throw NSError.fileCreateError
+        }
     }
 
     /// Instantiate a file from Floats Arrays.
@@ -99,7 +98,6 @@ extension AKAudioFile {
     public convenience init(createFileFromFloats floatsArrays: [[Float]],
                             baseDir: BaseDirectory = .temp,
                             name: String = "") throws {
-
         let channels = floatsArrays.count
         var fixedSettings = AKSettings.audioFormat.settings
 
@@ -149,7 +147,6 @@ extension AKAudioFile {
     public convenience init(fromAVAudioPCMBuffer buffer: AVAudioPCMBuffer,
                             baseDir: BaseDirectory = .temp,
                             name: String = "") throws {
-
         try self.init(writeIn: baseDir,
                       name: name)
 
