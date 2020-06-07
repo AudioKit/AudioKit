@@ -437,14 +437,21 @@ open class AKConverter: NSObject {
             outputSampleRate != srcFormat.mSampleRate ||
             outputChannels != srcFormat.mChannelsPerFrame ||
             outputBitRate != srcFormat.mBitsPerChannel else {
-            completionHandler?(createError(message: "No conversion is needed, formats are the same."))
+            AKLog("No conversion is needed, formats are the same. Copying to", outputURL)
+            // just copy it?
+            do {
+                try FileManager.default.copyItem(at: inputURL, to: outputURL)
+                completionHandler?(nil)
+            } catch let err as NSError {
+                AKLog(err)
+            }
             return
         }
 
         var outputBytesPerFrame = outputBitRate * outputChannels / 8
         var outputBytesPerPacket = options?.bitDepth == nil ? srcFormat.mBytesPerPacket : outputBytesPerFrame
 
-        // in the input file this indicates a compressed format such as mp3
+        // outputBitRate == 0 : in the input file this indicates a compressed format such as mp3
         if outputBitRate == 0 {
             outputBitRate = 16
             outputBytesPerPacket = 2 * outputChannels
@@ -558,6 +565,6 @@ open class AKConverter: NSObject {
 
     private func createError(message: String, code: Int = 1) -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
+        return NSError(domain: "com.audiodesigndesk.AKConverter.error", code: code, userInfo: userInfo)
     }
 }
