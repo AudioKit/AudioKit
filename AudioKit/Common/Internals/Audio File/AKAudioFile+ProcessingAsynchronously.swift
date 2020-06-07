@@ -465,12 +465,14 @@ extension AKAudioFile {
                         AKLog("Failed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                               "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                         value: "An Async Process unknown error occurred",
-                                                                         comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                                value: "An Async Process unknown error occurred",
-                                                                                comment: "")
+                            NSLocalizedDescriptionKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "An Async Process unknown error occurred",
+                                                  comment: ""),
+                            NSLocalizedFailureReasonErrorKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "An Async Process unknown error occurred",
+                                                  comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
@@ -511,12 +513,14 @@ extension AKAudioFile {
                         AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                             "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                         value: "Ans Async Process unknown error occurred",
-                                                                         comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                                value: "Ans Async Process unknown error occurred",
-                                                                                comment: "")
+                            NSLocalizedDescriptionKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: ""),
+                            NSLocalizedFailureReasonErrorKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
@@ -560,12 +564,14 @@ extension AKAudioFile {
                         AKLog("Failed Appending file \"\(sourceFile.fileNamePlusExtension)\" ->" +
                               "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                         value: "Ans Async Process unknown error occurred",
-                                                                         comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                                value: "Ans Async Process unknown error occurred",
-                                                                                comment: "")
+                            NSLocalizedDescriptionKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: ""),
+                            NSLocalizedFailureReasonErrorKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
@@ -611,12 +617,14 @@ extension AKAudioFile {
                         AKLog("Failed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                               "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                         value: "Ans Async Process unknown error occurred",
-                                                                         comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
-                                                                                value: "Ans Async Process unknown error occurred",
-                                                                                comment: "")
+                            NSLocalizedDescriptionKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: ""),
+                            NSLocalizedFailureReasonErrorKey:
+                                NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                  value: "Ans Async Process unknown error occurred",
+                                                  comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
@@ -692,7 +700,9 @@ extension AKAudioFile {
                     // currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
-                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
+                        completionHandler: completionHandler
+                    )
 
                 } else {
                     isExporting = false
@@ -711,7 +721,9 @@ extension AKAudioFile {
                 isExporting = true
                 currentExportProcessID = session.id
                 AKLog("ExportFactory: exporting session #\(session.id)")
-                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
+                    completionHandler: completionHandler
+                )
             } else {
                 AKLog("ExportFactory: is busy")
                 AKLog("ExportFactory: Queuing session #\(session.id)")

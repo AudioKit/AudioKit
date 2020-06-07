@@ -44,6 +44,9 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [pregain, postgain, positiveShapeParameter, negativeShapeParameter])
+        parameterTree = AUParameterTree.createTree(withChildren: [pregain,
+                                                                  postgain,
+                                                                  positiveShapeParameter,
+                                                                  negativeShapeParameter])
     }
 }

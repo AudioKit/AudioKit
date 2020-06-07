@@ -59,9 +59,7 @@ open class AKAppleSequencer: NSObject {
     }
 
     /// Initialize the sequence with a MIDI file
-    ///
-    /// - parameter fromURL: URL of MIDI File
-    ///
+    /// - Parameter fileURL: URL of MIDI File
     public convenience init(fromURL fileURL: URL) {
         self.init()
         loadMIDIFile(fromURL: fileURL)

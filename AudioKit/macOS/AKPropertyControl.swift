@@ -24,7 +24,7 @@ import AudioKit
     }
 
     /// Current value of the control
-    @IBInspectable public var value: AUValue = 0 {
+    public var value: AUValue = 0 {
         didSet {
             value = range.clamp(value)
             if discreteValues.isNotEmpty {

@@ -37,13 +37,15 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput,
     /// Initial value for Resonance
     public static let defaultResonance: AUValue = 0.5
 
-    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by
+    /// the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     public let distortion = AKNodeParameter(identifier: "distortion")
 
     /// Filter cutoff frequency in Hertz.
     public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
-    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency.
+    /// Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     public let resonance = AKNodeParameter(identifier: "resonance")
 
     // MARK: - Initialization
@@ -52,9 +54,13 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput,
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    ///   - distortion: Distortion amount.  Zero gives a clean output.
+    ///     Greater than zero adds tanh distortion controlled by the filter parameters,
+    ///     in such a way that both low cutoff and high resonance increase the distortion amount.
     ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
-    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    ///   - resonance: Resonance. Usually a value in the range 0-1.
+    ///     A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are
+    ///     possible for more sustained oscillation and an “overdrive” effect.
     ///
     public init(
         _ input: AKNode? = nil,

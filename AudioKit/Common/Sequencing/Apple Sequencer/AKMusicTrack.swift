@@ -613,11 +613,17 @@ open class AKMusicTrack {
     ///
     /// - Parameters:
     ///   - track: a MusicTrack (either internalTrack or AKAppleSequencer tempo track) to iterate thru
-    ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
+    ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType,
+    ///     UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///
     class func iterateMusicTrack(_ track: MusicTrack,
-                                 midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
+                                 midiEventHandler: (MusicEventIterator,
+                                                    MusicTimeStamp,
+                                                    MusicEventType,
+                                                    UnsafeRawPointer?,
+                                                    UInt32,
+                                                    inout Bool) -> Void) {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {

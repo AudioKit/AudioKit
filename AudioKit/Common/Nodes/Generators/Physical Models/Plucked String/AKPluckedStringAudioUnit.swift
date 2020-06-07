@@ -6,7 +6,7 @@ public class AKPluckedStringAudioUnit: AKAudioUnitBase {
 
     let frequency = AUParameter(
         identifier: "frequency",
-        name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
+        name: "Frequency",
         address: AKPluckedStringParameter.frequency.rawValue,
         range: AKPluckedString.frequencyRange,
         unit: .hertz,

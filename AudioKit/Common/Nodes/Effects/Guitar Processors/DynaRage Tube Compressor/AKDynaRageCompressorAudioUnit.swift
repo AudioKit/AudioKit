@@ -60,6 +60,11 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [ratio, threshold, attack, release, rageAmount, rageEnabled])
+        parameterTree = AUParameterTree.createTree(withChildren: [ratio,
+                                                                  threshold,
+                                                                  attack,
+                                                                  release,
+                                                                  rageAmount,
+                                                                  rageEnabled])
     }
 }

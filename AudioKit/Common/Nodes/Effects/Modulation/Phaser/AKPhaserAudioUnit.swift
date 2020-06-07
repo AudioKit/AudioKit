@@ -84,6 +84,14 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM])
+        parameterTree = AUParameterTree.createTree(withChildren: [notchMinimumFrequency,
+                                                                  notchMaximumFrequency,
+                                                                  notchWidth,
+                                                                  notchFrequency,
+                                                                  vibratoMode,
+                                                                  depth,
+                                                                  feedback,
+                                                                  inverted,
+                                                                  lfoBPM])
     }
 }

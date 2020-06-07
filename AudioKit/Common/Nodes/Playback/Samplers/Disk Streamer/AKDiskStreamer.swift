@@ -62,8 +62,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     /// Number of samples in the audio stored in memory
     open var size: Sample {
-        if avAudiofile != nil {
-            return Sample(avAudiofile!.samplesCount)
+        if let file = avAudiofile {
+            return Sample(file.samplesCount)
         }
         return 0
     }

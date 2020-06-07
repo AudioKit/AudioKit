@@ -133,7 +133,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
         case .zero:
             self.zero()
         case .custom:
-            assertionFailure("Initializing a custom waveform via this method is unsupported. Please use init(content:phase:count:).")
+            assertionFailure("use init(content:phase:count:) to initialize a custom waveform")
         }
     }
 

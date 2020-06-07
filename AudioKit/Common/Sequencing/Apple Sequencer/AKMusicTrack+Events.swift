@@ -16,7 +16,9 @@ extension AKMusicTrack {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {
             for event in events where event.type == kMusicEventType_MIDIChannelMessage {
-                let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
+                let data = UnsafePointer<MIDIChannelMessage>(
+                    event.data?.assumingMemoryBound(to: MIDIChannelMessage.self)
+                )
                 guard let data1 = data?.pointee.data1,
                     let statusData: MIDIByte = data?.pointee.status else {
                         break
@@ -58,7 +60,9 @@ extension AKMusicTrack {
                 }
                 AKLog("MIDI Meta @ \(event.time) - size: \(length) - type: \(type) - data: \(midiData)")
             case kMusicEventType_MIDIChannelMessage:
-                let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
+                let data = UnsafePointer<MIDIChannelMessage>(
+                    event.data?.assumingMemoryBound(to: MIDIChannelMessage.self)
+                )
                 guard let data1 = data?.pointee.data1,
                     let data2 = data?.pointee.data2,
                     let statusData = data?.pointee.status else {

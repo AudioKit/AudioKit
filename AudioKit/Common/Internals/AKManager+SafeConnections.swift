@@ -104,10 +104,10 @@ extension AKManager {
     /// MIDI content will need to be recorded in real time
     ///
     ///     - Parameters:
-    ///         - audioFile: An file initialized for writing
+    ///         - audioFile: A file initialized for writing
     ///         - duration: Duration to render, in seconds
-    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
-    ///         - progress: A closure called while rendering, use this to fetch render progress
+    ///         - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
+    ///         - progress: Closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc public static func renderToFile(_ audioFile: AVAudioFile,
@@ -136,7 +136,9 @@ extension AKManager {
         }
 
         func formatDescription(_ format: AVAudioFormat) -> String {
-            guard let description = format.description.components(separatedBy: ":  ").dropFirst().first else { return format.description }
+            guard let description = format.description.components(separatedBy: ":  ").dropFirst().first else {
+                return format.description
+            }
             return "<" + description
         }
 

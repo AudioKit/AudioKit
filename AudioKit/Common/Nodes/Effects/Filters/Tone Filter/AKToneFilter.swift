@@ -34,7 +34,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
+    ///   - halfPowerPoint: Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     public init(
         _ input: AKNode? = nil,

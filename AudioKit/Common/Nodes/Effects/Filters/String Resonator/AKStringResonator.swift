@@ -39,7 +39,8 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     /// Fundamental frequency of string.
     public let fundamentalFrequency = AKNodeParameter(identifier: "fundamentalFrequency")
 
-    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
+    /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     public let feedback = AKNodeParameter(identifier: "feedback")
 
     // MARK: - Initialization
@@ -49,7 +50,9 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     /// - Parameters:
     ///   - input: Input node to process
     ///   - fundamentalFrequency: Fundamental frequency of string.
-    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+    ///   - feedback: Feedback amount (value between 0-1).
+    ///   A value close to 1 creates a slower decay and a more pronounced resonance.
+    ///   Small values may leave input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
         _ input: AKNode? = nil,

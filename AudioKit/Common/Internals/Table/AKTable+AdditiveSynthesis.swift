@@ -17,9 +17,21 @@ extension AKTable {
     ///   - rootFrequency: the lowest frequency wavetable.  8.17579891564375 corresponds to C0, or nn = 0
     ///   - octaveStepSize: fractions of an octave (i.e., 1).
     ///
-    /// Example Output: [(8.1787833827893177, 2696), (16.357566765578635, 1348), (32.715133531157271, 674), (65.430267062314542, 337), (131.25, 168), (262.5, 84), (525.0, 42), (1050.0, 21), (2205.0, 10), (4410.0, 5), (11025.0, 2), (22050.0, 1)]
+    /// Example Output:
+    /// [(8.1787833827893177, 2696),
+    /// (16.357566765578635, 1348),
+    /// (32.715133531157271, 674),
+    /// (65.430267062314542, 337),
+    /// (131.25, 168),
+    /// (262.5, 84),
+    /// (525.0, 42),
+    /// (1050.0, 21),
+    /// (2205.0, 10),
+    /// (4410.0, 5),
+    /// (11025.0, 2), (22050.0, 1)]
 
-    public class func harmonicPitchRange(rootFrequency: Double = 8.175_798_915_643_75, octaveStepSize: Double = 1) -> [(Double, Int)] {
+    public class func harmonicPitchRange(rootFrequency: Double = 8.175_798_915_643_75,
+                                         octaveStepSize: Double = 1) -> [(Double, Int)] {
         let nyquist = 22_050.0
         var octave = 0.0
         var retVal = [(Double, Int)]()
@@ -59,7 +71,9 @@ extension AKTable {
     ///
     ///   - wavetableCount: The number of wavetables from which to interpolate from f0 to f1
     ///
-    public class func harmonicFrequencyRange(f0: Double = 130.812_782_650_3, f1: Double = 2_093.004_522_404_8, wavetableCount: Int = 12) -> [(Double, Int)] {
+    public class func harmonicFrequencyRange(f0: Double = 130.812_782_650_3,
+                                             f1: Double = 2_093.004_522_404_8,
+                                             wavetableCount: Int = 12) -> [(Double, Int)] {
         let nyquist = 22_050.0
         var retVal = [(Double, Int)]()
         for i in 0..<wavetableCount {

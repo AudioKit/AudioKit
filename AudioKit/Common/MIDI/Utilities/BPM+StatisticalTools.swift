@@ -179,7 +179,8 @@ struct BPMHistoryStatistics {
     /// by searching through its most recent BPM history sets for
     /// the sequence with the least deviation from that sets mean.
     ///
-    /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BTM history set it used, and the count of recent BPMs used to obtain the average
+    /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BTM history set it used,
+    ///     and the number of BPMs used to obtain the average
     func avgFromSmallestDeviatingHistory() -> (avg: BPMType, std: BPMType, index: Int, count: Int, accuracy: Double) {
 
         guard let results = bpmStats.min(by: { (left, right) -> Bool in

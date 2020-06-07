@@ -239,8 +239,9 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitManagerNotification(.instrumentsAvailable(instruments: self.availableInstruments),
-                                                                  audioUnitManager: self)
+                self.delegate?.handleAudioUnitManagerNotification(
+                    .instrumentsAvailable(instruments: self.availableInstruments),
+                    audioUnitManager: self)
 
                 completionHandler?(self.availableInstruments)
             }
@@ -254,8 +255,9 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitManagerNotification(.midiProcessorsAvailable(midiProcessors: self.availableMIDIProcessors),
-                                                                  audioUnitManager: self)
+                self.delegate?.handleAudioUnitManagerNotification(
+                    .midiProcessorsAvailable(midiProcessors: self.availableMIDIProcessors),
+                    audioUnitManager: self)
 
                 completionHandler?(self.availableMIDIProcessors)
             }

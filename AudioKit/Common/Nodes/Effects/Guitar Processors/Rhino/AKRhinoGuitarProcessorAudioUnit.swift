@@ -72,7 +72,12 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [preGain, postGain, lowGain, midGain, highGain, distortion])
+        parameterTree = AUParameterTree.createTree(withChildren: [preGain,
+                                                                  postGain,
+                                                                  lowGain,
+                                                                  midGain,
+                                                                  highGain,
+                                                                  distortion])
 
         preGain.value = 5.0
         postGain.value = 0.7

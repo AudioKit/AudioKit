@@ -79,7 +79,9 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
     }
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> AKPhaseLockedVocoder {
-        let copy = AKPhaseLockedVocoder(position: self.position.value, amplitude: self.amplitude.value, pitchRatio: self.pitchRatio.value)
+        let copy = AKPhaseLockedVocoder(position: self.position.value,
+                                        amplitude: self.amplitude.value,
+                                        pitchRatio: self.pitchRatio.value)
         return copy
     }
 }
