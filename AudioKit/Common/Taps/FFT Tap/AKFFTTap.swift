@@ -10,12 +10,7 @@
 open class AKFFTTap: NSObject, EZAudioFFTDelegate {
 
     public let fftSize: AKSettings.BufferLength
-    
-    internal var bufferSize: UInt32 {
-        get {
-            fftSize.samplesCount
-        }
-    }
+    internal var bufferSize: UInt32 { fftSize.samplesCount }
     internal var fft: EZAudioFFT?
 
     /// Array of FFT data
@@ -30,7 +25,6 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     public init(_ input: AKNode, fftSize: AKSettings.BufferLength = .veryLong) {
         self.fftSize = fftSize
         self.fftData = [Double](zeros: Int(self.fftSize.samplesCount / 2))
-        
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                          sampleRate: Float(AKSettings.sampleRate),
