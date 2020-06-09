@@ -38,7 +38,8 @@ open class AKParameterAutomation {
     public func startPlayback(offset: Double = 0, rate: Double = 1) {
         if automation == nil { return }
         guard let lastTime = avAudioUnit.lastRenderTime else { return }
-        let time = lastTime.offset(seconds: -offset)
+        let adjustedOffset = offset / rate;
+        let time = lastTime.offset(seconds: -adjustedOffset)
         playAKParameterAutomation(automation, time, rate)
     }
     
@@ -47,8 +48,9 @@ open class AKParameterAutomation {
     /// independent of execution speed or threading.
     public func startPlayback(at absoluteTime: AVAudioTime, offset: Double = 0, rate: Double = 1) {
         if automation == nil { return }
+        let adjustedOffset = offset / rate;
         if (absoluteTime.isSampleTimeValid) {
-            let time = absoluteTime.offset(seconds: -offset)
+            let time = absoluteTime.offset(seconds: -adjustedOffset)
             playAKParameterAutomation(automation, time, rate)
         }
         else if (absoluteTime.isHostTimeValid) {
@@ -56,7 +58,7 @@ open class AKParameterAutomation {
             guard let lastAudioTime = avAudioUnit.lastRenderTime, lastAudioTime.isHostTimeValid else { return }
             let lastTime = AVAudioTime.seconds(forHostTime: lastAudioTime.hostTime)
             let startTime = AVAudioTime.seconds(forHostTime: absoluteTime.hostTime)
-            let time = lastAudioTime.offset(seconds: (startTime - lastTime) - offset)
+            let time = lastAudioTime.offset(seconds: (startTime - lastTime) - adjustedOffset)
             playAKParameterAutomation(automation, time, rate)
         }
     }
