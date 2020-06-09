@@ -79,14 +79,14 @@ extension AudioUnitManager: AKMIDIListener {
             }
             internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
 
-            startEngine(completionHandler: {
+            startEngine {
                 self.fmOscillator.start()
                 self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
                                                     target: self,
                                                     selector: #selector(self.randomFM),
                                                     userInfo: nil,
                                                     repeats: true)
-            })
+            }
         } else {
             fmOscillator.stop()
         }
