@@ -25,28 +25,22 @@ public struct EndpointInfo {
 
     /// Driver Owner
     public var driverOwner = ""
+    
+    public var midiEndpointRef:MIDIEndpointRef
 }
 
 extension Collection where Iterator.Element == MIDIEndpointRef {
     var endpointInfos: [EndpointInfo] {
-
-        let name = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName) }
-        let displayName = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDisplayName) }
-        let manufacturer = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
-        let model = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
-        let image = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyImage) }
-        let driverOwner = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDriverOwner) }
-
-        var ei = [EndpointInfo]()
-        for i in 0 ..< displayName.count {
-            ei.append(EndpointInfo(name: name[i],
-                                   displayName: displayName[i],
-                                   model: model[i],
-                                   manufacturer: manufacturer[i],
-                                   image: image[i],
-                                   driverOwner: driverOwner[i]))
+        
+        return self.map { element -> EndpointInfo in
+            EndpointInfo(name:          getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyName),
+                         displayName:   getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDisplayName),
+                         model:         getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyModel),
+                         manufacturer:  getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyManufacturer),
+                         image:         getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyImage),
+                         driverOwner:   getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDriverOwner),
+                         midiEndpointRef: element as MIDIEndpointRef)
         }
-        return ei
     }
 }
 
