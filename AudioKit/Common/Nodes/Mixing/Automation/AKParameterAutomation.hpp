@@ -65,18 +65,24 @@ public:
 
     /// If `points` is null, this returns the number of automation points for a given parameter.
     /// If `points` is not null, this fills points with up to `capacity` points and returns the count filled.
+    /// This is all so that we can allocate a buffer Swift-side that is filled by this function.
     size_t getPoints(AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) const;
 
+    /// Add automation points to the given parameter without modifying existing points
     void addPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count);
-    
+
+    /// Set the automation points of a given parameter, clearing any existing points
     void setPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count);
 
+    /// Clear a time range of automation points
     void clearRange(AUParameterAddress address, double startTime, double endTime);
 
+    /// Clear all automation points of a given parameter
     void clearAllPoints(AUParameterAddress address);
     
 private:
 
+    /// Helper function which schedules taper, skew, and offset, in addition to the actual ramp event
     void scheduleAutomationPoint(AUEventSampleTime blockTimeOffset,
                                  AUParameterAddress address,
                                  const AKParameterAutomationPoint& point,
