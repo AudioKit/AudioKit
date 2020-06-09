@@ -14,10 +14,10 @@ open class AKAbstractPlayer: AKNode {
         public static var linearTaper = (in: AUValue(1.0), out: AUValue(1.0))
 
         // half pipe
-        public static var audioTaper = (in: AUValue(3.0), out: AUValue(0.333_3))
+        public static var audioTaper = (in: AUValue(3.0), out: AUValue(0.3333))
 
         // flipped half pipe
-        public static var reverseAudioTaper = (in: AUValue(0.333_3), out: AUValue(3.0))
+        public static var reverseAudioTaper = (in: AUValue(0.3333), out: AUValue(3.0))
 
         /// An init is requited for the Fade struct to be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
@@ -46,7 +46,7 @@ open class AKAbstractPlayer: AKNode {
         }
 
         // the slope adjustment in the taper
-        public var inSkew: AUValue = 0.333_3
+        public var inSkew: AUValue = 0.3333
 
         // Out properties
         public var outTime: Double = 0 {
@@ -63,9 +63,6 @@ open class AKAbstractPlayer: AKNode {
 
         // the slope adjustment in the taper
         public var outSkew: AUValue = 1
-
-        // if you want to start midway into a fade
-        // public var outTimeOffset: Double = 0
 
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false

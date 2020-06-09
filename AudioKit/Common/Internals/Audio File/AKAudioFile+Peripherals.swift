@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AKAudioFile {
-
     /// Create an AKAppleSampler loaded with the current AKAudioFile
     public var sampler: AKAppleSampler? {
         let fileSampler = AKAppleSampler()
@@ -28,5 +27,4 @@ extension AKAudioFile {
     public var player: AKPlayer {
         return AKPlayer(audioFile: self)
     }
-
 }
