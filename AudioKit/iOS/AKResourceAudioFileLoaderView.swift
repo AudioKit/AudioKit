@@ -3,7 +3,6 @@ import AudioKit
 
 /// View to choose from audio files to use in playgrounds
 @IBDesignable open class AKResourcesAudioFileLoaderView: UIView {
-
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -69,7 +68,12 @@ import AudioKit
                 player?.stop()
                 let filename = titles[currentIndex]
                 if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                    player?.load(audioFile: file)
+                    do {
+                        try player?.load(audioFile: file)
+                    } catch let err as NSError {
+                        AKLog(err)
+                        return
+                    }
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()
@@ -204,17 +208,17 @@ import AudioKit
         playInnerPath.move(to: CGPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.maxY))
         playInnerPath.addLine(to: CGPoint(x: playRect.maxX - cornerRadius / 2.0, y: playRect.midY + cornerRadius / 2.0))
         playInnerPath.addCurve(to: CGPoint(x: playRect.maxX - cornerRadius / 2.0,
-                                        y: playRect.midY - cornerRadius / 2.0),
-                            controlPoint1: CGPoint(x: playRect.maxX, y: playRect.midY),
-                            controlPoint2: CGPoint(x: playRect.maxX, y: playRect.midY))
+                                           y: playRect.midY - cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: playRect.maxX, y: playRect.midY),
+                               controlPoint2: CGPoint(x: playRect.maxX, y: playRect.midY))
         playInnerPath.addLine(to: CGPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.minY))
         playInnerPath.addCurve(to: CGPoint(x: playRect.minX, y: playRect.minY + cornerRadius / 2.0),
-                            controlPoint1: CGPoint(x: playRect.minX, y: playRect.minY),
-                            controlPoint2: CGPoint(x: playRect.minX, y: playRect.minY))
+                               controlPoint1: CGPoint(x: playRect.minX, y: playRect.minY),
+                               controlPoint2: CGPoint(x: playRect.minX, y: playRect.minY))
         playInnerPath.addLine(to: CGPoint(x: playRect.minX, y: playRect.maxY - cornerRadius / 2.0))
         playInnerPath.addCurve(to: CGPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.maxY),
-                            controlPoint1: CGPoint(x: playRect.minX, y: playRect.maxY),
-                            controlPoint2: CGPoint(x: playRect.minX, y: playRect.maxY))
+                               controlPoint1: CGPoint(x: playRect.minX, y: playRect.maxY),
+                               controlPoint2: CGPoint(x: playRect.minX, y: playRect.maxY))
         playInnerPath.close()
         dark.setFill()
         playInnerPath.fill()
@@ -244,66 +248,66 @@ import AudioKit
         //// upButton
         //// upOuter Drawing
         downOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
-                                                y: rect.height * 0.5,
-                                                width: rect.width * 0.07,
-                                                height: rect.height * 0.5))
+                                                  y: rect.height * 0.5,
+                                                  width: rect.width * 0.07,
+                                                  height: rect.height * 0.5))
 
         //// upInner Drawing
         let downArrowRect = CGRect(x: rect.width * 0.9,
-                                    y: rect.height * 0.58,
-                                    width: rect.width * 0.07,
-                                    height: rect.height * 0.3)
+                                   y: rect.height * 0.58,
+                                   width: rect.width * 0.07,
+                                   height: rect.height * 0.3)
         let downInnerPath = UIBezierPath()
         downInnerPath.move(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY))
         downInnerPath.addCurve(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0,
-                                      y: downArrowRect.minY + cornerRadius / 2.0),
-                          controlPoint1: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY),
-                          controlPoint2: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY))
+                                           y: downArrowRect.minY + cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.midX + cornerRadius / 2.0,
-                                     y: downArrowRect.maxY - cornerRadius / 2.0))
+                                          y: downArrowRect.maxY - cornerRadius / 2.0))
         downInnerPath.addCurve(to: CGPoint(x: downArrowRect.midX - cornerRadius / 2.0,
-                                      y: downArrowRect.maxY - cornerRadius / 2.0),
-                          controlPoint1: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY),
-                          controlPoint2: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY))
+                                           y: downArrowRect.maxY - cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY),
+                               controlPoint2: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0,
-                                     y: downArrowRect.minY + cornerRadius / 2.0))
+                                          y: downArrowRect.minY + cornerRadius / 2.0))
         downInnerPath.addCurve(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY),
-                          controlPoint1: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY),
-                          controlPoint2: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY))
+                               controlPoint1: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY))
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
 
         upOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
-                                                  y: 0,
-                                                  width: rect.width * 0.07,
-                                                  height: rect.height * 0.5))
+                                                y: 0,
+                                                width: rect.width * 0.07,
+                                                height: rect.height * 0.5))
 
         //// downInner Drawing
         let upperArrowRect = CGRect(x: rect.width * 0.9,
-                                   y: rect.height * 0.12,
-                                   width: rect.width * 0.07,
-                                   height: rect.height * 0.3)
+                                    y: rect.height * 0.12,
+                                    width: rect.width * 0.07,
+                                    height: rect.height * 0.3)
         let upInnerPath = UIBezierPath()
         upInnerPath.move(to: CGPoint(x: upperArrowRect.minX + cornerRadius / 2.0, y: upperArrowRect.maxY))
         upInnerPath.addLine(to: CGPoint(x: upperArrowRect.maxX - cornerRadius / 2.0, y: upperArrowRect.maxY))
         upInnerPath.addCurve(to: CGPoint(x: upperArrowRect.maxX - cornerRadius / 2.0,
-                                        y: upperArrowRect.maxY - cornerRadius / 2.0),
-                            controlPoint1: CGPoint(x: upperArrowRect.maxX, y: upperArrowRect.maxY),
-                            controlPoint2: CGPoint(x: upperArrowRect.maxX, y: upperArrowRect.maxY))
+                                         y: upperArrowRect.maxY - cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upperArrowRect.maxX, y: upperArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upperArrowRect.maxX, y: upperArrowRect.maxY))
         upInnerPath.addLine(to: CGPoint(x: upperArrowRect.midX + cornerRadius / 2.0,
-                                       y: upperArrowRect.minY + cornerRadius / 2.0))
+                                        y: upperArrowRect.minY + cornerRadius / 2.0))
         upInnerPath.addCurve(to: CGPoint(x: upperArrowRect.midX - cornerRadius / 2.0,
-                                        y: upperArrowRect.minY + cornerRadius / 2.0),
-                            controlPoint1: CGPoint(x: upperArrowRect.midX, y: upperArrowRect.minY),
-                            controlPoint2: CGPoint(x: upperArrowRect.midX, y: upperArrowRect.minY))
+                                         y: upperArrowRect.minY + cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upperArrowRect.midX, y: upperArrowRect.minY),
+                             controlPoint2: CGPoint(x: upperArrowRect.midX, y: upperArrowRect.minY))
         upInnerPath.addLine(to: CGPoint(x: upperArrowRect.minX + cornerRadius / 2.0,
-                                       y: upperArrowRect.maxY - cornerRadius / 2.0))
+                                        y: upperArrowRect.maxY - cornerRadius / 2.0))
         upInnerPath.addCurve(to: CGPoint(x: upperArrowRect.minX + cornerRadius / 2.0,
-                                        y: upperArrowRect.maxY),
-                            controlPoint1: CGPoint(x: upperArrowRect.minX, y: upperArrowRect.maxY),
-                            controlPoint2: CGPoint(x: upperArrowRect.minX, y: upperArrowRect.maxY))
+                                         y: upperArrowRect.maxY),
+                             controlPoint1: CGPoint(x: upperArrowRect.minX, y: upperArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upperArrowRect.minX, y: upperArrowRect.maxY))
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
@@ -318,15 +322,13 @@ import AudioKit
                                        NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
-            with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: nameLabelFontAttributes, context: nil).size.height
-        let nameLabelTextRect: CGRect = CGRect(
-            x: nameLabelInset.minX,
-            y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-            width: nameLabelInset.width,
-            height: nameLabelTextHeight)
+        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity),
+                                                                                   options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                                   attributes: nameLabelFontAttributes, context: nil).size.height
+        let nameLabelTextRect: CGRect = CGRect(x: nameLabelInset.minX,
+                                               y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                               width: nameLabelInset.width,
+                                               height: nameLabelTextHeight)
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
 
