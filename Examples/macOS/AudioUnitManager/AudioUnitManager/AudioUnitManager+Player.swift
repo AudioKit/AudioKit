@@ -30,12 +30,11 @@ extension AudioUnitManager {
             if internalManager.input != player {
                 internalManager.connectEffects(firstNode: player, lastNode: mixer)
             }
-            startEngine(completionHandler: {
+            startEngine {
                 player.volume = 1
-
                 player.play(from: self.waveform?.position ?? 0)
                 self.startAudioTimer()
-            })
+            }
         } else {
             if AKManager.engine.isRunning {
                 // just turns off reverb tails or delay lines etc
@@ -75,32 +74,30 @@ extension AudioUnitManager {
     /// open an audio URL for playing
     func open(url: URL) {
         try? AKManager.stop()
-
-        peak = nil
+        handlePlay(state: false)
 
         if player == nil {
-            player = AKPlayer(url: url)
+            createPlayer(url: url)
+
         } else {
             do {
-                handlePlay(state: false)
                 try player?.load(url: url)
-            } catch {}
+            } catch let err as NSError {
+                AKLog(err)
+                createPlayer(url: url)
+            }
         }
-        guard let player = player else { return }
-        player.completionHandler = handleAudioComplete
-        internalManager.connectEffects(firstNode: player, lastNode: mixer)
-        player.isLooping = isLooping
-        player.isNormalized = false
-        player.buffering = isBuffered ? .always : .dynamic
 
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
 
-        waveform?.dispose()
+        if waveform != nil {
+            waveform?.dispose()
+        }
 
-        // get the waveform
-        let darkRed = NSColor(calibratedRed: 0.79, green: 0.128, blue: 0.06, alpha: 1)
-        waveform = AKWaveform(url: url, color: darkRed)
+        // create the waveform
+        waveform = AKWaveform(url: url,
+                              color: NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1))
 
         guard let waveform = waveform else { return }
 
@@ -109,8 +106,22 @@ extension AudioUnitManager {
         waveform.fitToFrame()
         waveform.delegate = self
         audioEnabled = true
-
         audioNormalizedButton.state = .off
+    }
+
+    private func createPlayer(url: URL) {
+        if player != nil {
+            player?.detach()
+            player = nil
+        }
+
+        player = AKPlayer(url: url)
+        player?.completionHandler = handleAudioComplete
+        player?.isLooping = isLooping
+        player?.isNormalized = isNormalized
+        player?.buffering = isBuffered ? .always : .dynamic
+
+        internalManager.connectEffects(firstNode: player, lastNode: mixer)
     }
 
     func close() {
