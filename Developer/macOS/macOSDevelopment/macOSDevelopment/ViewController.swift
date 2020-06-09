@@ -52,8 +52,8 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.appearance = NSAppearance(named: .vibrantDark)
-        openPanel.appearance = view.appearance
+        view.window?.appearance = NSAppearance(named: .vibrantDark)
+        openPanel.appearance = NSAppearance(named: .vibrantDark)
 
         osc.frequency.value = 220
         osc.amplitude.value = 1
