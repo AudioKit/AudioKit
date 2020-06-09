@@ -93,7 +93,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.amplitude.associate(with: self.internalAU, value: amplitude)

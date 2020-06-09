@@ -136,7 +136,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.notchMinimumFrequency.associate(with: self.internalAU, value: notchMinimumFrequency)
             self.notchMaximumFrequency.associate(with: self.internalAU, value: notchMaximumFrequency)

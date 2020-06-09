@@ -66,7 +66,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.fundamentalFrequency.associate(with: self.internalAU, value: fundamentalFrequency)
             self.feedback.associate(with: self.internalAU, value: feedback)
