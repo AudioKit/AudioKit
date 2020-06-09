@@ -164,23 +164,9 @@ class AudioUnitManager: NSViewController {
 
     @IBAction func handleNormalizedButton(_ sender: NSButton) {
         guard let player = player else { return }
-        guard let waveform = waveform else { return }
 
-        if sender.state == .on {
-            audioBufferedButton.state = .on
-            player.buffering = .always
-
-            if let bufferPeak = player.buffer?.peak() {
-                peak = bufferPeak
-                AKLog(peak)
-            } else {
-                AKLog("Failed to get audio buffer")
-            }
-            waveform.gain = 1 / (peak?.amplitude ?? 1)
-        } else {
-            waveform.gain = 1
-        }
-
+        player.buffering = sender.state == .on ? .always : .dynamic
+        audioBufferedButton.state = sender.state
         player.isNormalized = sender.state == .on
     }
 

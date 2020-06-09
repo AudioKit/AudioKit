@@ -68,7 +68,7 @@ public class AKWaveform: AKView {
         }
     }
 
-    public var isReversed: Bool = true {
+    public var isReversed: Bool = false {
         didSet {
             for plot in plots {
                 if isReversed {
@@ -77,15 +77,6 @@ public class AKWaveform: AKView {
                     // To flip back to normal
                     plot?.transform = CATransform3DMakeRotation(0, 0, 1, 0)
                 }
-            }
-        }
-    }
-
-    public var gain: Float = 1 {
-        didSet {
-            AKLog("Setting gain to \(gain)")
-            for i in 0 ..< plots.count {
-                plots[i]?.gain = gain
             }
         }
     }
@@ -100,6 +91,8 @@ public class AKWaveform: AKView {
 
     private func initialize() {
         wantsLayer = true
+        layer = CALayer()
+
         frame = NSRect(x: 0, y: 0, width: 200, height: 20)
 
         guard let file = file else { return }
@@ -148,7 +141,7 @@ public class AKWaveform: AKView {
         return output
     }
 
-    private func createPlot(data: [Float], gain: Float = 1) -> AKWaveformLayer {
+    private func createPlot(data: [Float]) -> AKWaveformLayer {
         let plot = AKWaveformLayer(table: data,
                                    size: nil,
                                    fillColor: color.cgColor,
@@ -156,8 +149,6 @@ public class AKWaveform: AKView {
                                    backgroundColor: nil,
                                    opacity: 1,
                                    isMirrored: true)
-
-        plot.gain = gain // just make it a bit more present looking
 
         // add a shadow
         plot.shadowColor = NSColor.black.cgColor

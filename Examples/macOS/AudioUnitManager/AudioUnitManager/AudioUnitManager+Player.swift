@@ -76,8 +76,6 @@ extension AudioUnitManager {
         try? AKManager.stop()
         handlePlay(state: false)
 
-        peak = nil
-
         if player == nil {
             createPlayer(url: url)
 
@@ -93,7 +91,9 @@ extension AudioUnitManager {
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
 
-        waveform?.dispose()
+        if waveform != nil {
+            waveform?.dispose()
+        }
 
         // create the waveform
         waveform = AKWaveform(url: url,
@@ -106,7 +106,6 @@ extension AudioUnitManager {
         waveform.fitToFrame()
         waveform.delegate = self
         audioEnabled = true
-
         audioNormalizedButton.state = .off
     }
 
