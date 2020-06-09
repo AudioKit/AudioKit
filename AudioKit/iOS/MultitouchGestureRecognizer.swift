@@ -160,6 +160,12 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
                 move(touch)
             case .ended:
                 end(touch)
+            case .regionEntered:
+                break
+            case .regionMoved:
+                break
+            case .regionExited:
+                break
             @unknown default:
                 fatalError("Unknown touch phase!")
             }

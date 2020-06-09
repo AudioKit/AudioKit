@@ -3,7 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import "AKParameterRamp.hpp"
+//#import "AKParameterRamp.hpp"
 
 typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterLeftGain,
