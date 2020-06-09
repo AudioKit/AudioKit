@@ -64,9 +64,6 @@ open class AKAbstractPlayer: AKNode {
         // the slope adjustment in the taper
         public var outSkew: AUValue = 1
 
-        // if you want to start midway into a fade
-        // public var outTimeOffset: Double = 0
-
         // the needsUpdate flag is used by the buffering scheme
         var needsUpdate: Bool = false
     }

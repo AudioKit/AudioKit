@@ -12,10 +12,6 @@ class ViewController: NSViewController {
 
     // Default controls
     @IBOutlet var playButton: NSButton!
-    @IBOutlet var sliderLabel2: NSTextField!
-
-    @IBOutlet var slider3: NSSlider!
-    @IBOutlet var slider3Value: NSTextField!
 
     @IBOutlet var gainSlider: NSSlider!
     @IBOutlet var gainValue: NSTextField!
@@ -24,6 +20,9 @@ class ViewController: NSViewController {
 
     @IBOutlet var pitchSlider: NSSlider!
     @IBOutlet var pitchValue: NSTextField!
+
+    @IBOutlet var taperSlider: NSSlider!
+    @IBOutlet var taperValue: NSTextField!
 
     @IBOutlet var fadeInSlider: NSSlider!
     @IBOutlet var fadeInValue: NSTextField!
@@ -54,11 +53,12 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.appearance = NSAppearance(named: .vibrantDark)
+        openPanel.appearance = view.appearance
 
-        // osc.start()
         osc.frequency.value = 220
         osc.amplitude.value = 1
         osc.rampDuration = 0.0
+        osc.stop() // it seems to be playing by default now?
 
         osc >>> mixer
         speechSynthesizer >>> mixer
@@ -68,10 +68,11 @@ class ViewController: NSViewController {
         openPanel.message = "Open Audio File"
         openPanel.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
 
+        // start engine
         start(startButton)
 
         if let url = Bundle.main.url(forResource: "PinkNoise", withExtension: "wav") {
-            open(url: url)
+            createPlayer(url: url)
         }
     }
 
@@ -83,6 +84,7 @@ class ViewController: NSViewController {
                 try AKManager.stop()
             } else {
                 try AKManager.start()
+                AKLog("Started engine with format", AKManager.engine.outputNode.outputFormat(forBus: 0))
             }
             state = AKManager.engine.isRunning
             sender.state = state ? .on : .off
@@ -98,24 +100,6 @@ class ViewController: NSViewController {
 
         playButton.isEnabled = state
         startButton.title = state ? "Stop Engine" : "Start Engine"
-
-    }
-
-    private func initPlayer() {
-        if player == nil, let chooseAudioButton = chooseAudioButton {
-            chooseAudio(chooseAudioButton)
-            return
-        }
-        guard let player = player else { return }
-
-        // booster.disconnectInput()
-        player >>> mixer
-
-        handleUpdateParam(gainSlider)
-        handleUpdateParam(rateSlider)
-        handleUpdateParam(pitchSlider)
-        handleUpdateParam(fadeInSlider)
-        handleUpdateParam(fadeOutSlider)
     }
 
     @IBAction func chooseAudio(_ sender: Any) {
@@ -161,20 +145,42 @@ class ViewController: NSViewController {
     func open(url: URL) {
         inputSourceInfo.stringValue = url.lastPathComponent
 
-        // for now just make a new player so it's not necessary to rebalance format types
+        do {
+            try player?.load(url: url)
+
+        } catch let err as NSError {
+            AKLog("🚩", err.description)
+            createPlayer(url: url)
+        }
+
+        AKLog("Opened", url.path, "duration", player?.duration, "processingFormat", player?.processingFormat)
+    }
+
+    private func createPlayer(url: URL) {
+        // make a new player so it's not necessary to rebalance format types
         // if the processingFormat changes
         if player != nil {
             player?.detach()
             player = nil
         }
-
         AKLog("Creating player...", url)
         player = AKDynamicPlayer(url: url)
         player?.completionHandler = handleAudioComplete
         player?.isLooping = loopButton.state == .on
-        initPlayer()
+        connectPlayer()
+    }
 
-        AKLog("Opened", url.path, "duration", player?.duration)
+    private func connectPlayer() {
+        guard let player = player else { return }
+
+        player >>> mixer
+
+        handleUpdateParam(gainSlider)
+        handleUpdateParam(rateSlider)
+        handleUpdateParam(pitchSlider)
+        handleUpdateParam(fadeInSlider)
+        handleUpdateParam(fadeOutSlider)
+        handleUpdateParam(taperSlider)
     }
 
     @IBAction func handleOscillator(_ sender: NSButton) {
@@ -221,11 +227,11 @@ class ViewController: NSViewController {
             gainSlider.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
             player.gain = AUValue(gain)
         } else if sender == rateSlider {
-            player.rate = rateSlider.doubleValue
+            player.rate = rateSlider.floatValue
             rateValue.stringValue = String(describing: roundTo(rateSlider.doubleValue, decimalPlaces: 3))
 
         } else if sender == pitchSlider {
-            player.pitch = pitchSlider.doubleValue
+            player.pitch = pitchSlider.floatValue
             pitchValue.stringValue = String(describing: roundTo(pitchSlider.doubleValue, decimalPlaces: 1))
 
         } else if sender == fadeInSlider {
@@ -236,31 +242,10 @@ class ViewController: NSViewController {
             player.fade.outTime = fadeInSlider.doubleValue
             fadeOutValue.stringValue = String(describing: roundTo(fadeOutSlider.doubleValue, decimalPlaces: 3))
 
-        } else if sender == slider3 {
-//            let value = Int(slider3.intValue)
-//            if value == AKSettings.RampType.linear.rawValue {
-//                player.fade.inRampType = .linear
-//                player.fade.outRampType = .linear
-//                slider3Value.stringValue = "Linear"
-//
-//            } else if value == AKSettings.RampType.exponential.rawValue {
-//                player.fade.inRampType = .exponential
-//                player.fade.outRampType = .exponential
-//
-//                slider3Value.stringValue = "Exponential"
-//
-//            } else if value == AKSettings.RampType.logarithmic.rawValue {
-//                player.fade.inRampType = .logarithmic
-//                player.fade.outRampType = .logarithmic
-//
-//                slider3Value.stringValue = "Logarithmic"
-//
-//            } else if value == AKSettings.RampType.sCurve.rawValue {
-//                player.fade.inRampType = .sCurve
-//                player.fade.outRampType = .sCurve
-//
-//                slider3Value.stringValue = "S Curve"
-//            }
+        } else if sender == taperSlider {
+            player.fade.inTaper = sender.floatValue
+            player.fade.outTaper = 1 / sender.floatValue
+            taperValue?.stringValue = String(describing: roundTo(sender.doubleValue, decimalPlaces: 3))
         }
     }
 
