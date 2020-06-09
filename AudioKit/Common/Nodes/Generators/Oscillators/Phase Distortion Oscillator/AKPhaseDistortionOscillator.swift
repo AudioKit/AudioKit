@@ -97,7 +97,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAut
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.waveform = waveform
             self.frequency.associate(with: self.internalAU, value: frequency)

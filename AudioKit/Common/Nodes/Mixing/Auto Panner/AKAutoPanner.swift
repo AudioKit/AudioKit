@@ -48,7 +48,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.frequency.associate(with: self.internalAU, value: frequency)
             self.depth.associate(with: self.internalAU, value: depth)

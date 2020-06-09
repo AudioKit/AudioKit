@@ -67,7 +67,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.ratio.associate(with: self.internalAU, value: ratio)
             self.threshold.associate(with: self.internalAU, value: threshold)

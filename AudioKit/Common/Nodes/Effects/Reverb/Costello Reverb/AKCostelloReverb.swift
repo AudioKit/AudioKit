@@ -63,7 +63,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.feedback.associate(with: self.internalAU, value: feedback)
             self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)

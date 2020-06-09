@@ -59,7 +59,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.reverbDuration.associate(with: self.internalAU, value: reverbDuration)
 
