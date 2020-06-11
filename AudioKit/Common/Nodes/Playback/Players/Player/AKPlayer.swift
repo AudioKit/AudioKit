@@ -349,7 +349,6 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     @objc public func load(audioFile: AVAudioFile) throws {
-
         if audioFile.processingFormat != processingFormat {
             AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
                 "You should make a new AKPlayer instance and reconnect. " +
@@ -414,10 +413,7 @@ public class AKPlayer: AKAbstractPlayer {
         playerNode.play()
 
         if isFaded, !isBufferFaded {
-            // NOTE: duration is currently not implemented
-            // let audioEndTime = faderTime.offset(seconds: endingTime)
-
-            faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: startingTime)
+            faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
 
         pauseTime = nil
