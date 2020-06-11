@@ -161,6 +161,8 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
+    public var offsetTime: Double = 0
+
     // MARK: - public flags
 
     @objc open internal(set) var isPlaying: Bool = false
@@ -219,7 +221,7 @@ open class AKAbstractPlayer: AKNode {
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
             faderNode.addAutomationPoint(value: fade.maximumGain,
-                                         at: 0.0001,
+                                         at: 0.000_1,
                                          rampDuration: fade.inTime,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew)
@@ -227,7 +229,7 @@ open class AKAbstractPlayer: AKNode {
 
         if fade.outTime > 0 {
             // when the start of the fade out should occur
-            var timeTillFadeOut = editedDuration - fade.outTime
+            var timeTillFadeOut = offsetTime + editedDuration - fade.outTime
 
             // adjust the scheduled fade out based on the playback rate
             timeTillFadeOut /= _rate
@@ -238,6 +240,8 @@ open class AKAbstractPlayer: AKNode {
                                          taper: fade.outTaper,
                                          skew: fade.outSkew)
         }
+
+//        AKLog("LEFT POINTS, offsetTime", offsetTime, faderNode.parameterAutomation?.getPoints(of: faderNode.leftGain.identifier))
     }
 
     func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
