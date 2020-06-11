@@ -5,7 +5,7 @@ import AudioKitUI
 /// This is a demo of an Audio Region class. Not for production use... ;)
 public class AKWaveform: AKView {
     public var url: URL?
-    public var plots = [EZAudioPlot?]()
+    public var plots = [AKWaveformLayer?]()
     public var file: EZAudioFile?
     public var visualScaleFactor: Double = 30
     public var color = NSColor.black
@@ -68,32 +68,20 @@ public class AKWaveform: AKView {
         }
     }
 
-    public var isReversed: Bool = true {
+    public var isReversed: Bool = false {
         didSet {
             for plot in plots {
                 if isReversed {
-                    plot?.waveformLayer?.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0, 1, 0)
+                    plot?.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0, 1, 0)
                 } else {
                     // To flip back to normal
-                    plot?.waveformLayer?.transform = CATransform3DMakeRotation(0, 0, 1, 0)
+                    plot?.transform = CATransform3DMakeRotation(0, 0, 1, 0)
                 }
             }
         }
     }
 
-    public var gain: Float = 1 {
-        didSet {
-            AKLog("Setting gain to \(gain)")
-            guard let data = file?.getWaveformData(withNumberOfPoints: 256) else { return }
-            for i in 0 ..< plots.count {
-                plots[i]?.gain = gain
-                plots[i]?.updateBuffer(data.buffers[i], withBufferSize: data.bufferSize)
-                plots[i]?.redraw()
-            }
-        }
-    }
-
-    convenience init?(url: URL, color: NSColor = NSColor.black) {
+    convenience init?(url: URL, color: NSColor = NSColor.white) {
         self.init()
         file = EZAudioFile(url: url)
         self.color = color
@@ -103,25 +91,24 @@ public class AKWaveform: AKView {
 
     private func initialize() {
         wantsLayer = true
+        layer = CALayer()
+
         frame = NSRect(x: 0, y: 0, width: 200, height: 20)
 
         guard let file = file else { return }
-        guard let data = file.getWaveformData(withNumberOfPoints: 256) else { return }
-        guard let leftData = data.buffers?[0] else { return }
-        let leftPlot = createPlot(data: leftData, size: data.bufferSize)
-        addSubview(leftPlot)
-        leftPlot.redraw()
+        guard let data = getFloatChannelData(withNumberOfPoints: 256) else { return }
+        guard let leftData = data.first else { return }
+
+        let leftPlot = createPlot(data: leftData)
+        layer?.addSublayer(leftPlot)
         plots.insert(leftPlot, at: 0)
 
         // if the file is stereo add a second plot for the right channel
-        if file.fileFormat.mChannelsPerFrame > 1, let rightData = data.buffers?[1] {
-            let rightPlot = createPlot(data: rightData, size: data.bufferSize)
-            addSubview(rightPlot)
-            rightPlot.redraw()
+        if file.fileFormat.mChannelsPerFrame > 1, let rightData = data.last {
+            let rightPlot = createPlot(data: rightData)
+            layer?.addSublayer(rightPlot)
             plots.insert(rightPlot, at: 1)
         }
-
-        ////////////
         loopStartMarker.delegate = self
         loopEndMarker.delegate = self
         addSubview(loopStartMarker)
@@ -131,26 +118,44 @@ public class AKWaveform: AKView {
         isLooping = false
     }
 
-    private func createPlot(data: UnsafeMutablePointer<Float>, size: UInt32, gain: Float = 1) -> EZAudioPlot {
-        let plot = EZAudioPlot()
-        plot.frame = NSRect(x: 0, y: 0, width: 200, height: 20)
-        plot.plotType = EZPlotType.buffer
-        plot.shouldFill = true
-        plot.shouldMirror = true
-        plot.color = color
-        plot.wantsLayer = true
-        plot.gain = gain // just make it a bit more present looking
+    public func getFloatChannelData(withNumberOfPoints: Int) -> [[Float]]? {
+        guard let file = file,
+            let data = file.getWaveformData(withNumberOfPoints: UInt32(withNumberOfPoints)),
+            let buffers = data.buffers else {
+            return nil
+        }
+        var output = [[Float]]()
 
-        // customize the waveform
-        plot.waveformLayer.fillColor = color.cgColor
-        plot.waveformLayer.lineWidth = 0.1
-        plot.waveformLayer.strokeColor = color.withAlphaComponent(0.6).cgColor
+        // this makes a copy which isn't ideal
+        if let leftData = buffers[0] {
+            let leftBuffer = UnsafeBufferPointer(start: leftData, count: withNumberOfPoints)
+            let floatBuffer = [Float](leftBuffer)
+            output.append([Float](floatBuffer))
+        }
+
+        if file.fileFormat.mChannelsPerFrame > 1, let rightData = buffers[1] {
+            let rightBuffer = UnsafeBufferPointer(start: rightData, count: withNumberOfPoints)
+            let floatBuffer = [Float](rightBuffer)
+            output.append(floatBuffer)
+        }
+        return output
+    }
+
+    private func createPlot(data: [Float]) -> AKWaveformLayer {
+        let plot = AKWaveformLayer(table: data,
+                                   size: nil,
+                                   fillColor: color.cgColor,
+                                   strokeColor: nil,
+                                   backgroundColor: nil,
+                                   opacity: 1,
+                                   isMirrored: true)
+
         // add a shadow
-        plot.waveformLayer.shadowColor = NSColor.black.cgColor
-        plot.waveformLayer.shadowOpacity = 0.4
-        plot.waveformLayer.shadowOffset = NSSize(width: 1, height: -1)
-        plot.waveformLayer.shadowRadius = 2.0
-        plot.updateBuffer(data, withBufferSize: size)
+        plot.shadowColor = NSColor.black.cgColor
+        plot.shadowOpacity = 0.4
+        plot.shadowOffset = NSSize(width: 1, height: -1)
+        plot.shadowRadius = 2.0
+
         return plot
     }
 
@@ -184,16 +189,14 @@ public class AKWaveform: AKView {
         super.setFrameSize(newSize)
 
         let channels = CGFloat(file.fileFormat.mChannelsPerFrame)
+        let waveformSize = NSSize(width: newSize.width, height: (newSize.height / channels) - 2)
 
-        plots[0]?.frame = NSRect(x: 0,
-                                 y: channels == 1 ? 0 : newSize.height / channels,
-                                 width: newSize.width,
-                                 height: newSize.height / channels)
-        plots[0]?.redraw()
+        plots.first??.frame.origin = NSPoint(x: 0, y: channels == 1 ? 0 : newSize.height / channels)
+        plots.first??.updateLayer(with: waveformSize)
 
         if channels > 1 {
-            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height / channels)
-            plots[1]?.redraw()
+            plots.last??.frame.origin = NSPoint()
+            plots.last??.updateLayer(with: waveformSize)
         }
     }
 
@@ -268,7 +271,7 @@ class LoopMarker: AKView {
 
     public func fitToFrame() {
         guard let superview = superview else { return }
-        frame = NSRect(x: 0, y: 0, width: 6, height: superview.frame.height)
+        frame = NSRect(x: 0, y: 0, width: 6, height: superview.frame.height - 2)
         needsDisplay = true
     }
 
@@ -282,10 +285,10 @@ class LoopMarker: AKView {
 
     fileprivate func drawStartRepeat() {
         NSColor.black.setFill()
-        let rectanglePath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 2, height: 70))
+        let rectanglePath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 2, height: 66))
         rectanglePath.fill()
 
-        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 69, width: 5, height: 2))
+        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 66, width: 5, height: 2))
         rectangle2Path.fill()
 
         let rectangle3Path = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 5, height: 2))
@@ -294,10 +297,10 @@ class LoopMarker: AKView {
 
     fileprivate func drawEndRepeat() {
         NSColor.black.setFill()
-        let rectanglePath = NSBezierPath(rect: NSRect(x: 3, y: 0, width: 2, height: 70))
+        let rectanglePath = NSBezierPath(rect: NSRect(x: 3, y: 0, width: 2, height: 66))
         rectanglePath.fill()
 
-        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 69, width: 5, height: 2))
+        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 66, width: 5, height: 2))
         rectangle2Path.fill()
 
         let rectangle3Path = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 5, height: 2))
