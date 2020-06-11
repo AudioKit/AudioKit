@@ -69,7 +69,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
             self.gain.associate(with: self.internalAU, value: gain)

@@ -121,7 +121,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.leftBoundaryCondition.associate(with: self.internalAU, value: leftBoundaryCondition)
             self.rightBoundaryCondition.associate(with: self.internalAU, value: rightBoundaryCondition)

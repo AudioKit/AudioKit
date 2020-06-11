@@ -47,7 +47,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, A
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.halfPowerPoint.associate(with: self.internalAU, value: halfPowerPoint)
 

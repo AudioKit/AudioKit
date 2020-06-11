@@ -138,6 +138,20 @@ open class AKNodeParameter {
     public func associate(with au: AKAudioUnitBase?, value: Bool) {
         associate(with: au, value: value ? 1.0 : 0.0)
     }
+
+    /// Sends a .touch event to the parameter automation observer, beginning automation recording if enabled in AKParameterAutomation.
+    /// A value may be passed as the initial automation value. The current value is used if none is passed.
+    public func beginTouch(value: AUValue? = nil) {
+        guard let value = value ?? parameter?.value else { return }
+        parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .touch)
+    }
+
+    /// Sends a .release event to the parameter observation observer, ending any automation recording.
+    /// A value may be passed as the final automation value. The current value is used if none is passed.
+    public func endTouch(value: AUValue? = nil) {
+        guard let value = value ?? parameter?.value else { return }
+        parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .release)
+    }
 }
 
 extension AKNode: AKOutput {

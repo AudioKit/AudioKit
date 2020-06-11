@@ -69,7 +69,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.shift.associate(with: self.internalAU, value: shift)
             self.windowSize.associate(with: self.internalAU, value: windowSize)
