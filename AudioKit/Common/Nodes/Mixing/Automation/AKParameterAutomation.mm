@@ -2,6 +2,7 @@
 
 #include "AKParameterAutomation.hpp"
 #include <algorithm>
+#include <CoreAudio/HostTime.h>
 
 extern "C"
 {
@@ -13,8 +14,12 @@ void deleteAKParameterAutomation(void* automation) {
     delete static_cast<AKParameterAutomation*>(automation);
 }
 
-AURenderObserver getAKParameterAutomationObserverBlock(void* automation) {
+AURenderObserver getAKParameterAutomationRenderObserverBlock(void* automation) {
     return static_cast<AKParameterAutomation*>(automation)->renderObserverBlock();
+}
+
+AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(void* automation) {
+    return static_cast<AKParameterAutomation*>(automation)->automationObserverBlock();
 }
 
 void playAKParameterAutomation(void* automation, const AVAudioTime* startTime, double rate) {
@@ -26,11 +31,12 @@ void stopAKParameterAutomation(void* automation) {
 }
 
 void setAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address, bool enabled) {
-    
+    if (enabled) static_cast<AKParameterAutomation*>(automation)->enableRecording(address);
+    else         static_cast<AKParameterAutomation*>(automation)->disableRecording(address);
 }
 
 bool getAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address) {
-    return false;
+    return static_cast<AKParameterAutomation*>(automation)->isRecordingEnabled(address);
 }
 
 size_t getAKParameterAutomationPoints(void* automation, AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) {
@@ -133,12 +139,73 @@ AURenderObserver AKParameterAutomation::renderObserverBlock()
 
         for (auto& parameter : parameters) {
             ParameterData& data = parameter.second;
+            std::unique_lock<std::mutex> recordingLock(recordingMutex, std::try_to_lock);
+            if (!recordingLock.owns_lock() || isActivelyRecording(parameter.first)) continue;
             while (data.iterator != data.points.cend()) {
                 double rampStartTime = data.iterator->startTime / playbackRate;
                 if (rampStartTime >= blockEndTime) break;
                 AUEventSampleTime startTime = (rampStartTime - blockStartTime) * sampleRate;
-                if (rampStartTime < blockStartTime) startTime = 0;
+                if (rampStartTime < blockStartTime) startTime = 0; // should never happen?
                 scheduleAutomationPoint(startTime, parameter.first, *data.iterator++, 0);
+            }
+        }
+
+        lastRenderTime = blockEndTime;
+    };
+}
+
+bool AKParameterAutomation::isActivelyRecording(AUParameterAddress address)
+{
+    auto& parameter = parameters[address];
+    return !parameter.recordedSegments.empty() && parameter.recordedSegments.back().inProgress;
+}
+
+double AKParameterAutomation::getSequenceTime(uint64_t hostTime)
+{
+    return AudioConvertHostTimeToNanos(hostTime - startHostTime) / 1000000000.0;
+}
+
+AUParameterAutomationObserver AKParameterAutomation::automationObserverBlock()
+{
+    return ^void(NSInteger numberEvents, const AUParameterAutomationEvent *events) {
+        if (!isPlaying) return;
+        std::lock_guard<std::mutex> lock(recordingMutex);
+        for (NSInteger i = 0; i < numberEvents; i++) {
+            const auto& event = events[i];
+            auto& parameter = parameters[event.address];
+            if (!parameter.recordingEnabled) continue;
+            double sequenceTime = getSequenceTime(event.hostTime) * playbackRate;
+            if (event.eventType == AUParameterAutomationEventTypeTouch) {
+                // ignores touch events received during an active segment
+                if (parameter.recordedSegments.empty() || !parameter.recordedSegments.back().inProgress) {
+                    // push back new segment
+                    parameter.recordedSegments.emplace_back();
+                    auto& segment = parameter.recordedSegments.back();
+                    segment.startTime = sequenceTime;
+                    segment.recordedPoints.emplace_back(event.value, sequenceTime);
+                }
+            }
+            else if (event.eventType == AUParameterAutomationEventTypeValue) {
+                // ignores value events received outside of an active segment
+                if (!parameter.recordedSegments.empty()) {
+                    // add new point to segment
+                    auto& segment = parameter.recordedSegments.back();
+                    if (segment.inProgress) {
+                        segment.recordedPoints.emplace_back(event.value, sequenceTime);
+                    }
+                }
+            }
+            else { //event.eventType == release
+                // ignores release events received outside of an active segment
+                if (!parameter.recordedSegments.empty()) {
+                    // add new point to segment and complete segment
+                    auto& segment = parameter.recordedSegments.back();
+                    if (segment.inProgress) {
+                        segment.recordedPoints.emplace_back(event.value, sequenceTime);
+                        segment.endTime = sequenceTime;
+                        segment.inProgress = false;
+                    }
+                }
             }
         }
     };
@@ -146,12 +213,15 @@ AURenderObserver AKParameterAutomation::renderObserverBlock()
 
 void AKParameterAutomation::play(const AVAudioTime* startTime, double rate)
 {
+    stop();
+
     if (!startTime.isSampleTimeValid) {
         printf("WARNING: AKParameterAutomation::play(): invalid sample time, aborting play()\n");
         return;
     }
 
     std::lock_guard<std::mutex> lock(mutex);
+    startHostTime = startTime.hostTime;
     startSampleTime = startTime.sampleTime;
     sampleRate = startTime.sampleRate;
     playbackRate = rate;
@@ -162,7 +232,86 @@ void AKParameterAutomation::play(const AVAudioTime* startTime, double rate)
 void AKParameterAutomation::stop()
 {
     std::lock_guard<std::mutex> lock(mutex);
-    isPlaying = false;
+    if (!isPlaying) return; isPlaying = false;
+
+    // set stop time for any actively recording segments
+    std::lock_guard<std::mutex> recordLock(recordingMutex);
+    for (auto& parameter : parameters) {
+        auto& data = parameter.second;
+        if (!data.recordedSegments.empty()) {
+            auto& segment = data.recordedSegments.back();
+            if (segment.inProgress) {
+                // set end time to time of last point and complete segment
+                segment.endTime = segment.recordedPoints.back().second;
+                segment.inProgress = false;
+            }
+        }
+    }
+
+    reconcileRecordedSegments();
+}
+
+void AKParameterAutomation::enableRecording(AUParameterAddress address)
+{
+    std::lock_guard<std::mutex> lock(recordingMutex);
+    parameters[address].recordingEnabled = true;
+}
+
+void AKParameterAutomation::disableRecording(AUParameterAddress address)
+{
+    std::lock_guard<std::mutex> lock(recordingMutex);
+    auto& parameter = parameters[address];
+    if (!parameter.recordingEnabled) return; parameter.recordingEnabled = false;
+
+    // complete in-progress segment (if present)
+    std::lock_guard<std::mutex> recordLock(recordingMutex);
+    if (!parameter.recordedSegments.empty()) {
+        auto& segment = parameter.recordedSegments.back();
+        if (segment.inProgress) {
+            // set end time to time of last point and complete segment
+            segment.endTime = segment.recordedPoints.back().second;
+            segment.inProgress = false;
+        }
+    }
+}
+
+bool AKParameterAutomation::isRecordingEnabled(AUParameterAddress address) const
+{
+    auto parametersIter = parameters.find(address);
+    return parametersIter != parameters.cend() ? parametersIter->second.recordingEnabled : false;
+}
+
+void AKParameterAutomation::reconcileRecordedSegments()
+{
+    for (auto& parameter : parameters) {
+        ParameterData& data = parameter.second;
+        for (auto& segment : data.recordedSegments) {
+            // clear existing points in segment range
+            auto rend = std::remove_if(data.points.begin(), data.points.end(), [segment](auto a) {
+                return segment.startTime <= a.startTime && a.startTime <= segment.endTime;
+            });
+            data.points.erase(rend, data.points.end());
+
+            // append recorded points
+            for (auto& point : segment.recordedPoints) {
+                data.points.emplace_back(AKParameterAutomationPoint{
+                    .targetValue = point.first,
+                    .startTime = point.second,
+                    .rampDuration = 0.01,
+                    .rampTaper = 1,
+                    .rampSkew = 0
+                });
+            }
+        }
+
+        // clear recorded segments and sort points vector
+        data.recordedSegments.clear();
+        std::sort(data.points.begin(), data.points.end(), [](auto a, auto b) {
+            return a.startTime < b.startTime;
+        });
+    }
+
+    wasReset = true;
 }
 
 size_t AKParameterAutomation::getPoints(AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) const
