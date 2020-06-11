@@ -6,7 +6,9 @@ open class AKParameterAutomation {
     
     private var scheduleParameterBlock: AUScheduleParameterBlock?
     
-    private var token: Int?
+    private var renderObserverToken: Int?
+
+    private var automationObserverToken: AUParameterObserverToken?
     
     private var automation: UnsafeMutableRawPointer?
     
@@ -15,8 +17,12 @@ open class AKParameterAutomation {
     }
     
     deinit {
-        if let token = token {
+        if let token = renderObserverToken {
             avAudioUnit.auAudioUnit.removeRenderObserver(token)
+        }
+
+        if let token = automationObserverToken {
+            avAudioUnit.auAudioUnit.parameterTree?.removeParameterObserver(token)
         }
         
         if let automation = automation {
@@ -26,12 +32,17 @@ open class AKParameterAutomation {
     
     private func createAutomation() {
         if automation != nil { return }
+        let au = avAudioUnit.auAudioUnit
+
         // cache the parameter block for best performance
-        scheduleParameterBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
+        scheduleParameterBlock = au.scheduleParameterBlock
         automation = createAKParameterAutomation(scheduleParameterBlock)
         
-        let observer = getAKParameterAutomationObserverBlock(automation)!
-        token = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
+        let renderObserverBlock = getAKParameterAutomationRenderObserverBlock(automation)!
+        renderObserverToken = au.token(byAddingRenderObserver: renderObserverBlock)
+
+        let automationObserverBlock = getAKParameterAutomationAutomationObserverBlock(automation)!
+        automationObserverToken = au.parameterTree?.token(byAddingParameterAutomationObserver: automationObserverBlock)
     }
     
     /// Start playback immediately with the specified offset (seconds) from the start of the sequence
@@ -67,9 +78,14 @@ open class AKParameterAutomation {
         if automation == nil { return }
         stopAKParameterAutomation(automation)
     }
-    
-    /// When recording is enabled, any parameter changes during playback will be recorded.
-    /// Changes will overwrite any existing points at the times the changes occur.
+
+    /// Arm or disarm a parameter for recording. This only has an effect during active playback.
+    /// When armed, existing automation will play normally until the AUParameter receives a setValue() call with the .touch event type.
+    /// Assuming the use of AKNodeParameter, this is done by calling the beginTouch() function.
+    /// When a .touch event is received, existing automation will be muted, and any changes to the parameter's value will be written
+    /// as points to the automation track at the times during playback in which they are received, overwriting existing points.
+    /// Recording will continue until a setValue() call with the .release event type is received, or endTouch() in AKNodeParameter.
+    /// When a .release event is received, normal playback will resume.
     public func setRecordingEnabled(_ enabled: Bool, for parameter: String) {
         if automation == nil { createAutomation() }
         guard let addr = avAudioUnit.auAudioUnit.parameterTree?[parameter]?.address else { return }
@@ -82,7 +98,8 @@ open class AKParameterAutomation {
         return getAKParameterAutomationRecordingEnabled(automation, addr)
     }
     
-    /// Return a sorted array of all points of the given parameter
+    /// Return a sorted array of all points of the given parameter.
+    /// WARNING: for parameters armed for recording, this is not guaranteed to be up-to-date until playback is stopped.
     public func getPoints(of parameter: String) -> [AKParameterAutomationPoint] {
         if automation == nil { return [] }
         guard let addr = avAudioUnit.auAudioUnit.parameterTree?[parameter]?.address else { return [] }
