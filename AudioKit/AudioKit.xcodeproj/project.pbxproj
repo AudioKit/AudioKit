@@ -5201,7 +5201,6 @@
 				22D8FAB0248E8B8C0009EE7C /* AKParameterAutomation.swift */,
 				22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */,
 				22D8FAB4248E8BBD0009EE7C /* AKParameterAutomation.mm */,
-				B11F88712329B8F000CB8D3F /* Fader */,
 			);
 			path = Automation;
 			sourceTree = "<group>";
@@ -6456,6 +6455,7 @@
 				C49352061C3CBA6C00A28D7F /* Booster */,
 				C42FFB8D1C3CF6AC00823BD4 /* Dry Wet Mixer */,
 				C4CDDD061D04F23C003EA1BD /* Environment */,
+				B11F88712329B8F000CB8D3F /* Fader */,
 				C45380241C3A592300A51738 /* Mixer */,
 				C49351F81C3CB93300A28D7F /* Panner */,
 				C49390801E0889DB009FEAA1 /* Stereo Field Limiter */,
