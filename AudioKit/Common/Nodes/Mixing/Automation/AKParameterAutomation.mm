@@ -2,7 +2,7 @@
 
 #include "AKParameterAutomation.hpp"
 #include <algorithm>
-#include <CoreAudio/HostTime.h>
+#include <mach/mach_time.h>
 
 extern "C"
 {
@@ -162,7 +162,11 @@ bool AKParameterAutomation::isActivelyRecording(AUParameterAddress address)
 
 double AKParameterAutomation::getSequenceTime(uint64_t hostTime)
 {
-    return AudioConvertHostTimeToNanos(hostTime - startHostTime) / 1000000000.0;
+    struct mach_timebase_info timebase;
+    mach_timebase_info(&timebase);
+    double freq = static_cast<double>(timebase.denom) / static_cast<double>(timebase.numer) * 1000000000.0;
+    double ticks = hostTime - startHostTime;
+    return ticks / freq;
 }
 
 AUParameterAutomationObserver AKParameterAutomation::automationObserverBlock()
