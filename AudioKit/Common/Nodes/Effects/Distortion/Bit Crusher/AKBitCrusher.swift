@@ -58,7 +58,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.bitDepth.associate(with: self.internalAU, value: bitDepth)
             self.sampleRate.associate(with: self.internalAU, value: sampleRate)

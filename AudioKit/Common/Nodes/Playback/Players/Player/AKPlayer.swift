@@ -404,29 +404,20 @@ public class AKPlayer: AKAbstractPlayer {
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
         let audioTime = audioTime ?? AVAudioTime.now()
-        var faderTime = audioTime
 
         isPlaying = true
 
         preroll(from: startingTime, to: endingTime)
         schedulePlayer(at: audioTime, hostTime: refTime)
-
-        if !audioTime.isSampleTimeValid {
-            let seconds = audioTime.toSeconds(hostTime: refTime)
-            let sampleTime = AVAudioFramePosition(seconds * sampleRate)
-            faderTime = AVAudioTime(hostTime: refTime,
-                                    sampleTime: sampleTime,
-                                    atRate: sampleRate)
-        }
-        super.scheduleFader(at: faderTime, hostTime: refTime)
+        scheduleFader()
 
         playerNode.play()
 
         if isFaded, !isBufferFaded {
             // NOTE: duration is currently not implemented
-            let audioEndTime = faderTime.offset(seconds: endingTime)
-            // turn on the render notification
-            super.faderNode?.parameterAutomation?.start(at: faderTime, duration: audioEndTime)
+            // let audioEndTime = faderTime.offset(seconds: endingTime)
+
+            faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: startingTime)
         }
 
         pauseTime = nil
@@ -435,6 +426,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public override func stop() {
         stopCompletion()
+        faderNode?.parameterAutomation?.stopPlayback()
     }
 
     // MARK: - Deinit

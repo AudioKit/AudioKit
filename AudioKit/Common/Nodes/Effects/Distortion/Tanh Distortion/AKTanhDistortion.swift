@@ -80,7 +80,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.pregain.associate(with: self.internalAU, value: pregain)
             self.postgain.associate(with: self.internalAU, value: postgain)

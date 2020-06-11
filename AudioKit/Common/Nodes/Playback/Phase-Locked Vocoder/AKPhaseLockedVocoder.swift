@@ -69,7 +69,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.position.associate(with: self.internalAU, value: position)
             self.amplitude.associate(with: self.internalAU, value: amplitude)
