@@ -3,7 +3,6 @@
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-
     // MARK: - AKComponent
 
     public typealias AKAudioUnitType = AKFaderAudioUnit
@@ -96,11 +95,11 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                rampDuration: rampDuration,
                                                rampTaper: taperValue,
                                                rampSkew: skewValue)
-        
+
         parameterAutomation?.add(point: point, to: leftGain.identifier)
         parameterAutomation?.add(point: point, to: rightGain.identifier)
     }
-    
+
     /// Convenience function for clearing all points for both left and right addresses
     public func clearAutomationPoints() {
         parameterAutomation?.clearAllPoints(of: leftGain.identifier)
