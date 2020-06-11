@@ -183,10 +183,18 @@ extension AudioUnitManager {
     }
 
     internal func getWindowFromIndentifier(_ tag: Int) -> NSWindow? {
-        let identifier = windowPrefix + String(tag)
-        guard let windows = self.view.window?.childWindows else { return nil }
-        for w in windows where w.identifier?.rawValue == identifier {
-            return w
+        if let controller = getWindowController(at: tag) {
+            return controller.window
+        }
+        return nil
+    }
+
+    private func getWindowController(at index: Int) -> AudioUnitGenericWindow? {
+        if index < 0 || index > windowControllers.count - 1 {
+            return nil
+        }
+        if let controller = windowControllers[index] {
+            return controller
         }
         return nil
     }
@@ -207,6 +215,18 @@ extension AudioUnitManager {
     }
 
     public func showAudioUnit(_ audioUnit: AVAudioUnit, identifier: Int) {
+        if let previousController = getWindowController(at: identifier),
+            previousController.audioUnit == audioUnit {
+            // Log.debug("Same controller as before")
+
+            if let unitWindow = previousController.window {
+                // Log.debug("Showing window")
+                unitWindow.orderFrontRegardless()
+                previousController.showWindow(self)
+            }
+            return
+        }
+
         var previousWindowOrigin: NSPoint?
         if let w = getWindowFromIndentifier(identifier) {
             previousWindowOrigin = w.frame.origin
@@ -232,6 +252,7 @@ extension AudioUnitManager {
                     ui?.view = AudioUnitGenericView(audioUnit: audioUnit)
                 }
                 guard let theUI = ui else { return }
+
                 strongSelf.createAUWindow(viewController: theUI,
                                           audioUnit: audioUnit,
                                           identifier: identifier,
@@ -279,8 +300,12 @@ extension AudioUnitManager {
 
         view.window?.addChildWindow(unitWindow, ordered: NSWindow.OrderingMode.above)
 
-        if let button = self.getEffectsButtonFromIdentifier(identifier) {
+        if let button = getEffectsButtonFromIdentifier(identifier) {
             button.state = .on
+        }
+
+        if identifier < windowControllers.count {
+            windowControllers[identifier] = windowController
         }
     }
 
@@ -308,7 +333,6 @@ extension AudioUnitManager {
 }
 
 extension AudioUnitManager: AKAudioUnitManagerDelegate {
-
     func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
                                             audioUnitManager: AKAudioUnitManager) {
         switch notification {

@@ -12,6 +12,14 @@ import Cocoa
 /// An Example of how to create an AudioUnit Host application.
 /// This is also a demo for how to use AKPlayer.
 class AudioUnitManager: NSViewController {
+    public static var appearance: NSAppearance? {
+        if #available(macOS 10.14, *) {
+            return NSAppearance(named: .darkAqua)
+        } else {
+            return NSAppearance(named: .vibrantDark)
+        }
+    }
+
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
 
@@ -35,6 +43,7 @@ class AudioUnitManager: NSViewController {
     internal var audioPlaying: Bool = false
     internal var openPanel: NSOpenPanel?
     internal var internalManager = AKAudioUnitManager(inserts: 6)
+    internal var windowControllers = [AudioUnitGenericWindow?](repeating: nil, count: 6)
     internal var midiManager: AKMIDI?
     internal var player: AKPlayer?
     internal var waveform: AKWaveform?
@@ -79,6 +88,8 @@ class AudioUnitManager: NSViewController {
 
     @objc func handleApplicationInit() {
         view.window?.delegate = self
+        view.window?.appearance = AudioUnitManager.appearance
+        view.appearance = AudioUnitManager.appearance
     }
 
     func initialize() {
@@ -96,16 +107,18 @@ class AudioUnitManager: NSViewController {
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
-        // AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
+        AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
+
         if !AKManager.engine.isRunning {
             do {
                 try AKManager.start()
             } catch {
                 AKLog("AudioKit did not start!")
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                AKLog("Firing completionHandler...")
                 completionHandler?()
-                AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
             }
             return
         }
@@ -151,21 +164,10 @@ class AudioUnitManager: NSViewController {
 
     @IBAction func handleNormalizedButton(_ sender: NSButton) {
         guard let player = player else { return }
-        guard let waveform = waveform else { return }
 
-        var gain: Float = 1
-
-        if sender.state == .on {
-            audioBufferedButton.state = .on
-            player.buffering = .always
-
-            if peak == nil, let bufferPeak = player.buffer?.peak() {
-                gain = 1 / bufferPeak.amplitude
-            }
-        }
-
+        player.buffering = sender.state == .on ? .always : .dynamic
+        audioBufferedButton.state = sender.state
         player.isNormalized = sender.state == .on
-        waveform.gain = gain
     }
 
     @IBAction func handleBufferedButton(_ sender: NSButton) {
@@ -203,6 +205,7 @@ class AudioUnitManager: NSViewController {
         AKLog("chooseAudio()")
         if openPanel == nil {
             openPanel = NSOpenPanel()
+            openPanel?.appearance = view.appearance
             openPanel?.message = "Open Audio File"
             openPanel?.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
@@ -239,8 +242,8 @@ class AudioUnitManager: NSViewController {
                 return
             }
             self.internalManager.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
-            self.showAudioUnit(audioUnit, identifier: 6)
             DispatchQueue.main.async {
+                self.showAudioUnit(audioUnit, identifier: 6)
                 self.instrumentPlayButton.isEnabled = true
             }
         })
@@ -263,7 +266,7 @@ class AudioUnitManager: NSViewController {
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
         guard auInstrument != nil else { return }
 
-        startEngine(completionHandler: {
+        startEngine {
             if self.fmOscillator.isStarted {
                 self.fmButton.state = .off
                 self.fmOscillator.stop()
@@ -278,8 +281,7 @@ class AudioUnitManager: NSViewController {
             } else {
                 self.testAUInstrument(state: true)
             }
-
-        })
+        }
     }
 
     @IBAction func handleFMButton(_ sender: NSButton) {
