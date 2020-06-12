@@ -422,7 +422,6 @@ public class AKPlayer: AKAbstractPlayer {
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public override func stop() {
         stopCompletion()
-        faderNode?.parameterAutomation?.stopPlayback()
     }
 
     // MARK: - Deinit

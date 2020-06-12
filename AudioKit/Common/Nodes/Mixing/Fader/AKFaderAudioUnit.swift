@@ -3,7 +3,6 @@
 import AVFoundation
 
 public class AKFaderAudioUnit: AKAudioUnitBase {
-
     let leftGain = AUParameter(
         identifier: "leftGain",
         name: "Left Gain",
