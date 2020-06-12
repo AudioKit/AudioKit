@@ -3,17 +3,22 @@
 /// FFT Calculation for any node
 open class AKFFTTap: NSObject, EZAudioFFTDelegate {
 
-    internal let bufferSize: UInt32 = 1_024
+    public let fftSize: AKSettings.BufferLength
+    internal var bufferSize: UInt32 { fftSize.samplesCount }
     internal var fft: EZAudioFFT?
 
     /// Array of FFT data
-    @objc open var fftData = [Double](zeros: 512)
+    @objc open var fftData: [Double]
 
     /// Initialze the FFT calculation on a given node
     ///
-    /// - parameter input: Node on whose output the FFT will be computed
+    /// - parameters:
+    ///   - input: Node on whose output the FFT will be computed
+    ///   - fftSize: The sample size of the FFT buffer
     ///
-    public init(_ input: AKNode) {
+    public init(_ input: AKNode, fftSize: AKSettings.BufferLength = .veryLong) {
+        self.fftSize = fftSize
+        self.fftData = [Double](zeros: Int(self.fftSize.samplesCount / 2))
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                          sampleRate: Float(AKSettings.sampleRate),
