@@ -3,7 +3,6 @@
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
 open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
-
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
@@ -128,7 +127,6 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         compressionAmount: AUValue = 0,
         inputAmplitude: AUValue = 0,
         outputAmplitude: AUValue = 0) {
-
         self.threshold = threshold
         self.headRoom = headRoom
         self.expansionRatio = expansionRatio
@@ -145,10 +143,12 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         effectGain?.volume = 1
 
         input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain!, effectGain!])
-
+        if let inputGain = inputGain,
+            let effectGain = effectGain {
+            inputMixer.connect(to: [inputGain, effectGain])
+        }
         let effect = _Self.effect
-        self.internalEffect = effect
+        internalEffect = effect
 
         AKManager.engine.attach(effect)
 
@@ -197,10 +197,18 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     open override func detach() {
         stop()
 
-        AKManager.detach(nodes: [inputMixer.avAudioNode,
-                                inputGain!.avAudioNode,
-                                effectGain!.avAudioNode,
-                                mixer.avAudioNode])
-        AKManager.engine.detach(self.internalEffect)
+        var nodes: [AVAudioNode] = [inputMixer.avAudioNode,
+                                    mixer.avAudioNode,
+                                    internalEffect]
+
+        if let inputGain = inputGain {
+            nodes.append(inputGain.avAudioNode)
+        }
+
+        if let effectGain = effectGain {
+            nodes.append(effectGain.avAudioNode)
+        }
+
+        AKManager.detach(nodes: nodes)
     }
 }

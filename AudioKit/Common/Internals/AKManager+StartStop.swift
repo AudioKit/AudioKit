@@ -131,7 +131,8 @@ extension AKManager {
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
                     if appIsNotActive && appDoesNotSupportBackgroundAudio {
-                        AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                        AKLog("engine not restarted after configuration change since app was not active " +
+                            "and does not support background audio")
                         return
                     }
                     #endif
@@ -170,7 +171,8 @@ extension AKManager {
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
                     if appIsNotActive && appDoesNotSupportBackgroundAudio {
-                        AKLog("engine not restarted after route change since app was not active and does not support background audio")
+                        AKLog("engine not restarted after configuration change since app was not active " +
+                            "and does not support background audio")
                         return
                     }
                     #endif

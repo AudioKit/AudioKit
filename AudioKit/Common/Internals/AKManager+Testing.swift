@@ -3,7 +3,6 @@
 import Foundation
 
 extension AKManager {
-
     // MARK: - Testing
 
     /// Testing AKNode
@@ -37,8 +36,8 @@ extension AKManager {
             afterStart()
             tester?.play()
 
-            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
-                                                            frameCapacity: engine.manualRenderingMaximumFrameCount)!
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
+                                                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return }
 
             while engine.manualRenderingSampleTime < samples {
                 let framesToRender = buffer.frameCapacity

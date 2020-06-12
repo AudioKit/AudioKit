@@ -139,7 +139,8 @@ open class AKNodeParameter {
         associate(with: au, value: value ? 1.0 : 0.0)
     }
 
-    /// Sends a .touch event to the parameter automation observer, beginning automation recording if enabled in AKParameterAutomation.
+    /// Sends a .touch event to the parameter automation observer, beginning automation recording if
+    /// enabled in AKParameterAutomation.
     /// A value may be passed as the initial automation value. The current value is used if none is passed.
     public func beginTouch(value: AUValue? = nil) {
         guard let value = value ?? parameter?.value else { return }

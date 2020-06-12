@@ -3,7 +3,6 @@
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
 open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
-
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
@@ -67,7 +66,6 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         attackDuration: AUValue = 0.012,
         decayDuration: AUValue = 0.024,
         preGain: AUValue = 0) {
-
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
         self.preGain = preGain
@@ -80,10 +78,14 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         effectGain?.volume = 1
 
         input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain!, effectGain!])
+
+        if let inputGain = inputGain,
+            let effectGain = effectGain {
+            inputMixer.connect(to: [inputGain, effectGain])
+        }
 
         let effect = _Self.effect
-        self.internalEffect = effect
+        internalEffect = effect
 
         au = AUWrapper(effect)
 
@@ -103,6 +105,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -126,10 +129,18 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     open override func detach() {
         stop()
 
-        AKManager.detach(nodes: [inputMixer.avAudioNode,
-                                inputGain!.avAudioNode,
-                                effectGain!.avAudioNode,
-                                mixer.avAudioNode])
-        AKManager.engine.detach(self.internalEffect)
+        var nodes: [AVAudioNode] = [inputMixer.avAudioNode,
+                                    mixer.avAudioNode,
+                                    internalEffect]
+
+        if let inputGain = inputGain {
+            nodes.append(inputGain.avAudioNode)
+        }
+
+        if let effectGain = effectGain {
+            nodes.append(effectGain.avAudioNode)
+        }
+
+        AKManager.detach(nodes: nodes)
     }
 }

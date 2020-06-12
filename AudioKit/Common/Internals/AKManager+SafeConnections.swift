@@ -4,7 +4,6 @@ import Foundation
 
 /// This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
 extension AKManager {
-
     // Attaches nodes if node.engine == nil
     private static func safeAttach(_ nodes: [AVAudioNode]) {
         _ = nodes.filter { $0.engine == nil }.map { engine.attach($0) }
@@ -19,13 +18,11 @@ extension AKManager {
     // bus to connect to.
     //
     private static func checkMixerInputs(_ connectionPoints: [AVAudioConnectionPoint]) {
-
         if !engine.isRunning { return }
 
         for connection in connectionPoints {
             if let mixer = connection.node as? AVAudioMixerNode,
                 connection.bus >= mixer.numberOfInputs {
-
                 var dummyNodes = [AVAudioNode]()
                 while connection.bus >= mixer.numberOfInputs {
                     let dummyNode = AVAudioUnitSampler()
@@ -35,7 +32,6 @@ extension AKManager {
                 for dummyNode in dummyNodes {
                     dummyNode.disconnectOutput()
                 }
-
             }
         }
     }
@@ -45,12 +41,11 @@ extension AKManager {
     // node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
     //
     private static func addDummyOnEmptyMixer(_ node: AVAudioNode) -> AVAudioNode? {
-
         // Only an issue if engine is running, node is a mixer, and mixer has no inputs
         guard let mixer = node as? AVAudioMixerNode,
             engine.isRunning,
             !engine.mixerHasInputs(mixer: mixer) else {
-                return nil
+            return nil
         }
 
         let dummy = AVAudioUnitSampler()
@@ -63,9 +58,8 @@ extension AKManager {
                                      to destNodes: [AVAudioConnectionPoint],
                                      fromBus sourceBus: AVAudioNodeBus,
                                      format: AVAudioFormat?) {
-
         let connectionsWithNodes = destNodes.filter { $0.node != nil }
-        safeAttach([sourceNode] + connectionsWithNodes.map { $0.node! })
+        safeAttach([sourceNode] + connectionsWithNodes.compactMap { $0.node })
         // See addDummyOnEmptyMixer for dummyNode explanation.
         let dummyNode = addDummyOnEmptyMixer(sourceNode)
         checkMixerInputs(connectionsWithNodes)
@@ -78,7 +72,6 @@ extension AKManager {
                                      fromBus bus1: AVAudioNodeBus,
                                      toBus bus2: AVAudioNodeBus,
                                      format: AVAudioFormat?) {
-
         safeAttach([node1, node2])
         // See addDummyOnEmptyMixer for dummyNode explanation.
         let dummyNode = addDummyOnEmptyMixer(node1)
@@ -90,7 +83,7 @@ extension AKManager {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
 
-    //Convenience
+    // Convenience
     @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             guard node.engine != nil else { continue }
@@ -114,18 +107,20 @@ extension AKManager {
                                           duration: Double,
                                           prerender: (() -> Void)? = nil,
                                           progress: ((Double) -> Void)? = nil) throws {
-
         try engine.renderToFile(audioFile, duration: duration, prerender: prerender, progress: progress)
     }
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     public static func printConnections() {
-
         let nodes: [AVAudioNode] = {
             var nodes = Set<AVAudioNode>()
             func addInputs(_ node: AVAudioNode) {
                 nodes.insert(node)
-                node.inputConnections().filter { $0.node != nil }.forEach { addInputs($0.node!) }
+                node.inputConnections().filter { $0.node != nil }.forEach {
+                    if let node = $0.node {
+                        addInputs(node)
+                    }
+                }
             }
             addInputs(engine.outputNode)
             return Array(nodes)
@@ -147,7 +142,7 @@ extension AKManager {
             return string.count >= padLength ? string : string + String(repeating: " ", count: padLength - string.count)
         }
 
-        nodes.enumerated().forEach { (id, node) in
+        nodes.enumerated().forEach { id, node in
 
             let outputs: [(id: Int, node: AVAudioNode, bus: Int)] = node.connectionPoints.compactMap {
                 guard let node = $0.node, let id = nodes.firstIndex(of: node) else { return nil }
@@ -163,5 +158,4 @@ extension AKManager {
             }
         }
     }
-
 }

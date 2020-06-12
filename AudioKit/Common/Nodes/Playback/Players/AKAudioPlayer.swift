@@ -2,6 +2,8 @@
 
 /// Not so simple audio playback class
 
+@available(*, deprecated,
+           message: "Transition to using AKPlayer instead. This class will be removed in a future release.")
 open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Private variables
 
@@ -682,7 +684,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // Disconnect the node
     open override func detach() {
-        AKManager.detach(nodes: [avAudioNode])
-        AKManager.engine.detach(internalPlayer)
+        AKManager.detach(nodes: [avAudioNode, internalPlayer])
     }
 }

@@ -22,7 +22,6 @@ public enum AKSliderStyle {
 
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKSlider: AKPropertyControl {
-
     /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
@@ -85,7 +84,6 @@ public enum AKSliderStyle {
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
-
         self.color = color
 
         super.init(property: property,
@@ -107,6 +105,7 @@ public enum AKSliderStyle {
         self.isUserInteractionEnabled = true
         contentMode = .redraw
     }
+
     // More required initialization from IB
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,7 +118,7 @@ public enum AKSliderStyle {
     }
 
     /// Require constraint-based layout
-    open class override var requiresConstraintBasedLayout: Bool {
+    open override class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -128,7 +127,8 @@ public enum AKSliderStyle {
         super.touchesBegan(touches, with: event)
         touchBeganCallback()
     }
-    open var touchBeganCallback: () -> Void = { }
+
+    open var touchBeganCallback: () -> Void = {}
     /// Handle moved touches
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -151,11 +151,13 @@ public enum AKSliderStyle {
         }
         touchEndedCallback()
     }
-    open var touchEndedCallback: () -> Void = { }
+
+    open var touchEndedCallback: () -> Void = {}
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchCancelledCallback()
     }
-    open var touchCancelledCallback: () -> Void = { }
+
+    open var touchCancelledCallback: () -> Void = {}
 
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
@@ -227,24 +229,22 @@ public enum AKSliderStyle {
         context.clear(rect)
 
         drawFlatSlider(currentValue: CGFloat(val),
-            propertyName: property,
-            currentValueText: String(format: format, value)
-        )
+                       propertyName: property,
+                       currentValueText: String(format: format, value))
     }
 
     func drawFlatSlider(currentValue: CGFloat = 0,
                         initialValue: CGFloat = 0,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
-
         //// General Declarations
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
         }
 
-        let width = self.frame.width
-        let height = self.frame.height
+        let width = frame.width
+        let height = frame.height
 
         let themeTextColor = textColorForTheme
 
@@ -333,7 +333,7 @@ public enum AKSliderStyle {
         indicatorPath.stroke()
 
         //// valueLabel Drawing
-        if showsValueBubble && isDragging {
+        if showsValueBubble, isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
@@ -376,7 +376,7 @@ public enum AKSliderStyle {
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
                            y: sliderOrigin - valueLabelTextSize.height - AKSlider.bubbleMargin +
-                            AKSlider.bubblePadding.height / 2.0,
+                               AKSlider.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
