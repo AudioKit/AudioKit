@@ -221,7 +221,7 @@ open class AKAbstractPlayer: AKNode {
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
             faderNode.addAutomationPoint(value: fade.maximumGain,
-                                         at: 0.000_1,
+                                         at: 0.0001,
                                          rampDuration: fade.inTime,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew)
@@ -240,8 +240,6 @@ open class AKAbstractPlayer: AKNode {
                                          taper: fade.outTaper,
                                          skew: fade.outSkew)
         }
-
-//        AKLog("LEFT POINTS, offsetTime", offsetTime, faderNode.parameterAutomation?.getPoints(of: faderNode.leftGain.identifier))
     }
 
     func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
