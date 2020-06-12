@@ -13,15 +13,16 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
     /// Waveform of the oscillator
     @objc open var waveform: AKTable? {
-        //TODO: Add error checking for table size...needs to match init()
+        // TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
                 for (i, sample) in wf.enumerated() {
-                    self.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                    internalAU?.setWaveformValue(sample, at: UInt32(i))
                 }
             }
         }
     }
+
     fileprivate var carrierMultiplierParameter: AUParameter?
     fileprivate var modulatingMultiplierParameter: AUParameter?
     fileprivate var modulationIndexParameter: AUParameter?
@@ -190,7 +191,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBend: AUValue = 0,
         vibratoDepth: AUValue = 0,
         vibratoRate: AUValue = 0) {
-
         self.waveform = waveform
         self.carrierMultiplier = carrierMultiplier
         self.modulatingMultiplier = modulatingMultiplier

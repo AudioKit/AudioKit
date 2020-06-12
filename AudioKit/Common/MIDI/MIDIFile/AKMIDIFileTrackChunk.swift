@@ -3,7 +3,6 @@
 import Foundation
 
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
-
     var typeData: [UInt8]
     var lengthData: [UInt8]
     var data: [UInt8]
@@ -14,20 +13,20 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         typeData = Array(repeating: 0, count: 4)
         lengthData = Array(repeating: 0, count: 4)
         timeFormat = .ticksPerBeat
-        timeDivision = 480 //arbitrary value
+        timeDivision = 480 // arbitrary value
         data = []
     }
 
     init(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
-        self.typeData = chunk.typeData
-        self.lengthData = chunk.lengthData
-        self.data = chunk.data
+        typeData = chunk.typeData
+        lengthData = chunk.lengthData
+        data = chunk.data
         self.timeFormat = timeFormat
         self.timeDivision = timeDivision
     }
 
     public var chunkEvents: [AKMIDIFileChunkEvent] {
-        //FIXME: Not currently handling channel prefix
+        // FIXME: Not currently handling channel prefix
         var events = [AKMIDIFileChunkEvent]()
         var currentTimeByte: Int?
         var currentTypeByte: MIDIByte?
@@ -44,7 +43,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var accumulatedDeltaTime = 0
         for byte in data {
             if currentTimeByte == nil {
-                if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
+                if byte & UInt8(0x80) == 0x80 { // Test if bit #7 of the byte is set
                     isParsingVariableTime = true
                     variableBits.append(byte)
                 } else {
@@ -63,11 +62,11 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     }
                 }
             } else if currentTypeByte == nil {
-                if byte == 0xFF { //MetaEvent
+                if byte == 0xff { // MetaEvent
                     isParsingMetaEvent = true
                 } else {
                     if byte < 0x80, !isParsingMetaEvent, !isParsingSysex, let currentRunningStatus = runningStatus,
-                        let status = AKMIDIStatus(byte: currentRunningStatus) { //Running Status Implied
+                        let status = AKMIDIStatus(byte: currentRunningStatus) { // Running Status Implied
                         currentTypeByte = currentRunningStatus
                         runningStatus = currentRunningStatus
                         let length = MIDIByte(status.length)
@@ -87,7 +86,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         runningStatus = nil
                     }
                 }
-                if isNotParsingMetaEvent && isNotParsingSysex {
+                if isNotParsingMetaEvent, isNotParsingSysex {
                     currentEventData.append(byte)
                 }
             } else if currentLengthByte == nil {
@@ -128,12 +127,12 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 }
                 if type != chunkEvent.typeByte {
                     AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))",
-                        log: OSLog.midi)
+                          log: OSLog.midi)
                     break
                 }
                 if length != chunkEvent.length {
                     AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)",
-                        log: OSLog.midi)
+                          log: OSLog.midi)
                     break
                 }
                 accumulatedDeltaTime += chunkEvent.deltaTime

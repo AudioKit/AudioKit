@@ -322,13 +322,18 @@ import AudioKit
                                        NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity),
-                                                                                   options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                                   attributes: nameLabelFontAttributes, context: nil).size.height
-        let nameLabelTextRect: CGRect = CGRect(x: nameLabelInset.minX,
-                                               y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-                                               width: nameLabelInset.width,
-                                               height: nameLabelTextHeight)
+        let size = CGSize(width: nameLabelInset.width, height: CGFloat.infinity)
+        let nameLabelTextHeight: CGFloat = NSString(string: fileName)
+            .boundingRect(with: size,
+                          options: .usesLineFragmentOrigin,
+                          attributes: nameLabelFontAttributes, context: nil)
+            .size.height
+
+        let nameLabelTextRect = CGRect(x: nameLabelInset.minX,
+                                       y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                       width: nameLabelInset.width,
+                                       height: nameLabelTextHeight)
+
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
 
