@@ -94,7 +94,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.waveformArray = waveformArray
             self.frequency.associate(with: self.internalAU, value: frequency)

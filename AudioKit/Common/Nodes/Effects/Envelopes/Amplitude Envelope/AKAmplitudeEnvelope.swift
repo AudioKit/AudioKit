@@ -80,7 +80,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAu
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.attackDuration.associate(with: self.internalAU, value: attackDuration)
             self.decayDuration.associate(with: self.internalAU, value: decayDuration)
