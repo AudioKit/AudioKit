@@ -4,7 +4,6 @@ import CoreMIDI
 
 /// A container for the values that define a MIDI event
 public struct AKMIDIEvent: AKMIDIMessage {
-
     // MARK: - Properties
 
     /// Internal data
@@ -13,7 +12,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
-    //Offset - offset within a packet. Used mostly in receiving packets live
+    // Offset - offset within a packet. Used mostly in receiving packets live
     public var offset: MIDITimeStamp = 0
 
     /// Description
@@ -61,9 +60,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        //FIXME: Improve this if statement to catch valid system reset commands (0xFF)
+        // FIXME: Improve this if statement to catch valid system reset commands (0xFF)
         // but ignore meta events (0xFF, 0x..., 0x..., etc)
-        if let statusByte = data.first, (statusByte != AKMIDISystemCommand.sysReset.rawValue) {
+        if let statusByte = data.first, statusByte != AKMIDISystemCommand.sysReset.rawValue {
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil
@@ -102,12 +101,13 @@ public struct AKMIDIEvent: AKMIDIMessage {
         offset = packet.timeStamp
 
         // MARK: we currently assume this is one midi event could be any number of events
+
         let isSystemCommand = packet.isSystemCommand
         if isSystemCommand {
             let systemCommand = packet.systemCommand
             let length = systemCommand?.length
             if systemCommand == .sysex {
-                data = [] //reset internalData
+                data = [] // reset internalData
 
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
@@ -143,7 +143,6 @@ public struct AKMIDIEvent: AKMIDIMessage {
         if event.timeFormat == .ticksPerBeat {
             positionInBeats = event.position
         }
-
     }
 
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
@@ -277,7 +276,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     /// Array of MIDI events from a MIDI packet list poionter
-    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
+    public static func midiEventsFrom(packetListPointer: UnsafePointer<MIDIPacketList>) -> [AKMIDIEvent] {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }
 
@@ -295,26 +294,26 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     /// Generate array of MIDI events from Bluetooth data
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
-        //1st byte timestamp coarse will always be > 128
-        //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
-        //3nd < 128 running message - timestamp
-        //status byte determines length of message
+        // 1st byte timestamp coarse will always be > 128
+        // 2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
+        // 3nd < 128 running message - timestamp
+        // status byte determines length of message
 
         var midiEvents: [AKMIDIEvent] = []
         if bluetoothData.count > 1 {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
-                //continuation of sysex from previous packet - handle separately
-                //(probably needs a whole bluetooth MIDI class so we can see the previous packets)
+                // continuation of sysex from previous packet - handle separately
+                // (probably needs a whole bluetooth MIDI class so we can see the previous packets)
             } else {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
                 var messageJustFinished = false
-                for byte in bluetoothData.dropFirst().dropFirst() { //drops first two bytes as these are timestamp bytes
+                for byte in bluetoothData.dropFirst().dropFirst() { // drops first two bytes as these are timestamp bytes
                     if byte >= 128 {
-                        //if we have a new status byte or if rawEvent is a real event
+                        // if we have a new status byte or if rawEvent is a real event
 
-                        if messageJustFinished && byte >= 128 {
+                        if messageJustFinished, byte >= 128 {
                             messageJustFinished = false
                             continue
                         }
@@ -324,22 +323,22 @@ public struct AKMIDIEvent: AKMIDIMessage {
                             rawEvent.append(lastStatus)
                         }
                     }
-                    rawEvent.append(byte) //set the status byte
+                    rawEvent.append(byte) // set the status byte
                     if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysex.rawValue)
                         || byte == AKMIDISystemCommand.sysexEnd.rawValue {
-                        //end of message
+                        // end of message
                         messageJustFinished = true
                         if rawEvent.isNotEmpty {
                             rawEvents.append(rawEvent)
                         }
-                        rawEvent = [] //init raw Event
+                        rawEvent = [] // init raw Event
                     }
                 }
             }
             for event in rawEvents {
                 midiEvents.append(AKMIDIEvent(data: event))
             }
-        }//end bluetoothData.count > 0
+        } // end bluetoothData.count > 0
         return midiEvents
     }
 

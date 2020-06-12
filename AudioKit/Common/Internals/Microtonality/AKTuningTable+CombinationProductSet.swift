@@ -1,8 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AKTuningTable {
-
-    //swiftlint:disable variable_name
+    // swiftlint:disable variable_name
 
     /// Create a hexany from 4 frequencies (4 choose 2)
     /// From Erv Wilson.  See http://anaphoria.com/dal.pdf and http://anaphoria.com/hexany.pdf
@@ -50,5 +49,5 @@ extension AKTuningTable {
         return 4
     }
 
-    //TODO: Triadic Diamond, Triad, Reciprocal
+    // TODO: Triadic Diamond, Triad, Reciprocal
 }

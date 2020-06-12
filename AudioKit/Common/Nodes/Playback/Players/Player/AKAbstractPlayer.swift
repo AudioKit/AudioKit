@@ -14,10 +14,10 @@ open class AKAbstractPlayer: AKNode {
         public static var linearTaper = (in: AUValue(1.0), out: AUValue(1.0))
 
         // half pipe
-        public static var audioTaper = (in: AUValue(3.0), out: AUValue(0.3333))
+        public static var audioTaper = (in: AUValue(3.0), out: AUValue(0.333))
 
         // flipped half pipe
-        public static var reverseAudioTaper = (in: AUValue(0.3333), out: AUValue(3.0))
+        public static var reverseAudioTaper = (in: AUValue(0.333), out: AUValue(3.0))
 
         /// An init is requited for the Fade struct to be used outside of AKPlayer
         // AKAbstractPlayer.Fade()
@@ -46,7 +46,7 @@ open class AKAbstractPlayer: AKNode {
         }
 
         // the slope adjustment in the taper
-        public var inSkew: AUValue = 0.3333
+        public var inSkew: AUValue = 0.333
 
         // Out properties
         public var outTime: Double = 0 {
@@ -221,7 +221,7 @@ open class AKAbstractPlayer: AKNode {
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
             faderNode.addAutomationPoint(value: fade.maximumGain,
-                                         at: 0.0001,
+                                         at: 0.000_1,
                                          rampDuration: fade.inTime,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew)

@@ -1,14 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import UIKit
-import UIKit.UIGestureRecognizerSubclass
 import AudioKit
+import UIKit.UIGestureRecognizerSubclass
 
 /// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to
 /// individual touches. The `delegate` property can be set to a class
 /// implementing `MultitouchGestureRecognizerDelegate` and it will receive these messages.
 @objc public protocol MultitouchGestureRecognizerDelegate: UIGestureRecognizerDelegate {
-
     /// Called when a touch is started.
     @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
                                                     touchDidBegin touch: UITouch)
@@ -24,15 +22,12 @@ import AudioKit
     /// Called when a touch is ended.
     @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
                                                     touchDidEnd touch: UITouch)
-
 }
 
 /// `UIGestureRecognizer` subclass which tracks the state of individual touches.
 open class MultitouchGestureRecognizer: UIGestureRecognizer {
-
     /// Denotes the way the list of touches is managed.
     public enum Mode {
-
         /// The first touch in is the first touch out.
         case stack
 
@@ -69,7 +64,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     /// If `sustain` is switched from `true` to `false`, any currently sustained touches will be ended immediately.
     public var sustain: Bool = true {
         didSet {
-            if oldValue == true && sustain == false {
+            if oldValue == true, sustain == false {
                 end()
             }
         }
@@ -77,11 +72,10 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
 
     /// The currently tracked collection of touches. May contain touches after they have ended,
     /// if `sustain` is set to `true`.
-    public lazy private(set) var touches = [UITouch]()
+    public private(set) lazy var touches = [UITouch]()
 
     /// The current gesture recognizer state, as it pertains to the `sustain` setting.
     public enum MultitouchState {
-
         /// All touches are ended, and none are being sustained.
         case ready
 
@@ -212,13 +206,11 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
             multitouchDelegate?.multitouchGestureRecognizer?(self, touchDidEnd: touch)
         }
     }
-
 }
 
 // MARK: - Centroid helpers
 
 extension MultitouchGestureRecognizer {
-
     /// The average of all touch locations in the current view.
     public var centroid: CGPoint? {
         guard let view = view, touches.isNotEmpty else {
@@ -254,15 +246,12 @@ extension MultitouchGestureRecognizer {
 
         return location
     }
-
 }
 
 // MARK: - Private extensions
 
 extension Array where Element: Equatable {
-
     mutating func remove(_ element: Element) {
         self = filter { $0 != element }
     }
-
 }

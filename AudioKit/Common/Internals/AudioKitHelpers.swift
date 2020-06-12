@@ -73,7 +73,7 @@ extension AUValue {
     ///
     public func normalized(from range: ClosedRange<AUValue>, taper: AUValue = 1) -> AUValue {
         assert(taper > 0, "Cannot have non-positive taper.")
-        return powf(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
+        return powf((self - range.lowerBound) / (range.upperBound - range.lowerBound), 1.0 / taper)
     }
 
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper

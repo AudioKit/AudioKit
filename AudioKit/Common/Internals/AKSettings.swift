@@ -82,7 +82,7 @@ open class AKSettings: NSObject {
     @objc public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    @objc public static var rampDuration: Double = 0.000_2
+    @objc public static var rampDuration: Double = 0.0002
 
     /// Allows AudioKit to send Notifications
     @objc public static var notificationsEnabled: Bool = false
@@ -236,8 +236,8 @@ open class AKSettings: NSObject {
 
                 } catch {
                     AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)",
-                        log: OSLog.settings,
-                        type: .error)
+                          log: OSLog.settings,
+                          type: .error)
                 }
             }
             get {

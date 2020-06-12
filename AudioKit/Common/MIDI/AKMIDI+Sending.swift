@@ -358,9 +358,9 @@ extension AKMIDI {
     public func sendMessageWithTime(_ data: [UInt8], time: MIDITimeStamp) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
-        var packet: UnsafeMutablePointer<MIDIPacket>?
-        packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet!, time, data.count, data)
+        var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)
+        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet, time, data.count, data)
+
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {

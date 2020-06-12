@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import UIKit
 import AudioKit
+import UIKit
 
 /// Style of knob to use
 public enum AKRotaryKnobStyle {
@@ -13,7 +13,6 @@ public enum AKRotaryKnobStyle {
 
 /// Round control for a property
 @IBDesignable open class AKRotaryKnob: AKPropertyControl {
-
     // Default margin size
     static var marginSize: CGFloat = 30.0
 
@@ -71,13 +70,12 @@ public enum AKRotaryKnobStyle {
     /// Initialize the slider
     public init(property: String,
                 value: AUValue,
-                range: ClosedRange<AUValue> = 0 ... 1,
+                range: ClosedRange<AUValue> = 0...1,
                 taper: AUValue = 1,
                 format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
                 callback: @escaping (_ x: AUValue) -> Void) {
-
         self.knobColor = color
 
         super.init(property: property,
@@ -88,7 +86,7 @@ public enum AKRotaryKnobStyle {
                    frame: frame,
                    callback: callback)
         self.backgroundColor = UIColor.clear
-   }
+    }
 
     /// Initialization within Interface Builder
     public required init?(coder: NSCoder) {
@@ -198,14 +196,13 @@ public enum AKRotaryKnobStyle {
                   initialValue: CGFloat = 0,
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
-
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
         }
 
-        let width = self.frame.width
-        let height = self.frame.height
+        let width = frame.width
+        let height = frame.height
 
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
@@ -217,11 +214,10 @@ public enum AKRotaryKnobStyle {
                                        NSAttributedString.Key.foregroundColor: textColor,
                                        NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
-        let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
-            with: CGSize(width: width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: nameLabelFontAttributes,
-            context: nil).size.height
+        let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(with: CGSize(width: width, height: CGFloat.infinity),
+                                                                                       options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                                       attributes: nameLabelFontAttributes,
+                                                                                       context: nil).size.height
         context.saveGState()
 
         let knobHeight = height - nameLabelTextHeight
@@ -229,12 +225,11 @@ public enum AKRotaryKnobStyle {
         // Draw name label
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 0.0, dy: 0)
         context.clip(to: nameLabelInset)
-        NSString(string: propertyName).draw(
-            in: CGRect(x: nameLabelInset.minX,
-                       y: nameLabelInset.minY + knobHeight,
-                       width: nameLabelInset.width,
-                       height: nameLabelTextHeight),
-            withAttributes: nameLabelFontAttributes)
+        NSString(string: propertyName).draw(in: CGRect(x: nameLabelInset.minX,
+                                                       y: nameLabelInset.minY + knobHeight,
+                                                       width: nameLabelInset.width,
+                                                       height: nameLabelTextHeight),
+                                            withAttributes: nameLabelFontAttributes)
         context.restoreGState()
 
         // Calculate knob size
@@ -244,7 +239,7 @@ public enum AKRotaryKnobStyle {
 
         // Setup indicator
         let valuePercent = val
-        let angle = Double.pi * ( 0.75 + valuePercent * 1.5)
+        let angle = Double.pi * (0.75 + valuePercent * 1.5)
         let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)),
                                      y: (knobDiameter / 5.0) * CGFloat(sin(angle)))
         let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)),
@@ -262,14 +257,13 @@ public enum AKRotaryKnobStyle {
                                     byRoundingCorners: .allCorners,
                                     cornerRadii: CGSize(width: knobDiameter / 2.0,
                                                         height: knobDiameter / 2.0))
-            case .polygon (let numberOfSides, let curvature):
-                return bezierPathWithPolygonInRect(
-                    knobRect,
-                    numberOfSides: numberOfSides,
-                    curvature: curvature,
-                    startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
-                    offsetAngle: angle)
+            case .polygon(let numberOfSides, let curvature):
+                return bezierPathWithPolygonInRect(knobRect,
+                                                   numberOfSides: numberOfSides,
+                                                   curvature: curvature,
+                                                   startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                                                       y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
+                                                   offsetAngle: angle)
             }
         }()
 
@@ -293,10 +287,10 @@ public enum AKRotaryKnobStyle {
         let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
         for index in 0...numberOfIndicatorPoints - 1 {
             let pointPercent = Double(index) / Double(numberOfIndicatorPoints - 1)
-            let pointAngle = Double.pi * ( 0.75 + pointPercent * 1.5)
-            let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 + (pointRadius) * CGFloat(cos(pointAngle)) -
+            let pointAngle = Double.pi * (0.75 + pointPercent * 1.5)
+            let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(cos(pointAngle)) -
                 AKRotaryKnob.indicatorPointRadius
-            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 + (pointRadius) * CGFloat(sin(pointAngle)) -
+            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(sin(pointAngle)) -
                 AKRotaryKnob.indicatorPointRadius
             let pointRect = CGRect(x: pointX, y: pointY, width: AKRotaryKnob.indicatorPointRadius * 2.0,
                                    height: AKRotaryKnob.indicatorPointRadius * 2.0)
@@ -304,7 +298,7 @@ public enum AKRotaryKnobStyle {
                                          byRoundingCorners: .allCorners,
                                          cornerRadii: CGSize(width: AKRotaryKnob.indicatorPointRadius,
                                                              height: AKRotaryKnob.indicatorPointRadius))
-            if valuePercent > 0.0 && pointPercent <= Double(valuePercent) {
+            if valuePercent > 0.0, pointPercent <= Double(valuePercent) {
                 knobColor.setFill()
             } else {
                 knobColor.withAlphaComponent(0.2).setFill()
@@ -323,11 +317,10 @@ public enum AKRotaryKnobStyle {
                                             NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
-            let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
-                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                attributes: valueLabelFontAttributes,
-                context: nil).size
+            let valueLabelTextSize = NSString(string: currentValueText).boundingRect(with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
+                                                                                     options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                                     attributes: valueLabelFontAttributes,
+                                                                                     context: nil).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
                                     height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)
@@ -360,12 +353,11 @@ public enum AKRotaryKnobStyle {
 
             context.saveGState()
             context.clip(to: valueLabelInset)
-            NSString(string: currentValueText).draw(
-                in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
-                           width: valueLabelTextSize.width,
-                           height: valueLabelTextSize.height),
-                withAttributes: valueLabelFontAttributes)
+            NSString(string: currentValueText).draw(in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
+                                                               y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
+                                                               width: valueLabelTextSize.width,
+                                                               height: valueLabelTextSize.height),
+                                                    withAttributes: valueLabelFontAttributes)
             context.restoreGState()
         }
     }

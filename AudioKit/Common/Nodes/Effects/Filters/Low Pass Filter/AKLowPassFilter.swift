@@ -3,7 +3,6 @@
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
 open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
-
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter)
 
@@ -59,7 +58,6 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         _ input: AKNode? = nil,
         cutoffFrequency: AUValue = 6_900,
         resonance: AUValue = 0) {
-
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
@@ -71,10 +69,14 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         effectGain?.volume = 1
 
         input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain!, effectGain!])
-        let effect = _Self.effect
-        self.internalEffect = effect
 
+        if let inputGain = inputGain,
+            let effectGain = effectGain {
+            inputMixer.connect(to: [inputGain, effectGain])
+        }
+
+        let effect = _Self.effect
+        internalEffect = effect
         au = AUWrapper(effect)
 
         super.init(avAudioNode: mixer.avAudioNode)
@@ -92,6 +94,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -115,10 +118,18 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     open override func detach() {
         stop()
 
-        AKManager.detach(nodes: [inputMixer.avAudioNode,
-                                inputGain!.avAudioNode,
-                                effectGain!.avAudioNode,
-                                mixer.avAudioNode])
-        AKManager.engine.detach(self.internalEffect)
+        var nodes: [AVAudioNode] = [inputMixer.avAudioNode,
+                                    mixer.avAudioNode,
+                                    internalEffect]
+
+        if let inputGain = inputGain {
+            nodes.append(inputGain.avAudioNode)
+        }
+
+        if let effectGain = effectGain {
+            nodes.append(effectGain.avAudioNode)
+        }
+
+        AKManager.detach(nodes: nodes)
     }
 }
