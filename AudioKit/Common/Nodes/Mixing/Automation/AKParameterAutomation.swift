@@ -57,7 +57,10 @@ open class AKParameterAutomation {
     /// This function is similar to startPlayback(offset: ), but ensures an absolute start time
     /// independent of execution speed or threading.
     public func startPlayback(at absoluteTime: AVAudioTime, offset: Double = 0, rate: Double = 1) {
-        guard let automation = automation else { return }
+        guard let automation = automation else {
+            AKLog("Error: automation is nil")
+            return
+        }
 
         let adjustedOffset = offset / rate
         if absoluteTime.isSampleTimeValid {
