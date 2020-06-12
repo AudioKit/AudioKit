@@ -71,7 +71,12 @@ open class AKSequencerTrack: AKNode, AKComponent {
     /// Set the target node
     public func setTarget(node: AKNode) {
         targetNode = node
-        internalAU?.setTarget(targetNode!.avAudioUnit!.audioUnit)
+
+        guard let audioUnit = targetNode?.avAudioUnit?.audioUnit else {
+            AKLog("Failed to setTarget")
+            return
+        }
+        internalAU?.setTarget(audioUnit)
     }
 
     /// Start the track

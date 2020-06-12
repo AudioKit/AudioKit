@@ -96,8 +96,8 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var length: Int
     public var description: String {
         var nameStr: String = ""
-        if type == .trackName || type == .instrumentName {
-            nameStr = "- \(name!)"
+        if let name = name, (type == .trackName || type == .instrumentName) {
+            nameStr = "- \(name)"
         }
         return type.description + " \(length) bytes long \(nameStr)"
     }

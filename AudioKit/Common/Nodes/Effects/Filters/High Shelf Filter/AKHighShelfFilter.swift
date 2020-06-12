@@ -3,7 +3,6 @@
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
 open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
-
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
@@ -59,8 +58,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         _ input: AKNode? = nil,
         cutOffFrequency: AUValue = 10_000,
         gain: AUValue = 0) {
-
-        self.cutoffFrequency = cutOffFrequency
+        cutoffFrequency = cutOffFrequency
         self.gain = gain
 
         inputGain = AKMixer()
@@ -71,10 +69,15 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         effectGain?.volume = 1
 
         input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain!, effectGain!])
+
+        // Even grosser looking than force unwrap, but...
+        if let inputGain = self.inputGain,
+            let effectGain = self.effectGain {
+            inputMixer.connect(to: [inputGain, effectGain])
+        }
 
         let effect = _Self.effect
-        self.internalEffect = effect
+        internalEffect = effect
 
         au = AUWrapper(effect)
         super.init(avAudioNode: mixer.avAudioNode)
@@ -88,9 +91,11 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         au[kHighShelfParam_Gain] = gain
     }
+
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -116,9 +121,9 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         guard let inputGain = inputGain, let effectGain = effectGain else { return }
 
         AKManager.detach(nodes: [inputMixer.avAudioNode,
-                                inputGain.avAudioNode,
-                                effectGain.avAudioNode,
-                                mixer.avAudioNode])
-        AKManager.engine.detach(self.internalEffect)
+                                 inputGain.avAudioNode,
+                                 effectGain.avAudioNode,
+                                 mixer.avAudioNode])
+        AKManager.engine.detach(internalEffect)
     }
 }

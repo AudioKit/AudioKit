@@ -106,10 +106,13 @@ extension AKAudioFile {
         try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
-        let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate,
-                                   channels: AVAudioChannelCount(channels))
+        guard let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate,
+                                         channels: AVAudioChannelCount(channels)) else {
+            AKLog("Unable to create format")
+            return
+        }
 
-        let buffer = AVAudioPCMBuffer(pcmFormat: format!,
+        let buffer = AVAudioPCMBuffer(pcmFormat: format,
                                       frameCapacity: AVAudioFrameCount(floatsArrays[0].count))
 
         // Fill the buffers

@@ -697,10 +697,9 @@ extension AKAudioFile {
                 AKLog("ExportFactory: session #\(session.id) Completed")
                 exportSessions.removeValue(forKey: currentExportProcessID)
                 if exportSessions.isNotEmpty {
-                    // currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
-                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
+                    exportSessions[currentExportProcessID]?.avAssetExportSession.exportAsynchronously(
                         completionHandler: completionHandler
                     )
 
@@ -721,7 +720,7 @@ extension AKAudioFile {
                 isExporting = true
                 currentExportProcessID = session.id
                 AKLog("ExportFactory: exporting session #\(session.id)")
-                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
+                exportSessions[currentExportProcessID]?.avAssetExportSession.exportAsynchronously(
                     completionHandler: completionHandler
                 )
             } else {

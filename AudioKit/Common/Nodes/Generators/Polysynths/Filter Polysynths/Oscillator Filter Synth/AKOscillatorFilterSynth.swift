@@ -14,11 +14,11 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
 
     /// Waveform of the oscillator
     @objc open var waveform: AKTable? {
-        //TODO: Add error checking for table size...needs to match init()
+        // TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
                 for (i, sample) in wf.enumerated() {
-                    self.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                    internalAU?.setWaveformValue(sample, at: UInt32(i))
                 }
             }
         }
@@ -131,6 +131,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
+
     /// Filter Cutoff Frequency in Hz
     @objc open dynamic var filterCutoffFrequency: AUValue = 22_050.0 {
         willSet {
@@ -178,6 +179,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
+
     /// Filter Sustain Level
     @objc open dynamic var filterSustainLevel: AUValue = 1.0 {
         willSet {
@@ -189,6 +191,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
+
     /// Filter Release Duration in seconds
     @objc open dynamic var filterReleaseDuration: AUValue = 0.1 {
         willSet {
@@ -200,7 +203,8 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    ///Filter Envelope Strength
+
+    /// Filter Envelope Strength
     @objc open dynamic var filterEnvelopeStrength: AUValue = 0.1 {
         willSet {
             guard filterEnvelopeStrength != newValue else { return }
@@ -211,7 +215,8 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    ///Filter LFO Depth
+
+    /// Filter LFO Depth
     @objc open dynamic var filterLFODepth: AUValue = 0.1 {
         willSet {
             guard filterLFODepth != newValue else { return }
@@ -222,7 +227,8 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    ///Filter LFO Rate
+
+    /// Filter LFO Rate
     @objc open dynamic var filterLFORate: AUValue = 0.1 {
         willSet {
             guard filterLFORate != newValue else { return }
@@ -233,6 +239,7 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             }
         }
     }
+
     // MARK: - Initialization
 
     /// Initialize this oscillator node
@@ -273,7 +280,6 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         filterEnvelopeStrength: AUValue = 0.0,
         filterLFODepth: AUValue = 0.0,
         filterLFORate: AUValue = 0.0) {
-
         self.waveform = waveform
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -346,7 +352,6 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         internalAU?.filterEnvelopeStrength = filterEnvelopeStrength
         internalAU?.filterLFODepth = filterLFODepth
         internalAU?.filterLFORate = filterLFORate
-
     }
 
     open func reset() {

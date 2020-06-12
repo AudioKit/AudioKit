@@ -16,8 +16,8 @@ open class AKMusicTrack {
     open var sequencer = AKAppleSequencer()
 
     /// Pointer to the Music Track
-    open var trackPointer: UnsafeMutablePointer<MusicTrack>
-    open var initTrackPointer: UnsafeMutablePointer<MusicTrack>
+    open var trackPointer: UnsafeMutablePointer<MusicTrack>?
+    open var initTrackPointer: UnsafeMutablePointer<MusicTrack>?
 
     /// Nicer function for not empty
     open var isNotEmpty: Bool {
@@ -51,8 +51,13 @@ open class AKMusicTrack {
         guard let seq = sequencer.sequence else { fatalError() }
         MusicSequenceNewTrack(seq, &internalMusicTrack)
         MusicSequenceNewTrack(seq, &initMusicTrack)
-        trackPointer = UnsafeMutablePointer(internalMusicTrack!)
-        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
+
+        if let track = internalMusicTrack {
+            trackPointer = UnsafeMutablePointer(track)
+        }
+        if let track = initMusicTrack {
+            initTrackPointer = UnsafeMutablePointer(track)
+        }
 
         let data = [MIDIByte](name.utf8)
 
@@ -66,9 +71,11 @@ open class AKMusicTrack {
             }
         })
 
-        let result = MusicTrackNewMetaEvent(internalMusicTrack!, MusicTimeStamp(0), &metaEvent)
-        if result != 0 {
-            AKLog("Unable to name Track")
+        if let track = internalMusicTrack {
+            let result = MusicTrackNewMetaEvent(track, MusicTimeStamp(0), &metaEvent)
+            if result != 0 {
+                AKLog("Unable to name Track")
+            }
         }
     }
 
@@ -98,9 +105,8 @@ open class AKMusicTrack {
         if result != 0 {
             AKLog("Unable to name Track")
         }
-        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
-        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
-        MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
+
+        initSequence()
     }
 
     /// Initialize with a music track and the AKSequence
@@ -111,10 +117,22 @@ open class AKMusicTrack {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
         self.sequencer = sequencer
+        initSequence()
+    }
 
-        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
-        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
-        MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
+    private func initSequence() {
+        guard let sequence = sequencer.sequence else {
+            AKLog("Sequence is nil")
+            return
+        }
+
+        MusicSequenceNewTrack(sequence, &initMusicTrack)
+
+        if let initMusicTrack = initMusicTrack,
+            let internalMusicTrack = internalMusicTrack {
+            initTrackPointer = UnsafeMutablePointer(initMusicTrack)
+            MusicTrackMerge(internalMusicTrack, 0.0, length, initMusicTrack, 0.0)
+        }
     }
 
     /// Set the Node Output
@@ -553,7 +571,12 @@ open class AKMusicTrack {
     open func getMIDINoteData() -> [AKMIDINoteData] {
         var noteData = [AKMIDINoteData]()
 
-        AKMusicTrack.iterateMusicTrack(internalMusicTrack!) { _, eventTime, eventType, eventData, _, _ in
+        guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
+            return []
+        }
+
+        AKMusicTrack.iterateMusicTrack(track) { _, eventTime, eventType, eventData, _, _ in
             guard eventType == kMusicEventType_MIDINoteMessage else { return }
             let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
 
@@ -593,19 +616,24 @@ open class AKMusicTrack {
     ///
     /// - returns a copy of this track that can be edited independently
     ///
-    open func copyOf() -> AKMusicTrack {
+    open func copyOf() -> AKMusicTrack? {
         let copiedTrack = AKMusicTrack()
-        MusicTrackMerge(internalMusicTrack!, 0.0, length, copiedTrack.internalMusicTrack!, 0.0)
+
+        guard let internalMusicTrack = internalMusicTrack,
+            let copiedInternalTrack = copiedTrack.internalMusicTrack else {
+            return nil
+        }
+        MusicTrackMerge(internalMusicTrack, 0.0, length, copiedInternalTrack, 0.0)
         return copiedTrack
     }
 
     open func resetToInit() {
         var initLengthCopy: Double = initLength
         clear()
-        if let existingInittrack = initMusicTrack {
+        if let internalMusicTrack = internalMusicTrack, let existingInittrack = initMusicTrack {
             setLength(AKDuration(beats: initLength))
             _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
-            MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack!, 0.0)
+            MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack, 0.0)
         }
     }
 
