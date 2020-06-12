@@ -186,4 +186,4 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKInterop.hpp"
 
 // Automation
-#import "AKParameterAutomation.h"
+#import "AKParameterAutomation.hpp"

@@ -47,7 +47,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.pan.associate(with: self.internalAU, value: pan)
 

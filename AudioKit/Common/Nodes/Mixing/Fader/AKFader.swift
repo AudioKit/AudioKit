@@ -3,7 +3,6 @@
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-
     // MARK: - AKComponent
 
     public typealias AKAudioUnitType = AKFaderAudioUnit
@@ -63,7 +62,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(self.internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.leftGain.associate(with: self.internalAU, value: gain)
             self.rightGain.associate(with: self.internalAU, value: gain)
@@ -87,29 +86,23 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     /// Convenience function for adding a pair of points for both left and right addresses
     public func addAutomationPoint(value: AUValue,
-                                   at sampleTime: AUEventSampleTime,
-                                   anchorTime: AUEventSampleTime,
-                                   rampDuration: AUAudioFrameCount = 0,
-                                   taper taperValue: AUValue = 1,
-                                   skew skewValue: AUValue = 0,
-                                   offset offsetValue: AUAudioFrameCount? = nil) {
+                                   at startTime: Double,
+                                   rampDuration: Double = 0,
+                                   taper taperValue: Float = 1,
+                                   skew skewValue: Float = 0) {
+        let point = AKParameterAutomationPoint(targetValue: value,
+                                               startTime: startTime,
+                                               rampDuration: rampDuration,
+                                               rampTaper: taperValue,
+                                               rampSkew: skewValue)
 
-        parameterAutomation?.addPoint("leftGain",
-                                      value: value,
-                                      sampleTime: sampleTime,
-                                      anchorTime: anchorTime,
-                                      rampDuration: rampDuration,
-                                      taper: taperValue,
-                                      skew: skewValue,
-                                      offset: offsetValue ?? 0)
+        parameterAutomation?.add(point: point, to: leftGain.identifier)
+        parameterAutomation?.add(point: point, to: rightGain.identifier)
+    }
 
-        parameterAutomation?.addPoint("rightGain",
-                                      value: value,
-                                      sampleTime: sampleTime,
-                                      anchorTime: anchorTime,
-                                      rampDuration: rampDuration,
-                                      taper: taperValue,
-                                      skew: skewValue,
-                                      offset: offsetValue ?? 0)
+    /// Convenience function for clearing all points for both left and right addresses
+    public func clearAutomationPoints() {
+        parameterAutomation?.clearAllPoints(of: leftGain.identifier)
+        parameterAutomation?.clearAllPoints(of: rightGain.identifier)
     }
 }
