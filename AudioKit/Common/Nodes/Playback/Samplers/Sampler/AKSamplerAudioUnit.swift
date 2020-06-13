@@ -1,5 +1,4 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-
 import AVFoundation
 
 public class AKSamplerAudioUnit: AKAudioUnitBase {
@@ -397,8 +396,4 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
     public func sustainPedal(down: Bool) {
         doAKSamplerSustainPedal(dsp, down)
     }
-
-//    public override func shouldClearOutputBuffer() -> Bool {
-//        return true
-//    }
 }

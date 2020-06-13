@@ -246,7 +246,6 @@ public enum AKRotaryKnobStyle {
         let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)),
                                    y: (knobDiameter / 2.0) * CGFloat(sin(angle)))
 
-        // Draw knob
         let knobRect = CGRect(x: AKRotaryKnob.marginSize,
                               y: AKRotaryKnob.marginSize,
                               width: knobDiameter,
@@ -275,7 +274,6 @@ public enum AKRotaryKnobStyle {
         knobColor.setFill()
         knobPath.fill()
 
-        // Draw indicator
         let indicatorPath = UIBezierPath()
         indicatorPath.move(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
@@ -285,7 +283,6 @@ public enum AKRotaryKnobStyle {
         indicatorColorForTheme().setStroke()
         indicatorPath.stroke()
 
-        // Draw points
         let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
         for index in 0...numberOfIndicatorPoints - 1 {
             let pointPercent = Double(index) / Double(numberOfIndicatorPoints - 1)
@@ -308,7 +305,6 @@ public enum AKRotaryKnobStyle {
             pointPath.fill()
         }
 
-        //// valueLabel Drawing
         if isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()

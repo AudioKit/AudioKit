@@ -103,8 +103,7 @@ open class AKSettings: NSObject {
     /// even if the last audio frames haven't been recorded to file yet.
     @objc public static var fixTruncatedRecordings = false
 
-    /// Turn off AudioKit logging
-    // TODO: With new AKLog, we have the ability to do a lot better than just a boolean here
+    /// Turn on or off AudioKit logging
     @objc public static var enableLogging: Bool = true
 }
 

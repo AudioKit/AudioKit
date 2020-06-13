@@ -284,17 +284,17 @@ open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:             The waveform of oscillation
-    ///   - carrierMultiplier:    This multiplied by the baseFrequency gives the carrier frequency.
+    ///   - waveform: The waveform of oscillation
+    ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
     ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-    ///   - modulationIndex:      This multiplied by the modulating frequency gives the modulation amplitude.
-    ///   - attackDuration:       Attack duration in seconds
-    ///   - decayDuration:        Decay duration in seconds
-    ///   - sustainLevel:         Sustain Level
-    ///   - releaseDuration:      Release duration in seconds
-    ///   - pitchBend:            Change of pitch in semitones
-    ///   - vibratoDepth:         Vibrato size in semitones
-    ///   - vibratoRate:          Frequency of vibrato in Hz
+    ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
+    ///   - attackDuration: Attack duration in seconds
+    ///   - decayDuration: Decay duration in seconds
+    ///   - sustainLevel: Sustain Level
+    ///   - releaseDuration: Release duration in seconds
+    ///   - pitchBend: Change of pitch in semitones
+    ///   - vibratoDepth: Vibrato size in semitones
+    ///   - vibratoRate: Frequency of vibrato in Hz
     ///   - filterCutoffFrequency: Frequency of filter cutoff in Hz
     ///   - filterResonance: Filter resonance
     ///   - filterAttackDuration: Filter attack duration in seconds
