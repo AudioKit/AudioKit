@@ -1,11 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// STK RhodesPiano
+import AudioKit
+
+/// STK TubularBells
 ///
-open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
+open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
-    public typealias AKAudioUnitType = AKRhodesPianoAudioUnit
+    public static let ComponentDescription = AudioComponentDescription(generator: "tbel")
+    public typealias AKAudioUnitType = AKTubularBellsAudioUnit
     // MARK: - Properties
 
     public private(set) var internalAU: AKAudioUnitType?
@@ -35,14 +37,17 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the STK RhodesPiano model
+    /// Initialize the STK TubularBells model
     ///
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(frequency: AUValue = 440, amplitude: AUValue = 0.5) {
+    public init(
+        frequency: AUValue = 440,
+        amplitude: AUValue = 0.5
+    ) {
         super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
@@ -57,9 +62,8 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     }
 
     /// Trigger the sound with an optional set of parameters
-    /// - Parameters:
     ///   - frequency: Frequency in Hz
-    ///   - amplitude amplitude: Volume
+    /// - amplitude amplitude: Volume
     ///
     open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency

@@ -1,25 +1,27 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-public class AKShakerAudioUnit: AKAudioUnitBase {
+import AudioKit
 
-    var type: AUParameter!
+public class AKFluteAudioUnit: AKAudioUnitBase {
+
+    var frequency: AUParameter!
 
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createShakerDSP()
+        return createClarinetDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        type = AUParameter(
-            identifier: "Type",
-            name: "type",
+        frequency = AUParameter(
+            identifier: "frequency",
+            name: "Frequency (Hz)",
             address: 0,
-            range: 0...22,
-            unit: .generic,
+            range: 0...20_000,
+            unit: .hertz,
             flags: .default)
         amplitude = AUParameter(
             identifier: "amplitude",
@@ -29,13 +31,9 @@ public class AKShakerAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [type, amplitude])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude])
 
-        type.value = 0
-        amplitude.value = 0.5
-    }
-
-    public func triggerType(_ type: AUValue, amplitude: AUValue) {
-        triggerTypeShakerDSP(dsp, type, amplitude)
+        frequency.value = 440
+        amplitude.value = 1
     }
 }

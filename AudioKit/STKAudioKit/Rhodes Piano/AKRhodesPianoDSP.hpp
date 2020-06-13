@@ -4,30 +4,30 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
-    AKClarinetParameterFrequency,
-    AKClarinetParameterAmplitude,
-    AKClarinetParameterRampDuration
+typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
+    AKRhodesPianoParameterFrequency,
+    AKRhodesPianoParameterAmplitude,
+    AKRhodesPianoParameterRampDuration
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import <AudioKit/AKLinearParameterRamp.hpp>
 
 #ifndef __cplusplus
 
-AKDSPRef createClarinetDSP(void);
+AKDSPRef createRhodesPianoDSP(void);
 
 #else
 
-class AKClarinetDSP : public AKDSPBase {
+class AKRhodesPianoDSP : public AKDSPBase {
 private:
     struct InternalData;
     std::unique_ptr<InternalData> data;
 
 public:
 
-    AKClarinetDSP();
-    
-    ~AKClarinetDSP();
+    AKRhodesPianoDSP();
+
+    ~AKRhodesPianoDSP();
 
     /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -47,4 +47,5 @@ public:
 };
 
 #endif
+
 
