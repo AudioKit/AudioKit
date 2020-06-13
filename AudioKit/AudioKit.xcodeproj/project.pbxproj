@@ -1109,6 +1109,326 @@
 		C4DB649B2494B37B001E1F37 /* AKTubularBellsAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49160C321CED1930086C765 /* AKTubularBellsAudioUnit.swift */; };
 		C4DB649C2494B37B001E1F37 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4DB649D2494B37B001E1F37 /* AKTubularBellsDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49160C621CED2000086C765 /* AKTubularBellsDSP.mm */; };
+		C4DB649E2494B602001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
+		C4DB649F2494B602001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4DB64A72494B656001E1F37 /* WvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1355204A06B6009C7C8E /* WvIn.h */; };
+		C4DB64A82494B656001E1F37 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB64A92494B656001E1F37 /* STKAudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB64AA2494B656001E1F37 /* RtWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132C204A06B6009C7C8E /* RtWvOut.h */; };
+		C4DB64AB2494B656001E1F37 /* Bowed.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133C204A06B6009C7C8E /* Bowed.h */; };
+		C4DB64AC2494B656001E1F37 /* Rhodey.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1336204A06B6009C7C8E /* Rhodey.h */; };
+		C4DB64AD2494B656001E1F37 /* Noise.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FB204A06B6009C7C8E /* Noise.h */; };
+		C4DB64AE2494B656001E1F37 /* Saxofony.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133F204A06B6009C7C8E /* Saxofony.h */; };
+		C4DB64AF2494B656001E1F37 /* PRCRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F2204A06B6009C7C8E /* PRCRev.h */; };
+		C4DB64B02494B656001E1F37 /* FileWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FA204A06B6009C7C8E /* FileWvIn.h */; };
+		C4DB64B12494B656001E1F37 /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12CE204A06B6009C7C8E /* sinewave_raw.h */; };
+		C4DB64B22494B656001E1F37 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB64B32494B656001E1F37 /* Iir.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F9204A06B6009C7C8E /* Iir.h */; };
+		C4DB64B42494B656001E1F37 /* Vector3D.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134D204A06B6009C7C8E /* Vector3D.h */; };
+		C4DB64B52494B656001E1F37 /* SineWave.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1309204A06B6009C7C8E /* SineWave.h */; };
+		C4DB64B62494B656001E1F37 /* Sitar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F6204A06B6009C7C8E /* Sitar.h */; };
+		C4DB64B72494B656001E1F37 /* DelayA.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1347204A06B6009C7C8E /* DelayA.h */; };
+		C4DB64B82494B656001E1F37 /* InetWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1338204A06B6009C7C8E /* InetWvOut.h */; };
+		C4DB64B92494B656001E1F37 /* HevyMetl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F1204A06B6009C7C8E /* HevyMetl.h */; };
+		C4DB64BA2494B656001E1F37 /* Thread.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132F204A06B6009C7C8E /* Thread.h */; };
+		C4DB64BB2494B656001E1F37 /* soundcard.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132A204A06B6009C7C8E /* soundcard.h */; };
+		C4DB64BC2494B656001E1F37 /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134F204A06B6009C7C8E /* Filter.h */; };
+		C4DB64BD2494B656001E1F37 /* JCRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1327204A06B6009C7C8E /* JCRev.h */; };
+		C4DB64BE2494B656001E1F37 /* DelayL.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1332204A06B6009C7C8E /* DelayL.h */; };
+		C4DB64BF2494B656001E1F37 /* Sampler.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130B204A06B6009C7C8E /* Sampler.h */; };
+		C4DB64C02494B656001E1F37 /* FileLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1316204A06B6009C7C8E /* FileLoop.h */; };
+		C4DB64C12494B656001E1F37 /* BiQuad.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1301204A06B6009C7C8E /* BiQuad.h */; };
+		C4DB64C22494B656001E1F37 /* Stk.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1304204A06B6009C7C8E /* Stk.h */; };
+		C4DB64C32494B656001E1F37 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1354204A06B6009C7C8E /* Function.h */; };
+		C4DB64C42494B656001E1F37 /* Shakers.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132E204A06B6009C7C8E /* Shakers.h */; };
+		C4DB64C52494B656001E1F37 /* StifKarp.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1315204A06B6009C7C8E /* StifKarp.h */; };
+		C4DB64C62494B656001E1F37 /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12BD204A06B6009C7C8E /* mand_raw.h */; };
+		C4DB64C72494B656001E1F37 /* FM.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1313204A06B6009C7C8E /* FM.h */; };
+		C4DB64C82494B656001E1F37 /* FormSwep.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132D204A06B6009C7C8E /* FormSwep.h */; };
+		C4DB64C92494B656001E1F37 /* dsound.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130E204A06B6009C7C8E /* dsound.h */; };
+		C4DB64CA2494B656001E1F37 /* ginclude.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133D204A06B6009C7C8E /* ginclude.h */; };
+		C4DB64CB2494B656001E1F37 /* NRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1320204A06B6009C7C8E /* NRev.h */; };
+		C4DB64CC2494B656001E1F37 /* Phonemes.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1328204A06B6009C7C8E /* Phonemes.h */; };
+		C4DB64CD2494B656001E1F37 /* Mandolin.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1335204A06B6009C7C8E /* Mandolin.h */; };
+		C4DB64CE2494B656001E1F37 /* Twang.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F7204A06B6009C7C8E /* Twang.h */; };
+		C4DB64CF2494B656001E1F37 /* SingWave.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1306204A06B6009C7C8E /* SingWave.h */; };
+		C4DB64D02494B656001E1F37 /* ModalBar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1334204A06B6009C7C8E /* ModalBar.h */; };
+		C4DB64D12494B656001E1F37 /* Clarinet.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1353204A06B6009C7C8E /* Clarinet.h */; };
+		C4DB64D22494B656001E1F37 /* Instrmnt.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131C204A06B6009C7C8E /* Instrmnt.h */; };
+		C4DB64D32494B656001E1F37 /* Messager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1351204A06B6009C7C8E /* Messager.h */; };
+		C4DB64D42494B656001E1F37 /* RtMidi.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1324204A06B6009C7C8E /* RtMidi.h */; };
+		C4DB64D52494B656001E1F37 /* Socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1352204A06B6009C7C8E /* Socket.h */; };
+		C4DB64D62494B656001E1F37 /* BowTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FF204A06B6009C7C8E /* BowTable.h */; };
+		C4DB64D72494B656001E1F37 /* PoleZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FE204A06B6009C7C8E /* PoleZero.h */; };
+		C4DB64D82494B656001E1F37 /* Blit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1341204A06B6009C7C8E /* Blit.h */; };
+		C4DB64D92494B656001E1F37 /* Moog.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131E204A06B6009C7C8E /* Moog.h */; };
+		C4DB64DA2494B656001E1F37 /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C407185D1D2267B800665C02 /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB64DB2494B656001E1F37 /* Whistle.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1329204A06B6009C7C8E /* Whistle.h */; };
+		C4DB64DC2494B656001E1F37 /* Mesh2D.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1325204A06B6009C7C8E /* Mesh2D.h */; };
+		C4DB64DD2494B656001E1F37 /* Cubic.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1343204A06B6009C7C8E /* Cubic.h */; };
+		C4DB64DE2494B656001E1F37 /* Flute.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F8204A06B6009C7C8E /* Flute.h */; };
+		C4DB64DF2494B656001E1F37 /* Asymp.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132B204A06B6009C7C8E /* Asymp.h */; };
+		C4DB64E02494B656001E1F37 /* Modal.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1337204A06B6009C7C8E /* Modal.h */; };
+		C4DB64E12494B656001E1F37 /* Skini.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FD204A06B6009C7C8E /* Skini.h */; };
+		C4DB64E22494B656001E1F37 /* RtWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133E204A06B6009C7C8E /* RtWvIn.h */; };
+		C4DB64E32494B656001E1F37 /* Modulate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1322204A06B6009C7C8E /* Modulate.h */; };
+		C4DB64E42494B656001E1F37 /* JetTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1317204A06B6009C7C8E /* JetTable.h */; };
+		C4DB64E52494B656001E1F37 /* SKINImsg.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1307204A06B6009C7C8E /* SKINImsg.h */; };
+		C4DB64E62494B656001E1F37 /* FileWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1339204A06B6009C7C8E /* FileWvOut.h */; };
+		C4DB64E72494B656001E1F37 /* OnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F3204A06B6009C7C8E /* OnePole.h */; };
+		C4DB64E82494B656001E1F37 /* Sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1312204A06B6009C7C8E /* Sphere.h */; };
+		C4DB64E92494B656001E1F37 /* Drummer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1318204A06B6009C7C8E /* Drummer.h */; };
+		C4DB64EA2494B656001E1F37 /* FileWrite.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131B204A06B6009C7C8E /* FileWrite.h */; };
+		C4DB64EB2494B656001E1F37 /* Mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134C204A06B6009C7C8E /* Mutex.h */; };
+		C4DB64EC2494B656001E1F37 /* ReedTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1305204A06B6009C7C8E /* ReedTable.h */; };
+		C4DB64ED2494B656001E1F37 /* BeeThree.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1308204A06B6009C7C8E /* BeeThree.h */; };
+		C4DB64EE2494B656001E1F37 /* Generator.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1356204A06B6009C7C8E /* Generator.h */; };
+		C4DB64EF2494B656001E1F37 /* PercFlut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1342204A06B6009C7C8E /* PercFlut.h */; };
+		C4DB64F02494B656001E1F37 /* Simple.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1303204A06B6009C7C8E /* Simple.h */; };
+		C4DB64F12494B656001E1F37 /* VoicForm.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1311204A06B6009C7C8E /* VoicForm.h */; };
+		C4DB64F22494B656001E1F37 /* Plucked.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1358204A06B6009C7C8E /* Plucked.h */; };
+		C4DB64F32494B656001E1F37 /* Echo.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131F204A06B6009C7C8E /* Echo.h */; };
+		C4DB64F42494B656001E1F37 /* ADSR.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134B204A06B6009C7C8E /* ADSR.h */; };
+		C4DB64F52494B656001E1F37 /* BlitSquare.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F5204A06B6009C7C8E /* BlitSquare.h */; };
+		C4DB64F62494B656001E1F37 /* WvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1331204A06B6009C7C8E /* WvOut.h */; };
+		C4DB64F72494B656001E1F37 /* Fir.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1357204A06B6009C7C8E /* Fir.h */; };
+		C4DB64F82494B656001E1F37 /* FMVoices.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1302204A06B6009C7C8E /* FMVoices.h */; };
+		C4DB64F92494B656001E1F37 /* Delay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1346204A06B6009C7C8E /* Delay.h */; };
+		C4DB64FA2494B656001E1F37 /* InetWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131D204A06B6009C7C8E /* InetWvIn.h */; };
+		C4DB64FB2494B656001E1F37 /* BlowBotl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1310204A06B6009C7C8E /* BlowBotl.h */; };
+		C4DB64FC2494B656001E1F37 /* TubeBell.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134E204A06B6009C7C8E /* TubeBell.h */; };
+		C4DB64FD2494B656001E1F37 /* TwoZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1333204A06B6009C7C8E /* TwoZero.h */; };
+		C4DB64FE2494B656001E1F37 /* Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1349204A06B6009C7C8E /* Effect.h */; };
+		C4DB64FF2494B656001E1F37 /* Guitar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1340204A06B6009C7C8E /* Guitar.h */; };
+		C4DB65002494B656001E1F37 /* LentPitShift.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1350204A06B6009C7C8E /* LentPitShift.h */; };
+		C4DB65012494B656001E1F37 /* BlitSaw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1348204A06B6009C7C8E /* BlitSaw.h */; };
+		C4DB65022494B656001E1F37 /* Voicer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F4204A06B6009C7C8E /* Voicer.h */; };
+		C4DB65032494B656001E1F37 /* BlowHole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130F204A06B6009C7C8E /* BlowHole.h */; };
+		C4DB65042494B656001E1F37 /* PitShift.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1321204A06B6009C7C8E /* PitShift.h */; };
+		C4DB65052494B656001E1F37 /* Resonate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130A204A06B6009C7C8E /* Resonate.h */; };
+		C4DB65062494B656001E1F37 /* MidiFileIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130D204A06B6009C7C8E /* MidiFileIn.h */; };
+		C4DB65072494B656001E1F37 /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65082494B656001E1F37 /* FreeVerb.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FC204A06B6009C7C8E /* FreeVerb.h */; };
+		C4DB65092494B656001E1F37 /* FunctionDiscoveryKeys_devpkey.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1323204A06B6009C7C8E /* FunctionDiscoveryKeys_devpkey.h */; };
+		C4DB650A2494B656001E1F37 /* BandedWG.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1319204A06B6009C7C8E /* BandedWG.h */; };
+		C4DB650B2494B656001E1F37 /* Envelope.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1345204A06B6009C7C8E /* Envelope.h */; };
+		C4DB650C2494B656001E1F37 /* OneZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131A204A06B6009C7C8E /* OneZero.h */; };
+		C4DB650D2494B656001E1F37 /* Granulate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1314204A06B6009C7C8E /* Granulate.h */; };
+		C4DB650E2494B656001E1F37 /* SKINItbl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133B204A06B6009C7C8E /* SKINItbl.h */; };
+		C4DB650F2494B656001E1F37 /* TapDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133A204A06B6009C7C8E /* TapDelay.h */; };
+		C4DB65102494B656001E1F37 /* AKMandolinDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C407185F1D2267B800665C02 /* AKMandolinDSPKernel.hpp */; };
+		C4DB65112494B656001E1F37 /* Chorus.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134A204A06B6009C7C8E /* Chorus.h */; };
+		C4DB65122494B656001E1F37 /* AKRhodesPianoDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48F4D7A21CED91B006381F3 /* AKRhodesPianoDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65132494B656001E1F37 /* Wurley.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130C204A06B6009C7C8E /* Wurley.h */; };
+		C4DB65142494B656001E1F37 /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1326204A06B6009C7C8E /* RtAudio.h */; };
+		C4DB65152494B656001E1F37 /* AKClarinetDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A816D200C467200D1CCC2 /* AKClarinetDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65162494B656001E1F37 /* TwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1344204A06B6009C7C8E /* TwoPole.h */; };
+		C4DB65172494B656001E1F37 /* FileRead.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1300204A06B6009C7C8E /* FileRead.h */; };
+		C4DB65182494B656001E1F37 /* Brass.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1330204A06B6009C7C8E /* Brass.h */; };
+		C4DB651A2494B656001E1F37 /* AKShakerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */; };
+		C4DB651B2494B656001E1F37 /* SineWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B138A204A06B6009C7C8E /* SineWave.cpp */; };
+		C4DB651C2494B656001E1F37 /* Fir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1367204A06B6009C7C8E /* Fir.cpp */; };
+		C4DB651D2494B656001E1F37 /* AKShaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047741E76884C00D9906F /* AKShaker.swift */; };
+		C4DB651E2494B656001E1F37 /* AKTubularBellsDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49160C621CED2000086C765 /* AKTubularBellsDSP.mm */; };
+		C4DB651F2494B656001E1F37 /* AKMandolinPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */; };
+		C4DB65202494B656001E1F37 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1373204A06B6009C7C8E /* ADSR.cpp */; };
+		C4DB65212494B656001E1F37 /* AKFluteAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */; };
+		C4DB65222494B656001E1F37 /* AKMandolinDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFCD201DD54800E8BE2C /* AKMandolinDSPKernel.mm */; };
+		C4DB65232494B656001E1F37 /* AKRhodesPianoAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F4D7B21CED91C006381F3 /* AKRhodesPianoAudioUnit.swift */; };
+		C4DB65242494B656001E1F37 /* FileWvIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1384204A06B6009C7C8E /* FileWvIn.cpp */; };
+		C4DB65252494B656001E1F37 /* AKClarinetAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A816B200C447A00D1CCC2 /* AKClarinetAudioUnit.swift */; };
+		C4DB65262494B656001E1F37 /* Clarinet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137D204A06B6009C7C8E /* Clarinet.cpp */; };
+		C4DB65272494B656001E1F37 /* AKRhodesPianoDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C48F4D7C21CED91C006381F3 /* AKRhodesPianoDSP.mm */; };
+		C4DB65282494B656001E1F37 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1386204A06B6009C7C8E /* OneZero.cpp */; };
+		C4DB65292494B656001E1F37 /* TubeBell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137A204A06B6009C7C8E /* TubeBell.cpp */; };
+		C4DB652A2494B656001E1F37 /* OnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1379204A06B6009C7C8E /* OnePole.cpp */; };
+		C4DB652B2494B656001E1F37 /* Flute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1383204A06B6009C7C8E /* Flute.cpp */; };
+		C4DB652C2494B656001E1F37 /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F61DD9229900C56B59 /* AKClarinet.swift */; };
+		C4DB652D2494B656001E1F37 /* AKRhodesPiano.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470479A1E76A24A00D9906F /* AKRhodesPiano.swift */; };
+		C4DB652E2494B656001E1F37 /* AKShakerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */; };
+		C4DB652F2494B656001E1F37 /* DelayL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1374204A06B6009C7C8E /* DelayL.cpp */; };
+		C4DB65302494B656001E1F37 /* AKFluteDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8587200CB8860075C82B /* AKFluteDSP.mm */; };
+		C4DB65312494B656001E1F37 /* FileRead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1368204A06B6009C7C8E /* FileRead.cpp */; };
+		C4DB65322494B656001E1F37 /* TwoZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12DE204A06B6009C7C8E /* TwoZero.cpp */; };
+		C4DB65332494B656001E1F37 /* Mandolin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12A8204A06B6009C7C8E /* Mandolin.cpp */; };
+		C4DB65342494B656001E1F37 /* AKFlute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F291E1D162448000A2D2F /* AKFlute.swift */; };
+		C4DB65352494B656001E1F37 /* AKTubularBellsAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49160C321CED1930086C765 /* AKTubularBellsAudioUnit.swift */; };
+		C4DB65362494B656001E1F37 /* FileLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137B204A06B6009C7C8E /* FileLoop.cpp */; };
+		C4DB65372494B656001E1F37 /* Shakers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1382204A06B6009C7C8E /* Shakers.cpp */; };
+		C4DB65382494B656001E1F37 /* AKTubularBells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047A31E76A25200D9906F /* AKTubularBells.swift */; };
+		C4DB65392494B656001E1F37 /* Envelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1389204A06B6009C7C8E /* Envelope.cpp */; };
+		C4DB653A2494B656001E1F37 /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12A9204A06B6009C7C8E /* Stk.cpp */; };
+		C4DB653B2494B656001E1F37 /* AKMandolinAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C407185E1D2267B800665C02 /* AKMandolinAudioUnit.mm */; };
+		C4DB653C2494B656001E1F37 /* Rhodey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1369204A06B6009C7C8E /* Rhodey.cpp */; };
+		C4DB653D2494B656001E1F37 /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B136E204A06B6009C7C8E /* Twang.cpp */; };
+		C4DB653E2494B656001E1F37 /* FM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B135F204A06B6009C7C8E /* FM.cpp */; };
+		C4DB653F2494B656001E1F37 /* PoleZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B135B204A06B6009C7C8E /* PoleZero.cpp */; };
+		C4DB65402494B656001E1F37 /* DelayA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12EE204A06B6009C7C8E /* DelayA.cpp */; };
+		C4DB65412494B656001E1F37 /* AKMandolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407185C1D2267B800665C02 /* AKMandolin.swift */; };
+		C4DB65422494B656001E1F37 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1362204A06B6009C7C8E /* Noise.cpp */; };
+		C4DB65432494B656001E1F37 /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetDSP.mm */; };
+		C4DB65452494B656001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
+		C4DB65482494B656001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4DB65522494B681001E1F37 /* WvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1355204A06B6009C7C8E /* WvIn.h */; };
+		C4DB65532494B681001E1F37 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65542494B681001E1F37 /* STKAudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65552494B681001E1F37 /* RtWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132C204A06B6009C7C8E /* RtWvOut.h */; };
+		C4DB65562494B681001E1F37 /* Bowed.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133C204A06B6009C7C8E /* Bowed.h */; };
+		C4DB65572494B681001E1F37 /* Rhodey.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1336204A06B6009C7C8E /* Rhodey.h */; };
+		C4DB65582494B681001E1F37 /* Noise.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FB204A06B6009C7C8E /* Noise.h */; };
+		C4DB65592494B681001E1F37 /* Saxofony.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133F204A06B6009C7C8E /* Saxofony.h */; };
+		C4DB655A2494B681001E1F37 /* PRCRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F2204A06B6009C7C8E /* PRCRev.h */; };
+		C4DB655B2494B681001E1F37 /* FileWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FA204A06B6009C7C8E /* FileWvIn.h */; };
+		C4DB655C2494B681001E1F37 /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12CE204A06B6009C7C8E /* sinewave_raw.h */; };
+		C4DB655D2494B681001E1F37 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB655E2494B681001E1F37 /* Iir.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F9204A06B6009C7C8E /* Iir.h */; };
+		C4DB655F2494B681001E1F37 /* Vector3D.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134D204A06B6009C7C8E /* Vector3D.h */; };
+		C4DB65602494B681001E1F37 /* SineWave.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1309204A06B6009C7C8E /* SineWave.h */; };
+		C4DB65612494B681001E1F37 /* Sitar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F6204A06B6009C7C8E /* Sitar.h */; };
+		C4DB65622494B681001E1F37 /* DelayA.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1347204A06B6009C7C8E /* DelayA.h */; };
+		C4DB65632494B681001E1F37 /* InetWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1338204A06B6009C7C8E /* InetWvOut.h */; };
+		C4DB65642494B681001E1F37 /* HevyMetl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F1204A06B6009C7C8E /* HevyMetl.h */; };
+		C4DB65652494B681001E1F37 /* Thread.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132F204A06B6009C7C8E /* Thread.h */; };
+		C4DB65662494B681001E1F37 /* soundcard.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132A204A06B6009C7C8E /* soundcard.h */; };
+		C4DB65672494B681001E1F37 /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134F204A06B6009C7C8E /* Filter.h */; };
+		C4DB65682494B681001E1F37 /* JCRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1327204A06B6009C7C8E /* JCRev.h */; };
+		C4DB65692494B681001E1F37 /* DelayL.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1332204A06B6009C7C8E /* DelayL.h */; };
+		C4DB656A2494B681001E1F37 /* Sampler.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130B204A06B6009C7C8E /* Sampler.h */; };
+		C4DB656B2494B681001E1F37 /* FileLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1316204A06B6009C7C8E /* FileLoop.h */; };
+		C4DB656C2494B681001E1F37 /* BiQuad.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1301204A06B6009C7C8E /* BiQuad.h */; };
+		C4DB656D2494B681001E1F37 /* Stk.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1304204A06B6009C7C8E /* Stk.h */; };
+		C4DB656E2494B681001E1F37 /* Function.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1354204A06B6009C7C8E /* Function.h */; };
+		C4DB656F2494B681001E1F37 /* Shakers.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132E204A06B6009C7C8E /* Shakers.h */; };
+		C4DB65702494B681001E1F37 /* StifKarp.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1315204A06B6009C7C8E /* StifKarp.h */; };
+		C4DB65712494B681001E1F37 /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12BD204A06B6009C7C8E /* mand_raw.h */; };
+		C4DB65722494B681001E1F37 /* FM.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1313204A06B6009C7C8E /* FM.h */; };
+		C4DB65732494B681001E1F37 /* FormSwep.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132D204A06B6009C7C8E /* FormSwep.h */; };
+		C4DB65742494B681001E1F37 /* dsound.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130E204A06B6009C7C8E /* dsound.h */; };
+		C4DB65752494B681001E1F37 /* ginclude.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133D204A06B6009C7C8E /* ginclude.h */; };
+		C4DB65762494B681001E1F37 /* NRev.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1320204A06B6009C7C8E /* NRev.h */; };
+		C4DB65772494B681001E1F37 /* Phonemes.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1328204A06B6009C7C8E /* Phonemes.h */; };
+		C4DB65782494B681001E1F37 /* Mandolin.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1335204A06B6009C7C8E /* Mandolin.h */; };
+		C4DB65792494B681001E1F37 /* Twang.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F7204A06B6009C7C8E /* Twang.h */; };
+		C4DB657A2494B681001E1F37 /* SingWave.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1306204A06B6009C7C8E /* SingWave.h */; };
+		C4DB657B2494B681001E1F37 /* ModalBar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1334204A06B6009C7C8E /* ModalBar.h */; };
+		C4DB657C2494B681001E1F37 /* Clarinet.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1353204A06B6009C7C8E /* Clarinet.h */; };
+		C4DB657D2494B681001E1F37 /* Instrmnt.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131C204A06B6009C7C8E /* Instrmnt.h */; };
+		C4DB657E2494B681001E1F37 /* Messager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1351204A06B6009C7C8E /* Messager.h */; };
+		C4DB657F2494B681001E1F37 /* RtMidi.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1324204A06B6009C7C8E /* RtMidi.h */; };
+		C4DB65802494B681001E1F37 /* Socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1352204A06B6009C7C8E /* Socket.h */; };
+		C4DB65812494B681001E1F37 /* BowTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FF204A06B6009C7C8E /* BowTable.h */; };
+		C4DB65822494B681001E1F37 /* PoleZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FE204A06B6009C7C8E /* PoleZero.h */; };
+		C4DB65832494B681001E1F37 /* Blit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1341204A06B6009C7C8E /* Blit.h */; };
+		C4DB65842494B681001E1F37 /* Moog.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131E204A06B6009C7C8E /* Moog.h */; };
+		C4DB65852494B681001E1F37 /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C407185D1D2267B800665C02 /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65862494B681001E1F37 /* Whistle.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1329204A06B6009C7C8E /* Whistle.h */; };
+		C4DB65872494B681001E1F37 /* Mesh2D.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1325204A06B6009C7C8E /* Mesh2D.h */; };
+		C4DB65882494B681001E1F37 /* Cubic.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1343204A06B6009C7C8E /* Cubic.h */; };
+		C4DB65892494B681001E1F37 /* Flute.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F8204A06B6009C7C8E /* Flute.h */; };
+		C4DB658A2494B681001E1F37 /* Asymp.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B132B204A06B6009C7C8E /* Asymp.h */; };
+		C4DB658B2494B681001E1F37 /* Modal.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1337204A06B6009C7C8E /* Modal.h */; };
+		C4DB658C2494B681001E1F37 /* Skini.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FD204A06B6009C7C8E /* Skini.h */; };
+		C4DB658D2494B681001E1F37 /* RtWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133E204A06B6009C7C8E /* RtWvIn.h */; };
+		C4DB658E2494B681001E1F37 /* Modulate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1322204A06B6009C7C8E /* Modulate.h */; };
+		C4DB658F2494B681001E1F37 /* JetTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1317204A06B6009C7C8E /* JetTable.h */; };
+		C4DB65902494B681001E1F37 /* SKINImsg.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1307204A06B6009C7C8E /* SKINImsg.h */; };
+		C4DB65912494B681001E1F37 /* FileWvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1339204A06B6009C7C8E /* FileWvOut.h */; };
+		C4DB65922494B681001E1F37 /* OnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F3204A06B6009C7C8E /* OnePole.h */; };
+		C4DB65932494B681001E1F37 /* Sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1312204A06B6009C7C8E /* Sphere.h */; };
+		C4DB65942494B681001E1F37 /* Drummer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1318204A06B6009C7C8E /* Drummer.h */; };
+		C4DB65952494B681001E1F37 /* FileWrite.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131B204A06B6009C7C8E /* FileWrite.h */; };
+		C4DB65962494B681001E1F37 /* Mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134C204A06B6009C7C8E /* Mutex.h */; };
+		C4DB65972494B681001E1F37 /* ReedTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1305204A06B6009C7C8E /* ReedTable.h */; };
+		C4DB65982494B681001E1F37 /* BeeThree.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1308204A06B6009C7C8E /* BeeThree.h */; };
+		C4DB65992494B681001E1F37 /* Generator.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1356204A06B6009C7C8E /* Generator.h */; };
+		C4DB659A2494B681001E1F37 /* PercFlut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1342204A06B6009C7C8E /* PercFlut.h */; };
+		C4DB659B2494B681001E1F37 /* Simple.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1303204A06B6009C7C8E /* Simple.h */; };
+		C4DB659C2494B681001E1F37 /* VoicForm.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1311204A06B6009C7C8E /* VoicForm.h */; };
+		C4DB659D2494B681001E1F37 /* Plucked.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1358204A06B6009C7C8E /* Plucked.h */; };
+		C4DB659E2494B681001E1F37 /* Echo.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131F204A06B6009C7C8E /* Echo.h */; };
+		C4DB659F2494B681001E1F37 /* ADSR.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134B204A06B6009C7C8E /* ADSR.h */; };
+		C4DB65A02494B681001E1F37 /* BlitSquare.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F5204A06B6009C7C8E /* BlitSquare.h */; };
+		C4DB65A12494B681001E1F37 /* WvOut.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1331204A06B6009C7C8E /* WvOut.h */; };
+		C4DB65A22494B681001E1F37 /* Fir.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1357204A06B6009C7C8E /* Fir.h */; };
+		C4DB65A32494B681001E1F37 /* FMVoices.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1302204A06B6009C7C8E /* FMVoices.h */; };
+		C4DB65A42494B681001E1F37 /* Delay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1346204A06B6009C7C8E /* Delay.h */; };
+		C4DB65A52494B681001E1F37 /* InetWvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131D204A06B6009C7C8E /* InetWvIn.h */; };
+		C4DB65A62494B681001E1F37 /* BlowBotl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1310204A06B6009C7C8E /* BlowBotl.h */; };
+		C4DB65A72494B681001E1F37 /* TubeBell.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134E204A06B6009C7C8E /* TubeBell.h */; };
+		C4DB65A82494B681001E1F37 /* TwoZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1333204A06B6009C7C8E /* TwoZero.h */; };
+		C4DB65A92494B681001E1F37 /* Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1349204A06B6009C7C8E /* Effect.h */; };
+		C4DB65AA2494B681001E1F37 /* Guitar.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1340204A06B6009C7C8E /* Guitar.h */; };
+		C4DB65AB2494B681001E1F37 /* LentPitShift.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1350204A06B6009C7C8E /* LentPitShift.h */; };
+		C4DB65AC2494B681001E1F37 /* BlitSaw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1348204A06B6009C7C8E /* BlitSaw.h */; };
+		C4DB65AD2494B681001E1F37 /* Voicer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12F4204A06B6009C7C8E /* Voicer.h */; };
+		C4DB65AE2494B681001E1F37 /* BlowHole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130F204A06B6009C7C8E /* BlowHole.h */; };
+		C4DB65AF2494B681001E1F37 /* PitShift.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1321204A06B6009C7C8E /* PitShift.h */; };
+		C4DB65B02494B681001E1F37 /* Resonate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130A204A06B6009C7C8E /* Resonate.h */; };
+		C4DB65B12494B681001E1F37 /* MidiFileIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130D204A06B6009C7C8E /* MidiFileIn.h */; };
+		C4DB65B22494B681001E1F37 /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65B32494B681001E1F37 /* FreeVerb.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12FC204A06B6009C7C8E /* FreeVerb.h */; };
+		C4DB65B42494B681001E1F37 /* FunctionDiscoveryKeys_devpkey.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1323204A06B6009C7C8E /* FunctionDiscoveryKeys_devpkey.h */; };
+		C4DB65B52494B681001E1F37 /* BandedWG.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1319204A06B6009C7C8E /* BandedWG.h */; };
+		C4DB65B62494B681001E1F37 /* Envelope.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1345204A06B6009C7C8E /* Envelope.h */; };
+		C4DB65B72494B681001E1F37 /* OneZero.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B131A204A06B6009C7C8E /* OneZero.h */; };
+		C4DB65B82494B681001E1F37 /* Granulate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1314204A06B6009C7C8E /* Granulate.h */; };
+		C4DB65B92494B681001E1F37 /* SKINItbl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133B204A06B6009C7C8E /* SKINItbl.h */; };
+		C4DB65BA2494B681001E1F37 /* TapDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B133A204A06B6009C7C8E /* TapDelay.h */; };
+		C4DB65BB2494B681001E1F37 /* AKMandolinDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C407185F1D2267B800665C02 /* AKMandolinDSPKernel.hpp */; };
+		C4DB65BC2494B681001E1F37 /* Chorus.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B134A204A06B6009C7C8E /* Chorus.h */; };
+		C4DB65BD2494B681001E1F37 /* AKRhodesPianoDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48F4D7A21CED91B006381F3 /* AKRhodesPianoDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65BE2494B681001E1F37 /* Wurley.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B130C204A06B6009C7C8E /* Wurley.h */; };
+		C4DB65BF2494B681001E1F37 /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1326204A06B6009C7C8E /* RtAudio.h */; };
+		C4DB65C02494B681001E1F37 /* AKClarinetDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A816D200C467200D1CCC2 /* AKClarinetDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4DB65C12494B681001E1F37 /* TwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1344204A06B6009C7C8E /* TwoPole.h */; };
+		C4DB65C22494B681001E1F37 /* FileRead.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1300204A06B6009C7C8E /* FileRead.h */; };
+		C4DB65C32494B681001E1F37 /* Brass.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1330204A06B6009C7C8E /* Brass.h */; };
+		C4DB65C52494B681001E1F37 /* AKShakerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */; };
+		C4DB65C62494B681001E1F37 /* SineWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B138A204A06B6009C7C8E /* SineWave.cpp */; };
+		C4DB65C72494B681001E1F37 /* Fir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1367204A06B6009C7C8E /* Fir.cpp */; };
+		C4DB65C82494B681001E1F37 /* AKShaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047741E76884C00D9906F /* AKShaker.swift */; };
+		C4DB65C92494B681001E1F37 /* AKTubularBellsDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49160C621CED2000086C765 /* AKTubularBellsDSP.mm */; };
+		C4DB65CA2494B681001E1F37 /* AKMandolinPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */; };
+		C4DB65CB2494B681001E1F37 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1373204A06B6009C7C8E /* ADSR.cpp */; };
+		C4DB65CC2494B681001E1F37 /* AKFluteAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */; };
+		C4DB65CD2494B681001E1F37 /* AKMandolinDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFCD201DD54800E8BE2C /* AKMandolinDSPKernel.mm */; };
+		C4DB65CE2494B681001E1F37 /* AKRhodesPianoAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F4D7B21CED91C006381F3 /* AKRhodesPianoAudioUnit.swift */; };
+		C4DB65CF2494B681001E1F37 /* FileWvIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1384204A06B6009C7C8E /* FileWvIn.cpp */; };
+		C4DB65D02494B681001E1F37 /* AKClarinetAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A816B200C447A00D1CCC2 /* AKClarinetAudioUnit.swift */; };
+		C4DB65D12494B681001E1F37 /* Clarinet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137D204A06B6009C7C8E /* Clarinet.cpp */; };
+		C4DB65D22494B681001E1F37 /* AKRhodesPianoDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C48F4D7C21CED91C006381F3 /* AKRhodesPianoDSP.mm */; };
+		C4DB65D32494B681001E1F37 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1386204A06B6009C7C8E /* OneZero.cpp */; };
+		C4DB65D42494B681001E1F37 /* TubeBell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137A204A06B6009C7C8E /* TubeBell.cpp */; };
+		C4DB65D52494B681001E1F37 /* OnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1379204A06B6009C7C8E /* OnePole.cpp */; };
+		C4DB65D62494B681001E1F37 /* Flute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1383204A06B6009C7C8E /* Flute.cpp */; };
+		C4DB65D72494B681001E1F37 /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F61DD9229900C56B59 /* AKClarinet.swift */; };
+		C4DB65D82494B681001E1F37 /* AKRhodesPiano.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470479A1E76A24A00D9906F /* AKRhodesPiano.swift */; };
+		C4DB65D92494B681001E1F37 /* AKShakerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */; };
+		C4DB65DA2494B681001E1F37 /* DelayL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1374204A06B6009C7C8E /* DelayL.cpp */; };
+		C4DB65DB2494B681001E1F37 /* AKFluteDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8587200CB8860075C82B /* AKFluteDSP.mm */; };
+		C4DB65DC2494B681001E1F37 /* FileRead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1368204A06B6009C7C8E /* FileRead.cpp */; };
+		C4DB65DD2494B681001E1F37 /* TwoZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12DE204A06B6009C7C8E /* TwoZero.cpp */; };
+		C4DB65DE2494B681001E1F37 /* Mandolin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12A8204A06B6009C7C8E /* Mandolin.cpp */; };
+		C4DB65DF2494B681001E1F37 /* AKFlute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F291E1D162448000A2D2F /* AKFlute.swift */; };
+		C4DB65E02494B681001E1F37 /* AKTubularBellsAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49160C321CED1930086C765 /* AKTubularBellsAudioUnit.swift */; };
+		C4DB65E12494B681001E1F37 /* FileLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B137B204A06B6009C7C8E /* FileLoop.cpp */; };
+		C4DB65E22494B681001E1F37 /* Shakers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1382204A06B6009C7C8E /* Shakers.cpp */; };
+		C4DB65E32494B681001E1F37 /* AKTubularBells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047A31E76A25200D9906F /* AKTubularBells.swift */; };
+		C4DB65E42494B681001E1F37 /* Envelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1389204A06B6009C7C8E /* Envelope.cpp */; };
+		C4DB65E52494B681001E1F37 /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12A9204A06B6009C7C8E /* Stk.cpp */; };
+		C4DB65E62494B681001E1F37 /* AKMandolinAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C407185E1D2267B800665C02 /* AKMandolinAudioUnit.mm */; };
+		C4DB65E72494B681001E1F37 /* Rhodey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1369204A06B6009C7C8E /* Rhodey.cpp */; };
+		C4DB65E82494B681001E1F37 /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B136E204A06B6009C7C8E /* Twang.cpp */; };
+		C4DB65E92494B681001E1F37 /* FM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B135F204A06B6009C7C8E /* FM.cpp */; };
+		C4DB65EA2494B681001E1F37 /* PoleZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B135B204A06B6009C7C8E /* PoleZero.cpp */; };
+		C4DB65EB2494B681001E1F37 /* DelayA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B12EE204A06B6009C7C8E /* DelayA.cpp */; };
+		C4DB65EC2494B681001E1F37 /* AKMandolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407185C1D2267B800665C02 /* AKMandolin.swift */; };
+		C4DB65ED2494B681001E1F37 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1362204A06B6009C7C8E /* Noise.cpp */; };
+		C4DB65EE2494B681001E1F37 /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetDSP.mm */; };
+		C4DB65F02494B681001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
+		C4DB65F32494B681001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4DB65FA2494B6F5001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
+		C4DB65FB2494B6FB001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
 		C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDA221C21FCF50033494B /* squareWave.swift */; };
 		C4DD032D2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */; };
 		C4E13D2C1C42360C008F0A3C /* AKPhaseLockedVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D281C42360C008F0A3C /* AKPhaseLockedVocoder.swift */; };
@@ -3232,6 +3552,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C4DB64A02494B602001E1F37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = "AudioKit-iOS";
+		};
+		C4DB64A52494B656001E1F37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = "AudioKit-iOS";
+		};
+		C4DB65502494B681001E1F37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = "AudioKit-iOS";
+		};
 		EA7D07091F4E63E600707706 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C42F34F71C057E03000E937C /* Project object */;
@@ -3254,6 +3595,42 @@
 			remoteInfo = "AudioKit-macOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4DB64A22494B602001E1F37 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4DB649F2494B602001E1F37 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65472494B656001E1F37 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4DB65482494B656001E1F37 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65F22494B681001E1F37 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4DB65F32494B681001E1F37 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
@@ -4427,9 +4804,14 @@
 		C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKShakerAudioUnit.swift; sourceTree = "<group>"; };
 		C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSP.mm; sourceTree = "<group>"; };
 		C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKShakerDSP.hpp; sourceTree = "<group>"; };
-		C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STKAudioKit.h; sourceTree = "<group>"; };
 		C4DB63FE2494B0E0001E1F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "STKAudioKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB654D2494B656001E1F37 /* STKAudioKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit copy-Info.plist"; sourceTree = "<absolute>"; };
+		C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "STKAudioKit-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB65F82494B681001E1F37 /* STKAudioKit-macOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit-macOS copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit-macOS copy-Info.plist"; sourceTree = "<absolute>"; };
+		C4DB65F92494B6EF001E1F37 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbDSP.mm; sourceTree = "<group>"; };
 		C4DE8587200CB8860075C82B /* AKFluteDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteDSP.mm; sourceTree = "<group>"; };
@@ -4574,6 +4956,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DB649E2494B602001E1F37 /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65442494B656001E1F37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB65FA2494B6F5001E1F37 /* libc++.tbd in Frameworks */,
+				C4DB65452494B656001E1F37 /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65EF2494B681001E1F37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB65FB2494B6FB001E1F37 /* libc++.tbd in Frameworks */,
+				C4DB65F02494B681001E1F37 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5236,6 +5637,8 @@
 				C4DB63FC2494B0E0001E1F37 /* STKAudioKit */,
 				C42F35011C057E03000E937C /* Products */,
 				EA7D070B1F4E63EB00707706 /* Frameworks */,
+				C4DB654D2494B656001E1F37 /* STKAudioKit copy-Info.plist */,
+				C4DB65F82494B681001E1F37 /* STKAudioKit-macOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5248,7 +5651,9 @@
 				EAA62D6F247F410100BF4CDB /* AudioKitUI.framework */,
 				EAA63210247F44E200BF4CDB /* AudioKit.framework */,
 				EAA63240247F559400BF4CDB /* AudioKitUI.framework */,
-				C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */,
+				C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */,
+				C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */,
+				C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7511,6 +7916,7 @@
 		EA7D070B1F4E63EB00707706 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4DB65F92494B6EF001E1F37 /* libc++.tbd */,
 				EAA63266247FC3EB00BF4CDB /* AppKit.framework */,
 				EA08A99D214A018500115D67 /* libc++.tbd */,
 				EA8F6ED32014B17000B68497 /* libstdc++.tbd */,
@@ -8003,6 +8409,248 @@
 				C4DB646F2494B19C001E1F37 /* TwoPole.h in Headers */,
 				C4DB642B2494B19B001E1F37 /* FileRead.h in Headers */,
 				C4DB645B2494B19C001E1F37 /* Brass.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB64A62494B656001E1F37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB64A72494B656001E1F37 /* WvIn.h in Headers */,
+				C4DB64A82494B656001E1F37 /* AKShakerDSP.hpp in Headers */,
+				C4DB64A92494B656001E1F37 /* STKAudioKit.h in Headers */,
+				C4DB64AA2494B656001E1F37 /* RtWvOut.h in Headers */,
+				C4DB64AB2494B656001E1F37 /* Bowed.h in Headers */,
+				C4DB64AC2494B656001E1F37 /* Rhodey.h in Headers */,
+				C4DB64AD2494B656001E1F37 /* Noise.h in Headers */,
+				C4DB64AE2494B656001E1F37 /* Saxofony.h in Headers */,
+				C4DB64AF2494B656001E1F37 /* PRCRev.h in Headers */,
+				C4DB64B02494B656001E1F37 /* FileWvIn.h in Headers */,
+				C4DB64B12494B656001E1F37 /* sinewave_raw.h in Headers */,
+				C4DB64B22494B656001E1F37 /* AKTubularBellsDSP.hpp in Headers */,
+				C4DB64B32494B656001E1F37 /* Iir.h in Headers */,
+				C4DB64B42494B656001E1F37 /* Vector3D.h in Headers */,
+				C4DB64B52494B656001E1F37 /* SineWave.h in Headers */,
+				C4DB64B62494B656001E1F37 /* Sitar.h in Headers */,
+				C4DB64B72494B656001E1F37 /* DelayA.h in Headers */,
+				C4DB64B82494B656001E1F37 /* InetWvOut.h in Headers */,
+				C4DB64B92494B656001E1F37 /* HevyMetl.h in Headers */,
+				C4DB64BA2494B656001E1F37 /* Thread.h in Headers */,
+				C4DB64BB2494B656001E1F37 /* soundcard.h in Headers */,
+				C4DB64BC2494B656001E1F37 /* Filter.h in Headers */,
+				C4DB64BD2494B656001E1F37 /* JCRev.h in Headers */,
+				C4DB64BE2494B656001E1F37 /* DelayL.h in Headers */,
+				C4DB64BF2494B656001E1F37 /* Sampler.h in Headers */,
+				C4DB64C02494B656001E1F37 /* FileLoop.h in Headers */,
+				C4DB64C12494B656001E1F37 /* BiQuad.h in Headers */,
+				C4DB64C22494B656001E1F37 /* Stk.h in Headers */,
+				C4DB64C32494B656001E1F37 /* Function.h in Headers */,
+				C4DB64C42494B656001E1F37 /* Shakers.h in Headers */,
+				C4DB64C52494B656001E1F37 /* StifKarp.h in Headers */,
+				C4DB64C62494B656001E1F37 /* mand_raw.h in Headers */,
+				C4DB64C72494B656001E1F37 /* FM.h in Headers */,
+				C4DB64C82494B656001E1F37 /* FormSwep.h in Headers */,
+				C4DB64C92494B656001E1F37 /* dsound.h in Headers */,
+				C4DB64CA2494B656001E1F37 /* ginclude.h in Headers */,
+				C4DB64CB2494B656001E1F37 /* NRev.h in Headers */,
+				C4DB64CC2494B656001E1F37 /* Phonemes.h in Headers */,
+				C4DB64CD2494B656001E1F37 /* Mandolin.h in Headers */,
+				C4DB64CE2494B656001E1F37 /* Twang.h in Headers */,
+				C4DB64CF2494B656001E1F37 /* SingWave.h in Headers */,
+				C4DB64D02494B656001E1F37 /* ModalBar.h in Headers */,
+				C4DB64D12494B656001E1F37 /* Clarinet.h in Headers */,
+				C4DB64D22494B656001E1F37 /* Instrmnt.h in Headers */,
+				C4DB64D32494B656001E1F37 /* Messager.h in Headers */,
+				C4DB64D42494B656001E1F37 /* RtMidi.h in Headers */,
+				C4DB64D52494B656001E1F37 /* Socket.h in Headers */,
+				C4DB64D62494B656001E1F37 /* BowTable.h in Headers */,
+				C4DB64D72494B656001E1F37 /* PoleZero.h in Headers */,
+				C4DB64D82494B656001E1F37 /* Blit.h in Headers */,
+				C4DB64D92494B656001E1F37 /* Moog.h in Headers */,
+				C4DB64DA2494B656001E1F37 /* AKMandolinAudioUnit.h in Headers */,
+				C4DB64DB2494B656001E1F37 /* Whistle.h in Headers */,
+				C4DB64DC2494B656001E1F37 /* Mesh2D.h in Headers */,
+				C4DB64DD2494B656001E1F37 /* Cubic.h in Headers */,
+				C4DB64DE2494B656001E1F37 /* Flute.h in Headers */,
+				C4DB64DF2494B656001E1F37 /* Asymp.h in Headers */,
+				C4DB64E02494B656001E1F37 /* Modal.h in Headers */,
+				C4DB64E12494B656001E1F37 /* Skini.h in Headers */,
+				C4DB64E22494B656001E1F37 /* RtWvIn.h in Headers */,
+				C4DB64E32494B656001E1F37 /* Modulate.h in Headers */,
+				C4DB64E42494B656001E1F37 /* JetTable.h in Headers */,
+				C4DB64E52494B656001E1F37 /* SKINImsg.h in Headers */,
+				C4DB64E62494B656001E1F37 /* FileWvOut.h in Headers */,
+				C4DB64E72494B656001E1F37 /* OnePole.h in Headers */,
+				C4DB64E82494B656001E1F37 /* Sphere.h in Headers */,
+				C4DB64E92494B656001E1F37 /* Drummer.h in Headers */,
+				C4DB64EA2494B656001E1F37 /* FileWrite.h in Headers */,
+				C4DB64EB2494B656001E1F37 /* Mutex.h in Headers */,
+				C4DB64EC2494B656001E1F37 /* ReedTable.h in Headers */,
+				C4DB64ED2494B656001E1F37 /* BeeThree.h in Headers */,
+				C4DB64EE2494B656001E1F37 /* Generator.h in Headers */,
+				C4DB64EF2494B656001E1F37 /* PercFlut.h in Headers */,
+				C4DB64F02494B656001E1F37 /* Simple.h in Headers */,
+				C4DB64F12494B656001E1F37 /* VoicForm.h in Headers */,
+				C4DB64F22494B656001E1F37 /* Plucked.h in Headers */,
+				C4DB64F32494B656001E1F37 /* Echo.h in Headers */,
+				C4DB64F42494B656001E1F37 /* ADSR.h in Headers */,
+				C4DB64F52494B656001E1F37 /* BlitSquare.h in Headers */,
+				C4DB64F62494B656001E1F37 /* WvOut.h in Headers */,
+				C4DB64F72494B656001E1F37 /* Fir.h in Headers */,
+				C4DB64F82494B656001E1F37 /* FMVoices.h in Headers */,
+				C4DB64F92494B656001E1F37 /* Delay.h in Headers */,
+				C4DB64FA2494B656001E1F37 /* InetWvIn.h in Headers */,
+				C4DB64FB2494B656001E1F37 /* BlowBotl.h in Headers */,
+				C4DB64FC2494B656001E1F37 /* TubeBell.h in Headers */,
+				C4DB64FD2494B656001E1F37 /* TwoZero.h in Headers */,
+				C4DB64FE2494B656001E1F37 /* Effect.h in Headers */,
+				C4DB64FF2494B656001E1F37 /* Guitar.h in Headers */,
+				C4DB65002494B656001E1F37 /* LentPitShift.h in Headers */,
+				C4DB65012494B656001E1F37 /* BlitSaw.h in Headers */,
+				C4DB65022494B656001E1F37 /* Voicer.h in Headers */,
+				C4DB65032494B656001E1F37 /* BlowHole.h in Headers */,
+				C4DB65042494B656001E1F37 /* PitShift.h in Headers */,
+				C4DB65052494B656001E1F37 /* Resonate.h in Headers */,
+				C4DB65062494B656001E1F37 /* MidiFileIn.h in Headers */,
+				C4DB65072494B656001E1F37 /* AKFluteDSP.hpp in Headers */,
+				C4DB65082494B656001E1F37 /* FreeVerb.h in Headers */,
+				C4DB65092494B656001E1F37 /* FunctionDiscoveryKeys_devpkey.h in Headers */,
+				C4DB650A2494B656001E1F37 /* BandedWG.h in Headers */,
+				C4DB650B2494B656001E1F37 /* Envelope.h in Headers */,
+				C4DB650C2494B656001E1F37 /* OneZero.h in Headers */,
+				C4DB650D2494B656001E1F37 /* Granulate.h in Headers */,
+				C4DB650E2494B656001E1F37 /* SKINItbl.h in Headers */,
+				C4DB650F2494B656001E1F37 /* TapDelay.h in Headers */,
+				C4DB65102494B656001E1F37 /* AKMandolinDSPKernel.hpp in Headers */,
+				C4DB65112494B656001E1F37 /* Chorus.h in Headers */,
+				C4DB65122494B656001E1F37 /* AKRhodesPianoDSP.hpp in Headers */,
+				C4DB65132494B656001E1F37 /* Wurley.h in Headers */,
+				C4DB65142494B656001E1F37 /* RtAudio.h in Headers */,
+				C4DB65152494B656001E1F37 /* AKClarinetDSP.hpp in Headers */,
+				C4DB65162494B656001E1F37 /* TwoPole.h in Headers */,
+				C4DB65172494B656001E1F37 /* FileRead.h in Headers */,
+				C4DB65182494B656001E1F37 /* Brass.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65512494B681001E1F37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB65522494B681001E1F37 /* WvIn.h in Headers */,
+				C4DB65532494B681001E1F37 /* AKShakerDSP.hpp in Headers */,
+				C4DB65542494B681001E1F37 /* STKAudioKit.h in Headers */,
+				C4DB65552494B681001E1F37 /* RtWvOut.h in Headers */,
+				C4DB65562494B681001E1F37 /* Bowed.h in Headers */,
+				C4DB65572494B681001E1F37 /* Rhodey.h in Headers */,
+				C4DB65582494B681001E1F37 /* Noise.h in Headers */,
+				C4DB65592494B681001E1F37 /* Saxofony.h in Headers */,
+				C4DB655A2494B681001E1F37 /* PRCRev.h in Headers */,
+				C4DB655B2494B681001E1F37 /* FileWvIn.h in Headers */,
+				C4DB655C2494B681001E1F37 /* sinewave_raw.h in Headers */,
+				C4DB655D2494B681001E1F37 /* AKTubularBellsDSP.hpp in Headers */,
+				C4DB655E2494B681001E1F37 /* Iir.h in Headers */,
+				C4DB655F2494B681001E1F37 /* Vector3D.h in Headers */,
+				C4DB65602494B681001E1F37 /* SineWave.h in Headers */,
+				C4DB65612494B681001E1F37 /* Sitar.h in Headers */,
+				C4DB65622494B681001E1F37 /* DelayA.h in Headers */,
+				C4DB65632494B681001E1F37 /* InetWvOut.h in Headers */,
+				C4DB65642494B681001E1F37 /* HevyMetl.h in Headers */,
+				C4DB65652494B681001E1F37 /* Thread.h in Headers */,
+				C4DB65662494B681001E1F37 /* soundcard.h in Headers */,
+				C4DB65672494B681001E1F37 /* Filter.h in Headers */,
+				C4DB65682494B681001E1F37 /* JCRev.h in Headers */,
+				C4DB65692494B681001E1F37 /* DelayL.h in Headers */,
+				C4DB656A2494B681001E1F37 /* Sampler.h in Headers */,
+				C4DB656B2494B681001E1F37 /* FileLoop.h in Headers */,
+				C4DB656C2494B681001E1F37 /* BiQuad.h in Headers */,
+				C4DB656D2494B681001E1F37 /* Stk.h in Headers */,
+				C4DB656E2494B681001E1F37 /* Function.h in Headers */,
+				C4DB656F2494B681001E1F37 /* Shakers.h in Headers */,
+				C4DB65702494B681001E1F37 /* StifKarp.h in Headers */,
+				C4DB65712494B681001E1F37 /* mand_raw.h in Headers */,
+				C4DB65722494B681001E1F37 /* FM.h in Headers */,
+				C4DB65732494B681001E1F37 /* FormSwep.h in Headers */,
+				C4DB65742494B681001E1F37 /* dsound.h in Headers */,
+				C4DB65752494B681001E1F37 /* ginclude.h in Headers */,
+				C4DB65762494B681001E1F37 /* NRev.h in Headers */,
+				C4DB65772494B681001E1F37 /* Phonemes.h in Headers */,
+				C4DB65782494B681001E1F37 /* Mandolin.h in Headers */,
+				C4DB65792494B681001E1F37 /* Twang.h in Headers */,
+				C4DB657A2494B681001E1F37 /* SingWave.h in Headers */,
+				C4DB657B2494B681001E1F37 /* ModalBar.h in Headers */,
+				C4DB657C2494B681001E1F37 /* Clarinet.h in Headers */,
+				C4DB657D2494B681001E1F37 /* Instrmnt.h in Headers */,
+				C4DB657E2494B681001E1F37 /* Messager.h in Headers */,
+				C4DB657F2494B681001E1F37 /* RtMidi.h in Headers */,
+				C4DB65802494B681001E1F37 /* Socket.h in Headers */,
+				C4DB65812494B681001E1F37 /* BowTable.h in Headers */,
+				C4DB65822494B681001E1F37 /* PoleZero.h in Headers */,
+				C4DB65832494B681001E1F37 /* Blit.h in Headers */,
+				C4DB65842494B681001E1F37 /* Moog.h in Headers */,
+				C4DB65852494B681001E1F37 /* AKMandolinAudioUnit.h in Headers */,
+				C4DB65862494B681001E1F37 /* Whistle.h in Headers */,
+				C4DB65872494B681001E1F37 /* Mesh2D.h in Headers */,
+				C4DB65882494B681001E1F37 /* Cubic.h in Headers */,
+				C4DB65892494B681001E1F37 /* Flute.h in Headers */,
+				C4DB658A2494B681001E1F37 /* Asymp.h in Headers */,
+				C4DB658B2494B681001E1F37 /* Modal.h in Headers */,
+				C4DB658C2494B681001E1F37 /* Skini.h in Headers */,
+				C4DB658D2494B681001E1F37 /* RtWvIn.h in Headers */,
+				C4DB658E2494B681001E1F37 /* Modulate.h in Headers */,
+				C4DB658F2494B681001E1F37 /* JetTable.h in Headers */,
+				C4DB65902494B681001E1F37 /* SKINImsg.h in Headers */,
+				C4DB65912494B681001E1F37 /* FileWvOut.h in Headers */,
+				C4DB65922494B681001E1F37 /* OnePole.h in Headers */,
+				C4DB65932494B681001E1F37 /* Sphere.h in Headers */,
+				C4DB65942494B681001E1F37 /* Drummer.h in Headers */,
+				C4DB65952494B681001E1F37 /* FileWrite.h in Headers */,
+				C4DB65962494B681001E1F37 /* Mutex.h in Headers */,
+				C4DB65972494B681001E1F37 /* ReedTable.h in Headers */,
+				C4DB65982494B681001E1F37 /* BeeThree.h in Headers */,
+				C4DB65992494B681001E1F37 /* Generator.h in Headers */,
+				C4DB659A2494B681001E1F37 /* PercFlut.h in Headers */,
+				C4DB659B2494B681001E1F37 /* Simple.h in Headers */,
+				C4DB659C2494B681001E1F37 /* VoicForm.h in Headers */,
+				C4DB659D2494B681001E1F37 /* Plucked.h in Headers */,
+				C4DB659E2494B681001E1F37 /* Echo.h in Headers */,
+				C4DB659F2494B681001E1F37 /* ADSR.h in Headers */,
+				C4DB65A02494B681001E1F37 /* BlitSquare.h in Headers */,
+				C4DB65A12494B681001E1F37 /* WvOut.h in Headers */,
+				C4DB65A22494B681001E1F37 /* Fir.h in Headers */,
+				C4DB65A32494B681001E1F37 /* FMVoices.h in Headers */,
+				C4DB65A42494B681001E1F37 /* Delay.h in Headers */,
+				C4DB65A52494B681001E1F37 /* InetWvIn.h in Headers */,
+				C4DB65A62494B681001E1F37 /* BlowBotl.h in Headers */,
+				C4DB65A72494B681001E1F37 /* TubeBell.h in Headers */,
+				C4DB65A82494B681001E1F37 /* TwoZero.h in Headers */,
+				C4DB65A92494B681001E1F37 /* Effect.h in Headers */,
+				C4DB65AA2494B681001E1F37 /* Guitar.h in Headers */,
+				C4DB65AB2494B681001E1F37 /* LentPitShift.h in Headers */,
+				C4DB65AC2494B681001E1F37 /* BlitSaw.h in Headers */,
+				C4DB65AD2494B681001E1F37 /* Voicer.h in Headers */,
+				C4DB65AE2494B681001E1F37 /* BlowHole.h in Headers */,
+				C4DB65AF2494B681001E1F37 /* PitShift.h in Headers */,
+				C4DB65B02494B681001E1F37 /* Resonate.h in Headers */,
+				C4DB65B12494B681001E1F37 /* MidiFileIn.h in Headers */,
+				C4DB65B22494B681001E1F37 /* AKFluteDSP.hpp in Headers */,
+				C4DB65B32494B681001E1F37 /* FreeVerb.h in Headers */,
+				C4DB65B42494B681001E1F37 /* FunctionDiscoveryKeys_devpkey.h in Headers */,
+				C4DB65B52494B681001E1F37 /* BandedWG.h in Headers */,
+				C4DB65B62494B681001E1F37 /* Envelope.h in Headers */,
+				C4DB65B72494B681001E1F37 /* OneZero.h in Headers */,
+				C4DB65B82494B681001E1F37 /* Granulate.h in Headers */,
+				C4DB65B92494B681001E1F37 /* SKINItbl.h in Headers */,
+				C4DB65BA2494B681001E1F37 /* TapDelay.h in Headers */,
+				C4DB65BB2494B681001E1F37 /* AKMandolinDSPKernel.hpp in Headers */,
+				C4DB65BC2494B681001E1F37 /* Chorus.h in Headers */,
+				C4DB65BD2494B681001E1F37 /* AKRhodesPianoDSP.hpp in Headers */,
+				C4DB65BE2494B681001E1F37 /* Wurley.h in Headers */,
+				C4DB65BF2494B681001E1F37 /* RtAudio.h in Headers */,
+				C4DB65C02494B681001E1F37 /* AKClarinetDSP.hpp in Headers */,
+				C4DB65C12494B681001E1F37 /* TwoPole.h in Headers */,
+				C4DB65C22494B681001E1F37 /* FileRead.h in Headers */,
+				C4DB65C32494B681001E1F37 /* Brass.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8511,22 +9159,64 @@
 			productReference = C42F35001C057E03000E937C /* AudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C4DB63FA2494B0E0001E1F37 /* STKAudioKit */ = {
+		C4DB63FA2494B0E0001E1F37 /* STKAudioKit-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4DB64002494B0E1001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit" */;
+			buildConfigurationList = C4DB64002494B0E1001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-iOS" */;
 			buildPhases = (
 				C4DB63F62494B0E0001E1F37 /* Headers */,
 				C4DB63F72494B0E0001E1F37 /* Sources */,
 				C4DB63F82494B0E0001E1F37 /* Frameworks */,
 				C4DB63F92494B0E0001E1F37 /* Resources */,
+				C4DB64A22494B602001E1F37 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C4DB64A12494B602001E1F37 /* PBXTargetDependency */,
 			);
-			name = STKAudioKit;
+			name = "STKAudioKit-iOS";
 			productName = STKAudioKit;
-			productReference = C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */;
+			productReference = C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C4DB64A32494B656001E1F37 /* STKAudioKit-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4DB65492494B656001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-macOS" */;
+			buildPhases = (
+				C4DB64A62494B656001E1F37 /* Headers */,
+				C4DB65192494B656001E1F37 /* Sources */,
+				C4DB65442494B656001E1F37 /* Frameworks */,
+				C4DB65462494B656001E1F37 /* Resources */,
+				C4DB65472494B656001E1F37 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4DB64A42494B656001E1F37 /* PBXTargetDependency */,
+			);
+			name = "STKAudioKit-macOS";
+			productName = STKAudioKit;
+			productReference = C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C4DB654E2494B681001E1F37 /* STKAudioKit-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4DB65F42494B681001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-tvOS" */;
+			buildPhases = (
+				C4DB65512494B681001E1F37 /* Headers */,
+				C4DB65C42494B681001E1F37 /* Sources */,
+				C4DB65EF2494B681001E1F37 /* Frameworks */,
+				C4DB65F12494B681001E1F37 /* Resources */,
+				C4DB65F22494B681001E1F37 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4DB654F2494B681001E1F37 /* PBXTargetDependency */,
+			);
+			name = "STKAudioKit-tvOS";
+			productName = STKAudioKit;
+			productReference = C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EA7D07001F4E63C200707706 /* AudioKitUI-iOS */ = {
@@ -8643,6 +9333,14 @@
 						DevelopmentTeam = 9W69ZP8S5F;
 						ProvisioningStyle = Automatic;
 					};
+					C4DB64A32494B656001E1F37 = {
+						DevelopmentTeam = 9W69ZP8S5F;
+						ProvisioningStyle = Automatic;
+					};
+					C4DB654E2494B681001E1F37 = {
+						DevelopmentTeam = 9W69ZP8S5F;
+						ProvisioningStyle = Automatic;
+					};
 					EA7D07001F4E63C200707706 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 1020;
@@ -8675,7 +9373,9 @@
 				EAA62D41247F410100BF4CDB /* AudioKitUI-tvOS */,
 				EAA62D75247F44E200BF4CDB /* AudioKit-macOS */,
 				EAA63212247F559400BF4CDB /* AudioKitUI-macOS */,
-				C4DB63FA2494B0E0001E1F37 /* STKAudioKit */,
+				C4DB63FA2494B0E0001E1F37 /* STKAudioKit-iOS */,
+				C4DB64A32494B656001E1F37 /* STKAudioKit-macOS */,
+				C4DB654E2494B681001E1F37 /* STKAudioKit-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -8689,6 +9389,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C4DB63F92494B0E0001E1F37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65462494B656001E1F37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65F12494B681001E1F37 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -9641,6 +10355,104 @@
 				C4DB648C2494B362001E1F37 /* AKMandolin.swift in Sources */,
 				C4DB640F2494B152001E1F37 /* Noise.cpp in Sources */,
 				C4DB64872494B353001E1F37 /* AKClarinetDSP.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65192494B656001E1F37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB651A2494B656001E1F37 /* AKShakerAudioUnit.swift in Sources */,
+				C4DB651B2494B656001E1F37 /* SineWave.cpp in Sources */,
+				C4DB651C2494B656001E1F37 /* Fir.cpp in Sources */,
+				C4DB651D2494B656001E1F37 /* AKShaker.swift in Sources */,
+				C4DB651E2494B656001E1F37 /* AKTubularBellsDSP.mm in Sources */,
+				C4DB651F2494B656001E1F37 /* AKMandolinPresets.swift in Sources */,
+				C4DB65202494B656001E1F37 /* ADSR.cpp in Sources */,
+				C4DB65212494B656001E1F37 /* AKFluteAudioUnit.swift in Sources */,
+				C4DB65222494B656001E1F37 /* AKMandolinDSPKernel.mm in Sources */,
+				C4DB65232494B656001E1F37 /* AKRhodesPianoAudioUnit.swift in Sources */,
+				C4DB65242494B656001E1F37 /* FileWvIn.cpp in Sources */,
+				C4DB65252494B656001E1F37 /* AKClarinetAudioUnit.swift in Sources */,
+				C4DB65262494B656001E1F37 /* Clarinet.cpp in Sources */,
+				C4DB65272494B656001E1F37 /* AKRhodesPianoDSP.mm in Sources */,
+				C4DB65282494B656001E1F37 /* OneZero.cpp in Sources */,
+				C4DB65292494B656001E1F37 /* TubeBell.cpp in Sources */,
+				C4DB652A2494B656001E1F37 /* OnePole.cpp in Sources */,
+				C4DB652B2494B656001E1F37 /* Flute.cpp in Sources */,
+				C4DB652C2494B656001E1F37 /* AKClarinet.swift in Sources */,
+				C4DB652D2494B656001E1F37 /* AKRhodesPiano.swift in Sources */,
+				C4DB652E2494B656001E1F37 /* AKShakerDSP.mm in Sources */,
+				C4DB652F2494B656001E1F37 /* DelayL.cpp in Sources */,
+				C4DB65302494B656001E1F37 /* AKFluteDSP.mm in Sources */,
+				C4DB65312494B656001E1F37 /* FileRead.cpp in Sources */,
+				C4DB65322494B656001E1F37 /* TwoZero.cpp in Sources */,
+				C4DB65332494B656001E1F37 /* Mandolin.cpp in Sources */,
+				C4DB65342494B656001E1F37 /* AKFlute.swift in Sources */,
+				C4DB65352494B656001E1F37 /* AKTubularBellsAudioUnit.swift in Sources */,
+				C4DB65362494B656001E1F37 /* FileLoop.cpp in Sources */,
+				C4DB65372494B656001E1F37 /* Shakers.cpp in Sources */,
+				C4DB65382494B656001E1F37 /* AKTubularBells.swift in Sources */,
+				C4DB65392494B656001E1F37 /* Envelope.cpp in Sources */,
+				C4DB653A2494B656001E1F37 /* Stk.cpp in Sources */,
+				C4DB653B2494B656001E1F37 /* AKMandolinAudioUnit.mm in Sources */,
+				C4DB653C2494B656001E1F37 /* Rhodey.cpp in Sources */,
+				C4DB653D2494B656001E1F37 /* Twang.cpp in Sources */,
+				C4DB653E2494B656001E1F37 /* FM.cpp in Sources */,
+				C4DB653F2494B656001E1F37 /* PoleZero.cpp in Sources */,
+				C4DB65402494B656001E1F37 /* DelayA.cpp in Sources */,
+				C4DB65412494B656001E1F37 /* AKMandolin.swift in Sources */,
+				C4DB65422494B656001E1F37 /* Noise.cpp in Sources */,
+				C4DB65432494B656001E1F37 /* AKClarinetDSP.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4DB65C42494B681001E1F37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4DB65C52494B681001E1F37 /* AKShakerAudioUnit.swift in Sources */,
+				C4DB65C62494B681001E1F37 /* SineWave.cpp in Sources */,
+				C4DB65C72494B681001E1F37 /* Fir.cpp in Sources */,
+				C4DB65C82494B681001E1F37 /* AKShaker.swift in Sources */,
+				C4DB65C92494B681001E1F37 /* AKTubularBellsDSP.mm in Sources */,
+				C4DB65CA2494B681001E1F37 /* AKMandolinPresets.swift in Sources */,
+				C4DB65CB2494B681001E1F37 /* ADSR.cpp in Sources */,
+				C4DB65CC2494B681001E1F37 /* AKFluteAudioUnit.swift in Sources */,
+				C4DB65CD2494B681001E1F37 /* AKMandolinDSPKernel.mm in Sources */,
+				C4DB65CE2494B681001E1F37 /* AKRhodesPianoAudioUnit.swift in Sources */,
+				C4DB65CF2494B681001E1F37 /* FileWvIn.cpp in Sources */,
+				C4DB65D02494B681001E1F37 /* AKClarinetAudioUnit.swift in Sources */,
+				C4DB65D12494B681001E1F37 /* Clarinet.cpp in Sources */,
+				C4DB65D22494B681001E1F37 /* AKRhodesPianoDSP.mm in Sources */,
+				C4DB65D32494B681001E1F37 /* OneZero.cpp in Sources */,
+				C4DB65D42494B681001E1F37 /* TubeBell.cpp in Sources */,
+				C4DB65D52494B681001E1F37 /* OnePole.cpp in Sources */,
+				C4DB65D62494B681001E1F37 /* Flute.cpp in Sources */,
+				C4DB65D72494B681001E1F37 /* AKClarinet.swift in Sources */,
+				C4DB65D82494B681001E1F37 /* AKRhodesPiano.swift in Sources */,
+				C4DB65D92494B681001E1F37 /* AKShakerDSP.mm in Sources */,
+				C4DB65DA2494B681001E1F37 /* DelayL.cpp in Sources */,
+				C4DB65DB2494B681001E1F37 /* AKFluteDSP.mm in Sources */,
+				C4DB65DC2494B681001E1F37 /* FileRead.cpp in Sources */,
+				C4DB65DD2494B681001E1F37 /* TwoZero.cpp in Sources */,
+				C4DB65DE2494B681001E1F37 /* Mandolin.cpp in Sources */,
+				C4DB65DF2494B681001E1F37 /* AKFlute.swift in Sources */,
+				C4DB65E02494B681001E1F37 /* AKTubularBellsAudioUnit.swift in Sources */,
+				C4DB65E12494B681001E1F37 /* FileLoop.cpp in Sources */,
+				C4DB65E22494B681001E1F37 /* Shakers.cpp in Sources */,
+				C4DB65E32494B681001E1F37 /* AKTubularBells.swift in Sources */,
+				C4DB65E42494B681001E1F37 /* Envelope.cpp in Sources */,
+				C4DB65E52494B681001E1F37 /* Stk.cpp in Sources */,
+				C4DB65E62494B681001E1F37 /* AKMandolinAudioUnit.mm in Sources */,
+				C4DB65E72494B681001E1F37 /* Rhodey.cpp in Sources */,
+				C4DB65E82494B681001E1F37 /* Twang.cpp in Sources */,
+				C4DB65E92494B681001E1F37 /* FM.cpp in Sources */,
+				C4DB65EA2494B681001E1F37 /* PoleZero.cpp in Sources */,
+				C4DB65EB2494B681001E1F37 /* DelayA.cpp in Sources */,
+				C4DB65EC2494B681001E1F37 /* AKMandolin.swift in Sources */,
+				C4DB65ED2494B681001E1F37 /* Noise.cpp in Sources */,
+				C4DB65EE2494B681001E1F37 /* AKClarinetDSP.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11279,6 +12091,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C4DB64A12494B602001E1F37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
+			targetProxy = C4DB64A02494B602001E1F37 /* PBXContainerItemProxy */;
+		};
+		C4DB64A42494B656001E1F37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
+			targetProxy = C4DB64A52494B656001E1F37 /* PBXContainerItemProxy */;
+		};
+		C4DB654F2494B681001E1F37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
+			targetProxy = C4DB65502494B681001E1F37 /* PBXContainerItemProxy */;
+		};
 		EA7D070A1F4E63E600707706 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
@@ -11558,6 +12385,138 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C4DB654A2494B656001E1F37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "STKAudioKit copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4DB654B2494B656001E1F37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "STKAudioKit copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C4DB65F52494B681001E1F37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "STKAudioKit-macOS copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4DB65F62494B681001E1F37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "STKAudioKit-macOS copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -11944,11 +12903,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4DB64002494B0E1001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit" */ = {
+		C4DB64002494B0E1001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4DB64012494B0E1001E1F37 /* Debug */,
 				C4DB64022494B0E1001E1F37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4DB65492494B656001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4DB654A2494B656001E1F37 /* Debug */,
+				C4DB654B2494B656001E1F37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4DB65F42494B681001E1F37 /* Build configuration list for PBXNativeTarget "STKAudioKit-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4DB65F52494B681001E1F37 /* Debug */,
+				C4DB65F62494B681001E1F37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
