@@ -309,7 +309,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
                 var messageJustFinished = false
-                for byte in bluetoothData.dropFirst().dropFirst() { // drops first two bytes as these are timestamp bytes
+
+                // drops first two bytes as these are timestamp bytes
+                for byte in bluetoothData.dropFirst().dropFirst() {
                     if byte >= 128 {
                         // if we have a new status byte or if rawEvent is a real event
 

@@ -163,12 +163,13 @@ open class AKAUPresetBuilder {
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: false)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                                                                       envelopes: envelopesXML,
-                                                                       zones: sampleZoneXML,
-                                                                       layer: i + 1,
-                                                                       numVoices: 1,
-                                                                       ignoreNoteOff: false)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: false)
                     layerXML.append(tempLayerXML)
                 }
 
@@ -180,12 +181,13 @@ open class AKAUPresetBuilder {
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: true)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                                                                       envelopes: envelopesXML,
-                                                                       zones: sampleZoneXML,
-                                                                       layer: i + 1,
-                                                                       numVoices: 1,
-                                                                       ignoreNoteOff: false)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: false)
                     layerXML.append(tempLayerXML)
                 }
 
@@ -199,12 +201,13 @@ open class AKAUPresetBuilder {
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: false)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                                                                       envelopes: envelopesXML,
-                                                                       zones: sampleZoneXML,
-                                                                       layer: i + 1,
-                                                                       numVoices: 1,
-                                                                       ignoreNoteOff: true)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: true)
                     layerXML.append(tempLayerXML)
                 }
             }
