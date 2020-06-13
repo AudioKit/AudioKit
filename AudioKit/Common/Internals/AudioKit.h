@@ -181,3 +181,4 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Automation
 #import "AKParameterAutomation.hpp"
+#import "AKLinearParameterRamp.hpp"
