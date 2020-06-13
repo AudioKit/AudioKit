@@ -10,7 +10,7 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
     AKTubularBellsParameterRampDuration
 };
 
-#import "AKLinearParameterRamp.hpp"
+#import <AudioKit/AKLinearParameterRamp.hpp>
 
 #ifndef __cplusplus
 

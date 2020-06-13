@@ -9,7 +9,7 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
     AKShakerParameterAmplitude,
 };
 
-#import "AKLinearParameterRamp.hpp"
+#import <AudioKit/AKLinearParameterRamp.hpp>
 
 #ifndef __cplusplus
 

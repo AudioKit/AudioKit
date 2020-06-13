@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C4DB64A32494B656001E1F37"
-               BuildableName = "STKAudioKit-macOS.framework"
+               BuildableName = "STKAudioKit.framework"
                BlueprintName = "STKAudioKit-macOS"
                ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C4DB64A32494B656001E1F37"
-            BuildableName = "STKAudioKit-macOS.framework"
+            BuildableName = "STKAudioKit.framework"
             BlueprintName = "STKAudioKit-macOS"
             ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
