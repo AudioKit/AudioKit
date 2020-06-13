@@ -109,15 +109,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorDSP.hpp"
 
 // Generators / Physical Models
-#import "AKClarinetDSP.hpp"
 #import "AKDripDSP.hpp"
-#import "AKFluteDSP.hpp"
-#import "AKMandolinAudioUnit.h"
 #import "AKMetalBarDSP.hpp"
-#import "AKRhodesPianoDSP.hpp"
 #import "AKPluckedStringDSP.hpp"
-#import "AKShakerDSP.hpp"
-#import "AKTubularBellsDSP.hpp"
 #import "AKVocalTractDSP.hpp"
 
 // Generators / Polysynths

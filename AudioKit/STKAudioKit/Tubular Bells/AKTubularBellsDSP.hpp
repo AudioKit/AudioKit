@@ -10,7 +10,7 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
     AKTubularBellsParameterRampDuration
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import "AKLinearParameterRamp.hpp"
 
 #ifndef __cplusplus
 

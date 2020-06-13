@@ -4,30 +4,31 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
-    AKClarinetParameterFrequency,
-    AKClarinetParameterAmplitude,
-    AKClarinetParameterRampDuration
+typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
+    AKShakerParameterType,
+    AKShakerParameterAmplitude,
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import "AKLinearParameterRamp.hpp"
 
 #ifndef __cplusplus
 
-AKDSPRef createClarinetDSP(void);
+AKDSPRef createShakerDSP(void);
+
+void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
 
 #else
 
-class AKClarinetDSP : public AKDSPBase {
+class AKShakerDSP : public AKDSPBase {
 private:
     struct InternalData;
     std::unique_ptr<InternalData> data;
 
 public:
 
-    AKClarinetDSP();
-    
-    ~AKClarinetDSP();
+    AKShakerDSP();
+
+    ~AKShakerDSP();
 
     /// Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -39,12 +40,15 @@ public:
 
     void trigger() override;
 
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
+    void triggerTypeAmplitude(AUValue freq, AUValue amp);
 
     void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
 };
 
 #endif
+
 
