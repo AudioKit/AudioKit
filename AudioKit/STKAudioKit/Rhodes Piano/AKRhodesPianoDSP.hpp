@@ -10,7 +10,7 @@ typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
     AKRhodesPianoParameterRampDuration
 };
 
-#import "AKLinearParameterRamp.hpp"
+#import <AudioKit/AKLinearParameterRamp.hpp>
 
 #ifndef __cplusplus
 
