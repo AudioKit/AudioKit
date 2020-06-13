@@ -4804,12 +4804,12 @@
 		C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKShakerAudioUnit.swift; sourceTree = "<group>"; };
 		C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSP.mm; sourceTree = "<group>"; };
 		C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKShakerDSP.hpp; sourceTree = "<group>"; };
-		C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STKAudioKit.h; sourceTree = "<group>"; };
 		C4DB63FE2494B0E0001E1F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "STKAudioKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB654C2494B656001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB654D2494B656001E1F37 /* STKAudioKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit copy-Info.plist"; sourceTree = "<absolute>"; };
-		C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "STKAudioKit-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB65F72494B681001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB65F82494B681001E1F37 /* STKAudioKit-macOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit-macOS copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit-macOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		C4DB65F92494B6EF001E1F37 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
@@ -5651,9 +5651,9 @@
 				EAA62D6F247F410100BF4CDB /* AudioKitUI.framework */,
 				EAA63210247F44E200BF4CDB /* AudioKit.framework */,
 				EAA63240247F559400BF4CDB /* AudioKitUI.framework */,
-				C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */,
-				C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */,
-				C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */,
+				C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */,
+				C4DB654C2494B656001E1F37 /* STKAudioKit.framework */,
+				C4DB65F72494B681001E1F37 /* STKAudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -9176,7 +9176,7 @@
 			);
 			name = "STKAudioKit-iOS";
 			productName = STKAudioKit;
-			productReference = C4DB63FB2494B0E0001E1F37 /* STKAudioKit_iOS.framework */;
+			productReference = C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C4DB64A32494B656001E1F37 /* STKAudioKit-macOS */ = {
@@ -9196,7 +9196,7 @@
 			);
 			name = "STKAudioKit-macOS";
 			productName = STKAudioKit;
-			productReference = C4DB654C2494B656001E1F37 /* STKAudioKit-macOS.framework */;
+			productReference = C4DB654C2494B656001E1F37 /* STKAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C4DB654E2494B681001E1F37 /* STKAudioKit-tvOS */ = {
@@ -9216,7 +9216,7 @@
 			);
 			name = "STKAudioKit-tvOS";
 			productName = STKAudioKit;
-			productReference = C4DB65F72494B681001E1F37 /* STKAudioKit-tvOS.framework */;
+			productReference = C4DB65F72494B681001E1F37 /* STKAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EA7D07001F4E63C200707706 /* AudioKitUI-iOS */ = {
@@ -12350,7 +12350,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -12384,7 +12384,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -12416,7 +12416,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -12450,7 +12450,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -12482,7 +12482,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -12516,7 +12516,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = STKAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
