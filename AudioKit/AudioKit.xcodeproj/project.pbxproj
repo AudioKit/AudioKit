@@ -4861,11 +4861,11 @@
 		C4DB654C2494B656001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB65F72494B681001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB65F92494B6EF001E1F37 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		C4DB660224955B0D001E1F37 /* DevoloopAudioKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DevoloopAudioKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB660224955B0D001E1F37 /* DevoloopAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DevoloopAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB660424955B0D001E1F37 /* DevoloopAudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevoloopAudioKit.h; sourceTree = "<group>"; };
 		C4DB660524955B0D001E1F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4DB6687249560CD001E1F37 /* DevoloopAudioKit-macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "DevoloopAudioKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DB66C7249560CD001E1F37 /* DevoloopAudioKit-tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "DevoloopAudioKit-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB6687249560CD001E1F37 /* DevoloopAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DevoloopAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4DB66C7249560CD001E1F37 /* DevoloopAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DevoloopAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbDSP.mm; sourceTree = "<group>"; };
 		C4DE8587200CB8860075C82B /* AKFluteDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteDSP.mm; sourceTree = "<group>"; };
@@ -5729,9 +5729,9 @@
 				C4DB63FB2494B0E0001E1F37 /* STKAudioKit.framework */,
 				C4DB654C2494B656001E1F37 /* STKAudioKit.framework */,
 				C4DB65F72494B681001E1F37 /* STKAudioKit.framework */,
-				C4DB660224955B0D001E1F37 /* DevoloopAudioKit_iOS.framework */,
-				C4DB6687249560CD001E1F37 /* DevoloopAudioKit-macOS.framework */,
-				C4DB66C7249560CD001E1F37 /* DevoloopAudioKit-tvOS.framework */,
+				C4DB660224955B0D001E1F37 /* DevoloopAudioKit.framework */,
+				C4DB6687249560CD001E1F37 /* DevoloopAudioKit.framework */,
+				C4DB66C7249560CD001E1F37 /* DevoloopAudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -9348,7 +9348,7 @@
 			);
 			name = "DevoloopAudioKit-iOS";
 			productName = DevoloopAudioKit;
-			productReference = C4DB660224955B0D001E1F37 /* DevoloopAudioKit_iOS.framework */;
+			productReference = C4DB660224955B0D001E1F37 /* DevoloopAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C4DB6649249560CD001E1F37 /* DevoloopAudioKit-macOS */ = {
@@ -9368,7 +9368,7 @@
 			);
 			name = "DevoloopAudioKit-macOS";
 			productName = DevoloopAudioKit;
-			productReference = C4DB6687249560CD001E1F37 /* DevoloopAudioKit-macOS.framework */;
+			productReference = C4DB6687249560CD001E1F37 /* DevoloopAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C4DB6689249560CD001E1F37 /* DevoloopAudioKit-tvOS */ = {
@@ -9388,7 +9388,7 @@
 			);
 			name = "DevoloopAudioKit-tvOS";
 			productName = DevoloopAudioKit;
-			productReference = C4DB66C7249560CD001E1F37 /* DevoloopAudioKit-tvOS.framework */;
+			productReference = C4DB66C7249560CD001E1F37 /* DevoloopAudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EA7D07001F4E63C200707706 /* AudioKitUI-iOS */ = {
@@ -12799,7 +12799,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DevoloopAudioKit-Swift.h";
@@ -12834,7 +12834,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DevoloopAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -12867,7 +12867,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
@@ -12902,7 +12902,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -12935,7 +12935,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
@@ -12970,7 +12970,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DevoloopAudioKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
