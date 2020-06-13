@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
-#import "AKAudioUnit.h"
+#import <AudioKit/AKAudioUnit.h>
 
 @interface AKMandolinAudioUnit : AKAudioUnit
 @property (nonatomic) float detune;

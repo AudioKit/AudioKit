@@ -9,7 +9,7 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
     AKShakerParameterAmplitude,
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import <AudioKit/AKLinearParameterRamp.hpp>
 
 #ifndef __cplusplus
 

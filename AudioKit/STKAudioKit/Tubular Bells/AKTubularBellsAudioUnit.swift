@@ -1,29 +1,29 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
+import AudioKit
 
-public class AKRhodesPianoAudioUnit: AKAudioUnitBase {
+public class AKTubularBellsAudioUnit: AKAudioUnitBase {
 
     var frequency: AUParameter!
 
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createRhodesPianoDSP()
+        return createTubularBellsDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        frequency = AUParameter(
+        let frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
             range: 0...20_000,
             unit: .hertz,
             flags: .default)
-        amplitude = AUParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,

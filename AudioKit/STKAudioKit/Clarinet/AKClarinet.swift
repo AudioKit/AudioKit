@@ -1,11 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// STK TubularBells
+import AudioKit
+
+/// STK Clarinet
 ///
-open class AKTubularBells: AKNode, AKToggleable, AKComponent {
+open class AKClarinet: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKClarinetAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "tbel")
-    public typealias AKAudioUnitType = AKTubularBellsAudioUnit
+    public static let ComponentDescription = AudioComponentDescription(generator: "flut")
     // MARK: - Properties
 
     public private(set) var internalAU: AKAudioUnitType?
@@ -35,17 +37,14 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the STK TubularBells model
+    /// Initialize the STK Clarinet model
     ///
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(
-        frequency: AUValue = 440,
-        amplitude: AUValue = 0.5
-    ) {
+    public init(frequency: AUValue = 440, amplitude: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
 
         _Self.register()
@@ -59,9 +58,18 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Trigger the sound with an optional set of parameters
+    /// Trigger the sound with current parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
+
+    /// Trigger the sound with a set of parameters
+    ///
+    /// - Parameters:
     ///   - frequency: Frequency in Hz
-    /// - amplitude amplitude: Volume
+    ///   - amplitude amplitude: Volume
     ///
     open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
@@ -69,4 +77,5 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
         internalAU?.start()
         internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
+
 }

@@ -1,11 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// STK Clarinet
+import AudioKit
+
+/// STK RhodesPiano
 ///
-open class AKClarinet: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKClarinetAudioUnit
+open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "flut")
+    public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
+    public typealias AKAudioUnitType = AKRhodesPianoAudioUnit
     // MARK: - Properties
 
     public private(set) var internalAU: AKAudioUnitType?
@@ -35,7 +37,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the STK Clarinet model
+    /// Initialize the STK RhodesPiano model
     ///
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is
@@ -56,15 +58,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Trigger the sound with current parameters
-    ///
-    open func trigger() {
-        internalAU?.start()
-        internalAU?.trigger()
-    }
-
-    /// Trigger the sound with a set of parameters
-    ///
+    /// Trigger the sound with an optional set of parameters
     /// - Parameters:
     ///   - frequency: Frequency in Hz
     ///   - amplitude amplitude: Volume
@@ -75,5 +69,4 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
         internalAU?.start()
         internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
-
 }
