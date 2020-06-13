@@ -82,7 +82,7 @@ open class AKSettings: NSObject {
     @objc public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    @objc public static var rampDuration: Double = 0.0002
+    @objc public static var rampDuration: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     @objc public static var notificationsEnabled: Bool = false
@@ -275,7 +275,8 @@ open class AKSettings: NSObject {
                     }
                 }
             } catch let error as NSError {
-                AKLog("Cannot set AVAudioSession Category to \(category) with options: \(options) " + error.localizedDescription,
+                AKLog("Cannot set AVAudioSession Category to \(category) " +
+                      "with options: \(options) " + error.localizedDescription,
                       log: OSLog.settings,
                       type: .error)
                 throw error

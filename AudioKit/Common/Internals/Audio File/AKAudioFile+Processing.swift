@@ -128,12 +128,14 @@ extension AKAudioFile {
         if appendedBuffer?.format != sourceBuffer?.format {
             AKLog("ERROR AKAudioFile.append: Couldn't match source file format with appended file format")
             let userInfo: [AnyHashable: Any] = [
-                NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile append process Error",
-                                                             value: "Couldn't match source file format with appended file format",
-                                                             comment: ""),
-                NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile append process Error",
-                                                                    value: "Couldn't match source file format with appended file format",
-                                                                    comment: "")
+                NSLocalizedDescriptionKey: NSLocalizedString(
+                    "AKAudioFile append process Error",
+                    value: "Couldn't match source file format with appended file format",
+                    comment: ""),
+                NSLocalizedFailureReasonErrorKey: NSLocalizedString(
+                    "AKAudioFile append process Error",
+                    value: "Couldn't match source file format with appended file format",
+                    comment: "")
             ]
             throw NSError(domain: "AKAudioFile ASync Process Unknown Error",
                           code: 0, userInfo: userInfo as? [String: Any])

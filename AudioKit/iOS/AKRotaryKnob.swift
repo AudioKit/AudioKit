@@ -214,10 +214,11 @@ public enum AKRotaryKnobStyle {
                                        NSAttributedString.Key.foregroundColor: textColor,
                                        NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
-        let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(with: CGSize(width: width, height: CGFloat.infinity),
-                                                                                       options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                                       attributes: nameLabelFontAttributes,
-                                                                                       context: nil).size.height
+        let nameLabelTextHeight: CGFloat =
+            NSString(string: propertyName).boundingRect(with: CGSize(width: width, height: CGFloat.infinity),
+                                                        options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                        attributes: nameLabelFontAttributes,
+                                                        context: nil).size.height
         context.saveGState()
 
         let knobHeight = height - nameLabelTextHeight
@@ -258,12 +259,13 @@ public enum AKRotaryKnobStyle {
                                     cornerRadii: CGSize(width: knobDiameter / 2.0,
                                                         height: knobDiameter / 2.0))
             case .polygon(let numberOfSides, let curvature):
-                return bezierPathWithPolygonInRect(knobRect,
-                                                   numberOfSides: numberOfSides,
-                                                   curvature: curvature,
-                                                   startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                                                       y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
-                                                   offsetAngle: angle)
+                return bezierPathWithPolygonInRect(
+                    knobRect,
+                    numberOfSides: numberOfSides,
+                    curvature: curvature,
+                    startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
+                    offsetAngle: angle)
             }
         }()
 
@@ -317,10 +319,11 @@ public enum AKRotaryKnobStyle {
                                             NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
-            let valueLabelTextSize = NSString(string: currentValueText).boundingRect(with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                                                                                     options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                                     attributes: valueLabelFontAttributes,
-                                                                                     context: nil).size
+            let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
+                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
+                options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                attributes: valueLabelFontAttributes,
+                context: nil).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
                                     height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)
@@ -353,11 +356,12 @@ public enum AKRotaryKnobStyle {
 
             context.saveGState()
             context.clip(to: valueLabelInset)
-            NSString(string: currentValueText).draw(in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                                                               y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
-                                                               width: valueLabelTextSize.width,
-                                                               height: valueLabelTextSize.height),
-                                                    withAttributes: valueLabelFontAttributes)
+            NSString(string: currentValueText).draw(
+                in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
+                           y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
+                           width: valueLabelTextSize.width,
+                           height: valueLabelTextSize.height),
+                withAttributes: valueLabelFontAttributes)
             context.restoreGState()
         }
     }
