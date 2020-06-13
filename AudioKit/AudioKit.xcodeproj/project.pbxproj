@@ -4769,9 +4769,7 @@
 		C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STKAudioKit.h; sourceTree = "<group>"; };
 		C4DB63FE2494B0E0001E1F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DB654C2494B656001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DB654D2494B656001E1F37 /* STKAudioKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit copy-Info.plist"; sourceTree = "<absolute>"; };
 		C4DB65F72494B681001E1F37 /* STKAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STKAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DB65F82494B681001E1F37 /* STKAudioKit-macOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "STKAudioKit-macOS copy-Info.plist"; path = "/Users/aure/Developer/AudioKit/AudioKit/AudioKit/STKAudioKit-macOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		C4DB65F92494B6EF001E1F37 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbDSP.mm; sourceTree = "<group>"; };
@@ -5598,8 +5596,6 @@
 				C4DB63FC2494B0E0001E1F37 /* STKAudioKit */,
 				C42F35011C057E03000E937C /* Products */,
 				EA7D070B1F4E63EB00707706 /* Frameworks */,
-				C4DB654D2494B656001E1F37 /* STKAudioKit copy-Info.plist */,
-				C4DB65F82494B681001E1F37 /* STKAudioKit-macOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -12367,7 +12363,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "STKAudioKit copy-Info.plist";
+				INFOPLIST_FILE = STKAudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -12401,7 +12397,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "STKAudioKit copy-Info.plist";
+				INFOPLIST_FILE = STKAudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -12433,7 +12429,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "STKAudioKit-macOS copy-Info.plist";
+				INFOPLIST_FILE = STKAudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -12467,7 +12463,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "STKAudioKit-macOS copy-Info.plist";
+				INFOPLIST_FILE = STKAudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
