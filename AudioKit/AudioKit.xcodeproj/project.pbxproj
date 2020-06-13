@@ -1110,7 +1110,6 @@
 		C4DB649C2494B37B001E1F37 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4DB649D2494B37B001E1F37 /* AKTubularBellsDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49160C621CED2000086C765 /* AKTubularBellsDSP.mm */; };
 		C4DB649E2494B602001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
-		C4DB649F2494B602001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4DB64A72494B656001E1F37 /* WvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1355204A06B6009C7C8E /* WvIn.h */; };
 		C4DB64A82494B656001E1F37 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4DB64A92494B656001E1F37 /* STKAudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1268,7 +1267,6 @@
 		C4DB65422494B656001E1F37 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1362204A06B6009C7C8E /* Noise.cpp */; };
 		C4DB65432494B656001E1F37 /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetDSP.mm */; };
 		C4DB65452494B656001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
-		C4DB65482494B656001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4DB65522494B681001E1F37 /* WvIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1355204A06B6009C7C8E /* WvIn.h */; };
 		C4DB65532494B681001E1F37 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4DB65542494B681001E1F37 /* STKAudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DB63FD2494B0E0001E1F37 /* STKAudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1426,7 +1424,6 @@
 		C4DB65ED2494B681001E1F37 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1362204A06B6009C7C8E /* Noise.cpp */; };
 		C4DB65EE2494B681001E1F37 /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetDSP.mm */; };
 		C4DB65F02494B681001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
-		C4DB65F32494B681001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4DB65FA2494B6F5001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
 		C4DB65FB2494B6FB001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
 		C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDA221C21FCF50033494B /* squareWave.swift */; };
@@ -3595,42 +3592,6 @@
 			remoteInfo = "AudioKit-macOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C4DB64A22494B602001E1F37 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C4DB649F2494B602001E1F37 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4DB65472494B656001E1F37 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C4DB65482494B656001E1F37 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4DB65F22494B681001E1F37 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C4DB65F32494B681001E1F37 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
@@ -9167,7 +9128,6 @@
 				C4DB63F72494B0E0001E1F37 /* Sources */,
 				C4DB63F82494B0E0001E1F37 /* Frameworks */,
 				C4DB63F92494B0E0001E1F37 /* Resources */,
-				C4DB64A22494B602001E1F37 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -9187,7 +9147,6 @@
 				C4DB65192494B656001E1F37 /* Sources */,
 				C4DB65442494B656001E1F37 /* Frameworks */,
 				C4DB65462494B656001E1F37 /* Resources */,
-				C4DB65472494B656001E1F37 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -9207,7 +9166,6 @@
 				C4DB65C42494B681001E1F37 /* Sources */,
 				C4DB65EF2494B681001E1F37 /* Frameworks */,
 				C4DB65F12494B681001E1F37 /* Resources */,
-				C4DB65F22494B681001E1F37 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
