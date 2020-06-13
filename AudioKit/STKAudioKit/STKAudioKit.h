@@ -8,9 +8,6 @@ FOUNDATION_EXPORT double STKAudioKitVersionNumber;
 //! Project version string for STKAudioKit.
 FOUNDATION_EXPORT const unsigned char STKAudioKitVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <STKAudioKit/PublicHeader.h>
-
-
 #import "AKClarinetDSP.hpp"
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
