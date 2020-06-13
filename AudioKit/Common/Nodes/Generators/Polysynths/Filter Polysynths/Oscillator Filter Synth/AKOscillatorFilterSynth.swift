@@ -14,7 +14,6 @@ open class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
 
     /// Waveform of the oscillator
     @objc open var waveform: AKTable? {
-        // TODO: Add error checking for table size...needs to match init()
         willSet {
             if let wf = newValue {
                 for (i, sample) in wf.enumerated() {
