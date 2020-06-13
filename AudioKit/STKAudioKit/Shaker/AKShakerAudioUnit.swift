@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AudioKit
+
 public class AKShakerAudioUnit: AKAudioUnitBase {
 
     var type: AUParameter!

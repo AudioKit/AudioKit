@@ -1,8 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AudioKit
+
 /// Physical model of a 4 course mandolin
 ///
 open class AKMandolin: AKNode, AKComponent {
+
     public typealias AKAudioUnitType = AKMandolinAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mand")
