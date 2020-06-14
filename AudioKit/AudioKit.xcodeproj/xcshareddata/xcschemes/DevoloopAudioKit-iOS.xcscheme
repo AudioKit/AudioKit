@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C4DB660124955B0D001E1F37"
-               BuildableName = "DevoloopAudioKit_iOS.framework"
+               BuildableName = "DevoloopAudioKit.framework"
                BlueprintName = "DevoloopAudioKit-iOS"
                ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C4DB660124955B0D001E1F37"
-            BuildableName = "DevoloopAudioKit_iOS.framework"
+            BuildableName = "DevoloopAudioKit.framework"
             BlueprintName = "DevoloopAudioKit-iOS"
             ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
