@@ -32,7 +32,8 @@ if [ ! -f build_frameworks.sh ]; then
     exit 0
 fi
 
-VERSION=`cat ../VERSION`
+VERSION=$(cat ../VERSION)
+FRAMEWORKS=$(cat Frameworks.list)
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
 if test "$TRAVIS" = true;
@@ -63,59 +64,48 @@ else
 fi
 
 # Provide 3 arguments: platform (iOS or tvOS), simulator os, native os
-create_universal_framework()
+create_universal_frameworks()
 {
 	PROJECT="../AudioKit/AudioKit.xcodeproj"
 	DIR="AudioKit-$1"
-	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
+	rm -rf $DIR/*.framework
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}-$1" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
+	xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
 		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
-	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
-		echo "Building dynamic framework for AudioKit"
-		DYNAMIC=true
-		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR/"
-		cp -v fix-framework.sh "${DIR}/${PROJECT_NAME}.framework/"
-	else
-		echo "Building static framework for AudioKit"
-	fi
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM"; then
-		echo "Building dynamic framework for AudioKitUI"
-		DYNAMIC_UI=true
-		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
-		cp -v fix-framework.sh "${DIR}/${PROJECT_UI_NAME}.framework/"
-	else
-		echo "Building static framework for AudioKitUI"
-		ls -l "${BUILD_DIR}/${CONFIGURATION}-$2/"
-	fi
+	for f in ${PROJECT_NAME} $FRAMEWORKS; do
+		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
+		if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework.dSYM"; then
+			echo "Building dynamic framework for $f"
+			DYNAMIC_UI=true
+			cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework.dSYM" "$DIR/"
+			cp -v fix-framework.sh "${DIR}/${f}.framework/"
+		else
+			echo "Building static framework for $f"
+		fi
+	done
 	
 	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
 	then # Only build for simulator on Travis CI, unless we're building a release
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_NAME}.framework/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* "${DIR}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"* "${DIR}/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"
+		for f in ${PROJECT_NAME} $FRAMEWORKS; do
+			cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/${f}" "${DIR}/${f}.framework/"
+			cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/Modules/${f}.swiftmodule/"* "${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+		done
 	else # Build device slices
-		xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}-$1" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
+		xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
 			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 3
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* \
-			"${DIR}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"* \
-			"${DIR}/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/Info.plist" "${DIR}/${PROJECT_NAME}.framework/"
-		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/Info.plist" "${DIR}/${PROJECT_UI_NAME}.framework/"
-		# Merge the frameworks proper - apparently it's important that device OS is first starting in Xcode 10.2
-		lipo -create -output "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" || exit 4
-		lipo -create -output "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" || exit 4
+		for f in ${PROJECT_NAME} $FRAMEWORKS; do
+			cp -av "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Modules/${f}.swiftmodule/"* \
+				"${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+			cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Info.plist" "${DIR}/${f}.framework/"
+			# Merge the frameworks proper - apparently it's important that device OS is first starting in Xcode 10.2
+			lipo -create -output "${DIR}/${f}.framework/${f}" \
+				"${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/${f}" \
+				"${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/${f}" || exit 4
+		done
 		if test "$DYNAMIC" = true;
 		then
 			mkdir -p "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps"
-			# Doesn't seem to have a way to tell which bcsymbolmap belogs to which framework
+			# Doesn't seem to have a way to tell which bcsymbolmap belongs to which framework
 			cp -av "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps/"
 			# Merge the dSYM files
 			lipo -create -output "${DIR}/${PROJECT_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_NAME}" \
@@ -126,19 +116,23 @@ create_universal_framework()
 		fi
 		if test "$DYNAMIC_UI" = true;
 		then
-			mkdir -p "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps"
-			# Doesn't seem to have a way to tell which bcsymbolmap belogs to which framework
-			UIBC=`fgrep -Hn AudioKitUI "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap|awk -F: '{print $1}'|uniq`
-			cp -av $UIBC "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps/"
-			# Merge the dSYM files
-			lipo -create -output "${DIR}/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" \
-				"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" \
-				"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" || exit 5
+			for f in $FRAMEWORKS; do
+				mkdir -p "${DIR}/${f}.framework/BCSymbolMaps"
+				# Doesn't seem to have a way to tell which bcsymbolmap belongs to which framework
+				UIBC=`fgrep -Hn $f "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap|awk -F: '{print $1}'|uniq`
+				cp -av $UIBC "${DIR}/${f}.framework/BCSymbolMaps/"
+				# Merge the dSYM files
+				lipo -create -output "${DIR}/${f}.framework.dSYM/Contents/Resources/DWARF/${f}" \
+					"${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework.dSYM/Contents/Resources/DWARF/${f}" \
+					"${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework.dSYM/Contents/Resources/DWARF/${f}" || exit 5
+			done
 		else # Strip debug symbols from static library
-			strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+			for f in $FRAMEWORKS; do
+				strip -S "${DIR}/${f}.framework/${f}"
+			done
 		fi
 		# Swift 5 / Xcode 10.2 bug (!?) - must combine the generated AudioKit-Swift.h headers
-		for fw in ${PROJECT_NAME} ${PROJECT_UI_NAME};
+		for fw in ${PROJECT_NAME} ${FRAMEWORKS};
 		do
 			echo '#include <TargetConditionals.h>' > "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
 			echo '#if TARGET_OS_SIMULATOR' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
@@ -164,39 +158,37 @@ create_framework()
 		XCCONFIG=device.xcconfig
 	fi
 	echo "Building static frameworks for $1 / $2"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}-$1" -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
+	xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
 		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
-	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
-	strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+	for f in ${PROJECT_NAME} $FRAMEWORKS; do
+		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
+		strip -S "${DIR}/${f}.framework/${f}"
+	done
 }
 
 
 # Provide 2 arguments: platform (macOS), native os (macosx)
-create_macos_framework()
+create_macos_frameworks()
 {
 	PROJECT="../AudioKit/AudioKit.xcodeproj"
 	DIR="AudioKit-$1"
-	rm -rf "${DIR}/${PROJECT_NAME}.framework" "${DIR}/${PROJECT_UI_NAME}.framework"
+	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_UI_NAME}-macOS" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+	xcodebuild -project "$PROJECT" -target "All-macOS" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
 		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
-	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework" "$DIR/"
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
-	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$DIR/"
-	else
-		strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}"
-	fi
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM";
-	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
-	else
-		strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
-	fi
+	for f in ${PROJECT_NAME} $FRAMEWORKS; do
+		cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework" "$DIR/"
+		if test -d  "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM";
+		then
+			cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM" "$DIR/"
+		else
+			strip -S "${DIR}/${f}.framework/${f}"
+		fi
+	done
 }
 
 # Make a UIKitforMac version (maccatalyst) from the iOS project, but package with the Mac version
-create_catalyst_framework()
+create_catalyst_frameworks()
 {
 	if test $OSTYPE = darwin19; then
 		echo "Building Mac Catalyst framework"
@@ -206,34 +198,29 @@ create_catalyst_framework()
 	fi
 	PROJECT="../AudioKit/AudioKit.xcodeproj"
 	DIR="AudioKit-macOS/Catalyst"
-	rm -rf "${DIR}/${PROJECT_NAME}.framework" "${DIR}/${PROJECT_UI_NAME}.framework"
+	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild archive -project "$PROJECT" -scheme ${PROJECT_UI_NAME}-iOS ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
+	xcodebuild archive -project "$PROJECT" -scheme All-iOS ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
 			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
 			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
-	cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_NAME}.framework" "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_UI_NAME}.framework" "$DIR/"
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
-	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$DIR/"
-	else
-		strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}"
-	fi
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM";
-	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
-	else
-		strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
-	fi
+	for f in ${PROJECT_NAME} $FRAMEWORKS; do
+		cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${f}.framework" "$DIR/"
+		if test -d  "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM";
+		then
+			cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM" "$DIR/"
+		else
+			strip -S "${DIR}/${f}.framework/${f}"
+		fi
+	done
 
 	# Finally, replace the symlinks created in the build directory by the actual archive, so they can be copied as build artifacts
 	if [ -L "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework" ];
 	then
-		LINK=$(readlink "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework")
-		rm "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework"
-		cp -a "$LINK" "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_NAME}.framework"
-		LINK=$(readlink "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework")
-		rm "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework"
-		cp -a "$LINK" "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${PROJECT_UI_NAME}.framework"
+		for f in ${PROJECT_NAME} $FRAMEWORKS; do
+			LINK=$(readlink "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${f}.framework")
+			rm "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${f}.framework"
+			cp -a "$LINK" "${BUILD_DIR}/${CONFIGURATION}-maccatalyst/${f}.framework"
+		done
 	fi
 }
 
@@ -242,16 +229,16 @@ rm -f build.log
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
-		create_universal_framework iOS iphonesimulator iphoneos
+		create_universal_frameworks iOS iphonesimulator iphoneos
 		#create_framework iOS iphoneos
 		#create_framework iOS iphonesimulator
 	elif test $os = 'tvOS'; then
-		create_universal_framework tvOS appletvsimulator appletvos
+		create_universal_frameworks tvOS appletvsimulator appletvos
 		#create_framework tvOS appletvos
 		#create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
-		create_macos_framework macOS macosx
-		create_catalyst_framework
+		create_macos_frameworks macOS macosx
+		create_catalyst_frameworks
 	fi
 done
 

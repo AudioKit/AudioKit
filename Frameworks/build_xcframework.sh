@@ -23,5 +23,6 @@ create_xcframework()
 	find ${DESTINATION}/$1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
 }
 
-create_xcframework AudioKit
-create_xcframework AudioKitUI
+for f in AudioKit $(cat Frameworks.list); do
+	create_xcframework $f
+done
