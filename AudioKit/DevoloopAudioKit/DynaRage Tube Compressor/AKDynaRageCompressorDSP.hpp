@@ -14,12 +14,13 @@ typedef NS_ENUM(AUParameterAddress, AKDynaRageCompressorParameter) {
 };
 
 #ifndef __cplusplus
+#import <AudioKit/AKInterop.hpp>
 
 AKDSPRef createDynaRageCompressorDSP(void);
 
 #else
 
-#import "AKDSPBase.hpp"
+#import <AudioKit/AKDSPBase.hpp>
 
 class AKDynaRageCompressorDSP : public AKDSPBase {
 private:
