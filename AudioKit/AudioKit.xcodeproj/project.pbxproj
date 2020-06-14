@@ -1420,8 +1420,6 @@
 		C4DB65EC2494B681001E1F37 /* AKMandolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407185C1D2267B800665C02 /* AKMandolin.swift */; };
 		C4DB65ED2494B681001E1F37 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1362204A06B6009C7C8E /* Noise.cpp */; };
 		C4DB65EE2494B681001E1F37 /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetDSP.mm */; };
-		C4DB65FA2494B6F5001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
-		C4DB65FB2494B6FB001E1F37 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DB65F92494B6EF001E1F37 /* libc++.tbd */; };
 		C4DB660624955B0D001E1F37 /* DevoloopAudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DB660424955B0D001E1F37 /* DevoloopAudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4DB660A24955B80001E1F37 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C4DB660B24955B80001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1624,7 +1622,6 @@
 		E4630B4E1D2BC7A800437E75 /* AKDelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B4D1D2BC7A800437E75 /* AKDelayPresets.swift */; };
 		E4630B501D2BC7F800437E75 /* AKMoogLadderPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B4F1D2BC7F800437E75 /* AKMoogLadderPresets.swift */; };
 		EA03C028202430D500E8BE2C /* ParameterRamper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA03C027202430D500E8BE2C /* ParameterRamper.cpp */; };
-		EA08A99E214A018500115D67 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA08A99D214A018500115D67 /* libc++.tbd */; };
 		EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E11C59A9FC0035B5DF /* AKSettings.swift */; };
 		EA7D070C1F4E63EB00707706 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		EA7D070D1F4E63F400707706 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BA9811C5E24AE00BBD469 /* AKView.swift */; };
@@ -2552,7 +2549,6 @@
 		EAA62D5C247F410100BF4CDB /* AKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C02093D4B5007334A4 /* AKColor.swift */; };
 		EAA62D5E247F410100BF4CDB /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		EAA62D5F247F410100BF4CDB /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
-		EAA62D63247F410100BF4CDB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA08A99D214A018500115D67 /* libc++.tbd */; };
 		EAA62D64247F410100BF4CDB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		EAA62D66247F410100BF4CDB /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62D67247F410100BF4CDB /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C413E1C40E3A5009D870B /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5148,7 +5144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4DB660F24955B9A001E1F37 /* AudioKit.framework in Frameworks */,
-				C4DB65FA2494B6F5001E1F37 /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5157,7 +5152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4DB661424955BAB001E1F37 /* AudioKit.framework in Frameworks */,
-				C4DB65FB2494B6FB001E1F37 /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5189,7 +5183,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA08A99E214A018500115D67 /* libc++.tbd in Frameworks */,
 				EA7D070C1F4E63EB00707706 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5205,7 +5198,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAA62D63247F410100BF4CDB /* libc++.tbd in Frameworks */,
 				EAA62D64247F410100BF4CDB /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
