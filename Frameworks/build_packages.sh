@@ -9,6 +9,7 @@ SKIP_JAZZY=1 # Broken for now
 SUBDIR=${SUBDIR:-"packages"}
 STAGING_BRANCH="staging"
 VERSION=$(cat ../VERSION)
+FRAMEWORKS=$(cat Frameworks.list)
 SED=${SED:-"sed"}
 
 if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH";
@@ -52,7 +53,7 @@ create_package()
 	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$1"
 	cd $DIR
-	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
+	tar cf - $(find . -name \*AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
 	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
@@ -108,5 +109,5 @@ cd ..
 if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
 	echo "Packaging the XCFrameworks ..."
 	rm -f ${SUBDIR}/AudioKit.xcframework.zip
-	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip *.xcframework 
 fi
