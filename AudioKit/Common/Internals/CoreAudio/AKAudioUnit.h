@@ -192,7 +192,7 @@
                               AudioBufferList            *outputData, \
                               const AURenderEvent        *realtimeEventListHead, \
                               AURenderPullInputBlock      pullInputBlock) { \
-        _outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true); \
+        self->_outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true); \
         state->setBuffer(outputData); \
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead); \
         return noErr; \
