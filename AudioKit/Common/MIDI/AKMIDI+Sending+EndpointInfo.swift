@@ -2,7 +2,7 @@
 //  AKMIDI+Sending+EndpointInfo.swift
 //  AudioKit
 //
-//  Created by dejaWorks Trevor D, Beydag on 14/06/2020.
+//  Created by dejaWorks - Trevor D, Beydag on 14/06/2020.
 //  Copyright © 2020 AudioKit. All rights reserved.
 //
 

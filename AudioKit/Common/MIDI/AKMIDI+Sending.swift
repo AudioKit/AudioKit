@@ -24,7 +24,7 @@ private let sizeOfMIDIPacketListHeader = sizeOfMIDIPacketList - sizeOfMIDIPacket
 /// fields, or subtract the size of the 256 `Byte`s from the size of the whole packet. I opted for
 /// the former.
 private let sizeOfMIDIPacketHeader = MemoryLayout<MIDITimeStamp>.size + MemoryLayout<UInt16>.size
-private let sizeOfMIDICombinedHeaders = sizeOfMIDIPacketListHeader + sizeOfMIDIPacketHeader
+internal let sizeOfMIDICombinedHeaders = sizeOfMIDIPacketListHeader + sizeOfMIDIPacketHeader
 
 func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
     var port: MIDIPortRef = 0
