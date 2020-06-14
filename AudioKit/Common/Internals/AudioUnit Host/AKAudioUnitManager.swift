@@ -66,7 +66,7 @@ open class AKAudioUnitManager: NSObject {
     private var _availableMIDIProcessors = [AVAudioUnitComponent]()
 
     // Defaults to a chain of 6 effects
-    private var _effectsChain = [AVAudioUnit?](repeating: nil, count: 6)
+    internal var _effectsChain = [AVAudioUnit?](repeating: nil, count: 6)
 
     /// Effects Chain
     public var effectsChain: [AVAudioUnit?] {
@@ -107,8 +107,8 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // just get a non nil list of Audio Units
-    private var linkedEffects: [AVAudioUnit] {
+    /// A non nil variable length array of Audio Units that are in the chain
+    public var linkedEffects: [AVAudioUnit] {
         return _effectsChain.compactMap { $0 }
     }
 
@@ -211,7 +211,6 @@ open class AKAudioUnitManager: NSObject {
     }
 
     @objc private func componentInstanceObservor(notification: Foundation.Notification) {
-        // TODO: remove crashedAU from signal chain
         let crashedAU = notification.object as? AUAudioUnit
         AKLog("* Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
         delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
@@ -242,7 +241,6 @@ open class AKAudioUnitManager: NSObject {
                 self.delegate?.handleAudioUnitManagerNotification(
                     .instrumentsAvailable(instruments: self.availableInstruments),
                     audioUnitManager: self)
-
                 completionHandler?(self.availableInstruments)
             }
         }
@@ -258,7 +256,6 @@ open class AKAudioUnitManager: NSObject {
                 self.delegate?.handleAudioUnitManagerNotification(
                     .midiProcessorsAvailable(midiProcessors: self.availableMIDIProcessors),
                     audioUnitManager: self)
-
                 completionHandler?(self.availableMIDIProcessors)
             }
         }
@@ -318,134 +315,6 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // MARK: - Effects Chain management
-
-    public func removeEffect(at index: Int, reconnectChain: Bool = true) {
-        if let au = _effectsChain[index] {
-            AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
-
-            if au.engine != nil {
-                AKManager.engine.disconnectNodeInput(au)
-                AKManager.engine.detach(au)
-            }
-        }
-        _effectsChain[index] = nil
-
-        if reconnectChain {
-            connectEffects()
-        }
-
-        delegate?.audioUnitManager(self, didRemoveEffectAtIndex: index)
-    }
-
-    /// Create the Audio Unit at the specified index of the chain
-    public func insertAudioUnit(name: String, at index: Int) {
-        guard _effectsChain.indices.contains(index) else {
-            AKLog("\(index) index is invalid.")
-            return
-        }
-
-        guard availableEffects.isNotEmpty else {
-            AKLog("You must call requestEffects before using this function. availableEffects is empty")
-            return
-        }
-
-        if let component = (availableEffects.first { $0.name == name }) {
-            let acd = component.audioComponentDescription
-
-            AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
-                guard let audioUnit = audioUnit else {
-                    AKLog("Unable to create audioUnit")
-                    return
-                }
-
-                if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
-                    AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
-                }
-
-                AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
-
-                self._effectsChain[index] = audioUnit
-                self.connectEffects()
-                DispatchQueue.main.async {
-                    self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
-                }
-            }
-
-        } else if let avUnit = AKAudioUnitManager.createInternalEffect(name: name) {
-            _effectsChain[index] = avUnit
-            connectEffects()
-            DispatchQueue.main.async {
-                self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
-            }
-        } else {
-            AKLog("Error: Unable to find \(name) in availableEffects.")
-        }
-    }
-
-    /// Removes all effects from the effectsChain
-    public func removeEffects() {
-        for i in 0 ..< _effectsChain.count {
-            if let au = _effectsChain[i] {
-                if au.engine != nil {
-                    AKManager.engine.disconnectNodeInput(au)
-                    AKManager.engine.detach(au)
-                }
-                _effectsChain[i] = nil
-            }
-        }
-    }
-
-    /// called from client to hook the chain together
-    /// firstNode would be something like a player, and last something like a mixer that's headed
-    /// to the output.
-    open func connectEffects(firstNode: AKNode? = nil, lastNode: AKNode? = nil) {
-        if firstNode != nil {
-            input = firstNode
-        }
-
-        if lastNode != nil {
-            output = lastNode
-        }
-
-        guard let input = input else {
-            AKLog("input is nil")
-            return
-        }
-        guard let output = output else {
-            AKLog("output is nil")
-            return
-        }
-
-        // it's an effects sandwich
-        let inputAV = input.avAudioUnitOrNode
-        let effects = linkedEffects
-        let outputAV = output.avAudioUnitOrNode
-
-        // where to take the processing format from. Can take from the output of the chain's nodes or from the input
-        let processingFormat = useSystemAVFormat ? AKSettings.audioFormat : inputAV.outputFormat(forBus: 0)
-        AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
-
-        if effects.isEmpty {
-            AKManager.connect(inputAV, to: outputAV, format: processingFormat)
-            return
-        }
-        var au = effects[0]
-
-        AKManager.connect(inputAV, to: au, format: processingFormat)
-
-        if effects.count > 1 {
-            for i in 1 ..< effects.count {
-                au = effects[i]
-                let prevAU = effects[i - 1]
-
-                AKManager.connect(prevAU, to: au, format: processingFormat)
-            }
-        }
-
-        AKManager.connect(au, to: outputAV, format: processingFormat)
-    }
-
     /// Clear all linked units previous processing state. IE, Panic button.
     public func reset() {
         for aunit in linkedEffects {
@@ -457,7 +326,7 @@ open class AKAudioUnitManager: NSObject {
 
     /// Should be called when done with this class to release references
     public func dispose() {
-        AKLog("disposing AKAudioUnitManager")
+        // AKLog("disposing AKAudioUnitManager")
         removeEffects()
         _availableEffects.removeAll()
         _availableInstruments.removeAll()
