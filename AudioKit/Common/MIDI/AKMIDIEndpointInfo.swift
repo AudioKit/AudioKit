@@ -7,7 +7,7 @@
 //
 
 /// MIDI Endpoint Information
-public struct EndpointInfo:Hashable {
+public struct EndpointInfo: Hashable {
 
     /// Unique name
     public var name = ""
@@ -27,13 +27,13 @@ public struct EndpointInfo:Hashable {
     public var driverOwner = ""
     
     /// MIDIUniqueID
-    public var midiUniqueID:MIDIUniqueID
+    public var midiUniqueID: MIDIUniqueID
     
     /// MIDIEndpointRef
-    public var midiEndpointRef:MIDIEndpointRef
+    public var midiEndpointRef: MIDIEndpointRef
     
     /// MIDIPortRef (this will be set|unset when input|output open|close)
-    public var midiPortRef:MIDIPortRef?
+    public var midiPortRef: MIDIPortRef?
     
     /// Equatable
     public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
