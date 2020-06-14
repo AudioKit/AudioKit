@@ -6,6 +6,51 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		EA736D8E2495BA9A00007856 /* All-iOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = EA736D912495BA9A00007856 /* Build configuration list for PBXAggregateTarget "All-iOS" */;
+			buildPhases = (
+			);
+			dependencies = (
+				EA736D932495BAB600007856 /* PBXTargetDependency */,
+				EA736D952495BAB600007856 /* PBXTargetDependency */,
+				EA736D972495BAB600007856 /* PBXTargetDependency */,
+				EA736D992495BAB600007856 /* PBXTargetDependency */,
+			);
+			name = "All-iOS";
+			productName = "All-iOS";
+		};
+		EA736D9A2495BAEE00007856 /* All-macOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = EA736D9B2495BAEE00007856 /* Build configuration list for PBXAggregateTarget "All-macOS" */;
+			buildPhases = (
+			);
+			dependencies = (
+				EA736DA32495BB0A00007856 /* PBXTargetDependency */,
+				EA736DA52495BB0A00007856 /* PBXTargetDependency */,
+				EA736DA72495BB0A00007856 /* PBXTargetDependency */,
+				EA736DA92495BB0A00007856 /* PBXTargetDependency */,
+			);
+			name = "All-macOS";
+			productName = "All-macOS";
+		};
+		EA736D9E2495BAFA00007856 /* All-tvOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = EA736D9F2495BAFA00007856 /* Build configuration list for PBXAggregateTarget "All-tvOS" */;
+			buildPhases = (
+			);
+			dependencies = (
+				EA736DAB2495BB1600007856 /* PBXTargetDependency */,
+				EA736DAD2495BB1600007856 /* PBXTargetDependency */,
+				EA736DAF2495BB1600007856 /* PBXTargetDependency */,
+				EA736DB12495BB1600007856 /* PBXTargetDependency */,
+			);
+			name = "All-tvOS";
+			productName = "All-tvOS";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		07C0F21B1F13EE1200F928C9 /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */; };
 		22D63258246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */; };
@@ -3601,6 +3646,90 @@
 			proxyType = 1;
 			remoteGlobalIDString = EAA628A3247F3A5B00BF4CDB;
 			remoteInfo = "AudioKit-tvOS";
+		};
+		EA736D922495BAB600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = "AudioKit-iOS";
+		};
+		EA736D942495BAB600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA7D07001F4E63C200707706;
+			remoteInfo = "AudioKitUI-iOS";
+		};
+		EA736D962495BAB600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB660124955B0D001E1F37;
+			remoteInfo = "DevoloopAudioKit-iOS";
+		};
+		EA736D982495BAB600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB63FA2494B0E0001E1F37;
+			remoteInfo = "STKAudioKit-iOS";
+		};
+		EA736DA22495BB0A00007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA62D75247F44E200BF4CDB;
+			remoteInfo = "AudioKit-macOS";
+		};
+		EA736DA42495BB0A00007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA63212247F559400BF4CDB;
+			remoteInfo = "AudioKitUI-macOS";
+		};
+		EA736DA62495BB0A00007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB6649249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-macOS";
+		};
+		EA736DA82495BB0A00007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB64A32494B656001E1F37;
+			remoteInfo = "STKAudioKit-macOS";
+		};
+		EA736DAA2495BB1600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA628A3247F3A5B00BF4CDB;
+			remoteInfo = "AudioKit-tvOS";
+		};
+		EA736DAC2495BB1600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAA62D41247F410100BF4CDB;
+			remoteInfo = "AudioKitUI-tvOS";
+		};
+		EA736DAE2495BB1600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB6689249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-tvOS";
+		};
+		EA736DB02495BB1600007856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F34F71C057E03000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4DB654E2494B681001E1F37;
+			remoteInfo = "STKAudioKit-tvOS";
 		};
 		EA7D07091F4E63E600707706 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -9526,6 +9655,18 @@
 						DevelopmentTeam = 9W69ZP8S5F;
 						ProvisioningStyle = Automatic;
 					};
+					EA736D8E2495BA9A00007856 = {
+						CreatedOnToolsVersion = 11.5;
+						ProvisioningStyle = Automatic;
+					};
+					EA736D9A2495BAEE00007856 = {
+						CreatedOnToolsVersion = 11.5;
+						ProvisioningStyle = Automatic;
+					};
+					EA736D9E2495BAFA00007856 = {
+						CreatedOnToolsVersion = 11.5;
+						ProvisioningStyle = Automatic;
+					};
 					EA7D07001F4E63C200707706 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 1020;
@@ -9552,6 +9693,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				EA736D8E2495BA9A00007856 /* All-iOS */,
+				EA736D9A2495BAEE00007856 /* All-macOS */,
+				EA736D9E2495BAFA00007856 /* All-tvOS */,
 				C42F34FF1C057E03000E937C /* AudioKit-iOS */,
 				EAA62D75247F44E200BF4CDB /* AudioKit-macOS */,
 				EAA628A3247F3A5B00BF4CDB /* AudioKit-tvOS */,
@@ -12351,6 +12495,66 @@
 			target = EAA628A3247F3A5B00BF4CDB /* AudioKit-tvOS */;
 			targetProxy = C4DB66D0249560FD001E1F37 /* PBXContainerItemProxy */;
 		};
+		EA736D932495BAB600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
+			targetProxy = EA736D922495BAB600007856 /* PBXContainerItemProxy */;
+		};
+		EA736D952495BAB600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA7D07001F4E63C200707706 /* AudioKitUI-iOS */;
+			targetProxy = EA736D942495BAB600007856 /* PBXContainerItemProxy */;
+		};
+		EA736D972495BAB600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB660124955B0D001E1F37 /* DevoloopAudioKit-iOS */;
+			targetProxy = EA736D962495BAB600007856 /* PBXContainerItemProxy */;
+		};
+		EA736D992495BAB600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB63FA2494B0E0001E1F37 /* STKAudioKit-iOS */;
+			targetProxy = EA736D982495BAB600007856 /* PBXContainerItemProxy */;
+		};
+		EA736DA32495BB0A00007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA62D75247F44E200BF4CDB /* AudioKit-macOS */;
+			targetProxy = EA736DA22495BB0A00007856 /* PBXContainerItemProxy */;
+		};
+		EA736DA52495BB0A00007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA63212247F559400BF4CDB /* AudioKitUI-macOS */;
+			targetProxy = EA736DA42495BB0A00007856 /* PBXContainerItemProxy */;
+		};
+		EA736DA72495BB0A00007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB6649249560CD001E1F37 /* DevoloopAudioKit-macOS */;
+			targetProxy = EA736DA62495BB0A00007856 /* PBXContainerItemProxy */;
+		};
+		EA736DA92495BB0A00007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB64A32494B656001E1F37 /* STKAudioKit-macOS */;
+			targetProxy = EA736DA82495BB0A00007856 /* PBXContainerItemProxy */;
+		};
+		EA736DAB2495BB1600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA628A3247F3A5B00BF4CDB /* AudioKit-tvOS */;
+			targetProxy = EA736DAA2495BB1600007856 /* PBXContainerItemProxy */;
+		};
+		EA736DAD2495BB1600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAA62D41247F410100BF4CDB /* AudioKitUI-tvOS */;
+			targetProxy = EA736DAC2495BB1600007856 /* PBXContainerItemProxy */;
+		};
+		EA736DAF2495BB1600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB6689249560CD001E1F37 /* DevoloopAudioKit-tvOS */;
+			targetProxy = EA736DAE2495BB1600007856 /* PBXContainerItemProxy */;
+		};
+		EA736DB12495BB1600007856 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4DB654E2494B681001E1F37 /* STKAudioKit-tvOS */;
+			targetProxy = EA736DB02495BB1600007856 /* PBXContainerItemProxy */;
+		};
 		EA7D070A1F4E63E600707706 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C42F34FF1C057E03000E937C /* AudioKit-iOS */;
@@ -12664,6 +12868,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
 				PRODUCT_NAME = STKAudioKit;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "STLAudioKit-Swift.h";
@@ -12699,6 +12904,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
 				PRODUCT_NAME = STKAudioKit;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "STLAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -12732,12 +12938,13 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
 				PRODUCT_NAME = STKAudioKit;
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "STKAudioKit-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
 		};
@@ -12767,10 +12974,11 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.STKAudioKit;
 				PRODUCT_NAME = STKAudioKit;
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "STKAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Release;
 		};
@@ -12868,6 +13076,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
 				PRODUCT_NAME = DevoloopAudioKit;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
@@ -12903,6 +13112,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
 				PRODUCT_NAME = DevoloopAudioKit;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -12936,12 +13146,13 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
 				PRODUCT_NAME = DevoloopAudioKit;
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
 		};
@@ -12971,10 +13182,63 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.DevoloopAudioKit;
 				PRODUCT_NAME = DevoloopAudioKit;
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "DeveloopAudioKit-Swift.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Release;
+		};
+		EA736D8F2495BA9A00007856 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EA736D902495BA9A00007856 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EA736D9C2495BAEE00007856 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EA736D9D2495BAEE00007856 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EA736DA02495BAFA00007856 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+			};
+			name = Debug;
+		};
+		EA736DA12495BAFA00007856 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
 			};
 			name = Release;
 		};
@@ -13408,6 +13672,33 @@
 			buildConfigurations = (
 				C4DB66C5249560CD001E1F37 /* Debug */,
 				C4DB66C6249560CD001E1F37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA736D912495BA9A00007856 /* Build configuration list for PBXAggregateTarget "All-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA736D8F2495BA9A00007856 /* Debug */,
+				EA736D902495BA9A00007856 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA736D9B2495BAEE00007856 /* Build configuration list for PBXAggregateTarget "All-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA736D9C2495BAEE00007856 /* Debug */,
+				EA736D9D2495BAEE00007856 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA736D9F2495BAFA00007856 /* Build configuration list for PBXAggregateTarget "All-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA736DA02495BAFA00007856 /* Debug */,
+				EA736DA12495BAFA00007856 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
