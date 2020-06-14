@@ -7,7 +7,7 @@
 //
 
 /// MIDI Endpoint Information
-public struct EndpointInfo {
+public struct EndpointInfo:Hashable {
 
     /// Unique name
     public var name = ""
@@ -32,6 +32,24 @@ public struct EndpointInfo {
     /// MIDIEndpointRef
     public var midiEndpointRef:MIDIEndpointRef
     
+    /// MIDIPortRef (this will be set|unset when input|output open|close)
+    public var midiPortRef:MIDIPortRef?
+    
+    /// Equatable
+    public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    /// Hashable
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(displayName)
+        hasher.combine(model)
+        hasher.combine(manufacturer)
+        hasher.combine(image)
+        hasher.combine(driverOwner)
+        hasher.combine(midiUniqueID)
+        // midiPortRef is not added into the hash because midiPortRef is changing with every app launch
+    }
     
 }
 
