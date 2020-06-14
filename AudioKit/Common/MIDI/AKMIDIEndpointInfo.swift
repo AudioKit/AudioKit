@@ -18,8 +18,16 @@ public struct EndpointInfo {
 
     /// Driver Owner
     public var driverOwner = ""
-
     public var midiEndpointRef: MIDIEndpointRef
+
+    
+    /// MIDIUniqueID
+    public var midiUniqueID:MIDIUniqueID
+    
+    /// MIDIEndpointRef
+    public var midiEndpointRef:MIDIEndpointRef
+    
+    
 }
 
 extension Collection where Iterator.Element == MIDIEndpointRef {
@@ -32,6 +40,18 @@ extension Collection where Iterator.Element == MIDIEndpointRef {
                          image: getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyImage),
                          driverOwner: getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDriverOwner),
                          midiEndpointRef: element as MIDIEndpointRef)
+        
+        return self.map { (element:MIDIEndpointRef) -> EndpointInfo in
+            EndpointInfo(
+                name:          getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyName),
+                displayName:   getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDisplayName),
+                model:         getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyModel),
+                manufacturer:  getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyManufacturer),
+                image:         getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyImage),
+                driverOwner:   getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDriverOwner),
+                midiUniqueID:  getMIDIObjectIntegerProperty(ref: element, property: kMIDIPropertyUniqueID),
+                midiEndpointRef: element
+            )
         }
     }
 }
