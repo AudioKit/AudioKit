@@ -72,10 +72,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneComplementFilterDSP.hpp"
 #import "AKToneFilterDSP.hpp"
 
-// Effects / Guitar Processors
-#import "AKDynaRageCompressorDSP.hpp"
-#import "AKRhinoGuitarProcessorDSP.hpp"
-
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
 #import "AKModulatedDelay.hpp"

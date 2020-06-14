@@ -19,7 +19,6 @@ extension AKAudioUnitManager {
                                                           "AKDelay",
                                                           "AKDistortion",
                                                           "AKDynamicRangeCompressor",
-                                                          "AKDynaRageCompressor",
                                                           "AKEqualizerFilter",
                                                           "AKFader",
                                                           "AKFlanger",
@@ -42,7 +41,6 @@ extension AKAudioUnitManager {
                                                           "AKPhaser",
                                                           "AKPitchShifter",
                                                           "AKResonantFilter",
-                                                          "AKRhinoGuitarProcessor",
                                                           "AKRingModulator",
                                                           "AKRolandTB303Filter",
                                                           "AKStereoDelay",
@@ -190,8 +188,6 @@ extension AKAudioUnitManager {
             node = AKRingModulator()
         case "AKDynamicRangeCompressor":
             node = AKDynamicRangeCompressor()
-        case "AKDynaRageCompressor":
-            node = AKDynaRageCompressor()
         case "AKAmplitudeEnvelope":
             node = AKAmplitudeEnvelope()
         case "AKTremolo":
@@ -238,8 +234,6 @@ extension AKAudioUnitManager {
             node = AKToneComplementFilter()
         case "AKToneFilter":
             node = AKToneFilter()
-        case "AKRhinoGuitarProcessor":
-            node = AKRhinoGuitarProcessor()
         case "AKPhaser":
             node = AKPhaser()
         case "AKPitchShifter":
