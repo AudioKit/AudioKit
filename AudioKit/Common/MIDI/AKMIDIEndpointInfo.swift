@@ -22,13 +22,13 @@ public struct EndpointInfo: Hashable {
 
     /// MIDIUniqueID
     public var midiUniqueID: MIDIUniqueID
-    
+
     /// MIDIEndpointRef
     public var midiEndpointRef: MIDIEndpointRef
-    
+
     /// MIDIPortRef (this will be set|unset when input|output open|close)
     public var midiPortRef: MIDIPortRef?
-    
+
     /// Equatable
     public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
         return lhs.hashValue == rhs.hashValue
@@ -44,7 +44,7 @@ public struct EndpointInfo: Hashable {
         hasher.combine(midiUniqueID)
         // midiPortRef is not added into the hash because midiPortRef is changing with every app launch
     }
-    
+
 }
 
 extension Collection where Iterator.Element == MIDIEndpointRef {
