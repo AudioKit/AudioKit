@@ -7,9 +7,13 @@
 //
 
 /// MIDI Endpoint Information
+<<<<<<< HEAD
 
 
 public struct EndpointInfo:Hashable, Codable {
+=======
+public struct EndpointInfo:Hashable {
+>>>>>>> Get/Open/Close Input|Outputs with EndpointInfo object. (in progress...)
 
     /// Unique name
     public var name = ""
@@ -32,11 +36,19 @@ public struct EndpointInfo:Hashable, Codable {
     public var midiUniqueID: MIDIUniqueID
 
     /// MIDIEndpointRef
+<<<<<<< HEAD
     public var midiEndpointRef: MIDIEndpointRef
 
     /// MIDIPortRef (this will be set|unset when input|output open|close)
     public var midiPortRef: MIDIPortRef?
 
+=======
+    public var midiEndpointRef:MIDIEndpointRef
+    
+    /// MIDIPortRef (this will be set|unset when input|output open|close)
+    public var midiPortRef:MIDIPortRef?
+    
+>>>>>>> Get/Open/Close Input|Outputs with EndpointInfo object. (in progress...)
     /// Equatable
     public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
         return lhs.hashValue == rhs.hashValue
@@ -50,9 +62,14 @@ public struct EndpointInfo:Hashable, Codable {
         hasher.combine(image)
         hasher.combine(driverOwner)
         hasher.combine(midiUniqueID)
+<<<<<<< HEAD
         hasher.combine(midiPortRef)
     }
 
+=======
+        // midiPortRef is not added into the hash because midiPortRef is changing with every app launch
+    }
+>>>>>>> Get/Open/Close Input|Outputs with EndpointInfo object. (in progress...)
     
     /// init
     public init(name: String,

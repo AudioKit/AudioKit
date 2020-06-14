@@ -46,6 +46,12 @@ open class AKMIDI {
 
     public var transformers = [AKMIDITransformer]()
 
+    /// Dictionary of MIDI In ports of EndpointInfo
+    internal var inputEndpointPorts = [EndpointInfo: MIDIPortRef]()
+    
+    /// Dictionary of MIDI Out ports of EndpointInfo
+    internal var outputEndpointPorts = [EndpointInfo: MIDIPortRef]()
+    
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system

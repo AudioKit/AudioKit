@@ -1119,6 +1119,8 @@
 		C5AF016421FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF016321FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift */; };
 		C5DEBEA221F8DE5200A36FE7 /* AKMIDIBeatObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DEBEA121F8DE5200A36FE7 /* AKMIDIBeatObserver.swift */; };
 		DC7DDDC21EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */; };
+		DCADA76A2496C6C70048641C /* AKMIDI+Sending+EndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCADA7692496C6C70048641C /* AKMIDI+Sending+EndpointInfo.swift */; };
+		DCADA76C2496C71D0048641C /* AKMIDI+Receiving+EndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCADA76B2496C71D0048641C /* AKMIDI+Receiving+EndpointInfo.swift */; };
 		E4630B461D2BC73300437E75 /* AKMandolinPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */; };
 		E4630B4A1D2BC78600437E75 /* AKCostelloReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */; };
 		E4630B4C1D2BC79A00437E75 /* AKDistortionPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B4B1D2BC79A00437E75 /* AKDistortionPresets.swift */; };
@@ -2450,6 +2452,8 @@
 		C5DEBEA121F8DE5200A36FE7 /* AKMIDIBeatObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIBeatObserver.swift; sourceTree = "<group>"; };
 		C5DEBEA321F8EA7E00A36FE7 /* AKMIDIObserverMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIObserverMaster.swift; sourceTree = "<group>"; };
 		DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEndpointInfo.swift; sourceTree = "<group>"; };
+		DCADA7692496C6C70048641C /* AKMIDI+Sending+EndpointInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Sending+EndpointInfo.swift"; sourceTree = "<group>"; };
+		DCADA76B2496C71D0048641C /* AKMIDI+Receiving+EndpointInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKMIDI+Receiving+EndpointInfo.swift"; sourceTree = "<group>"; };
 		E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMandolinPresets.swift; sourceTree = "<group>"; };
 		E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverbPresets.swift; sourceTree = "<group>"; };
 		E4630B4B1D2BC79A00437E75 /* AKDistortionPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDistortionPresets.swift; sourceTree = "<group>"; };
@@ -3270,7 +3274,9 @@
 				C426BF351E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift */,
 				C40B0FFA1C463A32000BE96E /* AKMIDI.swift */,
 				C48DB7A91CD554A000D1EC13 /* AKMIDI+Receiving.swift */,
+				DCADA76B2496C71D0048641C /* AKMIDI+Receiving+EndpointInfo.swift */,
 				C48DB7AA1CD554A000D1EC13 /* AKMIDI+Sending.swift */,
+				DCADA7692496C6C70048641C /* AKMIDI+Sending+EndpointInfo.swift */,
 				C4F9CD3421EFF50400F64D72 /* AKMIDI+VirtualPorts.swift */,
 				C47AE4F01D3A09010091118F /* AKMIDICallbackInstrument.swift */,
 				DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */,
@@ -6465,6 +6471,7 @@
 				C403F46E231A4CC200A81C0E /* AKPWMOscillatorFilterSynthAudioUnit.mm in Sources */,
 				C49B1419204A06B7009C7C8E /* fofilt.c in Sources */,
 				C40C41211C40E2E1009D870B /* AudioKitHelpers.swift in Sources */,
+				DCADA76A2496C6C70048641C /* AKMIDI+Sending+EndpointInfo.swift in Sources */,
 				C49B13D4204A06B7009C7C8E /* prop.c in Sources */,
 				C4537FC91C3A438D00A51738 /* AKHighPassFilter.swift in Sources */,
 				C457CBF9213C6D6500AFDEBC /* DrawbarsOscillator.cpp in Sources */,
@@ -6569,6 +6576,7 @@
 				C49B14A4204A06B8009C7C8E /* biscale.c in Sources */,
 				C49B13B0204A06B7009C7C8E /* osc.c in Sources */,
 				C49B140E204A06B7009C7C8E /* atone.c in Sources */,
+				DCADA76C2496C71D0048641C /* AKMIDI+Receiving+EndpointInfo.swift in Sources */,
 				C49B14C8204A06B8009C7C8E /* gen_sporth.c in Sources */,
 				C458BFF3202FEEBA006428C9 /* AKBrownianNoiseDSP.mm in Sources */,
 				C410F13E203038D1002EA801 /* AKMetalBarAudioUnit.swift in Sources */,
