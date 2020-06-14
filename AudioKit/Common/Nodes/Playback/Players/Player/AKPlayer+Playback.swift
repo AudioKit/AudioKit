@@ -2,6 +2,65 @@
 
 import Foundation
 
+// MARK: - Loading
+
+extension AKPlayer {
+    /// Replace the contents of the player with this url. Note that if your processingFormat changes
+    /// you should dispose this AKPlayer and create a new one instead.
+    @objc public func load(url: URL) throws {
+        let file = try AVAudioFile(forReading: url)
+        try load(audioFile: file)
+    }
+
+    /// Load a new audio file into this player. Note that if your processingFormat changes
+    /// you should dispose this AKPlayer and create a new one instead.
+    @objc public func load(audioFile: AVAudioFile) throws {
+        if audioFile.processingFormat != processingFormat {
+            AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
+                "You should make a new AKPlayer instance and reconnect. " +
+                "load() is only available for files that are the same format.")
+            throw NSError(domain: "Processing format doesn't match", code: 0, userInfo: nil)
+        }
+
+        self.audioFile = audioFile
+        initialize(restartIfPlaying: false)
+        // will reset the stored start / end times or update the buffer
+        preroll()
+    }
+
+    /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
+    /// Otherwise it just sets the edit points and enables the fader if the region
+    /// has fade in or out applied to it.
+    @objc public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
+        var from = startingTime
+        var to = endingTime
+
+        if to == 0 {
+            to = duration
+        }
+
+        if from > to {
+            from = 0
+        }
+        startTime = from
+        endTime = to
+
+        if isBuffered {
+            updateBuffer()
+        }
+
+        if isFaded, !isBufferFaded {
+            // make sure the fader has been enabled
+            super.startFader()
+        } else {
+            // if there are no fades, be sure to reset this
+            super.resetFader()
+        }
+    }
+}
+
+// MARK: - Main Playback Options
+
 extension AKPlayer {
     internal var useCompletionHandler: Bool {
         return (isLooping && !isBuffered) || completionHandler != nil
