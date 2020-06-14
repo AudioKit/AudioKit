@@ -117,7 +117,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// The internal audio file
-    @objc public private(set) var audioFile: AVAudioFile?
+    @objc public internal(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
     @objc public override var duration: Double {
@@ -340,57 +340,6 @@ public class AKPlayer: AKAbstractPlayer {
         faderNode?.bypass()
     }
 
-    // MARK: - Loading
-
-    /// Replace the contents of the player with this url
-    @objc public func load(url: URL) throws {
-        let file = try AVAudioFile(forReading: url)
-        try load(audioFile: file)
-    }
-
-    @objc public func load(audioFile: AVAudioFile) throws {
-        if audioFile.processingFormat != processingFormat {
-            AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
-                "You should make a new AKPlayer instance and reconnect. " +
-                "load() is only available for files that are the same format.")
-            throw NSError(domain: "Processing format doesn't match", code: 0, userInfo: nil)
-        }
-
-        self.audioFile = audioFile
-        initialize(restartIfPlaying: false)
-        // will reset the stored start / end times or update the buffer
-        preroll()
-    }
-
-    /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
-    /// Otherwise it just sets the startTime and endTime
-    @objc public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
-        var from = startingTime
-        var to = endingTime
-
-        if to == 0 {
-            to = duration
-        }
-
-        if from > to {
-            from = 0
-        }
-        startTime = from
-        endTime = to
-
-        if isBuffered {
-            updateBuffer()
-        }
-
-        if isFaded, !isBufferFaded {
-            // make sure the fader has been enabled
-            super.startFader()
-        } else {
-            // if there are no fades, be sure to reset this
-            super.resetFader()
-        }
-    }
-
     // MARK: - Play
 
     /// Play entire file right now
@@ -443,42 +392,5 @@ public class AKPlayer: AKAbstractPlayer {
 
     @objc deinit {
         AKLog("* { AKPlayer }")
-    }
-}
-
-// This used to be in a separate file but it broke setPosition
-@objc extension AKPlayer: AKTiming {
-    public func start(at audioTime: AVAudioTime?) {
-        play(at: audioTime)
-    }
-
-    public var isStarted: Bool {
-        return isPlaying
-    }
-
-    public func setPosition(_ position: Double) {
-        startTime = position
-        if isPlaying {
-            stop()
-            play()
-        }
-    }
-
-    public func position(at audioTime: AVAudioTime?) -> Double {
-        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
-            return startTime
-        }
-        return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
-    }
-
-    public func audioTime(at position: Double) -> AVAudioTime? {
-        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
-        let sampleTime = (position - startTime) * sampleRate
-        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
-        return playerNode.nodeTime(forPlayerTime: playerTime)
-    }
-
-    open func prepare() {
-        preroll(from: startTime, to: endTime)
     }
 }

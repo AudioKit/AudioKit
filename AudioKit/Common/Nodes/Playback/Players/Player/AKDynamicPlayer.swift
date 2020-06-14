@@ -96,7 +96,7 @@ public class AKDynamicPlayer: AKPlayer {
         }
 
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
-            AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
+            // AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
             AKManager.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
             AKManager.connect(timePitchNode.avAudioUnitOrNode,
                               to: faderNode.avAudioUnitOrNode,
@@ -104,7 +104,7 @@ public class AKDynamicPlayer: AKPlayer {
             timePitchNode.bypass()
 
         } else if let faderNode = super.faderNode {
-            AKLog("👉 Player → Fader using", connectionFormat)
+            // AKLog("👉 Player → Fader using", connectionFormat)
             AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
     }
@@ -112,7 +112,7 @@ public class AKDynamicPlayer: AKPlayer {
     public func createTimePitch() {
         guard timePitchNode == nil else { return }
 
-        AKLog("👉 Creating AKTimePitch")
+        // AKLog("👉 Creating AKTimePitch")
         timePitchNode = AKTimePitch()
         initialize()
     }
