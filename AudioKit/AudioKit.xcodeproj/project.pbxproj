@@ -176,7 +176,6 @@
 		B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */; };
 		B1B9DA672496926E0085F582 /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA662496926E0085F582 /* AKAudioUnitManager+Connections.swift */; };
 		B1B9DA682496926E0085F582 /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA662496926E0085F582 /* AKAudioUnitManager+Connections.swift */; };
-		B1B9DA692496926E0085F582 /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA662496926E0085F582 /* AKAudioUnitManager+Connections.swift */; };
 		B1B9DA6C249693FB0085F582 /* AKConverter+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA6B249693FB0085F582 /* AKConverter+Processing.swift */; };
 		B1B9DA6D249693FB0085F582 /* AKConverter+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA6B249693FB0085F582 /* AKConverter+Processing.swift */; };
 		B1B9DA6E249693FB0085F582 /* AKConverter+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA6B249693FB0085F582 /* AKConverter+Processing.swift */; };
@@ -10936,7 +10935,6 @@
 				EAA628BA247F3A5B00BF4CDB /* bal.c in Sources */,
 				EAA628BB247F3A5B00BF4CDB /* AKAmplitudeTap.swift in Sources */,
 				EAA628BC247F3A5B00BF4CDB /* vdelay.c in Sources */,
-				B1B9DA692496926E0085F582 /* AKAudioUnitManager+Connections.swift in Sources */,
 				EAA628BE247F3A5B00BF4CDB /* clock.c in Sources */,
 				EAA628C0247F3A5B00BF4CDB /* AKChowningReverbDSP.mm in Sources */,
 				EAA628C1247F3A5B00BF4CDB /* AKClipMerger.swift in Sources */,
