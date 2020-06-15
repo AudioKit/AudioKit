@@ -67,6 +67,7 @@ import AudioKit
             if isFileChanged {
                 player?.stop()
                 let filename = titles[currentIndex]
+
                 if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
                     do {
                         try player?.load(audioFile: file)
