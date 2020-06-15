@@ -1175,6 +1175,8 @@
 		F4CA85831EB666260066BE5C /* AKTuningTable+Scala.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA857C1EB666260066BE5C /* AKTuningTable+Scala.swift */; };
 		F4CA85841EB666260066BE5C /* AKTuningTable+Wilson.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA857D1EB666260066BE5C /* AKTuningTable+Wilson.swift */; };
 		F4CA85851EB666260066BE5C /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA857E1EB666260066BE5C /* AKTuningTable.swift */; };
+		FE02E1B524771948009AD68B /* AHDSHREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE02E1B424771948009AD68B /* AHDSHREnvelope.hpp */; };
+		FE02E1B724771D2F009AD68B /* AHDSHREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE02E1B624771D2F009AD68B /* AHDSHREnvelope.cpp */; };
 		FE081EF221E94B3B00653575 /* AKMIDIFileChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE081EED21E94B3B00653575 /* AKMIDIFileChunk.swift */; };
 		FE081EF321E94B3B00653575 /* AKMIDIFileChunkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE081EEE21E94B3B00653575 /* AKMIDIFileChunkEvent.swift */; };
 		FE081EF421E94B3B00653575 /* AKMIDIFileHeaderChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE081EEF21E94B3B00653575 /* AKMIDIFileHeaderChunk.swift */; };
@@ -2480,6 +2482,8 @@
 		F4CA857C1EB666260066BE5C /* AKTuningTable+Scala.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Scala.swift"; sourceTree = "<group>"; };
 		F4CA857D1EB666260066BE5C /* AKTuningTable+Wilson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Wilson.swift"; sourceTree = "<group>"; };
 		F4CA857E1EB666260066BE5C /* AKTuningTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTable.swift; sourceTree = "<group>"; };
+		FE02E1B424771948009AD68B /* AHDSHREnvelope.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AHDSHREnvelope.hpp; sourceTree = "<group>"; };
+		FE02E1B624771D2F009AD68B /* AHDSHREnvelope.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AHDSHREnvelope.cpp; sourceTree = "<group>"; };
 		FE081EED21E94B3B00653575 /* AKMIDIFileChunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileChunk.swift; sourceTree = "<group>"; };
 		FE081EEE21E94B3B00653575 /* AKMIDIFileChunkEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileChunkEvent.swift; sourceTree = "<group>"; };
 		FE081EEF21E94B3B00653575 /* AKMIDIFileHeaderChunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileHeaderChunk.swift; sourceTree = "<group>"; };
@@ -2572,6 +2576,8 @@
 				3404A78A20507B1500A2C9E4 /* LinearRamper.hpp */,
 				344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.hpp */,
 				344E88E6217E8C1300D58551 /* EnvelopeGeneratorBase.cpp */,
+				FE02E1B424771948009AD68B /* AHDSHREnvelope.hpp */,
+				FE02E1B624771D2F009AD68B /* AHDSHREnvelope.cpp */,
 				344E88E5217E8C1200D58551 /* ADSREnvelope.hpp */,
 				3404A78B20507B1500A2C9E4 /* ADSREnvelope.cpp */,
 				3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */,
@@ -5679,6 +5685,7 @@
 				C4BEAA121DEC3A9800186C50 /* AKAudioUnit.h in Headers */,
 				C403F477231A4CC200A81C0E /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp in Headers */,
 				C49B152D204A06B8009C7C8E /* Noise.h in Headers */,
+				FE02E1B524771948009AD68B /* AHDSHREnvelope.hpp in Headers */,
 				C49B138D204A06B7009C7C8E /* md5.h in Headers */,
 				C49B154A204A06B8009C7C8E /* Drummer.h in Headers */,
 				FE2C8B4B20DADB3800009BAC /* dr_wav.h in Headers */,
@@ -6890,6 +6897,7 @@
 				C403F478231A4CC200A81C0E /* AKPhaseDistortionOscillatorFilterSynth.swift in Sources */,
 				C453808D1C3A5C0C00A51738 /* AKPinkNoise.swift in Sources */,
 				C42FFBEC1C3D1FD100823BD4 /* AKDryWetMixer.swift in Sources */,
+				FE02E1B724771D2F009AD68B /* AHDSHREnvelope.cpp in Sources */,
 				EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */,
 				C49B14B4204A06B8009C7C8E /* f.c in Sources */,
 				34BB6758205AC238000E5450 /* unpack_utils.c in Sources */,
@@ -7099,7 +7107,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10.1;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_MODULES_DISABLE_PRIVATE_WARNING = YES;
@@ -7118,7 +7126,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10.1;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7133,7 +7141,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10.1.1;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_MODULES_DISABLE_PRIVATE_WARNING = YES;
@@ -7151,7 +7159,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10.1;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7165,7 +7173,7 @@
 		EA7D07061F4E63C200707706 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10.1;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7184,7 +7192,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7198,7 +7206,7 @@
 		EA7D07071F4E63C200707706 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUDIOKIT_VERSION = 4.9.5;
+				AUDIOKIT_VERSION = 4.10.1;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7217,7 +7225,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.9.5;
+				MARKETING_VERSION = 4.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

@@ -16,6 +16,9 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterMasterVolume,
     AKSamplerParameterPitchBend,
     AKSamplerParameterVibratoDepth,
+    AKSamplerParameterVibratoFrequency,
+    AKSamplerParameterVoiceVibratoDepth,
+    AKSamplerParameterVoiceVibratoFrequency,
     AKSamplerParameterFilterCutoff,
     AKSamplerParameterFilterStrength,
     AKSamplerParameterFilterResonance,
@@ -23,14 +26,17 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 
     // simple parameters
     AKSamplerParameterAttackDuration,
+    AKSamplerParameterHoldDuration,
     AKSamplerParameterDecayDuration,
     AKSamplerParameterSustainLevel,
+    AKSamplerParameterReleaseHoldDuration,
     AKSamplerParameterReleaseDuration,
     AKSamplerParameterFilterAttackDuration,
     AKSamplerParameterFilterDecayDuration,
     AKSamplerParameterFilterSustainLevel,
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
+    AKSamplerParameterRestartVoiceLFO,
     AKSamplerParameterPitchAttackDuration,
     AKSamplerParameterPitchDecayDuration,
     AKSamplerParameterPitchSustainLevel,
@@ -76,6 +82,9 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp masterVolumeRamp;
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
+    AKLinearParameterRamp vibratoFrequencyRamp;
+    AKLinearParameterRamp voiceVibratoDepthRamp;
+    AKLinearParameterRamp voiceVibratoFrequencyRamp;
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
