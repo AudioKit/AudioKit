@@ -30,13 +30,13 @@ extension AKMIDI{
         
         let outputUid = outputInfo.midiUniqueID
         
-        if outputEndpointPorts[outputInfo] == nil || outputEndpointPorts[outputInfo] == 0 {
+        if outputEndpointPorts[outputUid] == nil || outputEndpointPorts[outputUid] == 0 {
             guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
                 AKLog("Unable to create MIDIOutputPort", log: OSLog.midi, type: .error)
                 return
             }
             //outputPort = tempPort
-            outputEndpointPorts[outputInfo] = tempPort
+            outputEndpointPorts[outputUid] = tempPort
         }
         
         let destinations = MIDIDestinations()
@@ -68,7 +68,7 @@ extension AKMIDI{
         var result = noErr
         if endpoints[outputUid] != nil {
             endpoints.removeValue(forKey: outputUid)
-            outputEndpointPorts.removeValue(forKey: outputInfo)
+            outputEndpointPorts.removeValue(forKey: outputUid)
             AKLog("Disconnected \(name) and removed it from endpoints", log: OSLog.midi)
             if endpoints.count == 0 {
                 // if there are no more endpoints, dispose of midi output port
@@ -87,7 +87,7 @@ extension AKMIDI{
     ///
     /// - parameter inputInfo: input EndpointInfo
     public func portOf(outputInfo:EndpointInfo)->MIDIPortRef?{
-        return outputEndpointPorts[outputInfo]
+        return outputEndpointPorts[outputInfo.midiUniqueID]
         ///return outputPort
     }
     

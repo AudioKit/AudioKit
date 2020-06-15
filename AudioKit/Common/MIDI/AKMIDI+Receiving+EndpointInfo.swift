@@ -60,7 +60,7 @@ extension AKMIDI{
                     inputPorts[inputUID] = port
                     endpoints[inputUID] = src
                     
-                    inputEndpointPorts[inputInfo] = port
+                    inputEndpointPorts[inputUID] = port
                 }
             }
         }
@@ -86,7 +86,7 @@ extension AKMIDI{
                     if result == noErr {
                         endpoints.removeValue(forKey: uid)
                         inputPorts.removeValue(forKey: uid)
-                        inputEndpointPorts.removeValue(forKey: inputInfo)
+                        inputEndpointPorts.removeValue(forKey: inputUID)
                         AKLog("Disconnected \(name) and removed it from endpoints and input ports", log: OSLog.midi)
                     } else {
                         AKLog("Error disconnecting MIDI port: \(result)", log: OSLog.midi, type: .error)
@@ -106,6 +106,9 @@ extension AKMIDI{
     ///
     /// - parameter inputInfo: input EndpointInfo
     public func portOf(inputInfo:EndpointInfo)->MIDIPortRef?{
-        return inputEndpointPorts[inputInfo]
+        let p = inputEndpointPorts[inputInfo.midiUniqueID]
+        print("input MIDIPortRef: \(String(describing: p))")
+
+        return p
     }
 }
