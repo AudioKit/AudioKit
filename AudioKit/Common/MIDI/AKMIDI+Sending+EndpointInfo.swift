@@ -66,11 +66,23 @@ extension AKMIDI{
         let name = destinationName(for: outputUid)
         AKLog("Closing MIDI Output '\(String(describing: name))'", log: OSLog.midi)
         var result = noErr
-        if endpoints[outputUid] != nil {
-            endpoints.removeValue(forKey: outputUid)
+        
+        if var portOfEndpoint = outputEndpointPorts[outputUid] {
+            
+            var disposeResult:OSStatus = noErr
+            disposeResult = MIDIPortDispose(portOfEndpoint)
+            if disposeResult == noErr {
+                AKLog("Disposed (portOfEndpoint) MIDI Output port", log: OSLog.midi)
+            } else {
+                AKLog("Error disposing (portOfEndpoint) MIDI Output port: \(result)", log: OSLog.midi, type: .error)
+            }
+            portOfEndpoint = 0
             outputEndpointPorts.removeValue(forKey: outputUid)
+            
+            // old one single output related code to remove >>
+            endpoints.removeValue(forKey: outputUid)
             AKLog("Disconnected \(name) and removed it from endpoints", log: OSLog.midi)
-            if endpoints.count == 0 {
+            if outputEndpointPorts.count == 0 {
                 // if there are no more endpoints, dispose of midi output port
                 result = MIDIPortDispose(outputPort)
                 if result == noErr {
@@ -80,6 +92,7 @@ extension AKMIDI{
                 }
                 outputPort = 0
             }
+            // old one single output related code to remove <<
         }
     }
     
