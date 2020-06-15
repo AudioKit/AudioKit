@@ -122,6 +122,7 @@ class ViewController: UIViewController {
             do {
                 try player.load(audioFile: tape)
             } catch let err as NSError {
+                AKLog(err)
                 // Assuming formats match, this should load
                 return
             }
