@@ -7,7 +7,7 @@
 //
 
 /// MIDI Endpoint Information
-public struct EndpointInfo {
+public struct EndpointInfo: Hashable {
 
     /// Unique name
     public var name = ""
@@ -25,33 +25,59 @@ public struct EndpointInfo {
 
     /// Driver Owner
     public var driverOwner = ""
+
+    /// MIDIUniqueID
+    public var midiUniqueID: MIDIUniqueID
+
+    /// MIDIEndpointRef
+    public var midiEndpointRef: MIDIEndpointRef
+
+    /// MIDIPortRef (this will be set|unset when input|output open|close)
+    public var midiPortRef: MIDIPortRef?
+
+    /// Equatable
+    public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    /// Hashable
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(displayName)
+        hasher.combine(model)
+        hasher.combine(manufacturer)
+        hasher.combine(image)
+        hasher.combine(driverOwner)
+        hasher.combine(midiUniqueID)
+        // midiPortRef is not added into the hash because midiPortRef is changing with every app launch
+    }
+
 }
 
 extension Collection where Iterator.Element == MIDIEndpointRef {
     var endpointInfos: [EndpointInfo] {
-
-        let name = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName) }
-        let displayName = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDisplayName) }
-        let manufacturer = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
-        let model = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
-        let image = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyImage) }
-        let driverOwner = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDriverOwner) }
-
-        var ei = [EndpointInfo]()
-        for i in 0 ..< displayName.count {
-            ei.append(EndpointInfo(name: name[i],
-                                   displayName: displayName[i],
-                                   model: model[i],
-                                   manufacturer: manufacturer[i],
-                                   image: image[i],
-                                   driverOwner: driverOwner[i]))
+        return self.map { (element: MIDIEndpointRef) -> EndpointInfo in
+            EndpointInfo(
+                name:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyName),
+                displayName:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDisplayName),
+                model:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyModel),
+                manufacturer:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyManufacturer),
+                image:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyImage),
+                driverOwner:
+                    getMIDIObjectStringProperty(ref: element, property: kMIDIPropertyDriverOwner),
+                midiUniqueID:
+                    getMIDIObjectIntegerProperty(ref: element, property: kMIDIPropertyUniqueID),
+                midiEndpointRef: element
+            )
         }
-        return ei
     }
 }
 
 extension AKMIDI {
-
     /// Destinations
     public var destinationInfos: [EndpointInfo] {
         return MIDIDestinations().endpointInfos
