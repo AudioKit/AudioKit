@@ -94,7 +94,9 @@ class ViewController: NSViewController {
         player.stop()
         inputPlot.node = mic
         micBooster.gain = 0
-        tape = recorder.audioFile!
+
+        guard let audioFile = recorder.audioFile else { return }
+        tape = audioFile
         try? player.load(audioFile: tape)
 
         if let _ = player.audioFile?.duration {
