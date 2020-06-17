@@ -357,13 +357,16 @@ public class AKPlayer: AKAbstractPlayer {
 
         preroll(from: startingTime, to: endingTime)
         schedulePlayer(at: audioTime, hostTime: refTime)
-        scheduleFader()
+        // scheduleFader()
 
-        playerNode.play()
+        // playerNode.play()
 
         if isFaded, !isBufferFaded {
+            scheduleFader()
             faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
+
+        playerNode.play()
 
         pauseTime = nil
     }
