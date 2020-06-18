@@ -24,20 +24,17 @@ open class AKAbstractPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: AUValue = 0 // 0.0002
+        public static var minimumGain: AUValue = 0
 
         /// the value that the fader should fade to, settable
         public var maximumGain: AUValue = 1
 
         // In properties
-        public var inTime: AVMusicTimeStamp = 0 {
+        public var inTime: TimeInterval = 0 {
             willSet {
                 if newValue != inTime { needsUpdate = true }
             }
         }
-
-        // if you want to start midway into a fade
-        // public var inTimeOffset: Double = 0
 
         public var inTaper: AUValue = audioTaper.in {
             willSet {
@@ -49,7 +46,7 @@ open class AKAbstractPlayer: AKNode {
         public var inSkew: AUValue = 0.333
 
         // Out properties
-        public var outTime: Double = 0 {
+        public var outTime: TimeInterval = 0 {
             willSet {
                 if newValue != outTime { needsUpdate = true }
             }
@@ -210,7 +207,7 @@ open class AKAbstractPlayer: AKNode {
 
         faderNode.clearAutomationPoints()
 
-        if fade.inTime > 0 {
+        if fade.inTime > 0, offsetTime < fade.inTime {
             // realtime, turn the gain off to be sure it's off before the fade starts
             faderNode.gain = Fade.minimumGain
 
@@ -225,6 +222,11 @@ open class AKAbstractPlayer: AKNode {
                                          rampDuration: fade.inTime,
                                          taper: fade.inTaper,
                                          skew: fade.inSkew)
+        } else {
+            // if there isn't a fade in then turn it up now.
+            faderNode.addAutomationPoint(value: fade.maximumGain,
+                                         at: 0,
+                                         rampDuration: 0)
         }
 
         if fade.outTime > 0 {
