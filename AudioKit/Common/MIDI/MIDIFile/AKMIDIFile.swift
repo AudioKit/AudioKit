@@ -9,8 +9,8 @@
 import Foundation
 
 public struct AKMIDIFile {
-
-    var filename: String
+    
+    public var filename: String
     var chunks: [AKMIDIFileChunk] = []
 
     var headerChunk: MIDIFileHeaderChunk? {
