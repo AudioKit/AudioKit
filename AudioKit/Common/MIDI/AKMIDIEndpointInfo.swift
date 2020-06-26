@@ -66,6 +66,7 @@ public struct EndpointInfo:Hashable, Codable {
          midiUniqueID:  MIDIUniqueID,
          midiEndpointRef: MIDIEndpointRef,
          midiPortRef: MIDIPortRef? = nil ) {
+
         self.name = name
         self.displayName = displayName
         self.model = model
