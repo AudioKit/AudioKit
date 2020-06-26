@@ -95,21 +95,21 @@ open class AKAUPresetBuilder {
                 }
             }
 
-            if (sound as AnyObject).object(forKey: startNoteKey) == nil ||
-                (sound as AnyObject).object(forKey: endNoteKey) == nil {
-                if let soundObject = (sound as AnyObject).object(forKey: rootNoteKey) {
+            if sound.object(forKey: startNoteKey) == nil ||
+                sound.object(forKey: endNoteKey) == nil {
+                if let soundObject = sound.object(forKey: rootNoteKey) {
                     soundDict.setObject(soundObject, forKey: startNoteKey as NSCopying)
                     soundDict.setObject(soundObject, forKey: endNoteKey as NSCopying)
                 }
             }
 
-            if let soundObject = (sound as AnyObject).object(forKey: rootNoteKey) {
+            if let soundObject = sound.object(forKey: rootNoteKey) {
                 soundDict.setObject(soundObject, forKey: rootNoteKey as NSCopying)
             }
 
             if ❗️alreadyLoaded { // if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
-                guard let samplePath = (sound as AnyObject).object(forKey: "filename") as? String else {
+                guard let samplePath = sound.object(forKey: "filename") as? String else {
                     AKLog("No filename provided in PresetBuilder")
                     return
                 }
