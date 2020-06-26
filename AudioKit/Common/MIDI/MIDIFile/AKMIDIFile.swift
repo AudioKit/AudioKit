@@ -21,9 +21,9 @@ public struct AKMIDIFile {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    public var tempoTrack: AKMIDIFileTrack? {
-        if format == 1, let tempoTrackChunk = trackChunks.first {
-            return AKMIDIFileTrack(chunk: tempoTrackChunk)
+    public var tempoTrack: AKMIDIFileTempoTrack? {
+        if format == 1, let tempoTrack = tracks.first {
+            return AKMIDIFileTempoTrack(fileTrack: tempoTrack)
         }
         return nil
     }
