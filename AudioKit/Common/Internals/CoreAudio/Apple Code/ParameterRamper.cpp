@@ -53,6 +53,7 @@ void ParameterRamper::setImmediate(float value)
 void ParameterRamper::init(float sampleRate)
 {
     data->sampleRate = sampleRate;
+    data->duration = data->defaultRampDuration * sampleRate;
     setImmediate(data->uiValue);
 }
 
@@ -140,7 +141,7 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
     if (duration == 0) {
         setImmediate(newGoal);
     } else {
-        data->startingPoint = data->uiValue;
+        data->startingPoint = get();
         data->duration = duration;
         data->samplesRemaining = duration - data->offset;
         data->goal = data->uiValue = newGoal;
