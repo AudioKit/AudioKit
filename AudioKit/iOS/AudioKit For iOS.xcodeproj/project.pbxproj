@@ -1211,6 +1211,7 @@
 		FE771CF02192161F00C7EB7E /* AKCallbackInstrumentAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE771CEB21920F2600C7EB7E /* AKCallbackInstrumentAudioUnit.mm */; };
 		FE771CF12192162200C7EB7E /* AKCallbackInstrumentDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE771CEC21920F2600C7EB7E /* AKCallbackInstrumentDSPKernel.hpp */; };
 		FE902B9A224985ED0023CA7A /* AKMIDIFileTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE902B99224985ED0023CA7A /* AKMIDIFileTrack.swift */; };
+		FE98CED824A56DE300815310 /* AKMIDIFileTempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE98CED724A56DE300815310 /* AKMIDIFileTempoTrack.swift */; };
 		FEB3AB1C22DFE05F0080A5CB /* AKMIDINoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB1B22DFE05F0080A5CB /* AKMIDINoteData.swift */; };
 		FEB3AB2B22DFE06B0080A5CB /* AKDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB1E22DFE06B0080A5CB /* AKDuration.swift */; };
 		FEB3AB2C22DFE06B0080A5CB /* AKMusicTrack+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2022DFE06B0080A5CB /* AKMusicTrack+Load.swift */; };
@@ -2519,6 +2520,7 @@
 		FE771CEC21920F2600C7EB7E /* AKCallbackInstrumentDSPKernel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKCallbackInstrumentDSPKernel.hpp; sourceTree = "<group>"; };
 		FE771CED21920F2600C7EB7E /* AKCallbackInstrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKCallbackInstrument.swift; sourceTree = "<group>"; };
 		FE902B99224985ED0023CA7A /* AKMIDIFileTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTrack.swift; sourceTree = "<group>"; };
+		FE98CED724A56DE300815310 /* AKMIDIFileTempoTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTempoTrack.swift; sourceTree = "<group>"; };
 		FEA22B7221ABDF04004E0A11 /* AKMIDIMetaEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMetaEventType.swift; sourceTree = "<group>"; };
 		FEB3AB1B22DFE05F0080A5CB /* AKMIDINoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINoteData.swift; sourceTree = "<group>"; };
 		FEB3AB1E22DFE06B0080A5CB /* AKDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDuration.swift; sourceTree = "<group>"; };
@@ -5509,6 +5511,7 @@
 			children = (
 				FE081EF121E94B3B00653575 /* AKMIDIFile.swift */,
 				FE902B99224985ED0023CA7A /* AKMIDIFileTrack.swift */,
+				FE98CED724A56DE300815310 /* AKMIDIFileTempoTrack.swift */,
 				FE081EED21E94B3B00653575 /* AKMIDIFileChunk.swift */,
 				FE081EEF21E94B3B00653575 /* AKMIDIFileHeaderChunk.swift */,
 				FE081EF021E94B3B00653575 /* AKMIDIFileTrackChunk.swift */,
@@ -6918,6 +6921,7 @@
 				C49B13A3204A06B7009C7C8E /* growl.c in Sources */,
 				C4AA7C001FD2A7C000040720 /* AKTimelineTap.m in Sources */,
 				FE2C8B2820DAC67500009BAC /* AKDiskStreamer.swift in Sources */,
+				FE98CED824A56DE300815310 /* AKMIDIFileTempoTrack.swift in Sources */,
 				34BB6745205AC238000E5450 /* unpack3_seek.c in Sources */,
 				C49B146F204A06B7009C7C8E /* writecode.c in Sources */,
 				C49B13E5204A06B7009C7C8E /* conv.c in Sources */,
