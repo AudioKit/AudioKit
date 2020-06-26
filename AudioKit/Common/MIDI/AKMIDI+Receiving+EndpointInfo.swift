@@ -106,9 +106,6 @@ extension AKMIDI{
     ///
     /// - parameter inputInfo: input EndpointInfo
     public func portOf(inputInfo:EndpointInfo)->MIDIPortRef?{
-        let p = inputEndpointPorts[inputInfo.midiUniqueID]
-        print("input MIDIPortRef: \(String(describing: p))")
-
-        return p
+        return inputEndpointPorts[inputInfo.midiUniqueID]
     }
 }

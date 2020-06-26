@@ -127,6 +127,18 @@ extension AKMIDI{
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message, endpointInfo: endpointInfo)
     }
+    
+    /// Send a Continuous Controller message
+    public func sendControllerMessage(
+        _ control: MIDIByte,
+        value: MIDIByte,
+        channel: MIDIChannel = 0,
+        endpointInfo:EndpointInfo) {
+        let controlCommand: MIDIByte = MIDIByte(0xB0) + channel
+        let message: [MIDIByte] = [controlCommand, control, value]
+        self.sendMessage(message, endpointInfo: endpointInfo)
+    }
+    
     /// Send Message with data and targeted endpoint
     public func sendMessage(_ data: [MIDIByte],
                             endpointInfo:EndpointInfo,
