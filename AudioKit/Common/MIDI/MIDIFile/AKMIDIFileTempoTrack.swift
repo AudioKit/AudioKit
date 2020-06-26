@@ -26,11 +26,12 @@ public struct AKMIDIFileTempoTrack {
         return track.metaEvents
     }
 
-    init?(fileTrack: AKMIDIFileTrack) {
-        guard let tempoData = fileTrack.metaEvents.first(where: { $0.type == .setTempo })?.data else {
+    init?(trackChunk: MIDIFileTrackChunk) {
+        let tempoTrack = AKMIDIFileTrack(chunk: trackChunk)
+        guard let tempoData = tempoTrack.metaEvents.first(where: { $0.type == .setTempo })?.data else {
             return nil
         }
-        track = fileTrack
+        track = tempoTrack
         self.tempoData = tempoData
     }
 
