@@ -8,6 +8,7 @@
 
 /// MIDI Endpoint Information
 
+
 public struct EndpointInfo:Hashable, Codable {
 
     /// Unique name
@@ -73,7 +74,6 @@ public struct EndpointInfo:Hashable, Codable {
         self.midiEndpointRef = midiEndpointRef
         self.midiPortRef = midiPortRef
     }
-
 }
 
 extension Collection where Iterator.Element == MIDIEndpointRef {
