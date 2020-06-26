@@ -22,8 +22,8 @@ public struct AKMIDIFile {
     }
 
     public var tempoTrack: AKMIDIFileTempoTrack? {
-        if format == 1, let tempoTrack = tracks.first {
-            return AKMIDIFileTempoTrack(fileTrack: tempoTrack)
+        if format == 1, let tempoTrackChunk = trackChunks.first {
+            return AKMIDIFileTempoTrack(trackChunk: tempoTrackChunk)
         }
         return nil
     }
@@ -31,7 +31,7 @@ public struct AKMIDIFile {
     public var tracks: [AKMIDIFileTrack] {
         var tracks = trackChunks
         if format == 1 {
-            tracks = Array(tracks.dropFirst())
+            tracks = Array(tracks.dropFirst()) // drop tempo track
         }
         return tracks.compactMap({ AKMIDIFileTrack(chunk: $0) })
     }
