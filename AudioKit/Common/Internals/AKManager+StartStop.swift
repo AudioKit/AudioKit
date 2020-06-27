@@ -2,42 +2,42 @@
 
 import Foundation
 
-// Utility function to simplify adding listener blocks:
-func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
-                       onAudioObjectID: AudioObjectID,
-                       forPropertyAddress: AudioObjectPropertyAddress) {
-    var address = forPropertyAddress
-    if (kAudioHardwareNoError != AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)) {
-        print("Error calling: AudioObjectAddPropertyListenerBlock") }
-}
-
-func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>) {
-    
-    for index in 0..<Int(numberAddresses) {
-        
-        let address: AudioObjectPropertyAddress = addresses[index]
-        switch address.mSelector {
-        case kAudioHardwarePropertyDefaultOutputDevice:
-            
-            print("kAudioHardwarePropertyDefaultOutputDevice")
-            
-            print("engine is running: \(AKManager.engine.isRunning)")
-            AKManager.engine.stop()
-            
-        default:
-            
-            print("We didn't expect this!")
-            
-        }
-        
-    }
-    
-}
-
 extension AKManager {
     
     /// Observes changes to AVAudioEngineConfigurationChange on macOS.
     private static var configChangeObserver: Any?
+    
+    // Utility function to simplify adding listener blocks:
+    private static func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
+                           onAudioObjectID: AudioObjectID,
+                           forPropertyAddress: AudioObjectPropertyAddress) {
+        var address = forPropertyAddress
+        if (kAudioHardwareNoError != AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)) {
+            print("Error calling: AudioObjectAddPropertyListenerBlock") }
+    }
+
+    private static func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>) {
+        
+        for index in 0..<Int(numberAddresses) {
+            
+            let address: AudioObjectPropertyAddress = addresses[index]
+            switch address.mSelector {
+            case kAudioHardwarePropertyDefaultOutputDevice:
+                
+                print("kAudioHardwarePropertyDefaultOutputDevice")
+                
+                print("engine is running: \(AKManager.engine.isRunning)")
+                AKManager.engine.stop()
+                
+            default:
+                
+                print("We didn't expect this!")
+                
+            }
+            
+        }
+        
+    }
     
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
