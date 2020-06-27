@@ -6,6 +6,9 @@ extension AKManager {
 
     /// Observes changes to AVAudioEngineConfigurationChange..
     private static var configChangeObserver: Any?
+    
+    /// Observer for AVAudioSession.routeChangeNotification
+    private static var routeChangeObserver: Any?
 
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
@@ -41,13 +44,14 @@ extension AKManager {
 
         // Subscribe to route changes that may affect our engine
         // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
-        NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(restartEngineAfterRouteChange),
-                                               name: AVAudioSession.routeChangeNotification,
-                                               object: nil)
+        routeChangeObserver = NotificationCenter.default.addObserver(forName: AVAudioSession.routeChangeNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { (notification) in
+            restartEngineAfterRouteChange(notification)
+        })
         #endif
-        
+
         // Subscribe to session/configuration changes to our engine
         // Automatic handling of this change can be disabled via AKSettings.enableConfigurationChangeHandling
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
@@ -169,7 +173,7 @@ extension AKManager {
     // MARK: - Route Change Response
 
     // Restarts the engine after audio output has been changed, like headphones plugged in.
-    @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
+    fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         // Notifications aren't guaranteed to come in on the main thread
 
         let attemptRestart = {
