@@ -7,15 +7,18 @@ extension AKManager {
     /// Observes changes to AVAudioEngineConfigurationChange on macOS.
     private static var configChangeObserver: Any?
     
-    // Utility function to simplify adding listener blocks:
+    /// Utility function to simplify adding listener blocks.
     private static func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
                            onAudioObjectID: AudioObjectID,
                            forPropertyAddress: AudioObjectPropertyAddress) {
         var address = forPropertyAddress
-        if (kAudioHardwareNoError != AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)) {
-            print("Error calling: AudioObjectAddPropertyListenerBlock") }
+        let err = AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)
+        if (err != kAudioHardwareNoError) {
+            print("Error calling AudioObjectAddPropertyListenerBlock: \(err)")
+        }
     }
 
+    /// Listener block for changing devices on macOS.
     private static func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>) {
         
         for index in 0..<Int(numberAddresses) {
