@@ -4,6 +4,7 @@ import Foundation
 
 extension AKManager {
     
+    #if os(macOS)
     /// Observes changes to AVAudioEngineConfigurationChange on macOS.
     private static var configChangeObserver: Any?
     
@@ -41,6 +42,7 @@ extension AKManager {
         }
         
     }
+    #endif
     
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
