@@ -81,8 +81,6 @@ extension AKManager {
 
         #if os(iOS)
         do {
-            NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
             if !AKSettings.disableAudioSessionDeactivationOnStop {
                 try AVAudioSession.sharedInstance().setActive(false)
             }
