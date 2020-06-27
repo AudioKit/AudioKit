@@ -47,9 +47,7 @@ extension AKManager {
         routeChangeObserver = NotificationCenter.default.addObserver(forName: AVAudioSession.routeChangeNotification,
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
-                                                                     using: { (notification) in
-            restartEngineAfterRouteChange(notification)
-        })
+                                                                     using: restartEngineAfterRouteChange)
         #endif
 
         // Subscribe to session/configuration changes to our engine
@@ -57,9 +55,7 @@ extension AKManager {
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
-                                                          using: { (notification) in
-            restartEngineAfterConfigurationChange(notification)
-        })
+                                                          using: restartEngineAfterConfigurationChange)
 
         try AKTry {
             try engine.start()
