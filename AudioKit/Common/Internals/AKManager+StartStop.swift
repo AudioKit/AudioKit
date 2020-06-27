@@ -3,18 +3,18 @@
 import Foundation
 
 extension AKManager {
-    
+
     #if os(macOS)
     /// Observes changes to AVAudioEngineConfigurationChange on macOS.
     private static var configChangeObserver: Any?
-    
+
     /// Utility function to simplify adding listener blocks.
     private static func addListenerBlock(listenerBlock: @escaping AudioObjectPropertyListenerBlock,
                                          onAudioObjectID: AudioObjectID,
                                          forPropertyAddress: AudioObjectPropertyAddress) {
         var address = forPropertyAddress
         let err = AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)
-        if (err != kAudioHardwareNoError) {
+        if err != kAudioHardwareNoError {
             print("Error calling AudioObjectAddPropertyListenerBlock: \(err)")
         }
     }
@@ -22,28 +22,20 @@ extension AKManager {
     /// Listener block for changing devices on macOS.
     private static func audioObjectPropertyListenerBlock(numberAddresses: UInt32,
                                                          addresses: UnsafePointer<AudioObjectPropertyAddress>) {
-        
         for index in 0..<Int(numberAddresses) {
-            
             let address: AudioObjectPropertyAddress = addresses[index]
             switch address.mSelector {
             case kAudioHardwarePropertyDefaultOutputDevice:
-                
                 if AKManager.engine.isRunning {
                     AKManager.engine.stop()
                 }
-                
             default:
-                
                 AKLog("Unexpected notification from audio object")
-                
             }
-            
         }
-        
     }
     #endif
-    
+
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         // ensure that an output has been set previously
