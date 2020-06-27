@@ -6,7 +6,7 @@ extension AKManager {
 
     /// Observes changes to AVAudioEngineConfigurationChange..
     private static var configChangeObserver: Any?
-    
+
     /// Observer for AVAudioSession.routeChangeNotification
     private static var routeChangeObserver: Any?
 
