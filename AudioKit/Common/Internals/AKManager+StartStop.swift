@@ -7,33 +7,6 @@ extension AKManager {
     #if os(macOS)
     /// Observes changes to AVAudioEngineConfigurationChange on macOS.
     private static var configChangeObserver: Any?
-
-    /// Utility function to simplify adding listener blocks.
-    private static func addListenerBlock(listenerBlock: @escaping AudioObjectPropertyListenerBlock,
-                                         onAudioObjectID: AudioObjectID,
-                                         forPropertyAddress: AudioObjectPropertyAddress) {
-        var address = forPropertyAddress
-        let err = AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)
-        if err != kAudioHardwareNoError {
-            print("Error calling AudioObjectAddPropertyListenerBlock: \(err)")
-        }
-    }
-
-    /// Listener block for changing devices on macOS.
-    private static func audioObjectPropertyListenerBlock(numberAddresses: UInt32,
-                                                         addresses: UnsafePointer<AudioObjectPropertyAddress>) {
-        for index in 0..<Int(numberAddresses) {
-            let address: AudioObjectPropertyAddress = addresses[index]
-            switch address.mSelector {
-            case kAudioHardwarePropertyDefaultOutputDevice:
-                if AKManager.engine.isRunning {
-                    AKManager.engine.stop()
-                }
-            default:
-                AKLog("Unexpected notification from audio object")
-            }
-        }
-    }
     #endif
 
     /// Start up the audio engine with periodic functions
@@ -84,15 +57,7 @@ extension AKManager {
                                                name: .AVAudioEngineConfigurationChange,
                                                object: nil)
         #elseif os(macOS)
-
-        // Listen for changes to the system audio device.
-        addListenerBlock(listenerBlock: audioObjectPropertyListenerBlock,
-                         onAudioObjectID: AudioObjectID(bitPattern: kAudioObjectSystemObject),
-                         forPropertyAddress: AudioObjectPropertyAddress(
-                            mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-                            mScope: kAudioObjectPropertyScopeGlobal,
-                            mElement: kAudioObjectPropertyElementMaster))
-
+        
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
