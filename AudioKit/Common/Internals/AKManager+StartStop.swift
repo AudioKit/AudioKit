@@ -97,12 +97,7 @@ extension AKManager {
                                                           object: engine,
                                                           queue: OperationQueue.main,
                                                           using: { (notification) in
-            do {
-                try engine.start()
-            } catch {
-                AKLog("error restarting engine after configuration change")
-                // Note: doesn't throw since this is called from a notification observer
-            }
+            restartEngineAfterConfigurationChange(notification)
         })
 
         #endif
@@ -151,21 +146,7 @@ extension AKManager {
     }
 }
 
-#if !os(macOS)
 extension AKManager {
-    @objc internal static func updateSessionCategoryAndOptions() throws {
-        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
-
-        let sessionCategory = AKSettings.computedSessionCategory()
-
-        #if os(iOS)
-        let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
-        #elseif os(tvOS)
-        try AKSettings.setSession(category: sessionCategory)
-        #endif
-    }
-
     // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
@@ -213,6 +194,24 @@ extension AKManager {
             DispatchQueue.main.async(execute: attemptRestart)
         }
     }
+}
+
+#if !os(macOS)
+extension AKManager {
+    @objc internal static func updateSessionCategoryAndOptions() throws {
+        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+
+        let sessionCategory = AKSettings.computedSessionCategory()
+
+        #if os(iOS)
+        let sessionOptions = AKSettings.computedSessionOptions()
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
+        #elseif os(tvOS)
+        try AKSettings.setSession(category: sessionCategory)
+        #endif
+    }
+
+    // MARK: - Route Change Response
 
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
