@@ -9,9 +9,9 @@ extension AKManager {
     private static var configChangeObserver: Any?
     
     /// Utility function to simplify adding listener blocks.
-    private static func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
-                           onAudioObjectID: AudioObjectID,
-                           forPropertyAddress: AudioObjectPropertyAddress) {
+    private static func addListenerBlock(listenerBlock: @escaping AudioObjectPropertyListenerBlock,
+                                         onAudioObjectID: AudioObjectID,
+                                         forPropertyAddress: AudioObjectPropertyAddress) {
         var address = forPropertyAddress
         let err = AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)
         if (err != kAudioHardwareNoError) {
@@ -20,7 +20,8 @@ extension AKManager {
     }
 
     /// Listener block for changing devices on macOS.
-    private static func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>) {
+    private static func audioObjectPropertyListenerBlock(numberAddresses: UInt32,
+                                                         addresses: UnsafePointer<AudioObjectPropertyAddress>) {
         
         for index in 0..<Int(numberAddresses) {
             
