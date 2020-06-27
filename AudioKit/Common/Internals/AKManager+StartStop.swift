@@ -2,6 +2,8 @@
 
 import Foundation
 
+var configChangeObserver: Any?
+
 extension AKManager {
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
@@ -50,6 +52,15 @@ extension AKManager {
                                                selector: #selector(restartEngineAfterConfigurationChange),
                                                name: .AVAudioEngineConfigurationChange,
                                                object: nil)
+        #elseif os(macOS)
+
+        configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
+                                                          object: engine,
+                                                          queue: OperationQueue.main,
+                                                          using: { (_) in
+            print("configuration change")
+        })
+
         #endif
 
         try AKTry {
