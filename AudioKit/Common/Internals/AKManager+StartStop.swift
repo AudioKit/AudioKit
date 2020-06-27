@@ -2,8 +2,6 @@
 
 import Foundation
 
-var configChangeObserver: Any?
-
 // Utility function to simplify adding listener blocks:
 func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
                        onAudioObjectID: AudioObjectID,
@@ -37,6 +35,9 @@ func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: Unsaf
 }
 
 extension AKManager {
+    
+    static var configChangeObserver: Any?
+    
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         // ensure that an output has been set previously
