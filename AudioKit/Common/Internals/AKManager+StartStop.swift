@@ -104,8 +104,7 @@ extension AKManager {
                                                           object: engine,
                                                           queue: OperationQueue.main,
                                                           using: { (notification) in
-            print("configuration change")
-            
+                                                            
             do {
                 try engine.start()
             } catch {
