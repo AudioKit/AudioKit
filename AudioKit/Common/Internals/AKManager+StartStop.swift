@@ -36,7 +36,8 @@ func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: Unsaf
 
 extension AKManager {
     
-    static var configChangeObserver: Any?
+    /// Observes changes to AVAudioEngineConfigurationChange on macOS.
+    private static var configChangeObserver: Any?
     
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
