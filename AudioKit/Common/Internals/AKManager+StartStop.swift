@@ -23,7 +23,8 @@ func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: Unsaf
             
             print("kAudioHardwarePropertyDefaultOutputDevice")
             
-            // AKManager.engine.stop()
+            print("engine is running: \(AKManager.engine.isRunning)")
+            AKManager.engine.stop()
             
         default:
             
@@ -99,14 +100,12 @@ extension AKManager {
                                                           using: { (notification) in
             print("configuration change")
             
-            /*
             do {
                 try engine.start()
             } catch {
                 AKLog("error restarting engine after configuration change")
                 // Note: doesn't throw since this is called from a notification observer
             }
-            */
         })
 
         #endif
