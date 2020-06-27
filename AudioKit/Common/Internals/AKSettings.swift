@@ -105,7 +105,7 @@ open class AKSettings: NSObject {
 
     /// Turn on or off AudioKit logging
     @objc public static var enableLogging: Bool = true
-    
+
     /// If set to false, AudioKit will not handle the AVAudioSession category change
     /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
