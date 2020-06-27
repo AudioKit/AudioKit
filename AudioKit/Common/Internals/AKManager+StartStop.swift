@@ -35,7 +35,7 @@ extension AKManager {
                 
             default:
                 
-                print("We didn't expect this!")
+                AKLog("Unexpected notification from audio object")
                 
             }
             
