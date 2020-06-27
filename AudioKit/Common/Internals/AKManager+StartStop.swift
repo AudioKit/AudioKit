@@ -96,7 +96,7 @@ extension AKManager {
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
-                                                          using: { (notification) in                                               
+                                                          using: { (notification) in
             do {
                 try engine.start()
             } catch {
