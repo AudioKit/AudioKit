@@ -48,24 +48,16 @@ extension AKManager {
                                                selector: #selector(restartEngineAfterRouteChange),
                                                name: AVAudioSession.routeChangeNotification,
                                                object: nil)
-
+        #endif
+        
         // Subscribe to session/configuration changes to our engine
         // Automatic handling of this change can be disabled via AKSettings.enableConfigurationChangeHandling
-        NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(restartEngineAfterConfigurationChange),
-                                               name: .AVAudioEngineConfigurationChange,
-                                               object: nil)
-        #elseif os(macOS)
-        
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
                                                           using: { (notification) in
             restartEngineAfterConfigurationChange(notification)
         })
-
-        #endif
 
         try AKTry {
             try engine.start()
@@ -116,7 +108,7 @@ extension AKManager {
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
+    fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         // Notifications aren't guaranteed to be on the main thread
         let attemptRestart = {
             do {
