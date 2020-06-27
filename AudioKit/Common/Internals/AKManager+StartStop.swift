@@ -84,7 +84,7 @@ extension AKManager {
                                                name: .AVAudioEngineConfigurationChange,
                                                object: nil)
         #elseif os(macOS)
-        
+
         // Listen for changes to the system audio device.
         addListenerBlock(listenerBlock: audioObjectPropertyListenerBlock,
                          onAudioObjectID: AudioObjectID(bitPattern: kAudioObjectSystemObject),
@@ -96,8 +96,7 @@ extension AKManager {
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
-                                                          using: { (notification) in
-                                                            
+                                                          using: { (notification) in                                               
             do {
                 try engine.start()
             } catch {
