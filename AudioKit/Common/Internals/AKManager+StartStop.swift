@@ -4,6 +4,37 @@ import Foundation
 
 var configChangeObserver: Any?
 
+// Utility function to simplify adding listener blocks:
+func addListenerBlock( listenerBlock: @escaping AudioObjectPropertyListenerBlock,
+                       onAudioObjectID: AudioObjectID,
+                       forPropertyAddress: AudioObjectPropertyAddress) {
+    var address = forPropertyAddress
+    if (kAudioHardwareNoError != AudioObjectAddPropertyListenerBlock(onAudioObjectID, &address, nil, listenerBlock)) {
+        print("Error calling: AudioObjectAddPropertyListenerBlock") }
+}
+
+func audioObjectPropertyListenerBlock (numberAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>) {
+    
+    for index in 0..<Int(numberAddresses) {
+        
+        let address: AudioObjectPropertyAddress = addresses[index]
+        switch address.mSelector {
+        case kAudioHardwarePropertyDefaultOutputDevice:
+            
+            print("kAudioHardwarePropertyDefaultOutputDevice")
+            
+            // AKManager.engine.stop()
+            
+        default:
+            
+            print("We didn't expect this!")
+            
+        }
+        
+    }
+    
+}
+
 extension AKManager {
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
@@ -53,12 +84,29 @@ extension AKManager {
                                                name: .AVAudioEngineConfigurationChange,
                                                object: nil)
         #elseif os(macOS)
+        
+        // Listen for changes to the system audio device.
+        addListenerBlock(listenerBlock: audioObjectPropertyListenerBlock,
+                         onAudioObjectID: AudioObjectID(bitPattern: kAudioObjectSystemObject),
+                         forPropertyAddress: AudioObjectPropertyAddress(
+                            mSelector: kAudioHardwarePropertyDefaultOutputDevice,
+                            mScope: kAudioObjectPropertyScopeGlobal,
+                            mElement: kAudioObjectPropertyElementMaster))
 
         configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
                                                           object: engine,
                                                           queue: OperationQueue.main,
-                                                          using: { (_) in
+                                                          using: { (notification) in
             print("configuration change")
+            
+            /*
+            do {
+                try engine.start()
+            } catch {
+                AKLog("error restarting engine after configuration change")
+                // Note: doesn't throw since this is called from a notification observer
+            }
+            */
         })
 
         #endif
