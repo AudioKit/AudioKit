@@ -28,10 +28,9 @@ extension AKManager {
             switch address.mSelector {
             case kAudioHardwarePropertyDefaultOutputDevice:
                 
-                print("kAudioHardwarePropertyDefaultOutputDevice")
-                
-                print("engine is running: \(AKManager.engine.isRunning)")
-                AKManager.engine.stop()
+                if AKManager.engine.isRunning {
+                    AKManager.engine.stop()
+                }
                 
             default:
                 
