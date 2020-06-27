@@ -85,7 +85,7 @@ extension AKManager {
                                                object: nil)
 
         // Subscribe to session/configuration changes to our engine
-        // Automatic handling of this change can be disabled via AKSettings.enableCategoryChangeHandling
+        // Automatic handling of this change can be disabled via AKSettings.enableConfigurationChangeHandling
         NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(restartEngineAfterConfigurationChange),
@@ -189,7 +189,7 @@ extension AKManager {
                     return
                 }
 
-                if AKSettings.enableCategoryChangeHandling, !engine.isRunning, shouldBeRunning {
+                if AKSettings.enableConfigurationChangeHandling, !engine.isRunning, shouldBeRunning {
                     #if os(iOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio

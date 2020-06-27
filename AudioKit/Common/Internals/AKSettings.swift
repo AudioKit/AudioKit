@@ -203,7 +203,7 @@ open class AKSettings: NSObject {
         /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
         /// instance when such notifications are posted. The developer can instead subscribe
         /// to these notifications and restart AudioKit after rebuiling their audio chain.
-        @objc public static var enableCategoryChangeHandling: Bool = true
+        @objc public static var enableConfigurationChangeHandling: Bool = true
 
         /// Whether to allow audio playback to override the mute setting
         @objc public static var playbackWhileMuted: Bool = false
