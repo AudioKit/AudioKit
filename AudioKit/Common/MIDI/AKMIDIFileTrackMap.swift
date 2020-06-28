@@ -6,8 +6,6 @@
 //  Copyright © 2020 AudioKit. All rights reserved.
 //
 
-//TODO: Successfully implement a tempo listener so the tempo automation can be represented in the speed of the playback
-
 //Keep track of the note durations and range for later use in mapping
 
 public class AKMIDINoteDuration {
@@ -156,7 +154,9 @@ public class AKMIDIFileTrackNoteMap {
                     noteNum = Int(data[1])
                     if let prevPosValue = notesInProgress[noteNum]?.0 {
                         notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                        let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, noteOffPosition: notesInProgress[noteNum]!.1, noteNum: noteNum)
+                        let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, 
+                                                             noteOffPosition: notesInProgress[noteNum]!.1, 
+                                                             noteNum: noteNum)
                         notesInProgress.removeValue(forKey: noteNum)
                         finalNoteList.append(noteTracker)
                     }
@@ -172,7 +172,9 @@ public class AKMIDIFileTrackNoteMap {
                 noteNum = Int(data[1])
                 if let prevPosValue = notesInProgress[noteNum]?.0 {
                     notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                    let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, noteOffPosition: notesInProgress[noteNum]!.1, noteNum: noteNum)
+                    let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, 
+                                                         noteOffPosition: notesInProgress[noteNum]!.1, 
+                                                         noteNum: noteNum)
                     notesInProgress.removeValue(forKey: noteNum)
                     finalNoteList.append(noteTracker)
                 }
@@ -214,7 +216,7 @@ public class AKMIDIFileTrackNoteMap {
     }
 }
 
-//Tried to follow some example code from the MIDI Connection Manager.swift example
+//Example code from the MIDI Connection Manager.swift
 //to implement the AKMIDITempoListener
 extension AKMIDIFileTrackNoteMap: AKMIDITempoObserver {
     
