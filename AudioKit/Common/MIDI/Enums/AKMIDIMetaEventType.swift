@@ -17,7 +17,14 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case lyric = 0x05
     case marker = 0x06
     case cuePoint = 0x07
+<<<<<<< Updated upstream
     case devicePortName = 0x09
+=======
+    case programName = 0x08
+    case devicePortName = 0x09
+    case metaEvent10 = 0x0A
+    case metaEvent12 = 0x0C
+>>>>>>> Stashed changes
     case channelPrefix = 0x20
     case midiPort = 0x21
     case endOfTrack = 0x2F
@@ -64,8 +71,19 @@ public enum AKMIDIMetaEventType: MIDIByte {
             return "Marker"
         case .cuePoint:
             return "Cue Point"
+<<<<<<< Updated upstream
         case .devicePortName:
             return "Device (Port) Name"
+=======
+        case .programName:
+            return "Program Name"
+        case .devicePortName:
+            return "Device (Port) Name"
+        case .metaEvent10:
+            return "Meta Event 10"
+        case .metaEvent12:
+            return "Meta Event 12"
+>>>>>>> Stashed changes
         case .channelPrefix:
             return "Channel Prefix"
         case .midiPort:
@@ -105,7 +123,11 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var length: Int
     public var description: String {
         var nameStr: String = ""
+<<<<<<< Updated upstream
         if type == .trackName || type == .instrumentName || type == .devicePortName {
+=======
+        if type == .trackName || type == .instrumentName || type == .programName || type == .devicePortName || type == .metaEvent10 || type == .metaEvent12 {
+>>>>>>> Stashed changes
             nameStr = "- \(name!)"
         }
         return type.description + " \(length) bytes long \(nameStr)"
