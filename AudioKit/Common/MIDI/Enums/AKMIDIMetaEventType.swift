@@ -114,7 +114,7 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var length: Int
     public var description: String {
         var nameStr: String = ""
-        if type == .trackName || type == .instrumentName || type == .programName || 
+        if type == .trackName || type == .instrumentName || type == .programName ||
         type == .devicePortName || type == .metaEvent10 || type == .metaEvent12 {
             nameStr = "- \(name!)"
         }
