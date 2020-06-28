@@ -11,39 +11,39 @@ import Foundation
 import AudioKit
 
 /*
- This file contains the code for a horizontal MIDI sequencer view, similar to what you see 
+This file contains the code for a horizontal MIDI sequencer view, similar to what you see
 in most Digital Audio Workstations.
- To add this view to your app, it's as simple as specifying the size/position of the view you 
-would like, giving it a MIDI File URL and track number, populating the view with notes, 
+To add this view to your app, it's as simple as specifying the size/position of the view you
+would like, giving it a MIDI File URL and track number, populating the view with notes,
 adding the track to a parent view and playing the track!
- 
- For example:
- 
- var trackView1: AKMIDITrackView = AKMIDITrackView(frame: CGRect(x: , y: , width: , height: ), 
-midiFile: AKMIDIFile(url: urltoyourmidifile), 
+
+For example:
+
+var trackView1: AKMIDITrackView = AKMIDITrackView(frame: CGRect(x: , y: , width: , height: ),
+midiFile: AKMIDIFile(url: urltoyourmidifile),
 trackNumber: The MIDI track number you want to display)
- 
- //Inside View Controller
- 
- self.trackView1.populateViewNotes()
- 
- self.view.addSubview(self.trackView1)
- 
- self.trackView1.play()
- 
- If you are using an AKAppleSampler or AKSampler, sequencer, etc, 
-you will want to play the track directly before you play through the sequencer 
+
+//Inside View Controller
+
+self.trackView1.populateViewNotes()
+
+self.view.addSubview(self.trackView1)
+
+self.trackView1.play()
+
+If you are using an AKAppleSampler or AKSampler, sequencer, etc,
+you will want to play the track directly before you play through the sequencer
 so the sound is synced with the playback.
- 
- This file is still in development. I have tried loading some forms of MIDI files, and they do not yet work. 
-I also have not set up the playback to be synced with automated tempos which change over time. 
+
+This file is still in development. I have tried loading some forms of MIDI files, and they do not yet work.
+I also have not set up the playback to be synced with automated tempos which change over time.
 I am hoping to achieve this soon by using AudioKit's AKMIDITempoListener.
- */
+*/
 
 //Display a MIDI Sequence in a track
 
 public class AKMIDITrackView: AKButton {
-    //Quarter note at 120 bpm is 20.833333333333333333... pixels - standard
+ //Quarter note at 120 bpm is 20.833333333333333333... pixels - standard
     var length: Double!
     var playbackCursorRect: CGRect!
     var playbackCursorView: UIView!
@@ -89,21 +89,22 @@ public class AKMIDITrackView: AKButton {
         playbackCursorView = UIView(frame: playbackCursorRect)
         playbackCursorView.backgroundColor = .white
         collectiveNoteView.addSubview(self.playbackCursorView)
-        cursorTimer = Timer.scheduledTimer(timeInterval: (1.0 / ((20 + (8.0 / 10.0) + (1.0 / 30.0)))) * (1.0 / midiTrackNoteMap.currentTempo) * 60.0,
+        cursorTimer = Timer.scheduledTimer(timeInterval: (1.0 / ((20 + (8.0 / 10.0) + (1.0 / 30.0)))) *
+                                           (1.0 / midiTrackNoteMap.currentTempo) * 60.0,
         target: self,
         selector: #selector(self.updateCursor),
         userInfo: nil,
         repeats: true)
     }
-    
+ 
     public func populateViewNotes() {
-        
+     
         let noteDescriptor = midiTrackNoteMap
         let noteRange = (noteDescriptor?.noteRange)!
         let noteList = (noteDescriptor?.noteList)!
-        
+     
         let trackHeight = Double(self.frame.size.height)
-        
+     
         let noteHeight = Double(trackHeight / (noteRange))
         let maxHeight = Double(trackHeight - (noteHeight))
         
@@ -141,7 +142,8 @@ public class AKMIDITrackView: AKButton {
             playbackCursorView.frame = playbackCursorRect
         } else {
             playbackCursorView.removeFromSuperview()
-            scrollTimer = Timer.scheduledTimer(timeInterval: (1.0 / ((20 + (8.0 / 10.0) + (1.0 / 30.0)))) * (1.0 / midiTrackNoteMap.currentTempo) * 60.0,
+            scrollTimer = Timer.scheduledTimer(timeInterval: (1.0 / ((20 + (8.0 / 10.0) + (1.0 / 30.0)))) *
+                                               (1.0 / midiTrackNoteMap.currentTempo) * 60.0,
             target: self,
             selector: #selector(self.scrollNotes),
             userInfo: nil,
@@ -150,9 +152,10 @@ public class AKMIDITrackView: AKButton {
         }
     }
  
-    //Move the note view across the screen
+ //Move the note view across the screen
     @objc func scrollNotes() {
         noteGroupPosition -= 1
         collectiveNoteView.frame.origin.x = CGFloat(noteGroupPosition)
     }
 }
+
