@@ -17,7 +17,6 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case lyric = 0x05
     case marker = 0x06
     case cuePoint = 0x07
-    case devicePortName = 0x09
     case programName = 0x08
     case devicePortName = 0x09
     case metaEvent10 = 0x0A
@@ -68,8 +67,6 @@ public enum AKMIDIMetaEventType: MIDIByte {
             return "Marker"
         case .cuePoint:
             return "Cue Point"
-        case .devicePortName:
-            return "Device (Port) Name"
         case .programName:
             return "Program Name"
         case .devicePortName:
@@ -117,7 +114,8 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var length: Int
     public var description: String {
         var nameStr: String = ""
-        if type == .trackName || type == .instrumentName || type == .programName || type == .devicePortName || type == .metaEvent10 || type == .metaEvent12 {
+        if type == .trackName || type == .instrumentName || type == .programName || 
+        type == .devicePortName || type == .metaEvent10 || type == .metaEvent12 {
             nameStr = "- \(name!)"
         }
         return type.description + " \(length) bytes long \(nameStr)"
