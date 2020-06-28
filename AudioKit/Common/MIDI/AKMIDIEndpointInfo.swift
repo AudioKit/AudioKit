@@ -55,15 +55,15 @@ public struct EndpointInfo:Hashable, Codable {
 
     
     /// init
-    public init(name:String,
-         displayName:String,
-         model:String,
-         manufacturer:String,
-         image:String,
-         driverOwner:String,
-         midiUniqueID: MIDIUniqueID,
-         midiEndpointRef:MIDIEndpointRef,
-         midiPortRef:MIDIPortRef? = nil ) {
+    public init(name: String,
+         displayName: String,
+         model: String,
+         manufacturer: String,
+         image: String,
+         driverOwner: String,
+         midiUniqueID:  MIDIUniqueID,
+         midiEndpointRef: MIDIEndpointRef,
+         midiPortRef: MIDIPortRef? = nil ) {
         self.name = name
         self.displayName = displayName
         self.model = model
