@@ -6,10 +6,10 @@ public protocol AKMIDITempoObserver {
 
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
     /// This signifies that there is an incoming midi clock detected
-    func midiClockSlaveMode()
+    func midiClockLeaderMode()
 
     /// Called when this client is allowed to become a clock master
-    func midiClockMasterEnabled()
+    func midiClockLeaderEnabled()
 
     /// Called each time the BPM is updated from the midi clock
     ///
@@ -19,11 +19,11 @@ public protocol AKMIDITempoObserver {
 
 public extension AKMIDITempoObserver {
 
-    func midiClockSlaveMode() {
+    func midiClockLeaderMode() {
 
     }
 
-    func midiClockMasterEnabled() {
+    func midiClockLeaderEnabled() {
 
     }
 

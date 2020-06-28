@@ -11,6 +11,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case lyric = 0x05
     case marker = 0x06
     case cuePoint = 0x07
+    case devicePortName = 0x09
     case channelPrefix = 0x20
     case midiPort = 0x21
     case endOfTrack = 0x2F
@@ -57,6 +58,8 @@ public enum AKMIDIMetaEventType: MIDIByte {
             return "Marker"
         case .cuePoint:
             return "Cue Point"
+        case .devicePortName:
+            return "Device (Port) Name"
         case .channelPrefix:
             return "Channel Prefix"
         case .midiPort:
@@ -96,7 +99,7 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var length: Int
     public var description: String {
         var nameStr: String = ""
-        if let name = name, (type == .trackName || type == .instrumentName) {
+        if let name = name, (type == .trackName || type == .instrumentName || type == .devicePortName) {
             nameStr = "- \(name)"
         }
         return type.description + " \(length) bytes long \(nameStr)"
