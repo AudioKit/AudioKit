@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074F225D24A9092F000CBBB3 /* AKMIDIFileTrackMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F225C24A9092F000CBBB3 /* AKMIDIFileTrackMap.swift */; };
+		074F225F24A9095C000CBBB3 /* AKMIDITrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F225E24A9095C000CBBB3 /* AKMIDITrackView.swift */; };
 		07C0F21B1F13EE1200F928C9 /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */; };
 		3404A79A20507B1500A2C9E4 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */; };
 		3404A79B20507B1500A2C9E4 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A78620507B1500A2C9E4 /* SustainPedalLogic.cpp */; };
@@ -1237,6 +1239,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		074F225C24A9092F000CBBB3 /* AKMIDIFileTrackMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTrackMap.swift; sourceTree = "<group>"; };
+		074F225E24A9095C000CBBB3 /* AKMIDITrackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITrackView.swift; sourceTree = SOURCE_ROOT; };
 		07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
 		3404A78220507B1500A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResonantLowPassFilter.hpp; sourceTree = "<group>"; };
@@ -3259,6 +3263,7 @@
 				C44EA27E2018731A0072399F /* README.md */,
 				C426BF351E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift */,
 				C40B0FFA1C463A32000BE96E /* AKMIDI.swift */,
+				074F225C24A9092F000CBBB3 /* AKMIDIFileTrackMap.swift */,
 				C48DB7A91CD554A000D1EC13 /* AKMIDI+Receiving.swift */,
 				C48DB7AA1CD554A000D1EC13 /* AKMIDI+Sending.swift */,
 				C4F9CD3421EFF50400F64D72 /* AKMIDI+VirtualPorts.swift */,
@@ -3440,6 +3445,7 @@
 				C4865E201F75F2A500507564 /* AKLiveViewController.swift */,
 				C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */,
 				C4414F6F1F5E7D0800D8DB8E /* AKPropertyControl.swift */,
+				074F225E24A9095C000CBBB3 /* AKMIDITrackView.swift */,
 				C4F8632B1D4CB4C60027A1F9 /* AKResourceAudioFileLoaderView.swift */,
 				701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */,
 				C44243051D4B0FEE00C4182C /* AKSlider.swift */,
@@ -6157,6 +6163,7 @@
 				34BB6744205AC238000E5450 /* tag_utils.c in Sources */,
 				C403F473231A4CC200A81C0E /* AKFMOscillatorFilterSynthAudioUnit.mm in Sources */,
 				F4217894210D51AC005BA786 /* AKTable+AdditiveSynthesis.swift in Sources */,
+				074F225D24A9092F000CBBB3 /* AKMIDIFileTrackMap.swift in Sources */,
 				C49B13BC204A06B7009C7C8E /* saturator.c in Sources */,
 				C40C415B1C40E3A5009D870B /* EZAudioFloatData.m in Sources */,
 				C49B1511204A06B8009C7C8E /* TwoZero.cpp in Sources */,
@@ -6943,6 +6950,7 @@
 				EA7D071B1F4E63FA00707706 /* AKSlider.swift in Sources */,
 				EA7D071A1F4E63FA00707706 /* AKStepper.swift in Sources */,
 				FE2C8B1F20D9C82000009BAC /* AKTweaker.swift in Sources */,
+				074F225F24A9095C000CBBB3 /* AKMIDITrackView.swift in Sources */,
 				EA7D07141F4E63FA00707706 /* AKADSRView.swift in Sources */,
 				EA7D07171F4E63FA00707706 /* AKPlaygroundLoop.swift in Sources */,
 				EA7D07121F4E63FA00707706 /* MultitouchGestureRecognizer.swift in Sources */,
