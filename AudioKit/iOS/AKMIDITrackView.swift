@@ -111,9 +111,7 @@ public class AKMIDITrackView: AKButton {
         let loNote = midiTrackNoteMap.loNote
         
         let zoomConstant = noteZoomConstant
-        
-        print(trackLength * noteZoomConstant)
-        
+     
         //Create invisible scroll view which moves all the notes
         let collectiveNoteViewRect = CGRect(x: 0, y: 0, width: trackLength * noteZoomConstant, height: trackHeight)
         collectiveNoteView = UIView(frame: collectiveNoteViewRect)
