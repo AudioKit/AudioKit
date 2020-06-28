@@ -9,14 +9,12 @@
 //Keep track of the note durations and range for later use in mapping
 
 public class AKMIDINoteDuration {
-    
     public var noteBeginningTime = 0.0
     public var noteEndTime = 0.0
     public var noteDuration = 0.0
     public var noteNum = 0
     public var noteNumMap = 0
     public var noteRange = 0
-    
     public init(noteOnPosition: Double, noteOffPosition: Double, noteNum: Int) {
         self.noteBeginningTime = noteOnPosition
         self.noteEndTime = noteOffPosition
@@ -24,19 +22,14 @@ public class AKMIDINoteDuration {
         self.noteNum = noteNum
     }
 }
-
 //Get the MIDI events which occur inside a MIDI track in a MIDI file
-
 public class AKMIDIFileTrackNoteMap {
-    
     public let midiTrack: AKMIDIFileTrack!
     public let midiFile: AKMIDIFile!
     public let trackNum: Int!
-    
     //AudioKit midi object reference for later implementation with the AKMIDITempoListener
     let midi = AudioKit.midi
     public let tempoListener = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
-    
     public var loNote: Int {
         if noteList.count >= 2 {
             return (noteList.min(by: {$0.noteNum < $1.noteNum})?.noteNum)!
@@ -44,7 +37,6 @@ public class AKMIDIFileTrackNoteMap {
             return 0
         }
     }
-    
     public var hiNote: Int {
         if noteList.count >= 2 {
             return (noteList.max(by: {$0.noteNum < $1.noteNum})?.noteNum)!
@@ -52,12 +44,10 @@ public class AKMIDIFileTrackNoteMap {
             return 0
         }
     }
-    
     public var noteRange: Int {
         //Increment by 1 to properly fit the notes in the MIDI UI View
         return (hiNote - loNote) + 1
     }
-    
     public var currentTempo: Double {
         var bpm: Double = 120.0
         //Get tempo for MIDI file format 1 which has a tempo track
@@ -76,7 +66,7 @@ public class AKMIDIFileTrackNoteMap {
                     }
                 }
             }
-        } else {
+    } else {
             //Get tempo for MIDI file format 0 which includes the tempo in the track chunks
             let midiTrack = midiFile.tracks[trackNum]
             let tempoEvent = 81
@@ -154,7 +144,7 @@ public class AKMIDIFileTrackNoteMap {
                     noteNum = Int(data[1])
                     if let prevPosValue = notesInProgress[noteNum]?.0 {
                         notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                        let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, 
+                        let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0,
                                                              noteOffPosition: notesInProgress[noteNum]!.1, 
                                                              noteNum: noteNum)
                         notesInProgress.removeValue(forKey: noteNum)
@@ -172,8 +162,8 @@ public class AKMIDIFileTrackNoteMap {
                 noteNum = Int(data[1])
                 if let prevPosValue = notesInProgress[noteNum]?.0 {
                     notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                    let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0, 
-                                                         noteOffPosition: notesInProgress[noteNum]!.1, 
+                    let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0,
+                                                         noteOffPosition: notesInProgress[noteNum]!.1,
                                                          noteNum: noteNum)
                     notesInProgress.removeValue(forKey: noteNum)
                     finalNoteList.append(noteTracker)
@@ -203,7 +193,6 @@ public class AKMIDIFileTrackNoteMap {
             }
         } else {
             AKLog("No Tracks in the MIDI File")
-            print("Tracks:", midiFile.trackChunks.debugDescription)
             self.midiTrack = midiFile.tracks[0]
             self.trackNum = 0
         }
@@ -221,34 +210,34 @@ public class AKMIDIFileTrackNoteMap {
 extension AKMIDIFileTrackNoteMap: AKMIDITempoObserver {
     
     public func receivedTempo(bpm: BPMType, label: String) {
-        print("[BPM]", label)
+        
     }
     
 }
 
 extension AKMIDIFileTrackNoteMap: AKMIDIBeatObserver {
-
+    
     public func preparePlay(continue: Bool) {
-        debugPrint("MMC Start Prepare Play")
+        
     }
-
+    
     public func startFirstBeat(continue: Bool) {
-        debugPrint("MMC Start First Beat")
+        
     }
-
+    
     public func stopSRT() {
-        debugPrint("MMC Stop")
+        
     }
-
+    
     public func receivedBeatEvent(beat: UInt64) {
-
+        
     }
-
+    
     func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
-
+        
     }
-
+    
     public func receivedQuarterNoteBeat(quarterNote: UInt8) {
-        //debugPrint("Quarter Note: ", quarterNote)
+        
     }
 }
