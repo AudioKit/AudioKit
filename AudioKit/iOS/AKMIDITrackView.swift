@@ -111,7 +111,6 @@ public class AKMIDITrackView: AKButton {
         collectiveNoteView = UIView(frame: collectiveNoteViewRect)
         noteGroupPosition = Double(collectiveNoteViewRect.origin.x)
         self.addSubview(collectiveNoteView)
-        
         for note in noteList {
             let noteNum = note.noteNum - loNote
             let noteStart = Double(note.noteBeginningTime)
@@ -121,14 +120,10 @@ public class AKMIDITrackView: AKButton {
             let noteLevel = (maxHeight - (noteNum * noteHeight))
             let singleNoteRect = CGRect(x: notePosition, y: noteLevel, width: noteLength, height: noteHeight)
             let singleNoteView = UIView(frame: singleNoteRect)
-            
             singleNoteView.backgroundColor = self.highlightedColor
-            
             collectiveNoteView.addSubview(singleNoteView)
         }
-        
     }
-    
     //Move the playback cursor across the screen
     @objc func updateCursor() {
         let width = Double(self.frame.size.width)
@@ -155,7 +150,5 @@ public class AKMIDITrackView: AKButton {
             //TODO: Fix this code so the timer actually gets invalidated
             scrollTimer.invalidate()
         }
-    }
-    
+    }   
 }
-
