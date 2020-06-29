@@ -6,8 +6,7 @@
 //  Copyright © 2020 AudioKit. All rights reserved.
 //
 
-//Keep track of the note durations and range for later use in mapping
-
+/// Keep track of the note durations and range for later use in mapping
 public class AKMIDINoteDuration {
     public var noteBeginningTime = 0.0
     public var noteEndTime = 0.0
@@ -32,14 +31,14 @@ public class AKMIDIFileTrackNoteMap {
     public let tempoListener = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
     public var loNote: Int {
         if noteList.count >= 2 {
-            return (noteList.min(by: {$0.noteNum < $1.noteNum})?.noteNum)!
+            return (noteList.min(by: { $0.noteNum < $1.noteNum })?.noteNum)!
         } else {
             return 0
         }
     }
     public var hiNote: Int {
         if noteList.count >= 2 {
-            return (noteList.max(by: {$0.noteNum < $1.noteNum})?.noteNum)!
+            return (noteList.max(by: { $0.noteNum < $1.noteNum })?.noteNum)!
         } else {
             return 0
         }
@@ -77,7 +76,7 @@ public class AKMIDIFileTrackNoteMap {
                     let tempo3 = String(event.data[5], radix: 16)
                     let tempoString = tempo1 + tempo2 + tempo3
                     if let tempoInt = Int(tempoString, radix: 16) {
-                        bpm = 60000000 / tempoInt
+                        bpm = 60_000_000 / tempoInt
                         return bpm
                     }
                 }
@@ -85,7 +84,7 @@ public class AKMIDIFileTrackNoteMap {
         }
         return bpm
     }
-    
+
     public var endOfTrack: Double {
         let midiTrack = midiFile.tracks[trackNum]
         let endOfTrackEvent = 47
@@ -104,10 +103,10 @@ public class AKMIDIFileTrackNoteMap {
         }
         return 0.0
     }
-    
+
     //A list of all the note events in the MIDI file for tracking purposes
     public var noteList: [AKMIDINoteDuration] {
-        
+
         var finalNoteList = [AKMIDINoteDuration]()
         var eventPosition = 0.0
         var noteNum = 0
@@ -119,12 +118,12 @@ public class AKMIDIFileTrackNoteMap {
             let data = event.data
             let eventTypeNum = data[0]
             let eventType = event.status?.type?.description ?? "No Event"
-            
+
             //Usually the third element of a note event is the velocity
             if data.count > 2 {
                 velocityEvent = Int(data[2])
             }
-            
+
             if noteOn == 0 {
                 if eventType == "Note On" {
                     noteOn = Int(eventTypeNum)
@@ -135,7 +134,7 @@ public class AKMIDIFileTrackNoteMap {
                     noteOff = Int(eventTypeNum)
                 }
             }
-            
+
             if eventTypeNum == noteOn {
                 //A note played with a velocity of zero is the equivalent
                 //of a noteOff command
@@ -145,7 +144,7 @@ public class AKMIDIFileTrackNoteMap {
                     if let prevPosValue = notesInProgress[noteNum]?.0 {
                         notesInProgress[noteNum] = (prevPosValue, eventPosition)
                         let noteTracker = AKMIDINoteDuration(noteOnPosition: notesInProgress[noteNum]!.0,
-                                                             noteOffPosition: notesInProgress[noteNum]!.1, 
+                                                             noteOffPosition: notesInProgress[noteNum]!.1,
                                                              noteNum: noteNum)
                         notesInProgress.removeValue(forKey: noteNum)
                         finalNoteList.append(noteTracker)
@@ -156,7 +155,7 @@ public class AKMIDIFileTrackNoteMap {
                     notesInProgress[noteNum] = (eventPosition, 0.0)
                 }
             }
-            
+
             if eventTypeNum == noteOff {
                 eventPosition = event.positionInBeats! / self.midiFile.ticksPerBeat!
                 noteNum = Int(data[1])
@@ -169,14 +168,14 @@ public class AKMIDIFileTrackNoteMap {
                     finalNoteList.append(noteTracker)
                 }
             }
-            
+
             eventPosition = 0.0
             noteNum = 0
             velocityEvent = nil
         }
         return finalNoteList
     }
-    
+
     public init(midiFile: AKMIDIFile, trackNum: Int) {
         self.midiFile = midiFile
         if midiFile.tracks.count != 0 {
@@ -208,36 +207,21 @@ public class AKMIDIFileTrackNoteMap {
 //Example code from the MIDI Connection Manager.swift
 //to implement the AKMIDITempoListener
 extension AKMIDIFileTrackNoteMap: AKMIDITempoObserver {
-    
     public func receivedTempo(bpm: BPMType, label: String) {
-        
     }
-    
 }
 
 extension AKMIDIFileTrackNoteMap: AKMIDIBeatObserver {
-    
     public func preparePlay(continue: Bool) {
-        
     }
-    
     public func startFirstBeat(continue: Bool) {
-        
     }
-    
     public func stopSRT() {
-        
     }
-    
     public func receivedBeatEvent(beat: UInt64) {
-        
     }
-    
     func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
-        
     }
-    
     public func receivedQuarterNoteBeat(quarterNote: UInt8) {
-        
     }
 }
