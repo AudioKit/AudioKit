@@ -53,14 +53,14 @@ public class AKMIDITrackView: AKButton {
     var playbackCursorPosition: Double = 0.0
     var noteGroupPosition: Double = 0.0
     public var midiTrackNoteMap: AKMIDIFileTrackNoteMap!
- 
+
     var trackLength: Double {
         return midiTrackNoteMap.endOfTrack
     }
- 
+
     //How far the view is zoomed in
     public var noteZoomConstant: Double = 10000.0
- 
+
     /// Initialize the Track View
     public convenience init(frame: CGRect, midiFile: AKMIDIFile, trackNumber: Int) {
         self.init(frame: frame)
@@ -68,21 +68,20 @@ public class AKMIDITrackView: AKButton {
         clipsToBounds = true
         self.midiTrackNoteMap = AKMIDIFileTrackNoteMap(midiFile: midiFile, trackNum: trackNumber)
     }
- 
+
     /// Default init from superclass
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.borderWidth = 0.0
         clipsToBounds = true
     }
- 
+
     /// Initialization within Interface Builder
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.borderWidth = 0.0
         clipsToBounds = true
     }
- 
     //Cursor which displays for the first few seconds of the midi clip until it goes out of bounds
     public func play() {
         playbackCursorRect = CGRect(x: 0, y: 0, width: 3, height: Double(self.frame.height))
@@ -96,22 +95,22 @@ public class AKMIDITrackView: AKButton {
         userInfo: nil,
         repeats: true)
     }
- 
+
     public func populateViewNotes() {
-     
+
         let noteDescriptor = midiTrackNoteMap
         let noteRange = (noteDescriptor?.noteRange)!
         let noteList = (noteDescriptor?.noteList)!
-     
+
         let trackHeight = Double(self.frame.size.height)
-     
+
         let noteHeight = Double(trackHeight / (noteRange))
         let maxHeight = Double(trackHeight - (noteHeight))
-        
+
         let loNote = midiTrackNoteMap.loNote
-        
+
         let zoomConstant = noteZoomConstant
-     
+
         //Create invisible scroll view which moves all the notes
         let collectiveNoteViewRect = CGRect(x: 0, y: 0, width: trackLength * noteZoomConstant, height: trackHeight)
         collectiveNoteView = UIView(frame: collectiveNoteViewRect)
@@ -130,7 +129,7 @@ public class AKMIDITrackView: AKButton {
             collectiveNoteView.addSubview(singleNoteView)
         }
     }
- 
+
     //Move the playback cursor across the screen
     @objc func updateCursor() {
         let width = Double(self.frame.size.width)
@@ -149,11 +148,10 @@ public class AKMIDITrackView: AKButton {
             cursorTimer.invalidate()
         }
     }
- 
+
  //Move the note view across the screen
     @objc func scrollNotes() {
         noteGroupPosition -= 1
         collectiveNoteView.frame.origin.x = CGFloat(noteGroupPosition)
     }
 }
-
