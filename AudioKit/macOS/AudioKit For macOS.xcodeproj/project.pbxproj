@@ -215,6 +215,7 @@
 		C4082757220D505E00DAE6DA /* AKMIDITempoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4082756220D505E00DAE6DA /* AKMIDITempoListener.swift */; };
 		C408275E220D57E100DAE6DA /* AKMIDISystemRealTimeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C408275C220D57E000DAE6DA /* AKMIDISystemRealTimeObserver.swift */; };
 		C408275F220D57E100DAE6DA /* AKMIDISystemRealTimeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C408275D220D57E100DAE6DA /* AKMIDISystemRealTimeListener.swift */; };
+		C409E98C24A9930A00E2660F /* AKMIDIFileTempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C409E98B24A9930A00E2660F /* AKMIDIFileTempoTrack.swift */; };
 		C40B5475228CB68D00311B00 /* sndwarp.c in Sources */ = {isa = PBXBuildFile; fileRef = C40B5471228CB68D00311B00 /* sndwarp.c */; };
 		C40B5476228CB68D00311B00 /* vocoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C40B5472228CB68D00311B00 /* vocoder.c */; };
 		C40B5477228CB68D00311B00 /* wavout.c in Sources */ = {isa = PBXBuildFile; fileRef = C40B5473228CB68D00311B00 /* wavout.c */; };
@@ -1437,6 +1438,7 @@
 		C4082756220D505E00DAE6DA /* AKMIDITempoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITempoListener.swift; sourceTree = "<group>"; };
 		C408275C220D57E000DAE6DA /* AKMIDISystemRealTimeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDISystemRealTimeObserver.swift; sourceTree = "<group>"; };
 		C408275D220D57E100DAE6DA /* AKMIDISystemRealTimeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDISystemRealTimeListener.swift; sourceTree = "<group>"; };
+		C409E98B24A9930A00E2660F /* AKMIDIFileTempoTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTempoTrack.swift; sourceTree = "<group>"; };
 		C40B5471228CB68D00311B00 /* sndwarp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sndwarp.c; sourceTree = "<group>"; };
 		C40B5472228CB68D00311B00 /* vocoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vocoder.c; sourceTree = "<group>"; };
 		C40B5473228CB68D00311B00 /* wavout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavout.c; sourceTree = "<group>"; };
@@ -5446,7 +5448,7 @@
 			children = (
 				FE081EE521E916F100653575 /* AKMIDIFile.swift */,
 				FE11CFB7224C3E3700E6D289 /* AKMIDIFileTrack.swift */,
-				FEA1A9FD24AA8DA700AB3FF7 /* AKMIDIFileTempoTrack.swift */,
+				C409E98B24A9930A00E2660F /* AKMIDIFileTempoTrack.swift */,
 				FE081EE121E916F100653575 /* AKMIDIFileChunk.swift */,
 				FE081EE321E916F100653575 /* AKMIDIFileHeaderChunk.swift */,
 				FE081EE421E916F100653575 /* AKMIDIFileTrackChunk.swift */,
@@ -5945,7 +5947,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -6351,7 +6353,7 @@
 				C456692A1D448D7E00D26565 /* AKStringResonator.swift in Sources */,
 				C49B190A204A0AD1009C7C8E /* bal.c in Sources */,
 				C4DE8592200D6B2B0075C82B /* AKPluckedStringAudioUnit.swift in Sources */,
-				FEA1A9FE24AA8DA700AB3FF7 /* AKMIDIFileTempoTrack.swift in Sources */,
+				C409E98C24A9930A00E2660F /* AKMIDIFileTempoTrack.swift in Sources */,
 				552FBD451F3F731200C02C08 /* AKConnection.swift in Sources */,
 				C49B18E5204A0AD1009C7C8E /* writecode.c in Sources */,
 				C45669841D448D7E00D26565 /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */,
@@ -7135,7 +7137,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
