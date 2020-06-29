@@ -1196,6 +1196,7 @@
 		FE8FE9D620E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */; };
 		FE8FE9D720E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */; };
 		FE8FE9D820E42BFD00F15B7E /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */; };
+		FEA1A9FE24AA8DA700AB3FF7 /* AKMIDIFileTempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA1A9FD24AA8DA700AB3FF7 /* AKMIDIFileTempoTrack.swift */; };
 		FEB3AB0F22DFE00C0080A5CB /* AKDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB0122DFE00C0080A5CB /* AKDuration.swift */; };
 		FEB3AB1022DFE00C0080A5CB /* AKMIDINoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB0222DFE00C0080A5CB /* AKMIDINoteData.swift */; };
 		FEB3AB1122DFE00C0080A5CB /* AKMusicTrack+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB0422DFE00C0080A5CB /* AKMusicTrack+Load.swift */; };
@@ -2483,6 +2484,7 @@
 		FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDiskStreamerDSPKernel.hpp; sourceTree = "<group>"; };
 		FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiskStreamerAudioUnit.mm; sourceTree = "<group>"; };
 		FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
+		FEA1A9FD24AA8DA700AB3FF7 /* AKMIDIFileTempoTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTempoTrack.swift; sourceTree = "<group>"; };
 		FEB3AB0122DFE00C0080A5CB /* AKDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDuration.swift; sourceTree = "<group>"; };
 		FEB3AB0222DFE00C0080A5CB /* AKMIDINoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINoteData.swift; sourceTree = "<group>"; };
 		FEB3AB0422DFE00C0080A5CB /* AKMusicTrack+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Load.swift"; sourceTree = "<group>"; };
