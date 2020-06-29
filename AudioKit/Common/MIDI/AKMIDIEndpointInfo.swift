@@ -2,8 +2,7 @@
 
 /// MIDI Endpoint Information
 
-
-public struct EndpointInfo:Hashable, Codable {
+public struct EndpointInfo: Hashable, Codable {
 
     /// Unique name
     public var name = ""
@@ -47,17 +46,16 @@ public struct EndpointInfo:Hashable, Codable {
         hasher.combine(midiPortRef)
     }
 
-    
     /// init
     public init(name: String,
-         displayName: String,
-         model: String,
-         manufacturer: String,
-         image: String,
-         driverOwner: String,
-         midiUniqueID:  MIDIUniqueID,
-         midiEndpointRef: MIDIEndpointRef,
-         midiPortRef: MIDIPortRef? = nil ) {
+                displayName: String,
+                model: String,
+                manufacturer: String,
+                image: String,
+                driverOwner: String,
+                midiUniqueID:  MIDIUniqueID,
+                midiEndpointRef: MIDIEndpointRef,
+                midiPortRef: MIDIPortRef? = nil ) {
         self.name = name
         self.displayName = displayName
         self.model = model

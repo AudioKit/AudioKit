@@ -109,7 +109,11 @@ extension AKManager {
                                           prerender: (() -> Void)? = nil,
                                           progress: ((Double) -> Void)? = nil) throws {
 
-        try engine.renderToFile(audioFile, maximumFrameCount: maximumFrameCount, duration: duration, prerender: prerender, progress: progress)
+        try engine.renderToFile(audioFile,
+                                maximumFrameCount: maximumFrameCount,
+                                duration: duration,
+                                prerender: prerender,
+                                progress: progress)
     }
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)

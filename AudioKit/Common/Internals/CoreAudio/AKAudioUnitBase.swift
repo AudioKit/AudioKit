@@ -1,10 +1,5 @@
-//
-//  AKAudioUnit.swift
-//  AudioKit
-//
-//  Created by James Ordner, revision history on GitHub.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 
 import AudioToolbox
 
