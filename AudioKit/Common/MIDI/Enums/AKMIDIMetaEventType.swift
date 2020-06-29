@@ -109,7 +109,7 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     public var description: String {
         var nameStr: String = ""
 
-        if let name = name && (
+        if let name = name, (
             type == .trackName ||
             type == .instrumentName ||
             type == .programName ||
