@@ -1,10 +1,4 @@
-//
-//  AKMIDIFileTempoTrack.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 6/25/20.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 public struct AKMIDIFileTempoTrack {
 

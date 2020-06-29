@@ -1,9 +1,4 @@
-//
-//  AdvancedADSREnvelope.hpp
-//  AudioKit
-//
-//  Created by Jeff Cooper on 5/21/20.
-//  Copyright © 2020 AudioKit. All rights reserved.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 //
 // Attack, Hold, Decay, Sustain, Release-hold, Release envelope
 // 1) Attack fades in from 0 for attackSamples

@@ -3,7 +3,7 @@
 import Foundation
 
 public struct AKMIDIFile {
-    
+
     public var filename: String
     var chunks: [AKMIDIFileChunk] = []
 
