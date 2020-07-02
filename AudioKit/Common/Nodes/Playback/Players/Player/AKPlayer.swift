@@ -20,7 +20,6 @@ import AVFoundation
  videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
  }
  ```
-
  Basic usage looks like:
  ```
  guard let player = AKPlayer(url: url) else { return }
@@ -34,7 +33,6 @@ import AVFoundation
 
  player.play()
  ```
-
  Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKAbstractPlayer {
@@ -208,12 +206,8 @@ public class AKPlayer: AKAbstractPlayer {
     /// Reversing the audio will set the player to buffering
     @objc public var isReversed: Bool = false {
         didSet {
-            if isPlaying {
-                stop()
-            }
-            if isFaded {
-                fade.needsUpdate = true
-            }
+            if isPlaying { stop() }
+            if isFaded { fade.needsUpdate = true }
             updateBuffer(force: true)
         }
     }
@@ -233,9 +227,7 @@ public class AKPlayer: AKAbstractPlayer {
         faderNode = output
 
         // start this bypassed
-        faderNode?.bypass()
-
-        // AKLog("Fader input format:", faderNode?.avAudioUnitOrNode.inputFormat(forBus: 0))
+        bypassFader()
     }
 
     /// Create a player from a URL
@@ -266,7 +258,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if mixerNode == nil, processingFormat != AKSettings.audioFormat {
-            AKLog("⚠️ Warning: This file is a different format than AKSettings. A mixer is being placed in line.")
+            AKLog("⚠️ Warning: This file is a different sample rate than AKSettings. A mixer is being placed in line.")
             AKLog("processingFormat:", processingFormat, "AKSettings.audioFormat:", AKSettings.audioFormat)
             let strongMixer = AVAudioMixerNode()
             mixerNode = strongMixer
@@ -336,8 +328,7 @@ public class AKPlayer: AKAbstractPlayer {
         if let faderNode = faderNode {
             AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
-
-        faderNode?.bypass()
+        bypassFader()
     }
 
     // MARK: - Play
@@ -351,8 +342,7 @@ public class AKPlayer: AKAbstractPlayer {
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
-        let audioTime = audioTime ?? AVAudioTime.now()
-
+        var audioTime = audioTime ?? AVAudioTime.now()
         isPlaying = true
 
         preroll(from: startingTime, to: endingTime)
@@ -361,6 +351,19 @@ public class AKPlayer: AKAbstractPlayer {
         // prepare the fader
         if isFaded, !isBufferFaded {
             scheduleFader()
+
+            // Offline: if sample rate is mismatched from AKSettings.sampleRate,
+            // then adjust the scheduling to compensate. See also AKAbstractPlayer.scheduleFader
+            if renderingMode == .offline, sampleRate != AKSettings.sampleRate {
+                let sampleRateRatio = sampleRate / AKSettings.sampleRate
+
+                let sampleTime = AVAudioFramePosition(Double(audioTime.sampleTime) / sampleRateRatio)
+                audioTime = AVAudioTime(hostTime: audioTime.hostTime, sampleTime: sampleTime, atRate: sampleRate)
+
+                // AKLog("AKSettings sample rate (\(AKSettings.sampleRate) is mismatched from the player ", sampleRate)
+                // AKLog("Adjusted fade out values by the ratio:", sampleRateRatio)
+            }
+
             faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
 

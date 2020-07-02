@@ -233,12 +233,26 @@ open class AKAbstractPlayer: AKNode {
             // when the start of the fade out should occur
             var timeTillFadeOut = offsetTime + editedDuration - fade.outTime
 
-            // adjust the scheduled fade out based on the playback rate
+            // NOTE: adjust the scheduled fade out based on the playback rate?
             timeTillFadeOut /= _rate
+
+            var rampDurationOut = fade.outTime / _rate
+
+            // Offline: if sample rate is mismatched from AKSettings.sampleRate,
+            // then adjust the scheduling to compensate. See also AKPlayer.play
+            if renderingMode == .offline, sampleRate != AKSettings.sampleRate {
+                let sampleRateRatio = sampleRate / AKSettings.sampleRate
+
+                timeTillFadeOut /= sampleRateRatio
+                rampDurationOut /= sampleRateRatio
+
+                // AKLog("AKSettings sample rate (\(AKSettings.sampleRate) is mismatched from the player ", sampleRate)
+                // AKLog("Adjusted fade out values by the ratio:", sampleRateRatio)
+            }
 
             faderNode.addAutomationPoint(value: Fade.minimumGain,
                                          at: timeTillFadeOut,
-                                         rampDuration: fade.outTime / _rate,
+                                         rampDuration: rampDurationOut,
                                          taper: fade.outTaper,
                                          skew: fade.outSkew)
         }
@@ -248,14 +262,15 @@ open class AKAbstractPlayer: AKNode {
         return AUAudioFrameCount(value * sampleRate)
     }
 
-    // Enables the internal fader from the signal chain if it is bypassed
+    // Starts the internal fader in the signal chain if it is bypassed
     public func startFader() {
         if faderNode?.isBypassed == true {
             faderNode?.start()
         }
     }
 
-    // Bypasses the internal fader from the signal chain
+    // Sets the faderNode to the bypassed state. Setting the gain to 1 will
+    // also bypass it.
     public func bypassFader() {
         if faderNode?.isBypassed == false {
             faderNode?.bypass()
