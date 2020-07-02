@@ -55,6 +55,9 @@ extension AKPlayer {
         } else {
             // if there are no fades, be sure to reset this
             super.resetFader()
+
+            // if gain is neutral, take the fader out
+            if gain == 1 { bypassFader() }
         }
     }
 }
