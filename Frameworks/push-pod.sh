@@ -12,12 +12,11 @@ BETA=${BETA:-1}
 
 if test $1 = release;
 then
-	#SOURCE="https://files.audiokit.io/releases/v${VER}/AudioKit.framework.zip"
-	SOURCE="https://github.com/AudioKit/AudioKit/releases/download/v${VER}/AudioKit.xcframework.zip"
+	SOURCE="https://github.com/AudioKit/AudioKit/releases/download/v${VER}/AudioKit.xcframeworks.zip"
 elif test $1 = staging;
 then
 	VER="${VER}.b${BETA}"
-	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.xcframework.zip"
+	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.xcframeworks.zip"
 else
 	echo "Invalid parameter: $1"
 	exit 1

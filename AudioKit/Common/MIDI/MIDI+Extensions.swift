@@ -28,6 +28,16 @@ extension MIDIByte {
     }
 }
 
+extension Array where Element == MIDIByte {
+    var hex: String {
+        return self.map({ $0.hex.replacingOccurrences(of: "0x", with: "") }).joined(separator: "")
+    }
+
+    var integerValue: Int? {
+        return Int(hex, radix: 16)
+    }
+}
+
 extension MIDIWord {
     /// Construct a 14 bit integer MIDIWord value
     ///

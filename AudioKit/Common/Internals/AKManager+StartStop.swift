@@ -3,6 +3,13 @@
 import Foundation
 
 extension AKManager {
+
+    /// Observes changes to AVAudioEngineConfigurationChange..
+    private static var configChangeObserver: Any?
+
+    /// Observer for AVAudioSession.routeChangeNotification
+    private static var routeChangeObserver: Any?
+
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         // ensure that an output has been set previously
@@ -37,20 +44,18 @@ extension AKManager {
 
         // Subscribe to route changes that may affect our engine
         // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
-        NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(restartEngineAfterRouteChange),
-                                               name: AVAudioSession.routeChangeNotification,
-                                               object: nil)
+        routeChangeObserver = NotificationCenter.default.addObserver(forName: AVAudioSession.routeChangeNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: restartEngineAfterRouteChange)
+        #endif
 
         // Subscribe to session/configuration changes to our engine
-        // Automatic handling of this change can be disabled via AKSettings.enableCategoryChangeHandling
-        NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(restartEngineAfterConfigurationChange),
-                                               name: .AVAudioEngineConfigurationChange,
-                                               object: nil)
-        #endif
+        // Automatic handling of this change can be disabled via AKSettings.enableConfigurationChangeHandling
+        configChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
+                                                          object: engine,
+                                                          queue: OperationQueue.main,
+                                                          using: restartEngineAfterConfigurationChange)
 
         try AKTry {
             try engine.start()
@@ -76,8 +81,6 @@ extension AKManager {
 
         #if os(iOS)
         do {
-            NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
             if !AKSettings.disableAudioSessionDeactivationOnStop {
                 try AVAudioSession.sharedInstance().setActive(false)
             }
@@ -96,26 +99,12 @@ extension AKManager {
     }
 }
 
-#if !os(macOS)
 extension AKManager {
-    @objc internal static func updateSessionCategoryAndOptions() throws {
-        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
-
-        let sessionCategory = AKSettings.computedSessionCategory()
-
-        #if os(iOS)
-        let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
-        #elseif os(tvOS)
-        try AKSettings.setSession(category: sessionCategory)
-        #endif
-    }
-
     // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
+    fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         // Notifications aren't guaranteed to be on the main thread
         let attemptRestart = {
             do {
@@ -125,7 +114,7 @@ extension AKManager {
                     return
                 }
 
-                if AKSettings.enableCategoryChangeHandling, !engine.isRunning, shouldBeRunning {
+                if AKSettings.enableConfigurationChangeHandling, !engine.isRunning, shouldBeRunning {
                     #if os(iOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
@@ -158,9 +147,27 @@ extension AKManager {
             DispatchQueue.main.async(execute: attemptRestart)
         }
     }
+}
+
+#if !os(macOS)
+extension AKManager {
+    @objc internal static func updateSessionCategoryAndOptions() throws {
+        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+
+        let sessionCategory = AKSettings.computedSessionCategory()
+
+        #if os(iOS)
+        let sessionOptions = AKSettings.computedSessionOptions()
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
+        #elseif os(tvOS)
+        try AKSettings.setSession(category: sessionCategory)
+        #endif
+    }
+
+    // MARK: - Route Change Response
 
     // Restarts the engine after audio output has been changed, like headphones plugged in.
-    @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
+    fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         // Notifications aren't guaranteed to come in on the main thread
 
         let attemptRestart = {

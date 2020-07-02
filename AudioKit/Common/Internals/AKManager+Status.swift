@@ -5,8 +5,6 @@ import AudioToolbox
 
 extension AKManager {
 
-    // MARK: Global audio format (44.1K, Stereo)
-
     @objc static var shouldBeRunning = false
 
     #if os(iOS)
