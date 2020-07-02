@@ -125,7 +125,9 @@ jobs:
         for f in *.xcframework; do
           zip -9r zips/${f}.zip ${f}
         done
-        aws s3 cp zips/*.zip s3://files.audiokit.io/staging/v$(cat ../VERSION).b1/
+        for zip in zips/*.zip; do
+          aws s3 cp ${zip} s3://files.audiokit.io/staging/v$(cat ../VERSION).b1/
+        done
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
