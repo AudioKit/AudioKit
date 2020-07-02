@@ -108,6 +108,12 @@ cd ..
 
 if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
 	echo "Packaging the XCFrameworks ..."
-	rm -f ${SUBDIR}/AudioKit.xcframework.zip
-	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip *.xcframework 
+	rm -f ${SUBDIR}/AudioKit.xcframeworks.zip
+	zip -9yr ${SUBDIR}/AudioKit.xcframeworks.zip *.xcframework 
+
+	for f in AudioKit $FRAMEWORKS;
+	do
+		rm -f ${SUBDIR}/${f}.xcframework.zip
+		zip -9yr ${SUBDIR}/${f}.xcframework.zip ${f}.xcframework
+	done
 fi
