@@ -105,6 +105,12 @@ open class AKSettings: NSObject {
 
     /// Turn on or off AudioKit logging
     @objc public static var enableLogging: Bool = true
+
+    /// If set to false, AudioKit will not handle the AVAudioSession category change
+    /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
+    /// instance when such notifications are posted. The developer can instead subscribe
+    /// to these notifications and restart AudioKit after rebuiling their audio chain.
+    @objc public static var enableConfigurationChangeHandling: Bool = true
 }
 
 // MARK: - macOS
@@ -198,12 +204,6 @@ open class AKSettings: NSObject {
         /// instance when such notifications are posted. The developer can instead subscribe
         /// to these notifications and restart AudioKit after rebuilding their audio chain.
         @objc public static var enableRouteChangeHandling: Bool = true
-
-        /// If set to false, AudioKit will not handle the AVAudioSession category change
-        /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
-        /// instance when such notifications are posted. The developer can instead subscribe
-        /// to these notifications and restart AudioKit after rebuiling their audio chain.
-        @objc public static var enableCategoryChangeHandling: Bool = true
 
         /// Whether to allow audio playback to override the mute setting
         @objc public static var playbackWhileMuted: Bool = false

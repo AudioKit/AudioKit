@@ -1,9 +1,4 @@
-//
-//  AKTable+AdditiveSynthesis.swift
-//
-//  Created by Marcus W. Hobbs on 7/23/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 

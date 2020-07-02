@@ -10,6 +10,10 @@ public struct AKMIDIFileTrack {
         return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) })
     }
 
+    public var metaEvents: [AKMIDIMetaEvent] {
+        return events.compactMap({ AKMIDIMetaEvent(data: $0.data) })
+    }
+
     public var length: Double {
         return events.last?.positionInBeats ?? 0
     }

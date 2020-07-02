@@ -267,6 +267,10 @@
 		C40831CB202848E900F7153D /* AKHighShelfParametricEqualizerFilterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40831CA202848E800F7153D /* AKHighShelfParametricEqualizerFilterDSP.mm */; };
 		C40831CD202848FD00F7153D /* AKLowShelfParametricEqualizerFilterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40831CC202848FD00F7153D /* AKLowShelfParametricEqualizerFilterDSP.mm */; };
 		C40831CF2028490600F7153D /* AKPeakingParametricEqualizerFilterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40831CE2028490600F7153D /* AKPeakingParametricEqualizerFilterDSP.mm */; };
+		C409E98E24A994B800E2660F /* AKMIDIFileTempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C409E98D24A994B800E2660F /* AKMIDIFileTempoTrack.swift */; };
+		C409E98F24A994B800E2660F /* AKMIDIFileTempoTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C409E98D24A994B800E2660F /* AKMIDIFileTempoTrack.swift */; };
+		C409E99124A994F600E2660F /* AKMIDITrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C409E99024A994F500E2660F /* AKMIDITrackView.swift */; };
+		C409E99324A9A21400E2660F /* AKMIDIFileTrackMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C409E99224A9A21400E2660F /* AKMIDIFileTrackMap.swift */; };
 		C40AD69A1C463B2600B638AF /* AKMIDIEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6951C463B2600B638AF /* AKMIDIEvent.swift */; };
 		C40AD69B1C463B2600B638AF /* AKMIDIInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6961C463B2600B638AF /* AKMIDIInstrument.swift */; };
 		C40B0FFB1C463A32000BE96E /* AKMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40B0FFA1C463A32000BE96E /* AKMIDI.swift */; };
@@ -4032,6 +4036,9 @@
 		C40831CA202848E800F7153D /* AKHighShelfParametricEqualizerFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKHighShelfParametricEqualizerFilterDSP.mm; sourceTree = "<group>"; };
 		C40831CC202848FD00F7153D /* AKLowShelfParametricEqualizerFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKLowShelfParametricEqualizerFilterDSP.mm; sourceTree = "<group>"; };
 		C40831CE2028490600F7153D /* AKPeakingParametricEqualizerFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPeakingParametricEqualizerFilterDSP.mm; sourceTree = "<group>"; };
+		C409E98D24A994B800E2660F /* AKMIDIFileTempoTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTempoTrack.swift; sourceTree = "<group>"; };
+		C409E99024A994F500E2660F /* AKMIDITrackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITrackView.swift; sourceTree = "<group>"; };
+		C409E99224A9A21400E2660F /* AKMIDIFileTrackMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTrackMap.swift; sourceTree = "<group>"; };
 		C40AD6951C463B2600B638AF /* AKMIDIEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEvent.swift; sourceTree = "<group>"; };
 		C40AD6961C463B2600B638AF /* AKMIDIInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIInstrument.swift; sourceTree = "<group>"; };
 		C40B0FFA1C463A32000BE96E /* AKMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDI.swift; sourceTree = "<group>"; };
@@ -6861,25 +6868,26 @@
 		C468CD1F2481E70000456291 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C468CD202481E70000456291 /* AKPresetLoaderView.swift */,
-				C468CD212481E70000456291 /* AKDualButton.swift */,
-				C468CD222481E70000456291 /* AKStepper.swift */,
-				C468CD232481E70000456291 /* AKButton.swift */,
-				C468CD242481E70000456291 /* AKRotaryKnob.swift */,
-				C468CD252481E70000456291 /* AKTweaker.swift */,
-				C468CD262481E70000456291 /* AKCoarseFineSlider.swift */,
-				C468CD272481E70000456291 /* AKSlider.swift */,
-				C468CD282481E70000456291 /* AKLiveViewController.swift */,
-				C468CD292481E70000456291 /* AKKeyboardView.swift */,
-				C468CD2A2481E70000456291 /* AKTableView.swift */,
-				C468CD2B2481E70000456291 /* AKPlaygroundLoop.swift */,
-				C468CD2C2481E70000456291 /* AKResourceAudioFileLoaderView.swift */,
-				C468CD2D2481E70000456291 /* AKPlaygroundView.swift */,
-				C468CD2E2481E70000456291 /* AKTelephoneView.swift */,
-				C468CD2F2481E70000456291 /* AKPropertyControl.swift */,
-				C468CD302481E70000456291 /* MultitouchGestureRecognizer.swift */,
-				C468CD312481E70000456291 /* AKNudger.swift */,
 				C468CD322481E70000456291 /* AKADSRView.swift */,
+				C468CD232481E70000456291 /* AKButton.swift */,
+				C468CD262481E70000456291 /* AKCoarseFineSlider.swift */,
+				C468CD212481E70000456291 /* AKDualButton.swift */,
+				C468CD292481E70000456291 /* AKKeyboardView.swift */,
+				C468CD282481E70000456291 /* AKLiveViewController.swift */,
+				C409E99024A994F500E2660F /* AKMIDITrackView.swift */,
+				C468CD312481E70000456291 /* AKNudger.swift */,
+				C468CD2B2481E70000456291 /* AKPlaygroundLoop.swift */,
+				C468CD2D2481E70000456291 /* AKPlaygroundView.swift */,
+				C468CD202481E70000456291 /* AKPresetLoaderView.swift */,
+				C468CD2F2481E70000456291 /* AKPropertyControl.swift */,
+				C468CD2C2481E70000456291 /* AKResourceAudioFileLoaderView.swift */,
+				C468CD242481E70000456291 /* AKRotaryKnob.swift */,
+				C468CD272481E70000456291 /* AKSlider.swift */,
+				C468CD222481E70000456291 /* AKStepper.swift */,
+				C468CD2A2481E70000456291 /* AKTableView.swift */,
+				C468CD2E2481E70000456291 /* AKTelephoneView.swift */,
+				C468CD252481E70000456291 /* AKTweaker.swift */,
+				C468CD302481E70000456291 /* MultitouchGestureRecognizer.swift */,
 			);
 			path = iOS;
 			sourceTree = SOURCE_ROOT;
@@ -6887,19 +6895,19 @@
 		C468CD332481E70000456291 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				C468CD342481E70000456291 /* AKPresetLoaderView.swift */,
-				C468CD352481E70000456291 /* AKPlaygroundViewController.swift */,
+				C468CD402481E70000456291 /* AKADSRView.swift */,
 				C468CD362481E70000456291 /* AKButton.swift */,
+				C468CD3A2481E70000456291 /* AKKeyboardView.swift */,
+				C468CD412481E70000456291 /* AKMIDIPlaygroundView.swift */,
+				C468CD3C2481E70000456291 /* AKPlaygroundLoop.swift */,
+				C468CD3E2481E70000456291 /* AKPlaygroundView.swift */,
+				C468CD352481E70000456291 /* AKPlaygroundViewController.swift */,
+				C468CD342481E70000456291 /* AKPresetLoaderView.swift */,
+				C468CD3F2481E70000456291 /* AKPropertyControl.swift */,
+				C468CD3D2481E70000456291 /* AKResourceAudioFileLoaderView.swift */,
 				C468CD372481E70000456291 /* AKRotaryKnob.swift */,
 				C468CD382481E70000456291 /* AKSlider.swift */,
-				C468CD3A2481E70000456291 /* AKKeyboardView.swift */,
 				C468CD3B2481E70000456291 /* AKTableView.swift */,
-				C468CD3C2481E70000456291 /* AKPlaygroundLoop.swift */,
-				C468CD3D2481E70000456291 /* AKResourceAudioFileLoaderView.swift */,
-				C468CD3E2481E70000456291 /* AKPlaygroundView.swift */,
-				C468CD3F2481E70000456291 /* AKPropertyControl.swift */,
-				C468CD402481E70000456291 /* AKADSRView.swift */,
-				C468CD412481E70000456291 /* AKMIDIPlaygroundView.swift */,
 			);
 			path = macOS;
 			sourceTree = SOURCE_ROOT;
@@ -8205,6 +8213,8 @@
 			children = (
 				FE081EF121E94B3B00653575 /* AKMIDIFile.swift */,
 				FE902B99224985ED0023CA7A /* AKMIDIFileTrack.swift */,
+				C409E98D24A994B800E2660F /* AKMIDIFileTempoTrack.swift */,
+				C409E99224A9A21400E2660F /* AKMIDIFileTrackMap.swift */,
 				FE081EED21E94B3B00653575 /* AKMIDIFileChunk.swift */,
 				FE081EEF21E94B3B00653575 /* AKMIDIFileHeaderChunk.swift */,
 				FE081EF021E94B3B00653575 /* AKMIDIFileTrackChunk.swift */,
@@ -9969,6 +9979,7 @@
 				C49B13DF204A06B7009C7C8E /* tin.c in Sources */,
 				C46302921C20E7A7009B44D9 /* subtract.swift in Sources */,
 				C457CBF8213C6D6500AFDEBC /* SynthVoice.cpp in Sources */,
+				C409E99324A9A21400E2660F /* AKMIDIFileTrackMap.swift in Sources */,
 				C49B1415204A06B7009C7C8E /* expon.c in Sources */,
 				C4537FBD1C3A438D00A51738 /* AKEqualizerFilter.swift in Sources */,
 				C4A916501C24F95E006C1A15 /* portamento.swift in Sources */,
@@ -10080,6 +10091,7 @@
 				C4537FB11C3A438D00A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
 				C464077E20105D1900299119 /* AKPinkNoiseAudioUnit.swift in Sources */,
 				C48DB7C71CD56AC100D1EC13 /* AKMIDISystemCommand.swift in Sources */,
+				C409E98E24A994B800E2660F /* AKMIDIFileTempoTrack.swift in Sources */,
 				C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */,
 				C49B1411204A06B7009C7C8E /* lpf18.c in Sources */,
 				C49B13DC204A06B7009C7C8E /* base.c in Sources */,
@@ -10892,6 +10904,7 @@
 				C468CD672481E71000456291 /* AKADSRView.swift in Sources */,
 				C468CD642481E71000456291 /* AKPropertyControl.swift in Sources */,
 				EA7D07111F4E63F400707706 /* AKNodeFFTPlot.swift in Sources */,
+				C409E99124A994F600E2660F /* AKMIDITrackView.swift in Sources */,
 				C468CD662481E71000456291 /* AKNudger.swift in Sources */,
 				C468CD592481E71000456291 /* AKRotaryKnob.swift in Sources */,
 				C468CD5A2481E71000456291 /* AKTweaker.swift in Sources */,
@@ -11867,6 +11880,7 @@
 				EAA62E57247F44E200BF4CDB /* vocwrapper.c in Sources */,
 				EAA62E58247F44E200BF4CDB /* pshift.c in Sources */,
 				EAA62E59247F44E200BF4CDB /* AKBandRejectButterworthFilter.swift in Sources */,
+				C409E98F24A994B800E2660F /* AKMIDIFileTempoTrack.swift in Sources */,
 				EAA62E5A247F44E200BF4CDB /* AKPinkNoiseAudioUnit.swift in Sources */,
 				EAA62E5B247F44E200BF4CDB /* AKMIDISystemCommand.swift in Sources */,
 				EAA62E5C247F44E200BF4CDB /* adsrEnvelope.swift in Sources */,

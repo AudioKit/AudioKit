@@ -1,8 +1,4 @@
-//
-//  AKTable+AKAudioFile.swift
-//
-//  Created by Marcus W. Hobbs on 4/8/17.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
 

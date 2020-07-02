@@ -29,15 +29,15 @@ public typealias BPMType = TimeInterval
 ///
 ///     class YOURCLASS: AKMIDITempoObserver {
 ///         func receivedTempoUpdate(bpm: BPMType, label: String) {  ... }
-///         func midiClockSlaveMode() { ... }
-///         func midiClockMasterEnabled() { ... }
+///         func midiClockFollowerMode() { ... }
+///         func midiClockLeaderEnabled() { ... }
 ///
-/// midiClockSlaveMode() informs client that midi clock messages have been received
-/// and the client may not become the clock master.  The client must stop all
+/// midiClockFollowerMode() informs client that midi clock messages have been received
+/// and the client may not become the clock leader.  The client must stop all
 /// transmission of MIDI clock.
 ///
-/// midiClockMasterEnabled() informs client that midi clock messages have not been seen
-/// in 1.6 seconds and the client is allowed to become the clock master.
+/// midiClockLeaderEnabled() informs client that midi clock messages have not been seen
+/// in 1.6 seconds and the client is allowed to become the clock leader.
 ///
 open class AKMIDITempoListener: NSObject {
 
@@ -216,13 +216,13 @@ extension AKMIDITempoListener {
 
     func midiClockActivityStarted() {
         tempoObservers.forEach { (observer) in
-            observer.midiClockSlaveMode()
+            observer.midiClockLeaderMode()
         }
     }
 
     func midiClockActivityStopped() {
         tempoObservers.forEach { (observer) in
-            observer.midiClockMasterEnabled()
+            observer.midiClockLeaderEnabled()
         }
     }
 

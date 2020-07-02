@@ -171,13 +171,24 @@ extension AKMIDIClockListener: AKMIDIBeatObserver {
 // MARK: - MMC Observations interface
 
 extension AKMIDIClockListener: AKMIDITempoObserver {
+
+    @available(*, deprecated, renamed: "midiClockFollowerMode")
     public func midiClockSlaveMode() {
-        AKLog("MIDI Clock Slave", log: OSLog.midi)
+        midiClockFollowerMode()
+    }
+
+    @available(*, deprecated, renamed: "midiClockLeaderEnabled")
+    public func midiClockMasterEnabled() {
+        midiClockLeaderEnabled()
+    }
+
+    public func midiClockFollowerMode() {
+        AKLog("MIDI Clock Follower", log: OSLog.midi)
         quarterNoteQuantumCounter = 0
     }
 
-    public func midiClockMasterEnabled() {
-        AKLog("MIDI Clock Master Enabled", log: OSLog.midi)
+    public func midiClockLeaderEnabled() {
+        AKLog("MIDI Clock Leader Enabled", log: OSLog.midi)
         quarterNoteQuantumCounter = 0
     }
 }

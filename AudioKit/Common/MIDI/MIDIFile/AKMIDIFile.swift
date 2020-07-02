@@ -4,7 +4,7 @@ import Foundation
 
 public struct AKMIDIFile {
 
-    var filename: String
+    public var filename: String
     var chunks: [AKMIDIFileChunk] = []
 
     var headerChunk: MIDIFileHeaderChunk? {
@@ -15,9 +15,9 @@ public struct AKMIDIFile {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    public var tempoTrack: AKMIDIFileTrack? {
+    public var tempoTrack: AKMIDIFileTempoTrack? {
         if format == 1, let tempoTrackChunk = trackChunks.first {
-            return AKMIDIFileTrack(chunk: tempoTrackChunk)
+            return AKMIDIFileTempoTrack(trackChunk: tempoTrackChunk)
         }
         return nil
     }
@@ -25,7 +25,7 @@ public struct AKMIDIFile {
     public var tracks: [AKMIDIFileTrack] {
         var tracks = trackChunks
         if format == 1 {
-            tracks = Array(tracks.dropFirst())
+            tracks = Array(tracks.dropFirst()) // drop tempo track
         }
         return tracks.compactMap({ AKMIDIFileTrack(chunk: $0) })
     }
