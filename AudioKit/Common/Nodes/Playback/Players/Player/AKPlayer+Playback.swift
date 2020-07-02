@@ -55,6 +55,9 @@ extension AKPlayer {
         } else {
             // if there are no fades, be sure to reset this
             super.resetFader()
+
+            // if gain is neutral, take the fader out
+            if gain == 1 { bypassFader() }
         }
     }
 }
@@ -149,7 +152,6 @@ extension AKPlayer {
     public func fadeOutAndStop(time: TimeInterval) {
         guard isPlaying else { return }
 
-        // creates if necessary only
         startFader()
 
         // Provides a convenience for a quick fade out when a user presses stop.
