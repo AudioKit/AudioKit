@@ -362,7 +362,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// Load a new audio file into this player. Note that if your processingFormat changes
     /// you should dispose this AKPlayer and create a new one instead.
     @objc public func load(audioFile: AVAudioFile) throws {
-        if audioFile.processingFormat != processingFormat {
+        if let format = processingFormat, format != audioFile.processingFormat {
             AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
                 "You should make a new AKPlayer instance and reconnect. " +
                 "load() is only available for files that are the same format.")
