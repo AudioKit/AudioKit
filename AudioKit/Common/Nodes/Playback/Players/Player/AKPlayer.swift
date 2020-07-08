@@ -257,9 +257,15 @@ public class AKPlayer: AKAbstractPlayer {
             self.audioFile = readFile
         }
 
-        if mixerNode == nil, processingFormat != AKSettings.audioFormat {
-            AKLog("⚠️ Warning: This file is a different sample rate than AKSettings. A mixer is being placed in line.")
-            AKLog("processingFormat:", processingFormat, "AKSettings.audioFormat:", AKSettings.audioFormat)
+        if mixerNode == nil,
+            let processingFormat = processingFormat,
+            processingFormat != AKSettings.audioFormat {
+            let error = "⚠️ Warning: This file is a different processingFormat than AKSettings. " +
+                "A mixer is being placed in line. " +
+                "File.processingFormat: \(processingFormat) AKSettings.audioFormat: \(AKSettings.audioFormat)"
+
+            AKLog(error)
+
             let strongMixer = AVAudioMixerNode()
             mixerNode = strongMixer
         }
