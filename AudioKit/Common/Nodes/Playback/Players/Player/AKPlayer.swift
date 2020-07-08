@@ -352,23 +352,13 @@ public class AKPlayer: AKAbstractPlayer {
 
     // MARK: - Loading
 
-    /// Replace the contents of the player with this url. Note that if your processingFormat changes
-    /// you should dispose this AKPlayer and create a new one instead.
+    /// Replace the contents of the player with this url.
     @objc public func load(url: URL) throws {
         let file = try AVAudioFile(forReading: url)
-        try load(audioFile: file)
+        load(audioFile: file)
     }
 
-    /// Load a new audio file into this player. Note that if your processingFormat changes
-    /// you should dispose this AKPlayer and create a new one instead.
-    @objc public func load(audioFile: AVAudioFile) throws {
-        if audioFile.processingFormat != processingFormat {
-            AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
-                "You should make a new AKPlayer instance and reconnect. " +
-                "load() is only available for files that are the same format.")
-            throw NSError(domain: "Processing format doesn't match", code: 0, userInfo: nil)
-        }
-
+    @objc public func load(audioFile: AVAudioFile) {
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
         // will reset the stored start / end times or update the buffer
