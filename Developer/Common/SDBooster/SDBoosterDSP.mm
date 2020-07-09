@@ -2,6 +2,17 @@
 
 #include "SDBoosterDSP.hpp"
 
+struct SDBoosterDSP : AKDSPBase {
+private:
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
+
+public:
+    SDBoosterDSP();
+
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+};
+
 extern "C" AKDSPRef createSDBoosterDSP()
 {
     return new SDBoosterDSP();

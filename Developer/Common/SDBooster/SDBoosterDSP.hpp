@@ -14,17 +14,4 @@ typedef NS_ENUM (AUParameterAddress, SDBoosterParameter) {
 
 AKDSPRef createSDBoosterDSP();
 
-#else
-
-struct SDBoosterDSP : AKDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
-
-public:
-    SDBoosterDSP();
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif
