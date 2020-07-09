@@ -9,25 +9,23 @@
 import Foundation
 
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
+    public var rawData: [UInt8]
 
-    var typeData: [UInt8]
-    var lengthData: [UInt8]
-    var data: [UInt8]
     var timeFormat: MIDITimeFormat
     var timeDivision: Int
 
-    init() {
-        typeData = Array(repeating: 0, count: 4)
-        lengthData = Array(repeating: 0, count: 4)
+    public init() {
+        rawData = MIDIFileChunkType.header.midiBytes
+        rawData.append(contentsOf: Array(repeating: UInt8(0), count: 4))
         timeFormat = .ticksPerBeat
         timeDivision = 480 //arbitrary value
-        data = []
     }
 
-    init(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
-        self.typeData = chunk.typeData
-        self.lengthData = chunk.lengthData
-        self.data = chunk.data
+    init?(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
+        guard chunk.type == .track else {
+            return nil
+        }
+        rawData = chunk.rawData
         self.timeFormat = timeFormat
         self.timeDivision = timeDivision
     }
