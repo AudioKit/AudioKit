@@ -23,6 +23,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		297A6D0824B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB63FB2494B0E0001E1F37;
+			remoteInfo = "STKAudioKit-iOS";
+		};
+		297A6D0A24B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB654C2494B656001E1F37;
+			remoteInfo = "STKAudioKit-macOS";
+		};
+		297A6D0C24B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB65F72494B681001E1F37;
+			remoteInfo = "STKAudioKit-tvOS";
+		};
+		297A6D0E24B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB660224955B0D001E1F37;
+			remoteInfo = "DevoloopAudioKit-iOS";
+		};
+		297A6D1024B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB6687249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-macOS";
+		};
+		297A6D1224B7995200A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB66C7249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-tvOS";
+		};
 		EAF299C5248128D000C3804E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EAF299BC248128D000C3804E /* AudioKit.xcodeproj */;
@@ -169,11 +211,17 @@
 			isa = PBXGroup;
 			children = (
 				EAF299C6248128D000C3804E /* AudioKit.framework */,
-				EAF299C8248128D000C3804E /* AudioKitUI.framework */,
-				EAF299CA248128D000C3804E /* AudioKit.framework */,
-				EAF299CC248128D000C3804E /* AudioKitUI.framework */,
 				EAF299CE248128D000C3804E /* AudioKit.framework */,
+				EAF299CA248128D000C3804E /* AudioKit.framework */,
+				EAF299C8248128D000C3804E /* AudioKitUI.framework */,
 				EAF299D0248128D000C3804E /* AudioKitUI.framework */,
+				EAF299CC248128D000C3804E /* AudioKitUI.framework */,
+				297A6D0924B7995200A3777B /* STKAudioKit.framework */,
+				297A6D0B24B7995200A3777B /* STKAudioKit.framework */,
+				297A6D0D24B7995200A3777B /* STKAudioKit.framework */,
+				297A6D0F24B7995200A3777B /* DevoloopAudioKit.framework */,
+				297A6D1124B7995200A3777B /* DevoloopAudioKit.framework */,
+				297A6D1324B7995200A3777B /* DevoloopAudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,7 +268,7 @@
 					3429F97E201A25AB00300166 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -254,6 +302,48 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		297A6D0924B7995200A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6D0824B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6D0B24B7995200A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6D0A24B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6D0D24B7995200A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6D0C24B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6D0F24B7995200A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6D0E24B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6D1124B7995200A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6D1024B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6D1324B7995200A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6D1224B7995200A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		EAF299C6248128D000C3804E /* AudioKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -392,7 +482,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-iOS/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -407,7 +496,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-iOS/AudioKit.framework/Headers/\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -452,7 +540,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-iOS/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -461,7 +548,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-iOS/AudioKit.framework/Headers/\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -475,10 +561,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -497,10 +583,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9W69ZP8S5F;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

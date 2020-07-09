@@ -121,7 +121,7 @@ class Conductor {
     func controller(_ controller: MIDIByte, value: MIDIByte) {
         switch controller {
         case AKMIDIControl.modulationWheel.rawValue:
-            oscillator.vibratoDepth = 0.5 * Double(value) / 128.0
+            oscillator.vibratoDepth = 0.5 * AUValue(value) / 128.0
         case AKMIDIControl.damperOnOff.rawValue:
             // key-up, key-down and pedal operations are mediated by SDSustainer
             sustainer.sustain(down: value != 0)
@@ -134,9 +134,9 @@ class Conductor {
         let pwValue = Double(pitchWheelValue)
         let scale = (pwValue - 8_192.0) / 8_192.0
         if scale >= 0.0 {
-            oscillator.pitchBend = scale * self.pitchBendUpSemitones
+            oscillator.pitchBend = AUValue(scale * self.pitchBendUpSemitones)
         } else {
-            oscillator.pitchBend = scale * self.pitchBendDownSemitones
+            oscillator.pitchBend = AUValue(scale * self.pitchBendDownSemitones)
         }
     }
 
