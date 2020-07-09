@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "SDBoosterDSP.hpp"
-#import "ParameterRamper.hpp"
 
 extern "C" AKDSPRef createSDBoosterDSP()
 {
