@@ -25,4 +25,8 @@ public class MIDIHelper {
     static public func convertToString(bytes: [UInt8]) -> String {
         return bytes.map(String.init).joined()
     }
+
+    static public func convertToASCII(bytes: [UInt8]) -> String? {
+        return String(bytes: bytes, encoding: .utf8)
+    }
 }
