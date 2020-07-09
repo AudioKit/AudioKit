@@ -4,8 +4,8 @@
 
 struct SDBoosterDSP : AKDSPBase {
 private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
+    ParameterRamper leftGainRamp;
+    ParameterRamper rightGainRamp;
 
 public:
     SDBoosterDSP();
@@ -18,15 +18,10 @@ extern "C" AKDSPRef createSDBoosterDSP()
     return new SDBoosterDSP();
 }
 
-struct SDBoosterDSP::InternalData {
-    ParameterRamper leftGainRamp;
-    ParameterRamper rightGainRamp;
-};
-
-SDBoosterDSP::SDBoosterDSP() : data(new InternalData)
+SDBoosterDSP::SDBoosterDSP()
 {
-    parameters[SDBoosterParameterLeftGain] = &data->leftGainRamp;
-    parameters[SDBoosterParameterRightGain] = &data->rightGainRamp;
+    parameters[SDBoosterParameterLeftGain] = &leftGainRamp;
+    parameters[SDBoosterParameterRightGain] = &rightGainRamp;
 
     bCanProcessInPlace = true;
 }
@@ -36,8 +31,8 @@ void SDBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        float lgain = data->leftGainRamp.getAndStep();
-        float rgain = data->rightGainRamp.getAndStep();
+        float lgain = leftGainRamp.getAndStep();
+        float rgain = rightGainRamp.getAndStep();
 
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
