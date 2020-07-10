@@ -145,11 +145,16 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
+        guard
+            event.computedData.count > 0,
+            event.computedData[0] != 0xFF //would be a meta event, not realtime system reset message
+        else {
+            return nil
+        }
         self = AKMIDIEvent(data: event.computedData)
         if event.timeFormat == .ticksPerBeat {
             positionInBeats = event.position
         }
-
     }
 
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
