@@ -13,6 +13,10 @@ public struct MIDIVariableLengthQuantity {
     public var quantity: UInt32 { return vlqResult.1 }
     private let vlqResult: (Int, UInt32)
 
+    public init?(fromBytes data: ArraySlice<UInt8>) {
+        self.init(fromBytes: Array(data))
+    }
+
     public init?(fromBytes data: [UInt8]) {
         guard data.count > 0 else { return nil }
         vlqResult = MIDIVariableLengthQuantity.read(bytes: data)
@@ -26,12 +30,15 @@ public struct MIDIVariableLengthQuantity {
         var lastByte: UInt8 = 0xFF
         var byte = bytes[processedBytes]
 
-        while lastByte & 0x80 == 0x80 {
+        while lastByte & 0x80 == 0x80 && processedBytes < bytes.count{
             let shifted = result << 7
             let masked: MIDIByte = byte & 0x7f
             result = shifted | UInt32(masked)
             processedBytes += 1
             lastByte = byte
+            if processedBytes >= bytes.count {
+                break
+            }
             byte = bytes[processedBytes]
         }
         return (processedBytes, result)
