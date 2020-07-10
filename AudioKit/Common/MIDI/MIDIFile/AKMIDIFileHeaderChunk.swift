@@ -12,6 +12,15 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
 
     var rawData: [UInt8]
 
+    public init?(data: [UInt8]) {
+        self.init()
+        rawData = data
+        rawData = Array(data.prefix(upTo: length + lengthData.count + typeData.count))
+        if isNotValid || !isHeader {
+            return nil
+        }
+    }
+
     init() {
         rawData = MIDIFileChunkType.header.midiBytes
         rawData.append(contentsOf: Array(repeating: UInt8(0), count: 4))
