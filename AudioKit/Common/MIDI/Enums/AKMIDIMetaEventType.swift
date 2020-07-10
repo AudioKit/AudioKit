@@ -97,6 +97,9 @@ public enum AKMIDIMetaEventType: MIDIByte {
 
 public struct AKMIDIMetaEvent: AKMIDIMessage {
 
+    /// Position data - used for events parsed from a MIDI file
+    public var positionInBeats: Double?
+
     public init?(data: [MIDIByte]) {
         if data.count > 02,
             data[0] == 0xFF,
@@ -107,6 +110,18 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
             self.type = type
         } else {
             return nil
+        }
+    }
+
+    init?(fileEvent event: AKMIDIFileChunkEvent) {
+        guard
+            let metaEvent = AKMIDIMetaEvent(data: event.computedData)
+        else {
+            return nil
+        }
+        self = metaEvent
+        if event.timeFormat == .ticksPerBeat {
+            positionInBeats = event.position
         }
     }
 

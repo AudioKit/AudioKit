@@ -17,7 +17,7 @@ public struct AKMIDIFileTrack {
     }
 
     public var metaEvents: [AKMIDIMetaEvent] {
-        return events.compactMap({ AKMIDIMetaEvent(data: $0.data) })
+        return chunk.chunkEvents.compactMap({ AKMIDIMetaEvent(fileEvent: $0) })
     }
 
     public var length: Double {
