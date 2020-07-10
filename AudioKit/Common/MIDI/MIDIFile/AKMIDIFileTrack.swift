@@ -25,7 +25,7 @@ public struct AKMIDIFileTrack {
     }
 
     public var length: Double {
-        return events.last?.positionInBeats ?? 0
+        return metaEvents.last?.positionInBeats ?? 0
     }
 
     public var name: String? {
