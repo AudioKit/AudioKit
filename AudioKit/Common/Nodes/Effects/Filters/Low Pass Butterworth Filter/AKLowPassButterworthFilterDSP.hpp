@@ -12,25 +12,4 @@ typedef NS_ENUM(AUParameterAddress, AKLowPassButterworthFilterParameter) {
 
 AKDSPRef createLowPassButterworthFilterDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKLowPassButterworthFilterDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKLowPassButterworthFilterDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif
