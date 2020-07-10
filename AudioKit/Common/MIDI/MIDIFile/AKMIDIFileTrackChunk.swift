@@ -49,13 +49,11 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
             let byte = data[processedBytes]
             var runningStatus: MIDIByte?
             if currentTimeVLQ == nil, let vlqTime = MIDIVariableLengthQuantity(fromBytes: subData) {
-                print("got vlq time: \(vlqTime.quantity) - len: \(vlqTime.length)")
                 currentTimeVLQ = vlqTime
                 accumulatedDeltaTime += Int(vlqTime.quantity)
                 processedBytes += vlqTime.length
             } else if let vlqTime = currentTimeVLQ {
                 if let metaEvent = AKMIDIMetaEvent(data: subData) {
-                    print("got meta \(metaEvent.description)")
                     let metaData = metaEvent.data
                     let event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
                                                      timeFormat: timeFormat, timeDivision: timeDivision,
@@ -65,7 +63,6 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     currentTimeVLQ = nil
                     runningStatus = nil
                 } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
-                    print("got sysex \(sysexEvent.description)")
                     let sysexData = sysexEvent.data
                     let event = AKMIDIFileChunkEvent(data:  vlqTime.data + sysexData,
                                                      timeFormat: timeFormat, timeDivision: timeDivision,
@@ -75,7 +72,6 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     currentTimeVLQ = nil
                     runningStatus = nil
                 } else if let activeRunningStatus = runningStatus, let status = AKMIDIStatus(byte: activeRunningStatus) {
-                    print("got running status \(status.description)")
                     let messageLength = status.length - 1 // drop one since running status is used
                     let chunkData = Array(subData.prefix(messageLength))
                     let event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
@@ -85,7 +81,6 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     processedBytes += messageLength
                     currentTimeVLQ = nil
                 } else if let status = AKMIDIStatus(byte: byte) {
-                    print("got new status \(status.description)")
                     let messageLength = status.length
                     let chunkData = Array(subData.prefix(messageLength))
                     let event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
