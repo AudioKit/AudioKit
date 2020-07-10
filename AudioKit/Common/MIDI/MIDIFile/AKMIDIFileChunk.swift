@@ -19,22 +19,6 @@ public protocol AKMIDIFileChunk {
 
 public extension AKMIDIFileChunk {
 
-    init?(data: [UInt8]) {
-        let typeDataSize = 4
-        let lengthDataSize = 4
-        guard data.count > typeDataSize + lengthDataSize,
-            MIDIFileChunkType(data: Array(data[0..<typeDataSize])) != nil else {
-                return nil
-        }
-        self.init()
-        rawData = data
-        rawData = Array(data.prefix(upTo: length + lengthDataSize + typeDataSize))
-        if isNotValid {
-            AKLog("Type and length must be 4 bytes long, length must equal amount of data")
-            return nil
-        }
-    }
-
     var isValid: Bool { return isTypeValid && isLengthValid }
     var isNotValid: Bool { return !isValid }
     var isTypeValid: Bool { return typeData.count == 4 && lengthData.count == 4 }
