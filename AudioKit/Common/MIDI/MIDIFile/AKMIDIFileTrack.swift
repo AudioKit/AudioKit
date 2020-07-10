@@ -13,7 +13,7 @@ public struct AKMIDIFileTrack {
     var chunk: MIDIFileTrackChunk
 
     public var channelEvents: [AKMIDIEvent] {
-        return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) }).filter({ $0.data[0] != 0xF0 })
+        return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) }).filter({ $0.status?.data != nil })
     }
 
     public var events: [AKMIDIEvent] {
