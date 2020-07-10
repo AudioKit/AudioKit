@@ -15,10 +15,10 @@ public struct MIDISysexMessage: AKMIDIMessage {
         return "MIDI Sysex message \(length) bytes long"
     }
 
-    init?(bytes: [UInt8]) {
+    public init?(bytes: [UInt8]) {
         guard
             bytes.count > 2,
-            bytes[0] == 0xFF,
+            bytes[0] == 0xF0,
             let vlqLength = MIDIVariableLengthQuantity(fromBytes: bytes.suffix(from: 1))
         else {
             return nil
