@@ -62,7 +62,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     runningStatus = nil
                 } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
                     let sysexData = sysexEvent.data
-                    event = AKMIDIFileChunkEvent(data:  vlqTime.data + sysexData,
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysexData,
                                                      timeFormat: timeFormat, timeDivision: timeDivision,
                                                      timeOffset: accumulatedDeltaTime)
                     processedBytes += sysexEvent.data.count
@@ -70,7 +70,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 } else if let status = AKMIDIStatus(byte: byte) {
                     let messageLength = status.length
                     let chunkData = Array(subData.prefix(messageLength))
-                    event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
                                                      timeFormat: timeFormat, timeDivision: timeDivision,
                                                      timeOffset: accumulatedDeltaTime)
                     runningStatus = status.byte
@@ -78,7 +78,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 } else if let activeRunningStatus = runningStatus, let status = AKMIDIStatus(byte: activeRunningStatus) {
                     let messageLength = status.length - 1 // drop one since running status is used
                     let chunkData = Array(subData.prefix(messageLength))
-                    event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
                                                      timeFormat: timeFormat, timeDivision: timeDivision,
                                                      timeOffset: accumulatedDeltaTime, runningStatus: status)
                     processedBytes += messageLength
