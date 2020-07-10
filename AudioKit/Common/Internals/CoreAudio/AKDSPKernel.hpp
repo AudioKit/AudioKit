@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#ifdef __cplusplus
 #pragma once
 
+#ifdef __cplusplus
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -86,5 +86,9 @@ static inline double floatToHz(float noteNumber)
 }
 
 
-#endif
+#else
 
+extern float __akDefaultSampleRate;
+extern int __akDefaultChannelCount;
+
+#endif

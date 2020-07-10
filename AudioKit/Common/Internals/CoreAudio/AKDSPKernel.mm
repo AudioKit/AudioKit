@@ -2,6 +2,8 @@
 
 #include "AKDSPKernel.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
+extern "C" float __akDefaultSampleRate = 44100;
+extern "C" int __akDefaultChannelCount = 2;
 
-AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.channelCount, AKSettings.sampleRate) { }
+AKDSPKernel::AKDSPKernel() : AKDSPKernel(__akDefaultChannelCount, __akDefaultSampleRate) { }
+
