@@ -75,31 +75,31 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public static let defaultLfoBPM: AUValue = 30
 
     /// Notch Minimum Frequency
-    public let notchMinimumFrequency = AKNodeParameter(identifier: "notchMinimumFrequency")
+    public var notchMinimumFrequency = AKNodeParameter(identifier: "notchMinimumFrequency")
 
     /// Notch Maximum Frequency
-    public let notchMaximumFrequency = AKNodeParameter(identifier: "notchMaximumFrequency")
+    public var notchMaximumFrequency = AKNodeParameter(identifier: "notchMaximumFrequency")
 
     /// Between 10 and 5000
-    public let notchWidth = AKNodeParameter(identifier: "notchWidth")
+    public var notchWidth = AKNodeParameter(identifier: "notchWidth")
 
     /// Between 1.1 and 4
-    public let notchFrequency = AKNodeParameter(identifier: "notchFrequency")
+    public var notchFrequency = AKNodeParameter(identifier: "notchFrequency")
 
     /// Direct or Vibrato (default)
-    public let vibratoMode = AKNodeParameter(identifier: "vibratoMode")
+    public var vibratoMode = AKNodeParameter(identifier: "vibratoMode")
 
     /// Between 0 and 1
-    public let depth = AKNodeParameter(identifier: "depth")
+    public var depth = AKNodeParameter(identifier: "depth")
 
     /// Between 0 and 1
-    public let feedback = AKNodeParameter(identifier: "feedback")
+    public var feedback = AKNodeParameter(identifier: "feedback")
 
     /// 1 or 0
-    public let inverted = AKNodeParameter(identifier: "inverted")
+    public var inverted = AKNodeParameter(identifier: "inverted")
 
     /// Between 24 and 360
-    public let lfoBPM = AKNodeParameter(identifier: "lfoBPM")
+    public var lfoBPM = AKNodeParameter(identifier: "lfoBPM")
 
     // MARK: - Initialization
 

@@ -48,7 +48,7 @@ open class AKNode: NSObject {
 }
 
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
-open class AKNodeParameter {
+public struct AKNodeParameter {
 
     private var dsp: AKDSPRef?
 
@@ -118,7 +118,7 @@ open class AKNodeParameter {
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
+    public mutating func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
         dsp = au?.dsp
         parameter = au?.parameterTree?[identifier]
 
@@ -135,7 +135,7 @@ open class AKNodeParameter {
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase?, value: Bool) {
+    public mutating func associate(with au: AKAudioUnitBase?, value: Bool) {
         associate(with: au, value: value ? 1.0 : 0.0)
     }
 

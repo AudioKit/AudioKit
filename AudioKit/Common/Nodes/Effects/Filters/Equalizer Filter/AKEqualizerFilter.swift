@@ -41,13 +41,13 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let defaultGain: AUValue = 10.0
 
     /// Center frequency. (in Hertz)
-    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// The peak/notch bandwidth in Hertz
-    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
+    public var bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     /// The peak/notch gain
-    public let gain = AKNodeParameter(identifier: "gain")
+    public var gain = AKNodeParameter(identifier: "gain")
 
     // MARK: - Initialization
 

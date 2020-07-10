@@ -28,10 +28,10 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     }
 
     /// Left Channel Amplification Factor
-    public let leftGain = AKNodeParameter(identifier: "leftGain")
+    public var leftGain = AKNodeParameter(identifier: "leftGain")
 
     /// Right Channel Amplification Factor
-    public let rightGain = AKNodeParameter(identifier: "rightGain")
+    public var rightGain = AKNodeParameter(identifier: "rightGain")
 
     /// Amplification Factor in db
     open var dB: AUValue {

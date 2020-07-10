@@ -27,7 +27,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let defaultLimit: AUValue = 1.0
 
     /// Threshold / limiting value.
-    public let limit = AKNodeParameter(identifier: "limit")
+    public var limit = AKNodeParameter(identifier: "limit")
 
     // MARK: - Initialization
 

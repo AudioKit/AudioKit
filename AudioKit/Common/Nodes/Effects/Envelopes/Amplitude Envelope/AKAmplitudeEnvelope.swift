@@ -44,16 +44,16 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let defaultReleaseDuration: AUValue = 0.1
 
     /// Attack time
-    public let attackDuration = AKNodeParameter(identifier: "attackDuration")
+    public var attackDuration = AKNodeParameter(identifier: "attackDuration")
 
     /// Decay time
-    public let decayDuration = AKNodeParameter(identifier: "decayDuration")
+    public var decayDuration = AKNodeParameter(identifier: "decayDuration")
 
     /// Sustain Level
-    public let sustainLevel = AKNodeParameter(identifier: "sustainLevel")
+    public var sustainLevel = AKNodeParameter(identifier: "sustainLevel")
 
     /// Release time
-    public let releaseDuration = AKNodeParameter(identifier: "releaseDuration")
+    public var releaseDuration = AKNodeParameter(identifier: "releaseDuration")
 
     // MARK: - Initialization
 

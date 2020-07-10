@@ -38,13 +38,13 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let defaultSaturation: AUValue = 0.0
 
     /// Filter cutoff
-    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
+    public var cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     /// Filter resonance (should be between 0-2)
-    public let resonance = AKNodeParameter(identifier: "resonance")
+    public var resonance = AKNodeParameter(identifier: "resonance")
 
     /// Filter saturation.
-    public let saturation = AKNodeParameter(identifier: "saturation")
+    public var saturation = AKNodeParameter(identifier: "saturation")
 
     // MARK: - Initialization
 
