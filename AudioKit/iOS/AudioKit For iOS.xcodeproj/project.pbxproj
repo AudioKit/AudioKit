@@ -1226,6 +1226,7 @@
 		FEB3AB3322DFE06B0080A5CB /* AKSequencerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2822DFE06B0080A5CB /* AKSequencerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEB3AB3422DFE06B0080A5CB /* AKSequencerEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2922DFE06B0080A5CB /* AKSequencerEngine.mm */; };
 		FEB3AB3522DFE06B0080A5CB /* AKSequencerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2A22DFE06B0080A5CB /* AKSequencerDSPKernel.hpp */; };
+		FEB942B424B7F279001A7E4C /* MIDISysexMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB942B324B7F279001A7E4C /* MIDISysexMessage.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 		FEBE90F524B7CF6B000AD6DC /* MIDIVariableLengthQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE90F424B7CF6B000AD6DC /* MIDIVariableLengthQuantity.swift */; };
 /* End PBXBuildFile section */
@@ -2539,6 +2540,7 @@
 		FEB3AB2822DFE06B0080A5CB /* AKSequencerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequencerEngine.h; sourceTree = "<group>"; };
 		FEB3AB2922DFE06B0080A5CB /* AKSequencerEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSequencerEngine.mm; sourceTree = "<group>"; };
 		FEB3AB2A22DFE06B0080A5CB /* AKSequencerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSequencerDSPKernel.hpp; sourceTree = "<group>"; };
+		FEB942B324B7F279001A7E4C /* MIDISysexMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISysexMessage.swift; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FEBE90F424B7CF6B000AD6DC /* MIDIVariableLengthQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIVariableLengthQuantity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -5461,6 +5463,7 @@
 				C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */,
 				FE2F97AE22658764006C7551 /* MIDIHelper.swift */,
 				FEBE90F424B7CF6B000AD6DC /* MIDIVariableLengthQuantity.swift */,
+				FEB942B324B7F279001A7E4C /* MIDISysexMessage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -6903,6 +6906,7 @@
 				C40831C92028474E00F7153D /* AKBitCrusherDSP.mm in Sources */,
 				34BB6742205AC238000E5450 /* read_words.c in Sources */,
 				C49B14B2204A06B8009C7C8E /* pan.c in Sources */,
+				FEB942B424B7F279001A7E4C /* MIDISysexMessage.swift in Sources */,
 				C49B13E8204A06B7009C7C8E /* trand.c in Sources */,
 				C49B14CF204A06B8009C7C8E /* expon.c in Sources */,
 				C46302881C20E7A7009B44D9 /* lowPassFilter.swift in Sources */,
