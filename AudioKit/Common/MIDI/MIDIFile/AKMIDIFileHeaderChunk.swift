@@ -13,17 +13,17 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     var rawData: [UInt8]
 
     public init?(data: [UInt8]) {
-        self.init()
-        rawData = data
-        rawData = Array(data.prefix(upTo: length + lengthData.count + typeData.count))
+        guard
+            data.count > 8
+        else {
+            return nil
+        }
+        let lengthBytes = Array(data[0..<8])
+        let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0], data1: lengthBytes[1], data2: lengthBytes[2], lsb: lengthBytes[3]))
+        rawData = Array(data.prefix(upTo: length + 8)) //the message + 4 byte header type, + 4 byte length
         if isNotValid || !isHeader {
             return nil
         }
-    }
-
-    init() {
-        rawData = MIDIFileChunkType.header.midiBytes
-        rawData.append(contentsOf: Array(repeating: UInt8(0), count: 4))
     }
 
     init?(chunk: AKMIDIFileChunk) {

@@ -9,11 +9,10 @@
 import Foundation
 
 public protocol AKMIDIFileChunk {
-    var rawData: [UInt8] { get set }    // All data used to init this chunk
+    var rawData: [UInt8] { get }    // All data used to init this chunk
     var typeData: [UInt8] { get }       // The subset of data used to determine type ("MTrk" or "MThd")
     var lengthData: [UInt8] { get }     // The subset of data used to determine chunk length
     var data: [UInt8] { get }           // The subset of data that contains events, etc
-    init()
     init?(data: [UInt8])
 }
 
