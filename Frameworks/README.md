@@ -28,7 +28,8 @@ This may be the preferred method if you need to debug or develop code in AudioKi
 You may obtain the source code archive directly from [GitHub](https://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
-* In the **Build Phases** tab, add `AudioKit.framework` in **Target Dependencies** for your target. Also add `AudioKitUI.framework` as needed.
+* You should be able to find `AudioKit.framework` and `AudioKitUI.framework` in the `AudioKit/{platform}/Products` folder. If this is not the case, build the frameworks by running `build_frameworks.sh`.
+* In the **General** tab, add `AudioKit.framework` in **Frameworks, Libraries and Embedded Content** for your target. Also add `AudioKitUI.framework` as needed.
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 
