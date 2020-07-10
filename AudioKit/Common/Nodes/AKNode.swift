@@ -110,11 +110,6 @@ open class AKNodeParameter {
     public init(identifier: String, value: AUValue = 0) {
         self.identifier = identifier
         self.value = value
-
-        // set initial value (and ensure initial value is set)
-        self.value = value
-        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-        parameter?.value = (min...max).clamp(value)
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
