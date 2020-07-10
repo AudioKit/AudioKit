@@ -53,46 +53,48 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentTimeVLQ = vlqTime
                 accumulatedDeltaTime += Int(vlqTime.quantity)
                 processedBytes += vlqTime.length
-            } else if let metaEvent = AKMIDIMetaEvent(data: subData) {
-                print("got meta \(metaEvent.description)")
-                let metaData = metaEvent.data
-                let event = AKMIDIFileChunkEvent(data: metaData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
-                                                 timeOffset: accumulatedDeltaTime)
-                events.append(event)
-                processedBytes += metaEvent.data.count
-                currentTimeVLQ = nil
-                runningStatus = nil
-            } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
-                print("got sysex \(sysexEvent.description)")
-                let sysexData = sysexEvent.data
-                let event = AKMIDIFileChunkEvent(data: sysexData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
-                                                 timeOffset: accumulatedDeltaTime)
-                events.append(event)
-                processedBytes += sysexEvent.data.count
-                currentTimeVLQ = nil
-                runningStatus = nil
-            } else if let activeRunningStatus = runningStatus, let status = AKMIDIStatus(byte: activeRunningStatus) {
-                print("got running status \(status.description)")
-                let messageLength = status.length - 1 // drop one since running status is used
-                let chunkData = Array(subData.prefix(messageLength))
-                let event = AKMIDIFileChunkEvent(data: chunkData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
-                                                 timeOffset: accumulatedDeltaTime, runningStatus: status)
-                events.append(event)
-                processedBytes += messageLength
-                currentTimeVLQ = nil
-            } else if let status = AKMIDIStatus(byte: byte) {
-                print("got new status \(status.description)")
-                let messageLength = status.length
-                let chunkData = Array(subData.prefix(messageLength))
-                let event = AKMIDIFileChunkEvent(data: chunkData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
-                                                 timeOffset: accumulatedDeltaTime)
-                events.append(event)
-                processedBytes += messageLength
-                currentTimeVLQ = nil
+            } else if let vlqTime = currentTimeVLQ {
+                if let metaEvent = AKMIDIMetaEvent(data: subData) {
+                    print("got meta \(metaEvent.description)")
+                    let metaData = metaEvent.data
+                    let event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
+                                                     timeFormat: timeFormat, timeDivision: timeDivision,
+                                                     timeOffset: accumulatedDeltaTime)
+                    events.append(event)
+                    processedBytes += metaEvent.data.count
+                    currentTimeVLQ = nil
+                    runningStatus = nil
+                } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
+                    print("got sysex \(sysexEvent.description)")
+                    let sysexData = sysexEvent.data
+                    let event = AKMIDIFileChunkEvent(data:  vlqTime.data + sysexData,
+                                                     timeFormat: timeFormat, timeDivision: timeDivision,
+                                                     timeOffset: accumulatedDeltaTime)
+                    events.append(event)
+                    processedBytes += sysexEvent.data.count
+                    currentTimeVLQ = nil
+                    runningStatus = nil
+                } else if let activeRunningStatus = runningStatus, let status = AKMIDIStatus(byte: activeRunningStatus) {
+                    print("got running status \(status.description)")
+                    let messageLength = status.length - 1 // drop one since running status is used
+                    let chunkData = Array(subData.prefix(messageLength))
+                    let event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
+                                                     timeFormat: timeFormat, timeDivision: timeDivision,
+                                                     timeOffset: accumulatedDeltaTime, runningStatus: status)
+                    events.append(event)
+                    processedBytes += messageLength
+                    currentTimeVLQ = nil
+                } else if let status = AKMIDIStatus(byte: byte) {
+                    print("got new status \(status.description)")
+                    let messageLength = status.length
+                    let chunkData = Array(subData.prefix(messageLength))
+                    let event = AKMIDIFileChunkEvent(data:  vlqTime.data + chunkData,
+                                                     timeFormat: timeFormat, timeDivision: timeDivision,
+                                                     timeOffset: accumulatedDeltaTime)
+                    events.append(event)
+                    processedBytes += messageLength
+                    currentTimeVLQ = nil
+                }
             }
         }
         return events
