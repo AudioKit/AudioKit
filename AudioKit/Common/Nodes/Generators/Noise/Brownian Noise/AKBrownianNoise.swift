@@ -26,7 +26,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultAmplitude: AUValue = 1.0
 
     /// Amplitude. (Value between 0-1).
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 

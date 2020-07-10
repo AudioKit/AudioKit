@@ -33,7 +33,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     public static let defaultLoopDuration: AUValue = 0.1
 
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    public let reverbDuration = AKNodeParameter(identifier: "reverbDuration")
+    public var reverbDuration = AKNodeParameter(identifier: "reverbDuration")
 
     // MARK: - Initialization
 

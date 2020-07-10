@@ -80,34 +80,34 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let defaultDryWetMix: AUValue = 1.0
 
     /// Delay in ms before reverberation begins.
-    public let predelay = AKNodeParameter(identifier: "predelay")
+    public var predelay = AKNodeParameter(identifier: "predelay")
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    public let crossoverFrequency = AKNodeParameter(identifier: "crossoverFrequency")
+    public var crossoverFrequency = AKNodeParameter(identifier: "crossoverFrequency")
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    public let lowReleaseTime = AKNodeParameter(identifier: "lowReleaseTime")
+    public var lowReleaseTime = AKNodeParameter(identifier: "lowReleaseTime")
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    public let midReleaseTime = AKNodeParameter(identifier: "midReleaseTime")
+    public var midReleaseTime = AKNodeParameter(identifier: "midReleaseTime")
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    public let dampingFrequency = AKNodeParameter(identifier: "dampingFrequency")
+    public var dampingFrequency = AKNodeParameter(identifier: "dampingFrequency")
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    public let equalizerFrequency1 = AKNodeParameter(identifier: "equalizerFrequency1")
+    public var equalizerFrequency1 = AKNodeParameter(identifier: "equalizerFrequency1")
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    public let equalizerLevel1 = AKNodeParameter(identifier: "equalizerLevel1")
+    public var equalizerLevel1 = AKNodeParameter(identifier: "equalizerLevel1")
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    public let equalizerFrequency2 = AKNodeParameter(identifier: "equalizerFrequency2")
+    public var equalizerFrequency2 = AKNodeParameter(identifier: "equalizerFrequency2")
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    public let equalizerLevel2 = AKNodeParameter(identifier: "equalizerLevel2")
+    public var equalizerLevel2 = AKNodeParameter(identifier: "equalizerLevel2")
 
     /// 0 = all dry, 1 = all wet
-    public let dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
 
     // MARK: - Initialization
 
