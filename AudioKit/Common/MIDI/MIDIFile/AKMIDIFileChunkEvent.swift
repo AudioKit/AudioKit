@@ -9,11 +9,11 @@
 import Foundation
 
 public struct AKMIDIFileChunkEvent {
-    var data: [MIDIByte]
-    var timeFormat: MIDITimeFormat
-    var timeDivision: Int
-    var runningStatus: AKMIDIStatus?
-    var timeOffset: Int //accumulated time from previous events
+    let data: [MIDIByte] // all data passed in
+    let timeFormat: MIDITimeFormat
+    let timeDivision: Int
+    let runningStatus: AKMIDIStatus?
+    let timeOffset: Int //accumulated time from previous events
 
     init(data: [MIDIByte], timeFormat: MIDITimeFormat, timeDivision: Int, timeOffset: Int,
          runningStatus: AKMIDIStatus? = nil) {
@@ -24,6 +24,7 @@ public struct AKMIDIFileChunkEvent {
         self.runningStatus = runningStatus
     }
 
+    // computedData adds the status if running status was used
     var computedData: [MIDIByte] {
         var outData = [MIDIByte]()
         if let addStatus = runningStatus {
@@ -33,6 +34,7 @@ public struct AKMIDIFileChunkEvent {
         return outData
     }
 
+    // just the event data, no timing info
     var rawEventData: [MIDIByte] {
         return Array(data.suffix(from: timeLength))
     }
