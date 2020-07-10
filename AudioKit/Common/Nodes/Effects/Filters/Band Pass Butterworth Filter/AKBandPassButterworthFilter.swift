@@ -21,13 +21,13 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     // MARK: - Parameters
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
+    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
+    public static let bandwidthRange: ClosedRange<AUValue> = 0.0 ... 20000.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: AUValue = 2_000.0
+    public static let defaultCenterFrequency: AUValue = 2000.0
 
     /// Initial value for Bandwidth
     public static let defaultBandwidth: AUValue = 100.0

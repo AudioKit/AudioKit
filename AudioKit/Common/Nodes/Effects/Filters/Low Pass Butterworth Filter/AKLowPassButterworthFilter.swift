@@ -21,10 +21,10 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     // MARK: - Parameters
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
+    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20000.0
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: AUValue = 1_000.0
+    public static let defaultCutoffFrequency: AUValue = 1000.0
 
     /// Cutoff frequency. (in Hertz)
     public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
