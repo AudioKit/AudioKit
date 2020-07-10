@@ -15,7 +15,7 @@ private:
     ParameterRamper amplitudeRamp;
     ParameterRamper detuningOffsetRamp;
     ParameterRamper detuningMultiplierRamp;
- 
+
 public:
     AKOscillatorDSP() {
         parameters[AKOscillatorParameterFrequency] = &frequencyRamp;
