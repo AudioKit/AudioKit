@@ -18,7 +18,6 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-
     AKMorphingOscillatorDSP() {
         parameters[AKMorphingOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKMorphingOscillatorParameterAmplitude] = &amplitudeRamp;
@@ -29,12 +28,12 @@ public:
         isStarted = false;
     }
 
-    void setWavetable(const float* table, size_t length, int index) {
+    void setWavetable(const float* table, size_t length, int index) override {
         waveforms[index] = std::vector<float>(table, table + length);
         reset();
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         for (uint32_t i = 0; i < 4; i++) {
             sp_ftbl_create(sp, &ft_array[i], waveforms[i].size());
@@ -44,7 +43,7 @@ public:
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_oscmorph_destroy(&oscmorph);
         for (uint32_t i = 0; i < 4; i++) {
@@ -52,13 +51,13 @@ public:
         }
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
