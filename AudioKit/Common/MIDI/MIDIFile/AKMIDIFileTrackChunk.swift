@@ -20,7 +20,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         else {
             return nil
         }
-        let lengthBytes = Array(data[0..<8])
+        let lengthBytes = Array(data[4..<8])
         let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0], data1: lengthBytes[1], data2: lengthBytes[2], lsb: lengthBytes[3]))
         timeFormat = .ticksPerBeat
         timeDivision = 480 //arbitrary value
