@@ -18,7 +18,7 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
         else {
             return nil
         }
-        let lengthBytes = Array(data[0..<8])
+        let lengthBytes = Array(data[4..<8])
         let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0], data1: lengthBytes[1], data2: lengthBytes[2], lsb: lengthBytes[3]))
         rawData = Array(data.prefix(upTo: length + 8)) //the message + 4 byte header type, + 4 byte length
         if isNotValid || !isHeader {
