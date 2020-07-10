@@ -13,7 +13,7 @@ public struct AKMIDIFileChunkEvent {
     var timeFormat: MIDITimeFormat
     var timeDivision: Int
     var runningStatus: AKMIDIStatus?
-    private var timeOffset: Int //accumulated time from previous events
+    var timeOffset: Int //accumulated time from previous events
 
     init(data: [MIDIByte], timeFormat: MIDITimeFormat, timeDivision: Int, timeOffset: Int,
          runningStatus: AKMIDIStatus? = nil) {
