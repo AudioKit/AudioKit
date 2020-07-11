@@ -95,7 +95,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    @objc open var amplitude: Double = 0.5 {
+    open var amplitude: Double = 0.5 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -104,7 +104,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 

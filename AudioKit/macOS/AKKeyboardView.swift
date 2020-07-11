@@ -33,7 +33,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
 
-    @objc public var polyphonicMode = false {
+    public var polyphonicMode = false {
         didSet {
             for note in onKeys {
                 delegate?.noteOff(note: note)

@@ -5,7 +5,7 @@ import AudioToolbox
 
 extension AKManager {
 
-    @objc static var shouldBeRunning = false
+    static var shouldBeRunning = false
 
     #if os(iOS)
     var isIAAConnected: Bool {

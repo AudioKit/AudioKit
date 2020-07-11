@@ -13,7 +13,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Waveform of the oscillator
-    @objc open var waveform: AKTable? {
+    open var waveform: AKTable? {
         willSet {
             if let wf = newValue {
                 for (i, sample) in wf.enumerated() {

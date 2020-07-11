@@ -11,10 +11,10 @@ open class AKNodeRecorder: NSObject {
     @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
-    @objc open var durationToRecord: Double = 0
+    open var durationToRecord: Double = 0
 
     /// Duration of recording
-    @objc open var recordedDuration: Double {
+    open var recordedDuration: Double {
         return internalAudioFile.duration
     }
 
@@ -37,7 +37,7 @@ open class AKNodeRecorder: NSObject {
     private var recordBufferDuration: Double = 16_384 / AKSettings.sampleRate
 
     /// return the AKAudioFile for reading
-    @objc open var audioFile: AKAudioFile? {
+    open var audioFile: AKAudioFile? {
         do {
             return try AKAudioFile(forReading: internalAudioFile.url)
 
@@ -90,7 +90,7 @@ open class AKNodeRecorder: NSObject {
     // MARK: - Methods
 
     /// Start recording
-    @objc open func record() throws {
+    open func record() throws {
         if isRecording == true {
             AKLog("Warning: already recording")
             return
@@ -133,7 +133,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Stop recording
-    @objc open func stop() {
+    open func stop() {
         if isRecording == false {
             AKLog("Warning: Cannot stop recording, already stopped")
             return
@@ -150,7 +150,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Reset the AKAudioFile to clear previous recordings
-    @objc open func reset() throws {
+    open func reset() throws {
         // Stop recording
         if isRecording == true {
             stop()

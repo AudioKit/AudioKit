@@ -106,10 +106,10 @@ open class AKAbstractPlayer: AKNode {
     public var loop = Loop()
 
     /// The underlying gain booster and main output which controls fades as well.
-    @objc public var faderNode: AKFader?
+    public var faderNode: AKFader?
 
     /// Amplification Factor, in the range of 0 to 2
-    @objc public var gain: AUValue {
+    public var gain: AUValue {
         get {
             return fade.maximumGain
         }
@@ -131,7 +131,7 @@ open class AKAbstractPlayer: AKNode {
     private var _startTime: Double = 0
 
     /// Get or set the start time of the player.
-    @objc open var startTime: Double {
+    open var startTime: Double {
         get {
             return _startTime
         }
@@ -144,7 +144,7 @@ open class AKAbstractPlayer: AKNode {
     private var _endTime: Double = 0
 
     /// Get or set the end time of the player.
-    @objc open var endTime: Double {
+    open var endTime: Double {
         get {
             return isLooping ? loop.end : _endTime
         }
@@ -164,16 +164,16 @@ open class AKAbstractPlayer: AKNode {
 
     @objc open internal(set) var isPlaying: Bool = false
 
-    @objc open var isLooping: Bool = false
+    open var isLooping: Bool = false
 
     /// true if the player has any fades, in or outƒ
-    @objc open var isFaded: Bool {
+    open var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
     }
 
     // MARK: - stub items, to be implemented in subclasses
 
-    @objc open var duration: Double {
+    open var duration: Double {
         return 0
     }
 
@@ -181,7 +181,7 @@ open class AKAbstractPlayer: AKNode {
         return (duration - startTime) - (duration - endTime)
     }
 
-    @objc open var sampleRate: Double {
+    open var sampleRate: Double {
         return AKSettings.sampleRate
     }
 
@@ -196,8 +196,8 @@ open class AKAbstractPlayer: AKNode {
     /// Stub function to be implemented on route changes in subclasses
     open func initialize(restartIfPlaying: Bool = true) {}
 
-    @objc open func play() {}
-    @objc open func stop() {}
+    open func play() {}
+    open func stop() {}
 
     // MARK: internal functions to be used by subclasses
 

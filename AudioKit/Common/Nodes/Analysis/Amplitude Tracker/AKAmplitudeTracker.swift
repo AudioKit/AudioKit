@@ -15,7 +15,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     fileprivate var halfPowerPointParameter: AUParameter?
-    //    @objc open var smoothness: AUValue = 1 { // should be 0 and above
+    //    open var smoothness: AUValue = 1 { // should be 0 and above
     //        willSet {
     //            internalAU?.smoothness = 0.05 * newValue
     //        }

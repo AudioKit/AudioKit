@@ -497,7 +497,7 @@ open class AKAppleSequencer: NSObject {
     }
 
     /// Stop the sequence
-    @objc open func stop() {
+    open func stop() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStop(existingMusicPlayer)
         }
