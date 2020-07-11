@@ -41,7 +41,7 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     }
 
     /// Callback function for FFT computation
-    @objc open func fft(_ fft: EZAudioFFT!,
+    open func fft(_ fft: EZAudioFFT!,
                         updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
                         bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in

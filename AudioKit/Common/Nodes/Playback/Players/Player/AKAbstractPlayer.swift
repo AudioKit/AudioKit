@@ -196,8 +196,8 @@ open class AKAbstractPlayer: AKNode {
     /// Stub function to be implemented on route changes in subclasses
     open func initialize(restartIfPlaying: Bool = true) {}
 
-    @objc open func play() {}
-    @objc open func stop() {}
+    open func play() {}
+    open func stop() {}
 
     // MARK: internal functions to be used by subclasses
 

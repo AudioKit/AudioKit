@@ -194,7 +194,7 @@ public protocol AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
     ///
-    @objc open func play(noteNumber: MIDINoteNumber,
+    open func play(noteNumber: MIDINoteNumber,
                          velocity: MIDIVelocity,
                          frequency: AUValue,
                          channel: MIDIChannel = 0) {
@@ -208,7 +208,7 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         // MARK: Microtonal pitch lookup
 
         // default implementation is 12 ET
@@ -220,7 +220,7 @@ public protocol AKPolyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    @objc open func stop(noteNumber: MIDINoteNumber) {
+    open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
     }
 }
