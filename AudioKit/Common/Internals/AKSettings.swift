@@ -268,7 +268,7 @@ open class AKSettings: NSObject {
 
         /// Set the audio session type
         public static func setSession(category: SessionCategory,
-                                            with options: AVAudioSession.CategoryOptions = []) throws {
+                                      with options: AVAudioSession.CategoryOptions = []) throws {
             guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
 
             do {

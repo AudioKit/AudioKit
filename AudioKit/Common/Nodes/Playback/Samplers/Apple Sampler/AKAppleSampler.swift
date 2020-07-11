@@ -216,8 +216,8 @@ open class AKAppleSampler: AKNode {
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
     open func play(noteNumber: MIDINoteNumber = 60,
-                         velocity: MIDIVelocity = 127,
-                         channel: MIDIChannel = 0) throws {
+                   velocity: MIDIVelocity = 127,
+                   channel: MIDIChannel = 0) throws {
         try AKTry {
             if AKManager.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")

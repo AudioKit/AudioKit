@@ -156,9 +156,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    Channel on which to play the note
     ///
     open func start(noteNumber: MIDINoteNumber,
-                          velocity: MIDIVelocity,
-                          channel: MIDIChannel,
-                          offset: MIDITimeStamp = 0) {
+                    velocity: MIDIVelocity,
+                    channel: MIDIChannel,
+                    offset: MIDITimeStamp = 0) {
         play(noteNumber: noteNumber, velocity: velocity, channel: channel)
     }
 
@@ -169,8 +169,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    Channel on which to stop the note
     ///
     open func stop(noteNumber: MIDINoteNumber,
-                         channel: MIDIChannel,
-                         offset: MIDITimeStamp = 0) {
+                   channel: MIDIChannel,
+                   offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 

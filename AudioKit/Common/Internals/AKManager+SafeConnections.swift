@@ -55,9 +55,9 @@ extension AKManager {
     }
 
     public static func connect(_ sourceNode: AVAudioNode,
-                                     to destNodes: [AVAudioConnectionPoint],
-                                     fromBus sourceBus: AVAudioNodeBus,
-                                     format: AVAudioFormat?) {
+                               to destNodes: [AVAudioConnectionPoint],
+                               fromBus sourceBus: AVAudioNodeBus,
+                               format: AVAudioFormat?) {
         let connectionsWithNodes = destNodes.filter { $0.node != nil }
         safeAttach([sourceNode] + connectionsWithNodes.compactMap { $0.node })
         // See addDummyOnEmptyMixer for dummyNode explanation.
@@ -68,10 +68,10 @@ extension AKManager {
     }
 
     public static func connect(_ node1: AVAudioNode,
-                                     to node2: AVAudioNode,
-                                     fromBus bus1: AVAudioNodeBus,
-                                     toBus bus2: AVAudioNodeBus,
-                                     format: AVAudioFormat?) {
+                               to node2: AVAudioNode,
+                               fromBus bus1: AVAudioNodeBus,
+                               toBus bus2: AVAudioNodeBus,
+                               format: AVAudioFormat?) {
         safeAttach([node1, node2])
         // See addDummyOnEmptyMixer for dummyNode explanation.
         let dummyNode = addDummyOnEmptyMixer(node1)
@@ -104,10 +104,10 @@ extension AKManager {
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     public static func renderToFile(_ audioFile: AVAudioFile,
-                                          maximumFrameCount: AVAudioFrameCount = 4_096,
-                                          duration: Double,
-                                          prerender: (() -> Void)? = nil,
-                                          progress: ((Double) -> Void)? = nil) throws {
+                                    maximumFrameCount: AVAudioFrameCount = 4_096,
+                                    duration: Double,
+                                    prerender: (() -> Void)? = nil,
+                                    progress: ((Double) -> Void)? = nil) throws {
 
         try engine.renderToFile(audioFile,
                                 maximumFrameCount: maximumFrameCount,
