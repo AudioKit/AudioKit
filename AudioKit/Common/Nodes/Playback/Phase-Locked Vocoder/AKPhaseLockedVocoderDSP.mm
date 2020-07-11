@@ -2,13 +2,11 @@
 
 #include "AKPhaseLockedVocoderDSP.hpp"
 #include "ParameterRamper.hpp"
-#include <vector>
 
-extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
-    return new AKPhaseLockedVocoderDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKPhaseLockedVocoderDSP::InternalData {
+class AKPhaseLockedVocoderDSP : public AKSoundpipeDSPBase {
+private:
     sp_mincer *mincer;
     sp_ftbl *ftbl;
     std::vector<float> wavetable;
@@ -16,60 +14,65 @@ struct AKPhaseLockedVocoderDSP::InternalData {
     ParameterRamper positionRamp;
     ParameterRamper amplitudeRamp;
     ParameterRamper pitchRatioRamp;
-};
 
-AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new InternalData) {
-    parameters[AKPhaseLockedVocoderParameterPosition] = &data->positionRamp;
-    parameters[AKPhaseLockedVocoderParameterAmplitude] = &data->amplitudeRamp;
-    parameters[AKPhaseLockedVocoderParameterPitchRatio] = &data->pitchRatioRamp;
-}
+public:
+    AKPhaseLockedVocoderDSP() {
+        parameters[AKPhaseLockedVocoderParameterPosition] = &positionRamp;
+        parameters[AKPhaseLockedVocoderParameterAmplitude] = &amplitudeRamp;
+        parameters[AKPhaseLockedVocoderParameterPitchRatio] = &pitchRatioRamp;
+    }
 
-void AKPhaseLockedVocoderDSP::setWavetable(const float *table, size_t length, int index) {
-    data->wavetable = std::vector<float>(table, table + length);
-    if (!isInitialized) return;
-    sp_ftbl_destroy(&data->ftbl);
-    sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
-    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
-    reset();
-}
+    void setWavetable(const float *table, size_t length, int index) {
+        wavetable = std::vector<float>(table, table + length);
+        if (!isInitialized) return;
+        sp_ftbl_destroy(&ftbl);
+        sp_ftbl_create(sp, &ftbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
+        reset();
+    }
 
-void AKPhaseLockedVocoderDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
-    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
-    sp_mincer_create(&data->mincer);
-    sp_mincer_init(sp, data->mincer, data->ftbl, 2048);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_ftbl_create(sp, &ftbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
+        sp_mincer_create(&mincer);
+        sp_mincer_init(sp, mincer, ftbl, 2048);
+    }
 
-void AKPhaseLockedVocoderDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_ftbl_destroy(&data->ftbl);
-    sp_mincer_destroy(&data->mincer);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_ftbl_destroy(&ftbl);
+        sp_mincer_destroy(&mincer);
+    }
 
-void AKPhaseLockedVocoderDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_mincer_init(sp, data->mincer, data->ftbl, 2048);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_mincer_init(sp, mincer, ftbl, 2048);
+    }
 
-void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        data->mincer->time = data->positionRamp.getAndStep();
-        data->mincer->amp = data->amplitudeRamp.getAndStep();
-        data->mincer->pitch = data->pitchRatioRamp.getAndStep();
+            mincer->time = positionRamp.getAndStep();
+            mincer->amp = amplitudeRamp.getAndStep();
+            mincer->pitch = pitchRatioRamp.getAndStep();
 
-        float *outL = (float *)outputBufferLists[0]->mBuffers[0].mData  + frameOffset;
-        float *outR = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;
-        if (isStarted) {
-            sp_mincer_compute(sp, data->mincer, NULL, outL);
-            *outR = *outL;
-        } else {
-            *outL = 0;
-            *outR = 0;
+            float *outL = (float *)outputBufferLists[0]->mBuffers[0].mData  + frameOffset;
+            float *outR = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;
+            if (isStarted) {
+                sp_mincer_compute(sp, mincer, NULL, outL);
+                *outR = *outL;
+            } else {
+                *outL = 0;
+                *outR = 0;
+            }
         }
     }
+};
+
+extern "C" AKDSPRef createPhaseLockedVocoderDSP() {
+    return new AKPhaseLockedVocoderDSP();
 }
