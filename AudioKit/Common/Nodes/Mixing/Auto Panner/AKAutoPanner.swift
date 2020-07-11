@@ -20,10 +20,10 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     // MARK: - Parameters
 
     /// Frequency (Hz)
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Depth
-    public let depth = AKNodeParameter(identifier: "depth")
+    public var depth = AKNodeParameter(identifier: "depth")
 
     // MARK: - Initialization
 
