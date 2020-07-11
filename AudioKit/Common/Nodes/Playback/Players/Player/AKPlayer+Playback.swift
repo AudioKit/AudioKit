@@ -15,6 +15,7 @@ extension AKPlayer {
     /// Load a new audio file into this player. Note that if your processingFormat changes
     /// you should dispose this AKPlayer and create a new one instead.
     @objc public func load(audioFile: AVAudioFile) throws {
+        // check to make sure this isn't the first load. If it is, processingFormat will be nil
         if let format = processingFormat, format != audioFile.processingFormat {
             AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
                 "You should make a new AKPlayer instance and reconnect. " +
