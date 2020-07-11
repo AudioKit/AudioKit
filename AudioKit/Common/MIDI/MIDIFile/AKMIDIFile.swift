@@ -71,7 +71,7 @@ public struct AKMIDIFile {
             var chunks = [AKMIDIFileChunk]()
             var processedBytes = 0
             while processedBytes < dataSize {
-                let data = Array(midiData.map({ $0 }).suffix(from: processedBytes))
+                let data = Array(midiData.suffix(from: processedBytes))
                 if let headerChunk = MIDIFileHeaderChunk(data: data) {
                     print("got header chunk")
                     chunks.append(headerChunk)
