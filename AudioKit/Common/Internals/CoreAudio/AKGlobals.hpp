@@ -9,10 +9,13 @@
 
 extern "C" float __akDefaultSampleRate;
 extern "C" int __akDefaultChannelCount;
+extern "C" double __akRampDuration;
 
 #else
 
 extern float __akDefaultSampleRate;
 extern int __akDefaultChannelCount;
+extern double __akRampDuration;
+
 
 #endif
