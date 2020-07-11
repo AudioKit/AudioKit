@@ -13,7 +13,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open var frequency: AUValue = 110 {
+    open var frequency: AUValue = 110 {
         willSet {
             let clampedValue = (0.0 ... 20_000.0).clamp(newValue)
             guard frequency != clampedValue else { return }
@@ -22,7 +22,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    @objc open var amplitude: AUValue = 0.5 {
+    open var amplitude: AUValue = 0.5 {
         willSet {
             let clampedValue = (0.0 ... 10.0).clamp(newValue)
             guard amplitude != clampedValue else { return }
@@ -31,7 +31,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 

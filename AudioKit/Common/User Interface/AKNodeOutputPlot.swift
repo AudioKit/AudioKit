@@ -70,7 +70,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     /// The node whose output to graph
     ///
     /// Defaults to AKManager.output
-    @objc open var node: AKNode? {
+    open var node: AKNode? {
         willSet {
             pause()
         }
