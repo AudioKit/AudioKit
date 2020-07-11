@@ -27,24 +27,24 @@ public:
         parameters[AKMetalBarParameterStrikeWidth] = &strikeWidthRamp;
     }
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_bar_create(&bar);
         sp_bar_init(sp, bar, 3, 0.0001);
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_bar_destroy(&bar);
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_bar_init(sp, bar, 3, 0.0001);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
