@@ -85,14 +85,4 @@ static inline double floatToHz(float noteNumber)
     return 440. * exp2((noteNumber - 69.0)/12.);
 }
 
-extern "C" float __akDefaultSampleRate;
-extern "C" int __akDefaultChannelCount;
-
-#else
-
-// Avoid needing to expose AKSettings to ObjC.
-// Note that eventually we shouldn't have these globals.
-extern float __akDefaultSampleRate;
-extern int __akDefaultChannelCount;
-
 #endif
