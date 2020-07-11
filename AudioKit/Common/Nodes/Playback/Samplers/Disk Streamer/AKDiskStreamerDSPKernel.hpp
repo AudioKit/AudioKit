@@ -220,7 +220,7 @@ public:
         return sampleRateRatio() * fabs(rate) * reverseMultiplier * wavin->wav.channels;
     }
     float sampleRateRatio(){
-        return sourceSampleRate / AKSettings.sampleRate;
+        return sourceSampleRate / __akDefaultSampleRate;
     }
     // MARK: Member Variables
     

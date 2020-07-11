@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AKDSPKernel.hpp"
+#include "AKGlobals.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
+AKDSPKernel::AKDSPKernel() : AKDSPKernel(__akDefaultChannelCount, __akDefaultSampleRate) { }
 
-AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.channelCount, AKSettings.sampleRate) { }

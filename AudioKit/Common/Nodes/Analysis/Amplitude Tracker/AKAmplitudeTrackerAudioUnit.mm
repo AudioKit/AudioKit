@@ -4,8 +4,7 @@
 #import "AKAmplitudeTrackerDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
+#include "AKGlobals.hpp"
 
 @implementation AKAmplitudeTrackerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.

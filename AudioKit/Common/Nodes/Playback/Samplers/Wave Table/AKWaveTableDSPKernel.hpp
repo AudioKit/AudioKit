@@ -246,7 +246,7 @@ public:
         return sampleRateRatio() * abs(rate) * reverseMultiplier;
     }
     float sampleRateRatio(){
-        return sourceSampleRate / AKSettings.sampleRate;
+        return sourceSampleRate / __akDefaultSampleRate;
     }
     // MARK: Member Variables
     
