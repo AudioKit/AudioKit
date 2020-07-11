@@ -82,7 +82,7 @@
 }\
 
 #define standardSetup(str) \
-    self.rampDuration = AKSettings.rampDuration; \
+    self.rampDuration = __akRampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:__akDefaultSampleRate \
                                                                         channels:__akDefaultChannelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
@@ -91,7 +91,7 @@
                                                                 busType:AUAudioUnitBusTypeInput \
                                                                  busses:@[_inputBus.bus]];
 #define standardGeneratorSetup(str) \
-    self.rampDuration = AKSettings.rampDuration; \
+    self.rampDuration = __akRampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:__akDefaultSampleRate \
                                                                         channels:__akDefaultChannelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
