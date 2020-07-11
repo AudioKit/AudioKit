@@ -50,7 +50,7 @@ public:
             *autowah0->wah = wah;
             *autowah1->wah = wah;
 
-            float mix = mixRamp.getAndStep();
+            float mix = mixRamp.getAndStep() * 100.f;
             *autowah0->mix = mix;
             *autowah1->mix = mix;
 
