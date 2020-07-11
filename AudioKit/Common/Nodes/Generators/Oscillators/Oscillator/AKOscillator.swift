@@ -47,16 +47,16 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultDetuningMultiplier: AUValue = 1.0
 
     /// Frequency in cycles per second
-    @Parameter("frequency") public var frequency: AUValue
+    @Parameter public var frequency: AUValue
 
     /// Output Amplitude.
-    @Parameter("amplitude") public var amplitude: AUValue
+    @Parameter public var amplitude: AUValue
 
     /// Frequency offset in Hz.
-    @Parameter("detuningOffset") public var detuningOffset: AUValue
+    @Parameter public var detuningOffset: AUValue
 
     /// Frequency detuning multiplier
-    @Parameter("detuningMultiplier") public var detuningMultiplier: AUValue
+    @Parameter public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
@@ -78,18 +78,18 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
+        self.waveform = waveform
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.waveform = waveform
-            self.$frequency.associate(with: self.internalAU, value: frequency)
-            self.$amplitude.associate(with: self.internalAU, value: amplitude)
-            self.$detuningOffset.associate(with: self.internalAU, value: detuningOffset)
-            self.$detuningMultiplier.associate(with: self.internalAU, value: detuningMultiplier)
 
             self.internalAU?.setWavetable(waveform.content)
         }
