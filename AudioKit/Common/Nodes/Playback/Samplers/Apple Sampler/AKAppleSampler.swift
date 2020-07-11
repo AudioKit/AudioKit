@@ -269,7 +269,7 @@ open class AKAppleSampler: AKNode {
     ///   - preset: Number of the program to use
     ///   - bank: Number of the bank to use
     ///
-    @objc public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+    public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = findFileURL(file, withExtension: "sf2") else {
             AKLog("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -300,7 +300,7 @@ open class AKAppleSampler: AKNode {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    @objc public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
+    public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
 
@@ -310,7 +310,7 @@ open class AKAppleSampler: AKNode {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    @objc public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
+    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 

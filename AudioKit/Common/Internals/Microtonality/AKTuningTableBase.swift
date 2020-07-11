@@ -49,12 +49,12 @@ open class AKTuningTableBase: NSObject {
     }
 
     /// Return the Frequency for the given MIDINoteNumber
-    @objc public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
+    public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return tableData[Int(noteNumber)]
     }
 
     /// Set frequency of a given note number
-    @objc public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
+    public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
         tableData[Int(noteNumber)] = frequency
     }
 }

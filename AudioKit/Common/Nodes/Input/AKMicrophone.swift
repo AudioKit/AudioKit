@@ -14,7 +14,7 @@
     }
 
     /// Set the actual microphone device
-    @objc public func setDevice(_ device: AKDevice) throws {
+    public func setDevice(_ device: AKDevice) throws {
         do {
             try AKManager.setInputDevice(device)
         } catch {

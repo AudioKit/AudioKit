@@ -42,7 +42,7 @@ extension AKMIDIMonoPolyListener: AKMIDIListener {
         }
     }
 
-    @objc public func monoPolyChange() {
+    public func monoPolyChange() {
 
     }
 }
