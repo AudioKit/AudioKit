@@ -44,7 +44,7 @@ open class AKTuningTableBase: NSObject {
 
     /// Notes Per Octave: The count of the frequency array
     /// Defaults to 12 for the base class...should be overridden by subclasses
-    @objc public var npo: Int {
+    public var npo: Int {
         return 12
     }
 

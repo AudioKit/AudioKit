@@ -48,10 +48,10 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Nodes
 
     /// The underlying player node
-    @objc public var playerNode = AVAudioPlayerNode()
+    public var playerNode = AVAudioPlayerNode()
 
     /// If sample rate conversion is needed
-    @objc public var mixerNode: AVAudioMixerNode?
+    public var mixerNode: AVAudioMixerNode?
 
     // MARK: - Private Parts
 
@@ -70,7 +70,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
     /// stop() is called while playing or when looping from a buffer. Requires iOS 11, macOS 10.13.
-    @objc public var completionHandler: AKCallback? {
+    public var completionHandler: AKCallback? {
         didSet {
             if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             } else {
@@ -83,10 +83,10 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Completion handler to be called when Audio has looped. The handler won't be called if
     /// stop() is called while playing.
-    @objc public var loopCompletionHandler: AKCallback?
+    public var loopCompletionHandler: AKCallback?
 
     /// Used with buffering players
-    @objc public var buffer: AVAudioPCMBuffer?
+    public var buffer: AVAudioPCMBuffer?
 
     /// Sets if the player should buffer dynamically (as needed) or always.
     /// Not buffering means streaming from disk (best for long files),
@@ -129,7 +129,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Volume 0.0 -> 1.0, default 1.0
     /// This is different than gain
-    @objc public var volume: AUValue {
+    public var volume: AUValue {
         get {
             return playerNode.volume
         }
@@ -140,7 +140,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    @objc public var pan: AUValue {
+    public var pan: AUValue {
         get {
             return playerNode.pan
         }
@@ -155,7 +155,7 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
     /// - Returns: The current frame while playing
-    @objc public var currentFrame: AVAudioFramePosition {
+    public var currentFrame: AVAudioFramePosition {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return playerTime.sampleTime
@@ -164,7 +164,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// - Returns: Current time of the player in seconds while playing.
-    @objc public var currentTime: Double {
+    public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         var normalizedPauseTime = 0.0
         if let pauseTime = pauseTime, pauseTime > startTime {
@@ -182,19 +182,19 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Returns the audioFile's internal processingFormat
-    @objc public var processingFormat: AVAudioFormat? {
+    public var processingFormat: AVAudioFormat? {
         return audioFile?.processingFormat
     }
 
     // MARK: - Public Options
 
     /// true if the player is buffering audio rather than playing from disk
-    @objc public var isBuffered: Bool {
+    public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
     }
 
     /// Will automatically normalize on buffer updates if enabled
-    @objc public var isNormalized: Bool = false {
+    public var isNormalized: Bool = false {
         didSet {
             updateBuffer(force: true)
         }
@@ -204,7 +204,7 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public internal(set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
-    @objc public var isReversed: Bool = false {
+    public var isReversed: Bool = false {
         didSet {
             if isPlaying { stop() }
             if isFaded { fade.needsUpdate = true }
@@ -215,7 +215,7 @@ public class AKPlayer: AKAbstractPlayer {
     // When buffered this will indicate if the buffer will be faded.
     // Fading the actual buffer data is necessary as loops when buffered don't fire
     // a callback on loop restart
-    @objc public var isBufferFaded: Bool {
+    public var isBufferFaded: Bool {
         return buffering == .always && isLooping
     }
 
