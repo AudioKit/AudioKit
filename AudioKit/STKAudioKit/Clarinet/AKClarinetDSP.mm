@@ -4,11 +4,8 @@
 
 #include "Clarinet.h"
 
-// "Constructor" function for interop with Swift
-
 extern "C" AKDSPRef createClarinetDSP() {
-    AKClarinetDSP *dsp = new AKClarinetDSP();
-    return dsp;
+    return new AKClarinetDSP();
 }
 
 // AKClarinetDSP method implementations
