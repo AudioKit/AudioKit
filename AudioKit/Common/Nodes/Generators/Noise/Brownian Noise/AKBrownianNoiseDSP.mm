@@ -15,24 +15,24 @@ public:
         parameters[AKBrownianNoiseParameterAmplitude] = &amplitudeRamp;
     }
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_brown_create(&brown);
         sp_brown_init(sp, brown);
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_brown_destroy(&brown);
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_brown_init(sp, brown);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

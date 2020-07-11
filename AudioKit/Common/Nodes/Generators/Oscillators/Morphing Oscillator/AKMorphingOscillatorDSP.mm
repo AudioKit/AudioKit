@@ -28,12 +28,12 @@ public:
         isStarted = false;
     }
 
-    void setWavetable(const float* table, size_t length, int index) override {
+    void setWavetable(const float* table, size_t length, int index) {
         waveforms[index] = std::vector<float>(table, table + length);
         reset();
     }
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         for (uint32_t i = 0; i < 4; i++) {
             sp_ftbl_create(sp, &ft_array[i], waveforms[i].size());
@@ -43,7 +43,7 @@ public:
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_oscmorph_destroy(&oscmorph);
         for (uint32_t i = 0; i < 4; i++) {
@@ -51,13 +51,13 @@ public:
         }
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

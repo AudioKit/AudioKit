@@ -24,12 +24,12 @@ public:
         parameters[AKOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
     }
 
-    void setWavetable(const float* table, size_t length, int index) override {
+    void setWavetable(const float* table, size_t length, int index) {
         waveform = std::vector<float>(table, table + length);
         reset();
     }
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, waveform.size());
         std::copy(waveform.cbegin(), waveform.cend(), ftbl->tbl);
@@ -37,19 +37,19 @@ public:
         sp_osc_init(sp, osc, ftbl, 0);
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&osc);
         sp_ftbl_destroy(&ftbl);
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_osc_init(sp, osc, ftbl, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
