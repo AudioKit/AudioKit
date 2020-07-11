@@ -5,8 +5,6 @@
 #import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
-
 extern "C" {
 #include "soundpipe.h"
 #include "md5.h"
