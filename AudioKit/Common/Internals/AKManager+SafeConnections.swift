@@ -54,10 +54,10 @@ extension AKManager {
         return dummy
     }
 
-    @objc public static func connect(_ sourceNode: AVAudioNode,
-                                     to destNodes: [AVAudioConnectionPoint],
-                                     fromBus sourceBus: AVAudioNodeBus,
-                                     format: AVAudioFormat?) {
+    public static func connect(_ sourceNode: AVAudioNode,
+                               to destNodes: [AVAudioConnectionPoint],
+                               fromBus sourceBus: AVAudioNodeBus,
+                               format: AVAudioFormat?) {
         let connectionsWithNodes = destNodes.filter { $0.node != nil }
         safeAttach([sourceNode] + connectionsWithNodes.compactMap { $0.node })
         // See addDummyOnEmptyMixer for dummyNode explanation.
@@ -67,11 +67,11 @@ extension AKManager {
         dummyNode?.disconnectOutput()
     }
 
-    @objc public static func connect(_ node1: AVAudioNode,
-                                     to node2: AVAudioNode,
-                                     fromBus bus1: AVAudioNodeBus,
-                                     toBus bus2: AVAudioNodeBus,
-                                     format: AVAudioFormat?) {
+    public static func connect(_ node1: AVAudioNode,
+                               to node2: AVAudioNode,
+                               fromBus bus1: AVAudioNodeBus,
+                               toBus bus2: AVAudioNodeBus,
+                               format: AVAudioFormat?) {
         safeAttach([node1, node2])
         // See addDummyOnEmptyMixer for dummyNode explanation.
         let dummyNode = addDummyOnEmptyMixer(node1)
@@ -79,12 +79,12 @@ extension AKManager {
         dummyNode?.disconnectOutput()
     }
 
-    @objc public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+    public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
 
     // Convenience
-    @objc public static func detach(nodes: [AVAudioNode]) {
+    public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             guard node.engine != nil else { continue }
             engine.detach(node)
@@ -103,11 +103,11 @@ extension AKManager {
     ///         - progress: Closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc public static func renderToFile(_ audioFile: AVAudioFile,
-                                          maximumFrameCount: AVAudioFrameCount = 4_096,
-                                          duration: Double,
-                                          prerender: (() -> Void)? = nil,
-                                          progress: ((Double) -> Void)? = nil) throws {
+    public static func renderToFile(_ audioFile: AVAudioFile,
+                                    maximumFrameCount: AVAudioFrameCount = 4_096,
+                                    duration: Double,
+                                    prerender: (() -> Void)? = nil,
+                                    progress: ((Double) -> Void)? = nil) throws {
 
         try engine.renderToFile(audioFile,
                                 maximumFrameCount: maximumFrameCount,

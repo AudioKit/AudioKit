@@ -25,7 +25,7 @@ open class AKManager: NSObject {
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc public static var engine: AVAudioEngine {
+    public static var engine: AVAudioEngine {
         get {
             // Access a few attributes immediately so things are initialized properly
             #if !os(tvOS)
@@ -49,7 +49,7 @@ open class AKManager: NSObject {
     public static let midi = AKMIDI()
     #endif
 
-    @objc static var finalMixer: AKMixer? {
+    static var finalMixer: AKMixer? {
         didSet {
             if let mixer = finalMixer {
                 for connection in internalConnections {
@@ -63,12 +63,12 @@ open class AKManager: NSObject {
 
     /// internalConnections are used for not-strictly audio processing nodes that need
     /// a mechanism to pull samples (ie. the sequencer)
-    @objc static var internalConnections: [AKNode] = []
+    static var internalConnections: [AKNode] = []
 
     // MARK: - Device Management
 
     /// An audio output operation that most applications will need to use last
-    @objc public static var output: AKNode? {
+    public static var output: AKNode? {
         didSet {
             #if !os(macOS)
             do {
@@ -95,7 +95,7 @@ open class AKManager: NSObject {
 
     #if os(macOS)
     /// Enumerate the list of available devices.
-    @objc public static var devices: [AKDevice]? {
+    public static var devices: [AKDevice]? {
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
         return EZAudioDevice.devices().compactMap {
             guard let device = $0 as? EZAudioDevice else { return nil }
@@ -105,7 +105,7 @@ open class AKManager: NSObject {
     #endif
 
     /// Enumerate the list of available input devices.
-    @objc public static var inputDevices: [AKDevice]? {
+    public static var inputDevices: [AKDevice]? {
         #if os(macOS)
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
 
@@ -134,7 +134,7 @@ open class AKManager: NSObject {
     }
 
     /// Enumerate the list of available output devices.
-    @objc public static var outputDevices: [AKDevice]? {
+    public static var outputDevices: [AKDevice]? {
         #if os(macOS)
         EZAudioUtilities.setShouldExitOnCheckResultFail(false)
         return EZAudioDevice.outputDevices().compactMap {
@@ -155,7 +155,7 @@ open class AKManager: NSObject {
     }
 
     /// The name of the current input device, if available.
-    @objc public static var inputDevice: AKDevice? {
+    public static var inputDevice: AKDevice? {
         #if os(macOS)
         if let dev = EZAudioDevice.currentInput() {
             return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -176,7 +176,7 @@ open class AKManager: NSObject {
     }
 
     /// The name of the current output device, if available.
-    @objc public static var outputDevice: AKDevice? {
+    public static var outputDevice: AKDevice? {
         #if os(macOS)
         if let dev = EZAudioDevice.currentOutput() {
             return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -192,7 +192,7 @@ open class AKManager: NSObject {
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    @objc public static func setInputDevice(_ input: AKDevice) throws {
+    public static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
         try AKTry {
             var address = AudioObjectPropertyAddress(
@@ -220,7 +220,7 @@ open class AKManager: NSObject {
     }
 
     /// Change the preferred output device, giving it one of the names from the list of available output.
-    @objc public static func setOutputDevice(_ output: AKDevice) throws {
+    public static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
         try AKTry {
             var id = output.deviceID
@@ -238,7 +238,7 @@ open class AKManager: NSObject {
     // MARK: - Disconnect node inputs
 
     /// Disconnect all inputs
-    @objc public static func disconnectAllInputs() {
+    public static func disconnectAllInputs() {
         guard let finalMixer = finalMixer else { return }
 
         engine.disconnectNodeInput(finalMixer.avAudioNode)

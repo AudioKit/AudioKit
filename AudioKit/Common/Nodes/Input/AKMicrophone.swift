@@ -14,7 +14,7 @@
     }
 
     /// Set the actual microphone device
-    @objc public func setDevice(_ device: AKDevice) throws {
+    public func setDevice(_ device: AKDevice) throws {
         do {
             try AKManager.setInputDevice(device)
         } catch {
@@ -60,14 +60,14 @@
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0

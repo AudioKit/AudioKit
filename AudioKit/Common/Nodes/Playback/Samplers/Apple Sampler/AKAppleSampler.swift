@@ -83,7 +83,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
-    @objc open func loadWav(_ file: String) throws {
+    open func loadWav(_ file: String) throws {
         guard let url = findFileURL(file, withExtension: "wav") else {
             AKLog("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -103,7 +103,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
-    @objc open func loadEXS24(_ file: String) throws {
+    open func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
 
@@ -111,7 +111,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: an AKAudioFile
     ///
-    @objc open func loadAudioFile(_ file: AKAudioFile) throws {
+    open func loadAudioFile(_ file: AKAudioFile) throws {
         _audioFiles = [file]
 
         do {
@@ -132,7 +132,7 @@ open class AKAppleSampler: AKNode {
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+    open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
         _audioFiles = files
         let urls = files.map { $0.url }
         do {
@@ -152,7 +152,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    @objc open func loadPath(_ filePath: String) throws {
+    open func loadPath(_ filePath: String) throws {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
@@ -215,9 +215,9 @@ open class AKAppleSampler: AKNode {
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
-    @objc open func play(noteNumber: MIDINoteNumber = 60,
-                         velocity: MIDIVelocity = 127,
-                         channel: MIDIChannel = 0) throws {
+    open func play(noteNumber: MIDINoteNumber = 60,
+                   velocity: MIDIVelocity = 127,
+                   channel: MIDIChannel = 0) throws {
         try AKTry {
             if AKManager.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")
@@ -233,7 +233,7 @@ open class AKAppleSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
+    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
         try AKTry {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
@@ -269,7 +269,7 @@ open class AKAppleSampler: AKNode {
     ///   - preset: Number of the program to use
     ///   - bank: Number of the bank to use
     ///
-    @objc public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+    public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = findFileURL(file, withExtension: "sf2") else {
             AKLog("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -300,7 +300,7 @@ open class AKAppleSampler: AKNode {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    @objc public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
+    public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
 
@@ -310,7 +310,7 @@ open class AKAppleSampler: AKNode {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    @objc public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
+    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 

@@ -43,7 +43,7 @@ import AudioKit
     var programmaticOnKeys = Set<MIDINoteNumber>()
 
     /// Allows multiple notes to play concurrently
-    @objc open var polyphonicMode = false {
+    open var polyphonicMode = false {
         didSet {
             for note in onKeys {
                 delegate?.noteOff(note: note)

@@ -12,7 +12,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Limiting Factor
-    @objc open var amount: Double = 1 {
+    open var amount: Double = 1 {
         willSet {
             let clampedValue = (0.0 ... 1.0).clamp(newValue)
             guard amount != clampedValue else { return }
@@ -21,7 +21,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open var isStarted: Bool {
+    open var isStarted: Bool {
         return self.internalAU?.isStarted ?? false
     }
 
