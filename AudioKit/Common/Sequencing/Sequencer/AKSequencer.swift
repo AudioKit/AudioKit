@@ -101,7 +101,7 @@ open class AKSequencer {
         for index in 0..<min(midiTracks.count, tracks.count) {
             let track = midiTracks[index]
             tracks[index].clear()
-            for event in track.events {
+            for event in track.channelEvents {
                 if let pos = event.positionInBeats {
                     self.tracks[index].add(event: event, position: pos)
                 }

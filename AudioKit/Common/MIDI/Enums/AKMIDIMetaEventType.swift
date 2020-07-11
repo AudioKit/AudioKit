@@ -91,21 +91,37 @@ public enum AKMIDIMetaEventType: MIDIByte {
 
 public struct AKMIDIMetaEvent: AKMIDIMessage {
 
+    /// Position data - used for events parsed from a MIDI file
+    public var positionInBeats: Double?
+
     public init?(data: [MIDIByte]) {
         if data.count > 2,
             data[0] == 0xFF,
-            let type = AKMIDIMetaEventType(rawValue: data[1]) {
-            self.data = data
+            let type = AKMIDIMetaEventType(rawValue: data[1]),
+            let vlqLength = MIDIVariableLengthQuantity(fromBytes: Array(data.suffix(from: 2))) {
+            self.length = Int(vlqLength.quantity)
+            self.data = Array(data.prefix(3 + length)) //drop excess data
             self.type = type
-            self.length = Int(data[2])
         } else {
             return nil
         }
     }
 
-    public var data: [MIDIByte]
-    public var type: AKMIDIMetaEventType
-    public var length: Int
+    init?(fileEvent event: AKMIDIFileChunkEvent) {
+        guard
+            let metaEvent = AKMIDIMetaEvent(data: event.computedData)
+        else {
+            return nil
+        }
+        self = metaEvent
+        if event.timeFormat == .ticksPerBeat {
+            positionInBeats = event.position
+        }
+    }
+
+    public let data: [MIDIByte]
+    public let type: AKMIDIMetaEventType
+    public let length: Int
     public var description: String {
         var nameStr: String = ""
 

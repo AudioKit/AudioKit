@@ -1594,6 +1594,10 @@
 		C4DB66CF249560FD001E1F37 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAA62D3D247F3A5B00BF4CDB /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDA221C21FCF50033494B /* squareWave.swift */; };
 		C4DD032D2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */; };
+		C4DD4D5A24BA431500A69304 /* MIDISysexMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD4D5824BA431500A69304 /* MIDISysexMessage.swift */; };
+		C4DD4D5B24BA431500A69304 /* MIDISysexMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD4D5824BA431500A69304 /* MIDISysexMessage.swift */; };
+		C4DD4D5C24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD4D5924BA431500A69304 /* MIDIVariableLengthQuantity.swift */; };
+		C4DD4D5D24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD4D5924BA431500A69304 /* MIDIVariableLengthQuantity.swift */; };
 		C4E13D2C1C42360C008F0A3C /* AKPhaseLockedVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D281C42360C008F0A3C /* AKPhaseLockedVocoder.swift */; };
 		C4E4F25222175FE400072AA9 /* MIDI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E4F25122175FE400072AA9 /* MIDI+Extensions.swift */; };
 		C4E729861D382A3A00E0647E /* AKResonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E729821D382A3A00E0647E /* AKResonantFilter.swift */; };
@@ -5015,6 +5019,8 @@
 		C4DB66C7249560CD001E1F37 /* DevoloopAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DevoloopAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4DD032C2028232800AC39DD /* AKFlatFrequencyResponseReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbDSP.mm; sourceTree = "<group>"; };
+		C4DD4D5824BA431500A69304 /* MIDISysexMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDISysexMessage.swift; sourceTree = "<group>"; };
+		C4DD4D5924BA431500A69304 /* MIDIVariableLengthQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIVariableLengthQuantity.swift; sourceTree = "<group>"; };
 		C4DE8587200CB8860075C82B /* AKFluteDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteDSP.mm; sourceTree = "<group>"; };
 		C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFluteAudioUnit.swift; sourceTree = "<group>"; };
 		C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFluteDSP.hpp; sourceTree = "<group>"; };
@@ -8154,6 +8160,8 @@
 				C539CCCC21F823CF0096AF95 /* AKMIDITimeout.swift */,
 				C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */,
 				FE2F97AE22658764006C7551 /* MIDIHelper.swift */,
+				C4DD4D5824BA431500A69304 /* MIDISysexMessage.swift */,
+				C4DD4D5924BA431500A69304 /* MIDIVariableLengthQuantity.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -9962,6 +9970,7 @@
 				DC7DDDC21EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift in Sources */,
 				C40C41551C40E3A5009D870B /* EZAudioFFT.m in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
+				C4DD4D5C24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */,
 				FEB3AB2B22DFE06B0080A5CB /* AKDuration.swift in Sources */,
 				34BB6744205AC238000E5450 /* tag_utils.c in Sources */,
 				C403F473231A4CC200A81C0E /* AKFMOscillatorFilterSynthAudioUnit.mm in Sources */,
@@ -10486,6 +10495,7 @@
 				C49B14B5204A06B8009C7C8E /* dcblock.c in Sources */,
 				C49B14BF204A06B8009C7C8E /* load.c in Sources */,
 				C4077BE82009873D00E5923C /* AKCombFilterReverbDSP.mm in Sources */,
+				C4DD4D5A24BA431500A69304 /* MIDISysexMessage.swift in Sources */,
 				34BB6754205AC238000E5450 /* pack_dsd.c in Sources */,
 				C49B1454204A06B7009C7C8E /* osc.c in Sources */,
 				C49B1455204A06B7009C7C8E /* butbr.c in Sources */,
@@ -11989,6 +11999,7 @@
 				EAA62EB6247F44E200BF4CDB /* saturator.c in Sources */,
 				EAA62EB7247F44E200BF4CDB /* AKToneFilter.swift in Sources */,
 				EAA62EB8247F44E200BF4CDB /* bitcrush.c in Sources */,
+				C4DD4D5D24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */,
 				EAA62EB9247F44E200BF4CDB /* AKTiming.swift in Sources */,
 				EAA62EBA247F44E200BF4CDB /* streson.c in Sources */,
 				EAA62EBB247F44E200BF4CDB /* AKMIDIFileTrackChunk.swift in Sources */,
@@ -12442,6 +12453,7 @@
 				EAA6309B247F44E200BF4CDB /* AKPWMOscillatorDSP.mm in Sources */,
 				EAA6309C247F44E200BF4CDB /* autoWah.swift in Sources */,
 				EAA6309D247F44E200BF4CDB /* AKBitCrusherDSP.mm in Sources */,
+				C4DD4D5B24BA431500A69304 /* MIDISysexMessage.swift in Sources */,
 				EAA6309E247F44E200BF4CDB /* read_words.c in Sources */,
 				EAA6309F247F44E200BF4CDB /* pan.c in Sources */,
 				EAA630A0247F44E200BF4CDB /* trand.c in Sources */,
