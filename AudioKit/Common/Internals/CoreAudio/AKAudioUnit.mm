@@ -2,8 +2,7 @@
 
 #import "AKAudioUnit.h"
 #import <AVFoundation/AVFoundation.h>
-
-#import <AudioKit/AudioKit-Swift.h>
+#include "AKGlobals.hpp"
 
 @implementation AKAudioUnit {
     AUAudioUnitBusArray *_outputBusArray;
