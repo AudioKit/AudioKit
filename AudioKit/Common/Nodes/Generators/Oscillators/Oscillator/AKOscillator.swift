@@ -47,16 +47,16 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultDetuningMultiplier: AUValue = 1.0
 
     /// Frequency in cycles per second
-    @Parameter("frequency") public var frequency: AUValue
+    @Parameter public var frequency: AUValue
 
     /// Output Amplitude.
-    @Parameter("amplitude") public var amplitude: AUValue
+    @Parameter public var amplitude: AUValue
 
     /// Frequency offset in Hz.
-    @Parameter("detuningOffset") public var detuningOffset: AUValue
+    @Parameter public var detuningOffset: AUValue
 
     /// Frequency detuning multiplier
-    @Parameter("detuningMultiplier") public var detuningMultiplier: AUValue
+    @Parameter public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
