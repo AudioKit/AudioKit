@@ -150,6 +150,38 @@ public struct AKNodeParameter {
     }
 }
 
+/// Wraps AKNodeParameter so we can easily assign values to it.
+///
+/// Instead of`osc.frequency.value = 440`, we have `osc.frequency = 440`
+///
+/// Use the $ operator to access the underlying AKNodeParameter. For example:
+/// `osc.$frequency.maxValue`
+///
+/// When writing an AKNode, use:
+/// ```
+/// @Parameter("myParameterName") var myParameterName: AUValue
+/// ```
+/// This syntax gives us additional flexibility for how parameters are implemented internally.
+@propertyWrapper
+public struct Parameter {
+
+    var param: AKNodeParameter
+
+    init(_ identifier: String) {
+        param = AKNodeParameter(identifier: identifier)
+    }
+
+    public var wrappedValue: AUValue {
+        get { param.value }
+        set { param.value = newValue }
+    }
+
+    public var projectedValue: AKNodeParameter {
+        get { param }
+        set { param = newValue }
+    }
+}
+
 extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
         return self.avAudioUnitOrNode
