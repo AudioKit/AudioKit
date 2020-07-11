@@ -3,81 +3,85 @@
 #include "AKAutoWahDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createAutoWahDSP() {
-    return new AKAutoWahDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKAutoWahDSP::InternalData {
+class AKAutoWahDSP : public AKSoundpipeDSPBase {
+private:
     sp_autowah *autowah0;
     sp_autowah *autowah1;
     ParameterRamper wahRamp;
     ParameterRamper mixRamp;
     ParameterRamper amplitudeRamp;
-};
 
-AKAutoWahDSP::AKAutoWahDSP() : data(new InternalData) {
-    parameters[AKAutoWahParameterWah] = &data->wahRamp;
-    parameters[AKAutoWahParameterMix] = &data->mixRamp;
-    parameters[AKAutoWahParameterAmplitude] = &data->amplitudeRamp;
-}
+public:
+    AKAutoWahDSP() {
+        parameters[AKAutoWahParameterWah] = &wahRamp;
+        parameters[AKAutoWahParameterMix] = &mixRamp;
+        parameters[AKAutoWahParameterAmplitude] = &amplitudeRamp;
+    }
 
-void AKAutoWahDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_autowah_create(&data->autowah0);
-    sp_autowah_init(sp, data->autowah0);
-    sp_autowah_create(&data->autowah1);
-    sp_autowah_init(sp, data->autowah1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_autowah_create(&autowah0);
+        sp_autowah_init(sp, autowah0);
+        sp_autowah_create(&autowah1);
+        sp_autowah_init(sp, autowah1);
+    }
 
-void AKAutoWahDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_autowah_destroy(&data->autowah0);
-    sp_autowah_destroy(&data->autowah1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_autowah_destroy(&autowah0);
+        sp_autowah_destroy(&autowah1);
+    }
 
-void AKAutoWahDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_autowah_init(sp, data->autowah0);
-    sp_autowah_init(sp, data->autowah1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_autowah_init(sp, autowah0);
+        sp_autowah_init(sp, autowah1);
+    }
 
-void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float wah = data->wahRamp.getAndStep();
-        *data->autowah0->wah = wah;
-        *data->autowah1->wah = wah;
+            float wah = wahRamp.getAndStep();
+            *autowah0->wah = wah;
+            *autowah1->wah = wah;
 
-        float mix = data->mixRamp.getAndStep() * 100.f;
-        *data->autowah0->mix = mix;
-        *data->autowah1->mix = mix;
+            float mix = mixRamp.getAndStep() * 100.f;
+            *autowah0->mix = mix;
+            *autowah1->mix = mix;
 
-        float amplitude = data->amplitudeRamp.getAndStep();
-        *data->autowah0->level = amplitude;
-        *data->autowah1->level = amplitude;
+            float amplitude = amplitudeRamp.getAndStep();
+            *autowah0->level = amplitude;
+            *autowah1->level = amplitude;
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_autowah_compute(sp, data->autowah0, in, out);
-            } else {
-                sp_autowah_compute(sp, data->autowah1, in, out);
+                if (channel == 0) {
+                    sp_autowah_compute(sp, autowah0, in, out);
+                } else {
+                    sp_autowah_compute(sp, autowah1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createAutoWahDSP() {
+    return new AKAutoWahDSP();
 }

@@ -26,7 +26,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let defaultHalfPowerPoint: AUValue = 1_000.0
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    public let halfPowerPoint = AKNodeParameter(identifier: "halfPowerPoint")
+    public var halfPowerPoint = AKNodeParameter(identifier: "halfPowerPoint")
 
     // MARK: - Initialization
 

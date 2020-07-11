@@ -2,63 +2,67 @@
 
 #include "AKDCBlockDSP.hpp"
 
-extern "C" AKDSPRef createDCBlockDSP() {
-    return new AKDCBlockDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKDCBlockDSP::InternalData {
+class AKDCBlockDSP : public AKSoundpipeDSPBase {
+private:
     sp_dcblock *dcblock0;
     sp_dcblock *dcblock1;
-};
 
-AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {
-}
+public:
+    AKDCBlockDSP() {
+    }
 
-void AKDCBlockDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_dcblock_create(&data->dcblock0);
-    sp_dcblock_init(sp, data->dcblock0);
-    sp_dcblock_create(&data->dcblock1);
-    sp_dcblock_init(sp, data->dcblock1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_dcblock_create(&dcblock0);
+        sp_dcblock_init(sp, dcblock0);
+        sp_dcblock_create(&dcblock1);
+        sp_dcblock_init(sp, dcblock1);
+    }
 
-void AKDCBlockDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_dcblock_destroy(&data->dcblock0);
-    sp_dcblock_destroy(&data->dcblock1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_dcblock_destroy(&dcblock0);
+        sp_dcblock_destroy(&dcblock1);
+    }
 
-void AKDCBlockDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_dcblock_init(sp, data->dcblock0);
-    sp_dcblock_init(sp, data->dcblock1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_dcblock_init(sp, dcblock0);
+        sp_dcblock_init(sp, dcblock1);
+    }
 
-void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_dcblock_compute(sp, data->dcblock0, in, out);
-            } else {
-                sp_dcblock_compute(sp, data->dcblock1, in, out);
+                if (channel == 0) {
+                    sp_dcblock_compute(sp, dcblock0, in, out);
+                } else {
+                    sp_dcblock_compute(sp, dcblock1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createDCBlockDSP() {
+    return new AKDCBlockDSP();
 }

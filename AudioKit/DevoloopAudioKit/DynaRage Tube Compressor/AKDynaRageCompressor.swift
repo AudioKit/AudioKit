@@ -23,22 +23,22 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
     // MARK: - Parameters
 
     /// Ratio to compress with, a value > 1 will compress
-    public let ratio = AKNodeParameter(identifier: "ratio")
+    public var ratio = AKNodeParameter(identifier: "ratio")
 
     /// Threshold (in dB) 0 = max
-    public let threshold = AKNodeParameter(identifier: "threshold")
+    public var threshold = AKNodeParameter(identifier: "threshold")
 
     /// Attack dration
-    public let attackDuration = AKNodeParameter(identifier: "attackDuration")
+    public var attackDuration = AKNodeParameter(identifier: "attackDuration")
 
     /// Release duration
-    public let releaseDuration = AKNodeParameter(identifier: "releaseDuration")
+    public var releaseDuration = AKNodeParameter(identifier: "releaseDuration")
 
     /// Rage Amount
-    public let rage = AKNodeParameter(identifier: "rage")
+    public var rage = AKNodeParameter(identifier: "rage")
 
     /// Rage ON/OFF Switch
-    public let rageIsOn = AKNodeParameter(identifier: "rageIsOn")
+    public var rageIsOn = AKNodeParameter(identifier: "rageIsOn")
 
     // MARK: - Initialization
 

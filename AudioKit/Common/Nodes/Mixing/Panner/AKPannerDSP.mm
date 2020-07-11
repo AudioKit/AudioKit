@@ -3,60 +3,64 @@
 #include "AKPannerDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createPannerDSP() {
-    return new AKPannerDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKPannerDSP::InternalData {
+class AKPannerDSP : public AKSoundpipeDSPBase {
+private:
     sp_panst *panst;
     ParameterRamper panRamp;
-};
 
-AKPannerDSP::AKPannerDSP() : data(new InternalData) {
-    parameters[AKPannerParameterPan] = &data->panRamp;
-}
+public:
+    AKPannerDSP() {
+        parameters[AKPannerParameterPan] = &panRamp;
+    }
 
-void AKPannerDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_panst_create(&data->panst);
-    sp_panst_init(sp, data->panst);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_panst_create(&panst);
+        sp_panst_init(sp, panst);
+    }
 
-void AKPannerDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_panst_destroy(&data->panst);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_panst_destroy(&panst);
+    }
 
-void AKPannerDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_panst_init(sp, data->panst);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_panst_init(sp, panst);
+    }
 
-void AKPannerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        data->panst->pan = data->panRamp.getAndStep();
+            panst->pan = panRamp.getAndStep();
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
             
-        }
-        if (isStarted) {
-            sp_panst_compute(sp, data->panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            }
+            if (isStarted) {
+                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            }
         }
     }
+};
+
+extern "C" AKDSPRef createPannerDSP() {
+    return new AKPannerDSP();
 }

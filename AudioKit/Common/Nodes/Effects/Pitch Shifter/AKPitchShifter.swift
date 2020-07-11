@@ -38,13 +38,13 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let defaultCrossfade: AUValue = 512
 
     /// Pitch shift (in semitones)
-    public let shift = AKNodeParameter(identifier: "shift")
+    public var shift = AKNodeParameter(identifier: "shift")
 
     /// Window size (in samples)
-    public let windowSize = AKNodeParameter(identifier: "windowSize")
+    public var windowSize = AKNodeParameter(identifier: "windowSize")
 
     /// Crossfade (in samples)
-    public let crossfade = AKNodeParameter(identifier: "crossfade")
+    public var crossfade = AKNodeParameter(identifier: "crossfade")
 
     // MARK: - Initialization
 

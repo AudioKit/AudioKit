@@ -6,11 +6,8 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-// "Constructor" function for interop with Swift
-
 extern "C" AKDSPRef createRhodesPianoDSP() {
-    AKRhodesPianoDSP *dsp = new AKRhodesPianoDSP();
-    return dsp;
+    return new AKRhodesPianoDSP();
 }
 
 // AKRhodesPianoDSP method implementations

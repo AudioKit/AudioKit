@@ -40,13 +40,13 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let defaultDecayDuration: AUValue = 0.04
 
     /// Center frequency.
-    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// Impulse response attack time (in seconds).
-    public let attackDuration = AKNodeParameter(identifier: "attackDuration")
+    public var attackDuration = AKNodeParameter(identifier: "attackDuration")
 
     /// Impulse reponse decay time (in seconds)
-    public let decayDuration = AKNodeParameter(identifier: "decayDuration")
+    public var decayDuration = AKNodeParameter(identifier: "decayDuration")
 
     // MARK: - Initialization
 

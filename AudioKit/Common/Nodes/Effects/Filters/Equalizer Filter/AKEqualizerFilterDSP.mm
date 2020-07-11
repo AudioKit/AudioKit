@@ -3,81 +3,85 @@
 #include "AKEqualizerFilterDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createEqualizerFilterDSP() {
-    return new AKEqualizerFilterDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKEqualizerFilterDSP::InternalData {
+class AKEqualizerFilterDSP : public AKSoundpipeDSPBase {
+private:
     sp_eqfil *eqfil0;
     sp_eqfil *eqfil1;
     ParameterRamper centerFrequencyRamp;
     ParameterRamper bandwidthRamp;
     ParameterRamper gainRamp;
-};
 
-AKEqualizerFilterDSP::AKEqualizerFilterDSP() : data(new InternalData) {
-    parameters[AKEqualizerFilterParameterCenterFrequency] = &data->centerFrequencyRamp;
-    parameters[AKEqualizerFilterParameterBandwidth] = &data->bandwidthRamp;
-    parameters[AKEqualizerFilterParameterGain] = &data->gainRamp;
-}
+public:
+    AKEqualizerFilterDSP() {
+        parameters[AKEqualizerFilterParameterCenterFrequency] = &centerFrequencyRamp;
+        parameters[AKEqualizerFilterParameterBandwidth] = &bandwidthRamp;
+        parameters[AKEqualizerFilterParameterGain] = &gainRamp;
+    }
 
-void AKEqualizerFilterDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_eqfil_create(&data->eqfil0);
-    sp_eqfil_init(sp, data->eqfil0);
-    sp_eqfil_create(&data->eqfil1);
-    sp_eqfil_init(sp, data->eqfil1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_eqfil_create(&eqfil0);
+        sp_eqfil_init(sp, eqfil0);
+        sp_eqfil_create(&eqfil1);
+        sp_eqfil_init(sp, eqfil1);
+    }
 
-void AKEqualizerFilterDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_eqfil_destroy(&data->eqfil0);
-    sp_eqfil_destroy(&data->eqfil1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_eqfil_destroy(&eqfil0);
+        sp_eqfil_destroy(&eqfil1);
+    }
 
-void AKEqualizerFilterDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_eqfil_init(sp, data->eqfil0);
-    sp_eqfil_init(sp, data->eqfil1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_eqfil_init(sp, eqfil0);
+        sp_eqfil_init(sp, eqfil1);
+    }
 
-void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float centerFrequency = data->centerFrequencyRamp.getAndStep();
-        data->eqfil0->freq = centerFrequency;
-        data->eqfil1->freq = centerFrequency;
+            float centerFrequency = centerFrequencyRamp.getAndStep();
+            eqfil0->freq = centerFrequency;
+            eqfil1->freq = centerFrequency;
 
-        float bandwidth = data->bandwidthRamp.getAndStep();
-        data->eqfil0->bw = bandwidth;
-        data->eqfil1->bw = bandwidth;
+            float bandwidth = bandwidthRamp.getAndStep();
+            eqfil0->bw = bandwidth;
+            eqfil1->bw = bandwidth;
 
-        float gain = data->gainRamp.getAndStep();
-        data->eqfil0->gain = gain;
-        data->eqfil1->gain = gain;
+            float gain = gainRamp.getAndStep();
+            eqfil0->gain = gain;
+            eqfil1->gain = gain;
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_eqfil_compute(sp, data->eqfil0, in, out);
-            } else {
-                sp_eqfil_compute(sp, data->eqfil1, in, out);
+                if (channel == 0) {
+                    sp_eqfil_compute(sp, eqfil0, in, out);
+                } else {
+                    sp_eqfil_compute(sp, eqfil1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createEqualizerFilterDSP() {
+    return new AKEqualizerFilterDSP();
 }

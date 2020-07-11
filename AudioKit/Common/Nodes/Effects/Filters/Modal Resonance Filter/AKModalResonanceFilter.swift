@@ -34,10 +34,10 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let defaultQualityFactor: AUValue = 50.0
 
     /// Resonant frequency of the filter.
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    public let qualityFactor = AKNodeParameter(identifier: "qualityFactor")
+    public var qualityFactor = AKNodeParameter(identifier: "qualityFactor")
 
     // MARK: - Initialization
 

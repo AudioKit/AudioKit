@@ -38,13 +38,13 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let defaultAmplitude: AUValue = 0.1
 
     /// Wah Amount
-    public let wah = AKNodeParameter(identifier: "wah")
+    public var wah = AKNodeParameter(identifier: "wah")
 
     /// Dry/Wet Mix
-    public let mix = AKNodeParameter(identifier: "mix")
+    public var mix = AKNodeParameter(identifier: "mix")
 
     /// Overall level
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 

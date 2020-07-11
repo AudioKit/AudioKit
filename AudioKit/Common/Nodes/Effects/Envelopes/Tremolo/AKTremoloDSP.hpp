@@ -13,27 +13,4 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 AKDSPRef createTremoloDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKTremoloDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKTremoloDSP();
-
-    void setWavetable(const float* table, size_t length, int index) override;
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif

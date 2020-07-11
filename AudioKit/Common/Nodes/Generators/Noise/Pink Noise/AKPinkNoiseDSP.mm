@@ -3,54 +3,57 @@
 #include "AKPinkNoiseDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createPinkNoiseDSP() {
-    return new AKPinkNoiseDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKPinkNoiseDSP::InternalData {
+class AKPinkNoiseDSP : public AKSoundpipeDSPBase {
+private:
     sp_pinknoise *pinknoise;
     ParameterRamper amplitudeRamp;
-};
 
-AKPinkNoiseDSP::AKPinkNoiseDSP() : data(new InternalData) {
-    parameters[AKPinkNoiseParameterAmplitude] = &data->amplitudeRamp;
-}
+public:
+    AKPinkNoiseDSP() {
+        parameters[AKPinkNoiseParameterAmplitude] = &amplitudeRamp;
+    }
 
-void AKPinkNoiseDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_pinknoise_create(&data->pinknoise);
-    sp_pinknoise_init(sp, data->pinknoise);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_pinknoise_create(&pinknoise);
+        sp_pinknoise_init(sp, pinknoise);
+    }
 
-void AKPinkNoiseDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_pinknoise_destroy(&data->pinknoise);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_pinknoise_destroy(&pinknoise);
+    }
 
-void AKPinkNoiseDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_pinknoise_init(sp, data->pinknoise);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_pinknoise_init(sp, pinknoise);
+    }
 
-void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        data->pinknoise->amp = data->amplitudeRamp.getAndStep();
+            pinknoise->amp = amplitudeRamp.getAndStep();
+            float temp = 0;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
-        float temp = 0;
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-
-            if (isStarted) {
-                if (channel == 0) {
-                    sp_pinknoise_compute(sp, data->pinknoise, nil, &temp);
+                if (isStarted) {
+                    if (channel == 0) {
+                        sp_pinknoise_compute(sp, pinknoise, nil, &temp);
+                    }
+                    *out = temp;
+                } else {
+                    *out = 0.0;
                 }
-                *out = temp;
-            } else {
-                *out = 0.0;
             }
         }
     }
+};
+
+extern "C" AKDSPRef createPinkNoiseDSP() {
+    return new AKPinkNoiseDSP();
 }

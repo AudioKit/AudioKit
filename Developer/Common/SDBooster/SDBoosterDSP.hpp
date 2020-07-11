@@ -3,7 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import <AKInterop.h>
+#import <AudioKit/AudioKit.h>
 
 typedef NS_ENUM (AUParameterAddress, SDBoosterParameter) {
     SDBoosterParameterLeftGain,
@@ -13,20 +13,5 @@ typedef NS_ENUM (AUParameterAddress, SDBoosterParameter) {
 #ifndef __cplusplus
 
 AKDSPRef createSDBoosterDSP();
-
-#else
-
-#import "AKDSPBase.hpp"
-
-struct SDBoosterDSP : AKDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
-
-public:
-    SDBoosterDSP();
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
 
 #endif

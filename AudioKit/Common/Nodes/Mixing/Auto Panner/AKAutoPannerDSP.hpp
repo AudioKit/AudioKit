@@ -13,25 +13,4 @@ typedef NS_ENUM(AUParameterAddress, AKAutoPannerParameter) {
 
 AKDSPRef createAutoPannerDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKAutoPannerDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
-   
-public:
-    AKAutoPannerDSP();
-
-    void setWavetable(const float* table, size_t length, int index) override;
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void process(uint32_t frameCount, uint32_t bufferOffset) override;
-};
-
 #endif

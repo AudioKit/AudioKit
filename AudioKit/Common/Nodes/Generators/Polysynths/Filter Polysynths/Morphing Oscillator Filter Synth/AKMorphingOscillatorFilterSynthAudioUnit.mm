@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import <AudioKit/AudioKit-Swift.h>
-
 #import "AKMorphingOscillatorFilterSynthAudioUnit.h"
 #import "AKMorphingOscillatorFilterSynthDSPKernel.hpp"
 

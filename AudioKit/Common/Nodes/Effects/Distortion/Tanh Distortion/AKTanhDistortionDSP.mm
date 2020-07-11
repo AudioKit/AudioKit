@@ -3,87 +3,91 @@
 #include "AKTanhDistortionDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createTanhDistortionDSP() {
-    return new AKTanhDistortionDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKTanhDistortionDSP::InternalData {
+class AKTanhDistortionDSP : public AKSoundpipeDSPBase {
+private:
     sp_dist *dist0;
     sp_dist *dist1;
     ParameterRamper pregainRamp;
     ParameterRamper postgainRamp;
     ParameterRamper positiveShapeParameterRamp;
     ParameterRamper negativeShapeParameterRamp;
-};
 
-AKTanhDistortionDSP::AKTanhDistortionDSP() : data(new InternalData) {
-    parameters[AKTanhDistortionParameterPregain] = &data->pregainRamp;
-    parameters[AKTanhDistortionParameterPostgain] = &data->postgainRamp;
-    parameters[AKTanhDistortionParameterPositiveShapeParameter] = &data->positiveShapeParameterRamp;
-    parameters[AKTanhDistortionParameterNegativeShapeParameter] = &data->negativeShapeParameterRamp;
-}
+public:
+    AKTanhDistortionDSP() {
+        parameters[AKTanhDistortionParameterPregain] = &pregainRamp;
+        parameters[AKTanhDistortionParameterPostgain] = &postgainRamp;
+        parameters[AKTanhDistortionParameterPositiveShapeParameter] = &positiveShapeParameterRamp;
+        parameters[AKTanhDistortionParameterNegativeShapeParameter] = &negativeShapeParameterRamp;
+    }
 
-void AKTanhDistortionDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_dist_create(&data->dist0);
-    sp_dist_init(sp, data->dist0);
-    sp_dist_create(&data->dist1);
-    sp_dist_init(sp, data->dist1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_dist_create(&dist0);
+        sp_dist_init(sp, dist0);
+        sp_dist_create(&dist1);
+        sp_dist_init(sp, dist1);
+    }
 
-void AKTanhDistortionDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_dist_destroy(&data->dist0);
-    sp_dist_destroy(&data->dist1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_dist_destroy(&dist0);
+        sp_dist_destroy(&dist1);
+    }
 
-void AKTanhDistortionDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_dist_init(sp, data->dist0);
-    sp_dist_init(sp, data->dist1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_dist_init(sp, dist0);
+        sp_dist_init(sp, dist1);
+    }
 
-void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float pregain = data->pregainRamp.getAndStep();
-        data->dist0->pregain = pregain;
-        data->dist1->pregain = pregain;
+            float pregain = pregainRamp.getAndStep();
+            dist0->pregain = pregain;
+            dist1->pregain = pregain;
 
-        float postgain = data->postgainRamp.getAndStep();
-        data->dist0->postgain = postgain;
-        data->dist1->postgain = postgain;
+            float postgain = postgainRamp.getAndStep();
+            dist0->postgain = postgain;
+            dist1->postgain = postgain;
 
-        float positiveShapeParameter = data->positiveShapeParameterRamp.getAndStep();
-        data->dist0->shape1 = positiveShapeParameter;
-        data->dist1->shape1 = positiveShapeParameter;
+            float positiveShapeParameter = positiveShapeParameterRamp.getAndStep();
+            dist0->shape1 = positiveShapeParameter;
+            dist1->shape1 = positiveShapeParameter;
 
-        float negativeShapeParameter = data->negativeShapeParameterRamp.getAndStep();
-        data->dist0->shape2 = negativeShapeParameter;
-        data->dist1->shape2 = negativeShapeParameter;
+            float negativeShapeParameter = negativeShapeParameterRamp.getAndStep();
+            dist0->shape2 = negativeShapeParameter;
+            dist1->shape2 = negativeShapeParameter;
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_dist_compute(sp, data->dist0, in, out);
-            } else {
-                sp_dist_compute(sp, data->dist1, in, out);
+                if (channel == 0) {
+                    sp_dist_compute(sp, dist0, in, out);
+                } else {
+                    sp_dist_compute(sp, dist1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createTanhDistortionDSP() {
+    return new AKTanhDistortionDSP();
 }

@@ -54,19 +54,19 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultDetuningMultiplier: AUValue = 1.0
 
     /// Frequency in cycles per second
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Output Amplitude.
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Duty Cycle Width 0 - 1
-    public let pulseWidth = AKNodeParameter(identifier: "pulseWidth")
+    public var pulseWidth = AKNodeParameter(identifier: "pulseWidth")
 
     /// Frequency offset in Hz.
-    public let detuningOffset = AKNodeParameter(identifier: "detuningOffset")
+    public var detuningOffset = AKNodeParameter(identifier: "detuningOffset")
 
     /// Frequency detuning multiplier
-    public let detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
+    public var detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
 
     // MARK: - Initialization
 

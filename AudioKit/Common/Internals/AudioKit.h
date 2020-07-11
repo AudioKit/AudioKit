@@ -14,167 +14,168 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "AKDSPBase.hpp"
-#import "AKSoundpipeDSPBase.hpp"
-#import "DSPKernel.hpp"
-#import "AKDSPKernel.hpp"
-#import "AKSoundpipeKernel.hpp"
-#import "AKBankDSPKernel.hpp"
-#import "AKFilterSynthDSPKernel.hpp"
-#import "ExceptionCatcher.h"
+#import <AudioKit/AKDSPBase.hpp>
+#import <AudioKit/AKSoundpipeDSPBase.hpp>
+#import <AudioKit/DSPKernel.hpp>
+#import <AudioKit/AKDSPKernel.hpp>
+#import <AudioKit/AKSoundpipeKernel.hpp>
+#import <AudioKit/AKBankDSPKernel.hpp>
+#import <AudioKit/AKFilterSynthDSPKernel.hpp>
+#import <AudioKit/ExceptionCatcher.h>
+#import <AudioKit/AKGlobals.hpp>
 
 // Analysis
-#import "AKAmplitudeTrackerAudioUnit.h"
-#import "AKFrequencyTrackerAudioUnit.h"
+#import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
+#import <AudioKit/AKFrequencyTrackerAudioUnit.h>
 #if !TARGET_OS_TV
-#import "AKMicrophoneTrackerEngine.h"
+#import <AudioKit/AKMicrophoneTrackerEngine.h>
 #endif
 
 // Effects
-#import "AKOperationEffectAudioUnit.h"
-#import "AKSporthStack.h"
+#import <AudioKit/AKOperationEffectAudioUnit.h>
+#import <AudioKit/AKSporthStack.h>
 
 // Effects / Delay
-#import "AKVariableDelayDSP.hpp"
-#import "AKStereoDelayDSP.hpp"
+#import <AudioKit/AKVariableDelayDSP.hpp>
+#import <AudioKit/AKStereoDelayDSP.hpp>
 
 // Effects / Distortion
-#import "AKBitCrusherDSP.hpp"
-#import "AKClipperDSP.hpp"
-#import "AKTanhDistortionDSP.hpp"
+#import <AudioKit/AKBitCrusherDSP.hpp>
+#import <AudioKit/AKClipperDSP.hpp>
+#import <AudioKit/AKTanhDistortionDSP.hpp>
 
 // Effects / Dynamics
-#import "AKDynamicRangeCompressorDSP.hpp"
+#import <AudioKit/AKDynamicRangeCompressorDSP.hpp>
 
 // Effects / Envelopes
-#import "AKAmplitudeEnvelopeDSP.hpp"
-#import "AKTremoloDSP.hpp"
+#import <AudioKit/AKAmplitudeEnvelopeDSP.hpp>
+#import <AudioKit/AKTremoloDSP.hpp>
 
 // Effects / Filters
-#import "AKAutoWahDSP.hpp"
-#import "AKBandPassButterworthFilterDSP.hpp"
-#import "AKBandRejectButterworthFilterDSP.hpp"
-#import "AKDCBlockDSP.hpp"
-#import "AKEqualizerFilterDSP.hpp"
-#import "AKFormantFilterDSP.hpp"
-#import "AKHighPassButterworthFilterDSP.hpp"
-#import "AKHighShelfParametricEqualizerFilterDSP.hpp"
-#import "AKKorgLowPassFilterDSP.hpp"
-#import "AKLowPassButterworthFilterDSP.hpp"
-#import "AKLowShelfParametricEqualizerFilterDSP.hpp"
-#import "AKModalResonanceFilterDSP.hpp"
-#import "AKMoogLadderDSP.hpp"
-#import "AKPeakingParametricEqualizerFilterDSP.hpp"
-#import "AKResonantFilterDSP.hpp"
-#import "AKRolandTB303FilterDSP.hpp"
-#import "AKStringResonatorDSP.hpp"
-#import "AKThreePoleLowpassFilterDSP.hpp"
-#import "AKToneComplementFilterDSP.hpp"
-#import "AKToneFilterDSP.hpp"
+#import <AudioKit/AKAutoWahDSP.hpp>
+#import <AudioKit/AKBandPassButterworthFilterDSP.hpp>
+#import <AudioKit/AKBandRejectButterworthFilterDSP.hpp>
+#import <AudioKit/AKDCBlockDSP.hpp>
+#import <AudioKit/AKEqualizerFilterDSP.hpp>
+#import <AudioKit/AKFormantFilterDSP.hpp>
+#import <AudioKit/AKHighPassButterworthFilterDSP.hpp>
+#import <AudioKit/AKHighShelfParametricEqualizerFilterDSP.hpp>
+#import <AudioKit/AKKorgLowPassFilterDSP.hpp>
+#import <AudioKit/AKLowPassButterworthFilterDSP.hpp>
+#import <AudioKit/AKLowShelfParametricEqualizerFilterDSP.hpp>
+#import <AudioKit/AKModalResonanceFilterDSP.hpp>
+#import <AudioKit/AKMoogLadderDSP.hpp>
+#import <AudioKit/AKPeakingParametricEqualizerFilterDSP.hpp>
+#import <AudioKit/AKResonantFilterDSP.hpp>
+#import <AudioKit/AKRolandTB303FilterDSP.hpp>
+#import <AudioKit/AKStringResonatorDSP.hpp>
+#import <AudioKit/AKThreePoleLowpassFilterDSP.hpp>
+#import <AudioKit/AKToneComplementFilterDSP.hpp>
+#import <AudioKit/AKToneFilterDSP.hpp>
 
 // Effects / Modulation
-#import "AKModulatedDelay_Typedefs.h"
-#import "AKModulatedDelay.hpp"
-#import "AKModulatedDelayDSP.hpp"
-#import "AKPhaserDSP.hpp"
+#import <AudioKit/AKModulatedDelay_Typedefs.h>
+#import <AudioKit/AKModulatedDelay.hpp>
+#import <AudioKit/AKModulatedDelayDSP.hpp>
+#import <AudioKit/AKPhaserDSP.hpp>
 
 // Effects / Pitch Shifter
-#import "AKPitchShifterDSP.hpp"
+#import <AudioKit/AKPitchShifterDSP.hpp>
 
 // Effects / Reverb
-#import "AKChowningReverbDSP.hpp"
-#import "AKCombFilterReverbDSP.hpp"
-#import "AKConvolutionDSP.hpp"
-#import "AKCostelloReverbDSP.hpp"
-#import "AKFlatFrequencyResponseReverbDSP.hpp"
-#import "AKZitaReverbDSP.hpp"
+#import <AudioKit/AKChowningReverbDSP.hpp>
+#import <AudioKit/AKCombFilterReverbDSP.hpp>
+#import <AudioKit/AKConvolutionDSP.hpp>
+#import <AudioKit/AKCostelloReverbDSP.hpp>
+#import <AudioKit/AKFlatFrequencyResponseReverbDSP.hpp>
+#import <AudioKit/AKZitaReverbDSP.hpp>
 
 // Generators
-#import "AKOperationGeneratorAudioUnit.h"
+#import <AudioKit/AKOperationGeneratorAudioUnit.h>
 
 // Generators / Noise
-#import "AKBrownianNoiseDSP.hpp"
-#import "AKPinkNoiseDSP.hpp"
-#import "AKWhiteNoiseDSP.hpp"
+#import <AudioKit/AKBrownianNoiseDSP.hpp>
+#import <AudioKit/AKPinkNoiseDSP.hpp>
+#import <AudioKit/AKWhiteNoiseDSP.hpp>
 
 // Generators / Oscillators
-#import "AKFMOscillatorDSP.hpp"
-#import "AKMorphingOscillatorDSP.hpp"
-#import "AKOscillatorDSP.hpp"
-#import "AKPhaseDistortionOscillatorDSP.hpp"
-#import "AKPWMOscillatorDSP.hpp"
+#import <AudioKit/AKFMOscillatorDSP.hpp>
+#import <AudioKit/AKMorphingOscillatorDSP.hpp>
+#import <AudioKit/AKOscillatorDSP.hpp>
+#import <AudioKit/AKPhaseDistortionOscillatorDSP.hpp>
+#import <AudioKit/AKPWMOscillatorDSP.hpp>
 
 // Generators / Physical Models
-#import "AKDripDSP.hpp"
-#import "AKMetalBarDSP.hpp"
-#import "AKPluckedStringDSP.hpp"
-#import "AKVocalTractDSP.hpp"
+#import <AudioKit/AKDripDSP.hpp>
+#import <AudioKit/AKMetalBarDSP.hpp>
+#import <AudioKit/AKPluckedStringDSP.hpp>
+#import <AudioKit/AKVocalTractDSP.hpp>
 
 // Generators / Polysynths
-#import "AKFMOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorBankAudioUnit.h"
-#import "AKOscillatorBankAudioUnit.h"
-#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
-#import "AKPWMOscillatorBankAudioUnit.h"
-#import "AKSynthDSP.hpp"
+#import <AudioKit/AKFMOscillatorBankAudioUnit.h>
+#import <AudioKit/AKMorphingOscillatorBankAudioUnit.h>
+#import <AudioKit/AKOscillatorBankAudioUnit.h>
+#import <AudioKit/AKPhaseDistortionOscillatorBankAudioUnit.h>
+#import <AudioKit/AKPWMOscillatorBankAudioUnit.h>
+#import <AudioKit/AKSynthDSP.hpp>
 
 // Generators / Filter Polysynths
-#import "AKFMOscillatorFilterSynthAudioUnit.h"
-#import "AKMorphingOscillatorFilterSynthAudioUnit.h"
-#import "AKOscillatorFilterSynthAudioUnit.h"
-#import "AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
-#import "AKPWMOscillatorFilterSynthAudioUnit.h"
+#import <AudioKit/AKFMOscillatorFilterSynthAudioUnit.h>
+#import <AudioKit/AKMorphingOscillatorFilterSynthAudioUnit.h>
+#import <AudioKit/AKOscillatorFilterSynthAudioUnit.h>
+#import <AudioKit/AKPhaseDistortionOscillatorFilterSynthAudioUnit.h>
+#import <AudioKit/AKPWMOscillatorFilterSynthAudioUnit.h>
 
 // Mixing
-#import "AKAutoPannerDSP.hpp"
-#import "AKBalancerDSP.hpp"
-#import "AKBoosterDSP.hpp"
-#import "AKFaderDSP.hpp"
-#import "AKPannerDSP.hpp"
-#import "AKStereoFieldLimiterDSP.hpp"
+#import <AudioKit/AKAutoPannerDSP.hpp>
+#import <AudioKit/AKBalancerDSP.hpp>
+#import <AudioKit/AKBoosterDSP.hpp>
+#import <AudioKit/AKFaderDSP.hpp>
+#import <AudioKit/AKPannerDSP.hpp>
+#import <AudioKit/AKStereoFieldLimiterDSP.hpp>
 
 // Playback
-#import "AKPhaseLockedVocoderDSP.hpp"
-#import "AKWaveTableAudioUnit.h"
-#import "AKDiskStreamerAudioUnit.h"
-#import "AKPresetManager.h"
-#import "AKSampler_Typedefs.h"
-#import "AKCoreSampler.hpp"
-#import "AKCoreSynth.hpp"
-#import "AKSamplerDSP.hpp"
+#import <AudioKit/AKPhaseLockedVocoderDSP.hpp>
+#import <AudioKit/AKWaveTableAudioUnit.h>
+#import <AudioKit/AKDiskStreamerAudioUnit.h>
+#import <AudioKit/AKPresetManager.h>
+#import <AudioKit/AKSampler_Typedefs.h>
+#import <AudioKit/AKCoreSampler.hpp>
+#import <AudioKit/AKCoreSynth.hpp>
+#import <AudioKit/AKSamplerDSP.hpp>
 
 #if !TARGET_OS_TV
-#import "AKCallbackInstrumentAudioUnit.h"
+#import <AudioKit/AKCallbackInstrumentAudioUnit.h>
 #endif
 
 // Testing
-#import "AKTesterAudioUnit.h"
+#import <AudioKit/AKTesterAudioUnit.h>
 
 // EZAudio
-#import "EZAudio.h"
+#import <AudioKit/EZAudio.h>
 
 // Taps
-#import "AKRenderTap.h"
-#import "AKLazyTap.h"
-#import "AKTimelineTap.h"
+#import <AudioKit/AKRenderTap.h>
+#import <AudioKit/AKLazyTap.h>
+#import <AudioKit/AKTimelineTap.h>
 
 // Utilities
-#import "TPCircularBuffer.h"
-#import "TPCircularBuffer+Unit.h"
-#import "TPCircularBuffer+AudioBufferList.h"
-#import "ParameterRamper.hpp"
-#import "BufferedAudioBus.hpp"
-#import "AKTimeline.h"
+#import <AudioKit/TPCircularBuffer.h>
+#import <AudioKit/TPCircularBuffer+Unit.h>
+#import <AudioKit/TPCircularBuffer+AudioBufferList.h>
+#import <AudioKit/ParameterRamper.hpp>
+#import <AudioKit/BufferedAudioBus.hpp>
+#import <AudioKit/AKTimeline.h>
 
 // Sequencer
-#import "AKSamplerMetronome.h"
+#import <AudioKit/AKSamplerMetronome.h>
 #if !TARGET_OS_TV
-#import "AKSequencerEngineDSP.hpp"
+#import <AudioKit/AKSequencerEngineDSP.hpp>
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability
-#import "AKInterop.hpp"
+#import <AudioKit/AKInterop.hpp>
 
 // Automation
-#import "AKParameterAutomation.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import <AudioKit/AKParameterAutomation.hpp>
+#import <AudioKit/AKLinearParameterRamp.hpp>

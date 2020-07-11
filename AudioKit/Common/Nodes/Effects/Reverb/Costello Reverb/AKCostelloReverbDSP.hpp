@@ -13,25 +13,4 @@ typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
 
 AKDSPRef createCostelloReverbDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKCostelloReverbDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif

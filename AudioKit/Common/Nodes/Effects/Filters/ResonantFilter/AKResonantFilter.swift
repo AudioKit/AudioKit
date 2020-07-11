@@ -33,10 +33,10 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     public static let defaultBandwidth: AUValue = 1_000.0
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Bandwidth of the filter.
-    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
+    public var bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     // MARK: - Initialization
 
