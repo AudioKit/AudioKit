@@ -43,14 +43,14 @@ open class AKNodeOutputPlot: EZAudioPlot {
         resume()
     }
 
-    @objc open func pause() {
+    open func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
 
-    @objc open func resume() {
+    open func resume() {
         setupNode(node)
     }
 
