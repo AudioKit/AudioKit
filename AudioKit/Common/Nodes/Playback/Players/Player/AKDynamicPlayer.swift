@@ -83,7 +83,6 @@ public class AKDynamicPlayer: AKPlayer {
             return
         }
 
-        var connectionFormat = processingFormat
         var playerOutput: AVAudioNode = playerNode
 
         // if there is a mixer that was creating, insert it in line
@@ -91,9 +90,11 @@ public class AKDynamicPlayer: AKPlayer {
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
             AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
-            connectionFormat = AKSettings.audioFormat
             playerOutput = mixerNode
         }
+
+        // now set the ongoing format to AKSettings
+        let connectionFormat = AKSettings.audioFormat
 
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
             // AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
