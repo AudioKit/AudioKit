@@ -20,6 +20,8 @@ open class AKNode: NSObject {
 
                 for child in mirror.children {
                     if let param = child.value as? Parameter, let label = child.label {
+                        // Property wrappers create a variable with an underscore
+                        // prepended. Drop the underscore to look up the parameter.
                         let name = String(label.dropFirst())
                         param.projectedValue.associate(with: akAudioUnit,
                                                        identifier: name)
