@@ -5,8 +5,6 @@
 
 #import "BufferedAudioBus.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
-
 @implementation AKMandolinAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKMandolinDSPKernel _kernel;
