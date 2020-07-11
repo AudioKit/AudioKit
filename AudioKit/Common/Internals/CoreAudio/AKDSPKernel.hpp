@@ -85,6 +85,8 @@ static inline double floatToHz(float noteNumber)
     return 440. * exp2((noteNumber - 69.0)/12.);
 }
 
+extern "C" float __akDefaultSampleRate;
+extern "C" int __akDefaultChannelCount;
 
 #else
 

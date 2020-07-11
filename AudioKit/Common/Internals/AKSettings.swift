@@ -57,7 +57,7 @@ open class AKSettings: NSObject {
 
     /// The sample rate in Hertz, default is 44100 kHz. Set a new audioFormat if you want to change this value.
     /// See audioFormat. This is the format that is used for node connections.
-    @objc public static var sampleRate: Double {
+    public static var sampleRate: Double {
         get {
             return audioFormat.sampleRate
         }
@@ -69,7 +69,7 @@ open class AKSettings: NSObject {
     }
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    @objc public static var channelCount: UInt32 {
+    public static var channelCount: UInt32 {
         get {
             return audioFormat.channelCount
         }
