@@ -3,75 +3,79 @@
 #include "AKResonantFilterDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createResonantFilterDSP() {
-    return new AKResonantFilterDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKResonantFilterDSP::InternalData {
+class AKResonantFilterDSP : public AKSoundpipeDSPBase {
+private:
     sp_reson *reson0;
     sp_reson *reson1;
     ParameterRamper frequencyRamp;
     ParameterRamper bandwidthRamp;
-};
 
-AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
-    parameters[AKResonantFilterParameterFrequency] = &data->frequencyRamp;
-    parameters[AKResonantFilterParameterBandwidth] = &data->bandwidthRamp;
-}
+public:
+    AKResonantFilterDSP() {
+        parameters[AKResonantFilterParameterFrequency] = &frequencyRamp;
+        parameters[AKResonantFilterParameterBandwidth] = &bandwidthRamp;
+    }
 
-void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_reson_create(&data->reson0);
-    sp_reson_init(sp, data->reson0);
-    sp_reson_create(&data->reson1);
-    sp_reson_init(sp, data->reson1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_reson_create(&reson0);
+        sp_reson_init(sp, reson0);
+        sp_reson_create(&reson1);
+        sp_reson_init(sp, reson1);
+    }
 
-void AKResonantFilterDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_reson_destroy(&data->reson0);
-    sp_reson_destroy(&data->reson1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_reson_destroy(&reson0);
+        sp_reson_destroy(&reson1);
+    }
 
-void AKResonantFilterDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_reson_init(sp, data->reson0);
-    sp_reson_init(sp, data->reson1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_reson_init(sp, reson0);
+        sp_reson_init(sp, reson1);
+    }
 
-void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float frequency = data->frequencyRamp.getAndStep();
-        data->reson0->freq = frequency;
-        data->reson1->freq = frequency;
+            float frequency = frequencyRamp.getAndStep();
+            reson0->freq = frequency;
+            reson1->freq = frequency;
 
-        float bandwidth = data->bandwidthRamp.getAndStep();
-        data->reson0->bw = bandwidth;
-        data->reson1->bw = bandwidth;
+            float bandwidth = bandwidthRamp.getAndStep();
+            reson0->bw = bandwidth;
+            reson1->bw = bandwidth;
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_reson_compute(sp, data->reson0, in, out);
-            } else {
-                sp_reson_compute(sp, data->reson1, in, out);
+                if (channel == 0) {
+                    sp_reson_compute(sp, reson0, in, out);
+                } else {
+                    sp_reson_compute(sp, reson1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createResonantFilterDSP() {
+    return new AKResonantFilterDSP();
 }
