@@ -13,25 +13,4 @@ typedef NS_ENUM(AUParameterAddress, AKResonantFilterParameter) {
 
 AKDSPRef createResonantFilterDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKResonantFilterDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKResonantFilterDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif

@@ -4,11 +4,8 @@
 
 #include "Shakers.h"
 
-// "Constructor" function for interop with Swift
-
 extern "C" AKDSPRef createShakerDSP() {
-    AKShakerDSP *dsp = new AKShakerDSP();
-    return dsp;
+    return new AKShakerDSP();
 }
 
 extern "C" void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
