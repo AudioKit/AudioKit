@@ -2,8 +2,7 @@
 
 #import "AKAudioUnit.h"
 #import <AVFoundation/AVFoundation.h>
-
-#import <AudioKit/AudioKit-Swift.h>
+#include "AKGlobals.hpp"
 
 @implementation AKAudioUnit {
     AUAudioUnitBusArray *_outputBusArray;
@@ -42,8 +41,8 @@
     }
 
     // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.channelCount];
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:__akDefaultSampleRate
+                                                                        channels:__akDefaultChannelCount];
 
     [self createParameters];
 
