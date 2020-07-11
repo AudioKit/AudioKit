@@ -106,10 +106,10 @@ open class AKAbstractPlayer: AKNode {
     public var loop = Loop()
 
     /// The underlying gain booster and main output which controls fades as well.
-    @objc public var faderNode: AKFader?
+    public var faderNode: AKFader?
 
     /// Amplification Factor, in the range of 0 to 2
-    @objc public var gain: AUValue {
+    public var gain: AUValue {
         get {
             return fade.maximumGain
         }
