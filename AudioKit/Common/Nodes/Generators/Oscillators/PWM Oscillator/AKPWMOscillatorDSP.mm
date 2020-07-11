@@ -23,26 +23,26 @@ public:
         parameters[AKPWMOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
     }
 
-    void init(int channelCount, double sampleRate) override {
+    void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         isStarted = false;
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
     }
 
-    void deinit() override {
+    void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_blsquare_destroy(&blsquare);
     }
 
-    void reset() override {
+    void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         isStarted = false;
         sp_blsquare_init(sp, blsquare);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

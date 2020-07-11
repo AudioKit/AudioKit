@@ -14,25 +14,4 @@ typedef NS_ENUM(AUParameterAddress, AKHighShelfParametricEqualizerFilterParamete
 
 AKDSPRef createHighShelfParametricEqualizerFilterDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKHighShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKHighShelfParametricEqualizerFilterDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif
