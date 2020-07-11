@@ -99,7 +99,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -107,7 +107,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

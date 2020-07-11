@@ -40,14 +40,14 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         resume()
     }
 
-    @objc open func pause() {
+    open func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
 
-    @objc open func resume() {
+    open func resume() {
         setupNode(node)
     }
 
@@ -68,7 +68,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     fileprivate var fft: EZAudioFFT?
 
     /// The node whose output to graph
-    @objc open var node: AKNode? {
+    open var node: AKNode? {
         willSet {
             pause()
         }

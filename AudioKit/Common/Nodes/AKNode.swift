@@ -185,7 +185,7 @@ public protocol AKPolyphonic {
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
-    @objc open var midiInstrument: AVAudioUnitMIDIInstrument?
+    open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
@@ -194,10 +194,10 @@ public protocol AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
     ///
-    @objc open func play(noteNumber: MIDINoteNumber,
-                         velocity: MIDIVelocity,
-                         frequency: AUValue,
-                         channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber,
+                   velocity: MIDIVelocity,
+                   frequency: AUValue,
+                   channel: MIDIChannel = 0) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
             "override in subclass")
     }
@@ -208,7 +208,7 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         // MARK: Microtonal pitch lookup
 
         // default implementation is 12 ET
@@ -220,7 +220,7 @@ public protocol AKPolyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    @objc open func stop(noteNumber: MIDINoteNumber) {
+    open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
     }
 }

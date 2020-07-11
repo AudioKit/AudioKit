@@ -52,7 +52,7 @@ open class AKClipMerger: NSObject {
     ///
     /// - Returns: A validated array of clips containing the new clip merged with clips.
     ///
-    @objc open func merge(clip: AKClip, clips: [AKClip]) -> [AKClip] {
+    open func merge(clip: AKClip, clips: [AKClip]) -> [AKClip] {
         guard clip.isValid else {
             AKLog("AudioSequence.add - clip invalid")
             return clips
@@ -149,7 +149,7 @@ open class AKClipMerger: NSObject {
 /// A class that manages the merging of AKFileClips.
 open class AKFileClipSequence: NSObject, ClipMergeDelegate {
     /// Clip merger delegate function
-    @objc open func newClip(from clip: AKClip, time: Double, offset: Double, duration: Double) -> AKClip? {
+    open func newClip(from clip: AKClip, time: Double, offset: Double, duration: Double) -> AKClip? {
         guard let oldClip = clip as? AKFileClip else {
             return nil
         }
@@ -163,7 +163,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
     private var _clips = [AKFileClip]()
 
     /// A validated array of file clips.  Fails if setting an invalid array of clips.
-    @objc open var clips: [AKFileClip] {
+    open var clips: [AKFileClip] {
         get {
             return _clips
         }
@@ -179,7 +179,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
     }
 
     /// Merges a clip into existing clips.  Fails if clip is invalid.
-    @objc open func add(clip: AKFileClip) {
+    open func add(clip: AKFileClip) {
         if let fileClips = clipMerger.merge(clip: clip, clips: _clips) as? [AKFileClip] {
             _clips = fileClips
         }

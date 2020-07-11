@@ -25,7 +25,7 @@ extension AKManager {
     }
 
     /// Start up the audio engine
-    @objc public static func start() throws {
+    public static func start() throws {
         if output == nil {
             AKLog("No output node has been set yet, no processing will happen.")
         }
@@ -72,7 +72,7 @@ extension AKManager {
     }
 
     /// Stop the audio engine
-    @objc public static func stop() throws {
+    public static func stop() throws {
         // Stop the engine.
         try AKTry {
             engine.stop()
@@ -91,7 +91,7 @@ extension AKManager {
         #endif
     }
 
-    @objc public static func shutdown() throws {
+    public static func shutdown() throws {
         engine = AVAudioEngine()
         finalMixer = nil
         output = nil

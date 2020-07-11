@@ -57,14 +57,14 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0
@@ -73,13 +73,13 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
 
     // It is not possible to use @objc on AKOutput extension, so [connectWithInput:bus:]
     /// Connect for Objectivec access, with bus definition
-    @objc open func connect(input: AKNode?, bus: Int) {
+    open func connect(input: AKNode?, bus: Int) {
         input?.connect(to: self, bus: bus)
     }
 
     // It is not possible to use @objc on AKOutput extension, so [connectWithInput:]
     /// Connect for Objectivec access
-    @objc open func connect(input: AKNode?) {
+    open func connect(input: AKNode?) {
         input?.connect(to: self, bus: nextInput.bus)
     }
 }
