@@ -33,10 +33,10 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let defaultBandwidth: AUValue = 2000.0
 
     /// Center frequency. (in Hertz)
-    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// Bandwidth. (in Hertz)
-    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
+    public var bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     // MARK: - Initialization
 

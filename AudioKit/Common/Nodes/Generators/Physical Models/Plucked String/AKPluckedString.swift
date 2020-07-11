@@ -35,10 +35,10 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultLowestFrequency: AUValue = 110
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Amplitude
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 

@@ -32,10 +32,10 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let defaultDepth: AUValue = 1.0
 
     /// Frequency (Hz)
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Depth
-    public let depth = AKNodeParameter(identifier: "depth")
+    public var depth = AKNodeParameter(identifier: "depth")
 
     // MARK: - Initialization
 

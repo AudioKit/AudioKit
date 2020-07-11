@@ -33,10 +33,10 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public static let defaultBandwidth: AUValue = 100.0
 
     /// Center frequency. (in Hertz)
-    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// Bandwidth. (in Hertz)
-    public let bandwidth = AKNodeParameter(identifier: "bandwidth")
+    public var bandwidth = AKNodeParameter(identifier: "bandwidth")
 
     // MARK: - Initialization
 

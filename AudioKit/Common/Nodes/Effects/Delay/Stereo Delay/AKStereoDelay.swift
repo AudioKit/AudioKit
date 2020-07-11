@@ -38,16 +38,16 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomata
     public static let defaultDryWetMix: AUValue = 0.5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    public let time = AKNodeParameter(identifier: "time")
+    public var time = AKNodeParameter(identifier: "time")
 
     /// Feedback amount. Should be a value between 0-1.
-    public let feedback = AKNodeParameter(identifier: "feedback")
+    public var feedback = AKNodeParameter(identifier: "feedback")
 
     /// Dry/wet mix. Should be a value between 0-1.
-    public let dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
 
     /// Ping-pong mode: true or false (stereo mode)
-    public let pingPong = AKNodeParameter(identifier: "pingPong")
+    public var pingPong = AKNodeParameter(identifier: "pingPong")
 
     // MARK: - Initialization
 

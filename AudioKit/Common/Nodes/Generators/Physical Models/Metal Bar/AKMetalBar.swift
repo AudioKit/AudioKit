@@ -68,25 +68,25 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultHighFrequencyDamping: AUValue = 0.001
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public let leftBoundaryCondition = AKNodeParameter(identifier: "leftBoundaryCondition")
+    public var leftBoundaryCondition = AKNodeParameter(identifier: "leftBoundaryCondition")
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public let rightBoundaryCondition = AKNodeParameter(identifier: "rightBoundaryCondition")
+    public var rightBoundaryCondition = AKNodeParameter(identifier: "rightBoundaryCondition")
 
     /// 30db decay time (in seconds).
-    public let decayDuration = AKNodeParameter(identifier: "decayDuration")
+    public var decayDuration = AKNodeParameter(identifier: "decayDuration")
 
     /// Speed of scanning the output location.
-    public let scanSpeed = AKNodeParameter(identifier: "scanSpeed")
+    public var scanSpeed = AKNodeParameter(identifier: "scanSpeed")
 
     /// Position along bar that strike occurs.
-    public let position = AKNodeParameter(identifier: "position")
+    public var position = AKNodeParameter(identifier: "position")
 
     /// Normalized strike velocity
-    public let strikeVelocity = AKNodeParameter(identifier: "strikeVelocity")
+    public var strikeVelocity = AKNodeParameter(identifier: "strikeVelocity")
 
     /// Spatial width of strike.
-    public let strikeWidth = AKNodeParameter(identifier: "strikeWidth")
+    public var strikeWidth = AKNodeParameter(identifier: "strikeWidth")
 
     // MARK: - Initialization
 

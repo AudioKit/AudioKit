@@ -44,18 +44,18 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let defaultResonanceAsymmetry: AUValue = 0.5
 
     /// Cutoff frequency. (in Hertz)
-    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
+    public var cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     /// Resonance, generally < 1, but not limited to it.
     /// Higher than 1 resonance values might cause aliasing,
     /// analogue synths generally allow resonances to be above 1.
-    public let resonance = AKNodeParameter(identifier: "resonance")
+    public var resonance = AKNodeParameter(identifier: "resonance")
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    public let distortion = AKNodeParameter(identifier: "distortion")
+    public var distortion = AKNodeParameter(identifier: "distortion")
 
     /// Asymmetry of resonance. Value is between 0-1
-    public let resonanceAsymmetry = AKNodeParameter(identifier: "resonanceAsymmetry")
+    public var resonanceAsymmetry = AKNodeParameter(identifier: "resonanceAsymmetry")
 
     // MARK: - Initialization
 

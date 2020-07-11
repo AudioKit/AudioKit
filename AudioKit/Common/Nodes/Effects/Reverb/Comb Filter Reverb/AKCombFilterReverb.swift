@@ -33,7 +33,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let defaultLoopDuration: AUValue = 0.1
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    public let reverbDuration = AKNodeParameter(identifier: "reverbDuration")
+    public var reverbDuration = AKNodeParameter(identifier: "reverbDuration")
 
     // MARK: - Initialization
 

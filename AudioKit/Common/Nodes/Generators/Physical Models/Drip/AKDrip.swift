@@ -63,25 +63,25 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultAmplitude: AUValue = 0.3
 
     /// The intensity of the dripping sound.
-    public let intensity = AKNodeParameter(identifier: "intensity")
+    public var intensity = AKNodeParameter(identifier: "intensity")
 
     /// The damping factor. Maximum value is 2.0.
-    public let dampingFactor = AKNodeParameter(identifier: "dampingFactor")
+    public var dampingFactor = AKNodeParameter(identifier: "dampingFactor")
 
     /// The amount of energy to add back into the system.
-    public let energyReturn = AKNodeParameter(identifier: "energyReturn")
+    public var energyReturn = AKNodeParameter(identifier: "energyReturn")
 
     /// Main resonant frequency.
-    public let mainResonantFrequency = AKNodeParameter(identifier: "mainResonantFrequency")
+    public var mainResonantFrequency = AKNodeParameter(identifier: "mainResonantFrequency")
 
     /// The first resonant frequency.
-    public let firstResonantFrequency = AKNodeParameter(identifier: "firstResonantFrequency")
+    public var firstResonantFrequency = AKNodeParameter(identifier: "firstResonantFrequency")
 
     /// The second resonant frequency.
-    public let secondResonantFrequency = AKNodeParameter(identifier: "secondResonantFrequency")
+    public var secondResonantFrequency = AKNodeParameter(identifier: "secondResonantFrequency")
 
     /// Amplitude.
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 

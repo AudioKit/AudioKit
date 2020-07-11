@@ -32,10 +32,10 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let defaultSampleRate: AUValue = 10000
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    public let bitDepth = AKNodeParameter(identifier: "bitDepth")
+    public var bitDepth = AKNodeParameter(identifier: "bitDepth")
 
     /// The sample rate of signal output.
-    public let sampleRate = AKNodeParameter(identifier: "sampleRate")
+    public var sampleRate = AKNodeParameter(identifier: "sampleRate")
 
     // MARK: - Initialization
 

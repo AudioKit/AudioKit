@@ -27,7 +27,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     public static let defaultCutoffFrequency: AUValue = 1000.0
 
     /// Cutoff frequency. (in Hertz)
-    public let cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
+    public var cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
 
     // MARK: - Initialization
 

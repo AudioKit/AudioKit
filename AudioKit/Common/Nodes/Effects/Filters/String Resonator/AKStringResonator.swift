@@ -37,11 +37,11 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let defaultFeedback: AUValue = 0.95
 
     /// Fundamental frequency of string.
-    public let fundamentalFrequency = AKNodeParameter(identifier: "fundamentalFrequency")
+    public var fundamentalFrequency = AKNodeParameter(identifier: "fundamentalFrequency")
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    public let feedback = AKNodeParameter(identifier: "feedback")
+    public var feedback = AKNodeParameter(identifier: "feedback")
 
     // MARK: - Initialization
 
