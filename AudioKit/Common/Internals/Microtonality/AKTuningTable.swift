@@ -117,7 +117,7 @@ open class AKTuningTable: AKTuningTableBase {
     ///
     /// - parameter inputMasterSet: An array of frequencies, i.e., the "masterSet"
     ///
-    @objc @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
+    @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
 
         if inputMasterSet.isEmpty {
             AKLog("No input frequencies")
