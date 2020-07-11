@@ -195,9 +195,9 @@ public protocol AKPolyphonic {
     ///   - frequency:  Play this frequency
     ///
     open func play(noteNumber: MIDINoteNumber,
-                         velocity: MIDIVelocity,
-                         frequency: AUValue,
-                         channel: MIDIChannel = 0) {
+                   velocity: MIDIVelocity,
+                   frequency: AUValue,
+                   channel: MIDIChannel = 0) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
             "override in subclass")
     }

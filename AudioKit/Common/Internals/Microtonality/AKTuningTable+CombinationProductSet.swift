@@ -26,9 +26,9 @@ extension AKTuningTable {
     ///   - D: Fourth of the master set of frequencies
     ///
     @discardableResult public func majorTetrany(_ A: Frequency,
-                                                      _ B: Frequency,
-                                                      _ C: Frequency,
-                                                      _ D: Frequency) -> Int {
+                                                _ B: Frequency,
+                                                _ C: Frequency,
+                                                _ D: Frequency) -> Int {
         tuningTable(fromFrequencies: [A, B, C, D])
         return 4
     }
@@ -42,9 +42,9 @@ extension AKTuningTable {
     ///   - D: Fourth of the master set of frequencies
     ///
     @discardableResult public func minorTetrany(_ A: Frequency,
-                                                      _ B: Frequency,
-                                                      _ C: Frequency,
-                                                      _ D: Frequency) -> Int {
+                                                _ B: Frequency,
+                                                _ C: Frequency,
+                                                _ D: Frequency) -> Int {
         tuningTable(fromFrequencies: [A * B * C, A * B * D, A * C * D, B * C * D])
         return 4
     }

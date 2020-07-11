@@ -30,8 +30,8 @@ extension AKTuningTable {
     /// - returns: Number of notes per octave
     ///
     public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
-                                       level lInput: Int = 5,
-                                       murchana mInput: Int = 0) -> Int {
+                                 level lInput: Int = 5,
+                                 murchana mInput: Int = 0) -> Int {
         // CLAMP
         let g = (gInput > 1.0) ? 1.0 : ((gInput < 0) ? 0.0 : gInput)
         let l = (lInput > 7) ? 7 : ((lInput < 0) ? 0 : lInput)
