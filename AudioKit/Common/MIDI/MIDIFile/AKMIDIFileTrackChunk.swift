@@ -5,9 +5,6 @@ import Foundation
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
     public let rawData: [UInt8]
 
-    init() {
-        typeData = Array(repeating: 0, count: 4)
-        lengthData = Array(repeating: 0, count: 4)
     let timeFormat: MIDITimeFormat
     let timeDivision: Int
 
