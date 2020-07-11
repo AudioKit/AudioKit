@@ -62,64 +62,18 @@ public struct AKMIDIFile {
         filename = url.lastPathComponent
         if let midiData = try? Data(contentsOf: url) {
             let dataSize = midiData.count
-            let typeLength = 4
-            var typeIndex = 0
-            let sizeLength = 4
-            var sizeIndex = 0
-            var dataLength: UInt32 = 0
             var chunks = [AKMIDIFileChunk]()
-            var currentTypeChunk: [UInt8] = Array(repeating: 0, count: 4)
-            var currentLengthChunk: [UInt8] = Array(repeating: 0, count: 4)
-            var currentDataChunk: [UInt8] = []
-            var newChunk = true
-            var isParsingType = false
-            var isParsingLength = false
-            var isParsingHeader = true
-            for i in 0..<dataSize {
-                if newChunk {
-                    isParsingType = true
-                    isParsingLength = false
-                    newChunk = false
-                    currentTypeChunk = Array(repeating: 0, count: 4)
-                    currentLengthChunk = Array(repeating: 0, count: 4)
-                    currentDataChunk = []
-                }
-                if isParsingType { //get chunk type
-                    currentTypeChunk[typeIndex] = midiData[i]
-                    typeIndex += 1
-                    if typeIndex == typeLength {
-                        isParsingType = false
-                        isParsingLength = true
-                        typeIndex = 0
-                    }
-                } else if isParsingLength { //get chunk length
-                    currentLengthChunk[sizeIndex] = midiData[i]
-                    sizeIndex += 1
-                    if sizeIndex == sizeLength {
-                        isParsingLength = false
-                        sizeIndex = 0
-                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0],
-                                                               data1: currentLengthChunk[1],
-                                                               data2: currentLengthChunk[2],
-                                                               lsb: currentLengthChunk[3])
-                    }
-                } else { //get chunk data
-                    var tempChunk: AKMIDIFileChunk
-                    currentDataChunk.append(midiData[i])
-                    if UInt32(currentDataChunk.count) == dataLength {
-                        if isParsingHeader {
-                            tempChunk = MIDIFileHeaderChunk(typeData: currentTypeChunk,
-                                                            lengthData: currentLengthChunk,
-                                                            data: currentDataChunk)
-                        } else {
-                            tempChunk = MIDIFileTrackChunk(typeData: currentTypeChunk,
-                                                           lengthData: currentLengthChunk,
-                                                           data: currentDataChunk)
-                        }
-                        newChunk = true
-                        isParsingHeader = false
-                        chunks.append(tempChunk)
-                    }
+            var processedBytes = 0
+            while processedBytes < dataSize {
+                let data = Array(midiData.suffix(from: processedBytes))
+                if let headerChunk = MIDIFileHeaderChunk(data: data) {
+                    print("got header chunk")
+                    chunks.append(headerChunk)
+                    processedBytes += headerChunk.rawData.count
+                } else if let trackChunk = MIDIFileTrackChunk(data: data) {
+                    print("got track chunk")
+                    chunks.append(trackChunk)
+                    processedBytes += trackChunk.rawData.count
                 }
             }
             self.chunks = chunks

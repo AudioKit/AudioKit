@@ -6,16 +6,20 @@ public struct AKMIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk
 
+    public var channelEvents: [AKMIDIEvent] {
+        return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) }).filter({ $0.status?.data != nil })
+    }
+
     public var events: [AKMIDIEvent] {
         return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) })
     }
 
     public var metaEvents: [AKMIDIMetaEvent] {
-        return events.compactMap({ AKMIDIMetaEvent(data: $0.data) })
+        return chunk.chunkEvents.compactMap({ AKMIDIMetaEvent(fileEvent: $0) })
     }
 
     public var length: Double {
-        return events.last?.positionInBeats ?? 0
+        return metaEvents.last?.positionInBeats ?? 0
     }
 
     public var name: String? {
