@@ -230,7 +230,7 @@ open class AKSettings: NSObject {
         public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
 
         /// Enable / disable voice processing (echo canellation)
-        @objc public static var enableEchoCancellation: Bool = false
+        public static var enableEchoCancellation: Bool = false
 
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
