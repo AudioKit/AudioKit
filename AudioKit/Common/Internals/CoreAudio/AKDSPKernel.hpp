@@ -88,6 +88,8 @@ static inline double floatToHz(float noteNumber)
 
 #else
 
+// Avoid needing to expose AKSettings to ObjC.
+// Note that eventually we shouldn't have these globals.
 extern float __akDefaultSampleRate;
 extern int __akDefaultChannelCount;
 
