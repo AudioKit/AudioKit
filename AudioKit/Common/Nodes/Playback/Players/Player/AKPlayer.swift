@@ -251,6 +251,7 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public convenience init(audioFile: AVAudioFile, reopenFile: Bool = true) {
         self.init()
 
+        // sets processingFormat
         self.audioFile = audioFile
 
         if reopenFile, let readFile = try? AVAudioFile(forReading: audioFile.url) {
@@ -259,8 +260,8 @@ public class AKPlayer: AKAbstractPlayer {
 
         if mixerNode == nil,
             let processingFormat = processingFormat,
-            processingFormat != AKSettings.audioFormat {
-            let error = "⚠️ Warning: This file is a different processingFormat than AKSettings. " +
+            processingFormat.sampleRate != AKSettings.audioFormat.sampleRate {
+            let error = "⚠️ Warning: This file is a different sample rate than AKSettings. " +
                 "A mixer is being placed in line. " +
                 "File.processingFormat: \(processingFormat) AKSettings.audioFormat: \(AKSettings.audioFormat)"
 
@@ -319,7 +320,6 @@ public class AKPlayer: AKAbstractPlayer {
             return
         }
 
-        var connectionFormat = processingFormat
         var playerOutput: AVAudioNode = playerNode
 
         // if there is a mixer that was creating, insert it in line
@@ -327,9 +327,11 @@ public class AKPlayer: AKAbstractPlayer {
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
             AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
-            connectionFormat = AKSettings.audioFormat
             playerOutput = mixerNode
         }
+
+        // now set the ongoing format to AKSettings
+        let connectionFormat = AKSettings.audioFormat
 
         if let faderNode = faderNode {
             AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
