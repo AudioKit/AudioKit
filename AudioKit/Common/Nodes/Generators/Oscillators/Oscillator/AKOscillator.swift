@@ -78,18 +78,18 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
+        self.waveform = waveform
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.waveform = waveform
-            self.$frequency.associate(with: self.internalAU, value: frequency)
-            self.$amplitude.associate(with: self.internalAU, value: amplitude)
-            self.$detuningOffset.associate(with: self.internalAU, value: detuningOffset)
-            self.$detuningMultiplier.associate(with: self.internalAU, value: detuningMultiplier)
 
             self.internalAU?.setWavetable(waveform.content)
         }
