@@ -1,10 +1,5 @@
-//
-//  MIDIVariableLengthQuantity.swift
-//  AudioKit
-//
-//  Created by Jeff Cooper on 7/9/20.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import Foundation
 
 public struct MIDIVariableLengthQuantity {
