@@ -9,7 +9,7 @@
 import Foundation
 
 public class MIDIHelper {
-
+    
     static public func convertTo16Bit(msb: UInt8, lsb: UInt8) -> UInt16 {
         return (UInt16(msb) << 8) | UInt16(lsb)
     }
@@ -24,5 +24,9 @@ public class MIDIHelper {
 
     static public func convertToString(bytes: [UInt8]) -> String {
         return bytes.map(String.init).joined()
+    }
+
+    static public func convertToASCII(bytes: [UInt8]) -> String? {
+        return String(bytes: bytes, encoding: .utf8)
     }
 }

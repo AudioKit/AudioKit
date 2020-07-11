@@ -114,7 +114,7 @@ public class AKMIDIFileTrackNoteMap {
         var noteOff = 0
         var velocityEvent: Int?
         var notesInProgress: [Int: (Double, Double)] = [:]
-        for event in midiTrack.events {
+        for event in midiTrack.channelEvents {
             let data = event.data
             let eventTypeNum = data[0]
             let eventType = event.status?.type?.description ?? "No Event"
