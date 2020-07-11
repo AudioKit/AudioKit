@@ -13,7 +13,19 @@ open class AKNode: NSObject {
     open var avAudioNode: AVAudioNode
 
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
-    open var avAudioUnit: AVAudioUnit?
+    open var avAudioUnit: AVAudioUnit? {
+        didSet {
+            if let akAudioUnit = avAudioUnit?.auAudioUnit as? AKAudioUnitBase {
+                let mirror = Mirror(reflecting: self)
+
+                for child in mirror.children {
+                    if let param = child.value as? Parameter {
+                        param.projectedValue.associate(with: akAudioUnit)
+                    }
+                }
+            }
+        }
+    }
 
     /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
     open var avAudioUnitOrNode: AVAudioNode {
@@ -48,7 +60,7 @@ open class AKNode: NSObject {
 }
 
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
-public struct AKNodeParameter {
+public class AKNodeParameter {
 
     private var dsp: AKDSPRef?
 
@@ -113,7 +125,7 @@ public struct AKNodeParameter {
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public mutating func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
+    public func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
         dsp = au?.dsp
         parameter = au?.parameterTree?[identifier]
 
@@ -130,7 +142,7 @@ public struct AKNodeParameter {
     }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public mutating func associate(with au: AKAudioUnitBase?, value: Bool) {
+    public func associate(with au: AKAudioUnitBase?, value: Bool) {
         associate(with: au, value: value ? 1.0 : 0.0)
     }
 
