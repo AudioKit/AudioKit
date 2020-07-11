@@ -54,7 +54,7 @@ extension AKManager {
         return dummy
     }
 
-    @objc public static func connect(_ sourceNode: AVAudioNode,
+    public static func connect(_ sourceNode: AVAudioNode,
                                      to destNodes: [AVAudioConnectionPoint],
                                      fromBus sourceBus: AVAudioNodeBus,
                                      format: AVAudioFormat?) {
@@ -67,7 +67,7 @@ extension AKManager {
         dummyNode?.disconnectOutput()
     }
 
-    @objc public static func connect(_ node1: AVAudioNode,
+    public static func connect(_ node1: AVAudioNode,
                                      to node2: AVAudioNode,
                                      fromBus bus1: AVAudioNodeBus,
                                      toBus bus2: AVAudioNodeBus,
@@ -79,12 +79,12 @@ extension AKManager {
         dummyNode?.disconnectOutput()
     }
 
-    @objc public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+    public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
 
     // Convenience
-    @objc public static func detach(nodes: [AVAudioNode]) {
+    public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             guard node.engine != nil else { continue }
             engine.detach(node)
@@ -103,7 +103,7 @@ extension AKManager {
     ///         - progress: Closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc public static func renderToFile(_ audioFile: AVAudioFile,
+    public static func renderToFile(_ audioFile: AVAudioFile,
                                           maximumFrameCount: AVAudioFrameCount = 4_096,
                                           duration: Double,
                                           prerender: (() -> Void)? = nil,
