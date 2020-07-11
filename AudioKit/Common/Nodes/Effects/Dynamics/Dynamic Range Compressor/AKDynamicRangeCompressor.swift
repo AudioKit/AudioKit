@@ -44,16 +44,16 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput,
     public static let defaultReleaseDuration: AUValue = 0.1
 
     /// Ratio to compress with, a value > 1 will compress
-    public let ratio = AKNodeParameter(identifier: "ratio")
+    public var ratio = AKNodeParameter(identifier: "ratio")
 
     /// Threshold (in dB) 0 = max
-    public let threshold = AKNodeParameter(identifier: "threshold")
+    public var threshold = AKNodeParameter(identifier: "threshold")
 
     /// Attack Duration
-    public let attackDuration = AKNodeParameter(identifier: "attackTime")
+    public var attackDuration = AKNodeParameter(identifier: "attackTime")
 
     /// Release Duration
-    public let releaseDuration = AKNodeParameter(identifier: "releaseTime")
+    public var releaseDuration = AKNodeParameter(identifier: "releaseTime")
 
     // MARK: - Initialization
 

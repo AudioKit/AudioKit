@@ -8,7 +8,7 @@ open class AKSettings: NSObject {
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
-    @objc public enum BufferLength: Int {
+    public enum BufferLength: Int {
         /// Shortest: 32 samples = 0.7 ms @ 44100 kz
         case shortest = 5
 
@@ -45,72 +45,78 @@ open class AKSettings: NSObject {
     }
 
     /// Constants for ramps used in AKParameterRamp.hpp, AKBooster, and others
-    @objc public enum RampType: Int {
+    public enum RampType: Int {
         case linear = 0
         case exponential = 1
         case logarithmic = 2
         case sCurve = 3
     }
 
-    @objc public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
+    public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
                                                                channels: 2) ?? AVAudioFormat()
 
     /// The sample rate in Hertz, default is 44100 kHz. Set a new audioFormat if you want to change this value.
     /// See audioFormat. This is the format that is used for node connections.
-    @objc public static var sampleRate: Double {
+    public static var sampleRate: Double {
         get {
             return audioFormat.sampleRate
         }
         set {
             audioFormat = AVAudioFormat(standardFormatWithSampleRate: newValue,
                                         channels: audioFormat.channelCount) ?? AVAudioFormat()
+            __akDefaultSampleRate = Float(sampleRate)
         }
     }
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    @objc public static var channelCount: UInt32 {
+    public static var channelCount: UInt32 {
         get {
             return audioFormat.channelCount
         }
         set {
             audioFormat = AVAudioFormat(standardFormatWithSampleRate: audioFormat.sampleRate,
                                         channels: newValue) ?? AVAudioFormat()
+            __akDefaultChannelCount = Int32(channelCount)
         }
     }
 
     /// Whether we should be listening to audio input (microphone)
-    @objc public static var audioInputEnabled: Bool = false
+    public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    @objc public static var rampDuration: Double = 0.000_2
+    public static var rampDuration: Double = 0.000_2 {
+        didSet {
+            __akRampDuration = rampDuration
+        }
+    }
 
     /// Allows AudioKit to send Notifications
-    @objc public static var notificationsEnabled: Bool = false
+    public static var notificationsEnabled: Bool = false
 
     /// AudioKit buffer length is set using AKSettings.bufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
-    @objc public static var bufferLength: BufferLength = .veryLong
+    public static var bufferLength: BufferLength = .veryLong
 
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
     /// So setting this value may have no effect (depending on the hardware device ?)
-    @objc public static var recordingBufferLength: BufferLength = .veryLong
+    public static var recordingBufferLength: BufferLength = .veryLong
 
     /// If set to true, Recording will stop after some delay to compensate
     /// latency between time recording is stopped and time it is written to file
     /// If set to false (the default value) , stopping record will be immediate,
     /// even if the last audio frames haven't been recorded to file yet.
-    @objc public static var fixTruncatedRecordings = false
+    public static var fixTruncatedRecordings = false
 
     /// Turn on or off AudioKit logging
-    @objc public static var enableLogging: Bool = true
+    public static var enableLogging: Bool = true
 
     /// If set to false, AudioKit will not handle the AVAudioSession category change
     /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
     /// to these notifications and restart AudioKit after rebuiling their audio chain.
-    @objc public static var enableConfigurationChangeHandling: Bool = true
+    public static var enableConfigurationChangeHandling: Bool = true
 }
 
 // MARK: - macOS
@@ -118,11 +124,11 @@ open class AKSettings: NSObject {
 #if os(macOS)
     extension AKSettings {
         /// Global audio format AudioKit will default to for new objects and connections
-        @objc public static var audioFormat = defaultAudioFormat
+        public static var audioFormat = defaultAudioFormat
 
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
-        @objc public static var ioBufferDuration: Double {
+        public static var ioBufferDuration: Double {
             set {
                 let node = AKManager.engine.outputNode
                 guard let audioUnit = node.audioUnit else { return }
@@ -166,7 +172,7 @@ open class AKSettings: NSObject {
 #if !os(macOS)
     extension AKSettings {
         /// Global audio format AudioKit will default to for new objects and connections
-        @objc public private(set) static var audioFormat = defaultAudioFormat {
+        public private(set) static var audioFormat = defaultAudioFormat {
             didSet {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
@@ -179,7 +185,7 @@ open class AKSettings: NSObject {
         }
 
         /// Whether haptics and system sounds are played while a microphone is setup or recording is active
-        @objc public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
+        public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
             didSet {
                 if #available(iOS 13.0, tvOS 13.0, *) {
                     do {
@@ -194,41 +200,41 @@ open class AKSettings: NSObject {
         }
 
         /// Enable AudioKit AVAudioSession Category Management
-        @objc public static var disableAVAudioSessionCategoryManagement: Bool = false
+        public static var disableAVAudioSessionCategoryManagement: Bool = false
 
         /// If set to true, AudioKit will not deactivate the AVAudioSession when stopping
-        @objc public static var disableAudioSessionDeactivationOnStop: Bool = false
+        public static var disableAudioSessionDeactivationOnStop: Bool = false
 
         /// If set to false, AudioKit will not handle the AVAudioSession route change
         /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
         /// instance when such notifications are posted. The developer can instead subscribe
         /// to these notifications and restart AudioKit after rebuilding their audio chain.
-        @objc public static var enableRouteChangeHandling: Bool = true
+        public static var enableRouteChangeHandling: Bool = true
 
         /// Whether to allow audio playback to override the mute setting
-        @objc public static var playbackWhileMuted: Bool = false
+        public static var playbackWhileMuted: Bool = false
 
         /// Whether we will allow our audio to mix with other applications
-        @objc public static var mixWithOthers: Bool = true
+        public static var mixWithOthers: Bool = true
 
         /// Whether to output to the speaker (rather than receiver) when audio input is enabled
-        @objc public static var defaultToSpeaker: Bool = false
+        public static var defaultToSpeaker: Bool = false
 
         /// Whether to use bluetooth when audio input is enabled
-        @objc public static var useBluetooth: Bool = false
+        public static var useBluetooth: Bool = false
 
         /// Whether AirPlay is enabled when audio input is enabled
-        @objc public static var allowAirPlay: Bool = false
+        public static var allowAirPlay: Bool = false
 
         /// Additional control over the options to use for bluetooth
-        @objc public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
+        public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
 
         /// Enable / disable voice processing (echo canellation)
-        @objc public static var enableEchoCancellation: Bool = false
+        public static var enableEchoCancellation: Bool = false
 
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
-        @objc public static var ioBufferDuration: Double {
+        public static var ioBufferDuration: Double {
             set {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
@@ -249,19 +255,19 @@ open class AKSettings: NSObject {
         /// the app is in, or entering, a background state. This can help prevent a potential crash
         /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
         /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
-        @objc public static let appSupportsBackgroundAudio = (
+        public static let appSupportsBackgroundAudio = (
             Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
 
         /// Shortcut for AVAudioSession.sharedInstance()
-        @objc public static let session = AVAudioSession.sharedInstance()
+        public static let session = AVAudioSession.sharedInstance()
 
         /// Convenience method accessible from Objective-C
-        @objc public static func setSession(category: SessionCategory, options: UInt) throws {
+        public static func setSession(category: SessionCategory, options: UInt) throws {
             try setSession(category: category, with: AVAudioSession.CategoryOptions(rawValue: options))
         }
 
         /// Set the audio session type
-        @objc public static func setSession(category: SessionCategory,
+        public static func setSession(category: SessionCategory,
                                             with options: AVAudioSession.CategoryOptions = []) throws {
             guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
 
@@ -315,7 +321,7 @@ open class AKSettings: NSObject {
             }
         }
 
-        @objc public static func computedSessionCategory() -> SessionCategory {
+        public static func computedSessionCategory() -> SessionCategory {
             if AKSettings.audioInputEnabled {
                 return .playAndRecord
             } else if AKSettings.playbackWhileMuted {
@@ -325,7 +331,7 @@ open class AKSettings: NSObject {
             }
         }
 
-        @objc public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
+        public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
             var options: AVAudioSession.CategoryOptions = []
 
             if AKSettings.mixWithOthers {
@@ -374,7 +380,7 @@ open class AKSettings: NSObject {
 
         /// Checks if headphones are connected
         /// Returns true if headPhones are connected, otherwise return false
-        @objc public static var headPhonesPlugged: Bool {
+        public static var headPhonesPlugged: Bool {
             let headphonePortTypes: [AVAudioSession.Port] =
                 [.headphones, .bluetoothHFP, .bluetoothA2DP]
             return session.currentRoute.outputs.contains {
@@ -383,7 +389,7 @@ open class AKSettings: NSObject {
         }
 
         /// Enum of available AVAudioSession Categories
-        @objc public enum SessionCategory: Int, CustomStringConvertible {
+        public enum SessionCategory: Int, CustomStringConvertible {
             /// Audio silenced by silent switch and screen lock - audio is mixable
             case ambient
             /// Audio is silenced by silent switch and screen lock - audio is non mixable

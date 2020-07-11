@@ -4,74 +4,77 @@
 #import "ParameterRamper.hpp"
 #import <vector>
 
-extern "C" AKDSPRef createAutoPannerDSP() {
-    AKAutoPannerDSP *dsp = new AKAutoPannerDSP();
-    return dsp;
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKAutoPannerDSP::InternalData {
+class AKAutoPannerDSP : public AKSoundpipeDSPBase {
+private:
     sp_osc *trem;
     sp_ftbl *tbl;
     sp_panst *panst;
     std::vector<float> wavetable;
     ParameterRamper frequencyRamp;
     ParameterRamper depthRamp;
-};
 
-AKAutoPannerDSP::AKAutoPannerDSP() : data(new InternalData) {
-    parameters[AKAutoPannerParameterFrequency] = &data->frequencyRamp;
-    parameters[AKAutoPannerParameterDepth] = &data->depthRamp;
-    
-    bCanProcessInPlace = true;
-}
+public:
+    AKAutoPannerDSP() {
+        parameters[AKAutoPannerParameterFrequency] = &frequencyRamp;
+        parameters[AKAutoPannerParameterDepth] = &depthRamp;
+        bCanProcessInPlace = true;
+    }
 
-void AKAutoPannerDSP::setWavetable(const float* table, size_t length, int index) {
-    data->wavetable = std::vector<float>(table, table + length);
-}
+    void setWavetable(const float* table, size_t length, int index) {
+        wavetable = std::vector<float>(table, table + length);
+    }
 
-void AKAutoPannerDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_ftbl_create(sp, &data->tbl, data->wavetable.size());
-    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->tbl->tbl);
-    sp_osc_create(&data->trem);
-    sp_osc_init(sp, data->trem, data->tbl, 0);
-    sp_panst_create(&data->panst);
-    sp_panst_init(sp, data->panst);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_ftbl_create(sp, &tbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), tbl->tbl);
+        sp_osc_create(&trem);
+        sp_osc_init(sp, trem, tbl, 0);
+        sp_panst_create(&panst);
+        sp_panst_init(sp, panst);
+    }
 
-void AKAutoPannerDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_osc_destroy(&data->trem);
-    sp_panst_destroy(&data->panst);
-    sp_ftbl_destroy(&data->tbl);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_osc_destroy(&trem);
+        sp_panst_destroy(&panst);
+        sp_ftbl_destroy(&tbl);
+    }
 
-void AKAutoPannerDSP::process(uint32_t frameCount, uint32_t bufferOffset) {
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+    void process(uint32_t frameCount, uint32_t bufferOffset) {
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        data->trem->freq = data->frequencyRamp.getAndStep();
-        data->trem->amp = 1;
+            trem->freq = frequencyRamp.getAndStep();
+            trem->amp = 1;
 
-        float temp = 0;
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+            float temp = 0;
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                }
             }
-            if (!isStarted) {
-                *out = *in;
+            if (isStarted) {
+                sp_osc_compute(sp, trem, NULL, &temp);
+                panst->pan = (2.0 * temp - 1.0) * depthRamp.getAndStep();
+                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
-        }
-        if (isStarted) {
-            sp_osc_compute(sp, data->trem, NULL, &temp);
-            data->panst->pan = (2.0 * temp - 1.0) * data->depthRamp.getAndStep();
-            sp_panst_compute(sp, data->panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
+
+};
+
+extern "C" AKDSPRef createAutoPannerDSP() {
+    return new AKAutoPannerDSP();
 }

@@ -29,10 +29,10 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let defaultMaximumDelayTime: AUValue = 5
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    public let time = AKNodeParameter(identifier: "time")
+    public var time = AKNodeParameter(identifier: "time")
 
     /// Feedback amount. Should be a value between 0-1.
-    public let feedback = AKNodeParameter(identifier: "feedback")
+    public var feedback = AKNodeParameter(identifier: "feedback")
 
     // MARK: - Initialization
 

@@ -26,7 +26,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     public static let defaultHalfPowerPoint: AUValue = 1_000.0
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    public let halfPowerPoint = AKNodeParameter(identifier: "halfPowerPoint")
+    public var halfPowerPoint = AKNodeParameter(identifier: "halfPowerPoint")
 
     // MARK: - Initialization
 

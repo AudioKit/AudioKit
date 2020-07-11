@@ -52,19 +52,19 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultAmplitude: AUValue = 1.0
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    public let baseFrequency = AKNodeParameter(identifier: "baseFrequency")
+    public var baseFrequency = AKNodeParameter(identifier: "baseFrequency")
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    public let carrierMultiplier = AKNodeParameter(identifier: "carrierMultiplier")
+    public var carrierMultiplier = AKNodeParameter(identifier: "carrierMultiplier")
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    public let modulatingMultiplier = AKNodeParameter(identifier: "modulatingMultiplier")
+    public var modulatingMultiplier = AKNodeParameter(identifier: "modulatingMultiplier")
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    public let modulationIndex = AKNodeParameter(identifier: "modulationIndex")
+    public var modulationIndex = AKNodeParameter(identifier: "modulationIndex")
 
     /// Output Amplitude.
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     // MARK: - Initialization
 

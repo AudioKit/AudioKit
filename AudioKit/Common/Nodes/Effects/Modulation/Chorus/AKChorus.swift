@@ -44,16 +44,16 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public static let defaultDryWetMix: AUValue = 0.0
 
     /// Frequency. (in Hertz)
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Depth
-    public let depth = AKNodeParameter(identifier: "depth")
+    public var depth = AKNodeParameter(identifier: "depth")
 
     /// Feedback
-    public let feedback = AKNodeParameter(identifier: "feedback")
+    public var feedback = AKNodeParameter(identifier: "feedback")
 
     /// Dry Wet Mix
-    public let dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
 
     // MARK: - Initialization
 

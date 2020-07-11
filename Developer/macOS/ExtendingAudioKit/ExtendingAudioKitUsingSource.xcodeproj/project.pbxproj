@@ -21,6 +21,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		297A6CED24B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB63FB2494B0E0001E1F37;
+			remoteInfo = "STKAudioKit-iOS";
+		};
+		297A6CEF24B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB654C2494B656001E1F37;
+			remoteInfo = "STKAudioKit-macOS";
+		};
+		297A6CF124B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB65F72494B681001E1F37;
+			remoteInfo = "STKAudioKit-tvOS";
+		};
+		297A6CF324B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB660224955B0D001E1F37;
+			remoteInfo = "DevoloopAudioKit-iOS";
+		};
+		297A6CF524B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB6687249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-macOS";
+		};
+		297A6CF724B7933800A3777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB66C7249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-tvOS";
+		};
 		EAF299E124812A4000C3804E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EAF299D824812A3F00C3804E /* AudioKit.xcodeproj */;
@@ -174,11 +216,17 @@
 			isa = PBXGroup;
 			children = (
 				EAF299E224812A4000C3804E /* AudioKit.framework */,
-				EAF299E424812A4000C3804E /* AudioKitUI.framework */,
-				EAF299E624812A4000C3804E /* AudioKit.framework */,
-				EAF299E824812A4000C3804E /* AudioKitUI.framework */,
 				EAF299EA24812A4000C3804E /* AudioKit.framework */,
+				EAF299E624812A4000C3804E /* AudioKit.framework */,
+				EAF299E424812A4000C3804E /* AudioKitUI.framework */,
 				EAF299EC24812A4000C3804E /* AudioKitUI.framework */,
+				EAF299E824812A4000C3804E /* AudioKitUI.framework */,
+				297A6CEE24B7933800A3777B /* STKAudioKit.framework */,
+				297A6CF024B7933800A3777B /* STKAudioKit.framework */,
+				297A6CF224B7933800A3777B /* STKAudioKit.framework */,
+				297A6CF424B7933800A3777B /* DevoloopAudioKit.framework */,
+				297A6CF624B7933800A3777B /* DevoloopAudioKit.framework */,
+				297A6CF824B7933800A3777B /* DevoloopAudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,6 +300,48 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		297A6CEE24B7933800A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6CED24B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6CF024B7933800A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6CEF24B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6CF224B7933800A3777B /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 297A6CF124B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6CF424B7933800A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6CF324B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6CF624B7933800A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6CF524B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		297A6CF824B7933800A3777B /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 297A6CF724B7933800A3777B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		EAF299E224812A4000C3804E /* AudioKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -465,7 +555,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-macOS/AudioKit.framework/Headers/\"";
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
@@ -483,7 +572,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-macOS/AudioKit.framework/Headers/\"";
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;

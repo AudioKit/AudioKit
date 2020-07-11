@@ -44,16 +44,16 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     public static let defaultNegativeShapeParameter: AUValue = 0.0
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    public let pregain = AKNodeParameter(identifier: "pregain")
+    public var pregain = AKNodeParameter(identifier: "pregain")
 
     /// Gain applied after waveshaping
-    public let postgain = AKNodeParameter(identifier: "postgain")
+    public var postgain = AKNodeParameter(identifier: "postgain")
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    public let positiveShapeParameter = AKNodeParameter(identifier: "positiveShapeParameter")
+    public var positiveShapeParameter = AKNodeParameter(identifier: "positiveShapeParameter")
 
     /// Like the positive shape parameter, only for the negative part.
-    public let negativeShapeParameter = AKNodeParameter(identifier: "negativeShapeParameter")
+    public var negativeShapeParameter = AKNodeParameter(identifier: "negativeShapeParameter")
 
     // MARK: - Initialization
 

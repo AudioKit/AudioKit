@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#ifdef __cplusplus
 #pragma once
 
+#ifdef __cplusplus
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -85,6 +85,4 @@ static inline double floatToHz(float noteNumber)
     return 440. * exp2((noteNumber - 69.0)/12.);
 }
 
-
 #endif
-

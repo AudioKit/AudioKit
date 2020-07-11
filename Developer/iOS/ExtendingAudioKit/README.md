@@ -54,17 +54,6 @@ At this point you should Build your project to make sure everything is OK. This 
 
 Back in your project’s Build Settings, locate the Objective-C Bridging Header item (search for “bridging”). Set it to *$(SRCROOT)/[your project name]-Bridging-Header.h*.
 
-### Prepare to use AudioKit core header files
-Before you can build your own extensions to AudioKit, you need to ensure that your Xcode project can make use of some of AudioKit's core header files.
-
-Locate the Header Search Paths item (search for “search”), and set it to point to the *AudioKit/AudioKit/Common/Internals/CoreAudio* folder:
-
-* Double-click the Header Search Paths edit field; this brings up a large multi-line edit box
-* In the Mac Finder, locate the *AudioKit/Common/Internals/CoreAudio* folder in your cloned copy of the AudioKit source tree and drag it into the edit box
-* Change the default “non-recursive” setting on the right to “recursive”
-* Do the same for *AudioKit/Common/Internals/Utilities*
-* If you're going to base your new AudioKit module on existing C++ classes defined in *AudioKit/Core/AudioKitCore*, do the same for that folder also.
-
 ### Create your own AudioKit module
 
 A simple way to start is to copy one of the simpler **AudioKit** AU source folders to your own project folder (I used **AKBooster**), change all the file/folder names (I changed “AKBooster” to “SDBooster”), then drag the whole folder into your Xcode Project Navigator pane to add it to your project.

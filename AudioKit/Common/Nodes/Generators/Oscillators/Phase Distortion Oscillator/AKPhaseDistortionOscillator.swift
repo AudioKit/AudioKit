@@ -56,19 +56,19 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAut
     public static let defaultDetuningMultiplier: AUValue = 1
 
     /// Frequency in cycles per second
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Output Amplitude.
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
-    public let phaseDistortion = AKNodeParameter(identifier: "phaseDistortion")
+    public var phaseDistortion = AKNodeParameter(identifier: "phaseDistortion")
 
     /// Frequency offset in Hz.
-    public let detuningOffset = AKNodeParameter(identifier: "detuningOffset")
+    public var detuningOffset = AKNodeParameter(identifier: "detuningOffset")
 
     /// Frequency detuning multiplier
-    public let detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
+    public var detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
 
     // MARK: - Initialization
 

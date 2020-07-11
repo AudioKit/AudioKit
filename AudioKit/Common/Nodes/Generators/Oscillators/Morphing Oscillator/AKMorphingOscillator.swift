@@ -53,19 +53,19 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
     public static let defaultDetuningMultiplier: AUValue = 1
 
     /// Frequency (in Hz)
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Amplitude (typically a value between 0 and 1).
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Index of the wavetable to use (fractional are okay).
-    public let index = AKNodeParameter(identifier: "index")
+    public var index = AKNodeParameter(identifier: "index")
 
     /// Frequency offset in Hz.
-    public let detuningOffset = AKNodeParameter(identifier: "detuningOffset")
+    public var detuningOffset = AKNodeParameter(identifier: "detuningOffset")
 
     /// Frequency detuning multiplier
-    public let detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
+    public var detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
 
     // MARK: - Initialization
 

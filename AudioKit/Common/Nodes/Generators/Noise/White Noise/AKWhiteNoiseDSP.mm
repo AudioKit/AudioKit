@@ -3,54 +3,57 @@
 #include "AKWhiteNoiseDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createWhiteNoiseDSP() {
-    return new AKWhiteNoiseDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKWhiteNoiseDSP::InternalData {
+class AKWhiteNoiseDSP : public AKSoundpipeDSPBase {
+private:
     sp_noise *noise;
     ParameterRamper amplitudeRamp;
-};
 
-AKWhiteNoiseDSP::AKWhiteNoiseDSP() : data(new InternalData) {
-    parameters[AKWhiteNoiseParameterAmplitude] = &data->amplitudeRamp;
-}
+public:
+    AKWhiteNoiseDSP() {
+        parameters[AKWhiteNoiseParameterAmplitude] = &amplitudeRamp;
+    }
 
-void AKWhiteNoiseDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_noise_create(&data->noise);
-    sp_noise_init(sp, data->noise);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_noise_create(&noise);
+        sp_noise_init(sp, noise);
+    }
 
-void AKWhiteNoiseDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_noise_destroy(&data->noise);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_noise_destroy(&noise);
+    }
 
-void AKWhiteNoiseDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_noise_init(sp, data->noise);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_noise_init(sp, noise);
+    }
 
-void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        data->noise->amp = data->amplitudeRamp.getAndStep();
+            noise->amp = amplitudeRamp.getAndStep();
+            float temp = 0;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
 
-        float temp = 0;
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-
-            if (isStarted) {
-                if (channel == 0) {
-                    sp_noise_compute(sp, data->noise, nil, &temp);
+                if (isStarted) {
+                    if (channel == 0) {
+                        sp_noise_compute(sp, noise, nil, &temp);
+                    }
+                    *out = temp;
+                } else {
+                    *out = 0.0;
                 }
-                *out = temp;
-            } else {
-                *out = 0.0;
             }
         }
     }
+};
+
+extern "C" AKDSPRef createWhiteNoiseDSP() {
+    return new AKWhiteNoiseDSP();
 }

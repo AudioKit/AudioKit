@@ -4,11 +4,8 @@
 
 #include "Flute.h"
 
-// "Constructor" function for interop with Swift
-
 extern "C" AKDSPRef createFluteDSP() {
-    AKFluteDSP *dsp = new AKFluteDSP();
-    return dsp;
+    return new AKFluteDSP();
 }
 
 // AKFluteDSP method implementations

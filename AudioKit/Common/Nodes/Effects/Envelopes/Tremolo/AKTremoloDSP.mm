@@ -4,67 +4,72 @@
 #include "ParameterRamper.hpp"
 #include <vector>
 
-extern "C" AKDSPRef createTremoloDSP() {
-    return new AKTremoloDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKTremoloDSP::InternalData {
+class AKTremoloDSP : public AKSoundpipeDSPBase {
+private:
     sp_osc *trem;
     sp_ftbl *ftbl;
     std::vector<float> wavetable;
     ParameterRamper frequencyRamp;
     ParameterRamper depthRamp;
-};
 
-AKTremoloDSP::AKTremoloDSP() : data(new InternalData) {
-    parameters[AKTremoloParameterFrequency] = &data->frequencyRamp;
-    parameters[AKTremoloParameterDepth] = &data->depthRamp;
-}
+public:
+    AKTremoloDSP() {
+        parameters[AKTremoloParameterFrequency] = &frequencyRamp;
+        parameters[AKTremoloParameterDepth] = &depthRamp;
+    }
 
-void AKTremoloDSP::setWavetable(const float* table, size_t length, int index) {
-    data->wavetable = std::vector<float>(table, table + length);
-    reset();
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_ftbl_create(sp, &ftbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
+        sp_osc_create(&trem);
+        sp_osc_init(sp, trem, ftbl, 0);
+    }
 
-void AKTremoloDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_ftbl_create(sp, &data->ftbl, data->wavetable.size());
-    std::copy(data->wavetable.cbegin(), data->wavetable.cend(), data->ftbl->tbl);
-    sp_osc_create(&data->trem);
-    sp_osc_init(sp, data->trem, data->ftbl, 0);
-}
+    void setWavetable(const float* table, size_t length, int index) {
+        wavetable = std::vector<float>(table, table + length);
+        reset();
+    }
 
-void AKTremoloDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_osc_destroy(&data->trem);
-    sp_ftbl_destroy(&data->ftbl);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_osc_destroy(&trem);
+        sp_ftbl_destroy(&ftbl);
+    }
 
-void AKTremoloDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_osc_init(sp, data->trem, data->ftbl, 0);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_osc_init(sp, trem, ftbl, 0);
+    }
 
-void AKTremoloDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
-        
-        data->trem->freq = data->frequencyRamp.getAndStep() * 0.5;
-        data->trem->amp = data->depthRamp.getAndStep();
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-        float temp = 0;
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-            if (isStarted) {
-                sp_osc_compute(sp, data->trem, NULL, &temp);
-                *out = *in * (1.0 - temp);
-            } else {
-                *out = *in;
+            trem->freq = frequencyRamp.getAndStep() * 0.5;
+            trem->amp = depthRamp.getAndStep();
+
+            float temp = 0;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+
+                if (isStarted) {
+                    sp_osc_compute(sp, trem, NULL, &temp);
+                    *out = *in * (1.0 - temp);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createTremoloDSP() {
+    return new AKTremoloDSP();
 }

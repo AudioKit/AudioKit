@@ -21,25 +21,4 @@ typedef NS_ENUM(AUParameterAddress, AKZitaReverbParameter) {
 
 AKDSPRef createZitaReverbDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKZitaReverbDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKZitaReverbDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif

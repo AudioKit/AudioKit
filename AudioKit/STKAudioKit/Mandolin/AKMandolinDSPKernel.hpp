@@ -4,8 +4,6 @@
 #import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
-
 class AKMandolinDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions

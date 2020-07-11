@@ -28,10 +28,10 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Left Channel Amplification Factor
-    public let leftGain = AKNodeParameter(identifier: "leftGain")
+    public var leftGain = AKNodeParameter(identifier: "leftGain")
 
     /// Right Channel Amplification Factor
-    public let rightGain = AKNodeParameter(identifier: "rightGain")
+    public var rightGain = AKNodeParameter(identifier: "rightGain")
 
     /// Amplification Factor in db
     public var dB: AUValue {
@@ -40,10 +40,10 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Flip left and right signal
-    public let flipStereo = AKNodeParameter(identifier: "flipStereo")
+    public var flipStereo = AKNodeParameter(identifier: "flipStereo")
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    public let mixToMono = AKNodeParameter(identifier: "mixToMono")
+    public var mixToMono = AKNodeParameter(identifier: "mixToMono")
 
     // MARK: - Initialization
 

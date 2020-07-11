@@ -3,69 +3,73 @@
 #include "AKHighPassButterworthFilterDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createHighPassButterworthFilterDSP() {
-    return new AKHighPassButterworthFilterDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKHighPassButterworthFilterDSP::InternalData {
+class AKHighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
+private:
     sp_buthp *buthp0;
     sp_buthp *buthp1;
     ParameterRamper cutoffFrequencyRamp;
-};
 
-AKHighPassButterworthFilterDSP::AKHighPassButterworthFilterDSP() : data(new InternalData) {
-    parameters[AKHighPassButterworthFilterParameterCutoffFrequency] = &data->cutoffFrequencyRamp;
-}
+public:
+    AKHighPassButterworthFilterDSP() {
+        parameters[AKHighPassButterworthFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
+    }
 
-void AKHighPassButterworthFilterDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_buthp_create(&data->buthp0);
-    sp_buthp_init(sp, data->buthp0);
-    sp_buthp_create(&data->buthp1);
-    sp_buthp_init(sp, data->buthp1);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_buthp_create(&buthp0);
+        sp_buthp_init(sp, buthp0);
+        sp_buthp_create(&buthp1);
+        sp_buthp_init(sp, buthp1);
+    }
 
-void AKHighPassButterworthFilterDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_buthp_destroy(&data->buthp0);
-    sp_buthp_destroy(&data->buthp1);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_buthp_destroy(&buthp0);
+        sp_buthp_destroy(&buthp1);
+    }
 
-void AKHighPassButterworthFilterDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_buthp_init(sp, data->buthp0);
-    sp_buthp_init(sp, data->buthp1);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_buthp_init(sp, buthp0);
+        sp_buthp_init(sp, buthp1);
+    }
 
-void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        float cutoffFrequency = data->cutoffFrequencyRamp.getAndStep();
-        data->buthp0->freq = cutoffFrequency;
-        data->buthp1->freq = cutoffFrequency;
+            float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
+            buthp0->freq = cutoffFrequency;
+            buthp1->freq = cutoffFrequency;
 
-        float *tmpin[2];
-        float *tmpout[2];
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            if (channel < 2) {
-                tmpin[channel] = in;
-                tmpout[channel] = out;
-            }
-            if (!isStarted) {
-                *out = *in;
-                continue;
-            }
+            float *tmpin[2];
+            float *tmpout[2];
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                if (channel < 2) {
+                    tmpin[channel] = in;
+                    tmpout[channel] = out;
+                }
+                if (!isStarted) {
+                    *out = *in;
+                    continue;
+                }
 
-            if (channel == 0) {
-                sp_buthp_compute(sp, data->buthp0, in, out);
-            } else {
-                sp_buthp_compute(sp, data->buthp1, in, out);
+                if (channel == 0) {
+                    sp_buthp_compute(sp, buthp0, in, out);
+                } else {
+                    sp_buthp_compute(sp, buthp1, in, out);
+                }
             }
         }
     }
+};
+
+extern "C" AKDSPRef createHighPassButterworthFilterDSP() {
+    return new AKHighPassButterworthFilterDSP();
 }

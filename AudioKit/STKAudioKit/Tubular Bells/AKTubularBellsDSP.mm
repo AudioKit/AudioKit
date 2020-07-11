@@ -6,11 +6,8 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-// "Constructor" function for interop with Swift
-
 extern "C" AKDSPRef createTubularBellsDSP() {
-    AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
-    return dsp;
+    return new AKTubularBellsDSP();
 }
 
 // AKTubularBellsDSP method implementations

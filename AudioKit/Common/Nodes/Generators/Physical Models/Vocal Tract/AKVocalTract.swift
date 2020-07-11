@@ -53,19 +53,19 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let defaultNasality: AUValue = 0.0
 
     /// Glottal frequency.
-    public let frequency = AKNodeParameter(identifier: "frequency")
+    public var frequency = AKNodeParameter(identifier: "frequency")
 
     /// Tongue position (0-1)
-    public let tonguePosition = AKNodeParameter(identifier: "tonguePosition")
+    public var tonguePosition = AKNodeParameter(identifier: "tonguePosition")
 
     /// Tongue diameter (0-1)
-    public let tongueDiameter = AKNodeParameter(identifier: "tongueDiameter")
+    public var tongueDiameter = AKNodeParameter(identifier: "tongueDiameter")
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    public let tenseness = AKNodeParameter(identifier: "tenseness")
+    public var tenseness = AKNodeParameter(identifier: "tenseness")
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    public let nasality = AKNodeParameter(identifier: "nasality")
+    public var nasality = AKNodeParameter(identifier: "nasality")
 
     // MARK: - Initialization
 

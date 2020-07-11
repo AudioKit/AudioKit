@@ -38,13 +38,13 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public static let defaultQ: AUValue = 0.707
 
     /// Corner frequency.
-    public let centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
 
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    public let gain = AKNodeParameter(identifier: "gain")
+    public var gain = AKNodeParameter(identifier: "gain")
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    public let q = AKNodeParameter(identifier: "q")
+    public var q = AKNodeParameter(identifier: "q")
 
     // MARK: - Initialization
 

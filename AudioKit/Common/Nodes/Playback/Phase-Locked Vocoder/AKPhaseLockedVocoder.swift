@@ -40,13 +40,13 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
     public static let defaultPitchRatio: AUValue = 1
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    public let position = AKNodeParameter(identifier: "position")
+    public var position = AKNodeParameter(identifier: "position")
 
     /// Amplitude.
-    public let amplitude = AKNodeParameter(identifier: "amplitude")
+    public var amplitude = AKNodeParameter(identifier: "amplitude")
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    public let pitchRatio = AKNodeParameter(identifier: "pitchRatio")
+    public var pitchRatio = AKNodeParameter(identifier: "pitchRatio")
 
     // MARK: - Initialization
 
