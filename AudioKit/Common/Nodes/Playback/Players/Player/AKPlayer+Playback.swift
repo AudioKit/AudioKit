@@ -7,14 +7,14 @@ import Foundation
 extension AKPlayer {
     /// Replace the contents of the player with this url. Note that if your processingFormat changes
     /// you should dispose this AKPlayer and create a new one instead.
-    @objc public func load(url: URL) throws {
+    public func load(url: URL) throws {
         let file = try AVAudioFile(forReading: url)
         try load(audioFile: file)
     }
 
     /// Load a new audio file into this player. Note that if your processingFormat changes
     /// you should dispose this AKPlayer and create a new one instead.
-    @objc public func load(audioFile: AVAudioFile) throws {
+    public func load(audioFile: AVAudioFile) throws {
         if let format = processingFormat, format != audioFile.processingFormat {
             AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
                 "You should make a new AKPlayer instance and reconnect. " +
@@ -31,7 +31,7 @@ extension AKPlayer {
     /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
     /// Otherwise it just sets the edit points and enables the fader if the region
     /// has fade in or out applied to it.
-    @objc public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
+    public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
         var from = startingTime
         var to = endingTime
 
@@ -70,7 +70,7 @@ extension AKPlayer {
     }
 
     /// Play segments of a file
-    @objc public func play(from startingTime: Double, to endingTime: Double = 0) {
+    public func play(from startingTime: Double, to endingTime: Double = 0) {
         var to = endingTime
         if to == 0 {
             to = endTime
@@ -80,7 +80,7 @@ extension AKPlayer {
 
     /// Play file using previously set startTime and endTime at some point in the future.
     /// If the audioTime is in the past it will be played now.
-    @objc public func play(at audioTime: AVAudioTime?) {
+    public func play(at audioTime: AVAudioTime?) {
         var audioTime = audioTime
 
         if let requestedTime = audioTime {
@@ -122,12 +122,12 @@ extension AKPlayer {
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
-    @objc public func pause() {
+    public func pause() {
         pauseTime = currentTime
         stop()
     }
 
-    @objc public func resume() {
+    public func resume() {
         // save the last set startTime as resume will overwrite it
         let previousStartTime = startTime
 

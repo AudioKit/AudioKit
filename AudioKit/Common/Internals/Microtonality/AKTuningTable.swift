@@ -86,7 +86,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
-    @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
+    public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
         return etNNDictionary[nn]
     }
 
@@ -96,7 +96,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
-    @objc public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
+    public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
         return delta12ETDictionary[nn]
     }
 
@@ -245,7 +245,7 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     /// Renders and returns the masterSet values as an array of cents
-    @objc public func masterSetInCents() -> [Cents] {
+    public func masterSetInCents() -> [Cents] {
 
         let cents = masterSet.map({ log2($0) * 1_200 })
         return cents

@@ -29,7 +29,7 @@ extension AKTuningTable {
     /// - parameter mInput: The mode of the scale...degrees are normalized by the frequency at this index
     /// - returns: Number of notes per octave
     ///
-    @objc public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
+    public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
                                        level lInput: Int = 5,
                                        murchana mInput: Int = 0) -> Int {
         // CLAMP
