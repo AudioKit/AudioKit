@@ -68,7 +68,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     fileprivate var fft: EZAudioFFT?
 
     /// The node whose output to graph
-    @objc open var node: AKNode? {
+    open var node: AKNode? {
         willSet {
             pause()
         }

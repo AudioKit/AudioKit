@@ -11,10 +11,10 @@ open class AKNodeRecorder: NSObject {
     @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
-    @objc open var durationToRecord: Double = 0
+    open var durationToRecord: Double = 0
 
     /// Duration of recording
-    @objc open var recordedDuration: Double {
+    open var recordedDuration: Double {
         return internalAudioFile.duration
     }
 
@@ -37,7 +37,7 @@ open class AKNodeRecorder: NSObject {
     private var recordBufferDuration: Double = 16_384 / AKSettings.sampleRate
 
     /// return the AKAudioFile for reading
-    @objc open var audioFile: AKAudioFile? {
+    open var audioFile: AKAudioFile? {
         do {
             return try AKAudioFile(forReading: internalAudioFile.url)
 

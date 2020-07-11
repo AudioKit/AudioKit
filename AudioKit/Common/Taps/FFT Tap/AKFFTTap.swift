@@ -8,7 +8,7 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     internal var fft: EZAudioFFT?
 
     /// Array of FFT data
-    @objc open var fftData: [Double]
+    open var fftData: [Double]
 
     /// Initialze the FFT calculation on a given node
     ///

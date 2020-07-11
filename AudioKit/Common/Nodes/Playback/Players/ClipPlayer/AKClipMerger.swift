@@ -163,7 +163,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
     private var _clips = [AKFileClip]()
 
     /// A validated array of file clips.  Fails if setting an invalid array of clips.
-    @objc open var clips: [AKFileClip] {
+    open var clips: [AKFileClip] {
         get {
             return _clips
         }
