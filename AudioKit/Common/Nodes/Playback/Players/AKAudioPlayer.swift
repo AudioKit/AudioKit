@@ -276,7 +276,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Methods
 
     /// Start playback
-    @objc open func start() {
+    open func start() {
         play(at: nil)
     }
 
@@ -303,7 +303,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback
-    @objc open func stop() {
+    open func stop() {
         scheduledStopAction = nil
 
         if ❗️playing {
@@ -373,7 +373,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Replace player's file with a new AKAudioFile file
-    @objc open func replace(file: AKAudioFile) throws {
+    open func replace(file: AKAudioFile) throws {
         internalAudioFile = file
         do {
             try reloadFile()
@@ -390,12 +390,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Play from startTime to endTime
-    @objc open func play(from startTime: Double) {
+    open func play(from startTime: Double) {
         play(from: startTime, to: duration, avTime: nil)
     }
 
     /// Play from startTime to endTime
-    @objc open func play(from startTime: Double, to endTime: Double) {
+    open func play(from startTime: Double, to endTime: Double) {
         play(from: startTime, to: endTime, avTime: nil)
     }
 
@@ -510,7 +510,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback after next loop completes
-    @objc open func stopAtNextLoopEnd() {
+    open func stopAtNextLoopEnd() {
         guard playing else {
             return
         }

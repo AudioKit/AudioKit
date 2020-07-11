@@ -10,7 +10,7 @@ open class AKCustomUgen: NSObject {
     @objc public let argTypes: String
 
     /// Custom object that may be passed in
-    @objc open var userData: Any?
+    open var userData: Any?
 
     /// Callback / Closure / Function to be called
     public let computeFunction: (AKCustomUgen, AKSporthStack, inout Any?) -> Void

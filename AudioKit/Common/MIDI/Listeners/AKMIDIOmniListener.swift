@@ -37,7 +37,7 @@ extension AKMIDIOMNIListener: AKMIDIListener {
         }
     }
 
-    @objc public func omniStateChange() {
+    public func omniStateChange() {
 
     }
 }

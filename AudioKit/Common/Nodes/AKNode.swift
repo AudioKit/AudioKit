@@ -150,6 +150,38 @@ public struct AKNodeParameter {
     }
 }
 
+/// Wraps AKNodeParameter so we can easily assign values to it.
+///
+/// Instead of`osc.frequency.value = 440`, we have `osc.frequency = 440`
+///
+/// Use the $ operator to access the underlying AKNodeParameter. For example:
+/// `osc.$frequency.maxValue`
+///
+/// When writing an AKNode, use:
+/// ```
+/// @Parameter("myParameterName") var myParameterName: AUValue
+/// ```
+/// This syntax gives us additional flexibility for how parameters are implemented internally.
+@propertyWrapper
+public struct Parameter {
+
+    var param: AKNodeParameter
+
+    init(_ identifier: String) {
+        param = AKNodeParameter(identifier: identifier)
+    }
+
+    public var wrappedValue: AUValue {
+        get { param.value }
+        set { param.value = newValue }
+    }
+
+    public var projectedValue: AKNodeParameter {
+        get { param }
+        set { param = newValue }
+    }
+}
+
 extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
         return self.avAudioUnitOrNode
@@ -185,7 +217,7 @@ public protocol AKPolyphonic {
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
-    @objc open var midiInstrument: AVAudioUnitMIDIInstrument?
+    open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
@@ -194,10 +226,10 @@ public protocol AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
     ///
-    @objc open func play(noteNumber: MIDINoteNumber,
-                         velocity: MIDIVelocity,
-                         frequency: AUValue,
-                         channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber,
+                   velocity: MIDIVelocity,
+                   frequency: AUValue,
+                   channel: MIDIChannel = 0) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
             "override in subclass")
     }
@@ -208,7 +240,7 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         // MARK: Microtonal pitch lookup
 
         // default implementation is 12 ET
@@ -220,7 +252,7 @@ public protocol AKPolyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    @objc open func stop(noteNumber: MIDINoteNumber) {
+    open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
     }
 }

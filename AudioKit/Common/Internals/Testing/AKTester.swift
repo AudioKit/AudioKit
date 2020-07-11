@@ -19,7 +19,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Flag on whether or not the test is still in progress
-    @objc open var isStarted: Bool {
+    open var isStarted: Bool {
         if let samplesIn = internalAU?.samples {
             return Int(samplesIn) < totalSamples
         } else {
