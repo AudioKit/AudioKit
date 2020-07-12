@@ -11,8 +11,8 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
     public init?(data: [UInt8]) {
         guard
             data.count > 8
-        else {
-            return nil
+            else {
+                return nil
         }
         let lengthBytes = Array(data[4..<8])
         let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0],
@@ -53,16 +53,18 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if let metaEvent = AKMIDIMetaEvent(data: subData) {
                     let metaData = metaEvent.data
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
                     processedBytes += metaEvent.data.count
                     runningStatus = nil
-                } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
-                    let sysexData = sysexEvent.data
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysexData,
-                                                 timeFormat: timeFormat, timeDivision: timeDivision,
+                } else if let sysExEvent = MIDISysExMessage(bytes: subData) {
+                    let sysExData = sysExEvent.data
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysExData,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
-                    processedBytes += sysexEvent.data.count
+                    processedBytes += sysExEvent.data.count
                     runningStatus = nil
                 } else if let status = AKMIDIStatus(byte: byte) {
                     let messageLength = status.length

@@ -55,7 +55,7 @@ extension MIDIWord {
     /// Create a MIDIWord for a command and command version
     /// [command byte][version byte]
     ///
-    /// This is used to construct a word that would be sent in Sysex
+    /// This is used to construct a word that would be sent in SysEx
     ///
     /// - Parameters:
     ///   - command: Command Byte Value

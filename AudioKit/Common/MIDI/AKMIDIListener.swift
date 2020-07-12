@@ -111,7 +111,7 @@ public protocol AKMIDIListener {
                                  portID: MIDIUniqueID?,
                                  offset: MIDITimeStamp)
 
-    /// Receive a MIDI system command (such as clock, sysex, etc)
+    /// Receive a MIDI system command (such as clock, SysEx, etc)
     ///
     /// - data:       Array of integers
     /// - portID:     MIDI Unique Port ID
@@ -268,7 +268,7 @@ public extension AKMIDIListener {
         }
     }
 
-    /// Receive a MIDI system command (such as clock, sysex, etc)
+    /// Receive a MIDI system command (such as clock, SysEx, etc)
     ///
     /// - Parameters:
     /// - data:   Array of integers

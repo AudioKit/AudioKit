@@ -106,18 +106,18 @@ public struct AKMIDIEvent: AKMIDIMessage {
         if isSystemCommand {
             let systemCommand = packet.systemCommand
             let length = systemCommand?.length
-            if systemCommand == .sysex {
-                data = [] // reset internalData
+            if systemCommand == .sysEx {
+                data = [] //reset internalData
 
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-                    // flag midi system that a sysex packet has started so it can gather bytes until the end
-                    AKManager.midi.startReceivingSysex(with: midiBytes)
+                    // flag midi system that a sysEx packet has started so it can gather bytes until the end
+                    AKManager.midi.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
-                    if let sysexEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysexEnd.byte) {
-                        let length = sysexEndIndex + 1
+                    if let sysExEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysExEnd.byte) {
+                        let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
-                        AKManager.midi.stopReceivingSysex()
+                        AKManager.midi.stopReceivingSysEx()
                     } else {
                         data.removeAll()
                     }
@@ -158,14 +158,14 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
-        if AKManager.midi.isReceivingSysex {
-            if let sysexEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                self.data = Array(data[0...sysexEndIndex])
+        if AKManager.midi.isReceivingSysEx {
+            if let sysExEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysExEnd.rawValue) {
+                self.data = Array(data[0...sysExEndIndex])
             }
         } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
             self.data = []
             // is sys command
-            if command == .sysex {
+            if command == .sysEx {
                 for byte in data {
                     self.data.append(byte)
                 }
@@ -286,13 +286,13 @@ public struct AKMIDIEvent: AKMIDIMessage {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }
 
-    static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
+    static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-            AKManager.midi.incomingSysex += midiBytes
-            if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                let sysexEvent = AKMIDIEvent(data: AKManager.midi.incomingSysex, offset: packet.timeStamp)
-                AKManager.midi.stopReceivingSysex()
-                return sysexEvent
+            AKManager.midi.incomingSysEx += midiBytes
+            if midiBytes.contains(AKMIDISystemCommand.sysExEnd.rawValue) {
+                let sysExEvent = AKMIDIEvent(data: AKManager.midi.incomingSysEx, offset: packet.timeStamp)
+                AKManager.midi.stopReceivingSysEx()
+                return sysExEvent
             }
         }
         return nil
@@ -300,17 +300,17 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     /// Generate array of MIDI events from Bluetooth data
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
-        // 1st byte timestamp coarse will always be > 128
-        // 2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
-        // 3nd < 128 running message - timestamp
-        // status byte determines length of message
+        //1st byte timestamp coarse will always be > 128
+        //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysEx
+        //3nd < 128 running message - timestamp
+        //status byte determines length of message
 
         var midiEvents: [AKMIDIEvent] = []
         if bluetoothData.count > 1 {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
-                // continuation of sysex from previous packet - handle separately
-                // (probably needs a whole bluetooth MIDI class so we can see the previous packets)
+                //continuation of SysEx from previous packet - handle separately
+                //(probably needs a whole bluetooth MIDI class so we can see the previous packets)
             } else {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
@@ -331,10 +331,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
                             rawEvent.append(lastStatus)
                         }
                     }
-                    rawEvent.append(byte) // set the status byte
-                    if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysex.rawValue)
-                        || byte == AKMIDISystemCommand.sysexEnd.rawValue {
-                        // end of message
+                    rawEvent.append(byte) //set the status byte
+                    if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysEx.rawValue)
+                        || byte == AKMIDISystemCommand.sysExEnd.rawValue {
+                        //end of message
                         messageJustFinished = true
                         if rawEvent.isNotEmpty {
                             rawEvents.append(rawEvent)

@@ -136,12 +136,12 @@ class AKMusicTrackTests: AKTestCase {
     // MARK: - clearSysexEvents
     func testClearSysexEvents_clearsAllSysexEvents() {
         for i in 0 ..< 4 {
-            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
         }
 
         XCTAssertEqual(musicTrack.sysexEventCount, 4)
 
-        musicTrack.clearSysexEvents()
+        musicTrack.clearSysExEvents()
 
         XCTAssertEqual(musicTrack.sysexEventCount, 0)
     }
@@ -152,7 +152,7 @@ class AKMusicTrackTests: AKTestCase {
         XCTAssertEqual(musicTrack.metaEventCount, 5)
         XCTAssertEqual(musicTrack.sysexEventCount, 4)
 
-        musicTrack.clearSysexEvents()
+        musicTrack.clearSysExEvents()
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
         XCTAssertEqual(musicTrack.sysexEventCount, 0)
@@ -322,7 +322,7 @@ class AKMusicTrackTests: AKTestCase {
 
         for i in 0 ..< 4 {
             MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
-            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
             musicTrack.addNote(withNumber: 60, atPosition: MusicTimeStamp(i))
         }
     }
