@@ -8,7 +8,7 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
         address: AKFMOscillatorParameter.baseFrequency.rawValue,
-        range: AKFMOscillator.baseFrequencyRange,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
         address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
-        range: AKFMOscillator.carrierMultiplierRange,
+        range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
         address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
-        range: AKFMOscillator.modulatingMultiplierRange,
+        range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "modulationIndex",
         name: "Modulation Index",
         address: AKFMOscillatorParameter.modulationIndex.rawValue,
-        range: AKFMOscillator.modulationIndexRange,
+        range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKFMOscillatorParameter.amplitude.rawValue,
-        range: AKFMOscillator.amplitudeRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -52,10 +52,6 @@ public class AKFMOscillatorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency,
-                                                                  carrierMultiplier,
-                                                                  modulatingMultiplier,
-                                                                  modulationIndex,
-                                                                  amplitude])
+        parameterTree = AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude])
     }
 }

@@ -19,11 +19,11 @@ class AKFMOscillatorTests: AKTestCase {
     func testParametersSetAfterInit() {
         oscillator = AKFMOscillator(waveform: AKTable(.square))
         oscillator.rampDuration = 0.0
-        oscillator.baseFrequency.value = 1_234
-        oscillator.carrierMultiplier.value = 1.234
-        oscillator.modulatingMultiplier.value = 1.234
-        oscillator.modulationIndex.value = 1.234
-        oscillator.amplitude.value = 0.5
+        oscillator.baseFrequency = 1_234
+        oscillator.carrierMultiplier = 1.234
+        oscillator.modulatingMultiplier = 1.234
+        oscillator.modulationIndex = 1.234
+        oscillator.amplitude = 0.5
         output = oscillator
         AKTestMD5("8387b7242dbb91c0a1f397a9bb9f2b06")
     }

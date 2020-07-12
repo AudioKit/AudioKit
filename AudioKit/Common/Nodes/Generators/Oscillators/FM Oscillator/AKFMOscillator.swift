@@ -4,16 +4,11 @@
 ///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - AKAutomatable
 
     public private(set) var parameterAutomation: AKParameterAutomation?
 
@@ -21,50 +16,20 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     fileprivate var waveform: AKTable?
 
-    /// Lower and upper bounds for Base Frequency
-    public static let baseFrequencyRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
-
-    /// Lower and upper bounds for Carrier Multiplier
-    public static let carrierMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
-
-    /// Lower and upper bounds for Modulating Multiplier
-    public static let modulatingMultiplierRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
-
-    /// Lower and upper bounds for Modulation Index
-    public static let modulationIndexRange: ClosedRange<AUValue> = 0.0 ... 1_000.0
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 10.0
-
-    /// Initial value for Base Frequency
-    public static let defaultBaseFrequency: AUValue = 440.0
-
-    /// Initial value for Carrier Multiplier
-    public static let defaultCarrierMultiplier: AUValue = 1.0
-
-    /// Initial value for Modulating Multiplier
-    public static let defaultModulatingMultiplier: AUValue = 1.0
-
-    /// Initial value for Modulation Index
-    public static let defaultModulationIndex: AUValue = 1.0
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 1.0
-
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    public var baseFrequency = AKNodeParameter(identifier: "baseFrequency")
+    @Parameter public var baseFrequency: AUValue
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    public var carrierMultiplier = AKNodeParameter(identifier: "carrierMultiplier")
+    @Parameter public var carrierMultiplier: AUValue
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    public var modulatingMultiplier = AKNodeParameter(identifier: "modulatingMultiplier")
+    @Parameter public var modulatingMultiplier: AUValue
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    public var modulationIndex = AKNodeParameter(identifier: "modulationIndex")
+    @Parameter public var modulationIndex: AUValue
 
     /// Output Amplitude.
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -80,13 +45,20 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     public init(
         waveform: AKTable = AKTable(.sine),
-        baseFrequency: AUValue = defaultBaseFrequency,
-        carrierMultiplier: AUValue = defaultCarrierMultiplier,
-        modulatingMultiplier: AUValue = defaultModulatingMultiplier,
-        modulationIndex: AUValue = defaultModulationIndex,
-        amplitude: AUValue = defaultAmplitude
+        baseFrequency: AUValue = 440.0,
+        carrierMultiplier: AUValue = 1.0,
+        modulatingMultiplier: AUValue = 1.0,
+        modulationIndex: AUValue = 1.0,
+        amplitude: AUValue = 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.waveform = waveform
+        self.baseFrequency = baseFrequency
+        self.carrierMultiplier = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex = modulationIndex
+        self.amplitude = amplitude
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -94,13 +66,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.waveform = waveform
-            self.baseFrequency.associate(with: self.internalAU, value: baseFrequency)
-            self.carrierMultiplier.associate(with: self.internalAU, value: carrierMultiplier)
-            self.modulatingMultiplier.associate(with: self.internalAU, value: modulatingMultiplier)
-            self.modulationIndex.associate(with: self.internalAU, value: modulationIndex)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
 
             self.internalAU?.setWavetable(waveform.content)
         }
