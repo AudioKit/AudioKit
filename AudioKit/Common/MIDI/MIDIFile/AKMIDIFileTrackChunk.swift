@@ -15,7 +15,10 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
             return nil
         }
         let lengthBytes = Array(data[4..<8])
-        let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0], data1: lengthBytes[1], data2: lengthBytes[2], lsb: lengthBytes[3]))
+        let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0],
+                                                   data1: lengthBytes[1],
+                                                   data2: lengthBytes[2],
+                                                   lsb: lengthBytes[3]))
         timeFormat = .ticksPerBeat
         timeDivision = 480 //arbitrary value
         rawData = Array(data.prefix(upTo: length + 8)) //the message + 4 byte header type, + 4 byte length
@@ -50,34 +53,38 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if let metaEvent = AKMIDIMetaEvent(data: subData) {
                     let metaData = metaEvent.data
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
-                                                     timeFormat: timeFormat, timeDivision: timeDivision,
-                                                     timeOffset: accumulatedDeltaTime)
+                                                 timeFormat: timeFormat, timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
                     processedBytes += metaEvent.data.count
                     runningStatus = nil
                 } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
                     let sysexData = sysexEvent.data
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + sysexData,
-                                                     timeFormat: timeFormat, timeDivision: timeDivision,
-                                                     timeOffset: accumulatedDeltaTime)
+                                                 timeFormat: timeFormat, timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
                     processedBytes += sysexEvent.data.count
                     runningStatus = nil
                 } else if let status = AKMIDIStatus(byte: byte) {
                     let messageLength = status.length
                     let chunkData = Array(subData.prefix(messageLength))
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
-                                                     timeFormat: timeFormat, timeDivision: timeDivision,
-                                                     timeOffset: accumulatedDeltaTime)
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
                     runningStatus = status.byte
                     processedBytes += messageLength
-                } else if let activeRunningStatus = runningStatus, let status = AKMIDIStatus(byte: activeRunningStatus) {
+                } else if let activeRunningStatus = runningStatus,
+                    let status = AKMIDIStatus(byte: activeRunningStatus) {
                     let messageLength = status.length - 1 // drop one since running status is used
                     let chunkData = Array(subData.prefix(messageLength))
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
-                                                     timeFormat: timeFormat, timeDivision: timeDivision,
-                                                     timeOffset: accumulatedDeltaTime, runningStatus: status)
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime,
+                                                 runningStatus: status)
                     processedBytes += messageLength
                 } else {
-                    fatalError("error parsing midi file - byte is \(byte), processed \(processedBytes) of \(data.count)")
+                    fatalError("error parsing midi file, byte is \(byte), processed \(processedBytes) of \(data.count)")
                 }
                 guard let currentEvent = event else { break }
                 events.append(currentEvent)

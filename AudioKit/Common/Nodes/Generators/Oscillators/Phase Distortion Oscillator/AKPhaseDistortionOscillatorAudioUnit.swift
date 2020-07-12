@@ -52,6 +52,10 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, phaseDistortion, detuningOffset, detuningMultiplier])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
+                                                                  amplitude,
+                                                                  phaseDistortion,
+                                                                  detuningOffset,
+                                                                  detuningMultiplier])
     }
 }

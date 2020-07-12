@@ -17,7 +17,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
 
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it.
+    /// Higher than 1 resonance values might cause aliasing,
+    /// analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
@@ -33,8 +35,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might
+    ///     cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
