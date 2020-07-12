@@ -8,7 +8,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
         address: AKStringResonatorParameter.fundamentalFrequency.rawValue,
-        range: AKStringResonator.fundamentalFrequencyRange,
+        range: 12.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         identifier: "feedback",
         name: "Feedback (%)",
         address: AKStringResonatorParameter.feedback.rawValue,
-        range: AKStringResonator.feedbackRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

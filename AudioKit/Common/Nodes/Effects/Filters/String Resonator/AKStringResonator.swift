@@ -9,39 +9,22 @@
 ///
 open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     public typealias AKAudioUnitType = AKStringResonatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Fundamental Frequency
-    public static let fundamentalFrequencyRange: ClosedRange<AUValue> = 12.0 ... 10_000.0
-
-    /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Initial value for Fundamental Frequency
-    public static let defaultFundamentalFrequency: AUValue = 100
-
-    /// Initial value for Feedback
-    public static let defaultFeedback: AUValue = 0.95
-
     /// Fundamental frequency of string.
-    public var fundamentalFrequency = AKNodeParameter(identifier: "fundamentalFrequency")
+    @Parameter public var fundamentalFrequency: AUValue
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    public var feedback = AKNodeParameter(identifier: "feedback")
+    @Parameter public var feedback: AUValue
 
     // MARK: - Initialization
 
@@ -56,10 +39,13 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     ///
     public init(
         _ input: AKNode? = nil,
-        fundamentalFrequency: AUValue = defaultFundamentalFrequency,
-        feedback: AUValue = defaultFeedback
+        fundamentalFrequency: AUValue = 100,
+        feedback: AUValue = 0.95
         ) {
         super.init(avAudioNode: AVAudioNode())
+        
+        self.fundamentalFrequency = fundamentalFrequency
+        self.feedback = feedback
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -67,9 +53,6 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.fundamentalFrequency.associate(with: self.internalAU, value: fundamentalFrequency)
-            self.feedback.associate(with: self.internalAU, value: feedback)
 
             input?.connect(to: self)
         }

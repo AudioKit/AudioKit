@@ -6,47 +6,24 @@
 ///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
-
-    /// Lower and upper bounds for Attack Duration
-    public static let attackDurationRange: ClosedRange<AUValue> = 0.0 ... 0.1
-
-    /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange: ClosedRange<AUValue> = 0.0 ... 0.1
-
-    /// Initial value for Center Frequency
-    public static let defaultCenterFrequency: AUValue = 1_000
-
-    /// Initial value for Attack Duration
-    public static let defaultAttackDuration: AUValue = 0.007
-
-    /// Initial value for Decay Duration
-    public static let defaultDecayDuration: AUValue = 0.04
-
     /// Center frequency.
-    public var centerFrequency = AKNodeParameter(identifier: "centerFrequency")
+    @Parameter public var centerFrequency: AUValue
 
     /// Impulse response attack time (in seconds).
-    public var attackDuration = AKNodeParameter(identifier: "attackDuration")
+    @Parameter public var attackDuration: AUValue
 
     /// Impulse reponse decay time (in seconds)
-    public var decayDuration = AKNodeParameter(identifier: "decayDuration")
+    @Parameter public var decayDuration: AUValue
 
     // MARK: - Initialization
 
@@ -60,22 +37,20 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     ///
     public init(
         _ input: AKNode? = nil,
-        centerFrequency: AUValue = defaultCenterFrequency,
-        attackDuration: AUValue = defaultAttackDuration,
-        decayDuration: AUValue = defaultDecayDuration
+        centerFrequency: AUValue = 1_000,
+        attackDuration: AUValue = 0.007,
+        decayDuration: AUValue = 0.04
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.centerFrequency.associate(with: self.internalAU, value: centerFrequency)
-            self.attackDuration.associate(with: self.internalAU, value: attackDuration)
-            self.decayDuration.associate(with: self.internalAU, value: decayDuration)
 
             input?.connect(to: self)
         }

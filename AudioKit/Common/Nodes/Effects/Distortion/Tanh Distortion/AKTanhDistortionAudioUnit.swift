@@ -8,7 +8,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         identifier: "pregain",
         name: "Pregain",
         address: AKTanhDistortionParameter.pregain.rawValue,
-        range: AKTanhDistortion.pregainRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         identifier: "postgain",
         name: "Postgain",
         address: AKTanhDistortionParameter.postgain.rawValue,
-        range: AKTanhDistortion.postgainRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
         address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
-        range: AKTanhDistortion.positiveShapeParameterRange,
+        range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
         address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
-        range: AKTanhDistortion.negativeShapeParameterRange,
+        range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
