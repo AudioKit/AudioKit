@@ -5,101 +5,42 @@
 ///
 open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     public typealias AKAudioUnitType = AKPhaserAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Notch Minimum Frequency
-    public static let notchMinimumFrequencyRange: ClosedRange<AUValue> = 20 ... 5_000
-
-    /// Lower and upper bounds for Notch Maximum Frequency
-    public static let notchMaximumFrequencyRange: ClosedRange<AUValue> = 20 ... 10_000
-
-    /// Lower and upper bounds for Notch Width
-    public static let notchWidthRange: ClosedRange<AUValue> = 10 ... 5_000
-
-    /// Lower and upper bounds for Notch Frequency
-    public static let notchFrequencyRange: ClosedRange<AUValue> = 1.1 ... 4.0
-
-    /// Lower and upper bounds for Vibrato Mode
-    public static let vibratoModeRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Depth
-    public static let depthRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Inverted
-    public static let invertedRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Lfo Bpm
-    public static let lfoBPMRange: ClosedRange<AUValue> = 24 ... 360
-
-    /// Initial value for Notch Minimum Frequency
-    public static let defaultNotchMinimumFrequency: AUValue = 100
-
-    /// Initial value for Notch Maximum Frequency
-    public static let defaultNotchMaximumFrequency: AUValue = 800
-
-    /// Initial value for Notch Width
-    public static let defaultNotchWidth: AUValue = 1_000
-
-    /// Initial value for Notch Frequency
-    public static let defaultNotchFrequency: AUValue = 1.5
-
-    /// Initial value for Vibrato Mode
-    public static let defaultVibratoMode: AUValue = 1
-
-    /// Initial value for Depth
-    public static let defaultDepth: AUValue = 1
-
-    /// Initial value for Feedback
-    public static let defaultFeedback: AUValue = 0
-
-    /// Initial value for Inverted
-    public static let defaultInverted: AUValue = 0
-
-    /// Initial value for Lfo Bpm
-    public static let defaultLfoBPM: AUValue = 30
-
     /// Notch Minimum Frequency
-    public var notchMinimumFrequency = AKNodeParameter(identifier: "notchMinimumFrequency")
+    @Parameter public var notchMinimumFrequency: AUValue
 
     /// Notch Maximum Frequency
-    public var notchMaximumFrequency = AKNodeParameter(identifier: "notchMaximumFrequency")
+    @Parameter public var notchMaximumFrequency: AUValue
 
     /// Between 10 and 5000
-    public var notchWidth = AKNodeParameter(identifier: "notchWidth")
+    @Parameter public var notchWidth: AUValue
 
     /// Between 1.1 and 4
-    public var notchFrequency = AKNodeParameter(identifier: "notchFrequency")
+    @Parameter public var notchFrequency: AUValue
 
     /// Direct or Vibrato (default)
-    public var vibratoMode = AKNodeParameter(identifier: "vibratoMode")
+    @Parameter public var vibratoMode: AUValue
 
     /// Between 0 and 1
-    public var depth = AKNodeParameter(identifier: "depth")
+    @Parameter public var depth: AUValue
 
     /// Between 0 and 1
-    public var feedback = AKNodeParameter(identifier: "feedback")
+    @Parameter public var feedback: AUValue
 
     /// 1 or 0
-    public var inverted = AKNodeParameter(identifier: "inverted")
+    @Parameter public var inverted: AUValue
 
     /// Between 24 and 360
-    public var lfoBPM = AKNodeParameter(identifier: "lfoBPM")
+    @Parameter public var lfoBPM: AUValue
 
     // MARK: - Initialization
 
@@ -119,34 +60,32 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///
     public init(
         _ input: AKNode? = nil,
-        notchMinimumFrequency: AUValue = defaultNotchMinimumFrequency,
-        notchMaximumFrequency: AUValue = defaultNotchMaximumFrequency,
-        notchWidth: AUValue = defaultNotchWidth,
-        notchFrequency: AUValue = defaultNotchFrequency,
-        vibratoMode: AUValue = defaultVibratoMode,
-        depth: AUValue = defaultDepth,
-        feedback: AUValue = defaultFeedback,
-        inverted: AUValue = defaultInverted,
-        lfoBPM: AUValue = defaultLfoBPM
+        notchMinimumFrequency: AUValue = 100,
+        notchMaximumFrequency: AUValue = 800,
+        notchWidth: AUValue = 1_000,
+        notchFrequency: AUValue = 1.5,
+        vibratoMode: AUValue = 1,
+        depth: AUValue = 1,
+        feedback: AUValue = 0,
+        inverted: AUValue = 0,
+        lfoBPM: AUValue = 30
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.notchMinimumFrequency = notchMinimumFrequency
+        self.notchMaximumFrequency = notchMaximumFrequency
+        self.notchWidth = notchWidth
+        self.notchFrequency = notchFrequency
+        self.vibratoMode = vibratoMode
+        self.depth = depth
+        self.feedback = feedback
+        self.inverted = inverted
+        self.lfoBPM = lfoBPM
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.notchMinimumFrequency.associate(with: self.internalAU, value: notchMinimumFrequency)
-            self.notchMaximumFrequency.associate(with: self.internalAU, value: notchMaximumFrequency)
-            self.notchWidth.associate(with: self.internalAU, value: notchWidth)
-            self.notchFrequency.associate(with: self.internalAU, value: notchFrequency)
-            self.vibratoMode.associate(with: self.internalAU, value: vibratoMode)
-            self.depth.associate(with: self.internalAU, value: depth)
-            self.feedback.associate(with: self.internalAU, value: feedback)
-            self.inverted.associate(with: self.internalAU, value: inverted)
-            self.lfoBPM.associate(with: self.internalAU, value: lfoBPM)
 
             input?.connect(to: self)
         }

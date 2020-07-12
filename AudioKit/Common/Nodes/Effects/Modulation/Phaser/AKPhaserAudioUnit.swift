@@ -8,7 +8,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
         address: AKPhaserParameter.notchMinimumFrequency.rawValue,
-        range: AKPhaser.notchMinimumFrequencyRange,
+        range: 20 ... 5_000,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
         address: AKPhaserParameter.notchMaximumFrequency.rawValue,
-        range: AKPhaser.notchMaximumFrequencyRange,
+        range: 20 ... 10_000,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "notchWidth",
         name: "Between 10 and 5000",
         address: AKPhaserParameter.notchWidth.rawValue,
-        range: AKPhaser.notchWidthRange,
+        range: 10 ... 5_000,
         unit: .hertz,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
         address: AKPhaserParameter.notchFrequency.rawValue,
-        range: AKPhaser.notchFrequencyRange,
+        range: 1.1 ... 4.0,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
         address: AKPhaserParameter.vibratoMode.rawValue,
-        range: AKPhaser.vibratoModeRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -48,7 +48,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "depth",
         name: "Between 0 and 1",
         address: AKPhaserParameter.depth.rawValue,
-        range: AKPhaser.depthRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -56,7 +56,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "feedback",
         name: "Between 0 and 1",
         address: AKPhaserParameter.feedback.rawValue,
-        range: AKPhaser.feedbackRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -64,7 +64,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "inverted",
         name: "1 or 0",
         address: AKPhaserParameter.inverted.rawValue,
-        range: AKPhaser.invertedRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -72,7 +72,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         identifier: "lfoBPM",
         name: "Between 24 and 360",
         address: AKPhaserParameter.lfoBPM.rawValue,
-        range: AKPhaser.lfoBPMRange,
+        range: 24 ... 360,
         unit: .generic,
         flags: .default)
 
