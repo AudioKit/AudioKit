@@ -21,11 +21,11 @@ class AKMorphingOscillatorTests: AKTestCase {
     func testParametersSetAfterInit() {
         oscillator = AKMorphingOscillator(waveformArray: waveforms)
         oscillator.rampDuration = 0
-        oscillator.frequency.value = 1_234
-        oscillator.amplitude.value = 0.5
-        oscillator.index.value = 1.234
-        oscillator.detuningOffset.value = 11
-        oscillator.detuningMultiplier.value = 1.1
+        oscillator.frequency = 1_234
+        oscillator.amplitude = 0.5
+        oscillator.index = 1.234
+        oscillator.detuningOffset = 11
+        oscillator.detuningMultiplier = 1.1
         output = oscillator
         AKTestMD5("382e738d40fdda8c38e4b9ad1fbde591")
     }

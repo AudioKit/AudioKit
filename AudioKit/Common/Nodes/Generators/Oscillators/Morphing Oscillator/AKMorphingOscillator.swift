@@ -5,16 +5,11 @@
 ///
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - AKAutomatable
 
     public private(set) var parameterAutomation: AKParameterAutomation?
 
@@ -22,50 +17,20 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
 
     fileprivate var waveformArray = [AKTable]()
 
-    /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 22_050.0
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Lower and upper bounds for Index
-    public static let indexRange: ClosedRange<AUValue> = 0.0 ... 3.0
-
-    /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<AUValue> = -1_000.0 ... 1_000.0
-
-    /// Lower and upper bounds for Detuning Multiplier
-    public static let detuningMultiplierRange: ClosedRange<AUValue> = 0.9 ... 1.11
-
-    /// Initial value for Frequency
-    public static let defaultFrequency: AUValue = 440
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 0.5
-
-    /// Initial value for Index
-    public static let defaultIndex: AUValue = 0.0
-
-    /// Initial value for Detuning Offset
-    public static let defaultDetuningOffset: AUValue = 0
-
-    /// Initial value for Detuning Multiplier
-    public static let defaultDetuningMultiplier: AUValue = 1
-
     /// Frequency (in Hz)
-    public var frequency = AKNodeParameter(identifier: "frequency")
+    @Parameter public var frequency: AUValue
 
     /// Amplitude (typically a value between 0 and 1).
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     /// Index of the wavetable to use (fractional are okay).
-    public var index = AKNodeParameter(identifier: "index")
+    @Parameter public var index: AUValue
 
     /// Frequency offset in Hz.
-    public var detuningOffset = AKNodeParameter(identifier: "detuningOffset")
+    @Parameter public var detuningOffset: AUValue
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
+    @Parameter public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
@@ -81,13 +46,20 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
     ///
     public init(
         waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
-        frequency: AUValue = defaultFrequency,
-        amplitude: AUValue = defaultAmplitude,
-        index: AUValue = defaultIndex,
-        detuningOffset: AUValue = defaultDetuningOffset,
-        detuningMultiplier: AUValue = defaultDetuningMultiplier
+        frequency: AUValue = 440,
+        amplitude: AUValue = 0.5,
+        index: AUValue = 0.0,
+        detuningOffset: AUValue = 0,
+        detuningMultiplier: AUValue = 1
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.waveformArray = waveformArray
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.index = index
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -95,13 +67,6 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatabl
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.waveformArray = waveformArray
-            self.frequency.associate(with: self.internalAU, value: frequency)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
-            self.index.associate(with: self.internalAU, value: index)
-            self.detuningOffset.associate(with: self.internalAU, value: detuningOffset)
-            self.detuningMultiplier.associate(with: self.internalAU, value: detuningMultiplier)
 
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setWavetable(waveform.content, index: i)
