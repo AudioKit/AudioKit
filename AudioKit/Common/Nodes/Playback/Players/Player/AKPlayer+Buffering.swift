@@ -41,14 +41,14 @@ extension AKPlayer {
 
         guard audioFile.length > 0 else {
             AKLog("ERROR updateBuffer: Could not set PCM buffer -> " +
-                "\(audioFile.fileNamePlusExtension) length = 0.")
+                "\(audioFile.fileNamePlusExtension) length = 0.", log: .fileHandling, type: .error)
             return
         }
 
         let framesToRead: AVAudioFramePosition = endFrame - startFrame
 
         guard framesToRead > 0 else {
-            AKLog("Error, endFrame must be after startFrame. Unable to fill buffer.")
+            AKLog("Error, endFrame must be after startFrame. Unable to fill buffer.", log: .fileHandling, type: .error)
             return
         }
 
@@ -66,7 +66,7 @@ extension AKPlayer {
             buffer = pcmBuffer
 
         } catch let err as NSError {
-            AKLog("ERROR AKPlayer: Couldn't read data into buffer. \(err)")
+            AKLog("ERROR AKPlayer: Couldn't read data into buffer. \(err)", log: .fileHandling, type: .error)
             return
         }
 
