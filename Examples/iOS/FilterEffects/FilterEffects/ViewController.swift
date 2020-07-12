@@ -47,17 +47,17 @@ class ViewController: UIViewController {
 
         stackView.addArrangedSubview(AKSlider(
             property: "Delay Time",
-            value: self.delay.time.value,
+            value: self.delay.time,
             format: "%0.2f s") { sliderValue in
-                self.delay.time.value = sliderValue
+                self.delay.time = sliderValue
         })
 
         stackView.addArrangedSubview(AKSlider(
             property: "Delay Feedback",
-            value: self.delay.feedback.value,
+            value: self.delay.feedback,
             range: 0 ... 0.99,
             format: "%0.2f") { sliderValue in
-                self.delay.feedback.value = sliderValue
+                self.delay.feedback = sliderValue
         })
 
         stackView.addArrangedSubview(AKSlider(
@@ -69,10 +69,10 @@ class ViewController: UIViewController {
 
         stackView.addArrangedSubview(AKSlider(
             property: "Reverb Feedback",
-            value: self.reverb.feedback.value,
+            value: self.reverb.feedback,
             range: 0 ... 0.99,
             format: "%0.2f") { sliderValue in
-                self.reverb.feedback.value = sliderValue
+                self.reverb.feedback = sliderValue
         })
 
         stackView.addArrangedSubview(AKSlider(
