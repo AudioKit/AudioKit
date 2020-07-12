@@ -126,57 +126,57 @@ class AKMusicTrackTests: AKTestCase {
     }
 
     func testClearMetaEvent_clearsOnlyMetaEvents() {
-        addSysexMetaEventAndNotes()
+        addSysExMetaEventAndNotes()
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
-        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.sysExEventCount, 4)
         XCTAssertEqual(musicTrack.noteCount, 4)
 
         musicTrack.clearMetaEvents()
 
         XCTAssertEqual(musicTrack.metaEventCount, 0)
-        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.sysExEventCount, 4)
         XCTAssertEqual(musicTrack.noteCount, 4)
     }
 
-    // MARK: - clearSysexEvents
-    func testClearSysexEvents_clearsAllSysexEvents() {
+    // MARK: - clearSysExEvents
+    func testClearSysExEvents_clearsAllSysExEvents() {
         for i in 0 ..< 4 {
-            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
         }
 
-        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.sysExEventCount, 4)
 
-        musicTrack.clearSysexEvents()
+        musicTrack.clearSysExEvents()
 
-        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+        XCTAssertEqual(musicTrack.sysExEventCount, 0)
     }
 
-    func testClearSysexEvents_clearsOnlySysexEvents() {
-        addSysexMetaEventAndNotes()
+    func testClearSysExEvents_clearsOnlySysExEvents() {
+        addSysExMetaEventAndNotes()
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
-        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.sysExEventCount, 4)
 
-        musicTrack.clearSysexEvents()
+        musicTrack.clearSysExEvents()
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
-        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+        XCTAssertEqual(musicTrack.sysExEventCount, 0)
         XCTAssertEqual(musicTrack.noteCount, 4)
     }
 
     // MARK: - clear()
-    func testClear_shouldRemoveNotesMetaAndSysex() {
-        addSysexMetaEventAndNotes()
+    func testClear_shouldRemoveNotesMetaAndSysEx() {
+        addSysExMetaEventAndNotes()
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
-        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.sysExEventCount, 4)
         XCTAssertEqual(musicTrack.noteCount, 4)
 
         musicTrack.clear()
 
         XCTAssertEqual(musicTrack.metaEventCount, 0)
-        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+        XCTAssertEqual(musicTrack.sysExEventCount, 0)
         XCTAssertEqual(musicTrack.noteCount, 0)
     }
 
@@ -316,7 +316,7 @@ class AKMusicTrackTests: AKTestCase {
     }
 
     // MARK: - helper functions for reuse
-    fileprivate func addSysexMetaEventAndNotes() {
+    fileprivate func addSysExMetaEventAndNotes() {
         let internalTrack = musicTrack.internalMusicTrack!
 
         var metaEvent = MIDIMetaEvent(metaEventType: 58,
@@ -328,7 +328,7 @@ class AKMusicTrackTests: AKTestCase {
 
         for i in 0 ..< 4 {
             MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
-            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
             musicTrack.addNote(withNumber: 60, atPosition: MusicTimeStamp(i))
         }
     }
@@ -361,7 +361,7 @@ extension AKMusicTrack {
         return count
     }
 
-    var sysexEventCount: Int {
+    var sysExEventCount: Int {
         var count = 0
 
         iterateThroughEvents { _, eventType, _ in
