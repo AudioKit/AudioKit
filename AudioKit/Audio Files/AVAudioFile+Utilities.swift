@@ -38,5 +38,4 @@ extension AVAudioFile {
         }
         return data
     }
-
 }
