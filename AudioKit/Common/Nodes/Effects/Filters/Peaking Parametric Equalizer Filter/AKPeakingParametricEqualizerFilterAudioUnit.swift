@@ -8,7 +8,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
-        range: AKPeakingParametricEqualizerFilter.centerFrequencyRange,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "gain",
         name: "Gain",
         address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
-        range: AKPeakingParametricEqualizerFilter.gainRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "q",
         name: "Q",
         address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,
-        range: AKPeakingParametricEqualizerFilter.qRange,
+        range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
 

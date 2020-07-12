@@ -4,47 +4,24 @@
 ///
 open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
     public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Corner Frequency
-    public static let cornerFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
-
-    /// Lower and upper bounds for Gain
-    public static let gainRange: ClosedRange<AUValue> = 0.0 ... 10.0
-
-    /// Lower and upper bounds for Q
-    public static let qRange: ClosedRange<AUValue> = 0.0 ... 2.0
-
-    /// Initial value for Corner Frequency
-    public static let defaultCornerFrequency: AUValue = 1_000
-
-    /// Initial value for Gain
-    public static let defaultGain: AUValue = 1.0
-
-    /// Initial value for Q
-    public static let defaultQ: AUValue = 0.707
-
     /// Corner frequency.
-    public var cornerFrequency = AKNodeParameter(identifier: "cornerFrequency")
+    @Parameter public var cornerFrequency: AUValue
 
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    public var gain = AKNodeParameter(identifier: "gain")
+    @Parameter public var gain: AUValue
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    public var q = AKNodeParameter(identifier: "q")
+    @Parameter public var q: AUValue
 
     // MARK: - Initialization
 
@@ -53,27 +30,25 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cornerFrequency: Corner frequency.
-    ///   - gain: Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
         _ input: AKNode? = nil,
-        cornerFrequency: AUValue = defaultCornerFrequency,
-        gain: AUValue = defaultGain,
-        q: AUValue = defaultQ
+        cornerFrequency: AUValue = 1_000,
+        gain: AUValue = 1.0,
+        q: AUValue = 0.707
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.cornerFrequency = cornerFrequency
+        self.gain = gain
+        self.q = q
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.cornerFrequency.associate(with: self.internalAU, value: cornerFrequency)
-            self.gain.associate(with: self.internalAU, value: gain)
-            self.q.associate(with: self.internalAU, value: q)
 
             input?.connect(to: self)
         }

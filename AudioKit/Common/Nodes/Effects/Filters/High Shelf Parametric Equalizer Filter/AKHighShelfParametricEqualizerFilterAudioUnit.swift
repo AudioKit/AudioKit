@@ -8,7 +8,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "centerFrequency",
         name: "Corner Frequency (Hz)",
         address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
-        range: AKHighShelfParametricEqualizerFilter.centerFrequencyRange,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "gain",
         name: "Gain",
         address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
-        range: AKHighShelfParametricEqualizerFilter.gainRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "q",
         name: "Q",
         address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,
-        range: AKHighShelfParametricEqualizerFilter.qRange,
+        range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
 
