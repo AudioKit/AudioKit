@@ -5461,10 +5461,19 @@
 		558D80871F4D2D9D001E7BC1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FE5839712080FA78008DBCE6 /* AKError.swift */,
 				55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */,
+				C4649D3E23C07F660020072A /* AKLog.swift */,
+				C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */,
+				5251477A1CC4AD7E00421C52 /* AKNotifications.swift */,
+				C468D0611E9CD4B3005FACFA /* AKPeriodicFunction.swift */,
+				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
+				FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */,
 				551AAC251F61F24600A14C0D /* AVAudioBufferConvenience.swift */,
 				551AAC241F61F24500A14C0D /* AVAudioTimeShim.swift */,
 				C43322FD1FE05F0100330AEC /* Circular Buffer */,
+				C4BC749E203023CC00062B11 /* Exception Catcher */,
+				551AAC291F61F42100A14C0D /* Synchronization */,
 				C43322FA1FE05F0100330AEC /* Timeline */,
 			);
 			path = Utilities;
@@ -5511,7 +5520,7 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
-		B19AE7721F30FC2600F9DC25 /* AudioUnit Host */ = {
+		B19AE7721F30FC2600F9DC25 /* AudioUnit Hosting */ = {
 			isa = PBXGroup;
 			children = (
 				B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */,
@@ -5519,16 +5528,17 @@
 				B1B9DA662496926E0085F582 /* AKAudioUnitManager+Connections.swift */,
 				C42371EE20A7F5CB00507E72 /* AKAudioUnitManager+Utilities.swift */,
 			);
-			name = "AudioUnit Host";
+			name = "AudioUnit Hosting";
+			path = Common/Internals;
 			sourceTree = "<group>";
 		};
-		B1B9DA6A249693AC0085F582 /* Conversion */ = {
+		B1B9DA6A249693AC0085F582 /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
 				B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */,
 				B1B9DA6B249693FB0085F582 /* AKConverter+Processing.swift */,
 			);
-			path = Conversion;
+			path = "Audio Files";
 			sourceTree = "<group>";
 		};
 		B1FC57FE2328AED40098C14F /* Automation */ = {
@@ -5653,6 +5663,8 @@
 		C40C41221C40E344009D870B /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
+				C4BA6E871DD99C23002254EB /* AKComponent.swift */,
+				FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */,
 				C4BF7B1424554D0500A5793E /* AKAudioUnitBase.swift */,
 				C4BF7B1324554D0400A5793E /* AKDSPBase.hpp */,
 				C4BF7B1524554D0500A5793E /* AKDSPBase.mm */,
@@ -5660,6 +5672,8 @@
 				C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */,
 				C40C128F1F08AFFB00F4C7F1 /* AKDSPKernel.hpp */,
 				EAF71D7B202489E80018946B /* AKDSPKernel.mm */,
+				C49B15BE204A070F009C7C8E /* AKSoundpipeDSPBase.hpp */,
+				C49B15BF204A070F009C7C8E /* AKSoundpipeKernel.hpp */,
 				29CC6CB224B9654900446B73 /* AKGlobals.hpp */,
 				29CC6CB124B964EC00446B73 /* AKGlobals.mm */,
 				C4FF7CAF1D9F7F0B001BB82C /* AudioUnit+Helpers.swift */,
@@ -5901,8 +5915,10 @@
 			isa = PBXGroup;
 			children = (
 				C44EA27C201872C10072399F /* README.md */,
-				C49B1148204A06B5009C7C8E /* Core */,
+				C49B1148204A06B5009C7C8E /* Externals */,
 				C42F350D1C057F4C000E937C /* Internals */,
+				B1B9DA6A249693AC0085F582 /* Audio Files */,
+				B19AE7721F30FC2600F9DC25 /* AudioUnit Hosting */,
 				C42F353F1C057F4C000E937C /* MIDI */,
 				C42F35421C057F4C000E937C /* Nodes */,
 				C417025E1C11626500AB689C /* Operations */,
@@ -5918,35 +5934,16 @@
 			isa = PBXGroup;
 			children = (
 				C48A30422045428500334C35 /* README.md */,
-				C4BA6E871DD99C23002254EB /* AKComponent.swift */,
-				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
-				FE5839712080FA78008DBCE6 /* AKError.swift */,
-				C4649D3E23C07F660020072A /* AKLog.swift */,
-				C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */,
-				5251477A1CC4AD7E00421C52 /* AKNotifications.swift */,
-				C468D0611E9CD4B3005FACFA /* AKPeriodicFunction.swift */,
-				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
-				C49B15BE204A070F009C7C8E /* AKSoundpipeDSPBase.hpp */,
-				C49B15BF204A070F009C7C8E /* AKSoundpipeKernel.hpp */,
-				C40C411C1C40E2E1009D870B /* AKManager.swift */,
-				FE72B21E208AA72B00D861BC /* AKManager+StartStop.swift */,
-				FE72B20320895B9E00D861BC /* AKManager+Status.swift */,
-				FE72B218208AA5AC00D861BC /* AKManager+SafeConnections.swift */,
-				FE72B21C208AA6C600D861BC /* AKManager+Testing.swift */,
-				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
-				FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */,
-				FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */,
 				C42F35031C057E03000E937C /* AudioKit.h */,
 				EA7D07031F4E63C200707706 /* AudioKitUI.h */,
+				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
 				C49E9E001D2B491500E5E8BF /* Audio File */,
-				B19AE7721F30FC2600F9DC25 /* AudioUnit Host */,
 				C40C41221C40E344009D870B /* CoreAudio */,
-				C4BC749E203023CC00062B11 /* Exception Catcher */,
 				C40C412D1C40E3A5009D870B /* EZAudio */,
-				C4FE68751EC1C1E5000B09B2 /* Microphone Tracker */,
+				C4E112CC24BBA93300F69328 /* Hardware */,
+				C4E112CB24BBA6F300F69328 /* Manager */,
 				F4CA85771EB666250066BE5C /* Microtonality */,
 				F02767351E79D2C60099CA47 /* Sporth Custom Ugens */,
-				551AAC291F61F42100A14C0D /* Synchronization */,
 				C47B3F3D1FBE1ED80097EC15 /* Table */,
 				C40C41C91C40E4EE009D870B /* Testing */,
 				558D80871F4D2D9D001E7BC1 /* Utilities */,
@@ -7113,7 +7110,7 @@
 			path = "Korg Low Pass Filter";
 			sourceTree = "<group>";
 		};
-		C49B1148204A06B5009C7C8E /* Core */ = {
+		C49B1148204A06B5009C7C8E /* Externals */ = {
 			isa = PBXGroup;
 			children = (
 				C49B138B204A06B7009C7C8E /* README.md */,
@@ -7123,7 +7120,7 @@
 				C49B120C204A06B6009C7C8E /* Sporth */,
 				3404A7AC20507B8800A2C9E4 /* Wavpack */,
 			);
-			path = Core;
+			path = Externals;
 			sourceTree = "<group>";
 		};
 		C49B1149204A06B6009C7C8E /* Soundpipe */ = {
@@ -7841,7 +7838,6 @@
 		C49E9E001D2B491500E5E8BF /* Audio File */ = {
 			isa = PBXGroup;
 			children = (
-				B1B9DA6A249693AC0085F582 /* Conversion */,
 				C49E9E011D2B491500E5E8BF /* AKAudioFile.swift */,
 				8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */,
 				C49E9E051D2B4A1100E5E8BF /* AKAudioFile+ConvenienceInitializers.swift */,
@@ -8062,6 +8058,27 @@
 				C4DB660524955B0D001E1F37 /* Info.plist */,
 			);
 			path = DevoloopAudioKit;
+			sourceTree = "<group>";
+		};
+		C4E112CB24BBA6F300F69328 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				C40C411C1C40E2E1009D870B /* AKManager.swift */,
+				FE72B21E208AA72B00D861BC /* AKManager+StartStop.swift */,
+				FE72B20320895B9E00D861BC /* AKManager+Status.swift */,
+				FE72B218208AA5AC00D861BC /* AKManager+SafeConnections.swift */,
+				FE72B21C208AA6C600D861BC /* AKManager+Testing.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		C4E112CC24BBA93300F69328 /* Hardware */ = {
+			isa = PBXGroup;
+			children = (
+				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
+				C4FE68751EC1C1E5000B09B2 /* Microphone Tracker */,
+			);
+			path = Hardware;
 			sourceTree = "<group>";
 		};
 		C4E13D271C42360C008F0A3C /* Phase-Locked Vocoder */ = {
