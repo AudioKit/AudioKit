@@ -2,9 +2,11 @@
 
 import Accelerate
 
+public typealias FloatChannelData = [[Float]]
+
 extension AVAudioFile {
     /// Get a 2d array of Floats suitable for passing to AKWaveformLayer or other visualization classes
-    public func getWaveformData(with samplesPerPixel: Int) -> [[Float]]? {
+    public func getWaveformData(with samplesPerPixel: Int) -> FloatChannelData? {
         let totalFrames = AVAudioFrameCount(length)
         let framesPerBuffer: AVAudioFrameCount = totalFrames / AVAudioFrameCount(samplesPerPixel)
 
@@ -21,7 +23,7 @@ extension AVAudioFile {
                 try read(into: rmsBuffer, frameCount: framesPerBuffer)
 
             } catch let err as NSError {
-                AKLog("Error: Couldn't read data into buffer. \(err)")
+                AKLog("Error: Couldn't read into buffer. \(err)", log: .fileHandling, type: .error)
                 return nil
             }
 
@@ -36,4 +38,5 @@ extension AVAudioFile {
         }
         return data
     }
+
 }

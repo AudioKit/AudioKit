@@ -216,9 +216,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     /// will have a reference to the current export session when exporting async
     open var currentExportSession: AVAssetExportSession?
 
-    // Make our types Human Friendly™
-    public typealias FloatChannelData = [[Float]]
-
     /// Returns audio data as an `Array` of `Float` Arrays.
     ///
     /// If stereo:
@@ -258,7 +255,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         do {
             try self.read(into: buffer)
         } catch let error as NSError {
-            AKLog("Cannot readIntBuffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
+            AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
 
         return buffer
