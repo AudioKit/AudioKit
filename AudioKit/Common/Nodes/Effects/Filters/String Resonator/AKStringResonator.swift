@@ -43,7 +43,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         feedback: AUValue = 0.95
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
+
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
 
