@@ -42,10 +42,10 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     public init(
         waveform: AKTable = AKTable(.sine),
-        frequency: AUValue = 440,
-        amplitude: AUValue = 1,
-        detuningOffset: AUValue = 0,
-        detuningMultiplier: AUValue = 1
+        frequency: AUValue = 440.0,
+        amplitude: AUValue = 1.0,
+        detuningOffset: AUValue = 0.0,
+        detuningMultiplier: AUValue = 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
 
