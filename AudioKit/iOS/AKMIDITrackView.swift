@@ -43,7 +43,7 @@ I am hoping to achieve this soon by using AudioKit's AKMIDITempoListener.
 //Display a MIDI Sequence in a track
 
 public class AKMIDITrackView: AKButton {
- //Quarter note at 120 bpm is 20.833333333333333333... pixels - standard
+ //Quarter note at 120 bpm is 20.8333... pixels - standard
     var length: Double!
     var playbackCursorRect: CGRect!
     var playbackCursorView: UIView!
@@ -59,7 +59,7 @@ public class AKMIDITrackView: AKButton {
     }
 
     //How far the view is zoomed in
-    public var noteZoomConstant: Double = 10000.0
+    public var noteZoomConstant: Double = 10_000.0
 
     /// Initialize the Track View
     public convenience init(frame: CGRect, midiFile: AKMIDIFile, trackNumber: Int) {

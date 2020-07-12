@@ -15,7 +15,10 @@ public struct AKMIDIFileChunkEvent {
     let runningStatus: AKMIDIStatus?
     let timeOffset: Int //accumulated time from previous events
 
-    init(data: [MIDIByte], timeFormat: MIDITimeFormat, timeDivision: Int, timeOffset: Int,
+    init(data: [MIDIByte],
+         timeFormat: MIDITimeFormat,
+         timeDivision: Int,
+         timeOffset: Int,
          runningStatus: AKMIDIStatus? = nil) {
         self.data = data
         self.timeFormat = timeFormat
