@@ -20,7 +20,6 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     /// Feedback amount. Should be a value between 0-1.
     @Parameter public var feedback: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this delay node
@@ -46,7 +45,6 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
 
             input?.connect(to: self)
         }

@@ -38,4 +38,3 @@ public struct AKMIDIFileTempoTrack {
         return Float(Double(microsecondsPerSecond / value).roundToDecimalPlaces(4))
     }
 }
-

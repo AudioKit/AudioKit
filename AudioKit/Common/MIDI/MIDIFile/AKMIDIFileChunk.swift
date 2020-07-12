@@ -65,6 +65,6 @@ public enum MIDIFileChunkType: String {
     }
 
     var midiBytes: [UInt8] {
-        return [UInt8](text.utf8) 
+        return [UInt8](text.utf8)
     }
 }

@@ -18,7 +18,7 @@ public struct MIDIVariableLengthQuantity {
         self.data = Array(data.prefix(vlqResult.0))
         guard self.data.count == length else { return nil }
     }
-    
+
     public static func read(bytes: [UInt8]) -> (Int, UInt32) {
         var processedBytes = 0
         var result: UInt32 = 0
