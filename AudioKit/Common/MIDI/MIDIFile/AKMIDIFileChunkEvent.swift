@@ -9,7 +9,10 @@ public struct AKMIDIFileChunkEvent {
     let runningStatus: AKMIDIStatus?
     let timeOffset: Int //accumulated time from previous events
 
-    init(data: [MIDIByte], timeFormat: MIDITimeFormat, timeDivision: Int, timeOffset: Int,
+    init(data: [MIDIByte],
+         timeFormat: MIDITimeFormat,
+         timeDivision: Int,
+         timeOffset: Int,
          runningStatus: AKMIDIStatus? = nil) {
         self.data = data
         self.timeFormat = timeFormat
@@ -85,7 +88,7 @@ public struct AKMIDIFileChunkEvent {
         } else if let command = event as? AKMIDISystemCommand {
             if let standardLength = command.length {
                 return standardLength
-            } else if command == .sysex {
+            } else if command == .sysEx {
                 return Int(data[timeLength + 1])
             } else {
                 return data.count

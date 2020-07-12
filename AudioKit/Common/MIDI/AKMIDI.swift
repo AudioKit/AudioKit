@@ -81,15 +81,15 @@ open class AKMIDI {
 
     // MARK: - SYSEX
 
-    internal var isReceivingSysex: Bool = false
-    func startReceivingSysex(with midiBytes: [MIDIByte]) {
-        AKLog("Starting to receive Sysex", log: OSLog.midi)
-        isReceivingSysex = true
-        incomingSysex = midiBytes
+    internal var isReceivingSysEx: Bool = false
+    func startReceivingSysEx(with midiBytes: [MIDIByte]) {
+        AKLog("Starting to receive SysEx", log: OSLog.midi)
+        isReceivingSysEx = true
+        incomingSysEx = midiBytes
     }
-    func stopReceivingSysex() {
-        AKLog("Done receiving Sysex", log: OSLog.midi)
-        isReceivingSysex = false
+    func stopReceivingSysEx() {
+        AKLog("Done receiving SysEx", log: OSLog.midi)
+        isReceivingSysEx = false
     }
-    var incomingSysex = [MIDIByte]()
+    var incomingSysEx = [MIDIByte]()
 }

@@ -44,7 +44,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         self.cornerFrequency = cornerFrequency
         self.gain = gain
         self.q = q
-        
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit

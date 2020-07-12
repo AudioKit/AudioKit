@@ -269,8 +269,8 @@ open class AKMusicTrack {
     }
 
     /// Clear SysEx events from the track
-    open func clearSysexEvents() {
-        clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
+    open func clearSysExEvents() {
+        clearHelper(kMusicEventType_MIDIRawData, from: "clearSysExEvents")
     }
 
     private func clearHelper(_ targetEventType: UInt32, from functionName: String) {
@@ -502,13 +502,13 @@ open class AKMusicTrack {
         MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &message)
     }
 
-    /// Add Sysex message to sequence
+    /// Add SysEx message to sequence
     ///
     /// - Parameters:
-    ///   - data: The MIDI data byte array - standard sysex start and end messages are added automatically
+    ///   - data: The MIDI data byte array - standard SysEx start and end messages are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
-    open func addSysex(_ data: [MIDIByte], position: AKDuration) {
+    open func addSysEx(_ data: [MIDIByte], position: AKDuration) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return

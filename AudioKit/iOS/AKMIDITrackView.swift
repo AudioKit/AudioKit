@@ -37,7 +37,7 @@ I have recently set up the playback to be synced with automated tempos which cha
 //Display a MIDI Sequence in a track
 
 public class AKMIDITrackView: AKButton {
- //Quarter note at 120 bpm is 20.833333333333333333... pixels - standard
+ //Quarter note at 120 bpm is 20.8333... pixels - standard
     var length: Double!
     var playbackCursorRect: CGRect!
     var playbackCursorView: UIView!
