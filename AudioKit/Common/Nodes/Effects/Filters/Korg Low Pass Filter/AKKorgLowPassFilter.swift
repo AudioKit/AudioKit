@@ -23,7 +23,6 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// Filter saturation.
     @Parameter public var saturation: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this filter node
@@ -36,7 +35,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     ///
     public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: AUValue = 1000.0,
+        cutoffFrequency: AUValue = 1_000.0,
         resonance: AUValue = 1.0,
         saturation: AUValue = 0.0
         ) {
@@ -50,7 +49,6 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
 
             input?.connect(to: self)
         }

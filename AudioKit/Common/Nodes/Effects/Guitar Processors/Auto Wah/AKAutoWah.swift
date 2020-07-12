@@ -4,47 +4,24 @@
 ///
 open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     public typealias AKAudioUnitType = AKAutoWahAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Wah
-    public static let wahRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Lower and upper bounds for Mix
-    public static let mixRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Initial value for Wah
-    public static let defaultWah: AUValue = 0.0
-
-    /// Initial value for Mix
-    public static let defaultMix: AUValue = 1.0
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 0.1
-
     /// Wah Amount
-    public var wah = AKNodeParameter(identifier: "wah")
+    @Parameter public var wah: AUValue
 
     /// Dry/Wet Mix
-    public var mix = AKNodeParameter(identifier: "mix")
+    @Parameter public var mix: AUValue
 
     /// Overall level
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -58,22 +35,20 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     ///
     public init(
         _ input: AKNode? = nil,
-        wah: AUValue = defaultWah,
-        mix: AUValue = defaultMix,
-        amplitude: AUValue = defaultAmplitude
+        wah: AUValue = 0.0,
+        mix: AUValue = 1.0,
+        amplitude: AUValue = 0.1
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.wah = wah
+        self.mix = mix
+        self.amplitude = amplitude
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.wah.associate(with: self.internalAU, value: wah)
-            self.mix.associate(with: self.internalAU, value: mix)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
 
             input?.connect(to: self)
         }

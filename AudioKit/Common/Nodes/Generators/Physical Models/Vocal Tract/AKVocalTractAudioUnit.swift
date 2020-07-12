@@ -8,7 +8,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Glottal frequency.",
         address: AKVocalTractParameter.frequency.rawValue,
-        range: 0.0 ... 22050.0,
+        range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
 

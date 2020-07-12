@@ -18,8 +18,8 @@ open class AKSynthKick: AKMIDIInstrument {
         }
 
         filter = AKMoogLadder(generator)
-        filter.cutoffFrequency.value = 666
-        filter.resonance.value = 0.00
+        filter.cutoffFrequency = 666
+        filter.resonance = 0.00
 
         super.init(midiInputName: midiInputName)
         avAudioUnit = filter.avAudioUnit
@@ -28,8 +28,8 @@ open class AKSynthKick: AKMIDIInstrument {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-        filter.cutoffFrequency.value = (AUValue(velocity) / 127.0 * 366.0) + 300.0
-        filter.resonance.value = 1.0 - AUValue(velocity) / 127.0
+        filter.cutoffFrequency = (AUValue(velocity) / 127.0 * 366.0) + 300.0
+        filter.resonance = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
     }
 
@@ -61,7 +61,7 @@ open class AKSynthSnare: AKMIDIInstrument {
         }
 
         filter = AKMoogLadder(generator)
-        filter.cutoffFrequency.value = AUValue(1_666)
+        filter.cutoffFrequency = AUValue(1_666)
 
         super.init()
         avAudioUnit = filter.avAudioUnit
@@ -70,12 +70,12 @@ open class AKSynthSnare: AKMIDIInstrument {
 
     internal var cutoff: Double = 1_666 {
         didSet {
-            filter.cutoffFrequency.value = AUValue(cutoff)
+            filter.cutoffFrequency = AUValue(cutoff)
         }
     }
     internal var resonance: Double = 0.3 {
         didSet {
-            filter.resonance.value = AUValue(resonance)
+            filter.resonance = AUValue(resonance)
         }
     }
 

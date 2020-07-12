@@ -8,7 +8,7 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKBandRejectButterworthFilterParameter.centerFrequency.rawValue,
-        range: AKBandRejectButterworthFilter.centerFrequencyRange,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: AKBandRejectButterworthFilterParameter.bandwidth.rawValue,
-        range: AKBandRejectButterworthFilter.bandwidthRange,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 

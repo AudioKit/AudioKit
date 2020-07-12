@@ -11,15 +11,15 @@ private:
     sp_compressor *compressor1;
     ParameterRamper ratioRamp;
     ParameterRamper thresholdRamp;
-    ParameterRamper attackTimeRamp;
-    ParameterRamper releaseTimeRamp;
+    ParameterRamper attackDurationRamp;
+    ParameterRamper releaseDurationRamp;
 
 public:
     AKDynamicRangeCompressorDSP() {
         parameters[AKDynamicRangeCompressorParameterRatio] = &ratioRamp;
         parameters[AKDynamicRangeCompressorParameterThreshold] = &thresholdRamp;
-        parameters[AKDynamicRangeCompressorParameterAttackTime] = &attackTimeRamp;
-        parameters[AKDynamicRangeCompressorParameterReleaseTime] = &releaseTimeRamp;
+        parameters[AKDynamicRangeCompressorParameterAttackDuration] = &attackDurationRamp;
+        parameters[AKDynamicRangeCompressorParameterReleaseDuration] = &releaseDurationRamp;
     }
 
     void init(int channelCount, double sampleRate) {
@@ -56,13 +56,13 @@ public:
             *compressor0->thresh = threshold;
             *compressor1->thresh = threshold;
 
-            float attackTime = attackTimeRamp.getAndStep();
-            *compressor0->atk = attackTime;
-            *compressor1->atk = attackTime;
+            float attackDuration = attackDurationRamp.getAndStep();
+            *compressor0->atk = attackDuration;
+            *compressor1->atk = attackDuration;
 
-            float releaseTime = releaseTimeRamp.getAndStep();
-            *compressor0->rel = releaseTime;
-            *compressor1->rel = releaseTime;
+            float releaseDuration = releaseDurationRamp.getAndStep();
+            *compressor0->rel = releaseDuration;
+            *compressor1->rel = releaseDuration;
 
             float *tmpin[2];
             float *tmpout[2];

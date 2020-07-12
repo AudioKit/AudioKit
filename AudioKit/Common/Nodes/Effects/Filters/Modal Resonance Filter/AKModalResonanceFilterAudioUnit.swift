@@ -8,7 +8,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
         address: AKModalResonanceFilterParameter.frequency.rawValue,
-        range: AKModalResonanceFilter.frequencyRange,
+        range: 12.0 ... 20000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         identifier: "qualityFactor",
         name: "Quality Factor",
         address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
-        range: AKModalResonanceFilter.qualityFactorRange,
+        range: 0.0 ... 100.0,
         unit: .generic,
         flags: .default)
 

@@ -8,7 +8,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         identifier: "limit",
         name: "Threshold",
         address: AKClipperParameter.limit.rawValue,
-        range: AKClipper.limitRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

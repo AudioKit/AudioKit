@@ -8,7 +8,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         identifier: "wah",
         name: "Wah Amount",
         address: AKAutoWahParameter.wah.rawValue,
-        range: AKAutoWah.wahRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         identifier: "mix",
         name: "Dry/Wet Mix",
         address: AKAutoWahParameter.mix.rawValue,
-        range: AKAutoWah.mixRange,
+        range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Overall level",
         address: AKAutoWahParameter.amplitude.rawValue,
-        range: AKAutoWah.amplitudeRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

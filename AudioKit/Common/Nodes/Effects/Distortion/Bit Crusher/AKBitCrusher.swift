@@ -4,38 +4,21 @@
 ///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Bit Depth
-    public static let bitDepthRange: ClosedRange<AUValue> = 1 ... 24
-
-    /// Lower and upper bounds for Sample Rate
-    public static let sampleRateRange: ClosedRange<AUValue> = 0.0 ... 20000.0
-
-    /// Initial value for Bit Depth
-    public static let defaultBitDepth: AUValue = 8
-
-    /// Initial value for Sample Rate
-    public static let defaultSampleRate: AUValue = 10000
-
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    public var bitDepth = AKNodeParameter(identifier: "bitDepth")
+    @Parameter public var bitDepth: AUValue
 
     /// The sample rate of signal output.
-    public var sampleRate = AKNodeParameter(identifier: "sampleRate")
+    @Parameter public var sampleRate: AUValue
 
     // MARK: - Initialization
 
@@ -48,20 +31,18 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     ///
     public init(
         _ input: AKNode? = nil,
-        bitDepth: AUValue = defaultBitDepth,
-        sampleRate: AUValue = defaultSampleRate
+        bitDepth: AUValue = 8,
+        sampleRate: AUValue = 10_000
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.bitDepth = bitDepth
+        self.sampleRate = sampleRate
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.bitDepth.associate(with: self.internalAU, value: bitDepth)
-            self.sampleRate.associate(with: self.internalAU, value: sampleRate)
 
             input?.connect(to: self)
         }

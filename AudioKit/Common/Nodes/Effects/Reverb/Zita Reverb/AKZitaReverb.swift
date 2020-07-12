@@ -44,7 +44,6 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     /// 0 = all dry, 1 = all wet
     @Parameter public var dryWetMix: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -68,10 +67,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
         crossoverFrequency: AUValue = 200.0,
         lowReleaseTime: AUValue = 3.0,
         midReleaseTime: AUValue = 2.0,
-        dampingFrequency: AUValue = 6000.0,
+        dampingFrequency: AUValue = 6_000.0,
         equalizerFrequency1: AUValue = 315.0,
         equalizerLevel1: AUValue = 0.0,
-        equalizerFrequency2: AUValue = 1500.0,
+        equalizerFrequency2: AUValue = 1_500.0,
         equalizerLevel2: AUValue = 0.0,
         dryWetMix: AUValue = 1.0
         ) {
@@ -92,7 +91,6 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
 
             input?.connect(to: self)
         }

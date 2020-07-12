@@ -5,21 +5,21 @@ public extension AKMoogLadder {
 
     /// Blurry, foggy filter
     func presetFogMoogLadder() {
-        cutoffFrequency.value = 515.578
-        resonance.value = 0.206
+        cutoffFrequency = 515.578
+        resonance = 0.206
     }
 
     /// Dull noise filter
     func presetDullNoiseMoogLadder() {
-        cutoffFrequency.value = 3_088.157
-        resonance.value = 0.075
+        cutoffFrequency = 3_088.157
+        resonance = 0.075
     }
 
     /// Print out current values in case you want to save it as a preset
     func printCurrentValuesAsPreset() {
         AKLog("public func presetSomeNewMoogLadderFilter() {")
-        AKLog("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency.value))")
-        AKLog("    resonance = \(String(format: "%0.3f", resonance.value))")
+        AKLog("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
+        AKLog("    resonance = \(String(format: "%0.3f", resonance))")
         AKLog("}\n")
     }
 

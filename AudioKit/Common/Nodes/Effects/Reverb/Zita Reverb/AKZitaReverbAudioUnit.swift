@@ -16,7 +16,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
         address: AKZitaReverbParameter.crossoverFrequency.rawValue,
-        range: 10.0 ... 1000.0,
+        range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
         address: AKZitaReverbParameter.dampingFrequency.rawValue,
-        range: 10.0 ... 22050.0,
+        range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
 
@@ -48,7 +48,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
         address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
-        range: 10.0 ... 1000.0,
+        range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -64,7 +64,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
         address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
-        range: 10.0 ... 22050.0,
+        range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
 
