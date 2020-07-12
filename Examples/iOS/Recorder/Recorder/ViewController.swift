@@ -176,9 +176,9 @@ class ViewController: UIViewController {
         resetButton.isHidden = false
         resetButton.isEnabled = true
         setSliders(active: true)
-        moogLadder.cutoffFrequency.value = frequencySlider.range.upperBound
-        frequencySlider.value = moogLadder.cutoffFrequency.value
-        resonanceSlider.value = moogLadder.resonance.value
+        moogLadder.cutoffFrequency = frequencySlider.range.upperBound
+        frequencySlider.value = moogLadder.cutoffFrequency
+        resonanceSlider.value = moogLadder.resonance
     }
 
     func setSliders(active: Bool) {
@@ -215,13 +215,13 @@ class ViewController: UIViewController {
     }
 
     func updateFrequency(value: AUValue) {
-        moogLadder.cutoffFrequency.value = value
+        moogLadder.cutoffFrequency = value
         frequencySlider.property = "Frequency"
         frequencySlider.format = "%0.0f"
     }
 
     func updateResonance(value: AUValue) {
-        moogLadder.resonance.value = value
+        moogLadder.resonance = value
         resonanceSlider.property = "Resonance"
         resonanceSlider.format = "%0.3f"
     }
