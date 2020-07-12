@@ -60,11 +60,11 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
     func testParametersSetAfterInit() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
         oscillator.rampDuration = 0.0
-        oscillator.frequency.value = 1_234
-        oscillator.amplitude.value = 0.5
-        oscillator.phaseDistortion.value = 1.234
-        oscillator.detuningOffset.value = 1.234
-        oscillator.detuningMultiplier.value = 1.1
+        oscillator.frequency = 1_234
+        oscillator.amplitude = 0.5
+        oscillator.phaseDistortion = 1.234
+        oscillator.detuningOffset = 1.234
+        oscillator.detuningMultiplier = 1.1
         output = oscillator
         AKTestMD5("2e01df8582f3357dd0886066b09eaba9")
     }
