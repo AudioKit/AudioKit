@@ -13,4 +13,11 @@ class AKWhiteNoiseTests: AKTestCase {
         output = AKWhiteNoise(amplitude: 0.5)
         AKTestMD5("18d62e4331862babc090ea8168c78d41")
     }
+
+    func testAmplitude2() {
+        let white = AKWhiteNoise()
+        white.amplitude = 0.5
+        output = white
+        AKTestMD5("18d62e4331862babc090ea8168c78d41")
+    }
 }

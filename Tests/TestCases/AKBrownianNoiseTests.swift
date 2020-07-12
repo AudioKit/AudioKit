@@ -13,4 +13,11 @@ class AKBrownianNoiseTests: AKTestCase {
         output = AKBrownianNoise(amplitude: 0.5)
         AKTestMD5("87fc12e85351b242d0086396e36f0fab")
     }
+
+    func testAmplitude2() {
+        let brown = AKBrownianNoise()
+        brown.amplitude = 0.5
+        output = brown
+        AKTestMD5("87fc12e85351b242d0086396e36f0fab")
+    }
 }

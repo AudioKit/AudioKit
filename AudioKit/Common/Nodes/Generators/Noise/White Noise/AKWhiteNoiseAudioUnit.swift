@@ -8,7 +8,7 @@ public class AKWhiteNoiseAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKWhiteNoiseParameter.amplitude.rawValue,
-        range: AKWhiteNoise.amplitudeRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

@@ -8,7 +8,7 @@ public class AKPinkNoiseAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPinkNoiseParameter.amplitude.rawValue,
-        range: AKPinkNoise.amplitudeRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

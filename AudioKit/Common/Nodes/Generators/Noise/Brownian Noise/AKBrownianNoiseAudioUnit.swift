@@ -8,7 +8,7 @@ public class AKBrownianNoiseAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKBrownianNoiseParameter.amplitude.rawValue,
-        range: AKBrownianNoise.amplitudeRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
