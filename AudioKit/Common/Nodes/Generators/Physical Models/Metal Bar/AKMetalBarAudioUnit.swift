@@ -8,7 +8,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
-        range: AKMetalBar.leftBoundaryConditionRange,
+        range: 1 ... 3,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
-        range: AKMetalBar.rightBoundaryConditionRange,
+        range: 1 ... 3,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
         address: AKMetalBarParameter.decayDuration.rawValue,
-        range: AKMetalBar.decayDurationRange,
+        range: 0 ... 10,
         unit: .hertz,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
         address: AKMetalBarParameter.scanSpeed.rawValue,
-        range: AKMetalBar.scanSpeedRange,
+        range: 0 ... 100,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "position",
         name: "Position along bar that strike occurs.",
         address: AKMetalBarParameter.position.rawValue,
-        range: AKMetalBar.positionRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -48,7 +48,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
         address: AKMetalBarParameter.strikeVelocity.rawValue,
-        range: AKMetalBar.strikeVelocityRange,
+        range: 0 ... 1000,
         unit: .generic,
         flags: .default)
 
@@ -56,7 +56,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
         address: AKMetalBarParameter.strikeWidth.rawValue,
-        range: AKMetalBar.strikeWidthRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -68,12 +68,6 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition,
-                                                                  rightBoundaryCondition,
-                                                                  decayDuration,
-                                                                  scanSpeed,
-                                                                  position,
-                                                                  strikeVelocity,
-                                                                  strikeWidth])
+        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth])
     }
 }

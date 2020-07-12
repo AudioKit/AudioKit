@@ -8,7 +8,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
-        range: AKPhaseDistortionOscillator.frequencyRange,
+        range: 0 ... 20000,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
-        range: AKPhaseDistortionOscillator.amplitudeRange,
+        range: 0 ... 10,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "phaseDistortion",
         name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
         address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
-        range: AKPhaseDistortionOscillator.phaseDistortionRange,
+        range: -1 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
-        range: AKPhaseDistortionOscillator.detuningOffsetRange,
+        range: -1000 ... 1000,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,
-        range: AKPhaseDistortionOscillator.detuningMultiplierRange,
+        range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
 
@@ -52,10 +52,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [frequency,
-                                                                  amplitude,
-                                                                  phaseDistortion,
-                                                                  detuningOffset,
-                                                                  detuningMultiplier])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude, phaseDistortion, detuningOffset, detuningMultiplier])
     }
 }

@@ -4,89 +4,36 @@
 ///
 open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Left Boundary Condition
-    public static let leftBoundaryConditionRange: ClosedRange<AUValue> = 1 ... 3
-
-    /// Lower and upper bounds for Right Boundary Condition
-    public static let rightBoundaryConditionRange: ClosedRange<AUValue> = 1 ... 3
-
-    /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange: ClosedRange<AUValue> = 0 ... 10
-
-    /// Lower and upper bounds for Scan Speed
-    public static let scanSpeedRange: ClosedRange<AUValue> = 0 ... 100
-
-    /// Lower and upper bounds for Position
-    public static let positionRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Strike Velocity
-    public static let strikeVelocityRange: ClosedRange<AUValue> = 0 ... 1_000
-
-    /// Lower and upper bounds for Strike Width
-    public static let strikeWidthRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Initial value for Left Boundary Condition
-    public static let defaultLeftBoundaryCondition: AUValue = 1
-
-    /// Initial value for Right Boundary Condition
-    public static let defaultRightBoundaryCondition: AUValue = 1
-
-    /// Initial value for Decay Duration
-    public static let defaultDecayDuration: AUValue = 3
-
-    /// Initial value for Scan Speed
-    public static let defaultScanSpeed: AUValue = 0.25
-
-    /// Initial value for Position
-    public static let defaultPosition: AUValue = 0.2
-
-    /// Initial value for Strike Velocity
-    public static let defaultStrikeVelocity: AUValue = 500
-
-    /// Initial value for Strike Width
-    public static let defaultStrikeWidth: AUValue = 0.05
-
-    /// Initial value for Stiffness
-    public static let defaultStiffness: AUValue = 3
-
-    /// Initial value for High Frequency Damping
-    public static let defaultHighFrequencyDamping: AUValue = 0.001
-
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public var leftBoundaryCondition = AKNodeParameter(identifier: "leftBoundaryCondition")
+    @Parameter public var leftBoundaryCondition: AUValue
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public var rightBoundaryCondition = AKNodeParameter(identifier: "rightBoundaryCondition")
+    @Parameter public var rightBoundaryCondition: AUValue
 
     /// 30db decay time (in seconds).
-    public var decayDuration = AKNodeParameter(identifier: "decayDuration")
+    @Parameter public var decayDuration: AUValue
 
     /// Speed of scanning the output location.
-    public var scanSpeed = AKNodeParameter(identifier: "scanSpeed")
+    @Parameter public var scanSpeed: AUValue
 
     /// Position along bar that strike occurs.
-    public var position = AKNodeParameter(identifier: "position")
+    @Parameter public var position: AUValue
 
     /// Normalized strike velocity
-    public var strikeVelocity = AKNodeParameter(identifier: "strikeVelocity")
+    @Parameter public var strikeVelocity: AUValue
 
     /// Spatial width of strike.
-    public var strikeWidth = AKNodeParameter(identifier: "strikeWidth")
+    @Parameter public var strikeWidth: AUValue
 
     // MARK: - Initialization
 
@@ -104,17 +51,25 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
-        leftBoundaryCondition: AUValue = defaultLeftBoundaryCondition,
-        rightBoundaryCondition: AUValue = defaultRightBoundaryCondition,
-        decayDuration: AUValue = defaultDecayDuration,
-        scanSpeed: AUValue = defaultScanSpeed,
-        position: AUValue = defaultPosition,
-        strikeVelocity: AUValue = defaultStrikeVelocity,
-        strikeWidth: AUValue = defaultStrikeWidth,
-        stiffness: AUValue = defaultStiffness,
-        highFrequencyDamping: AUValue = defaultHighFrequencyDamping
+        leftBoundaryCondition: AUValue = 1,
+        rightBoundaryCondition: AUValue = 1,
+        decayDuration: AUValue = 3,
+        scanSpeed: AUValue = 0.25,
+        position: AUValue = 0.2,
+        strikeVelocity: AUValue = 500,
+        strikeWidth: AUValue = 0.05,
+        stiffness: AUValue = 3,
+        highFrequencyDamping: AUValue = 0.001
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.leftBoundaryCondition = leftBoundaryCondition
+        self.rightBoundaryCondition = rightBoundaryCondition
+        self.decayDuration = decayDuration
+        self.scanSpeed = scanSpeed
+        self.position = position
+        self.strikeVelocity = strikeVelocity
+        self.strikeWidth = strikeWidth
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -122,14 +77,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.leftBoundaryCondition.associate(with: self.internalAU, value: leftBoundaryCondition)
-            self.rightBoundaryCondition.associate(with: self.internalAU, value: rightBoundaryCondition)
-            self.decayDuration.associate(with: self.internalAU, value: decayDuration)
-            self.scanSpeed.associate(with: self.internalAU, value: scanSpeed)
-            self.position.associate(with: self.internalAU, value: position)
-            self.strikeVelocity.associate(with: self.internalAU, value: strikeVelocity)
-            self.strikeWidth.associate(with: self.internalAU, value: strikeWidth)
         }
 
     }
