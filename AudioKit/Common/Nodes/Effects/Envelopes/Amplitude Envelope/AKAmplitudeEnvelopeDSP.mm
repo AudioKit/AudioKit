@@ -3,11 +3,10 @@
 #include "AKAmplitudeEnvelopeDSP.hpp"
 #include "ParameterRamper.hpp"
 
-extern "C" AKDSPRef createAmplitudeEnvelopeDSP() {
-    return new AKAmplitudeEnvelopeDSP();
-}
+#import "AKSoundpipeDSPBase.hpp"
 
-struct AKAmplitudeEnvelopeDSP::InternalData {
+class AKAmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
+private:
     sp_adsr *adsr;
     float internalGate = 0;
     float amp = 0;
@@ -15,58 +14,64 @@ struct AKAmplitudeEnvelopeDSP::InternalData {
     ParameterRamper decayDurationRamp;
     ParameterRamper sustainLevelRamp;
     ParameterRamper releaseDurationRamp;
-};
 
-AKAmplitudeEnvelopeDSP::AKAmplitudeEnvelopeDSP() : data(new InternalData) {
-    parameters[AKAmplitudeEnvelopeParameterAttackDuration] = &data->attackDurationRamp;
-    parameters[AKAmplitudeEnvelopeParameterDecayDuration] = &data->decayDurationRamp;
-    parameters[AKAmplitudeEnvelopeParameterSustainLevel] = &data->sustainLevelRamp;
-    parameters[AKAmplitudeEnvelopeParameterReleaseDuration] = &data->releaseDurationRamp;
-}
+public:
+    AKAmplitudeEnvelopeDSP() {
+        parameters[AKAmplitudeEnvelopeParameterAttackDuration] = &attackDurationRamp;
+        parameters[AKAmplitudeEnvelopeParameterDecayDuration] = &decayDurationRamp;
+        parameters[AKAmplitudeEnvelopeParameterSustainLevel] = &sustainLevelRamp;
+        parameters[AKAmplitudeEnvelopeParameterReleaseDuration] = &releaseDurationRamp;
+    }
 
-void AKAmplitudeEnvelopeDSP::init(int channelCount, double sampleRate) {
-    AKSoundpipeDSPBase::init(channelCount, sampleRate);
-    sp_adsr_create(&data->adsr);
-    sp_adsr_init(sp, data->adsr);
-}
+    void init(int channelCount, double sampleRate) {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_adsr_create(&adsr);
+        sp_adsr_init(sp, adsr);
+    }
 
-void AKAmplitudeEnvelopeDSP::deinit() {
-    AKSoundpipeDSPBase::deinit();
-    sp_adsr_destroy(&data->adsr);
-}
+    void deinit() {
+        AKSoundpipeDSPBase::deinit();
+        sp_adsr_destroy(&adsr);
+    }
 
-void AKAmplitudeEnvelopeDSP::reset() {
-    AKSoundpipeDSPBase::reset();
-    if (!isInitialized) return;
-    sp_adsr_init(sp, data->adsr);
-}
+    void reset() {
+        AKSoundpipeDSPBase::reset();
+        if (!isInitialized) return;
+        sp_adsr_init(sp, adsr);
+    }
 
-void AKAmplitudeEnvelopeDSP::start() {
-    AKSoundpipeDSPBase::start();
-    data->internalGate = 1;
-}
+    void start() {
+        AKSoundpipeDSPBase::start();
+        internalGate = 1;
+    }
 
-void AKAmplitudeEnvelopeDSP::stop() {
-    AKSoundpipeDSPBase::stop();
-    data->internalGate = 0;
-}
+    void stop() {
+        AKSoundpipeDSPBase::stop();
+        internalGate = 0;
+    }
 
-void AKAmplitudeEnvelopeDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-        data->adsr->atk = data->attackDurationRamp.getAndStep();
-        data->adsr->dec = data->decayDurationRamp.getAndStep();
-        data->adsr->sus = data->sustainLevelRamp.getAndStep();
-        data->adsr->rel = data->releaseDurationRamp.getAndStep();
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
 
-        sp_adsr_compute(sp, data->adsr, &data->internalGate, &data->amp);
+            adsr->atk = attackDurationRamp.getAndStep();
+            adsr->dec = decayDurationRamp.getAndStep();
+            adsr->sus = sustainLevelRamp.getAndStep();
+            adsr->rel = releaseDurationRamp.getAndStep();
 
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-            *out = *in * data->amp;
+            sp_adsr_compute(sp, adsr, &internalGate, &amp);
+
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                *out = *in * amp;
+            }
         }
     }
+};
+
+extern "C" AKDSPRef createAmplitudeEnvelopeDSP() {
+    return new AKAmplitudeEnvelopeDSP();
 }

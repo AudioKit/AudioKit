@@ -15,29 +15,4 @@ typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
 
 AKDSPRef createAmplitudeEnvelopeDSP(void);
 
-#else
-
-#import "AKSoundpipeDSPBase.hpp"
-
-class AKAmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
- 
-public:
-    AKAmplitudeEnvelopeDSP();
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void reset() override;
-
-    void start() override;
-
-    void stop() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
 #endif

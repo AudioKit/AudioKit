@@ -8,7 +8,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         identifier: "attackDuration",
         name: "Attack time",
         address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
-        range: AKAmplitudeEnvelope.attackDurationRange,
+        range: 0 ... 99,
         unit: .seconds,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         identifier: "decayDuration",
         name: "Decay time",
         address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
-        range: AKAmplitudeEnvelope.decayDurationRange,
+        range: 0 ... 99,
         unit: .seconds,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         identifier: "sustainLevel",
         name: "Sustain Level",
         address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
-        range: AKAmplitudeEnvelope.sustainLevelRange,
+        range: 0 ... 99,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         identifier: "releaseDuration",
         name: "Release time",
         address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
-        range: AKAmplitudeEnvelope.releaseDurationRange,
+        range: 0 ... 99,
         unit: .seconds,
         flags: .default)
 
