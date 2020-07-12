@@ -8,7 +8,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         identifier: "feedback",
         name: "Feedback",
         address: AKCostelloReverbParameter.feedback.rawValue,
-        range: AKCostelloReverb.feedbackRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
         address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
-        range: AKCostelloReverb.cutoffFrequencyRange,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 

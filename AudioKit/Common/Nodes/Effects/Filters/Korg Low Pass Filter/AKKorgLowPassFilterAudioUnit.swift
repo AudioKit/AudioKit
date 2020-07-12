@@ -8,7 +8,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
         address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
-        range: AKKorgLowPassFilter.cutoffFrequencyRange,
+        range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
         address: AKKorgLowPassFilterParameter.resonance.rawValue,
-        range: AKKorgLowPassFilter.resonanceRange,
+        range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         identifier: "saturation",
         name: "Filter saturation.",
         address: AKKorgLowPassFilterParameter.saturation.rawValue,
-        range: AKKorgLowPassFilter.saturationRange,
+        range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
 

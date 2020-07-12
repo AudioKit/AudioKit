@@ -8,7 +8,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         identifier: "time",
         name: "Delay time (Seconds)",
         address: AKVariableDelayParameter.time.rawValue,
-        range: 0...10,
+        range: 0 ... 10,
         unit: .seconds,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         identifier: "feedback",
         name: "Feedback (%)",
         address: AKVariableDelayParameter.feedback.rawValue,
-        range: 0...1,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 

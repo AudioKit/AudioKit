@@ -4,36 +4,23 @@
 ///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Initial value for Time
-    public static let defaultTime: AUValue = 0
-
-    /// Initial value for Feedback
-    public static let defaultFeedback: AUValue = 0
-
-    /// Initial value for Maximum Delay Time
-    public static let defaultMaximumDelayTime: AUValue = 5
-
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    public var time = AKNodeParameter(identifier: "time")
+    @Parameter public var time: AUValue
 
     /// Feedback amount. Should be a value between 0-1.
-    public var feedback = AKNodeParameter(identifier: "feedback")
+    @Parameter public var feedback: AUValue
 
+    
     // MARK: - Initialization
 
     /// Initialize this delay node
@@ -46,12 +33,13 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     ///
     public init(
         _ input: AKNode? = nil,
-        time: AUValue = defaultTime,
-        feedback: AUValue = defaultFeedback,
-        maximumDelayTime: AUValue = defaultMaximumDelayTime
+        time: AUValue = 0,
+        feedback: AUValue = 0,
+        maximumDelayTime: AUValue = 5
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.time = time
+        self.feedback = feedback
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
@@ -59,8 +47,6 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            self.time.associate(with: self.internalAU, value: time)
-            self.feedback.associate(with: self.internalAU, value: feedback)
 
             input?.connect(to: self)
         }
