@@ -94,7 +94,7 @@ public struct AKMIDIFileChunkEvent {
         } else if let command = event as? AKMIDISystemCommand {
             if let standardLength = command.length {
                 return standardLength
-            } else if command == .sysex {
+            } else if command == .sysEx {
                 return Int(data[timeLength + 1])
             } else {
                 return data.count

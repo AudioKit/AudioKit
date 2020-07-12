@@ -1,5 +1,5 @@
 //
-//  MIDISysexMessage.swift
+//  MIDISysExMessage.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper on 7/9/20.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-public struct MIDISysexMessage: AKMIDIMessage {
+public struct MIDISysExMessage: AKMIDIMessage {
     public let data: [UInt8]
     public let length: Int
     public var description: String {
-        return "MIDI Sysex message \(length) bytes long"
+        return "MIDI SysEx message \(length) bytes long"
     }
 
     public init?(bytes: [UInt8]) {

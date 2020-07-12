@@ -64,13 +64,13 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                                                  timeOffset: accumulatedDeltaTime)
                     processedBytes += metaEvent.data.count
                     runningStatus = nil
-                } else if let sysexEvent = MIDISysexMessage(bytes: subData) {
-                    let sysexData = sysexEvent.data
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysexData,
+                } else if let sysExEvent = MIDISysExMessage(bytes: subData) {
+                    let sysExData = sysExEvent.data
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysExData,
                                                  timeFormat: timeFormat,
                                                  timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
-                    processedBytes += sysexEvent.data.count
+                    processedBytes += sysExEvent.data.count
                     runningStatus = nil
                 } else if let status = AKMIDIStatus(byte: byte) {
                     let messageLength = status.length
