@@ -29,8 +29,4 @@ extension AKAudioFile {
 
         return try AKAudioFile(forReading: silentFile.url)
     }
-
-    public static func findPeak(pcmBuffer: AVAudioPCMBuffer) -> Double {
-        return pcmBuffer.peakTime()
-    }
 }
