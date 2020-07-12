@@ -22,10 +22,10 @@ extension AVAudioPCMBuffer {
             return 0
         }
 
-        let count = Int(min(min(frames == 0 ? buffer.frameLength : frames, remainingCapacity),
-                            buffer.frameLength - readOffset))
+        let totalFrames = Int(min(min(frames == 0 ? buffer.frameLength : frames, remainingCapacity),
+                                  buffer.frameLength - readOffset))
 
-        if count <= 0 {
+        if totalFrames <= 0 {
             AKLog("AVAudioBuffer copy(from) - No frames to copy!")
             return 0
         }
@@ -34,23 +34,23 @@ extension AVAudioPCMBuffer {
         if let src = buffer.floatChannelData,
             let dst = floatChannelData {
             for channel in 0 ..< Int(format.channelCount) {
-                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
+                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int16ChannelData,
             let dst = int16ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
-                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
+                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int32ChannelData,
             let dst = int32ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
-                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
+                memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else {
             return 0
         }
-        frameLength += AVAudioFrameCount(count)
-        return AVAudioFrameCount(count)
+        frameLength += AVAudioFrameCount(totalFrames)
+        return AVAudioFrameCount(totalFrames)
     }
 
     /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.

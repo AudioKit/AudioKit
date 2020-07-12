@@ -9,14 +9,6 @@ extension AVAudioPCMBuffer {
         public var amplitude: Float = 1
     }
 
-    /// - Returns: The time in seconds of the peak of the buffer or 0 if it failed
-    open func peakTime() -> Double {
-        if let time = peak()?.time {
-            return time
-        }
-        return 0
-    }
-
     /// - Returns: A Peak struct containing the time, frame position and peak amplitude
     open func peak() -> Peak? {
         guard frameLength > 0 else { return nil }
