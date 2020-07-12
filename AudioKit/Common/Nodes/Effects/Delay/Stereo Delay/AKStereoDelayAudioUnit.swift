@@ -8,7 +8,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
        identifier: "time",
        name: "Delay time (Seconds)",
        address: AKStereoDelayParameter.time.rawValue,
-       range: AKStereoDelay.timeRange,
+       range: 0.0 ... 2.0,
        unit: .seconds,
        flags: .default)
 
@@ -16,7 +16,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
        identifier: "feedback",
        name: "Feedback (%)",
        address: AKStereoDelayParameter.feedback.rawValue,
-       range: AKStereoDelay.feedbackRange,
+       range: 0.0 ... 1.0,
        unit: .generic,
        flags: .default)
 
@@ -24,7 +24,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
        address: AKStereoDelayParameter.dryWetMix.rawValue,
-       range: AKStereoDelay.dryWetMixRange,
+       range: 0.0 ... 1.0,
        unit: .generic,
        flags: .default)
 

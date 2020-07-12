@@ -4,50 +4,27 @@
 ///
 open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
     public typealias AKAudioUnitType = AKStereoDelayAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Time
-    public static let timeRange: ClosedRange<AUValue> = 0.0 ... 2.0
-
-    /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Lower and upper bounds for Dry/wet mix
-    public static let dryWetMixRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Initial value for Time
-    public static let defaultTime: AUValue = 0.0
-
-    /// Initial value for Feedback
-    public static let defaultFeedback: AUValue = 0.0
-
-    /// Initial default value for Dry/wet mix
-    public static let defaultDryWetMix: AUValue = 0.5
-
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    public var time = AKNodeParameter(identifier: "time")
+    @Parameter public var time: AUValue
 
     /// Feedback amount. Should be a value between 0-1.
-    public var feedback = AKNodeParameter(identifier: "feedback")
+    @Parameter public var feedback: AUValue
 
     /// Dry/wet mix. Should be a value between 0-1.
-    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    @Parameter public var dryWetMix: AUValue
 
     /// Ping-pong mode: true or false (stereo mode)
-    public var pingPong = AKNodeParameter(identifier: "pingPong")
+    @Parameter public var pingPong: AUValue
 
     // MARK: - Initialization
 
@@ -63,13 +40,18 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomata
     ///
     public init(
         _ input: AKNode? = nil,
-        maximumDelayTime: AUValue = AKStereoDelay.timeRange.upperBound,
-        time: AUValue = defaultTime,
-        feedback: AUValue = defaultFeedback,
-        dryWetMix: AUValue = defaultDryWetMix,
+        maximumDelayTime: AUValue = 2.0,
+        time: AUValue = 0,
+        feedback: AUValue = 0,
+        dryWetMix: AUValue = 0.5,
         pingPong: Bool = false
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.time = time
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
+        self.pingPong = pingPong ? 1.0 : 0.0
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -77,11 +59,6 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomata
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.time.associate(with: self.internalAU, value: time)
-            self.feedback.associate(with: self.internalAU, value: feedback)
-            self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
-            self.pingPong.associate(with: self.internalAU, value: pingPong)
 
             input?.connect(to: self)
         }
