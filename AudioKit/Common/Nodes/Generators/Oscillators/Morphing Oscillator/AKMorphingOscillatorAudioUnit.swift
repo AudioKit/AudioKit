@@ -8,7 +8,7 @@ public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Frequency (in Hz)",
         address: AKMorphingOscillatorParameter.frequency.rawValue,
-        range: AKMorphingOscillator.frequencyRange,
+        range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
         address: AKMorphingOscillatorParameter.amplitude.rawValue,
-        range: AKMorphingOscillator.amplitudeRange,
+        range: 0.0 ... 1.0,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: AKMorphingOscillatorParameter.index.rawValue,
-        range: AKMorphingOscillator.indexRange,
+        range: 0.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
-        range: AKMorphingOscillator.detuningOffsetRange,
+        range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKMorphingOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
-        range: AKMorphingOscillator.detuningMultiplierRange,
+        range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
 
