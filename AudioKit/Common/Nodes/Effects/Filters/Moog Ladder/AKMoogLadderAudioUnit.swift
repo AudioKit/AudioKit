@@ -8,7 +8,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: AKMoogLadderParameter.cutoffFrequency.rawValue,
-        range: 12.0 ... 20000.0,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 

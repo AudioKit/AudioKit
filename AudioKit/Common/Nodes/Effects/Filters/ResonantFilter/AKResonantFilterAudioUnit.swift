@@ -8,7 +8,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Center frequency of the filter, or frequency position of the peak response.",
         address: AKResonantFilterParameter.frequency.rawValue,
-        range: AKResonantFilter.frequencyRange,
+        range: 100.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         identifier: "bandwidth",
         name: "Bandwidth of the filter.",
         address: AKResonantFilterParameter.bandwidth.rawValue,
-        range: AKResonantFilter.bandwidthRange,
+        range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
 

@@ -8,7 +8,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKEqualizerFilterParameter.centerFrequency.rawValue,
-        range: AKEqualizerFilter.centerFrequencyRange,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: AKEqualizerFilterParameter.bandwidth.rawValue,
-        range: AKEqualizerFilter.bandwidthRange,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
         identifier: "gain",
         name: "Gain (%)",
         address: AKEqualizerFilterParameter.gain.rawValue,
-        range: AKEqualizerFilter.gainRange,
+        range: -100.0 ... 100.0,
         unit: .percent,
         flags: .default)
 
