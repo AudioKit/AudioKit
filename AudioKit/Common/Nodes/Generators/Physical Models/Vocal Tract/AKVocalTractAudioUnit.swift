@@ -8,7 +8,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Glottal frequency.",
         address: AKVocalTractParameter.frequency.rawValue,
-        range: AKVocalTract.frequencyRange,
+        range: 0.0 ... 22050.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "tonguePosition",
         name: "Tongue position (0-1)",
         address: AKVocalTractParameter.tonguePosition.rawValue,
-        range: AKVocalTract.tonguePositionRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "tongueDiameter",
         name: "Tongue diameter (0-1)",
         address: AKVocalTractParameter.tongueDiameter.rawValue,
-        range: AKVocalTract.tongueDiameterRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "tenseness",
         name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
         address: AKVocalTractParameter.tenseness.rawValue,
-        range: AKVocalTract.tensenessRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKVocalTractAudioUnit: AKAudioUnitBase {
         identifier: "nasality",
         name: "Sets the velum size. Larger values of this creates more nasally sounds.",
         address: AKVocalTractParameter.nasality.rawValue,
-        range: AKVocalTract.nasalityRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
