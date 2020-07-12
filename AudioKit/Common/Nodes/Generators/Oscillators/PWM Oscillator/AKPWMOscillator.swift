@@ -8,65 +8,30 @@
 ///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
 
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - AKAutomatable
-
     public var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0.0 ... 20_000.0
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0.0 ... 10.0
-
-    /// Lower and upper bounds for Pulse Width
-    public static let pulseWidthRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange: ClosedRange<AUValue> = -1_000.0 ... 1_000.0
-
-    /// Lower and upper bounds for Detuning Multiplier
-    public static let detuningMultiplierRange: ClosedRange<AUValue> = 0.9 ... 1.11
-
-    /// Initial value for Frequency
-    public static let defaultFrequency: AUValue = 440.0
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 1.0
-
-    /// Initial value for Pulse Width
-    public static let defaultPulseWidth: AUValue = 0.5
-
-    /// Initial value for Detuning Offset
-    public static let defaultDetuningOffset: AUValue = 0.0
-
-    /// Initial value for Detuning Multiplier
-    public static let defaultDetuningMultiplier: AUValue = 1.0
 
     /// Frequency in cycles per second
-    public var frequency = AKNodeParameter(identifier: "frequency")
+    @Parameter public var frequency: AUValue
 
     /// Output Amplitude.
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     /// Duty Cycle Width 0 - 1
-    public var pulseWidth = AKNodeParameter(identifier: "pulseWidth")
+    @Parameter public var pulseWidth: AUValue
 
     /// Frequency offset in Hz.
-    public var detuningOffset = AKNodeParameter(identifier: "detuningOffset")
+    @Parameter public var detuningOffset: AUValue
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier = AKNodeParameter(identifier: "detuningMultiplier")
+    @Parameter public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
@@ -80,13 +45,19 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: AUValue = defaultFrequency,
-        amplitude: AUValue = defaultAmplitude,
-        pulseWidth: AUValue = defaultPulseWidth,
-        detuningOffset: AUValue = defaultDetuningOffset,
-        detuningMultiplier: AUValue = defaultDetuningMultiplier
+        frequency: AUValue = 440,
+        amplitude: AUValue = 1,
+        pulseWidth: AUValue = 0.5,
+        detuningOffset: AUValue = 0,
+        detuningMultiplier: AUValue = 1
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.pulseWidth = pulseWidth
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -94,12 +65,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.frequency.associate(with: self.internalAU, value: frequency)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
-            self.pulseWidth.associate(with: self.internalAU, value: pulseWidth)
-            self.detuningOffset.associate(with: self.internalAU, value: detuningOffset)
-            self.detuningMultiplier.associate(with: self.internalAU, value: detuningMultiplier)
         }
     }
 }

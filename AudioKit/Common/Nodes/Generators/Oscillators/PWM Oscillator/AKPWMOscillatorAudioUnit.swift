@@ -8,7 +8,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKPWMOscillatorParameter.frequency.rawValue,
-        range: AKPWMOscillator.frequencyRange,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPWMOscillatorParameter.amplitude.rawValue,
-        range: AKPWMOscillator.amplitudeRange,
+        range: 0.0 ... 10.0,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "pulseWidth",
         name: "Pulse Width",
         address: AKPWMOscillatorParameter.pulseWidth.rawValue,
-        range: AKPWMOscillator.pulseWidthRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKPWMOscillatorParameter.detuningOffset.rawValue,
-        range: AKPWMOscillator.detuningOffsetRange,
+        range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKPWMOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
-        range: AKPWMOscillator.detuningMultiplierRange,
+        range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
 
