@@ -13,4 +13,11 @@ class AKPinkNoiseTests: AKTestCase {
         output = AKPinkNoise(amplitude: 0.5)
         AKTestMD5("a30e01dd9169d41be4d0ae5c5896e0bd")
     }
+
+    func testAmplitude2() {
+        let pink = AKPinkNoise()
+        pink.amplitude = 0.5
+        output = pink
+        AKTestMD5("a30e01dd9169d41be4d0ae5c5896e0bd")
+    }
 }
