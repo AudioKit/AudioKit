@@ -27,7 +27,7 @@ class Conductor {
         mixer = AKMixer(arpeggioSynthesizer, padSynthesizer, bassSynthesizer, drumKit)
 
         filter = AKMoogLadder(mixer)
-        filter?.cutoffFrequency.value = 20_000
+        filter?.cutoffFrequency = 20_000
         AKManager.output = filter
 
         do {
@@ -69,7 +69,7 @@ class Conductor {
     }
 
     func adjustFilterFrequency(_ frequency: Float) {
-        filter?.cutoffFrequency.value = frequency.denormalized(to: 30 ... 20_000, taper: 3)
+        filter?.cutoffFrequency = frequency.denormalized(to: 30 ... 20_000, taper: 3)
     }
 
     func playSequence() {
