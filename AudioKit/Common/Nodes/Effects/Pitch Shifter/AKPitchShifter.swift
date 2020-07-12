@@ -4,47 +4,24 @@
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Shift
-    public static let shiftRange: ClosedRange<AUValue> = -24.0 ... 24.0
-
-    /// Lower and upper bounds for Window Size
-    public static let windowSizeRange: ClosedRange<AUValue> = 0.0 ... 10_000.0
-
-    /// Lower and upper bounds for Crossfade
-    public static let crossfadeRange: ClosedRange<AUValue> = 0.0 ... 10_000.0
-
-    /// Initial value for Shift
-    public static let defaultShift: AUValue = 0
-
-    /// Initial value for Window Size
-    public static let defaultWindowSize: AUValue = 1_024
-
-    /// Initial value for Crossfade
-    public static let defaultCrossfade: AUValue = 512
-
     /// Pitch shift (in semitones)
-    public var shift = AKNodeParameter(identifier: "shift")
+    @Parameter public var shift: AUValue
 
     /// Window size (in samples)
-    public var windowSize = AKNodeParameter(identifier: "windowSize")
+    @Parameter public var windowSize: AUValue
 
     /// Crossfade (in samples)
-    public var crossfade = AKNodeParameter(identifier: "crossfade")
+    @Parameter public var crossfade: AUValue
 
     // MARK: - Initialization
 
@@ -58,22 +35,20 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     ///
     public init(
         _ input: AKNode? = nil,
-        shift: AUValue = defaultShift,
-        windowSize: AUValue = defaultWindowSize,
-        crossfade: AUValue = defaultCrossfade
+        shift: AUValue = 0,
+        windowSize: AUValue = 1_024,
+        crossfade: AUValue = 512
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.shift = shift
+        self.windowSize = windowSize
+        self.crossfade = crossfade
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.shift.associate(with: self.internalAU, value: shift)
-            self.windowSize.associate(with: self.internalAU, value: windowSize)
-            self.crossfade.associate(with: self.internalAU, value: crossfade)
 
             input?.connect(to: self)
         }

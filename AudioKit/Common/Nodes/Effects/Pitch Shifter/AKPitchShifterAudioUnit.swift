@@ -8,7 +8,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         identifier: "shift",
         name: "Pitch shift (in semitones)",
         address: AKPitchShifterParameter.shift.rawValue,
-        range: AKPitchShifter.shiftRange,
+        range: -24.0 ... 24.0,
         unit: .relativeSemiTones,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         identifier: "windowSize",
         name: "Window size (in samples)",
         address: AKPitchShifterParameter.windowSize.rawValue,
-        range: AKPitchShifter.windowSizeRange,
+        range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         identifier: "crossfade",
         name: "Crossfade (in samples)",
         address: AKPitchShifterParameter.crossfade.rawValue,
-        range: AKPitchShifter.crossfadeRange,
+        range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
 

@@ -68,6 +68,12 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth])
+        parameterTree = AUParameterTree.createTree(withChildren: [leftBoundaryCondition,
+                                                                  rightBoundaryCondition,
+                                                                  decayDuration,
+                                                                  scanSpeed,
+                                                                  position,
+                                                                  strikeVelocity,
+                                                                  strikeWidth])
     }
 }
