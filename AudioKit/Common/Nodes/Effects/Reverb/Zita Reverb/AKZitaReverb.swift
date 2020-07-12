@@ -4,111 +4,47 @@
 ///
 open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
     public typealias AKAudioUnitType = AKZitaReverbAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Predelay
-    public static let predelayRange: ClosedRange<AUValue> = 0.0 ... 200.0
-
-    /// Lower and upper bounds for Crossover Frequency
-    public static let crossoverFrequencyRange: ClosedRange<AUValue> = 10.0 ... 1_000.0
-
-    /// Lower and upper bounds for Low Release Time
-    public static let lowReleaseTimeRange: ClosedRange<AUValue> = 0.0 ... 10.0
-
-    /// Lower and upper bounds for Mid Release Time
-    public static let midReleaseTimeRange: ClosedRange<AUValue> = 0.0 ... 10.0
-
-    /// Lower and upper bounds for Damping Frequency
-    public static let dampingFrequencyRange: ClosedRange<AUValue> = 10.0 ... 22_050.0
-
-    /// Lower and upper bounds for Equalizer Frequency1
-    public static let equalizerFrequency1Range: ClosedRange<AUValue> = 10.0 ... 1_000.0
-
-    /// Lower and upper bounds for Equalizer Level1
-    public static let equalizerLevel1Range: ClosedRange<AUValue> = -100.0 ... 10.0
-
-    /// Lower and upper bounds for Equalizer Frequency2
-    public static let equalizerFrequency2Range: ClosedRange<AUValue> = 10.0 ... 22_050.0
-
-    /// Lower and upper bounds for Equalizer Level2
-    public static let equalizerLevel2Range: ClosedRange<AUValue> = -100.0 ... 10.0
-
-    /// Lower and upper bounds for Dry Wet Mix
-    public static let dryWetMixRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Initial value for Predelay
-    public static let defaultPredelay: AUValue = 60.0
-
-    /// Initial value for Crossover Frequency
-    public static let defaultCrossoverFrequency: AUValue = 200.0
-
-    /// Initial value for Low Release Time
-    public static let defaultLowReleaseTime: AUValue = 3.0
-
-    /// Initial value for Mid Release Time
-    public static let defaultMidReleaseTime: AUValue = 2.0
-
-    /// Initial value for Damping Frequency
-    public static let defaultDampingFrequency: AUValue = 6_000.0
-
-    /// Initial value for Equalizer Frequency1
-    public static let defaultEqualizerFrequency1: AUValue = 315.0
-
-    /// Initial value for Equalizer Level1
-    public static let defaultEqualizerLevel1: AUValue = 0.0
-
-    /// Initial value for Equalizer Frequency2
-    public static let defaultEqualizerFrequency2: AUValue = 1_500.0
-
-    /// Initial value for Equalizer Level2
-    public static let defaultEqualizerLevel2: AUValue = 0.0
-
-    /// Initial value for Dry Wet Mix
-    public static let defaultDryWetMix: AUValue = 1.0
-
     /// Delay in ms before reverberation begins.
-    public var predelay = AKNodeParameter(identifier: "predelay")
+    @Parameter public var predelay: AUValue
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    public var crossoverFrequency = AKNodeParameter(identifier: "crossoverFrequency")
+    @Parameter public var crossoverFrequency: AUValue
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    public var lowReleaseTime = AKNodeParameter(identifier: "lowReleaseTime")
+    @Parameter public var lowReleaseTime: AUValue
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    public var midReleaseTime = AKNodeParameter(identifier: "midReleaseTime")
+    @Parameter public var midReleaseTime: AUValue
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    public var dampingFrequency = AKNodeParameter(identifier: "dampingFrequency")
+    @Parameter public var dampingFrequency: AUValue
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    public var equalizerFrequency1 = AKNodeParameter(identifier: "equalizerFrequency1")
+    @Parameter public var equalizerFrequency1: AUValue
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    public var equalizerLevel1 = AKNodeParameter(identifier: "equalizerLevel1")
+    @Parameter public var equalizerLevel1: AUValue
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    public var equalizerFrequency2 = AKNodeParameter(identifier: "equalizerFrequency2")
+    @Parameter public var equalizerFrequency2: AUValue
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    public var equalizerLevel2 = AKNodeParameter(identifier: "equalizerLevel2")
+    @Parameter public var equalizerLevel2: AUValue
 
     /// 0 = all dry, 1 = all wet
-    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    @Parameter public var dryWetMix: AUValue
 
+    
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -128,19 +64,28 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     ///
     public init(
         _ input: AKNode? = nil,
-        predelay: AUValue = defaultPredelay,
-        crossoverFrequency: AUValue = defaultCrossoverFrequency,
-        lowReleaseTime: AUValue = defaultLowReleaseTime,
-        midReleaseTime: AUValue = defaultMidReleaseTime,
-        dampingFrequency: AUValue = defaultDampingFrequency,
-        equalizerFrequency1: AUValue = defaultEqualizerFrequency1,
-        equalizerLevel1: AUValue = defaultEqualizerLevel1,
-        equalizerFrequency2: AUValue = defaultEqualizerFrequency2,
-        equalizerLevel2: AUValue = defaultEqualizerLevel2,
-        dryWetMix: AUValue = defaultDryWetMix
+        predelay: AUValue = 60.0,
+        crossoverFrequency: AUValue = 200.0,
+        lowReleaseTime: AUValue = 3.0,
+        midReleaseTime: AUValue = 2.0,
+        dampingFrequency: AUValue = 6000.0,
+        equalizerFrequency1: AUValue = 315.0,
+        equalizerLevel1: AUValue = 0.0,
+        equalizerFrequency2: AUValue = 1500.0,
+        equalizerLevel2: AUValue = 0.0,
+        dryWetMix: AUValue = 1.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.predelay = predelay
+        self.crossoverFrequency = crossoverFrequency
+        self.lowReleaseTime = lowReleaseTime
+        self.midReleaseTime = midReleaseTime
+        self.dampingFrequency = dampingFrequency
+        self.equalizerFrequency1 = equalizerFrequency1
+        self.equalizerLevel1 = equalizerLevel1
+        self.equalizerFrequency2 = equalizerFrequency2
+        self.equalizerLevel2 = equalizerLevel2
+        self.dryWetMix = dryWetMix
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
@@ -148,16 +93,6 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            self.predelay.associate(with: self.internalAU, value: predelay)
-            self.crossoverFrequency.associate(with: self.internalAU, value: crossoverFrequency)
-            self.lowReleaseTime.associate(with: self.internalAU, value: lowReleaseTime)
-            self.midReleaseTime.associate(with: self.internalAU, value: midReleaseTime)
-            self.dampingFrequency.associate(with: self.internalAU, value: dampingFrequency)
-            self.equalizerFrequency1.associate(with: self.internalAU, value: equalizerFrequency1)
-            self.equalizerLevel1.associate(with: self.internalAU, value: equalizerLevel1)
-            self.equalizerFrequency2.associate(with: self.internalAU, value: equalizerFrequency2)
-            self.equalizerLevel2.associate(with: self.internalAU, value: equalizerLevel2)
-            self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
 
             input?.connect(to: self)
         }

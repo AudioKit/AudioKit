@@ -8,7 +8,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "predelay",
         name: "Delay in ms before reverberation begins.",
         address: AKZitaReverbParameter.predelay.rawValue,
-        range: AKZitaReverb.predelayRange,
+        range: 0.0 ... 200.0,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
         address: AKZitaReverbParameter.crossoverFrequency.rawValue,
-        range: AKZitaReverb.crossoverFrequencyRange,
+        range: 10.0 ... 1000.0,
         unit: .hertz,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "lowReleaseTime",
         name: "Time (in seconds) to decay 60db in low-frequency band.",
         address: AKZitaReverbParameter.lowReleaseTime.rawValue,
-        range: AKZitaReverb.lowReleaseTimeRange,
+        range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "midReleaseTime",
         name: "Time (in seconds) to decay 60db in mid-frequency band.",
         address: AKZitaReverbParameter.midReleaseTime.rawValue,
-        range: AKZitaReverb.midReleaseTimeRange,
+        range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
         address: AKZitaReverbParameter.dampingFrequency.rawValue,
-        range: AKZitaReverb.dampingFrequencyRange,
+        range: 10.0 ... 22050.0,
         unit: .hertz,
         flags: .default)
 
@@ -48,7 +48,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
         address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
-        range: AKZitaReverb.equalizerFrequency1Range,
+        range: 10.0 ... 1000.0,
         unit: .hertz,
         flags: .default)
 
@@ -56,7 +56,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerLevel1",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
         address: AKZitaReverbParameter.equalizerLevel1.rawValue,
-        range: AKZitaReverb.equalizerLevel1Range,
+        range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -64,7 +64,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
         address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
-        range: AKZitaReverb.equalizerFrequency2Range,
+        range: 10.0 ... 22050.0,
         unit: .hertz,
         flags: .default)
 
@@ -72,7 +72,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "equalizerLevel2",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
         address: AKZitaReverbParameter.equalizerLevel2.rawValue,
-        range: AKZitaReverb.equalizerLevel2Range,
+        range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
 
@@ -80,7 +80,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         identifier: "dryWetMix",
         name: "0 = all dry, 1 = all wet",
         address: AKZitaReverbParameter.dryWetMix.rawValue,
-        range: AKZitaReverb.dryWetMixRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
