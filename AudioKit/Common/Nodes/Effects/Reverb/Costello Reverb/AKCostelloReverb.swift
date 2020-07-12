@@ -22,7 +22,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     /// Low-pass cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -37,7 +36,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     public init(
         _ input: AKNode? = nil,
         feedback: AUValue = 0.6,
-        cutoffFrequency: AUValue = 4000.0
+        cutoffFrequency: AUValue = 4_000.0
         ) {
         super.init(avAudioNode: AVAudioNode())
         self.feedback = feedback
@@ -48,7 +47,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
 
             input?.connect(to: self)
         }

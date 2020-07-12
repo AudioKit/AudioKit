@@ -8,7 +8,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         identifier: "bitDepth",
         name: "Bit Depth",
         address: AKBitCrusherParameter.bitDepth.rawValue,
-        range: AKBitCrusher.bitDepthRange,
+        range: 1 ... 24,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
         address: AKBitCrusherParameter.sampleRate.rawValue,
-        range: AKBitCrusher.sampleRateRange,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 

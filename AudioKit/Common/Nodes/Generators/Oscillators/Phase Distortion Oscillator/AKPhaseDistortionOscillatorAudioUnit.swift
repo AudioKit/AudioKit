@@ -8,7 +8,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
-        range: 0 ... 20000,
+        range: 0 ... 20_000,
         unit: .hertz,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKAudioUnitBase {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
-        range: -1000 ... 1000,
+        range: -1_000 ... 1_000,
         unit: .hertz,
         flags: .default)
 

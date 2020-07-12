@@ -17,7 +17,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 

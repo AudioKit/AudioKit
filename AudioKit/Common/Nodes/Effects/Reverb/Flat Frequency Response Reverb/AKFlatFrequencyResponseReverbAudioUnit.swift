@@ -8,7 +8,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
-        range: AKFlatFrequencyResponseReverb.reverbDurationRange,
+        range: 0 ... 10,
         unit: .seconds,
         flags: .default)
 

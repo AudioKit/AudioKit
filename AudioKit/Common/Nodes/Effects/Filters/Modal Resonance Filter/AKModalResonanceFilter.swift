@@ -6,38 +6,21 @@
 ///
 open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
     public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
-
-    /// Lower and upper bounds for Quality Factor
-    public static let qualityFactorRange: ClosedRange<AUValue> = 0.0 ... 100.0
-
-    /// Initial value for Frequency
-    public static let defaultFrequency: AUValue = 500.0
-
-    /// Initial value for Quality Factor
-    public static let defaultQualityFactor: AUValue = 50.0
-
     /// Resonant frequency of the filter.
-    public var frequency = AKNodeParameter(identifier: "frequency")
+    @Parameter public var frequency: AUValue
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    public var qualityFactor = AKNodeParameter(identifier: "qualityFactor")
+    @Parameter public var qualityFactor: AUValue
 
     // MARK: - Initialization
 
@@ -50,20 +33,18 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, A
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: AUValue = defaultFrequency,
-        qualityFactor: AUValue = defaultQualityFactor
+        frequency: AUValue = 500.0,
+        qualityFactor: AUValue = 50.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.frequency = frequency
+        self.qualityFactor = qualityFactor
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.frequency.associate(with: self.internalAU, value: frequency)
-            self.qualityFactor.associate(with: self.internalAU, value: qualityFactor)
 
             input?.connect(to: self)
         }

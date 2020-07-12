@@ -8,39 +8,21 @@
 ///
 open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     public typealias AKAudioUnitType = AKMoogLadderAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange: ClosedRange<AUValue> = 12.0 ... 20_000.0
-
-    /// Lower and upper bounds for Resonance
-    public static let resonanceRange: ClosedRange<AUValue> = 0.0 ... 2.0
-
-    /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency: AUValue = 1_000
-
-    /// Initial value for Resonance
-    public static let defaultResonance: AUValue = 0.5
-
     /// Filter cutoff frequency.
-    public var cutoffFrequency = AKNodeParameter(identifier: "cutoffFrequency")
+    @Parameter public var cutoffFrequency: AUValue
 
-    /// Resonance, generally < 1, but not limited to it.
-    /// Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    public var resonance = AKNodeParameter(identifier: "resonance")
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    @Parameter public var resonance: AUValue
 
     // MARK: - Initialization
 
@@ -49,26 +31,22 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it.
-    ///     Higher than 1 resonance values might cause aliasing,
-    ///     analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: AUValue = defaultCutoffFrequency,
-        resonance: AUValue = defaultResonance
+        cutoffFrequency: AUValue = 1_000,
+        resonance: AUValue = 0.5
         ) {
         super.init(avAudioNode: AVAudioNode())
-
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.cutoffFrequency.associate(with: self.internalAU, value: cutoffFrequency)
-            self.resonance.associate(with: self.internalAU, value: resonance)
 
             input?.connect(to: self)
         }

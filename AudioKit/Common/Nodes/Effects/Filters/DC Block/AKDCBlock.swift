@@ -5,16 +5,11 @@
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     public typealias AKAudioUnitType = AKDCBlockAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - Parameters
 
     // MARK: - Initialization
 
@@ -27,7 +22,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil
         ) {
         super.init(avAudioNode: AVAudioNode())
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit

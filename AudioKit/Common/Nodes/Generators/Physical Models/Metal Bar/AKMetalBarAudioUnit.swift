@@ -48,7 +48,7 @@ public class AKMetalBarAudioUnit: AKAudioUnitBase {
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
         address: AKMetalBarParameter.strikeVelocity.rawValue,
-        range: 0 ... 1000,
+        range: 0 ... 1_000,
         unit: .generic,
         flags: .default)
 
