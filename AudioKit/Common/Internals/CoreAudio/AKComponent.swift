@@ -27,13 +27,6 @@ public protocol AKComponent: AUComponent {
 
 extension AKComponent {
     /// Register the audio unit subclass
-    public static func register() {
-        AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
-                                     as: Self.ComponentDescription,
-                                     name: "Local \(Self.self)",
-                                     version: .max)
-    }
-
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
                                      as: Self.ComponentDescription,
