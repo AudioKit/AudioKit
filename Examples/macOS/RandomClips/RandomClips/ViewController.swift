@@ -21,9 +21,9 @@ class ViewController: NSViewController {
             let drumURL = Bundle.main.url(forResource: "drumloop", withExtension: "wav"),
             let guitarURL = Bundle.main.url(forResource: "leadloop", withExtension: "wav"),
             let guitarLoopURL = Bundle.main.url(forResource: "guitarloop", withExtension: "wav"),
-            let drumFile = try? AKAudioFile(forReading: drumURL),
-            let guitarFile = try? AKAudioFile(forReading: guitarURL),
-            let guitarLoopFile = try? AKAudioFile(forReading: guitarLoopURL)
+            let drumFile = try? AVAudioFile(forReading: drumURL),
+            let guitarFile = try? AVAudioFile(forReading: guitarURL),
+            let guitarLoopFile = try? AVAudioFile(forReading: guitarLoopURL)
 
             else {
                 AKLog("missing resources!")
@@ -85,7 +85,7 @@ class ViewController: NSViewController {
         let guitarChops = 16
         let loops = 100
 
-        func randomChopClips(audioFile: AKAudioFile, chops: Int, count: Int) -> [AKFileClip] {
+        func randomChopClips(audioFile: AVAudioFile, chops: Int, count: Int) -> [AKFileClip] {
             let duration = audioFile.duration / Double(chops)
             let randomOffset: () -> Double = {
                 let btwn0andChop = arc4random_uniform(UInt32(chops))
