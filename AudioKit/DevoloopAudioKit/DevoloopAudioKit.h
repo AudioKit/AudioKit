@@ -8,5 +8,6 @@ FOUNDATION_EXPORT double DevoloopAudioKitVersionNumber;
 //! Project version string for DevoloopAudioKit.
 FOUNDATION_EXPORT const unsigned char DevoloopAudioKitVersionString[];
 
+#import <AudioKit/AKInterop.hpp>
 #import "AKDynaRageCompressorDSP.hpp"
 #import "AKRhinoGuitarProcessorDSP.hpp"

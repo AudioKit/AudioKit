@@ -107,7 +107,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
             let systemCommand = packet.systemCommand
             let length = systemCommand?.length
             if systemCommand == .sysEx {
-                data = [] //reset internalData
+                data = [] // reset internal data
 
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {

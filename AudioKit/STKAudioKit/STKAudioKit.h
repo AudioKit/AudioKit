@@ -8,6 +8,7 @@ FOUNDATION_EXPORT double STKAudioKitVersionNumber;
 //! Project version string for STKAudioKit.
 FOUNDATION_EXPORT const unsigned char STKAudioKitVersionString[];
 
+#import <AudioKit/AKInterop.hpp>
 #import "AKClarinetDSP.hpp"
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
