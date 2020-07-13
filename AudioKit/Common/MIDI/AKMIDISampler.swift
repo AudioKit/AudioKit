@@ -37,11 +37,14 @@ open class AKMIDISampler: AKAppleSampler {
                          name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                let event = AKMIDIEvent(packet: e)
-                do {
-                    try self.handle(event: event)
-                } catch let exception {
-                    AKLog("Exception handling MIDI event: \(exception)", log: OSLog.midi, type: .error)
+                e.forEach { (event) in
+                    if event.length == 3 {
+                        do {
+                            try self.handle(event: event)
+                        } catch let exception {
+                            AKLog("Exception handling MIDI event: \(exception)", log: OSLog.midi, type: .error)
+                        }
+                    }
                 }
             }
         })
