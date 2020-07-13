@@ -240,7 +240,7 @@ public class AKPlayer: AKAbstractPlayer {
             self.init(audioFile: avfile, reopenFile: false)
             return
         } catch {
-            AKLog("ERROR loading \(url.path) \(error)")
+            AKLog("ERROR loading \(url.path) \(error)", log: .fileHandling, type: .error)
         }
         return nil
     }
@@ -265,7 +265,7 @@ public class AKPlayer: AKAbstractPlayer {
                 "A mixer is being placed in line. " +
                 "File.processingFormat: \(processingFormat) AKSettings.audioFormat: \(AKSettings.audioFormat)"
 
-            AKLog(error)
+            AKLog(error, log: .fileHandling, type: .error)
 
             let strongMixer = AVAudioMixerNode()
             mixerNode = strongMixer
@@ -316,7 +316,7 @@ public class AKPlayer: AKAbstractPlayer {
     // see AKDynamicPlayer
     internal func connectNodes() {
         guard let processingFormat = processingFormat else {
-            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
+            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.", log: .fileHandling, type: .error)
             return
         }
 

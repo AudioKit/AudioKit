@@ -23,7 +23,7 @@ extension AKAudioFile {
         return fileSampler
     }
 
-    /// Create an AKAudioPlayer to play the current AKAudioFile
+    /// Create an AKPlayer to play the current AKAudioFile
     public var player: AKPlayer {
         return AKPlayer(audioFile: self)
     }

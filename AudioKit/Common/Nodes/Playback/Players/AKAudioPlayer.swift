@@ -100,6 +100,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// return the peak time in the currently loaded buffer
+    open lazy var peakTime: Double = {
+        audioFileBuffer?.peak()?.time ?? 0
+    }()
+
     /// Whether or not the audio player is currently started
     @objc open dynamic var isStarted: Bool {
         return internalPlayer.isPlaying
@@ -445,12 +450,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         self.startTime = startTime
         scheduledAVTime = avTime
-    }
-
-    /// return the peak time in the currently loaded buffer
-    open func getPeakTime() -> Double {
-        guard let buffer = audioFileBuffer else { return 0 }
-        return AKAudioFile.findPeak(pcmBuffer: buffer)
     }
 
     // MARK: - Static Methods
