@@ -9,11 +9,11 @@
 #include <utility>
 #include <mutex>
 
-class AKParameterAutomation
+class AKParameterAutomationHelper
 {
 public:
 
-    AKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock);
+    AKParameterAutomationHelper(AUScheduleParameterBlock scheduleParameterBlock);
 
     AURenderObserver renderObserverBlock();
 
@@ -115,67 +115,67 @@ private:
 extern "C"
 {
 void* createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock) {
-    return new AKParameterAutomation(scheduleParameterBlock);
+    return new AKParameterAutomationHelper(scheduleParameterBlock);
 }
 
 void deleteAKParameterAutomation(void* automation) {
-    delete static_cast<AKParameterAutomation*>(automation);
+    delete static_cast<AKParameterAutomationHelper*>(automation);
 }
 
 AURenderObserver getAKParameterAutomationRenderObserverBlock(void* automation) {
-    return static_cast<AKParameterAutomation*>(automation)->renderObserverBlock();
+    return static_cast<AKParameterAutomationHelper*>(automation)->renderObserverBlock();
 }
 
 AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(void* automation) {
-    return static_cast<AKParameterAutomation*>(automation)->automationObserverBlock();
+    return static_cast<AKParameterAutomationHelper*>(automation)->automationObserverBlock();
 }
 
 void playAKParameterAutomation(void* automation, const AVAudioTime* startTime, double rate) {
-    static_cast<AKParameterAutomation*>(automation)->play(startTime, rate);
+    static_cast<AKParameterAutomationHelper*>(automation)->play(startTime, rate);
 }
 
 void stopAKParameterAutomation(void* automation) {
-    static_cast<AKParameterAutomation*>(automation)->stop();
+    static_cast<AKParameterAutomationHelper*>(automation)->stop();
 }
 
 void setAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address, bool enabled) {
-    if (enabled) static_cast<AKParameterAutomation*>(automation)->enableRecording(address);
-    else         static_cast<AKParameterAutomation*>(automation)->disableRecording(address);
+    if (enabled) static_cast<AKParameterAutomationHelper*>(automation)->enableRecording(address);
+    else         static_cast<AKParameterAutomationHelper*>(automation)->disableRecording(address);
 }
 
 bool getAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address) {
-    return static_cast<AKParameterAutomation*>(automation)->isRecordingEnabled(address);
+    return static_cast<AKParameterAutomationHelper*>(automation)->isRecordingEnabled(address);
 }
 
 size_t getAKParameterAutomationPoints(void* automation, AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) {
-    return static_cast<AKParameterAutomation*>(automation)->getPoints(address, points, capacity);
+    return static_cast<AKParameterAutomationHelper*>(automation)->getPoints(address, points, capacity);
 }
 
 void addAKParameterAutomationPoints(void* automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
-    return static_cast<AKParameterAutomation*>(automation)->addPoints(address, points, count);
+    return static_cast<AKParameterAutomationHelper*>(automation)->addPoints(address, points, count);
 }
 
 void setAKParameterAutomationPoints(void* automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
-    return static_cast<AKParameterAutomation*>(automation)->setPoints(address, points, count);
+    return static_cast<AKParameterAutomationHelper*>(automation)->setPoints(address, points, count);
 }
 
 void clearAKParameterAutomationRange(void* automation, AUParameterAddress address, double startTime, double endTime) {
-    static_cast<AKParameterAutomation*>(automation)->clearRange(address, startTime, endTime);
+    static_cast<AKParameterAutomationHelper*>(automation)->clearRange(address, startTime, endTime);
 }
 
 void clearAKParameterAutomationPoints(void* automation, AUParameterAddress address) {
-    static_cast<AKParameterAutomation*>(automation)->clearAllPoints(address);
+    static_cast<AKParameterAutomationHelper*>(automation)->clearAllPoints(address);
 }
 }
 
-AKParameterAutomation::AKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock)
+AKParameterAutomationHelper::AKParameterAutomationHelper(AUScheduleParameterBlock scheduleParameterBlock)
 : scheduleParameterBlock(scheduleParameterBlock)
 , isPlaying(false)
 , wasReset(false)
 {
 }
 
-void AKParameterAutomation::scheduleAutomationPoint(AUEventSampleTime blockTime,
+void AKParameterAutomationHelper::scheduleAutomationPoint(AUEventSampleTime blockTime,
                                                     AUParameterAddress address,
                                                     const AKParameterAutomationPoint& point,
                                                     AUAudioFrameCount rampOffset)
@@ -199,7 +199,7 @@ void AKParameterAutomation::scheduleAutomationPoint(AUEventSampleTime blockTime,
     scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampDuration, address, point.targetValue);
 }
 
-AURenderObserver AKParameterAutomation::renderObserverBlock()
+AURenderObserver AKParameterAutomationHelper::renderObserverBlock()
 {
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
@@ -262,13 +262,13 @@ AURenderObserver AKParameterAutomation::renderObserverBlock()
     };
 }
 
-bool AKParameterAutomation::isActivelyRecording(AUParameterAddress address)
+bool AKParameterAutomationHelper::isActivelyRecording(AUParameterAddress address)
 {
     auto& parameter = parameters[address];
     return !parameter.recordedSegments.empty() && parameter.recordedSegments.back().inProgress;
 }
 
-double AKParameterAutomation::getSequenceTime(uint64_t hostTime)
+double AKParameterAutomationHelper::getSequenceTime(uint64_t hostTime)
 {
     struct mach_timebase_info timebase;
     mach_timebase_info(&timebase);
@@ -277,7 +277,7 @@ double AKParameterAutomation::getSequenceTime(uint64_t hostTime)
     return ticks / freq;
 }
 
-AUParameterAutomationObserver AKParameterAutomation::automationObserverBlock()
+AUParameterAutomationObserver AKParameterAutomationHelper::automationObserverBlock()
 {
     return ^void(NSInteger numberEvents, const AUParameterAutomationEvent *events) {
         if (!isPlaying) return;
@@ -323,7 +323,7 @@ AUParameterAutomationObserver AKParameterAutomation::automationObserverBlock()
     };
 }
 
-void AKParameterAutomation::play(const AVAudioTime* startTime, double rate)
+void AKParameterAutomationHelper::play(const AVAudioTime* startTime, double rate)
 {
     stop();
 
@@ -341,7 +341,7 @@ void AKParameterAutomation::play(const AVAudioTime* startTime, double rate)
     wasReset = true;
 }
 
-void AKParameterAutomation::stop()
+void AKParameterAutomationHelper::stop()
 {
     std::lock_guard<std::mutex> lock(mutex);
     if (!isPlaying) return; isPlaying = false;
@@ -363,13 +363,13 @@ void AKParameterAutomation::stop()
     reconcileRecordedSegments();
 }
 
-void AKParameterAutomation::enableRecording(AUParameterAddress address)
+void AKParameterAutomationHelper::enableRecording(AUParameterAddress address)
 {
     std::lock_guard<std::mutex> lock(recordingMutex);
     parameters[address].recordingEnabled = true;
 }
 
-void AKParameterAutomation::disableRecording(AUParameterAddress address)
+void AKParameterAutomationHelper::disableRecording(AUParameterAddress address)
 {
     std::lock_guard<std::mutex> lock(recordingMutex);
     auto& parameter = parameters[address];
@@ -387,13 +387,13 @@ void AKParameterAutomation::disableRecording(AUParameterAddress address)
     }
 }
 
-bool AKParameterAutomation::isRecordingEnabled(AUParameterAddress address) const
+bool AKParameterAutomationHelper::isRecordingEnabled(AUParameterAddress address) const
 {
     auto parametersIter = parameters.find(address);
     return parametersIter != parameters.cend() ? parametersIter->second.recordingEnabled : false;
 }
 
-void AKParameterAutomation::reconcileRecordedSegments()
+void AKParameterAutomationHelper::reconcileRecordedSegments()
 {
     for (auto& parameter : parameters) {
         ParameterData& data = parameter.second;
@@ -426,7 +426,7 @@ void AKParameterAutomation::reconcileRecordedSegments()
     wasReset = true;
 }
 
-size_t AKParameterAutomation::getPoints(AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) const
+size_t AKParameterAutomationHelper::getPoints(AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) const
 {
     auto parametersIter = parameters.find(address);
     if (parametersIter == parameters.cend()) return 0;
@@ -442,7 +442,7 @@ size_t AKParameterAutomation::getPoints(AUParameterAddress address, AKParameterA
     }
 }
 
-void AKParameterAutomation::addPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count)
+void AKParameterAutomationHelper::addPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count)
 {
     std::lock_guard<std::mutex> lock(mutex);
     auto& parameter = parameters[address];
@@ -453,7 +453,7 @@ void AKParameterAutomation::addPoints(AUParameterAddress address, const AKParame
     wasReset = true;
 }
 
-void AKParameterAutomation::setPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count)
+void AKParameterAutomationHelper::setPoints(AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count)
 {
     std::lock_guard<std::mutex> lock(mutex);
     auto& parameter = parameters[address];
@@ -464,7 +464,7 @@ void AKParameterAutomation::setPoints(AUParameterAddress address, const AKParame
     wasReset = true;
 }
 
-void AKParameterAutomation::clearRange(AUParameterAddress address, double startTime, double endTime)
+void AKParameterAutomationHelper::clearRange(AUParameterAddress address, double startTime, double endTime)
 {
     std::lock_guard<std::mutex> lock(mutex);
     auto& parameter = parameters[address];
@@ -475,7 +475,7 @@ void AKParameterAutomation::clearRange(AUParameterAddress address, double startT
     wasReset = true;
 }
 
-void AKParameterAutomation::clearAllPoints(AUParameterAddress address)
+void AKParameterAutomationHelper::clearAllPoints(AUParameterAddress address)
 {
     std::lock_guard<std::mutex> lock(mutex);
     auto& parameter = parameters[address];
