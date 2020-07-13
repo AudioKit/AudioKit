@@ -7,7 +7,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
@@ -41,7 +41,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKAudioPlayer,
+    public convenience init(player: AKPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(width: 440, height: 60)) {
         self.init(frame: frame)
@@ -82,17 +82,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player.stop()
             let filename = titles[currentIndex]
+            if let url = Bundle.main.resourceURL?.appendingPathComponent(filename) {
+                do {
+                    try player.load(url: url)
+                } catch {
+                    AKLog("Error replacing file")
+                }
+            }
 
-            // RF: I'm not sure what this logic here is for, but I don't want to support the baseDir concept
-//            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
-//                AKLog("Unable to load file: \(filename)")
-//                return
-//            }
-//            do {
-//                try player.replace(file: file)
-//            } catch {
-//                AKLog("Could not replace file")
-//            }
             if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
