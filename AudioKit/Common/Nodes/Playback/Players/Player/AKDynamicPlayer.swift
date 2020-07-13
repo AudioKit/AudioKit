@@ -79,7 +79,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     internal override func connectNodes() {
         guard let processingFormat = processingFormat else {
-            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.")
+            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.", log: .fileHandling, type: .error)
             return
         }
 

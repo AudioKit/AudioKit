@@ -158,9 +158,7 @@ extension AKPlayer {
         // Provides a convenience for a quick fade out when a user presses stop.
         // Only do this if it's realtime playback, as Timers aren't running
         // anyway offline.
-        if time > 0 && renderingMode == .realtime {
-            AKLog("starting stopEnvelopeTime fade of \(time)")
-
+        if time > 0, renderingMode == .realtime {
             // stop after an auto fade out
             super.fadeOut(with: time)
             stopEnvelopeTimer?.invalidate()
@@ -263,7 +261,8 @@ extension AKPlayer {
 
         let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
-            AKLog("Unable to schedule file. totalFrames to play: \(totalFrames). audioFile.length: \(audioFile.length)")
+            AKLog("Unable to schedule file. totalFrames to play: \(totalFrames). audioFile.length: \(audioFile.length)",
+                  log: .fileHandling, type: .error)
             return
         }
 
