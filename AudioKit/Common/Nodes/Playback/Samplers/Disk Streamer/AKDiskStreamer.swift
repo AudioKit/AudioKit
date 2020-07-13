@@ -121,20 +121,14 @@ open class AKDiskStreamer: AKNode, AKComponent {
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU?.completionHandler = completionHandler
-            strongSelf.internalAU?.loadCompletionHandler = loadCompletionHandler
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU?.completionHandler = completionHandler
+            self.internalAU?.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {

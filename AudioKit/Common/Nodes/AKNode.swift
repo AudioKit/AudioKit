@@ -19,7 +19,7 @@ open class AKNode: NSObject {
                 let mirror = Mirror(reflecting: self)
 
                 for child in mirror.children {
-                    if let param = child.value as? Parameter, let label = child.label {
+                    if let param = child.value as? ParameterBase, let label = child.label {
                         // Property wrappers create a variable with an underscore
                         // prepended. Drop the underscore to look up the parameter.
                         let name = String(label.dropFirst())
@@ -64,111 +64,8 @@ open class AKNode: NSObject {
 }
 
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
-public class AKNodeParameter {
-
-    private var dsp: AKDSPRef?
-
-    private var parameter: AUParameter?
-
-    // MARK: Parameter properties
-
-    public private(set) var identifier: String
-
-    public var value: AUValue = 0 {
-        didSet {
-            guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-            value = (min...max).clamp(value)
-            if value == oldValue { return }
-            parameter?.value = value
-        }
-    }
-
-    public var boolValue: Bool {
-        get { value > 0.5 }
-        set { value = newValue ? 1.0 : 0.0 }
-    }
-
-    public var minValue: AUValue {
-        parameter?.minValue ?? 0
-    }
-
-    public var maxValue: AUValue {
-        parameter?.maxValue ?? 1
-    }
-
-    public var range: ClosedRange<AUValue> {
-        (parameter?.minValue ?? 0) ... (parameter?.maxValue ?? 1)
-    }
-
-    public var rampDuration: Float = Float(AKSettings.rampDuration) {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampDurationDSP(dsp, addr, rampDuration)
-        }
-    }
-
-    public var rampTaper: Float = 1 {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampTaperDSP(dsp, addr, rampTaper)
-        }
-    }
-
-    public var rampSkew: Float = 0 {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampSkewDSP(dsp, addr, rampSkew)
-        }
-    }
-
-    // MARK: Lifecycle
-
-    public init(identifier: String, value: AUValue = 0) {
-        self.identifier = identifier
-        self.value = value
-    }
-
-    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase?, value: AUValue? = nil) {
-        dsp = au?.dsp
-        parameter = au?.parameterTree?[identifier]
-
-        guard let dsp = dsp, let addr = parameter?.address else { return }
-        setParameterRampDurationDSP(dsp, addr, rampDuration)
-        setParameterRampTaperDSP(dsp, addr, rampTaper)
-        setParameterRampSkewDSP(dsp, addr, rampSkew)
-
-        let value = value ?? self.value
-        // set initial value (and ensure initial value is set)
-        self.value = value
-        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-        parameter?.value = (min...max).clamp(value)
-    }
-
-    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase?, value: Bool) {
-        associate(with: au, value: value ? 1.0 : 0.0)
-    }
-
-    /// Sends a .touch event to the parameter automation observer, beginning automation recording if
-    /// enabled in AKParameterAutomation.
-    /// A value may be passed as the initial automation value. The current value is used if none is passed.
-    public func beginTouch(value: AUValue? = nil) {
-        guard let value = value ?? parameter?.value else { return }
-        parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .touch)
-    }
-
-    /// Sends a .release event to the parameter observation observer, ending any automation recording.
-    /// A value may be passed as the final automation value. The current value is used if none is passed.
-    public func endTouch(value: AUValue? = nil) {
-        guard let value = value ?? parameter?.value else { return }
-        parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .release)
-    }
-}
-
-/// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
-public class AKNodeParameter2 {
+public class AKNodeParameter {
 
     private var dsp: AKDSPRef?
 
@@ -256,6 +153,32 @@ public class AKNodeParameter2 {
     }
 }
 
+/// Base protocol for any type supported by @Parameter
+public protocol AKNodeParameterType {
+    func toAUValue() -> AUValue
+    init(_ value: AUValue)
+}
+
+extension Bool: AKNodeParameterType {
+    public func toAUValue() -> AUValue {
+        self ? 1.0 : 0.0
+    }
+    public init(_ value: AUValue) {
+        self = value > 0.5
+    }
+}
+
+extension AUValue: AKNodeParameterType {
+    public func toAUValue() -> AUValue {
+        self
+    }
+}
+
+/// Used internally so we can iterate over parameters using reflection.
+private protocol ParameterBase {
+    var projectedValue: AKNodeParameter { get }
+}
+
 /// Wraps AKNodeParameter so we can easily assign values to it.
 ///
 /// Instead of`osc.frequency.value = 440`, we have `osc.frequency = 440`
@@ -265,22 +188,26 @@ public class AKNodeParameter2 {
 ///
 /// When writing an AKNode, use:
 /// ```
-/// @Parameter("myParameterName") var myParameterName: AUValue
+/// @Parameter var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
 @propertyWrapper
-public struct Parameter {
+public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
 
-    var param = AKNodeParameter2()
+    var param = AKNodeParameter()
 
     public init() { }
 
-    public var wrappedValue: AUValue {
-        get { param.value }
-        set { param.value = newValue }
+    public init(wrappedValue: Value) {
+        param.value = wrappedValue.toAUValue()
     }
 
-    public var projectedValue: AKNodeParameter2 {
+    public var wrappedValue: Value {
+        get { Value(param.value) }
+        set { param.value = newValue.toAUValue() }
+    }
+
+    public var projectedValue: AKNodeParameter {
         get { param }
         set { param = newValue }
     }

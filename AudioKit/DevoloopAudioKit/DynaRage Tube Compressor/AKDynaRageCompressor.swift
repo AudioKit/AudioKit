@@ -7,38 +7,33 @@ import AudioKit
 ///
 open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 
     public typealias AKAudioUnitType = AKDynaRageCompressorAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
     /// Ratio to compress with, a value > 1 will compress
-    public var ratio = AKNodeParameter(identifier: "ratio")
+    @Parameter public var ratio: AUValue
 
     /// Threshold (in dB) 0 = max
-    public var threshold = AKNodeParameter(identifier: "threshold")
+    @Parameter public var threshold: AUValue
 
     /// Attack dration
-    public var attackDuration = AKNodeParameter(identifier: "attackDuration")
+    @Parameter public var attackDuration: AUValue
 
     /// Release duration
-    public var releaseDuration = AKNodeParameter(identifier: "releaseDuration")
+    @Parameter public var releaseDuration: AUValue
 
     /// Rage Amount
-    public var rage = AKNodeParameter(identifier: "rage")
+    @Parameter public var rage: AUValue
 
     /// Rage ON/OFF Switch
-    public var rageIsOn = AKNodeParameter(identifier: "rageIsOn")
+    @Parameter public var rageIsOn: Bool
 
     // MARK: - Initialization
 
@@ -61,21 +56,19 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
         rageIsOn: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
+        self.ratio = ratio
+        self.threshold = threshold
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
+        self.rage = rage
+        self.rageIsOn = rageIsOn
 
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.ratio.associate(with: self.internalAU, value: ratio)
-            self.threshold.associate(with: self.internalAU, value: threshold)
-            self.attackDuration.associate(with: self.internalAU, value: attackDuration)
-            self.releaseDuration.associate(with: self.internalAU, value: releaseDuration)
-            self.rage.associate(with: self.internalAU, value: rage)
-            self.rageIsOn.associate(with: self.internalAU, value: rageIsOn)
 
             input?.connect(to: self)
         }

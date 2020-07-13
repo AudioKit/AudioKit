@@ -53,7 +53,7 @@ public struct EndpointInfo: Hashable, Codable {
                 manufacturer: String,
                 image: String,
                 driverOwner: String,
-                midiUniqueID:  MIDIUniqueID,
+                midiUniqueID: MIDIUniqueID,
                 midiEndpointRef: MIDIEndpointRef,
                 midiPortRef: MIDIPortRef? = nil ) {
         self.name = name

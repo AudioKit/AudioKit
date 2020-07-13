@@ -41,7 +41,6 @@ extension CGRect {
 
 /// Helper function to convert codes for Audio Units
 /// - parameter string: Four character string to convert
-///
 public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
     precondition(utf8.count == 4, "Must be a 4 character string")
@@ -54,9 +53,7 @@ public func fourCC(_ string: String) -> UInt32 {
 }
 
 /// Random AUValue(float) in range
-///
 /// - parameter in: Range of randomization
-///
 public func random(in range: ClosedRange<AUValue>) -> AUValue {
     let precision = 1_000_000
     let width = range.upperBound - range.lowerBound
@@ -94,9 +91,7 @@ extension AUValue {
 /// Extension to Int to calculate frequency from a MIDI Note Number
 extension Int {
     /// Calculate frequency from a MIDI Note Number
-    ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
-    ///
     public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
         return AUValue(self).midiNoteToFrequency(aRef)
     }
@@ -105,9 +100,7 @@ extension Int {
 /// Extension to Int to calculate frequency from a MIDI Note Number
 extension UInt8 {
     /// Calculate frequency from a MIDI Note Number
-    ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
-    ///
     public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
         return AUValue(self).midiNoteToFrequency(aRef)
     }
@@ -116,9 +109,7 @@ extension UInt8 {
 /// Extension to get the frequency from a MIDI Note Number
 extension AUValue {
     /// Calculate frequency from a floating point MIDI Note Number
-    ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
-    ///
     public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {
         return pow(2.0, (self - 69.0) / 12.0) * aRef
     }
@@ -126,9 +117,7 @@ extension AUValue {
 
 extension Int {
     /// Calculate MIDI Note Number from a frequency in Hz
-    ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
-    ///
     public func frequencyToMIDINote(_ aRef: AUValue = 440.0) -> AUValue {
         return AUValue(self).frequencyToMIDINote(aRef)
     }
@@ -137,9 +126,7 @@ extension Int {
 /// Extension to get the frequency from a MIDI Note Number
 extension AUValue {
     /// Calculate MIDI Note Number from a frequency in Hz
-    ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
-    ///
     public func frequencyToMIDINote(_ aRef: AUValue = 440.0) -> AUValue {
         return 69 + 12 * log2(self / aRef)
     }
@@ -147,10 +134,7 @@ extension AUValue {
 
 extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
     /// Initialize array with zeros, ~10x faster than append for array of size 4096
-    ///
     /// - parameter count: Number of elements in the array
-    ///
-
     public init(zeros count: Int) {
         self.init(repeating: 0, count: count)
     }
@@ -158,9 +142,7 @@ extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntege
 
 extension ClosedRange {
     /// Clamp value to the range
-    ///
     /// - parameter value: Value to clamp
-    ///
     public func clamp(_ value: Bound) -> Bound {
         return Swift.min(Swift.max(value, lowerBound), upperBound)
     }
@@ -216,18 +198,6 @@ internal struct AUWrapper {
     }
 }
 
-/// Adding instantiation with component and callback
-public extension AVAudioUnit {
-    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
-        AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
-            avAudioUnit.map {
-                AKManager.engine.attach($0)
-                callback($0)
-            }
-        }
-    }
-}
-
 extension AVAudioNode {
     func inputConnections() -> [AVAudioConnectionPoint] {
         return (0 ..< numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
@@ -249,15 +219,6 @@ public extension AUParameter {
                   max: range.upperBound,
                   unit: unit,
                   flags: flags)
-    }
-}
-
-/// Adding instantiate with callback
-extension AudioComponentDescription {
-    func instantiate(callback: @escaping (AVAudioUnit) -> Void) {
-        AVAudioUnit._instantiate(with: self) {
-            callback($0)
-        }
     }
 }
 

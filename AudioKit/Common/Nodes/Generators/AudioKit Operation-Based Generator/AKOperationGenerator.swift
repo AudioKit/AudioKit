@@ -92,18 +92,16 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         self.sporth = sporth
         self.customUgens = customUgens
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
 
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            for ugen in self?.customUgens ?? [] {
-                self?.internalAU?.add(ugen)
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            for ugen in self.customUgens {
+                self.internalAU?.add(ugen)
             }
-            self?.internalAU?.setSporth(sporth)
+            self.internalAU?.setSporth(sporth)
         }
     }
 
