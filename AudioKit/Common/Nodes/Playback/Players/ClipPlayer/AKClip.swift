@@ -37,14 +37,14 @@ extension AKClip {
 
 /// A file based AKClip
 @objc public protocol FileClip: AKClip {
-    var audioFile: AKAudioFile { get }
+    var audioFile: AVAudioFile { get }
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
 open class AKFileClip: NSObject, FileClip {
 
     /// The audio file that will be read.
-    open var audioFile: AKAudioFile
+    open var audioFile: AVAudioFile
 
     /// The time in the timeline that the clip should begin playing.
     open var time: Double
@@ -63,7 +63,7 @@ open class AKFileClip: NSObject, FileClip {
     ///   - offset: The offset into the clip's audio (where to start playing from within the clip).
     ///   - duration: The duration of playback.
     ///
-    @objc public init(audioFile: AKAudioFile,
+    @objc public init(audioFile: AVAudioFile,
                       time: Double = 0,
                       offset: Double = 0,
                       duration: Double = 0) {
@@ -78,7 +78,7 @@ open class AKFileClip: NSObject, FileClip {
     public convenience init?(url: URL) {
         guard FileManager.default.fileExists(atPath: url.path) else { return nil }
         do {
-            let audioFile = try AKAudioFile(forReading: url)
+            let audioFile = try AVAudioFile(forReading: url)
             self.init(audioFile: audioFile)
             return
         } catch {

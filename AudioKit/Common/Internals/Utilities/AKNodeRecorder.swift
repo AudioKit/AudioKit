@@ -28,7 +28,7 @@ open class AKNodeRecorder: NSObject {
     open var recordFormat: AVAudioFormat?
 
     // The file to record to
-    private var internalAudioFile: AKAudioFile
+    private var internalAudioFile: AVAudioFile
 
     /// The bus to install the recording tap on. Default is 0.
     private var bus: Int = 0
@@ -36,10 +36,10 @@ open class AKNodeRecorder: NSObject {
     /// Used for fixing recordings being truncated
     private var recordBufferDuration: Double = 16_384 / AKSettings.sampleRate
 
-    /// return the AKAudioFile for reading
-    open var audioFile: AKAudioFile? {
+    /// return the AVAudioFile for reading
+    open var audioFile: AVAudioFile? {
         do {
-            return try AKAudioFile(forReading: internalAudioFile.url)
+            return try AVAudioFile(forReading: internalAudioFile.url)
 
         } catch let error as NSError {
             AKLog("Error, Cannot create internal audio file for reading: \(error.localizedDescription)")
@@ -60,26 +60,20 @@ open class AKNodeRecorder: NSObject {
     ///   - bus: Integer index of the bus to use
     ///
     @objc public init(node: AKNode? = AKManager.output,
-                      file: AKAudioFile? = nil,
+                      file: AVAudioFile? = nil,
                       bus: Int = 0) throws {
         guard let existingFile = file else {
-            // We create a record file in temp directory
-            do {
-                internalAudioFile = try AKAudioFile()
-            } catch let error as NSError {
-                AKLog("Error: Cannot create an empty audio file")
-                throw error
-            }
+            internalAudioFile = AVAudioFile()
             self.node = node
             return
         }
 
         do {
-            // We initialize AKAudioFile for writing (and check that we can write to)
-            internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
+            // We initialize AVAudioFile for writing (and check that we can write to)
+            internalAudioFile = try AVAudioFile(forWriting: existingFile.url,
                                                 settings: existingFile.fileFormat.settings)
         } catch let error as NSError {
-            AKLog("Error: cannot write to \(existingFile.fileNamePlusExtension)")
+            AKLog("Error: cannot write to \(existingFile.url.lastPathComponent)")
             throw error
         }
 
@@ -149,7 +143,7 @@ open class AKNodeRecorder: NSObject {
         node?.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
-    /// Reset the AKAudioFile to clear previous recordings
+    /// Reset the AVAudioFile to clear previous recordings
     open func reset() throws {
         // Stop recording
         if isRecording == true {
@@ -166,15 +160,15 @@ open class AKNodeRecorder: NSObject {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete" + (audioFile?.fileNamePlusExtension ?? "nil") + error.localizedDescription)
+            AKLog("Error: Can't delete" + (audioFile?.url.lastPathComponent ?? "nil") + error.localizedDescription)
         }
 
         // Creates a blank new file
         do {
-            internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
+            internalAudioFile = try AVAudioFile(forWriting: url, settings: settings)
             AKLog("File has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to" + internalAudioFile.fileNamePlusExtension)
+            AKLog("Error: Can't record to" + url.lastPathComponent)
             throw error
         }
     }
