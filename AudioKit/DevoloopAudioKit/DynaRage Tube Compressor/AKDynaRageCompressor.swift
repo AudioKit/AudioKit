@@ -33,7 +33,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
     @Parameter public var rage: AUValue
 
     /// Rage ON/OFF Switch
-    @Parameter public var rageIsOn: AUValue
+    @Parameter public var rageIsOn: Bool
 
     // MARK: - Initialization
 
