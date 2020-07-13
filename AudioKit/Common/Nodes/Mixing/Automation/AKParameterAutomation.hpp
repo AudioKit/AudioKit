@@ -13,34 +13,36 @@ struct AKParameterAutomationPoint {
     float rampSkew;
 };
 
+typedef struct AKParameterAutomationHelper* AKParameterAutomationHelperRef;
+
 #ifndef __cplusplus
 
-void* createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock);
+AKParameterAutomationHelperRef createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock);
 
-void deleteAKParameterAutomation(void* automation);
+void deleteAKParameterAutomation(AKParameterAutomationHelperRef automation);
 
-AURenderObserver getAKParameterAutomationRenderObserverBlock(void* automation);
+AURenderObserver getAKParameterAutomationRenderObserverBlock(AKParameterAutomationHelperRef automation);
 
-AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(void* automation);
+AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(AKParameterAutomationHelperRef automation);
 
-void playAKParameterAutomation(void* automation, const AVAudioTime* startTime, double rate);
+void playAKParameterAutomation(AKParameterAutomationHelperRef automation, const AVAudioTime* startTime, double rate);
 
-void stopAKParameterAutomation(void* automation);
+void stopAKParameterAutomation(AKParameterAutomationHelperRef automation);
 
-void setAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address, bool enabled);
+void setAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address, bool enabled);
 
-bool getAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address);
+bool getAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address);
 
 /// If `points` is null, this returns the number of automation points for a given parameter.
 /// If `points` is not null, this fills points with up to `capacity` points and returns the count filled.
-size_t getAKParameterAutomationPoints(void* automation, AUParameterAddress address, struct AKParameterAutomationPoint* points, size_t capacity);
+size_t getAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, struct AKParameterAutomationPoint* points, size_t capacity);
 
-void addAKParameterAutomationPoints(void* automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
+void addAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
 
-void setAKParameterAutomationPoints(void* automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
+void setAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
 
-void clearAKParameterAutomationRange(void* automation, AUParameterAddress address, double startTime, double endTime);
+void clearAKParameterAutomationRange(AKParameterAutomationHelperRef automation, AUParameterAddress address, double startTime, double endTime);
 
-void clearAKParameterAutomationPoints(void* automation, AUParameterAddress address);
+void clearAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address);
 
 #endif
