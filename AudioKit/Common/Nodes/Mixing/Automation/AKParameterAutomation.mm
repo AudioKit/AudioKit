@@ -114,57 +114,57 @@ private:
 
 extern "C"
 {
-void* createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock) {
+AKParameterAutomationHelperRef createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock) {
     return new AKParameterAutomationHelper(scheduleParameterBlock);
 }
 
-void deleteAKParameterAutomation(void* automation) {
-    delete static_cast<AKParameterAutomationHelper*>(automation);
+void deleteAKParameterAutomation(AKParameterAutomationHelperRef automation) {
+    delete automation;
 }
 
-AURenderObserver getAKParameterAutomationRenderObserverBlock(void* automation) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->renderObserverBlock();
+AURenderObserver getAKParameterAutomationRenderObserverBlock(AKParameterAutomationHelperRef automation) {
+    return automation->renderObserverBlock();
 }
 
-AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(void* automation) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->automationObserverBlock();
+AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(AKParameterAutomationHelperRef automation) {
+    return automation->automationObserverBlock();
 }
 
-void playAKParameterAutomation(void* automation, const AVAudioTime* startTime, double rate) {
-    static_cast<AKParameterAutomationHelper*>(automation)->play(startTime, rate);
+void playAKParameterAutomation(AKParameterAutomationHelperRef automation, const AVAudioTime* startTime, double rate) {
+    automation->play(startTime, rate);
 }
 
-void stopAKParameterAutomation(void* automation) {
-    static_cast<AKParameterAutomationHelper*>(automation)->stop();
+void stopAKParameterAutomation(AKParameterAutomationHelperRef automation) {
+    automation->stop();
 }
 
-void setAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address, bool enabled) {
-    if (enabled) static_cast<AKParameterAutomationHelper*>(automation)->enableRecording(address);
-    else         static_cast<AKParameterAutomationHelper*>(automation)->disableRecording(address);
+void setAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address, bool enabled) {
+    if (enabled) automation->enableRecording(address);
+    else         automation->disableRecording(address);
 }
 
-bool getAKParameterAutomationRecordingEnabled(void* automation, AUParameterAddress address) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->isRecordingEnabled(address);
+bool getAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address) {
+    return automation->isRecordingEnabled(address);
 }
 
-size_t getAKParameterAutomationPoints(void* automation, AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->getPoints(address, points, capacity);
+size_t getAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, AKParameterAutomationPoint* points, size_t capacity) {
+    return automation->getPoints(address, points, capacity);
 }
 
-void addAKParameterAutomationPoints(void* automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->addPoints(address, points, count);
+void addAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
+    return automation->addPoints(address, points, count);
 }
 
-void setAKParameterAutomationPoints(void* automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
-    return static_cast<AKParameterAutomationHelper*>(automation)->setPoints(address, points, count);
+void setAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const AKParameterAutomationPoint* points, size_t count) {
+    return automation->setPoints(address, points, count);
 }
 
-void clearAKParameterAutomationRange(void* automation, AUParameterAddress address, double startTime, double endTime) {
-    static_cast<AKParameterAutomationHelper*>(automation)->clearRange(address, startTime, endTime);
+void clearAKParameterAutomationRange(AKParameterAutomationHelperRef automation, AUParameterAddress address, double startTime, double endTime) {
+    automation->clearRange(address, startTime, endTime);
 }
 
-void clearAKParameterAutomationPoints(void* automation, AUParameterAddress address) {
-    static_cast<AKParameterAutomationHelper*>(automation)->clearAllPoints(address);
+void clearAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address) {
+    automation->clearAllPoints(address);
 }
 }
 
