@@ -40,7 +40,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     }
 
     /// Flip left and right signal
-    public var flipStereo = AKNodeParameter(identifier: "flipStereo")
+    @Parameter public var flipStereo: Bool = false
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
     public var mixToMono = AKNodeParameter(identifier: "mixToMono")
@@ -66,7 +66,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
             self.leftGain.associate(with: self.internalAU, value: gain)
             self.rightGain.associate(with: self.internalAU, value: gain)
-            self.flipStereo.associate(with: self.internalAU, value: false)
             self.mixToMono.associate(with: self.internalAU, value: false)
 
             input?.connect(to: self)
