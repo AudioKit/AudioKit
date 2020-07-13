@@ -64,16 +64,16 @@ class Conductor {
         oscillator.vibratoRate = 5
 
         // Initial parameters setup: flanger
-        flanger.frequency.value = 2.0
-        flanger.depth.value = 0.4
-        flanger.dryWetMix.value = 0.5
-        flanger.feedback.value = -0.9
+        flanger.frequency = 2.0
+        flanger.depth = 0.4
+        flanger.dryWetMix = 0.5
+        flanger.feedback = -0.9
 
         // Initial parameters setup: chorus
-        chorus.frequency.value = 0.7
-        chorus.depth.value = 0.4
-        chorus.dryWetMix.value = 0.25
-        chorus.feedback.value = 0.0
+        chorus.frequency = 0.7
+        chorus.depth = 0.4
+        chorus.dryWetMix = 0.25
+        chorus.feedback = 0.0
     }
 
     func addMIDIListener(_ listener: AKMIDIListener) {
