@@ -237,9 +237,9 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
 
         // Loop across our channels...
-        for channel in 0..<channelCount {
+        for channel in 0 ..< channelCount {
             // Make sure we go through all of the frames...
-            for sampleIndex in 0..<frameLength {
+            for sampleIndex in 0 ..< frameLength {
                 result[channel][sampleIndex] = pcmFloatChannelData[channel][sampleIndex * stride]
             }
         }
@@ -268,7 +268,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         guard let buffer = self.pcmBuffer else { return maxLev }
 
         if self.samplesCount > 0 {
-            for c in 0..<Int(self.channelCount) {
+            for c in 0 ..< Int(self.channelCount) {
                 let floats = UnsafeBufferPointer(start: buffer.floatChannelData?[c], count: Int(buffer.frameLength))
                 let cmax = floats.max()
                 let cmin = floats.min()
