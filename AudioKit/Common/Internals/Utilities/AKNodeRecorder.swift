@@ -48,6 +48,8 @@ open class AKNodeRecorder: NSObject {
         }
     }
 
+    private static var tmpFiles = [URL]()
+
     // MARK: - Initialization
 
     /// Initialize the node recorder
@@ -93,10 +95,22 @@ open class AKNodeRecorder: NSObject {
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
         AKLog("Creating temp file at", url)
-        return try? AVAudioFile(forWriting: url,
-                                settings: settings,
-                                commonFormat: AKSettings.audioFormat.commonFormat,
-                                interleaved: true)
+        guard let tmpFile = try? AVAudioFile(forWriting: url,
+                                             settings: settings,
+                                             commonFormat: AKSettings.audioFormat.commonFormat,
+                                             interleaved: true) else { return nil }
+
+        tmpFiles.append(url)
+        return tmpFile
+    }
+
+    // When done with this class, remove any temp files that were created with createTempFile()
+    public static func removeTempFiles() {
+        for url in AKNodeRecorder.tmpFiles {
+            try? FileManager.default.removeItem(at: url)
+            AKLog("𝗫 Deleted tmp file at", url)
+        }
+        AKNodeRecorder.tmpFiles.removeAll()
     }
 
     /// Start recording
@@ -109,6 +123,14 @@ open class AKNodeRecorder: NSObject {
         guard let node = node else {
             AKLog("Error: input node is nil")
             return
+        }
+
+        if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
+            // record to new tmp file
+            if let tmpFile = AKNodeRecorder.createTempFile() {
+                internalAudioFile = try AVAudioFile(forWriting: tmpFile.url,
+                                                    settings: tmpFile.fileFormat.settings)
+            }
         }
 
         let bufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
