@@ -68,7 +68,7 @@ import AudioKit
                 player?.stop()
                 let filename = titles[currentIndex]
 
-                if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
+                if let file = try? AVAudioFile(readFileName: "\(filename)", baseDir: .resources) {
                     do {
                         try player?.load(audioFile: file)
                     } catch let err as NSError {

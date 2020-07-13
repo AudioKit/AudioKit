@@ -282,12 +282,12 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
-        guard let floatChannelData = file.floatChannelData else { return }
+    open func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+        guard let floatChannelData = file.toFloatChannelData() else { return }
 
-        let sampleRate = Float(file.sampleRate)
-        let sampleCount = Int32(file.samplesCount)
-        let channelCount = Int32(file.channelCount)
+        let sampleRate = Float(file.fileFormat.sampleRate)
+        let sampleCount = Int32(file.length)
+        let channelCount = Int32(file.fileFormat.channelCount)
         var flattened = Array(floatChannelData.joined())
 
         flattened.withUnsafeMutableBufferPointer { data in

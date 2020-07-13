@@ -1,10 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 public class AKResourcesAudioFileLoaderView: NSView {
-
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -83,15 +82,17 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player.stop()
             let filename = titles[currentIndex]
-            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
-                AKLog("Unable to load file: \(filename)")
-                return
-            }
-            do {
-                try player.replace(file: file)
-            } catch {
-                AKLog("Could not replace file")
-            }
+
+            // RF: I'm not sure what this logic here is for, but I don't want to support the baseDir concept
+//            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
+//                AKLog("Unable to load file: \(filename)")
+//                return
+//            }
+//            do {
+//                try player.replace(file: file)
+//            } catch {
+//                AKLog("Could not replace file")
+//            }
             if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
@@ -306,8 +307,8 @@ public class AKResourcesAudioFileLoaderView: NSView {
         nameLabelStyle.alignment = .left
 
         let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24.0),
-                                       .foregroundColor: textColorForTheme,
-                                       .paragraphStyle: nameLabelStyle]
+                                                                      .foregroundColor: textColorForTheme,
+                                                                      .paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
