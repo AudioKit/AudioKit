@@ -292,15 +292,13 @@ open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         self.filterLFODepth = filterLFODepth
         self.filterLFORate = filterLFORate
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
