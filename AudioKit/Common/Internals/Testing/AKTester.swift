@@ -40,20 +40,15 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
         testedNode = input as? AKToggleable
         totalSamples = samples
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
 
-            input?.connect(to: strongSelf)
-            strongSelf.internalAU?.samples = Int32(samples)
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            input?.connect(to: self)
+            self.internalAU?.samples = Int32(samples)
         }
     }
 }

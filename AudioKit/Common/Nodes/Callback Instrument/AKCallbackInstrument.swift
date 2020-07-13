@@ -24,19 +24,13 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     @objc public init(midiCallback: AKMIDICallback? = nil) {
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
         }
         if let callback = midiCallback {

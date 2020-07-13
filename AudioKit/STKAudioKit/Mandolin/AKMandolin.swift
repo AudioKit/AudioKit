@@ -67,14 +67,12 @@ open class AKMandolin: AKNode, AKComponent {
         self.detune = detune
         self.bodySize = bodySize
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
