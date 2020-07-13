@@ -62,7 +62,7 @@ class AKFaderTests: AKTestCase {
     func testMixToMono() {
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
-        fader.mixToMono.boolValue = true
+        fader.mixToMono = true
         output = fader
         AKTestMD5("986675abd9c15378e8f4eb581bf90857")
     }

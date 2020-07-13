@@ -22,16 +22,16 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Amplification Factor, from 0 ... 4
     open var gain: AUValue = 1 {
         willSet {
-            leftGain.value = gain
-            rightGain.value = gain
+            leftGain = gain
+            rightGain = gain
         }
     }
 
     /// Left Channel Amplification Factor
-    public var leftGain = AKNodeParameter(identifier: "leftGain")
+    @Parameter var leftGain: AUValue
 
     /// Right Channel Amplification Factor
-    public var rightGain = AKNodeParameter(identifier: "rightGain")
+    @Parameter var rightGain: AUValue
 
     /// Amplification Factor in db
     public var dB: AUValue {
@@ -43,7 +43,7 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     @Parameter public var flipStereo: Bool = false
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    public var mixToMono = AKNodeParameter(identifier: "mixToMono")
+    @Parameter public var mixToMono: Bool = false
 
     // MARK: - Initialization
 
@@ -56,6 +56,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public init(_ input: AKNode? = nil,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
+        self.leftGain = gain
+        self.rightGain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -63,10 +65,6 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.leftGain.associate(with: self.internalAU, value: gain)
-            self.rightGain.associate(with: self.internalAU, value: gain)
-            self.mixToMono.associate(with: self.internalAU, value: false)
 
             input?.connect(to: self)
         }
@@ -95,13 +93,13 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
                                                rampTaper: taperValue,
                                                rampSkew: skewValue)
 
-        parameterAutomation?.add(point: point, to: leftGain.identifier)
-        parameterAutomation?.add(point: point, to: rightGain.identifier)
+        parameterAutomation?.add(point: point, to: "leftGain")
+        parameterAutomation?.add(point: point, to: "rightGain")
     }
 
     /// Convenience function for clearing all points for both left and right addresses
     public func clearAutomationPoints() {
-        parameterAutomation?.clearAllPoints(of: leftGain.identifier)
-        parameterAutomation?.clearAllPoints(of: rightGain.identifier)
+        parameterAutomation?.clearAllPoints(of: "leftGain")
+        parameterAutomation?.clearAllPoints(of: "rightGain")
     }
 }
