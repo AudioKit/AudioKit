@@ -1,30 +1,33 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Cocoa
 import AudioKit
 import AudioKitUI
+import Cocoa
 
 class ViewController: NSViewController {
+    @IBOutlet var stopButton: AKButton!
+    @IBOutlet var playButton: AKButton!
+    @IBOutlet var recordButton: AKButton!
 
-    @IBOutlet weak var stopButton: AKButton!
-    @IBOutlet weak var playButton: AKButton!
-    @IBOutlet weak var recordButton: AKButton!
+    public var documentsDirectory: URL? {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    }
 
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
-    var tape: AKAudioFile!
+    var tape: AVAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-    @IBOutlet weak var inputPlot: AKNodeOutputPlot!
+    @IBOutlet var inputPlot: AKNodeOutputPlot!
 
     let mic = AKMicrophone()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layer?.backgroundColor = CGColor.black
+        view.layer?.backgroundColor = CGColor.black
 
         stopButton.title = "Stop"
         stopButton.color = NSColor.blue
@@ -95,22 +98,35 @@ class ViewController: NSViewController {
         inputPlot.node = mic
         micBooster.gain = 0
 
+        recorder.stop()
+
         guard let audioFile = recorder.audioFile else { return }
         tape = audioFile
-        try? player.load(audioFile: tape)
 
-        if let _ = player.audioFile?.duration {
-            recorder.stop()
-            tape.exportAsynchronously(name: "TempTestFile.m4a",
-                                      baseDir: .documents,
-                                      exportFormat: .m4a) {_, exportError in
-                                        if let error = exportError {
-                                            AKLog("Export Failed \(error)")
-                                        } else {
-                                            AKLog("Export succeeded")
-                                        }
+        do {
+            try player.load(audioFile: audioFile)
+
+        } catch let err as NSError {
+            AKLog(err.localizedDescription)
+            return
+        }
+
+        guard let outputURL = documentsDirectory?.appendingPathComponent("TempTestFile.m4a") else { return }
+
+        var options = AKConverter.Options()
+        options.bitDepth = 16
+        options.sampleRate = AKSettings.sampleRate
+        options.format = "m4a"
+
+        let converter = AKConverter()
+        converter.options = options
+        converter.inputURL = audioFile.url
+        converter.outputURL = outputURL
+
+        converter.start { error in
+            if let error = error {
+                AKLog("Error saving file", error.localizedDescription)
             }
         }
     }
-
 }
