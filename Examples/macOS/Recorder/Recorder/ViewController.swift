@@ -13,6 +13,7 @@ class ViewController: NSViewController {
     public var documentsDirectory: URL? {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
+
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
@@ -33,7 +34,9 @@ class ViewController: NSViewController {
 
         stopButton.title = "Stop"
         stopButton.callback = { _ in
-            self.stop()
+            DispatchQueue.main.async {
+                self.stop()
+            }
         }
 
         playButton.title = "Play"
@@ -85,7 +88,7 @@ class ViewController: NSViewController {
 
     func record() {
         AKNodeRecorder.removeTempFiles()
-        
+
         inputPlot.node = mic
         do {
             try recorder.record()
@@ -107,7 +110,7 @@ class ViewController: NSViewController {
         guard let audioFile = recorder.audioFile else { return }
 
         do {
-            try self.player.load(url: audioFile.url)
+            try player.load(url: audioFile.url)
 
         } catch let err as NSError {
             AKLog(err.localizedDescription)
@@ -116,6 +119,7 @@ class ViewController: NSViewController {
 
         let savePanel = NSSavePanel()
         savePanel.allowedFileTypes = ["m4a"]
+        savePanel.allowsOtherFileTypes = false
         savePanel.message = "Save your recorded output"
 
         guard savePanel.runModal() == .OK else { return }
