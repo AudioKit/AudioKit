@@ -98,7 +98,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            for ugen in self.customUgens ?? [] {
+            for ugen in self.customUgens {
                 self.internalAU?.add(ugen)
             }
             self.internalAU?.setSporth(sporth)
