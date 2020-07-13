@@ -82,12 +82,15 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player.stop()
             let filename = titles[currentIndex]
-            if let url = Bundle.main.resourceURL?.appendingPathComponent(filename) {
+            if let url = Bundle.main.resourceURL?.appendingPathComponent(filename),
+                FileManager.default.fileExists(atPath: url.path) {
                 do {
                     try player.load(url: url)
                 } catch {
                     AKLog("Error replacing file")
                 }
+            } else {
+                AKLog("Error: didn't find \(filename) in Resources")
             }
 
             if wasPlaying { player.play(from: 0) }
