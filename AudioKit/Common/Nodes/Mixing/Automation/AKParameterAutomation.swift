@@ -5,7 +5,7 @@ open class AKParameterAutomation {
     private var scheduleParameterBlock: AUScheduleParameterBlock?
     private var renderObserverToken: Int?
     private var automationObserverToken: AUParameterObserverToken?
-    private var automation: UnsafeMutableRawPointer?
+    private var automation: AKParameterAutomationHelperRef?
 
     public init(_ avAudioUnit: AVAudioUnit) {
         self.avAudioUnit = avAudioUnit
