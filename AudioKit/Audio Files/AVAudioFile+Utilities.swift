@@ -82,3 +82,18 @@ extension AVAudioFile {
         return result
     }
 }
+
+//extension AVAudioFile {
+//    public static func createTempFile() -> AVAudioFile? {
+//        let filename = UUID().uuidString + ".caf"
+//        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
+//        var settings = AKSettings.audioFormat.settings
+//        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+//
+//        AKLog("Creating temp file at", url)
+//        return try? AVAudioFile(forWriting: url,
+//                                settings: settings,
+//                                commonFormat: AKSettings.audioFormat.commonFormat,
+//                                interleaved: true)
+//    }
+//}

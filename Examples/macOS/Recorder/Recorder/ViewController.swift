@@ -8,6 +8,7 @@ class ViewController: NSViewController {
     @IBOutlet var stopButton: AKButton!
     @IBOutlet var playButton: AKButton!
     @IBOutlet var recordButton: AKButton!
+    @IBOutlet var inputPlot: AKNodeOutputPlot!
 
     public var documentsDirectory: URL? {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -21,12 +22,15 @@ class ViewController: NSViewController {
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-    @IBOutlet var inputPlot: AKNodeOutputPlot!
-
-    let mic = AKMicrophone()
+    lazy var mic = AKMicrophone()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else { return }
+        AKSettings.audioFormat = audioFormat
+
+        view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.black
 
         stopButton.title = "Stop"
@@ -47,26 +51,29 @@ class ViewController: NSViewController {
             self.record()
         }
 
+        AKLog(AKSettings.audioFormat, "inputNode:", AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate)
+
         // Patching
         inputPlot.node = mic
         inputPlot.backgroundColor = NSColor.black
+
+        AKLog(mic?.outputNode.inputFormat(forBus: 0))
+
         micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
         micBooster.gain = 0
         recorder = try? AKNodeRecorder(node: micMixer)
-        if let file = recorder.audioFile {
-            player = AKPlayer(audioFile: file)
-        }
+
+        player = AKPlayer()
         player.isLooping = true
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
-
         mainMixer = AKMixer(moogLadder, micBooster)
-
         AKManager.output = mainMixer
+        
         do {
             try AKManager.start()
         } catch {
@@ -112,16 +119,14 @@ class ViewController: NSViewController {
         }
 
         guard let outputURL = documentsDirectory?.appendingPathComponent("TempTestFile.m4a") else { return }
+        let inputURL = audioFile.url
 
         var options = AKConverter.Options()
         options.bitDepth = 16
         options.sampleRate = AKSettings.sampleRate
         options.format = "m4a"
 
-        let converter = AKConverter()
-        converter.options = options
-        converter.inputURL = audioFile.url
-        converter.outputURL = outputURL
+        let converter = AKConverter(inputURL: inputURL, outputURL: outputURL, options: options)
 
         converter.start { error in
             if let error = error {
