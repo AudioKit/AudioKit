@@ -4,56 +4,27 @@
 ///
 open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
     public typealias AKAudioUnitType = AKChorusAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Frequency
-    public static let frequencyRange: ClosedRange<AUValue> = 0.1 ... 10.0
+    /// Modulation Frequency (Hz)
+    @Parameter public var frequency: AUValue
 
-    /// Lower and upper bounds for Depth
-    public static let depthRange: ClosedRange<AUValue> = 0.0 ... 1.0
+    /// Modulation Depth (fraction)
+    @Parameter public var depth: AUValue
 
-    /// Lower and upper bounds for Feedback
-    public static let feedbackRange: ClosedRange<AUValue> = 0.0 ... 0.25
+    /// Feedback (fraction)
+    @Parameter public var feedback: AUValue
 
-    /// Lower and upper bounds for Dry Wet Mix
-    public static let dryWetMixRange: ClosedRange<AUValue> = 0.0 ... 1.0
-
-    /// Initial value for Frequency
-    public static let defaultFrequency: AUValue = 1.0
-
-    /// Initial value for Depth
-    public static let defaultDepth: AUValue = 0.0
-
-    /// Initial value for Feedback
-    public static let defaultFeedback: AUValue = 0.0
-
-    /// Initial value for Dry Wet Mix
-    public static let defaultDryWetMix: AUValue = 0.0
-
-    /// Frequency. (in Hertz)
-    public var frequency = AKNodeParameter(identifier: "frequency")
-
-    /// Depth
-    public var depth = AKNodeParameter(identifier: "depth")
-
-    /// Feedback
-    public var feedback = AKNodeParameter(identifier: "feedback")
-
-    /// Dry Wet Mix
-    public var dryWetMix = AKNodeParameter(identifier: "dryWetMix")
+    /// Dry Wet Mix (fraction)
+    @Parameter public var dryWetMix: AUValue
 
     // MARK: - Initialization
 
@@ -68,12 +39,16 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: AUValue = defaultFrequency,
-        depth: AUValue = defaultDepth,
-        feedback: AUValue = defaultFeedback,
-        dryWetMix: AUValue = defaultDryWetMix
-        ) {
+        frequency: AUValue = 1,
+        depth: AUValue = 0,
+        feedback: AUValue = 0,
+        dryWetMix: AUValue = 0
+    ) {
         super.init(avAudioNode: AVAudioNode())
+        self.frequency = frequency
+        self.depth = depth
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -81,11 +56,6 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.frequency.associate(with: self.internalAU, value: frequency)
-            self.depth.associate(with: self.internalAU, value: depth)
-            self.feedback.associate(with: self.internalAU, value: feedback)
-            self.dryWetMix.associate(with: self.internalAU, value: dryWetMix)
 
             input?.connect(to: self)
         }
