@@ -55,8 +55,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
     @objc public init(targetNode: AKNode?) {
         super.init(avAudioNode: AVAudioNode())
 
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

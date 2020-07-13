@@ -26,7 +26,6 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// Release time
     @Parameter public var releaseDuration: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this envelope node

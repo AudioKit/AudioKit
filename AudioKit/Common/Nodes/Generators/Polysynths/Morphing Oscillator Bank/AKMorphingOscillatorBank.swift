@@ -175,19 +175,17 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.vibratoDepth = vibratoDepth
         self.vibratoRate = vibratoRate
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             for (i, waveform) in waveformArray.enumerated() {
-                self?.internalAU?.setupWaveform(UInt32(i), size: Int32(UInt32(waveform.count)))
+                self.internalAU?.setupWaveform(UInt32(i), size: Int32(UInt32(waveform.count)))
                 for (j, sample) in waveform.enumerated() {
-                    self?.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
                 }
             }
         }

@@ -316,7 +316,9 @@ public class AKPlayer: AKAbstractPlayer {
     // see AKDynamicPlayer
     internal func connectNodes() {
         guard let processingFormat = processingFormat else {
-            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.", log: .fileHandling, type: .error)
+            AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.",
+                  log: .fileHandling,
+                  type: .error)
             return
         }
 

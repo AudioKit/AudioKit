@@ -8,7 +8,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
-        range: AKChorus.frequencyRange,
+        range: 0.1 ... 10.0,
         unit: .hertz,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
-        range: AKChorus.depthRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
-        range: AKChorus.feedbackRange,
+        range: 0.0 ... 0.25,
         unit: .generic,
         flags: .default)
 
@@ -32,7 +32,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,
-        range: AKChorus.dryWetMixRange,
+        range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 

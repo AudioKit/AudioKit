@@ -347,19 +347,17 @@ open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         self.filterLFODepth = filterLFODepth
         self.filterLFORate = filterLFORate
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
 
-            self?.avAudioUnit = avAudioUnit
-            self?.avAudioNode = avAudioUnit
-            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.internalAU?.setupWaveform(Int32(waveform.count))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
-                self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 

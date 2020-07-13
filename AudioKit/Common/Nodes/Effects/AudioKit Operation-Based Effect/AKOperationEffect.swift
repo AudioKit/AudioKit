@@ -88,23 +88,17 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
         self.customUgens = customUgens
 
-        _Self.register()
-
         super.init(avAudioNode: AVAudioNode())
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            strongSelf.avAudioUnit = avAudioUnit
-            strongSelf.avAudioNode = avAudioUnit
-            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.connect(to: strongSelf)
-            for ugen in strongSelf.customUgens {
-                strongSelf.internalAU?.add(ugen)
+            input?.connect(to: self)
+            for ugen in self.customUgens {
+                self.internalAU?.add(ugen)
             }
-            strongSelf.internalAU?.setSporth(sporth)
+            self.internalAU?.setSporth(sporth)
         }
     }
 

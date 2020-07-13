@@ -8,7 +8,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKAudioUnitBase {
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: AKPhaseLockedVocoderParameter.position.rawValue,
-        range: AKPhaseLockedVocoder.positionRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -16,7 +16,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKAudioUnitBase {
         identifier: "amplitude",
         name: "Amplitude.",
         address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
-        range: AKPhaseLockedVocoder.amplitudeRange,
+        range: 0 ... 1,
         unit: .generic,
         flags: .default)
 
@@ -24,7 +24,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKAudioUnitBase {
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
         address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,
-        range: AKPhaseLockedVocoder.pitchRatioRange,
+        range: 0 ... 1_000,
         unit: .hertz,
         flags: .default)
 
