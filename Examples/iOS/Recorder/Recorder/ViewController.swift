@@ -8,7 +8,7 @@ class ViewController: UIViewController {
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
-    var tape: AKAudioFile!
+    var tape: AVAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var mainMixer: AKMixer!
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         super.init(coder: aDecoder)
 
         // Clean tempFiles !
-        AKAudioFile.cleanTempDirectory()
+        AVAudioFile.cleanTempDirectory()
 
         // Session settings
         AKSettings.bufferLength = .medium

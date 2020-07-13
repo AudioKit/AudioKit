@@ -13,11 +13,9 @@ class ViewController: NSViewController {
     public var documentsDirectory: URL? {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
-
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
-    var tape: AVAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
@@ -34,19 +32,16 @@ class ViewController: NSViewController {
         view.layer?.backgroundColor = CGColor.black
 
         stopButton.title = "Stop"
-        stopButton.color = NSColor.blue
         stopButton.callback = { _ in
             self.stop()
         }
 
         playButton.title = "Play"
-        playButton.color = NSColor.green
         playButton.callback = { _ in
             self.play()
         }
 
         recordButton.title = "Record"
-        recordButton.color = NSColor.red
         recordButton.callback = { _ in
             self.record()
         }
@@ -73,7 +68,7 @@ class ViewController: NSViewController {
         moogLadder = AKMoogLadder(player)
         mainMixer = AKMixer(moogLadder, micBooster)
         AKManager.output = mainMixer
-        
+
         do {
             try AKManager.start()
         } catch {
@@ -89,6 +84,8 @@ class ViewController: NSViewController {
     }
 
     func record() {
+        AKNodeRecorder.removeTempFiles()
+        
         inputPlot.node = mic
         do {
             try recorder.record()
@@ -108,30 +105,38 @@ class ViewController: NSViewController {
         recorder.stop()
 
         guard let audioFile = recorder.audioFile else { return }
-        tape = audioFile
 
         do {
-            try player.load(audioFile: audioFile)
+            try self.player.load(url: audioFile.url)
 
         } catch let err as NSError {
             AKLog(err.localizedDescription)
             return
         }
 
-        guard let outputURL = documentsDirectory?.appendingPathComponent("TempTestFile.m4a") else { return }
-        let inputURL = audioFile.url
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["m4a"]
+        savePanel.message = "Save your recorded output"
+
+        guard savePanel.runModal() == .OK else { return }
+        guard let outputURL = savePanel.url else { return }
 
         var options = AKConverter.Options()
         options.bitDepth = 16
         options.sampleRate = AKSettings.sampleRate
         options.format = "m4a"
 
-        let converter = AKConverter(inputURL: inputURL, outputURL: outputURL, options: options)
+        let converter = AKConverter(inputURL: audioFile.url, outputURL: outputURL, options: options)
 
         converter.start { error in
             if let error = error {
                 AKLog("Error saving file", error.localizedDescription)
             }
         }
+    }
+
+    @IBAction func terminate(_ sender: Any) {
+        AKNodeRecorder.removeTempFiles()
+        exit(0)
     }
 }
