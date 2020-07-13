@@ -10,41 +10,9 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterRampDuration
 };
 
-#import <AudioKit/AKLinearParameterRamp.hpp>
-
 #ifndef __cplusplus
 
 AKDSPRef createFluteDSP(void);
-
-#else
-
-class AKFluteDSP : public AKDSPBase {
-private:
-    struct InternalData;
-    std::unique_ptr<InternalData> data;
-
-public:
-
-    AKFluteDSP();
-
-    ~AKFluteDSP();
-
-    /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override;
-
-    /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override;
-
-    void init(int channelCount, double sampleRate) override;
-
-    void trigger() override;
-
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
-
-    void deinit() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
 
 #endif
 
