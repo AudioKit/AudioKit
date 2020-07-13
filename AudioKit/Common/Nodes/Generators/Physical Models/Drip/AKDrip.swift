@@ -5,83 +5,36 @@
 ///
 open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     public typealias AKAudioUnitType = AKDripAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Intensity
-    public static let intensityRange: ClosedRange<AUValue> = 0 ... 100
-
-    /// Lower and upper bounds for Damping Factor
-    public static let dampingFactorRange: ClosedRange<AUValue> = 0.0 ... 2.0
-
-    /// Lower and upper bounds for Energy Return
-    public static let energyReturnRange: ClosedRange<AUValue> = 0 ... 100
-
-    /// Lower and upper bounds for Main Resonant Frequency
-    public static let mainResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
-
-    /// Lower and upper bounds for First Resonant Frequency
-    public static let firstResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
-
-    /// Lower and upper bounds for Second Resonant Frequency
-    public static let secondResonantFrequencyRange: ClosedRange<AUValue> = 0 ... 22_000
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Initial value for Intensity
-    public static let defaultIntensity: AUValue = 10
-
-    /// Initial value for Damping Factor
-    public static let defaultDampingFactor: AUValue = 0.2
-
-    /// Initial value for Energy Return
-    public static let defaultEnergyReturn: AUValue = 0
-
-    /// Initial value for Main Resonant Frequency
-    public static let defaultMainResonantFrequency: AUValue = 450
-
-    /// Initial value for First Resonant Frequency
-    public static let defaultFirstResonantFrequency: AUValue = 600
-
-    /// Initial value for Second Resonant Frequency
-    public static let defaultSecondResonantFrequency: AUValue = 750
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 0.3
-
     /// The intensity of the dripping sound.
-    public var intensity = AKNodeParameter(identifier: "intensity")
+    @Parameter public var intensity: AUValue
 
     /// The damping factor. Maximum value is 2.0.
-    public var dampingFactor = AKNodeParameter(identifier: "dampingFactor")
+    @Parameter public var dampingFactor: AUValue
 
     /// The amount of energy to add back into the system.
-    public var energyReturn = AKNodeParameter(identifier: "energyReturn")
+    @Parameter public var energyReturn: AUValue
 
     /// Main resonant frequency.
-    public var mainResonantFrequency = AKNodeParameter(identifier: "mainResonantFrequency")
+    @Parameter public var mainResonantFrequency: AUValue
 
     /// The first resonant frequency.
-    public var firstResonantFrequency = AKNodeParameter(identifier: "firstResonantFrequency")
+    @Parameter public var firstResonantFrequency: AUValue
 
     /// The second resonant frequency.
-    public var secondResonantFrequency = AKNodeParameter(identifier: "secondResonantFrequency")
+    @Parameter public var secondResonantFrequency: AUValue
 
     /// Amplitude.
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -97,15 +50,23 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - amplitude: Amplitude.
     ///
     public init(
-        intensity: AUValue = defaultIntensity,
-        dampingFactor: AUValue = defaultDampingFactor,
-        energyReturn: AUValue = defaultEnergyReturn,
-        mainResonantFrequency: AUValue = defaultMainResonantFrequency,
-        firstResonantFrequency: AUValue = defaultFirstResonantFrequency,
-        secondResonantFrequency: AUValue = defaultSecondResonantFrequency,
-        amplitude: AUValue = defaultAmplitude
+        intensity: AUValue = 10,
+        dampingFactor: AUValue = 0.2,
+        energyReturn: AUValue = 0,
+        mainResonantFrequency: AUValue = 450,
+        firstResonantFrequency: AUValue = 600,
+        secondResonantFrequency: AUValue = 750,
+        amplitude: AUValue = 0.3
     ) {
         super.init(avAudioNode: AVAudioNode())
+
+        self.intensity = intensity
+        self.dampingFactor = dampingFactor
+        self.energyReturn = energyReturn
+        self.mainResonantFrequency = mainResonantFrequency
+        self.firstResonantFrequency = firstResonantFrequency
+        self.secondResonantFrequency = secondResonantFrequency
+        self.amplitude = amplitude
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -113,16 +74,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.intensity.associate(with: self.internalAU, value: intensity)
-            self.dampingFactor.associate(with: self.internalAU, value: dampingFactor)
-            self.energyReturn.associate(with: self.internalAU, value: energyReturn)
-            self.mainResonantFrequency.associate(with: self.internalAU, value: mainResonantFrequency)
-            self.firstResonantFrequency.associate(with: self.internalAU, value: firstResonantFrequency)
-            self.secondResonantFrequency.associate(with: self.internalAU, value: secondResonantFrequency)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
         }
-
     }
 
     // MARK: - Control

@@ -3,15 +3,12 @@
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
-    // MARK: - AKComponent
 
     public typealias AKAudioUnitType = AKFaderAudioUnit
-    /// Four letter unique description of the node
+
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - AKAutomatable
 
     public private(set) var parameterAutomation: AKParameterAutomation?
 

@@ -291,7 +291,7 @@ private protocol ParameterBase {
 ///
 /// When writing an AKNode, use:
 /// ```
-/// @Parameter("myParameterName") var myParameterName: AUValue
+/// @Parameter var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
 @propertyWrapper

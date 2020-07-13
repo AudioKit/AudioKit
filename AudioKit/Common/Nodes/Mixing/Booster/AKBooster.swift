@@ -4,16 +4,11 @@
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 
     public typealias AKAudioUnitType = AKBoosterAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    // MARK: - AKAutomatable
 
     public var parameterAutomation: AKParameterAutomation?
 
@@ -22,16 +17,16 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Amplification Factor
     open var gain: AUValue = 1 {
         didSet {
-            leftGain.value = gain
-            rightGain.value = gain
+            leftGain = gain
+            rightGain = gain
         }
     }
 
     /// Left Channel Amplification Factor
-    public var leftGain = AKNodeParameter(identifier: "leftGain")
+    @Parameter public var leftGain: AUValue
 
     /// Right Channel Amplification Factor
-    public var rightGain = AKNodeParameter(identifier: "rightGain")
+    @Parameter public var rightGain: AUValue
 
     /// Amplification Factor in db
     open var dB: AUValue {
@@ -47,22 +42,17 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    @objc public init(
-        _ input: AKNode? = nil,
-        gain: AUValue = 1
-    ) {
+    @objc public init(_ input: AKNode? = nil, gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
+        self.leftGain = gain
+        self.rightGain = gain
 
-        _Self.register()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.leftGain.associate(with: self.internalAU, value: gain)
-            self.rightGain.associate(with: self.internalAU, value: gain)
 
             input?.connect(to: self)
         }
