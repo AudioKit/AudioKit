@@ -79,15 +79,16 @@
     private func getFormatForDevice() -> AVAudioFormat? {
         let audioFormat: AVAudioFormat?
 
+        var currentFormat = AKSettings.audioFormat
         var sampleRate = AKSettings.sampleRate
 
         #if os(iOS) && !targetEnvironment(simulator)
         sampleRate = AVAudioSession.sharedInstance().sampleRate
-        #elseif !os(tvOS)
+        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        #elseif os(macOS)
         sampleRate = AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate
+        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
         #endif
-
-        let currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
 
         if let layout = currentFormat.channelLayout {
             audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,
