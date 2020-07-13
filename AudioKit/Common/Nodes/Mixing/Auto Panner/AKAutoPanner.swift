@@ -4,26 +4,21 @@
 ///
 open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
     public typealias AKAudioUnitType = AKAutoPannerAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
     /// Frequency (Hz)
-    public var frequency = AKNodeParameter(identifier: "frequency")
+    @Parameter public var frequency: AUValue
 
     /// Depth
-    public var depth = AKNodeParameter(identifier: "depth")
+    @Parameter public var depth: AUValue
 
     // MARK: - Initialization
 
@@ -42,6 +37,8 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
         waveform: AKTable = AKTable(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())
+        self.frequency = frequency
+        self.depth = depth
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -49,9 +46,6 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatab
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.frequency.associate(with: self.internalAU, value: frequency)
-            self.depth.associate(with: self.internalAU, value: depth)
 
             self.internalAU?.setWavetable(waveform.content)
 
