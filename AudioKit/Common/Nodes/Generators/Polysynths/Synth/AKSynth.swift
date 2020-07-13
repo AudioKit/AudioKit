@@ -163,8 +163,7 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        AKSynth.register()
-        AVAudioUnit._instantiate(with: AKSynth.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

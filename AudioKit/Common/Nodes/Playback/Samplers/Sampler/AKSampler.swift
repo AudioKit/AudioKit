@@ -274,8 +274,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     public init() {
         super.init(avAudioNode: AVAudioNode())
 
-        AKSampler.register()
-        AVAudioUnit._instantiate(with: AKSampler.ComponentDescription) { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
