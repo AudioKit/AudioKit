@@ -19,7 +19,7 @@ open class AKNode: NSObject {
                 let mirror = Mirror(reflecting: self)
 
                 for child in mirror.children {
-                    if let param = child.value as? Parameter, let label = child.label {
+                    if let param = child.value as? ParameterBase, let label = child.label {
                         // Property wrappers create a variable with an underscore
                         // prepended. Drop the underscore to look up the parameter.
                         let name = String(label.dropFirst())
@@ -256,6 +256,32 @@ public class AKNodeParameter2 {
     }
 }
 
+/// Base protocol for any type supported by @Parameter
+public protocol AKNodeParameterType {
+    func toAUValue() -> AUValue
+    init(_ value: AUValue)
+}
+
+extension Bool: AKNodeParameterType {
+    public func toAUValue() -> AUValue {
+        self ? 1.0 : 0.0
+    }
+    public init(_ value: AUValue) {
+        self = value > 0.5
+    }
+}
+
+extension AUValue: AKNodeParameterType {
+    public func toAUValue() -> AUValue {
+        self
+    }
+}
+
+/// Used internally so we can iterate over parameters using reflection.
+private protocol ParameterBase {
+    var projectedValue: AKNodeParameter2 { get }
+}
+
 /// Wraps AKNodeParameter so we can easily assign values to it.
 ///
 /// Instead of`osc.frequency.value = 440`, we have `osc.frequency = 440`
@@ -269,15 +295,19 @@ public class AKNodeParameter2 {
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
 @propertyWrapper
-public struct Parameter {
+public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
 
     var param = AKNodeParameter2()
 
     public init() { }
 
-    public var wrappedValue: AUValue {
-        get { param.value }
-        set { param.value = newValue }
+    public init(wrappedValue: Value) {
+        param.value = wrappedValue.toAUValue()
+    }
+
+    public var wrappedValue: Value {
+        get { Value(param.value) }
+        set { param.value = newValue.toAUValue() }
     }
 
     public var projectedValue: AKNodeParameter2 {
