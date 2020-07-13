@@ -25,7 +25,6 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     @Parameter public var pitchRatio: AUValue
 
-    
     // MARK: - Initialization
 
     /// Initialize this vocoder node
@@ -41,7 +40,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
         pitchRatio: AUValue = 1
         ) {
         super.init(avAudioNode: AVAudioNode())
-        
+
         self.position = position
         self.amplitude = amplitude
         self.pitchRatio = pitchRatio
@@ -57,9 +56,7 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
     }
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> AKPhaseLockedVocoder {
-        let copy = AKPhaseLockedVocoder(position: self.position.value,
-                                        amplitude: self.amplitude.value,
-                                        pitchRatio: self.pitchRatio.value)
+        let copy = AKPhaseLockedVocoder(position: position, amplitude: amplitude, pitchRatio: pitchRatio)
         return copy
     }
 }

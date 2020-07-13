@@ -25,9 +25,10 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Initialize this pluck node
     ///
     /// - Parameters:
-    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+    ///   - frequency: Variable frequency. Values less than initial frequency will be doubled until greater than that.
     ///   - amplitude: Amplitude
-    ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
+    ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay.
+    ///   This should be the lowest frequency you plan on using.
     ///
     public init(
         frequency: AUValue = 110,
