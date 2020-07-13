@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Cocoa
+import AudioKit
 import AudioKitUI
 
 class ViewController: NSViewController {
