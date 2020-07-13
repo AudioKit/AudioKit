@@ -47,18 +47,23 @@ class ViewController: UIViewController {
         // create some menus
         initDropDowns()
 
-        if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
-            let player = AKPlayer(audioFile: audioFile)
-            player.isLooping = true
-            player.buffering = .always //.dynamic
-            player >>> mixer
-
-            // setup the initial input/output connections
-            auManager?.input = player
-            auManager?.output = mixer
-
-            self.player = player
+        guard let url = Bundle.main.resourceURL?.appendingPathComponent("Organ.wav"),
+            FileManager.default.fileExists(atPath: url.path),
+            let audioFile = try? AVAudioFile(forReading: url) else {
+            AKLog("Didn't find source file")
+            return
         }
+
+        let player = AKPlayer(audioFile: audioFile)
+        player.isLooping = true
+        player.buffering = .always // clean loop
+        player >>> mixer
+
+        // setup the initial input/output connections
+        auManager?.input = player
+        auManager?.output = mixer
+
+        self.player = player
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
         AKManager.output = mixer
@@ -79,7 +84,6 @@ class ViewController: UIViewController {
             self.keyboardContainer.addSubview(keyboard)
             self.keyboard = keyboard
         }
-
     }
 
     // get a button by the tag set in the storyboard
@@ -98,7 +102,6 @@ class ViewController: UIViewController {
 
     private func initDropDowns() {
         for i in 0 ..< 3 {
-
             if let button = getEffectsButton(i) {
                 effectButtons[i] = button
             }
@@ -131,7 +134,6 @@ class ViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.loadInstrument(name)
         }
-
     }
 
     /// tell the linked drop down to open
@@ -190,7 +192,6 @@ class ViewController: UIViewController {
     }
 
     public func showAudioUnit(_ audioUnit: AVAudioUnit) {
-
         if currentAU != nil {
             currentAU?.removeFromSuperview()
         }
@@ -199,7 +200,6 @@ class ViewController: UIViewController {
         auContainer.addSubview(au)
         auContainer.contentSize = au.frame.size
         currentAU = au
-
     }
 
     public func loadInstrument(_ name: String) {
@@ -269,9 +269,7 @@ extension ViewController: AKAudioUnitManagerDelegate {
         }
     }
 
-    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didRemoveEffectAtIndex index: Int) {
-
-    }
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didRemoveEffectAtIndex index: Int) {}
 }
 
 extension ViewController: AKKeyboardDelegate {
