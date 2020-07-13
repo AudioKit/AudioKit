@@ -47,7 +47,7 @@ extension AVAudioFile {
 
 // Moved from AKAudioFile properties as convenience utilities
 extension AVAudioFile {
-    func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
+    public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
                                             frameCapacity: AVAudioFrameCount(self.length)) else { return nil }
 
@@ -60,7 +60,7 @@ extension AVAudioFile {
         return buffer
     }
 
-    func toFloatChannelData() -> FloatChannelData? {
+    public func toFloatChannelData() -> FloatChannelData? {
         guard let pcmBuffer = self.toAVAudioPCMBuffer(),
             let pcmFloatChannelData = pcmBuffer.floatChannelData else { return nil }
 
@@ -82,18 +82,3 @@ extension AVAudioFile {
         return result
     }
 }
-
-//extension AVAudioFile {
-//    public static func createTempFile() -> AVAudioFile? {
-//        let filename = UUID().uuidString + ".caf"
-//        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
-//        var settings = AKSettings.audioFormat.settings
-//        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
-//
-//        AKLog("Creating temp file at", url)
-//        return try? AVAudioFile(forWriting: url,
-//                                settings: settings,
-//                                commonFormat: AKSettings.audioFormat.commonFormat,
-//                                interleaved: true)
-//    }
-//}
