@@ -1,9 +1,23 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 extension AVAudioPCMBuffer {
+    /// Read the contents of the url into this buffer
+    public convenience init?(url: URL) throws {
+        guard let file = try? AVAudioFile(forReading: url) else { return nil }
+
+        file.framePosition = 0
+
+        self.init(pcmFormat: file.processingFormat,
+                  frameCapacity: AVAudioFrameCount(file.length))
+
+        try file.read(into: self)
+    }
+}
+
+extension AVAudioPCMBuffer {
     public struct Peak {
         public init() {}
-        public static var min: Float = -10_000.0
+        public static let min: Float = -10_000.0
         public var time: Double = 0
         public var framePosition: Int = 0
         public var amplitude: Float = 1
@@ -17,15 +31,15 @@ extension AVAudioPCMBuffer {
         var value = Peak()
         var position = 0
         var peakValue: Float = Peak.min
-        let frameLength = 512
+        let chunkLength = 512
         let channelCount = Int(format.channelCount)
 
         while true {
-            if position + frameLength >= frameLength {
+            if position + chunkLength >= frameLength {
                 break
             }
             for channel in 0 ..< channelCount {
-                var block = Array(repeating: Float(0), count: frameLength)
+                var block = Array(repeating: Float(0), count: chunkLength)
 
                 // fill the block with frameLength samples
                 for i in 0 ..< block.count {
