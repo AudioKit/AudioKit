@@ -6,48 +6,26 @@
 ///
 open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "minc")
 
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    // MARK: - AKAutomatable
-
     public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
-    /// Lower and upper bounds for Position
-    public static let positionRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Amplitude
-    public static let amplitudeRange: ClosedRange<AUValue> = 0 ... 1
-
-    /// Lower and upper bounds for Pitch Ratio
-    public static let pitchRatioRange: ClosedRange<AUValue> = 0 ... 1_000
-
-    /// Initial value for Position
-    public static let defaultPosition: AUValue = 0
-
-    /// Initial value for Amplitude
-    public static let defaultAmplitude: AUValue = 1
-
-    /// Initial value for Pitch Ratio
-    public static let defaultPitchRatio: AUValue = 1
-
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    public var position = AKNodeParameter(identifier: "position")
+    @Parameter public var position: AUValue
 
     /// Amplitude.
-    public var amplitude = AKNodeParameter(identifier: "amplitude")
+    @Parameter public var amplitude: AUValue
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    public var pitchRatio = AKNodeParameter(identifier: "pitchRatio")
+    @Parameter public var pitchRatio: AUValue
 
+    
     // MARK: - Initialization
 
     /// Initialize this vocoder node
@@ -58,11 +36,15 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
     ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
     public init(
-        position: AUValue = defaultPosition,
-        amplitude: AUValue = defaultAmplitude,
-        pitchRatio: AUValue = defaultPitchRatio
+        position: AUValue = 0,
+        amplitude: AUValue = 1,
+        pitchRatio: AUValue = 1
         ) {
         super.init(avAudioNode: AVAudioNode())
+        
+        self.position = position
+        self.amplitude = amplitude
+        self.pitchRatio = pitchRatio
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -70,10 +52,6 @@ open class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKA
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
-
-            self.position.associate(with: self.internalAU, value: position)
-            self.amplitude.associate(with: self.internalAU, value: amplitude)
-            self.pitchRatio.associate(with: self.internalAU, value: pitchRatio)
 
         }
     }
