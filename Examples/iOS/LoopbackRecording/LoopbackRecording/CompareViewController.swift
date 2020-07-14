@@ -1,13 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AudioKit
 import AudioKitUI
+import Foundation
 
 let samples = 882
 
 class CompareViewController: UIViewController {
-
     public var table1 = AKTable(count: samples)
     public var table2 = AKTable(count: samples)
 
@@ -23,12 +22,12 @@ class CompareViewController: UIViewController {
         return label
     }()
 
-    func setFiles(file1: AKAudioFile, file2: AKAudioFile) {
-
+    func setFiles(file1: AVAudioFile, file2: AVAudioFile) {
         for ft in [(file1, table1), (file2, table2)] {
-            if let floats = ft.0.floatChannelData?[0] {
+            // if let floats = ft.0.floatChannelData?[0] {
+            if let floatChannelData = ft.0.toFloatChannelData() {
                 for i in 0 ..< table1.count {
-                    ft.1[i] = floats[i]
+                    ft.1[i] = floatChannelData[0][i]
                 }
             }
         }

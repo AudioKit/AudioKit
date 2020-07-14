@@ -114,8 +114,8 @@ extension AKSampler {
                                                                      path: path))
                                 }
                             } else {
-                                let sampleFile = try AKAudioFile(forReading: sampleFileURL)
-                                loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
+                                let sampleFile = try AVAudioFile(forReading: sampleFileURL)
+                                loadAudioFile(from: sampleDescriptor, file: sampleFile)
                             }
                         }
                     }

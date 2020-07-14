@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
-
 public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
 
     let ratio = AUParameter(

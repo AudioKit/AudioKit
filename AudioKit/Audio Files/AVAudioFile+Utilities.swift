@@ -2,7 +2,12 @@
 
 import Accelerate
 
-public typealias FloatChannelData = [[Float]]
+extension AVAudioFile {
+    /// Duration in seconds
+    public var duration: TimeInterval {
+        return Double(length) / fileFormat.sampleRate
+    }
+}
 
 extension AVAudioFile {
     /// Get a 2d array of Floats suitable for passing to AKWaveformLayer or other visualization classes
@@ -29,13 +34,51 @@ extension AVAudioFile {
 
             guard let floatData = rmsBuffer.floatChannelData else { return nil }
 
-            for c in 0 ..< channelCount {
+            for channel in 0 ..< channelCount {
                 var rms: Float = 0.0
-                vDSP_rmsqv(floatData[c], 1, &rms, vDSP_Length(rmsBuffer.frameLength))
-                data[c][i] = rms
+                vDSP_rmsqv(floatData[channel], 1, &rms, vDSP_Length(rmsBuffer.frameLength))
+                data[channel][i] = rms
             }
             startFrame += AVAudioFramePosition(framesPerBuffer)
         }
         return data
+    }
+}
+
+// Moved from AKAudioFile properties as convenience utilities
+extension AVAudioFile {
+    public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
+                                            frameCapacity: AVAudioFrameCount(self.length)) else { return nil }
+
+        do {
+            try self.read(into: buffer)
+        } catch let error as NSError {
+            AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
+        }
+
+        return buffer
+    }
+
+    public func toFloatChannelData() -> FloatChannelData? {
+        guard let pcmBuffer = self.toAVAudioPCMBuffer(),
+            let pcmFloatChannelData = pcmBuffer.floatChannelData else { return nil }
+
+        let channelCount = Int(pcmBuffer.format.channelCount)
+        let frameLength = Int(pcmBuffer.frameLength)
+        let stride = pcmBuffer.stride
+
+        // Preallocate our Array so we're not constantly thrashing while resizing as we append.
+        var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
+
+        // Loop across our channels...
+        for channel in 0 ..< channelCount {
+            // Make sure we go through all of the frames...
+            for sampleIndex in 0 ..< frameLength {
+                result[channel][sampleIndex] = pcmFloatChannelData[channel][sampleIndex * stride]
+            }
+        }
+
+        return result
     }
 }

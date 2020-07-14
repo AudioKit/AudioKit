@@ -118,17 +118,17 @@ open class AKClipPlayer: AKNode {
     }
 
     // Converts clip's parameters into sample times, and schedules the internal player to play them.
-    private func scheduleFile(audioFile: AKAudioFile,
+    private func scheduleFile(audioFile: AVAudioFile,
                               time: Double,
                               offset: Double,
                               duration: Double,
                               completion: (() -> Void)?) {
-        let outputSamplerate = playerNode.outputFormat(forBus: 0).sampleRate
+        let outputSampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let offsetFrame = AVAudioFramePosition(round(offset * audioFile.processingFormat.sampleRate))
         let frameCount = AVAudioFrameCount(round(duration * audioFile.processingFormat.sampleRate))
 
-        let startTime = AVAudioTime(sampleTime: AVAudioFramePosition(round(time * outputSamplerate)),
-                                    atRate: outputSamplerate)
+        let startTime = AVAudioTime(sampleTime: AVAudioFramePosition(round(time * outputSampleRate)),
+                                    atRate: outputSampleRate)
         playerNode.scheduleSegment(audioFile,
                                    startingFrame: offsetFrame,
                                    frameCount: frameCount,

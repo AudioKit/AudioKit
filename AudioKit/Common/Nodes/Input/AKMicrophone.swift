@@ -2,7 +2,6 @@
 
 /// Audio from the standard input
 @objc open class AKMicrophone: AKNode, AKToggleable {
-
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
@@ -30,31 +29,33 @@
     }
 
     /// Initialize the microphone
-	@objc public init?(with format: AVAudioFormat? = nil) {
-		super.init(avAudioNode: AVAudioNode())
-		guard let formatForDevice = getFormatForDevice() else {
-			AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
-			return nil
-		}
-		self.avAudioNode = mixer
-		AKSettings.audioInputEnabled = true
+    @objc public init?(with format: AVAudioFormat? = nil) {
+        super.init(avAudioNode: mixer)
 
-		#if os(iOS)
-		AKManager.engine.attach(avAudioUnitOrNode)
-		AKManager.engine.connect(AKManager.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
-		#elseif !os(tvOS)
-		AKManager.engine.inputNode.connect(to: self.avAudioNode)
-		#endif
-	}
+        guard let formatForDevice = getFormatForDevice() else {
+            AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
+            return nil
+        }
+        AKSettings.audioInputEnabled = true
 
-	// Making this throw as whenever we have sample rate mismatches, it often crashes.
-	private func setAVSessionSampleRate(sampleRate: Double) throws {
+        #if os(iOS)
+        AKManager.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.connect(AKManager.engine.inputNode, to: avAudioNode, format: format ?? formatForDevice)
+        #elseif !os(tvOS)
+        // AKLog("avAudioNode.outputFormat(forBus: 0)", avAudioNode.outputFormat(forBus: 0))
+        // NOTE: format is ignored on macOS here. AKMicrophone for macOS is partially functional
+        AKManager.engine.inputNode.connect(to: avAudioNode)
+        #endif
+    }
+
+    // Making this throw as whenever we have sample rate mismatches, it often crashes.
+    private func setAVSessionSampleRate(sampleRate: Double) throws {
         #if !os(macOS)
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         } catch {
             AKLog(error.localizedDescription)
-			throw error
+            throw error
         }
         #endif
     }
@@ -77,21 +78,27 @@
     // Here is where we actually check the device type and make the settings, if needed
     private func getFormatForDevice() -> AVAudioFormat? {
         let audioFormat: AVAudioFormat?
+
+        var currentFormat = AKSettings.audioFormat
+        var sampleRate = AKSettings.sampleRate
+
         #if os(iOS) && !targetEnvironment(simulator)
-        let currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
-        let desiredFS = AVAudioSession.sharedInstance().sampleRate
+        sampleRate = AVAudioSession.sharedInstance().sampleRate
+        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        #elseif os(macOS)
+        sampleRate = AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate
+        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        #endif
+
         if let layout = currentFormat.channelLayout {
             audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,
-                                        sampleRate: desiredFS,
+                                        sampleRate: sampleRate,
                                         interleaved: currentFormat.isInterleaved,
                                         channelLayout: layout)
         } else {
-            audioFormat = AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 2)
+            audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)
         }
-        #else
-        let desiredFS = AKSettings.sampleRate
-        audioFormat = AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 2)
-        #endif
+
         return audioFormat
     }
 }

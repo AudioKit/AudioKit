@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
-
 /**
  AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
  scheduling of sounds, looping, fading, time-stretching, pitch-shifting and reversing.
@@ -36,11 +34,11 @@ import AVFoundation
  Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKAbstractPlayer {
+
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
     /// such as Perfect Looping or Reversing
-
     public enum BufferingType {
         case dynamic, always
     }
@@ -104,7 +102,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Will return whether the engine is rendering offline or realtime
     /// Requires iOS 11, macOS 10.13 for offline rendering
-    public override var renderingMode: RenderingMode {
+    override public var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
             if playerNode.engine?.manualRenderingMode == .offline {
@@ -118,12 +116,12 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public internal(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    @objc public override var duration: Double {
+    @objc override public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    @objc public override var sampleRate: Double {
+    @objc override public var sampleRate: Double {
         return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
@@ -149,12 +147,12 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// - Returns: The total frame count that is being playing.
+    /// The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
     @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
-    /// - Returns: The current frame while playing
+    /// The current frame while playing
     public var currentFrame: AVAudioFramePosition {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
@@ -163,7 +161,7 @@ public class AKPlayer: AKAbstractPlayer {
         return 0
     }
 
-    /// - Returns: Current time of the player in seconds while playing.
+    /// Current time of the player in seconds while playing.
     public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         var normalizedPauseTime = 0.0
@@ -200,7 +198,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// returns if the player is currently paused
+    /// Returns if the player is currently paused
     @objc public internal(set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
@@ -245,7 +243,7 @@ public class AKPlayer: AKAbstractPlayer {
         return nil
     }
 
-    /// Create a player from an AVAudioFile (or AKAudioFile). If a file has previously
+    /// Create a player from an AVAudioFile. If a file has previously
     /// been opened for writing, you can reset it to readOnly with the reopenFile flag.
     /// This is necessary in cases where AKMicrophone may of had access to the file.
     @objc public convenience init(audioFile: AVAudioFile, reopenFile: Bool = true) {
@@ -274,7 +272,7 @@ public class AKPlayer: AKAbstractPlayer {
         initialize(restartIfPlaying: false)
     }
 
-    open override func initialize(restartIfPlaying: Bool = true) {
+    override open func initialize(restartIfPlaying: Bool = true) {
         let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
@@ -344,7 +342,7 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Play
 
     /// Play entire file right now
-    @objc public override func play() {
+    @objc override public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
@@ -376,14 +374,12 @@ public class AKPlayer: AKAbstractPlayer {
 
             faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
-
-        // and play
         playerNode.play()
         pauseTime = nil
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
-    @objc public override func stop() {
+    @objc override public func stop() {
         stopCompletion()
     }
 
@@ -391,7 +387,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Dispose the audio file, buffer and nodes and release resources.
     /// Only call when you are totally done with this class.
-    @objc public override func detach() {
+    @objc override public func detach() {
         stop()
         super.detach() // get rid of the faderNode
         audioFile = nil

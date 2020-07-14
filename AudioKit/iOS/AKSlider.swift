@@ -117,19 +117,17 @@ public enum AKSliderStyle {
         clipsToBounds = true
     }
 
-    /// Require constraint-based layout
     open override class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
-    /// Handle new touches
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         touchBeganCallback()
     }
 
     open var touchBeganCallback: () -> Void = {}
-    /// Handle moved touches
+
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -143,7 +141,6 @@ public enum AKSliderStyle {
         super.touchesMoved(touches, with: event)
     }
 
-    /// Handle touches ended
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
@@ -237,12 +234,11 @@ public enum AKSliderStyle {
                         initialValue: CGFloat = 0,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
-        //// General Declarations
+
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
         }
-
         let width = frame.width
         let height = frame.height
 
@@ -271,25 +267,21 @@ public enum AKSliderStyle {
         let indicatorSize = CGSize(width: indicatorWidth, height: sliderHeight)
         let sliderCornerRadius = indicatorSize.width / sliderStyle.cornerRadiusFactor
 
-        // Draw name label
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
         context.clip(to: nameLabelInset)
-        NSString(string: propertyName).draw(
-            in: CGRect(x: nameLabelInset.minX,
-                       y: nameLabelInset.minY + sliderHeight,
-                       width: nameLabelInset.width,
-                       height: nameLabelTextHeight),
-            withAttributes: nameLabelFontAttributes)
+        NSString(string: propertyName).draw(in: CGRect(x: nameLabelInset.minX,
+                                                       y: nameLabelInset.minY + sliderHeight,
+                                                       width: nameLabelInset.width,
+                                                       height: nameLabelTextHeight),
+                                            withAttributes: nameLabelFontAttributes)
         context.restoreGState()
 
-        //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
         let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
             (currentValue < 1 ?
                 currentValue * (width - (sliderMargin * 2.0)) + sliderMargin :
                 width - sliderMargin)
 
-        //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
                                     y: sliderOrigin + sliderBorderWidth / 2.0,
                                     width: width - sliderBorderWidth,
@@ -301,7 +293,6 @@ public enum AKSliderStyle {
         sliderAreaPath.fill()
         sliderAreaPath.lineWidth = sliderBorderWidth
 
-        //// valueRectangle Drawing
         let valueWidth = currentWidth < indicatorSize.width ? indicatorSize.width : currentWidth
         let valueCorners = currentWidth < indicatorSize.width ? UIRectCorner.allCorners : [.topLeft, .bottomLeft]
         let valueAreaRect = CGRect(x: sliderBorderWidth / 2.0,
@@ -314,11 +305,9 @@ public enum AKSliderStyle {
         color.withAlphaComponent(0.6).setFill()
         valueAreaPath.fill()
 
-        // sliderArea Border
         sliderBorderColorForTheme.setStroke()
         sliderAreaPath.stroke()
 
-        // Indicator view drawing
         let indicatorRect = CGRect(x: currentWidth - indicatorSize.width / 2.0,
                                    y: sliderOrigin,
                                    width: indicatorSize.width,
@@ -332,7 +321,6 @@ public enum AKSliderStyle {
         indicatorBorderColorForTheme.setStroke()
         indicatorPath.stroke()
 
-        //// valueLabel Drawing
         if showsValueBubble, isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
