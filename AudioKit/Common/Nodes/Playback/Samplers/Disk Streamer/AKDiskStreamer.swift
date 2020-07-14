@@ -7,7 +7,6 @@ import Foundation
 
 /// Audio player that loads a sample into memory
 open class AKDiskStreamer: AKNode, AKComponent {
-
     public typealias AKAudioUnitType = AKDiskStreamerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "akds")
@@ -30,7 +29,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     /// endPoint - this is where the sample will play to before stopping.
     private var endPoint: Sample {
-        return Sample(avAudiofile?.samplesCount ?? 0)
+        return Sample(avAudiofile?.length ?? 0)
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
@@ -63,14 +62,14 @@ open class AKDiskStreamer: AKNode, AKComponent {
     /// Number of samples in the audio stored in memory
     open var size: Sample {
         if let file = avAudiofile {
-            return Sample(file.samplesCount)
+            return Sample(file.length)
         }
         return 0
     }
 
     /// originalSampleRate
     open var originalSampleRate: Double? {
-        return avAudiofile?.sampleRate
+        return avAudiofile?.fileFormat.sampleRate
     }
 
     /// Position in the audio file from 0 - 1
@@ -97,13 +96,14 @@ open class AKDiskStreamer: AKNode, AKComponent {
             internalAU?.loadCompletionHandler = newValue
         }
     }
+
     open var completionHandler: AKCallback = {} {
         willSet {
             internalAU?.completionHandler = newValue
         }
     }
 
-    open var loadedFile: AKAudioFile?
+    open var loadedFile: AVAudioFile?
 
     // MARK: - Initialization
 
@@ -117,7 +117,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
     @objc public init(volume: AUValue = 1,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
-
         self.volume = volume
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
@@ -170,8 +169,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory - this must be done after audiokit starts
-    open func load(file: AKAudioFile) {
-        if file.channelCount > 2 || file.channelCount < 1 {
+    open func load(file: AVAudioFile) {
+        if file.fileFormat.channelCount > 2 || file.fileFormat.channelCount < 1 {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
             return
         }
@@ -180,7 +179,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
-        internalAU?.loadFile(file.avAsset.url.path)
+        internalAU?.loadFile(file.url.path)
         loadedFile = file
     }
 

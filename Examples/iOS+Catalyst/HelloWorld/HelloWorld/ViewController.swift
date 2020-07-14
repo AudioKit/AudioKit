@@ -39,5 +39,4 @@ class ViewController: UIViewController {
             sender.setTitle("Stop \(Int(oscillator1.frequency))Hz & \(Int(oscillator2.frequency))Hz", for: .normal)
         }
     }
-
 }

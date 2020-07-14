@@ -17,9 +17,9 @@ open class AKAppleSampler: AKNode {
     /// Internal audio unit
     public private(set) var internalAU: AUAudioUnit?
 
-    private var _audioFiles: [AKAudioFile] = []
+    private var _audioFiles: [AVAudioFile] = []
 
-    public var audioFiles: [AKAudioFile] {
+    public var audioFiles: [AVAudioFile] {
         get {
             return _audioFiles
         }
@@ -107,11 +107,11 @@ open class AKAppleSampler: AKNode {
         try loadInstrument(file, type: "exs")
     }
 
-    /// Load an AKAudioFile
+    /// Load an AVAudioFile
     ///
-    /// - parameter file: an AKAudioFile
+    /// - parameter file: an AVAudioFile
     ///
-    open func loadAudioFile(_ file: AKAudioFile) throws {
+    open func loadAudioFile(_ file: AVAudioFile) throws {
         _audioFiles = [file]
 
         do {
@@ -120,19 +120,19 @@ open class AKAppleSampler: AKNode {
                 self.samplerUnit.reset()
             }
         } catch let error as NSError {
-            AKLog("Error loading audio file \"\(file.fileNamePlusExtension)\"")
+            AKLog("Error loading audio file \"\(file.url.lastPathComponent)\"")
             throw error
         }
     }
 
-    /// Load an array of AKAudioFiles
+    /// Load an array of AVAudioFiles
     ///
-    /// - parameter files: An array of AKAudioFiles
+    /// - parameter files: An array of AVAudioFiles
     ///
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+    open func loadAudioFiles(_ files: [AVAudioFile] ) throws {
         _audioFiles = files
         let urls = files.map { $0.url }
         do {

@@ -8,12 +8,12 @@ class ViewController: UIViewController {
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
-    var tape: AKAudioFile!
+    var tape: AVAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var mainMixer: AKMixer!
 
-    let mic = AKMicrophone()
+    lazy var mic = AKMicrophone()
 
     var state = State.readyToRecord
 
@@ -36,9 +36,6 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        // Clean tempFiles !
-        AKAudioFile.cleanTempDirectory()
-
         // Session settings
         AKSettings.bufferLength = .medium
 
@@ -48,6 +45,7 @@ class ViewController: UIViewController {
             AKLog("Could not set session category.")
         }
 
+        AKSettings.sampleRate = 48000
         AKSettings.defaultToSpeaker = true
 
         // Patching
@@ -111,29 +109,22 @@ class ViewController: UIViewController {
         case .recording:
             // Microphone monitoring is muted
             micBooster.gain = 0
+            recorder.stop()
             tape = recorder.audioFile!
             try? player.load(audioFile: tape)
 
             do {
                 try player.load(audioFile: tape)
+                setupUIForPlaying()
             } catch let err as NSError {
                 AKLog(err)
                 // Assuming formats match, this should load
                 return
             }
-            if let _ = player.audioFile?.duration {
-                recorder.stop()
-                tape.exportAsynchronously(name: "TempTestFile.m4a",
-                                          baseDir: .documents,
-                                          exportFormat: .m4a) { _, exportError in
-                    if let error = exportError {
-                        AKLog("Export Failed \(error)")
-                    } else {
-                        AKLog("Export succeeded")
-                    }
-                }
-                setupUIForPlaying()
-            }
+
+
+            // NOTE: there could be another export function in here that creates an AKConverter to export
+            // to the destination of choice if desired. See the macOS Recorder example if interested
         case .readyToPlay:
             player.play()
             infoLabel.text = "Playing..."
