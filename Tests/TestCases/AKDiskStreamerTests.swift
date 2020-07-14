@@ -77,7 +77,7 @@ class AKDiskStreamerTests: AKTestCase {
     func loadFile() {
         if let path = Bundle.main.path(forResource: "sinechirp", ofType: "wav") {
             let url = URL(fileURLWithPath: path)
-            let file = try! AKAudioFile(forReading: url)
+            let file = try! AVAudioFile(forReading: url)
             streamer?.load(file: file)
         } else {
             XCTFail("Could not load sinechirp.wav")
