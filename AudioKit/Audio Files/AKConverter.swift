@@ -15,18 +15,15 @@
  })
  ```
  */
-
 open class AKConverter: NSObject {
-    /**
-     AKConverterCallback is the callback format for start()
-     -Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
-     */
+    /// AKConverterCallback is the callback format for start()
+    /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
     public typealias AKConverterCallback = (_ error: Error?) -> Void
 
-    /** Formats that this class can write */
+    /// Formats that this class can write
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
-    /** Formats that this class can read */
+    /// Formats that this class can read
     public static let inputFormats = AKConverter.outputFormats + [
         "mp3",
         "snd",
@@ -41,9 +38,7 @@ open class AKConverter: NSObject {
         "" // allow files with no extension. convertToPCM can still read the type
     ]
 
-    /**
-     The conversion options, leave nil to adopt the value of the input file
-     */
+    /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
         public init() {}
         public var format: String?
@@ -98,11 +93,8 @@ open class AKConverter: NSObject {
 
     // MARK: - public functions
 
-    /**
-     The entry point for file conversion
-
-     - Parameter completionHandler: the callback that will be triggered when process has completed.
-     */
+    /// The entry point for file conversion
+    /// - Parameter completionHandler: the callback that will be triggered when process has completed.
     open func start(completionHandler: AKConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
