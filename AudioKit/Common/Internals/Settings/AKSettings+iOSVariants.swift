@@ -3,7 +3,7 @@
 #if !os(macOS)
     extension AKSettings {
         /// Global audio format AudioKit will default to for new objects and connections
-        public private(set) static var audioFormat = defaultAudioFormat {
+        public static var audioFormat = defaultAudioFormat {
             didSet {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
