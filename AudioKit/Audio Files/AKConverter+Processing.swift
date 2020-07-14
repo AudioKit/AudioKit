@@ -350,7 +350,7 @@ extension AKConverter {
                                           &destinationFile)
 
         if error != noErr {
-            completionHandler?(createError(message: "Unable to create output fÇile."))
+            completionHandler?(createError(message: "Unable to create output file."))
             return
         }
 
