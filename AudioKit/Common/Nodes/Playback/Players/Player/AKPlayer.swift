@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
-
 /**
  AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
  scheduling of sounds, looping, fading, time-stretching, pitch-shifting and reversing.
