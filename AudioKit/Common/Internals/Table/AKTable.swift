@@ -220,7 +220,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     /// Instantiate the table as a sine wave
     func standardSineWave() {
         for i in indices {
-            content[i] = Float(sin(2 * Float.pi * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
         }
     }
 
