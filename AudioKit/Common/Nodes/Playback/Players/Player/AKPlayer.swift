@@ -36,11 +36,11 @@ import AVFoundation
  Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKAbstractPlayer {
+    
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
     /// such as Perfect Looping or Reversing
-
     public enum BufferingType {
         case dynamic, always
     }

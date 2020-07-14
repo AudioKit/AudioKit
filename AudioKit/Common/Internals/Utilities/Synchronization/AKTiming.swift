@@ -38,17 +38,16 @@
 }
 
 extension AKTiming {
-    /**
-     Starts an array of AKTimings at a position.
 
-     Nodes are stopped, positions are set, then prepare is called (optional) on each node to allow
-     for time consuming activities like reading from disk or buffering. Then, a future time is
-     calculated using the last render timestamp (or now) + 2 render cycles to ensure synchronous start.
-
-     - Parameter nodes: The nodes that will be synchronously started.
-     - Parameter position: The position of the nodes when started.
-     - Returns: The audioTime (in the future) that the nodes will be started at.
-     */
+    /// Starts an array of AKTimings at a position.
+    ///
+    /// Nodes are stopped, positions are set, then prepare is called (optional) on each node to allow
+    /// for time consuming activities like reading from disk or buffering. Then, a future time is
+    /// calculated using the last render timestamp (or now) + 2 render cycles to ensure synchronous start.
+    ///
+    /// - Parameter nodes: The nodes that will be synchronously started.
+    /// - Parameter position: The position of the nodes when started.
+    /// - Returns: The audioTime (in the future) that the nodes will be started at.
     public static func syncStart(_ nodes: [AKTiming], at position: Double = 0) -> AVAudioTime {
         for node in nodes {
             node.stop()
@@ -66,11 +65,9 @@ extension AKTiming {
         return startTime
     }
 
-    /**
-     Starts playback with position synchronized to an already running node.
-     - Parameter other: An already started AKTiming that position will be synchronized with.
-     - Parameter audioTime: Future time in the audio render context that playback should begin.
-     */
+    /// Starts playback with position synchronized to an already running node.
+    /// - Parameter other: An already started AKTiming that position will be synchronized with.
+    /// - Parameter audioTime: Future time in the audio render context that playback should begin.
     public func synchronizeWith(other: AKTiming, at audioTime: AVAudioTime? = nil) {
         stop()
         guard other.isStarted else {
