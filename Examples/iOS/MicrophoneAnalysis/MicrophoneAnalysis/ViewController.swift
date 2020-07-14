@@ -5,7 +5,6 @@ import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
-
     @IBOutlet private var frequencyLabel: UILabel!
     @IBOutlet private var amplitudeLabel: UILabel!
     @IBOutlet private var noteNameWithSharpsLabel: UILabel!
@@ -40,7 +39,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Kludge to align sample rates of the graph with the current input sample rate
         AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+
         AKSettings.audioInputEnabled = true
         mic = AKMicrophone()
         tracker = AKFrequencyTracker(mic)
@@ -86,7 +87,7 @@ class ViewController: UIViewController {
             var minDistance: Float = 10_000.0
             var index = 0
 
-            for i in 0..<noteFrequencies.count {
+            for i in 0 ..< noteFrequencies.count {
                 let distance = fabsf(Float(noteFrequencies[i]) - frequency)
                 if distance < minDistance {
                     index = i
@@ -109,15 +110,13 @@ class ViewController: UIViewController {
         navigationController.preferredContentSize = CGSize(width: 300, height: 300)
         navigationController.modalPresentationStyle = .popover
         navigationController.popoverPresentationController!.delegate = self
-        self.present(navigationController, animated: true, completion: nil)
+        present(navigationController, animated: true, completion: nil)
     }
-
 }
 
 // MARK: - UIPopoverPresentationControllerDelegate
 
 extension ViewController: UIPopoverPresentationControllerDelegate {
-
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -131,7 +130,6 @@ extension ViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - InputDeviceDelegate
 
 extension ViewController: InputDeviceDelegate {
-
     func didSelectInputDevice(_ device: AKDevice) {
         do {
             try mic.setDevice(device)
@@ -139,5 +137,4 @@ extension ViewController: InputDeviceDelegate {
             AKLog("Error setting input device")
         }
     }
-
 }
