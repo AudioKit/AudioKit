@@ -1,14 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 public class AKResourcesAudioFileLoaderView: NSView {
-
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
@@ -42,7 +41,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKAudioPlayer,
+    public convenience init(player: AKPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(width: 440, height: 60)) {
         self.init(frame: frame)
@@ -83,15 +82,17 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player.stop()
             let filename = titles[currentIndex]
-            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
-                AKLog("Unable to load file: \(filename)")
-                return
+            if let url = Bundle.main.resourceURL?.appendingPathComponent(filename),
+                FileManager.default.fileExists(atPath: url.path) {
+                do {
+                    try player.load(url: url)
+                } catch {
+                    AKLog("Error replacing file")
+                }
+            } else {
+                AKLog("Error: didn't find \(filename) in Resources")
             }
-            do {
-                try player.replace(file: file)
-            } catch {
-                AKLog("Could not replace file")
-            }
+
             if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
@@ -306,8 +307,8 @@ public class AKResourcesAudioFileLoaderView: NSView {
         nameLabelStyle.alignment = .left
 
         let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24.0),
-                                       .foregroundColor: textColorForTheme,
-                                       .paragraphStyle: nameLabelStyle]
+                                                                      .foregroundColor: textColorForTheme,
+                                                                      .paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(

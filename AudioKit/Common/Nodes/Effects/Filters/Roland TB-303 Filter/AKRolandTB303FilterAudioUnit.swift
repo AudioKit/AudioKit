@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
-
 public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
 
     let cutoffFrequency = AUParameter(

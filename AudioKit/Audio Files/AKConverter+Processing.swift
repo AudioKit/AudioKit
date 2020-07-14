@@ -336,7 +336,7 @@ extension AKConverter {
             dstFormat.mFormatFlags = dstFormat.mFormatFlags | kLinearPCMFormatFlagIsBigEndian
         }
 
-        if format == kAudioFileWAVEType, dstFormat.mBitsPerChannel == 8 {
+        if format == kAudioFileWAVEType && dstFormat.mBitsPerChannel == 8 {
             // if is 8 BIT PER CHANNEL, remove kAudioFormatFlagIsSignedInteger
             dstFormat.mFormatFlags &= ~kAudioFormatFlagIsSignedInteger
         }

@@ -24,12 +24,16 @@ class ViewController: NSViewController {
 
         AKManager.output = mixer
 
-        if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
-            let player = AKPlayer(audioFile: audioFile)
-            player.isLooping = true
-            player.buffering = .always
-            self.player = player
+        guard let url = Bundle.main.resourceURL?.appendingPathComponent("Organ.wav"),
+            FileManager.default.fileExists(atPath: url.path),
+            let audioFile = try? AVAudioFile(forReading: url) else {
+            AKLog("Didn't find source file")
+            return
         }
+
+        player = AKPlayer(audioFile: audioFile)
+        player?.isLooping = true
+        player?.buffering = .always
 
         do {
             try AKManager.start()
@@ -43,7 +47,7 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
 
         // For this example, we'll just use the manager to get a list of all installed Audio Units
-        self.manager.requestEffects(completionHandler: { audioUnits in
+        manager.requestEffects(completionHandler: { audioUnits in
             AKLog("Installed Audio Units:")
             for test in audioUnits {
                 AKLog(test.name)
@@ -118,5 +122,4 @@ class ViewController: NSViewController {
             player.stop()
         }
     }
-
 }

@@ -13,7 +13,7 @@ public struct MIDIVariableLengthQuantity {
     }
 
     public init?(fromBytes data: [UInt8]) {
-        guard data.count > 0 else { return nil }
+        guard data.isNotEmpty else { return nil }
         vlqResult = MIDIVariableLengthQuantity.read(bytes: data)
         self.data = Array(data.prefix(vlqResult.0))
         guard self.data.count == length else { return nil }

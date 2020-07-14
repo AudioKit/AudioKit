@@ -53,7 +53,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     /// Phase of the table
     public var phase: Float {
         didSet {
-            phase = (0...1).clamp(phase)
+            phase = (0 ... 1).clamp(phase)
         }
     }
 
@@ -104,34 +104,33 @@ public class AKTable: NSObject, MutableCollection, Codable {
                       count: IndexDistance = 4_096) {
         self.type = type
         self.phase = phase
-
         self.content = [Element](zeros: count)
 
         super.init()
 
         switch type {
         case .sine:
-            self.standardSineWave()
+            standardSineWave()
         case .sawtooth:
-            self.standardSawtoothWave()
+            standardSawtoothWave()
         case .triangle:
-            self.standardTriangleWave()
+            standardTriangleWave()
         case .reverseSawtooth:
-            self.standardReverseSawtoothWave()
+            standardReverseSawtoothWave()
         case .square:
-            self.standardSquareWave()
+            standardSquareWave()
         case .positiveSine:
-            self.positiveSineWave()
+            positiveSineWave()
         case .positiveSawtooth:
-            self.positiveSawtoothWave()
+            positiveSawtoothWave()
         case .positiveTriangle:
-            self.positiveTriangleWave()
+            positiveTriangleWave()
         case .positiveReverseSawtooth:
-            self.positiveReverseSawtoothWave()
+            positiveReverseSawtoothWave()
         case .positiveSquare:
-            self.positiveSquareWave()
+            positiveSquareWave()
         case .zero:
-            self.zero()
+            zero()
         case .custom:
             assertionFailure("use init(content:phase:count:) to initialize a custom waveform")
         }
@@ -145,15 +144,31 @@ public class AKTable: NSObject, MutableCollection, Codable {
         self.content = content
     }
 
-    /// Create table from audio file
-    @objc public convenience init(file: AKAudioFile) {
-        let size = Int(file.samplesCount)
+    /// Create table from first channel of audio file
+    @objc public convenience init?(file: AVAudioFile) {
+        let size = Int(file.length)
         self.init(count: size)
 
-        if let data = file.floatChannelData?[0] {
-            for i in 0 ..< size {
-                self[i] = data[i]
-            }
+        guard let data = file.toFloatChannelData() else { return nil }
+        // Note: this is only taking the first channel of a file
+        for i in 0 ..< size {
+            self[i] = data[0][i]
+        }
+    }
+
+    /// Create an AKTable with the contents of a pcmFormatFloat32 file.
+    /// This method is intended for wavetables (i.e., 2048 or 4096 samples), not large audio files.
+    /// Parameters:
+    ///   - url: URL to the file
+    public convenience init?(url: URL) throws {
+        guard let sample = try AVAudioPCMBuffer(url: url),
+            let leftChannel = sample.floatChannelData?[0] else { return nil }
+        let length = Int(sample.frameLength)
+        self.init(count: length)
+
+        for i in 0 ..< length {
+            let f = leftChannel[i]
+            self[i] = f
         }
     }
 
@@ -161,7 +176,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     public var phaseOffset: Int {
         @inline(__always)
         get {
-            return Int(phase * count)
+            Int(phase * count)
         }
     }
 

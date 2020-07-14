@@ -82,7 +82,7 @@ open class AKAppleSequencer: NSObject {
         }
     }
 
-    // MARK: Looping
+    // MARK: - Looping
 
     /// Set loop functionality of entire sequence
     open func toggleLoop() {
@@ -123,7 +123,7 @@ open class AKAppleSequencer: NSObject {
         loopEnabled = true
     }
 
-    // MARK: Length
+    // MARK: - Length
 
     /// Set length of all tracks
     ///
@@ -157,7 +157,7 @@ open class AKAppleSequencer: NSObject {
         return AKDuration(beats: length, tempo: tempo)
     }
 
-    // MARK: Tempo and Rate
+    // MARK: - Tempo and Rate
 
     /// Set the rate of the sequencer
     ///
@@ -319,7 +319,7 @@ open class AKAppleSequencer: NSObject {
         }
     }
 
-    // MARK: Time Signature
+    // MARK: - Time Signature
 
     /// Return and array of (MusicTimeStamp, AKTimeSignature) tuples
     open var allTimeSignatureEvents: [(MusicTimeStamp, AKTimeSignature)] {
@@ -455,7 +455,7 @@ open class AKAppleSequencer: NSObject {
         }
     }
 
-    // MARK: Duration
+    // MARK: - Duration
 
     /// Convert seconds into AKDuration
     ///
@@ -487,7 +487,7 @@ open class AKAppleSequencer: NSObject {
         return outSecs
     }
 
-    // MARK: Transport Control
+    // MARK: - Transport Control
 
     /// Play the sequence
     open func play() {
@@ -534,7 +534,7 @@ open class AKAppleSequencer: NSObject {
         return currentPosition % length // can switch to modTime func when/if % is removed
     }
 
-    // MARK: Other Sequence Properties
+    // MARK: - Other Sequence Properties
 
     /// Track count
     open var trackCount: Int {
@@ -571,7 +571,7 @@ open class AKAppleSequencer: NSObject {
         return ppqn
     }
 
-    // MARK: Loading MIDI files
+    // MARK: - Loading MIDI files
 
     /// Load a MIDI file from the bundle (removes old tracks, if present)
     open func loadMIDIFile(_ filename: String) {
@@ -614,7 +614,7 @@ open class AKAppleSequencer: NSObject {
         initTracks()
     }
 
-    // MARK: Adding MIDI File data to current sequencer
+    // MARK: - Adding MIDI File data to current sequencer
 
     /// Add tracks from MIDI file to existing sequencer
     ///
@@ -726,7 +726,7 @@ open class AKAppleSequencer: NSObject {
         return tracks.last
     }
 
-    // MARK: Delete Tracks
+    // MARK: - Delete Tracks
 
     /// Delete track and remove it from the sequence
     /// Not to be used during playback
