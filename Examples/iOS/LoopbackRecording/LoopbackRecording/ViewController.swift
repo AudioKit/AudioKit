@@ -19,6 +19,7 @@ import UIKit
  */
 
 class ViewController: UIViewController {
+    // this is lazy here so that the sample rate can be set before it's created by reference
     lazy var mic = AKMicrophone()
     lazy var metronome = AKSamplerMetronome()
     lazy var mixer = AKMixer()
@@ -64,10 +65,11 @@ class ViewController: UIViewController {
 
     func setUpAudio() {
         do {
-            AKSettings.sampleRate = 48000
+            // Kludge to align sample rates of the graph with the current input sample rate
+            AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+
             AKSettings.audioInputEnabled = true
             AKSettings.defaultToSpeaker = true
-//            AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
             try AKSettings.setSession(category: .playAndRecord)
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
