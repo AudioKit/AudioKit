@@ -69,7 +69,7 @@ public class AKNodeParameter {
 
     private var dsp: AKDSPRef?
 
-    private var parameter: AUParameter?
+    public private(set) var parameter: AUParameter?
 
     // MARK: Parameter properties
 

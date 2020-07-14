@@ -131,6 +131,19 @@ open class AKParameterAutomation {
         addAKParameterAutomationPoints(automation, addr, points, points.count)
     }
 
+    /// Manually add an automation point to a parameter
+    public func add(point: AKParameterAutomationPoint, to parameter: AKNodeParameter) {
+        add(points: [point], to: parameter)
+    }
+
+    /// Manually add automation points to a parameter
+    public func add(points: [AKParameterAutomationPoint], to parameter: AKNodeParameter) {
+        if automation == nil { createAutomation() }
+
+        guard let addr = parameter.parameter?.address else { return }
+        addAKParameterAutomationPoints(automation, addr, points, points.count)
+    }
+
     /// Set all automation points for a parameter, overriding any existing points
     public func set(points: [AKParameterAutomationPoint], of parameter: String) {
         if automation == nil { createAutomation() }
@@ -149,6 +162,12 @@ open class AKParameterAutomation {
     public func clearAllPoints(of parameter: String) {
         guard let automation = automation else { return }
         guard let addr = avAudioUnit.auAudioUnit.parameterTree?[parameter]?.address else { return }
+        clearAKParameterAutomationPoints(automation, addr)
+    }
+
+    public func clearAllPoints(of parameter: AKNodeParameter) {
+        guard let automation = automation else { return }
+        guard let addr = parameter.parameter?.address else { return }
         clearAKParameterAutomationPoints(automation, addr)
     }
 }
