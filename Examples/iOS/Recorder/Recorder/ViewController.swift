@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var moogLadder: AKMoogLadder!
     var mainMixer: AKMixer!
 
+    // this is lazy here so that the sample rate can be set before it's created by reference
     lazy var mic = AKMicrophone()
 
     var state = State.readyToRecord
@@ -45,7 +46,9 @@ class ViewController: UIViewController {
             AKLog("Could not set session category.")
         }
 
-        AKSettings.sampleRate = 48000
+        // Kludge to align sample rates of the graph with the current input sample rate
+        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+
         AKSettings.defaultToSpeaker = true
 
         // Patching
@@ -122,9 +125,8 @@ class ViewController: UIViewController {
                 return
             }
 
-
-            // NOTE: there could be another export function in here that creates an AKConverter to export
-            // to the destination of choice if desired. See the macOS Recorder example if interested
+        // NOTE: there could be another export function in here that creates an AKConverter to export
+        // to the destination of choice if desired. See the macOS Recorder example if interested
         case .readyToPlay:
             player.play()
             infoLabel.text = "Playing..."

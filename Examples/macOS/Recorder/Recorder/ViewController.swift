@@ -26,8 +26,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else { return }
-        AKSettings.audioFormat = audioFormat
+        // Kludge to align sample rates of the graph with the current input sample rate
+        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.black
@@ -65,7 +65,7 @@ class ViewController: NSViewController {
         recorder = try? AKNodeRecorder(node: micMixer)
 
         player = AKPlayer()
-        player.isLooping = true
+        player.isLooping = false
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)

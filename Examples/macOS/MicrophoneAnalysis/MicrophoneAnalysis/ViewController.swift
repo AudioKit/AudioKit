@@ -5,14 +5,13 @@ import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
-
     @IBOutlet private var frequencyLabel: NSTextField!
     @IBOutlet private var amplitudeLabel: NSTextField!
     @IBOutlet private var noteNameWithSharpsLabel: NSTextField!
     @IBOutlet private var noteNameWithFlatsLabel: NSTextField!
     @IBOutlet private var audioInputPlot: EZAudioPlot!
 
-    var mic: AKMicrophone!
+    lazy var mic = AKMicrophone()
     var tracker: AKFrequencyTracker!
     var silence: AKBooster!
 
@@ -32,8 +31,11 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Kludge to align sample rates of the graph with the current input sample rate
+        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+
         AKSettings.audioInputEnabled = true
-        mic = AKMicrophone()
         tracker = AKFrequencyTracker(mic)
         silence = AKBooster(tracker, gain: 0)
     }
@@ -56,43 +58,44 @@ class ViewController: NSViewController {
 
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
 
     @objc func updateUI() {
-        if tracker.amplitude > 0.1 {
-            let trackerFrequency = Float(tracker.frequency)
-
-            guard trackerFrequency < 7_000 else {
-                // This is a bit of hack because of modern Macbooks giving super high frequencies
-                return
-            }
-
-            frequencyLabel.stringValue = String(format: "%0.1f", tracker.frequency)
-
-            var frequency = trackerFrequency
-            while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
-                frequency /= 2.0
-            }
-            while frequency < Float(noteFrequencies[0]) {
-                frequency *= 2.0
-            }
-
-            var minDistance: Float = 10_000.0
-            var index = 0
-
-            for i in 0..<noteFrequencies.count {
-                let distance = fabsf(Float(noteFrequencies[i]) - frequency)
-                if distance < minDistance {
-                    index = i
-                    minDistance = distance
-                }
-            }
-            let octave = Int(log2f(trackerFrequency / frequency))
-            noteNameWithSharpsLabel.stringValue = "\(noteNamesWithSharps[index])\(octave)"
-            noteNameWithFlatsLabel.stringValue = "\(noteNamesWithFlats[index])\(octave)"
-        }
         amplitudeLabel.stringValue = String(format: "%0.2f", tracker.amplitude)
+
+        guard tracker.amplitude > 0.1 else { return }
+
+        let trackerFrequency = Float(tracker.frequency)
+
+        guard trackerFrequency < 7_000 else {
+            // This is a bit of hack because of modern Macbooks giving super high frequencies
+            return
+        }
+
+        frequencyLabel.stringValue = String(format: "%0.1f", tracker.frequency)
+
+        var frequency = trackerFrequency
+        while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
+            frequency /= 2.0
+        }
+        while frequency < Float(noteFrequencies[0]) {
+            frequency *= 2.0
+        }
+
+        var minDistance: Float = 10_000.0
+        var index = 0
+
+        for i in 0 ..< noteFrequencies.count {
+            let distance = fabsf(Float(noteFrequencies[i]) - frequency)
+            if distance < minDistance {
+                index = i
+                minDistance = distance
+            }
+        }
+        let octave = Int(log2f(trackerFrequency / frequency))
+        noteNameWithSharpsLabel.stringValue = "\(noteNamesWithSharps[index])\(octave)"
+        noteNameWithFlatsLabel.stringValue = "\(noteNamesWithFlats[index])\(octave)"
     }
 }
