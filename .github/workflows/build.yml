@@ -128,9 +128,11 @@ jobs:
         for zip in zips/*.zip; do
           aws s3 cp ${zip} s3://files.audiokit.io/staging/v$(cat ../VERSION).b1/
         done
+        aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        CF_DISTRIBUTION: ${{ secrets.CF_DISTRIBUTION }}
 
   # Upload release assets for tags
   release:
