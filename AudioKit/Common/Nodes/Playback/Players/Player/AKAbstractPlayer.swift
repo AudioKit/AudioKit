@@ -291,7 +291,7 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.parameterAutomation?.startPlayback()
     }
 
-    open override func detach() {
+    override open func detach() {
         super.detach()
         faderNode?.detach()
         faderNode = nil

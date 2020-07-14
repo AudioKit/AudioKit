@@ -40,10 +40,10 @@ import AudioKit
     }
 
     /// Handle touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
-            guard let isPlayerPlaying = player?.isPlaying else {
+            guard let wasPlaying = player?.isPlaying else {
                 return
             }
             let touchLocation = touch.location(in: self)
@@ -67,16 +67,18 @@ import AudioKit
             if isFileChanged {
                 player?.stop()
                 let filename = titles[currentIndex]
-
-                if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
+                if let url = Bundle.main.resourceURL?.appendingPathComponent(filename),
+                    FileManager.default.fileExists(atPath: url.path) {
                     do {
-                        try player?.load(audioFile: file)
-                    } catch let err as NSError {
-                        AKLog(err)
-                        return
+                        try player?.load(url: url)
+                    } catch {
+                        AKLog("Error replacing file")
                     }
+                } else {
+                    AKLog("Error: didn't find \(filename) in Resources")
                 }
-                if isPlayerPlaying { player?.play() }
+
+                if wasPlaying { player?.play(from: 0) }
                 setNeedsDisplay()
             }
         }
@@ -92,7 +94,7 @@ import AudioKit
     }
 
     /// Initialization with no details
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         self.titles = ["File One", "File Two", "File Three"]
 
         super.init(frame: frame)
@@ -349,7 +351,7 @@ import AudioKit
         outerPath.stroke()
     }
 
-    open override func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }
 }

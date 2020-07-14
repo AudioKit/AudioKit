@@ -289,12 +289,12 @@ private class AKClipRecording: Equatable {
     var startTime: Double
     var endTime: Double
     var audioTimeStart: AVAudioTime?
-    var audioFile: AKAudioFile?
+    var audioFile: AVAudioFile?
     var completion: ClipRecordingCompletion
     var tap: AVAudioNodeTapBlock?
     init(start: Double = 0,
          end: Double = Double.greatestFiniteMagnitude,
-         audioFile: AKAudioFile? = nil,
+         audioFile: AVAudioFile? = nil,
          completion: @escaping ClipRecordingCompletion) {
 
         startTime = start
@@ -319,7 +319,7 @@ private class AKClipRecording: Equatable {
                                            interleaved: true) else {
                                             throw ClipRecordingError.formatError
             }
-            audioFile = try AKAudioFile(forWriting: url,
+            audioFile = try AVAudioFile(forWriting: url,
                                         settings: fileFormat.settings,
                                         commonFormat: buffer.format.commonFormat,
                                         interleaved: buffer.format.isInterleaved)

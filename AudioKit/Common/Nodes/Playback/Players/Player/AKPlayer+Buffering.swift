@@ -41,7 +41,7 @@ extension AKPlayer {
 
         guard audioFile.length > 0 else {
             AKLog("ERROR updateBuffer: Could not set PCM buffer -> " +
-                "\(audioFile.fileNamePlusExtension) length = 0.", log: .fileHandling, type: .error)
+                "\(audioFile.url.lastPathComponent) length = 0.", log: .fileHandling, type: .error)
             return
         }
 

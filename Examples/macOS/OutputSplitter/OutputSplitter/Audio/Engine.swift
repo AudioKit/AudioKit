@@ -4,7 +4,7 @@ import Foundation
 import AudioKit
 
 class Engine {
-    var file: AKAudioFile!
+    var file: AVAudioFile!
     var player: AKPlayer!
     var renderer: AKBooster! // Node which we will hook into to capture audio
     var sink: AKBooster! // Node that Sinks the Audio Data so we don't play it through default selected device
@@ -46,7 +46,7 @@ class Engine {
         let fileUrl = Bundle.main.url(forResource: "mixloop", withExtension: "wav")
 
         do {
-            file = try AKAudioFile(forReading: fileUrl!)
+            file = try AVAudioFile(forReading: fileUrl!)
         } catch {
             AKLog("mixloop file is missing")
             return

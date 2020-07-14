@@ -17,6 +17,6 @@ The Swift **AKSamplerAudioUnit** class is the next level above the **AKSampler**
 ## AKSampler and extensions
 The highest level **AKSampler** Swift class wraps the Audio Unit code within an AudioKit **Node** object, which facilitates easy interconnection with other AudioKit nodes, and exposes the underlying Audio Unit parameters as Swift *properties*.
 
-The **AKSampler** class also includes utility functions to assist with loading sample data into the underlying C++ `AKSampler` object (using **AKAudioFile**).
+The **AKSampler** class also includes utility functions to assist with loading sample data into the underlying C++ `AKSampler` object (using **AVAudioFile**).
 
 Additional utility functions are implemented in separate files as Swift *extensions*. `AKSampler+SFZ.swift` adds a rudimentary facility to load whole sets of samples by interpreting a [SFZ file](https://en.wikipedia.org/wiki/SFZ_(file_format)).

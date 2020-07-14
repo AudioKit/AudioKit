@@ -1,69 +1,77 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Cocoa
 import AudioKit
 import AudioKitUI
+import Cocoa
 
 class ViewController: NSViewController {
+    @IBOutlet var stopButton: AKButton!
+    @IBOutlet var playButton: AKButton!
+    @IBOutlet var recordButton: AKButton!
+    @IBOutlet var inputPlot: AKNodeOutputPlot!
 
-    @IBOutlet weak var stopButton: AKButton!
-    @IBOutlet weak var playButton: AKButton!
-    @IBOutlet weak var recordButton: AKButton!
+    public var documentsDirectory: URL? {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    }
 
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
-    var tape: AKAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-    @IBOutlet weak var inputPlot: AKNodeOutputPlot!
-
-    let mic = AKMicrophone()
+    lazy var mic = AKMicrophone()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layer?.backgroundColor = CGColor.black
+
+        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else { return }
+        AKSettings.audioFormat = audioFormat
+
+        view.wantsLayer = true
+        view.layer?.backgroundColor = CGColor.black
 
         stopButton.title = "Stop"
-        stopButton.color = NSColor.blue
         stopButton.callback = { _ in
-            self.stop()
+            DispatchQueue.main.async {
+                self.stop()
+            }
         }
 
         playButton.title = "Play"
-        playButton.color = NSColor.green
         playButton.callback = { _ in
             self.play()
         }
 
         recordButton.title = "Record"
-        recordButton.color = NSColor.red
         recordButton.callback = { _ in
             self.record()
         }
 
+        AKLog(AKSettings.audioFormat, "inputNode:", AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate)
+
         // Patching
         inputPlot.node = mic
         inputPlot.backgroundColor = NSColor.black
+
+        AKLog(mic?.outputNode.inputFormat(forBus: 0))
+
         micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
         micBooster.gain = 0
         recorder = try? AKNodeRecorder(node: micMixer)
-        if let file = recorder.audioFile {
-            player = AKPlayer(audioFile: file)
-        }
+
+        player = AKPlayer()
         player.isLooping = true
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
-
         mainMixer = AKMixer(moogLadder, micBooster)
-
         AKManager.output = mainMixer
+
         do {
             try AKManager.start()
         } catch {
@@ -79,6 +87,8 @@ class ViewController: NSViewController {
     }
 
     func record() {
+        AKNodeRecorder.removeTempFiles()
+
         inputPlot.node = mic
         do {
             try recorder.record()
@@ -95,22 +105,42 @@ class ViewController: NSViewController {
         inputPlot.node = mic
         micBooster.gain = 0
 
-        guard let audioFile = recorder.audioFile else { return }
-        tape = audioFile
-        try? player.load(audioFile: tape)
+        recorder.stop()
 
-        if let _ = player.audioFile?.duration {
-            recorder.stop()
-            tape.exportAsynchronously(name: "TempTestFile.m4a",
-                                      baseDir: .documents,
-                                      exportFormat: .m4a) {_, exportError in
-                                        if let error = exportError {
-                                            AKLog("Export Failed \(error)")
-                                        } else {
-                                            AKLog("Export succeeded")
-                                        }
+        guard let audioFile = recorder.audioFile else { return }
+
+        do {
+            try player.load(url: audioFile.url)
+
+        } catch let err as NSError {
+            AKLog(err.localizedDescription)
+            return
+        }
+
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["m4a"]
+        savePanel.allowsOtherFileTypes = false
+        savePanel.message = "Save your recorded output"
+
+        guard savePanel.runModal() == .OK else { return }
+        guard let outputURL = savePanel.url else { return }
+
+        var options = AKConverter.Options()
+        options.bitDepth = 16
+        options.sampleRate = AKSettings.sampleRate
+        options.format = "m4a"
+
+        let converter = AKConverter(inputURL: audioFile.url, outputURL: outputURL, options: options)
+
+        converter.start { error in
+            if let error = error {
+                AKLog("Error saving file", error.localizedDescription)
             }
         }
     }
 
+    @IBAction func terminate(_ sender: Any) {
+        AKNodeRecorder.removeTempFiles()
+        exit(0)
+    }
 }

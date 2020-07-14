@@ -1,12 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import UIKit
 import AudioKit
+import UIKit
 
 /**
 
  ------      README      ------
-
 
  To use, press the button and listen.
  The metronome will begin to play.
@@ -20,13 +19,14 @@ import AudioKit
  */
 
 class ViewController: UIViewController {
+    lazy var mic = AKMicrophone()
+    lazy var metronome = AKSamplerMetronome()
+    lazy var mixer = AKMixer()
+    lazy var player = AKClipPlayer()
 
-    let mic = AKMicrophone()
-    var metronome = AKSamplerMetronome()
-    var mixer = AKMixer()
     var loopBackRecorder: AKClipRecorder?
     var directRecorder: AKClipRecorder?
-    var player = AKClipPlayer()
+
     let comparisonViewController: CompareViewController = {
         let vc = CompareViewController()
         vc.slider.addTarget(self, action: #selector(sliderAction(slider:)), for: .valueChanged)
@@ -56,16 +56,15 @@ class ViewController: UIViewController {
         }
 
         view.addSubview(button)
-        self.addChild(comparisonViewController)
+        addChild(comparisonViewController)
         comparisonViewController.view.isHidden = true
         view.addSubview(comparisonViewController.view)
         comparisonViewController.didMove(toParent: self)
-
     }
 
     func setUpAudio() {
-
         do {
+            AKSettings.sampleRate = 48000
             AKSettings.audioInputEnabled = true
             AKSettings.defaultToSpeaker = true
 //            AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
@@ -82,17 +81,18 @@ class ViewController: UIViewController {
         }
 
         // Make connections
+        guard let mic = self.mic else { return }
 
         let muter = AKMixer()
         muter.volume = 0
 
-        mic! >>> muter >>> mixer
+        mic >>> muter >>> mixer
         metronome >>> mixer
         player >>> mixer
         AKManager.output = mixer
 
         // Set up recorders
-        loopBackRecorder = AKClipRecorder(node: mic!)
+        loopBackRecorder = AKClipRecorder(node: mic)
         directRecorder = AKClipRecorder(node: metronome)
 
         do { try AKManager.start() } catch {
@@ -105,7 +105,6 @@ class ViewController: UIViewController {
     }
 
     @objc func buttonAction(button: UIButton, event: UIEvent) {
-
         // Not needed for this demo, just demonstrating how to get a touch event time
         // into a valid AVAudioTime - Just in case it helps ;)
         _ = AVAudioTime(hostTime: UInt64(event.timestamp * secondsToTicks))
@@ -176,7 +175,7 @@ class ViewController: UIViewController {
                     AKLog("loopback saved at " + urlInDocs.path)
 
                     // Schedule 30 loops of the recorderd audio to play
-                    let audioFile = try AKAudioFile(forReading: urlInDocs)
+                    let audioFile = try AVAudioFile(forReading: urlInDocs)
                     self.player.clips = (2..<32).map({ i in AKFileClip(audioFile: audioFile,
                                                                        time: Double(i) * targetDuration,
                                                                        offset: 0,
@@ -192,9 +191,10 @@ class ViewController: UIViewController {
                     self.balance = 0.5
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + targetDuration, execute: {
-                        guard let rURL = referenceURL else { return }
+                        guard let rURL = referenceURL,
+                            let file1 = try? AVAudioFile(forReading: rURL) else { return }
                         self.comparisonViewController.slider.value = self.balance
-                        self.comparisonViewController.setFiles(file1: try! AKAudioFile(forReading: rURL), file2: audioFile)
+                        self.comparisonViewController.setFiles(file1: file1, file2: audioFile)
                         self.comparisonViewController.view.isHidden = false
                     })
 
@@ -204,7 +204,6 @@ class ViewController: UIViewController {
             @unknown default:
                 fatalError()
             }
-
         }
 
         // Save direct recording for comparison
@@ -244,6 +243,7 @@ class ViewController: UIViewController {
     @objc func sliderAction(slider: UISlider) {
         balance = slider.value
     }
+
     var balance: Float {
         get { return player.volume }
         set {
@@ -251,13 +251,13 @@ class ViewController: UIViewController {
             metronome.volume = 1 - newValue
         }
     }
+
     override func viewDidLayoutSubviews() {
         let b = view.bounds
         button.frame = b.insetBy(dx: b.width / 4, dy: b.height / 4)
         comparisonViewController.slider.value = metronome.volume
         comparisonViewController.view.frame = b
     }
-
 }
 
 // Utility to convert between hostTime (ticks) and seconds.
@@ -272,6 +272,7 @@ extension FileManager {
     static var docs: URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
+
     static func emtpyDocumentsDirectory() {
         let fileManager = FileManager.default
         do {
@@ -287,10 +288,10 @@ extension FileManager {
 
 // Helper function inserted by Swift 4.2 migrator.
 private func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 private func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
-	return input.rawValue
+    return input.rawValue
 }
