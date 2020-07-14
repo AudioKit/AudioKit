@@ -34,7 +34,7 @@
  Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKAbstractPlayer {
-    
+
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
@@ -147,12 +147,12 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// - Returns: The total frame count that is being playing.
+    /// The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
     @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
-    /// - Returns: The current frame while playing
+    /// The current frame while playing
     public var currentFrame: AVAudioFramePosition {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
@@ -161,7 +161,7 @@ public class AKPlayer: AKAbstractPlayer {
         return 0
     }
 
-    /// - Returns: Current time of the player in seconds while playing.
+    /// Current time of the player in seconds while playing.
     public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         var normalizedPauseTime = 0.0
@@ -198,7 +198,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// returns if the player is currently paused
+    /// Returns if the player is currently paused
     @objc public internal(set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
@@ -374,8 +374,6 @@ public class AKPlayer: AKAbstractPlayer {
 
             faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
-
-        // and play
         playerNode.play()
         pauseTime = nil
     }
