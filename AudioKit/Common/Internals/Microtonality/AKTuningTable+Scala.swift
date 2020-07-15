@@ -46,7 +46,7 @@ extension AKTuningTable {
     }
 
     /// Get frequencies from a Scala string
-    open func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
+    public func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
         guard let inputStr = rawStr else {
             return nil
         }

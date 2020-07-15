@@ -126,7 +126,7 @@ open class AKAudioUnitBase: AUAudioUnit {
     }
 
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    open func createDSP() -> AKDSPRef? {
+    public func createDSP() -> AKDSPRef? {
         return nil
     }
 

@@ -5,7 +5,7 @@ import Foundation
 extension AVAudioEngine {
 
     /// Adding connection between nodes with default format
-    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+    public func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
         connect(node1, to: node2, format: AKSettings.audioFormat)
     }
 
