@@ -7,14 +7,14 @@ public typealias DeviceID = String
 #endif
 
 /// Wrapper for audio device selection
-open class AKDevice: NSObject {
+public struct AKDevice: Equatable {
     /// The human-readable name for the device.
-    open var name: String
-    open var nInputChannels: Int?
-    open var nOutputChannels: Int?
+    var name: String
+    var nInputChannels: Int?
+    var nOutputChannels: Int?
 
     /// The device identifier.
-    open fileprivate(set) var deviceID: DeviceID
+    fileprivate(set) var deviceID: DeviceID
 
     /// Initialize the device
     ///
@@ -30,17 +30,16 @@ open class AKDevice: NSObject {
             self.deviceID = "\(deviceID) \(dataSource)"
         }
         #endif
-        super.init()
     }
 
     #if os(macOS)
-    public convenience init(ezAudioDevice: EZAudioDevice) {
+    public init(ezAudioDevice: EZAudioDevice) {
         self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
         nInputChannels = ezAudioDevice.inputChannelCount
         nOutputChannels = ezAudioDevice.outputChannelCount
     }
 
-    public convenience init(deviceID: DeviceID) {
+    public init(deviceID: DeviceID) {
         self.init(name: AudioDeviceName(deviceID), deviceID: deviceID)
         nInputChannels = AudioDeviceInputChannels(deviceID)
         nOutputChannels = AudioDeviceOutputChannels(deviceID)
@@ -54,7 +53,7 @@ open class AKDevice: NSObject {
     ///   - portDescription: A port description object that describes a single
     /// input or output port associated with an audio route.
     ///
-    public convenience init(portDescription: AVAudioSessionPortDescription) {
+    public init(portDescription: AVAudioSessionPortDescription) {
         let portData = [portDescription.uid, portDescription.selectedDataSource?.dataSourceName]
         let deviceID = portData.compactMap { $0 }.joined(separator: " ")
         self.init(name: portDescription.portName, deviceID: deviceID)
@@ -72,16 +71,10 @@ open class AKDevice: NSObject {
     }
     #endif
 
-    /// Printable device description
-    open override var description: String {
+}
+
+extension AKDevice: CustomDebugStringConvertible {
+    public var debugDescription: String {
         return "<Device: \(name) (\(deviceID))>"
     }
-
-    open override func isEqual(_ object: Any?) -> Bool {
-        if let object = object as? AKDevice {
-            return self.name == object.name && self.deviceID == object.deviceID
-        }
-        return false
-    }
-
 }
