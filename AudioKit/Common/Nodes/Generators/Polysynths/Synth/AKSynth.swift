@@ -196,11 +196,11 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
-    open func silence(noteNumber: MIDINoteNumber) {
+    public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
-    open func sustainPedal(pedalDown: Bool) {
+    public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }

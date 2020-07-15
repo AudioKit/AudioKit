@@ -151,7 +151,7 @@ extension AKManager {
 
 #if !os(macOS)
 extension AKManager {
-    @objc internal static func updateSessionCategoryAndOptions() throws {
+    internal static func updateSessionCategoryAndOptions() throws {
         guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
 
         let sessionCategory = AKSettings.computedSessionCategory()

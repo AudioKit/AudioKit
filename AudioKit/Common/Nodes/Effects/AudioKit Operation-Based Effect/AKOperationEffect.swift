@@ -11,12 +11,12 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isPlaying ?? false
     }
 
     /// Parameters for changing internal operations
-    @objc open dynamic var parameters: [Double] {
+    public var parameters: [Double] {
         get {
             return (internalAU?.parameters as? [NSNumber]).flatMap {
                 $0.compactMap { $0.doubleValue }
@@ -85,7 +85,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    @objc public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
+    public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
         self.customUgens = customUgens
 
         super.init(avAudioNode: AVAudioNode())

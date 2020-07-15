@@ -6,7 +6,7 @@ extension AKManager {
     // MARK: - Testing
 
     /// Testing AKNode
-    @objc public static var tester: AKTester?
+    public static var tester: AKTester?
 
     /// Test the output of a given node
     ///

@@ -9,7 +9,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
-    @objc open dynamic var threshold: AUValue = -20 {
+    public var threshold: AUValue = -20 {
         didSet {
             threshold = (-40...20).clamp(threshold)
             au[kDynamicsProcessorParam_Threshold] = threshold
@@ -17,7 +17,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
-    @objc open dynamic var headRoom: AUValue = 5 {
+    public var headRoom: AUValue = 5 {
         didSet {
             headRoom = (0.1...40).clamp(headRoom)
             au[kDynamicsProcessorParam_HeadRoom] = headRoom
@@ -25,7 +25,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Attack Duration (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
-    @objc open dynamic var attackDuration: AUValue = 0.001 {
+    public var attackDuration: AUValue = 0.001 {
         didSet {
             attackDuration = (0.000_1...0.2).clamp(attackDuration)
             au[kDynamicsProcessorParam_AttackTime] = attackDuration
@@ -33,7 +33,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Release Duration (seconds) ranges from 0.01 to 3 (Default: 0.05)
-    @objc open dynamic var releaseDuration: AUValue = 0.05 {
+    public var releaseDuration: AUValue = 0.05 {
         didSet {
             releaseDuration = (0.01...3).clamp(releaseDuration)
             au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
@@ -41,22 +41,22 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Compression Amount (dB) read only
-    @objc open dynamic var compressionAmount: AUValue {
+    public var compressionAmount: AUValue {
         return au[kDynamicsProcessorParam_CompressionAmount]
     }
 
     /// Input Amplitude (dB) read only
-    @objc open dynamic var inputAmplitude: AUValue {
+    public var inputAmplitude: AUValue {
         return au[kDynamicsProcessorParam_InputAmplitude]
     }
 
     /// Output Amplitude (dB) read only
-    @objc open dynamic var outputAmplitude: AUValue {
+    public var outputAmplitude: AUValue {
         return au[kDynamicsProcessorParam_OutputAmplitude]
     }
 
     /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var masterGain: AUValue = 0 {
+    public var masterGain: AUValue = 0 {
         didSet {
             masterGain = (-40...40).clamp(masterGain)
             au[kDynamicsProcessorParam_MasterGain] = masterGain
@@ -64,7 +64,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1 / Fully Wet)
-    @objc open dynamic var dryWetMix: AUValue = 1 {
+    public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain.volume = 1 - dryWetMix
@@ -82,7 +82,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize the dynamics processor node
     ///
@@ -94,7 +94,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - releaseDuration: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         threshold: AUValue = -20,
         headRoom: AUValue = 5,
@@ -137,7 +137,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -145,7 +145,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

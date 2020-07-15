@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Supported default table types
-@objc public enum AKTableType: Int, Codable, CaseIterable {
+public enum AKTableType: Int, Codable, CaseIterable {
     /// Standard sine waveform
     case sine
 
@@ -99,9 +99,9 @@ public class AKTable: NSObject, MutableCollection, Codable {
     ///   - phase: Phase offset
     ///   - count: Size of the table (multiple of 2)
     ///
-    @objc public init(_ type: AKTableType = .sine,
-                      phase: Float = 0,
-                      count: IndexDistance = 4_096) {
+    public init(_ type: AKTableType = .sine,
+                phase: Float = 0,
+                count: IndexDistance = 4_096) {
         self.type = type
         self.phase = phase
         self.content = [Element](zeros: count)
@@ -137,15 +137,14 @@ public class AKTable: NSObject, MutableCollection, Codable {
     }
 
     /// Create table from an array of Element
-    @objc public init(_ content: [Element],
-                      phase: Float = 0) {
+    public init(_ content: [Element], phase: Float = 0) {
         self.type = .custom
         self.phase = phase
         self.content = content
     }
 
     /// Create table from first channel of audio file
-    @objc public convenience init?(file: AVAudioFile) {
+    public convenience init?(file: AVAudioFile) {
         let size = Int(file.length)
         self.init(count: size)
 

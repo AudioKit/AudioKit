@@ -46,7 +46,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKA
     ///   - attackDuration: Attack duration in seconds
     ///   - releaseDuration: Release duration in seconds
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         ratio: AUValue = 1,
         threshold: AUValue = 0.0,

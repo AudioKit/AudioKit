@@ -44,14 +44,14 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     fileprivate var filterLFORateParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
 
     /// Index of the wavetable to use (fractional are okay).
-    @objc open dynamic var index: AUValue = 0.0 {
+    public var index: AUValue = 0.0 {
         willSet {
             guard index != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -64,7 +64,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Attack duration in seconds
-    @objc open dynamic var attackDuration: AUValue = 0.1 {
+    public var attackDuration: AUValue = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -76,7 +76,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Decay duration in seconds
-    @objc open dynamic var decayDuration: AUValue = 0.1 {
+    public var decayDuration: AUValue = 0.1 {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -88,7 +88,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: AUValue = 1.0 {
+    public var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -100,7 +100,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Release duration in seconds
-    @objc open dynamic var releaseDuration: AUValue = 0.1 {
+    public var releaseDuration: AUValue = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -112,7 +112,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Pitch Bend as number of semitones
-    @objc open dynamic var pitchBend: AUValue = 0 {
+    public var pitchBend: AUValue = 0 {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -124,7 +124,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Depth in semitones
-    @objc open dynamic var vibratoDepth: AUValue = 0 {
+    public var vibratoDepth: AUValue = 0 {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -136,7 +136,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Rate in Hz
-    @objc open dynamic var vibratoRate: AUValue = 0 {
+    public var vibratoRate: AUValue = 0 {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -147,7 +147,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     /// Filter Cutoff Frequency in Hz
-    @objc open dynamic var filterCutoffFrequency: AUValue = 22_050.0 {
+    public var filterCutoffFrequency: AUValue = 22_050.0 {
         willSet {
             guard filterCutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -159,7 +159,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Filter Resonance
-    @objc open dynamic var filterResonance: AUValue = 22_050.0 {
+    public var filterResonance: AUValue = 22_050.0 {
         willSet {
             guard filterResonance != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -171,7 +171,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Filter Attack Duration in seconds
-    @objc open dynamic var filterAttackDuration: AUValue = 0.1 {
+    public var filterAttackDuration: AUValue = 0.1 {
         willSet {
             guard filterAttackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -183,7 +183,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// Filter Decay Duration in seconds
-    @objc open dynamic var filterDecayDuration: AUValue = 0.1 {
+    public var filterDecayDuration: AUValue = 0.1 {
         willSet {
             guard filterDecayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -194,7 +194,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     /// Filter Sustain Level
-    @objc open dynamic var filterSustainLevel: AUValue = 1.0 {
+    public var filterSustainLevel: AUValue = 1.0 {
         willSet {
             guard filterSustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -205,7 +205,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     /// Filter Release Duration in seconds
-    @objc open dynamic var filterReleaseDuration: AUValue = 0.1 {
+    public var filterReleaseDuration: AUValue = 0.1 {
         willSet {
             guard filterReleaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -216,7 +216,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     ///Filter Envelope Strength
-    @objc open dynamic var filterEnvelopeStrength: AUValue = 0.1 {
+    public var filterEnvelopeStrength: AUValue = 0.1 {
         willSet {
             guard filterEnvelopeStrength != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -227,7 +227,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     ///Filter LFO Depth
-    @objc open dynamic var filterLFODepth: AUValue = 0.1 {
+    public var filterLFODepth: AUValue = 0.1 {
         willSet {
             guard filterLFODepth != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -238,7 +238,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
         }
     }
     ///Filter LFO Rate
-    @objc open dynamic var filterLFORate: AUValue = 0.1 {
+    public var filterLFORate: AUValue = 0.1 {
         willSet {
             guard filterLFORate != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -272,7 +272,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     ///   - filterLFODepth: Depth of LFO on filter
     ///   - filterLFORate: Speed of filter LFO
     ///
-    @objc public init(
+    public init(
         waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
         index: AUValue = 0,
         attackDuration: AUValue = 0.1,
@@ -371,7 +371,7 @@ open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     }
 
     /// stops all notes
-    open func reset() {
+    public func reset() {
         internalAU?.reset()
     }
 

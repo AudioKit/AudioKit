@@ -8,7 +8,7 @@ open class AKNodeRecorder: NSObject {
     public private(set) var node: AKNode?
 
     /// True if we are recording.
-    @objc public private(set) dynamic var isRecording = false
+    public private(set) var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
@@ -62,9 +62,9 @@ open class AKNodeRecorder: NSObject {
     ///   - file: Audio file to record to
     ///   - bus: Integer index of the bus to use
     ///
-    @objc public init(node: AKNode? = AKManager.output,
-                      file: AVAudioFile? = AKNodeRecorder.createTempFile(),
-                      bus: Int = 0) throws {
+    public init(node: AKNode? = AKManager.output,
+                file: AVAudioFile? = AKNodeRecorder.createTempFile(),
+                bus: Int = 0) throws {
         super.init()
 
         guard let file = file else {

@@ -81,7 +81,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Trigger the sound with an optional set of parameters
     ///
-    open func trigger() {
+    public func trigger() {
         internalAU?.start()
         internalAU?.trigger()
     }

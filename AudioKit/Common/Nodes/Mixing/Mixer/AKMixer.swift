@@ -6,7 +6,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     fileprivate var mixerAU = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    @objc open dynamic var volume: AUValue = 1.0 {
+    public var volume: AUValue = 1.0 {
         didSet {
             volume = max(volume, 0)
             mixerAU.outputVolume = volume
@@ -14,7 +14,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Output Pan (Default 0 = center)
-    @objc open dynamic var pan: AUValue = 1.0 {
+    public var pan: AUValue = 1.0 {
         didSet {
             pan = min(pan, 1)
             pan = max(pan, -1)
@@ -25,12 +25,12 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     fileprivate var lastKnownVolume: AUValue = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return volume != 0.0
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    @objc public init(volume: AUValue = 1.0) {
+    public init(volume: AUValue = 1.0) {
         super.init(avAudioNode: mixerAU, attach: true)
         self.volume = volume
     }
@@ -49,7 +49,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     ///
     /// - parameter inputs: An array of AKNodes
     ///
-    @objc public convenience init(_ inputs: [AKNode]) {
+    public convenience init(_ inputs: [AKNode]) {
         self.init()
         for input in inputs {
             input.connect(to: self)
@@ -57,29 +57,17 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0
         }
-    }
-
-    // It is not possible to use @objc on AKOutput extension, so [connectWithInput:bus:]
-    /// Connect for Objectivec access, with bus definition
-    open func connect(input: AKNode?, bus: Int) {
-        input?.connect(to: self, bus: bus)
-    }
-
-    // It is not possible to use @objc on AKOutput extension, so [connectWithInput:]
-    /// Connect for Objectivec access
-    open func connect(input: AKNode?) {
-        input?.connect(to: self, bus: nextInput.bus)
     }
 }

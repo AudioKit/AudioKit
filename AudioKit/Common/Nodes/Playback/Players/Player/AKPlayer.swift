@@ -113,15 +113,15 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// The internal audio file
-    @objc public internal(set) var audioFile: AVAudioFile?
+    public internal(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    @objc override public var duration: Double {
+    override public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    @objc override public var sampleRate: Double {
+    override public var sampleRate: Double {
         return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
@@ -150,7 +150,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
-    @objc public internal(set) var frameCount: AVAudioFrameCount = 0
+    public internal(set) var frameCount: AVAudioFrameCount = 0
 
     /// The current frame while playing
     public var currentFrame: AVAudioFramePosition {
@@ -199,7 +199,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Returns if the player is currently paused
-    @objc public internal(set) var isPaused: Bool = false
+    public internal(set) var isPaused: Bool = false
 
     /// Reversing the audio will set the player to buffering
     public var isReversed: Bool = false {
@@ -229,7 +229,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Create a player from a URL
-    @objc public convenience init?(url: URL) {
+    public convenience init?(url: URL) {
         if FileManager.default.fileExists(atPath: url.path) == false {
             return nil
         }
@@ -246,7 +246,7 @@ public class AKPlayer: AKAbstractPlayer {
     /// Create a player from an AVAudioFile. If a file has previously
     /// been opened for writing, you can reset it to readOnly with the reopenFile flag.
     /// This is necessary in cases where AKMicrophone may of had access to the file.
-    @objc public convenience init(audioFile: AVAudioFile, reopenFile: Bool = true) {
+    public convenience init(audioFile: AVAudioFile, reopenFile: Bool = true) {
         self.init()
 
         // sets processingFormat
@@ -272,7 +272,7 @@ public class AKPlayer: AKAbstractPlayer {
         initialize(restartIfPlaying: false)
     }
 
-    override open func initialize(restartIfPlaying: Bool = true) {
+    override public func initialize(restartIfPlaying: Bool = true) {
         let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
@@ -342,7 +342,7 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Play
 
     /// Play entire file right now
-    @objc override public func play() {
+    override public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
@@ -379,7 +379,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
-    @objc override public func stop() {
+    override public func stop() {
         stopCompletion()
     }
 
@@ -387,7 +387,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Dispose the audio file, buffer and nodes and release resources.
     /// Only call when you are totally done with this class.
-    @objc override public func detach() {
+    override public func detach() {
         stop()
         super.detach() // get rid of the faderNode
         audioFile = nil
@@ -400,7 +400,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    @objc deinit {
+    deinit {
         AKLog("* { AKPlayer }")
     }
 }

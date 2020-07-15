@@ -8,7 +8,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     fileprivate var lastKnownMix: AUValue = 0.5
 
     /// Delay time in seconds (Default: 1)
-    @objc open dynamic var time: TimeInterval = 1 {
+    public var time: TimeInterval = 1 {
         didSet {
             time = max(time, 0)
             delayAU.delayTime = time
@@ -16,7 +16,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var feedback: AUValue = 0.5 {
+    public var feedback: AUValue = 0.5 {
         didSet {
             feedback = (0...1).clamp(feedback)
             delayAU.feedback = feedback * 100.0
@@ -24,7 +24,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    @objc open dynamic var lowPassCutoff: AUValue = 15_000.00 {
+    public var lowPassCutoff: AUValue = 15_000.00 {
         didSet {
             lowPassCutoff = max(lowPassCutoff, 0)
             delayAU.lowPassCutoff = lowPassCutoff
@@ -32,7 +32,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var dryWetMix: AUValue = 0.5 {
+    public var dryWetMix: AUValue = 0.5 {
         didSet {
             internalSetDryWetMix(dryWetMix)
         }
@@ -44,7 +44,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize the delay node
     ///
@@ -55,7 +55,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         time: AUValue = 1,
         feedback: AUValue = 0.5,
@@ -77,7 +77,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -85,7 +85,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0
