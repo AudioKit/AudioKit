@@ -28,7 +28,7 @@ open class AKTuningTableDelta12ET: NSObject {
 // masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
 open class AKTuningTable: AKTuningTableBase {
 
-    @objc private(set) public var masterSet = [Frequency]()
+    private(set) public var masterSet = [Frequency]()
 
     /// Note number for standard reference note
     public var middleCNoteNumber: MIDINoteNumber = 60 {
@@ -101,7 +101,7 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     /// Notes Per Octave: The count of the masterSet array
-    @objc public override var npo: Int {
+    public override var npo: Int {
 
         return masterSet.count
     }
@@ -195,7 +195,7 @@ open class AKTuningTable: AKTuningTableBase {
     }
 
     // Assume masterSet is set and valid:  Process and update tuning table.
-    @objc internal func updateTuningTableFromMasterSet() {
+    internal func updateTuningTableFromMasterSet() {
 
         etNNDictionary.removeAll(keepingCapacity: true)
         delta12ETDictionary.removeAll(keepingCapacity: true)

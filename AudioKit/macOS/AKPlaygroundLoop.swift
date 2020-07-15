@@ -31,7 +31,7 @@ public class AKPlaygroundLoop: NSObject {
     }
 
     /// Callback function
-    @objc func update() {
+    func update() {
         self.internalHandler()
         self.perform(#selector(update),
                      with: nil,

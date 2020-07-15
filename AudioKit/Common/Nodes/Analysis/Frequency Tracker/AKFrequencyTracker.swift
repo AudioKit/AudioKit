@@ -16,12 +16,12 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Parameters
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
-    @objc open dynamic var amplitude: Double {
+    public var amplitude: Double {
         return Double(internalAU?.amplitude ?? 0) / Double(AKSettings.channelCount)
     }
 
     /// Detected frequency
-    @objc open dynamic var frequency: Double {
+    public var frequency: Double {
         return Double(internalAU?.frequency ?? 0) * Double(AKSettings.channelCount)
     }
 

@@ -212,7 +212,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     }
 
     /// Voice LFO restart (boolean, 0.0 for false or 1.0 for true) - resets the phase of each voice lfo on keydown
-    @objc open dynamic var restartVoiceLFO: Bool = false {
+    public var restartVoiceLFO: Bool = false {
         willSet {
             guard restartVoiceLFO != newValue else { return }
             internalAU?.restartVoiceLFO.value = newValue ? 1.0 : 0.0

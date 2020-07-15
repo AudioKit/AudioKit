@@ -24,14 +24,14 @@ open class AKMandolin: AKNode, AKComponent {
     //    private var course4FrequencyParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
 
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
-    @objc open dynamic var detune: AUValue = 1 {
+    public var detune: AUValue = 1 {
         willSet {
             guard detune != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -43,7 +43,7 @@ open class AKMandolin: AKNode, AKComponent {
     }
 
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
-    @objc open dynamic var bodySize: AUValue = 1 {
+    public var bodySize: AUValue = 1 {
         willSet {
             guard bodySize != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -62,7 +62,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
     ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     ///
-    @objc public init(detune: AUValue = 1, bodySize: AUValue = 1) {
+    public init(detune: AUValue = 1, bodySize: AUValue = 1) {
 
         self.detune = detune
         self.bodySize = bodySize

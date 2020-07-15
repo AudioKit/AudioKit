@@ -10,7 +10,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    @objc open dynamic var cutoffFrequency: AUValue = 10_000 {
+    public var cutoffFrequency: AUValue = 10_000 {
         didSet {
             cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
@@ -18,7 +18,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var gain: AUValue = 0 {
+    public var gain: AUValue = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kHighShelfParam_Gain] = gain
@@ -26,7 +26,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: AUValue = 1 {
+    public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix
@@ -43,7 +43,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     // MARK: - Initialization
 
@@ -54,7 +54,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutOffFrequency: AUValue = 10_000,
         gain: AUValue = 0) {
@@ -99,7 +99,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -107,7 +107,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

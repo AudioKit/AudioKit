@@ -17,7 +17,7 @@ open class AKMIDIMonoPolyListener: NSObject {
 
     var monoMode: Bool
 
-    @objc public init(mono: Bool = true) {
+    public init(mono: Bool = true) {
         monoMode = mono
     }
 }

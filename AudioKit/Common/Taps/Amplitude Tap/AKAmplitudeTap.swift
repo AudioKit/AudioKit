@@ -57,7 +57,7 @@ public class AKAmplitudeTap: AKToggleable {
     }
 
     /// - parameter input: Node to analyze
-    @objc public init(_ input: AKNode?, bufferSize: UInt32 = 1_024) {
+    public init(_ input: AKNode?, bufferSize: UInt32 = 1_024) {
         self.bufferSize = bufferSize
         self.input = input
     }

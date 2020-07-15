@@ -12,7 +12,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     private var lastKnownMix: AUValue = 1
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var decimation: AUValue = 0.5 {
+    public var decimation: AUValue = 0.5 {
         didSet {
             decimation = (0...1).clamp(decimation)
             au[kDistortionParam_Decimation] = decimation * 100
@@ -20,7 +20,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
-    @objc open dynamic var rounding: AUValue = 0 {
+    public var rounding: AUValue = 0 {
         didSet {
             rounding = (0...1).clamp(rounding)
             au[kDistortionParam_Rounding] = rounding * 100
@@ -28,7 +28,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    @objc open dynamic var mix: AUValue = 1 {
+    public var mix: AUValue = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -36,7 +36,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     // MARK: - Initialization
 
@@ -48,7 +48,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         decimation: AUValue = 0.5,
         rounding: AUValue = 0,
@@ -78,7 +78,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -86,7 +86,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0

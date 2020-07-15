@@ -91,7 +91,7 @@ public enum AKButtonStyle {
                                                        userInfo: nil, repeats: true)
     }
 
-    @objc private func highlightAnimationTimerDidFire() {
+    private func highlightAnimationTimerDidFire() {
         highlightAnimationAlpha += 0.01
         needsDisplay = true
         if highlightAnimationAlpha == 1.0, let highlightAnimationTimer = highlightAnimationTimer {

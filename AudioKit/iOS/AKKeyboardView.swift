@@ -3,7 +3,7 @@ import UIKit
 import AudioKit
 
 /// Delegate for keyboard events
-@objc public protocol AKKeyboardDelegate: AnyObject {
+public protocol AKKeyboardDelegate: AnyObject {
     /// Note on events
     func noteOn(note: MIDINoteNumber)
     /// Note off events
@@ -35,7 +35,7 @@ import AudioKit
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     /// Class to handle user actions
-    @objc open weak var delegate: AKKeyboardDelegate?
+    open weak var delegate: AKKeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
@@ -68,17 +68,17 @@ import AudioKit
     // MARK: - Initialization
 
     /// Initialize the keyboard with default info
-    @objc public override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         isMultipleTouchEnabled = true
     }
 
     /// Initialize the keyboard
-    @objc public init(width: Int,
-                      height: Int,
-                      firstOctave: Int = 4,
-                      octaveCount: Int = 3,
-                      polyphonic: Bool = false) {
+    public init(width: Int,
+                height: Int,
+                firstOctave: Int = 4,
+                octaveCount: Int = 3,
+                polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -293,7 +293,7 @@ import AudioKit
     // MARK: - Programmatic Key Pushes
 
     /// Programmatically trigger key press without calling delegate
-    open func programmaticNoteOn(_ note: MIDINoteNumber) {
+    public func programmaticNoteOn(_ note: MIDINoteNumber) {
         programmaticOnKeys.insert(note)
         onKeys.insert(note)
         setNeedsDisplay()

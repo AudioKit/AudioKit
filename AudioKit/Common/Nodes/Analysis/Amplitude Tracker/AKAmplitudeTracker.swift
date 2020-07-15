@@ -22,27 +22,27 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     //    } //in development
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isPlaying ?? false
     }
 
     /// Detected amplitude
-    @objc open dynamic var amplitude: AUValue {
+    public var amplitude: AUValue {
         return (leftAmplitude + rightAmplitude) / 2.0
     }
 
     /// Detected amplitude
-    @objc open dynamic var leftAmplitude: AUValue {
+    public var leftAmplitude: AUValue {
         return internalAU?.leftAmplitude ?? 0
     }
 
     /// Detected right amplitude
-    @objc open dynamic var rightAmplitude: AUValue {
+    public var rightAmplitude: AUValue {
         return internalAU?.rightAmplitude ?? 0
     }
 
     /// Threshold amplitude
-    @objc open dynamic var threshold: AUValue = 1 {
+    public var threshold: AUValue = 1 {
         willSet {
             internalAU?.threshold = newValue
         }
@@ -68,7 +68,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - threshold: point at which the callback is called
     ///   - thresholdCallback: function to execute when the threshold is reached
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         halfPowerPoint: AUValue = 10,
         threshold: AUValue = 1,

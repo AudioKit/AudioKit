@@ -22,7 +22,7 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
     }
     // MARK: - Initialization
 
-    @objc public init(midiCallback: AKMIDICallback? = nil) {
+    public init(midiCallback: AKMIDICallback? = nil) {
 
         super.init(avAudioNode: AVAudioNode())
 

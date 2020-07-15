@@ -3,7 +3,7 @@
 import Cocoa
 import AudioKit
 
-@objc public protocol AKKeyboardDelegate: class {
+public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
     func noteOff(note: MIDINoteNumber)
 }
@@ -138,11 +138,11 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    @objc public init(width: Int,
-                      height: Int,
-                      firstOctave: Int = 4,
-                      octaveCount: Int = 3,
-                      polyphonic: Bool = false) {
+    public init(width: Int,
+                height: Int,
+                firstOctave: Int = 4,
+                octaveCount: Int = 3,
+                polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(width: width, height: height))

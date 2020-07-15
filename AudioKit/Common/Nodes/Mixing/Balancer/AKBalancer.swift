@@ -16,7 +16,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -28,7 +28,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    @objc public init(_ input: AKNode? = nil, comparator: AKNode) {
+    public init(_ input: AKNode? = nil, comparator: AKNode) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

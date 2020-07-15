@@ -10,7 +10,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
-    @objc open dynamic var cutoffFrequency: AUValue = 80 {
+    public var cutoffFrequency: AUValue = 80 {
         didSet {
             cutoffFrequency = (10...200).clamp(cutoffFrequency)
             au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
@@ -18,7 +18,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var gain: AUValue = 0 {
+    public var gain: AUValue = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kAULowShelfParam_Gain] = gain
@@ -26,7 +26,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: AUValue = 1 {
+    public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix
@@ -45,7 +45,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Initialization
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize the low shelf filter node
     ///
@@ -54,7 +54,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutoffFrequency: AUValue = 80,
         gain: AUValue = 0) {
@@ -99,7 +99,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -107,7 +107,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

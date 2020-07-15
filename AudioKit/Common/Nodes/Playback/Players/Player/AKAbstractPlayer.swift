@@ -162,7 +162,7 @@ open class AKAbstractPlayer: AKNode {
 
     // MARK: - public flags
 
-    @objc open internal(set) var isPlaying: Bool = false
+    open internal(set) var isPlaying: Bool = false
 
     open var isLooping: Bool = false
 
