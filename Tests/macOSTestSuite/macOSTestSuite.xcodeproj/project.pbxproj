@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29A53B3024BF4CE4004BDDEB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A53B1B24BF4CD8004BDDEB /* AudioKit.framework */; };
+		29A53B3124BF4CE4004BDDEB /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A53B1B24BF4CD8004BDDEB /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41910222009A7E10067B5E0 /* AKPannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910212009A7E00067B5E0 /* AKPannerTests.swift */; };
 		C41910242009A7E90067B5E0 /* AKStereoFieldLimiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */; };
 		C464077420105CE400299119 /* AKBrownianNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077320105CE300299119 /* AKBrownianNoiseTests.swift */; };
@@ -115,10 +117,93 @@
 		EA4E72832417A90700F98A40 /* AKAppleSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */; };
 		EA4E72852417B53D00F98A40 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA4E72842417B53D00F98A40 /* sinechirp.wav */; };
 		EA4E72862417B53D00F98A40 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA4E72842417B53D00F98A40 /* sinechirp.wav */; };
-		EAF51B6624172BDF005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B6524172BDF005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		29A53B1824BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = "AudioKit-iOS";
+		};
+		29A53B1A24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA63210247F44E200BF4CDB;
+			remoteInfo = "AudioKit-macOS";
+		};
+		29A53B1C24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA62D3D247F3A5B00BF4CDB;
+			remoteInfo = "AudioKit-tvOS";
+		};
+		29A53B1E24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA7D07011F4E63C200707706;
+			remoteInfo = "AudioKitUI-iOS";
+		};
+		29A53B2024BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA63240247F559400BF4CDB;
+			remoteInfo = "AudioKitUI-macOS";
+		};
+		29A53B2224BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA62D6F247F410100BF4CDB;
+			remoteInfo = "AudioKitUI-tvOS";
+		};
+		29A53B2424BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB63FB2494B0E0001E1F37;
+			remoteInfo = "STKAudioKit-iOS";
+		};
+		29A53B2624BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB654C2494B656001E1F37;
+			remoteInfo = "STKAudioKit-macOS";
+		};
+		29A53B2824BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB65F72494B681001E1F37;
+			remoteInfo = "STKAudioKit-tvOS";
+		};
+		29A53B2A24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB660224955B0D001E1F37;
+			remoteInfo = "DevoloopAudioKit-iOS";
+		};
+		29A53B2C24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB6687249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-macOS";
+		};
+		29A53B2E24BF4CD8004BDDEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4DB66C7249560CD001E1F37;
+			remoteInfo = "DevoloopAudioKit-tvOS";
+		};
 		C464E85B1FB0302A0025629C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C464E8421FB0302A0025629C /* Project object */;
@@ -128,7 +213,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		29A53B3224BF4CE4004BDDEB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29A53B3124BF4CE4004BDDEB /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C41910212009A7E00067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
 		C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterTests.swift; sourceTree = "<group>"; };
 		C464077320105CE300299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
@@ -241,7 +341,6 @@
 		EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencerTests.swift; sourceTree = "<group>"; };
 		EA4E72842417B53D00F98A40 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
-		EAF51B6524172BDF005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,8 +348,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A53B3024BF4CE4004BDDEB /* AudioKit.framework in Frameworks */,
 				C4D8A00C21981A84002B71EC /* AVFoundation.framework in Frameworks */,
-				EAF51B6624172BDF005E7000 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,9 +363,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29A53B0724BF4CD7004BDDEB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29A53B1924BF4CD8004BDDEB /* AudioKit.framework */,
+				29A53B1B24BF4CD8004BDDEB /* AudioKit.framework */,
+				29A53B1D24BF4CD8004BDDEB /* AudioKit.framework */,
+				29A53B1F24BF4CD8004BDDEB /* AudioKitUI.framework */,
+				29A53B2124BF4CD8004BDDEB /* AudioKitUI.framework */,
+				29A53B2324BF4CD8004BDDEB /* AudioKitUI.framework */,
+				29A53B2524BF4CD8004BDDEB /* STKAudioKit.framework */,
+				29A53B2724BF4CD8004BDDEB /* STKAudioKit.framework */,
+				29A53B2924BF4CD8004BDDEB /* STKAudioKit.framework */,
+				29A53B2B24BF4CD8004BDDEB /* DevoloopAudioKit.framework */,
+				29A53B2D24BF4CD8004BDDEB /* DevoloopAudioKit.framework */,
+				29A53B2F24BF4CD8004BDDEB /* DevoloopAudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C464E8411FB0302A0025629C = {
 			isa = PBXGroup;
 			children = (
+				29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */,
 				C464E84C1FB0302A0025629C /* macOSTestSuite */,
 				C464E85D1FB0302A0025629C /* macOSTestSuiteTests */,
 				C464E84B1FB0302A0025629C /* Products */,
@@ -418,7 +537,6 @@
 		C4D8A00921981A67002B71EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAF51B6524172BDF005E7000 /* AudioKit.xcframework */,
 				C4D8A00B21981A84002B71EC /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -434,6 +552,7 @@
 				C464E8461FB0302A0025629C /* Sources */,
 				C464E8471FB0302A0025629C /* Frameworks */,
 				C464E8481FB0302A0025629C /* Resources */,
+				29A53B3224BF4CE4004BDDEB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -501,6 +620,12 @@
 			mainGroup = C464E8411FB0302A0025629C;
 			productRefGroup = C464E84B1FB0302A0025629C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 29A53B0724BF4CD7004BDDEB /* Products */;
+					ProjectRef = 29A53B0624BF4CD7004BDDEB /* AudioKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C464E8491FB0302A0025629C /* macOSTestSuite */,
@@ -508,6 +633,93 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		29A53B1924BF4CD8004BDDEB /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = 29A53B1824BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B1B24BF4CD8004BDDEB /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = 29A53B1A24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B1D24BF4CD8004BDDEB /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = 29A53B1C24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B1F24BF4CD8004BDDEB /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = 29A53B1E24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2124BF4CD8004BDDEB /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = 29A53B2024BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2324BF4CD8004BDDEB /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = 29A53B2224BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2524BF4CD8004BDDEB /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 29A53B2424BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2724BF4CD8004BDDEB /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 29A53B2624BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2924BF4CD8004BDDEB /* STKAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STKAudioKit.framework;
+			remoteRef = 29A53B2824BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2B24BF4CD8004BDDEB /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 29A53B2A24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2D24BF4CD8004BDDEB /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 29A53B2C24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		29A53B2F24BF4CD8004BDDEB /* DevoloopAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DevoloopAudioKit.framework;
+			remoteRef = 29A53B2E24BF4CD8004BDDEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C464E8481FB0302A0025629C /* Resources */ = {
@@ -767,8 +979,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -782,10 +993,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = macOSTestSuite/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuite;
@@ -805,10 +1013,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = macOSTestSuite/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuite;
@@ -826,11 +1031,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = macOSTestSuiteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuiteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -847,11 +1048,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = macOSTestSuiteTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSTestSuiteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
