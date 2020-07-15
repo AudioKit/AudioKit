@@ -39,6 +39,10 @@ open class AKDevice: NSObject {
         nInputChannels = ezAudioDevice.inputChannelCount
         nOutputChannels = ezAudioDevice.outputChannelCount
     }
+
+    public convenience init(deviceID: DeviceID) {
+        self.init(name: AudioDeviceName(deviceID), deviceID: deviceID)
+    }
     #endif
 
     #if !os(macOS)
