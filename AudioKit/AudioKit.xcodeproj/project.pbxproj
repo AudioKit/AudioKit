@@ -67,6 +67,7 @@
 		22D8FABA248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D8FABB248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
+		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29CC6CB324B9654E00446B73 /* AKGlobals.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29CC6CB124B964EC00446B73 /* AKGlobals.mm */; };
 		29CC6CB424B9654E00446B73 /* AKGlobals.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29CC6CB124B964EC00446B73 /* AKGlobals.mm */; };
 		29CC6CB524B9654E00446B73 /* AKGlobals.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29CC6CB124B964EC00446B73 /* AKGlobals.mm */; };
@@ -3826,6 +3827,7 @@
 		22D8FAB4248E8BBD0009EE7C /* AKParameterAutomation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKParameterAutomation.mm; sourceTree = "<group>"; };
 		22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKParameterAutomation.hpp; sourceTree = "<group>"; };
 		29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
+		29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Devices.swift"; sourceTree = "<group>"; };
 		29CC6CB124B964EC00446B73 /* AKGlobals.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKGlobals.mm; sourceTree = "<group>"; };
 		29CC6CB224B9654900446B73 /* AKGlobals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKGlobals.hpp; sourceTree = "<group>"; };
 		3404A78220507B1500A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -8057,6 +8059,7 @@
 			children = (
 				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
 				29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */,
+				29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */,
 				C4FE68751EC1C1E5000B09B2 /* Microphone Tracker */,
 			);
 			path = Hardware;
@@ -12107,6 +12110,7 @@
 				EAA62F36247F44E200BF4CDB /* butbp.c in Sources */,
 				EAA62F37247F44E200BF4CDB /* AKBitCrusherAudioUnit.swift in Sources */,
 				EAA62F38247F44E200BF4CDB /* say.c in Sources */,
+				29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */,
 				EAA62F39247F44E200BF4CDB /* AKCustomUgen.swift in Sources */,
 				EAA62F3A247F44E200BF4CDB /* tenvx.c in Sources */,
 				EAA62F3B247F44E200BF4CDB /* brown.c in Sources */,
