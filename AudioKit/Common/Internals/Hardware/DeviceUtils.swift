@@ -27,10 +27,7 @@ func GetAudioDevices() -> [AudioDeviceID] {
         return []
     }
 
-    var devids = [AudioDeviceID]()
-    for _ in 0..<numDevices {
-        devids.append(AudioDeviceID())
-    }
+    var devids = [AudioDeviceID](repeating: 0, count: numDevices)
 
     result = 0
     devids.withUnsafeMutableBufferPointer { bufferPointer in
