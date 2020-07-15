@@ -134,7 +134,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with an optional set of parameters
     /// - amplitude amplitude: Volume
     ///
-    open func trigger(amplitude: Double = -1) {
+    public func trigger(amplitude: Double = -1) {
         if amplitude != -1 {
             self.amplitude = amplitude
         }

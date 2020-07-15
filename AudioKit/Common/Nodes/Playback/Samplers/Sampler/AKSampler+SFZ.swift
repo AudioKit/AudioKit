@@ -11,7 +11,7 @@ extension AKSampler {
     ///   - path: Path to the file as a string
     ///   - fileName: Name of the SFZ file
     ///
-    open func loadSFZ(path: String, fileName: String) {
+    public func loadSFZ(path: String, fileName: String) {
         loadSFZ(url: URL(fileURLWithPath: path).appendingPathComponent(fileName))
     }
 
@@ -20,7 +20,7 @@ extension AKSampler {
     /// Parameters:
     ///   - url: File url to the SFZ file
     ///
-    open func loadSFZ(url: URL) {
+    public func loadSFZ(url: URL) {
 
         stopAllVoices()
         unloadAllSamples()

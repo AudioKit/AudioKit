@@ -304,7 +304,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     /// Note: you can programmatically 'release' a note that has been pressed
     /// manually, but in such a case, the delegate.noteOff() will not be called
     /// when the finger is removed
-    open func programmaticNoteOff(_ note: MIDINoteNumber) {
+    public func programmaticNoteOff(_ note: MIDINoteNumber) {
         programmaticOnKeys.remove(note)
         onKeys.remove(note)
         setNeedsDisplay()

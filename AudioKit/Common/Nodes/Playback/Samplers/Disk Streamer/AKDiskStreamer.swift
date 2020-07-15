@@ -144,7 +144,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
@@ -153,12 +153,12 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         internalAU?.stop()
     }
 
     /// Play from a certain sample
-    open func play() {
+    public func play() {
         start()
     }
 
@@ -169,7 +169,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory - this must be done after audiokit starts
-    open func load(file: AVAudioFile) {
+    public func load(file: AVAudioFile) {
         if file.fileFormat.channelCount > 2 || file.fileFormat.channelCount < 1 {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
             return
@@ -183,11 +183,11 @@ open class AKDiskStreamer: AKNode, AKComponent {
         loadedFile = file
     }
 
-    open func rewind() {
+    public func rewind() {
         internalAU?.rewind()
     }
 
-    open func seek(to sample: AUValue) {
+    public func seek(to sample: AUValue) {
         internalAU?.seek(to: sample)
     }
 }

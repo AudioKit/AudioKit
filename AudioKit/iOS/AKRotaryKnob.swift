@@ -144,7 +144,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Color for the arrow on the knob for the current theme
-    open func indicatorColorForTheme() -> AKColor {
+    public func indicatorColorForTheme() -> AKColor {
         if let indicatorColor = indicatorColor {
             return indicatorColor
         }
@@ -158,7 +158,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Color for the border for the current theme
-    open func knobBorderColorForTheme() -> AKColor {
+    public func knobBorderColorForTheme() -> AKColor {
         if let knobBorderColor = knobBorderColor {
             return knobBorderColor
         }
@@ -172,7 +172,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Text color for the current theme
-    open func textColorForTheme() -> AKColor {
+    public func textColorForTheme() -> AKColor {
         if let textColor = textColor {
             return textColor
         }

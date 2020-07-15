@@ -30,10 +30,10 @@ open class AKPlaygroundView: UIView {
     }
 
     /// Override this function in subclasses
-    open func setup() {}
+    public func setup() {}
 
     /// Add a title to the playground view
-    open func addTitle(_ text: String) -> UILabel {
+    public func addTitle(_ text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
         newLabel.textColor = AKStylist.sharedInstance.fontColor
@@ -45,7 +45,7 @@ open class AKPlaygroundView: UIView {
     }
 
     /// Add label text
-    open func addLabel(_ text: String) -> UILabel {
+    public func addLabel(_ text: String) -> UILabel {
         let newLabel = UILabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text

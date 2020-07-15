@@ -83,7 +83,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
-    open func loadWav(_ file: String) throws {
+    public func loadWav(_ file: String) throws {
         guard let url = findFileURL(file, withExtension: "wav") else {
             AKLog("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -103,7 +103,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
-    open func loadEXS24(_ file: String) throws {
+    public func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
 
@@ -111,7 +111,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter file: an AVAudioFile
     ///
-    open func loadAudioFile(_ file: AVAudioFile) throws {
+    public func loadAudioFile(_ file: AVAudioFile) throws {
         _audioFiles = [file]
 
         do {
@@ -132,7 +132,7 @@ open class AKAppleSampler: AKNode {
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    open func loadAudioFiles(_ files: [AVAudioFile] ) throws {
+    public func loadAudioFiles(_ files: [AVAudioFile] ) throws {
         _audioFiles = files
         let urls = files.map { $0.url }
         do {
@@ -152,7 +152,7 @@ open class AKAppleSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    open func loadPath(_ filePath: String) throws {
+    public func loadPath(_ filePath: String) throws {
         do {
             try AKTry {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
@@ -215,9 +215,9 @@ open class AKAppleSampler: AKNode {
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
-    open func play(noteNumber: MIDINoteNumber = 60,
-                   velocity: MIDIVelocity = 127,
-                   channel: MIDIChannel = 0) throws {
+    public func play(noteNumber: MIDINoteNumber = 60,
+                     velocity: MIDIVelocity = 127,
+                     channel: MIDIChannel = 0) throws {
         try AKTry {
             if AKManager.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")
@@ -233,7 +233,7 @@ open class AKAppleSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
+    public func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
         try AKTry {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }

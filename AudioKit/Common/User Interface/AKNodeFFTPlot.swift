@@ -40,14 +40,14 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         resume()
     }
 
-    open func pause() {
+    public func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
 
-    open func resume() {
+    public func resume() {
         setupNode(node)
     }
 
@@ -117,9 +117,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - updatedWithFFTData: A pointer to a c-style array of floats
     ///   - bufferSize: Number of elements in the FFT Data array
     ///
-    open func fft(_ fft: EZAudioFFT!,
-                  updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
-                  bufferSize: vDSP_Length) {
+    public func fft(_ fft: EZAudioFFT!,
+                    updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
+                    bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }

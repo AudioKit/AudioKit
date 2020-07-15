@@ -40,7 +40,7 @@ import AudioKit
     }
 
     /// Handle touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
             guard let wasPlaying = player?.isPlaying else {
@@ -351,7 +351,7 @@ import AudioKit
         outerPath.stroke()
     }
 
-    override open func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }
 }

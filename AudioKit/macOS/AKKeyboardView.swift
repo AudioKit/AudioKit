@@ -156,7 +156,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     // MARK: - Storyboard Rendering
 
-    override open func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         let width = Int(self.frame.width)

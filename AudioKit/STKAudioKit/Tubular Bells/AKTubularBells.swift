@@ -64,7 +64,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()
