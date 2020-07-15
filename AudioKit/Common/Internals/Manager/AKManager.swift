@@ -96,7 +96,7 @@ open class AKManager: NSObject {
     #if os(macOS)
     /// Enumerate the list of available devices.
     public static var devices: [AKDevice]? {
-        return GetAudioDevices().map { id in
+        return AudioDeviceUtils.devices().map { id in
             return AKDevice(deviceID: id)
         }
     }
@@ -105,8 +105,8 @@ open class AKManager: NSObject {
     /// Enumerate the list of available input devices.
     public static var inputDevices: [AKDevice]? {
         #if os(macOS)
-        return GetAudioDevices().compactMap { (id: AudioDeviceID) -> AKDevice? in
-            if AudioDeviceInputChannels(id) > 0 {
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.inputChannels(id) > 0 {
                 return AKDevice(deviceID: id)
             }
             return nil
@@ -134,8 +134,8 @@ open class AKManager: NSObject {
     /// Enumerate the list of available output devices.
     public static var outputDevices: [AKDevice]? {
         #if os(macOS)
-        return GetAudioDevices().compactMap { (id: AudioDeviceID) -> AKDevice? in
-            if AudioDeviceOutputChannels(id) > 0 {
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.outputChannels(id) > 0 {
                 return AKDevice(deviceID: id)
             }
             return nil
