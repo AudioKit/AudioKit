@@ -32,8 +32,16 @@ func GetAudioDevices() -> [AudioDeviceID] {
         devids.append(AudioDeviceID())
     }
 
-    devids.withUnsafeMutableBufferPointer { ptr in
-        result = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, &propsize, ptr.baseAddress!)
+    result = 0
+    devids.withUnsafeMutableBufferPointer { bufferPointer in
+        if let pointer = bufferPointer.baseAddress {
+            result = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject),
+                                                &address,
+                                                0,
+                                                nil,
+                                                &propsize,
+                                                pointer)
+        }
     }
 
     if result != 0 {
