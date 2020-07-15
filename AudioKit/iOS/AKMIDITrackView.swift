@@ -162,7 +162,7 @@ public class AKMIDITrackView: AKButton {
     }
 
     //Move the playback cursor across the screen
-    func updateCursor() {
+    @objc func updateCursor() {
         if previousTempo != sequencer.tempo {
             previousTempo = sequencer.tempo
             cursorTimer.invalidate()
@@ -191,7 +191,7 @@ public class AKMIDITrackView: AKButton {
     }
 
  //Move the note view across the screen
-    func scrollNotes() {
+    @objc func scrollNotes() {
         if previousTempo != sequencer.tempo {
             previousTempo = sequencer.tempo
             scrollTimer.invalidate()
