@@ -42,6 +42,8 @@ open class AKDevice: NSObject {
 
     public convenience init(deviceID: DeviceID) {
         self.init(name: AudioDeviceName(deviceID), deviceID: deviceID)
+        nInputChannels = AudioDeviceInputChannels(deviceID)
+        nOutputChannels = AudioDeviceOutputChannels(deviceID)
     }
     #endif
 
