@@ -33,12 +33,6 @@ public struct AKDevice: Equatable {
     }
 
     #if os(macOS)
-    public init(ezAudioDevice: EZAudioDevice) {
-        self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
-        nInputChannels = ezAudioDevice.inputChannelCount
-        nOutputChannels = ezAudioDevice.outputChannelCount
-    }
-
     public init(deviceID: DeviceID) {
         self.init(name: AudioDeviceName(deviceID), deviceID: deviceID)
         nInputChannels = AudioDeviceInputChannels(deviceID)
