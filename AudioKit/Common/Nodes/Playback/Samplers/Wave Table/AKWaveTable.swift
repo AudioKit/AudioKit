@@ -220,7 +220,7 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
@@ -229,30 +229,30 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         internalAU?.stop()
     }
 
     /// Play from a certain sample
-    open func play() {
+    public func play() {
         start()
     }
 
     /// Play from a certain sample
-    open func play(from: Sample) {
+    public func play(from: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample, length: Sample) {
+    public func play(from: Sample, length: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample, to: Sample) {
+    public func play(from: Sample, to: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(to))
         start()
@@ -265,7 +265,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory
-    open func load(file: AVAudioFile) {
+    public func load(file: AVAudioFile) {
         if file.fileFormat.channelCount > 2 || file.fileFormat.channelCount < 1 {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
@@ -305,15 +305,15 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     // Function to start, play, or activate the node at frequency
-    open func play(noteNumber: MIDINoteNumber,
-                   velocity: MIDIVelocity,
-                   frequency: Double,
-                   channel: MIDIChannel = 0) {
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     frequency: Double,
+                     channel: MIDIChannel = 0) {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop(noteNumber: MIDINoteNumber) {
+    public func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stop()
     }
 }

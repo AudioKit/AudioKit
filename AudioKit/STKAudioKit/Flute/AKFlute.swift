@@ -59,7 +59,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
 
     /// Trigger the sound with current parameters
     ///
-    open func trigger() {
+    public func trigger() {
         internalAU?.start()
         internalAU?.trigger()
     }
@@ -70,7 +70,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Frequency in Hz
     ///   - amplitude amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()

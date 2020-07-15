@@ -93,10 +93,10 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - course2Note: MIDI note number for course 2
     ///   - course3Note: MIDI note number for course 3
     ///   - course4Note: MIDI note number for course 4
-    open func prepareChord(_ course1Note: MIDINoteNumber,
-                           _ course2Note: MIDINoteNumber,
-                           _ course3Note: MIDINoteNumber,
-                           _ course4Note: MIDINoteNumber) {
+    public func prepareChord(_ course1Note: MIDINoteNumber,
+                             _ course2Note: MIDINoteNumber,
+                             _ course3Note: MIDINoteNumber,
+                             _ course4Note: MIDINoteNumber) {
         fret(noteNumber: course1Note, course: 0)
         fret(noteNumber: course2Note, course: 1)
         fret(noteNumber: course3Note, course: 2)
@@ -109,7 +109,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - noteNumber: MIDI note number of fretted note
     ///   - course:     Which set of strings to press
     ///
-    open func fret(noteNumber: MIDINoteNumber, course: Int) {
+    public func fret(noteNumber: MIDINoteNumber, course: Int) {
         internalAU?.setFrequency(noteNumber.midiNoteToFrequency(), course: Int32(course))
     }
 
@@ -120,7 +120,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
+    public func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: position, velocity: Int32(velocity))
     }
 
@@ -130,7 +130,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func strum(_ position: AUValue, velocity: MIDIVelocity) {
+    public func strum(_ position: AUValue, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)

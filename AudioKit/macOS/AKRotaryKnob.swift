@@ -97,12 +97,12 @@ public enum AKRotaryKnobStyle {
         return degrees
     }
 
-    override open func mouseDown(with theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         isDragging = true
         mouseDragged(with: theEvent)
     }
 
-    override open func mouseDragged(with theEvent: NSEvent) {
+    override public func mouseDragged(with theEvent: NSEvent) {
         let loc = convert(theEvent.locationInWindow, from: nil)
         lastTouch = loc
         let angle = angleBetween(pointA: knobCenter, pointB: loc)
@@ -120,7 +120,7 @@ public enum AKRotaryKnobStyle {
         needsDisplay = true
     }
 
-    open func indicatorColorForTheme() -> AKColor {
+    public func indicatorColorForTheme() -> AKColor {
         if let indicatorColor = indicatorColor {
             return indicatorColor
         }
@@ -133,7 +133,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
-    open func knobBorderColorForTheme() -> AKColor {
+    public func knobBorderColorForTheme() -> AKColor {
         if let knobBorderColor = knobBorderColor {
             return knobBorderColor
         }
@@ -146,7 +146,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
-    open func textColorForTheme() -> AKColor {
+    public func textColorForTheme() -> AKColor {
         if let textColor = textColor {
             return textColor
         }
@@ -159,7 +159,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
-    override open func draw(_ rect: NSRect) {
+    override public func draw(_ rect: NSRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))

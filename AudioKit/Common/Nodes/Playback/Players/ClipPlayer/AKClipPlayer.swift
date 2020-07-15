@@ -36,7 +36,7 @@ open class AKClipPlayer: AKNode {
     /// use AKFileClips if you don't need custom behavior.
     /// - Throws: ClipMergeError if clips aren't valid.
     ///
-    open func setClips(clips: [FileClip]) throws {
+    public func setClips(clips: [FileClip]) throws {
         try _clips = AKClipMerger.validateClips(clips) as! [FileClip]
         self.stop()
         isScheduled = false
@@ -140,7 +140,7 @@ open class AKClipPlayer: AKNode {
     ///
     /// - Parameter frameCount: The number of sample frames of data to be prepared before returning.
     ///
-    open func prepare(withFrameCount frameCount: AVAudioFrameCount) {
+    public func prepare(withFrameCount frameCount: AVAudioFrameCount) {
         if isNotScheduled {
             scheduleClips(at: currentTime)
         }
@@ -148,7 +148,7 @@ open class AKClipPlayer: AKNode {
     }
 
     /// Starts playback at next render cycle, AVAudioEngine must be running.
-    open func play() {
+    public func play() {
         play(at: nil)
     }
 
@@ -157,7 +157,7 @@ open class AKClipPlayer: AKNode {
     /// - Parameter audioTime: A time in the audio render context.  If non-nil, the player's current
     /// current time will align with this time when playback starts.
     ///
-    open func play(at audioTime: AVAudioTime?) {
+    public func play(at audioTime: AVAudioTime?) {
         if isNotScheduled {
             scheduleClips(at: currentTime)
         }
@@ -166,7 +166,7 @@ open class AKClipPlayer: AKNode {
     }
 
     /// Stops playback.
-    open func stop() {
+    public func stop() {
         timeAtStart = position(at: nil)
         playerNode.stop()
         isScheduled = false
@@ -191,30 +191,30 @@ extension AKClipPlayer: AKTiming {
         return isPlaying
     }
 
-    open func start(at audioTime: AVAudioTime? = nil) {
+    public func start(at audioTime: AVAudioTime? = nil) {
         play(at: audioTime)
     }
 
-    open func setPosition(_ position: Double) {
+    public func setPosition(_ position: Double) {
         playerNode.stop()
         timeAtStart = position
     }
 
-    open func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return timeAtStart
         }
         return timeAtStart + Double(playerTime.sampleTime) / playerTime.sampleRate
     }
 
-    open func audioTime(at time: Double) -> AVAudioTime? {
+    public func audioTime(at time: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (time - timeAtStart) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
         return playerNode.nodeTime(forPlayerTime: playerTime)
     }
 
-    open func prepare() {
+    public func prepare() {
         prepare(withFrameCount: 8_192)
     }
 }

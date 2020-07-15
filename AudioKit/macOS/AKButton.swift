@@ -132,7 +132,7 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         self.wantsLayer = true
@@ -167,7 +167,7 @@ public enum AKButtonStyle {
     }
 
     /// Draw the button
-    override open func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 

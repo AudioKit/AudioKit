@@ -98,7 +98,7 @@ import AudioKit
             }
         }
     }
-    open func setStable(value: AUValue) {
+    public func setStable(value: AUValue) {
         let diff = value - originalValue
         originalValue = value
         maximum += diff

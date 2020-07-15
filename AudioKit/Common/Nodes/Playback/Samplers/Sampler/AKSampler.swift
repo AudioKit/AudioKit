@@ -281,7 +281,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+    public func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
         let sampleRate = Float(file.fileFormat.sampleRate)
@@ -299,39 +299,39 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open func stopAllVoices() {
+    public func stopAllVoices() {
         internalAU?.stopAllVoices()
     }
 
-    open func restartVoices() {
+    public func restartVoices() {
         internalAU?.restartVoices()
     }
 
-    open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+    public func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
-    open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
-    open func unloadAllSamples() {
+    public func unloadAllSamples() {
         internalAU?.unloadAllSamples()
     }
 
-    open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
+    public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
         internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
     }
 
-    open func buildSimpleKeyMap() {
+    public func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
 
-    open func buildKeyMap() {
+    public func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
 
-    open func setLoop(thruRelease: Bool) {
+    public func setLoop(thruRelease: Bool) {
         internalAU?.setLoop(thruRelease: thruRelease)
     }
 
@@ -345,11 +345,11 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
-    open func silence(noteNumber: MIDINoteNumber) {
+    public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
-    open func sustainPedal(pedalDown: Bool) {
+    public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }
