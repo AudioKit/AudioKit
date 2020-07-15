@@ -43,7 +43,7 @@ open class AKMIDI {
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
-    @objc public init() {
+    public init() {
         AKLog("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)

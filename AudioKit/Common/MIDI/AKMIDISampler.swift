@@ -33,8 +33,8 @@ open class AKMIDISampler: AKAppleSampler {
     ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
-                         name: String = "MIDI Sampler") {
+    public func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
+                           name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 e.forEach { (event) in
@@ -81,9 +81,9 @@ open class AKMIDISampler: AKAppleSampler {
     ///   - velocity:   MIDI velocity
     ///   - channel:    MIDI channel
     ///
-    open func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                                 velocity: MIDIVelocity,
-                                 channel: MIDIChannel) throws {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel) throws {
         if velocity > 0 {
             try play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
@@ -98,7 +98,7 @@ open class AKMIDISampler: AKAppleSampler {
     ///   - value: MIDI CC value
     ///   - channel: MIDI CC channel
     ///
-    open func midiCC(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    public func midiCC(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         samplerUnit.sendController(controller, withValue: value, onChannel: channel)
     }
 
@@ -130,7 +130,7 @@ open class AKMIDISampler: AKAppleSampler {
     }
 
     /// Discard all virtual ports
-    open func destroyEndpoint() {
+    public func destroyEndpoint() {
         if midiIn != 0 {
             MIDIEndpointDispose(midiIn)
             midiIn = 0

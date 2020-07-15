@@ -87,22 +87,22 @@ open class AKStereoOperation: AKComputedParameter {
     // MARK: - Functions
 
     /// Create a mono signal by dropping the right channel
-    open func toMono() -> AKOperation {
+    public func toMono() -> AKOperation {
         return AKOperation(module: "add", inputs: self)
     }
 
     /// Create a mono signal by dropping the right channel
-    open func left() -> AKOperation {
+    public func left() -> AKOperation {
         return AKOperation(module: "drop", inputs: self)
     }
 
     /// Create a mono signal by dropping the left channel
-    open func right() -> AKOperation {
+    public func right() -> AKOperation {
         return AKOperation(module: "swap drop", inputs: self)
     }
 
     /// An operation is requiring a parameter to be stereo, which in this case, it is, so just return self
-    open func toStereo() -> AKStereoOperation {
+    public func toStereo() -> AKStereoOperation {
         return self
     }
 

@@ -163,7 +163,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// - parameter centsArray: An array of 12 Cents.
     /// 12ET will be modified by the centsArray, including deviations which result in a root less than 1.0
     ///
-    open func tuning12ETDeviation(centsArray: [Cents]) {
+    public func tuning12ETDeviation(centsArray: [Cents]) {
 
         // Cents array count must equal 12
         guard centsArray.count == 12 else {

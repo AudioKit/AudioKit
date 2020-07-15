@@ -28,7 +28,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// - Returns: A Peak struct containing the time, frame position and peak amplitude
-    open func peak() -> Peak? {
+    public func peak() -> Peak? {
         guard frameLength > 0 else { return nil }
         guard let floatData = floatChannelData else { return nil }
 
@@ -82,7 +82,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns a normalized buffer
-    open func normalize() -> AVAudioPCMBuffer? {
+    public func normalize() -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData else { return self }
 
         let normalizedBuffer = AVAudioPCMBuffer(pcmFormat: format,
@@ -112,7 +112,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns a reversed buffer
-    open func reverse() -> AVAudioPCMBuffer? {
+    public func reverse() -> AVAudioPCMBuffer? {
         let reversedBuffer = AVAudioPCMBuffer(pcmFormat: format,
                                               frameCapacity: frameCapacity)
 
@@ -135,10 +135,10 @@ extension AVAudioPCMBuffer {
 
     /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter
     /// if you only want one of them
-    open func fade(inTime: Double,
-                   outTime: Double,
-                   inRampType: AKSettings.RampType = .exponential,
-                   outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+    public func fade(inTime: Double,
+                     outTime: Double,
+                     inRampType: AKSettings.RampType = .exponential,
+                     outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
             AKLog("Error fading buffer, returning original...")
             return self

@@ -114,7 +114,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Start recording
-    open func record() throws {
+    public func record() throws {
         if isRecording == true {
             AKLog("Warning: already recording")
             return
@@ -167,7 +167,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Stop recording
-    open func stop() {
+    public func stop() {
         if isRecording == false {
             AKLog("Warning: Cannot stop recording, already stopped")
             return
@@ -184,7 +184,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Reset the AVAudioFile to clear previous recordings
-    open func reset() throws {
+    public func reset() throws {
         // Stop recording
         if isRecording == true {
             stop()
