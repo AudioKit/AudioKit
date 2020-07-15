@@ -11,7 +11,10 @@ func GetAudioDevices() -> [AudioDeviceID] {
         mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
         mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMaster))
 
-    var result: OSStatus = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject), &address, UInt32(MemoryLayout<AudioObjectPropertyAddress>.size), nil, &propsize)
+    var result = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject),
+                                                &address,
+                                                UInt32(MemoryLayout<AudioObjectPropertyAddress>.size),
+                                                nil, &propsize)
 
     if result != 0 {
         print("Error \(result) from AudioObjectGetPropertyDataSize")
