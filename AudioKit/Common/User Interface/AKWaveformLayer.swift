@@ -2,7 +2,7 @@
 import AudioKit
 
 /// A CAShapeLayer rendering of a mono waveform. Can be updated on any thread.
-open class AKWaveformLayer: CAShapeLayer {
+public class AKWaveformLayer: CAShapeLayer {
     /// controls whether to use the default CoreAnimation actions or not for property transitions
     public var allowActions: Bool = true
 
@@ -87,13 +87,8 @@ open class AKWaveformLayer: CAShapeLayer {
     }
 
     public func dispose() {
-        // AKLog("* disposing table data")
         table?.removeAll()
         table = nil
-    }
-
-    deinit {
-        // AKLog("* WaveformLayer")
     }
 
     // MARK: - Private Functions

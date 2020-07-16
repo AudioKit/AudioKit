@@ -123,42 +123,42 @@ open class AKOperation: AKComputedParameter {
          AKOperation("(13 p) ")]
 
     /// Convert the operation to a mono operation
-    open func toMono() -> AKOperation {
+    public func toMono() -> AKOperation {
         return self
     }
 
     /// Performs absolute value on the operation
-    open func abs() -> AKOperation {
+    public func abs() -> AKOperation {
         return AKOperation(module: "abs", inputs: self)
     }
 
     /// Performs floor calculation on the operation
-    open func floor() -> AKOperation {
+    public func floor() -> AKOperation {
         return AKOperation(module: "floor", inputs: self)
     }
 
     /// Returns the fractional part of the operation (as opposed to the integer part)
-    open func fract() -> AKOperation {
+    public func fract() -> AKOperation {
         return AKOperation(module: "frac", inputs: self)
     }
 
     /// Performs natural logarithm on the operation
-    open func log() -> AKOperation {
+    public func log() -> AKOperation {
         return AKOperation(module: "log", inputs: self)
     }
 
     /// Performs Base 10 logarithm on the operation
-    open func log10() -> AKOperation {
+    public func log10() -> AKOperation {
         return AKOperation(module: "log10", inputs: self)
     }
 
     /// Rounds the operation to the nearest integer
-    open func round() -> AKOperation {
+    public func round() -> AKOperation {
         return AKOperation(module: "round", inputs: self)
     }
 
     /// Returns a frequency for a given MIDI note number
-    open func midiNoteToFrequency() -> AKOperation {
+    public func midiNoteToFrequency() -> AKOperation {
         return AKOperation(module: "mtof", inputs: self)
     }
 

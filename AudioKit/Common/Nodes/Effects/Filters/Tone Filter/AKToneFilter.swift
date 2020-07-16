@@ -2,7 +2,7 @@
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 

@@ -3,8 +3,8 @@
 import Cocoa
 import AudioKit
 
-@IBDesignable open class AKPropertyControl: NSView {
-    override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
+@IBDesignable public class AKPropertyControl: NSView {
+    override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }
 
@@ -100,22 +100,22 @@ import AudioKit
         self.wantsLayer = true
     }
 
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         self.wantsLayer = true
     }
 
-    override open func mouseDown(with theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         isDragging = true
         mouseDragged(with: theEvent)
     }
 
-    override open func mouseDragged(with theEvent: NSEvent) {
+    override public func mouseDragged(with theEvent: NSEvent) {
         // Override in subclass
     }
 
-    open override func mouseUp(with theEvent: NSEvent) {
+    public override func mouseUp(with theEvent: NSEvent) {
         isDragging = false
         needsDisplay = true
     }

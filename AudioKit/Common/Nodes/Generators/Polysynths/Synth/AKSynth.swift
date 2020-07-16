@@ -2,7 +2,7 @@
 
 /// Synth
 ///
-open class AKSynth: AKPolyphonicNode, AKComponent {
+public class AKSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")
@@ -185,22 +185,22 @@ open class AKSynth: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            frequency: AUValue,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              frequency: AUValue,
+                              channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: frequency)
     }
 
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
-    open func silence(noteNumber: MIDINoteNumber) {
+    public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
-    open func sustainPedal(pedalDown: Bool) {
+    public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }

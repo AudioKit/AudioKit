@@ -3,7 +3,7 @@ import AudioKit
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot
 @IBDesignable
-open class AKRollingOutputPlot: AKNodeOutputPlot {
+public class AKRollingOutputPlot: AKNodeOutputPlot {
 
     /// Initialize the plot in a frame with a different buffer size
     ///
@@ -11,7 +11,7 @@ open class AKRollingOutputPlot: AKNodeOutputPlot {
     ///   - frame: CGRect in which to draw the plot
     ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
-    @objc public init(frame: CGRect, bufferSize: Int = 1_024) {
+    public init(frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.bufferSize = UInt32(bufferSize)
 

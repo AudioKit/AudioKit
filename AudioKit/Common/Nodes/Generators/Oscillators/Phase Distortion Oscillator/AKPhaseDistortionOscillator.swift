@@ -6,7 +6,7 @@
 /// different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 ///
-open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 

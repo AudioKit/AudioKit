@@ -24,6 +24,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/ExceptionCatcher.h>
 #import <AudioKit/AKGlobals.hpp>
 
+// Testing
+#import <AudioKit/md5.h>
+
 // Analysis
 #import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
 #import <AudioKit/AKFrequencyTrackerAudioUnit.h>
@@ -147,9 +150,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #if !TARGET_OS_TV
 #import <AudioKit/AKCallbackInstrumentAudioUnit.h>
 #endif
-
-// Testing
-#import <AudioKit/AKTesterAudioUnit.h>
 
 // EZAudio
 #import <AudioKit/EZAudio.h>

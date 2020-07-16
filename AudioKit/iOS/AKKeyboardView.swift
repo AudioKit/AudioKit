@@ -3,7 +3,7 @@ import UIKit
 import AudioKit
 
 /// Delegate for keyboard events
-@objc public protocol AKKeyboardDelegate: AnyObject {
+public protocol AKKeyboardDelegate: AnyObject {
     /// Note on events
     func noteOn(note: MIDINoteNumber)
     /// Note off events
@@ -11,7 +11,7 @@ import AudioKit
 }
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
-@IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
+@IBDesignable public class AKKeyboardView: UIView, AKMIDIListener {
     //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
@@ -35,7 +35,7 @@ import AudioKit
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     /// Class to handle user actions
-    @objc open weak var delegate: AKKeyboardDelegate?
+    open weak var delegate: AKKeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
@@ -68,17 +68,17 @@ import AudioKit
     // MARK: - Initialization
 
     /// Initialize the keyboard with default info
-    @objc public override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         isMultipleTouchEnabled = true
     }
 
     /// Initialize the keyboard
-    @objc public init(width: Int,
-                      height: Int,
-                      firstOctave: Int = 4,
-                      octaveCount: Int = 3,
-                      polyphonic: Bool = false) {
+    public init(width: Int,
+                height: Int,
+                firstOctave: Int = 4,
+                octaveCount: Int = 3,
+                polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -97,7 +97,7 @@ import AudioKit
     // MARK: - Storyboard Rendering
 
     /// Set up the view for rendering in Interface Builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         let width = Int(self.frame.width)
@@ -110,19 +110,19 @@ import AudioKit
     }
 
     /// Keyboard view size
-    open override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
 
     /// Require constraints
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Drawing
 
     /// Draw the view
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
 
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
@@ -231,7 +231,7 @@ import AudioKit
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
             pressAdded(note)
@@ -241,7 +241,7 @@ import AudioKit
     }
 
     /// Handle touches completed
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let note = noteFromTouchLocation(touch.location(in: self)) {
                 // verify that there isn't still a touch remaining on same key from another finger
@@ -258,7 +258,7 @@ import AudioKit
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
@@ -270,7 +270,7 @@ import AudioKit
     }
 
     /// Handle stopped touches
-    open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }
 
@@ -293,7 +293,7 @@ import AudioKit
     // MARK: - Programmatic Key Pushes
 
     /// Programmatically trigger key press without calling delegate
-    open func programmaticNoteOn(_ note: MIDINoteNumber) {
+    public func programmaticNoteOn(_ note: MIDINoteNumber) {
         programmaticOnKeys.insert(note)
         onKeys.insert(note)
         setNeedsDisplay()
@@ -304,7 +304,7 @@ import AudioKit
     /// Note: you can programmatically 'release' a note that has been pressed
     /// manually, but in such a case, the delegate.noteOff() will not be called
     /// when the finger is removed
-    open func programmaticNoteOff(_ note: MIDINoteNumber) {
+    public func programmaticNoteOff(_ note: MIDINoteNumber) {
         programmaticOnKeys.remove(note)
         onKeys.remove(note)
         setNeedsDisplay()

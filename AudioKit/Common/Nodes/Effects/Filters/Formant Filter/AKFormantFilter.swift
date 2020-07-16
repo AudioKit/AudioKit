@@ -4,7 +4,7 @@
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 

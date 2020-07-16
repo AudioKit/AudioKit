@@ -2,7 +2,7 @@
 
 /// Karplus-Strong plucked string instrument.
 ///
-open class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 

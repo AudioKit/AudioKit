@@ -6,7 +6,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKDiskStreamer: AKNode, AKComponent {
+public class AKDiskStreamer: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDiskStreamerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "akds")
@@ -18,7 +18,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
@@ -34,13 +34,13 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
 
-    @objc open dynamic var rate: AUValue {
+    public var rate: AUValue {
         set { internalAU?.setRate(newValue) }
         get { return internalAU?.getRate() ?? 0 }
     }
 
     /// Volume - amplitude adjustment
-    @objc open dynamic var volume: AUValue = 1 {
+    public var volume: AUValue = 1 {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -53,7 +53,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
-    @objc open dynamic var loopEnabled: Bool = false {
+    public var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
         }
@@ -85,7 +85,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isPlaying ?? false
     }
 
@@ -114,9 +114,9 @@ open class AKDiskStreamer: AKNode, AKComponent {
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///   - loadCompletionHandler: Callback to run when the sample is loaded
     ///
-    @objc public init(volume: AUValue = 1,
-                      completionHandler: @escaping AKCCallback = {},
-                      loadCompletionHandler: @escaping AKCCallback = {}) {
+    public init(volume: AUValue = 1,
+                completionHandler: @escaping AKCCallback = {},
+                loadCompletionHandler: @escaping AKCCallback = {}) {
         self.volume = volume
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
@@ -144,7 +144,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
@@ -153,12 +153,12 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         internalAU?.stop()
     }
 
     /// Play from a certain sample
-    open func play() {
+    public func play() {
         start()
     }
 
@@ -169,7 +169,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory - this must be done after audiokit starts
-    open func load(file: AVAudioFile) {
+    public func load(file: AVAudioFile) {
         if file.fileFormat.channelCount > 2 || file.fileFormat.channelCount < 1 {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
             return
@@ -183,11 +183,11 @@ open class AKDiskStreamer: AKNode, AKComponent {
         loadedFile = file
     }
 
-    open func rewind() {
+    public func rewind() {
         internalAU?.rewind()
     }
 
-    open func seek(to sample: AUValue) {
+    public func seek(to sample: AUValue) {
         internalAU?.seek(to: sample)
     }
 }

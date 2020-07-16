@@ -5,9 +5,6 @@ import Foundation
 extension AKManager {
     // MARK: - Testing
 
-    /// Testing AKNode
-    @objc public static var tester: AKTester?
-
     /// Test the output of a given node
     ///
     /// - Parameters:
@@ -15,13 +12,16 @@ extension AKManager {
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///   - afterStart: Closure to execute at the beginning of the test
     ///
-    public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
+    /// - Returns: MD5 hash of audio output for comparison with test baseline.
+    public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws -> String {
+
+        var digestHex = ""
+
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
 
-            tester = AKTester(node, samples: samples)
-            output = tester
+            output = node
 
             // maximum number of frames the engine will be asked to render in any single render call
             let maximumFrameCount: AVAudioFrameCount = 4_096
@@ -34,10 +34,14 @@ extension AKManager {
             }
 
             afterStart()
-            tester?.play()
 
-            guard let buffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
-                                                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return }
+            let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
+            md5_init(md5state)
+            var samplesHashed = 0
+
+            guard let buffer = AVAudioPCMBuffer(
+                pcmFormat: engine.manualRenderingFormat,
+                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return "" }
 
             while engine.manualRenderingSampleTime < samples {
                 let framesToRender = buffer.frameCapacity
@@ -45,7 +49,21 @@ extension AKManager {
                 switch status {
                 case .success:
                     // data rendered successfully
-                    break
+                    if let floatChannelData = buffer.floatChannelData {
+
+                        for frame in 0 ..< framesToRender {
+                            for channel in 0 ..< buffer.format.channelCount where samplesHashed < samples {
+                                let sample = floatChannelData[Int(channel)][Int(frame)]
+                                withUnsafeBytes(of: sample) { samplePtr in
+                                    if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
+                                        md5_append(md5state, baseAddress, 4)
+                                    }
+                                }
+                                samplesHashed += 1
+                            }
+                        }
+
+                    }
 
                 case .insufficientDataFromInputNode:
                     // applicable only if using the input node as one of the sources
@@ -62,9 +80,23 @@ extension AKManager {
                     fatalError("Unknown render result")
                 }
             }
-            tester?.stop()
+
+            var digest = [md5_byte_t](repeating: 0, count: 16)
+
+            digest.withUnsafeMutableBufferPointer { digestPtr in
+                md5_finish(md5state, digestPtr.baseAddress)
+            }
+
+            for index in 0..<16 {
+                digestHex += String(format: "%02x", digest[index])
+            }
+
+            md5state.deallocate()
+
         }
         #endif
+
+        return digestHex
     }
 
     /// Audition the test to hear what it sounds like

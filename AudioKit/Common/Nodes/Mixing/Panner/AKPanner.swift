@@ -2,7 +2,7 @@
 
 /// Stereo Panner
 ///
-open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 

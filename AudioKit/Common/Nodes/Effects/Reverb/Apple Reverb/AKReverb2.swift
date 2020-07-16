@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-open class AKReverb2: AKNode, AKToggleable, AKInput {
+public class AKReverb2: AKNode, AKToggleable, AKInput {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -17,7 +17,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     fileprivate var lastKnownMix: AUValue = 50
 
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var dryWetMix: AUValue = 0.5 {
+    public var dryWetMix: AUValue = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -35,7 +35,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Gain (Decibels) ranges from -20 to 20 (Default: 0)
-    @objc open dynamic var gain: AUValue = 0 {
+    public var gain: AUValue = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -53,7 +53,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-    @objc open dynamic var minDelayTime: AUValue = 0.008 {
+    public var minDelayTime: AUValue = 0.008 {
         didSet {
             if minDelayTime < 0.000_1 {
                 minDelayTime = 0.000_1
@@ -71,7 +71,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-    @objc open dynamic var maxDelayTime: AUValue = 0.050 {
+    public var maxDelayTime: AUValue = 0.050 {
         didSet {
             if maxDelayTime < 0.000_1 {
                 maxDelayTime = 0.000_1
@@ -89,7 +89,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-    @objc open dynamic var decayTimeAt0Hz: AUValue = 1.0 {
+    public var decayTimeAt0Hz: AUValue = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
@@ -107,7 +107,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-    @objc open dynamic var decayTimeAtNyquist: AUValue = 0.5 {
+    public var decayTimeAtNyquist: AUValue = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
@@ -125,7 +125,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
-    @objc open dynamic var randomizeReflections: AUValue = 1 {
+    public var randomizeReflections: AUValue = 1 {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
@@ -143,7 +143,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize the reverb2 node
     ///
@@ -157,7 +157,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         dryWetMix: AUValue = 0.5,
         gain: AUValue = 0,
@@ -232,7 +232,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -240,7 +240,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

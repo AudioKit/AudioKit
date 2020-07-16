@@ -3,7 +3,7 @@
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
+public class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "oscb")
@@ -32,14 +32,14 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var vibratoRateParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
 
     /// Attack duration in seconds
-    @objc open dynamic var attackDuration: AUValue = 0.1 {
+    public var attackDuration: AUValue = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -51,7 +51,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Decay duration in seconds
-    @objc open dynamic var decayDuration: AUValue = 0.1 {
+    public var decayDuration: AUValue = 0.1 {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -63,7 +63,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: AUValue = 1.0 {
+    public var sustainLevel: AUValue = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -75,7 +75,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Release duration in seconds
-    @objc open dynamic var releaseDuration: AUValue = 0.1 {
+    public var releaseDuration: AUValue = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -87,7 +87,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Pitch Bend as number of semitones
-    @objc open dynamic var pitchBend: AUValue = 0 {
+    public var pitchBend: AUValue = 0 {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -99,7 +99,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Depth in semitones
-    @objc open dynamic var vibratoDepth: AUValue = 0 {
+    public var vibratoDepth: AUValue = 0 {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -111,7 +111,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Rate in Hz
-    @objc open dynamic var vibratoRate: AUValue = 0 {
+    public var vibratoRate: AUValue = 0 {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -137,7 +137,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate: Frequency of vibrato in Hz
 
     ///
-    @objc public init(
+    public init(
         waveform: AKTable = AKTable(.sine),
         attackDuration: AUValue = 0.1,
         decayDuration: AUValue = 0.1,
@@ -191,22 +191,22 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.vibratoRate = vibratoRate
     }
 
-    open func reset() {
+    public func reset() {
         internalAU?.reset()
     }
 
     // MARK: - AKPolyphonic
 
     // Function to start, play, or activate the node at frequency
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            frequency: AUValue,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              frequency: AUValue,
+                              channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: frequency)
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber)
     }
 }

@@ -8,9 +8,9 @@ extension AVAudioPCMBuffer {
     /// - Parameter readOffset: The offset into the source buffer to read from.
     /// - Parameter frames: The number of frames to copy from the source buffer.
     /// - Returns: The number of frames copied.
-    @discardableResult open func copy(from buffer: AVAudioPCMBuffer,
-                                      readOffset: AVAudioFrameCount = 0,
-                                      frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {
+    @discardableResult public func copy(from buffer: AVAudioPCMBuffer,
+                                        readOffset: AVAudioFrameCount = 0,
+                                        frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {
         let remainingCapacity = frameCapacity - frameLength
         if remainingCapacity == 0 {
             AKLog("AVAudioBuffer copy(from) - no capacity!")
@@ -54,7 +54,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
-    open func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
             let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
             return nil
@@ -64,7 +64,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
-    open func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    public func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
         }

@@ -41,7 +41,7 @@ public enum ClipMergeError: Error {
 /// a clip is to be split, the original is removed and newClip will be called twice.  When a clip is
 /// removed, the delegate's clipWillBeRemoved function will be called (if implemented).
 ///
-open class AKClipMerger: NSObject {
+public class AKClipMerger: NSObject {
     /// The delegate used for clip editing and creation.
     open weak var mergeDelegate: ClipMergeDelegate?
 
@@ -127,7 +127,7 @@ open class AKClipMerger: NSObject {
     /// - Returns: The input array un-altered if valid.
     /// - Throws: ClipMergeError if clips are not valid.
     ///
-    open class func validateClips(_ clips: [AKClip]) throws -> [AKClip] {
+    public class func validateClips(_ clips: [AKClip]) throws -> [AKClip] {
         let sorted = clips.sorted { (a, b) -> Bool in
             a.time < b.time
         }
@@ -147,7 +147,7 @@ open class AKClipMerger: NSObject {
 }
 
 /// A class that manages the merging of AKFileClips.
-open class AKFileClipSequence: NSObject, ClipMergeDelegate {
+public class AKFileClipSequence: NSObject, ClipMergeDelegate {
     /// Clip merger delegate function
     open func newClip(from clip: AKClip, time: Double, offset: Double, duration: Double) -> AKClip? {
         guard let oldClip = clip as? AKFileClip else {

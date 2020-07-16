@@ -179,7 +179,7 @@ extension AKPlayer {
         isPlaying = false
     }
 
-    @objc internal func stopCompletion() {
+    internal func stopCompletion() {
         guard isPlaying else { return }
         playerNode.stop()
         if isFaded {
@@ -290,7 +290,7 @@ extension AKPlayer {
     // MARK: - Completion Handlers
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
+    internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
         // only forward the completion if is actually done playing without user intervention.
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
@@ -317,7 +317,7 @@ extension AKPlayer {
         }
     }
 
-    @objc private func handleComplete() {
+    private func handleComplete() {
         stop()
         super.faderNode?.parameterAutomation?.stopPlayback()
 
@@ -337,7 +337,7 @@ extension AKPlayer {
     }
 }
 
-@objc extension AKPlayer: AKTiming {
+extension AKPlayer: AKTiming {
     public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
     }
@@ -368,7 +368,7 @@ extension AKPlayer {
         return playerNode.nodeTime(forPlayerTime: playerTime)
     }
 
-    open func prepare() {
+    public func prepare() {
         preroll(from: startTime, to: endTime)
     }
 }

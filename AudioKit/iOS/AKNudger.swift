@@ -3,7 +3,7 @@
 import Foundation
 import AudioKit
 
-@IBDesignable open class AKNudger: AKStepper {
+@IBDesignable public class AKNudger: AKStepper {
     open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {
@@ -98,7 +98,7 @@ import AudioKit
             }
         }
     }
-    open func setStable(value: AUValue) {
+    public func setStable(value: AUValue) {
         let diff = value - originalValue
         originalValue = value
         maximum += diff

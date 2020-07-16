@@ -8,7 +8,7 @@
 /// three series allpass units, followed by four parallel comb filters, and two
 /// decorrelation delay lines in parallel at the output.
 ///
-open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - AKComponent
 

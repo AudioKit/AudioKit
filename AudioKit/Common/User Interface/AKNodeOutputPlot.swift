@@ -11,7 +11,7 @@ extension Notification.Name {
 ///
 /// By default this plots the output of AKManager.output
 @IBDesignable
-open class AKNodeOutputPlot: EZAudioPlot {
+public class AKNodeOutputPlot: EZAudioPlot {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
@@ -43,14 +43,14 @@ open class AKNodeOutputPlot: EZAudioPlot {
         resume()
     }
 
-    open func pause() {
+    public func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
 
-    open func resume() {
+    public func resume() {
         setupNode(node)
     }
 
@@ -100,7 +100,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    @objc public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

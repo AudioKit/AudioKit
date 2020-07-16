@@ -2,12 +2,12 @@
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-open class AKTimePitch: AKNode, AKToggleable, AKInput {
+public class AKTimePitch: AKNode, AKToggleable, AKInput {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
-    @objc open dynamic var rate: AUValue = 1.0 {
+    public var rate: AUValue = 1.0 {
         didSet {
             rate = (0.031_25...32).clamp(rate)
             timePitchAU.rate = rate
@@ -15,12 +15,12 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return !timePitchAU.bypass
     }
 
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
-    @objc open dynamic var pitch: AUValue = 0.0 {
+    public var pitch: AUValue = 0.0 {
         didSet {
             pitch = (-2_400...2_400).clamp(pitch)
             timePitchAU.pitch = pitch
@@ -28,7 +28,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     }
 
     /// Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
-    @objc open dynamic var overlap: AUValue = 8.0 {
+    public var overlap: AUValue = 8.0 {
         didSet {
             overlap = (3...32).clamp(overlap)
             timePitchAU.overlap = overlap
@@ -43,7 +43,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     ///   - pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     ///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         rate: AUValue = 1.0,
         pitch: AUValue = 0.0,
@@ -61,12 +61,12 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         timePitchAU.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         timePitchAU.bypass = true
     }
 }

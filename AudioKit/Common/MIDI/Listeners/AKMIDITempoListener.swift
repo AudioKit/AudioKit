@@ -39,7 +39,7 @@ public typealias BPMType = TimeInterval
 /// midiClockLeaderEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock leader.
 ///
-open class AKMIDITempoListener: NSObject {
+public class AKMIDITempoListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 
@@ -75,7 +75,7 @@ open class AKMIDITempoListener: NSObject {
     ///                         The values in this array are averaged and that is the BPM result that is returned.
     ///                         If you make this number larger, then BPM will change very slowly.
     ///                         If you make this number small, then BPM will change very quickly.
-    @objc public init(smoothing: Float64 = 0.8, bpmHistoryLimit: Int = 3) {
+    public init(smoothing: Float64 = 0.8, bpmHistoryLimit: Int = 3) {
         assert(bpmHistoryLimit > 0, "You must specify a positive number for bpmHistoryLimit")
         tickSmoothing = ValueSmoothing(factor: smoothing)
         bpmSmoothing = ValueSmoothing(factor: smoothing)

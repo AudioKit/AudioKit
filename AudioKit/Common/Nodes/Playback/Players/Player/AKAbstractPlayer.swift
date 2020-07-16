@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
-open class AKAbstractPlayer: AKNode {
+public class AKAbstractPlayer: AKNode {
     /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
         case realtime, offline
@@ -162,7 +162,7 @@ open class AKAbstractPlayer: AKNode {
 
     // MARK: - public flags
 
-    @objc open internal(set) var isPlaying: Bool = false
+    open internal(set) var isPlaying: Bool = false
 
     open var isLooping: Bool = false
 
@@ -217,6 +217,7 @@ open class AKAbstractPlayer: AKNode {
                                          rampDuration: 0)
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
+            // swiftlint:disable number_separator
             faderNode.addAutomationPoint(value: fade.maximumGain,
                                          at: 0.0001,
                                          rampDuration: fade.inTime,

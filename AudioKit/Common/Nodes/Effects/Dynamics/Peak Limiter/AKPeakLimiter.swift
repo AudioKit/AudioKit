@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
@@ -10,7 +10,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    @objc open dynamic var attackDuration: AUValue = 0.012 {
+    public var attackDuration: AUValue = 0.012 {
         didSet {
             attackDuration = (0.001...0.03).clamp(attackDuration)
             au[kLimiterParam_AttackTime] = attackDuration
@@ -18,7 +18,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    @objc open dynamic var decayDuration: AUValue = 0.024 {
+    public var decayDuration: AUValue = 0.024 {
         didSet {
             decayDuration = (0.001...0.06).clamp(decayDuration)
             au[kLimiterParam_DecayTime] = decayDuration
@@ -26,7 +26,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
-    @objc open dynamic var preGain: AUValue = 0 {
+    public var preGain: AUValue = 0 {
         didSet {
             preGain = (-40...40).clamp(preGain)
             au[kLimiterParam_PreGain] = preGain
@@ -34,7 +34,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 1)
-    @objc open dynamic var dryWetMix: AUValue = 1 {
+    public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix
@@ -51,7 +51,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize the peak limiter node
     ///
@@ -61,7 +61,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - decayDuration: Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         attackDuration: AUValue = 0.012,
         decayDuration: AUValue = 0.024,
@@ -109,7 +109,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -117,7 +117,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0
@@ -126,7 +126,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    open override func detach() {
+    public override func detach() {
         stop()
 
         var nodes: [AVAudioNode] = [inputMixer.avAudioNode,

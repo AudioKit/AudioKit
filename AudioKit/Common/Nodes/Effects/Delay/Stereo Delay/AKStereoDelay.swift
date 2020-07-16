@@ -2,7 +2,7 @@
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 

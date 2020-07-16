@@ -18,7 +18,7 @@ public enum ClipRecordingResult {
     case error(Error)
 }
 
-open class AKClipRecorder {
+public class AKClipRecorder {
 
     open var node: AKOutput
     private let timing: AKNodeTiming
@@ -28,7 +28,7 @@ open class AKClipRecorder {
     ///
     /// - Parameter node: The node that audio will be recorded from
     ///
-    @objc public init(node: AKOutput) {
+    public init(node: AKOutput) {
         self.node = node
         timing = AKNodeTiming(node: node)
         node.outputNode.installTap(onBus: 0, bufferSize: 256, format: nil, block: self.audioTap)
@@ -38,7 +38,7 @@ open class AKClipRecorder {
     }
 
     /// Starts the internal timeline.
-    open func start() {
+    public func start() {
         start(at: nil)
     }
 
@@ -46,7 +46,7 @@ open class AKClipRecorder {
     ///
     /// - Parameter audioTime: An time in the audio render context.
     ///
-    open func start(at audioTime: AVAudioTime?) {
+    public func start(at audioTime: AVAudioTime?) {
         if isStarted {
             return
         }
@@ -68,7 +68,7 @@ open class AKClipRecorder {
     ///
     /// - Parameter completion: a closure that will be called after all clips have benn finalized.
     ///
-    open func stop(_ completion: (() -> Void)? = nil) {
+    public func stop(_ completion: (() -> Void)? = nil) {
         if isNotStarted {
             return
         }
@@ -87,7 +87,7 @@ open class AKClipRecorder {
     ///   - completion: A closure that will be called after all clips' endTime
     /// has been reached and they have benn finalized.
     ///
-    open func stopRecording(endTime: Double? = nil, _ completion: (() -> Void)? = nil) {
+    public func stopRecording(endTime: Double? = nil, _ completion: (() -> Void)? = nil) {
 
         let clipEndTime = endTime ?? currentTime
         guard let completion = completion else {

@@ -2,12 +2,12 @@
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-open class AKVariSpeed: AKNode, AKToggleable, AKInput {
+public class AKVariSpeed: AKNode, AKToggleable, AKInput {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
-    @objc open dynamic var rate: AUValue = 1.0 {
+    public var rate: AUValue = 1.0 {
         didSet {
             rate = (0.25...4).clamp(rate)
             variSpeedAU.rate = rate
@@ -15,7 +15,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return rate != 1.0
     }
 
@@ -27,7 +27,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    @objc public init(_ input: AKNode? = nil, rate: AUValue = 1.0) {
+    public init(_ input: AKNode? = nil, rate: AUValue = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 
@@ -39,12 +39,12 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         rate = lastKnownRate
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         lastKnownRate = rate
         rate = 1.0
     }

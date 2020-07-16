@@ -7,7 +7,7 @@
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 

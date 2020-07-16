@@ -52,7 +52,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the track
-    @objc public init(targetNode: AKNode?) {
+    public init(targetNode: AKNode?) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -111,11 +111,11 @@ open class AKSequencerTrack: AKNode, AKComponent {
     }
 
     /// Add a MIDI note to the track
-    open func add(noteNumber: MIDINoteNumber,
-                  velocity: MIDIVelocity = 127,
-                  channel: MIDIChannel = 0,
-                  position: Double,
-                  duration: Double) {
+    public func add(noteNumber: MIDINoteNumber,
+                    velocity: MIDIVelocity = 127,
+                    channel: MIDIChannel = 0,
+                    position: Double,
+                    duration: Double) {
         var noteOffPosition: Double = (position + duration)
         while noteOffPosition >= length && length != 0 {
             noteOffPosition -= length
@@ -127,40 +127,40 @@ open class AKSequencerTrack: AKNode, AKComponent {
     }
 
     /// Add MIDI data to the track as an event
-    open func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
+    public func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
         internalAU?.addMIDIEvent(status: status.byte, data1: data1, data2: data2, beat: position)
     }
 
     /// Add a MIDI event to the track at a specific position
-    open func add(event: AKMIDIEvent, position: Double) {
+    public func add(event: AKMIDIEvent, position: Double) {
         if let status = event.status, event.data.count > 2 {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }
     }
 
-    open func removeEvent(at position: Double) {
+    public func removeEvent(at position: Double) {
         internalAU?.removeEvent(beat: position)
     }
 
-    open func removeNote(at position: Double) {
+    public func removeNote(at position: Double) {
         internalAU?.removeNote(beat: position)
     }
 
-    open func removeNote(noteNumber: MIDINoteNumber, position: Double) {
+    public func removeNote(noteNumber: MIDINoteNumber, position: Double) {
         internalAU?.removeNote(number: noteNumber, beat: position)
     }
 
-    open func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
+    public func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
         internalAU?.removeAllInstancesOf(number: noteNumber)
     }
 
     /// Remove the notes in the track
-    open func clear() {
+    public func clear() {
         internalAU?.clear()
     }
 
     /// Stop playing all the notes current in the "now playing" array.
-    open func stopPlayingNotes() {
+    public func stopPlayingNotes() {
         internalAU?.stopPlayingNotes()
     }
 }

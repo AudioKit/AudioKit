@@ -3,7 +3,7 @@
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 

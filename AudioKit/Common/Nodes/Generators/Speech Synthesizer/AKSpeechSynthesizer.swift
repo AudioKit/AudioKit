@@ -3,7 +3,7 @@
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
 
-open class AKSpeechSynthesizer: AKNode {
+public class AKSpeechSynthesizer: AKNode {
     public static let ComponentDescription = AudioComponentDescription(
         componentType: kAudioUnitType_Generator,
         componentSubType: kAudioUnitSubType_SpeechSynthesis,
@@ -115,7 +115,7 @@ open class AKSpeechSynthesizer: AKNode {
         SpeakCFString(speechChannel, text as CFString, nil)
     }
 
-    @objc public init(rate: Int = 200, frequency: Int = 200, modulation: Int = 0) {
+    public init(rate: Int = 200, frequency: Int = 200, modulation: Int = 0) {
         super.init(avAudioNode: speechAU, attach: true)
 
         // Grab the speech channel

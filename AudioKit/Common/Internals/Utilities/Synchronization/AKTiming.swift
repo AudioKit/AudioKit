@@ -108,12 +108,12 @@ open class AKNodeTiming: NSObject {
     }
 
     /// Start playback immediately.
-    open func start() {
+    public func start() {
         start(at: nil)
     }
 
     /// Stops playback immediately.
-    open func stop() {
+    public func stop() {
         guard let baseTime = baseTime else {
             return
         }
@@ -136,7 +136,7 @@ extension AKNodeTiming: AKTiming {
 
     public var isNotStarted: Bool { return !isStarted }
 
-    open func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> Double {
         guard let baseTime = baseTime else {
             return idleTime
         }
@@ -144,10 +144,10 @@ extension AKNodeTiming: AKTiming {
         return refTime.timeIntervalSince(otherTime: baseTime) ?? idleTime
     }
 
-    open func audioTime(at position: Double) -> AVAudioTime? {
+    public func audioTime(at position: Double) -> AVAudioTime? {
         return baseTime?.offset(seconds: position)
     }
-    open func start(at audioTime: AVAudioTime?) {
+    public func start(at audioTime: AVAudioTime?) {
         guard !isStarted,
             let lastRenderTime = node?.outputNode.lastRenderTime else {
                 return
@@ -155,7 +155,7 @@ extension AKNodeTiming: AKTiming {
         baseTime = audioTime?.offset(seconds: -idleTime).extrapolateTimeShimmed(fromAnchor: lastRenderTime)
         baseTime = baseTime ?? lastRenderTime.offset(seconds: AKSettings.ioBufferDuration)
     }
-    open func setPosition(_ position: Double) {
+    public func setPosition(_ position: Double) {
         stop()
         idleTime = position
     }

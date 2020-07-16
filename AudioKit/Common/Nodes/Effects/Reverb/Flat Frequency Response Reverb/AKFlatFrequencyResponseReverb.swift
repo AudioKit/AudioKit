@@ -8,7 +8,7 @@
 ///
 /// TODO: Known bug: Loop duration is ignored
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 

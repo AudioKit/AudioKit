@@ -25,7 +25,7 @@ import UIKit.UIGestureRecognizerSubclass
 }
 
 /// `UIGestureRecognizer` subclass which tracks the state of individual touches.
-open class MultitouchGestureRecognizer: UIGestureRecognizer {
+public class MultitouchGestureRecognizer: UIGestureRecognizer {
     /// Denotes the way the list of touches is managed.
     public enum Mode {
         /// The first touch in is the first touch out.
@@ -42,6 +42,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     /// If `count` is decreased past the current number of touches, any excess touches will be ended immediately.
     public var count: Int = 0 {
         didSet {
+            // swiftlint:disable empty_count
             if count != 0 {
                 while count < touches.count {
                     switch mode {
@@ -107,7 +108,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     // MARK: - Overrides
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
 
         if sustain {
@@ -117,21 +118,21 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesMoved(touches, with: event)
 
         update(touches)
     }
 
     /// Handle cancelled touches
-    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesCancelled(touches, with: event)
 
         update(touches)
     }
 
     /// Handle ended touches
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
 
         update(touches)
