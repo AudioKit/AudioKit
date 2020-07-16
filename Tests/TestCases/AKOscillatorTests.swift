@@ -76,6 +76,21 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("f1f313f396fd5962a36db24e675df274")
     }
 
+    func testAutomationMultiple() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
+        output = input
+
+        afterStart = {
+            self.input.parameterAutomation?.startPlayback()
+        }
+
+        // auditionTest()
+
+        AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+    }
+
     func testNewAutomation() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         input.$frequency.automation = [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration)]
