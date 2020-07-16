@@ -42,6 +42,7 @@ public class MultitouchGestureRecognizer: UIGestureRecognizer {
     /// If `count` is decreased past the current number of touches, any excess touches will be ended immediately.
     public var count: Int = 0 {
         didSet {
+            // swiftlint:disable empty_count
             if count != 0 {
                 while count < touches.count {
                     switch mode {

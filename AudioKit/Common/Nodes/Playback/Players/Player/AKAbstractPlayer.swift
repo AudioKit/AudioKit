@@ -217,6 +217,7 @@ public class AKAbstractPlayer: AKNode {
                                          rampDuration: 0)
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
+            // swiftlint:disable number_separator
             faderNode.addAutomationPoint(value: fade.maximumGain,
                                          at: 0.0001,
                                          rampDuration: fade.inTime,
