@@ -39,8 +39,9 @@ extension AKManager {
             md5_init(md5state)
             var samplesHashed = 0
 
-            guard let buffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
-                                                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return "" }
+            guard let buffer = AVAudioPCMBuffer(
+                pcmFormat: engine.manualRenderingFormat,
+                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return "" }
 
             while engine.manualRenderingSampleTime < samples {
                 let framesToRender = buffer.frameCapacity
@@ -61,8 +62,6 @@ extension AKManager {
                         }
 
                     }
-
-                    break
 
                 case .insufficientDataFromInputNode:
                     // applicable only if using the input node as one of the sources
