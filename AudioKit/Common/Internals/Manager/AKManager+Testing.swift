@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
-import CommonCrypto
 
 extension AKManager {
     // MARK: - Testing
@@ -98,7 +97,7 @@ extension AKManager {
                 md5_finish(md5state, ptr.baseAddress)
             }
 
-            for index in 0..<Int(CC_MD5_DIGEST_LENGTH) {
+            for index in 0..<Int(16) {
                 digestHex += String(format: "%02x", digest[index])
             }
 
