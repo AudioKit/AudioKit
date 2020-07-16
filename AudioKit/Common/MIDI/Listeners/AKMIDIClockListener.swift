@@ -172,16 +172,6 @@ extension AKMIDIClockListener: AKMIDIBeatObserver {
 
 extension AKMIDIClockListener: AKMIDITempoObserver {
 
-    @available(*, deprecated, renamed: "midiClockFollowerMode")
-    public func midiClockSlaveMode() {
-        midiClockFollowerMode()
-    }
-
-    @available(*, deprecated, renamed: "midiClockLeaderEnabled")
-    public func midiClockMasterEnabled() {
-        midiClockLeaderEnabled()
-    }
-
     public func midiClockFollowerMode() {
         AKLog("MIDI Clock Follower", log: OSLog.midi)
         quarterNoteQuantumCounter = 0
