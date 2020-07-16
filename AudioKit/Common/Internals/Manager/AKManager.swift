@@ -96,10 +96,8 @@ open class AKManager: NSObject {
     #if os(macOS)
     /// Enumerate the list of available devices.
     public static var devices: [AKDevice]? {
-        EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.devices().compactMap {
-            guard let device = $0 as? EZAudioDevice else { return nil }
-            return AKDevice(ezAudioDevice: device)
+        return AudioDeviceUtils.devices().map { id in
+            return AKDevice(deviceID: id)
         }
     }
     #endif
@@ -107,11 +105,11 @@ open class AKManager: NSObject {
     /// Enumerate the list of available input devices.
     public static var inputDevices: [AKDevice]? {
         #if os(macOS)
-        EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-
-        return EZAudioDevice.inputDevices().compactMap {
-            guard let device = $0 as? EZAudioDevice else { return nil }
-            return AKDevice(ezAudioDevice: device)
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.inputChannels(id) > 0 {
+                return AKDevice(deviceID: id)
+            }
+            return nil
         }
         #else
         var returnDevices = [AKDevice]()
@@ -136,10 +134,11 @@ open class AKManager: NSObject {
     /// Enumerate the list of available output devices.
     public static var outputDevices: [AKDevice]? {
         #if os(macOS)
-        EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.outputDevices().compactMap {
-            guard let device = $0 as? EZAudioDevice else { return nil }
-            return AKDevice(ezAudioDevice: device)
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.outputChannels(id) > 0 {
+                return AKDevice(deviceID: id)
+            }
+            return nil
         }
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
@@ -154,12 +153,12 @@ open class AKManager: NSObject {
         #endif
     }
 
-    /// The name of the current input device, if available.
+    /// The current input device, if available.
+    ///
+    /// Note that on macOS, this will always be the same as `outputDevice`
     public static var inputDevice: AKDevice? {
         #if os(macOS)
-        if let dev = EZAudioDevice.currentInput() {
-            return AKDevice(name: dev.name, deviceID: dev.deviceID)
-        }
+        return AKDevice(deviceID: engine.getDevice())
         #else
         if let portDescription = AVAudioSession.sharedInstance().preferredInput {
             return AKDevice(portDescription: portDescription)
@@ -171,24 +170,23 @@ open class AKManager: NSObject {
                 }
             }
         }
-        #endif
         return nil
+        #endif
     }
 
-    /// The name of the current output device, if available.
+    /// The current output device, if available.
+    ///
+    /// Note that on macOS, this will always be the same as `inputDevice`
     public static var outputDevice: AKDevice? {
         #if os(macOS)
-        if let dev = EZAudioDevice.currentOutput() {
-            return AKDevice(name: dev.name, deviceID: dev.deviceID)
-        }
+        return AKDevice(deviceID: engine.getDevice())
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {
             return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
         }
-
-        #endif
         return nil
+        #endif
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
@@ -222,16 +220,7 @@ open class AKManager: NSObject {
     /// Change the preferred output device, giving it one of the names from the list of available output.
     public static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
-        try AKTry {
-            var id = output.deviceID
-            if let audioUnit = AKManager.engine.outputNode.audioUnit {
-                AudioUnitSetProperty(audioUnit,
-                                     kAudioOutputUnitProperty_CurrentDevice,
-                                     kAudioUnitScope_Global, 0,
-                                     &id,
-                                     UInt32(MemoryLayout<DeviceID>.size))
-            }
-        }
+        engine.setDevice(id: output.deviceID)
         #endif
     }
 
