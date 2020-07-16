@@ -55,7 +55,9 @@ extension AKManager {
                             for channel in 0 ..< buffer.format.channelCount where samplesHashed < samples {
                                 let sample = floatChannelData[Int(channel)][Int(frame)]
                                 withUnsafeBytes(of: sample) { samplePtr in
-                                    md5_append(md5state, samplePtr.bindMemory(to: md5_byte_t.self).baseAddress!, 4)
+                                    if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
+                                        md5_append(md5state, baseAddress, 4)
+                                    }
                                 }
                                 samplesHashed += 1
                             }
