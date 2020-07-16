@@ -12,14 +12,18 @@ extension AVAudioFile {
 extension AVAudioFile {
     /// Get a 2d array of Floats suitable for passing to AKWaveformLayer or other visualization classes
     public func getWaveformData(with samplesPerPixel: Int) -> FloatChannelData? {
+        // store the current frame
+        let currentFrame = framePosition
+
         let totalFrames = AVAudioFrameCount(length)
-        let framesPerBuffer: AVAudioFrameCount = totalFrames / AVAudioFrameCount(samplesPerPixel)
+        var framesPerBuffer: AVAudioFrameCount = totalFrames / AVAudioFrameCount(samplesPerPixel)
 
         guard let rmsBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
                                                frameCapacity: AVAudioFrameCount(framesPerBuffer)) else { return nil }
 
         let channelCount = Int(processingFormat.channelCount)
         var data = Array(repeating: [Float](zeros: samplesPerPixel), count: channelCount)
+
         var startFrame: AVAudioFramePosition = 0
 
         for i in 0 ..< samplesPerPixel {
@@ -39,8 +43,20 @@ extension AVAudioFile {
                 vDSP_rmsqv(floatData[channel], 1, &rms, vDSP_Length(rmsBuffer.frameLength))
                 data[channel][i] = rms
             }
+
+            // next position to read from
             startFrame += AVAudioFramePosition(framesPerBuffer)
+
+            // bounds safety check
+            if startFrame + AVAudioFramePosition(framesPerBuffer) > totalFrames {
+                framesPerBuffer = totalFrames - AVAudioFrameCount(startFrame)
+                if framesPerBuffer <= 0 { break }
+            }
         }
+
+        // return the file to frame is was on previously
+        framePosition = currentFrame
+
         return data
     }
 }
