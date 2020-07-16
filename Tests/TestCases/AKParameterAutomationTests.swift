@@ -17,9 +17,11 @@ class AKParameterAutomationTests: XCTestCase {
         let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
 
         var addresses:[AUParameterAddress] = []
+        var values:[AUValue] = []
 
         let scheduleParameterBlock: AUScheduleParameterBlock = { (sampleTime, frameCount, address, value) in
             addresses.append(address)
+            values.append(value)
         }
 
         let observer: AURenderObserver = automationPoints.withUnsafeBufferPointer { automationPtr in
@@ -38,6 +40,7 @@ class AKParameterAutomationTests: XCTestCase {
         observer(.unitRenderAction_PreRender, &timeStamp, 256, 0)
 
         XCTAssertEqual(addresses, [9223372036854775850, 4611686018427387946, 2305843009213693994, 42])
+        XCTAssertEqual(values, [1.0, 0.0, 0.0, 880.0])
     }
 
 }
