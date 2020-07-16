@@ -62,4 +62,18 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
     }
 
+    func testNewAutomation() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        input.$frequency.automation = [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration)]
+        output = input
+
+        afterStart = {
+            self.input.$frequency.startPlayback()
+        }
+
+        // auditionTest()
+
+        AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
+    }
+
 }
