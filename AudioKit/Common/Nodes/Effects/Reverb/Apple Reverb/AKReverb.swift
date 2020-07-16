@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-open class AKReverb: AKNode, AKToggleable, AKInput {
+public class AKReverb: AKNode, AKToggleable, AKInput {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     fileprivate var lastKnownMix: AUValue = 0.5

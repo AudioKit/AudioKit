@@ -41,7 +41,7 @@ public protocol FileClip: AKClip {
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
-open class AKFileClip: NSObject, FileClip {
+public class AKFileClip: NSObject, FileClip {
 
     /// The audio file that will be read.
     open var audioFile: AVAudioFile

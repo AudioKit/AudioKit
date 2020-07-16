@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
-open class AKStereoInput: AKNode, AKToggleable {
+public class AKStereoInput: AKNode, AKToggleable {
 
     internal let mixer = AVAudioMixerNode()
 

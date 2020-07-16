@@ -2,7 +2,7 @@
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-open class AKDryWetMixer: AKNode, AKInput {
+public class AKDryWetMixer: AKNode, AKInput {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)

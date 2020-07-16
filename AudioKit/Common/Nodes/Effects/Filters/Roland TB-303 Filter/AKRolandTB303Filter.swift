@@ -2,7 +2,7 @@
 
 /// Emulation of the Roland TB-303 filter
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 

@@ -2,7 +2,7 @@
 
 /// Faust-based pitch shfiter
 ///
-open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 

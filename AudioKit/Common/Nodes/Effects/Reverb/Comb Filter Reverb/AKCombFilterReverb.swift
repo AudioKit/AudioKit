@@ -8,7 +8,7 @@
 ///
 /// TODO: Known bug: Loop duration is ignored
 ///
-open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 

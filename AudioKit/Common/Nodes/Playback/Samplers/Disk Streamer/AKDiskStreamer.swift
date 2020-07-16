@@ -6,7 +6,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKDiskStreamer: AKNode, AKComponent {
+public class AKDiskStreamer: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDiskStreamerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "akds")

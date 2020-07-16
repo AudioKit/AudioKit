@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-open class AKDelay: AKNode, AKToggleable, AKInput {
+public class AKDelay: AKNode, AKToggleable, AKInput {
     let delayAU = AVAudioUnitDelay()
 
     fileprivate var lastKnownMix: AUValue = 0.5

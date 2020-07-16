@@ -2,7 +2,7 @@
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
 ///
-open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 

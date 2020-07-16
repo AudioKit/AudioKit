@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Audio from the standard input
-open class AKMicrophone: AKNode, AKToggleable {
+public class AKMicrophone: AKNode, AKToggleable {
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)

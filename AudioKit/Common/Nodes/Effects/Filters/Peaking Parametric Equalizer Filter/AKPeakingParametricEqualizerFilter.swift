@@ -2,7 +2,7 @@
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 

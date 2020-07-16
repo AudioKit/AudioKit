@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// 3-D Spatialization of the input
-open class AK3DPanner: AKNode, AKInput {
+public class AK3DPanner: AKNode, AKInput {
     fileprivate let environmentNode = AVAudioEnvironmentNode()
 
     /// Position of sound source along x-axis

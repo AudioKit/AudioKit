@@ -2,7 +2,7 @@
 
 //swiftlint:disable all
 /// Builds presets for Apple sampler to read from
-open class AKAUPresetBuilder {
+public class AKAUPresetBuilder {
     fileprivate var presetXML = ""
     fileprivate var layers = [String]()
     fileprivate var connections = [String]()

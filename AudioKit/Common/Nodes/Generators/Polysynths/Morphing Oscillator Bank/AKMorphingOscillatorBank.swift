@@ -3,7 +3,7 @@
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
+public class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "morb")

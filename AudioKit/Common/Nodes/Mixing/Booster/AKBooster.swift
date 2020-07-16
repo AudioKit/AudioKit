@@ -2,7 +2,7 @@
 
 /// Stereo Booster
 ///
-open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 

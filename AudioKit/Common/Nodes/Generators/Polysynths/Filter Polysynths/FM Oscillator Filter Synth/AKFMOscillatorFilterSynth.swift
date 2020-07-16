@@ -2,7 +2,7 @@
 
 /// Frequency Modulation Polyphonic Oscillator Filter Synth
 ///
-open class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
+public class AKFMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorFilterSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "fmob")

@@ -3,7 +3,7 @@
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
 
-open class AKSpeechSynthesizer: AKNode {
+public class AKSpeechSynthesizer: AKNode {
     public static let ComponentDescription = AudioComponentDescription(
         componentType: kAudioUnitType_Generator,
         componentSubType: kAudioUnitSubType_SpeechSynthesis,

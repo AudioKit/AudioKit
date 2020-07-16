@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-open class AKReverb2: AKNode, AKToggleable, AKInput {
+public class AKReverb2: AKNode, AKToggleable, AKInput {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

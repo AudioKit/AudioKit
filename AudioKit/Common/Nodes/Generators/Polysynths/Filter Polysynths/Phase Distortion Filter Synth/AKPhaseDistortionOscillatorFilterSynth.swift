@@ -2,7 +2,7 @@
 
 /// Phase Distortion Oscillator Filter Synth
 ///
-open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
+public class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorFilterSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "phdb")

@@ -2,7 +2,7 @@
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
-open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - AKComponent
 
@@ -33,11 +33,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// - parameter hopSize: Hop size.
     /// - parameter peakCount: Number of peaks.
     ///
-    public init(
-        _ input: AKNode? = nil,
-        hopSize: Int = 4_096,
-        peakCount: Int = 20
-        ) {
+    public init(_ input: AKNode? = nil, hopSize: Int = 4_096, peakCount: Int = 20) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

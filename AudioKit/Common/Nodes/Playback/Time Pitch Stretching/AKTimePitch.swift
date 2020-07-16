@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-open class AKTimePitch: AKNode, AKToggleable, AKInput {
+public class AKTimePitch: AKNode, AKToggleable, AKInput {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 

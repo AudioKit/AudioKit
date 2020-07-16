@@ -2,7 +2,7 @@
 
 /// White noise generator
 ///
-open class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
 

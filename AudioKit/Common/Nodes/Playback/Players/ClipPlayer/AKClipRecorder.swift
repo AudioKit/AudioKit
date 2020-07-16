@@ -18,7 +18,7 @@ public enum ClipRecordingResult {
     case error(Error)
 }
 
-open class AKClipRecorder {
+public class AKClipRecorder {
 
     open var node: AKOutput
     private let timing: AKNodeTiming

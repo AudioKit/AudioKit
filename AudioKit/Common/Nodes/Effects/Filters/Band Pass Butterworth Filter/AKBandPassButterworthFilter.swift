@@ -3,7 +3,7 @@
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btbp")
 

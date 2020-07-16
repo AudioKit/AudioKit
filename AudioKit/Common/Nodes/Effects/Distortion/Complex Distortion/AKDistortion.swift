@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 

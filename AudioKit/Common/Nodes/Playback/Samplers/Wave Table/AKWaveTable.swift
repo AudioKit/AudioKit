@@ -9,7 +9,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKWaveTable: AKNode, AKComponent {
+public class AKWaveTable: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKWaveTableAudioUnit
     /// Four letter unique description of the node

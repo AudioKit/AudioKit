@@ -2,7 +2,7 @@
 
 /// Dynamic range compressor from Faust
 ///
-open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
