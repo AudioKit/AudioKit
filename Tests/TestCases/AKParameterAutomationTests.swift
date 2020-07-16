@@ -75,4 +75,15 @@ class AKParameterAutomationTests: XCTestCase {
         XCTAssertEqual(values, [880.0, 440.0])
 
     }
+
+    func testFutureAutomation() {
+
+        let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
+
+        let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
+
+        // If the automation is in the future, we should not get anything.
+        XCTAssertEqual(addresses, [])
+        XCTAssertEqual(values, [])
+    }
 }
