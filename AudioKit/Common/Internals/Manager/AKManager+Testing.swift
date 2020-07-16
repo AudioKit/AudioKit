@@ -94,6 +94,8 @@ extension AKManager {
                 digestHex += String(format: "%02x", digest[index])
             }
 
+            md5state.deallocate()
+
         }
         #endif
 
