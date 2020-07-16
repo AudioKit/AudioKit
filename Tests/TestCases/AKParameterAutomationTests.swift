@@ -39,6 +39,7 @@ class AKParameterAutomationTests: XCTestCase {
 
         observer(.unitRenderAction_PreRender, &timeStamp, 256, 0)
 
+        // order is: taper, skew, offset, value
         XCTAssertEqual(addresses, [9223372036854775850, 4611686018427387946, 2305843009213693994, 42])
         XCTAssertEqual(values, [1.0, 0.0, 0.0, 880.0])
     }
