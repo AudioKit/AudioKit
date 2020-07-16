@@ -517,6 +517,7 @@ static void scheduleAutomationPoint(AUScheduleParameterBlock scheduleParameterBl
 }
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
+extern "C"
 AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
