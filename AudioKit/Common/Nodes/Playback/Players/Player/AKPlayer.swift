@@ -128,23 +128,14 @@ public class AKPlayer: AKAbstractPlayer {
     /// Volume 0.0 -> 1.0, default 1.0
     /// This is different than gain
     public var volume: AUValue {
-        get {
-            return playerNode.volume
-        }
-
-        set {
-            playerNode.volume = newValue
-        }
+        get { return playerNode.volume }
+        set { playerNode.volume = newValue }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
     public var pan: AUValue {
-        get {
-            return playerNode.pan
-        }
-        set {
-            playerNode.pan = newValue
-        }
+        get { return playerNode.pan }
+        set { playerNode.pan = newValue }
     }
 
     /// The total frame count that is being playing.
