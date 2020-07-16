@@ -86,8 +86,8 @@ extension AKManager {
 
             var digest = [md5_byte_t](repeating: 0, count: 16)
 
-            digest.withUnsafeMutableBufferPointer { ptr in
-                md5_finish(md5state, ptr.baseAddress)
+            digest.withUnsafeMutableBufferPointer { digestPtr in
+                md5_finish(md5state, digestPtr.baseAddress)
             }
 
             for index in 0..<16 {
