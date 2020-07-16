@@ -44,6 +44,7 @@ public class AKMIDITrackView: AKButton {
     var collectiveNoteView: UIView!
     var cursorTimer: Timer!
     var scrollTimer: Timer!
+    var readyToPlay: Bool = false
     var playbackCursorPosition: Double = 0.0
     var noteGroupPosition: Double = 0.0
     public var midiTrackNoteMap: AKMIDIFileTrackNoteMap!
@@ -159,6 +160,8 @@ public class AKMIDITrackView: AKButton {
             singleNoteView.backgroundColor = self.highlightedColor
             collectiveNoteView.addSubview(singleNoteView)
         }
+        
+        readyToPlay = true
     }
 
     //Move the playback cursor across the screen
@@ -175,7 +178,7 @@ public class AKMIDITrackView: AKButton {
         }
         let width = Double(self.frame.size.width)
         playbackCursorPosition += 1
-        if Double(self.playbackCursorView.frame.origin.x) < (width - 3) {
+        if Double(self.playbackCursorView.frame.origin.x) < (width - 20) {
             playbackCursorRect = CGRect(x: playbackCursorPosition, y: 0, width: 3, height: Double(self.frame.height))
             playbackCursorView.frame = playbackCursorRect
         } else {
@@ -187,6 +190,9 @@ public class AKMIDITrackView: AKButton {
             selector: #selector(self.scrollNotes),
             userInfo: nil,
             repeats: true)
+        }
+        if !sequencer.isPlaying && readyToPlay {
+            sequencer.play()
         }
     }
 
