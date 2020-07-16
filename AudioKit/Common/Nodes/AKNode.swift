@@ -68,6 +68,7 @@ open class AKNode: NSObject {
 public class AKNodeParameter {
 
     private var dsp: AKDSPRef?
+    private var avAudioUnit: AVAudioUnit!
 
     public private(set) var parameter: AUParameter?
 
@@ -118,6 +119,54 @@ public class AKNodeParameter {
             guard let dsp = dsp, let addr = parameter?.address else { return }
             setParameterRampSkewDSP(dsp, addr, rampSkew)
         }
+    }
+
+    // MARK: Automation
+
+    public var automation: [AKParameterAutomationPoint] = []
+
+    private var renderObserverToken: Int?
+
+    /// Start playback immediately with the specified offset (seconds) from the start of the sequence
+    public func startPlayback(offset: Double = 0, rate: Double = 1) {
+        guard var lastTime = avAudioUnit.lastRenderTime else { return }
+        guard let parameter = parameter else { return }
+
+        // In tests, we may not have a valid lastRenderTime, so
+        // assume no rendering has yet occurred.
+        if !lastTime.isSampleTimeValid {
+            lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+            assert(lastTime.isSampleTimeValid)
+        }
+
+        let adjustedOffset = offset / rate
+        let time = lastTime.offset(seconds: -adjustedOffset)
+
+        stopPlayback()
+
+        automation.withUnsafeBufferPointer { automationPtr in
+
+            guard let automationBaseAddress = automationPtr.baseAddress else { return }
+
+            guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
+                                                                  avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                  AKSettings.sampleRate,
+                                                                  Double(time.sampleTime),
+                                                                  1,
+                                                                  automationBaseAddress,
+                                                                  automation.count) else { return }
+
+            renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
+        }
+
+    }
+
+    public func stopPlayback() {
+
+        if let token = renderObserverToken {
+            avAudioUnit.auAudioUnit.removeRenderObserver(token)
+        }
+
     }
 
     // MARK: Lifecycle
