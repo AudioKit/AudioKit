@@ -15,7 +15,8 @@ open class AKNode: NSObject {
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
     open var avAudioUnit: AVAudioUnit? {
         didSet {
-            if let akAudioUnit = avAudioUnit?.auAudioUnit as? AKAudioUnitBase {
+            guard let avAudioUnit = avAudioUnit else { return }
+            if let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase {
                 let mirror = Mirror(reflecting: self)
 
                 for child in mirror.children {
@@ -25,6 +26,7 @@ open class AKNode: NSObject {
                         let name = String(label.dropFirst())
                         param.projectedValue.associate(with: akAudioUnit,
                                                        identifier: name)
+                        param.projectedValue.set(avAudioUnit: avAudioUnit)
                     }
                 }
             }
@@ -170,6 +172,10 @@ public class AKNodeParameter {
     }
 
     // MARK: Lifecycle
+
+    public func set(avAudioUnit: AVAudioUnit) {
+        self.avAudioUnit = avAudioUnit
+    }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
     public func associate(with au: AKAudioUnitBase, identifier: String) {
