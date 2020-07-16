@@ -9,12 +9,12 @@ public typealias DeviceID = String
 /// Wrapper for audio device selection
 public struct AKDevice: Equatable {
     /// The human-readable name for the device.
-    var name: String
-    var nInputChannels: Int?
-    var nOutputChannels: Int?
+    public private(set) var name: String
+    public private(set) var nInputChannels: Int?
+    public private(set) var nOutputChannels: Int?
 
     /// The device identifier.
-    fileprivate(set) var deviceID: DeviceID
+    public private(set) var deviceID: DeviceID
 
     /// Initialize the device
     ///
