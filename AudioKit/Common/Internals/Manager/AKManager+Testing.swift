@@ -55,8 +55,8 @@ extension AKManager {
 
                                 if samplesHashed < samples {
                                     let sample = floatChannelData[Int(channel)][Int(frame)]
-                                    withUnsafeBytes(of: sample) { ptr in
-                                        md5_append(md5state, ptr.bindMemory(to: md5_byte_t.self).baseAddress!, 4)
+                                    withUnsafeBytes(of: sample) { samplePtr in
+                                        md5_append(md5state, samplePtr.bindMemory(to: md5_byte_t.self).baseAddress!, 4)
                                     }
                                     samplesHashed += 1
                                 }
