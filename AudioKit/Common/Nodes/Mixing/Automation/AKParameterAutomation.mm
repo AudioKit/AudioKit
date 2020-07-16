@@ -543,9 +543,6 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
         double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
         double blockEndTime = blockStartTime + frameCount / sampleRate;
 
-        // We've reached the end of automation. Nothing to do.
-        if(data.iterator != data.points.cend()) return;
-
         // Skip forward.
         while (data.iterator != data.points.cend() ) {
 
