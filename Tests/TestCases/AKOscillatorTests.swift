@@ -93,11 +93,10 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        input.$frequency.automation = [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration)]
         output = input
 
         afterStart = {
-            self.input.$frequency.startPlayback()
+            self.input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
         }
 
         // auditionTest()
@@ -107,11 +106,10 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.$amplitude.automation = [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration)]
         output = input
 
         afterStart = {
-            self.input.$amplitude.startPlayback()
+            self.input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
         }
 
         // auditionTest()
@@ -121,13 +119,11 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationMultiple() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.$frequency.automation = [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration)]
-        input.$amplitude.automation = [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration)]
         output = input
 
         afterStart = {
-            self.input.$frequency.startPlayback()
-            self.input.$amplitude.startPlayback()
+            self.input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
+            self.input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
         }
 
         // auditionTest()
