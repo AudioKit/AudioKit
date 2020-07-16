@@ -25,6 +25,7 @@ class AKTestCase: XCTestCase {
     }
 
     func AKTestMD5(_ md5: String, alternate: String = "") {
+        print("expected md5: \(md5)")
         if let existingOutput = output {
             try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }

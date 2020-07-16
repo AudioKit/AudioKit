@@ -27,6 +27,7 @@ public:
 
     void setSamples(UInt32 numberOfSamples)  {
         totalSamples = numberOfSamples;
+        printf("numberOfSamples: %d\n", numberOfSamples);
         sp_test_create(&sp_test, numberOfSamples);
     }
 
@@ -85,7 +86,7 @@ public:
                     samples++;
                 }
                 // Suppress output
-                *out = 0;
+                *out = *in;
             }
         }
     }
