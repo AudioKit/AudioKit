@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Operation-based effect
-open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")

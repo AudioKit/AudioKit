@@ -2,7 +2,7 @@
 
 /// Frequency Modulation Polyphonic Oscillator
 ///
-open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
+public class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "fmob")

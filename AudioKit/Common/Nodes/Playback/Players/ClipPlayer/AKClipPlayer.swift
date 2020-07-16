@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Schedules multiple audio files to be played in a sequence.
-open class AKClipPlayer: AKNode {
+public class AKClipPlayer: AKNode {
 
     private var timeAtStart: Double = 0
 

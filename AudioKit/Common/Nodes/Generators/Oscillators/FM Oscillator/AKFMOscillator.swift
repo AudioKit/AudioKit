@@ -2,7 +2,7 @@
 
 /// Classic FM Synthesis audio generation.
 ///
-open class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 

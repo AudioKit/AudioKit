@@ -2,7 +2,7 @@
 
 /// A complement to the AKLowPassFilter.
 ///
-open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 

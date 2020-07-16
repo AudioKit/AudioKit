@@ -3,7 +3,7 @@
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
 ///
-open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - AKComponent
 

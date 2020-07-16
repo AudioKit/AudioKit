@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 

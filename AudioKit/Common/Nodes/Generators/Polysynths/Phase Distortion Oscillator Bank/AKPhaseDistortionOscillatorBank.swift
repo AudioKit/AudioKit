@@ -2,7 +2,7 @@
 
 /// Phase Distortion Oscillator Bank
 ///
-open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
+public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "phdb")

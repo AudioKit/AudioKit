@@ -3,7 +3,7 @@
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-open class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
+public class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorFilterSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "morb")

@@ -2,7 +2,7 @@
 
 /// Table-lookup panning with linear interpolation
 ///
-open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 

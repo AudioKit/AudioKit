@@ -2,7 +2,7 @@
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq2")
 

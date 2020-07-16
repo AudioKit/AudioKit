@@ -3,7 +3,7 @@
 /// A stereo phaser This is a stereo phaser, generated from Faust code taken
 /// from the Guitarix project.
 ///
-open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 

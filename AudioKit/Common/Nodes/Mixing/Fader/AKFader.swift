@@ -2,7 +2,7 @@
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
-open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public typealias AKAudioUnitType = AKFaderAudioUnit
 

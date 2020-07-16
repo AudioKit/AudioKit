@@ -7,7 +7,7 @@
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")

@@ -2,7 +2,7 @@
 
 /// Triggerable classic ADSR envelope
 ///
-open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 

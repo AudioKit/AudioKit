@@ -2,7 +2,7 @@
 
 /// Pulse-Width Modulating Oscillator Filter Synth 
 ///
-open class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
+public class AKPWMOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorFilterSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "pwmb")

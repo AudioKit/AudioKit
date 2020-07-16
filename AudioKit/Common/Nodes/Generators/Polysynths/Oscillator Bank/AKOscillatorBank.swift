@@ -3,7 +3,7 @@
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
+public class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "oscb")

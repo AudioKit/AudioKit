@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Properties
 
     /// Four letter unique description of the node

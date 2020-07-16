@@ -2,7 +2,7 @@
 
 /// Synth
 ///
-open class AKSynth: AKPolyphonicNode, AKComponent {
+public class AKSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")

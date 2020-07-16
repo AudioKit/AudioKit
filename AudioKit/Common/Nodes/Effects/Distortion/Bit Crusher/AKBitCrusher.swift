@@ -2,7 +2,7 @@
 
 /// This will digitally degrade a signal.
 ///
-open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 

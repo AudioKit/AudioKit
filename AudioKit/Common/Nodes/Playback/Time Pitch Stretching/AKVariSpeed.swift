@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-open class AKVariSpeed: AKNode, AKToggleable, AKInput {
+public class AKVariSpeed: AKNode, AKToggleable, AKInput {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 

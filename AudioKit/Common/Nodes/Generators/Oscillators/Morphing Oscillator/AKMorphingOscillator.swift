@@ -3,7 +3,7 @@
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 

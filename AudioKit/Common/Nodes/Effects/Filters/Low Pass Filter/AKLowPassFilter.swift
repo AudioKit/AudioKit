@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter)
 

@@ -2,7 +2,7 @@
 
 /// A delay line with cubic interpolation.
 ///
-open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-open class AKParameterAutomation {
+public class AKParameterAutomation {
     private var avAudioUnit: AVAudioUnit
     private var scheduleParameterBlock: AUScheduleParameterBlock?
     private var renderObserverToken: Int?

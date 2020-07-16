@@ -6,7 +6,7 @@
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 

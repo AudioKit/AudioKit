@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Kick Drum Synthesizer Instrument
-open class AKSynthKick: AKMIDIInstrument {
+public class AKSynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
@@ -40,7 +40,7 @@ open class AKSynthKick: AKMIDIInstrument {
 }
 
 /// Snare Drum Synthesizer Instrument
-open class AKSynthSnare: AKMIDIInstrument {
+public class AKSynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder

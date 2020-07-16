@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 

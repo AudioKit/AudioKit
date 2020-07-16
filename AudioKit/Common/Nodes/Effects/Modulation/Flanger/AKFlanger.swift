@@ -2,7 +2,7 @@
 
 /// Stereo Flanger
 ///
-open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
