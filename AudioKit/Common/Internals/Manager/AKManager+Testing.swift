@@ -16,7 +16,11 @@ extension AKManager {
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///   - afterStart: Closure to execute at the beginning of the test
     ///
-    public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
+    /// - Returns: MD5 hash of audio output for comparison with test baseline.
+    public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws -> String {
+
+        var digestHex = ""
+
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
@@ -44,7 +48,7 @@ extension AKManager {
             var samplesHashed = 0
 
             guard let buffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
-                                                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return }
+                                                frameCapacity: engine.manualRenderingMaximumFrameCount) else { return "" }
 
             while engine.manualRenderingSampleTime < samples {
                 let framesToRender = buffer.frameCapacity
@@ -94,7 +98,6 @@ extension AKManager {
                 md5_finish(md5state, ptr.baseAddress)
             }
 
-            var digestHex = ""
             for index in 0..<Int(CC_MD5_DIGEST_LENGTH) {
                 digestHex += String(format: "%02x", digest[index])
             }
@@ -104,6 +107,8 @@ extension AKManager {
             tester?.stop()
         }
         #endif
+
+        return digestHex
     }
 
     /// Audition the test to hear what it sounds like
