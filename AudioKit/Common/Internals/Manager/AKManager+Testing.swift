@@ -5,9 +5,6 @@ import Foundation
 extension AKManager {
     // MARK: - Testing
 
-    /// Testing AKNode
-    public static var tester: AKTester?
-
     /// Test the output of a given node
     ///
     /// - Parameters:
@@ -26,8 +23,7 @@ extension AKManager {
 
             print("samples: \(samples)")
 
-            tester = AKTester(node, samples: samples)
-            output = tester
+            output = node
 
             // maximum number of frames the engine will be asked to render in any single render call
             let maximumFrameCount: AVAudioFrameCount = 4_096
@@ -40,7 +36,6 @@ extension AKManager {
             }
 
             afterStart()
-            tester?.play()
 
             let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
             md5_init(md5state)
@@ -103,7 +98,6 @@ extension AKManager {
 
             print("digestHex: \(digestHex)")
 
-            tester?.stop()
         }
         #endif
 
