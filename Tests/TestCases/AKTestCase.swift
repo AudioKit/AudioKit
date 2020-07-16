@@ -12,10 +12,6 @@ class AKTestCase: XCTestCase {
 
     var input = AKOscillator()
 
-    var MD5: String {
-        return AKManager.tester?.MD5 ?? ""
-    }
-
     var afterStart: () -> Void = {}
 
     func auditionTest() {
