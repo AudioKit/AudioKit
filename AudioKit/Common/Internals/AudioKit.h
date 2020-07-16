@@ -151,9 +151,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKCallbackInstrumentAudioUnit.h>
 #endif
 
-// Testing
-#import <AudioKit/AKTesterAudioUnit.h>
-
 // EZAudio
 #import <AudioKit/EZAudio.h>
 
