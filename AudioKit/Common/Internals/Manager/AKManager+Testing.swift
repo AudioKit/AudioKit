@@ -21,8 +21,6 @@ extension AKManager {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
 
-            print("samples: \(samples)")
-
             output = node
 
             // maximum number of frames the engine will be asked to render in any single render call
@@ -95,8 +93,6 @@ extension AKManager {
             for index in 0..<Int(16) {
                 digestHex += String(format: "%02x", digest[index])
             }
-
-            print("digestHex: \(digestHex)")
 
         }
         #endif
