@@ -543,22 +543,31 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
         double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
         double blockEndTime = blockStartTime + frameCount / sampleRate;
 
-        auto& iter = data.iterator;
-
         // We've reached the end of automation. Nothing to do.
         if(data.iterator != data.points.cend()) return;
 
         // Skip forward.
-        while (iter != data.points.cend() ) {
+        while (data.iterator != data.points.cend() ) {
 
-            double rampStartTime = iter->startTime / playbackRate;
-            double rampEndTime = rampStartTime + iter->rampDuration / playbackRate;
+            double rampStartTime = data.iterator->startTime / playbackRate;
+            double rampEndTime = rampStartTime + data.iterator->rampDuration / playbackRate;
 
-            if( rampEndTime < blockStartTime ) {
+            if (rampStartTime < blockStartTime) {
+                if (rampEndTime <= blockStartTime) {
+                    // ramp is completely finished at this point, set to target value
+                    scheduleParameterBlock(AUEventSampleTimeImmediate, 0, data.address, data.iterator->targetValue);
+                }
+                else {
+                    // we're starting mid-ramp: start immediately with offset
+                    AUAudioFrameCount offset = (blockStartTime - rampStartTime) * sampleRate;
+                    scheduleAutomationPoint(scheduleParameterBlock, sampleRate, playbackRate, 0, data.address, *data.iterator, offset);
+                }
+                data.iterator++;
+            }
+            else {
                 break;
             }
 
-            iter++;
         }
 
         // Apply parameter automation for the segment.
