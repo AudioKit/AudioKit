@@ -2,7 +2,7 @@
 import AudioKit
 
 /// View to choose from audio files to use in playgrounds
-@IBDesignable open class AKResourcesAudioFileLoaderView: UIView {
+@IBDesignable public class AKResourcesAudioFileLoaderView: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 

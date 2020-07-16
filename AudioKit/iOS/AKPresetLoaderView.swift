@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Preset view scroller
-@IBDesignable open class AKPresetLoaderView: UIView {
+@IBDesignable public class AKPresetLoaderView: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -318,13 +318,13 @@
         outerPath.stroke()
     }
 
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         let presetName = isPresetLoaded ? presets[currentIndex] : "None"
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         if presets.isEmpty {
             return
@@ -356,7 +356,7 @@
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if presets.isEmpty {
             return
         }

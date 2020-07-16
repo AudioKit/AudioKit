@@ -71,7 +71,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         AKLog("* { AKFader }")
     }
 
-    open override func detach() {
+    public override func detach() {
         super.detach()
         parameterAutomation = nil
     }

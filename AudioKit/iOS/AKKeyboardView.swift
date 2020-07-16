@@ -11,7 +11,7 @@ public protocol AKKeyboardDelegate: AnyObject {
 }
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
-@IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
+@IBDesignable public class AKKeyboardView: UIView, AKMIDIListener {
     //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
@@ -97,7 +97,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     // MARK: - Storyboard Rendering
 
     /// Set up the view for rendering in Interface Builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         let width = Int(self.frame.width)
@@ -110,19 +110,19 @@ public protocol AKKeyboardDelegate: AnyObject {
     }
 
     /// Keyboard view size
-    open override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
 
     /// Require constraints
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Drawing
 
     /// Draw the view
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
 
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
@@ -231,7 +231,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
             pressAdded(note)
@@ -241,7 +241,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     }
 
     /// Handle touches completed
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let note = noteFromTouchLocation(touch.location(in: self)) {
                 // verify that there isn't still a touch remaining on same key from another finger
@@ -258,7 +258,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
@@ -270,7 +270,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     }
 
     /// Handle stopped touches
-    open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }
 

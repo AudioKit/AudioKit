@@ -49,7 +49,7 @@ public class AK3DPanner: AKNode, AKInput {
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
-    open override func detach() {
+    public override func detach() {
         AKManager.detach(nodes: [environmentNode, inputMixer.avAudioNode])
     }
 }

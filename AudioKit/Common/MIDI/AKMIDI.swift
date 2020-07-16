@@ -4,12 +4,12 @@ import CoreMIDI
 
 /// MIDI input and output handler
 ///
-open class AKMIDI {
+public class AKMIDI {
 
     // MARK: - Properties
 
     /// MIDI Client Reference
-    open var client = MIDIClientRef()
+    public var client = MIDIClientRef()
 
     /// MIDI Client Name
     internal let clientName: CFString = "MIDI Client" as CFString
@@ -18,7 +18,7 @@ open class AKMIDI {
     public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
 
     /// Virtual MIDI Input destination
-    open var virtualInput = MIDIPortRef()
+    public var virtualInput = MIDIPortRef()
 
     /// MIDI In Port Name
     internal let inputPortName: CFString = "MIDI In Port" as CFString
@@ -27,13 +27,13 @@ open class AKMIDI {
     public var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
-    open var virtualOutput = MIDIPortRef()
+    public var virtualOutput = MIDIPortRef()
 
     /// MIDI Out Port Name
     var outputPortName: CFString = "MIDI Out Port" as CFString
 
     /// Array of MIDI Endpoints
-    open var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
+    public var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
 
     /// Array of all listeners
     public var listeners = [AKMIDIListener]()

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-open class AKTuningTableETNN: NSObject {
+public class AKTuningTableETNN: NSObject {
 
     public var nn: MIDINoteNumber = 60
     public var pitchBend: Int = 16_384 / 2
@@ -12,7 +12,7 @@ open class AKTuningTableETNN: NSObject {
 }
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-open class AKTuningTableDelta12ET: NSObject {
+public class AKTuningTableDelta12ET: NSObject {
 
     public var nn: MIDINoteNumber = 60
     public var cents: Double = 0
@@ -26,7 +26,7 @@ open class AKTuningTableDelta12ET: NSObject {
 
 // Definitions:
 // masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
-open class AKTuningTable: AKTuningTableBase {
+public class AKTuningTable: AKTuningTableBase {
 
     private(set) public var masterSet = [Frequency]()
 

@@ -27,14 +27,14 @@ public class AKSynthKick: AKMIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         filter.cutoffFrequency = (AUValue(velocity) / 127.0 * 366.0) + 300.0
         filter.resonance = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 }
@@ -80,13 +80,13 @@ public class AKSynthSnare: AKMIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         cutoff = (Double(velocity) / 127.0 * 1_600.0) + 300.0
         generator.trigger()
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 }

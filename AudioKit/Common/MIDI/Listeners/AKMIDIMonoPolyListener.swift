@@ -13,7 +13,7 @@
 import Foundation
 import CoreMIDI
 
-open class AKMIDIMonoPolyListener: NSObject {
+public class AKMIDIMonoPolyListener: NSObject {
 
     var monoMode: Bool
 

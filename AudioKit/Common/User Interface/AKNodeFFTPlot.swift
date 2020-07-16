@@ -4,7 +4,7 @@ import AudioKit
 
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
-open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
+public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }

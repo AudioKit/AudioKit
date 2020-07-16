@@ -7,7 +7,7 @@ public enum AKRotaryKnobStyle {
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
-@IBDesignable open class AKRotaryKnob: AKPropertyControl {
+@IBDesignable public class AKRotaryKnob: AKPropertyControl {
 
     // Default margin size
     static var marginSize: CGFloat = 30.0
@@ -115,7 +115,7 @@ public enum AKRotaryKnobStyle {
         callback(value)
     }
 
-    open override func mouseUp(with theEvent: NSEvent) {
+    public override func mouseUp(with theEvent: NSEvent) {
         isDragging = false
         needsDisplay = true
     }

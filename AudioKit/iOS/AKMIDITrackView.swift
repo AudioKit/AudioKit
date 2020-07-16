@@ -160,7 +160,7 @@ public class AKMIDITrackView: AKButton {
             singleNoteView.backgroundColor = self.highlightedColor
             collectiveNoteView.addSubview(singleNoteView)
         }
-        
+
         readyToPlay = true
     }
 

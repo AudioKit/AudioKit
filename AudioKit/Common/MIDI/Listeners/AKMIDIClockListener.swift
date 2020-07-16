@@ -8,7 +8,7 @@ import CoreMIDI
 ///
 /// If you wish to observer its events, then add your own AKMIDIBeatObserver
 ///
-open class AKMIDIClockListener: NSObject {
+public class AKMIDIClockListener: NSObject {
     // Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: UInt8
     // Count of 24 quantums per quarter note

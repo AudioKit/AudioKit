@@ -3,6 +3,6 @@
 import Foundation
 import UIKit
 
-open class AKDualButton: UIView {
+public class AKDualButton: UIView {
 
 }

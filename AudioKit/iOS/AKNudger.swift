@@ -3,7 +3,7 @@
 import Foundation
 import AudioKit
 
-@IBDesignable open class AKNudger: AKStepper {
+@IBDesignable public class AKNudger: AKStepper {
     open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {

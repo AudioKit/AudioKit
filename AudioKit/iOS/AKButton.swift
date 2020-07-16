@@ -9,7 +9,7 @@ public enum AKButtonStyle {
 }
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
-@IBDesignable open class AKButton: UIView {
+@IBDesignable public class AKButton: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -77,14 +77,14 @@ public enum AKButtonStyle {
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         callback(self)
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
     }
 
     /// Handle touch events
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         releaseCallback(self)
         transform = CGAffineTransform.identity
         isHighlighted = false
@@ -128,14 +128,14 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         clipsToBounds = true
     }
 
     /// Require constraint-based layout
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -168,7 +168,7 @@ public enum AKButtonStyle {
     }
 
     /// Draw the button
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 

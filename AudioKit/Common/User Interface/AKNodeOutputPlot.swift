@@ -11,7 +11,7 @@ extension Notification.Name {
 ///
 /// By default this plots the output of AKManager.output
 @IBDesignable
-open class AKNodeOutputPlot: EZAudioPlot {
+public class AKNodeOutputPlot: EZAudioPlot {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }

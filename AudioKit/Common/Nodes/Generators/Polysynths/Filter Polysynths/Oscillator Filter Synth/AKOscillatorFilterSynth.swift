@@ -358,15 +358,15 @@ public class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     // MARK: - AKPolyphonic
 
     // Function to start, play, or activate the node at frequency
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            frequency: AUValue,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              frequency: AUValue,
+                              channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: frequency)
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber)
     }
 }

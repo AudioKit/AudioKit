@@ -4,7 +4,7 @@ import AVFoundation
 import UIKit
 
 /// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
-@IBDesignable open class AKADSRView: UIView {
+@IBDesignable public class AKADSRView: UIView {
 
     /// Type of function to call when values of the ADSR have changed
     public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
@@ -111,7 +111,7 @@ import UIKit
     // MARK: - Storyboard Rendering
 
     /// Perform necessary operation to allow the view to be rendered in interface builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         contentMode = .scaleAspectFill
@@ -119,19 +119,19 @@ import UIKit
     }
 
     /// Size of the view
-    open override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
 
     /// Requeire a constraint based layout with interface builder
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Touch Handling
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -150,7 +150,7 @@ import UIKit
     }
 
     /// Handle moving touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -358,7 +358,7 @@ import UIKit
     }
 
     /// Draw the view
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,
                         decayDurationMS: decayTime,
                         releaseDurationMS: releaseTime,

@@ -66,7 +66,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     // MARK: - Initialization
 
-    open override func initialize(restartIfPlaying: Bool = true) {
+    public override func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = self.timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
                 AKManager.engine.attach(timePitchNode.avAudioNode)

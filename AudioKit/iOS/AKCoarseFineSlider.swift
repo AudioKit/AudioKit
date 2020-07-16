@@ -3,7 +3,7 @@
 import Foundation
 import AudioKit
 
-@IBDesignable open class AKCoarseFineSlider: UIView {
+@IBDesignable public class AKCoarseFineSlider: UIView {
 
     @IBInspectable open var name: String = "CoarseFineSlider"
     public var titleFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -190,7 +190,7 @@ import AudioKit
         super.init(coder: aDecoder)
         genSubViews()
     }
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         super.draw(rect)
         genStackViews(rect: rect)
     }
@@ -230,16 +230,16 @@ import AudioKit
         }
     }
     /// Require constraint-based layout
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
     open var touchBeganCallback: () -> Void = { }
     open var touchEndedCallback: () -> Void = { }
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         genStackViews(rect: bounds)
     }

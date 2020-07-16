@@ -4,7 +4,7 @@ import AudioKit
 
 /// STK Flute
 ///
-open class AKFlute: AKNode, AKToggleable, AKComponent {
+public class AKFlute: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFluteAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
