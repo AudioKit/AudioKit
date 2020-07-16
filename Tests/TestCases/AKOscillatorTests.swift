@@ -48,7 +48,7 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
     }
 
-    func testAutomation() {
+    func testAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
         output = input
@@ -62,7 +62,7 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
     }
 
-    func testAutomation2() {
+    func testAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
         input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
         output = input
@@ -91,7 +91,7 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
     }
 
-    func testNewAutomation() {
+    func testNewAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         input.$frequency.automation = [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration)]
         output = input
@@ -105,7 +105,7 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
     }
 
-    func testNewAutomation2() {
+    func testNewAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
         input.$amplitude.automation = [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration)]
         output = input
