@@ -482,3 +482,95 @@ void AKParameterAutomationHelper::clearAllPoints(AUParameterAddress address)
     parameter.points.clear();
     wasReset = true;
 }
+
+struct RenderObserverData {
+    AUParameterAddress address;
+    std::vector<AKParameterAutomationPoint> points;
+    std::vector<AKParameterAutomationPoint>::const_iterator iterator;
+};
+
+static void scheduleAutomationPoint(AUScheduleParameterBlock scheduleParameterBlock,
+                                    double sampleRate,
+                                    double playbackRate,
+                                    AUEventSampleTime blockTime,
+                                    AUParameterAddress address,
+                                    const AKParameterAutomationPoint& point,
+                                    AUAudioFrameCount rampOffset)
+{
+    AUParameterAddress mask;
+
+    // set taper (as "value" parameter)
+    mask = (AUParameterAddress)1 << 63;
+    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampTaper);
+
+    // set skew (as "value" parameter)
+    mask = (AUParameterAddress)1 << 62;
+    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampSkew);
+
+    // set offset (as "duration" parameter)
+    mask = (AUParameterAddress)1 << 61;
+    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampOffset, address | mask, 0);
+
+    // set value
+    AUAudioFrameCount rampDuration = point.rampDuration / playbackRate * sampleRate;
+    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampDuration, address, point.targetValue);
+}
+
+/// Returns a render observer block which will apply the automation to the selected parameter.
+AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
+                                                        AUScheduleParameterBlock scheduleParameterBlock,
+                                                        double sampleRate,
+                                                        double startSampleTime,
+                                                        double playbackRate,
+                                                        const struct AKParameterAutomationPoint* points,
+                                                        size_t count) {
+
+    __block RenderObserverData data;
+    data.address = address;
+    data.points = { points, points+count };
+    data.iterator = data.points.begin();
+
+    return ^void(AudioUnitRenderActionFlags actionFlags,
+                 const AudioTimeStamp *timestamp,
+                 AUAudioFrameCount frameCount,
+                 NSInteger outputBusNumber)
+    {
+        if (actionFlags != kAudioUnitRenderAction_PreRender) return;
+
+        // XXX: do we need this?
+        // if (!isPlaying) return;
+
+        double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
+        double blockEndTime = blockStartTime + frameCount / sampleRate;
+
+        auto& iter = data.iterator;
+
+        // We've reached the end of automation. Nothing to do.
+        if(data.iterator != data.points.cend()) return;
+
+        // Skip forward.
+        while (iter != data.points.cend() ) {
+
+            double rampStartTime = iter->startTime / playbackRate;
+            double rampEndTime = rampStartTime + iter->rampDuration / playbackRate;
+
+            if( rampEndTime < blockStartTime ) {
+                break;
+            }
+
+            iter++;
+        }
+
+        // Apply parameter automation for the segment.
+        while (data.iterator != data.points.cend()) {
+            double rampStartTime = data.iterator->startTime / playbackRate;
+            if (rampStartTime >= blockEndTime) break;
+            AUEventSampleTime startTime = (rampStartTime - blockStartTime) * sampleRate;
+            if (rampStartTime < blockStartTime) startTime = 0; // should never happen?
+            scheduleAutomationPoint(scheduleParameterBlock, sampleRate, playbackRate, startTime, data.address, *data.iterator, 0);
+            data.iterator++;
+        }
+
+    };
+
+}
