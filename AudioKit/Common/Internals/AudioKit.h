@@ -24,6 +24,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/ExceptionCatcher.h>
 #import <AudioKit/AKGlobals.hpp>
 
+// Testing
+#import <AudioKit/md5.h>
+
 // Analysis
 #import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
 #import <AudioKit/AKFrequencyTrackerAudioUnit.h>

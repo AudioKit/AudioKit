@@ -580,7 +580,7 @@
 		C49A0A371D5435C2007D8ADB /* AKKorgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A331D5435C2007D8ADB /* AKKorgLowPassFilter.swift */; };
 		C49A0A3C1D54370A007D8ADB /* korgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A3B1D54370A007D8ADB /* korgLowPassFilter.swift */; };
 		C49B138C204A06B7009C7C8E /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114A204A06B6009C7C8E /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C49B138D204A06B7009C7C8E /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; };
+		C49B138D204A06B7009C7C8E /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49B138E204A06B7009C7C8E /* test.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114D204A06B6009C7C8E /* test.h */; };
 		C49B138F204A06B7009C7C8E /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B114E204A06B6009C7C8E /* test.c */; };
 		C49B1390204A06B7009C7C8E /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B114F204A06B6009C7C8E /* md5.c */; };
@@ -2413,7 +2413,7 @@
 		EAA62C39247F3A5B00BF4CDB /* AKMorphingOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D69651D1F1DE300BF018A /* AKMorphingOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C3A247F3A5B00BF4CDB /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C3B247F3A5B00BF4CDB /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C403F461231A4CC100A81C0E /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp */; };
-		EAA62C3D247F3A5B00BF4CDB /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; };
+		EAA62C3D247F3A5B00BF4CDB /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C3F247F3A5B00BF4CDB /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B4920DADB3800009BAC /* dr_wav.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C40247F3A5B00BF4CDB /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C41247F3A5B00BF4CDB /* AKModulatedDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35A205ECBE300290001 /* AKModulatedDelay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3381,7 +3381,7 @@
 		EAA6310C247F44E200BF4CDB /* AKMorphingOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D69651D1F1DE300BF018A /* AKMorphingOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6310D247F44E200BF4CDB /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6310E247F44E200BF4CDB /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C403F461231A4CC100A81C0E /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp */; };
-		EAA63110247F44E200BF4CDB /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; };
+		EAA63110247F44E200BF4CDB /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B114C204A06B6009C7C8E /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63112247F44E200BF4CDB /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B4920DADB3800009BAC /* dr_wav.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63113247F44E200BF4CDB /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63114247F44E200BF4CDB /* AKModulatedDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35A205ECBE300290001 /* AKModulatedDelay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
