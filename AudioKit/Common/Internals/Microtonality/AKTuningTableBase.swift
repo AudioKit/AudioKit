@@ -29,7 +29,7 @@ open class AKTuningTableBase: NSObject {
     public static let NYQUIST: Frequency = AKSettings.sampleRate / 2
 
     /// Total number of MIDI Notes available to play
-    @objc public static let midiNoteCount = 128
+    public static let midiNoteCount = 128
 
     internal var tableData = [Frequency](repeating: 1.0, count: midiNoteCount)
 

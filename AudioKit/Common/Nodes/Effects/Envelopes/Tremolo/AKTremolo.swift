@@ -2,7 +2,7 @@
 
 /// Table-lookup tremolo with linear interpolation
 ///
-open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 

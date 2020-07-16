@@ -3,7 +3,7 @@
 import Foundation
 import AudioKit
 
-@IBDesignable open class AKTweaker: AKCoarseFineSlider {
+@IBDesignable public class AKTweaker: AKCoarseFineSlider {
 
     var nudger: AKNudger!
     public override func setStable(value: AUValue) {

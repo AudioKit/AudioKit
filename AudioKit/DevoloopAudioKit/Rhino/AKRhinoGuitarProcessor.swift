@@ -4,7 +4,7 @@ import AudioKit
 
 /// Guitar head and cab simulator.
 ///
-open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
@@ -12,7 +12,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public private(set) var internalAU: AKAudioUnitType?
 
     /// Determines the amount of gain applied to the signal before processing.
-    @objc open dynamic var preGain: AUValue = 5.0 {
+    public var preGain: AUValue = 5.0 {
         willSet {
             guard preGain != newValue else { return }
             internalAU?.preGain.value = newValue
@@ -20,7 +20,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Gain applied after processing.
-    @objc open dynamic var postGain: AUValue = 0.7 {
+    public var postGain: AUValue = 0.7 {
         willSet {
             guard postGain != newValue else { return }
             internalAU?.postGain.value = (AUValue(0)...AUValue(1)).clamp(newValue)
@@ -28,7 +28,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of Low frequencies.
-    @objc open dynamic var lowGain: AUValue = 0.0 {
+    public var lowGain: AUValue = 0.0 {
         willSet {
             guard lowGain != newValue else { return }
             internalAU?.lowGain.value = newValue
@@ -36,7 +36,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of Middle frequencies.
-    @objc open dynamic var midGain: AUValue = 0.0 {
+    public var midGain: AUValue = 0.0 {
         willSet {
             guard midGain != newValue else { return }
             internalAU?.midGain.value = newValue
@@ -44,7 +44,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of High frequencies.
-    @objc open dynamic var highGain: AUValue = 0.0 {
+    public var highGain: AUValue = 0.0 {
         willSet {
             guard highGain != newValue else { return }
             internalAU?.highGain.value = newValue
@@ -52,7 +52,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Distortion Amount
-    @objc open dynamic var distortion: AUValue = 1.0 {
+    public var distortion: AUValue = 1.0 {
         willSet {
             guard distortion != newValue else { return }
             internalAU?.distortion.value = newValue
@@ -60,7 +60,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
@@ -77,7 +77,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - highGain: Amount of High frequencies.
     ///   - distortion: Distortion Amount
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         preGain: AUValue = 5.0,
         postGain: AUValue = 0.7,

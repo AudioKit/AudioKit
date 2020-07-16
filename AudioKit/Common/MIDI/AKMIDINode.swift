@@ -24,7 +24,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// - parameter node: A polyphonic node that will be triggered via MIDI
     /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
+    public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = internalNode.avAudioNode
@@ -38,8 +38,8 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
-                         name: String = "Unnamed") {
+    public func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
+                           name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
@@ -79,10 +79,10 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - velocity:   MIDI velocity
     ///   - channel:    MIDI channel
     ///
-    open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
-                                 velocity: MIDIVelocity,
-                                 channel: MIDIChannel,
-                                 offset: MIDITimeStamp = 0) {
+    public func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel,
+                                   offset: MIDITimeStamp = 0) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {

@@ -2,7 +2,7 @@
 
 /// Shane's Chorus
 ///
-open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 

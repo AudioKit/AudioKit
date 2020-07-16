@@ -77,7 +77,7 @@ public enum AKShakerType: UInt8 {
 
 /// STK Shaker
 ///
-open class AKShaker: AKNode, AKToggleable, AKComponent {
+public class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
     public typealias AKAudioUnitType = AKShakerAudioUnit
@@ -134,7 +134,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with an optional set of parameters
     /// - amplitude amplitude: Volume
     ///
-    open func trigger(amplitude: Double = -1) {
+    public func trigger(amplitude: Double = -1) {
         if amplitude != -1 {
             self.amplitude = amplitude
         }

@@ -34,7 +34,7 @@ extension AKMusicTrack {
         return pgmEvents
     }
 
-    open func debug() {
+    public func debug() {
         guard let events = eventData else {
             return
         }

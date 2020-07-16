@@ -4,7 +4,7 @@ import AudioKit
 import UIKit
 
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
-@IBDesignable open class AKStepper: UIView {
+@IBDesignable public class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
     public var labelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -78,12 +78,12 @@ import UIKit
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    open override func awakeFromNib() {
+    public override func awakeFromNib() {
         checkValues()
         super.awakeFromNib()
     }
     /// Draw the stepper
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         super.draw(rect)
         genStackViews(rect: rect)
     }
@@ -118,14 +118,14 @@ import UIKit
         buttons.spacing = 1
     }
     /// Require constraint-based layout
-    open class override var requiresConstraintBasedLayout: Bool {
+    public class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         genStackViews(rect: bounds)
     }

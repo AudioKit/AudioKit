@@ -2,7 +2,7 @@
 
 /// Brownian noise generator
 ///
-open class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")
 

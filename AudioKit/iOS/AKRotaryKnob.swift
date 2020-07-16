@@ -12,7 +12,7 @@ public enum AKRotaryKnobStyle {
 }
 
 /// Round control for a property
-@IBDesignable open class AKRotaryKnob: AKPropertyControl {
+@IBDesignable public class AKRotaryKnob: AKPropertyControl {
     // Default margin size
     static var marginSize: CGFloat = 30.0
 
@@ -98,7 +98,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
@@ -112,13 +112,13 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isDragging = true
         touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
@@ -136,7 +136,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Handle touches ending
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
             setNeedsDisplay()
@@ -144,7 +144,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Color for the arrow on the knob for the current theme
-    open func indicatorColorForTheme() -> AKColor {
+    public func indicatorColorForTheme() -> AKColor {
         if let indicatorColor = indicatorColor {
             return indicatorColor
         }
@@ -158,7 +158,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Color for the border for the current theme
-    open func knobBorderColorForTheme() -> AKColor {
+    public func knobBorderColorForTheme() -> AKColor {
         if let knobBorderColor = knobBorderColor {
             return knobBorderColor
         }
@@ -172,7 +172,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Text color for the current theme
-    open func textColorForTheme() -> AKColor {
+    public func textColorForTheme() -> AKColor {
         if let textColor = textColor {
             return textColor
         }
@@ -186,7 +186,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Draw the knob
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))

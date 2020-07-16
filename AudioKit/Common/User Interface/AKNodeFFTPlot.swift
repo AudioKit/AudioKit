@@ -4,7 +4,7 @@ import AudioKit
 
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
-open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
+public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
@@ -40,14 +40,14 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         resume()
     }
 
-    open func pause() {
+    public func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
 
-    open func resume() {
+    public func resume() {
         setupNode(node)
     }
 
@@ -98,7 +98,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    @objc public init(_ input: AKNode?, frame: CGRect, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode?, frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
@@ -117,9 +117,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - updatedWithFFTData: A pointer to a c-style array of floats
     ///   - bufferSize: Number of elements in the FFT Data array
     ///
-    open func fft(_ fft: EZAudioFFT!,
-                  updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
-                  bufferSize: vDSP_Length) {
+    public func fft(_ fft: EZAudioFFT!,
+                    updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
+                    bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }

@@ -2,7 +2,7 @@
 
 /// Sampler
 ///
-open class AKSampler: AKPolyphonicNode, AKComponent {
+public class AKSampler: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
@@ -212,7 +212,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
     }
 
     /// Voice LFO restart (boolean, 0.0 for false or 1.0 for true) - resets the phase of each voice lfo on keydown
-    @objc open dynamic var restartVoiceLFO: Bool = false {
+    public var restartVoiceLFO: Bool = false {
         willSet {
             guard restartVoiceLFO != newValue else { return }
             internalAU?.restartVoiceLFO.value = newValue ? 1.0 : 0.0
@@ -281,7 +281,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+    public func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
         let sampleRate = Float(file.fileFormat.sampleRate)
@@ -299,57 +299,57 @@ open class AKSampler: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open func stopAllVoices() {
+    public func stopAllVoices() {
         internalAU?.stopAllVoices()
     }
 
-    open func restartVoices() {
+    public func restartVoices() {
         internalAU?.restartVoices()
     }
 
-    open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+    public func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
-    open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
-    open func unloadAllSamples() {
+    public func unloadAllSamples() {
         internalAU?.unloadAllSamples()
     }
 
-    open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
+    public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
         internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
     }
 
-    open func buildSimpleKeyMap() {
+    public func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
 
-    open func buildKeyMap() {
+    public func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
 
-    open func setLoop(thruRelease: Bool) {
+    public func setLoop(thruRelease: Bool) {
         internalAU?.setLoop(thruRelease: thruRelease)
     }
 
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
-    open func silence(noteNumber: MIDINoteNumber) {
+    public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
-    open func sustainPedal(pedalDown: Bool) {
+    public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }

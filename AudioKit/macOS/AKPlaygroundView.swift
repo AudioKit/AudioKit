@@ -21,7 +21,7 @@ public class AKLabel: NSTextField {
     }
 }
 
-open class AKPlaygroundView: NSView {
+public class AKPlaygroundView: NSView {
 
     public var elementHeight: CGFloat = 30
     public var spacing = 25
@@ -36,9 +36,9 @@ open class AKPlaygroundView: NSView {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1_000))
     }
 
-    open func setup() {}
+    public func setup() {}
 
-    override open func draw(_ dirtyRect: NSRect) {
+    override public func draw(_ dirtyRect: NSRect) {
         let backgroundColor = AKStylist.sharedInstance.bgColor
         backgroundColor.setFill()
         __NSRectFill(dirtyRect)
@@ -72,7 +72,7 @@ open class AKPlaygroundView: NSView {
         return newLabel
     }
 
-    open override func addSubview(_ subview: NSView?) {
+    public override func addSubview(_ subview: NSView?) {
         guard let view = subview else {
             return
         }

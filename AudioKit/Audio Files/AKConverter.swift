@@ -95,7 +95,7 @@ open class AKConverter: NSObject {
 
     /// The entry point for file conversion
     /// - Parameter completionHandler: the callback that will be triggered when process has completed.
-    open func start(completionHandler: AKConverterCallback? = nil) {
+    public func start(completionHandler: AKConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return

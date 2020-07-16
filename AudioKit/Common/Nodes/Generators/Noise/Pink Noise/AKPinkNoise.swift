@@ -2,7 +2,7 @@
 
 /// Faust-based pink noise generator
 ///
-open class AKPinkNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKPinkNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
 

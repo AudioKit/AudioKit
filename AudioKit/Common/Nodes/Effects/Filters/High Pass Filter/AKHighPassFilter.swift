@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
@@ -10,7 +10,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    @objc open dynamic var cutoffFrequency: AUValue = 6_900 {
+    public var cutoffFrequency: AUValue = 6_900 {
         didSet {
             cutoffFrequency = (10...22_050).clamp(cutoffFrequency)
             au[kHipassParam_CutoffFrequency] = cutoffFrequency
@@ -18,7 +18,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Resonance (dB) ranges from -20 to 40 (Default: 0)
-    @objc open dynamic var resonance: AUValue = 0 {
+    public var resonance: AUValue = 0 {
         didSet {
             resonance = (-20...40).clamp(resonance)
             au[kHipassParam_Resonance] = resonance
@@ -26,7 +26,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default: 1)
-    @objc open dynamic var dryWetMix: AUValue = 1 {
+    public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix
@@ -43,7 +43,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     // MARK: - Initialization
 
@@ -54,7 +54,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutoffFrequency: AUValue = 6_900,
         resonance: AUValue = 0) {
@@ -99,7 +99,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -107,7 +107,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0
@@ -116,7 +116,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    open override func detach() {
+    public override func detach() {
         stop()
 
         var nodes: [AVAudioNode] = [inputMixer.avAudioNode,

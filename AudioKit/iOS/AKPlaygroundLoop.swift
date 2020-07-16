@@ -10,7 +10,7 @@ public class AKPlaygroundLoop: NSObject {
     /// - parameter every: Period, or interval between block executions
     /// - parameter handler: Code block to execute
     ///
-    @objc public init(every dur: Double, handler: @escaping () -> Void) {
+    public init(every dur: Double, handler: @escaping () -> Void) {
         duration = dur
         internalHandler = handler
         super.init()
@@ -22,7 +22,7 @@ public class AKPlaygroundLoop: NSObject {
     /// - parameter frequency: Frequency of block executions in Hz
     /// - parameter handler: Code block to execute
     ///
-    @objc public init(frequency: Double, handler: @escaping () -> Void) {
+    public init(frequency: Double, handler: @escaping () -> Void) {
         duration = 1.0 / frequency
         internalHandler = handler
         super.init()

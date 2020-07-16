@@ -9,7 +9,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKWaveTable: AKNode, AKComponent {
+public class AKWaveTable: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKWaveTableAudioUnit
     /// Four letter unique description of the node
@@ -27,14 +27,14 @@ open class AKWaveTable: AKNode, AKComponent {
     fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
 
     /// startPoint in samples - where to start playing the sample from
-    @objc open dynamic var startPoint: Sample = 0 {
+    public var startPoint: Sample = 0 {
         willSet {
             guard startPoint != newValue else { return }
             internalAU?.startPoint = Float(safeSample(newValue))
@@ -43,7 +43,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
-    @objc open dynamic var endPoint: Sample = 0 {
+    public var endPoint: Sample = 0 {
         willSet {
             guard endPoint != newValue else { return }
             internalAU?.endPoint = AUValue(safeSample(newValue))
@@ -51,7 +51,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// loopStartPoint in samples - where to start playing the sample from
-    @objc open dynamic var loopStartPoint: Sample = 0 {
+    public var loopStartPoint: Sample = 0 {
         willSet {
             guard loopStartPoint != newValue else { return }
             internalAU?.loopStartPoint = AUValue(safeSample(newValue))
@@ -59,7 +59,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// loopEndPoint - this is where the sample will play to before stopping.
-    @objc open dynamic var loopEndPoint: Sample = 0 {
+    public var loopEndPoint: Sample = 0 {
         willSet {
             guard endPoint != newValue else { return }
             internalAU?.loopEndPoint = AUValue(safeSample(newValue))
@@ -67,7 +67,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @objc open dynamic var rate: AUValue = 1 {
+    public var rate: AUValue = 1 {
         willSet {
             guard rate != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -79,7 +79,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Volume - amplitude adjustment
-    @objc open dynamic var volume: AUValue = 1 {
+    public var volume: AUValue = 1 {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -92,7 +92,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
-    @objc open dynamic var loopEnabled: Bool = false {
+    public var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
         }
@@ -124,7 +124,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isPlaying ?? false
     }
 
@@ -160,14 +160,14 @@ open class AKWaveTable: AKNode, AKComponent {
     ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
-    @objc public init(file: AVAudioFile? = nil,
-                      startPoint: Sample = 0,
-                      endPoint: Sample = 0,
-                      rate: AUValue = 1,
-                      volume: AUValue = 1,
-                      maximumSamples: Sample,
-                      completionHandler: @escaping AKCCallback = {},
-                      loadCompletionHandler: @escaping AKCCallback = {}) {
+    public init(file: AVAudioFile? = nil,
+                startPoint: Sample = 0,
+                endPoint: Sample = 0,
+                rate: AUValue = 1,
+                volume: AUValue = 1,
+                maximumSamples: Sample,
+                completionHandler: @escaping AKCCallback = {},
+                loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
         self.rate = rate
@@ -220,7 +220,7 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
@@ -229,30 +229,30 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         internalAU?.stop()
     }
 
     /// Play from a certain sample
-    open func play() {
+    public func play() {
         start()
     }
 
     /// Play from a certain sample
-    open func play(from: Sample) {
+    public func play(from: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample, length: Sample) {
+    public func play(from: Sample, length: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample, to: Sample) {
+    public func play(from: Sample, to: Sample) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(to))
         start()
@@ -265,7 +265,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory
-    open func load(file: AVAudioFile) {
+    public func load(file: AVAudioFile) {
         if file.fileFormat.channelCount > 2 || file.fileFormat.channelCount < 1 {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
@@ -305,15 +305,15 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     // Function to start, play, or activate the node at frequency
-    open func play(noteNumber: MIDINoteNumber,
-                   velocity: MIDIVelocity,
-                   frequency: Double,
-                   channel: MIDIChannel = 0) {
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     frequency: Double,
+                     channel: MIDIChannel = 0) {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop(noteNumber: MIDINoteNumber) {
+    public func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stop()
     }
 }

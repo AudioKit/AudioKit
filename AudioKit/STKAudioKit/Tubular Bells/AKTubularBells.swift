@@ -4,7 +4,7 @@ import AudioKit
 
 /// STK TubularBells
 ///
-open class AKTubularBells: AKNode, AKToggleable, AKComponent {
+public class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "tbel")
     public typealias AKAudioUnitType = AKTubularBellsAudioUnit
@@ -64,7 +64,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// This is primarily for the telephone page in the Synthesis playground
-open class AKTelephoneView: UIView {
+public class AKTelephoneView: UIView {
     //swiftlint:disable
 
     var keyRects = [String: CGRect]()
@@ -15,7 +15,7 @@ open class AKTelephoneView: UIView {
     var callback: (String, String) -> Void
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -41,7 +41,7 @@ open class AKTelephoneView: UIView {
     }
 
     /// Handle new touches
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if currentKey != "" {
             callback(currentKey, "up")
             currentKey = ""
@@ -50,8 +50,8 @@ open class AKTelephoneView: UIView {
     }
 
     /// Initialize the telephone view
-    @objc public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
-                      callback: @escaping (String, String) -> Void) {
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+                callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
@@ -71,7 +71,7 @@ open class AKTelephoneView: UIView {
     }
 
     /// Draw the telephone view
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -234,7 +234,7 @@ open class AKTelephoneView: UIView {
     }
 
     /// Draw one key
-    open class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
+    public class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -304,7 +304,7 @@ open class AKTelephoneView: UIView {
     }
 
     /// Draw one key
-    open class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
+    public class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 

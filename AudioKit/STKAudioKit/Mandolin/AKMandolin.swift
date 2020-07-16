@@ -4,7 +4,7 @@ import AudioKit
 
 /// Physical model of a 4 course mandolin
 ///
-open class AKMandolin: AKNode, AKComponent {
+public class AKMandolin: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKMandolinAudioUnit
     /// Four letter unique description of the node
@@ -24,14 +24,14 @@ open class AKMandolin: AKNode, AKComponent {
     //    private var course4FrequencyParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
 
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
-    @objc open dynamic var detune: AUValue = 1 {
+    public var detune: AUValue = 1 {
         willSet {
             guard detune != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -43,7 +43,7 @@ open class AKMandolin: AKNode, AKComponent {
     }
 
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
-    @objc open dynamic var bodySize: AUValue = 1 {
+    public var bodySize: AUValue = 1 {
         willSet {
             guard bodySize != newValue else { return }
             if internalAU?.isSetUp == true {
@@ -62,7 +62,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
     ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     ///
-    @objc public init(detune: AUValue = 1, bodySize: AUValue = 1) {
+    public init(detune: AUValue = 1, bodySize: AUValue = 1) {
 
         self.detune = detune
         self.bodySize = bodySize
@@ -93,10 +93,10 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - course2Note: MIDI note number for course 2
     ///   - course3Note: MIDI note number for course 3
     ///   - course4Note: MIDI note number for course 4
-    open func prepareChord(_ course1Note: MIDINoteNumber,
-                           _ course2Note: MIDINoteNumber,
-                           _ course3Note: MIDINoteNumber,
-                           _ course4Note: MIDINoteNumber) {
+    public func prepareChord(_ course1Note: MIDINoteNumber,
+                             _ course2Note: MIDINoteNumber,
+                             _ course3Note: MIDINoteNumber,
+                             _ course4Note: MIDINoteNumber) {
         fret(noteNumber: course1Note, course: 0)
         fret(noteNumber: course2Note, course: 1)
         fret(noteNumber: course3Note, course: 2)
@@ -109,7 +109,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - noteNumber: MIDI note number of fretted note
     ///   - course:     Which set of strings to press
     ///
-    open func fret(noteNumber: MIDINoteNumber, course: Int) {
+    public func fret(noteNumber: MIDINoteNumber, course: Int) {
         internalAU?.setFrequency(noteNumber.midiNoteToFrequency(), course: Int32(course))
     }
 
@@ -120,7 +120,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
+    public func pluck(course: Int, position: AUValue, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: position, velocity: Int32(velocity))
     }
 
@@ -130,7 +130,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func strum(_ position: AUValue, velocity: MIDIVelocity) {
+    public func strum(_ position: AUValue, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)

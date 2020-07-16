@@ -19,7 +19,7 @@ private let secondsToTicks: Double = {
 extension AVAudioTime {
     /// AVAudioTime.extrapolateTime fails for host time valid times, use
     /// extrapolateTimeShimmed instead. https://bugreport.apple.com/web/?problemID=34249528
-    open func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
+    public func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
         guard ((isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid) &&
             !(isSampleTimeValid && isHostTimeValid) &&
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
@@ -43,7 +43,7 @@ extension AVAudioTime {
     }
 
     /// Returns an AVAudioTime offset by seconds.
-    open func offset(seconds: Double) -> AVAudioTime {
+    public func offset(seconds: Double) -> AVAudioTime {
         if isSampleTimeValid && isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
@@ -58,7 +58,7 @@ extension AVAudioTime {
     }
 
     /// The time in seconds between receiver and otherTime.
-    open func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
+    public func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
         if isHostTimeValid && otherTime.isHostTimeValid {
             return Double(hostTime.safeSubtract(otherTime.hostTime)) * ticksToSeconds
         }
@@ -77,7 +77,7 @@ extension AVAudioTime {
     }
 
     /// Convert an AVAudioTime object to seconds with a hostTime reference
-    open func toSeconds(hostTime time: UInt64) -> Double {
+    public func toSeconds(hostTime time: UInt64) -> Double {
         guard isHostTimeValid else { return 0 }
         return AVAudioTime.seconds(forHostTime: self.hostTime - time)
     }

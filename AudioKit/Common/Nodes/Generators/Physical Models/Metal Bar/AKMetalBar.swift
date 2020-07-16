@@ -2,7 +2,7 @@
 
 /// 
 ///
-open class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 

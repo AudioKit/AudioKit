@@ -4,7 +4,7 @@
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 

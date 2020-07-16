@@ -3,7 +3,7 @@ import AudioKit
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable
-open class AKOutputWaveformPlot: AKNodeOutputPlot {
+public class AKOutputWaveformPlot: AKNodeOutputPlot {
 
     /// Create a View with the plot (usually for playgrounds)
     ///

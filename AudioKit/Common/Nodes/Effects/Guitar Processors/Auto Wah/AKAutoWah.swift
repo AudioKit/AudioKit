@@ -2,7 +2,7 @@
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 

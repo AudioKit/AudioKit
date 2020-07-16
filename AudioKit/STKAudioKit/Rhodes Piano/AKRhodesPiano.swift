@@ -4,7 +4,7 @@ import AudioKit
 
 /// STK RhodesPiano
 ///
-open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
+public class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
     public typealias AKAudioUnitType = AKRhodesPianoAudioUnit
@@ -62,7 +62,7 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Frequency in Hz
     ///   - amplitude amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()

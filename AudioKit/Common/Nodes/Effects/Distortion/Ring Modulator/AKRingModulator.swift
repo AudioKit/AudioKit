@@ -2,7 +2,7 @@
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 
@@ -12,7 +12,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     private var lastKnownMix: AUValue = 1
 
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @objc open dynamic var frequency1: AUValue = 100 {
+    public var frequency1: AUValue = 100 {
         didSet {
             frequency1 = (0.5...8_000).clamp(frequency1)
             au[kDistortionParam_RingModFreq1] = frequency1
@@ -20,7 +20,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @objc open dynamic var frequency2: AUValue = 100 {
+    public var frequency2: AUValue = 100 {
         didSet {
             frequency2 = (0.5...8_000).clamp(frequency2)
             au[kDistortionParam_RingModFreq2] = frequency2
@@ -28,7 +28,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    @objc open dynamic var balance: AUValue = 0.5 {
+    public var balance: AUValue = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             au[kDistortionParam_RingModBalance] = balance * 100
@@ -36,7 +36,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    @objc open dynamic var mix: AUValue = 1 {
+    public var mix: AUValue = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -44,7 +44,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     // MARK: - Initialization
 
@@ -57,7 +57,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         frequency1: AUValue = 100,
         frequency2: AUValue = 100,
@@ -87,7 +87,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    public func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -95,7 +95,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    public func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0
@@ -104,7 +104,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    open override func detach() {
+    public override func detach() {
         stop()
         AKManager.detach(nodes: [self.avAudioNode])
     }

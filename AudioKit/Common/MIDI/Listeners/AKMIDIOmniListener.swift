@@ -8,11 +8,11 @@
 import Foundation
 import CoreMIDI
 
-open class AKMIDIOMNIListener: NSObject {
+public class AKMIDIOMNIListener: NSObject {
 
     var omniMode: Bool
 
-    @objc public init(omni: Bool = true) {
+    public init(omni: Bool = true) {
         omniMode = omni
     }
 }

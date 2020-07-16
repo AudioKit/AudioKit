@@ -21,7 +21,7 @@ public enum AKSliderStyle {
 }
 
 /// Simple slider interface for AudioKit properties
-@IBDesignable open class AKSlider: AKPropertyControl {
+@IBDesignable public class AKSlider: AKPropertyControl {
     /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
@@ -112,23 +112,23 @@ public enum AKSliderStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
 
-    open override class var requiresConstraintBasedLayout: Bool {
+    public override class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         touchBeganCallback()
     }
 
     open var touchBeganCallback: () -> Void = {}
 
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
@@ -141,7 +141,7 @@ public enum AKSliderStyle {
         super.touchesMoved(touches, with: event)
     }
 
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
             setNeedsDisplay()
@@ -150,7 +150,7 @@ public enum AKSliderStyle {
     }
 
     open var touchEndedCallback: () -> Void = {}
-    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchCancelledCallback()
     }
 
@@ -218,7 +218,7 @@ public enum AKSliderStyle {
     }
 
     /// Draw the slider
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return

@@ -2,7 +2,7 @@
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 

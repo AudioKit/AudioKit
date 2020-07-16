@@ -17,7 +17,7 @@ extension AKMIDI {
     //
 
     /// Create set of virtual input and output MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
+    public func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         AKLog("Creating virtual input and output ports", log: OSLog.midi)
         destroyVirtualPorts()
         createVirtualInputPort(name: name)
@@ -25,7 +25,7 @@ extension AKMIDI {
     }
 
     /// Create a virtual MIDI input port
-    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
+    public func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         destroyVirtualInputPort()
         let virtualPortname = name ?? String(clientName)
 
@@ -51,7 +51,7 @@ extension AKMIDI {
     }
 
     /// Create a virtual MIDI output port
-    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_001, name: String? = nil) {
+    public func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_001, name: String? = nil) {
         destroyVirtualOutputPort()
         let virtualPortname = name ?? String(clientName)
 
@@ -66,7 +66,7 @@ extension AKMIDI {
     }
 
     /// Discard all virtual ports
-    open func destroyVirtualPorts() {
+    public func destroyVirtualPorts() {
         destroyVirtualInputPort()
         destroyVirtualOutputPort()
     }
@@ -75,7 +75,7 @@ extension AKMIDI {
     ///
     /// - Returns: Returns true if virtual input closed.
     ///
-    @discardableResult open func destroyVirtualInputPort() -> Bool {
+    @discardableResult public func destroyVirtualInputPort() -> Bool {
         if virtualInput != 0 {
             if MIDIEndpointDispose(virtualInput) == noErr {
                 virtualInput = 0
@@ -89,7 +89,7 @@ extension AKMIDI {
     ///
     /// - Returns: Returns true if virtual output closed.
     ///
-    @discardableResult open func destroyVirtualOutputPort() -> Bool {
+    @discardableResult public func destroyVirtualOutputPort() -> Bool {
         if virtualOutput != 0 {
             if MIDIEndpointDispose(virtualOutput) == noErr {
                 virtualOutput = 0

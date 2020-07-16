@@ -2,11 +2,11 @@
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-open class AKDryWetMixer: AKNode, AKInput {
+public class AKDryWetMixer: AKNode, AKInput {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
-    @objc open dynamic var balance: Double = 0.5 {
+    public var balance: Double = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             setGainsViaBalance()
@@ -17,7 +17,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     fileprivate var input2Attenuator = AKMixer()
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    @objc open dynamic var isStarted = true
+    public var isStarted = true
 
     /// Initialize this dry wet mixer node
     ///
@@ -26,7 +26,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    @objc public init(_ input1: AKNode? = nil, _ input2: AKNode? = nil, balance: Double = 0.5) {
+    public init(_ input1: AKNode? = nil, _ input2: AKNode? = nil, balance: Double = 0.5) {
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = mixer.avAudioNode
         self.input1Attenuator.connect(to: mixer)
@@ -43,7 +43,7 @@ open class AKDryWetMixer: AKNode, AKInput {
         self.balance = balance
     }
 
-    @objc public convenience init(dry: AKNode, wet: AKNode, balance: Double = 0.5) {
+    public convenience init(dry: AKNode, wet: AKNode, balance: Double = 0.5) {
         self.init(dry, wet, balance: balance)
     }
 
@@ -70,7 +70,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     }
 
     // Disconnect the node
-    open override func detach() {
+    public override func detach() {
         AKManager.detach(nodes: [mixer.avAudioUnitOrNode,
                                 input1Attenuator.avAudioUnitOrNode,
                                 input2Attenuator.avAudioUnitOrNode])

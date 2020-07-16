@@ -8,7 +8,7 @@ public enum AKButtonStyle {
     case round
 }
 
-@IBDesignable open class AKButton: AKView {
+@IBDesignable public class AKButton: AKView {
 
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
@@ -72,12 +72,12 @@ public enum AKButtonStyle {
         }
     }
 
-    open override func mouseDown(with event: NSEvent) {
+    public override func mouseDown(with event: NSEvent) {
         callback(self)
         isHighlighted = true
     }
 
-    open override func mouseUp(with event: NSEvent) {
+    public override func mouseUp(with event: NSEvent) {
         isHighlighted = false
 
         if let highlightAnimationTimer = highlightAnimationTimer {
@@ -132,7 +132,7 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         self.wantsLayer = true
@@ -167,7 +167,7 @@ public enum AKButtonStyle {
     }
 
     /// Draw the button
-    override open func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 

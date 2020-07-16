@@ -3,7 +3,7 @@
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///
-open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
@@ -81,7 +81,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Trigger the sound with an optional set of parameters
     ///
-    open func trigger() {
+    public func trigger() {
         internalAU?.start()
         internalAU?.trigger()
     }

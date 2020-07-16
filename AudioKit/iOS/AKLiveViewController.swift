@@ -4,11 +4,11 @@ import UIKit
 
 public typealias AKLabel = UILabel
 
-open class AKLiveViewController: UIViewController {
+public class AKLiveViewController: UIViewController {
 
     var stackView: UIStackView!
 
-    open override func loadView() {
+    public override func loadView() {
         stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
         stackView.axis = .vertical
         stackView.alignment = .center

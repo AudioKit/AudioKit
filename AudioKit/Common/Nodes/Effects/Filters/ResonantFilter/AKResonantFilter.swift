@@ -3,7 +3,7 @@
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
