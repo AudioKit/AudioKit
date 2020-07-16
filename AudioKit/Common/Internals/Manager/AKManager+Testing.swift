@@ -90,7 +90,7 @@ extension AKManager {
                 md5_finish(md5state, ptr.baseAddress)
             }
 
-            for index in 0..<Int(16) {
+            for index in 0..<16 {
                 digestHex += String(format: "%02x", digest[index])
             }
 
