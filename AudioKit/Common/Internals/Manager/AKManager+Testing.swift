@@ -50,11 +50,11 @@ extension AKManager {
                     // data rendered successfully
                     if let ptr = buffer.floatChannelData {
 
-                        for i in 0 ..< framesToRender {
+                        for frame in 0 ..< framesToRender {
                             for channel in 0 ..< buffer.format.channelCount {
 
                                 if samplesHashed < samples {
-                                    let sample = ptr[Int(channel)][Int(i)]
+                                    let sample = ptr[Int(channel)][Int(frame)]
                                     withUnsafeBytes(of: sample) { ptr in
                                         md5_append(md5state, ptr.bindMemory(to: md5_byte_t.self).baseAddress!, 4)
                                     }
