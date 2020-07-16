@@ -12,10 +12,6 @@ class AKTestCase: XCTestCase {
 
     var input = AKOscillator()
 
-    var MD5: String {
-        return AKManager.tester?.MD5 ?? ""
-    }
-
     var afterStart: () -> Void = {}
 
     func auditionTest() {
@@ -25,26 +21,26 @@ class AKTestCase: XCTestCase {
     }
 
     func AKTestMD5(_ md5: String, alternate: String = "") {
+        var localMD5 = ""
         if let existingOutput = output {
-            try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
-        let  localMD5 = MD5
         XCTAssertTrue([md5, alternate].contains(localMD5) && localMD5 != sineOscillatorMD5 && localMD5 != "", localMD5)
     }
 
     func AKTestMD5Not(_ md5: String) {
+        var localMD5 = ""
         if let existingOutput = output {
-            try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
-        let  localMD5 = MD5
         XCTAssertFalse(md5 == localMD5, localMD5)
     }
 
     func AKTestNoEffect() {
+        var localMD5 = ""
         if let existingOutput = output {
-            try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
-        let  localMD5 = MD5
         XCTAssertTrue(localMD5 == sineOscillatorMD5, localMD5)
     }
 
