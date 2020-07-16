@@ -87,13 +87,8 @@ public class AKWaveformLayer: CAShapeLayer {
     }
 
     public func dispose() {
-        // AKLog("* disposing table data")
         table?.removeAll()
         table = nil
-    }
-
-    deinit {
-        // AKLog("* WaveformLayer")
     }
 
     // MARK: - Private Functions

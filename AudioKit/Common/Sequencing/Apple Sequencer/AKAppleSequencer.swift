@@ -815,8 +815,6 @@ open class AKAppleSequencer: NSObject {
         let diffToLastSpot = AKDuration(beats: noteOnTimeRel) - lastSpot
         let diffToNextSpot = nextSpot - AKDuration(beats: noteOnTimeRel)
         let optimisedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
-        // AKLog("last \(lastSpot.beats) - curr \(currentRelativePosition.beats) - next \(nextSpot.beats)")
-        // AKLog("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
 
