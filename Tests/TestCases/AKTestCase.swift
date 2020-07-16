@@ -25,7 +25,6 @@ class AKTestCase: XCTestCase {
     }
 
     func AKTestMD5(_ md5: String, alternate: String = "") {
-        print("expected md5: \(md5)")
         var localMD5 = ""
         if let existingOutput = output {
             localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
@@ -34,18 +33,18 @@ class AKTestCase: XCTestCase {
     }
 
     func AKTestMD5Not(_ md5: String) {
+        var localMD5 = ""
         if let existingOutput = output {
-            try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
-        let  localMD5 = MD5
         XCTAssertFalse(md5 == localMD5, localMD5)
     }
 
     func AKTestNoEffect() {
+        var localMD5 = ""
         if let existingOutput = output {
-            try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
-        let  localMD5 = MD5
         XCTAssertTrue(localMD5 == sineOscillatorMD5, localMD5)
     }
 
