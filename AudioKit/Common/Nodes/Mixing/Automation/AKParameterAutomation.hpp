@@ -49,7 +49,7 @@ void clearAKParameterAutomationPoints(AKParameterAutomationHelperRef automation,
 AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
-                                                        double startTime,
+                                                        double startSampleTime,
                                                         double playbackRate,
                                                         const struct AKParameterAutomationPoint* points,
                                                         size_t count);
