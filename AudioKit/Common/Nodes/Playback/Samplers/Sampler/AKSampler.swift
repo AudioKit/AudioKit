@@ -335,13 +335,13 @@ public class AKSampler: AKPolyphonicNode, AKComponent {
         internalAU?.setLoop(thruRelease: thruRelease)
     }
 
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 

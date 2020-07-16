@@ -3,7 +3,7 @@
 import UIKit
 import AudioKit
 
-@IBDesignable open class AKPropertyControl: UIView {
+@IBDesignable public class AKPropertyControl: UIView {
 
     var initialValue: AUValue = 0
 
@@ -96,23 +96,23 @@ import AudioKit
         super.init(coder: coder)
     }
 
-    open override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
     }
 
     /// Handle new touches
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isDragging = true
         touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         setNeedsDisplay()
     }
 
     /// Handle touches ended
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
             setNeedsDisplay()

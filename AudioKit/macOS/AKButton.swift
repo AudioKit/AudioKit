@@ -8,7 +8,7 @@ public enum AKButtonStyle {
     case round
 }
 
-@IBDesignable open class AKButton: AKView {
+@IBDesignable public class AKButton: AKView {
 
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
@@ -72,12 +72,12 @@ public enum AKButtonStyle {
         }
     }
 
-    open override func mouseDown(with event: NSEvent) {
+    public override func mouseDown(with event: NSEvent) {
         callback(self)
         isHighlighted = true
     }
 
-    open override func mouseUp(with event: NSEvent) {
+    public override func mouseUp(with event: NSEvent) {
         isHighlighted = false
 
         if let highlightAnimationTimer = highlightAnimationTimer {

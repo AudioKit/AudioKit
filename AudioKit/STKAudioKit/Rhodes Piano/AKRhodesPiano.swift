@@ -4,7 +4,7 @@ import AudioKit
 
 /// STK RhodesPiano
 ///
-open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
+public class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
     public typealias AKAudioUnitType = AKRhodesPianoAudioUnit

@@ -4,7 +4,7 @@ import AudioKit
 
 /// STK Clarinet
 ///
-open class AKClarinet: AKNode, AKToggleable, AKComponent {
+public class AKClarinet: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKClarinetAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")

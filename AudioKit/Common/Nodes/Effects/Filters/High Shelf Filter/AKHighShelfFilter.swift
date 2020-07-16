@@ -116,7 +116,7 @@ public class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    open override func detach() {
+    public override func detach() {
         stop()
         guard let inputGain = inputGain, let effectGain = effectGain else { return }
 

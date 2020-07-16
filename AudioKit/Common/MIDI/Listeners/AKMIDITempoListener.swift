@@ -39,7 +39,7 @@ public typealias BPMType = TimeInterval
 /// midiClockLeaderEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock leader.
 ///
-open class AKMIDITempoListener: NSObject {
+public class AKMIDITempoListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 

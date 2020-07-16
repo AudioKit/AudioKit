@@ -3,7 +3,7 @@ import AudioKit
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot
 @IBDesignable
-open class AKRollingOutputPlot: AKNodeOutputPlot {
+public class AKRollingOutputPlot: AKNodeOutputPlot {
 
     /// Initialize the plot in a frame with a different buffer size
     ///

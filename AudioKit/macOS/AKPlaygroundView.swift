@@ -21,7 +21,7 @@ public class AKLabel: NSTextField {
     }
 }
 
-open class AKPlaygroundView: NSView {
+public class AKPlaygroundView: NSView {
 
     public var elementHeight: CGFloat = 30
     public var spacing = 25
@@ -72,7 +72,7 @@ open class AKPlaygroundView: NSView {
         return newLabel
     }
 
-    open override func addSubview(_ subview: NSView?) {
+    public override func addSubview(_ subview: NSView?) {
         guard let view = subview else {
             return
         }

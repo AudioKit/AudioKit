@@ -6,7 +6,7 @@ import AudioKit
 public typealias Label = UILabel
 
 /// UIView for playgrounds allowing live views to be generated easily
-open class AKPlaygroundView: UIView {
+public class AKPlaygroundView: UIView {
 
     /// Default standard element height (buttons, text)
     open var elementHeight: CGFloat = 30
@@ -57,7 +57,7 @@ open class AKPlaygroundView: UIView {
     }
 
     /// Add the subview, and move the Y Position down
-    open override func addSubview(_ potentialView: UIView?) {
+    public override func addSubview(_ potentialView: UIView?) {
         guard let view = potentialView else {
             AKLog("Unable to create view in addSubview")
             return

@@ -185,14 +185,14 @@ public class AKSynth: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open override func play(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            frequency: AUValue,
-                            channel: MIDIChannel = 0) {
+    public override func play(noteNumber: MIDINoteNumber,
+                              velocity: MIDIVelocity,
+                              frequency: AUValue,
+                              channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: frequency)
     }
 
-    open override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
