@@ -48,4 +48,87 @@ class AKOscillatorTests: AKTestCase {
         AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
     }
 
+    func testAutomationFrequency() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
+        output = input
+
+        afterStart = {
+            self.input.parameterAutomation?.startPlayback()
+        }
+
+        // auditionTest()
+
+        AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
+    }
+
+    func testAutomationAmplitude() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
+        output = input
+
+        afterStart = {
+            self.input.parameterAutomation?.startPlayback()
+        }
+
+        //auditionTest()
+
+        AKTestMD5("f1f313f396fd5962a36db24e675df274")
+    }
+
+    func testAutomationMultiple() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
+        output = input
+
+        afterStart = {
+            self.input.parameterAutomation?.startPlayback()
+        }
+
+        // auditionTest()
+
+        AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+    }
+
+    func testNewAutomationFrequency() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        output = input
+
+        afterStart = {
+            self.input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
+        }
+
+        // auditionTest()
+
+        AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
+    }
+
+    func testNewAutomationAmplitude() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        output = input
+
+        afterStart = {
+            self.input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
+        }
+
+        // auditionTest()
+
+        AKTestMD5("f1f313f396fd5962a36db24e675df274")
+    }
+
+    func testNewAutomationMultiple() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        output = input
+
+        afterStart = {
+            self.input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
+            self.input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
+        }
+
+        // auditionTest()
+
+        AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+    }
+
 }

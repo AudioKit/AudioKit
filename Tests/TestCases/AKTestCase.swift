@@ -16,7 +16,7 @@ class AKTestCase: XCTestCase {
 
     func auditionTest() {
         if let existingOutput = output {
-            try! AKManager.auditionTest(node: existingOutput, duration: duration)
+            try! AKManager.auditionTest(node: existingOutput, duration: duration, afterStart: afterStart)
         }
     }
 
