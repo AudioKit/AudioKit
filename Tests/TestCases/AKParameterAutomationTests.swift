@@ -126,7 +126,7 @@ class AKParameterAutomationTests: AKTestCase {
                            AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1),
                            AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
 
-            let events:[(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+            let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
             let newPoints = AKReplaceAutomation(points: points,
                                                 newPoints: events,
@@ -148,7 +148,7 @@ class AKParameterAutomationTests: AKTestCase {
                            AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1),
                            AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
 
-            let events:[(Double, AUValue)] = [ ]
+            let events: [(Double, AUValue)] = [ ]
 
             let newPoints = AKReplaceAutomation(points: points,
                                                 newPoints: events,
