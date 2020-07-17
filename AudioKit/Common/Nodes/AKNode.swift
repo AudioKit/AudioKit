@@ -180,6 +180,9 @@ public class AKNodeParameter {
 
             for index in 0..<numberEvents {
                 let event = events[index]
+
+                // Dispatching to main thread avoids the restrictions
+                // required of parameter automation observers.
                 DispatchQueue.main.async {
                     callback(event)
                 }
