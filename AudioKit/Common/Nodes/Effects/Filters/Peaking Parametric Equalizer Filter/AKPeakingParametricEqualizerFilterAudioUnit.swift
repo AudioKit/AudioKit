@@ -29,11 +29,4 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
     public override func createDSP() -> AKDSPRef {
         return createPeakingParametricEqualizerFilterDSP()
     }
-
-    public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-        try super.init(componentDescription: componentDescription, options: options)
-
-        parameterTree = AUParameterTree.createTree(withChildren: [centerFrequency, gain, q])
-    }
 }
