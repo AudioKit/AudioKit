@@ -128,7 +128,7 @@ public class AKNodeParameter {
     private var renderObserverToken: Int?
 
     /// Start playback immediately with the specified offset (seconds) from the start of the sequence
-    public func automate(points: [AKParameterAutomationPoint], offset: Double = 0, rate: Double = 1) {
+    public func automate(points: [AKParameterAutomationPoint], rate: Double = 1) {
         guard var lastTime = avAudioUnit.lastRenderTime else { return }
         guard let parameter = parameter else { return }
 
@@ -139,9 +139,6 @@ public class AKNodeParameter {
             assert(lastTime.isSampleTimeValid)
         }
 
-        let adjustedOffset = offset / rate
-        let time = lastTime.offset(seconds: -adjustedOffset)
-
         stopAutomation()
 
         points.withUnsafeBufferPointer { automationPtr in
@@ -151,7 +148,7 @@ public class AKNodeParameter {
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
                                                                   avAudioUnit.auAudioUnit.scheduleParameterBlock,
                                                                   AKSettings.sampleRate,
-                                                                  Double(time.sampleTime),
+                                                                  Double(lastTime.sampleTime),
                                                                   1,
                                                                   automationBaseAddress,
                                                                   points.count) else { return }
