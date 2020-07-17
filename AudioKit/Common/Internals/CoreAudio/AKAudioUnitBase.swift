@@ -108,6 +108,12 @@ open class AKAudioUnitBase: AUAudioUnit {
         for _ in 0..<outputBusCountDSP(dsp) {
             outputBusArray.append(try AUAudioUnitBus(format: format))
         }
+
+        // Create parameter tree by looking for parameters.
+        let mirror = Mirror(reflecting: self)
+        let params = mirror.children.compactMap { $0.value as? AUParameter }
+
+        parameterTree = AUParameterTree.createTree(withChildren: params)
     }
 
     deinit {
