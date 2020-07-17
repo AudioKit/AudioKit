@@ -192,6 +192,16 @@ public extension AKParameterAutomationPoint {
     }
 }
 
+extension AKParameterAutomationPoint: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.targetValue == rhs.targetValue
+            && lhs.startTime == rhs.startTime
+            && lhs.rampDuration == rhs.rampDuration
+            && lhs.rampTaper == rhs.rampTaper
+            && lhs.rampSkew == rhs.rampSkew
+    }
+}
+
 /// Replaces automation over a time range.
 /// - Parameters:
 ///   - points: existing automation curve
