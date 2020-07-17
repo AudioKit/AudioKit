@@ -47,7 +47,15 @@ public class AKParameterAutomation {
     /// Start playback immediately with the specified offset (seconds) from the start of the sequence
     public func startPlayback(offset: Double = 0, rate: Double = 1) {
         guard let automation = automation else { return }
-        guard let lastTime = avAudioUnit.lastRenderTime else { return }
+        guard var lastTime = avAudioUnit.lastRenderTime else { return }
+
+        // In tests, we may not have a valid lastRenderTime, so
+        // assume no rendering has yet occurred.
+        if !lastTime.isSampleTimeValid {
+            lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+            assert(lastTime.isSampleTimeValid)
+        }
+
         let adjustedOffset = offset / rate
         let time = lastTime.offset(seconds: -adjustedOffset)
         playAKParameterAutomation(automation, time, rate)

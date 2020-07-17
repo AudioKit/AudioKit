@@ -15,7 +15,8 @@ open class AKNode: NSObject {
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
     open var avAudioUnit: AVAudioUnit? {
         didSet {
-            if let akAudioUnit = avAudioUnit?.auAudioUnit as? AKAudioUnitBase {
+            guard let avAudioUnit = avAudioUnit else { return }
+            if let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase {
                 let mirror = Mirror(reflecting: self)
 
                 for child in mirror.children {
@@ -25,6 +26,7 @@ open class AKNode: NSObject {
                         let name = String(label.dropFirst())
                         param.projectedValue.associate(with: akAudioUnit,
                                                        identifier: name)
+                        param.projectedValue.set(avAudioUnit: avAudioUnit)
                     }
                 }
             }
@@ -68,6 +70,7 @@ open class AKNode: NSObject {
 public class AKNodeParameter {
 
     private var dsp: AKDSPRef?
+    private var avAudioUnit: AVAudioUnit!
 
     public private(set) var parameter: AUParameter?
 
@@ -120,7 +123,57 @@ public class AKNodeParameter {
         }
     }
 
+    // MARK: Automation
+
+    private var renderObserverToken: Int?
+
+    /// Start playback immediately with the specified offset (seconds) from the start of the sequence
+    public func automate(points: [AKParameterAutomationPoint], offset: Double = 0, rate: Double = 1) {
+        guard var lastTime = avAudioUnit.lastRenderTime else { return }
+        guard let parameter = parameter else { return }
+
+        // In tests, we may not have a valid lastRenderTime, so
+        // assume no rendering has yet occurred.
+        if !lastTime.isSampleTimeValid {
+            lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+            assert(lastTime.isSampleTimeValid)
+        }
+
+        let adjustedOffset = offset / rate
+        let time = lastTime.offset(seconds: -adjustedOffset)
+
+        stopAutomation()
+
+        points.withUnsafeBufferPointer { automationPtr in
+
+            guard let automationBaseAddress = automationPtr.baseAddress else { return }
+
+            guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
+                                                                  avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                  AKSettings.sampleRate,
+                                                                  Double(time.sampleTime),
+                                                                  1,
+                                                                  automationBaseAddress,
+                                                                  points.count) else { return }
+
+            renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
+        }
+
+    }
+
+    public func stopAutomation() {
+
+        if let token = renderObserverToken {
+            avAudioUnit.auAudioUnit.removeRenderObserver(token)
+        }
+
+    }
+
     // MARK: Lifecycle
+
+    public func set(avAudioUnit: AVAudioUnit) {
+        self.avAudioUnit = avAudioUnit
+    }
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
     public func associate(with au: AKAudioUnitBase, identifier: String) {

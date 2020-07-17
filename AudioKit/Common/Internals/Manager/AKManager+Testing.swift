@@ -105,9 +105,10 @@ extension AKManager {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func auditionTest(node: AKNode, duration: Double) throws {
+    public static func auditionTest(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
         output = node
         try start()
+        afterStart()
         if let playableNode = node as? AKToggleable {
             playableNode.play()
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29A8C8D824C0CBD900578451 /* AKParameterAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */; };
 		52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */; };
 		C40D6BBE206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */; };
 		C419101E2009A7B60067B5E0 /* AKPannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C419101D2009A7B50067B5E0 /* AKPannerTests.swift */; };
@@ -229,6 +230,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
 		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
 		C419101D2009A7B50067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				C44FF8831FD0994F00B2217D /* variableDelayTests.swift */,
 				C468DC3021AC1DA700678959 /* VocalTractTests.swift */,
 				C44FF8C01FD0994F00B2217D /* whiteNoiseTests.swift */,
+				29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
@@ -593,10 +596,12 @@
 				TargetAttributes = {
 					C4289A101D56D20300B941B5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9W69ZP8S5F;
 						LastSwiftMigration = 1020;
 					};
 					C4289A241D56D20300B941B5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9W69ZP8S5F;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 						TestTargetID = C4289A101D56D20300B941B5;
@@ -764,6 +769,7 @@
 				C44FF93D1FD0994F00B2217D /* AKBoosterTests.swift in Sources */,
 				C44FF9211FD0994F00B2217D /* AKHighPassButterworthFilterTests.swift in Sources */,
 				C44FF91B1FD0994F00B2217D /* reverberateWithCombFilterTests.swift in Sources */,
+				29A8C8D824C0CBD900578451 /* AKParameterAutomationTests.swift in Sources */,
 				C44FF8E11FD0994F00B2217D /* AKChowningReverbTests.swift in Sources */,
 				C44FF9201FD0994F00B2217D /* whiteNoiseTests.swift in Sources */,
 				C44FF9161FD0994F00B2217D /* AKDelayTests.swift in Sources */,
