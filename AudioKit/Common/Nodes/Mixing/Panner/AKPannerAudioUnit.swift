@@ -13,11 +13,4 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
     public override func createDSP() -> AKDSPRef {
         return createPannerDSP()
     }
-
-    public override init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-        try super.init(componentDescription: componentDescription, options: options)
-
-        parameterTree = AUParameterTree.createTree(withChildren: [pan])
-    }
 }
