@@ -536,9 +536,6 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
     {
         if (actionFlags != kAudioUnitRenderAction_PreRender) return;
 
-        // XXX: do we need this?
-        // if (!isPlaying) return;
-
         double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
         double blockEndTime = blockStartTime + frameCount / sampleRate;
 
