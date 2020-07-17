@@ -28,7 +28,6 @@ class AKParameterAutomationTests: AKTestCase {
                                                    scheduleParameterBlock,
                                                    44100,
                                                    0, // start time
-                                                   1, // playback speed
                                                    automationPtr.baseAddress!,
                                                    automation.count)
         }
