@@ -45,4 +45,13 @@ void clearAKParameterAutomationRange(AKParameterAutomationHelperRef automation, 
 
 void clearAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address);
 
+/// Returns a render observer block which will apply the automation to the selected parameter.
+AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
+                                                        AUScheduleParameterBlock scheduleParameterBlock,
+                                                        double sampleRate,
+                                                        double startSampleTime,
+                                                        double playbackRate,
+                                                        const struct AKParameterAutomationPoint* points,
+                                                        size_t count);
+
 #endif
