@@ -107,5 +107,13 @@ class AKParameterAutomationTests: XCTestCase {
         RunLoop.main.run(until: Date().addingTimeInterval(1.0))
 
         XCTAssertEqual(values, [800])
+
+        osc.$frequency.stopRecording()
+
+        osc.frequency = 500
+
+        RunLoop.main.run(until: Date().addingTimeInterval(1.0))
+
+        XCTAssertEqual(values, [800])
     }
 }
