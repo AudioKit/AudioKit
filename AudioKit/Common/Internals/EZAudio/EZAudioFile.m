@@ -761,7 +761,6 @@ typedef struct {
 - (void)setMarkers:(NSArray *)markerArray
 {
     AudioFileMarkerList editedMarkerList[markerArray.count];
-
     editedMarkerList->mNumberMarkers = (UInt32)markerArray.count;
 
     for (int i = 0; i < markerArray.count; i++) {
