@@ -70,7 +70,7 @@ public class AKWaveformLayer: CAShapeLayer {
     // MARK: - Public Functions
 
     /// controls whether to use the default CoreAnimation actions or not for property transitions
-    public override func action(forKey event: String) -> CAAction? {
+    override public func action(forKey event: String) -> CAAction? {
         return allowActions ? super.action(forKey: event) : nil
     }
 
