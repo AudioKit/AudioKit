@@ -153,7 +153,6 @@ public class AKNodeParameter {
                                                                   avAudioUnit.auAudioUnit.scheduleParameterBlock,
                                                                   AKSettings.sampleRate,
                                                                   Double(lastTime.sampleTime),
-                                                                  1,
                                                                   automationBaseAddress,
                                                                   points.count) else { return }
 
