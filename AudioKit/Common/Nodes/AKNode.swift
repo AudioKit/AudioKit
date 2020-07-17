@@ -128,7 +128,7 @@ public class AKNodeParameter {
     private var renderObserverToken: Int?
 
     /// Start playback immediately with the specified offset (seconds) from the start of the sequence
-    public func automate(points: [AKParameterAutomationPoint], rate: Double = 1) {
+    public func automate(points: [AKParameterAutomationPoint]) {
         guard var lastTime = avAudioUnit.lastRenderTime else { return }
         guard let parameter = parameter else { return }
 
