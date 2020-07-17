@@ -3,8 +3,6 @@
 import Foundation
 
 extension MIDIMetaEvent {
-
-
     /// `MIDIMetaEvent` is a variable length C structure. YOU MUST create one using this function
     ///  if the data is of length > 0.
     /// - Parameters:
