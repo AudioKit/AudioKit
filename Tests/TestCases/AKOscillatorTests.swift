@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
 class AKOscillatorTests: AKTestCase {
 
@@ -129,6 +130,28 @@ class AKOscillatorTests: AKTestCase {
         // auditionTest()
 
         AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+    }
+
+    func testNewAutomationRecord() {
+
+        let osc = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        AKManager.output = osc
+        try! AKManager.start()
+        osc.start()
+
+        var values:[AUValue] = []
+
+        osc.$frequency.recordAutomation { (event) in
+            values.append(event.value)
+        }
+
+        RunLoop.main.run(until: Date().addingTimeInterval(1.0))
+
+        osc.frequency = 800
+
+        RunLoop.main.run(until: Date().addingTimeInterval(1.0))
+
+        XCTAssertEqual(values, [800])
     }
 
 }

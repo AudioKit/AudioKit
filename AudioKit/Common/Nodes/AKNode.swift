@@ -169,6 +169,35 @@ public class AKNodeParameter {
 
     }
 
+    private var parameterObserverToken: AUParameterObserverToken?
+
+    /// Records automation for this parameter.
+    /// - Parameter callback: Called on the main queue for each parameter event.
+    public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
+
+        guard let parameter = parameter else { return }
+        parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { (numberEvents, events) in
+
+            for index in 0..<numberEvents {
+                let event = events[index]
+                DispatchQueue.main.async {
+                    callback(event)
+                }
+
+            }
+        })
+    }
+
+    /// Stop calling the function passed to `recordAutomation`
+    public func stopRecording() {
+
+        guard let parameter = parameter else { return }
+
+        if let token = parameterObserverToken {
+            parameter.removeParameterObserver(token)
+        }
+    }
+
     // MARK: Lifecycle
 
     public func set(avAudioUnit: AVAudioUnit) {
