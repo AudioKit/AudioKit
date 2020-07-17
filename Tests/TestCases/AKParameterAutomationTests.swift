@@ -159,9 +159,9 @@ class AKParameterAutomationTests: AKTestCase {
         }();
 
         {
-            let points:[AKParameterAutomationPoint] = [ ]
+            let points: [AKParameterAutomationPoint] = [ ]
 
-            let events:[(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+            let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
             let newPoints = AKReplaceAutomation(points: points,
                                                 newPoints: events,
