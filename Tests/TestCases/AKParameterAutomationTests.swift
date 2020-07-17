@@ -119,23 +119,57 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testReplaceAutomation() {
 
-        let points = [ AKParameterAutomationPoint(targetValue: 440, startTime: 0, rampDuration: 0.1),
-                       AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1),
-                       AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
+        {
+            let points = [ AKParameterAutomationPoint(targetValue: 440, startTime: 0, rampDuration: 0.1),
+                           AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1),
+                           AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
 
-        let events:[(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+            let events:[(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
-        let newPoints = AKReplaceAutomation(points: points,
-                                            newPoints: events,
-                                            startTime: 0.25,
-                                            stopTime: 1.75)
+            let newPoints = AKReplaceAutomation(points: points,
+                                                newPoints: events,
+                                                startTime: 0.25,
+                                                stopTime: 1.75)
 
-        let expected = [ AKParameterAutomationPoint(targetValue: 440, startTime: 0, rampDuration: 0.1),
-                         AKParameterAutomationPoint(targetValue: 100, startTime: 0.5, rampDuration: 0.01),
-                         AKParameterAutomationPoint(targetValue: 200, startTime: 1.5, rampDuration: 0.01),
-                         AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
+            let expected = [ AKParameterAutomationPoint(targetValue: 440, startTime: 0, rampDuration: 0.1),
+                             AKParameterAutomationPoint(targetValue: 100, startTime: 0.5, rampDuration: 0.01),
+                             AKParameterAutomationPoint(targetValue: 200, startTime: 1.5, rampDuration: 0.01),
+                             AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
 
-        XCTAssertEqual(newPoints.count, 4)
-        XCTAssertEqual(newPoints, expected)
+            XCTAssertEqual(newPoints.count, 4)
+            XCTAssertEqual(newPoints, expected)
+        }();
+
+
+        {
+            let points = [ AKParameterAutomationPoint(targetValue: 440, startTime: 0, rampDuration: 0.1),
+                           AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1),
+                           AKParameterAutomationPoint(targetValue: 440, startTime: 2, rampDuration: 0.1)]
+
+            let events:[(Double, AUValue)] = [ ]
+
+            let newPoints = AKReplaceAutomation(points: points,
+                                                newPoints: events,
+                                                startTime: 0,
+                                                stopTime: 2)
+
+            XCTAssertEqual(newPoints, [])
+        }();
+
+        {
+            let points:[AKParameterAutomationPoint] = [ ]
+
+            let events:[(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+
+            let newPoints = AKReplaceAutomation(points: points,
+                                                newPoints: events,
+                                                startTime: 0,
+                                                stopTime: 2)
+
+            let expected = [ AKParameterAutomationPoint(targetValue: 100, startTime: 0.5, rampDuration: 0.01),
+                             AKParameterAutomationPoint(targetValue: 200, startTime: 1.5, rampDuration: 0.01)]
+
+            XCTAssertEqual(newPoints, expected)
+        }()
     }
 }
