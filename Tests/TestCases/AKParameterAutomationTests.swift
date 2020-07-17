@@ -86,4 +86,26 @@ class AKParameterAutomationTests: XCTestCase {
         XCTAssertEqual(addresses, [])
         XCTAssertEqual(values, [])
     }
+
+    func testRecord() {
+
+        let osc = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        AKManager.output = osc
+        try! AKManager.start()
+        osc.start()
+
+        var values:[AUValue] = []
+
+        osc.$frequency.recordAutomation { (event) in
+            values.append(event.value)
+        }
+
+        RunLoop.main.run(until: Date().addingTimeInterval(1.0))
+
+        osc.frequency = 800
+
+        RunLoop.main.run(until: Date().addingTimeInterval(1.0))
+
+        XCTAssertEqual(values, [800])
+    }
 }
