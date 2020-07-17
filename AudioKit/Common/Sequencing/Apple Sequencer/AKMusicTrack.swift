@@ -1,5 +1,26 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+extension MIDIMetaEvent {
+    static func allocate(metaEventType: UInt8, data: [UInt8]) -> UnsafeMutablePointer<MIDIMetaEvent> {
+
+        let size = MemoryLayout<MIDIMetaEvent>.size + data.count
+        let mem = UnsafeMutableRawPointer.allocate(byteCount: size,
+                                                   alignment: MemoryLayout<Int8>.alignment)
+        let ptr = mem.bindMemory(to: MIDIMetaEvent.self, capacity: 1)
+
+        ptr.pointee.metaEventType = metaEventType
+        ptr.pointee.dataLength = UInt32(data.count)
+
+        withUnsafeMutablePointer(to: &ptr.pointee.data, { pointer in
+            for i in 0 ..< data.count {
+                pointer[i] = data[i]
+            }
+        })
+
+        return ptr
+    }
+}
+
 /// Wrapper for internal Apple MusicTrack
 open class AKMusicTrack {
     // MARK: - Properties
@@ -61,18 +82,12 @@ open class AKMusicTrack {
 
         let data = [MIDIByte](name.utf8)
 
-        var metaEvent = MIDIMetaEvent()
-        metaEvent.metaEventType = 3 // track or sequence name
-        metaEvent.dataLength = UInt32(data.count)
-
-        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-            for i in 0 ..< data.count {
-                pointer[i] = data[i]
-            }
-        })
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3,
+        data: data)
+        defer { metaEventPtr.deallocate() }
 
         if let track = internalMusicTrack {
-            let result = MusicTrackNewMetaEvent(track, MusicTimeStamp(0), &metaEvent)
+            let result = MusicTrackNewMetaEvent(track, MusicTimeStamp(0), metaEventPtr)
             if result != 0 {
                 AKLog("Unable to name Track")
             }
@@ -91,17 +106,11 @@ open class AKMusicTrack {
 
         let data = [MIDIByte](name.utf8)
 
-        var metaEvent = MIDIMetaEvent()
-        metaEvent.metaEventType = 3 // track or sequence name
-        metaEvent.dataLength = UInt32(data.count)
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3,
+                                                  data: data)
+        defer { metaEventPtr.deallocate() }
 
-        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-            for idx in 0 ..< data.count {
-                pointer[idx] = data[idx]
-            }
-        })
-
-        let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), &metaEvent)
+        let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), metaEventPtr)
         if result != 0 {
             AKLog("Unable to name Track")
         }
