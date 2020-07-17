@@ -9,7 +9,7 @@
 import XCTest
 import AudioKit
 
-class AKParameterAutomationTests: XCTestCase {
+class AKParameterAutomationTests: AKTestCase {
 
     func observerTest(automation: [AKParameterAutomationPoint], sampleTime: Float64) -> ([AUParameterAddress], [AUValue]) {
 
