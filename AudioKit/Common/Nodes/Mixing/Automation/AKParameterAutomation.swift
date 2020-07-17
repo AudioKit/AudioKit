@@ -221,8 +221,8 @@ public func AKReplaceAutomation(points: [AKParameterAutomationPoint],
     }
 
     // Append recorded points.
-    result.append(contentsOf: newPoints.map { pt in
-        AKParameterAutomationPoint(targetValue: pt.1, startTime: pt.0, rampDuration: 0.01)
+    result.append(contentsOf: newPoints.map { point in
+        AKParameterAutomationPoint(targetValue: point.1, startTime: point.0, rampDuration: 0.01)
     })
 
     // Sort vector by time.
