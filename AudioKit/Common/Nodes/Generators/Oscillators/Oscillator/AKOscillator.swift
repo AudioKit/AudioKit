@@ -7,7 +7,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
-    public typealias AKAudioUnitType = AKOscillatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -60,6 +60,23 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Frequency detuning multiplier
     @Parameter public var detuningMultiplier: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKOscillator.frequencyDef,
+                    AKOscillator.amplitudeDef,
+                    AKOscillator.detuningOffsetDef,
+                    AKOscillator.detuningMultiplierDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createOscillatorDSP()
+        }
+
+    }
 
     // MARK: - Initialization
 
