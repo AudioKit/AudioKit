@@ -48,5 +48,8 @@ echo "Building iOS Filter Effects"
 cd Examples/iOS/FilterEffects; pod install; cd ../../..
 xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 33
 
+DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=13.5'
 echo "Running iOS Unit Tests"
-xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.5' | xcpretty -c || exit 100
+xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination $DESTINATION | xcpretty -c || exit 100
+echo "Running iOS Unit Tests with Thread Sanitizer"
+xcodebuild -scheme iOSTestSuite-TSAN -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj clean test -sdk iphonesimulator  -destination $DESTINATION | xcpretty -c || exit 101
