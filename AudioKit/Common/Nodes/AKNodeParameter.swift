@@ -138,14 +138,16 @@ public class AKNodeParameter {
 
     // MARK: Lifecycle
 
-    public func set(avAudioUnit: AVAudioUnit) {
-        self.avAudioUnit = avAudioUnit
-    }
-
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with au: AKAudioUnitBase, identifier: String) {
-        dsp = au.dsp
-        parameter = au.parameterTree?[identifier]
+    public func associate(with avAudioUnit: AVAudioUnit,
+                          identifier: String) {
+
+        self.avAudioUnit = avAudioUnit
+        guard let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase else {
+            fatalError("AUAudioUnit is not an AKAudioUnitBase")
+        }
+        dsp = akAudioUnit.dsp
+        parameter = akAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
 
         guard let dsp = dsp, let addr = parameter?.address else { return }

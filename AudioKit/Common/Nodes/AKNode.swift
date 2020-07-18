@@ -16,18 +16,16 @@ open class AKNode: NSObject {
     open var avAudioUnit: AVAudioUnit? {
         didSet {
             guard let avAudioUnit = avAudioUnit else { return }
-            if let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase {
-                let mirror = Mirror(reflecting: self)
 
-                for child in mirror.children {
-                    if let param = child.value as? ParameterBase, let label = child.label {
-                        // Property wrappers create a variable with an underscore
-                        // prepended. Drop the underscore to look up the parameter.
-                        let name = String(label.dropFirst())
-                        param.projectedValue.associate(with: akAudioUnit,
-                                                       identifier: name)
-                        param.projectedValue.set(avAudioUnit: avAudioUnit)
-                    }
+            let mirror = Mirror(reflecting: self)
+
+            for child in mirror.children {
+                if let param = child.value as? ParameterBase, let label = child.label {
+                    // Property wrappers create a variable with an underscore
+                    // prepended. Drop the underscore to look up the parameter.
+                    let name = String(label.dropFirst())
+                    param.projectedValue.associate(with: avAudioUnit,
+                                                   identifier: name)
                 }
             }
         }
