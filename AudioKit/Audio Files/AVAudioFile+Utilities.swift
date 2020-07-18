@@ -8,6 +8,7 @@ extension AVAudioFile {
         Double(length) / fileFormat.sampleRate
     }
 
+    /// returns the max level in the file as a Peak struct
     public var peak: AVAudioPCMBuffer.Peak? {
         toAVAudioPCMBuffer()?.peak()
     }

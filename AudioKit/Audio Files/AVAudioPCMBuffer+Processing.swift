@@ -20,8 +20,8 @@ extension AVAudioPCMBuffer {
 
 extension AVAudioPCMBuffer {
     public struct Peak {
-        public init() {}
-        public static let min: Float = -10_000.0
+        public init() {} // allows for use outside of AudioKit
+        internal static let min: Float = -10_000.0
         public var time: Double = 0
         public var framePosition: Int = 0
         public var amplitude: Float = 1
@@ -53,7 +53,7 @@ extension AVAudioPCMBuffer {
                     block[i] = floatData[channel][i + position]
                 }
                 // scan the block
-                let blockPeak = getPeak(from: block)
+                let blockPeak = getPeakAmplitude(from: block)
 
                 if blockPeak > peakValue {
                     value.framePosition = position
@@ -69,7 +69,7 @@ extension AVAudioPCMBuffer {
     }
 
     // Returns the highest level in the given array
-    private func getPeak(from buffer: [Float]) -> Float {
+    private func getPeakAmplitude(from buffer: [Float]) -> Float {
         // create variable with very small value to hold the peak value
         var peak: Float = Peak.min
 
