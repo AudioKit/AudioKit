@@ -127,8 +127,12 @@ public class AKNodeParameter {
 
     private var renderObserverToken: Int?
 
-    /// Start playback immediately with the specified offset (seconds) from the start of the sequence
-    public func automate(points: [AKParameterAutomationPoint], offset: Double = 0, rate: Double = 1) {
+    /// Begin automation immediately.
+    ///
+    /// Time is relative to the approximate time when the function
+    /// is called. This is only sample accurate if called prior to `AKManager.start()`.
+    /// - Parameter points: automation curve
+    public func automate(points: [AKParameterAutomationPoint]) {
         guard var lastTime = avAudioUnit.lastRenderTime else { return }
         guard let parameter = parameter else { return }
 
@@ -139,9 +143,6 @@ public class AKNodeParameter {
             assert(lastTime.isSampleTimeValid)
         }
 
-        let adjustedOffset = offset / rate
-        let time = lastTime.offset(seconds: -adjustedOffset)
-
         stopAutomation()
 
         points.withUnsafeBufferPointer { automationPtr in
@@ -151,8 +152,7 @@ public class AKNodeParameter {
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
                                                                   avAudioUnit.auAudioUnit.scheduleParameterBlock,
                                                                   AKSettings.sampleRate,
-                                                                  Double(time.sampleTime),
-                                                                  1,
+                                                                  Double(lastTime.sampleTime),
                                                                   automationBaseAddress,
                                                                   points.count) else { return }
 
@@ -167,6 +167,38 @@ public class AKNodeParameter {
             avAudioUnit.auAudioUnit.removeRenderObserver(token)
         }
 
+    }
+
+    private var parameterObserverToken: AUParameterObserverToken?
+
+    /// Records automation for this parameter.
+    /// - Parameter callback: Called on the main queue for each parameter event.
+    public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
+
+        guard let parameter = parameter else { return }
+        parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { (numberEvents, events) in
+
+            for index in 0..<numberEvents {
+                let event = events[index]
+
+                // Dispatching to main thread avoids the restrictions
+                // required of parameter automation observers.
+                DispatchQueue.main.async {
+                    callback(event)
+                }
+
+            }
+        })
+    }
+
+    /// Stop calling the function passed to `recordAutomation`
+    public func stopRecording() {
+
+        guard let parameter = parameter else { return }
+
+        if let token = parameterObserverToken {
+            parameter.removeParameterObserver(token)
+        }
     }
 
     // MARK: Lifecycle

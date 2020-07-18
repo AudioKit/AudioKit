@@ -50,7 +50,6 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
                                                         double startSampleTime,
-                                                        double playbackRate,
                                                         const struct AKParameterAutomationPoint* points,
                                                         size_t count);
 
