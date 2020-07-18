@@ -27,8 +27,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      enableAddressSanitizer = "YES"
-      enableASanStackUseAfterReturn = "YES">
+      enableASanStackUseAfterReturn = "YES"
+      enableThreadSanitizer = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -40,8 +40,8 @@
       </MacroExpansion>
       <AdditionalOptions>
          <AdditionalOption
-            key = "MallocScribble"
-            value = ""
+            key = "NSZombieEnabled"
+            value = "YES"
             isEnabled = "YES">
          </AdditionalOption>
       </AdditionalOptions>

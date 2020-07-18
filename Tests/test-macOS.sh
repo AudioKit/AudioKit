@@ -39,3 +39,5 @@ xcodebuild -project Examples/macOS/SpeechSynthesizer/SpeechSynthesizer.xcodeproj
 
 echo "Running macOS Unit Tests"
 xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101
+echo "Running macOS Unit Tests with Thread Sanitizer"
+xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite-TSAN clean test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 102
