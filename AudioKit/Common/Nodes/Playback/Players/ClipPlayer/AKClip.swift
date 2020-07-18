@@ -41,19 +41,19 @@ public protocol FileClip: AKClip {
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
-public class AKFileClip: NSObject, FileClip {
+open class AKFileClip: NSObject, FileClip {
 
     /// The audio file that will be read.
-    open var audioFile: AVAudioFile
+    public var audioFile: AVAudioFile
 
     /// The time in the timeline that the clip should begin playing.
-    open var time: Double
+    public var time: Double
 
     /// The offset into the clip's audio (where to start playing from within the clip).
-    open var offset: Double
+    public var offset: Double
 
     /// The duration of playback.
-    open var duration: Double
+    public var duration: Double
 
     /// Create a new file clip.
     ///
