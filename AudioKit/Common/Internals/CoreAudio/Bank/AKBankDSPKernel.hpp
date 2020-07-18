@@ -150,14 +150,14 @@ public:
     int playingNotesCount = 0;
     bool resetted = false;
     
-    ParameterRamper attackDurationRamper = 0.1;
-    ParameterRamper decayDurationRamper = 0.1;
-    ParameterRamper sustainLevelRamper = 1.0;
-    ParameterRamper releaseDurationRamper = 0.1;
-    ParameterRamper pitchBendRamper = 0;
-    ParameterRamper vibratoDepthRamper = 0;
-    ParameterRamper vibratoRateRamper = 0;
-    ParameterRamper detuningOffsetRamper = 0;
+    ParameterRamper attackDurationRamper{0.1};
+    ParameterRamper decayDurationRamper{0.1};
+    ParameterRamper sustainLevelRamper{1.0};
+    ParameterRamper releaseDurationRamper{0.1};
+    ParameterRamper pitchBendRamper{0};
+    ParameterRamper vibratoDepthRamper{0};
+    ParameterRamper vibratoRateRamper{0};
+    ParameterRamper detuningOffsetRamper{0};
 
     // standard bank kernel functions
     virtual void startNote(int note, int velocity) {

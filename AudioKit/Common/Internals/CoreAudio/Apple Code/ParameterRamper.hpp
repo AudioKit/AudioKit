@@ -18,8 +18,10 @@ private:
 
 public:
     ParameterRamper(float value = 0.f);
-    ParameterRamper(const ParameterRamper& other);
+    ParameterRamper(const ParameterRamper& other) = delete; // non copyable
     ~ParameterRamper();
+
+    ParameterRamper& operator=( const ParameterRamper& ) = delete; // non copyable
 
     void setImmediate(float value);
 
