@@ -41,9 +41,7 @@ void deleteDSP(AKDSPRef pDSP);
 #else
 
 #import <Foundation/Foundation.h>
-#import <algorithm>
 #import <vector>
-#import <map>
 
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class
