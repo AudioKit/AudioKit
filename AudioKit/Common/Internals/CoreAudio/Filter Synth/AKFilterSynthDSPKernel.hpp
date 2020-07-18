@@ -194,22 +194,22 @@ public:
     int playingNotesCount = 0;
     bool resetted = false;
     
-    ParameterRamper attackDurationRamper = 0.1;
-    ParameterRamper decayDurationRamper = 0.1;
-    ParameterRamper sustainLevelRamper = 1.0;
-    ParameterRamper releaseDurationRamper = 0.1;
-    ParameterRamper pitchBendRamper = 0;
-    ParameterRamper vibratoDepthRamper = 0;
-    ParameterRamper vibratoRateRamper = 0;
-    ParameterRamper filterCutoffFrequencyRamper = 0.1;
-    ParameterRamper filterResonanceRamper = 0.1;
-    ParameterRamper filterAttackDurationRamper = 0.1;
-    ParameterRamper filterDecayDurationRamper = 0.1;
-    ParameterRamper filterSustainLevelRamper = 1.0;
-    ParameterRamper filterReleaseDurationRamper = 0.1;
-    ParameterRamper filterEnvelopeStrengthRamper = 0.0;
-    ParameterRamper filterLFODepthRamper = 0;
-    ParameterRamper filterLFORateRamper = 0;
+    ParameterRamper attackDurationRamper{0.1};
+    ParameterRamper decayDurationRamper{0.1};
+    ParameterRamper sustainLevelRamper{1.0};
+    ParameterRamper releaseDurationRamper{0.1};
+    ParameterRamper pitchBendRamper{0};
+    ParameterRamper vibratoDepthRamper{0};
+    ParameterRamper vibratoRateRamper{0};
+    ParameterRamper filterCutoffFrequencyRamper{0.1};
+    ParameterRamper filterResonanceRamper{0.1};
+    ParameterRamper filterAttackDurationRamper{0.1};
+    ParameterRamper filterDecayDurationRamper{0.1};
+    ParameterRamper filterSustainLevelRamper{1.0};
+    ParameterRamper filterReleaseDurationRamper{0.1};
+    ParameterRamper filterEnvelopeStrengthRamper{0.0};
+    ParameterRamper filterLFODepthRamper{0};
+    ParameterRamper filterLFORateRamper{0};
     
     // standard filter synth kernel functions
     void startNote(int note, int velocity) {
