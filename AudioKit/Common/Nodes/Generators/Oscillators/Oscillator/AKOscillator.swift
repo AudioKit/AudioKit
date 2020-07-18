@@ -7,7 +7,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
-    public typealias AKAudioUnitType = AKOscillatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -17,17 +17,66 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     fileprivate var waveform: AKTable?
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKOscillatorParameter.frequency.rawValue,
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
+
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude",
+        address: AKOscillatorParameter.amplitude.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
 
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
+    static let detuningOffsetDef = AKNodeParameterDef(
+        identifier: "detuningOffset",
+        name: "Frequency offset (Hz)",
+        address: AKOscillatorParameter.detuningOffset.rawValue,
+        range: -1_000.0 ... 1_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    static let detuningMultiplierDef = AKNodeParameterDef(
+        identifier: "detuningMultiplier",
+        name: "Frequency detuning multiplier",
+        address: AKOscillatorParameter.detuningMultiplier.rawValue,
+        range: 0.9 ... 1.11,
+        unit: .generic,
+        flags: .default)
+
     /// Frequency detuning multiplier
     @Parameter public var detuningMultiplier: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKOscillator.frequencyDef,
+                    AKOscillator.amplitudeDef,
+                    AKOscillator.detuningOffsetDef,
+                    AKOscillator.detuningMultiplierDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createOscillatorDSP()
+        }
+
+    }
 
     // MARK: - Initialization
 
