@@ -14,7 +14,6 @@
 #include <math.h>
 
 struct ParameterRamper::InternalData {
-    float clampLow, clampHigh;
     float uiValue;
     float sampleRate;
     float defaultRampDuration = 0.02;
