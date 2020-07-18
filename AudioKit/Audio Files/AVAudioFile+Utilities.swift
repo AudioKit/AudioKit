@@ -5,7 +5,12 @@ import Accelerate
 extension AVAudioFile {
     /// Duration in seconds
     public var duration: TimeInterval {
-        return Double(length) / fileFormat.sampleRate
+        Double(length) / fileFormat.sampleRate
+    }
+
+    /// returns the max level in the file as a Peak struct
+    public var peak: AVAudioPCMBuffer.Peak? {
+        toAVAudioPCMBuffer()?.peak()
     }
 }
 
