@@ -305,8 +305,8 @@ private:
 public:
     bool started = false;
     bool resetted = false;
-    ParameterRamper rateRamper = 1;
-    ParameterRamper volumeRamper = 1;
+    ParameterRamper rateRamper{1};
+    ParameterRamper volumeRamper{1};
     AKCCallback completionHandler = nullptr;
     AKCCallback loadCompletionHandler = nullptr;
     AKCCallback loopCallback = nullptr;

@@ -193,7 +193,7 @@ private:
     float pulseWidth = 0.5;
 
 public:
-    ParameterRamper pulseWidthRamper = 0.5;
+    ParameterRamper pulseWidthRamper{0.5};
 };
 
 #endif

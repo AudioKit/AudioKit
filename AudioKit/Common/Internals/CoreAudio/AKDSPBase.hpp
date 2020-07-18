@@ -41,9 +41,7 @@ void deleteDSP(AKDSPRef pDSP);
 #else
 
 #import <Foundation/Foundation.h>
-#import <algorithm>
 #import <vector>
-#import <map>
 
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class
@@ -68,8 +66,10 @@ protected:
 
     // current time in samples
     AUEventSampleTime now = 0;
+
+    static constexpr int maxParameters = 128;
     
-    std::map<AUParameterAddress, class ParameterRamper*> parameters;
+    class ParameterRamper* parameters[maxParameters];
 
 public:
     
