@@ -104,6 +104,7 @@ AKDSPBase::AKDSPBase()
 , inputBufferLists(1)
 , outputBufferLists(1)
 {
+    std::fill(parameters, parameters+maxParameters, nullptr);
 }
 
 void AKDSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
@@ -159,23 +160,25 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
 
 void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
 {
-    const auto& parameter = parameters.find(address);
-    if (parameter == parameters.cend()) return;
-    
-    if (immediate || !isInitialized) {
-        parameter->second->setImmediate(value);
-    }
-    else {
-        parameter->second->setUIValue(value);
-        parameter->second->dezipperCheck();
+    assert(address < maxParameters);
+    if(auto parameter = parameters[address]) {
+        if (immediate || !isInitialized) {
+            parameter->setImmediate(value);
+        }
+        else {
+            parameter->setUIValue(value);
+            parameter->dezipperCheck();
+        }
     }
 }
 
 float AKDSPBase::getParameter(AUParameterAddress address)
 {
-    const auto& parameter = parameters.find(address);
-    if (parameter == parameters.cend()) return 0.f;
-    return parameter->second->getUIValue();
+    assert(address < maxParameters);
+    if(auto parameter = parameters[address]) {
+        return parameter->getUIValue();
+    }
+    return 0.0f;
 }
 
 void AKDSPBase::init(int channelCount, double sampleRate)
@@ -185,7 +188,11 @@ void AKDSPBase::init(int channelCount, double sampleRate)
     isInitialized = true;
     
     // update parameter ramp durations with new sample rate
-    for (const auto& parameter : parameters) parameter.second->init(sampleRate);
+    for(int index = 0; index < maxParameters; ++index) {
+        if(parameters[index]) {
+            parameters[index]->init(sampleRate);
+        }
+    }
 }
 
 void AKDSPBase::deinit()
@@ -195,23 +202,26 @@ void AKDSPBase::deinit()
 
 void AKDSPBase::setParameterRampDuration(AUParameterAddress address, float duration)
 {
-    const auto& parameter = parameters.find(address);
-    if (parameter == parameters.cend()) return;
-    parameter->second->setDefaultRampDuration(duration);
+    assert(address < maxParameters);
+    if(parameters[address]) {
+        parameters[address]->setDefaultRampDuration(duration);
+    }
 }
 
 void AKDSPBase::setParameterRampTaper(AUParameterAddress address, float taper)
 {
-    const auto& parameter = parameters.find(address);
-    if (parameter == parameters.cend()) return;
-    parameter->second->setTaper(taper);
+    assert(address < maxParameters);
+    if(parameters[address]) {
+        parameters[address]->setTaper(taper);
+    }
 }
 
 void AKDSPBase::setParameterRampSkew(AUParameterAddress address, float skew)
 {
-    const auto& parameter = parameters.find(address);
-    if (parameter == parameters.cend()) return;
-    parameter->second->setSkew(skew);
+    assert(address < maxParameters);
+    if(parameters[address]) {
+        parameters[address]->setSkew(skew);
+    }
 }
 
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
@@ -280,10 +290,10 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
 
 void AKDSPBase::startRamp(const AUParameterEvent& event)
 {
-    const auto& parameterIter = parameters.find(event.parameterAddress & 0xFFFFFFFF);
-    if (parameterIter == parameters.cend()) return;
-    
-    auto& ramper = parameterIter->second;
+    auto address = event.parameterAddress & 0xFFFFFFFF;
+    assert(address < maxParameters);
+    auto ramper = parameters[address];
+    if(ramper == nullptr) return;
     switch (event.parameterAddress >> 61) {
         case 0x4: // taper
             ramper->setTaper(event.value);

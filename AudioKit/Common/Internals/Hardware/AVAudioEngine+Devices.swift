@@ -14,7 +14,7 @@ extension AVAudioEngine {
                                  &outputID,
                                  UInt32(MemoryLayout<AudioDeviceID>.size))
             if error != noErr {
-                print("setDevice error: ", error)
+                AKLog("setDevice error: ", error)
             }
         }
     }
@@ -31,7 +31,7 @@ extension AVAudioEngine {
                                  &outputID,
                                  &propsize)
             if error != noErr {
-                print("getDevice error: ", error)
+                AKLog("getDevice error: ", error)
             }
             return outputID
         }

@@ -420,17 +420,12 @@ open class AKAppleSequencer: NSObject {
                                 ticksPerMetronomeClick,
                                 thirtySecondNotesPerQuarter]
 
-        var metaEvent = MIDIMetaEvent()
-        metaEvent.metaEventType = 0x58 // i.e, set time signature
-        metaEvent.dataLength = UInt32(data.count)
+        var metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 0x58, // i.e, set time signature
+                                                  data: data)
 
-        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-            for i in 0 ..< data.count {
-                pointer[i] = data[i]
-            }
-        })
+        defer { metaEventPtr.deallocate() }
 
-        let result = MusicTrackNewMetaEvent(unwrappedTempoTrack, timeStamp, &metaEvent)
+        let result = MusicTrackNewMetaEvent(unwrappedTempoTrack, timeStamp, metaEventPtr)
         if result != 0 {
             AKLog("Unable to set time signature")
         }

@@ -108,6 +108,28 @@ open class AKAudioUnitBase: AUAudioUnit {
         for _ in 0..<outputBusCountDSP(dsp) {
             outputBusArray.append(try AUAudioUnitBus(format: format))
         }
+
+        if let paramDefs = getParameterDefs() {
+
+            parameterTree = AUParameterTree.createTree(withChildren:
+                paramDefs.map {
+                    AUParameter(identifier: $0.identifier,
+                                name: $0.name,
+                                address: $0.address,
+                                min: $0.range.lowerBound,
+                                max: $0.range.upperBound,
+                                unit: $0.unit,
+                                flags: $0.flags)
+                }
+            )
+
+        } else {
+            // Create parameter tree by looking for parameters.
+            let mirror = Mirror(reflecting: self)
+            let params = mirror.children.compactMap { $0.value as? AUParameter }
+
+            parameterTree = AUParameterTree.createTree(withChildren: params)
+        }
     }
 
     deinit {
@@ -127,6 +149,11 @@ open class AKAudioUnitBase: AUAudioUnit {
 
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
     open func createDSP() -> AKDSPRef? {
+        return nil
+    }
+
+    /// Override this to provide a list of definitions from which the `AUParameterTree` is built.
+    open func getParameterDefs() -> [AKNodeParameterDef]? {
         return nil
     }
 
