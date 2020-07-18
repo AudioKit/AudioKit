@@ -13,7 +13,9 @@ protected:
 public:
     AKDSPKernel(int channelCount, float sampleRate) : channels(channelCount), sampleRate(sampleRate) { }
     AKDSPKernel();
-    
+    AKDSPKernel(const AKDSPKernel&) = delete; // non copyable
+    AKDSPKernel& operator=( const AKDSPKernel& ) = delete; // non copyable
+
     float getSampleRate() { return sampleRate; }
 
     virtual ~AKDSPKernel() { }

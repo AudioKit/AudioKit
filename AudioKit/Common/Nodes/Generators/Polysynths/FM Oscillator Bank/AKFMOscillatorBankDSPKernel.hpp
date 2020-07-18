@@ -215,7 +215,7 @@ private:
     float modulationIndex = 1;
     
 public:
-    ParameterRamper carrierMultiplierRamper = 1.0;
-    ParameterRamper modulatingMultiplierRamper = 1;
-    ParameterRamper modulationIndexRamper = 1;
+    ParameterRamper carrierMultiplierRamper{1.0};
+    ParameterRamper modulatingMultiplierRamper{1};
+    ParameterRamper modulationIndexRamper{1};
 };

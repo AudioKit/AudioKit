@@ -217,5 +217,5 @@ private:
     float phaseDistortion = 0.0;
 
 public:
-    ParameterRamper phaseDistortionRamper = 0.0;
+    ParameterRamper phaseDistortionRamper{0.0};
 };

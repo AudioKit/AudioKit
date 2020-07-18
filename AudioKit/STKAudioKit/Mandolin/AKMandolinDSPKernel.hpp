@@ -49,8 +49,8 @@ public:
     bool started = false;
     bool resetted = false;
 
-    ParameterRamper detuneRamper = 1;
-    ParameterRamper bodySizeRamper = 1;
+    ParameterRamper detuneRamper{1};
+    ParameterRamper bodySizeRamper{1};
 };
 
 

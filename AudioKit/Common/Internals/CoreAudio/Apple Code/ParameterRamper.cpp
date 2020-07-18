@@ -35,11 +35,6 @@ ParameterRamper::ParameterRamper(float value) : data(new InternalData)
     setImmediate(value);
 }
 
-ParameterRamper::ParameterRamper(const ParameterRamper& other)
-: data(new InternalData(*other.data))
-{
-}
-
 ParameterRamper::~ParameterRamper() = default;
 
 void ParameterRamper::setImmediate(float value)

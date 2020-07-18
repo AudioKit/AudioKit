@@ -174,7 +174,7 @@ private:
     float index = 0;
     
 public:
-    ParameterRamper indexRamper = 0.0;
+    ParameterRamper indexRamper{0.0};
 };
 
 #endif
