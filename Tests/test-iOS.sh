@@ -50,6 +50,6 @@ xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk 
 
 DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=13.5'
 echo "Running iOS Unit Tests"
-xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination $DESTINATION | xcpretty -c || exit 100
+xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination "$DESTINATION" | xcpretty -c || exit 100
 echo "Running iOS Unit Tests with Thread Sanitizer"
-xcodebuild -scheme iOSTestSuite-TSAN -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj clean test -sdk iphonesimulator  -destination $DESTINATION | xcpretty -c || exit 101
+xcodebuild -scheme iOSTestSuite-TSAN -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj clean test -sdk iphonesimulator  -destination "$DESTINATION" | xcpretty -c || exit 101
