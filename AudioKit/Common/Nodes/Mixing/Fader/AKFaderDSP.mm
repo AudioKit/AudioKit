@@ -6,8 +6,8 @@
 
 struct AKFaderDSP : AKDSPBase {
 private:
-    ParameterRamper leftGainRamp = 1.0;
-    ParameterRamper rightGainRamp = 1.0;
+    ParameterRamper leftGainRamp{1.0};
+    ParameterRamper rightGainRamp{1.0};
     bool flipStereo = false;
     bool mixToMono = false;
 

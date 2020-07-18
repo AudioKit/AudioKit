@@ -67,11 +67,9 @@ public struct AKMIDIFile {
             while processedBytes < dataSize {
                 let data = Array(midiData.suffix(from: processedBytes))
                 if let headerChunk = MIDIFileHeaderChunk(data: data) {
-                    print("got header chunk")
                     chunks.append(headerChunk)
                     processedBytes += headerChunk.rawData.count
                 } else if let trackChunk = MIDIFileTrackChunk(data: data) {
-                    print("got track chunk")
                     chunks.append(trackChunk)
                     processedBytes += trackChunk.rawData.count
                 }

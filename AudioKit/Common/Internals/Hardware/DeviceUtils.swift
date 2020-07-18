@@ -19,7 +19,7 @@ struct AudioDeviceUtils {
                                                     nil, &propsize)
 
         if result != 0 {
-            print("Error \(result) from AudioObjectGetPropertyDataSize")
+            AKLog("Error \(result) from AudioObjectGetPropertyDataSize")
             return []
         }
 
@@ -44,7 +44,7 @@ struct AudioDeviceUtils {
         }
 
         if result != 0 {
-            print("Error \(result) from AudioObjectGetPropertyData")
+            AKLog("Error \(result) from AudioObjectGetPropertyData")
             return []
         }
 
