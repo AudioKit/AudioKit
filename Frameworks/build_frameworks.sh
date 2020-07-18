@@ -49,6 +49,7 @@ then
 	else # Test build
 		ACTIVE_ARCH=YES
 		XCSUFFIX="-travis"
+		SIMULATOR_ONLY=true
 		PLATFORMS="iOS macOS" # Skipping tvOS?
 	fi
 elif [[ "$GITHUB_ACTION" != "" ]]; then
@@ -56,6 +57,7 @@ elif [[ "$GITHUB_ACTION" != "" ]]; then
 	if [[ "$GITHUB_REF" != "refs/heads/staging" ]] && [[ "$GITHUB_REF" != refs/tag/* ]]; then
 		ACTIVE_ARCH=YES
 		XCSUFFIX="-travis"
+		SIMULATOR_ONLY=true
 	else
 		ACTIVE_ARCH=NO
 		XCSUFFIX=""
@@ -93,7 +95,7 @@ create_universal_frameworks()
 		fi
 	done
 	
-	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
+	if test "$SIMULATOR_ONLY" = true;
 	then # Only build for simulator on Travis CI, unless we're building a release
 		for f in ${PROJECT_NAME} $FRAMEWORKS; do
 			cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/${f}" "${DIR}/${f}.framework/"
