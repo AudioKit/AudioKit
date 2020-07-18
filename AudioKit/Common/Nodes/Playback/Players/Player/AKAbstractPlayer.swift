@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
-public class AKAbstractPlayer: AKNode {
+open class AKAbstractPlayer: AKNode {
     /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
         case realtime, offline
@@ -195,7 +195,6 @@ public class AKAbstractPlayer: AKNode {
 
     /// Stub function to be implemented on route changes in subclasses
     open func initialize(restartIfPlaying: Bool = true) {}
-
     open func play() {}
     open func stop() {}
 
