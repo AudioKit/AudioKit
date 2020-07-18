@@ -68,8 +68,10 @@ protected:
 
     // current time in samples
     AUEventSampleTime now = 0;
+
+    static constexpr int maxParameters = 128;
     
-    std::map<AUParameterAddress, class ParameterRamper*> parameters;
+    class ParameterRamper* parameters[maxParameters];
 
 public:
     
