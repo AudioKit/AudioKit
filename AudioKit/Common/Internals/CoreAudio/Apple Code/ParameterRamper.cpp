@@ -10,8 +10,7 @@
 #include "ParameterRamper.hpp"
 
 #import <AudioToolbox/AUAudioUnit.h>
-#import <libkern/OSAtomic.h>
-#import <stdatomic.h>
+#include <atomic>
 #include <math.h>
 
 struct ParameterRamper::InternalData {
@@ -26,7 +25,7 @@ struct ParameterRamper::InternalData {
     float goal;
     uint32_t duration;
     uint32_t samplesRemaining;
-    volatile atomic_int changeCounter = 0;
+    std::atomic_int changeCounter{0};
     int32_t updateCounter = 0;
 };
 
