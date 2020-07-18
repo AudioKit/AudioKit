@@ -1,5 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+public struct AKNodeParameterDef {
+    var identifier: String
+    var name: String
+    var address: AUParameterAddress
+    var range: ClosedRange<AUValue>
+    var unit: AudioUnitParameterUnit
+    var flags: AudioUnitParameterOptions
+}
+
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class AKNodeParameter {
