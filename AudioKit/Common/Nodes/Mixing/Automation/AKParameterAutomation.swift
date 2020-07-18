@@ -191,3 +191,42 @@ public extension AKParameterAutomationPoint {
                   rampSkew: 0)
     }
 }
+
+extension AKParameterAutomationPoint: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.targetValue == rhs.targetValue
+            && lhs.startTime == rhs.startTime
+            && lhs.rampDuration == rhs.rampDuration
+            && lhs.rampTaper == rhs.rampTaper
+            && lhs.rampSkew == rhs.rampSkew
+    }
+}
+
+/// Replaces automation over a time range.
+/// - Parameters:
+///   - points: existing automation curve
+///   - newPoints: new automation events
+///   - startTime: start of range to replace
+///   - stopTime: end of range to replace
+/// - Returns: new automation curve
+public func AKReplaceAutomation(points: [AKParameterAutomationPoint],
+                                newPoints: [(Double, AUValue)],
+                                startTime: Double,
+                                stopTime: Double) -> [AKParameterAutomationPoint] {
+    var result = points
+
+    // Clear existing points in segment range.
+    result.removeAll { point in
+        point.startTime >= startTime && point.startTime <= stopTime
+    }
+
+    // Append recorded points.
+    result.append(contentsOf: newPoints.map { point in
+        AKParameterAutomationPoint(targetValue: point.1, startTime: point.0, rampDuration: 0.01)
+    })
+
+    // Sort vector by time.
+    result.sort { $0.startTime < $1.startTime }
+
+    return result
+}
