@@ -38,7 +38,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
             return createHighPassButterworthFilterDSP()
         }
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this filter node

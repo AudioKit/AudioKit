@@ -6,7 +6,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
-    public typealias AKAudioUnitType = AKDynamicRangeCompressorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,17 +14,65 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
 
     // MARK: - Parameters
 
+    static let ratioDef = AKNodeParameterDef(
+        identifier: "ratio",
+        name: "Ratio to compress with, a value > 1 will compress",
+        address: AKDynamicRangeCompressorParameter.ratio.rawValue,
+        range: 0.01 ... 100.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Ratio to compress with, a value > 1 will compress
     @Parameter public var ratio: AUValue
+
+    static let thresholdDef = AKNodeParameterDef(
+        identifier: "threshold",
+        name: "Threshold (in dB) 0 = max",
+        address: AKDynamicRangeCompressorParameter.threshold.rawValue,
+        range: -100.0 ... 0.0,
+        unit: .generic,
+        flags: .default)
 
     /// Threshold (in dB) 0 = max
     @Parameter public var threshold: AUValue
 
+    static let attackDurationDef = AKNodeParameterDef(
+        identifier: "attackDuration",
+        name: "Attack duration",
+        address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .seconds,
+        flags: .default)
+
     /// Attack duration
     @Parameter public var attackDuration: AUValue
 
+    static let releaseDurationDef = AKNodeParameterDef(
+        identifier: "releaseDuration",
+        name: "Release duration",
+        address: AKDynamicRangeCompressorParameter.releaseDuration.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .seconds,
+        flags: .default)
+
     /// Release Duration
     @Parameter public var releaseDuration: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKDynamicRangeCompressor.ratioDef,
+                    AKDynamicRangeCompressor.thresholdDef,
+                    AKDynamicRangeCompressor.attackDurationDef,
+                    AKDynamicRangeCompressor.releaseDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createDynamicRangeCompressorDSP()
+        }
+    }
 
     // MARK: - Initialization
 
