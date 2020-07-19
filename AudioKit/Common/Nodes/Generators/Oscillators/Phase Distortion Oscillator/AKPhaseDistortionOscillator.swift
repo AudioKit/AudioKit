@@ -10,7 +10,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 
-    public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -20,20 +20,77 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
 
     fileprivate var waveform: AKTable?
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
+        range: 0 ... 20_000,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
+
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude",
+        address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
+        range: 0 ... 10,
+        unit: .generic,
+        flags: .default)
 
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
+    static let phaseDistortionDef = AKNodeParameterDef(
+        identifier: "phaseDistortion",
+        name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
+        address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
+        range: -1 ... 1,
+        unit: .generic,
+        flags: .default)
+
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
     @Parameter public var phaseDistortion: AUValue
+
+    static let detuningOffsetDef = AKNodeParameterDef(
+        identifier: "detuningOffset",
+        name: "Frequency offset (Hz)",
+        address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
+        range: -1_000 ... 1_000,
+        unit: .hertz,
+        flags: .default)
 
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    static let detuningMultiplierDef = AKNodeParameterDef(
+        identifier: "detuningMultiplier",
+        name: "Frequency detuning multiplier",
+        address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,
+        range: 0.9 ... 1.11,
+        unit: .generic,
+        flags: .default)
+
     /// Frequency detuning multiplier
     @Parameter public var detuningMultiplier: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKPhaseDistortionOscillator.frequencyDef,
+                    AKPhaseDistortionOscillator.amplitudeDef,
+                    AKPhaseDistortionOscillator.phaseDistortionDef,
+                    AKPhaseDistortionOscillator.detuningOffsetDef,
+                    AKPhaseDistortionOscillator.detuningMultiplierDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createPhaseDistortionOscillatorDSP()
+        }
+    }
 
     // MARK: - Initialization
 

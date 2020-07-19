@@ -7,7 +7,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
 
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
-    public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -17,20 +17,77 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
 
     fileprivate var waveformArray = [AKTable]()
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (in Hz)",
+        address: AKMorphingOscillatorParameter.frequency.rawValue,
+        range: 0.0 ... 22_050.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency (in Hz)
     @Parameter public var frequency: AUValue
+
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude (typically a value between 0 and 1).",
+        address: AKMorphingOscillatorParameter.amplitude.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .hertz,
+        flags: .default)
 
     /// Amplitude (typically a value between 0 and 1).
     @Parameter public var amplitude: AUValue
 
+    static let indexDef = AKNodeParameterDef(
+        identifier: "index",
+        name: "Index of the wavetable to use (fractional are okay).",
+        address: AKMorphingOscillatorParameter.index.rawValue,
+        range: 0.0 ... 1_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Index of the wavetable to use (fractional are okay).
     @Parameter public var index: AUValue
+
+    static let detuningOffsetDef = AKNodeParameterDef(
+        identifier: "detuningOffset",
+        name: "Frequency offset (Hz)",
+        address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
+        range: -1000.0 ... 1_000.0,
+        unit: .hertz,
+        flags: .default)
 
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    static let detuningMultiplierDef = AKNodeParameterDef(
+        identifier: "detuningMultiplier",
+        name: "Frequency detuning multiplier",
+        address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
+        range: 0.9 ... 1.11,
+        unit: .generic,
+        flags: .default)
+
     /// Frequency detuning multiplier
     @Parameter public var detuningMultiplier: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKMorphingOscillator.frequencyDef,
+                    AKMorphingOscillator.amplitudeDef,
+                    AKMorphingOscillator.indexDef,
+                    AKMorphingOscillator.detuningOffsetDef,
+                    AKMorphingOscillator.detuningMultiplierDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createMorphingOscillatorDSP()
+        }
+    }
 
     // MARK: - Initialization
 
