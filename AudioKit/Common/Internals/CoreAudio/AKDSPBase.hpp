@@ -101,9 +101,6 @@ public:
     /// Get the DSP into initialized state
     virtual void reset() {}
 
-    /// Many effects have a single value that is a constant for the lifetime of the effect
-    virtual void initializeConstant(AUValue value) {}
-
     /// Common for oscillators
     virtual void setWavetable(const float* table, size_t length, int index) {}
 

@@ -12,4 +12,6 @@ typedef NS_ENUM(AUParameterAddress, AKFlatFrequencyResponseReverbParameter) {
 
 AKDSPRef createFlatFrequencyResponseReverbDSP(void);
 
+void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration);
+
 #endif

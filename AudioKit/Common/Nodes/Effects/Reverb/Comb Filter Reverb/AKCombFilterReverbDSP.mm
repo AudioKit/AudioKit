@@ -17,6 +17,11 @@ public:
         parameters[AKCombFilterReverbParameterReverbDuration] = &reverbDurationRamp;
     }
 
+    void setLoopDuration(float duration) {
+        loopDuration = duration;
+        reset();
+    }
+
     void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_comb_create(&comb0);
@@ -36,10 +41,6 @@ public:
         if (!isInitialized) return;
         sp_comb_init(sp, comb0, loopDuration);
         sp_comb_init(sp, comb1, loopDuration);
-    }
-
-    void initializeConstant(float duration) {
-        loopDuration = duration;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -77,4 +78,8 @@ public:
 
 extern "C" AKDSPRef createCombFilterReverbDSP() {
     return new AKCombFilterReverbDSP();
+}
+
+extern "C" void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration) {
+    ((AKCombFilterReverbDSP *)dsp)->setLoopDuration(duration);
 }
