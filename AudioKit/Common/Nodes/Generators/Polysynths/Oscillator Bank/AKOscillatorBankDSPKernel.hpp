@@ -55,7 +55,7 @@ protected:
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
                 float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
-                osc->freq = bentFrequency * powf(2, depth * variation);
+                osc->freq = bentFrequency * exp2f(depth * variation);
                 
                 sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
                 sp_osc_compute(kernel->getSpData(), osc, nil, &x);
