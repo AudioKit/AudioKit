@@ -6,7 +6,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
-    public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,14 +14,53 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
 
     // MARK: - Parameters
 
+    static let centerFrequencyDef = AKNodeParameterDef(
+        identifier: "centerFrequency",
+        name: "Center Frequency (Hz)",
+        address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
+
+    static let gainDef = AKNodeParameterDef(
+        identifier: "gain",
+        name: "Gain",
+        address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
 
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
+    static let qDef = AKNodeParameterDef(
+        identifier: "q",
+        name: "Q",
+        address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,
+        range: 0.0 ... 2.0,
+        unit: .generic,
+        flags: .default)
+
     /// Q of the filter. sqrt(0.5) is no resonance.
     @Parameter public var q: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKPeakingParametricEqualizerFilter.centerFrequencyDef,
+                    AKPeakingParametricEqualizerFilter.gainDef,
+                    AKPeakingParametricEqualizerFilter.qDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createPeakingParametricEqualizerFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 

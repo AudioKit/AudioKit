@@ -6,7 +6,7 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
-    public typealias AKAudioUnitType = AKPannerAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,8 +14,29 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     // MARK: - Parameters
 
+    static let panDef = AKNodeParameterDef(
+        identifier: "pan",
+        name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
+        address: AKPannerParameter.pan.rawValue,
+        range: -1 ... 1,
+        unit: .generic,
+        flags: .default)
+
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     @Parameter public var pan: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKPanner.panDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createPannerDSP()
+        }
+    }
 
     // MARK: - Initialization
 
