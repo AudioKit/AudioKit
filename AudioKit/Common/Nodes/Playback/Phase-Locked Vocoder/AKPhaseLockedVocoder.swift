@@ -8,7 +8,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
 
     public static let ComponentDescription = AudioComponentDescription(effect: "minc")
 
-    public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -16,14 +16,53 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
 
     // MARK: - Parameters
 
+    static let positionDef = AKNodeParameterDef(
+        identifier: "position",
+        name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
+        address: AKPhaseLockedVocoderParameter.position.rawValue,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: .default)
+
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @Parameter public var position: AUValue
+
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude.",
+        address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: .default)
 
     /// Amplitude.
     @Parameter public var amplitude: AUValue
 
+    static let pitchRatioDef = AKNodeParameterDef(
+        identifier: "pitchRatio",
+        name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
+        address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,
+        range: 0 ... 1_000,
+        unit: .hertz,
+        flags: .default)
+
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     @Parameter public var pitchRatio: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKPhaseLockedVocoder.positionDef,
+                    AKPhaseLockedVocoder.amplitudeDef,
+                    AKPhaseLockedVocoder.pitchRatioDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createPhaseLockedVocoderDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -44,7 +83,6 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
         self.position = position
         self.amplitude = amplitude
         self.pitchRatio = pitchRatio
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit

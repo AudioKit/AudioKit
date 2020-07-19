@@ -6,7 +6,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
-    public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,17 +14,65 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     // MARK: - Parameters
 
+    static let pregainDef = AKNodeParameterDef(
+        identifier: "pregain",
+        name: "Pregain",
+        address: AKTanhDistortionParameter.pregain.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
+
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter public var pregain: AUValue
+
+    static let postgainDef = AKNodeParameterDef(
+        identifier: "postgain",
+        name: "Postgain",
+        address: AKTanhDistortionParameter.postgain.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
 
     /// Gain applied after waveshaping
     @Parameter public var postgain: AUValue
 
+    static let positiveShapeParameterDef = AKNodeParameterDef(
+        identifier: "positiveShapeParameter",
+        name: "Positive Shape Parameter",
+        address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
+        range: -10.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
+
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @Parameter public var positiveShapeParameter: AUValue
 
+    static let negativeShapeParameterDef = AKNodeParameterDef(
+        identifier: "negativeShapeParameter",
+        name: "Negative Shape Parameter",
+        address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
+        range: -10.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
+
     /// Like the positive shape parameter, only for the negative part.
     @Parameter public var negativeShapeParameter: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKTanhDistortion.pregainDef,
+                    AKTanhDistortion.postgainDef,
+                    AKTanhDistortion.positiveShapeParameterDef,
+                    AKTanhDistortion.negativeShapeParameterDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createTanhDistortionDSP()
+        }
+    }
 
     // MARK: - Initialization
 
