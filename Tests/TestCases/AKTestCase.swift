@@ -47,6 +47,7 @@ class AKTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         afterStart = { self.input.start() }
+        AKDebugDSPSetActive(true)
         // This method is called before the invocation of each test method in the class.
     }
 
@@ -55,6 +56,7 @@ class AKTestCase: XCTestCase {
         AKManager.disconnectAllInputs()
         try! AKManager.stop()
         super.tearDown()
+        AKDebugDSPSetActive(false)
     }
 
 }
