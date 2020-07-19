@@ -33,15 +33,10 @@ docs/
 output/
 dev/
 
-Dev.playground
-
 # During Development
 AudioUnits
 
-# JUCE related
-Builds/
-JuceLibraryCode/
-
 # Style Checking 
 SwiftStyleSettings.plist
+
 /Frameworks/distribute_built_frameworks.sh
