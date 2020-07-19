@@ -4,7 +4,7 @@
 /// Automation support.
 public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
-    public typealias AKAudioUnitType = AKFaderAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
@@ -14,8 +14,6 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
 
     // MARK: - Parameters
 
-    public static var gainRange: ClosedRange<AUValue> = (0 ... 4)
-
     /// Amplification Factor, from 0 ... 4
     open var gain: AUValue = 1 {
         willSet {
@@ -24,8 +22,24 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         }
     }
 
+    static let leftGainDef = AKNodeParameterDef(
+        identifier: "leftGain",
+        name: "Left Gain",
+        address: AKFaderParameter.leftGain.rawValue,
+        range: 0 ... 4,
+        unit: .linearGain,
+        flags: .default)
+
     /// Left Channel Amplification Factor
     @Parameter var leftGain: AUValue
+
+    static let rightGainDef = AKNodeParameterDef(
+        identifier: "rightGain",
+        name: "Right Gain",
+        address: AKFaderParameter.rightGain.rawValue,
+        range: 0 ... 4,
+        unit: .linearGain,
+        flags: .default)
 
     /// Right Channel Amplification Factor
     @Parameter var rightGain: AUValue
@@ -36,12 +50,43 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         get { return 20.0 * log10(gain) }
     }
 
+    static let flipStereoDef = AKNodeParameterDef(
+        identifier: "flipStereo",
+        name: "Flip Stereo",
+        address: AKFaderParameter.flipStereo.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .boolean,
+        flags: .default)
+
     /// Flip left and right signal
     @Parameter public var flipStereo: Bool = false
+
+    static let mixToMonoDef = AKNodeParameterDef(
+        identifier: "mixToMono",
+        name: "Mix To Mono",
+        address: AKFaderParameter.mixToMono.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .boolean,
+        flags: .default)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
     @Parameter public var mixToMono: Bool = false
 
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKFader.leftGainDef,
+                    AKFader.rightGainDef,
+                    AKFader.flipStereoDef,
+                    AKFader.mixToMonoDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createFaderDSP()
+        }
+    }
     // MARK: - Initialization
 
     /// Initialize this fader node

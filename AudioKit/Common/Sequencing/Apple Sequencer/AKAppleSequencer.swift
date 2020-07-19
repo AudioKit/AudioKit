@@ -2,6 +2,7 @@
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
 open class AKAppleSequencer: NSObject {
+
     /// Music sequence
     open var sequence: MusicSequence?
 

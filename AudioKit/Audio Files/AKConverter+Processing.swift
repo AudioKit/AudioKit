@@ -16,8 +16,6 @@ extension AKConverter {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        // AKLog("Converting Asset to", outputFormat)
-
         // verify outputFormat
         guard AKConverter.outputFormats.contains(outputFormat) else {
             completionHandler?(createError(message: "The output file format isn't able to be produced by this class."))

@@ -70,7 +70,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createVariableDelayDSP()
+            return createStereoDelayDSP()
         }
     }
 
