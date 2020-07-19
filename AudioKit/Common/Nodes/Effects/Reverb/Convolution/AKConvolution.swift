@@ -5,12 +5,9 @@
 ///
 public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
-    public typealias AKAudioUnitType = AKConvolutionAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -18,6 +15,19 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public func setPartitionLength(_ length: Int) {
+            setPartitionLengthConvolutionDSP(dsp, Int32(length))
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createConvolutionDSP()
+        }
+    }
 
     // MARK: - Initialization
 
