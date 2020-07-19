@@ -10,16 +10,21 @@
 ///
 public class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
-    // MARK: - AKComponent
-
-    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
-    public typealias AKAudioUnitType = AKChowningReverbAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
     // MARK: - Parameters
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+        public override func createDSP() -> AKDSPRef {
+            return createChowningReverbDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -32,13 +37,11 @@ public class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil
         ) {
         super.init(avAudioNode: AVAudioNode())
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: self)
         }
     }

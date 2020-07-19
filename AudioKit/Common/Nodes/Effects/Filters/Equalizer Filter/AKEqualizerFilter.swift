@@ -9,7 +9,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
-    public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -17,14 +17,53 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
     // MARK: - Parameters
 
+    static let centerFrequencyDef = AKNodeParameterDef(
+        identifier: "centerFrequency",
+        name: "Center Frequency (Hz)",
+        address: AKEqualizerFilterParameter.centerFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
+
+    static let bandwidthDef = AKNodeParameterDef(
+        identifier: "bandwidth",
+        name: "Bandwidth (Hz)",
+        address: AKEqualizerFilterParameter.bandwidth.rawValue,
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
 
     /// The peak/notch bandwidth in Hertz
     @Parameter public var bandwidth: AUValue
 
+    static let gainDef = AKNodeParameterDef(
+        identifier: "gain",
+        name: "Gain (%)",
+        address: AKEqualizerFilterParameter.gain.rawValue,
+        range: -100.0 ... 100.0,
+        unit: .percent,
+        flags: .default)
+
     /// The peak/notch gain
     @Parameter public var gain: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKEqualizerFilter.centerFrequencyDef,
+                    AKEqualizerFilter.bandwidthDef,
+                    AKEqualizerFilter.gainDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createEqualizerFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 
