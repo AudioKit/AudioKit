@@ -6,25 +6,73 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
-    public typealias AKAudioUnitType = AKStereoDelayAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public var parameterAutomation: AKParameterAutomation?
+    public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
+
+    static let timeDef = AKNodeParameterDef(
+        identifier: "time",
+        name: "Delay time (Seconds)",
+        address: AKVariableDelayParameter.time.rawValue,
+        range: 0 ... 2.0,
+        unit: .seconds,
+        flags: .default)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
+    static let feedbackDef = AKNodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: AKStereoDelayParameter.feedback.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Feedback amount. Should be a value between 0-1.
     @Parameter public var feedback: AUValue
+
+    static let dryWetMixDef = AKNodeParameterDef(
+       identifier: "dryWetMix",
+       name: "Dry-Wet Mix",
+       address: AKStereoDelayParameter.dryWetMix.rawValue,
+       range: 0.0 ... 1.0,
+       unit: .generic,
+       flags: .default)
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter public var dryWetMix: AUValue
 
+    static let pingPongDef = AKNodeParameterDef(
+       identifier: "pingPong",
+       name: "Ping-Pong Mode",
+       address: AKStereoDelayParameter.pingPong.rawValue,
+       range: 0.0...1.0,
+       unit: .boolean,
+       flags: [.flag_IsReadable, .flag_IsWritable])
+
     /// Ping-pong mode: true or false (stereo mode)
     @Parameter public var pingPong: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKStereoDelay.timeDef,
+                    AKStereoDelay.feedbackDef,
+                    AKStereoDelay.dryWetMixDef,
+                    AKStereoDelay.pingPongDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createVariableDelayDSP()
+        }
+    }
 
     // MARK: - Initialization
 

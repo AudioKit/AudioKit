@@ -6,7 +6,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
-    public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,14 +14,53 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     // MARK: - Parameters
 
+    static let cutoffFrequencyDef = AKNodeParameterDef(
+        identifier: "cutoffFrequency",
+        name: "Filter cutoff",
+        address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
+        range: 0.0 ... 22_050.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Filter cutoff
     @Parameter public var cutoffFrequency: AUValue
+
+    static let resonanceDef = AKNodeParameterDef(
+        identifier: "resonance",
+        name: "Filter resonance (should be between 0-2)",
+        address: AKKorgLowPassFilterParameter.resonance.rawValue,
+        range: 0.0 ... 2.0,
+        unit: .generic,
+        flags: .default)
 
     /// Filter resonance (should be between 0-2)
     @Parameter public var resonance: AUValue
 
+    static let saturationDef = AKNodeParameterDef(
+        identifier: "saturation",
+        name: "Filter saturation.",
+        address: AKKorgLowPassFilterParameter.saturation.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
+
     /// Filter saturation.
     @Parameter public var saturation: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKKorgLowPassFilter.cutoffFrequencyDef,
+                    AKKorgLowPassFilter.resonanceDef,
+                    AKKorgLowPassFilter.saturationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createKorgLowPassFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 

@@ -6,7 +6,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
-    public typealias AKAudioUnitType = AKTremoloAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,11 +14,41 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKTremoloParameter.frequency.rawValue,
+        range: 0.0 ... 100.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    /// Depth (0 - 1)
+    static let depthDef = AKNodeParameterDef(
+        identifier: "depth",
+        name: "Depth",
+        address: AKTremoloParameter.depth.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
+    /// Depth
     @Parameter public var depth: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKTremolo.frequencyDef,
+                    AKTremolo.depthDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createTremoloDSP()
+        }
+    }
 
     // MARK: - Initialization
 
