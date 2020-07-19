@@ -7,7 +7,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
-    public typealias AKAudioUnitType = AKClipperAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -15,8 +15,29 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
+    static let limitDef = AKNodeParameterDef(
+        identifier: "limit",
+        name: "Threshold",
+        address: AKClipperParameter.limit.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Threshold / limiting value.
     @Parameter public var limit: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKClipper.limitDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createClipperDSP()
+        }
+    }
 
     // MARK: - Initialization
 

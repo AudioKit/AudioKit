@@ -7,7 +7,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
-    public typealias AKAudioUnitType = AKHighPassButterworthFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -15,9 +15,30 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
 
     // MARK: - Parameters
 
+    static let cutoffFrequencyDef = AKNodeParameterDef(
+        identifier: "cutoffFrequency",
+        name: "Cutoff Frequency (Hz)",
+        address: AKHighPassButterworthFilterParameter.cutoffFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
 
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKHighPassButterworthFilter.cutoffFrequencyDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createHighPassButterworthFilterDSP()
+        }
+    }
+    
     // MARK: - Initialization
 
     /// Initialize this filter node

@@ -6,7 +6,7 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
-    public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,8 +14,29 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
 
     // MARK: - Parameters
 
+    static let halfPowerPointDef = AKNodeParameterDef(
+        identifier: "halfPowerPoint",
+        name: "Half-Power Point (Hz)",
+        address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     @Parameter public var halfPowerPoint: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKToneComplementFilter.halfPowerPointDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createToneComplementFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 

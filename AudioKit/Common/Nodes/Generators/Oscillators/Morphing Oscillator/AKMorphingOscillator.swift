@@ -54,7 +54,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
-        range: -1000.0 ... 1_000.0,
+        range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
 

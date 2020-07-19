@@ -6,13 +6,11 @@
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-/// TODO: Known bug: Loop duration is ignored
-///
 public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
-    public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -20,8 +18,29 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
 
     // MARK: - Parameters
 
+    static let reverbDurationDef = AKNodeParameterDef(
+        identifier: "reverbDuration",
+        name: "Reverb Duration (Seconds)",
+        address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: .default)
+
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     @Parameter public var reverbDuration: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKFlatFrequencyResponseReverb.reverbDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createFlatFrequencyResponseReverbDSP()
+        }
+    }
 
     // MARK: - Initialization
 
