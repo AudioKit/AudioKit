@@ -6,7 +6,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompon
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
-    public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,14 +14,53 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompon
 
     // MARK: - Parameters
 
+    static let cornerFrequencyDef = AKNodeParameterDef(
+        identifier: "cornerFrequency",
+        name: "Corner Frequency (Hz)",
+        address: AKLowShelfParametricEqualizerFilterParameter.cornerFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Corner frequency.
     @Parameter public var cornerFrequency: AUValue
+
+    static let gainDef = AKNodeParameterDef(
+        identifier: "gain",
+        name: "Gain",
+        address: AKLowShelfParametricEqualizerFilterParameter.gain.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
 
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
+    static let qDef = AKNodeParameterDef(
+        identifier: "q",
+        name: "Q",
+        address: AKLowShelfParametricEqualizerFilterParameter.Q.rawValue,
+        range: 0.0 ... 2.0,
+        unit: .generic,
+        flags: .default)
+
     /// Q of the filter. sqrt(0.5) is no resonance.
     @Parameter public var q: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKLowShelfParametricEqualizerFilter.cornerFrequencyDef,
+                    AKLowShelfParametricEqualizerFilter.gainDef,
+                    AKLowShelfParametricEqualizerFilter.qDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createLowShelfParametricEqualizerFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -40,11 +79,9 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompon
         q: AUValue = 0.707
         ) {
         super.init(avAudioNode: AVAudioNode())
-
         self.cornerFrequency = cornerFrequency
         self.gain = gain
         self.q = q
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit

@@ -10,7 +10,7 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
-    public typealias AKAudioUnitType = AKMoogLadderAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -18,12 +18,41 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
+    static let cutoffFrequencyDef = AKNodeParameterDef(
+        identifier: "cutoffFrequency",
+        name: "Cutoff Frequency (Hz)",
+        address: AKMoogLadderParameter.cutoffFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Filter cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
-    /// Resonance, generally < 1, but not limited to it.
-    /// Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    static let resonanceDef = AKNodeParameterDef(
+        identifier: "resonance",
+        name: "Resonance (%)",
+        address: AKMoogLadderParameter.resonance.rawValue,
+        range: 0.0 ... 2.0,
+        unit: .percent,
+        flags: .default)
+
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKMoogLadder.cutoffFrequencyDef,
+                    AKMoogLadder.resonanceDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createMoogLadderDSP()
+        }
+    }
 
     // MARK: - Initialization
 
