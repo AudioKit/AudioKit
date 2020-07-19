@@ -43,10 +43,6 @@ public:
         sp_allpass_init(sp, allpass1, loopDuration);
     }
 
-    void initializeConstant(float duration) {
-        loopDuration = duration;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -82,4 +78,8 @@ public:
 
 extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP() {
     return new AKFlatFrequencyResponseReverbDSP();
+}
+
+extern "C" void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration) {
+    ((AKFlatFrequencyResponseReverbDSP *)dsp)->setLoopDuration(duration);
 }

@@ -169,10 +169,6 @@ open class AKAudioUnitBase: AUAudioUnit {
         stopDSP(dsp)
     }
 
-    public func initializeConstant(_ constant: AUValue) {
-        initializeConstantDSP(dsp, constant)
-    }
-
     public func trigger() {
         triggerDSP(dsp)
     }

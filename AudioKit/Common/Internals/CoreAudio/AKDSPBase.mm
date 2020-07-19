@@ -78,11 +78,6 @@ extern "C" void stopDSP(AKDSPRef pDSP)
     pDSP->stop();
 }
 
-extern "C" void initializeConstantDSP(AKDSPRef pDSP, AUValue value)
-{
-    pDSP->initializeConstant(value);
-}
-
 extern "C" void triggerDSP(AKDSPRef pDSP)
 {
     pDSP->trigger();

@@ -37,6 +37,10 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
             return [AKFlatFrequencyResponseReverb.reverbDurationDef]
         }
 
+        public func setLoopDuration(_ duration: AUValue) {
+            setLoopDurationFlatFrequencyResponseDSP(dsp, duration)
+        }
+
         public override func createDSP() -> AKDSPRef {
             return createFlatFrequencyResponseReverbDSP()
         }
@@ -67,7 +71,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
-            self.internalAU?.initializeConstant(loopDuration)
+            self.internalAU?.setLoopDuration(loopDuration)
         }
     }
 }

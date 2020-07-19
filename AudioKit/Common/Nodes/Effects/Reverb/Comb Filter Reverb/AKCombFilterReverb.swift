@@ -37,6 +37,10 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
             return [AKCombFilterReverb.reverbDurationDef]
         }
 
+        public func setLoopDuration(_ duration: AUValue) {
+            setLoopDurationFlatFrequencyResponseDSP(dsp, duration)
+        }
+
         public override func createDSP() -> AKDSPRef {
             return createCombFilterReverbDSP()
         }
@@ -69,7 +73,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
-            self.internalAU?.initializeConstant(loopDuration)
+            self.internalAU?.setLoopDuration(loopDuration)
         }
     }
 }
