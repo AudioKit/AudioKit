@@ -11,7 +11,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
-    public typealias AKAudioUnitType = AKStringResonatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -19,12 +19,43 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
     // MARK: - Parameters
 
+    static let fundamentalFrequencyDef = AKNodeParameterDef(
+        identifier: "fundamentalFrequency",
+        name: "Fundamental Frequency (Hz)",
+        address: AKStringResonatorParameter.fundamentalFrequency.rawValue,
+        range: 12.0 ... 10_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Fundamental frequency of string.
     @Parameter public var fundamentalFrequency: AUValue
 
+    static let feedbackDef = AKNodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: AKStringResonatorParameter.feedback.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+
     @Parameter public var feedback: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKStringResonator.fundamentalFrequencyDef,
+                    AKStringResonator.feedbackDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createStringResonatorDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -43,10 +74,8 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
         feedback: AUValue = 0.95
         ) {
         super.init(avAudioNode: AVAudioNode())
-
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit

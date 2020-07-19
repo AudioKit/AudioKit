@@ -6,7 +6,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
-    public typealias AKAudioUnitType = AKPitchShifterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,14 +14,53 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
 
     // MARK: - Parameters
 
+    static let shiftDef = AKNodeParameterDef(
+        identifier: "shift",
+        name: "Pitch shift (in semitones)",
+        address: AKPitchShifterParameter.shift.rawValue,
+        range: -24.0 ... 24.0,
+        unit: .relativeSemiTones,
+        flags: .default)
+
     /// Pitch shift (in semitones)
     @Parameter public var shift: AUValue
+
+    static let windowSizeDef = AKNodeParameterDef(
+        identifier: "windowSize",
+        name: "Window size (in samples)",
+        address: AKPitchShifterParameter.windowSize.rawValue,
+        range: 0.0 ... 10_000.0,
+        unit: .hertz,
+        flags: .default)
 
     /// Window size (in samples)
     @Parameter public var windowSize: AUValue
 
+    static let crossfadeDef = AKNodeParameterDef(
+        identifier: "crossfade",
+        name: "Crossfade (in samples)",
+        address: AKPitchShifterParameter.crossfade.rawValue,
+        range: 0.0 ... 10_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Crossfade (in samples)
     @Parameter public var crossfade: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKPitchShifter.shiftDef,
+                    AKPitchShifter.windowSizeDef,
+                    AKPitchShifter.crossfadeDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createPitchShifterDSP()
+        }
+    }
 
     // MARK: - Initialization
 
