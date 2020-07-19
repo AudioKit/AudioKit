@@ -65,6 +65,12 @@
 		22D8FAB9248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D8FABA248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D8FABB248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		291F62EB24C4FB3C00B754F9 /* DebugDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 291F62E924C4FB3C00B754F9 /* DebugDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		291F62EC24C4FB3C00B754F9 /* DebugDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 291F62E924C4FB3C00B754F9 /* DebugDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		291F62ED24C4FB3C00B754F9 /* DebugDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = 291F62E924C4FB3C00B754F9 /* DebugDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		291F62EE24C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
+		291F62EF24C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
+		291F62F024C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29AB123424C2337C00547AA5 /* MIDIMetaEvent+allocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */; };
@@ -3641,6 +3647,8 @@
 		22D8FAB0248E8B8C0009EE7C /* AKParameterAutomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKParameterAutomation.swift; sourceTree = "<group>"; };
 		22D8FAB4248E8BBD0009EE7C /* AKParameterAutomation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKParameterAutomation.mm; sourceTree = "<group>"; };
 		22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKParameterAutomation.hpp; sourceTree = "<group>"; };
+		291F62E924C4FB3C00B754F9 /* DebugDSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDSP.h; sourceTree = "<group>"; };
+		291F62EA24C4FB3C00B754F9 /* DebugDSP.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DebugDSP.c; sourceTree = "<group>"; };
 		29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Devices.swift"; sourceTree = "<group>"; };
 		29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIMetaEvent+allocate.swift"; sourceTree = "<group>"; };
@@ -5213,6 +5221,8 @@
 				C4BC749E203023CC00062B11 /* Exception Catcher */,
 				551AAC291F61F42100A14C0D /* Synchronization */,
 				C43322FA1FE05F0100330AEC /* Timeline */,
+				291F62E924C4FB3C00B754F9 /* DebugDSP.h */,
+				291F62EA24C4FB3C00B754F9 /* DebugDSP.c */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -8177,6 +8187,7 @@
 				C4A43294200618650005BFE4 /* AKChowningReverbDSP.hpp in Headers */,
 				B11F88772329B8F000CB8D3F /* AKFaderDSP.hpp in Headers */,
 				C45380531C3A5A4300A51738 /* AKOperationGeneratorAudioUnit.h in Headers */,
+				291F62EB24C4FB3C00B754F9 /* DebugDSP.h in Headers */,
 				C40C414E1C40E3A5009D870B /* EZAudio.h in Headers */,
 				C4077B02200875B000E5923C /* AKFormantFilterDSP.hpp in Headers */,
 				C464078B20105D5500299119 /* AKPluckedStringDSP.hpp in Headers */,
@@ -8740,6 +8751,7 @@
 				EAA62C3A247F3A5B00BF4CDB /* AKAudioUnit.h in Headers */,
 				EAA62C3B247F3A5B00BF4CDB /* AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp in Headers */,
 				EAA62C3D247F3A5B00BF4CDB /* md5.h in Headers */,
+				291F62ED24C4FB3C00B754F9 /* DebugDSP.h in Headers */,
 				EAA62C3F247F3A5B00BF4CDB /* dr_wav.h in Headers */,
 				EAA62C40247F3A5B00BF4CDB /* AudioKit.h in Headers */,
 				EAA62C41247F3A5B00BF4CDB /* AKModulatedDelay.hpp in Headers */,
@@ -9063,6 +9075,7 @@
 				EAA631E7247F44E200BF4CDB /* AKChowningReverbDSP.hpp in Headers */,
 				EAA631EA247F44E200BF4CDB /* AKFaderDSP.hpp in Headers */,
 				EAA631EC247F44E200BF4CDB /* AKOperationGeneratorAudioUnit.h in Headers */,
+				291F62EC24C4FB3C00B754F9 /* DebugDSP.h in Headers */,
 				EAA631EF247F44E200BF4CDB /* EZAudio.h in Headers */,
 				EAA631F0247F44E200BF4CDB /* AKFormantFilterDSP.hpp in Headers */,
 				EAA631F2247F44E200BF4CDB /* AKPluckedStringDSP.hpp in Headers */,
@@ -10301,6 +10314,7 @@
 				C4AA7C001FD2A7C000040720 /* AKTimelineTap.m in Sources */,
 				FE2C8B2820DAC67500009BAC /* AKDiskStreamer.swift in Sources */,
 				34BB6745205AC238000E5450 /* unpack3_seek.c in Sources */,
+				291F62EE24C4FB3C00B754F9 /* DebugDSP.c in Sources */,
 				C49B146F204A06B7009C7C8E /* writecode.c in Sources */,
 				C49B13E5204A06B7009C7C8E /* conv.c in Sources */,
 			);
@@ -10890,6 +10904,7 @@
 				EAA62A49247F3A5B00BF4CDB /* EnvelopeGeneratorBase.cpp in Sources */,
 				EAA62A4A247F3A5B00BF4CDB /* AKPresetManager.m in Sources */,
 				EAA62A4B247F3A5B00BF4CDB /* AKManager+Status.swift in Sources */,
+				291F62F024C4FB3C00B754F9 /* DebugDSP.c in Sources */,
 				EAA62A4C247F3A5B00BF4CDB /* fosc.c in Sources */,
 				EAA62A50247F3A5B00BF4CDB /* AKBoosterDSP.mm in Sources */,
 				EAA62A51247F3A5B00BF4CDB /* AKAudioUnit.mm in Sources */,
@@ -11973,6 +11988,7 @@
 				EAA630B9247F44E200BF4CDB /* AKTimelineTap.m in Sources */,
 				EAA630BA247F44E200BF4CDB /* AKDiskStreamer.swift in Sources */,
 				EAA630BB247F44E200BF4CDB /* unpack3_seek.c in Sources */,
+				291F62EF24C4FB3C00B754F9 /* DebugDSP.c in Sources */,
 				EAA630BC247F44E200BF4CDB /* writecode.c in Sources */,
 				EAA630BD247F44E200BF4CDB /* conv.c in Sources */,
 			);
