@@ -6,7 +6,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
-    public typealias AKAudioUnitType = AKAutoPannerAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,11 +14,41 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKAutoPannerParameter.frequency.rawValue,
+        range: 0.0...100.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
+    static let depthDef = AKNodeParameterDef(
+        identifier: "depth",
+        name: "Depth",
+        address: AKAutoPannerParameter.depth.rawValue,
+        range: 0.0...1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Depth
     @Parameter public var depth: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKAutoPanner.frequencyDef,
+                    AKAutoPanner.depthDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createAutoPannerDSP()
+        }
+    }
 
     // MARK: - Initialization
 

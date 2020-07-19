@@ -6,7 +6,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 
-    public typealias AKAudioUnitType = AKBoosterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -22,8 +22,24 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
     }
 
+    static let leftGainDef = AKNodeParameterDef(
+        identifier: "leftGain",
+        name: "Left Boosting Amount",
+        address: 0,
+        range: 0.0...2.0,
+        unit: .linearGain,
+        flags: .default)
+
     /// Left Channel Amplification Factor
     @Parameter public var leftGain: AUValue
+
+    static let rightGainDef = AKNodeParameterDef(
+        identifier: "rightGain",
+        name: "Right Boosting Amount",
+        address: 1,
+        range: 0.0...2.0,
+        unit: .linearGain,
+        flags: .default)
 
     /// Right Channel Amplification Factor
     @Parameter public var rightGain: AUValue
@@ -32,6 +48,20 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     open var dB: AUValue {
         set { gain = pow(10.0, newValue / 20.0) }
         get { return 20.0 * log10(gain) }
+    }
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKBooster.leftGainDef,
+                    AKBooster.rightGainDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createBoosterDSP()
+        }
     }
 
     // MARK: - Initialization

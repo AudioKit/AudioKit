@@ -6,7 +6,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
-    public typealias AKAudioUnitType = AKChorusAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,17 +14,65 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKModulatedDelayParameter.frequency.rawValue,
+        range: 0.1 ... 10.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
+
+    static let depthDef = AKNodeParameterDef(
+        identifier: "depth",
+        name: "Depth 0-1",
+        address: AKModulatedDelayParameter.depth.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
+    static let feedbackDef = AKNodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback 0-1",
+        address: AKModulatedDelayParameter.feedback.rawValue,
+        range: 0.0 ... 0.25,
+        unit: .generic,
+        flags: .default)
+
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
+    static let dryWetMixDef = AKNodeParameterDef(
+        identifier: "dryWetMix",
+        name: "Dry Wet Mix 0-1",
+        address: AKModulatedDelayParameter.dryWetMix.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Dry Wet Mix (fraction)
     @Parameter public var dryWetMix: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKChorus.frequencyDef,
+                    AKChorus.depthDef,
+                    AKChorus.feedbackDef,
+                    AKChorus.dryWetMixDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createChorusDSP()
+        }
+    }
 
     // MARK: - Initialization
 
