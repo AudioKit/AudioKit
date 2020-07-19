@@ -9,7 +9,7 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
         output = input
         AKTestMD5("24c58d48adb46e273d63088f6ca30208")
-        XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "e23e315b977c7616b02f3b6534115212"));
+        XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "e23e315b977c7616b02f3b6534115212"))
     }
 
     func testDefault() {
@@ -33,7 +33,7 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
         AKTestMD5("d3998b51af7f54f1c9088973b931e9af")
-        XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "ea430adbf3a856d283cc32e0f9601c9f"));
+        XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "ea430adbf3a856d283cc32e0f9601c9f"))
     }
 
     func testParametersSetAfterInit() {
