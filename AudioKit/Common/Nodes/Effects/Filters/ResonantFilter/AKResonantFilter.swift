@@ -7,7 +7,7 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
-    public typealias AKAudioUnitType = AKResonantFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -15,11 +15,41 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Center frequency of the filter, or frequency position of the peak response.",
+        address: AKResonantFilterParameter.frequency.rawValue,
+        range: 100.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Center frequency of the filter, or frequency position of the peak response.
     @Parameter public var frequency: AUValue
 
+    static let bandwidthDef = AKNodeParameterDef(
+        identifier: "bandwidth",
+        name: "Bandwidth of the filter.",
+        address: AKResonantFilterParameter.bandwidth.rawValue,
+        range: 0.0 ... 10_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Bandwidth of the filter.
     @Parameter public var bandwidth: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKResonantFilter.frequencyDef,
+                    AKResonantFilter.bandwidthDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createResonantFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 
