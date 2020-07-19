@@ -69,6 +69,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
+            self.internalAU?.initializeConstant(loopDuration)
         }
     }
 }

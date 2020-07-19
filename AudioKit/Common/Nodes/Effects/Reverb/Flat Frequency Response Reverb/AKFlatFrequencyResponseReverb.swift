@@ -67,6 +67,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
+            self.internalAU?.initializeConstant(loopDuration)
         }
     }
 }
