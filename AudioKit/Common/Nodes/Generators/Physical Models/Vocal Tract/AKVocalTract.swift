@@ -9,7 +9,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
-    public typealias AKAudioUnitType = AKVocalTractAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -17,20 +17,77 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Glottal frequency.",
+        address: AKVocalTractParameter.frequency.rawValue,
+        range: 0.0 ... 22_050.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Glottal frequency.
     @Parameter public var frequency: AUValue
+
+    static let tonguePositionDef = AKNodeParameterDef(
+        identifier: "tonguePosition",
+        name: "Tongue position (0-1)",
+        address: AKVocalTractParameter.tonguePosition.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Tongue position (0-1)
     @Parameter public var tonguePosition: AUValue
 
+    static let tongueDiameterDef = AKNodeParameterDef(
+        identifier: "tongueDiameter",
+        name: "Tongue diameter (0-1)",
+        address: AKVocalTractParameter.tongueDiameter.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Tongue diameter (0-1)
     @Parameter public var tongueDiameter: AUValue
+
+    static let tensenessDef = AKNodeParameterDef(
+        identifier: "tenseness",
+        name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
+        address: AKVocalTractParameter.tenseness.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
     @Parameter public var tenseness: AUValue
 
+    static let nasalityDef = AKNodeParameterDef(
+        identifier: "nasality",
+        name: "Sets the velum size. Larger values of this creates more nasally sounds.",
+        address: AKVocalTractParameter.nasality.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Sets the velum size. Larger values of this creates more nasally sounds.
     @Parameter public var nasality: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKVocalTract.frequencyDef,
+                    AKVocalTract.tonguePositionDef,
+                    AKVocalTract.tongueDiameterDef,
+                    AKVocalTract.tensenessDef,
+                    AKVocalTract.nasalityDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createVocalTractDSP()
+        }
+    }
 
     // MARK: - Initialization
 
