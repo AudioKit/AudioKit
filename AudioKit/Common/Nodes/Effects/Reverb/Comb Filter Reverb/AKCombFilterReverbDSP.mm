@@ -80,6 +80,6 @@ extern "C" AKDSPRef createCombFilterReverbDSP() {
     return new AKCombFilterReverbDSP();
 }
 
-extern "C" void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration) {
+extern "C" void setLoopDurationCombFilterReverDSP(AKDSPRef dsp, float duration) {
     ((AKCombFilterReverbDSP *)dsp)->setLoopDuration(duration);
 }
