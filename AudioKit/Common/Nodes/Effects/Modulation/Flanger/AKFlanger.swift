@@ -6,7 +6,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
-    public typealias AKAudioUnitType = AKFlangerAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,17 +14,65 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
+    static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: AKModulatedDelayParameter.frequency.rawValue,
+        range: kAKFlanger_MinFrequency ... kAKFlanger_MaxFrequency,
+        unit: .hertz,
+        flags: .default)
+
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
+
+    static let depthDef = AKNodeParameterDef(
+        identifier: "depth",
+        name: "Depth 0-1",
+        address: AKModulatedDelayParameter.depth.rawValue,
+        range: kAKFlanger_MinDepth ... kAKFlanger_MaxDepth,
+        unit: .generic,
+        flags: .default)
 
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
+    static let feedbackDef = AKNodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback 0-1",
+        address: AKModulatedDelayParameter.feedback.rawValue,
+        range: kAKFlanger_MinFeedback ... kAKFlanger_MaxFeedback,
+        unit: .generic,
+        flags: .default)
+
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
+    static let dryWetMixDef = AKNodeParameterDef(
+        identifier: "dryWetMix",
+        name: "Dry Wet Mix 0-1",
+        address: AKModulatedDelayParameter.dryWetMix.rawValue,
+        range: kAKFlanger_MinDryWetMix ... kAKFlanger_MaxDryWetMix,
+        unit: .generic,
+        flags: .default)
+
     /// Dry Wet Mix (fraction)
     @Parameter public var dryWetMix: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKFlanger.frequencyDef,
+                    AKFlanger.depthDef,
+                    AKFlanger.feedbackDef,
+                    AKFlanger.dryWetMixDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createFlangerDSP()
+        }
+    }
 
     // MARK: - Initialization
 
