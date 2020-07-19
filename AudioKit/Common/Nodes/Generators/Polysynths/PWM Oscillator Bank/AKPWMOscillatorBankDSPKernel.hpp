@@ -44,7 +44,7 @@ protected:
             auto bankKernel = (AKPWMOscillatorBankDSPKernel*)kernel;
             
             float originalFrequency = *blsquare->freq;
-            *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
+            *blsquare->freq *= exp2f(kernel->pitchBend / 12.0);
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
             float bentFrequency = *blsquare->freq;
             
@@ -59,7 +59,7 @@ protected:
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
                 float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
-                *blsquare->freq = bentFrequency * powf(2, depth * variation);
+                *blsquare->freq = bentFrequency * exp2f(depth * variation);
                 sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
                 sp_blsquare_compute(kernel->getSpData(), blsquare, nil, &x);
                 *outL++ += amp * x;
