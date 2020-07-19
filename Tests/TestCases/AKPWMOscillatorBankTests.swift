@@ -36,8 +36,6 @@ class AKPWMOscillatorBankTests: AKTestCase {
         AKTestMD5("21260d9b69a81fbe3e576c3acb030ac5")
     }
 
-    // Known breakage on macOS
-    #if os(iOS)
     func testParameters() {
         inputBank = AKPWMOscillatorBank(pulseWidth: 0.345,
                                         attackDuration: 0.123,
@@ -49,7 +47,6 @@ class AKPWMOscillatorBankTests: AKTestCase {
         output = inputBank
         AKTestMD5("d9d89980710195f74e6151f1112b178f")
     }
-    #endif
 
     func testPitchBend() {
         inputBank = AKPWMOscillatorBank(pitchBend: 1)
@@ -69,12 +66,9 @@ class AKPWMOscillatorBankTests: AKTestCase {
         AKTestMD5("168188cda8165ab6fae58450c7c013de")
     }
 
-    // Known breakage on macOS
-    #if os(iOS)
     func testVibrato() {
         inputBank = AKPWMOscillatorBank(vibratoDepth: 1.3, vibratoRate: 1.2)
         output = inputBank
         AKTestMD5("2621d114004f2b29b9a659383aa35b93")
     }
-    #endif
 }
