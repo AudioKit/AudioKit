@@ -31,6 +31,8 @@ void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float sk
 void startDSP(AKDSPRef pDSP);
 void stopDSP(AKDSPRef pDSP);
 
+void initializeConstantDSP(AKDSPRef pDSP, AUValue value);
+
 void triggerDSP(AKDSPRef pDSP);
 void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude);
 
@@ -98,6 +100,9 @@ public:
 
     /// Get the DSP into initialized state
     virtual void reset() {}
+
+    /// Many effects have a single value that is a constant for the lifetime of the effect
+    virtual void initializeConstant(AUValue value) {}
 
     /// Common for oscillators
     virtual void setWavetable(const float* table, size_t length, int index) {}

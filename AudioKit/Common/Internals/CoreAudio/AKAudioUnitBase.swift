@@ -169,19 +169,23 @@ open class AKAudioUnitBase: AUAudioUnit {
         stopDSP(dsp)
     }
 
+    public func initializeConstant(_ constant: AUValue) {
+        initializeConstantDSP(dsp, constant)
+    }
+
     public func trigger() {
         triggerDSP(dsp)
     }
 
-    public func triggerFrequency(_ frequency: Float, amplitude: Float) {
+    public func triggerFrequency(_ frequency: AUValue, amplitude: AUValue) {
         triggerFrequencyDSP(dsp, frequency, amplitude)
     }
 
-    public func setWavetable(_ wavetable: [Float], index: Int = 0) {
+    public func setWavetable(_ wavetable: [AUValue], index: Int = 0) {
         setWavetableDSP(dsp, wavetable, wavetable.count, Int32(index))
     }
 
-    public func setWavetable(data: UnsafePointer<Float>?, size: Int, index: Int = 0) {
+    public func setWavetable(data: UnsafePointer<AUValue>?, size: Int, index: Int = 0) {
         setWavetableDSP(dsp, data, size, Int32(index))
     }
 }

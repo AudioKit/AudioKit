@@ -38,6 +38,10 @@ public:
         sp_comb_init(sp, comb1, loopDuration);
     }
 
+    void initializeConstant(float duration) {
+        loopDuration = duration;
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
