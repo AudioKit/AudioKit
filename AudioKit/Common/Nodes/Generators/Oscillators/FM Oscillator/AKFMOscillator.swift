@@ -6,7 +6,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
-    public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -16,20 +16,77 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     fileprivate var waveform: AKTable?
 
+    static let baseFrequencyDef = AKNodeParameterDef(
+        identifier: "baseFrequency",
+        name: "Base Frequency (Hz)",
+        address: AKFMOscillatorParameter.baseFrequency.rawValue,
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     @Parameter public var baseFrequency: AUValue
+
+    static let carrierMultiplierDef = AKNodeParameterDef(
+        identifier: "carrierMultiplier",
+        name: "Carrier Multiplier",
+        address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
+        range: 0.0 ... 1_000.0,
+        unit: .generic,
+        flags: .default)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter public var carrierMultiplier: AUValue
 
+    static let modulatingMultiplierDef = AKNodeParameterDef(
+        identifier: "modulatingMultiplier",
+        name: "Modulating Multiplier",
+        address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
+        range: 0.0 ... 1_000.0,
+        unit: .generic,
+        flags: .default)
+
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter public var modulatingMultiplier: AUValue
+
+    static let modulationIndexDef = AKNodeParameterDef(
+        identifier: "modulationIndex",
+        name: "Modulation Index",
+        address: AKFMOscillatorParameter.modulationIndex.rawValue,
+        range: 0.0 ... 1_000.0,
+        unit: .generic,
+        flags: .default)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter public var modulationIndex: AUValue
 
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude",
+        address: AKFMOscillatorParameter.amplitude.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
+
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKFMOscillator.baseFrequencyDef,
+                    AKFMOscillator.carrierMultiplierDef,
+                    AKFMOscillator.modulatingMultiplierDef,
+                    AKFMOscillator.modulationIndexDef,
+                    AKFMOscillator.amplitudeDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createFMOscillatorDSP()
+        }
+    }
 
     // MARK: - Initialization
 
