@@ -7,7 +7,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKIn
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btlp")
 
-    public typealias AKAudioUnitType = AKLowPassButterworthFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -15,8 +15,29 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKIn
 
     // MARK: - Parameters
 
+    static let cutoffFrequencyDef = AKNodeParameterDef(
+        identifier: "cutoffFrequency",
+        name: "Cutoff Frequency (Hz)",
+        address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKLowPassButterworthFilter.cutoffFrequencyDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createLowPassButterworthFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 

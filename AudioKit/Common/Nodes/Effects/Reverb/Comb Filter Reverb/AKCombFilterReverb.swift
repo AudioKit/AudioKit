@@ -6,13 +6,11 @@
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-/// TODO: Known bug: Loop duration is ignored
-///
 public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
-    public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -20,8 +18,29 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
 
     // MARK: - Parameters
 
+    static let reverbDurationDef = AKNodeParameterDef(
+        identifier: "reverbDuration",
+        name: "Reverb Duration (Seconds)",
+        address: AKCombFilterReverbParameter.reverbDuration.rawValue,
+        range: 0.0 ... 10.0,
+        unit: .seconds,
+        flags: .default)
+
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     @Parameter public var reverbDuration: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKCombFilterReverb.reverbDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createCombFilterReverbDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -47,7 +66,6 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)

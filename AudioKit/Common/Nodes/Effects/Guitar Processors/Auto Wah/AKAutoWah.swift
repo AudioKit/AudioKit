@@ -6,7 +6,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
-    public typealias AKAudioUnitType = AKAutoWahAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,14 +14,53 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
+    static let wahDef = AKNodeParameterDef(
+        identifier: "wah",
+        name: "Wah Amount",
+        address: AKAutoWahParameter.wah.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Wah Amount
     @Parameter public var wah: AUValue
+
+    static let mixDef = AKNodeParameterDef(
+        identifier: "mix",
+        name: "Dry/Wet Mix",
+        address: AKAutoWahParameter.mix.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .percent,
+        flags: .default)
 
     /// Dry/Wet Mix
     @Parameter public var mix: AUValue
 
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Overall level",
+        address: AKAutoWahParameter.amplitude.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Overall level
     @Parameter public var amplitude: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKAutoWah.wahDef,
+                    AKAutoWah.mixDef,
+                    AKAutoWah.amplitudeDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createAutoWahDSP()
+        }
+    }
 
     // MARK: - Initialization
 

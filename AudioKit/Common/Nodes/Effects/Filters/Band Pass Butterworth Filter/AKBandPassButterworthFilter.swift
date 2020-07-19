@@ -7,7 +7,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btbp")
 
-    public typealias AKAudioUnitType = AKBandPassButterworthFilterAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -15,11 +15,41 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
 
     // MARK: - Parameters
 
+    static let centerFrequencyDef = AKNodeParameterDef(
+        identifier: "centerFrequency",
+        name: "Center Frequency (Hz)",
+        address: AKBandPassButterworthFilterParameter.centerFrequency.rawValue,
+        range: 12.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
+    static let bandwidthDef = AKNodeParameterDef(
+        identifier: "bandwidth",
+        name: "Bandwidth (Hz)",
+        address: AKBandPassButterworthFilterParameter.bandwidth.rawValue,
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
     /// Bandwidth. (in Hertz)
     @Parameter public var bandwidth: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKBandPassButterworthFilter.centerFrequencyDef,
+                    AKBandPassButterworthFilter.bandwidthDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createBandPassButterworthFilterDSP()
+        }
+    }
 
     // MARK: - Initialization
 

@@ -6,7 +6,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
-    public typealias AKAudioUnitType = AKBitCrusherAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,12 +14,41 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
+    static let bitDepthDef = AKNodeParameterDef(
+        identifier: "bitDepth",
+        name: "Bit Depth",
+        address: AKBitCrusherParameter.bitDepth.rawValue,
+        range: 1 ... 24,
+        unit: .generic,
+        flags: .default)
+
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @Parameter public var bitDepth: AUValue
+
+    static let sampleRateDef = AKNodeParameterDef(
+        identifier: "sampleRate",
+        name: "Sample Rate (Hz)",
+        address: AKBitCrusherParameter.sampleRate.rawValue,
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
 
     /// The sample rate of signal output.
     @Parameter public var sampleRate: AUValue
 
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKBitCrusher.bitDepthDef,
+                    AKBitCrusher.sampleRateDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createBitCrusherDSP()
+        }
+    }
     // MARK: - Initialization
 
     /// Initialize this bitcrusher node
