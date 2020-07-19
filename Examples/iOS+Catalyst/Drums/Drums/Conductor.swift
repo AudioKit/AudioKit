@@ -29,8 +29,6 @@ class Conductor: ObservableObject {
     // Mark Published so View updates label on changes
     @Published private(set) var lastPlayed: String = "None"
 
-    static let shared = Conductor()
-
     let drumSamples: [DrumSample] =
         [
             DrumSample("OPEN HI HAT", file: "Samples/Drums/open_hi_hat_A#1.wav", note: 34),
