@@ -38,7 +38,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
         }
 
         public func setLoopDuration(_ duration: AUValue) {
-            setLoopDurationFlatFrequencyResponseDSP(dsp, duration)
+            setLoopDurationCombFilterReverDSP(dsp, duration)
         }
 
         public override func createDSP() -> AKDSPRef {

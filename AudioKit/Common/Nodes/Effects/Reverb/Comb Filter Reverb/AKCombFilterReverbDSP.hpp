@@ -12,6 +12,6 @@ typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
 
 AKDSPRef createCombFilterReverbDSP(void);
 
-void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration);
+void setLoopDurationCombFilterReverDSP(AKDSPRef dsp, float duration);
 
 #endif
