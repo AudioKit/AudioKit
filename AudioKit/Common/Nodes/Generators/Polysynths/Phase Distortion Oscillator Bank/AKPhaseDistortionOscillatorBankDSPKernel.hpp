@@ -53,7 +53,7 @@ protected:
             auto bankKernel = (AKPhaseDistortionOscillatorBankDSPKernel*)kernel;
             
             float originalFrequency = phs->freq;
-            phs->freq *= powf(2, kernel->pitchBend / 12.0);
+            phs->freq *= exp2f(kernel->pitchBend / 12.0);
             phs->freq = clamp(phs->freq, 0.0f, 22050.0f);
             float bentFrequency = phs->freq;
             
@@ -70,7 +70,7 @@ protected:
                 float ph = 0;
                 float depth = kernel->vibratoDepth / 12.0;
                 float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
-                phs->freq = bentFrequency * powf(2, depth * variation);
+                phs->freq = bentFrequency * exp2f(depth * variation);
                 
                 sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
                 

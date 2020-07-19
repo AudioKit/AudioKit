@@ -43,7 +43,7 @@ protected:
             AKFMOscillatorBankDSPKernel *bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
             
             float originalFrequency = fosc->freq;
-            fosc->freq *= powf(2, kernel->pitchBend / 12.0);
+            fosc->freq *= exp2f(kernel->pitchBend / 12.0);
             fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
             float bentFrequency = fosc->freq;
             
@@ -60,7 +60,7 @@ protected:
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
                 float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
-                fosc->freq = bentFrequency * powf(2, depth * variation);
+                fosc->freq = bentFrequency * exp2f(depth * variation);
                 sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
                 sp_fosc_compute(kernel->getSpData(), fosc, nil, &x);
                 *outL++ += amp * x;
