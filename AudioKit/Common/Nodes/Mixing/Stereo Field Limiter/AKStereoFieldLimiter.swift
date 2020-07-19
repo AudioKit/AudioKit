@@ -3,26 +3,39 @@
 /// Stereo StereoFieldLimiter
 ///
 public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKStereoFieldLimiterAudioUnit
-    /// Four letter unique description of the node
+
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
-    // MARK: - Properties
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// Limiting Factor
-    open var amount: Double = 1 {
-        willSet {
-            let clampedValue = (0.0 ... 1.0).clamp(newValue)
-            guard amount != clampedValue else { return }
-            internalAU?.amount.value = AUValue(clampedValue)
-        }
-    }
+    public var parameterAutomation: AKParameterAutomation?
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return self.internalAU?.isStarted ?? false
+    // MARK: - Properties
+
+    static let amounDef = AKNodeParameterDef(
+        identifier: "amount",
+        name: "Limiting amount",
+        address: 0,
+        range: 0.0...1.0,
+        unit: .generic,
+        flags: .default)
+
+    /// Limiting Factor
+    @Parameter public var amount: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKStereoFieldLimiter.amounDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createStereoFieldLimiterDSP()
+        }
     }
 
     // MARK: - Initialization
@@ -33,16 +46,15 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil, amount: Double = 1) {
+    public init(_ input: AKNode? = nil, amount: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
+        self.amount = amount
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: self)
-
-            self.amount = amount
         }
     }
 }

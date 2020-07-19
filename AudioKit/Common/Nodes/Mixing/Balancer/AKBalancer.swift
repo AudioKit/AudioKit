@@ -8,16 +8,19 @@
 /// altered in any other respect.
 ///
 public class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKBalancerAudioUnit
-    /// Four letter unique description of the node
+
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
-    // MARK: - Properties
+    public typealias AKAudioUnitType = InternalAU
+
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+        public override func createDSP() -> AKDSPRef {
+            return createBalancerDSP()
+        }
     }
 
     // MARK: - Initialization

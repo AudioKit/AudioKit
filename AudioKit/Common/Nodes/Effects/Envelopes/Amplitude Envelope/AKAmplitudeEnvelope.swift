@@ -6,7 +6,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
-    public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,17 +14,65 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     // MARK: - Parameters
 
+    static let attackDurationDef = AKNodeParameterDef(
+        identifier: "attackDuration",
+        name: "Attack time",
+        address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
+        range: 0 ... 99,
+        unit: .seconds,
+        flags: .default)
+
     /// Attack time
     @Parameter public var attackDuration: AUValue
+
+    static let decayDurationDef = AKNodeParameterDef(
+        identifier: "decayDuration",
+        name: "Decay time",
+        address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
+        range: 0 ... 99,
+        unit: .seconds,
+        flags: .default)
 
     /// Decay time
     @Parameter public var decayDuration: AUValue
 
+    static let sustainLevelDef = AKNodeParameterDef(
+        identifier: "sustainLevel",
+        name: "Sustain Level",
+        address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
+        range: 0 ... 99,
+        unit: .generic,
+        flags: .default)
+
     /// Sustain Level
     @Parameter public var sustainLevel: AUValue
 
+    static let releaseDurationDef = AKNodeParameterDef(
+        identifier: "releaseDuration",
+        name: "Release time",
+        address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
+        range: 0 ... 99,
+        unit: .seconds,
+        flags: .default)
+
     /// Release time
     @Parameter public var releaseDuration: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKAmplitudeEnvelope.attackDurationDef,
+                    AKAmplitudeEnvelope.decayDurationDef,
+                    AKAmplitudeEnvelope.sustainLevelDef,
+                    AKAmplitudeEnvelope.releaseDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createAmplitudeEnvelopeDSP()
+        }
+    }
 
     // MARK: - Initialization
 
@@ -43,12 +91,13 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
         decayDuration: AUValue = 0.1,
         sustainLevel: AUValue = 1.0,
         releaseDuration: AUValue = 0.1
-        ) {
+    ) {
         super.init(avAudioNode: AVAudioNode())
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
