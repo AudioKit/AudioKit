@@ -6,7 +6,7 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")
 
-    public typealias AKAudioUnitType = AKBrownianNoiseAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,8 +14,29 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
+    static let amplitudeDef = AKNodeParameterDef(
+        identifier: "amplitude",
+        name: "Amplitude",
+        address: AKBrownianNoiseParameter.amplitude.rawValue,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+
     /// Amplitude. (Value between 0-1).
     @Parameter public var amplitude: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKBrownianNoise.amplitudeDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createBrownianNoiseDSP()
+        }
+    }
 
     // MARK: - Initialization
 
