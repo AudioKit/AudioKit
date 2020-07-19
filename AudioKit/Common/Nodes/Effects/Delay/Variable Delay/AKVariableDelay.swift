@@ -6,7 +6,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
-    public typealias AKAudioUnitType = AKVariableDelayAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -14,11 +14,41 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
     // MARK: - Parameters
 
+    static let timeDef = AKNodeParameterDef(
+        identifier: "time",
+        name: "Delay time (Seconds)",
+        address: AKVariableDelayParameter.time.rawValue,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: .default)
+
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
+    static let feedbackDef = AKNodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: AKVariableDelayParameter.feedback.rawValue,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: .default)
+
     /// Feedback amount. Should be a value between 0-1.
     @Parameter public var feedback: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            return [AKVariableDelay.timeDef,
+                    AKVariableDelay.feedbackDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            return createVariableDelayDSP()
+        }
+    }
 
     // MARK: - Initialization
 
