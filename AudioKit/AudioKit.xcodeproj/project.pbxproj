@@ -4067,7 +4067,6 @@
 		C468CD3F2481E70000456291 /* AKPropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPropertyControl.swift; sourceTree = "<group>"; };
 		C468CD402481E70000456291 /* AKADSRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C468CD412481E70000456291 /* AKMIDIPlaygroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIPlaygroundView.swift; sourceTree = "<group>"; };
-		C468CD762481F27100456291 /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dev.playground; sourceTree = "<group>"; };
 		C468D0611E9CD4B3005FACFA /* AKPeriodicFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPeriodicFunction.swift; sourceTree = "<group>"; };
 		C46960171C0F8C3900A65FBF /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
 		C46B27A12029A2E000EC0E87 /* AKPhaserDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaserDSP.mm; sourceTree = "<group>"; };
@@ -5608,7 +5607,6 @@
 		C42F34F61C057E03000E937C = {
 			isa = PBXGroup;
 			children = (
-				C468CD762481F27100456291 /* Dev.playground */,
 				C42F35021C057E03000E937C /* AudioKit */,
 				C4DB63FC2494B0E0001E1F37 /* STKAudioKit */,
 				C4DB660324955B0D001E1F37 /* DevoloopAudioKit */,
