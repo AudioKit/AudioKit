@@ -496,20 +496,6 @@ static void scheduleAutomationPoint(AUScheduleParameterBlock scheduleParameterBl
                                     const AKParameterAutomationPoint& point,
                                     AUAudioFrameCount rampOffset)
 {
-    AUParameterAddress mask;
-
-    // set taper (as "value" parameter)
-    mask = (AUParameterAddress)1 << 63;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampTaper);
-
-    // set skew (as "value" parameter)
-    mask = (AUParameterAddress)1 << 62;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampSkew);
-
-    // set offset (as "duration" parameter)
-    mask = (AUParameterAddress)1 << 61;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampOffset, address | mask, 0);
-
     // set value
     AUAudioFrameCount rampDuration = point.rampDuration * sampleRate;
     scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampDuration, address, point.targetValue);
