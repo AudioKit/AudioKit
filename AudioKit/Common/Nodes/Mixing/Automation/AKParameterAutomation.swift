@@ -269,6 +269,7 @@ public func AKEvaluateAutomation(initialValue: AUValue,
         if point.isLinear() {
 
             result.append(point)
+            value = Double(point.targetValue)
 
         } else {
 
