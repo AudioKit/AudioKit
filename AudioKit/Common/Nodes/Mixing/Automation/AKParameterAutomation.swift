@@ -246,8 +246,8 @@ func evalRamp(start: Double,
     // x is normalized position in ramp segment
     let x = (segment.rampDuration - remain) / segment.rampDuration
     let taper1 = start + (goal - start) * pow(x, abs(taper))
-    let absxm1 = (abs(segment.rampDuration - remain) / segment.rampDuration) - 1.0
-    let taper2 = start + (goal - start) * 1.0 - pow(absxm1, 1.0 / abs(taper))
+    let absxm1 = abs((segment.rampDuration - remain) / segment.rampDuration - 1.0)
+    let taper2 = start + (goal - start) * (1.0 - pow(absxm1, 1.0 / abs(taper)))
 
     return taper1 * (1.0 - segment.rampSkew) + taper2 * segment.rampSkew
 }
