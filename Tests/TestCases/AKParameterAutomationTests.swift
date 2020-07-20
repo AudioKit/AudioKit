@@ -177,15 +177,30 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testEvaluateAutomation() {
 
-        let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0)]
+        // Linear automation should pass the result through
+        {
+            let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0)]
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0, points: points, resolution: 0.5)
+            let newPoints = AKEvaluateAutomation(initialValue: 0, points: points, resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0.0)
-        XCTAssertEqual(newPoints[0].targetValue, 0.5)
+            XCTAssertEqual(points, newPoints)
 
-        XCTAssertEqual(newPoints[1].startTime, 0.5)
-        XCTAssertEqual(newPoints[1].targetValue, 1.0)
+        }();
+
+        // Curved automation will evaluate each segment
+        {
+            let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.1)]
+
+            let newPoints = AKEvaluateAutomation(initialValue: 0,
+                                                 points: points,
+                                                 resolution: 0.5)
+
+            XCTAssertEqual(newPoints[0].startTime, 0.0)
+            XCTAssert(fabs(newPoints[0].targetValue - 0.6) < 0.0001)
+
+            XCTAssertEqual(newPoints[1].startTime, 0.5)
+            XCTAssertEqual(newPoints[1].targetValue, 1.0)
+        }();
 
     }
 }
