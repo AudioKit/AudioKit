@@ -250,19 +250,20 @@ public func AKEvaluateAutomation(initialValue: AUValue,
                                   point.startTime + point.rampDuration)
 
         var t = point.startTime
+        let start = value
 
         // March t along the segment
-        while t < endTime {
+        while t <= endTime {
 
             let remain = endTime - t
             let taper = Double(point.rampTaper)
             let goal = point.targetValue
 
-            // x is normalized position in ramp segment, backwards from target
+            // x is normalized position in ramp segment
             let x = (point.rampDuration - remain) / point.rampDuration
-            let taper1 = point.startTime + (goal - value) * pow(x, abs(taper))
-            let absxm1 = abs(point.rampDuration - remain) / (point.rampDuration - 1.0)
-            let taper2 = value + (goal - value) * 1.0 - pow(absxm1, 1.0 / abs(taper))
+            let taper1 = start + (goal - start) * pow(x, abs(taper))
+            let absxm1 = (abs(point.rampDuration - remain) / point.rampDuration) - 1.0
+            let taper2 = start + (goal - start) * 1.0 - pow(absxm1, 1.0 / abs(taper))
 
             value = taper1 * (1.0 - point.rampSkew) + taper2 * point.rampSkew
 
