@@ -270,9 +270,12 @@ public func AKEvaluateAutomation(initialValue: AUValue,
         let start = value
 
         // March t along the segment
-        while t <= endTime {
+        while t <= endTime - resolution {
 
-            value = evalRamp(start: start, segment: point, time: t, endTime: endTime)
+            value = evalRamp(start: start,
+                             segment: point,
+                             time: t + resolution,
+                             endTime: endTime)
 
             result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
                                                      startTime: t,
