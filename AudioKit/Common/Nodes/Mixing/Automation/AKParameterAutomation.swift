@@ -254,6 +254,13 @@ func evalRamp(start: Double,
 
 /// Returns a new piecewise-linear automation curve which can be handed off to the audio thread
 /// for efficient processing.
+///
+/// - Parameters:
+///   - initialValue: Starting point
+///   - points: AN array of automation points to convert
+///   - resolution: Duration of each piecewise linear segemtn (in samples?)
+///   
+/// - Returns: A new array of piecewise linear automation points
 public func AKEvaluateAutomation(initialValue: AUValue,
                                  points: [AKParameterAutomationPoint],
                                  resolution: Double) -> [AKAutomationEvent] {
