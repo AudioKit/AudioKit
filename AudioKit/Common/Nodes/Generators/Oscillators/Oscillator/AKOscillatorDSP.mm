@@ -5,6 +5,7 @@
 #include <vector>
 
 #import "AKSoundpipeDSPBase.hpp"
+#include "DebugDSP.h"
 
 class AKOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -66,6 +67,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_osc_compute(sp, osc, nil, &temp);
+                        AKDebugDSP(AKOscillatorDebugPhase, osc->lphs);
                     }
                     *out = temp;
                 } else {

@@ -11,6 +11,8 @@ typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
     AKOscillatorParameterDetuningMultiplier,
 };
 
+#define AKOscillatorDebugPhase 0
+
 #ifndef __cplusplus
 
 AKDSPRef createOscillatorDSP(void);
