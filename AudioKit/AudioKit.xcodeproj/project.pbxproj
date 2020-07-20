@@ -71,6 +71,9 @@
 		291F62EE24C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
 		291F62EF24C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
 		291F62F024C4FB3C00B754F9 /* DebugDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = 291F62EA24C4FB3C00B754F9 /* DebugDSP.c */; };
+		291F631624C54EF100B754F9 /* AKSettings+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4801EE124BD8E9C0049BA55 /* AKSettings+macOS.swift */; };
+		291F631724C54F1B00B754F9 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
+		291F631824C54F3800B754F9 /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29AB123424C2337C00547AA5 /* MIDIMetaEvent+allocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */; };
@@ -10169,7 +10172,9 @@
 				C4A9164F1C24F95E006C1A15 /* periodicTrigger.swift in Sources */,
 				C49D696D1D1F1DE300BF018A /* AKFMOscillatorBank.swift in Sources */,
 				C49B13F0204A06B7009C7C8E /* allpass.c in Sources */,
+				291F631824C54F3800B754F9 /* AVAudioEngine+Devices.swift in Sources */,
 				C45380911C3A5C0C00A51738 /* AKWhiteNoise.swift in Sources */,
+				291F631624C54EF100B754F9 /* AKSettings+macOS.swift in Sources */,
 				C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */,
 				B1FC58042328AED40098C14F /* AKAutomatable.swift in Sources */,
 				C49B13DD204A06B7009C7C8E /* tgate.c in Sources */,
@@ -10274,6 +10279,7 @@
 				C49B1483204A06B8009C7C8E /* tone.c in Sources */,
 				C49B146A204A06B7009C7C8E /* randh.c in Sources */,
 				C49B144C204A06B7009C7C8E /* clip.c in Sources */,
+				291F631724C54F1B00B754F9 /* DeviceUtils.swift in Sources */,
 				C421DCDF1D39650000E15879 /* AKPhaseDistortionOscillator.swift in Sources */,
 				C42223E721BC69D1007E3424 /* AKAutoPanner.swift in Sources */,
 				C49B13DA204A06B7009C7C8E /* metro.c in Sources */,
@@ -12294,6 +12300,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = AudioKit;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -12328,6 +12335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = AudioKit;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
