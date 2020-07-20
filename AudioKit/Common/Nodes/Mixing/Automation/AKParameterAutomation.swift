@@ -231,6 +231,23 @@ public func AKReplaceAutomation(points: [AKParameterAutomationPoint],
     return result
 }
 
+func evalRamp(start: Double,
+              segment: AKParameterAutomationPoint,
+              time: Double,
+              endTime: Double) -> Double {
+    let remain = endTime - time
+    let taper = Double(segment.rampTaper)
+    let goal = segment.targetValue
+
+    // x is normalized position in ramp segment
+    let x = (segment.rampDuration - remain) / segment.rampDuration
+    let taper1 = start + (goal - start) * pow(x, abs(taper))
+    let absxm1 = (abs(segment.rampDuration - remain) / segment.rampDuration) - 1.0
+    let taper2 = start + (goal - start) * 1.0 - pow(absxm1, 1.0 / abs(taper))
+
+    return taper1 * (1.0 - segment.rampSkew) + taper2 * segment.rampSkew
+}
+
 /// Returns a new piecewise-linear automation curve which can be handed off to the audio thread
 /// for efficient processing.
 public func AKEvaluateAutomation(initialValue: AUValue,
@@ -255,17 +272,7 @@ public func AKEvaluateAutomation(initialValue: AUValue,
         // March t along the segment
         while t <= endTime {
 
-            let remain = endTime - t
-            let taper = Double(point.rampTaper)
-            let goal = point.targetValue
-
-            // x is normalized position in ramp segment
-            let x = (point.rampDuration - remain) / point.rampDuration
-            let taper1 = start + (goal - start) * pow(x, abs(taper))
-            let absxm1 = (abs(point.rampDuration - remain) / point.rampDuration) - 1.0
-            let taper2 = start + (goal - start) * 1.0 - pow(absxm1, 1.0 / abs(taper))
-
-            value = taper1 * (1.0 - point.rampSkew) + taper2 * point.rampSkew
+            value = evalRamp(start: start, segment: point, time: t, endTime: endTime)
 
             result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
                                                      startTime: t,
