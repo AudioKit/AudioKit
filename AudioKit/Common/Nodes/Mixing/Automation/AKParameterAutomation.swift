@@ -230,3 +230,50 @@ public func AKReplaceAutomation(points: [AKParameterAutomationPoint],
 
     return result
 }
+
+/// Returns a new piecewise-linear automation curve which can be handed off to the audio thread
+/// for efficient processing.
+public func AKEvaluateAutomation(initialValue: AUValue,
+                                 points: [AKParameterAutomationPoint],
+                                 resolution: Double) -> [AKParameterAutomationPoint] {
+
+    var result = [AKParameterAutomationPoint]()
+
+    // The last evaluated value
+    var value = Double(initialValue)
+
+    for i in 0 ..< points.count {
+        let point = points[i]
+
+        // Cut off the end if another point comes along.
+        let endTime: Double = min(i < points.count - 1 ? points[i].startTime : Double.greatestFiniteMagnitude,
+                                  point.startTime + point.rampDuration)
+
+        var t = point.startTime
+
+        // March t along the segment
+        while t < endTime {
+
+            let remain = endTime - t
+            let taper = Double(point.rampTaper)
+            let goal = point.targetValue
+
+            // x is normalized position in ramp segment, backwards from target
+            let x = (point.rampDuration - remain) / point.rampDuration
+            let taper1 = point.startTime + (goal - value) * pow(x, abs(taper))
+            let absxm1 = abs(point.rampDuration - remain) / (point.rampDuration - 1.0)
+            let taper2 = value + (goal - value) * 1.0 - pow(absxm1, 1.0 / abs(taper))
+
+            value = taper1 * (1.0 - point.rampSkew) + taper2 * point.rampSkew
+
+            result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
+                                                     startTime: t,
+                                                     rampDuration: resolution))
+
+            t += resolution
+        }
+
+    }
+
+    return result
+}
