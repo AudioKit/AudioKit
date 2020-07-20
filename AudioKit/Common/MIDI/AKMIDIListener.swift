@@ -8,6 +8,7 @@
 /// of interest.
 ///
 
+#if !os(tvOS)
 let AKMIDIListenerLogging = false
 
 public protocol AKMIDIListener {
@@ -308,3 +309,5 @@ public extension AKMIDIListener {
 func == (lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
     return lhs.isEqualTo(rhs)
 }
+
+#endif

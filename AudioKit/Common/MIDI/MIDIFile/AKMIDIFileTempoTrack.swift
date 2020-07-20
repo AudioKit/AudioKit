@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 public struct AKMIDIFileTempoTrack {
 
     public let track: AKMIDIFileTrack
@@ -38,3 +40,5 @@ public struct AKMIDIFileTempoTrack {
         return Float(Double(microsecondsPerSecond / value).roundToDecimalPlaces(4))
     }
 }
+
+#endif

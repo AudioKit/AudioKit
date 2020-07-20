@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import Foundation
 
 /// Protocol so that clients may observe beat events
@@ -61,3 +62,4 @@ public extension AKMIDIBeatObserver {
 func == (lhs: AKMIDIBeatObserver, rhs: AKMIDIBeatObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
+#endif

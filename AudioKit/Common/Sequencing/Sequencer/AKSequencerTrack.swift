@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 import Foundation
 
 /// Audio player that loads a sample into memory
@@ -164,3 +166,5 @@ open class AKSequencerTrack: AKNode, AKComponent {
         internalAU?.stopPlayingNotes()
     }
 }
+
+#endif

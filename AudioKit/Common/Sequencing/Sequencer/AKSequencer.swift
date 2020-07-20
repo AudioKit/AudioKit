@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// Open-source AudioKit Sequencer
 ///
 /// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AKAppleSequencer"
@@ -180,6 +182,8 @@ open class AKSequencer {
         return track
     }
 }
+
+#endif
 
 /* functions from AKAppleSequencer  to implement
 

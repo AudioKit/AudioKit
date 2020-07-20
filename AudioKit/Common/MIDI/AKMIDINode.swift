@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import AVFoundation
 import CoreAudio
 
@@ -90,3 +91,5 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         }
     }
 }
+
+#endif
