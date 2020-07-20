@@ -199,6 +199,21 @@ class AKParameterAutomationTests: AKTestCase {
         XCTAssertEqual(newPoints[1].targetValue, 1.0)
     }
 
+    func testEvaluateAutomationSlightTaper() {
+
+        let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.00001, rampSkew: 0.0)]
+
+        let newPoints = AKEvaluateAutomation(initialValue: 0,
+                                             points: points,
+                                             resolution: 0.5)
+
+        XCTAssertEqual(newPoints[0].startTime, 0.0)
+        XCTAssert(fabs(newPoints[0].targetValue - 0.5) < 0.0001)
+
+        XCTAssertEqual(newPoints[1].startTime, 0.5)
+        XCTAssertEqual(newPoints[1].targetValue, 1.0)
+    }
+
     func testEvaluateAutomationCurved() {
 
         let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 0.5, rampSkew: 0.1)]
