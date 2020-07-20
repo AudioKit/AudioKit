@@ -485,20 +485,21 @@ void AKParameterAutomationHelper::clearAllPoints(AUParameterAddress address)
 
 struct RenderObserverData {
     AUParameterAddress address;
-    std::vector<AKParameterAutomationPoint> points;
-    std::vector<AKParameterAutomationPoint>::const_iterator iterator;
+    std::vector<AKAutomationEvent> points;
+    std::vector<AKAutomationEvent>::const_iterator iterator;
 };
 
 static void scheduleAutomationPoint(AUScheduleParameterBlock scheduleParameterBlock,
                                     double sampleRate,
                                     AUEventSampleTime blockTime,
                                     AUParameterAddress address,
-                                    const AKParameterAutomationPoint& point,
+                                    const AKAutomationEvent& point,
                                     AUAudioFrameCount rampOffset)
 {
-    // set value
-    AUAudioFrameCount rampDuration = point.rampDuration * sampleRate;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampDuration, address, point.targetValue);
+    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime,
+                           point.rampDuration * sampleRate,
+                           address,
+                           point.targetValue);
 }
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
@@ -507,7 +508,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
                                                         double startSampleTime,
-                                                        const struct AKParameterAutomationPoint* points,
+                                                        const struct AKAutomationEvent* points,
                                                         size_t count) {
 
     __block RenderObserverData data;
