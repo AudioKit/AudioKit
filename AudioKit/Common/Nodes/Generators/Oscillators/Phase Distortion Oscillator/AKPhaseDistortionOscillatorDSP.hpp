@@ -12,6 +12,8 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
     AKPhaseDistortionOscillatorParameterDetuningMultiplier,
 };
 
+#define AKPhaseDistortionOscillatorDebugPhase 0
+
 #ifndef __cplusplus
 
 AKDSPRef createPhaseDistortionOscillatorDSP(void);

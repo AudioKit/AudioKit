@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Testing
 #import <AudioKit/md5.h>
+#import <AudioKit/DebugDSP.h>
 
 // Analysis
 #import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
