@@ -202,5 +202,16 @@ class AKParameterAutomationTests: AKTestCase {
             XCTAssertEqual(newPoints[1].targetValue, 1.0)
         }();
 
+        // Curved automation will evaluate each segment
+        {
+            let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 0.5, rampSkew: 0.1)]
+
+            let newPoints = AKEvaluateAutomation(initialValue: 0,
+                                                 points: points,
+                                                 resolution: 0.1)
+
+            XCTAssertEqual(newPoints.count, 10)
+        }();
+
     }
 }
