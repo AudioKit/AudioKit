@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Foundation
 import CoreAudio
 
@@ -153,3 +154,4 @@ struct AudioDeviceUtils {
     }
 
 }
+#endif
