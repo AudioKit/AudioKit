@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
 /// Another callback instrument, AKCallbackInstrument
@@ -104,3 +106,5 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                          data2: pitchWheelValue.lsb)
     }
 }
+
+#endif

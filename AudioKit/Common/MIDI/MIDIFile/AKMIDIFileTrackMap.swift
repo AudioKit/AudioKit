@@ -2,6 +2,8 @@
 
 //Keep track of the note durations and range for later use in mapping
 
+#if !os(tvOS)
+
 public class AKMIDINoteDuration {
     public var noteBeginningTime = 0.0
     public var noteEndTime = 0.0
@@ -172,3 +174,5 @@ public class AKMIDIFileTrackNoteMap {
         }
     }
 }
+
+#endif

@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import CoreMIDI
 
 /**
@@ -119,3 +120,4 @@ func generatorForTuple(_ tuple: AKRawMIDIPacket) -> AnyIterator<Any> {
     let children = Mirror(reflecting: tuple).children
     return AnyIterator(children.makeIterator().lazy.map { $0.value }.makeIterator())
 }
+#endif

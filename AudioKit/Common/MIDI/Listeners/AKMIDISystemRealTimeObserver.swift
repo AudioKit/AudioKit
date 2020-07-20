@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 import Foundation
 
 public protocol AKMIDISystemRealTimeObserver {
@@ -44,3 +46,5 @@ extension AKMIDISystemRealTimeObserver {
 func == (lhs: AKMIDISystemRealTimeObserver, rhs: AKMIDISystemRealTimeObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
+
+#endif

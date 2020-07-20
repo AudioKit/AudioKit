@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 import CoreMIDI
 
 extension MIDIPacket {
@@ -23,3 +25,5 @@ extension MIDIPacket {
         return AKMIDISystemCommand(rawValue: data.0)
     }
 }
+
+#endif

@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import Foundation
 
 /// New sample-accurate version of AKCallbackInstrument
@@ -50,3 +51,4 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
         internalAU?.destroy()
     }
 }
+#endif

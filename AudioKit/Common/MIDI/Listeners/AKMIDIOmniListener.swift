@@ -5,6 +5,7 @@
 //  This class probably needs to support observers as well
 //  so that a client may be able to be notified of state changes
 
+#if !os(tvOS)
 import Foundation
 import CoreMIDI
 
@@ -41,3 +42,5 @@ extension AKMIDIOMNIListener: AKMIDIListener {
 
     }
 }
+
+#endif

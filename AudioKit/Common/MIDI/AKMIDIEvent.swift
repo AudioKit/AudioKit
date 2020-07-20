@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import CoreMIDI
 
 /// A container for the values that define a MIDI event
@@ -368,3 +369,5 @@ public struct AKMIDIEvent: AKMIDIMessage {
         return outBytes
     }
 }
+
+#endif

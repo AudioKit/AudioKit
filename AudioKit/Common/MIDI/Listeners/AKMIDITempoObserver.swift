@@ -2,6 +2,8 @@
 
 import Foundation
 
+#if !os(tvOS)
+
 public protocol AKMIDITempoObserver {
 
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
@@ -39,3 +41,5 @@ public extension AKMIDITempoObserver {
 func == (lhs: AKMIDITempoObserver, rhs: AKMIDITempoObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
+
+#endif
