@@ -85,7 +85,6 @@ public enum AKSliderStyle {
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
         self.color = color
-
         super.init(property: property,
                    value: value,
                    range: range,
@@ -93,7 +92,6 @@ public enum AKSliderStyle {
                    format: format,
                    frame: frame,
                    callback: callback)
-
         self.backgroundColor = UIColor.clear
     }
 
@@ -126,9 +124,9 @@ public enum AKSliderStyle {
         touchBeganCallback()
     }
 
-    open var touchBeganCallback: () -> Void = {}
-
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open var touchBeganCallback: () -> Void = { }
+    /// Handle moved touches
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
@@ -169,7 +167,6 @@ public enum AKSliderStyle {
         if let bgColor = bgColor {
             return bgColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -182,7 +179,6 @@ public enum AKSliderStyle {
         if let indicatorBorderColor = indicatorBorderColor {
             return indicatorBorderColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -195,7 +191,6 @@ public enum AKSliderStyle {
         if let sliderBorderColor = sliderBorderColor {
             return sliderBorderColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.2, alpha: 1.0)
@@ -208,7 +203,6 @@ public enum AKSliderStyle {
         if let textColor = textColor {
             return textColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -224,7 +218,6 @@ public enum AKSliderStyle {
             return
         }
         context.clear(rect)
-
         drawFlatSlider(currentValue: CGFloat(val),
                        propertyName: property,
                        currentValueText: String(format: format, value))
@@ -243,7 +236,7 @@ public enum AKSliderStyle {
         let height = frame.height
 
         let themeTextColor = textColorForTheme
-
+        let themeTextColor = textColorForTheme
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
@@ -259,7 +252,6 @@ public enum AKSliderStyle {
             context: nil).size.height
         context.saveGState()
 
-        // Calculate slider height and other values based on expected label height
         let sliderTextMargin: CGFloat = 5.0
         let labelOrigin = nameLabelTextHeight + sliderTextMargin
         let sliderOrigin = sliderBorderWidth
@@ -321,7 +313,7 @@ public enum AKSliderStyle {
         indicatorBorderColorForTheme.setStroke()
         indicatorPath.stroke()
 
-        if showsValueBubble, isDragging {
+        if showsValueBubble && isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
@@ -329,7 +321,6 @@ public enum AKSliderStyle {
             let valueLabelFontAttributes = [NSAttributedString.Key.font: bubbleFont,
                                             NSAttributedString.Key.foregroundColor: themeTextColor,
                                             NSAttributedString.Key.paragraphStyle: valueLabelStyle]
-
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
