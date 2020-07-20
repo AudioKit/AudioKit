@@ -190,6 +190,10 @@ public extension AKParameterAutomationPoint {
                   rampTaper: 1,
                   rampSkew: 0)
     }
+
+    func isLinear() -> Bool {
+        return rampTaper == 1.0 && rampSkew == 0.0
+    }
 }
 
 extension AKParameterAutomationPoint: Equatable {
@@ -262,26 +266,33 @@ public func AKEvaluateAutomation(initialValue: AUValue,
     for i in 0 ..< points.count {
         let point = points[i]
 
-        // Cut off the end if another point comes along.
-        let endTime: Double = min(i < points.count - 1 ? points[i].startTime : Double.greatestFiniteMagnitude,
-                                  point.startTime + point.rampDuration)
+        if point.isLinear() {
 
-        var t = point.startTime
-        let start = value
+            result.append(point)
 
-        // March t along the segment
-        while t <= endTime - resolution {
+        } else {
 
-            value = evalRamp(start: start,
-                             segment: point,
-                             time: t + resolution,
-                             endTime: endTime)
+            // Cut off the end if another point comes along.
+            let endTime: Double = min(i < points.count - 1 ? points[i].startTime : Double.greatestFiniteMagnitude,
+                                      point.startTime + point.rampDuration)
 
-            result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
-                                                     startTime: t,
-                                                     rampDuration: resolution))
+            var t = point.startTime
+            let start = value
 
-            t += resolution
+            // March t along the segment
+            while t <= endTime - resolution {
+
+                value = evalRamp(start: start,
+                                 segment: point,
+                                 time: t + resolution,
+                                 endTime: endTime)
+
+                result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
+                                                         startTime: t,
+                                                         rampDuration: resolution))
+
+                t += resolution
+            }
         }
 
     }
