@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
 
     private(set) var tempo: AUParameter!
@@ -115,3 +117,5 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
         sequencerEngineStopPlayingNotes(dsp)
     }
 }
+
+#endif

@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import Foundation
 import CoreMIDI
 
@@ -111,3 +112,5 @@ extension AKMIDISystemRealTimeListener {
         }
     }
 }
+
+#endif

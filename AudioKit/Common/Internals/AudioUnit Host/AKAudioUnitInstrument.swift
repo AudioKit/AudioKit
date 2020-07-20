@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
     /// Initialize the audio unit instrument
@@ -97,3 +99,5 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         midiInstrument.sendPitchBend(pitchWheelValue, onChannel: channel)
     }
 }
+
+#endif

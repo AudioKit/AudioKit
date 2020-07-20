@@ -12,6 +12,8 @@
 //      * Ports must be identifies using MIDIUniqueIDs because ports can share the same name across devices and clients
 //
 
+#if !os(tvOS)
+
 internal struct MIDISources: Collection {
     typealias Index = Int
     typealias Element = MIDIEndpointRef
@@ -298,3 +300,5 @@ extension AKMIDI {
         return processedEvents
     }
 }
+
+#endif

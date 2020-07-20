@@ -1,7 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import AVFoundation
 
+#if os(macOS)
 extension AVAudioEngine {
 
     func setDevice(id: AudioDeviceID) {
@@ -40,3 +42,4 @@ extension AVAudioEngine {
     }
 
 }
+#endif

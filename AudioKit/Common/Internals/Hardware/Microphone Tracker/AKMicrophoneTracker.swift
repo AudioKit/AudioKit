@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// An easy to use class to do usual microphone tracking
 public class AKMicrophoneTracker {
 
@@ -32,3 +34,5 @@ public class AKMicrophoneTracker {
         // Subclass and change this if you like
     }
 }
+
+#endif

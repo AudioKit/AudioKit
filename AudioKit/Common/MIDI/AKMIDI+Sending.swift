@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 private let sizeOfMIDIPacketList = MemoryLayout<MIDIPacketList>.size
 private let sizeOfMIDIPacket = MemoryLayout<MIDIPacket>.size
 
@@ -374,3 +376,5 @@ extension AKMIDI {
     }
 
 }
+
+#endif

@@ -1,5 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #include "AKSequencerEngineDSP.hpp"
 
 extern "C" AKDSPRef createAKSequencerEngineDSP() {
@@ -41,3 +45,5 @@ extern "C" void sequencerEngineClear(AKDSPRef dsp) {
 extern "C" void sequencerEngineSetAUTarget(AKDSPRef dsp, AudioUnit audioUnit) {
     ((AKSequencerEngineDSP*)dsp)->setTargetAU(audioUnit);
 }
+
+#endif

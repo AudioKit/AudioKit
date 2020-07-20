@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import Foundation
 
 extension Double {
@@ -250,3 +251,5 @@ struct ValueSmoothing {
         return smoothed
     }
 }
+
+#endif

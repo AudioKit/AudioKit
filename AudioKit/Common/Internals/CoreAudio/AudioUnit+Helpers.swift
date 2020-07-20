@@ -2,6 +2,8 @@
 
 import CoreAudio
 
+#if !os(macOS)
+
 // MARK: - AudioUnit helpers
 
 /// Get, set, and listen to properties
@@ -128,3 +130,5 @@ public extension OSStatus {
     }
 
 }
+
+#endif
