@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 import Foundation
 
 public struct AKMIDIFile {
@@ -82,3 +84,5 @@ public struct AKMIDIFile {
         self.init(url: URL(fileURLWithPath: path))
     }
 }
+
+#endif

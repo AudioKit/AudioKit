@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 public protocol AKMIDITransformer {
     func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent]
 }
@@ -19,3 +21,5 @@ public extension AKMIDITransformer {
 func == (lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
     return lhs.isEqualTo(rhs)
 }
+
+#endif

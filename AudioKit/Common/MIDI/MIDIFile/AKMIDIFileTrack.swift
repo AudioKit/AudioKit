@@ -2,6 +2,8 @@
 
 import Foundation
 
+#if !os(tvOS)
+
 public struct AKMIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk
@@ -34,3 +36,5 @@ public struct AKMIDIFileTrack {
         self.chunk = chunk
     }
 }
+
+#endif

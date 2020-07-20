@@ -10,6 +10,8 @@
 //  Subclasses can override monoPolyChange() to observe changes
 //
 
+#if !os(tvOS)
+
 import Foundation
 import CoreMIDI
 
@@ -46,3 +48,5 @@ extension AKMIDIMonoPolyListener: AKMIDIListener {
 
     }
 }
+
+#endif

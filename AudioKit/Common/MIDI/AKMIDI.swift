@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import CoreMIDI
 
 /// MIDI input and output handler
@@ -93,3 +94,4 @@ public class AKMIDI {
     }
     var incomingSysEx = [MIDIByte]()
 }
+#endif

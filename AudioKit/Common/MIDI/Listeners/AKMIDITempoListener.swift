@@ -12,6 +12,7 @@
 //      https://stackoverflow.com/questions/13562714/calculate-accurate-bpm-from-midi-clock-in-objc-with-coremidi
 //      https://github.com/yderidde/PGMidi/blob/master/Sources/PGMidi/PGMidiSession.mm#L186
 
+#if !os(tvOS)
 import Foundation
 import CoreMIDI
 
@@ -232,3 +233,5 @@ extension AKMIDITempoListener {
         }
     }
 }
+
+#endif

@@ -3,6 +3,8 @@
 import AVFoundation
 import CoreAudio
 
+#if !os(tvOS)
+
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
@@ -223,3 +225,5 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }
+
+#endif
