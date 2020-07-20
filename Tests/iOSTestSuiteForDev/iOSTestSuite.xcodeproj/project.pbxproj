@@ -114,7 +114,6 @@
 		C468DC3121AC1DA700678959 /* VocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468DC3021AC1DA700678959 /* VocalTractTests.swift */; };
 		C47C528320929D7800A6FB3C /* AKAppleSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47C528220929D7800A6FB3C /* AKAppleSequencerTests.swift */; };
 		C4DD4C5E24B9673100A69304 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DD4C4724B9672500A69304 /* AudioKit.framework */; };
-		C4DD4C5F24B9673100A69304 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4DD4C4724B9672500A69304 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4F5E7A82068DF13008E0838 /* AKDynamicRangeCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */; };
 		FE920C3920E579CD00CA8AA7 /* AKDiskStreamerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */; };
 		FEE0730520E56B0A003F7FD5 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEE0730420E56B0A003F7FD5 /* sinechirp.wav */; };
@@ -214,20 +213,6 @@
 			remoteInfo = "DevoloopAudioKit-tvOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C4FB43B9243F3FFE00500045 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C4DD4C5F24B9673100A69304 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
@@ -555,7 +540,6 @@
 				C4289A0D1D56D20300B941B5 /* Sources */,
 				C4289A0E1D56D20300B941B5 /* Frameworks */,
 				C4289A0F1D56D20300B941B5 /* Resources */,
-				C4FB43B9243F3FFE00500045 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

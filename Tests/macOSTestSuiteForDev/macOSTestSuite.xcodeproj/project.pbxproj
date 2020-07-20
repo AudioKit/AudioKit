@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		291F637F24C55A5800B754F9 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4801EFC24BF66340049BA55 /* AudioKit.framework */; };
-		291F638024C55A5800B754F9 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4801EFC24BF66340049BA55 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41910222009A7E10067B5E0 /* AKPannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910212009A7E00067B5E0 /* AKPannerTests.swift */; };
 		C41910242009A7E90067B5E0 /* AKStereoFieldLimiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */; };
 		C464077420105CE400299119 /* AKBrownianNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077320105CE300299119 /* AKBrownianNoiseTests.swift */; };
@@ -219,20 +218,6 @@
 			remoteInfo = "DevoloopAudioKit-tvOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		291F638124C55A5800B754F9 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				291F638024C55A5800B754F9 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C41910212009A7E00067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
@@ -559,7 +544,6 @@
 				C464E8461FB0302A0025629C /* Sources */,
 				C464E8471FB0302A0025629C /* Frameworks */,
 				C464E8481FB0302A0025629C /* Resources */,
-				291F638124C55A5800B754F9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
