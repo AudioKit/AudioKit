@@ -236,7 +236,6 @@ public enum AKSliderStyle {
         let height = frame.height
 
         let themeTextColor = textColorForTheme
-        let themeTextColor = textColorForTheme
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
