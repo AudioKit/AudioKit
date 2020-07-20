@@ -99,8 +99,8 @@ public class AKMIDITrackView: AKButton {
     public func populateViewNotes() {
 
         let noteDescriptor = midiTrackNoteMap
-        let noteRange = (noteDescriptor?.noteRange)!
-        let noteList = (noteDescriptor?.noteList)!
+        let noteRange = noteDescriptor?.noteRange ?? 0
+        let noteList = noteDescriptor?.noteList ?? []
 
         let trackHeight = Double(self.frame.size.height)
 
