@@ -89,7 +89,7 @@ public class AKNodeParameter {
     /// Time is relative to the approximate time when the function
     /// is called. This is only sample accurate if called prior to `AKManager.start()`.
     /// - Parameter points: automation curve
-    public func automate(points: [AKParameterAutomationPoint]) {
+    public func automate(points: [AKAutomationEvent]) {
         var lastTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
         guard let parameter = parameter else { return }
 

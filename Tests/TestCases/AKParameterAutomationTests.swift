@@ -11,7 +11,7 @@ import AudioKit
 
 class AKParameterAutomationTests: AKTestCase {
 
-    func observerTest(automation: [AKParameterAutomationPoint], sampleTime: Float64) -> ([AUParameterAddress], [AUValue]) {
+    func observerTest(automation: [AKAutomationEvent], sampleTime: Float64) -> ([AUParameterAddress], [AUValue]) {
 
         let address = AUParameterAddress(42)
 
@@ -42,7 +42,7 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testSimpleAutomation() throws {
 
-        let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
+        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
 
         let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
 
@@ -53,7 +53,7 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testPastAutomation() {
 
-        let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
+        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
 
         let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 44100)
 
@@ -64,8 +64,8 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testPastAutomationTwo() {
 
-        let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: 0.1),
-                                 AKParameterAutomationPoint(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
+        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
+                                 AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
 
         let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 44100)
 
@@ -77,7 +77,7 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testFutureAutomation() {
 
-        let automationPoints = [ AKParameterAutomationPoint(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
+        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
 
         let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
 
