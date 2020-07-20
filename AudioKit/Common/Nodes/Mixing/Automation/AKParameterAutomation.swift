@@ -263,9 +263,9 @@ func evalRamp(start: Double,
 /// - Returns: A new array of piecewise linear automation points
 public func AKEvaluateAutomation(initialValue: AUValue,
                                  points: [AKParameterAutomationPoint],
-                                 resolution: Double) -> [AKParameterAutomationPoint] {
+                                 resolution: Double) -> [AKAutomationEvent] {
 
-    var result = [AKParameterAutomationPoint]()
+    var result = [AKAutomationEvent]()
 
     // The last evaluated value
     var value = Double(initialValue)
@@ -275,7 +275,10 @@ public func AKEvaluateAutomation(initialValue: AUValue,
 
         if point.isLinear() {
 
-            result.append(point)
+            result.append(AKAutomationEvent(targetValue: point.targetValue,
+                                            startTime: point.startTime,
+                                            rampDuration: point.rampDuration))
+            value = Double(point.targetValue)
 
         } else {
 
@@ -294,9 +297,9 @@ public func AKEvaluateAutomation(initialValue: AUValue,
                                  time: t + resolution,
                                  endTime: endTime)
 
-                result.append(AKParameterAutomationPoint(targetValue: AUValue(value),
-                                                         startTime: t,
-                                                         rampDuration: resolution))
+                result.append(AKAutomationEvent(targetValue: AUValue(value),
+                                                startTime: t,
+                                                rampDuration: resolution))
 
                 t += resolution
             }
