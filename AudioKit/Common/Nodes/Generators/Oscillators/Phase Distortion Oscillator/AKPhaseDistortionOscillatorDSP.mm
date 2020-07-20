@@ -5,6 +5,7 @@
 #include <vector>
 
 #import "AKSoundpipeDSPBase.hpp"
+#include "DebugDSP.h"
 
 class AKPhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -86,6 +87,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
+                        AKDebugDSP(AKPhaseDistortionOscillatorDebugPhase, ph);
                         sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
                         tabread->index = pd;
                         sp_tabread_compute(sp, tabread, NULL, &temp);
