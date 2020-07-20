@@ -47,11 +47,8 @@ class AKParameterAutomationTests: AKTestCase {
         let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
 
         // order is: taper, skew, offset, value
-        XCTAssertEqual(addresses, [ (UInt64(1)<<63) | 42,
-                                    (UInt64(1)<<62) | 42,
-                                    (UInt64(1)<<61) | 42,
-                                    42])
-        XCTAssertEqual(values, [1.0, 0.0, 0.0, 880.0])
+        XCTAssertEqual(addresses, [42])
+        XCTAssertEqual(values, [880.0])
     }
 
     func testPastAutomation() {
