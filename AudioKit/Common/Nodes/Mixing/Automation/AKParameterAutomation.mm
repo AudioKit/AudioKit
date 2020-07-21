@@ -509,7 +509,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
 
         // Skip over events completely in the past to determine
         // an initial value.
-        for(index = 0; index < count; ++index) {
+        for(; index < count; ++index) {
             auto event = points[index];
             if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
                break;
