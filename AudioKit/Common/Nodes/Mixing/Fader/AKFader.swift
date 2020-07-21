@@ -22,7 +22,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         }
     }
 
-    static let gainRange: ClosedRange<AUValue> = 0.0 ... 4.0
+    public static let gainRange: ClosedRange<AUValue> = 0.0 ... 4.0
 
     public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
