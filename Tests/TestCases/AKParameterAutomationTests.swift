@@ -11,7 +11,7 @@ import AudioKit
 
 class AKParameterAutomationTests: AKTestCase {
 
-    func observerTest(automation: [AKAutomationEvent],
+    func observerTest(events: [AKAutomationEvent],
                       sampleTime: Float64,
                       startTime: Double = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
 
@@ -27,13 +27,13 @@ class AKParameterAutomationTests: AKTestCase {
             durations.append(rampDuration)
         }
 
-        let observer: AURenderObserver = automation.withUnsafeBufferPointer { automationPtr in
+        let observer: AURenderObserver = events.withUnsafeBufferPointer { automationPtr in
             AKParameterAutomationGetRenderObserver(address,
                                                    scheduleParameterBlock,
                                                    44100,
                                                    startTime, // start time
                                                    automationPtr.baseAddress!,
-                                                   automation.count)
+                                                   events.count)
         }
 
         var timeStamp = AudioTimeStamp()
@@ -46,9 +46,9 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testSimpleAutomation() throws {
 
-        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
+        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
 
-        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 0)
+        let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
         // order is: taper, skew, offset, value
         XCTAssertEqual(addresses, [42])
@@ -57,9 +57,9 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testPastAutomation() {
 
-        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
+        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
 
-        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 44100)
+        let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
         // If the automation is in the past, the value should be set to the final value.
         XCTAssertEqual(addresses, [42])
@@ -68,10 +68,10 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testPastAutomationTwo() {
 
-        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
+        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
                                  AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
 
-        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 44100)
+        let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
         // If the automation is in the past, the value should be set to the final value.
         XCTAssertEqual(addresses, [42])
@@ -81,9 +81,9 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testFutureAutomation() {
 
-        let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
+        let events = [ AKAutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
 
-        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 0)
+        let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
         // If the automation is in the future, we should not get anything.
         XCTAssertEqual(addresses, [])
@@ -96,7 +96,7 @@ class AKParameterAutomationTests: AKTestCase {
 
         let events = [AKAutomationEvent(targetValue: 1, startTime: 0, rampDuration: 1.0)]
 
-        let (addresses, values, durations) = observerTest(automation: events, sampleTime: 128)
+        let (addresses, values, durations) = observerTest(events: events, sampleTime: 128)
 
         XCTAssertEqual(addresses, [42])
         XCTAssertEqual(values, [1.0])
