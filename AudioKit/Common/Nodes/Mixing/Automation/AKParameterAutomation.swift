@@ -283,7 +283,7 @@ public func AKEvaluateAutomation(initialValue: AUValue,
         } else {
 
             // Cut off the end if another point comes along.
-            let endTime: Double = min(i < points.count - 1 ? points[i].startTime : Double.greatestFiniteMagnitude,
+            let endTime: Double = min(i < points.count - 1 ? points[i + 1].startTime : Double.greatestFiniteMagnitude,
                                       point.startTime + point.rampDuration)
 
             var t = point.startTime
@@ -295,7 +295,7 @@ public func AKEvaluateAutomation(initialValue: AUValue,
                 value = evalRamp(start: start,
                                  segment: point,
                                  time: t + resolution,
-                                 endTime: endTime)
+                                 endTime: point.startTime + point.rampDuration)
 
                 result.append(AKAutomationEvent(targetValue: AUValue(value),
                                                 startTime: t,

@@ -262,4 +262,27 @@ class AKParameterAutomationTests: AKTestCase {
         XCTAssert(abs(newPoints[2].targetValue) < 0.0001)
 
     }
+
+    func testEvaluateAutomationTwoSegment2() {
+
+        // Curved segment cut off by linear segment.
+        let points = [AKParameterAutomationPoint(targetValue: 1, startTime: 0, rampDuration: 2.0, rampTaper: 1.0, rampSkew: 0.000001),
+                      AKParameterAutomationPoint(targetValue: 1, startTime: 1, rampDuration: 0.0)]
+
+        let newPoints = AKEvaluateAutomation(initialValue: 0,
+                                             points: points,
+                                             resolution: 0.5)
+
+        XCTAssertEqual(newPoints[0].startTime, 0.0)
+        XCTAssertEqual(newPoints[0].rampDuration, 0.5)
+        XCTAssertEqual(newPoints[0].targetValue, 0.25)
+
+        XCTAssertEqual(newPoints[1].startTime, 0.5)
+        XCTAssert(fabs(newPoints[1].targetValue - 0.5) < 0.0001)
+
+        XCTAssertEqual(newPoints[2].startTime, 1.0)
+        XCTAssertEqual(newPoints[2].targetValue, 1.0)
+        XCTAssertEqual(newPoints[2].rampDuration, 0.0)
+
+    }
 }
