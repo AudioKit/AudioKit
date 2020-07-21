@@ -489,10 +489,10 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
                                                         double startSampleTime,
-                                                        const struct AKAutomationEvent* pointsArray,
+                                                        const struct AKAutomationEvent* eventsArray,
                                                         size_t count) {
 
-    const std::vector<AKAutomationEvent> points{pointsArray, pointsArray+count};
+    const std::vector<AKAutomationEvent> events{eventsArray, eventsArray+count};
     __block int index = 0;
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
@@ -510,7 +510,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
         // Skip over events completely in the past to determine
         // an initial value.
         for(; index < count; ++index) {
-            auto event = points[index];
+            auto event = events[index];
             if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
                break;
             }
@@ -527,7 +527,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
 
         // Apply parameter automation for the segment.
         while (index < count) {
-            auto event = points[index];
+            auto event = events[index];
 
             // Is it after the current block?
             if (event.startTime >= blockEndTime) break;
