@@ -493,8 +493,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         size_t count) {
 
     const std::vector<AKAutomationEvent> points{pointsArray, pointsArray+count};
-    __block int index;
-    __block bool init = true;
+    __block int index = 0;
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
@@ -510,29 +509,24 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
 
         printf("block: [%f, %f]\n", blockStartTime, blockEndTime);
 
-        // For the first run, catch up.
-        if(init) {
-            init = false;
+        AUValue initial = NAN;
 
-            AUValue initial = NAN;
-
-            // Skip over events completely in the past to determine
-            // an initial value.
-            for(index = 0; index < count; ++index) {
-                auto event = points[index];
-                if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
-                   break;
-                }
-                initial = event.targetValue;
+        // Skip over events completely in the past to determine
+        // an initial value.
+        for(index = 0; index < count; ++index) {
+            auto event = points[index];
+            if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
+               break;
             }
+            initial = event.targetValue;
+        }
 
-            // Do we have an initial value from completed events?
-            if(!isnan(initial)) {
-                scheduleParameterBlock(AUEventSampleTimeImmediate,
-                                       0,
-                                       address,
-                                       initial);
-            }
+        // Do we have an initial value from completed events?
+        if(!isnan(initial)) {
+            scheduleParameterBlock(AUEventSampleTimeImmediate,
+                                   0,
+                                   address,
+                                   initial);
         }
 
         // Apply parameter automation for the segment.
