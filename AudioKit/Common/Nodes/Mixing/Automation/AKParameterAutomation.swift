@@ -257,8 +257,8 @@ func evalRamp(start: Double,
 ///
 /// - Parameters:
 ///   - initialValue: Starting point
-///   - points: AN array of automation points to convert
-///   - resolution: Duration of each piecewise linear segemtn (in samples?)
+///   - points: An array of automation points to convert
+///   - resolution: Duration of each linear segment in seconds
 ///   
 /// - Returns: A new array of piecewise linear automation points
 public func AKEvaluateAutomation(initialValue: AUValue,
