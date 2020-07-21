@@ -22,27 +22,29 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         }
     }
 
-    static let leftGainDef = AKNodeParameterDef(
+    static let gainRange = 0.0 ... 4.0
+
+    public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
         name: "Left Gain",
         address: AKFaderParameter.leftGain.rawValue,
-        range: 0 ... 4,
+        range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default)
 
     /// Left Channel Amplification Factor
-    @Parameter var leftGain: AUValue
+    @Parameter public var leftGain: AUValue
 
-    static let rightGainDef = AKNodeParameterDef(
+    public static let rightGainDef = AKNodeParameterDef(
         identifier: "rightGain",
         name: "Right Gain",
         address: AKFaderParameter.rightGain.rawValue,
-        range: 0 ... 4,
+        range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default)
 
     /// Right Channel Amplification Factor
-    @Parameter var rightGain: AUValue
+    @Parameter public var rightGain: AUValue
 
     /// Amplification Factor in db
     public var dB: AUValue {
