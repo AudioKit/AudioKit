@@ -88,8 +88,8 @@ public class AKNodeParameter {
     ///
     /// Time is relative to the approximate time when the function
     /// is called. This is only sample accurate if called prior to `AKManager.start()`.
-    /// - Parameter points: automation curve
-    public func automate(points: [AKAutomationEvent]) {
+    /// - Parameter events: automation curve
+    public func automate(events: [AKAutomationEvent]) {
         var lastTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
         guard let parameter = parameter else { return }
 
@@ -102,7 +102,7 @@ public class AKNodeParameter {
 
         stopAutomation()
 
-        points.withUnsafeBufferPointer { automationPtr in
+        events.withUnsafeBufferPointer { automationPtr in
 
             guard let automationBaseAddress = automationPtr.baseAddress else { return }
 
@@ -111,7 +111,7 @@ public class AKNodeParameter {
                                                                   AKSettings.sampleRate,
                                                                   Double(lastTime.sampleTime),
                                                                   automationBaseAddress,
-                                                                  points.count) else { return }
+                                                                  events.count) else { return }
 
             renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
         }
