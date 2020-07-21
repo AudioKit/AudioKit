@@ -16,7 +16,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
 
     // MARK: - Parameters
 
-    static let positionDef = AKNodeParameterDef(
+    public static let positionDef = AKNodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: AKPhaseLockedVocoderParameter.position.rawValue,
@@ -27,7 +27,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @Parameter public var position: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
         address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
@@ -38,7 +38,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     /// Amplitude.
     @Parameter public var amplitude: AUValue
 
-    static let pitchRatioDef = AKNodeParameterDef(
+    public static let pitchRatioDef = AKNodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
         address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,

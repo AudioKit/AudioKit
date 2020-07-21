@@ -14,7 +14,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
-    static let wahDef = AKNodeParameterDef(
+    public static let wahDef = AKNodeParameterDef(
         identifier: "wah",
         name: "Wah Amount",
         address: AKAutoWahParameter.wah.rawValue,
@@ -25,7 +25,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     /// Wah Amount
     @Parameter public var wah: AUValue
 
-    static let mixDef = AKNodeParameterDef(
+    public static let mixDef = AKNodeParameterDef(
         identifier: "mix",
         name: "Dry/Wet Mix",
         address: AKAutoWahParameter.mix.rawValue,
@@ -36,7 +36,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     /// Dry/Wet Mix
     @Parameter public var mix: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Overall level",
         address: AKAutoWahParameter.amplitude.rawValue,

@@ -15,7 +15,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     // MARK: - Parameters
 
-    static let notchMinimumFrequencyDef = AKNodeParameterDef(
+    public static let notchMinimumFrequencyDef = AKNodeParameterDef(
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
         address: AKPhaserParameter.notchMinimumFrequency.rawValue,
@@ -26,7 +26,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Notch Minimum Frequency
     @Parameter public var notchMinimumFrequency: AUValue
 
-    static let notchMaximumFrequencyDef = AKNodeParameterDef(
+    public static let notchMaximumFrequencyDef = AKNodeParameterDef(
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
         address: AKPhaserParameter.notchMaximumFrequency.rawValue,
@@ -37,7 +37,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Notch Maximum Frequency
     @Parameter public var notchMaximumFrequency: AUValue
 
-    static let notchWidthDef = AKNodeParameterDef(
+    public static let notchWidthDef = AKNodeParameterDef(
         identifier: "notchWidth",
         name: "Between 10 and 5000",
         address: AKPhaserParameter.notchWidth.rawValue,
@@ -48,7 +48,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Between 10 and 5000
     @Parameter public var notchWidth: AUValue
 
-    static let notchFrequencyDef = AKNodeParameterDef(
+    public static let notchFrequencyDef = AKNodeParameterDef(
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
         address: AKPhaserParameter.notchFrequency.rawValue,
@@ -59,7 +59,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Between 1.1 and 4
     @Parameter public var notchFrequency: AUValue
 
-    static let vibratoModeDef = AKNodeParameterDef(
+    public static let vibratoModeDef = AKNodeParameterDef(
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
         address: AKPhaserParameter.vibratoMode.rawValue,
@@ -70,7 +70,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Direct or Vibrato (default)
     @Parameter public var vibratoMode: AUValue
 
-    static let depthDef = AKNodeParameterDef(
+    public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Between 0 and 1",
         address: AKPhaserParameter.depth.rawValue,
@@ -81,7 +81,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Between 0 and 1
     @Parameter public var depth: AUValue
 
-    static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Between 0 and 1",
         address: AKPhaserParameter.feedback.rawValue,
@@ -92,7 +92,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Between 0 and 1
     @Parameter public var feedback: AUValue
 
-    static let invertedDef = AKNodeParameterDef(
+    public static let invertedDef = AKNodeParameterDef(
         identifier: "inverted",
         name: "1 or 0",
         address: AKPhaserParameter.inverted.rawValue,
@@ -103,7 +103,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// 1 or 0
     @Parameter public var inverted: AUValue
 
-    static let lfoBPMDef = AKNodeParameterDef(
+    public static let lfoBPMDef = AKNodeParameterDef(
         identifier: "lfoBPM",
         name: "Between 24 and 360",
         address: AKPhaserParameter.lfoBPM.rawValue,

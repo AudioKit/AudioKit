@@ -14,7 +14,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
 
     // MARK: - Parameters
 
-    static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
@@ -25,7 +25,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
 
-    static let gainDef = AKNodeParameterDef(
+    public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
@@ -36,7 +36,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
-    static let qDef = AKNodeParameterDef(
+    public static let qDef = AKNodeParameterDef(
         identifier: "q",
         name: "Q",
         address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,

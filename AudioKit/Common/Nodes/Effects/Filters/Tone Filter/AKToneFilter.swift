@@ -14,7 +14,7 @@ public class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
-    static let halfPowerPointDef = AKNodeParameterDef(
+    public static let halfPowerPointDef = AKNodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
         address: AKToneFilterParameter.halfPowerPoint.rawValue,

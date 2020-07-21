@@ -14,7 +14,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     // MARK: - Parameters
 
-    static let pregainDef = AKNodeParameterDef(
+    public static let pregainDef = AKNodeParameterDef(
         identifier: "pregain",
         name: "Pregain",
         address: AKTanhDistortionParameter.pregain.rawValue,
@@ -25,7 +25,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter public var pregain: AUValue
 
-    static let postgainDef = AKNodeParameterDef(
+    public static let postgainDef = AKNodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
         address: AKTanhDistortionParameter.postgain.rawValue,
@@ -36,7 +36,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     /// Gain applied after waveshaping
     @Parameter public var postgain: AUValue
 
-    static let positiveShapeParameterDef = AKNodeParameterDef(
+    public static let positiveShapeParameterDef = AKNodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
         address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
@@ -47,7 +47,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @Parameter public var positiveShapeParameter: AUValue
 
-    static let negativeShapeParameterDef = AKNodeParameterDef(
+    public static let negativeShapeParameterDef = AKNodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
         address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,

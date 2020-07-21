@@ -22,7 +22,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
     }
 
-    static let leftGainDef = AKNodeParameterDef(
+    public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
         name: "Left Boosting Amount",
         address: 0,
@@ -33,7 +33,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     /// Left Channel Amplification Factor
     @Parameter public var leftGain: AUValue
 
-    static let rightGainDef = AKNodeParameterDef(
+    public static let rightGainDef = AKNodeParameterDef(
         identifier: "rightGain",
         name: "Right Boosting Amount",
         address: 1,

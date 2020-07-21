@@ -14,7 +14,7 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKBrownianNoiseParameter.amplitude.rawValue,

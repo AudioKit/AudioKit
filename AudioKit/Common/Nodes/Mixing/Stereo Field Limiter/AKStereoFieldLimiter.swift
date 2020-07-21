@@ -14,7 +14,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    static let amounDef = AKNodeParameterDef(
+    public static let amounDef = AKNodeParameterDef(
         identifier: "amount",
         name: "Limiting amount",
         address: 0,

@@ -14,7 +14,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     // MARK: - Parameters
 
-    static let attackDurationDef = AKNodeParameterDef(
+    public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack time",
         address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
@@ -25,7 +25,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Attack time
     @Parameter public var attackDuration: AUValue
 
-    static let decayDurationDef = AKNodeParameterDef(
+    public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "Decay time",
         address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
@@ -36,7 +36,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Decay time
     @Parameter public var decayDuration: AUValue
 
-    static let sustainLevelDef = AKNodeParameterDef(
+    public static let sustainLevelDef = AKNodeParameterDef(
         identifier: "sustainLevel",
         name: "Sustain Level",
         address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
@@ -47,7 +47,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Sustain Level
     @Parameter public var sustainLevel: AUValue
 
-    static let releaseDurationDef = AKNodeParameterDef(
+    public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release time",
         address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,

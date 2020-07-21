@@ -14,7 +14,7 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Variable frequency. Values less than initial frequency will be doubled until it is greater than that.",
         address: AKPluckedStringParameter.frequency.rawValue,
@@ -25,7 +25,7 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     @Parameter public var frequency: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPluckedStringParameter.amplitude.rawValue,

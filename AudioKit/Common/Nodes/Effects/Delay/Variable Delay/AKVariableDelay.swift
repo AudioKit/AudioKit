@@ -14,7 +14,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
     // MARK: - Parameters
 
-    static let timeDef = AKNodeParameterDef(
+    public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
         address: AKVariableDelayParameter.time.rawValue,
@@ -25,7 +25,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
-    static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: AKVariableDelayParameter.feedback.rawValue,

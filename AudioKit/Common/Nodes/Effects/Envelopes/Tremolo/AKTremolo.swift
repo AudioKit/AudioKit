@@ -14,7 +14,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKTremoloParameter.frequency.rawValue,
@@ -25,7 +25,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    static let depthDef = AKNodeParameterDef(
+    public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth",
         address: AKTremoloParameter.depth.rawValue,

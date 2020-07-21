@@ -18,7 +18,7 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: AKMoogLadderParameter.cutoffFrequency.rawValue,
@@ -29,7 +29,7 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     /// Filter cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
-    static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
         address: AKMoogLadderParameter.resonance.rawValue,

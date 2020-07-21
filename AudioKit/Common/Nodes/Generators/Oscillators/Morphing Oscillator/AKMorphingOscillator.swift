@@ -17,7 +17,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
 
     fileprivate var waveformArray = [AKTable]()
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (in Hz)",
         address: AKMorphingOscillatorParameter.frequency.rawValue,
@@ -28,7 +28,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
     /// Frequency (in Hz)
     @Parameter public var frequency: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
         address: AKMorphingOscillatorParameter.amplitude.rawValue,
@@ -39,7 +39,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
     /// Amplitude (typically a value between 0 and 1).
     @Parameter public var amplitude: AUValue
 
-    static let indexDef = AKNodeParameterDef(
+    public static let indexDef = AKNodeParameterDef(
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: AKMorphingOscillatorParameter.index.rawValue,
@@ -50,7 +50,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
     /// Index of the wavetable to use (fractional are okay).
     @Parameter public var index: AUValue
 
-    static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
@@ -61,7 +61,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,

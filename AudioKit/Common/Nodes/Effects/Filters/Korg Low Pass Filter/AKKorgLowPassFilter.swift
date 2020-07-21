@@ -14,7 +14,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     // MARK: - Parameters
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
         address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
@@ -25,7 +25,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Filter cutoff
     @Parameter public var cutoffFrequency: AUValue
 
-    static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
         address: AKKorgLowPassFilterParameter.resonance.rawValue,
@@ -36,7 +36,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Filter resonance (should be between 0-2)
     @Parameter public var resonance: AUValue
 
-    static let saturationDef = AKNodeParameterDef(
+    public static let saturationDef = AKNodeParameterDef(
         identifier: "saturation",
         name: "Filter saturation.",
         address: AKKorgLowPassFilterParameter.saturation.rawValue,

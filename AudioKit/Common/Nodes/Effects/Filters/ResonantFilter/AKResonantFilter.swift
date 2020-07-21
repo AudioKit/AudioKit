@@ -15,7 +15,7 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Center frequency of the filter, or frequency position of the peak response.",
         address: AKResonantFilterParameter.frequency.rawValue,
@@ -26,7 +26,7 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     /// Center frequency of the filter, or frequency position of the peak response.
     @Parameter public var frequency: AUValue
 
-    static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth of the filter.",
         address: AKResonantFilterParameter.bandwidth.rawValue,

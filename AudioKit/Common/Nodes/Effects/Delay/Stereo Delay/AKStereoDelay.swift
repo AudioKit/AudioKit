@@ -14,7 +14,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
 
     // MARK: - Parameters
 
-    static let timeDef = AKNodeParameterDef(
+    public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
         address: AKVariableDelayParameter.time.rawValue,
@@ -25,7 +25,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
-    static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: AKStereoDelayParameter.feedback.rawValue,
@@ -36,7 +36,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     /// Feedback amount. Should be a value between 0-1.
     @Parameter public var feedback: AUValue
 
-    static let dryWetMixDef = AKNodeParameterDef(
+    public static let dryWetMixDef = AKNodeParameterDef(
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
        address: AKStereoDelayParameter.dryWetMix.rawValue,
@@ -47,7 +47,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter public var dryWetMix: AUValue
 
-    static let pingPongDef = AKNodeParameterDef(
+    public static let pingPongDef = AKNodeParameterDef(
        identifier: "pingPong",
        name: "Ping-Pong Mode",
        address: AKStereoDelayParameter.pingPong.rawValue,

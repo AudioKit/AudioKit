@@ -15,7 +15,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, A
 
     // MARK: - Parameters
 
-    static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKBandRejectButterworthFilterParameter.centerFrequency.rawValue,
@@ -26,7 +26,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, A
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
-    static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: AKBandRejectButterworthFilterParameter.bandwidth.rawValue,
