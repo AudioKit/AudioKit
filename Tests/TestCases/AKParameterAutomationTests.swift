@@ -11,23 +11,27 @@ import AudioKit
 
 class AKParameterAutomationTests: AKTestCase {
 
-    func observerTest(automation: [AKAutomationEvent], sampleTime: Float64) -> ([AUParameterAddress], [AUValue]) {
+    func observerTest(automation: [AKAutomationEvent],
+                      sampleTime: Float64,
+                      startTime: Double = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
 
         let address = AUParameterAddress(42)
 
         var addresses: [AUParameterAddress] = []
         var values: [AUValue] = []
+        var durations: [AUAudioFrameCount] = []
 
-        let scheduleParameterBlock: AUScheduleParameterBlock = { (sampleTime, frameCount, address, value) in
+        let scheduleParameterBlock: AUScheduleParameterBlock = { (sampleTime, rampDuration, address, value) in
             addresses.append(address)
             values.append(value)
+            durations.append(rampDuration)
         }
 
         let observer: AURenderObserver = automation.withUnsafeBufferPointer { automationPtr in
             AKParameterAutomationGetRenderObserver(address,
                                                    scheduleParameterBlock,
                                                    44100,
-                                                   0, // start time
+                                                   startTime, // start time
                                                    automationPtr.baseAddress!,
                                                    automation.count)
         }
@@ -37,14 +41,14 @@ class AKParameterAutomationTests: AKTestCase {
 
         observer(.unitRenderAction_PreRender, &timeStamp, 256, 0)
 
-        return (addresses, values)
+        return (addresses, values, durations)
     }
 
     func testSimpleAutomation() throws {
 
         let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
 
-        let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
+        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 0)
 
         // order is: taper, skew, offset, value
         XCTAssertEqual(addresses, [42])
@@ -55,7 +59,7 @@ class AKParameterAutomationTests: AKTestCase {
 
         let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
 
-        let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 44100)
+        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 44100)
 
         // If the automation is in the past, the value should be set to the final value.
         XCTAssertEqual(addresses, [42])
@@ -67,11 +71,11 @@ class AKParameterAutomationTests: AKTestCase {
         let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
                                  AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
 
-        let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 44100)
+        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 44100)
 
         // If the automation is in the past, the value should be set to the final value.
-        XCTAssertEqual(addresses, [42, 42])
-        XCTAssertEqual(values, [880.0, 440.0])
+        XCTAssertEqual(addresses, [42])
+        XCTAssertEqual(values, [440.0])
 
     }
 
@@ -79,11 +83,24 @@ class AKParameterAutomationTests: AKTestCase {
 
         let automationPoints = [ AKAutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
 
-        let (addresses, values) = observerTest(automation: automationPoints, sampleTime: 0)
+        let (addresses, values, _) = observerTest(automation: automationPoints, sampleTime: 0)
 
         // If the automation is in the future, we should not get anything.
         XCTAssertEqual(addresses, [])
         XCTAssertEqual(values, [])
+    }
+
+    func testAutomationMiddle() {
+
+        // Start automating in the middle of a segment.
+
+        let events = [AKAutomationEvent(targetValue: 1, startTime: 0, rampDuration: 1.0)]
+
+        let (addresses, values, durations) = observerTest(automation: events, sampleTime: 128)
+
+        XCTAssertEqual(addresses, [42])
+        XCTAssertEqual(values, [1.0])
+        XCTAssertEqual(durations, [44100])
     }
 
     func testRecord() {
