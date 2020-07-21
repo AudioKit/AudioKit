@@ -69,7 +69,7 @@ class AKParameterAutomationTests: AKTestCase {
     func testPastAutomationTwo() {
 
         let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
-                                 AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
+                       AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
