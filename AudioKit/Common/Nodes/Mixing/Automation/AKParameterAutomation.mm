@@ -502,12 +502,8 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
     {
         if (actionFlags != kAudioUnitRenderAction_PreRender) return;
 
-        printf("frameCount: %d\n", frameCount);
-
         double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
         double blockEndTime = blockStartTime + frameCount / sampleRate;
-
-        printf("block: [%f, %f]\n", blockStartTime, blockEndTime);
 
         AUValue initial = NAN;
 
