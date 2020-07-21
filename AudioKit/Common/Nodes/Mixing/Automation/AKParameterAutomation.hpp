@@ -13,6 +13,13 @@ struct AKParameterAutomationPoint {
     float rampSkew;
 };
 
+/// Linear automation segment.
+struct AKAutomationEvent {
+    AUValue targetValue;
+    double startTime;
+    double rampDuration;
+};
+
 typedef struct AKParameterAutomationHelper* AKParameterAutomationHelperRef;
 
 #ifndef __cplusplus
@@ -50,7 +57,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
                                                         double startSampleTime,
-                                                        const struct AKParameterAutomationPoint* points,
+                                                        const struct AKAutomationEvent* events,
                                                         size_t count);
 
 #endif

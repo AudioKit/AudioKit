@@ -483,51 +483,23 @@ void AKParameterAutomationHelper::clearAllPoints(AUParameterAddress address)
     wasReset = true;
 }
 
-struct RenderObserverData {
-    AUParameterAddress address;
-    std::vector<AKParameterAutomationPoint> points;
-    std::vector<AKParameterAutomationPoint>::const_iterator iterator;
-};
-
-static void scheduleAutomationPoint(AUScheduleParameterBlock scheduleParameterBlock,
-                                    double sampleRate,
-                                    AUEventSampleTime blockTime,
-                                    AUParameterAddress address,
-                                    const AKParameterAutomationPoint& point,
-                                    AUAudioFrameCount rampOffset)
-{
-    AUParameterAddress mask;
-
-    // set taper (as "value" parameter)
-    mask = (AUParameterAddress)1 << 63;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampTaper);
-
-    // set skew (as "value" parameter)
-    mask = (AUParameterAddress)1 << 62;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, 0, address | mask, point.rampSkew);
-
-    // set offset (as "duration" parameter)
-    mask = (AUParameterAddress)1 << 61;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampOffset, address | mask, 0);
-
-    // set value
-    AUAudioFrameCount rampDuration = point.rampDuration * sampleRate;
-    scheduleParameterBlock(AUEventSampleTimeImmediate + blockTime, rampDuration, address, point.targetValue);
-}
-
 /// Returns a render observer block which will apply the automation to the selected parameter.
 extern "C"
 AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         double sampleRate,
                                                         double startSampleTime,
-                                                        const struct AKParameterAutomationPoint* points,
+                                                        const struct AKAutomationEvent* eventsArray,
                                                         size_t count) {
 
-    __block RenderObserverData data;
-    data.address = address;
-    data.points = { points, points+count };
-    data.iterator = data.points.begin();
+    std::vector<AKAutomationEvent> events{eventsArray, eventsArray+count};
+
+    // Sort events by start time.
+    std::sort(events.begin(), events.end(), [](auto a, auto b) {
+        return a.startTime < b.startTime;
+    });
+
+    __block int index = 0;
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
@@ -539,38 +511,48 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
         double blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
         double blockEndTime = blockStartTime + frameCount / sampleRate;
 
-        // Skip forward.
-        while (data.iterator != data.points.cend() ) {
+        AUValue initial = NAN;
 
-            double rampStartTime = data.iterator->startTime;
-            double rampEndTime = rampStartTime + data.iterator->rampDuration;
-
-            if (rampStartTime < blockStartTime) {
-                if (rampEndTime <= blockStartTime) {
-                    // ramp is completely finished at this point, set to target value
-                    scheduleParameterBlock(AUEventSampleTimeImmediate, 0, data.address, data.iterator->targetValue);
-                }
-                else {
-                    // we're starting mid-ramp: start immediately with offset
-                    AUAudioFrameCount offset = (blockStartTime - rampStartTime) * sampleRate;
-                    scheduleAutomationPoint(scheduleParameterBlock, sampleRate, 0, data.address, *data.iterator, offset);
-                }
-                data.iterator++;
+        // Skip over events completely in the past to determine
+        // an initial value.
+        for(; index < count; ++index) {
+            auto event = events[index];
+            if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
+               break;
             }
-            else {
-                break;
-            }
+            initial = event.targetValue;
+        }
 
+        // Do we have an initial value from completed events?
+        if(!isnan(initial)) {
+            scheduleParameterBlock(AUEventSampleTimeImmediate,
+                                   0,
+                                   address,
+                                   initial);
         }
 
         // Apply parameter automation for the segment.
-        while (data.iterator != data.points.cend()) {
-            double rampStartTime = data.iterator->startTime;
-            if (rampStartTime >= blockEndTime) break;
-            AUEventSampleTime startTime = (rampStartTime - blockStartTime) * sampleRate;
-            if (rampStartTime < blockStartTime) startTime = 0; // should never happen?
-            scheduleAutomationPoint(scheduleParameterBlock, sampleRate, startTime, data.address, *data.iterator, 0);
-            data.iterator++;
+        while (index < count) {
+            auto event = events[index];
+
+            // Is it after the current block?
+            if (event.startTime >= blockEndTime) break;
+
+            AUEventSampleTime startTime = (event.startTime - blockStartTime) * sampleRate;
+            AUAudioFrameCount duration = event.rampDuration * sampleRate;
+
+            // If the event has already started, ensure we hit the targetValue
+            // at the appropriate time.
+            if(startTime < 0) {
+                duration += startTime;
+            }
+
+            scheduleParameterBlock(startTime,
+                                   duration,
+                                   address,
+                                   event.targetValue);
+
+            index++;
         }
 
     };
