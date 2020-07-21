@@ -41,13 +41,10 @@ class AKPlayerTests: AKTestCase {
         }
 
         output = player
+        player.fade.inTime = 0.3
 
-        player.fade.inTime = self.duration
-        player.faderNode?.leftGain = 0
-        player.faderNode?.rightGain = 0
-        player.faderNode?.addAutomationPoint(value: 1.0, at: 0.0, rampDuration: self.duration)
-
-        AKTestMD5("4ada6b1b67edc990324c041a22857acc")
+        //auditionTest()
+        AKTestMD5("2f21e7448012c1c8585f216a235741f2")
     }
 
 }
