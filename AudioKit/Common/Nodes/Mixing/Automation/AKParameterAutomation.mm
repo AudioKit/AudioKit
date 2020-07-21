@@ -537,9 +537,16 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
             if (event.startTime >= blockEndTime) break;
 
             AUEventSampleTime startTime = (event.startTime - blockStartTime) * sampleRate;
+            AUAudioFrameCount duration = event.rampDuration * sampleRate;
+
+            // If the event has already started, ensure we hit the targetValue
+            // at the appropriate time.
+            if(startTime < 0) {
+                duration += startTime;
+            }
 
             scheduleParameterBlock(startTime,
-                                   event.rampDuration * sampleRate,
+                                   duration,
                                    address,
                                    event.targetValue);
 
