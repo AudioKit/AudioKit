@@ -57,7 +57,10 @@ class AKOscillatorTests: AKTestCase {
 
     func testAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880,
+                                                                         startTime: 0,
+                                                                         rampDuration: duration),
+                                       to: input.$frequency)
         output = input
 
         afterStart = {
@@ -72,7 +75,10 @@ class AKOscillatorTests: AKTestCase {
 
     func testAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0,
+                                                                         startTime: 0,
+                                                                         rampDuration: duration),
+                                       to: input.$amplitude)
         output = input
 
         afterStart = {
@@ -87,8 +93,14 @@ class AKOscillatorTests: AKTestCase {
 
     func testAutomationMultiple() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: duration), to: input.$frequency)
-        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: duration), to: input.$amplitude)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 880,
+                                                                         startTime: 0,
+                                                                         rampDuration: duration),
+                                       to: input.$frequency)
+        input.parameterAutomation?.add(point: AKParameterAutomationPoint(targetValue: 1.0,
+                                                                         startTime: 0,
+                                                                         rampDuration: duration),
+                                       to: input.$amplitude)
         output = input
 
         afterStart = {
@@ -103,7 +115,9 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
+        input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+                                                             startTime: 0,
+                                                             rampDuration: self.duration)])
         output = input
 
         // auditionTest()
@@ -114,7 +128,9 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
+        input.$amplitude.automate(events: [AKAutomationEvent(targetValue: 1.0,
+                                                             startTime: 0,
+                                                             rampDuration: self.duration)])
         output = input
 
         // auditionTest()
@@ -125,8 +141,12 @@ class AKOscillatorTests: AKTestCase {
 
     func testNewAutomationMultiple() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        input.$frequency.automate(points: [AKParameterAutomationPoint(targetValue: 880, startTime: 0, rampDuration: self.duration)])
-        input.$amplitude.automate(points: [AKParameterAutomationPoint(targetValue: 1.0, startTime: 0, rampDuration: self.duration)])
+        input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+                                                             startTime: 0,
+                                                             rampDuration: self.duration)])
+        input.$amplitude.automate(events: [AKAutomationEvent(targetValue: 1.0,
+                                                             startTime: 0,
+                                                             rampDuration: self.duration)])
         output = input
 
         // auditionTest()
