@@ -100,7 +100,7 @@ class AKParameterAutomationTests: AKTestCase {
 
         XCTAssertEqual(addresses, [42])
         XCTAssertEqual(values, [1.0])
-        XCTAssertEqual(durations, [44100])
+        XCTAssertEqual(durations, [UInt32(44100-128)])
     }
 
     func testRecord() {
