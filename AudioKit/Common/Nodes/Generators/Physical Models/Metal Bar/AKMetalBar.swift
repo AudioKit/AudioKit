@@ -14,7 +14,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-    static let leftBoundaryConditionDef = AKNodeParameterDef(
+    public static let leftBoundaryConditionDef = AKNodeParameterDef(
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
@@ -25,7 +25,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter public var leftBoundaryCondition: AUValue
 
-    static let rightBoundaryConditionDef = AKNodeParameterDef(
+    public static let rightBoundaryConditionDef = AKNodeParameterDef(
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
@@ -36,7 +36,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter public var rightBoundaryCondition: AUValue
 
-    static let decayDurationDef = AKNodeParameterDef(
+    public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
         address: AKMetalBarParameter.decayDuration.rawValue,
@@ -47,7 +47,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// 30db decay time (in seconds).
     @Parameter public var decayDuration: AUValue
 
-    static let scanSpeedDef = AKNodeParameterDef(
+    public static let scanSpeedDef = AKNodeParameterDef(
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
         address: AKMetalBarParameter.scanSpeed.rawValue,
@@ -58,7 +58,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Speed of scanning the output location.
     @Parameter public var scanSpeed: AUValue
 
-    static let positionDef = AKNodeParameterDef(
+    public static let positionDef = AKNodeParameterDef(
         identifier: "position",
         name: "Position along bar that strike occurs.",
         address: AKMetalBarParameter.position.rawValue,
@@ -69,7 +69,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Position along bar that strike occurs.
     @Parameter public var position: AUValue
 
-    static let strikeVelocityDef = AKNodeParameterDef(
+    public static let strikeVelocityDef = AKNodeParameterDef(
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
         address: AKMetalBarParameter.strikeVelocity.rawValue,
@@ -80,7 +80,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Normalized strike velocity
     @Parameter public var strikeVelocity: AUValue
 
-    static let strikeWidthDef = AKNodeParameterDef(
+    public static let strikeWidthDef = AKNodeParameterDef(
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
         address: AKMetalBarParameter.strikeWidth.rawValue,

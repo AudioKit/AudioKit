@@ -14,7 +14,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
@@ -25,7 +25,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    static let depthDef = AKNodeParameterDef(
+    public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
@@ -36,7 +36,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
-    static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
@@ -47,7 +47,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
-    static let dryWetMixDef = AKNodeParameterDef(
+    public static let dryWetMixDef = AKNodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,

@@ -14,7 +14,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
 
     // MARK: - Parameters
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: AKRolandTB303FilterParameter.cutoffFrequency.rawValue,
@@ -25,7 +25,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
 
-    static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
         address: AKRolandTB303FilterParameter.resonance.rawValue,
@@ -38,7 +38,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
-    static let distortionDef = AKNodeParameterDef(
+    public static let distortionDef = AKNodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
         address: AKRolandTB303FilterParameter.distortion.rawValue,
@@ -49,7 +49,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     @Parameter public var distortion: AUValue
 
-    static let resonanceAsymmetryDef = AKNodeParameterDef(
+    public static let resonanceAsymmetryDef = AKNodeParameterDef(
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
         address: AKRolandTB303FilterParameter.resonanceAsymmetry.rawValue,

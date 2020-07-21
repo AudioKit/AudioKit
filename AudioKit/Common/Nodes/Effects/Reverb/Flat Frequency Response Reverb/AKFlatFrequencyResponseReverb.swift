@@ -18,7 +18,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
 
     // MARK: - Parameters
 
-    static let reverbDurationDef = AKNodeParameterDef(
+    public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,

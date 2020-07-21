@@ -14,7 +14,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
 
     // MARK: - Parameters
 
-    static let shiftDef = AKNodeParameterDef(
+    public static let shiftDef = AKNodeParameterDef(
         identifier: "shift",
         name: "Pitch shift (in semitones)",
         address: AKPitchShifterParameter.shift.rawValue,
@@ -25,7 +25,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     /// Pitch shift (in semitones)
     @Parameter public var shift: AUValue
 
-    static let windowSizeDef = AKNodeParameterDef(
+    public static let windowSizeDef = AKNodeParameterDef(
         identifier: "windowSize",
         name: "Window size (in samples)",
         address: AKPitchShifterParameter.windowSize.rawValue,
@@ -36,7 +36,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     /// Window size (in samples)
     @Parameter public var windowSize: AUValue
 
-    static let crossfadeDef = AKNodeParameterDef(
+    public static let crossfadeDef = AKNodeParameterDef(
         identifier: "crossfade",
         name: "Crossfade (in samples)",
         address: AKPitchShifterParameter.crossfade.rawValue,

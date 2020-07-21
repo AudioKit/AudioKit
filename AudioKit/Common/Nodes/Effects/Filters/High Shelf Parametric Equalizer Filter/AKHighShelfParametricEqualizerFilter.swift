@@ -14,7 +14,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
 
     // MARK: - Parameters
 
-    static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Corner Frequency (Hz)",
         address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
@@ -25,7 +25,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     /// Corner frequency.
     @Parameter public var centerFrequency: AUValue
 
-    static let gainDef = AKNodeParameterDef(
+    public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
@@ -36,7 +36,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
-    static let qDef = AKNodeParameterDef(
+    public static let qDef = AKNodeParameterDef(
         identifier: "q",
         name: "Q",
         address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,

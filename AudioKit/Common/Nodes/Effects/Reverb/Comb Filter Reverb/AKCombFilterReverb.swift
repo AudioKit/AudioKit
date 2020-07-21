@@ -18,7 +18,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
 
     // MARK: - Parameters
 
-    static let reverbDurationDef = AKNodeParameterDef(
+    public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: AKCombFilterReverbParameter.reverbDuration.rawValue,

@@ -14,7 +14,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInpu
 
     // MARK: - Parameters
 
-    static let distortionDef = AKNodeParameterDef(
+    public static let distortionDef = AKNodeParameterDef(
         identifier: "distortion",
         name: "Distortion (%)",
         address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
@@ -26,7 +26,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInpu
     /// the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @Parameter public var distortion: AUValue
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
@@ -37,7 +37,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInpu
     /// Filter cutoff frequency in Hertz.
     @Parameter public var cutoffFrequency: AUValue
 
-    static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
         address: AKThreePoleLowpassFilterParameter.resonance.rawValue,

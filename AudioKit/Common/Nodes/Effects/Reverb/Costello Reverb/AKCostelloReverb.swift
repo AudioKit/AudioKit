@@ -16,7 +16,7 @@ public class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
     // MARK: - Parameters
 
-    static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback",
         address: AKCostelloReverbParameter.feedback.rawValue,
@@ -28,7 +28,7 @@ public class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     /// A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @Parameter public var feedback: AUValue
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
         address: AKCostelloReverbParameter.cutoffFrequency.rawValue,

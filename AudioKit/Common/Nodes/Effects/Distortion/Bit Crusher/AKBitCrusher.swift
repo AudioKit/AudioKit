@@ -14,7 +14,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
-    static let bitDepthDef = AKNodeParameterDef(
+    public static let bitDepthDef = AKNodeParameterDef(
         identifier: "bitDepth",
         name: "Bit Depth",
         address: AKBitCrusherParameter.bitDepth.rawValue,
@@ -25,7 +25,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @Parameter public var bitDepth: AUValue
 
-    static let sampleRateDef = AKNodeParameterDef(
+    public static let sampleRateDef = AKNodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
         address: AKBitCrusherParameter.sampleRate.rawValue,

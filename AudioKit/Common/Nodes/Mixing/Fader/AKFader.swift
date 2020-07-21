@@ -22,7 +22,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         }
     }
 
-    static let gainRange = 0.0 ... 4.0
+    static let gainRange: ClosedRange<AUValue> = 0.0 ... 4.0
 
     public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
@@ -52,7 +52,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         get { return 20.0 * log10(gain) }
     }
 
-    static let flipStereoDef = AKNodeParameterDef(
+    public static let flipStereoDef = AKNodeParameterDef(
         identifier: "flipStereo",
         name: "Flip Stereo",
         address: AKFaderParameter.flipStereo.rawValue,
@@ -63,7 +63,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Flip left and right signal
     @Parameter public var flipStereo: Bool = false
 
-    static let mixToMonoDef = AKNodeParameterDef(
+    public static let mixToMonoDef = AKNodeParameterDef(
         identifier: "mixToMono",
         name: "Mix To Mono",
         address: AKFaderParameter.mixToMono.rawValue,

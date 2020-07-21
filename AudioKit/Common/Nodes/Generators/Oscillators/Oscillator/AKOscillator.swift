@@ -17,7 +17,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     fileprivate var waveform: AKTable?
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKOscillatorParameter.frequency.rawValue,
@@ -28,7 +28,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKOscillatorParameter.amplitude.rawValue,
@@ -39,7 +39,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
-    static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKOscillatorParameter.detuningOffset.rawValue,
@@ -50,7 +50,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKOscillatorParameter.detuningMultiplier.rawValue,

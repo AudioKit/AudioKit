@@ -14,7 +14,7 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
     // MARK: - Parameters
 
-    static let panDef = AKNodeParameterDef(
+    public static let panDef = AKNodeParameterDef(
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
         address: AKPannerParameter.pan.rawValue,

@@ -18,7 +18,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKPWMOscillatorParameter.frequency.rawValue,
@@ -29,7 +29,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// In cycles per second, or Hz.
     @Parameter public var frequency: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPWMOscillatorParameter.amplitude.rawValue,
@@ -40,7 +40,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Output amplitude
     @Parameter public var amplitude: AUValue
 
-    static let pulseWidthDef = AKNodeParameterDef(
+    public static let pulseWidthDef = AKNodeParameterDef(
         identifier: "pulseWidth",
         name: "Pulse Width",
         address: AKPWMOscillatorParameter.pulseWidth.rawValue,
@@ -51,7 +51,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Duty cycle width (range 0-1).
     @Parameter public var pulseWidth: AUValue
 
-    static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKPWMOscillatorParameter.detuningOffset.rawValue,
@@ -62,7 +62,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,

@@ -20,7 +20,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
 
     fileprivate var waveform: AKTable?
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
@@ -31,7 +31,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
@@ -42,7 +42,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
-    static let phaseDistortionDef = AKNodeParameterDef(
+    public static let phaseDistortionDef = AKNodeParameterDef(
         identifier: "phaseDistortion",
         name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
         address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
@@ -53,7 +53,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
     @Parameter public var phaseDistortion: AUValue
 
-    static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
@@ -64,7 +64,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,

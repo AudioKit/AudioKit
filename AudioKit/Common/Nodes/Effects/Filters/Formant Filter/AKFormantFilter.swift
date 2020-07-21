@@ -16,7 +16,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
     // MARK: - Parameters
 
-    static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKFormantFilterParameter.centerFrequency.rawValue,
@@ -27,7 +27,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
 
-    static let attackDurationDef = AKNodeParameterDef(
+    public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
         address: AKFormantFilterParameter.attackDuration.rawValue,
@@ -38,7 +38,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     /// Impulse response attack time (in seconds).
     @Parameter public var attackDuration: AUValue
 
-    static let decayDurationDef = AKNodeParameterDef(
+    public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
         address: AKFormantFilterParameter.decayDuration.rawValue,

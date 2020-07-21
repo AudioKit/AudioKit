@@ -17,7 +17,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Glottal frequency.",
         address: AKVocalTractParameter.frequency.rawValue,
@@ -28,7 +28,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Glottal frequency.
     @Parameter public var frequency: AUValue
 
-    static let tonguePositionDef = AKNodeParameterDef(
+    public static let tonguePositionDef = AKNodeParameterDef(
         identifier: "tonguePosition",
         name: "Tongue position (0-1)",
         address: AKVocalTractParameter.tonguePosition.rawValue,
@@ -39,7 +39,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Tongue position (0-1)
     @Parameter public var tonguePosition: AUValue
 
-    static let tongueDiameterDef = AKNodeParameterDef(
+    public static let tongueDiameterDef = AKNodeParameterDef(
         identifier: "tongueDiameter",
         name: "Tongue diameter (0-1)",
         address: AKVocalTractParameter.tongueDiameter.rawValue,
@@ -50,7 +50,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Tongue diameter (0-1)
     @Parameter public var tongueDiameter: AUValue
 
-    static let tensenessDef = AKNodeParameterDef(
+    public static let tensenessDef = AKNodeParameterDef(
         identifier: "tenseness",
         name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
         address: AKVocalTractParameter.tenseness.rawValue,
@@ -61,7 +61,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
     @Parameter public var tenseness: AUValue
 
-    static let nasalityDef = AKNodeParameterDef(
+    public static let nasalityDef = AKNodeParameterDef(
         identifier: "nasality",
         name: "Sets the velum size. Larger values of this creates more nasally sounds.",
         address: AKVocalTractParameter.nasality.rawValue,

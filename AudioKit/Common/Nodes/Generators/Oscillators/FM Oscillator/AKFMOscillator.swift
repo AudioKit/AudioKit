@@ -16,7 +16,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     fileprivate var waveform: AKTable?
 
-    static let baseFrequencyDef = AKNodeParameterDef(
+    public static let baseFrequencyDef = AKNodeParameterDef(
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
         address: AKFMOscillatorParameter.baseFrequency.rawValue,
@@ -27,7 +27,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     @Parameter public var baseFrequency: AUValue
 
-    static let carrierMultiplierDef = AKNodeParameterDef(
+    public static let carrierMultiplierDef = AKNodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
         address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
@@ -38,7 +38,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter public var carrierMultiplier: AUValue
 
-    static let modulatingMultiplierDef = AKNodeParameterDef(
+    public static let modulatingMultiplierDef = AKNodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
         address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
@@ -49,7 +49,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter public var modulatingMultiplier: AUValue
 
-    static let modulationIndexDef = AKNodeParameterDef(
+    public static let modulationIndexDef = AKNodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
         address: AKFMOscillatorParameter.modulationIndex.rawValue,
@@ -60,7 +60,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter public var modulationIndex: AUValue
 
-    static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: AKFMOscillatorParameter.amplitude.rawValue,

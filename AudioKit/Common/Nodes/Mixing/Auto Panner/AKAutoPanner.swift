@@ -14,7 +14,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKAutoPannerParameter.frequency.rawValue,
@@ -25,7 +25,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    static let depthDef = AKNodeParameterDef(
+    public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth",
         address: AKAutoPannerParameter.depth.rawValue,

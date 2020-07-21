@@ -16,7 +16,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput,
 
     // MARK: - Parameters
 
-    static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
         address: AKModalResonanceFilterParameter.frequency.rawValue,
@@ -27,7 +27,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput,
     /// Resonant frequency of the filter.
     @Parameter public var frequency: AUValue
 
-    static let qualityFactorDef = AKNodeParameterDef(
+    public static let qualityFactorDef = AKNodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
         address: AKModalResonanceFilterParameter.qualityFactor.rawValue,

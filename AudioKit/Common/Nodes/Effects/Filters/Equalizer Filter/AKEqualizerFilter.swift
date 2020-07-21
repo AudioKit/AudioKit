@@ -17,7 +17,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
     // MARK: - Parameters
 
-    static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: AKEqualizerFilterParameter.centerFrequency.rawValue,
@@ -28,7 +28,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
-    static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: AKEqualizerFilterParameter.bandwidth.rawValue,
@@ -39,7 +39,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     /// The peak/notch bandwidth in Hertz
     @Parameter public var bandwidth: AUValue
 
-    static let gainDef = AKNodeParameterDef(
+    public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
         address: AKEqualizerFilterParameter.gain.rawValue,

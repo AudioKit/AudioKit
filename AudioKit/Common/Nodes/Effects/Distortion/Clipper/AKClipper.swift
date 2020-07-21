@@ -15,7 +15,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
     // MARK: - Parameters
 
-    static let limitDef = AKNodeParameterDef(
+    public static let limitDef = AKNodeParameterDef(
         identifier: "limit",
         name: "Threshold",
         address: AKClipperParameter.limit.rawValue,

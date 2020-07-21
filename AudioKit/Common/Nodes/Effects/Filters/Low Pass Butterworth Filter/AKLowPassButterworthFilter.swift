@@ -15,7 +15,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKIn
 
     // MARK: - Parameters
 
-    static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
