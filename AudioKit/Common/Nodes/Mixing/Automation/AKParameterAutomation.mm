@@ -492,7 +492,13 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         const struct AKAutomationEvent* eventsArray,
                                                         size_t count) {
 
-    const std::vector<AKAutomationEvent> events{eventsArray, eventsArray+count};
+    std::vector<AKAutomationEvent> events{eventsArray, eventsArray+count};
+
+    // Sort events by start time.
+    std::sort(events.begin(), events.end(), [](auto a, auto b) {
+        return a.startTime < b.startTime;
+    });
+
     __block int index = 0;
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
