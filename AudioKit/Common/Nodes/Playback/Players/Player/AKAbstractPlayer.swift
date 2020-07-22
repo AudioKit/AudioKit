@@ -204,29 +204,31 @@ open class AKAbstractPlayer: AKNode {
     internal func scheduleFader() {
         guard let faderNode = faderNode else { return }
 
-        faderNode.clearAutomationPoints()
+        var points = [AKParameterAutomationPoint]()
 
         if fade.inTime > 0, offsetTime < fade.inTime {
             // realtime, turn the gain off to be sure it's off before the fade starts
             faderNode.gain = Fade.minimumGain
 
             // add this extra point for the case where it is offline processing
-            faderNode.addAutomationPoint(value: Fade.minimumGain,
-                                         at: 0,
-                                         rampDuration: 0)
+            points.append(AKParameterAutomationPoint(targetValue: Fade.minimumGain,
+                                                     startTime: 0,
+                                                     rampDuration: 0))
 
             // then fade it in. fade.maximumGain is the ceiling it should fade to
             // swiftlint:disable number_separator
-            faderNode.addAutomationPoint(value: fade.maximumGain,
-                                         at: 0.0001,
-                                         rampDuration: fade.inTime,
-                                         taper: fade.inTaper,
-                                         skew: fade.inSkew)
+            points.append(AKParameterAutomationPoint(targetValue: fade.maximumGain,
+                                                     startTime: 0.0001,
+                                                     rampDuration: fade.inTime,
+                                                     rampTaper: fade.inTaper,
+                                                     rampSkew: fade.inSkew))
+
         } else {
+
             // if there isn't a fade in then turn it up now.
-            faderNode.addAutomationPoint(value: fade.maximumGain,
-                                         at: 0,
-                                         rampDuration: 0)
+            points.append(AKParameterAutomationPoint(targetValue: fade.maximumGain,
+                                                     startTime: 0,
+                                                     rampDuration: 0))
         }
 
         if fade.outTime > 0 {
@@ -250,12 +252,19 @@ open class AKAbstractPlayer: AKNode {
                 // AKLog("Adjusted fade out values by the ratio:", sampleRateRatio)
             }
 
-            faderNode.addAutomationPoint(value: Fade.minimumGain,
-                                         at: timeTillFadeOut,
-                                         rampDuration: rampDurationOut,
-                                         taper: fade.outTaper,
-                                         skew: fade.outSkew)
+            points.append(AKParameterAutomationPoint(targetValue: Fade.minimumGain,
+                                                     startTime: timeTillFadeOut,
+                                                     rampDuration: rampDurationOut,
+                                                     rampTaper: fade.outTaper,
+                                                     rampSkew: fade.outSkew))
         }
+
+        // Convert our curved automation to linear ramps.
+        let events = AKEvaluateAutomation(initialValue: Fade.minimumGain,
+                                          points: points,
+                                          resolution: 0.01)
+        faderNode.automateGain(events: events)
+
     }
 
     func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
@@ -282,13 +291,19 @@ open class AKAbstractPlayer: AKNode {
     }
 
     public func fadeOut(with duration: Double, taper: AUValue? = nil) {
-        faderNode?.parameterAutomation?.stopPlayback()
-        faderNode?.clearAutomationPoints()
-        faderNode?.addAutomationPoint(value: Fade.minimumGain,
-                                      at: 0,
-                                      rampDuration: duration,
-                                      taper: taper ?? fade.outTaper)
-        faderNode?.parameterAutomation?.startPlayback()
+
+        let point = AKParameterAutomationPoint(targetValue: Fade.minimumGain,
+                                               startTime: 0,
+                                               rampDuration: duration,
+                                               rampTaper: taper ?? fade.outTaper,
+                                               rampSkew: fade.outSkew)
+
+        let events = AKEvaluateAutomation(initialValue: faderNode?.gain ?? 0,
+                                          points: [point],
+                                          resolution: 0.01)
+
+        // Setting new automation will cancel any previous scheduled automation.
+        faderNode?.automateGain(events: events)
     }
 
     override open func detach() {
