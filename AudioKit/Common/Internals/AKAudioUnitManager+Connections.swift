@@ -5,11 +5,11 @@ extension AKAudioUnitManager {
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else {
-            AKLog("\(index) index is invalid.")
+            AKLog("\(index) index is invalid.", type: .error)
             return
         }
         guard availableEffects.isNotEmpty else {
-            AKLog("You must call requestEffects before using this function. availableEffects is empty")
+            AKLog("You must call requestEffects before using this function. availableEffects is empty", type: .error)
             return
         }
 
@@ -18,12 +18,12 @@ extension AKAudioUnitManager {
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
-                    AKLog("Unable to create audioUnit")
+                    AKLog("Unable to create audioUnit", type: .error)
                     return
                 }
 
                 if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
-                    AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
+                    AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.", type: .error)
                 }
 
                 // AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
@@ -42,7 +42,7 @@ extension AKAudioUnitManager {
                 self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
             }
         } else {
-            AKLog("Error: Unable to find \(name) in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.", type: .error)
         }
     }
 
@@ -89,11 +89,11 @@ extension AKAudioUnitManager {
         }
 
         guard let input = input else {
-            AKLog("input is nil")
+            AKLog("input is nil", type: .error)
             return
         }
         guard let output = output else {
-            AKLog("output is nil")
+            AKLog("output is nil", type: .error)
             return
         }
 

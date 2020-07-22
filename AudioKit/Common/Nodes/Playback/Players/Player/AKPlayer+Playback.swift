@@ -312,7 +312,7 @@ extension AKPlayer {
                 }
             } catch {
                 AKLog("Failed to check currentFrame and call completion handler: \(error)... ",
-                      "Possible Media Service Reset?")
+                      "Possible Media Service Reset?", type: .error)
             }
         }
     }
