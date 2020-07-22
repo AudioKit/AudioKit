@@ -57,7 +57,9 @@ class AKPlayerTests: AKTestCase {
 
     func testFadeInOut() {
 
-        guard let audioFileURL = Bundle(for: AKPlayerTests.self).url(forResource: "PinkNoise", withExtension: "wav") else {
+        let bundle = Bundle(for: AKPlayerTests.self)
+
+        guard let audioFileURL = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
             XCTFail("Couldn't find audio file.")
             return
         }
