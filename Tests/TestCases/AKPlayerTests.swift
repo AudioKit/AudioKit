@@ -16,7 +16,7 @@ class AKPlayerTests: AKTestCase {
     func testBasic() {
 
         guard let player = AKPlayer(url: audioFileURL) else {
-            XCTFail()
+            XCTFail("Couldn't load audio file.")
             return
         }
 
@@ -32,7 +32,7 @@ class AKPlayerTests: AKTestCase {
     func testAutomation() {
 
         guard let player = AKPlayer(url: audioFileURL) else {
-            XCTFail()
+            XCTFail("Couldn't load audio file.")
             return
         }
 
