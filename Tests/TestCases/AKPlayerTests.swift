@@ -49,10 +49,10 @@ class AKPlayerTests: AKTestCase {
         }
 
         output = player
-        player.fade.inTime = 0.3
+        player.fade.inTime = 0.2
 
         //auditionTest()
-        AKTestMD5("2f21e7448012c1c8585f216a235741f2")
+        AKTestMD5("70ace673dd8972652d490bacae67631e")
     }
 
     func testFadeInOut() {
@@ -81,7 +81,35 @@ class AKPlayerTests: AKTestCase {
         duration = 5
 
         // auditionTest()
-        AKTestMD5("1eb4e2be5f09e11457a66d0f0a75d53f")
+        AKTestMD5("aaf7406741627df074bf050839c269bb")
+    }
+
+    func testFadeOut() {
+
+        let bundle = Bundle(for: AKPlayerTests.self)
+
+        guard let audioFileURL = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
+            XCTFail("Couldn't find audio file.")
+            return
+        }
+
+        guard let player = AKPlayer(url: audioFileURL) else {
+            XCTFail("Couldn't load audio file.")
+            return
+        }
+
+        afterStart = {
+            player.play()
+            player.fadeOut(with: 5)
+        }
+
+        output = player
+        player.gain = 0.2
+        player.endTime = 5
+        duration = 5
+
+        auditionTest()
+        // AKTestMD5("aaf7406741627df074bf050839c269bb")
     }
 
 }
