@@ -146,4 +146,11 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         parameterAutomation?.clearAllPoints(of: $leftGain)
         parameterAutomation?.clearAllPoints(of: $rightGain)
     }
+
+    // MARK: - Automation
+
+    public func automateGain(events: [AKAutomationEvent]) {
+        $leftGain.automate(events: events)
+        $rightGain.automate(events: events)
+    }
 }

@@ -75,8 +75,16 @@ public class AKParameterAutomation {
             let time = absoluteTime.offset(seconds: -adjustedOffset)
             playAKParameterAutomation(automation, time, rate)
         } else if absoluteTime.isHostTimeValid {
+
+            guard let lastAudioTime = avAudioUnit.lastRenderTime else { return }
+
+            // In tests, we don't have a valid host time.
+            if !lastAudioTime.isHostTimeValid {
+                startPlayback(offset: offset, rate: 1)
+                return
+            }
+
             // AKParameterAutomation works with sample time, we need to convert
-            guard let lastAudioTime = avAudioUnit.lastRenderTime, lastAudioTime.isHostTimeValid else { return }
             let lastTime = AVAudioTime.seconds(forHostTime: lastAudioTime.hostTime)
             let startTime = AVAudioTime.seconds(forHostTime: absoluteTime.hostTime)
             let time = lastAudioTime.offset(seconds: (startTime - lastTime) - adjustedOffset)

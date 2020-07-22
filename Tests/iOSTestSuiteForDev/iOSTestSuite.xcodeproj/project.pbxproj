@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291F639E24C77CB300B754F9 /* AKPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F639D24C77CB300B754F9 /* AKPlayerTests.swift */; };
 		29A8C8D824C0CBD900578451 /* AKParameterAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */; };
 		52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */; };
 		C40D6BBE206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */; };
@@ -215,6 +216,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291F639D24C77CB300B754F9 /* AKPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlayerTests.swift; sourceTree = "<group>"; };
 		29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
 		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				C468DC3021AC1DA700678959 /* VocalTractTests.swift */,
 				C44FF8C01FD0994F00B2217D /* whiteNoiseTests.swift */,
 				29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */,
+				291F639D24C77CB300B754F9 /* AKPlayerTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
@@ -754,6 +757,7 @@
 				C44FF9211FD0994F00B2217D /* AKHighPassButterworthFilterTests.swift in Sources */,
 				C44FF91B1FD0994F00B2217D /* reverberateWithCombFilterTests.swift in Sources */,
 				29A8C8D824C0CBD900578451 /* AKParameterAutomationTests.swift in Sources */,
+				291F639E24C77CB300B754F9 /* AKPlayerTests.swift in Sources */,
 				C44FF8E11FD0994F00B2217D /* AKChowningReverbTests.swift in Sources */,
 				C44FF9201FD0994F00B2217D /* whiteNoiseTests.swift in Sources */,
 				C44FF9161FD0994F00B2217D /* AKDelayTests.swift in Sources */,
