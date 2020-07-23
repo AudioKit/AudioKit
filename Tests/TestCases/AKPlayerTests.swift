@@ -108,8 +108,8 @@ class AKPlayerTests: AKTestCase {
         player.endTime = 5
         duration = 5
 
-        auditionTest()
-        // AKTestMD5("aaf7406741627df074bf050839c269bb")
+        // auditionTest()
+        AKTestMD5("bbb8d6a862cf8974e0b3ec399a94bba0")
     }
 
 }
