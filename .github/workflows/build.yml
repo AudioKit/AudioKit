@@ -106,20 +106,20 @@ jobs:
         ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
 
   # Run unit tests with thread/address sanitizers turned on - also builds AudioKit from source
-  test-sanitizers:
-    runs-on: macos-latest
-    steps:
-    - name: Check out AudioKit
-      uses: actions/checkout@v2
+  # test-sanitizers:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - name: Check out AudioKit
+  #     uses: actions/checkout@v2
 
-    - name: Run unit tests
-      run: |
-        set -euo pipefail
-        sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
-        echo "Running unit tests with Thread Sanitizer"
-        xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite-TSAN test | xcpretty -c
-        echo "Running unit tests with Address Sanitizer"
-        xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite clean test | xcpretty -c
+  #   - name: Run unit tests
+  #     run: |
+  #       set -euo pipefail
+  #       sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
+  #       echo "Running unit tests with Thread Sanitizer"
+  #       xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite-TSAN test | xcpretty -c
+  #       echo "Running unit tests with Address Sanitizer"
+  #       xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite clean test | xcpretty -c
 
   # Upload staging builds to S3
   staging:
