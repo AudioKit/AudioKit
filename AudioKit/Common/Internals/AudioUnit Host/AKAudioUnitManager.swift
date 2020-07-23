@@ -177,7 +177,7 @@ open class AKAudioUnitManager: NSObject {
     }
 
     /// Initialize the manager
-    public override init() {
+    override public init() {
         super.init()
 
         // regardless of how they're organized above, this'll sort them out
@@ -212,7 +212,7 @@ open class AKAudioUnitManager: NSObject {
 
     @objc private func componentInstanceObservor(notification: Foundation.Notification) {
         let crashedAU = notification.object as? AUAudioUnit
-        AKLog("* Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
+        AKLog("* Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)", type: .error)
         delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
     }
 
@@ -266,7 +266,7 @@ open class AKAudioUnitManager: NSObject {
         guard let desc = (availableInstruments.first { $0.name == name })?.audioComponentDescription else { return }
         AKAudioUnitManager.createInstrumentAudioUnit(desc) { audioUnit in
             guard let audioUnit = audioUnit else {
-                AKLog("Unable to create audioUnit")
+                AKLog("Unable to create audioUnit", type: .error)
                 completionHandler(nil)
                 return
             }
@@ -277,7 +277,7 @@ open class AKAudioUnitManager: NSObject {
     /// Create an effect by name. The Audio Unit will be returned in the callback.
     public func createEffect(name: String, completionHandler: @escaping AKEffectCallback) {
         guard availableEffects.isNotEmpty else {
-            AKLog("You must call requestEffects before using this function. availableEffects is empty")
+            AKLog("You must call requestEffects before using this function. availableEffects is empty", type: .error)
             completionHandler(nil)
             return
         }
@@ -287,7 +287,7 @@ open class AKAudioUnitManager: NSObject {
 
             AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                 guard let audioUnit = audioUnit else {
-                    AKLog("Unable to create audioUnit")
+                    AKLog("Unable to create audioUnit", type: .error)
                     return
                 }
                 completionHandler(audioUnit)
@@ -297,7 +297,7 @@ open class AKAudioUnitManager: NSObject {
             completionHandler(audioUnit)
 
         } else {
-            AKLog("Error: Unable to find \(name) in availableEffects.")
+            AKLog("Error: Unable to find \(name) in availableEffects.", type: .error)
             completionHandler(nil)
         }
     }
@@ -307,7 +307,7 @@ open class AKAudioUnitManager: NSObject {
         guard let desc = (availableMIDIProcessors.first { $0.name == name })?.audioComponentDescription else { return }
         AKAudioUnitManager.createMIDIProcessorAudioUnit(desc) { audioUnit in
             guard let audioUnit = audioUnit else {
-                AKLog("Unable to create audioUnit")
+                AKLog("Unable to create audioUnit", type: .error)
                 completionHandler(nil)
                 return
             }

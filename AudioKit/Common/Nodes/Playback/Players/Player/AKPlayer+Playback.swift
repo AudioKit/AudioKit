@@ -175,7 +175,7 @@ extension AKPlayer {
 
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
-        super.faderNode?.parameterAutomation?.stopPlayback()
+        super.faderNode?.stopAutomation()
         isPlaying = false
     }
 
@@ -183,7 +183,7 @@ extension AKPlayer {
         guard isPlaying else { return }
         playerNode.stop()
         if isFaded {
-            super.faderNode?.parameterAutomation?.stopPlayback()
+            super.faderNode?.stopAutomation()
         }
         isPlaying = false
     }
@@ -312,14 +312,14 @@ extension AKPlayer {
                 }
             } catch {
                 AKLog("Failed to check currentFrame and call completion handler: \(error)... ",
-                      "Possible Media Service Reset?")
+                      "Possible Media Service Reset?", type: .error)
             }
         }
     }
 
     private func handleComplete() {
         stop()
-        super.faderNode?.parameterAutomation?.stopPlayback()
+        super.faderNode?.stopAutomation()
 
         if isLooping {
             startTime = loop.start

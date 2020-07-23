@@ -153,4 +153,9 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         $leftGain.automate(events: events)
         $rightGain.automate(events: events)
     }
+
+    public func stopAutomation() {
+        $leftGain.stopAutomation()
+        $rightGain.stopAutomation()
+    }
 }

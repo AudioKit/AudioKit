@@ -362,7 +362,6 @@ public class AKPlayer: AKAbstractPlayer {
                 // AKLog("Adjusted fade out values by the ratio:", sampleRateRatio)
             }
 
-            faderNode?.parameterAutomation?.startPlayback(at: audioTime, offset: offsetTime)
         }
         playerNode.play()
         pauseTime = nil
