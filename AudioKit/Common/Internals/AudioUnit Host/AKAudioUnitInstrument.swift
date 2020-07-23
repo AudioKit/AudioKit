@@ -27,9 +27,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - velocity: MIDI velocity to play the note at
     ///   - channel: MIDI channel to play the note on
     ///
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
+    override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
@@ -41,59 +41,59 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - noteNumber: MIDI note number to stop
     ///   - channel: MIDI channel to stop the note on
     ///
-    open override func stop(noteNumber: MIDINoteNumber) {
+    override open func stop(noteNumber: MIDINoteNumber) {
         self.stop(noteNumber: noteNumber, channel: 0)
     }
 
-    open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
+    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.stopNote(noteNumber, onChannel: channel)
     }
 
-    open override func receivedMIDIController(_ controller: MIDIByte,
+    override open func receivedMIDIController(_ controller: MIDIByte,
                                               value: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.sendController(controller, withValue: value, onChannel: channel)
     }
 
-    open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+    override open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                               pressure: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIAftertouch(_ pressure: MIDIByte,
+    override open func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.sendPressure(pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
+    override open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
-            AKLog("no midiInstrument exists")
+            AKLog("no midiInstrument exists", type: .error)
             return
         }
         midiInstrument.sendPitchBend(pitchWheelValue, onChannel: channel)
