@@ -175,7 +175,7 @@ extension AKPlayer {
 
     @objc private func autoFadeOutCompletion() {
         playerNode.stop()
-        super.faderNode?.parameterAutomation?.stopPlayback()
+        super.faderNode?.stopAutomation()
         isPlaying = false
     }
 
@@ -183,7 +183,7 @@ extension AKPlayer {
         guard isPlaying else { return }
         playerNode.stop()
         if isFaded {
-            super.faderNode?.parameterAutomation?.stopPlayback()
+            super.faderNode?.stopAutomation()
         }
         isPlaying = false
     }
@@ -319,7 +319,7 @@ extension AKPlayer {
 
     private func handleComplete() {
         stop()
-        super.faderNode?.parameterAutomation?.stopPlayback()
+        super.faderNode?.stopAutomation()
 
         if isLooping {
             startTime = loop.start
