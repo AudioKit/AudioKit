@@ -141,7 +141,7 @@ open class AKAudioUnitBase: AUAudioUnit {
     public private(set) var isStarted: Bool = true
 
     /// Paramater ramp duration (seconds)
-    public var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration = AKSettings.rampDuration {
         didSet {
             setParameterRampDurationDSP(dsp, 0, Float(rampDuration))
         }

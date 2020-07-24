@@ -44,7 +44,7 @@ public class AKMorphingOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     fileprivate var filterLFORateParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    public var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }

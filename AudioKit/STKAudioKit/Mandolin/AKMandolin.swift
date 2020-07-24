@@ -24,7 +24,7 @@ public class AKMandolin: AKNode, AKComponent {
     //    private var course4FrequencyParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
-    public var rampDuration: Double = AKSettings.rampDuration {
+    public var rampDuration = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
