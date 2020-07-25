@@ -84,22 +84,34 @@ public class AKNodeParameter {
 
     private var renderObserverToken: Int?
 
-    /// Begin automation immediately.
+    /// Begin automation of the parameter.
     ///
-    /// Time is relative to the approximate time when the function
-    /// is called. This is only sample accurate if called prior to `AKManager.start()`.
+    /// If `startTime` is nil, the automation will be scheduled as soon as possible.
+    ///
     /// - Parameter events: automation curve
-    public func automate(events: [AKAutomationEvent]) {
-        var lastTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+    /// - Parameter startTime: optional time to start automation
+    public func automate(events: [AKAutomationEvent], startTime: AVAudioTime? = nil) {
+
+        var lastTime = (startTime ?? avAudioUnit.lastRenderTime)
+            ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
         guard let parameter = parameter else { return }
 
-        // In tests, we may not have a valid lastRenderTime, so
-        // assume no rendering has yet occurred.
         if !lastTime.isSampleTimeValid {
-            lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
-            assert(lastTime.isSampleTimeValid)
+            if lastTime.isHostTimeValid {
+                guard let lastAudioTime = avAudioUnit.lastRenderTime else { return }
+                guard let startTime = startTime else { return }
+
+                // Convert to sample time.
+                let lastTimeSeconds = AVAudioTime.seconds(forHostTime: lastAudioTime.hostTime)
+                let startTimeSeconds = AVAudioTime.seconds(forHostTime: startTime.hostTime)
+
+                lastTime = lastAudioTime.offset(seconds: (startTimeSeconds - lastTimeSeconds))
+            } else {
+                lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+            }
         }
 
+        assert(lastTime.isSampleTimeValid)
         stopAutomation()
 
         events.withUnsafeBufferPointer { automationPtr in
