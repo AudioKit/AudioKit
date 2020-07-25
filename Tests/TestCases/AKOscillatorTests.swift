@@ -166,4 +166,29 @@ class AKOscillatorTests: AKTestCase {
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "9787bab4e82bba7a2ec1dcf34edf8156"))
     }
 
+    func testNewAutomationDelayed() {
+
+        // Play for two seconds.
+        duration = 2.0
+
+        input = AKOscillator(waveform: AKTable(.sine), frequency: 400, amplitude: 0.5)
+        output = input
+
+        afterStart = {
+
+            // Delay a second.
+            let startTime = AVAudioTime(sampleTime: 44100, atRate: 41000)
+
+            self.input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+                                                                      startTime: 0,
+                                                                      rampDuration: 1.0)],
+                                           startTime: startTime)
+        }
+
+        // auditionTest()
+
+        AKTestMD5("1ce448c3c5c3d1020990917931b0116b")
+
+    }
+
 }
