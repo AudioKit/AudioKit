@@ -84,6 +84,8 @@ class PlayerDemoViewController: NSViewController {
         if let url = Bundle.main.resourceURL?.appendingPathComponent("PinkNoise.wav") {
             open(url: url)
         }
+
+        scheduleOffsetSlider?.toolTip = "Schedule the start of playback in the future..."
     }
 
     func open(url: URL) {
@@ -100,6 +102,9 @@ class PlayerDemoViewController: NSViewController {
             return
         }
 
+        scheduleOffsetSlider?.doubleValue = 0
+        handleScheduledOffsetChange(scheduleOffsetSlider)
+
         let player = AKDynamicPlayer(audioFile: audioFile)
         player.connect(to: mixer)
         player.completionHandler = handleAudioComplete
@@ -115,6 +120,8 @@ class PlayerDemoViewController: NSViewController {
     func play() {
         if !AKManager.engine.isRunning {
             try? AKManager.start()
+
+            // the engine doesn't really like starting and playing right away
             delayed(by: 1, closure: {
                 self.handlePlay()
             })
