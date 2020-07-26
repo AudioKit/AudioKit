@@ -105,15 +105,16 @@ class WaveformView: NSView {
             }
         }
 
-        AKWaveformDataRequest(audioFile: audioFile).getDataAsync(with: pixelsPerSample,
-                                                                 completionHandler: { data in
+        AKWaveformDataRequest(audioFile: audioFile)
+            .getDataAsync(with: pixelsPerSample,
+                          completionHandler: { data in
 
-                                                                     guard let floatData = data else {
-                                                                         AKLog("Error getting waveform data", type: .error)
-                                                                         return
-                                                                     }
-                                                                     self.waveform?.fill(with: floatData)
-                                                                 })
+                              guard let floatData = data else {
+                                  AKLog("Error getting waveform data", type: .error)
+                                  return
+                              }
+                              self.waveform?.fill(with: floatData)
+                          })
     }
 
     public func close() {

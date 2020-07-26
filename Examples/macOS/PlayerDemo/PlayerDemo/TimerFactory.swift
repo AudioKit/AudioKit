@@ -219,23 +219,22 @@ public class DisplayLink {
 
         if let timer = timerRef {
             // Set Output
-            successLink = CVDisplayLinkSetOutputCallback(
-                timer, { (timer: CVDisplayLink,
-                          currentTime: UnsafePointer<CVTimeStamp>,
-                          outputTime: UnsafePointer<CVTimeStamp>,
-                          _: CVOptionFlags,
-                          _: UnsafeMutablePointer<CVOptionFlags>,
-                          sourceUnsafeRaw: UnsafeMutableRawPointer?) -> CVReturn in
+            successLink = CVDisplayLinkSetOutputCallback(timer, { (timer: CVDisplayLink,
+                                                                   currentTime: UnsafePointer<CVTimeStamp>,
+                                                                   outputTime: UnsafePointer<CVTimeStamp>,
+                                                                   _: CVOptionFlags,
+                                                                   _: UnsafeMutablePointer<CVOptionFlags>,
+                                                                   sourceUnsafeRaw: UnsafeMutableRawPointer?) -> CVReturn in
 
-                    // Un-opaque the source
-                    if let sourceUnsafeRaw = sourceUnsafeRaw {
-                        // Update the value of the source, thus, triggering a handle call on the timer
-                        let sourceUnmanaged = Unmanaged<DispatchSourceUserDataAdd>.fromOpaque(sourceUnsafeRaw)
-                        sourceUnmanaged.takeUnretainedValue().add(data: 1)
-                    }
-                    return kCVReturnSuccess
+                // Un-opaque the source
+                if let sourceUnsafeRaw = sourceUnsafeRaw {
+                    // Update the value of the source, thus, triggering a handle call on the timer
+                    let sourceUnmanaged = Unmanaged<DispatchSourceUserDataAdd>.fromOpaque(sourceUnsafeRaw)
+                    sourceUnmanaged.takeUnretainedValue().add(data: 1)
+                }
+                return kCVReturnSuccess
 
-                }, Unmanaged.passUnretained(source).toOpaque())
+            }, Unmanaged.passUnretained(source).toOpaque())
 
             guard successLink == kCVReturnSuccess else {
                 Swift.print("Failed to create timer with active display")
