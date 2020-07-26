@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlayerDemoViewController" customModule="PlayerDemo" customModuleProvider="target">
+            <connections>
+                <outlet property="pathControl" destination="WR9-L1-F0S" id="JGd-w8-MqZ"/>
+                <outlet property="playButton" destination="vRP-VX-d65" id="mPq-CS-XDd"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="waveformView" destination="ZOC-Qf-7eB" id="JGt-W5-Q5y"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="723" height="244"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="vhZ-Jk-bq3">
+                    <rect key="frame" x="92" y="93" width="611" height="114"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="X9l-c4-CGc">
+                        <rect key="frame" x="0.0" y="0.0" width="611" height="114"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZOC-Qf-7eB" customClass="WaveformView" customModule="PlayerDemo" customModuleProvider="target">
+                                <rect key="frame" x="1" y="1" width="609" height="112"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ZOC-Qf-7eB" firstAttribute="top" secondItem="X9l-c4-CGc" secondAttribute="top" constant="1" id="96L-GZ-t9s"/>
+                            <constraint firstAttribute="bottom" secondItem="ZOC-Qf-7eB" secondAttribute="bottom" constant="1" id="V6u-IM-w3H"/>
+                            <constraint firstItem="ZOC-Qf-7eB" firstAttribute="leading" secondItem="X9l-c4-CGc" secondAttribute="leading" constant="1" id="jrP-Zs-Y6G"/>
+                            <constraint firstAttribute="trailing" secondItem="ZOC-Qf-7eB" secondAttribute="trailing" constant="1" id="n6G-Zn-7RM"/>
+                        </constraints>
+                    </view>
+                    <color key="fillColor" red="1" green="1" blue="1" alpha="0.053902787569999999" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
+                <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-L1-F0S">
+                    <rect key="frame" x="90" y="69" width="163" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <pathCell key="cell" controlSize="small" selectable="YES" alignment="left" pathStyle="popUp" id="cv6-Wo-gD7">
+                        <font key="font" metaFont="message" size="11"/>
+                        <url key="url" string="file://localhost/Applications/"/>
+                    </pathCell>
+                </pathControl>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-Oz-BaV">
+                    <rect key="frame" x="87" y="207" width="85" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Choose..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WAp-z5-DOX">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="handleChooseButton:" target="-2" id="fnC-xA-okB"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fr-36-uRD">
+                    <rect key="frame" x="170" y="207" width="85" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Bounce" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EAR-mm-7bo">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRP-VX-d65">
+                    <rect key="frame" x="30" y="134" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarPlayTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSTouchBarPauseTemplate" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XPE-qW-POg">
+                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="handlePlayButton:" target="-2" id="4nx-5J-mLh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="17.5" y="208"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSTouchBarPauseTemplate" width="11" height="30"/>
+        <image name="NSTouchBarPlayTemplate" width="14" height="30"/>
+    </resources>
+</document>

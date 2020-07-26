@@ -68,10 +68,10 @@ public class AKWaveform: CALayer {
 
     // MARK: - Initialization
 
-    convenience init(channels: Int = 2,
-                     size: CGSize? = nil,
-                     waveformColor: CGColor? = nil,
-                     backgroundColor: CGColor? = nil) {
+    public convenience init(channels: Int = 2,
+                            size: CGSize? = nil,
+                            waveformColor: CGColor? = nil,
+                            backgroundColor: CGColor? = nil) {
         self.init()
         self.channels = channels
         self.backgroundColor = backgroundColor
