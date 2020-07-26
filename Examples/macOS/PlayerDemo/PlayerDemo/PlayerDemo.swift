@@ -19,13 +19,25 @@ class PlayerDemo: NSObject, NSApplicationDelegate {
         windowController.showWindow(self)
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-
-    }
+    func applicationWillTerminate(_ aNotification: Notification) {}
 }
 
 extension PlayerDemo: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         exit(0)
+    }
+}
+
+class PlayerDemoWindowController: NSWindowController {
+    var controller = PlayerDemoViewController()
+
+    convenience init() {
+        self.init(windowNibName: "PlayerDemoWindowController")
+        window?.appearance = NSAppearance(named: .vibrantDark)
+    }
+
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        contentViewController = controller
     }
 }
