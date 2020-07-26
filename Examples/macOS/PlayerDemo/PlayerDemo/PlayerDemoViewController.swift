@@ -14,6 +14,8 @@ class PlayerDemoViewController: NSViewController {
     @IBOutlet var playButton: NSButton!
     @IBOutlet var bounceButton: NSButton!
     @IBOutlet var timeField: NSTextField!
+    @IBOutlet var scheduleField: NSTextField!
+    @IBOutlet var scheduleOffsetSlider: NSSlider!
     @IBOutlet var pathControl: NSPathControl!
     @IBOutlet var waveformView: WaveformView!
 
@@ -106,6 +108,8 @@ class PlayerDemoViewController: NSViewController {
         waveformView?.open(audioFile: audioFile)
 
         initFades()
+
+        // handleScheduledOffsetChange(scheduleOffsetSlider)
     }
 
     func play() {
@@ -127,7 +131,7 @@ class PlayerDemoViewController: NSViewController {
         // where in the file playback is starting
         player?.offsetTime = waveformView.time
 
-        player?.play(from: waveformView.time, to: 0, when: 0, hostTime: nil)
+        player?.play(from: waveformView.time, to: 0, when: waveformView.startOffset, hostTime: nil)
 
         mainTimer.resume()
     }
@@ -157,21 +161,6 @@ class PlayerDemoViewController: NSViewController {
         }
     }
 
-    @IBAction func handleBounce(_ sender: Any) {
-        guard let window = view.window, let duration = player?.duration else { return }
-
-        rewind()
-
-        savePanel.beginSheetModal(for: window) { response in
-            if response == .OK, let url = self.savePanel.url {
-                self.bounce(to: url, duration: duration, prerender: {
-                    self.play()
-                })
-
-            }
-        }
-    }
-
     internal func bounce(to url: URL, duration: Double, prerender: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -195,6 +184,11 @@ class PlayerDemoViewController: NSViewController {
 
 /// IBActions
 extension PlayerDemoViewController {
+    @IBAction func handleScheduledOffsetChange(_ sender: NSSlider) {
+        waveformView?.startOffset = sender.doubleValue
+        scheduleField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
+    }
+
     @IBAction func handleChooseButton(_ sender: NSButton) {
         guard let window = view.window else { return }
 
@@ -208,6 +202,10 @@ extension PlayerDemoViewController {
     @IBAction func handlePlayButton(_ sender: NSButton) {
         let state = sender.state == .on
         state ? play() : stop()
+    }
+
+    @IBAction func handleRewindButton(_ sender: NSButton) {
+        rewind()
     }
 
     @IBAction func handleFadeSliderChange(_ sender: NSSlider) {
@@ -232,6 +230,22 @@ extension PlayerDemoViewController {
             player.fade.outSkew = sender.floatValue
         default:
             break
+        }
+    }
+
+    @IBAction func handleBounce(_ sender: Any) {
+        guard let window = view.window, var duration = player?.duration else { return }
+
+        duration += waveformView.startOffset
+
+        rewind()
+
+        savePanel.beginSheetModal(for: window) { response in
+            if response == .OK, let url = self.savePanel.url {
+                self.bounce(to: url, duration: duration, prerender: {
+                    self.play()
+                })
+            }
         }
     }
 }
