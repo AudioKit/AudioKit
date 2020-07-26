@@ -2,6 +2,7 @@
 
 import AudioKit
 
+/// Container CALayer based class for multiple CAWaveformLayers
 public class AKWaveform: CALayer {
     private var halfWidth: Int = 0
     private var reverseDirection: CGFloat = 1
@@ -37,7 +38,7 @@ public class AKWaveform: CALayer {
         }
     }
 
-    public var waveformColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1) {
+    public var waveformColor: CGColor = AKColor.black.cgColor {
         didSet {
             for plot in plots {
                 plot.fillColor = waveformColor
@@ -81,7 +82,7 @@ public class AKWaveform: CALayer {
         // make a default size
         frame = NSRect(origin: CGPoint(), size: plotSize)
 
-        self.waveformColor = waveformColor ?? NSColor.black.cgColor
+        self.waveformColor = waveformColor ?? AKColor.black.cgColor
         self.backgroundColor = backgroundColor
         isOpaque = false
 
