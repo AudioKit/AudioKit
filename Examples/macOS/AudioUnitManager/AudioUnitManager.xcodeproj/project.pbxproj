@@ -81,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
-				B12311FC1F193EA100888115 /* Products */,
 				EA2FA53E215AFB01001C210A /* Frameworks */,
+				B12311FC1F193EA100888115 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,17 +97,17 @@
 		B12311FD1F193EA100888115 /* AudioUnitManager */ = {
 			isa = PBXGroup;
 			children = (
-				B118AB3C1F8A9A11000E9AB1 /* xib */,
+				B12311FE1F193EA200888115 /* AppDelegate.swift */,
+				B12312021F193EA200888115 /* Assets.xcassets */,
 				B12312001F193EA200888115 /* AudioUnitManager.swift */,
-				B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */,
 				B186CF541F884FC40063CDB9 /* AudioUnitManager+Effects.swift */,
 				B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */,
-				B12311FE1F193EA200888115 /* AppDelegate.swift */,
-				B123121C1F1944E200888115 /* Extensions.swift */,
-				B12312021F193EA200888115 /* Assets.xcassets */,
-				B12312071F193EA200888115 /* Info.plist */,
+				B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */,
 				B1535FB61F87E7C70028CC26 /* Controls */,
+				B123121C1F1944E200888115 /* Extensions.swift */,
+				B12312071F193EA200888115 /* Info.plist */,
 				B12312151F193F6900888115 /* MIDI */,
+				B118AB3C1F8A9A11000E9AB1 /* xib */,
 			);
 			path = AudioUnitManager;
 			sourceTree = "<group>";
@@ -123,13 +123,13 @@
 		B1535FB61F87E7C70028CC26 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				B1535FB71F87E7FF0028CC26 /* MenuButton.swift */,
-				B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */,
-				B12312111F193F6100888115 /* AudioUnitParamSlider.swift */,
 				B12312101F193F6100888115 /* AudioUnitGenericView.swift */,
 				B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */,
-				B18484731FD9A13400F65DA6 /* WaveformView.swift */,
+				B12312111F193F6100888115 /* AudioUnitParamSlider.swift */,
 				B1B1B7EC2117F62700C5E395 /* AudioUnitToolbarController.swift */,
+				B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */,
+				B1535FB71F87E7FF0028CC26 /* MenuButton.swift */,
+				B18484731FD9A13400F65DA6 /* WaveformView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
