@@ -15,11 +15,31 @@ class WaveformView: NSView {
     private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
     public var pixelsPerSample: Int = 1024
+    public private(set) var duration: TimeInterval = 0
+
     public private(set) var waveform: AKWaveform?
 
     internal var fadeInLayer = ActionCAShapeLayer()
     internal var fadeOutLayer = ActionCAShapeLayer()
     internal var fadeColor = NSColor.white.withAlphaComponent(0.3).cgColor
+
+    public var startOffset: TimeInterval = 0 {
+        didSet {
+            updateLayers()
+        }
+    }
+
+    public var fadeInOffset: TimeInterval = 0 {
+        didSet {
+            updateFadeIn()
+        }
+    }
+
+    public var fadeOutOffset: TimeInterval = 0 {
+        didSet {
+            updateFadeOut()
+        }
+    }
 
     public var fadeInTime: TimeInterval = 0 {
         didSet {
@@ -70,16 +90,18 @@ class WaveformView: NSView {
         }
 
         if waveform == nil {
+            duration = audioFile.duration
+
             waveform = AKWaveform(channels: Int(audioFile.fileFormat.channelCount),
                                   size: frame.size,
                                   waveformColor: maroon.cgColor,
                                   backgroundColor: nil)
             waveform?.isMirrored = true
+            waveform?.allowActions = false
+
             if let waveform = waveform {
                 layer?.insertSublayer(waveform, at: 0)
-                waveform.frame = frame
-                timelineBar.setHeight(frame.height)
-                visualScaleFactor = Double(frame.width) / audioFile.duration
+                updateLayers()
             }
         }
 
@@ -87,7 +109,7 @@ class WaveformView: NSView {
                                                                  completionHandler: { data in
 
                                                                      guard let floatData = data else {
-                                                                        AKLog("Error getting waveform data", type: .error)
+                                                                         AKLog("Error getting waveform data", type: .error)
                                                                          return
                                                                      }
                                                                      self.waveform?.fill(with: floatData)
@@ -102,6 +124,22 @@ class WaveformView: NSView {
 }
 
 extension WaveformView {
+    private func updateLayers() {
+        guard duration > 0 else { return }
+
+        let x: CGFloat = CGFloat(startOffset * visualScaleFactor)
+        let virtualWidth = frame.width - x
+        visualScaleFactor = Double(virtualWidth) / duration
+
+        fadeInOffset = startOffset
+        updateFadeOut()
+
+        waveform?.frame = CGRect(x: x, y: 0, width: virtualWidth, height: frame.height)
+        waveform?.updateLayer()
+
+        timelineBar.setHeight(frame.height)
+    }
+
     private func updateFadeIn() {
         guard fadeInTime > 0 else {
             fadeInLayer.path = nil
@@ -115,15 +153,11 @@ extension WaveformView {
         var fw = CGFloat(fadeInTime * visualScaleFactor)
         if fw < 3.0 { fw = 3.0 }
 
-        fadeInLayer.frame = CGRect(x: 0, y: 0, width: fw, height: fh)
+        let startX = CGFloat(fadeInOffset * visualScaleFactor)
+        fadeInLayer.frame = CGRect(x: startX, y: 0, width: fw, height: fh)
 
         fadePath.move(to: NSPoint(x: 0, y: 0))
-        fadePath.curve(to: NSPoint(x: fw * 0.64, y: fh * 0.28),
-                       controlPoint1: NSPoint(x: 0, y: 0),
-                       controlPoint2: NSPoint(x: fw * 0.36, y: fh * 0.08))
-        fadePath.curve(to: NSPoint(x: fw, y: fh),
-                       controlPoint1: NSPoint(x: fw * 0.92, y: fh * 0.48),
-                       controlPoint2: NSPoint(x: fw, y: fh))
+        fadePath.line(to: NSPoint(x: fw, y: fh))
         fadePath.line(to: NSPoint(x: fw, y: 0))
         fadePath.line(to: NSPoint(x: 0, y: 0))
         fadeInLayer.path = fadePath.cgPath
@@ -135,32 +169,27 @@ extension WaveformView {
             return
         }
 
-        let fh = frame.height - 4
+        let fh = frame.height - 1
 
         let fadePath = NSBezierPath()
+        let startX = CGFloat(fadeOutOffset * visualScaleFactor)
 
         var fw = CGFloat(fadeOutTime * visualScaleFactor)
         if fw < 3.0 { fw = 3.0 }
 
         let x = fw
 
-        fadeOutLayer.frame = CGRect(x: frame.width - fw, y: 0, width: fw, height: fh)
+        fadeOutLayer.frame = CGRect(x: frame.width - startX - fw, y: 0, width: fw, height: fh)
 
         fadePath.move(to: NSPoint(x: fw, y: 0))
-        fadePath.curve(to: NSPoint(x: x - fw * 0.6393, y: fh * 0.28),
-                       controlPoint1: NSPoint(x: x, y: 0),
-                       controlPoint2: NSPoint(x: x - fw * 0.3607, y: fh * 0.08))
-        fadePath.curve(to: NSPoint(x: x - fw, y: fh),
-                       controlPoint1: NSPoint(x: x - fw * 0.918, y: fh * 0.48),
-                       controlPoint2: NSPoint(x: x - fw, y: fh))
         fadePath.line(to: NSPoint(x: x - fw, y: 0))
+        fadePath.line(to: NSPoint(x: x - fw, y: fh))
         fadePath.line(to: NSPoint(x: x, y: 0))
         fadeOutLayer.path = fadePath.cgPath
     }
 }
 
 class TimelineBar: ActionCAShapeLayer {
-
     public func setHeight(_ height: CGFloat = 200) {
         strokeColor = NSColor.white.cgColor
         lineWidth = 1
