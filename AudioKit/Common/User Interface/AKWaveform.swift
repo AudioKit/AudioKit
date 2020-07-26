@@ -80,7 +80,7 @@ public class AKWaveform: CALayer {
             plotSize = size
         }
         // make a default size
-        frame = NSRect(origin: CGPoint(), size: plotSize)
+        frame = CGRect(origin: CGPoint(), size: plotSize)
 
         self.waveformColor = waveformColor ?? AKColor.black.cgColor
         self.backgroundColor = backgroundColor
@@ -90,7 +90,7 @@ public class AKWaveform: CALayer {
     }
 
     deinit {
-        // Log.debug("* { Waveform \(name ?? "") } *")
+        // AKLog("* { Waveform \(name ?? "") } *")
     }
 
     // MARK: - Private functions
@@ -119,7 +119,7 @@ public class AKWaveform: CALayer {
         }
         let direction: CGFloat = isReversed ? -1.0 : 1.0
 
-        // Log.debug("Current Direction:", reverseDirection, "proposed direction:", direction)
+        // AKLog("Current Direction:", reverseDirection, "proposed direction:", direction)
 
         guard direction != reverseDirection else { return }
 
@@ -131,7 +131,7 @@ public class AKWaveform: CALayer {
         }
 
         reverseDirection = direction
-        // Log.debug("REVERSING:", reverseDirection)
+        // AKLog("REVERSING:", reverseDirection)
     }
 
     // TODO: account for files that have more than 2 channels
@@ -139,7 +139,7 @@ public class AKWaveform: CALayer {
         // just setting the table data here
         if !plots.isEmpty {
             if let left = data.first {
-                // Log.debug("** Updating table data", left.count, "points")
+                // AKLog("** Updating table data", left.count, "points")
                 plots[0].table = left
                 samplesPerPixel = left.count
             }
@@ -152,7 +152,7 @@ public class AKWaveform: CALayer {
         }
 
         // create the plots
-        // Log.debug("** Creating plots... channels:", data.count)
+        // AKLog("** Creating plots... channels:", data.count)
 
         if let left = data.first {
             let leftPlot = createPlot(data: left, color: waveformColor)
@@ -174,7 +174,7 @@ public class AKWaveform: CALayer {
     }
 
     private func createPlot(data: [Float], color: CGColor) -> AKWaveformLayer {
-        // Log.debug(data.count, "plotSize", plotSize)
+        // AKLog(data.count, "plotSize", plotSize)
 
         let plot = AKWaveformLayer(table: data,
                                    size: plotSize,
@@ -200,7 +200,7 @@ public class AKWaveform: CALayer {
             return
         }
 
-        // Log.debug("plots.count:", sublayers?.count)
+        // AKLog("plots.count:", sublayers?.count)
 
         let width = frame.size.width
         let height = frame.size.height
@@ -217,7 +217,7 @@ public class AKWaveform: CALayer {
 
         plotSize = CGSize(width: round(size.width), height: round(size.height))
 
-        //         Log.debug("** relayout, showStereo", showStereo, "flipStereo", flipStereo,
+        //         AKLog("** relayout, showStereo", showStereo, "flipStereo", flipStereo,
         //                   "plotSize", plotSize, "numberOfPoints", numberOfPoints,
         //                   "halfWidth", halfWidth, "maxNumberOfPoints", maxNumberOfPoints,
         //                   "adjustedHeight", adjustedHeight)
