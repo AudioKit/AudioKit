@@ -188,11 +188,13 @@
 		B16FE9FC24CE01BB000D4A79 /* AKWaveformDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FB24CE01BB000D4A79 /* AKWaveformDataRequest.swift */; };
 		B16FE9FD24CE01BB000D4A79 /* AKWaveformDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FB24CE01BB000D4A79 /* AKWaveformDataRequest.swift */; };
 		B16FE9FE24CE01BB000D4A79 /* AKWaveformDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FB24CE01BB000D4A79 /* AKWaveformDataRequest.swift */; };
-		B16FEA0324CE029A000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
-		B16FEA0424CE029B000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
-		B16FEA0524CE029B000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
+		B16FEA1D24CE087D000D4A79 /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
+		B16FEA1E24CE087E000D4A79 /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
+		B16FEA1F24CE087E000D4A79 /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
+		B16FEA2024CE08F1000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
+		B16FEA2124CE08F2000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
+		B16FEA2224CE08F2000D4A79 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FE9FF24CE024B000D4A79 /* AKWaveform.swift */; };
 		B184847A1FD9ADB100F65DA6 /* AKPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18484791FD9ADB100F65DA6 /* AKPlayer.swift */; };
-		B19684152436719700BC2AAA /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
 		B19AE7751F30FC4700F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */; };
 		B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */; };
 		B1B9DA672496926E0085F582 /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9DA662496926E0085F582 /* AKAudioUnitManager+Connections.swift */; };
@@ -2459,7 +2461,6 @@
 		EAA62D59247F410100BF4CDB /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		EAA62D5C247F410100BF4CDB /* AKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C02093D4B5007334A4 /* AKColor.swift */; };
 		EAA62D5E247F410100BF4CDB /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
-		EAA62D5F247F410100BF4CDB /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
 		EAA62D64247F410100BF4CDB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		EAA62D66247F410100BF4CDB /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62D67247F410100BF4CDB /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C413E1C40E3A5009D870B /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3365,7 +3366,6 @@
 		EAA63229247F559400BF4CDB /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41331C40E3A5009D870B /* EZAudioDisplayLink.m */; };
 		EAA6322A247F559400BF4CDB /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		EAA6322F247F559400BF4CDB /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
-		EAA63230247F559400BF4CDB /* AKWaveformLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19684132436715800BC2AAA /* AKWaveformLayer.swift */; };
 		EAA63237247F559400BF4CDB /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63238247F559400BF4CDB /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C413E1C40E3A5009D870B /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63239247F559400BF4CDB /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41421C40E3A5009D870B /* EZAudioUtilities.h */; };
@@ -10570,10 +10570,11 @@
 				EA7D07261F4E655200707706 /* EZAudioDisplayLink.m in Sources */,
 				C468CD5F2481E71000456291 /* AKTableView.swift in Sources */,
 				C468CD672481E71000456291 /* AKADSRView.swift in Sources */,
-				B16FEA0324CE029A000D4A79 /* AKWaveform.swift in Sources */,
+				B16FEA2024CE08F1000D4A79 /* AKWaveform.swift in Sources */,
 				C468CD642481E71000456291 /* AKPropertyControl.swift in Sources */,
 				EA7D07111F4E63F400707706 /* AKNodeFFTPlot.swift in Sources */,
 				C409E99124A994F600E2660F /* AKMIDITrackView.swift in Sources */,
+				B16FEA1D24CE087D000D4A79 /* AKWaveformLayer.swift in Sources */,
 				C468CD662481E71000456291 /* AKNudger.swift in Sources */,
 				C468CD592481E71000456291 /* AKRotaryKnob.swift in Sources */,
 				C468CD5A2481E71000456291 /* AKTweaker.swift in Sources */,
@@ -10584,7 +10585,6 @@
 				C468CD5C2481E71000456291 /* AKSlider.swift in Sources */,
 				C468CD652481E71000456291 /* MultitouchGestureRecognizer.swift in Sources */,
 				C468CD552481E71000456291 /* AKPresetLoaderView.swift in Sources */,
-				B19684152436719700BC2AAA /* AKWaveformLayer.swift in Sources */,
 				C468CD622481E71000456291 /* AKPlaygroundView.swift in Sources */,
 				C468CD582481E71000456291 /* AKButton.swift in Sources */,
 				C468CD5E2481E71000456291 /* AKKeyboardView.swift in Sources */,
@@ -11268,15 +11268,15 @@
 			files = (
 				EAA62D46247F410100BF4CDB /* AKRollingOutputPlot.swift in Sources */,
 				EAA62D48247F410100BF4CDB /* AKOutputWaveformPlot.swift in Sources */,
-				B16FEA0524CE029B000D4A79 /* AKWaveform.swift in Sources */,
+				B16FEA2224CE08F2000D4A79 /* AKWaveform.swift in Sources */,
 				EAA62D49247F410100BF4CDB /* AKView.swift in Sources */,
 				EAA62D4A247F410100BF4CDB /* EZAudioPlot.m in Sources */,
 				EAA62D4D247F410100BF4CDB /* EZPlot.m in Sources */,
 				EAA62D58247F410100BF4CDB /* EZAudioDisplayLink.m in Sources */,
+				B16FEA1F24CE087E000D4A79 /* AKWaveformLayer.swift in Sources */,
 				EAA62D59247F410100BF4CDB /* AKNodeFFTPlot.swift in Sources */,
 				EAA62D5C247F410100BF4CDB /* AKColor.swift in Sources */,
 				EAA62D5E247F410100BF4CDB /* AKNodeOutputPlot.swift in Sources */,
-				EAA62D5F247F410100BF4CDB /* AKWaveformLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12025,7 +12025,7 @@
 				C468CD6A2481E71C00456291 /* AKButton.swift in Sources */,
 				C468CD752481E71C00456291 /* AKMIDIPlaygroundView.swift in Sources */,
 				C468CD732481E71C00456291 /* AKPropertyControl.swift in Sources */,
-				B16FEA0424CE029B000D4A79 /* AKWaveform.swift in Sources */,
+				B16FEA2124CE08F2000D4A79 /* AKWaveform.swift in Sources */,
 				C468CD702481E71C00456291 /* AKPlaygroundLoop.swift in Sources */,
 				EAA63217247F559400BF4CDB /* AKRollingOutputPlot.swift in Sources */,
 				C468CD6F2481E71C00456291 /* AKTableView.swift in Sources */,
@@ -12036,10 +12036,10 @@
 				EAA6321E247F559400BF4CDB /* EZPlot.m in Sources */,
 				EAA63229247F559400BF4CDB /* EZAudioDisplayLink.m in Sources */,
 				C468CD722481E71C00456291 /* AKPlaygroundView.swift in Sources */,
+				B16FEA1E24CE087E000D4A79 /* AKWaveformLayer.swift in Sources */,
 				EAA6322A247F559400BF4CDB /* AKNodeFFTPlot.swift in Sources */,
 				C468CD692481E71C00456291 /* AKPlaygroundViewController.swift in Sources */,
 				EAA6322F247F559400BF4CDB /* AKNodeOutputPlot.swift in Sources */,
-				EAA63230247F559400BF4CDB /* AKWaveformLayer.swift in Sources */,
 				C468CD6B2481E71C00456291 /* AKRotaryKnob.swift in Sources */,
 				C468CD712481E71C00456291 /* AKResourceAudioFileLoaderView.swift in Sources */,
 			);

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AudioKit
+
 public class AKWaveform: CALayer {
     private var halfWidth: Int = 0
     private var reverseDirection: CGFloat = 1
@@ -35,7 +37,7 @@ public class AKWaveform: CALayer {
         }
     }
 
-    public var waveformColor: CGColor = AKColor.black.cgColor {
+    public var waveformColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1) {
         didSet {
             for plot in plots {
                 plot.fillColor = waveformColor
@@ -111,7 +113,7 @@ public class AKWaveform: CALayer {
 
     private func updateReverse() {
         guard !plots.isEmpty else {
-            Log.error("Waveform isn't ready to be reversed yet. No data.")
+            AKLog("Waveform isn't ready to be reversed yet. No data.", type: .error)
             return
         }
         let direction: CGFloat = isReversed ? -1.0 : 1.0
@@ -170,16 +172,16 @@ public class AKWaveform: CALayer {
         completionHandler?()
     }
 
-    private func createPlot(data: [Float], color: CGColor) -> WaveformLayer {
+    private func createPlot(data: [Float], color: CGColor) -> AKWaveformLayer {
         // Log.debug(data.count, "plotSize", plotSize)
 
-        let plot = WaveformLayer(table: data,
-                                 size: plotSize,
-                                 fillColor: color,
-                                 strokeColor: nil,
-                                 backgroundColor: nil,
-                                 opacity: waveformOpacity,
-                                 isMirrored: isMirrored)
+        let plot = AKWaveformLayer(table: data,
+                                   size: plotSize,
+                                   fillColor: color,
+                                   strokeColor: nil,
+                                   backgroundColor: nil,
+                                   opacity: waveformOpacity,
+                                   isMirrored: isMirrored)
         plot.allowActions = false
         return plot
     }
@@ -193,7 +195,7 @@ public class AKWaveform: CALayer {
 
     public func updateLayer() {
         guard plots.isNotEmpty else {
-            Log.error("Plots are empty... nothing to layout.", type: .error)
+            AKLog("Plots are empty... nothing to layout.", type: .error)
             return
         }
 
@@ -244,11 +246,11 @@ public class AKWaveform: CALayer {
         }
     }
 
-    public func duplicate() -> Waveform? {
-        let waveform = Waveform(channels: channels,
-                                size: plotSize,
-                                waveformColor: waveformColor,
-                                backgroundColor: backgroundColor)
+    public func duplicate() -> AKWaveform? {
+        let waveform = AKWaveform(channels: channels,
+                                  size: plotSize,
+                                  waveformColor: waveformColor,
+                                  backgroundColor: backgroundColor)
 
         var data = FloatChannelData(repeating: [], count: plots.count)
         if let value = plots.first?.table {
