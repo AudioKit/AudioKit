@@ -81,11 +81,9 @@ public class AKWaveform: CALayer {
         }
         // make a default size
         frame = CGRect(origin: CGPoint(), size: plotSize)
-
         self.waveformColor = waveformColor ?? AKColor.black.cgColor
         self.backgroundColor = backgroundColor
         isOpaque = false
-
         initPlots()
     }
 
@@ -199,12 +197,8 @@ public class AKWaveform: CALayer {
             AKLog("Plots are empty... nothing to layout.", type: .error)
             return
         }
-
-        // AKLog("plots.count:", sublayers?.count)
-
         let width = frame.size.width
         let height = frame.size.height
-
         let floatChannels = CGFloat(channels)
         var heightDivisor = floatChannels
 
