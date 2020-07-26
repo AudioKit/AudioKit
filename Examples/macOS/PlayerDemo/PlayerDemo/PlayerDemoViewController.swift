@@ -33,20 +33,28 @@ class PlayerDemoViewController: NSViewController {
 
     convenience init() {
         self.init(nibName: "PlayerDemoViewController", bundle: Bundle.main)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        pathControl?.delegate = self
-        if let url = Bundle.main.resourceURL?.appendingPathComponent("PinkNoise.wav") {
-            open(url: url)
-        }
 
         AKSettings.sampleRate = 48000 // arbritary, but PinkNoise is 48k
 
         // setup signal chain
         AKManager.output = mixer
+
+        do {
+            try AKManager.start()
+        } catch let error as NSError {
+            AKLog(error.localizedDescription, type: .error)
+            return
+        }
+
+        AKLog(AKSettings.audioFormat)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let url = Bundle.main.resourceURL?.appendingPathComponent("PinkNoise.wav") {
+            open(url: url)
+        }
     }
 
     @IBAction func handleChooseButton(_ sender: NSButton) {
@@ -79,7 +87,8 @@ class PlayerDemoViewController: NSViewController {
         }
 
         let player = AKDynamicPlayer(audioFile: audioFile)
-        player >>> mixer
+        player.connect(to: mixer)
+        player.completionHandler = handleAudioComplete
         self.player = player
 
         waveformView?.open(audioFile: audioFile)
@@ -103,13 +112,15 @@ class PlayerDemoViewController: NSViewController {
         player?.play(from: 0, to: 0, when: 0, hostTime: nil)
     }
 
+    private func handleAudioComplete() {
+        playButton?.state = .off
+    }
+
     func stop() {
         AKLog("⏹")
         player?.stop()
     }
 }
-
-extension PlayerDemoViewController: NSPathControlDelegate {}
 
 func delayed(by delay: Double, closure: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
