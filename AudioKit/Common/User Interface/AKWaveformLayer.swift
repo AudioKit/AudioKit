@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Quartz
+import CoreGraphics
 
 /// A CAShapeLayer rendering of a mono waveform. Can be updated on any thread.
 public class AKWaveformLayer: CAShapeLayer {
@@ -58,11 +58,11 @@ public class AKWaveformLayer: CAShapeLayer {
         self.backgroundColor = backgroundColor
         self.strokeColor = strokeColor
         lineWidth = 0.5 // default if stroke is used, otherwise this does nothing
-        self.fillColor = fillColor ?? CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        self.fillColor = fillColor ?? AKColor.black.cgColor
         masksToBounds = false
         isOpaque = false
         drawsAsynchronously = true
-        shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        shadowColor = AKColor.black.cgColor
         shadowOpacity = 0.4
         shadowOffset = CGSize(width: 1, height: -1)
         shadowRadius = 2.0
