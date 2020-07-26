@@ -12,18 +12,56 @@ import AVFoundation
 import Cocoa
 
 class WaveformView: NSView {
-    let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
+    private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
-    var waveform: AKWaveform?
+    public var pixelsPerSample: Int = 1024
+    public private(set) var waveform: AKWaveform?
+
+    internal var fadeInLayer = ActionCAShapeLayer()
+    internal var fadeOutLayer = ActionCAShapeLayer()
+    internal var fadeColor = NSColor.white.withAlphaComponent(0.3).cgColor
+
+    public var fadeInTime: TimeInterval = 0 {
+        didSet {
+            updateFadeIn()
+        }
+    }
+
+    public var fadeOutTime: TimeInterval = 0 {
+        didSet {
+            updateFadeOut()
+        }
+    }
+
+    public private(set) lazy var timelineBar = TimelineBar()
+
+    private var visualScaleFactor: Double = 30
+
+    public var time: TimeInterval = 0 {
+        didSet {
+            timelineBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+        }
+    }
 
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        wantsLayer = true
+        initialize()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        initialize()
+    }
+
+    public func initialize() {
         wantsLayer = true
+
+        fadeInLayer.fillColor = fadeColor
+        fadeOutLayer.fillColor = fadeColor
+
+        layer?.insertSublayer(fadeInLayer, at: 1)
+        layer?.insertSublayer(fadeOutLayer, at: 2)
+        layer?.insertSublayer(timelineBar, at: 3)
     }
 
     public func open(audioFile: AVAudioFile) {
@@ -38,27 +76,123 @@ class WaveformView: NSView {
                                   backgroundColor: nil)
             waveform?.isMirrored = true
             if let waveform = waveform {
-                layer?.addSublayer(waveform)
+                layer?.insertSublayer(waveform, at: 0)
                 waveform.frame = frame
+                timelineBar.setHeight(frame.height)
+                visualScaleFactor = Double(frame.width) / audioFile.duration
             }
         }
 
-        AKWaveformDataRequest(audioFile: audioFile).getDataAsync(with: 1024,
+        AKWaveformDataRequest(audioFile: audioFile).getDataAsync(with: pixelsPerSample,
                                                                  completionHandler: { data in
 
-                                                                     guard let floatData = data else { return }
-                                                                     AKLog("got waveform data")
-                                                                     self.fill(with: floatData)
+                                                                     guard let floatData = data else {
+                                                                        AKLog("Error getting waveform data", type: .error)
+                                                                         return
+                                                                     }
+                                                                     self.waveform?.fill(with: floatData)
                                                                  })
-    }
-
-    private func fill(with data: FloatChannelData) {
-        waveform?.fill(with: data)
     }
 
     public func close() {
         waveform?.dispose()
         waveform?.removeFromSuperlayer()
         waveform = nil
+    }
+}
+
+extension WaveformView {
+    private func updateFadeIn() {
+        guard fadeInTime > 0 else {
+            fadeInLayer.path = nil
+            return
+        }
+
+        let fh = frame.height - 1
+
+        let fadePath = NSBezierPath()
+
+        var fw = CGFloat(fadeInTime * visualScaleFactor)
+        if fw < 3.0 { fw = 3.0 }
+
+        fadeInLayer.frame = CGRect(x: 0, y: 0, width: fw, height: fh)
+
+        fadePath.move(to: NSPoint(x: 0, y: 0))
+        fadePath.curve(to: NSPoint(x: fw * 0.64, y: fh * 0.28),
+                       controlPoint1: NSPoint(x: 0, y: 0),
+                       controlPoint2: NSPoint(x: fw * 0.36, y: fh * 0.08))
+        fadePath.curve(to: NSPoint(x: fw, y: fh),
+                       controlPoint1: NSPoint(x: fw * 0.92, y: fh * 0.48),
+                       controlPoint2: NSPoint(x: fw, y: fh))
+        fadePath.line(to: NSPoint(x: fw, y: 0))
+        fadePath.line(to: NSPoint(x: 0, y: 0))
+        fadeInLayer.path = fadePath.cgPath
+    }
+
+    private func updateFadeOut() {
+        guard fadeOutTime > 0 else {
+            fadeOutLayer.path = nil
+            return
+        }
+
+        let fh = frame.height - 4
+
+        let fadePath = NSBezierPath()
+
+        var fw = CGFloat(fadeOutTime * visualScaleFactor)
+        if fw < 3.0 { fw = 3.0 }
+
+        let x = fw
+
+        fadeOutLayer.frame = CGRect(x: frame.width - fw, y: 0, width: fw, height: fh)
+
+        fadePath.move(to: NSPoint(x: fw, y: 0))
+        fadePath.curve(to: NSPoint(x: x - fw * 0.6393, y: fh * 0.28),
+                       controlPoint1: NSPoint(x: x, y: 0),
+                       controlPoint2: NSPoint(x: x - fw * 0.3607, y: fh * 0.08))
+        fadePath.curve(to: NSPoint(x: x - fw, y: fh),
+                       controlPoint1: NSPoint(x: x - fw * 0.918, y: fh * 0.48),
+                       controlPoint2: NSPoint(x: x - fw, y: fh))
+        fadePath.line(to: NSPoint(x: x - fw, y: 0))
+        fadePath.line(to: NSPoint(x: x, y: 0))
+        fadeOutLayer.path = fadePath.cgPath
+    }
+}
+
+class TimelineBar: ActionCAShapeLayer {
+
+    public func setHeight(_ height: CGFloat = 200) {
+        strokeColor = NSColor.white.cgColor
+        lineWidth = 1
+
+        let path = CGMutablePath()
+        path.move(to: NSPoint(x: 0, y: 0))
+        path.addLine(to: NSPoint(x: 0, y: height))
+        self.path = path
+    }
+}
+
+public extension NSBezierPath {
+    var cgPath: CGPath {
+        let path = CGMutablePath()
+        var points = [CGPoint](repeating: .zero, count: 3)
+
+        for i in 0 ..< elementCount {
+            let type = element(at: i, associatedPoints: &points)
+            switch type {
+            case .moveTo:
+                path.move(to: points[0])
+            case .lineTo:
+                path.addLine(to: points[0])
+            case .curveTo:
+                path.addCurve(to: points[2], control1: points[0], control2: points[1])
+            case .closePath:
+                path.closeSubpath()
+                @unknown default:
+                break
+            }
+        }
+
+        return path
     }
 }

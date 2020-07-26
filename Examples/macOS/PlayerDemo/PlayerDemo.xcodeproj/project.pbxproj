@@ -11,10 +11,11 @@
 		B16FE9F724CDEEF3000D4A79 /* PlayerDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B16FE9F524CDEEF3000D4A79 /* PlayerDemoViewController.xib */; };
 		B16FE9FA24CDF07A000D4A79 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = B16FE9F924CDF07A000D4A79 /* PinkNoise.wav */; };
 		B16FEA2424CE0DC7000D4A79 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2324CE0DC7000D4A79 /* WaveformView.swift */; };
+		B16FEA2624CE1DD3000D4A79 /* TimerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */; };
+		B16FEA2824CE31ED000D4A79 /* ActionCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2724CE31ED000D4A79 /* ActionCALayer.swift */; };
 		B1F1EC2224CDEB2300A56DD4 /* PlayerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */; };
 		B1F1EC2424CDEB2500A56DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F1EC2324CDEB2500A56DD4 /* Assets.xcassets */; };
 		B1F1EC2724CDEB2500A56DD4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1F1EC2524CDEB2500A56DD4 /* MainMenu.xib */; };
-		B1F1EC3624CDEC7B00A56DD4 /* PlayerDemoWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1EC3424CDEC7B00A56DD4 /* PlayerDemoWindowController.swift */; };
 		B1F1EC3724CDEC7B00A56DD4 /* PlayerDemoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1F1EC3524CDEC7B00A56DD4 /* PlayerDemoWindowController.xib */; };
 		B1F1EC3C24CDECF000A56DD4 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F1EC3A24CDECF000A56DD4 /* AudioKitUI.xcframework */; };
 		B1F1EC3D24CDECF000A56DD4 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F1EC3B24CDECF000A56DD4 /* AudioKit.xcframework */; };
@@ -25,13 +26,14 @@
 		B16FE9F524CDEEF3000D4A79 /* PlayerDemoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDemoViewController.xib; sourceTree = "<group>"; };
 		B16FE9F924CDF07A000D4A79 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PinkNoise.wav; sourceTree = "<group>"; };
 		B16FEA2324CE0DC7000D4A79 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactory.swift; sourceTree = "<group>"; };
+		B16FEA2724CE31ED000D4A79 /* ActionCALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCALayer.swift; sourceTree = "<group>"; };
 		B1F1EC1E24CDEB2300A56DD4 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDemo.swift; sourceTree = "<group>"; };
 		B1F1EC2324CDEB2500A56DD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1F1EC2624CDEB2500A56DD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		B1F1EC2824CDEB2500A56DD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1F1EC2924CDEB2500A56DD4 /* PlayerDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayerDemo.entitlements; sourceTree = "<group>"; };
-		B1F1EC3424CDEC7B00A56DD4 /* PlayerDemoWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDemoWindowController.swift; sourceTree = "<group>"; };
 		B1F1EC3524CDEC7B00A56DD4 /* PlayerDemoWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDemoWindowController.xib; sourceTree = "<group>"; };
 		B1F1EC3A24CDECF000A56DD4 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 		B1F1EC3B24CDECF000A56DD4 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
@@ -83,10 +85,11 @@
 				B1F1EC2924CDEB2500A56DD4 /* PlayerDemo.entitlements */,
 				B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */,
 				B16FE9F424CDEEF3000D4A79 /* PlayerDemoViewController.swift */,
-				B1F1EC3424CDEC7B00A56DD4 /* PlayerDemoWindowController.swift */,
+				B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */,
 				B16FE9F824CDF069000D4A79 /* Resources */,
 				B1F1EC3824CDEC8800A56DD4 /* xib */,
 				B16FEA2324CE0DC7000D4A79 /* WaveformView.swift */,
+				B16FEA2724CE31ED000D4A79 /* ActionCALayer.swift */,
 			);
 			path = PlayerDemo;
 			sourceTree = "<group>";
@@ -183,9 +186,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B16FEA2824CE31ED000D4A79 /* ActionCALayer.swift in Sources */,
 				B16FE9F624CDEEF3000D4A79 /* PlayerDemoViewController.swift in Sources */,
-				B1F1EC3624CDEC7B00A56DD4 /* PlayerDemoWindowController.swift in Sources */,
 				B1F1EC2224CDEB2300A56DD4 /* PlayerDemo.swift in Sources */,
+				B16FEA2624CE1DD3000D4A79 /* TimerFactory.swift in Sources */,
 				B16FEA2424CE0DC7000D4A79 /* WaveformView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
