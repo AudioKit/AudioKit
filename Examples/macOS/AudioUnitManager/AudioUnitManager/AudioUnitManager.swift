@@ -46,7 +46,7 @@ class AudioUnitManager: NSViewController {
     internal var windowControllers = [AudioUnitGenericWindow?](repeating: nil, count: 6)
     internal var midiManager: AKMIDI?
     internal var player: AKPlayer?
-    internal var waveform: AKWaveform?
+    internal var waveform: WaveformView?
     internal var fmOscillator = AKFMOscillator()
     internal var mixer = AKMixer()
     internal var testPlayer: InstrumentPlayer?
