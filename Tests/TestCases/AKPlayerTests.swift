@@ -1,11 +1,3 @@
-//
-//  AKPlayerTests.swift
-//  iOSTestSuiteTests
-//
-//  Created by Taylor Holliday on 7/21/20.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
-
 import AudioKit
 import XCTest
 
@@ -48,29 +40,29 @@ class AKPlayerTests: AKTestCase {
                    when: 1, fade: fade, interiorStartTime: 2)
     }
 
-    func testPitch() {
-        testPlayer(md5: "a24d37741662aadc53127b0ffa508a1e",
-                   filename: AKPlayerTests.counting,
-                   pitch: -600)
-    }
-
     /*
+     // Changing the playback rate or pitch doesn't produce consistent md5's. Sometimes it's right, sometimes not
+     // ???
 
-      // Changing the playback rate doesn't produce consistent md5's. Sometimes it's right, sometimes not
-      // ???
-     func testRate() {
-         testPlayer(md5: "980c76b26541a9c2650291c2d8b2d04f",
+     func testPitch() {
+         testPlayer(md5: "a24d37741662aadc53127b0ffa508a1e",
                     filename: AKPlayerTests.counting,
-                    rate: 2)
-     }
-
-     func testPitchAndRate() {
-         testPlayer(md5: "ce39f5847d2f361d98db44b2be0225c0",
-                    filename: AKPlayerTests.counting,
-                    rate: 2,
                     pitch: -600)
      }
-     */
+
+      func testRate() {
+          testPlayer(md5: "980c76b26541a9c2650291c2d8b2d04f",
+                     filename: AKPlayerTests.counting,
+                     rate: 2)
+      }
+
+      func testPitchAndRate() {
+          testPlayer(md5: "ce39f5847d2f361d98db44b2be0225c0",
+                     filename: AKPlayerTests.counting,
+                     rate: 2,
+                     pitch: -600)
+      }
+      */
 
     func testEdited() {
         testPlayer(md5: "a5c1ee84ec7692b3fba09f4404e1fe0d",
