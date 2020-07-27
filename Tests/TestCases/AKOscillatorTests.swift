@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class AKOscillatorTests: AKTestCase {
-
     func testAmpitude() {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
         output = input
@@ -85,7 +84,7 @@ class AKOscillatorTests: AKTestCase {
             self.input.parameterAutomation?.startPlayback()
         }
 
-        //auditionTest()
+        // auditionTest()
 
         AKTestMD5("f1f313f396fd5962a36db24e675df274")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "ea430adbf3a856d283cc32e0f9601c9f"))
@@ -119,8 +118,8 @@ class AKOscillatorTests: AKTestCase {
 
         afterStart = {
             self.input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
-                                                                 startTime: 0,
-                                                                 rampDuration: self.duration)])
+                                                                      startTime: 0,
+                                                                      rampDuration: self.duration)])
         }
 
         // auditionTest()
@@ -167,7 +166,6 @@ class AKOscillatorTests: AKTestCase {
     }
 
     func testNewAutomationDelayed() {
-
         // Play for two seconds.
         duration = 2.0
 
@@ -175,7 +173,6 @@ class AKOscillatorTests: AKTestCase {
         output = input
 
         afterStart = {
-
             // Delay a second.
             let startTime = AVAudioTime(sampleTime: 44100, atRate: 41000)
 
@@ -188,7 +185,5 @@ class AKOscillatorTests: AKTestCase {
         // auditionTest()
 
         AKTestMD5("1ce448c3c5c3d1020990917931b0116b")
-
     }
-
 }
