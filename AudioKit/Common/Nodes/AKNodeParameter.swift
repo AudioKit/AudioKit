@@ -92,23 +92,21 @@ public class AKNodeParameter {
     /// - Parameter startTime: optional time to start automation
     public func automate(events: [AKAutomationEvent], startTime: AVAudioTime? = nil) {
 
-        var lastTime = (startTime ?? avAudioUnit.lastRenderTime)
-            ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+        var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+
+        if !lastRenderTime.isSampleTimeValid {
+            lastRenderTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+        }
+
+        var lastTime = startTime ?? lastRenderTime
         guard let parameter = parameter else { return }
 
-        if !lastTime.isSampleTimeValid {
-            if lastTime.isHostTimeValid {
-                guard let lastAudioTime = avAudioUnit.lastRenderTime else { return }
-                guard let startTime = startTime else { return }
+        if lastTime.isHostTimeValid {
+            // Convert to sample time.
+            let lastTimeSeconds = AVAudioTime.seconds(forHostTime: lastRenderTime.hostTime)
+            let startTimeSeconds = AVAudioTime.seconds(forHostTime: lastTime.hostTime)
 
-                // Convert to sample time.
-                let lastTimeSeconds = AVAudioTime.seconds(forHostTime: lastAudioTime.hostTime)
-                let startTimeSeconds = AVAudioTime.seconds(forHostTime: startTime.hostTime)
-
-                lastTime = lastAudioTime.offset(seconds: (startTimeSeconds - lastTimeSeconds))
-            } else {
-                lastTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
-            }
+            lastTime = lastRenderTime.offset(seconds: (startTimeSeconds - lastTimeSeconds))
         }
 
         assert(lastTime.isSampleTimeValid)
