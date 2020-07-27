@@ -220,9 +220,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Create a player from a URL
     public convenience init?(url: URL) {
-        if FileManager.default.fileExists(atPath: url.path) == false {
-            return nil
-        }
+        if FileManager.default.fileExists(atPath: url.path) == false { return nil }
         do {
             let avfile = try AVAudioFile(forReading: url)
             self.init(audioFile: avfile, reopenFile: false)
