@@ -75,6 +75,9 @@
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarPlayTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSTouchBarPauseTemplate" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XPE-qW-POg">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+IA
+</string>
                     </buttonCell>
                     <connections>
                         <action selector="handlePlayButton:" target="-2" id="4nx-5J-mLh"/>
@@ -86,6 +89,7 @@
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarRewindTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sez-OK-1Fr">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent"></string>
                     </buttonCell>
                     <connections>
                         <action selector="handleRewindButton:" target="-2" id="36P-yh-7Ue"/>
