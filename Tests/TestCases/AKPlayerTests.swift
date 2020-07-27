@@ -11,12 +11,12 @@ import XCTest
 
 class AKPlayerTests: AKTestCase {
     func testBasic() {
-        guard let audioFileURL = Bundle.main.url(forResource: "sinechirp", withExtension: "wav") else {
+        guard let url = Bundle.main.url(forResource: "sinechirp", withExtension: "wav") else {
             XCTFail("Couldn't find audio file.")
             return
         }
 
-        guard let player = AKPlayer(url: audioFileURL) else {
+        guard let player = AKPlayer(url: url) else {
             XCTFail("Couldn't load audio file.")
             return
         }
@@ -34,12 +34,12 @@ class AKPlayerTests: AKTestCase {
     func testFadeInOut() {
         let bundle = Bundle(for: AKPlayerTests.self)
 
-        guard let audioFileURL = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
+        guard let url = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
             XCTFail("Couldn't find audio file.")
             return
         }
 
-        guard let player = AKPlayer(url: audioFileURL) else {
+        guard let player = AKPlayer(url: url) else {
             XCTFail("Couldn't load audio file.")
             return
         }
