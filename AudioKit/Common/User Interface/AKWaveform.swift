@@ -22,7 +22,7 @@ public class AKWaveform: CALayer {
     }
 
     /// show the negative view as well. false saves space
-    public var isMirrored: Bool = false {
+    public var isMirrored: Bool = true {
         didSet {
             for plot in plots {
                 plot.isMirrored = isMirrored
