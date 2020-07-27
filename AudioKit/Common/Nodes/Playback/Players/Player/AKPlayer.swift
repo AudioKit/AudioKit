@@ -348,8 +348,6 @@ public class AKPlayer: AKAbstractPlayer {
 
         // prepare the fader
         if isFaded, !isBufferFaded {
-            scheduleFader()
-
             // Offline: if sample rate is mismatched from AKSettings.sampleRate,
             // then adjust the scheduling to compensate. See also AKAbstractPlayer.scheduleFader
             if renderingMode == .offline, sampleRate != AKSettings.sampleRate {
@@ -362,6 +360,7 @@ public class AKPlayer: AKAbstractPlayer {
                 // AKLog("Adjusted fade out values by the ratio:", sampleRateRatio)
             }
 
+            scheduleFader(startTime: audioTime)
         }
         playerNode.play()
         pauseTime = nil
