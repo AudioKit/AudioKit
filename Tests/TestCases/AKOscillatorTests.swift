@@ -181,8 +181,7 @@ class AKOscillatorTests: AKTestCase {
 
             self.input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
                                                                       startTime: 0,
-                                                                      rampDuration: 1.0)],
-                                           startTime: startTime)
+                                                                      rampDuration: 1.0)])
         }
 
         // auditionTest()
