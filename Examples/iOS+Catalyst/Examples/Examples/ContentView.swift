@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 private let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -18,6 +19,24 @@ struct ContentView: View {
     }
 }
 
+struct ParameterSlider: View {
+    var text: String
+    var parameter: Binding<AUValue>
+    var range: ClosedRange<AUValue>
+
+    var body: some View {
+        GeometryReader { gp in
+            HStack  {
+                Spacer()
+                Text(self.text).frame(width: gp.size.width * 0.2)
+                Slider(value: self.parameter, in: self.range).frame(width: gp.size.width / 2)
+                Text("\(self.parameter.wrappedValue)").frame(width: gp.size.width * 0.2)
+                Spacer()
+            }
+        }
+    }
+}
+
 struct MasterView: View {
 
     var body: some View {
@@ -25,6 +44,7 @@ struct MasterView: View {
             Section(header: Text("Proof Of Concept")) {
                 NavigationLink(destination: DetailView()) { Text("Detail") }
                 NavigationLink(destination: OscillatorView()) { Text("Oscillator") }
+                NavigationLink(destination: FMOscillatorView()) { Text("FM Oscillator") }
                 NavigationLink(destination: PluckedStringOperationView()) { Text("Plucekd String Operation") }
             }
         }.navigationBarTitle(Text("AudioKit"))

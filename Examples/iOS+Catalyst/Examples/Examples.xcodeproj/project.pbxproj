@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4159E6E24C9012B00354526 /* PluckedStringOperationConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E6D24C9012B00354526 /* PluckedStringOperationConductor.swift */; };
-		C4159E7024C902CD00354526 /* OscillatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E6F24C902CD00354526 /* OscillatorView.swift */; };
-		C4159E7224C9036A00354526 /* PluckedStringOperationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E7124C9036A00354526 /* PluckedStringOperationView.swift */; };
+		C4159E7024C902CD00354526 /* Oscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E6F24C902CD00354526 /* Oscillator.swift */; };
+		C4159E7224C9036A00354526 /* PluckedStringOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E7124C9036A00354526 /* PluckedStringOperation.swift */; };
 		C4159E7524C90F1800354526 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E7424C90F1800354526 /* Conductor.swift */; };
+		C4159E7824CA8EEC00354526 /* FMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4159E7724CA8EEC00354526 /* FMOscillator.swift */; };
 		C43C764B24C4BC1700E2DA97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C764A24C4BC1700E2DA97 /* AppDelegate.swift */; };
 		C43C764D24C4BC1700E2DA97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C764C24C4BC1700E2DA97 /* SceneDelegate.swift */; };
 		C43C764F24C4BC1700E2DA97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C764E24C4BC1700E2DA97 /* ContentView.swift */; };
@@ -131,7 +131,6 @@
 		C43C777C24C4C08C00E2DA97 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43C777A24C4C06700E2DA97 /* sinechirp.wav */; };
 		C43C777D24C4C31100E2DA97 /* STKAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43C768B24C4BD1200E2DA97 /* STKAudioKit.framework */; };
 		C43C777E24C4C31100E2DA97 /* STKAudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C43C768B24C4BD1200E2DA97 /* STKAudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C43C778024C4C5A200E2DA97 /* OscillatorConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C777F24C4C5A200E2DA97 /* OscillatorConductor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,10 +244,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C4159E6D24C9012B00354526 /* PluckedStringOperationConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluckedStringOperationConductor.swift; sourceTree = "<group>"; };
-		C4159E6F24C902CD00354526 /* OscillatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OscillatorView.swift; sourceTree = "<group>"; };
-		C4159E7124C9036A00354526 /* PluckedStringOperationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluckedStringOperationView.swift; sourceTree = "<group>"; };
+		C4159E6F24C902CD00354526 /* Oscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oscillator.swift; sourceTree = "<group>"; };
+		C4159E7124C9036A00354526 /* PluckedStringOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluckedStringOperation.swift; sourceTree = "<group>"; };
 		C4159E7424C90F1800354526 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		C4159E7724CA8EEC00354526 /* FMOscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FMOscillator.swift; sourceTree = "<group>"; };
 		C43C764724C4BC1700E2DA97 /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43C764A24C4BC1700E2DA97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C43C764C24C4BC1700E2DA97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -367,7 +366,6 @@
 		C43C770924C4BF5900E2DA97 /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C43C770A24C4BF5900E2DA97 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
 		C43C777A24C4C06700E2DA97 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
-		C43C777F24C4C5A200E2DA97 /* OscillatorConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OscillatorConductor.swift; path = ../OscillatorConductor.swift; sourceTree = "<group>"; };
 		C43C778124C4D16100E2DA97 /* Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Examples.entitlements; sourceTree = "<group>"; };
 		C43C778224C4DBDC00E2DA97 /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Test.playground; path = Playgrounds/Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
@@ -393,21 +391,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C4159E5D24C8FFA600354526 /* Conductors */ = {
-			isa = PBXGroup;
-			children = (
-				C4159E7424C90F1800354526 /* Conductor.swift */,
-				C43C777F24C4C5A200E2DA97 /* OscillatorConductor.swift */,
-				C4159E6D24C9012B00354526 /* PluckedStringOperationConductor.swift */,
-			);
-			path = Conductors;
-			sourceTree = "<group>";
-		};
 		C4159E7324C9037500354526 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C4159E6F24C902CD00354526 /* OscillatorView.swift */,
-				C4159E7124C9036A00354526 /* PluckedStringOperationView.swift */,
+				C4159E6F24C902CD00354526 /* Oscillator.swift */,
+				C4159E7724CA8EEC00354526 /* FMOscillator.swift */,
+				C4159E7124C9036A00354526 /* PluckedStringOperation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -439,9 +428,9 @@
 				C43C778124C4D16100E2DA97 /* Examples.entitlements */,
 				C43C764A24C4BC1700E2DA97 /* AppDelegate.swift */,
 				C43C764C24C4BC1700E2DA97 /* SceneDelegate.swift */,
+				C4159E7424C90F1800354526 /* Conductor.swift */,
 				C43C764E24C4BC1700E2DA97 /* ContentView.swift */,
 				C4159E7324C9037500354526 /* Views */,
-				C4159E5D24C8FFA600354526 /* Conductors */,
 				C43C765024C4BC1800E2DA97 /* Assets.xcassets */,
 				C43C765524C4BC1800E2DA97 /* LaunchScreen.storyboard */,
 				C43C765824C4BC1800E2DA97 /* Info.plist */,
@@ -807,12 +796,11 @@
 			files = (
 				C43C764B24C4BC1700E2DA97 /* AppDelegate.swift in Sources */,
 				C43C764D24C4BC1700E2DA97 /* SceneDelegate.swift in Sources */,
-				C4159E7024C902CD00354526 /* OscillatorView.swift in Sources */,
+				C4159E7024C902CD00354526 /* Oscillator.swift in Sources */,
 				C4159E7524C90F1800354526 /* Conductor.swift in Sources */,
-				C4159E7224C9036A00354526 /* PluckedStringOperationView.swift in Sources */,
+				C4159E7224C9036A00354526 /* PluckedStringOperation.swift in Sources */,
+				C4159E7824CA8EEC00354526 /* FMOscillator.swift in Sources */,
 				C43C764F24C4BC1700E2DA97 /* ContentView.swift in Sources */,
-				C43C778024C4C5A200E2DA97 /* OscillatorConductor.swift in Sources */,
-				C4159E6E24C9012B00354526 /* PluckedStringOperationConductor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
