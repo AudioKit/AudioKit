@@ -96,8 +96,8 @@ extension AudioUnitManager {
         }
 
         // create the waveform
-        waveform = AKWaveform(url: url,
-                              color: NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1))
+        waveform = WaveformView(url: url,
+                                color: NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1))
 
         guard let waveform = waveform else { return }
 
@@ -160,8 +160,8 @@ extension AudioUnitManager {
     }
 }
 
-extension AudioUnitManager: AKWaveformDelegate {
-    func loopChanged(source: AKWaveform) {
+extension AudioUnitManager: WaveformViewDelegate {
+    func loopChanged(source: WaveformView) {
         guard let player = player else { return }
         let wasPlaying = player.isPlaying
         if wasPlaying {
@@ -178,11 +178,11 @@ extension AudioUnitManager: AKWaveformDelegate {
         }
     }
 
-    func waveformScrubbed(source: AKWaveform, at time: Double) {
+    func waveformScrubbed(source: WaveformView, at time: Double) {
         updateTimeDisplay(time)
     }
 
-    func waveformScrubComplete(source: AKWaveform, at time: Double) {
+    func waveformScrubComplete(source: WaveformView, at time: Double) {
         if audioPlaying {
             handlePlay(state: true)
         } else {
@@ -191,7 +191,7 @@ extension AudioUnitManager: AKWaveformDelegate {
         updateTimeDisplay(time)
     }
 
-    func waveformSelected(source: AKWaveform, at time: Double) {
+    func waveformSelected(source: WaveformView, at time: Double) {
         guard let player = player else { return }
 
         audioPlaying = player.isPlaying

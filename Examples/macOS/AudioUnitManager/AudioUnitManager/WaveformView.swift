@@ -3,13 +3,13 @@ import AudioKit
 import AudioKitUI
 
 /// This is a demo of an Audio Region class. Not for production use... ;)
-public class AKWaveform: AKView {
+public class WaveformView: AKView {
     public var url: URL?
     public var plots = [AKWaveformLayer?]()
     public var file: EZAudioFile?
     public var visualScaleFactor: Double = 30
     public var color = NSColor.black
-    public weak var delegate: AKWaveformDelegate?
+    public weak var delegate: WaveformViewDelegate?
     private var loopStartMarker = LoopMarker(.start)
     private var loopEndMarker = LoopMarker(.end)
 
@@ -232,7 +232,7 @@ public class AKWaveform: AKView {
     }
 }
 
-extension AKWaveform: LoopMarkerDelegate {
+extension WaveformView: LoopMarkerDelegate {
     func markerMoved(source: LoopMarker) {
         if source.loopType == .start {
             source.frame.origin.x = max(0, source.frame.origin.x)
@@ -247,11 +247,11 @@ extension AKWaveform: LoopMarkerDelegate {
     }
 }
 
-public protocol AKWaveformDelegate: class {
-    func waveformSelected(source: AKWaveform, at time: Double)
-    func waveformScrubbed(source: AKWaveform, at time: Double)
-    func waveformScrubComplete(source: AKWaveform, at time: Double)
-    func loopChanged(source: AKWaveform)
+public protocol WaveformViewDelegate: class {
+    func waveformSelected(source: WaveformView, at time: Double)
+    func waveformScrubbed(source: WaveformView, at time: Double)
+    func waveformScrubComplete(source: WaveformView, at time: Double)
+    func loopChanged(source: WaveformView)
 }
 
 /// Class to show looping bounds on top of the waveform
