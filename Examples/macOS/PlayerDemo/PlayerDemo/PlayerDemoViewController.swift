@@ -14,8 +14,15 @@ class PlayerDemoViewController: NSViewController {
     @IBOutlet var playButton: NSButton!
     @IBOutlet var bounceButton: NSButton!
     @IBOutlet var timeField: NSTextField!
+
     @IBOutlet var scheduleField: NSTextField!
+    @IBOutlet var bounceFromField: NSTextField!
+    @IBOutlet var bounceToField: NSTextField!
+
     @IBOutlet var scheduleOffsetSlider: NSSlider!
+    @IBOutlet var bounceFromSlider: NSSlider!
+    @IBOutlet var bounceToSlider: NSSlider!
+
     @IBOutlet var pathControl: NSPathControl!
     @IBOutlet var waveformView: WaveformView!
 
@@ -37,6 +44,22 @@ class PlayerDemoViewController: NSViewController {
 
     var mainTimer = TimerFactory.createTimer(type: .displayLink)
     var startTime = AVAudioTime.now()
+
+    var currentTime: TimeInterval {
+        waveformView.time
+    }
+
+    var startOffset: TimeInterval {
+        scheduleOffsetSlider.doubleValue
+    }
+
+    var inPoint: TimeInterval {
+        bounceFromSlider.doubleValue
+    }
+
+    var outPoint: TimeInterval {
+        bounceToSlider.doubleValue
+    }
 
     lazy var openPanel: NSOpenPanel = {
         let panel = NSOpenPanel()
@@ -105,6 +128,14 @@ class PlayerDemoViewController: NSViewController {
         scheduleOffsetSlider?.doubleValue = 0
         handleScheduledOffsetChange(scheduleOffsetSlider)
 
+        bounceFromSlider?.doubleValue = 0
+        handleBounceFromChange(bounceFromSlider)
+
+        bounceToSlider?.minValue = 0
+        bounceToSlider?.maxValue = audioFile.duration
+        bounceToSlider?.doubleValue = audioFile.duration
+        handleBounceToChange(bounceToSlider)
+
         let player = AKDynamicPlayer(audioFile: audioFile)
         player.connect(to: mixer)
         player.completionHandler = handleAudioComplete
@@ -138,7 +169,10 @@ class PlayerDemoViewController: NSViewController {
         // where in the file playback is starting
         player?.offsetTime = waveformView.time
 
-        player?.play(from: waveformView.time, to: 0, when: waveformView.startOffset, hostTime: nil)
+        player?.play(from: currentTime,
+                     to: 0,
+                     when: startOffset,
+                     hostTime: nil)
 
         mainTimer.resume()
     }
@@ -196,6 +230,16 @@ extension PlayerDemoViewController {
         scheduleField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
     }
 
+    @IBAction func handleBounceFromChange(_ sender: NSSlider) {
+        waveformView?.inPoint = sender.doubleValue
+        bounceFromField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
+    }
+
+    @IBAction func handleBounceToChange(_ sender: NSSlider) {
+        waveformView?.outPoint = sender.doubleValue
+        bounceToField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
+    }
+
     @IBAction func handleChooseButton(_ sender: NSButton) {
         guard let window = view.window else { return }
 
@@ -243,8 +287,7 @@ extension PlayerDemoViewController {
     @IBAction func handleBounce(_ sender: Any) {
         guard let window = view.window, var duration = player?.duration else { return }
 
-        duration += waveformView.startOffset
-
+        duration += startOffset
         rewind()
 
         savePanel.beginSheetModal(for: window) { response in
