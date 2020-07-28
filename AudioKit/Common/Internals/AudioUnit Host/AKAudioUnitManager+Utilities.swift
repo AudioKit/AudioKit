@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// Utility methods for common tasks related to Audio Units
+/// Utility methods for common tasks related to Audio Unit Hosting
 extension AKAudioUnitManager {
     /// Internal audio units not including the Apple ones, only the custom ones
     public internal(set) static var internalAudioUnits = ["AKAmplitudeEnvelope",
