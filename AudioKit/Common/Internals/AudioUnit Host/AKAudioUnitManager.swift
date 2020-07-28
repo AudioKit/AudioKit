@@ -7,10 +7,8 @@ extension Notification.Name {
         kAudioComponentInstanceInvalidationNotification as String)
 }
 
-/// Audio Unit Manager
+/// Audio Unit Host for loading external Audio Units into Audio Kit
 open class AKAudioUnitManager: NSObject {
-    // static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
-
     /// The notifications this class may generate
     public enum Notification {
         case effectsAvailable(effects: [AVAudioUnitComponent])

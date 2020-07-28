@@ -107,7 +107,19 @@ extension AKManager {
     ///
     public static func auditionTest(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
         output = node
+
+        let isRunning = AKManager.engine.isRunning
+
+        // AKLog("AKManager.engine.isRunning", isRunning)
+
         try start()
+
+        // if the engine isn't running you need to give it time to get its act together before
+        // playing, otherwise the start of the audio is cut off
+        if !isRunning {
+            usleep(UInt32(1_000_000))
+        }
+
         afterStart()
         if let playableNode = node as? AKToggleable {
             playableNode.play()
@@ -116,4 +128,5 @@ extension AKManager {
         try stop()
         try start()
     }
+
 }
