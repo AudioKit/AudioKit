@@ -13,6 +13,8 @@
 		B16FEA2424CE0DC7000D4A79 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2324CE0DC7000D4A79 /* WaveformView.swift */; };
 		B16FEA2624CE1DD3000D4A79 /* TimerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */; };
 		B16FEA2824CE31ED000D4A79 /* ActionCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16FEA2724CE31ED000D4A79 /* ActionCALayer.swift */; };
+		B172684D24D089E2004A3E18 /* PlayerDemoViewController+IBActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B172684C24D089E2004A3E18 /* PlayerDemoViewController+IBActions.swift */; };
+		B172684F24D08D4A004A3E18 /* 12345.wav in Resources */ = {isa = PBXBuildFile; fileRef = B172684E24D08D4A004A3E18 /* 12345.wav */; };
 		B1F1EC2224CDEB2300A56DD4 /* PlayerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */; };
 		B1F1EC2424CDEB2500A56DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F1EC2324CDEB2500A56DD4 /* Assets.xcassets */; };
 		B1F1EC2724CDEB2500A56DD4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1F1EC2524CDEB2500A56DD4 /* MainMenu.xib */; };
@@ -28,6 +30,8 @@
 		B16FEA2324CE0DC7000D4A79 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactory.swift; sourceTree = "<group>"; };
 		B16FEA2724CE31ED000D4A79 /* ActionCALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCALayer.swift; sourceTree = "<group>"; };
+		B172684C24D089E2004A3E18 /* PlayerDemoViewController+IBActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerDemoViewController+IBActions.swift"; sourceTree = "<group>"; };
+		B172684E24D08D4A004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 12345.wav; sourceTree = "<group>"; };
 		B1F1EC1E24CDEB2300A56DD4 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDemo.swift; sourceTree = "<group>"; };
 		B1F1EC2324CDEB2500A56DD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +59,7 @@
 		B16FE9F824CDF069000D4A79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B172684E24D08D4A004A3E18 /* 12345.wav */,
 				B16FE9F924CDF07A000D4A79 /* PinkNoise.wav */,
 			);
 			path = Resources;
@@ -85,6 +90,7 @@
 				B1F1EC2924CDEB2500A56DD4 /* PlayerDemo.entitlements */,
 				B1F1EC2124CDEB2300A56DD4 /* PlayerDemo.swift */,
 				B16FE9F424CDEEF3000D4A79 /* PlayerDemoViewController.swift */,
+				B172684C24D089E2004A3E18 /* PlayerDemoViewController+IBActions.swift */,
 				B16FEA2524CE1DD3000D4A79 /* TimerFactory.swift */,
 				B16FE9F824CDF069000D4A79 /* Resources */,
 				B1F1EC3824CDEC8800A56DD4 /* xib */,
@@ -175,6 +181,7 @@
 				B1F1EC2724CDEB2500A56DD4 /* MainMenu.xib in Resources */,
 				B16FE9F724CDEEF3000D4A79 /* PlayerDemoViewController.xib in Resources */,
 				B1F1EC3724CDEC7B00A56DD4 /* PlayerDemoWindowController.xib in Resources */,
+				B172684F24D08D4A004A3E18 /* 12345.wav in Resources */,
 				B16FE9FA24CDF07A000D4A79 /* PinkNoise.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B16FEA2824CE31ED000D4A79 /* ActionCALayer.swift in Sources */,
+				B172684D24D089E2004A3E18 /* PlayerDemoViewController+IBActions.swift in Sources */,
 				B16FE9F624CDEEF3000D4A79 /* PlayerDemoViewController.swift in Sources */,
 				B1F1EC2224CDEB2300A56DD4 /* PlayerDemo.swift in Sources */,
 				B16FEA2624CE1DD3000D4A79 /* TimerFactory.swift in Sources */,

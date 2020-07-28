@@ -45,20 +45,39 @@ class PlayerDemoViewController: NSViewController {
     var mainTimer = TimerFactory.createTimer(type: .displayLink)
     var startTime = AVAudioTime.now()
 
+    // the space before the file and the file itself
+    var timelineDuration: TimeInterval {
+        startOffset + waveformView.duration
+    }
+
     var currentTime: TimeInterval {
-        waveformView.time
+        get { waveformView.time }
+        set {
+            waveformView.time = newValue
+            timeField?.stringValue = formatTimecode(seconds: newValue)
+        }
     }
 
-    var startOffset: TimeInterval {
-        scheduleOffsetSlider.doubleValue
+    var startOffset: TimeInterval = 0 {
+        didSet {
+            scheduleOffsetSlider?.doubleValue = startOffset
+            waveformView?.startOffset = startOffset
+            initInOutSliders()
+        }
     }
 
-    var inPoint: TimeInterval {
-        bounceFromSlider.doubleValue
+    var inPoint: TimeInterval = 0 {
+        didSet {
+            bounceFromSlider?.doubleValue = inPoint
+            waveformView?.inPoint = inPoint
+        }
     }
 
-    var outPoint: TimeInterval {
-        bounceToSlider.doubleValue
+    var outPoint: TimeInterval = 0 {
+        didSet {
+            bounceToSlider?.doubleValue = outPoint
+            waveformView?.outPoint = outPoint
+        }
     }
 
     lazy var openPanel: NSOpenPanel = {
@@ -104,11 +123,47 @@ class PlayerDemoViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let url = Bundle.main.resourceURL?.appendingPathComponent("PinkNoise.wav") {
-            open(url: url)
+        openPinkNoise()
+    }
+
+    private func initSliders() {
+        guard let duration = player?.duration else { return }
+
+        fadeInTimeSlider?.minValue = 0
+        fadeInTimeSlider?.maxValue = duration / 2
+        fadeInTimeSlider?.doubleValue = 0
+
+        fadeOutTimeSlider?.minValue = 0
+        fadeOutTimeSlider?.maxValue = duration / 2
+        fadeOutTimeSlider?.doubleValue = 0
+
+        for slider in fadeSliders {
+            handleFadeSliderChange(slider)
         }
 
-        scheduleOffsetSlider?.toolTip = "Schedule the start of playback in the future..."
+        initInOutSliders()
+
+        scheduleOffsetSlider?.doubleValue = 0
+        handleScheduledOffsetChange(scheduleOffsetSlider)
+    }
+
+    private func initInOutSliders() {
+        guard let duration = player?.duration else { return }
+
+        bounceToSlider?.minValue = 0
+        bounceToSlider?.maxValue = duration + startOffset
+        bounceToSlider?.doubleValue = duration + startOffset
+        handleBounceToChange(bounceToSlider)
+
+        bounceFromSlider?.minValue = 0
+        bounceFromSlider?.maxValue = duration + startOffset
+        bounceFromSlider?.doubleValue = 0
+        handleBounceFromChange(bounceFromSlider)
+    }
+
+    func openPinkNoise() {
+        guard let url = Bundle.main.resourceURL?.appendingPathComponent("PinkNoise.wav") else { return }
+        open(url: url)
     }
 
     func open(url: URL) {
@@ -125,27 +180,15 @@ class PlayerDemoViewController: NSViewController {
             return
         }
 
-        scheduleOffsetSlider?.doubleValue = 0
-        handleScheduledOffsetChange(scheduleOffsetSlider)
-
-        bounceFromSlider?.doubleValue = 0
-        handleBounceFromChange(bounceFromSlider)
-
-        bounceToSlider?.minValue = 0
-        bounceToSlider?.maxValue = audioFile.duration
-        bounceToSlider?.doubleValue = audioFile.duration
-        handleBounceToChange(bounceToSlider)
-
         let player = AKDynamicPlayer(audioFile: audioFile)
         player.connect(to: mixer)
-        player.completionHandler = handleAudioComplete
         self.player = player
 
         waveformView?.open(audioFile: audioFile)
 
-        initFades()
-
-        // handleScheduledOffsetChange(scheduleOffsetSlider)
+        DispatchQueue.main.async {
+            self.initSliders()
+        }
     }
 
     func play() {
@@ -164,32 +207,36 @@ class PlayerDemoViewController: NSViewController {
 
     private func handlePlay() {
         AKLog("▶️")
-        startTime = AVAudioTime.now().offset(seconds: -waveformView.time)
+        startTime = AVAudioTime.now().offset(seconds: -currentTime)
 
-        // where in the file playback is starting
-        player?.offsetTime = waveformView.time
+        let playTime: Double = startOffset - currentTime
 
-        player?.play(from: currentTime,
-                     to: 0,
-                     when: startOffset,
-                     hostTime: nil)
+        AKLog("playTime", playTime)
+
+        // the start point is inside the region or at zero, so play immediately from the present location
+        if playTime < 0 {
+            player?.offsetTime = -playTime
+
+            player?.play(from: -playTime,
+                         to: 0,
+                         when: 0,
+                         hostTime: nil)
+
+        } else {
+            player?.offsetTime = 0
+
+            player?.play(from: 0,
+                         to: 0,
+                         when: playTime,
+                         hostTime: nil)
+        }
 
         mainTimer.resume()
     }
 
-    private func initFades() {
-        for slider in fadeSliders {
-            handleFadeSliderChange(slider)
-        }
-    }
-
-    private func handleAudioComplete() {
-        rewind()
-    }
-
     func rewind() {
         stop()
-        waveformView.time = 0
+        currentTime = 0
     }
 
     func stop() {
@@ -223,83 +270,6 @@ class PlayerDemoViewController: NSViewController {
     }
 }
 
-/// IBActions
-extension PlayerDemoViewController {
-    @IBAction func handleScheduledOffsetChange(_ sender: NSSlider) {
-        waveformView?.startOffset = sender.doubleValue
-        scheduleField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
-    }
-
-    @IBAction func handleBounceFromChange(_ sender: NSSlider) {
-        waveformView?.inPoint = sender.doubleValue
-        bounceFromField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
-    }
-
-    @IBAction func handleBounceToChange(_ sender: NSSlider) {
-        waveformView?.outPoint = sender.doubleValue
-        bounceToField?.stringValue = formatTimecode(seconds: sender.doubleValue, includeHours: false)
-    }
-
-    @IBAction func handleChooseButton(_ sender: NSButton) {
-        guard let window = view.window else { return }
-
-        openPanel.beginSheetModal(for: window) { response in
-            if response == .OK, let url = self.openPanel.url {
-                self.open(url: url)
-            }
-        }
-    }
-
-    @IBAction func handlePlayButton(_ sender: NSButton) {
-        let state = sender.state == .on
-        state ? play() : stop()
-    }
-
-    @IBAction func handleRewindButton(_ sender: NSButton) {
-        rewind()
-    }
-
-    @IBAction func handleFadeSliderChange(_ sender: NSSlider) {
-        guard let player = player else { return }
-
-        switch sender {
-        case fadeInTimeSlider:
-            player.fade.inTime = sender.doubleValue
-            waveformView?.fadeInTime = player.fade.inTime
-        case fadeOutTimeSlider:
-            player.fade.outTime = sender.doubleValue
-            waveformView?.fadeOutTime = player.fade.outTime
-
-        case fadeInTaperSlider:
-            player.fade.inTaper = sender.floatValue
-        case fadeOutTaperSlider:
-            player.fade.outTaper = sender.floatValue
-
-        case fadeInSkewSlider:
-            player.fade.inSkew = sender.floatValue
-        case fadeOutSkewSlider:
-            player.fade.outSkew = sender.floatValue
-        default:
-            break
-        }
-    }
-
-    @IBAction func handleBounce(_ sender: Any) {
-        guard let window = view.window, var duration = player?.duration else { return }
-
-        duration += startOffset
-        rewind()
-
-        savePanel.beginSheetModal(for: window) { response in
-            if response == .OK, let url = self.savePanel.url {
-                self.bounce(to: url, duration: duration, prerender: {
-                    self.play()
-                })
-            }
-        }
-    }
-}
-
 // Timer stuff
 extension PlayerDemoViewController {
     func updateTime() {
@@ -311,8 +281,11 @@ extension PlayerDemoViewController {
             return
         }
         DispatchQueue.main.async {
-            self.waveformView.time = elapsedTime
-            self.timeField?.stringValue = self.formatTimecode(seconds: elapsedTime)
+            if elapsedTime > self.timelineDuration {
+                self.rewind()
+                return
+            }
+            self.currentTime = elapsedTime
         }
     }
 

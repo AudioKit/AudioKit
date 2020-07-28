@@ -15,17 +15,16 @@ class WaveformView: NSView {
     private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
     public var pixelsPerSample: Int = 1024
-    public private(set) var duration: TimeInterval = 0
 
     public private(set) var waveform: AKWaveform?
 
     internal var fadeInLayer = ActionCAShapeLayer()
     internal var fadeOutLayer = ActionCAShapeLayer()
-    internal var fadeColor = NSColor.white.withAlphaComponent(0.3).cgColor
+    internal var fadeColor = NSColor.black.withAlphaComponent(0.4).cgColor
 
-    public private(set) lazy var timelineBar = TimelineBar()
-    public private(set) lazy var inPointBar = TimelineBar()
-    public private(set) lazy var outPointBar = TimelineBar()
+    public private(set) lazy var timelineBar = TimelineBar(color: NSColor.white.cgColor)
+
+    internal var inOutLayer = ActionCAShapeLayer()
 
     private var visualScaleFactor: Double = 30
 
@@ -35,15 +34,21 @@ class WaveformView: NSView {
         }
     }
 
+    public private(set) var duration: TimeInterval = 0 {
+        didSet {
+            outPoint = duration
+        }
+    }
+
     public var inPoint: TimeInterval = 0 {
         didSet {
-            inPointBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+            updateInOutLayer()
         }
     }
 
     public var outPoint: TimeInterval = 0 {
         didSet {
-            outPointBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+            updateInOutLayer()
         }
     }
 
@@ -92,16 +97,12 @@ class WaveformView: NSView {
 
         fadeInLayer.fillColor = fadeColor
         fadeOutLayer.fillColor = fadeColor
+        inOutLayer.backgroundColor = NSColor.white.withAlphaComponent(0.3).cgColor
 
-        inPointBar.strokeColor = NSColor.orange.cgColor
-        outPointBar.strokeColor = NSColor.orange.cgColor
-
-        layer?.insertSublayer(fadeInLayer, at: 1)
-        layer?.insertSublayer(fadeOutLayer, at: 2)
-
-        layer?.insertSublayer(inPointBar, at: 3)
-        layer?.insertSublayer(outPointBar, at: 4)
-
+        layer?.insertSublayer(inOutLayer, at: 0)
+        // waveform at: 1
+        layer?.insertSublayer(fadeInLayer, at: 3)
+        layer?.insertSublayer(fadeOutLayer, at: 4)
         layer?.insertSublayer(timelineBar, at: 5)
     }
 
@@ -121,7 +122,7 @@ class WaveformView: NSView {
             waveform?.allowActions = false
 
             if let waveform = waveform {
-                layer?.insertSublayer(waveform, at: 0)
+                layer?.insertSublayer(waveform, at: 1)
                 updateLayers()
             }
         }
@@ -160,6 +161,12 @@ extension WaveformView {
         waveform?.updateLayer()
 
         timelineBar.setHeight(frame.height)
+    }
+
+    func updateInOutLayer() {
+        let start = CGFloat(inPoint * visualScaleFactor)
+        let end = CGFloat(outPoint * visualScaleFactor)
+        inOutLayer.frame = CGRect(x: start, y: 0, width: end - start, height: frame.height)
     }
 
     private func updateFadeIn() {
@@ -212,8 +219,17 @@ extension WaveformView {
 }
 
 class TimelineBar: ActionCAShapeLayer {
-    public func setHeight(_ height: CGFloat = 200) {
+    public init(color: CGColor) {
+        super.init()
+        strokeColor = color
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         strokeColor = NSColor.white.cgColor
+    }
+
+    public func setHeight(_ height: CGFloat = 200) {
         lineWidth = 1
 
         let path = CGMutablePath()
