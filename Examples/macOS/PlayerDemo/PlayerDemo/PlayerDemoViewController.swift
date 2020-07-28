@@ -246,7 +246,9 @@ class PlayerDemoViewController: NSViewController {
 
     func rewind() {
         stop()
-        currentTime = 0
+        DispatchQueue.main.async {
+            self.currentTime = 0
+        }
     }
 
     func stop() {
@@ -284,6 +286,8 @@ class PlayerDemoViewController: NSViewController {
 // Timer stuff
 extension PlayerDemoViewController {
     func updateTime() {
+        guard isPlaying else { return }
+
         let currentTime = AVAudioTime.now()
 
         // Find the difference between current time and start time.
