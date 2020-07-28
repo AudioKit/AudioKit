@@ -23,6 +23,30 @@ class WaveformView: NSView {
     internal var fadeOutLayer = ActionCAShapeLayer()
     internal var fadeColor = NSColor.white.withAlphaComponent(0.3).cgColor
 
+    public private(set) lazy var timelineBar = TimelineBar()
+    public private(set) lazy var inPointBar = TimelineBar()
+    public private(set) lazy var outPointBar = TimelineBar()
+
+    private var visualScaleFactor: Double = 30
+
+    public var time: TimeInterval = 0 {
+        didSet {
+            timelineBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+        }
+    }
+
+    public var inPoint: TimeInterval = 0 {
+        didSet {
+            inPointBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+        }
+    }
+
+    public var outPoint: TimeInterval = 0 {
+        didSet {
+            outPointBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+        }
+    }
+
     public var startOffset: TimeInterval = 0 {
         didSet {
             updateLayers()
@@ -53,16 +77,6 @@ class WaveformView: NSView {
         }
     }
 
-    public private(set) lazy var timelineBar = TimelineBar()
-
-    private var visualScaleFactor: Double = 30
-
-    public var time: TimeInterval = 0 {
-        didSet {
-            timelineBar.frame.origin.x = CGFloat(time * visualScaleFactor)
-        }
-    }
-
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         initialize()
@@ -79,9 +93,16 @@ class WaveformView: NSView {
         fadeInLayer.fillColor = fadeColor
         fadeOutLayer.fillColor = fadeColor
 
+        inPointBar.strokeColor = NSColor.orange.cgColor
+        outPointBar.strokeColor = NSColor.orange.cgColor
+
         layer?.insertSublayer(fadeInLayer, at: 1)
         layer?.insertSublayer(fadeOutLayer, at: 2)
-        layer?.insertSublayer(timelineBar, at: 3)
+
+        layer?.insertSublayer(inPointBar, at: 3)
+        layer?.insertSublayer(outPointBar, at: 4)
+
+        layer?.insertSublayer(timelineBar, at: 5)
     }
 
     public func open(audioFile: AVAudioFile) {
