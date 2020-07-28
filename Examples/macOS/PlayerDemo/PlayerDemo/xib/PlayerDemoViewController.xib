@@ -54,23 +54,26 @@
                     </view>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="0.053902787569999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </box>
-                <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-L1-F0S">
-                    <rect key="frame" x="179" y="247" width="163" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <pathCell key="cell" controlSize="small" selectable="YES" alignment="left" pathStyle="popUp" id="cv6-Wo-gD7">
-                        <font key="font" metaFont="message" size="11"/>
-                        <url key="url" string="file://localhost/Applications/"/>
-                    </pathCell>
-                </pathControl>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-Oz-BaV">
-                    <rect key="frame" x="100" y="244" width="85" height="27"/>
+                    <rect key="frame" x="164" y="243" width="70" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Choose..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WAp-z5-DOX">
+                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WAp-z5-DOX">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="message" size="11"/>
                     </buttonCell>
                     <connections>
                         <action selector="handleChooseButton:" target="-2" id="fnC-xA-okB"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ysj-Ip-knw">
+                    <rect key="frame" x="102" y="243" width="70" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="D8J-eD-8Fn">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="resetAudio:" target="-2" id="uDy-qO-rZ0"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRP-VX-d65">
@@ -211,6 +214,15 @@ IA
                     </view>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="0.053902787569999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </box>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8J-pL-sqi">
+                    <rect key="frame" x="20" y="157" width="74" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" allowsUndo="NO" borderStyle="bezel" alignment="center" placeholderString="-" usesSingleLineMode="YES" bezelStyle="round" id="U4z-1h-Qtg">
+                        <font key="font" size="9" name="Menlo-Regular"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <box boxType="custom" borderType="none" cornerRadius="4" title="Box" id="rZ8-eo-Qsf">
                     <rect key="frame" x="105" y="51" width="209" height="76"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -218,7 +230,7 @@ IA
                         <rect key="frame" x="0.0" y="0.0" width="209" height="76"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bX8-w3-59Y">
+                            <slider toolTip="Bounce from this point" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bX8-w3-59Y">
                                 <rect key="frame" x="77" y="30" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="j92-qQ-vqj"/>
@@ -253,7 +265,7 @@ IA
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider identifier="FadeInTimeSlider" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3Q-lf-b7r">
+                            <slider toolTip="Schedule the start of playback in the future..." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3Q-lf-b7r">
                                 <rect key="frame" x="77" y="51" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="KXw-4z-44t"/>
@@ -261,7 +273,7 @@ IA
                                     <action selector="handleScheduledOffsetChange:" target="-2" id="3Pc-Jg-Q6n"/>
                                 </connections>
                             </slider>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUp-tP-ij7">
+                            <slider toolTip="Bounce to this point" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUp-tP-ij7">
                                 <rect key="frame" x="77" y="11" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="0st-MU-hMW"/>
@@ -311,15 +323,14 @@ IA
                         <action selector="handleBounce:" target="-2" id="6WE-3F-Zep"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8J-pL-sqi">
-                    <rect key="frame" x="20" y="157" width="74" height="17"/>
+                <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-L1-F0S">
+                    <rect key="frame" x="498" y="246" width="163" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" allowsUndo="NO" borderStyle="bezel" alignment="center" placeholderString="-" usesSingleLineMode="YES" bezelStyle="round" id="U4z-1h-Qtg">
-                        <font key="font" size="9" name="Menlo-Regular"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                    <pathCell key="cell" controlSize="small" selectable="YES" alignment="left" pathStyle="popUp" id="cv6-Wo-gD7">
+                        <font key="font" metaFont="message" size="11"/>
+                        <url key="url" string="file://localhost/Applications/"/>
+                    </pathCell>
+                </pathControl>
             </subviews>
             <point key="canvasLocation" x="-5" y="226.5"/>
         </customView>
