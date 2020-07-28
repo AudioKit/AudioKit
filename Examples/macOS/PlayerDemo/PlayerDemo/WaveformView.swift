@@ -14,6 +14,8 @@ import Cocoa
 class WaveformView: NSView {
     private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
+    public weak var delegate: WaveformViewDelegate?
+
     public var pixelsPerSample: Int = 1024
 
     public private(set) var waveform: AKWaveform?
@@ -32,6 +34,10 @@ class WaveformView: NSView {
         didSet {
             timelineBar.frame.origin.x = CGFloat(time * visualScaleFactor)
         }
+    }
+
+    var timelineDuration: TimeInterval {
+        startOffset + duration
     }
 
     public private(set) var duration: TimeInterval = 0 {
@@ -216,6 +222,37 @@ extension WaveformView {
         fadePath.line(to: NSPoint(x: x, y: 0))
         fadeOutLayer.path = fadePath.cgPath
     }
+
+    override public func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        let position = mousePositionToTime(with: event)
+        delegate?.waveformSelected(source: self, at: position)
+    }
+
+    override public func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        let position = mousePositionToTime(with: event)
+        delegate?.waveformScrubComplete(source: self, at: position)
+    }
+
+    override public func mouseDragged(with event: NSEvent) {
+        let position = mousePositionToTime(with: event)
+        delegate?.waveformScrubbed(source: self, at: position)
+    }
+
+    private func mousePositionToTime(with event: NSEvent) -> Double {
+        let loc = convert(event.locationInWindow, from: nil)
+        var mouseTime = Double(loc.x / frame.width) * timelineDuration
+        mouseTime = max(0, mouseTime)
+        mouseTime = min(timelineDuration, mouseTime)
+        return mouseTime
+    }
+}
+
+protocol WaveformViewDelegate: class {
+    func waveformSelected(source: WaveformView, at time: Double)
+    func waveformScrubbed(source: WaveformView, at time: Double)
+    func waveformScrubComplete(source: WaveformView, at time: Double)
 }
 
 class TimelineBar: ActionCAShapeLayer {

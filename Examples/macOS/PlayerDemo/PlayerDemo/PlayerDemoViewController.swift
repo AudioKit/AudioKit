@@ -40,6 +40,10 @@ class PlayerDemoViewController: NSViewController {
     }
 
     var player: AKDynamicPlayer?
+
+    var isPlaying: Bool = false
+    var wasPlaying: Bool = false
+
     lazy var mixer = AKMixer()
 
     var mainTimer = TimerFactory.createTimer(type: .displayLink)
@@ -47,14 +51,17 @@ class PlayerDemoViewController: NSViewController {
 
     // the space before the file and the file itself
     var timelineDuration: TimeInterval {
-        startOffset + waveformView.duration
+        waveformView.timelineDuration
     }
 
+    private var _currentTime: TimeInterval = 0
+
     var currentTime: TimeInterval {
-        get { waveformView.time }
+        get { _currentTime }
         set {
-            waveformView.time = newValue
-            timeField?.stringValue = formatTimecode(seconds: newValue)
+            _currentTime = newValue
+            waveformView.time = _currentTime
+            timeField?.stringValue = formatTimecode(seconds: _currentTime)
         }
     }
 
@@ -122,6 +129,8 @@ class PlayerDemoViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        waveformView?.delegate = self
 
         openPinkNoise()
     }
@@ -207,6 +216,7 @@ class PlayerDemoViewController: NSViewController {
 
     private func handlePlay() {
         AKLog("▶️")
+        isPlaying = true
         startTime = AVAudioTime.now().offset(seconds: -currentTime)
 
         let playTime: Double = startOffset - currentTime
@@ -241,6 +251,7 @@ class PlayerDemoViewController: NSViewController {
 
     func stop() {
         AKLog("⏹")
+        isPlaying = false
         player?.stop()
         mainTimer.suspend()
 
@@ -317,6 +328,25 @@ extension PlayerDemoViewController {
         let strSeconds = String(format: "%02d", secondsLeft)
         let strFraction = includeFraction ? fractionalDelimiter + String(format: "%02d", fraction) : ""
         return sign + strHours + strMinutes + ":" + strSeconds + strFraction
+    }
+}
+
+extension PlayerDemoViewController: WaveformViewDelegate {
+    func waveformSelected(source: WaveformView, at time: Double) {
+        wasPlaying = isPlaying
+        stop()
+        currentTime = time
+    }
+
+    func waveformScrubbed(source: WaveformView, at time: Double) {
+        currentTime = time
+    }
+
+    func waveformScrubComplete(source: WaveformView, at time: Double) {
+        currentTime = time
+        if wasPlaying {
+            play()
+        }
     }
 }
 
