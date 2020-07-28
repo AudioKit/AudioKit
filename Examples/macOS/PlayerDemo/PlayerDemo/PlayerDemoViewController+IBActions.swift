@@ -23,7 +23,7 @@ extension PlayerDemoViewController {
             }
         }
     }
-    
+
     @IBAction func handleScheduledOffsetChange(_ sender: NSSlider) {
         startOffset = sender.doubleValue
 
