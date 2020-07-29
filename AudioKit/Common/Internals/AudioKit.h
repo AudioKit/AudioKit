@@ -15,12 +15,6 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 #import <AudioKit/AKDSPBase.hpp>
-#import <AudioKit/AKSoundpipeDSPBase.hpp>
-#import <AudioKit/DSPKernel.hpp>
-#import <AudioKit/AKDSPKernel.hpp>
-#import <AudioKit/AKSoundpipeKernel.hpp>
-#import <AudioKit/AKBankDSPKernel.hpp>
-#import <AudioKit/AKFilterSynthDSPKernel.hpp>
 #import <AudioKit/ExceptionCatcher.h>
 #import <AudioKit/AKGlobals.hpp>
 
