@@ -201,7 +201,7 @@ open class AKAbstractPlayer: AKNode {
     // MARK: internal functions to be used by subclasses
 
     /// This is used to schedule the fade in and out for a region. It uses values from the fade struct.
-    internal func scheduleFader(startTime: AVAudioTime) {
+    internal func scheduleFader() {
         guard let faderNode = faderNode else { return }
 
         faderNode.clearAutomationPoints()
@@ -256,13 +256,6 @@ open class AKAbstractPlayer: AKNode {
                                          taper: fade.outTaper,
                                          skew: fade.outSkew)
         }
-
-        // Convert our curved automation to linear ramps.
-        let events = AKEvaluateAutomation(initialValue: Fade.minimumGain,
-                                          points: points,
-                                          resolution: 0.01)
-        faderNode.automateGain(events: events,
-                               startTime: startTime.offset(seconds: offsetTime))
 
     }
 

@@ -74,6 +74,9 @@
 		291F631624C54EF100B754F9 /* AKSettings+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4801EE124BD8E9C0049BA55 /* AKSettings+macOS.swift */; };
 		291F631724C54F1B00B754F9 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		291F631824C54F3800B754F9 /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
+		2938A8FB24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
+		2938A8FC24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
+		2938A8FD24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29AB123424C2337C00547AA5 /* MIDIMetaEvent+allocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */; };
@@ -3658,6 +3661,7 @@
 		22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKParameterAutomation.hpp; sourceTree = "<group>"; };
 		291F62E924C4FB3C00B754F9 /* DebugDSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDSP.h; sourceTree = "<group>"; };
 		291F62EA24C4FB3C00B754F9 /* DebugDSP.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DebugDSP.c; sourceTree = "<group>"; };
+		2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKAutomationCurve.swift; sourceTree = "<group>"; };
 		29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Devices.swift"; sourceTree = "<group>"; };
 		29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIMetaEvent+allocate.swift"; sourceTree = "<group>"; };
@@ -5310,6 +5314,7 @@
 				22D8FAB0248E8B8C0009EE7C /* AKParameterAutomation.swift */,
 				22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */,
 				22D8FAB4248E8BBD0009EE7C /* AKParameterAutomation.mm */,
+				2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */,
 			);
 			path = Automation;
 			sourceTree = "<group>";
@@ -9767,6 +9772,7 @@
 				FEB3AB3222DFE06B0080A5CB /* AKSequencerTrack.swift in Sources */,
 				F4CA85811EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift in Sources */,
 				C59E4E77220A0BB900654569 /* AKMIDISystemRealTimeListener.swift in Sources */,
+				2938A8FB24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */,
 				C46B27A42029A2F200EC0E87 /* AKPitchShifterDSP.mm in Sources */,
 				C49D695C1D1F1C6500BF018A /* AKPWMOscillatorBankAudioUnit.mm in Sources */,
 				C45380541C3A5A4300A51738 /* AKOperationGeneratorAudioUnit.mm in Sources */,
@@ -10874,6 +10880,7 @@
 				EAA62A05247F3A5B00BF4CDB /* dust.c in Sources */,
 				EAA62A06247F3A5B00BF4CDB /* AKToneComplementFilter.swift in Sources */,
 				EAA62A07247F3A5B00BF4CDB /* butbr.c in Sources */,
+				2938A8FD24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */,
 				EAA62A08247F3A5B00BF4CDB /* autowah.c in Sources */,
 				EAA62A0A247F3A5B00BF4CDB /* count.swift in Sources */,
 				EAA62A0D247F3A5B00BF4CDB /* AKMorphingOscillatorFilterSynth.swift in Sources */,
@@ -11436,6 +11443,7 @@
 				EAA62E25247F44E200BF4CDB /* AKOscillatorBankAudioUnit.mm in Sources */,
 				EAA62E26247F44E200BF4CDB /* sdelay.c in Sources */,
 				EAA62E27247F44E200BF4CDB /* AKOscillatorDSP.mm in Sources */,
+				2938A8FC24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */,
 				EAA62E28247F44E200BF4CDB /* peaklim.c in Sources */,
 				EAA62E29247F44E200BF4CDB /* dtrig.c in Sources */,
 				EAA62E2A247F44E200BF4CDB /* AKClipPlayer.swift in Sources */,
