@@ -9,7 +9,7 @@ public struct AKAutomationCurve {
 
     public typealias Point = AKParameterAutomationPoint
 
-    var points: [Point]
+    public var points: [Point]
 
     public init(points: [Point]) {
         self.points = points
@@ -96,7 +96,7 @@ public struct AKAutomationCurve {
     ///   - range: time range
     ///   - withPoints: new automation events
     /// - Returns: new automation curve
-    func replace(range: Range<Double>, withPoints newPoints: [(Double, AUValue)]) -> AKAutomationCurve {
+    public func replace(range: ClosedRange<Double>, withPoints newPoints: [(Double, AUValue)]) -> AKAutomationCurve {
 
         var result = points
         let startTime = range.lowerBound
