@@ -22,8 +22,13 @@ class AKPlayerTests: AKTestCase {
                    fade: fade)
     }
 
-        //auditionTest()
-        AKTestMD5("72ff03c8f6b529625877f89f4c7325bf")
+    func testScheduledFadeInOut() {
+        var fade = AKPlayer.Fade()
+        fade.inTime = 0.5
+        fade.outTime = 2
+        // player will start 2 seconds into the future
+        testPlayer(md5: "2681c654b92a82f12d97e77326484e85",
+                   filename: AKPlayerTests.counting, when: 2, fade: fade)
     }
 
     func testScheduledOffsetFadeInOut() {
@@ -91,24 +96,10 @@ class AKPlayerTests: AKTestCase {
         var testDuration = player.duration
         var audioTime: AVAudioTime?
 
-        output = player
-        player.fade.inTime = 1.0
-        player.fade.outTime = 1.0
-        player.gain = 0.2
-        player.endTime = 5
-        duration = 5
-
-        //auditionTest()
-        AKTestMD5("90ef5318b34510ef7c81f957046c06d6")
-    }
-
-    func testFadeOut() {
-
-        let bundle = Bundle(for: AKPlayerTests.self)
-
-        guard let audioFileURL = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
-            XCTFail("Couldn't find audio file.")
-            return
+        if when > 0 {
+            audioTime = AVAudioTime.now().offset(seconds: when)
+            testDuration += when
+        }
 
         /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0 and disabled)
         player.rate = rate
@@ -141,33 +132,6 @@ class AKPlayerTests: AKTestCase {
 
         AKLog("from", startingTime, "to", endingTime, "duration:", duration)
 
-    func testDelay() {
-
-        let bundle = Bundle(for: AKPlayerTests.self)
-
-        guard let audioFileURL = bundle.url(forResource: "PinkNoise", withExtension: "wav") else {
-            XCTFail("Couldn't find audio file.")
-            return
-        }
-
-        guard let player = AKPlayer(url: audioFileURL) else {
-            XCTFail("Couldn't load audio file.")
-            return
-        }
-
-        afterStart = {
-            player.play(at: AVAudioTime(sampleTime: 2 * 44100, atRate: 44100))
-        }
-
-        output = player
-        player.fade.inTime = 1.0
-        player.fade.outTime = 1.0
-        player.gain = 0.2
-        player.endTime = 3
-        duration = 5
-
-        // auditionTest()
-        AKTestMD5("3316cbd51ca69099e018280912bd02f1")
+        auditioning ? auditionTest() : AKTestMD5(md5)
     }
-
 }
