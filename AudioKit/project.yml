@@ -8,29 +8,10 @@ targets:
     type: framework
     platform: [macOS, iOS]
     sources:
-
-#  Tried this but we need to keep the soundpipe headers in, and sporth headers out
-#      - path: Externals 
-#        excludes:
-#          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
-#          # - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
-
-      - path: Externals/AudioKitCore
+      - path: Externals 
         excludes:
           - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
-      - path: Externals/Soundpipe
-        excludes:
-          - "**/*.md"
-      - path: Externals/SoundpipeExtension
-        excludes:
-          - "**/*.md"
-      - path: Externals/Sporth
-        headerVisibility: project # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
-        excludes:
-          - "**/*.md"
-      - path: Externals/Wavpack
-        excludes:
-          - "**/*.md"
+          - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
       - path: Common/Internals
         excludes:
           - "**/*.md"
@@ -54,5 +35,6 @@ targets:
         excludes:
           - "**/*.md"
     settings:
+      HEADER_SEARCH_PATHS: "Externals/Sporth/h" # Need to be able to find the sporth headers.
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
           
