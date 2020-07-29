@@ -30,7 +30,7 @@ targets:
       - path: Common/Sequencing
         excludes:
           - "**/*.md"
-      - path: Common/taps
+      - path: Common/Taps
         excludes:
           - "**/*.md"
     settings:
