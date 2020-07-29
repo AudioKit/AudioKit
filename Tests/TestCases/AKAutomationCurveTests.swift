@@ -70,99 +70,92 @@ class AKAutomationCurveTests: AKTestCase {
     }
 
     func testEvaluateAutomationLinear() {
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 1.0)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0, points: points, resolution: 0.5)
+        let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0)
-        XCTAssertEqual(newPoints[0].targetValue, 1)
-        XCTAssertEqual(newPoints[0].rampDuration, 1)
+        XCTAssertEqual(events[0].startTime, 0)
+        XCTAssertEqual(events[0].targetValue, 1)
+        XCTAssertEqual(events[0].rampDuration, 1)
     }
-
 
     func testEvaluateAutomationAlmostLinear() {
 
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0,
-                                             points: points,
-                                             resolution: 0.5)
+        let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0.0)
-        XCTAssert(fabs(newPoints[0].targetValue - 0.5) < 0.0001)
+        XCTAssertEqual(events[0].startTime, 0.0)
+        XCTAssert(fabs(events[0].targetValue - 0.5) < 0.0001)
 
-        XCTAssertEqual(newPoints[1].startTime, 0.5)
-        XCTAssertEqual(newPoints[1].targetValue, 1.0)
+        XCTAssertEqual(events[1].startTime, 0.5)
+        XCTAssertEqual(events[1].targetValue, 1.0)
     }
 
     func testEvaluateAutomationSlightTaper() {
 
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.00001, rampSkew: 0.0)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.00001, rampSkew: 0.0)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0,
-                                             points: points,
+        let events = curve.evaluate(initialValue: 0,
                                              resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0.0)
-        XCTAssert(fabs(newPoints[0].targetValue - 0.5) < 0.0001)
+        XCTAssertEqual(events[0].startTime, 0.0)
+        XCTAssert(fabs(events[0].targetValue - 0.5) < 0.0001)
 
-        XCTAssertEqual(newPoints[1].startTime, 0.5)
-        XCTAssertEqual(newPoints[1].targetValue, 1.0)
+        XCTAssertEqual(events[1].startTime, 0.5)
+        XCTAssertEqual(events[1].targetValue, 1.0)
     }
 
     func testEvaluateAutomationCurved() {
 
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 0.5, rampSkew: 0.1)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 0.5, rampSkew: 0.1)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0,
-                                             points: points,
+        let events = curve.evaluate(initialValue: 0,
                                              resolution: 0.1)
 
-        XCTAssertEqual(newPoints.count, 10)
+        XCTAssertEqual(events.count, 10)
 
     }
 
     func testEvaluateAutomationTwoSegment() {
 
         // One linear, one curved segment.
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 1.0),
-                      Point(targetValue: 0, startTime: 1.0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0),
+                      Point(targetValue: 0, startTime: 1.0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0,
-                                             points: points,
+        let events = curve.evaluate(initialValue: 0,
                                              resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0.0)
-        XCTAssertEqual(newPoints[0].targetValue, 1.0)
+        XCTAssertEqual(events[0].startTime, 0.0)
+        XCTAssertEqual(events[0].targetValue, 1.0)
 
-        XCTAssertEqual(newPoints[1].startTime, 1.0)
-        XCTAssert(fabs(newPoints[1].targetValue - 0.5) < 0.0001)
+        XCTAssertEqual(events[1].startTime, 1.0)
+        XCTAssert(fabs(events[1].targetValue - 0.5) < 0.0001)
 
-        XCTAssertEqual(newPoints[2].startTime, 1.5)
-        XCTAssert(abs(newPoints[2].targetValue) < 0.0001)
+        XCTAssertEqual(events[2].startTime, 1.5)
+        XCTAssert(abs(events[2].targetValue) < 0.0001)
 
     }
 
     func testEvaluateAutomationTwoSegment2() {
 
         // Curved segment cut off by linear segment.
-        let points = [Point(targetValue: 1, startTime: 0, rampDuration: 2.0, rampTaper: 1.0, rampSkew: 0.000001),
-                      Point(targetValue: 1, startTime: 1, rampDuration: 0.0)]
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 2.0, rampTaper: 1.0, rampSkew: 0.000001),
+                      Point(targetValue: 1, startTime: 1, rampDuration: 0.0)])
 
-        let newPoints = AKEvaluateAutomation(initialValue: 0,
-                                             points: points,
+        let events = curve.evaluate(initialValue: 0,
                                              resolution: 0.5)
 
-        XCTAssertEqual(newPoints[0].startTime, 0.0)
-        XCTAssertEqual(newPoints[0].rampDuration, 0.5)
-        XCTAssertEqual(newPoints[0].targetValue, 0.25)
+        XCTAssertEqual(events[0].startTime, 0.0)
+        XCTAssertEqual(events[0].rampDuration, 0.5)
+        XCTAssertEqual(events[0].targetValue, 0.25)
 
-        XCTAssertEqual(newPoints[1].startTime, 0.5)
-        XCTAssert(fabs(newPoints[1].targetValue - 0.5) < 0.0001)
+        XCTAssertEqual(events[1].startTime, 0.5)
+        XCTAssert(fabs(events[1].targetValue - 0.5) < 0.0001)
 
-        XCTAssertEqual(newPoints[2].startTime, 1.0)
-        XCTAssertEqual(newPoints[2].targetValue, 1.0)
-        XCTAssertEqual(newPoints[2].rampDuration, 0.0)
+        XCTAssertEqual(events[2].startTime, 1.0)
+        XCTAssertEqual(events[2].targetValue, 1.0)
+        XCTAssertEqual(events[2].rampDuration, 0.0)
 
     }
 
