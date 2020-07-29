@@ -13,9 +13,7 @@ class AKAutomationCurveTests: AKTestCase {
 
     typealias Point = AKParameterAutomationPoint
 
-    func testReplaceAutomation() {
-
-    {
+    func testReplaceAutomationBasic() {
         let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
                                                       startTime: 0,
                                                       rampDuration: 0.1),
@@ -44,43 +42,42 @@ class AKAutomationCurveTests: AKTestCase {
                                rampDuration: 0.1)]
 
         XCTAssertEqual(newCurve.points, expected)
-        }();
+    }
 
 
-        {
-            let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
-                                                          startTime: 0,
-                                                          rampDuration: 0.1),
-                                                    Point(targetValue: 880,
-                                                          startTime: 1,
-                                                          rampDuration: 0.1),
-                                                    Point(targetValue: 440,
-                                                          startTime: 2,
-                                                          rampDuration: 0.1)])
+    func testReplaceAutomationErase() {
+        let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
+                                                      startTime: 0,
+                                                      rampDuration: 0.1),
+                                                Point(targetValue: 880,
+                                                      startTime: 1,
+                                                      rampDuration: 0.1),
+                                                Point(targetValue: 440,
+                                                      startTime: 2,
+                                                      rampDuration: 0.1)])
 
-            let events: [(Double, AUValue)] = [ ]
+        let events: [(Double, AUValue)] = [ ]
 
-            let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
+        let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
 
-            XCTAssertEqual(newCurve.points, [])
-        }();
+        XCTAssertEqual(newCurve.points, [])
+    }
 
-        {
-            let curve = AKAutomationCurve(points: [])
+    func testReplaceAutomationAdd() {
+        let curve = AKAutomationCurve(points: [])
 
-            let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+        let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
-            let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
+        let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
 
-            let expected = [ Point(targetValue: 100,
-                                   startTime: 0.5,
-                                   rampDuration: 0.01),
-                             Point(targetValue: 200,
-                                   startTime: 1.5,
-                                   rampDuration: 0.01)]
+        let expected = [ Point(targetValue: 100,
+                               startTime: 0.5,
+                               rampDuration: 0.01),
+                         Point(targetValue: 200,
+                               startTime: 1.5,
+                               rampDuration: 0.01)]
 
-            XCTAssertEqual(newCurve.points, expected)
-        }()
+        XCTAssertEqual(newCurve.points, expected)
     }
 
     func testEvaluateAutomationLinear() {
