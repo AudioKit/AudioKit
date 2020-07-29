@@ -61,7 +61,9 @@ public struct AKAutomationCurve {
             } else {
 
                 // Cut off the end if another point comes along.
-                let endTime: Double = min(i < points.count - 1 ? points[i + 1].startTime : Double.greatestFiniteMagnitude,
+                let nextPointStart = i < points.count - 1 ? points[i + 1].startTime
+                                                          : Double.greatestFiniteMagnitude
+                let endTime: Double = min(nextPointStart,
                                           point.startTime + point.rampDuration)
 
                 var t = point.startTime
