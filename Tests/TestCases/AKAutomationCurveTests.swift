@@ -16,27 +16,47 @@ class AKAutomationCurveTests: AKTestCase {
     func testReplaceAutomation() {
 
     {
-        let curve = AKAutomationCurve(points: [ Point(targetValue: 440, startTime: 0, rampDuration: 0.1),
-                                                Point(targetValue: 880, startTime: 1, rampDuration: 0.1),
-                                                Point(targetValue: 440, startTime: 2, rampDuration: 0.1)])
+        let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
+                                                      startTime: 0,
+                                                      rampDuration: 0.1),
+                                                Point(targetValue: 880,
+                                                      startTime: 1,
+                                                      rampDuration: 0.1),
+                                                Point(targetValue: 440,
+                                                      startTime: 2,
+                                                      rampDuration: 0.1)])
 
         let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
         let newCurve = curve.replace(range: 0.25 ... 1.75, withPoints: events)
 
-        let expected = [ Point(targetValue: 440, startTime: 0, rampDuration: 0.1),
-                         Point(targetValue: 100, startTime: 0.5, rampDuration: 0.01),
-                         Point(targetValue: 200, startTime: 1.5, rampDuration: 0.01),
-                         Point(targetValue: 440, startTime: 2, rampDuration: 0.1)]
+        let expected = [ Point(targetValue: 440,
+                               startTime: 0,
+                               rampDuration: 0.1),
+                         Point(targetValue: 100,
+                               startTime: 0.5,
+                               rampDuration: 0.01),
+                         Point(targetValue: 200,
+                               startTime: 1.5,
+                               rampDuration: 0.01),
+                         Point(targetValue: 440,
+                               startTime: 2,
+                               rampDuration: 0.1)]
 
         XCTAssertEqual(newCurve.points, expected)
         }();
 
 
         {
-            let curve = AKAutomationCurve(points: [ Point(targetValue: 440, startTime: 0, rampDuration: 0.1),
-                                                    Point(targetValue: 880, startTime: 1, rampDuration: 0.1),
-                                                    Point(targetValue: 440, startTime: 2, rampDuration: 0.1)])
+            let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
+                                                          startTime: 0,
+                                                          rampDuration: 0.1),
+                                                    Point(targetValue: 880,
+                                                          startTime: 1,
+                                                          rampDuration: 0.1),
+                                                    Point(targetValue: 440,
+                                                          startTime: 2,
+                                                          rampDuration: 0.1)])
 
             let events: [(Double, AUValue)] = [ ]
 
@@ -52,15 +72,21 @@ class AKAutomationCurveTests: AKTestCase {
 
             let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
 
-            let expected = [ Point(targetValue: 100, startTime: 0.5, rampDuration: 0.01),
-                             Point(targetValue: 200, startTime: 1.5, rampDuration: 0.01)]
+            let expected = [ Point(targetValue: 100,
+                                   startTime: 0.5,
+                                   rampDuration: 0.01),
+                             Point(targetValue: 200,
+                                   startTime: 1.5,
+                                   rampDuration: 0.01)]
 
             XCTAssertEqual(newCurve.points, expected)
         }()
     }
 
     func testEvaluateAutomationLinear() {
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 1.0)])
 
         let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
@@ -71,7 +97,11 @@ class AKAutomationCurveTests: AKTestCase {
 
     func testEvaluateAutomationAlmostLinear() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 1.0,
+                                                     rampTaper: 1.0,
+                                                     rampSkew: 0.000001)])
 
         let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
@@ -84,7 +114,11 @@ class AKAutomationCurveTests: AKTestCase {
 
     func testEvaluateAutomationSlightTaper() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 1.00001, rampSkew: 0.0)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 1.0,
+                                                     rampTaper: 1.00001,
+                                                     rampSkew: 0.0)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.5)
@@ -98,7 +132,11 @@ class AKAutomationCurveTests: AKTestCase {
 
     func testEvaluateAutomationCurved() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0, rampTaper: 0.5, rampSkew: 0.1)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 1.0,
+                                                     rampTaper: 0.5,
+                                                     rampSkew: 0.1)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.1)
@@ -110,8 +148,14 @@ class AKAutomationCurveTests: AKTestCase {
     func testEvaluateAutomationTwoSegment() {
 
         // One linear, one curved segment.
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 1.0),
-                                               Point(targetValue: 0, startTime: 1.0, rampDuration: 1.0, rampTaper: 1.0, rampSkew: 0.000001)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 1.0),
+                                               Point(targetValue: 0,
+                                                     startTime: 1.0,
+                                                     rampDuration: 1.0,
+                                                     rampTaper: 1.0,
+                                                     rampSkew: 0.000001)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.5)
@@ -130,8 +174,14 @@ class AKAutomationCurveTests: AKTestCase {
     func testEvaluateAutomationTwoSegment2() {
 
         // Curved segment cut off by linear segment.
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1, startTime: 0, rampDuration: 2.0, rampTaper: 1.0, rampSkew: 0.000001),
-                                               Point(targetValue: 1, startTime: 1, rampDuration: 0.0)])
+        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+                                                     startTime: 0,
+                                                     rampDuration: 2.0,
+                                                     rampTaper: 1.0,
+                                                     rampSkew: 0.000001),
+                                               Point(targetValue: 1,
+                                                     startTime: 1,
+                                                     rampDuration: 0.0)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.5)
