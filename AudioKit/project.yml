@@ -12,47 +12,47 @@ targets:
 #  Tried this but we need to keep the soundpipe headers in, and sporth headers out
 #      - path: Externals 
 #        excludes:
-#          - "**/README.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+#          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
 #          # - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
 
       - path: Externals/AudioKitCore
         excludes:
-          - "**/README.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
       - path: Externals/Soundpipe
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Externals/SoundpipeExtension
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Externals/Sporth
         headerVisibility: project # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Externals/Wavpack
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Common/Internals
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Audio Files
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Common/MIDI
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Common/Nodes
         excludes:
-          - "**/README.md"
+          - "**/*.md"
           - "Generators/Speech Synthesizer/AKSpeechSynthesizer.swift" # macOS only
       - path: Common/Operations
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Common/Sequencing
         excludes:
-          - "**/README.md"
+          - "**/*.md"
       - path: Common/taps
         excludes:
-          - "**/README.md"
+          - "**/*.md"
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
           
