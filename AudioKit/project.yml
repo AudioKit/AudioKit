@@ -24,7 +24,6 @@ targets:
       - path: Common/Nodes
         excludes:
           - "**/*.md"
-          - "Generators/Speech Synthesizer/AKSpeechSynthesizer.swift" # macOS only
       - path: Common/Operations
         excludes:
           - "**/*.md"

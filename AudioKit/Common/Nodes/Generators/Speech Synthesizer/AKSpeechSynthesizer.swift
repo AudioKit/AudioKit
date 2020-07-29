@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
+
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
 
@@ -131,3 +133,5 @@ public class AKSpeechSynthesizer: AKNode {
         self.modulation = modulation
     }
 }
+
+#endif
