@@ -1,0 +1,58 @@
+
+# xcodegen project file for AudioKit frameworks
+
+name: AudioKitGen # when ready, rename this to AudioKit
+
+targets:
+  AudioKit:
+    type: framework
+    platform: [macOS, iOS]
+    sources:
+
+#  Tried this but we need to keep the soundpipe headers in, and sporth headers out
+#      - path: Externals 
+#        excludes:
+#          - "**/README.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+#          # - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
+
+      - path: Externals/AudioKitCore
+        excludes:
+          - "**/README.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+      - path: Externals/Soundpipe
+        excludes:
+          - "**/README.md"
+      - path: Externals/SoundpipeExtension
+        excludes:
+          - "**/README.md"
+      - path: Externals/Sporth
+        headerVisibility: project # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
+        excludes:
+          - "**/README.md"
+      - path: Externals/Wavpack
+        excludes:
+          - "**/README.md"
+      - path: Common/Internals
+        excludes:
+          - "**/README.md"
+      - path: Audio Files
+        excludes:
+          - "**/README.md"
+      - path: Common/MIDI
+        excludes:
+          - "**/README.md"
+      - path: Common/Nodes
+        excludes:
+          - "**/README.md"
+          - "Generators/Speech Synthesizer/AKSpeechSynthesizer.swift" # macOS only
+      - path: Common/Operations
+        excludes:
+          - "**/README.md"
+      - path: Common/Sequencing
+        excludes:
+          - "**/README.md"
+      - path: Common/taps
+        excludes:
+          - "**/README.md"
+    settings:
+      GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
+          
