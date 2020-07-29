@@ -10,9 +10,9 @@ public struct AKAutomationCurve {
     var points: [AKParameterAutomationPoint]
 
     static func evalRamp(start: Double,
-                  segment: AKParameterAutomationPoint,
-                  time: Double,
-                  endTime: Double) -> Double {
+                         segment: AKParameterAutomationPoint,
+                         time: Double,
+                         endTime: Double) -> Double {
         let remain = endTime - time
         let taper = Double(segment.rampTaper)
         let goal = segment.targetValue
