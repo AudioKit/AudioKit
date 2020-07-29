@@ -3,14 +3,20 @@
 import Foundation
 
 /// An automation curve (with curved segments) suitable for any time varying parameter.
-/// Includes functions for manipulating automation curves and conversion to automation events
-/// used by the underlying DSP code.
+/// Includes functions for manipulating automation curves and conversion to linear automation ramps
+/// used by DSP code.
 public struct AKAutomationCurve {
 
-    var points: [AKParameterAutomationPoint]
+    public typealias Point = AKParameterAutomationPoint
+
+    var points: [Point]
+
+    public init(points: [Point]) {
+        self.points = points
+    }
 
     static func evalRamp(start: Double,
-                         segment: AKParameterAutomationPoint,
+                         segment: Point,
                          time: Double,
                          endTime: Double) -> Double {
         let remain = endTime - time
@@ -103,7 +109,7 @@ public struct AKAutomationCurve {
 
         // Append recorded points.
         result.append(contentsOf: newPoints.map { point in
-            AKParameterAutomationPoint(targetValue: point.1, startTime: point.0, rampDuration: 0.01)
+            Point(targetValue: point.1, startTime: point.0, rampDuration: 0.01)
         })
 
         // Sort vector by time.
