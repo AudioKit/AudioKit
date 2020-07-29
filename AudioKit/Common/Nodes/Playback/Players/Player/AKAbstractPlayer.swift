@@ -257,13 +257,6 @@ open class AKAbstractPlayer: AKNode {
                                          skew: fade.outSkew)
         }
 
-        // Convert our curved automation to linear ramps.
-        let events = AKEvaluateAutomation(initialValue: Fade.minimumGain,
-                                          points: points,
-                                          resolution: 0.01)
-        faderNode.automateGain(events: events,
-                               startTime: startTime.offset(seconds: offsetTime))
-
     }
 
     func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
