@@ -42,11 +42,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKModulatedDelay.hpp>
 #import <AudioKit/AKModulatedDelayDSP.hpp>
 
-// Generators
-
-// Generators / Physical Models
-#import <AudioKit/AKVocalTractDSP.hpp>
-
 // Generators / Polysynths
 #import <AudioKit/AKFMOscillatorBankAudioUnit.h>
 #import <AudioKit/AKMorphingOscillatorBankAudioUnit.h>
@@ -164,6 +159,7 @@ AK_API AKDSPRef createToneComplementFilterDSP(void);
 AK_API AKDSPRef createToneFilterDSP(void);
 AK_API AKDSPRef createTremoloDSP(void);
 AK_API AKDSPRef createVariableDelayDSP(void);
+AK_API AKDSPRef createVocalTractDSP(void);
 AK_API AKDSPRef createWhiteNoiseDSP(void);
 AK_API AKDSPRef createZitaReverbDSP(void);
 
@@ -446,6 +442,14 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 typedef NS_ENUM(AUParameterAddress, AKVariableDelayParameter) {
     AKVariableDelayParameterTime,
     AKVariableDelayParameterFeedback,
+};
+
+typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
+    AKVocalTractParameterFrequency,
+    AKVocalTractParameterTonguePosition,
+    AKVocalTractParameterTongueDiameter,
+    AKVocalTractParameterTenseness,
+    AKVocalTractParameterNasality,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKWhiteNoiseParameter) {
