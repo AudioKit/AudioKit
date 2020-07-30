@@ -19,6 +19,11 @@ targets:
       - path: Common/Internals
         excludes:
           - "**/*.md"
+          - "CoreAudio/Apple Code/*.hpp"
+      - path: Common/Internals
+        includes:
+          - "CoreAudio/Apple Code/*.hpp"
+        headerVisibility: project
       - path: Audio Files
         excludes:
           - "**/*.md"
