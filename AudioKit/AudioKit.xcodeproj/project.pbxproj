@@ -501,7 +501,6 @@
 		C49232FC20284E4A001BB1C7 /* AKResonantFilterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49232FB20284E4A001BB1C7 /* AKResonantFilterDSP.mm */; };
 		C49351FD1C3CB93300A28D7F /* AKPanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49351F91C3CB93300A28D7F /* AKPanner.swift */; };
 		C493520B1C3CBA6C00A28D7F /* AKBalancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49352021C3CBA6C00A28D7F /* AKBalancer.swift */; };
-		C493520E1C3CBA6C00A28D7F /* AKBalancerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49352051C3CBA6C00A28D7F /* AKBalancerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49390851E0889DB009FEAA1 /* AKStereoFieldLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49390811E0889DB009FEAA1 /* AKStereoFieldLimiter.swift */; };
 		C496149E1C2F33B400ACAB4E /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */; };
 		C49614A81C2F361400ACAB4E /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49614A71C2F361400ACAB4E /* variableDelay.swift */; };
@@ -2287,7 +2286,6 @@
 		EAA62C94247F3A5B00BF4CDB /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69671D1F1DE300BF018A /* AKMorphingOscillatorBankDSPKernel.hpp */; };
 		EAA62C95247F3A5B00BF4CDB /* AKOscillatorFilterSynthDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C403F46C231A4CC100A81C0E /* AKOscillatorFilterSynthDSPKernel.hpp */; };
 		EAA62C98247F3A5B00BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69621D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp */; };
-		EAA62C9B247F3A5B00BF4CDB /* AKBalancerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49352051C3CBA6C00A28D7F /* AKBalancerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C9C247F3A5B00BF4CDB /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		EAA62C9D247F3A5B00BF4CDB /* decorr_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB673C205AC237000E5450 /* decorr_tables.h */; };
 		EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3138,7 +3136,6 @@
 		EAA63167247F44E200BF4CDB /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69671D1F1DE300BF018A /* AKMorphingOscillatorBankDSPKernel.hpp */; };
 		EAA63168247F44E200BF4CDB /* AKOscillatorFilterSynthDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C403F46C231A4CC100A81C0E /* AKOscillatorFilterSynthDSPKernel.hpp */; };
 		EAA6316B247F44E200BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69621D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp */; };
-		EAA6316E247F44E200BF4CDB /* AKBalancerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49352051C3CBA6C00A28D7F /* AKBalancerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6316F247F44E200BF4CDB /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		EAA63170247F44E200BF4CDB /* decorr_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB673C205AC237000E5450 /* decorr_tables.h */; };
 		EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3956,7 +3953,6 @@
 		C49232FB20284E4A001BB1C7 /* AKResonantFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKResonantFilterDSP.mm; sourceTree = "<group>"; };
 		C49351F91C3CB93300A28D7F /* AKPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPanner.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C49352021C3CBA6C00A28D7F /* AKBalancer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBalancer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C49352051C3CBA6C00A28D7F /* AKBalancerDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBalancerDSP.hpp; sourceTree = "<group>"; };
 		C49390811E0889DB009FEAA1 /* AKStereoFieldLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiter.swift; sourceTree = "<group>"; };
 		C49499E0205F2C8F00F28368 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
@@ -6537,7 +6533,6 @@
 			isa = PBXGroup;
 			children = (
 				C49352021C3CBA6C00A28D7F /* AKBalancer.swift */,
-				C49352051C3CBA6C00A28D7F /* AKBalancerDSP.hpp */,
 				22D63267246DBF5100061D3B /* AKBalancerDSP.mm */,
 			);
 			path = Balancer;
@@ -7845,7 +7840,6 @@
 				C49D69741D1F1DE300BF018A /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */,
 				C403F480231A4CC200A81C0E /* AKOscillatorFilterSynthDSPKernel.hpp in Headers */,
 				C49D69701D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
-				C493520E1C3CBA6C00A28D7F /* AKBalancerDSP.hpp in Headers */,
 				F02767321E79C7690099CA47 /* AKSporthStack+Internal.h in Headers */,
 				34BB675B205AC238000E5450 /* decorr_tables.h in Headers */,
 				C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.mm in Headers */,
@@ -8480,7 +8474,6 @@
 				EAA62C94247F3A5B00BF4CDB /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */,
 				EAA62C95247F3A5B00BF4CDB /* AKOscillatorFilterSynthDSPKernel.hpp in Headers */,
 				EAA62C98247F3A5B00BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
-				EAA62C9B247F3A5B00BF4CDB /* AKBalancerDSP.hpp in Headers */,
 				EAA62C9C247F3A5B00BF4CDB /* AKSporthStack+Internal.h in Headers */,
 				EAA62C9D247F3A5B00BF4CDB /* decorr_tables.h in Headers */,
 				EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */,
@@ -8627,7 +8620,6 @@
 				EAA63167247F44E200BF4CDB /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */,
 				EAA63168247F44E200BF4CDB /* AKOscillatorFilterSynthDSPKernel.hpp in Headers */,
 				EAA6316B247F44E200BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
-				EAA6316E247F44E200BF4CDB /* AKBalancerDSP.hpp in Headers */,
 				EAA6316F247F44E200BF4CDB /* AKSporthStack+Internal.h in Headers */,
 				EAA63170247F44E200BF4CDB /* decorr_tables.h in Headers */,
 				EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */,
