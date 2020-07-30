@@ -1,19 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#pragma once
-
-#import <AVFoundation/AVFoundation.h>
-
-typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
-    AKStereoFieldLimiterParameterAmount,
-};
-
-#ifndef __cplusplus
-
-AKDSPRef createStereoFieldLimiterDSP(void);
-
-#else
-
 #import "AudioKit.h"
 
 struct AKStereoFieldLimiterDSP : AKDSPBase {
@@ -62,5 +48,3 @@ public:
 extern "C" AKDSPRef createStereoFieldLimiterDSP() {
     return new AKStereoFieldLimiterDSP();
 }
-
-
