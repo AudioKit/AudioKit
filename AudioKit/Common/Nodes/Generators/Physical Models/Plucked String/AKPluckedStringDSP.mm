@@ -16,7 +16,8 @@ public:
     }
     
     void init(int channelCount, double sampleRate) {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);        sp_pluck_create(&pluck);
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);
     }
     
