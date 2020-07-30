@@ -15,6 +15,7 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 #import <AudioKit/AKDSPBase.hpp>
+#import <AudioKit/DSPKernel.hpp>
 #import <AudioKit/ExceptionCatcher.h>
 #import <AudioKit/AKGlobals.hpp>
 
@@ -155,6 +156,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTimelineTap.h>
 
 // Utilities
+#import <AudioKit/ParameterRamper.hpp>
 #import <AudioKit/AKTimeline.h>
 
 // Sequencer
