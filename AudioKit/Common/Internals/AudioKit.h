@@ -155,11 +155,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTimelineTap.h>
 
 // Utilities
-#import <AudioKit/TPCircularBuffer.h>
-#import <AudioKit/TPCircularBuffer+Unit.h>
-#import <AudioKit/TPCircularBuffer+AudioBufferList.h>
-#import <AudioKit/ParameterRamper.hpp>
-#import <AudioKit/BufferedAudioBus.hpp>
 #import <AudioKit/AKTimeline.h>
 
 // Sequencer
