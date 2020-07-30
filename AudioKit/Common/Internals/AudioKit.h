@@ -59,7 +59,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Mixing
 #import <AudioKit/AKBalancerDSP.hpp>
-#import <AudioKit/AKStereoFieldLimiterDSP.hpp>
 
 // Playback
 #import <AudioKit/AKWaveTableAudioUnit.h>
@@ -152,6 +151,7 @@ AK_API AKDSPRef createPWMOscillatorDSP(void);
 AK_API AKDSPRef createResonantFilterDSP(void);
 AK_API AKDSPRef createRolandTB303FilterDSP(void);
 AK_API AKDSPRef createStereoDelayDSP(void);
+AK_API AKDSPRef createStereoFieldLimiterDSP(void);
 AK_API AKDSPRef createStringResonatorDSP(void);
 AK_API AKDSPRef createTanhDistortionDSP(void);
 AK_API AKDSPRef createThreePoleLowpassFilterDSP(void);
@@ -406,6 +406,10 @@ typedef NS_ENUM(AUParameterAddress, AKStereoDelayParameter) {
     AKStereoDelayParameterFeedback,
     AKStereoDelayParameterDryWetMix,
     AKStereoDelayParameterPingPong,
+};
+
+typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
+    AKStereoFieldLimiterParameterAmount,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
