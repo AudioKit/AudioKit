@@ -57,9 +57,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKPhaseDistortionOscillatorFilterSynthAudioUnit.h>
 #import <AudioKit/AKPWMOscillatorFilterSynthAudioUnit.h>
 
-// Mixing
-#import <AudioKit/AKBalancerDSP.hpp>
-
 // Playback
 #import <AudioKit/AKWaveTableAudioUnit.h>
 #import <AudioKit/AKDiskStreamerAudioUnit.h>
@@ -111,6 +108,7 @@ AK_API void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration
 AK_API AKDSPRef createAmplitudeEnvelopeDSP(void);
 AK_API AKDSPRef createAutoPannerDSP(void);
 AK_API AKDSPRef createAutoWahDSP(void);
+AK_API AKDSPRef createBalancerDSP(void);
 AK_API AKDSPRef createBandPassButterworthFilterDSP(void);
 AK_API AKDSPRef createBandRejectButterworthFilterDSP(void);
 AK_API AKDSPRef createBitCrusherDSP(void);
