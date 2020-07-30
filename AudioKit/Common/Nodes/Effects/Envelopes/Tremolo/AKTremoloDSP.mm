@@ -1,10 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKTremoloDSP.hpp"
-#include "ParameterRamper.hpp"
+#include "AudioKit.h"
 #include <vector>
-
-#import "AKSoundpipeDSPBase.hpp"
 
 class AKTremoloDSP : public AKSoundpipeDSPBase {
 private:

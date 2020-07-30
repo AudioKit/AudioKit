@@ -1,8 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKFaderDSP.hpp"
-#import "ParameterRamper.hpp"
-#import "AKDSPBase.hpp"
+#include "AudioKit.h"
 
 struct AKFaderDSP : AKDSPBase {
 private:
