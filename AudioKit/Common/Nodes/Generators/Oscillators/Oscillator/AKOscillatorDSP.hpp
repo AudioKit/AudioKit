@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.hpp"
 
 typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
     AKOscillatorParameterFrequency,
@@ -13,8 +14,4 @@ typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
 
 #define AKOscillatorDebugPhase 0
 
-#ifndef __cplusplus
-
-AKDSPRef createOscillatorDSP(void);
-
-#endif
+AK_API AKDSPRef createOscillatorDSP(void);
