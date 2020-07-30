@@ -12,6 +12,10 @@ targets:
         excludes:
           - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
           - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
+      - path: Externals
+        includes:
+          - "Sporth/h/*.h"
+        headerVisibility: project
       - path: Common/Internals
         excludes:
           - "**/*.md"
@@ -34,6 +38,5 @@ targets:
         excludes:
           - "**/*.md"
     settings:
-      HEADER_SEARCH_PATHS: "Externals/Sporth/h" # Need to be able to find the sporth headers.
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
           
