@@ -360,7 +360,7 @@
 		C44EA25A2018704D0072399F /* AKChorus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44EA24D2018704D0072399F /* AKChorus.swift */; };
 		C45357882041550300C5C7CC /* AKAutoWah.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45357842041550300C5C7CC /* AKAutoWah.swift */; };
 		C453578A2041550300C5C7CC /* AKAutoWahDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45357862041550300C5C7CC /* AKAutoWahDSP.mm */; };
-		C453578B2041550300C5C7CC /* AKAutoWahDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C453578B2041550300C5C7CC /* AKAutoWahDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4537F091C39D07100A51738 /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4537F081C39D07100A51738 /* AKDelay.swift */; };
 		C4537F0F1C39D0B400A51738 /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4537F0B1C39D0B400A51738 /* AKVariableDelay.swift */; };
 		C4537F281C39D2A300A51738 /* AKBitCrusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4537F141C39D2A300A51738 /* AKBitCrusher.swift */; };
@@ -459,7 +459,7 @@
 		C4649D3F23C07F660020072A /* AKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4649D3E23C07F660020072A /* AKLog.swift */; };
 		C46501151C727DFE00EF6CF7 /* AKMetalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46501111C727DFE00EF6CF7 /* AKMetalBar.swift */; };
 		C466153B1EEA651B0044A5FC /* AKVocalTract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46615371EEA651B0044A5FC /* AKVocalTract.swift */; };
-		C466DED5200A15880032D0A5 /* AKOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C466DED5200A15880032D0A5 /* AKOscillatorDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C468096D1CEECB6900ADFC05 /* AKPitchShifter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46809691CEECB6900ADFC05 /* AKPitchShifter.swift */; };
 		C468CD552481E71000456291 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD202481E70000456291 /* AKPresetLoaderView.swift */; };
 		C468CD562481E71000456291 /* AKDualButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468CD212481E70000456291 /* AKDualButton.swift */; };
@@ -2376,7 +2376,7 @@
 		EAA62CA2247F3A5B00BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45380511C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp */; };
 		EAA62CA3247F3A5B00BF4CDB /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077BEC2009875200E5923C /* AKFlatFrequencyResponseReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CA5247F3A5B00BF4CDB /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B215D204A28F3009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAA62CA8247F3A5B00BF4CDB /* AKAutoWahDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA62CA8247F3A5B00BF4CDB /* AKAutoWahDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CAA247F3A5B00BF4CDB /* AKKorgLowPassFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B102008760D00E5923C /* AKKorgLowPassFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CAB247F3A5B00BF4CDB /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C43322FF1FE05F0100330AEC /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CAD247F3A5B00BF4CDB /* AKDCBlockDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077AEC2008735000E5923C /* AKDCBlockDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2420,7 +2420,7 @@
 		EAA62CF0247F3A5B00BF4CDB /* AKOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D696C1D1F1DE300BF018A /* AKOscillatorBankDSPKernel.hpp */; };
 		EAA62CF5247F3A5B00BF4CDB /* AKStereoDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492774D21C8165000EB0892 /* AKStereoDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CFA247F3A5B00BF4CDB /* AKBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B471FC944F400EDA024 /* AKBankDSPKernel.hpp */; };
-		EAA62CFB247F3A5B00BF4CDB /* AKOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA62CFB247F3A5B00BF4CDB /* AKOscillatorDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CFD247F3A5B00BF4CDB /* MultiStageFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE1213C6D6500AFDEBC /* MultiStageFilter.hpp */; };
 		EAA62CFE247F3A5B00BF4CDB /* AKMetalBarDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C410F13D203038D1002EA801 /* AKMetalBarDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CFF247F3A5B00BF4CDB /* AKPhaseLockedVocoderDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4BDCB4A21DA9DB400D0EC8A /* AKPhaseLockedVocoderDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3281,7 +3281,7 @@
 		EAA63175247F44E200BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45380511C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp */; };
 		EAA63176247F44E200BF4CDB /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077BEC2009875200E5923C /* AKFlatFrequencyResponseReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63178247F44E200BF4CDB /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B215D204A28F3009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAA6317B247F44E200BF4CDB /* AKAutoWahDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA6317B247F44E200BF4CDB /* AKAutoWahDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C45357872041550300C5C7CC /* AKAutoWahDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6317D247F44E200BF4CDB /* AKKorgLowPassFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B102008760D00E5923C /* AKKorgLowPassFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6317E247F44E200BF4CDB /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C43322FF1FE05F0100330AEC /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63180247F44E200BF4CDB /* AKDCBlockDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077AEC2008735000E5923C /* AKDCBlockDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3326,7 +3326,7 @@
 		EAA631C3247F44E200BF4CDB /* AKOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D696C1D1F1DE300BF018A /* AKOscillatorBankDSPKernel.hpp */; };
 		EAA631C8247F44E200BF4CDB /* AKStereoDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492774D21C8165000EB0892 /* AKStereoDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA631CD247F44E200BF4CDB /* AKBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B471FC944F400EDA024 /* AKBankDSPKernel.hpp */; };
-		EAA631CE247F44E200BF4CDB /* AKOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA631CE247F44E200BF4CDB /* AKOscillatorDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = C466DED2200A15880032D0A5 /* AKOscillatorDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA631D0247F44E200BF4CDB /* MultiStageFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE1213C6D6500AFDEBC /* MultiStageFilter.hpp */; };
 		EAA631D1247F44E200BF4CDB /* AKMetalBarDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C410F13D203038D1002EA801 /* AKMetalBarDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA631D2247F44E200BF4CDB /* AKPhaseLockedVocoderDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4BDCB4A21DA9DB400D0EC8A /* AKPhaseLockedVocoderDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3951,7 +3951,7 @@
 		C44EA28C201875300072399F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C45357842041550300C5C7CC /* AKAutoWah.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAutoWah.swift; sourceTree = "<group>"; };
 		C45357862041550300C5C7CC /* AKAutoWahDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAutoWahDSP.mm; sourceTree = "<group>"; };
-		C45357872041550300C5C7CC /* AKAutoWahDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAutoWahDSP.hpp; sourceTree = "<group>"; };
+		C45357872041550300C5C7CC /* AKAutoWahDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAutoWahDSP.h; sourceTree = "<group>"; };
 		C453578C2041551300C5C7CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C453578E2041552D00C5C7CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4537F081C39D07100A51738 /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
@@ -4053,7 +4053,7 @@
 		C4649D3E23C07F660020072A /* AKLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKLog.swift; sourceTree = "<group>"; };
 		C46501111C727DFE00EF6CF7 /* AKMetalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMetalBar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C46615371EEA651B0044A5FC /* AKVocalTract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocalTract.swift; sourceTree = "<group>"; };
-		C466DED2200A15880032D0A5 /* AKOscillatorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKOscillatorDSP.hpp; sourceTree = "<group>"; };
+		C466DED2200A15880032D0A5 /* AKOscillatorDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillatorDSP.h; sourceTree = "<group>"; };
 		C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
@@ -5935,7 +5935,7 @@
 			isa = PBXGroup;
 			children = (
 				C45357842041550300C5C7CC /* AKAutoWah.swift */,
-				C45357872041550300C5C7CC /* AKAutoWahDSP.hpp */,
+				C45357872041550300C5C7CC /* AKAutoWahDSP.h */,
 				C45357862041550300C5C7CC /* AKAutoWahDSP.mm */,
 			);
 			path = "Auto Wah";
@@ -6341,7 +6341,7 @@
 			isa = PBXGroup;
 			children = (
 				C453805C1C3A5BDA00A51738 /* AKOscillator.swift */,
-				C466DED2200A15880032D0A5 /* AKOscillatorDSP.hpp */,
+				C466DED2200A15880032D0A5 /* AKOscillatorDSP.h */,
 				C4775845202FD66F00159BA7 /* AKOscillatorDSP.mm */,
 			);
 			path = Oscillator;
@@ -8141,7 +8141,7 @@
 				C45380551C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				C4077BEF2009875200E5923C /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */,
 				C49B2165204A28F3009C7C8E /* AKPresetManager.h in Headers */,
-				C453578B2041550300C5C7CC /* AKAutoWahDSP.hpp in Headers */,
+				C453578B2041550300C5C7CC /* AKAutoWahDSP.h in Headers */,
 				C4077B132008760F00E5923C /* AKKorgLowPassFilterDSP.hpp in Headers */,
 				C43323071FE05F0200330AEC /* TPCircularBuffer.h in Headers */,
 				C4077AEF2008735100E5923C /* AKDCBlockDSP.hpp in Headers */,
@@ -8187,7 +8187,7 @@
 				3492775121C8165000EB0892 /* AKStereoDelayDSP.hpp in Headers */,
 				22D8FAB9248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */,
 				C4AC0B4A1FC944F500EDA024 /* AKBankDSPKernel.hpp in Headers */,
-				C466DED5200A15880032D0A5 /* AKOscillatorDSP.hpp in Headers */,
+				C466DED5200A15880032D0A5 /* AKOscillatorDSP.h in Headers */,
 				C457CBF1213C6D6500AFDEBC /* MultiStageFilter.hpp in Headers */,
 				C410F140203038D1002EA801 /* AKMetalBarDSP.hpp in Headers */,
 				C4BDCB4D21DA9DB400D0EC8A /* AKPhaseLockedVocoderDSP.hpp in Headers */,
@@ -8829,7 +8829,7 @@
 				EAA62CA2247F3A5B00BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				EAA62CA3247F3A5B00BF4CDB /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */,
 				EAA62CA5247F3A5B00BF4CDB /* AKPresetManager.h in Headers */,
-				EAA62CA8247F3A5B00BF4CDB /* AKAutoWahDSP.hpp in Headers */,
+				EAA62CA8247F3A5B00BF4CDB /* AKAutoWahDSP.h in Headers */,
 				EAA62CAA247F3A5B00BF4CDB /* AKKorgLowPassFilterDSP.hpp in Headers */,
 				EAA62CAB247F3A5B00BF4CDB /* TPCircularBuffer.h in Headers */,
 				EAA62CAD247F3A5B00BF4CDB /* AKDCBlockDSP.hpp in Headers */,
@@ -8873,7 +8873,7 @@
 				EAA62CF0247F3A5B00BF4CDB /* AKOscillatorBankDSPKernel.hpp in Headers */,
 				EAA62CF5247F3A5B00BF4CDB /* AKStereoDelayDSP.hpp in Headers */,
 				EAA62CFA247F3A5B00BF4CDB /* AKBankDSPKernel.hpp in Headers */,
-				EAA62CFB247F3A5B00BF4CDB /* AKOscillatorDSP.hpp in Headers */,
+				EAA62CFB247F3A5B00BF4CDB /* AKOscillatorDSP.h in Headers */,
 				EAA62CFD247F3A5B00BF4CDB /* MultiStageFilter.hpp in Headers */,
 				EAA62CFE247F3A5B00BF4CDB /* AKMetalBarDSP.hpp in Headers */,
 				EAA62CFF247F3A5B00BF4CDB /* AKPhaseLockedVocoderDSP.hpp in Headers */,
@@ -9029,7 +9029,7 @@
 				EAA63175247F44E200BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				EAA63176247F44E200BF4CDB /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */,
 				EAA63178247F44E200BF4CDB /* AKPresetManager.h in Headers */,
-				EAA6317B247F44E200BF4CDB /* AKAutoWahDSP.hpp in Headers */,
+				EAA6317B247F44E200BF4CDB /* AKAutoWahDSP.h in Headers */,
 				EAA6317D247F44E200BF4CDB /* AKKorgLowPassFilterDSP.hpp in Headers */,
 				EAA6317E247F44E200BF4CDB /* TPCircularBuffer.h in Headers */,
 				EAA63180247F44E200BF4CDB /* AKDCBlockDSP.hpp in Headers */,
@@ -9075,7 +9075,7 @@
 				EAA631C8247F44E200BF4CDB /* AKStereoDelayDSP.hpp in Headers */,
 				22D8FABB248E8BBD0009EE7C /* AKParameterAutomation.hpp in Headers */,
 				EAA631CD247F44E200BF4CDB /* AKBankDSPKernel.hpp in Headers */,
-				EAA631CE247F44E200BF4CDB /* AKOscillatorDSP.hpp in Headers */,
+				EAA631CE247F44E200BF4CDB /* AKOscillatorDSP.h in Headers */,
 				EAA631D0247F44E200BF4CDB /* MultiStageFilter.hpp in Headers */,
 				EAA631D1247F44E200BF4CDB /* AKMetalBarDSP.hpp in Headers */,
 				EAA631D2247F44E200BF4CDB /* AKPhaseLockedVocoderDSP.hpp in Headers */,
