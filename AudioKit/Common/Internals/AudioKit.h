@@ -15,6 +15,7 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 #import <AudioKit/AKDSPBase.hpp>
+#import <AudioKit/DSPKernel.hpp>
 #import <AudioKit/ExceptionCatcher.h>
 #import <AudioKit/AKGlobals.hpp>
 
@@ -50,7 +51,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTremoloDSP.hpp>
 
 // Effects / Filters
-#import <AudioKit/AKAutoWahDSP.hpp>
+#import <AudioKit/AKAutoWahDSP.h>
 #import <AudioKit/AKBandPassButterworthFilterDSP.hpp>
 #import <AudioKit/AKBandRejectButterworthFilterDSP.hpp>
 #import <AudioKit/AKDCBlockDSP.hpp>
@@ -99,7 +100,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators / Oscillators
 #import <AudioKit/AKFMOscillatorDSP.hpp>
 #import <AudioKit/AKMorphingOscillatorDSP.hpp>
-#import <AudioKit/AKOscillatorDSP.hpp>
+#import <AudioKit/AKOscillatorDSP.h>
 #import <AudioKit/AKPhaseDistortionOscillatorDSP.hpp>
 #import <AudioKit/AKPWMOscillatorDSP.hpp>
 
@@ -155,11 +156,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTimelineTap.h>
 
 // Utilities
-#import <AudioKit/TPCircularBuffer.h>
-#import <AudioKit/TPCircularBuffer+Unit.h>
-#import <AudioKit/TPCircularBuffer+AudioBufferList.h>
 #import <AudioKit/ParameterRamper.hpp>
-#import <AudioKit/BufferedAudioBus.hpp>
 #import <AudioKit/AKTimeline.h>
 
 // Sequencer
@@ -169,7 +166,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability
-#import <AudioKit/AKInterop.hpp>
+#import <AudioKit/AKInterop.h>
 
 // Automation
 #import <AudioKit/AKParameterAutomation.hpp>

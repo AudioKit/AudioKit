@@ -30,3 +30,9 @@ typedef void* AKDSPRef AK_SWIFT_TYPE;
 #else
 typedef class AKDSPBase* AKDSPRef;
 #endif
+
+#ifdef __cplusplus
+#define AK_API extern "C"
+#else
+#define AK_API
+#endif

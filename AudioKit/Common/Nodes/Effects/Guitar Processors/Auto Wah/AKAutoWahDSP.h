@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
     AKAutoWahParameterWah,
@@ -10,8 +11,5 @@ typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
     AKAutoWahParameterAmplitude,
 };
 
-#ifndef __cplusplus
+AK_API AKDSPRef createAutoWahDSP(void);
 
-AKDSPRef createAutoWahDSP(void);
-
-#endif
