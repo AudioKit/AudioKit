@@ -1,0 +1,39 @@
+
+# xcodegen project file for AudioKit frameworks
+
+name: AudioKitGen # when ready, rename this to AudioKit
+
+targets:
+  AudioKit:
+    type: framework
+    platform: [macOS, iOS]
+    sources:
+      - path: Externals 
+        excludes:
+          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+          - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
+      - path: Common/Internals
+        excludes:
+          - "**/*.md"
+      - path: Audio Files
+        excludes:
+          - "**/*.md"
+      - path: Common/MIDI
+        excludes:
+          - "**/*.md"
+      - path: Common/Nodes
+        excludes:
+          - "**/*.md"
+      - path: Common/Operations
+        excludes:
+          - "**/*.md"
+      - path: Common/Sequencing
+        excludes:
+          - "**/*.md"
+      - path: Common/Taps
+        excludes:
+          - "**/*.md"
+    settings:
+      HEADER_SEARCH_PATHS: "Externals/Sporth/h" # Need to be able to find the sporth headers.
+      GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
+          
