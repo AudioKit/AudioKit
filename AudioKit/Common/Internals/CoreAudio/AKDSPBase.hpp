@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "AKInterop.hpp"
+#import "AKInterop.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 

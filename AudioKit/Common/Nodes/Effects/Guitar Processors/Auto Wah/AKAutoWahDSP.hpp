@@ -3,7 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import "AKInterop.hpp"
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
     AKAutoWahParameterWah,

@@ -173,7 +173,7 @@
 		551AAC611F620A7F00A14C0D /* AKClipRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AAC2F1F61F59700A14C0D /* AKClipRecorder.swift */; };
 		551AAC621F620A8D00A14C0D /* AKTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AAC2A1F61F48300A14C0D /* AKTiming.swift */; };
 		552FBD431F3F6A5600C02C08 /* AKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552FBD421F3F6A5600C02C08 /* AKConnection.swift */; };
-		55B95B2F1FEDC07E00C76AF5 /* AKInterop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		55B95B2F1FEDC07E00C76AF5 /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5221F57CB540088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5201F57CB540088018A /* AKSamplerMetronome.m */; };
 		55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F29C081E90654C00A2151F /* AKScheduledAction.swift */; };
@@ -2333,7 +2333,7 @@
 		EAA62C54247F3A5B00BF4CDB /* AKCostelloReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C56247F3A5B00BF4CDB /* AKVocalTractDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49E9CE5201188E0006599B4 /* AKVocalTractDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C59247F3A5B00BF4CDB /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12C4204A06B6009C7C8E /* fwavblnk_raw.h */; };
-		EAA62C5B247F3A5B00BF4CDB /* AKInterop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA62C5B247F3A5B00BF4CDB /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C5C247F3A5B00BF4CDB /* AKLowPassButterworthFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B172008762600E5923C /* AKLowPassButterworthFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C5D247F3A5B00BF4CDB /* AKModalResonanceFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B2A2008787D00E5923C /* AKModalResonanceFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62C60247F3A5B00BF4CDB /* AKSampler_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79120507B1500A2C9E4 /* AKSampler_Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3237,7 +3237,7 @@
 		EAA63127247F44E200BF4CDB /* AKCostelloReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63129247F44E200BF4CDB /* AKVocalTractDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49E9CE5201188E0006599B4 /* AKVocalTractDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6312C247F44E200BF4CDB /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B12C4204A06B6009C7C8E /* fwavblnk_raw.h */; };
-		EAA6312E247F44E200BF4CDB /* AKInterop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA6312E247F44E200BF4CDB /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B2C1FEDBFA800C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA6312F247F44E200BF4CDB /* AKLowPassButterworthFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B172008762600E5923C /* AKLowPassButterworthFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63130247F44E200BF4CDB /* AKModalResonanceFilterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077B2A2008787D00E5923C /* AKModalResonanceFilterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63133247F44E200BF4CDB /* AKSampler_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79120507B1500A2C9E4 /* AKSampler_Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3756,7 +3756,7 @@
 		551AAC2E1F61F59700A14C0D /* AKClipMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipMerger.swift; sourceTree = "<group>"; };
 		551AAC2F1F61F59700A14C0D /* AKClipRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipRecorder.swift; sourceTree = "<group>"; };
 		552FBD421F3F6A5600C02C08 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
-		55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKInterop.hpp; sourceTree = "<group>"; };
+		55B95B2C1FEDBFA800C76AF5 /* AKInterop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKInterop.h; sourceTree = "<group>"; };
 		55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSamplerMetronome.h; sourceTree = "<group>"; };
 		55E4F5201F57CB540088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSamplerMetronome.m; sourceTree = "<group>"; };
 		55F29C081E90654C00A2151F /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
@@ -5224,7 +5224,7 @@
 			isa = PBXGroup;
 			children = (
 				FE5839712080FA78008DBCE6 /* AKError.swift */,
-				55B95B2C1FEDBFA800C76AF5 /* AKInterop.hpp */,
+				55B95B2C1FEDBFA800C76AF5 /* AKInterop.h */,
 				C4649D3E23C07F660020072A /* AKLog.swift */,
 				C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */,
 				5251477A1CC4AD7E00421C52 /* AKNotifications.swift */,
@@ -8096,7 +8096,7 @@
 				C4A43291200618410005BFE4 /* AKCostelloReverbDSP.hpp in Headers */,
 				C49E9CE8201188E0006599B4 /* AKVocalTractDSP.hpp in Headers */,
 				C49B14F7204A06B8009C7C8E /* fwavblnk_raw.h in Headers */,
-				55B95B2F1FEDC07E00C76AF5 /* AKInterop.hpp in Headers */,
+				55B95B2F1FEDC07E00C76AF5 /* AKInterop.h in Headers */,
 				C4077B1A2008762600E5923C /* AKLowPassButterworthFilterDSP.hpp in Headers */,
 				C4077B2D2008787D00E5923C /* AKModalResonanceFilterDSP.hpp in Headers */,
 				3404A7A520507B1600A2C9E4 /* AKSampler_Typedefs.h in Headers */,
@@ -8785,7 +8785,7 @@
 				EAA62C54247F3A5B00BF4CDB /* AKCostelloReverbDSP.hpp in Headers */,
 				EAA62C56247F3A5B00BF4CDB /* AKVocalTractDSP.hpp in Headers */,
 				EAA62C59247F3A5B00BF4CDB /* fwavblnk_raw.h in Headers */,
-				EAA62C5B247F3A5B00BF4CDB /* AKInterop.hpp in Headers */,
+				EAA62C5B247F3A5B00BF4CDB /* AKInterop.h in Headers */,
 				EAA62C5C247F3A5B00BF4CDB /* AKLowPassButterworthFilterDSP.hpp in Headers */,
 				EAA62C5D247F3A5B00BF4CDB /* AKModalResonanceFilterDSP.hpp in Headers */,
 				EAA62C60247F3A5B00BF4CDB /* AKSampler_Typedefs.h in Headers */,
@@ -8984,7 +8984,7 @@
 				EAA63127247F44E200BF4CDB /* AKCostelloReverbDSP.hpp in Headers */,
 				EAA63129247F44E200BF4CDB /* AKVocalTractDSP.hpp in Headers */,
 				EAA6312C247F44E200BF4CDB /* fwavblnk_raw.h in Headers */,
-				EAA6312E247F44E200BF4CDB /* AKInterop.hpp in Headers */,
+				EAA6312E247F44E200BF4CDB /* AKInterop.h in Headers */,
 				EAA6312F247F44E200BF4CDB /* AKLowPassButterworthFilterDSP.hpp in Headers */,
 				EAA63130247F44E200BF4CDB /* AKModalResonanceFilterDSP.hpp in Headers */,
 				EAA63133247F44E200BF4CDB /* AKSampler_Typedefs.h in Headers */,

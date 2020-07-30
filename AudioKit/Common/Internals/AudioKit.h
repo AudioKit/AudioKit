@@ -169,7 +169,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #endif
 
 // Swift/ObjC/C/C++ Inter-operability
-#import <AudioKit/AKInterop.hpp>
+#import <AudioKit/AKInterop.h>
 
 // Automation
 #import <AudioKit/AKParameterAutomation.hpp>
