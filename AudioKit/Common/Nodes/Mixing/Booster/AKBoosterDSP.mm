@@ -1,9 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKBoosterDSP.hpp"
-#import "ParameterRamper.hpp"
-
-#import "AKDSPBase.hpp"
+#include "AudioKit.h"
 
 struct AKBoosterDSP : public AKDSPBase {
 private:

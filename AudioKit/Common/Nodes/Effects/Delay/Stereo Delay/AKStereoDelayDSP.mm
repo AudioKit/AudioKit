@@ -1,10 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKStereoDelayDSP.hpp"
+#include "AudioKit.h"
 #include "StereoDelay.hpp"
-#import "ParameterRamper.hpp"
-
-#include "AKDSPBase.hpp"
 
 class AKStereoDelayDSP : public AKDSPBase {
 private:

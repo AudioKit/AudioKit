@@ -1,9 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKWhiteNoiseDSP.hpp"
-#include "ParameterRamper.hpp"
-
-#import "AKSoundpipeDSPBase.hpp"
+#include "AudioKit.h"
 
 class AKWhiteNoiseDSP : public AKSoundpipeDSPBase {
 private:

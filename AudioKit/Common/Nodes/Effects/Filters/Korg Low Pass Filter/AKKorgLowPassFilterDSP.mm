@@ -1,9 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKKorgLowPassFilterDSP.hpp"
-#include "ParameterRamper.hpp"
-
-#import "AKSoundpipeDSPBase.hpp"
+#include "AudioKit.h"
 
 class AKKorgLowPassFilterDSP : public AKSoundpipeDSPBase {
 private:

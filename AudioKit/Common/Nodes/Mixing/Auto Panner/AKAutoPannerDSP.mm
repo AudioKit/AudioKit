@@ -1,10 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKAutoPannerDSP.hpp"
-#import "ParameterRamper.hpp"
-#import <vector>
+#import "AudioKit.h"
 
-#import "AKSoundpipeDSPBase.hpp"
+#import <vector>
 
 class AKAutoPannerDSP : public AKSoundpipeDSPBase {
 private:

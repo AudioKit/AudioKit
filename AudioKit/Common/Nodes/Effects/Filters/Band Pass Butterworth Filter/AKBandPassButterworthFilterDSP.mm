@@ -1,9 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKBandPassButterworthFilterDSP.hpp"
-#include "ParameterRamper.hpp"
-
-#import "AKSoundpipeDSPBase.hpp"
+#include "AudioKit.h"
 
 class AKBandPassButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:

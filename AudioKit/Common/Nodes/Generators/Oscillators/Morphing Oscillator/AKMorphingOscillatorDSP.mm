@@ -1,10 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKMorphingOscillatorDSP.hpp"
-#include "ParameterRamper.hpp"
-#include <vector>
+#include "AudioKit.h"
 
-#import "AKSoundpipeDSPBase.hpp"
+#include <vector>
 
 class AKMorphingOscillatorDSP : public AKSoundpipeDSPBase {
 private:
