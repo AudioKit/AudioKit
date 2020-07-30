@@ -50,7 +50,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTremoloDSP.hpp>
 
 // Effects / Filters
-#import <AudioKit/AKAutoWahDSP.hpp>
+#import <AudioKit/AKAutoWahDSP.h>
 #import <AudioKit/AKBandPassButterworthFilterDSP.hpp>
 #import <AudioKit/AKBandRejectButterworthFilterDSP.hpp>
 #import <AudioKit/AKDCBlockDSP.hpp>
@@ -99,7 +99,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators / Oscillators
 #import <AudioKit/AKFMOscillatorDSP.hpp>
 #import <AudioKit/AKMorphingOscillatorDSP.hpp>
-#import <AudioKit/AKOscillatorDSP.hpp>
+#import <AudioKit/AKOscillatorDSP.h>
 #import <AudioKit/AKPhaseDistortionOscillatorDSP.hpp>
 #import <AudioKit/AKPWMOscillatorDSP.hpp>
 
