@@ -1,5 +1,10 @@
 #ifndef SOUNDPIPE_H
 #define SOUNDPIPE_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdio.h>
 
@@ -1833,4 +1838,9 @@ int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
         SPFLOAT *freq_phase, SPFLOAT *smp); 
 
 int sp_padsynth_normalize(int N, SPFLOAT *smp);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

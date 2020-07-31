@@ -3,10 +3,8 @@
 #ifdef __cplusplus
 #pragma once
 
-extern "C" {
 #include "soundpipe.h"
 #include "soundpipeextension.h"
-}
 
 #import "AKDSPKernel.hpp"
 
