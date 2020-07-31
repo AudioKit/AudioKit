@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 {
@@ -46,25 +47,23 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterRampDuration,
 };
 
-#ifndef __cplusplus
-
 #include "AKSampler_Typedefs.h"
 
-AKDSPRef createAKSamplerDSP(void);
-void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
-void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
-void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
-void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
-void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
-void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
-void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
-void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
-void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
-void doAKSamplerStopAllVoices(AKDSPRef pDSP);
-void doAKSamplerRestartVoices(AKDSPRef pDSP);
-void doAKSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
+AK_API AKDSPRef createAKSamplerDSP(void);
+AK_API void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
+AK_API void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
+AK_API void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
+AK_API void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
+AK_API void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
+AK_API void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
+AK_API void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
+AK_API void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
+AK_API void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
+AK_API void doAKSamplerStopAllVoices(AKDSPRef pDSP);
+AK_API void doAKSamplerRestartVoices(AKDSPRef pDSP);
+AK_API void doAKSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
-#else
+#ifdef __cplusplus
 
 #import "AKDSPBase.hpp"
 #include "AKCoreSampler.hpp"

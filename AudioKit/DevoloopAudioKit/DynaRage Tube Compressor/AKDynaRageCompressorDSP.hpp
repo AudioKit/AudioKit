@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKDynaRageCompressorParameter) {
     AKDynaRageCompressorParameterRatio,
@@ -13,8 +14,4 @@ typedef NS_ENUM(AUParameterAddress, AKDynaRageCompressorParameter) {
     AKDynaRageCompressorParameterRageEnabled
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createDynaRageCompressorDSP(void);
-
-#endif
+AK_API AKDSPRef createDynaRageCompressorDSP(void);
