@@ -1,6 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AudioKit.h"
+#include "soundpipe.h"
+#include "vocwrapper.h"
 
 class AKVocalTractDSP : public AKSoundpipeDSPBase {
 private:
