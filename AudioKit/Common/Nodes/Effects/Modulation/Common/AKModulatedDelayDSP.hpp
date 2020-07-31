@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
     AKModulatedDelayParameterFrequency,
@@ -42,12 +43,10 @@ extern const float kAKFlanger_MaxDepth;
 extern const float kAKFlanger_MinDryWetMix;
 extern const float kAKFlanger_MaxDryWetMix;
 
-#ifndef __cplusplus
+AK_API AKDSPRef createChorusDSP(void);
+AK_API AKDSPRef createFlangerDSP(void);
 
-AKDSPRef createChorusDSP(void);
-AKDSPRef createFlangerDSP(void);
-
-#else
+#ifdef __cplusplus
 
 #import "AKDSPBase.hpp"
 #import "AKModulatedDelay.hpp"

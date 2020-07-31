@@ -92,6 +92,6 @@ AKDSPRef createShakerDSP() {
     return new AKShakerDSP();
 }
 
-extern "C" void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
+void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
     ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
 }

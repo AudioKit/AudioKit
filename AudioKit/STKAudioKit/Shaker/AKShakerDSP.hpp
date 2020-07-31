@@ -3,18 +3,15 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
     AKShakerParameterType,
     AKShakerParameterAmplitude,
 };
 
-#ifndef __cplusplus
+AK_API AKDSPRef createShakerDSP(void);
 
-AKDSPRef createShakerDSP(void);
-
-void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
-
-#endif
+AK_API void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
 
 
