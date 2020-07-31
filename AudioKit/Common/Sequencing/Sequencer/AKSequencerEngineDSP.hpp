@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKSequencerEngineParameter) {
     AKSequencerEngineParameterTempo,
@@ -12,9 +13,9 @@ typedef NS_ENUM(AUParameterAddress, AKSequencerEngineParameter) {
     AKSequencerEngineParameterLoopEnabled
 };
 
-#ifndef __cplusplus
+AK_API AKDSPRef createAKSequencerEngineDSP(void);
 
-AKDSPRef createAKSequencerEngineDSP(void);
+#ifndef __cplusplus
 
 void sequencerEngineAddMIDIEvent(AKDSPRef dsp, uint8_t status, uint8_t data1, uint8_t data2, double beat);
 void sequencerEngineAddMIDINote(AKDSPRef dsp, uint8_t noteNumber, uint8_t velocity, double beat, double duration);
