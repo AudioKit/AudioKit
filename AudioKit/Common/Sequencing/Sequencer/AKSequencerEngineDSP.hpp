@@ -198,6 +198,16 @@ public:
             positionInSamples += frameCount;
         }
         framesCounted += frameCount;
+
+        // Zero the output.
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
+
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                *out = 0.0;
+            }
+        }
     }
 
     void removeNoteAt(double beat) {
