@@ -292,7 +292,7 @@
 		C41863771C23FE6600A06E41 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863741C23FE6600A06E41 /* jitter.swift */; };
 		C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863751C23FE6600A06E41 /* randomNumberPulse.swift */; };
 		C41863791C23FE6600A06E41 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863761C23FE6600A06E41 /* randomVertexPulse.swift */; };
-		C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.mm in Headers */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
+		C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4198D581DCD98F900D7C13F /* increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D571DCD98F900D7C13F /* increment.swift */; };
 		C4198D5A1DCD9BB700D7C13F /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D591DCD9BB700D7C13F /* save.swift */; };
 		C4198D5C1DCD9C4300D7C13F /* count.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D5B1DCD9C4300D7C13F /* count.swift */; };
@@ -2291,7 +2291,7 @@
 		EAA62C98247F3A5B00BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69621D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp */; };
 		EAA62C9C247F3A5B00BF4CDB /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		EAA62C9D247F3A5B00BF4CDB /* decorr_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB673C205AC237000E5450 /* decorr_tables.h */; };
-		EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA62CA0247F3A5B00BF4CDB /* WaveStack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE6213C6D6500AFDEBC /* WaveStack.hpp */; };
 		EAA62CA2247F3A5B00BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45380511C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp */; };
 		EAA62CA5247F3A5B00BF4CDB /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B215D204A28F3009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3141,7 +3141,7 @@
 		EAA6316B247F44E200BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49D69621D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp */; };
 		EAA6316F247F44E200BF4CDB /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		EAA63170247F44E200BF4CDB /* decorr_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB673C205AC237000E5450 /* decorr_tables.h */; };
-		EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C419102D2009A8530067B5E0 /* AKStereoFieldLimiterDSP.mm */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA63173247F44E200BF4CDB /* WaveStack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE6213C6D6500AFDEBC /* WaveStack.hpp */; };
 		EAA63175247F44E200BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45380511C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp */; };
 		EAA63178247F44E200BF4CDB /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B215D204A28F3009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -7847,7 +7847,6 @@
 				C49D69701D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
 				F02767321E79C7690099CA47 /* AKSporthStack+Internal.h in Headers */,
 				34BB675B205AC238000E5450 /* decorr_tables.h in Headers */,
-				C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.mm in Headers */,
 				C457CBF6213C6D6500AFDEBC /* WaveStack.hpp in Headers */,
 				C45380551C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				C49B2165204A28F3009C7C8E /* AKPresetManager.h in Headers */,
@@ -8481,7 +8480,6 @@
 				EAA62C98247F3A5B00BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
 				EAA62C9C247F3A5B00BF4CDB /* AKSporthStack+Internal.h in Headers */,
 				EAA62C9D247F3A5B00BF4CDB /* decorr_tables.h in Headers */,
-				EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */,
 				EAA62CA0247F3A5B00BF4CDB /* WaveStack.hpp in Headers */,
 				EAA62CA2247F3A5B00BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				EAA62CA5247F3A5B00BF4CDB /* AKPresetManager.h in Headers */,
@@ -8627,7 +8625,6 @@
 				EAA6316B247F44E200BF4CDB /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
 				EAA6316F247F44E200BF4CDB /* AKSporthStack+Internal.h in Headers */,
 				EAA63170247F44E200BF4CDB /* decorr_tables.h in Headers */,
-				EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Headers */,
 				EAA63173247F44E200BF4CDB /* WaveStack.hpp in Headers */,
 				EAA63175247F44E200BF4CDB /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				EAA63178247F44E200BF4CDB /* AKPresetManager.h in Headers */,
@@ -9185,6 +9182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49B14DA204A06B8009C7C8E /* ftmap.c in Sources */,
+				C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.mm in Sources */,
 				C49B13CF204A06B7009C7C8E /* adsr.c in Sources */,
 				B16FE9FC24CE01BB000D4A79 /* AKWaveformDataRequest.swift in Sources */,
 				C49B1495204A06B8009C7C8E /* samphold.c in Sources */,
@@ -10197,6 +10195,7 @@
 				EAA628B9247F3A5B00BF4CDB /* rspline.c in Sources */,
 				EAA628BA247F3A5B00BF4CDB /* bal.c in Sources */,
 				EAA628BB247F3A5B00BF4CDB /* AKAmplitudeTap.swift in Sources */,
+				EAA62C9E247F3A5B00BF4CDB /* AKStereoFieldLimiterDSP.mm in Sources */,
 				EAA628BC247F3A5B00BF4CDB /* vdelay.c in Sources */,
 				EAA628BE247F3A5B00BF4CDB /* clock.c in Sources */,
 				EAA628C0247F3A5B00BF4CDB /* AKChowningReverbDSP.mm in Sources */,
@@ -10872,6 +10871,7 @@
 				EAA62D79247F44E200BF4CDB /* samphold.c in Sources */,
 				EAA62D7A247F44E200BF4CDB /* mincer.c in Sources */,
 				EAA62D7B247F44E200BF4CDB /* AKReverb2.swift in Sources */,
+				EAA63171247F44E200BF4CDB /* AKStereoFieldLimiterDSP.mm in Sources */,
 				EAA62D7C247F44E200BF4CDB /* stack.c in Sources */,
 				EAA62D7D247F44E200BF4CDB /* hilbert.c in Sources */,
 				EAA62D7E247F44E200BF4CDB /* rspline.c in Sources */,
