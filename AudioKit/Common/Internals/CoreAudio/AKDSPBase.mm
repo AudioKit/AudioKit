@@ -3,97 +3,97 @@
 #import "AKDSPBase.hpp"
 #import "ParameterRamper.hpp"
 
-extern "C" AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
+AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
 {
     return pDSP->internalRenderBlock();
 }
 
-extern "C" size_t inputBusCountDSP(AKDSPRef pDSP)
+size_t inputBusCountDSP(AKDSPRef pDSP)
 {
     return pDSP->inputBufferLists.size();
 }
 
-extern "C" size_t outputBusCountDSP(AKDSPRef pDSP)
+size_t outputBusCountDSP(AKDSPRef pDSP)
 {
     return pDSP->outputBufferLists.size();
 }
 
-extern "C" bool canProcessInPlaceDSP(AKDSPRef pDSP)
+bool canProcessInPlaceDSP(AKDSPRef pDSP)
 {
     return pDSP->canProcessInPlace();
 }
 
-extern "C" void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
 {
     pDSP->setBuffer(buffer, busIndex);
 }
 
-extern "C" void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format)
+void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format)
 {
     pDSP->init(format.channelCount, format.sampleRate);
 }
 
-extern "C" void deallocateRenderResourcesDSP(AKDSPRef pDSP)
+void deallocateRenderResourcesDSP(AKDSPRef pDSP)
 {
     pDSP->deinit();
 }
 
-extern "C" void resetDSP(AKDSPRef pDSP)
+void resetDSP(AKDSPRef pDSP)
 {
     pDSP->reset();
 }
 
-extern "C" void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value)
+void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value)
 {
     pDSP->setParameter(address, value, false);
 }
 
-extern "C" AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
+AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
 {
     return pDSP->getParameter(address);
 }
 
-extern "C" void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
+void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
 {
     pDSP->setParameterRampDuration(address, rampDuration);
 }
 
-extern "C" void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
+void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
 {
     pDSP->setParameterRampTaper(address, taper);
 }
 
-extern "C" void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
+void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
 {
     pDSP->setParameterRampSkew(address, skew);
 }
 
-extern "C" void startDSP(AKDSPRef pDSP)
+void startDSP(AKDSPRef pDSP)
 {
     pDSP->start();
 }
 
-extern "C" void stopDSP(AKDSPRef pDSP)
+void stopDSP(AKDSPRef pDSP)
 {
     pDSP->stop();
 }
 
-extern "C" void triggerDSP(AKDSPRef pDSP)
+void triggerDSP(AKDSPRef pDSP)
 {
     pDSP->trigger();
 }
 
-extern "C" void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude)
+void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude)
 {
     pDSP->triggerFrequencyAmplitude(frequency, amplitude);
 }
 
-extern "C" void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index)
+void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index)
 {
     pDSP->setWavetable(table, length, index);
 }
 
-extern "C" void deleteDSP(AKDSPRef pDSP)
+void deleteDSP(AKDSPRef pDSP)
 {
     delete pDSP;
 }

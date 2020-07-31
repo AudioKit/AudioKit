@@ -6,41 +6,39 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
-#ifndef __cplusplus
-
 #include <stdarg.h>
 
-AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
+AK_API AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
 
-size_t inputBusCountDSP(AKDSPRef pDSP);
-size_t outputBusCountDSP(AKDSPRef pDSP);
-bool canProcessInPlaceDSP(AKDSPRef pDSP);
+AK_API size_t inputBusCountDSP(AKDSPRef pDSP);
+AK_API size_t outputBusCountDSP(AKDSPRef pDSP);
+AK_API bool canProcessInPlaceDSP(AKDSPRef pDSP);
 
-void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
-void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
-void deallocateRenderResourcesDSP(AKDSPRef pDSP);
-void resetDSP(AKDSPRef pDSP);
+AK_API void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
+AK_API void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
+AK_API void deallocateRenderResourcesDSP(AKDSPRef pDSP);
+AK_API void resetDSP(AKDSPRef pDSP);
 
-void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
-AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
+AK_API void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
+AK_API AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
 
-void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration);
-void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper);
-void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew);
+AK_API void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration);
+AK_API void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper);
+AK_API void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew);
 
-void startDSP(AKDSPRef pDSP);
-void stopDSP(AKDSPRef pDSP);
+AK_API void startDSP(AKDSPRef pDSP);
+AK_API void stopDSP(AKDSPRef pDSP);
 
-void initializeConstantDSP(AKDSPRef pDSP, AUValue value);
+AK_API void initializeConstantDSP(AKDSPRef pDSP, AUValue value);
 
-void triggerDSP(AKDSPRef pDSP);
-void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude);
+AK_API void triggerDSP(AKDSPRef pDSP);
+AK_API void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude);
 
-void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index);
+AK_API void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index);
 
-void deleteDSP(AKDSPRef pDSP);
+AK_API void deleteDSP(AKDSPRef pDSP);
 
-#else
+#ifdef __cplusplus
 
 #import <Foundation/Foundation.h>
 #import <vector>
