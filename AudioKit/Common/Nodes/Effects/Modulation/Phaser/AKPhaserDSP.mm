@@ -83,6 +83,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createPhaserDSP() {
+AKDSPRef createPhaserDSP() {
     return new AKPhaserDSP();
 }

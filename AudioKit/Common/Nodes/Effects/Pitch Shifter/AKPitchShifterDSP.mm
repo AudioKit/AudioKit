@@ -79,6 +79,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createPitchShifterDSP() {
+AKDSPRef createPitchShifterDSP() {
     return new AKPitchShifterDSP();
 }

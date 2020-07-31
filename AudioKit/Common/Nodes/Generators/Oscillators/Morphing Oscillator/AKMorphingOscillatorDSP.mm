@@ -81,6 +81,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createMorphingOscillatorDSP() {
+AKDSPRef createMorphingOscillatorDSP() {
     return new AKMorphingOscillatorDSP();
 }

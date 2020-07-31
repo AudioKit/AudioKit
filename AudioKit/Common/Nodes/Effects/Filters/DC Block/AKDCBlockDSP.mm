@@ -62,6 +62,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createDCBlockDSP() {
+AKDSPRef createDCBlockDSP() {
     return new AKDCBlockDSP();
 }

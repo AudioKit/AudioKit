@@ -6,7 +6,7 @@
 
 #include "AKSequencerEngineDSP.hpp"
 
-extern "C" AKDSPRef createAKSequencerEngineDSP() {
+AKDSPRef createAKSequencerEngineDSP() {
     return new AKSequencerEngineDSP();
 }
 

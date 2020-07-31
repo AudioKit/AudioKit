@@ -80,6 +80,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createAutoWahDSP() {
+AKDSPRef createAutoWahDSP() {
     return new AKAutoWahDSP();
 }

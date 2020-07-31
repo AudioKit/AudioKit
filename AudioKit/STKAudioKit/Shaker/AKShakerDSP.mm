@@ -88,7 +88,7 @@ public:
     }
 };
 
-extern "C" AKDSPRef createShakerDSP() {
+AKDSPRef createShakerDSP() {
     return new AKShakerDSP();
 }
 

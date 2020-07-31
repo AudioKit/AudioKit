@@ -70,6 +70,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createDripDSP() {
+AKDSPRef createDripDSP() {
     return new AKDripDSP();
 }

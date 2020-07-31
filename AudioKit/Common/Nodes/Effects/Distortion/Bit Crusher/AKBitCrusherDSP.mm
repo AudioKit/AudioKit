@@ -74,6 +74,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createBitCrusherDSP() {
+AKDSPRef createBitCrusherDSP() {
     return new AKBitCrusherDSP();
 }

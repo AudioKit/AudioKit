@@ -121,6 +121,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createDynaRageCompressorDSP() {
+AKDSPRef createDynaRageCompressorDSP() {
     return new AKDynaRageCompressorDSP();
 }

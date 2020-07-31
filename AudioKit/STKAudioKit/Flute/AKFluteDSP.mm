@@ -110,7 +110,7 @@ public:
 
 };
 
-extern "C" AKDSPRef createFluteDSP() {
+AKDSPRef createFluteDSP() {
     return new AKFluteDSP();
 }
 

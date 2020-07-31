@@ -63,6 +63,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createCostelloReverbDSP() {
+AKDSPRef createCostelloReverbDSP() {
     return new AKCostelloReverbDSP();
 }

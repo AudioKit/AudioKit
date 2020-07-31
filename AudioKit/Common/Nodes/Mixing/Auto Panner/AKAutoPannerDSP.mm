@@ -74,6 +74,6 @@ public:
 
 };
 
-extern "C" AKDSPRef createAutoPannerDSP() {
+AKDSPRef createAutoPannerDSP() {
     return new AKAutoPannerDSP();
 }

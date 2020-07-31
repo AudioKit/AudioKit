@@ -74,6 +74,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createResonantFilterDSP() {
+AKDSPRef createResonantFilterDSP() {
     return new AKResonantFilterDSP();
 }

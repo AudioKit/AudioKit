@@ -74,7 +74,7 @@ public:
     }
 };
 
-extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP() {
+AKDSPRef createFlatFrequencyResponseReverbDSP() {
     return new AKFlatFrequencyResponseReverbDSP();
 }
 

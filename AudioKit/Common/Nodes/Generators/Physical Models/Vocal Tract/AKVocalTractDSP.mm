@@ -75,6 +75,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createVocalTractDSP() {
+AKDSPRef createVocalTractDSP() {
     return new AKVocalTractDSP();
 }

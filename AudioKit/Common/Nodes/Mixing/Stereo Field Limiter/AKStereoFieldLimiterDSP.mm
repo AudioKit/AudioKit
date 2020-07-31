@@ -45,6 +45,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createStereoFieldLimiterDSP() {
+AKDSPRef createStereoFieldLimiterDSP() {
     return new AKStereoFieldLimiterDSP();
 }

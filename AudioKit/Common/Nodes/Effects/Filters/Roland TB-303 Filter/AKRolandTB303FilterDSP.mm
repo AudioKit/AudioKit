@@ -86,6 +86,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createRolandTB303FilterDSP() {
+AKDSPRef createRolandTB303FilterDSP() {
     return new AKRolandTB303FilterDSP();
 }

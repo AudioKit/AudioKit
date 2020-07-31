@@ -127,6 +127,6 @@ public:
 
 };
 
-extern "C" AKDSPRef createRhinoGuitarProcessorDSP() {
+AKDSPRef createRhinoGuitarProcessorDSP() {
     return new AKRhinoGuitarProcessorDSP();
 }

@@ -111,7 +111,7 @@ public:
     
 };
 
-extern "C" AKDSPRef createClarinetDSP() {
+AKDSPRef createClarinetDSP() {
     return new AKClarinetDSP();
 }
 
