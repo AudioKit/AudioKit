@@ -324,9 +324,8 @@ private:
     UInt64 framesCounted = 0;
     long positionInSamples = 0;
 
-public:
-    MIDIPortRef midiPort;
-    MIDIEndpointRef midiEndpoint;
+    MIDIPortRef midiPort = NULL;
+    MIDIEndpointRef midiEndpoint = NULL;
     std::vector<MIDIEvent> events;
     std::vector<MIDINote> notes;
     std::vector<MIDINote> playingNotes;
