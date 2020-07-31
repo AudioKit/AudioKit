@@ -155,7 +155,15 @@ targets:
           - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
           - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
           - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
-
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
-          
+
+  AudioKit_tests:
+    type: bundle.unit-test
+    platform: [macOS, iOS]
+    sources:
+      - path: ../Tests/TestCases
+        excludes:
+          - "AKDynaRageCompressorTests.swift"
+    dependencies:
+      - target: AudioKit_${platform}
