@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 {
@@ -46,11 +47,12 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterRampDuration,
 };
 
+AK_API AKDSPRef createAKSamplerDSP(void);
+
 #ifndef __cplusplus
 
 #include "AKSampler_Typedefs.h"
 
-AKDSPRef createAKSamplerDSP(void);
 void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
 void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
 void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);

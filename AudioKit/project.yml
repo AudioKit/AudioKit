@@ -8,40 +8,154 @@ targets:
     type: framework
     platform: [macOS, iOS]
     sources:
-      - path: Externals 
+      - path: Externals
         excludes:
           - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
-          - "Sporth/h/*.h" # Keep sporth headers out of AudioKit interface. plumber.h uses X-macros which mess up Clang's modules
+          - "AudioKitCore/Sampler/AKCoreSampler.hpp"
+          - "AudioKitCore/Synth/AKCoreSynth.hpp"
+          - "AudioKitCore/ModulatedDelay/AKModulatedDelay.hpp"
+          - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
+          - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
+          - "Soundpipe/test/md5.h"
+        headerVisibility: project
       - path: Externals
         includes:
-          - "Sporth/h/*.h"
-        headerVisibility: project
-      - path: Common/Internals
-        excludes:
-          - "**/*.md"
-          - "CoreAudio/Apple Code/*.hpp"
-      - path: Common/Internals
-        includes:
-          - "CoreAudio/Apple Code/*.hpp"
-        headerVisibility: project
+          - "AudioKitCore/Sampler/AKCoreSampler.hpp"
+          - "AudioKitCore/Synth/AKCoreSynth.hpp"
+          - "AudioKitCore/ModulatedDelay/AKModulatedDelay.hpp"
+          - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
+          - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
+          - "Soundpipe/test/md5.h"
       - path: Audio Files
         excludes:
           - "**/*.md"
-      - path: Common/MIDI
+        headerVisibility: project
+      - path: Common
         excludes:
           - "**/*.md"
-      - path: Common/Nodes
-        excludes:
-          - "**/*.md"
-      - path: Common/Operations
-        excludes:
-          - "**/*.md"
-      - path: Common/Sequencing
-        excludes:
-          - "**/*.md"
-      - path: Common/Taps
-        excludes:
-          - "**/*.md"
+          - "User Interface/**"
+          - "Nodes/Analysis/Amplitude Tracker/AKAmplitudeTrackerAudioUnit.h"
+          - "Internals/CoreAudio/AKAudioUnit.h"
+          - "Internals/CoreAudio/Bank/AKBankAudioUnit.h"
+          - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
+          - "Internals/CoreAudio/AKDSPBase.hpp"
+          - "Nodes/Playback/Samplers/Disk Streamer/AKDiskStreamerAudioUnit.h"
+          - "Nodes/Generators/Polysynths/FM Oscillator Bank/AKFMOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/FM Oscillator Filter Synth/AKFMOscillatorFilterSynthAudioUnit.h"
+          - "Internals/CoreAudio/Filter Synth/AKFilterSynthAudioUnit.h"
+          - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
+          - "Internals/CoreAudio/AKGlobals.hpp"
+          - "Internals/Utilities/AKInterop.h"
+          - "Taps/Lazy Tap/AKLazyTap.h"
+          - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
+          - "Internals/Hardware/Microphone Tracker/AKMicrophoneTrackerEngine.h"
+          - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
+          - "Nodes/Generators/Polysynths/Morphing Oscillator Bank/AKMorphingOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Morphing Oscillator Filter Synth/AKMorphingOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
+          - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Oscillator Bank/AKOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Oscillator Filter Synth/AKOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Generators/Polysynths/PWM Oscillator Bank/AKPWMOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/PWM Filter Synth/AKPWMOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
+          - "Nodes/Generators/Polysynths/Phase Distortion Oscillator Bank/AKPhaseDistortionOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Phase Distortion Filter Synth/AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
+          - "Taps/Render Tap/AKRenderTap.h"
+          - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
+          - "Nodes/Playback/AKSamplerMetronome.h"
+          - "Sequencing/Sequencer/AKSequencerEngineDSP.hpp"
+          - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
+          - "Internals/Sporth Custom Ugens/AKSporthStack.h"
+          - "Nodes/Generators/Polysynths/Synth/AKSynthDSP.hpp"
+          - "Internals/Utilities/Timeline/AKTimeline.h"
+          - "Taps/Timeline Tap/AKTimelineTap.h"
+          - "Nodes/Playback/Samplers/Wave Table/AKWaveTableAudioUnit.h"
+          - "Internals/AudioKit.h"
+          - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
+          - "Internals/Utilities/DebugDSP.h"
+          - "Internals/EZAudio/EZAudio.h"
+          - "Internals/EZAudio/EZAudioDevice.h"
+          - "Internals/EZAudio/EZAudioFFT.h"
+          - "Internals/EZAudio/EZAudioFile.h"
+          - "Internals/EZAudio/EZAudioFileMarker.h"
+          - "Internals/EZAudio/EZAudioFloatConverter.h"
+          - "Internals/EZAudio/EZAudioFloatData.h"
+          - "Internals/EZAudio/EZAudioPlayer.h"
+          - "Internals/EZAudio/EZAudioUtilities.h"
+          - "Internals/EZAudio/EZMicrophone.h"
+          - "Internals/EZAudio/EZOutput.h"
+          - "Internals/EZAudio/EZRecorder.h"
+          - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
+          - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
+        headerVisibility: project
+      - path: Common
+        includes:
+          - "Nodes/Analysis/Amplitude Tracker/AKAmplitudeTrackerAudioUnit.h"
+          - "Internals/CoreAudio/AKAudioUnit.h"
+          - "Internals/CoreAudio/Bank/AKBankAudioUnit.h"
+          - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
+          - "Internals/CoreAudio/AKDSPBase.hpp"
+          - "Nodes/Playback/Samplers/Disk Streamer/AKDiskStreamerAudioUnit.h"
+          - "Nodes/Generators/Polysynths/FM Oscillator Bank/AKFMOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/FM Oscillator Filter Synth/AKFMOscillatorFilterSynthAudioUnit.h"
+          - "Internals/CoreAudio/Filter Synth/AKFilterSynthAudioUnit.h"
+          - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
+          - "Internals/CoreAudio/AKGlobals.hpp"
+          - "Internals/Utilities/AKInterop.h"
+          - "Taps/Lazy Tap/AKLazyTap.h"
+          - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
+          - "Internals/Hardware/Microphone Tracker/AKMicrophoneTrackerEngine.h"
+          - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
+          - "Nodes/Generators/Polysynths/Morphing Oscillator Bank/AKMorphingOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Morphing Oscillator Filter Synth/AKMorphingOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
+          - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Oscillator Bank/AKOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Oscillator Filter Synth/AKOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Generators/Polysynths/PWM Oscillator Bank/AKPWMOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/PWM Filter Synth/AKPWMOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
+          - "Nodes/Generators/Polysynths/Phase Distortion Oscillator Bank/AKPhaseDistortionOscillatorBankAudioUnit.h"
+          - "Nodes/Generators/Polysynths/Filter Polysynths/Phase Distortion Filter Synth/AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+          - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
+          - "Taps/Render Tap/AKRenderTap.h"
+          - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
+          - "Nodes/Playback/AKSamplerMetronome.h"
+          - "Sequencing/Sequencer/AKSequencerEngineDSP.hpp"
+          - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
+          - "Internals/Sporth Custom Ugens/AKSporthStack.h"
+          - "Nodes/Generators/Polysynths/Synth/AKSynthDSP.hpp"
+          - "Internals/Utilities/Timeline/AKTimeline.h"
+          - "Taps/Timeline Tap/AKTimelineTap.h"
+          - "Nodes/Playback/Samplers/Wave Table/AKWaveTableAudioUnit.h"
+          - "Internals/AudioKit.h"
+          - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
+          - "Internals/Utilities/DebugDSP.h"
+          - "Internals/EZAudio/EZAudio.h"
+          - "Internals/EZAudio/EZAudioDevice.h"
+          - "Internals/EZAudio/EZAudioFFT.h"
+          - "Internals/EZAudio/EZAudioFile.h"
+          - "Internals/EZAudio/EZAudioFileMarker.h"
+          - "Internals/EZAudio/EZAudioFloatConverter.h"
+          - "Internals/EZAudio/EZAudioFloatData.h"
+          - "Internals/EZAudio/EZAudioPlayer.h"
+          - "Internals/EZAudio/EZAudioUtilities.h"
+          - "Internals/EZAudio/EZMicrophone.h"
+          - "Internals/EZAudio/EZOutput.h"
+          - "Internals/EZAudio/EZRecorder.h"
+          - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
+          - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
+
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
           
