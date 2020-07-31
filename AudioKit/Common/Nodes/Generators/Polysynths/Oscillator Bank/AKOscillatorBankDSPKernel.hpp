@@ -116,6 +116,6 @@ public:
     // MARK: Member Variables
     
 private:
-    sp_ftbl *ftbl;
+    sp_ftbl *ftbl = NULL;
     UInt32 ftbl_size = 4096;
 };
