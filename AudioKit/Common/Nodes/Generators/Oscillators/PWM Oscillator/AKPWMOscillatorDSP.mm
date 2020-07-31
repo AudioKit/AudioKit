@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AudioKit.h"
+#include "soundpipe.h"
 
 class AKPWMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
