@@ -103,7 +103,7 @@ public:
     }
 };
 
-extern "C" AKDSPRef createStereoDelayDSP() {
+AKDSPRef createStereoDelayDSP() {
     return new AKStereoDelayDSP();
 }
 

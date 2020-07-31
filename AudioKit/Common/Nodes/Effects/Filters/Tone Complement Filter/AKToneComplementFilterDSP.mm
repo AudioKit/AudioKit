@@ -69,6 +69,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createToneComplementFilterDSP() {
+AKDSPRef createToneComplementFilterDSP() {
     return new AKToneComplementFilterDSP();
 }

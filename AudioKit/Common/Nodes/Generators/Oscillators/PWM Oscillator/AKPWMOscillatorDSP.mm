@@ -72,6 +72,6 @@ public:
 
 };
 
-extern "C" AKDSPRef createPWMOscillatorDSP() {
+AKDSPRef createPWMOscillatorDSP() {
     return new AKPWMOscillatorDSP();
 }

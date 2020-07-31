@@ -77,6 +77,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createOscillatorDSP() {
+AKDSPRef createOscillatorDSP() {
     return new AKOscillatorDSP();
 }

@@ -80,6 +80,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createThreePoleLowpassFilterDSP() {
+AKDSPRef createThreePoleLowpassFilterDSP() {
     return new AKThreePoleLowpassFilterDSP();
 }

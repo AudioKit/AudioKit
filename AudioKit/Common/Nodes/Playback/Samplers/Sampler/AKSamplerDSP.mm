@@ -4,7 +4,7 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" AKDSPRef createAKSamplerDSP() {
+AKDSPRef createAKSamplerDSP() {
     return new AKSamplerDSP();
 }
 

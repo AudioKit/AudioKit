@@ -59,6 +59,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createPannerDSP() {
+AKDSPRef createPannerDSP() {
     return new AKPannerDSP();
 }

@@ -52,6 +52,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createPinkNoiseDSP() {
+AKDSPRef createPinkNoiseDSP() {
     return new AKPinkNoiseDSP();
 }

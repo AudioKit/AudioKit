@@ -68,6 +68,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createPluckedStringDSP() {
+AKDSPRef createPluckedStringDSP() {
     return new AKPluckedStringDSP();
 }

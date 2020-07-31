@@ -80,6 +80,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createKorgLowPassFilterDSP() {
+AKDSPRef createKorgLowPassFilterDSP() {
     return new AKKorgLowPassFilterDSP();
 }

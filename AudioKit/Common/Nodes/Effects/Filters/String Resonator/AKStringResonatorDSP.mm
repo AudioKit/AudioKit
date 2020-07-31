@@ -74,6 +74,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createStringResonatorDSP() {
+AKDSPRef createStringResonatorDSP() {
     return new AKStringResonatorDSP();
 }

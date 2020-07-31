@@ -52,6 +52,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createWhiteNoiseDSP() {
+AKDSPRef createWhiteNoiseDSP() {
     return new AKWhiteNoiseDSP();
 }

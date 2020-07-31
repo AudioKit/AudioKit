@@ -74,6 +74,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createMoogLadderDSP() {
+AKDSPRef createMoogLadderDSP() {
     return new AKMoogLadderDSP();
 }

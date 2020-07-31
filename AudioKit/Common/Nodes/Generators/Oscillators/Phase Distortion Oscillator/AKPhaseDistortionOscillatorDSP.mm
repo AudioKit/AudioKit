@@ -101,7 +101,7 @@ public:
     
 };
 
-extern "C" AKDSPRef createPhaseDistortionOscillatorDSP() {
+AKDSPRef createPhaseDistortionOscillatorDSP() {
     return new AKPhaseDistortionOscillatorDSP();
 }
 

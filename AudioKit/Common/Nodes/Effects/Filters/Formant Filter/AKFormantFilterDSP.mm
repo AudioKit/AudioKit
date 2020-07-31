@@ -80,6 +80,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createFormantFilterDSP() {
+AKDSPRef createFormantFilterDSP() {
     return new AKFormantFilterDSP();
 }

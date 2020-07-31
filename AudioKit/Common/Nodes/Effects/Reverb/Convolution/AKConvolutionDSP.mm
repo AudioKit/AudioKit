@@ -72,7 +72,7 @@ public:
     }
 };
 
-extern "C" AKDSPRef createConvolutionDSP() {
+AKDSPRef createConvolutionDSP() {
     return new AKConvolutionDSP();
 }
 

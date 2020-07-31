@@ -62,6 +62,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createChowningReverbDSP() {
+AKDSPRef createChowningReverbDSP() {
     return new AKChowningReverbDSP();
 }

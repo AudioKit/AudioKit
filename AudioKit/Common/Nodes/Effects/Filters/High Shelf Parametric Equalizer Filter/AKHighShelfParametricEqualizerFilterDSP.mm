@@ -84,6 +84,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createHighShelfParametricEqualizerFilterDSP() {
+AKDSPRef createHighShelfParametricEqualizerFilterDSP() {
     return new AKHighShelfParametricEqualizerFilterDSP();
 }

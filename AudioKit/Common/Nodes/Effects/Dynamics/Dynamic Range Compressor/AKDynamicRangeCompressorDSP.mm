@@ -86,6 +86,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createDynamicRangeCompressorDSP() {
+AKDSPRef createDynamicRangeCompressorDSP() {
     return new AKDynamicRangeCompressorDSP();
 }

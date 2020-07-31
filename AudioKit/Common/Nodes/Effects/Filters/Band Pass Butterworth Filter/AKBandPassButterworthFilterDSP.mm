@@ -74,6 +74,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createBandPassButterworthFilterDSP() {
+AKDSPRef createBandPassButterworthFilterDSP() {
     return new AKBandPassButterworthFilterDSP();
 }

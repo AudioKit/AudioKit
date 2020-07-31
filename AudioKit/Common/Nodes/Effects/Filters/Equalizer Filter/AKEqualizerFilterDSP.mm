@@ -80,6 +80,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createEqualizerFilterDSP() {
+AKDSPRef createEqualizerFilterDSP() {
     return new AKEqualizerFilterDSP();
 }

@@ -68,6 +68,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createClipperDSP() {
+AKDSPRef createClipperDSP() {
     return new AKClipperDSP();
 }

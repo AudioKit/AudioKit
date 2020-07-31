@@ -39,6 +39,6 @@ public:
     }
 };
 
-extern "C" AKDSPRef createBoosterDSP() {
+AKDSPRef createBoosterDSP() {
     return new AKBoosterDSP();
 }
