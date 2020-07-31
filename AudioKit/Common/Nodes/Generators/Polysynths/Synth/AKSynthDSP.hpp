@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKSynthParameter)
 {
@@ -30,14 +31,12 @@ typedef NS_ENUM(AUParameterAddress, AKSynthParameter)
     AKSynthParameterRampDuration,
 };
 
-#ifndef __cplusplus
+AK_API AKDSPRef createAKSynthDSP(void);
+AK_API void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+AK_API void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
+AK_API void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
-AKDSPRef createAKSynthDSP(void);
-void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
-void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
-
-#else
+#ifdef __cplusplus
 
 #import "AKDSPBase.hpp"
 #include "AKCoreSynth.hpp"

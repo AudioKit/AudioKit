@@ -3,21 +3,21 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *createAKSynthDSP() {
+AKDSPRef createAKSynthDSP() {
     return new AKSynthDSP();
 }
 
-extern "C" void doAKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-extern "C" void doAKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
+void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doAKSynthSustainPedal(void *pDSP, bool pedalDown)
+void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
 {
     ((AKSynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
