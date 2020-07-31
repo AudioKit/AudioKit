@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
     AKClarinetParameterFrequency,
@@ -10,9 +11,5 @@ typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
     AKClarinetParameterRampDuration
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createClarinetDSP(void);
-
-#endif
+AK_API AKDSPRef createClarinetDSP(void);
 
