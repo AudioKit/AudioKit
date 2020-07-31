@@ -2,6 +2,10 @@
 #define SOUNDPIPEEXTENSION_H
 #include "soundpipe.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Extension of Soundpipe library specific to AK
 
 typedef struct {
@@ -21,5 +25,9 @@ int sp_oscmorph2d_create(sp_oscmorph2d **p);
 int sp_oscmorph2d_destroy(sp_oscmorph2d **p);
 int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, int nbl, float *fbls, SPFLOAT iphs);
 int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *p, SPFLOAT *in, SPFLOAT *out);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
