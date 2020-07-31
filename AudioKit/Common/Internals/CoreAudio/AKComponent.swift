@@ -34,7 +34,9 @@ extension AKComponent {
                                      version: .max)
 
         AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
-            guard let au = avAudioUnit else { return }
+            guard let au = avAudioUnit else {
+                fatalError("Unable to instantiate AVAudioUnit")
+            }
             AKManager.engine.attach(au)
             callback(au)
         }

@@ -6,7 +6,7 @@
 public class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorFilterSynthAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(instrument: "oscb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "ofsy")
 
     // MARK: - Properties
 
@@ -305,6 +305,7 @@ public class AKOscillatorFilterSynth: AKPolyphonicNode, AKComponent {
             self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
+            assert(self.internalAU != nil)
             self.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
                 self.internalAU?.setWaveformValue(sample, at: UInt32(i))
