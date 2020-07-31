@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
     AKTubularBellsParameterFrequency,
@@ -10,10 +11,6 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
     AKTubularBellsParameterRampDuration
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createTubularBellsDSP(void);
-
-#endif
+AK_API AKDSPRef createTubularBellsDSP(void);
 
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterFrequency,
@@ -10,9 +11,5 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterRampDuration
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createFluteDSP(void);
-
-#endif
+AK_API AKDSPRef createFluteDSP(void);
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKRhinoGuitarProcessorParameter) {
     AKRhinoGuitarProcessorParameterPreGain,
@@ -13,9 +14,5 @@ typedef NS_ENUM(AUParameterAddress, AKRhinoGuitarProcessorParameter) {
     AKRhinoGuitarProcessorParameterDistortion
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createRhinoGuitarProcessorDSP(void);
-
-#endif
+AK_API AKDSPRef createRhinoGuitarProcessorDSP(void);
 

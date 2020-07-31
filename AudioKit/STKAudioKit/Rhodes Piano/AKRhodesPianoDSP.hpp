@@ -3,6 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKInterop.h"
 
 typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
     AKRhodesPianoParameterFrequency,
@@ -10,10 +11,4 @@ typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
     AKRhodesPianoParameterRampDuration
 };
 
-#ifndef __cplusplus
-
-AKDSPRef createRhodesPianoDSP(void);
-
-#endif
-
-
+AK_API AKDSPRef createRhodesPianoDSP(void);
