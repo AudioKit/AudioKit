@@ -1,3 +1,9 @@
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     SPFLOAT freq;
     SPFLOAT pos;
@@ -11,3 +17,7 @@ int sp_vocwrapper_create(sp_vocwrapper **p);
 int sp_vocwrapper_destroy(sp_vocwrapper **p);
 int sp_vocwrapper_init(sp_data *sp, sp_vocwrapper *p);
 int sp_vocwrapper_compute(sp_data *sp, sp_vocwrapper *p, SPFLOAT *in, SPFLOAT *out);
+
+#ifdef __cplusplus
+}
+#endif
