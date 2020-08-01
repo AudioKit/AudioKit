@@ -202,73 +202,15 @@ public:
         }
     }
 
-    void removeNoteAt(double beat) {
-        auto& notes = sequence.notes;
-        for (int i = 0; i < notes.size(); i++) {
-            AKSequenceNote note = notes[i];
-            if (note.noteOn.beat == beat) {
-                notes.erase(notes.begin()+i);
-            }
-        }
-        updateDSPSequence();
-    }
+    void updateSequence(const AKSequenceEvent* events, size_t eventCount,
+                        const AKSequenceNote* notes, size_t noteCount) {
 
-    void removeNoteAt(uint8_t noteToRemove, double beat) {
-        auto& notes = sequence.notes;
-        for (int i = 0; i < notes.size(); i++) {
-            AKSequenceNote note = notes[i];
-            if (note.noteOn.beat == beat && note.noteOn.data1 == noteToRemove) {
-                notes.erase(notes.begin()+i);
-            }
-        }
-        updateDSPSequence();
-    }
+        sequence.events.resize(eventCount);
+        sequence.notes.resize(noteCount);
 
-    void removeAllInstancesOf(uint8_t noteToRemove) {
-         auto& notes = sequence.notes;
-         for (auto itr1 = notes.rbegin(); itr1 < notes.rend(); itr1++) {
-             if (itr1->noteOn.data1 == noteToRemove) {
-                   notes.erase((itr1 + 1).base());
-               }
-           }
-        updateDSPSequence();
-    }
+        std::copy(events, events+eventCount, sequence.events.begin());
+        std::copy(notes, notes+noteCount, sequence.notes.begin());
 
-    void removeEventAt(double beat) {
-        auto& events = sequence.events;
-        for (int i = 0; i < events.size(); i++) {
-            auto event = events[i];
-            if (event.beat == beat) {
-                events.erase(events.begin()+i);
-            }
-        }
-        updateDSPSequence();
-    }
-
-    void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
-        AKSequenceEvent newEvent;
-        newEvent.status = status;
-        newEvent.data1 = data1;
-        newEvent.data2 = data2;
-        newEvent.beat = beat;
-        sequence.events.push_back(newEvent);
-        updateDSPSequence();
-    }
-
-    void addMIDINote(uint8_t number, uint8_t velocity, double beat, double duration) {
-        AKSequenceNote newNote;
-
-        newNote.noteOn.status = NOTEON;
-        newNote.noteOn.data1 = number;
-        newNote.noteOn.data2 = velocity;
-        newNote.noteOn.beat = beat;
-
-        newNote.noteOff.status = NOTEOFF;
-        newNote.noteOff.data1 = number;
-        newNote.noteOff.data2 = velocity;
-        newNote.noteOff.beat = beat + duration;
-
-        sequence.notes.push_back(newNote);
         updateDSPSequence();
     }
 
@@ -395,28 +337,12 @@ AKDSPRef createAKSequencerEngineDSP() {
     return new AKSequencerEngineDSP();
 }
 
-void sequencerEngineAddMIDIEvent(AKDSPRef dsp, uint8_t status, uint8_t data1, uint8_t data2, double beat) {
-    ((AKSequencerEngineDSP*)dsp)->addMIDIEvent(status, data1, data2, beat);
-}
-
-void sequencerEngineAddMIDINote(AKDSPRef dsp, uint8_t noteNumber, uint8_t velocity, double beat, double duration) {
-    ((AKSequencerEngineDSP*)dsp)->addMIDINote(noteNumber, velocity, beat, duration);
-}
-
-void sequencerEngineRemoveMIDIEvent(AKDSPRef dsp, double beat) {
-    ((AKSequencerEngineDSP*)dsp)->removeEventAt(beat);
-}
-
-void sequencerEngineRemoveMIDINote(AKDSPRef dsp, double beat) {
-    ((AKSequencerEngineDSP*)dsp)->removeNoteAt(beat);
-}
-
-void sequencerEngineRemoveSpecificMIDINote(AKDSPRef dsp, double beat, uint8_t noteNumber) {
-    ((AKSequencerEngineDSP*)dsp)->removeNoteAt(noteNumber, beat);
-}
-
-void sequencerEngineRemoveAllInstancesOf(AKDSPRef dsp, uint8_t noteNumber) {
-    ((AKSequencerEngineDSP*)dsp)->removeAllInstancesOf(noteNumber);
+void sequencerEngineUpdateSequence(AKDSPRef dsp,
+                                   const AKSequenceEvent* events,
+                                   size_t eventCount,
+                                   const AKSequenceNote* notes,
+                                   size_t noteCount) {
+    ((AKSequencerEngineDSP*)dsp)->updateSequence(events, eventCount, notes, noteCount);
 }
 
 void sequencerEngineStopPlayingNotes(AKDSPRef dsp) {

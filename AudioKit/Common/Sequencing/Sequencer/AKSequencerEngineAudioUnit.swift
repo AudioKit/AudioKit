@@ -79,38 +79,18 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
         sequencerEngineSetAUTarget(dsp, target)
     }
 
-    func addMIDIEvent(status: UInt8,
-                      data1: UInt8,
-                      data2: UInt8,
-                      beat: Double) {
-        sequencerEngineAddMIDIEvent(dsp, status, data1, data2, beat)
-    }
+    func update(sequence: AKSequence) {
 
-    func addMIDINote(number: UInt8,
-                     velocity: UInt8,
-                     beat: Double,
-                     duration: Double) {
-        sequencerEngineAddMIDINote(dsp, number, velocity, beat, duration)
-    }
+        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
+            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
+                sequencerEngineUpdateSequence(dsp,
+                                              eventsPtr.baseAddress,
+                                              sequence.events.count,
+                                              notesPtr.baseAddress,
+                                              sequence.notes.count)
+            }
+        }
 
-    func removeEvent(beat: Double) {
-        sequencerEngineRemoveMIDIEvent(dsp, beat)
-    }
-
-    func removeNote(beat: Double) {
-        sequencerEngineRemoveMIDINote(dsp, beat)
-    }
-
-    func removeNote(number: MIDINoteNumber, beat: Double) {
-        sequencerEngineRemoveSpecificMIDINote(dsp, beat, number)
-    }
-
-    func removeAllInstancesOf(number: MIDINoteNumber) {
-        sequencerEngineRemoveAllInstancesOf(dsp, number)
-    }
-
-    func clear() {
-        sequencerEngineClear(dsp)
     }
 
     func stopPlayingNotes() {
