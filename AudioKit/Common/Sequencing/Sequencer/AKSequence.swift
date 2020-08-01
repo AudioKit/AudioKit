@@ -24,8 +24,8 @@ public struct AKSequence: Equatable {
     var notes: [AKSequenceNote]
     var events: [AKSequenceEvent]
 
-    static let noteOn: UInt8 = 0x90
-    static let noteOff: UInt8 = 0x80
+    public static let noteOn: UInt8 = 0x90
+    public static let noteOff: UInt8 = 0x80
 
     public init(notes: [AKSequenceNote] = [], events: [AKSequenceEvent] = []) {
         self.notes = notes
