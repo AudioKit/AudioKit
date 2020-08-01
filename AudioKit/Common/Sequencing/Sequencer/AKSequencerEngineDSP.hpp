@@ -32,6 +32,7 @@ AK_API void sequencerEngineSetAUTarget(AKDSPRef dsp, AudioUnit audioUnit);
 #include "AKDSPBase.hpp"
 #include <vector>
 #include <stdio.h>
+#include <atomic>
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
@@ -46,8 +47,16 @@ class AKSequencerEngineDSP : public AKDSPBase {
     };
 
     struct MIDINote {
-        struct MIDIEvent noteOn;
-        struct MIDIEvent noteOff;
+        MIDIEvent noteOn;
+        MIDIEvent noteOff;
+    };
+
+    struct Sequence {
+        std::vector<MIDIEvent> events;
+        std::vector<MIDINote> notes;
+
+        // DSP thread sets this to true when finished with the sequence.
+        bool collect = false;
     };
     
 public:
@@ -135,62 +144,69 @@ public:
             }
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
-            for (int i = 0; i < events.size(); i++) {
-                // go through every event
-                int triggerTime = beatToSamples(events[i].beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    // this event is supposed to trigger between currentStartSample and currentEndSample
-                    int offset = (int)(triggerTime - currentStartSample);
-                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
-                                 offset, events[i].beat);
-                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
-                    // this buffer extends beyond the length of the loop and looping is on
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        // this event would trigger early enough in the next loop that it should happen in this buffer
-                        // ie. this buffer contains events from the previous loop, and the next loop
-                        int offset = (int)triggerTime + loopRestartInBuffer;
+            auto seq = getDSPSequence();
+            if(seq) {
+
+                const auto& events = seq->events;
+                const auto& notes = seq->notes;
+
+                for (int i = 0; i < events.size(); i++) {
+                    // go through every event
+                    int triggerTime = beatToSamples(seq->events[i].beat);
+                    if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                        // this event is supposed to trigger between currentStartSample and currentEndSample
+                        int offset = (int)(triggerTime - currentStartSample);
                         sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                      offset, events[i].beat);
+                    } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                        // this buffer extends beyond the length of the loop and looping is on
+                        int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                        int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                        if (triggerTime < samplesOfBufferForNewLoop) {
+                            // this event would trigger early enough in the next loop that it should happen in this buffer
+                            // ie. this buffer contains events from the previous loop, and the next loop
+                            int offset = (int)triggerTime + loopRestartInBuffer;
+                            sendMidiData(events[i].status, events[i].data1, events[i].data2,
+                                         offset, events[i].beat);
+                        }
                     }
                 }
-            }
 
-            // Check the playing notes for note offs
-            int i = 0;
-            while (i < playingNotes.size()) {
-                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
-                    stopPlayingNote(playingNotes[i], offset, i);
-                    continue;
-                }
-
-                if (currentEndSample > lengthInSamples() && loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
+                // Check the playing notes for note offs
+                int i = 0;
+                while (i < playingNotes.size()) {
+                    int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
+                    if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                        int offset = (int)(triggerTime - currentStartSample);
                         stopPlayingNote(playingNotes[i], offset, i);
                         continue;
                     }
-                }
-                i++;
-            }
 
-            // Check scheduled notes for note ons
-            for (int i = 0; i < notes.size(); i++) {
-                int triggerTime = beatToSamples(notes[i].noteOn.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
-                    addPlayingNote(notes[i], offset);
-                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
+                    if (currentEndSample > lengthInSamples() && loopEnabled) {
+                        int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                        int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                        if (triggerTime < samplesOfBufferForNewLoop) {
+                            int offset = (int)triggerTime + loopRestartInBuffer;
+                            stopPlayingNote(playingNotes[i], offset, i);
+                            continue;
+                        }
+                    }
+                    i++;
+                }
+
+                // Check scheduled notes for note ons
+                for (int i = 0; i < notes.size(); i++) {
+                    int triggerTime = beatToSamples(notes[i].noteOn.beat);
+                    if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                        int offset = (int)(triggerTime - currentStartSample);
                         addPlayingNote(notes[i], offset);
+                    } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                        int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                        int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                        if (triggerTime < samplesOfBufferForNewLoop) {
+                            int offset = (int)triggerTime + loopRestartInBuffer;
+                            addPlayingNote(notes[i], offset);
+                        }
                     }
                 }
             }
@@ -211,40 +227,46 @@ public:
     }
 
     void removeNoteAt(double beat) {
+        auto& notes = sequence.notes;
         for (int i = 0; i < notes.size(); i++) {
             MIDINote note = notes[i];
             if (note.noteOn.beat == beat) {
                 notes.erase(notes.begin()+i);
             }
         }
+        updateDSPSequence();
     }
     
     void removeNoteAt(uint8_t noteToRemove, double beat) {
-        
+        auto& notes = sequence.notes;
         for (int i = 0; i < notes.size(); i++) {
             MIDINote note = notes[i];
             if (note.noteOn.beat == beat && note.noteOn.data1 == noteToRemove) {
                 notes.erase(notes.begin()+i);
             }
         }
+        updateDSPSequence();
     }
     
     void removeAllInstancesOf(uint8_t noteToRemove) {
-        
+         auto& notes = sequence.notes;
          for (auto itr1 = notes.rbegin(); itr1 < notes.rend(); itr1++) {
              if (itr1->noteOn.data1 == noteToRemove) {
                    notes.erase((itr1 + 1).base());
                }
            }
+        updateDSPSequence();
     }
 
     void removeEventAt(double beat) {
+        auto& events = sequence.events;
         for (int i = 0; i < events.size(); i++) {
             MIDIEvent event = events[i];
             if (event.beat == beat) {
                 events.erase(events.begin()+i);
             }
         }
+        updateDSPSequence();
     }
 
     void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
@@ -253,7 +275,8 @@ public:
         newEvent.data1 = data1;
         newEvent.data2 = data2;
         newEvent.beat = beat;
-        events.push_back(newEvent);
+        sequence.events.push_back(newEvent);
+        updateDSPSequence();
     }
 
     void addMIDINote(uint8_t number, uint8_t velocity, double beat, double duration) {
@@ -269,12 +292,14 @@ public:
         newNote.noteOff.data2 = velocity;
         newNote.noteOff.beat = beat + duration;
 
-        notes.push_back(newNote);
+        sequence.notes.push_back(newNote);
+        updateDSPSequence();
     }
 
     void clear() {
-        notes.clear();
-        events.clear();
+        sequence.notes.clear();
+        sequence.events.clear();
+        updateDSPSequence();
     }
 
     void stopPlayingNotes() {
@@ -329,6 +354,38 @@ public:
 
 private:
 
+    Sequence* getDSPSequence() {
+        auto seq = nextSequence.load();
+        if(seq != dspSequence) {
+            if(dspSequence) { dspSequence->collect = true; }
+            dspSequence = seq;
+        }
+        return seq;
+    }
+
+    void updateDSPSequence() {
+
+        auto seqPtr = new Sequence(sequence);
+
+        // Ensure program is disposed of on this
+        // thread, not the DSP thread.
+        sequenceReleasePool.emplace_back(seqPtr);
+
+        // Transmit sequence to DSP thread.
+        nextSequence = seqPtr;
+
+        // Start from the end. Once we find a finished
+        // sequence, delete all programs before and including.
+        for(auto it=sequenceReleasePool.end(); it > sequenceReleasePool.begin(); --it) {
+          if ((*(it-1))->collect) {
+            // Remove the programs from the vector.
+            sequenceReleasePool.erase(sequenceReleasePool.begin(), it);
+            break;
+          }
+        }
+
+    }
+
     float startPoint = 0;
     AudioUnit targetAU;
     UInt64 framesCounted = 0;
@@ -336,9 +393,20 @@ private:
 
     MIDIPortRef midiPort = NULL;
     MIDIEndpointRef midiEndpoint = NULL;
-    std::vector<MIDIEvent> events;
-    std::vector<MIDINote> notes;
+
+    // DSP thread only.
     std::vector<MIDINote> playingNotes;
+    Sequence* dspSequence = nullptr;
+
+    // For communicating a sequence update to DSP thread.
+    std::atomic<Sequence*> nextSequence{nullptr};
+
+    // Sequence as seen by the main thread.
+    Sequence sequence;
+
+    // Older sequences we will collect.
+    std::vector<std::unique_ptr<Sequence>> sequenceReleasePool;
+
     int maximumPlayCount = 0;
     double length = 4.0;
     double tempo = 120.0;
