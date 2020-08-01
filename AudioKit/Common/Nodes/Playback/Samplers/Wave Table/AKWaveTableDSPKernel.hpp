@@ -68,8 +68,8 @@ public:
 
     void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
         sourceSampleRate = sampleRate;
-        current_size = size / numChannels;
         for (int i = 0; i < current_size; i++) {
+            assert(i < ftbl1->size);
             ftbl1->tbl[i] = table[i];
             if (numChannels == 1){ //mono - copy chanel to both buffers
                 ftbl2->tbl[i] = table[i];
