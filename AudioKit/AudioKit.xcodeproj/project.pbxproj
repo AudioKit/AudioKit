@@ -90,6 +90,9 @@
 		29CC6CB624B9665C00446B73 /* AKGlobals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC6CB224B9654900446B73 /* AKGlobals.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		29CC6CB724B9665C00446B73 /* AKGlobals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC6CB224B9654900446B73 /* AKGlobals.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		29CC6CB824B9665D00446B73 /* AKGlobals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC6CB224B9654900446B73 /* AKGlobals.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		29F0CF4124D636450033B494 /* AKSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F0CF4024D636450033B494 /* AKSequence.swift */; };
+		29F0CF4224D636450033B494 /* AKSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F0CF4024D636450033B494 /* AKSequence.swift */; };
+		29F0CF4324D636450033B494 /* AKSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F0CF4024D636450033B494 /* AKSequence.swift */; };
 		3404A79A20507B1500A2C9E4 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */; };
 		3404A79B20507B1500A2C9E4 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A78620507B1500A2C9E4 /* SustainPedalLogic.cpp */; };
 		3404A79C20507B1500A2C9E4 /* FunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A78720507B1500A2C9E4 /* FunctionTable.cpp */; };
@@ -3506,6 +3509,7 @@
 		29AB123A24C27BC600547AA5 /* AKNodeParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKNodeParameter.swift; sourceTree = "<group>"; };
 		29CC6CB124B964EC00446B73 /* AKGlobals.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKGlobals.mm; sourceTree = "<group>"; };
 		29CC6CB224B9654900446B73 /* AKGlobals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKGlobals.hpp; sourceTree = "<group>"; };
+		29F0CF4024D636450033B494 /* AKSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequence.swift; sourceTree = "<group>"; };
 		3404A78220507B1500A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResonantLowPassFilter.hpp; sourceTree = "<group>"; };
 		3404A78620507B1500A2C9E4 /* SustainPedalLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SustainPedalLogic.cpp; sourceTree = "<group>"; };
@@ -7761,6 +7765,7 @@
 		FEB3AB2522DFE06B0080A5CB /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
+				29F0CF4024D636450033B494 /* AKSequence.swift */,
 				FEB3AB2622DFE06B0080A5CB /* AKSequencer.swift */,
 				22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */,
 				FEB3AB2722DFE06B0080A5CB /* AKSequencerTrack.swift */,
@@ -9234,6 +9239,7 @@
 				34BB6759205AC238000E5450 /* unpack3.c in Sources */,
 				C49B13DB204A06B7009C7C8E /* tenv.c in Sources */,
 				C453578A2041550300C5C7CC /* AKAutoWahDSP.mm in Sources */,
+				29F0CF4124D636450033B494 /* AKSequence.swift in Sources */,
 				3404A7C820507BEB00A2C9E4 /* AKSamplerAudioUnit.swift in Sources */,
 				C49B2164204A28F3009C7C8E /* AKAppleSampler.swift in Sources */,
 				C49B1456204A06B7009C7C8E /* basic.c in Sources */,
@@ -10741,6 +10747,7 @@
 				EAA62B77247F3A5B00BF4CDB /* sawtoothWave.swift in Sources */,
 				EAA62B78247F3A5B00BF4CDB /* AKMoogLadderDSP.mm in Sources */,
 				EAA62B79247F3A5B00BF4CDB /* segment.swift in Sources */,
+				29F0CF4324D636450033B494 /* AKSequence.swift in Sources */,
 				EAA62B7A247F3A5B00BF4CDB /* unpack3_open.c in Sources */,
 				EAA62B7B247F3A5B00BF4CDB /* open_utils.c in Sources */,
 				EAA62B7C247F3A5B00BF4CDB /* pinknoise.c in Sources */,
@@ -11166,6 +11173,7 @@
 				EAA62ECF247F44E200BF4CDB /* reverberateWithCombFilter.swift in Sources */,
 				EAA62ED0247F44E200BF4CDB /* fmOscillator.swift in Sources */,
 				EAA62ED1247F44E200BF4CDB /* AKMIDIFileChunk.swift in Sources */,
+				29F0CF4224D636450033B494 /* AKSequence.swift in Sources */,
 				EAA62ED2247F44E200BF4CDB /* AKDCBlock.swift in Sources */,
 				EAA62ED3247F44E200BF4CDB /* jcrev.c in Sources */,
 				EAA62ED4247F44E200BF4CDB /* waveset.c in Sources */,
