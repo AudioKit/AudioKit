@@ -11,6 +11,15 @@ import AudioKit
 
 class AKSequencerTrackTests: AKTestCase {
 
+    func testEmptyTrack() {
+
+        let synth = AKOscillatorFilterSynth()
+        let seq = AKSequencerTrack(targetNode: synth)
+
+        XCTAssertEqual(seq.length, 4.0) // One measure
+        XCTAssertEqual(seq.loopEnabled, true) // Loop on
+    }
+
     func testBasicSequence() throws {
 
         duration = 1
