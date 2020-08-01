@@ -2,6 +2,8 @@
 
 import Foundation
 
+#if !os(tvOS)
+
 extension AKSequenceNote: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.noteOn == rhs.noteOn
@@ -78,3 +80,5 @@ public struct AKSequence: Equatable {
     }
 
 }
+
+#endif
