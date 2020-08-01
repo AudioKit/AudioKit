@@ -34,7 +34,7 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     /// startPoint in samples - where to start playing the sample from
-    public var startPoint: Sample = 0 {
+    public var startPoint: SampleIndex = 0 {
         willSet {
             guard startPoint != newValue else { return }
             internalAU?.startPoint = Float(safeSample(newValue))
@@ -43,7 +43,7 @@ public class AKWaveTable: AKNode, AKComponent {
 
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
-    public var endPoint: Sample = 0 {
+    public var endPoint: SampleIndex = 0 {
         willSet {
             guard endPoint != newValue else { return }
             internalAU?.endPoint = AUValue(safeSample(newValue))
@@ -51,7 +51,7 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     /// loopStartPoint in samples - where to start playing the sample from
-    public var loopStartPoint: Sample = 0 {
+    public var loopStartPoint: SampleIndex = 0 {
         willSet {
             guard loopStartPoint != newValue else { return }
             internalAU?.loopStartPoint = AUValue(safeSample(newValue))
@@ -59,7 +59,7 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     /// loopEndPoint - this is where the sample will play to before stopping.
-    public var loopEndPoint: Sample = 0 {
+    public var loopEndPoint: SampleIndex = 0 {
         willSet {
             guard endPoint != newValue else { return }
             internalAU?.loopEndPoint = AUValue(safeSample(newValue))
@@ -99,11 +99,11 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Number of samples in the audio stored in memory
-    open var size: Sample {
+    open var size: SampleIndex {
         if let avAudiofile = avAudiofile {
-            return Sample(avAudiofile.length)
+            return SampleIndex(avAudiofile.length)
         }
-        return Sample(maximumSamples)
+        return SampleIndex(maximumSamples)
     }
 
     /// originalSampleRate
@@ -129,7 +129,7 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile?
-    fileprivate var maximumSamples: Sample = 0
+    fileprivate var maximumSamples: SampleIndex = 0
 
     open var loadCompletionHandler: AKCallback = {} {
         willSet {
@@ -161,11 +161,11 @@ public class AKWaveTable: AKNode, AKComponent {
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
     public init(file: AVAudioFile? = nil,
-                startPoint: Sample = 0,
-                endPoint: Sample = 0,
+                startPoint: SampleIndex = 0,
+                endPoint: SampleIndex = 0,
                 rate: AUValue = 1,
                 volume: AUValue = 1,
-                maximumSamples: Sample,
+                maximumSamples: SampleIndex,
                 completionHandler: @escaping AKCCallback = {},
                 loadCompletionHandler: @escaping AKCCallback = {}) {
 
@@ -175,7 +175,7 @@ public class AKWaveTable: AKNode, AKComponent {
         self.endPoint = endPoint
         if let file = file {
             avAudiofile = file
-            self.endPoint = Sample(file.length)
+            self.endPoint = SampleIndex(file.length)
         }
         self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
@@ -239,26 +239,26 @@ public class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Play from a certain sample
-    public func play(from: Sample) {
+    public func play(from: SampleIndex) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    public func play(from: Sample, length: Sample) {
+    public func play(from: SampleIndex, length: SampleIndex) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
-    public func play(from: Sample, to: Sample) {
+    public func play(from: SampleIndex, to: SampleIndex) {
         internalAU?.tempStartPoint = Float(safeSample(from))
         internalAU?.tempEndPoint = Float(safeSample(to))
         start()
     }
 
-    func safeSample(_ point: Sample) -> Sample {
+    func safeSample(_ point: SampleIndex) -> SampleIndex {
         if point > size { return size }
         // if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
@@ -280,7 +280,7 @@ public class AKWaveTable: AKNode, AKComponent {
                 return
             }
 
-            let samplesCount = Sample(file.length)
+            let samplesCount = SampleIndex(file.length)
 
             let sizeToUse = UInt32(samplesCount * 2)
             if maximumSamples == 0 {

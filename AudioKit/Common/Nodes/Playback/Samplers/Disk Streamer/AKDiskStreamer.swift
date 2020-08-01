@@ -25,11 +25,11 @@ public class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// startPoint in samples - where to start playing the sample from
-    private var startPoint: Sample = 0
+    private var startPoint: SampleIndex = 0
 
     /// endPoint - this is where the sample will play to before stopping.
-    private var endPoint: Sample {
-        return Sample(avAudiofile?.length ?? 0)
+    private var endPoint: SampleIndex {
+        return SampleIndex(avAudiofile?.length ?? 0)
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
@@ -60,9 +60,9 @@ public class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Number of samples in the audio stored in memory
-    open var size: Sample {
+    open var size: SampleIndex {
         if let file = avAudiofile {
-            return Sample(file.length)
+            return SampleIndex(file.length)
         }
         return 0
     }
@@ -162,7 +162,7 @@ public class AKDiskStreamer: AKNode, AKComponent {
         start()
     }
 
-    func safeSample(_ point: Sample) -> Sample {
+    func safeSample(_ point: SampleIndex) -> SampleIndex {
         if point > size { return size }
         // if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
