@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2902413824D51461009D2BDA /* AKSequencerTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2902412924D51461009D2BDA /* AKSequencerTrackTests.swift */; };
 		291F639E24C77CB300B754F9 /* AKPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F639D24C77CB300B754F9 /* AKPlayerTests.swift */; };
 		2930E5E424C8AE7200BAD0F4 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2930E5D424C8AE7200BAD0F4 /* PinkNoise.wav */; };
 		2938A92224D1BEA900D6D617 /* AKAutomationCurveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A91224D1BEA900D6D617 /* AKAutomationCurveTests.swift */; };
@@ -241,6 +242,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2902412924D51461009D2BDA /* AKSequencerTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrackTests.swift; sourceTree = "<group>"; };
 		291F639D24C77CB300B754F9 /* AKPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlayerTests.swift; sourceTree = "<group>"; };
 		2930E5D424C8AE7200BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Developer/Common/PinkNoise.wav; sourceTree = "<group>"; };
 		2938A91224D1BEA900D6D617 /* AKAutomationCurveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAutomationCurveTests.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				29A8C8D724C0CBD900578451 /* AKParameterAutomationTests.swift */,
 				291F639D24C77CB300B754F9 /* AKPlayerTests.swift */,
 				2938A91224D1BEA900D6D617 /* AKAutomationCurveTests.swift */,
+				2902412924D51461009D2BDA /* AKSequencerTrackTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
@@ -810,6 +813,7 @@
 				C44FF8E81FD0994F00B2217D /* bitcrushTests.swift in Sources */,
 				C44FF9341FD0994F00B2217D /* AKPeakLimiterTests.swift in Sources */,
 				C44FF91D1FD0994F00B2217D /* AKTestCase.swift in Sources */,
+				2902413824D51461009D2BDA /* AKSequencerTrackTests.swift in Sources */,
 				C44FF8E61FD0994F00B2217D /* dcBlockTests.swift in Sources */,
 				C40D6BBE206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift in Sources */,
 				C44FF9261FD0994F00B2217D /* AKCostelloReverbTests.swift in Sources */,
