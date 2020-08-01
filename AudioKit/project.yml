@@ -26,10 +26,6 @@ targets:
           - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
           - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
           - "Soundpipe/test/md5.h"
-      - path: Audio Files
-        excludes:
-          - "**/*.md"
-        headerVisibility: project
       - path: Common
         excludes:
           - "**/*.md"
@@ -165,5 +161,8 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
+      - path: ../Developer/Common
+        includes:
+          - "*.wav"
     dependencies:
       - target: AudioKit_${platform}
