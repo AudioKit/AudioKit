@@ -33,10 +33,10 @@ public struct AKSequence: Equatable {
     }
 
     public mutating func add(noteNumber: MIDINoteNumber,
-             velocity: MIDIVelocity = 127,
-             channel: MIDIChannel = 0,
-             position: Double,
-             duration: Double) {
+                             velocity: MIDIVelocity = 127,
+                             channel: MIDIChannel = 0,
+                             position: Double,
+                             duration: Double) {
 
         var newNote = AKSequenceNote()
 
