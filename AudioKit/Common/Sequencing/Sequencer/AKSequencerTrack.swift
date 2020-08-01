@@ -112,53 +112,15 @@ open class AKSequencerTrack: AKNode, AKComponent {
         internalAU?.position.value = AUValue(position)
     }
 
-    /// Add a MIDI note to the track
-    public func add(noteNumber: MIDINoteNumber,
-                    velocity: MIDIVelocity = 127,
-                    channel: MIDIChannel = 0,
-                    position: Double,
-                    duration: Double) {
-        var noteOffPosition: Double = (position + duration)
-        while noteOffPosition >= length && length != 0 {
-            noteOffPosition -= length
+    public var sequence = AKSequence() {
+        didSet {
+            internalAU?.update(sequence: sequence)
         }
-        internalAU?.addMIDINote(number: noteNumber,
-                                velocity: velocity,
-                                beat: position,
-                                duration: duration)
-    }
-
-    /// Add MIDI data to the track as an event
-    public func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
-        internalAU?.addMIDIEvent(status: status.byte, data1: data1, data2: data2, beat: position)
-    }
-
-    /// Add a MIDI event to the track at a specific position
-    public func add(event: AKMIDIEvent, position: Double) {
-        if let status = event.status, event.data.count > 2 {
-            add(status: status, data1: event.data[1], data2: event.data[2], position: position)
-        }
-    }
-
-    public func removeEvent(at position: Double) {
-        internalAU?.removeEvent(beat: position)
-    }
-
-    public func removeNote(at position: Double) {
-        internalAU?.removeNote(beat: position)
-    }
-
-    public func removeNote(noteNumber: MIDINoteNumber, position: Double) {
-        internalAU?.removeNote(number: noteNumber, beat: position)
-    }
-
-    public func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
-        internalAU?.removeAllInstancesOf(number: noteNumber)
     }
 
     /// Remove the notes in the track
     public func clear() {
-        internalAU?.clear()
+        sequence = AKSequence()
     }
 
     /// Stop playing all the notes current in the "now playing" array.

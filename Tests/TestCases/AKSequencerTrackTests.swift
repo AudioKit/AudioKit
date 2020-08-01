@@ -26,15 +26,17 @@ class AKSequencerTrackTests: AKTestCase {
 
         let synth = AKOscillatorFilterSynth()
 
-        let seq = AKSequencerTrack(targetNode: synth)
+        let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, seq)
+        output = AKMixer(synth, track)
 
+        var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
         seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
 
-        seq.playFromStart()
+        track.sequence = seq
+        track.playFromStart()
         // auditionTest()
         AKTestMD5("9bea8068185763c2b1a9970a916688fa")
     }
@@ -45,17 +47,18 @@ class AKSequencerTrackTests: AKTestCase {
 
         let synth = AKOscillatorFilterSynth()
 
-        let seq = AKSequencerTrack(targetNode: synth)
+        let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, seq)
+        output = AKMixer(synth, track)
 
+        var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
         seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
-
         seq.removeNote(at: 0.1)
 
-        seq.playFromStart()
+        track.sequence = seq
+        track.playFromStart()
         // auditionTest()
         AKTestMD5("ec7e33775d8c926b2676a7002c123360")
     }
@@ -66,17 +69,17 @@ class AKSequencerTrackTests: AKTestCase {
 
         let synth = AKOscillatorFilterSynth()
 
-        let seq = AKSequencerTrack(targetNode: synth)
+        let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, seq)
+        output = AKMixer(synth, track)
 
+        var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
         seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
-
         seq.removeAllInstancesOf(noteNumber: 63)
-
-        seq.playFromStart()
+        track.sequence = seq
+        track.playFromStart()
         // auditionTest()
         AKTestMD5("a1c11d9faec613e1676d5db7e0a0f434")
     }
