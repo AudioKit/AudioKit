@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2902412724D513F8009D2BDA /* AKSequencerTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2902412624D513F7009D2BDA /* AKSequencerTrackTests.swift */; };
 		291F63DC24C7D10900B754F9 /* AKParameterAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F63DA24C7D10900B754F9 /* AKParameterAutomationTests.swift */; };
 		291F63DD24C7D10900B754F9 /* AKPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F63DB24C7D10900B754F9 /* AKPlayerTests.swift */; };
 		2930E5E624C8AF7F00BAD0F4 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2930E5E524C8AF7F00BAD0F4 /* PinkNoise.wav */; };
@@ -134,6 +135,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2902412624D513F7009D2BDA /* AKSequencerTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrackTests.swift; sourceTree = "<group>"; };
 		291F63DA24C7D10900B754F9 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
 		291F63DB24C7D10900B754F9 /* AKPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlayerTests.swift; sourceTree = "<group>"; };
 		2930E5E524C8AF7F00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Developer/Common/PinkNoise.wav; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				291F63DA24C7D10900B754F9 /* AKParameterAutomationTests.swift */,
 				291F63DB24C7D10900B754F9 /* AKPlayerTests.swift */,
 				2938A92524D1C00E00D6D617 /* AKAutomationCurveTests.swift */,
+				2902412624D513F7009D2BDA /* AKSequencerTrackTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
@@ -571,6 +574,7 @@
 				C4AA7A2C1FD09BA300040720 /* distortTests.swift in Sources */,
 				C4AA7A1A1FD09BA300040720 /* AKFMOscillatorTests.swift in Sources */,
 				C4AA7A551FD09BA400040720 /* lowPassFilterTests.swift in Sources */,
+				2902412724D513F8009D2BDA /* AKSequencerTrackTests.swift in Sources */,
 				C4AA7A181FD09BA300040720 /* lowPassButterworthFilterTests.swift in Sources */,
 				C4AA7A601FD09BA400040720 /* AKBoosterTests.swift in Sources */,
 				C4AA7A441FD09BA300040720 /* AKHighPassButterworthFilterTests.swift in Sources */,
