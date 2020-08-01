@@ -21,8 +21,8 @@ extension AKSequenceEvent: Equatable {
 /// A value type for sequences.
 public struct AKSequence: Equatable {
 
-    var notes: [AKSequenceNote]
-    var events: [AKSequenceEvent]
+    public var notes: [AKSequenceNote]
+    public var events: [AKSequenceEvent]
 
     public static let noteOn: UInt8 = 0x90
     public static let noteOff: UInt8 = 0x80
