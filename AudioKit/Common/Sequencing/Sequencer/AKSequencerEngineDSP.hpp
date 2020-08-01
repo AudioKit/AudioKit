@@ -139,6 +139,14 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        if(notesOff) {
+            while (playingNotes.size() > 0) {
+                stopPlayingNote(playingNotes[0], 0, 0);
+            }
+            notesOff = false;
+        }
+
         if (isStarted) {
             if (positionInSamples >= lengthInSamples()){
                 if (!loopEnabled) { //stop if played enough
@@ -307,9 +315,7 @@ public:
     }
 
     void stopPlayingNotes() {
-        while (playingNotes.size() > 0) {
-            stopPlayingNote(playingNotes[0], 0, 0);
-        }
+        notesOff = true;
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
@@ -404,6 +410,9 @@ private:
 
     // For communicating a sequence update to DSP thread.
     std::atomic<Sequence*> nextSequence{nullptr};
+
+    // Tell the DSP thread to turn off notes.
+    std::atomic<bool> notesOff{false};
 
     // Sequence as seen by the main thread.
     Sequence sequence;
