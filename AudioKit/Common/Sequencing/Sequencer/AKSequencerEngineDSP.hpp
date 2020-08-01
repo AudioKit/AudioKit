@@ -13,6 +13,18 @@ typedef NS_ENUM(AUParameterAddress, AKSequencerEngineParameter) {
     AKSequencerEngineParameterLoopEnabled
 };
 
+typedef struct {
+    uint8_t status;
+    uint8_t data1;
+    uint8_t data2;
+    double beat;
+} AKSequenceEvent;
+
+typedef struct {
+    AKSequenceEvent noteOn;
+    AKSequenceEvent noteOff;
+} AKSequenceNote;
+
 AK_API AKDSPRef createAKSequencerEngineDSP(void);
 
 AK_API void sequencerEngineAddMIDIEvent(AKDSPRef dsp, uint8_t status, uint8_t data1, uint8_t data2, double beat);

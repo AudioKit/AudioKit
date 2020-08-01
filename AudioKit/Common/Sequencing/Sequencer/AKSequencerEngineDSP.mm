@@ -15,21 +15,9 @@
 
 class AKSequencerEngineDSP : public AKDSPBase {
 
-    struct MIDIEvent {
-        uint8_t status;
-        uint8_t data1;
-        uint8_t data2;
-        double beat;
-    };
-
-    struct MIDINote {
-        MIDIEvent noteOn;
-        MIDIEvent noteOff;
-    };
-
     struct Sequence {
-        std::vector<MIDIEvent> events;
-        std::vector<MIDINote> notes;
+        std::vector<AKSequenceEvent> events;
+        std::vector<AKSequenceNote> notes;
 
         // DSP thread sets this to true when finished with the sequence.
         bool collect = false;
@@ -61,7 +49,7 @@ public:
         startPoint = value;
     }
 
-    void addPlayingNote(MIDINote note, int offset) {
+    void addPlayingNote(AKSequenceNote note, int offset) {
         if (note.noteOn.data2 > 0) {
             sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
             playingNotes.push_back(note);
@@ -70,7 +58,7 @@ public:
         }
     }
 
-    void stopPlayingNote(MIDINote note, int offset, int index) {
+    void stopPlayingNote(AKSequenceNote note, int offset, int index) {
         sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOff.beat);
         playingNotes.erase(playingNotes.begin() + index);
     }
@@ -217,7 +205,7 @@ public:
     void removeNoteAt(double beat) {
         auto& notes = sequence.notes;
         for (int i = 0; i < notes.size(); i++) {
-            MIDINote note = notes[i];
+            AKSequenceNote note = notes[i];
             if (note.noteOn.beat == beat) {
                 notes.erase(notes.begin()+i);
             }
@@ -228,7 +216,7 @@ public:
     void removeNoteAt(uint8_t noteToRemove, double beat) {
         auto& notes = sequence.notes;
         for (int i = 0; i < notes.size(); i++) {
-            MIDINote note = notes[i];
+            AKSequenceNote note = notes[i];
             if (note.noteOn.beat == beat && note.noteOn.data1 == noteToRemove) {
                 notes.erase(notes.begin()+i);
             }
@@ -249,7 +237,7 @@ public:
     void removeEventAt(double beat) {
         auto& events = sequence.events;
         for (int i = 0; i < events.size(); i++) {
-            MIDIEvent event = events[i];
+            auto event = events[i];
             if (event.beat == beat) {
                 events.erase(events.begin()+i);
             }
@@ -258,7 +246,7 @@ public:
     }
 
     void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
-        MIDIEvent newEvent;
+        AKSequenceEvent newEvent;
         newEvent.status = status;
         newEvent.data1 = data1;
         newEvent.data2 = data2;
@@ -268,7 +256,7 @@ public:
     }
 
     void addMIDINote(uint8_t number, uint8_t velocity, double beat, double duration) {
-        MIDINote newNote;
+        AKSequenceNote newNote;
 
         newNote.noteOn.status = NOTEON;
         newNote.noteOn.data1 = number;
@@ -381,7 +369,7 @@ private:
     MIDIEndpointRef midiEndpoint = NULL;
 
     // DSP thread only.
-    std::vector<MIDINote> playingNotes;
+    std::vector<AKSequenceNote> playingNotes;
     Sequence* dspSequence = nullptr;
 
     // For communicating a sequence update to DSP thread.
