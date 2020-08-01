@@ -49,7 +49,7 @@
 
             for (int channel = 0; channel < 1; ++channel) {
                 float *in  = (float *)bufferList->mBuffers[channel].mData  + frameIndex;
-                sp_ptrack_compute(sp, ptrack, in, &trackedFrequency, &trackedAmplitude);
+                sp_ptrack_compute(self->sp, self->ptrack, in, &trackedFrequency, &trackedAmplitude);
             }
         }
         weakSelf.frequency = trackedFrequency;
