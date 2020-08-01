@@ -38,7 +38,7 @@ public struct AKSequence: Equatable {
              position: Double,
              duration: Double) {
 
-        var newNote = AKSequenceNote();
+        var newNote = AKSequenceNote()
 
         newNote.noteOn.status = AKSequence.noteOn
         newNote.noteOn.data1 = noteNumber
