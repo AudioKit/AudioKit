@@ -9,10 +9,9 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
-/// A Sample type, just a UInt32
-public typealias Sample = UInt32
+public typealias SampleIndex = UInt32
 
-/// 2d array of stereo audio data
+/// 2D array of stereo audio data
 public typealias FloatChannelData = [[Float]]
 
 /// Callback function that can be called from C
