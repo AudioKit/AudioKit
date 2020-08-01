@@ -27,6 +27,11 @@ public struct AKSequence: Equatable {
     static let noteOn: UInt8 = 0x90
     static let noteOff: UInt8 = 0x80
 
+    public init(notes: [AKSequenceNote] = [], events: [AKSequenceEvent] = []) {
+        self.notes = notes
+        self.events = events
+    }
+
     public mutating func add(noteNumber: MIDINoteNumber,
              velocity: MIDIVelocity = 127,
              channel: MIDIChannel = 0,
