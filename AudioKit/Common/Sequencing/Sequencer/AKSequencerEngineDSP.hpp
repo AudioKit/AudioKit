@@ -61,7 +61,11 @@ class AKSequencerEngineDSP : public AKDSPBase {
     
 public:
 
-    AKSequencerEngineDSP() {}
+    AKSequencerEngineDSP() {
+        // Try to reserve enough notes so allocation on the DSP
+        // thread is unlikely. (This is not ideal)
+        playingNotes.reserve(256);
+    }
 
     void setTargetAU(AudioUnit target) {
         targetAU = target;
