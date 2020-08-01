@@ -165,5 +165,8 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
+      - path: ../Developer/Common
+        includes:
+          - "*.wav"
     dependencies:
       - target: AudioKit_${platform}
