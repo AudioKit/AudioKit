@@ -49,7 +49,7 @@ typedef struct AKSequencerEngine* AKSequencerEngineRef;
 AK_API AKSequencerEngineRef AKSequencerEngineCreate(void);
 
 /// Deallocate the sequencer.
-void AKSequencerEngineDestroy(AKSequencerEngineRef engine);
+AK_API void AKSequencerEngineDestroy(AKSequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
 AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
