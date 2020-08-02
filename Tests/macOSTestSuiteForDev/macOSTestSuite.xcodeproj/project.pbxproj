@@ -13,7 +13,6 @@
 		2930E5D224C8AC1D00BAD0F4 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2930E5D124C8AC1D00BAD0F4 /* PinkNoise.wav */; };
 		2938A90124D1B75D00D6D617 /* AKAutomationCurveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A90024D1B75D00D6D617 /* AKAutomationCurveTests.swift */; };
 		29D51FA724D282C2005666DC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4801EFE24BF66340049BA55 /* AudioKit.framework */; };
-		29D51FA824D282C2005666DC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4801EFE24BF66340049BA55 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B172683524CF7A27004A3E18 /* 12345.wav in Resources */ = {isa = PBXBuildFile; fileRef = B172682524CF785A004A3E18 /* 12345.wav */; };
 		C41910222009A7E10067B5E0 /* AKPannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910212009A7E00067B5E0 /* AKPannerTests.swift */; };
 		C41910242009A7E90067B5E0 /* AKStereoFieldLimiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */; };
@@ -225,20 +224,6 @@
 			remoteInfo = "DevoloopAudioKit-tvOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		29D51FA924D282C2005666DC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29D51FA824D282C2005666DC /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		290240ED24D4B829009D2BDA /* AKSequencerTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKSequencerTrackTests.swift; sourceTree = "<group>"; };
@@ -577,7 +562,6 @@
 				C464E8461FB0302A0025629C /* Sources */,
 				C464E8471FB0302A0025629C /* Frameworks */,
 				C464E8481FB0302A0025629C /* Resources */,
-				29D51FA924D282C2005666DC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1025,7 +1009,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macOSTestSuite/macOSTestSuite.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -1045,7 +1029,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macOSTestSuite/macOSTestSuite.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
