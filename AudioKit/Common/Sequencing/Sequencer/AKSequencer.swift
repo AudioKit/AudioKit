@@ -103,11 +103,13 @@ open class AKSequencer {
         for index in 0..<min(midiTracks.count, tracks.count) {
             let track = midiTracks[index]
             tracks[index].clear()
+            var sequence = AKSequence()
             for event in track.channelEvents {
                 if let pos = event.positionInBeats {
-                    self.tracks[index].add(event: event, position: pos)
+                    sequence.add(event: event, position: pos)
                 }
             }
+            self.tracks[index].sequence = sequence
             self.tracks[index].length = track.length
         }
         length = self.tracks.max(by: { $0.length > $1.length })?.length ?? 0
@@ -131,8 +133,11 @@ open class AKSequencer {
             AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
         }
-        tracks[trackIndex].add(noteNumber: noteNumber, velocity: velocity, channel: channel,
-                               position: position, duration: duration)
+        tracks[trackIndex].sequence.add(noteNumber: noteNumber,
+                                        velocity: velocity,
+                                        channel: channel,
+                                        position: position,
+                                        duration: duration)
     }
 
     /// Add a MIDI event to the track
@@ -145,7 +150,8 @@ open class AKSequencer {
             AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
         }
-        tracks[trackIndex].add(event: event, position: position)
+        tracks[trackIndex].sequence.add(event: event,
+                                        position: position)
     }
 
     /// Remove all notes
