@@ -3,7 +3,7 @@ name: CI
 
 on: [push, pull_request]
 env:
-  XCODE_VER: 11.5
+  XCODE_VER: 11.6
 
 jobs:
   # Run the build for each platform in parallel
