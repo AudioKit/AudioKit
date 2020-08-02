@@ -76,6 +76,6 @@ AKDSPRef akConvolutionCreateDSP() {
     return new AKConvolutionDSP();
 }
 
-extern "C" void setPartitionLengthConvolutionDSP(AKDSPRef dsp, int length) {
+void akConvolutionSetPartitionLength(AKDSPRef dsp, int length) {
     ((AKConvolutionDSP*)dsp)->setPartitionLength(length);
 }

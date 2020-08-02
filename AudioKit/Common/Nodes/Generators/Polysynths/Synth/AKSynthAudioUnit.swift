@@ -225,8 +225,4 @@ public class AKSynthAudioUnit: AKAudioUnitBase {
     public func sustainPedal(down: Bool) {
         akSynthSustainPedal(dsp, down)
     }
-
-//    public override func shouldClearOutputBuffer() -> Bool {
-//        return true
-//    }
 }
