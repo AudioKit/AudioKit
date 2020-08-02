@@ -14,4 +14,4 @@ typedef NS_ENUM(AUParameterAddress, AKDynaRageCompressorParameter) {
     AKDynaRageCompressorParameterRageEnabled
 };
 
-AK_API AKDSPRef createDynaRageCompressorDSP(void);
+AK_API AKDSPRef akDynaRageCompressorCreateDSP(void);

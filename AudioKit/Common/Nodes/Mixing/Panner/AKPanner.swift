@@ -34,7 +34,7 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPannerDSP()
+            return akPannerCreateDSP()
         }
     }
 

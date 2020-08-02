@@ -106,7 +106,7 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createMetalBarDSP()
+            return akMetalBarCreateDSP()
         }
     }
 

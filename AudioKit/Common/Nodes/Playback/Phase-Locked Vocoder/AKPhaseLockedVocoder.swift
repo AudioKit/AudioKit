@@ -60,7 +60,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPhaseLockedVocoderDSP()
+            return akPhaseLockedVocoderCreateDSP()
         }
     }
 

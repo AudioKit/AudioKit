@@ -60,7 +60,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createBoosterDSP()
+            return akBoosterCreateDSP()
         }
     }
 

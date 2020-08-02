@@ -35,7 +35,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createHighPassButterworthFilterDSP()
+            return akHighPassButterworthFilterCreateDSP()
         }
     }
 

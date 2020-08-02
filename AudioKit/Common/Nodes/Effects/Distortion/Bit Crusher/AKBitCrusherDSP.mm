@@ -74,6 +74,6 @@ public:
     }
 };
 
-AKDSPRef createBitCrusherDSP() {
+AKDSPRef akBitCrusherCreateDSP() {
     return new AKBitCrusherDSP();
 }

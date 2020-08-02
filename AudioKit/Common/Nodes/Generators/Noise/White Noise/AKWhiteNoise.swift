@@ -34,7 +34,7 @@ public class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createWhiteNoiseDSP()
+            return akWhiteNoiseCreateDSP()
         }
     }
 

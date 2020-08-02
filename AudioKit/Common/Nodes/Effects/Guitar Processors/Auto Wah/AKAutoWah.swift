@@ -58,7 +58,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createAutoWahDSP()
+            return akAutoWahCreateDSP()
         }
     }
 

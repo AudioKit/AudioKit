@@ -70,7 +70,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createDynamicRangeCompressorDSP()
+            return akDynamicRangeCompressorCreateDSP()
         }
     }
 

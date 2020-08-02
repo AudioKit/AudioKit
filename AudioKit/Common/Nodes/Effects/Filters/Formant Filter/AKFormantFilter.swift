@@ -60,7 +60,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createFormantFilterDSP()
+            return akFormantFilterCreateDSP()
         }
     }
 

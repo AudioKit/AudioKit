@@ -34,7 +34,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createStereoFieldLimiterDSP()
+            return akStereoFieldLimiterCreateDSP()
         }
     }
 

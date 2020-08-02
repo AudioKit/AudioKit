@@ -85,7 +85,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createMorphingOscillatorDSP()
+            return akMorphingOscillatorCreateDSP()
         }
     }
 

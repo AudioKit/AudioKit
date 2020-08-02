@@ -75,6 +75,6 @@ public:
     }
 };
 
-AKDSPRef createVariableDelayDSP() {
+AKDSPRef akVariableDelayCreateDSP() {
     return new AKVariableDelayDSP();
 }

@@ -46,7 +46,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createVariableDelayDSP()
+            return akVariableDelayCreateDSP()
         }
     }
 

@@ -70,7 +70,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createAmplitudeEnvelopeDSP()
+            return akAmplitudeEnvelopeCreateDSP()
         }
     }
 

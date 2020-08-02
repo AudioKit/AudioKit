@@ -34,7 +34,7 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createBrownianNoiseDSP()
+            return akBrownianNoiseCreateDSP()
         }
     }
 

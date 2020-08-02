@@ -80,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef createThreePoleLowpassFilterDSP() {
+AKDSPRef akThreePoleLowpassFilterCreateDSP() {
     return new AKThreePoleLowpassFilterDSP();
 }

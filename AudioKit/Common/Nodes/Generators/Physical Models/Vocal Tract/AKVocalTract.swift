@@ -85,7 +85,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createVocalTractDSP()
+            return akVocalTractCreateDSP()
         }
     }
 

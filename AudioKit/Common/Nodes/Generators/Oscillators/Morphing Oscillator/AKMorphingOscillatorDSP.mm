@@ -81,6 +81,6 @@ public:
     }
 };
 
-AKDSPRef createMorphingOscillatorDSP() {
+AKDSPRef akMorphingOscillatorCreateDSP() {
     return new AKMorphingOscillatorDSP();
 }

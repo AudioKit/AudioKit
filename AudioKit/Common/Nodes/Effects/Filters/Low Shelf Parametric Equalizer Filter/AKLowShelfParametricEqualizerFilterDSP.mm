@@ -84,6 +84,6 @@ public:
     }
 };
 
-AKDSPRef createLowShelfParametricEqualizerFilterDSP() {
+AKDSPRef akLowShelfParametricEqualizerFilterCreateDSP() {
     return new AKLowShelfParametricEqualizerFilterDSP();
 }

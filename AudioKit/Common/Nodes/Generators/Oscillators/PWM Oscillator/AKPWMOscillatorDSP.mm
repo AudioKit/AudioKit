@@ -72,6 +72,6 @@ public:
 
 };
 
-AKDSPRef createPWMOscillatorDSP() {
+AKDSPRef akPWMOscillatorCreateDSP() {
     return new AKPWMOscillatorDSP();
 }

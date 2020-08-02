@@ -58,7 +58,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createHighShelfParametricEqualizerFilterDSP()
+            return akHighShelfParametricEqualizerFilterCreateDSP()
         }
     }
 

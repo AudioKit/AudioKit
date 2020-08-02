@@ -17,7 +17,7 @@ public class AKRhinoGuitarProcessorAudioUnit: AKAudioUnitBase {
     private(set) var distortion: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createRhinoGuitarProcessorDSP()
+        return akRhinoGuitarProcessorCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

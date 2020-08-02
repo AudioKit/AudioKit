@@ -86,7 +86,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createFaderDSP()
+            return akFaderCreateDSP()
         }
     }
     // MARK: - Initialization

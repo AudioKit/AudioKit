@@ -88,7 +88,7 @@ public:
     }
 };
 
-AKDSPRef createShakerDSP() {
+AKDSPRef akShakerCreateDSP() {
     return new AKShakerDSP();
 }
 

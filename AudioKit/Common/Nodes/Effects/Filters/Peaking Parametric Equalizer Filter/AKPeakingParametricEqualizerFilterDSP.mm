@@ -84,6 +84,6 @@ public:
     }
 };
 
-AKDSPRef createPeakingParametricEqualizerFilterDSP() {
+AKDSPRef akPeakingParametricEqualizerFilterCreateDSP() {
     return new AKPeakingParametricEqualizerFilterDSP();
 }

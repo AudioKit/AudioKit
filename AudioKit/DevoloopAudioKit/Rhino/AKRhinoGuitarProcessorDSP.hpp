@@ -14,5 +14,5 @@ typedef NS_ENUM(AUParameterAddress, AKRhinoGuitarProcessorParameter) {
     AKRhinoGuitarProcessorParameterDistortion
 };
 
-AK_API AKDSPRef createRhinoGuitarProcessorDSP(void);
+AK_API AKDSPRef akRhinoGuitarProcessorCreateDSP(void);
 

@@ -71,6 +71,6 @@ public:
     }
 };
 
-AKDSPRef createPhaseLockedVocoderDSP() {
+AKDSPRef akPhaseLockedVocoderCreateDSP() {
     return new AKPhaseLockedVocoderDSP();
 }

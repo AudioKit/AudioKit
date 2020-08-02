@@ -11,6 +11,6 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
     AKTubularBellsParameterRampDuration
 };
 
-AK_API AKDSPRef createTubularBellsDSP(void);
+AK_API AKDSPRef akTubularBellsCreateDSP(void);
 
 

@@ -68,6 +68,6 @@ public:
     }
 };
 
-AKDSPRef createLowPassButterworthFilterDSP() {
+AKDSPRef akLowPassButterworthFilterCreateDSP() {
     return new AKLowPassButterworthFilterDSP();
 }

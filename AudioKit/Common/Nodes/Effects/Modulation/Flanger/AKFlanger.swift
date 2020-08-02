@@ -70,7 +70,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createFlangerDSP()
+            return akFlangerCreateDSP()
         }
     }
 

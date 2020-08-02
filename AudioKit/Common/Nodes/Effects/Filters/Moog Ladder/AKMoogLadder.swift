@@ -51,7 +51,7 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createMoogLadderDSP()
+            return akMoogLadderCreateDSP()
         }
     }
 

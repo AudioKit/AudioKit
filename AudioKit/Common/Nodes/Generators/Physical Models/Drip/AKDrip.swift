@@ -107,7 +107,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createDripDSP()
+            return akDripCreateDSP()
         }
     }
 

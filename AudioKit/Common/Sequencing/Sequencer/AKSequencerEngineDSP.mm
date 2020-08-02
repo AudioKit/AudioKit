@@ -327,7 +327,7 @@ private:
     uint numberOfLoops = 0;
 };
 
-AKDSPRef createAKSequencerEngineDSP() {
+AKDSPRef akAKSequencerEngineCreateDSP() {
     return new AKSequencerEngineDSP();
 }
 

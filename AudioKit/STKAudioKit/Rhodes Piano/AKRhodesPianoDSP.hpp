@@ -11,4 +11,4 @@ typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
     AKRhodesPianoParameterRampDuration
 };
 
-AK_API AKDSPRef createRhodesPianoDSP(void);
+AK_API AKDSPRef akRhodesPianoCreateDSP(void);

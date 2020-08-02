@@ -74,7 +74,7 @@ public:
     }
 };
 
-AKDSPRef createFlatFrequencyResponseReverbDSP() {
+AKDSPRef akFlatFrequencyResponseReverbCreateDSP() {
     return new AKFlatFrequencyResponseReverbDSP();
 }
 

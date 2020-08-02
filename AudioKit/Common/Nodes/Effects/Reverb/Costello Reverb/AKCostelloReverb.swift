@@ -49,7 +49,7 @@ public class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createCostelloReverbDSP()
+            return akCostelloReverbCreateDSP()
         }
     }
 

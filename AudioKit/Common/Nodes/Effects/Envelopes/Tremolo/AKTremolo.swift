@@ -46,7 +46,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createTremoloDSP()
+            return akTremoloCreateDSP()
         }
     }
 

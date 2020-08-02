@@ -70,6 +70,6 @@ public:
     }
 };
 
-AKDSPRef createDripDSP() {
+AKDSPRef akDripCreateDSP() {
     return new AKDripDSP();
 }

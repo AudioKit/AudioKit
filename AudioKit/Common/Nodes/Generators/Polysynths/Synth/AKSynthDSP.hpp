@@ -31,7 +31,7 @@ typedef NS_ENUM(AUParameterAddress, AKSynthParameter)
     AKSynthParameterRampDuration,
 };
 
-AK_API AKDSPRef createAKSynthDSP(void);
+AK_API AKDSPRef akAKSynthCreateDSP(void);
 AK_API void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
 AK_API void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
 AK_API void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);

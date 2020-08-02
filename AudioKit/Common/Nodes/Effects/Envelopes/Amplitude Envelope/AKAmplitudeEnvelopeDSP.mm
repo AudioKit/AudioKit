@@ -70,6 +70,6 @@ public:
     }
 };
 
-AKDSPRef createAmplitudeEnvelopeDSP() {
+AKDSPRef akAmplitudeEnvelopeCreateDSP() {
     return new AKAmplitudeEnvelopeDSP();
 }

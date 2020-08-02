@@ -9,7 +9,7 @@ public class AKTubularBellsAudioUnit: AKAudioUnitBase {
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createTubularBellsDSP()
+        return akTubularBellsCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

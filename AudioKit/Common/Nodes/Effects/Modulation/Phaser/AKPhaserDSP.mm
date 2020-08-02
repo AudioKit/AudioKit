@@ -83,6 +83,6 @@ public:
     }
 };
 
-AKDSPRef createPhaserDSP() {
+AKDSPRef akPhaserCreateDSP() {
     return new AKPhaserDSP();
 }

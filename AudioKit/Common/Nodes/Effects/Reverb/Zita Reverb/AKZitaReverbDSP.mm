@@ -86,6 +86,6 @@ public:
     }
 };
 
-AKDSPRef createZitaReverbDSP() {
+AKDSPRef akZitaReverbCreateDSP() {
     return new AKZitaReverbDSP();
 }

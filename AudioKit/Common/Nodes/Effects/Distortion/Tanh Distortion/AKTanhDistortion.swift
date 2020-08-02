@@ -70,7 +70,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createTanhDistortionDSP()
+            return akTanhDistortionCreateDSP()
         }
     }
 

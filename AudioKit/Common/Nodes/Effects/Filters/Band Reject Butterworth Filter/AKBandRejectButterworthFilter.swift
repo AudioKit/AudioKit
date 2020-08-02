@@ -47,7 +47,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, A
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createBandRejectButterworthFilterDSP()
+            return akBandRejectButterworthFilterCreateDSP()
         }
     }
 

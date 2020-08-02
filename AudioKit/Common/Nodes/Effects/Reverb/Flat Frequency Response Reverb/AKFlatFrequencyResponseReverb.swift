@@ -42,7 +42,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createFlatFrequencyResponseReverbDSP()
+            return akFlatFrequencyResponseReverbCreateDSP()
         }
     }
 

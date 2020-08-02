@@ -25,7 +25,7 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createConvolutionDSP()
+            return akConvolutionCreateDSP()
         }
     }
 

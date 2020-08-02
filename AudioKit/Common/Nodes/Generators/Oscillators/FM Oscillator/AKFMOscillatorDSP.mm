@@ -76,6 +76,6 @@ public:
     }
 };
 
-AKDSPRef createFMOscillatorDSP() {
+AKDSPRef akFMOscillatorCreateDSP() {
     return new AKFMOscillatorDSP();
 }

@@ -35,7 +35,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createClipperDSP()
+            return akClipperCreateDSP()
         }
     }
 

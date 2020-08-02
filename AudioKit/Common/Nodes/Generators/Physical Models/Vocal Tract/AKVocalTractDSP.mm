@@ -75,6 +75,6 @@ public:
     }
 };
 
-AKDSPRef createVocalTractDSP() {
+AKDSPRef akVocalTractCreateDSP() {
     return new AKVocalTractDSP();
 }

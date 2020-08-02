@@ -48,6 +48,6 @@ public:
     }
 };
 
-AKDSPRef createBalancerDSP() {
+AKDSPRef akBalancerCreateDSP() {
     return new AKBalancerDSP();
 }

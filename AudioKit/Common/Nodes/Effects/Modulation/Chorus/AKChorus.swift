@@ -70,7 +70,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createChorusDSP()
+            return akChorusCreateDSP()
         }
     }
 

@@ -61,7 +61,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createEqualizerFilterDSP()
+            return akEqualizerFilterCreateDSP()
         }
     }
 

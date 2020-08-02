@@ -128,6 +128,6 @@ public:
     }
 };
 
-AKDSPRef createRhodesPianoDSP() {
+AKDSPRef akRhodesPianoCreateDSP() {
     return new AKRhodesPianoDSP();
 }
