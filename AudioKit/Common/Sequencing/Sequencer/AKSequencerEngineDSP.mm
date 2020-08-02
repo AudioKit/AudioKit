@@ -414,7 +414,7 @@ struct AKSequencerEngine {
     }
 
     void stop() {
-        // XXX: what do we do here?
+        isStarted = false;
     }
 
     void process(const std::vector<AKSequenceEvent>& events,
