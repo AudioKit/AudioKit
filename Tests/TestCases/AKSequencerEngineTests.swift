@@ -73,6 +73,12 @@ class AKSequencerEngineTests: XCTestCase {
         XCTAssertEqual(events[1].offset, 13230)
     }
 
+    func testEmpty() {
+
+        let events = observerTest(sequence: AKSequence())
+        XCTAssertEqual(events.count, 0)
+    }
+
     func testChord() {
 
         var seq = AKSequence()
@@ -86,6 +92,20 @@ class AKSequencerEngineTests: XCTestCase {
 
         XCTAssertEqual(events.map { $0.noteNumber! }, [60,63,67,60,63,67])
         XCTAssertEqual(events.map { $0.offset }, [0,0,0,22050,22050,22050])
+    }
+
+    func testOverlap() {
+
+        var seq = AKSequence()
+
+        seq.add(noteNumber: 60, position: 0.0, duration: 1.0)
+        seq.add(noteNumber: 63, position: 0.1, duration: 0.1)
+
+        let events = observerTest(sequence: seq)
+        XCTAssertEqual(events.count, 4)
+
+        XCTAssertEqual(events.map { $0.noteNumber! }, [60,63,60,63])
+        XCTAssertEqual(events.map { $0.offset }, [0,2205,22050,4410])
     }
 
 }
