@@ -98,9 +98,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKInterop.h>
 
 // Custom interop
-AK_API void setLoopDurationCombFilterReverDSP(AKDSPRef dsp, float duration);
-AK_API void setPartitionLengthConvolutionDSP(AKDSPRef dsp, int length);
-AK_API void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dsp, float duration);
+AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
+AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
+AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
 
 // Custom debug
 #define AKPhaseDistortionOscillatorDebugPhase 0

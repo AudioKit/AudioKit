@@ -38,7 +38,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
         }
 
         public func setLoopDuration(_ duration: AUValue) {
-            setLoopDurationFlatFrequencyResponseDSP(dsp, duration)
+            akFlatFrequencyResponseSetLoopDuration(dsp, duration)
         }
 
         public override func createDSP() -> AKDSPRef {
