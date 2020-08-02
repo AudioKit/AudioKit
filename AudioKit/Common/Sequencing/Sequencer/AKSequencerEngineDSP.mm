@@ -214,12 +214,6 @@ public:
         updateDSPSequence();
     }
 
-    void clear() {
-        sequence.notes.clear();
-        sequence.events.clear();
-        updateDSPSequence();
-    }
-
     void stopPlayingNotes() {
         notesOff = true;
     }
@@ -347,10 +341,6 @@ void sequencerEngineUpdateSequence(AKDSPRef dsp,
 
 void sequencerEngineStopPlayingNotes(AKDSPRef dsp) {
     ((AKSequencerEngineDSP*)dsp)->stopPlayingNotes();
-}
-
-void sequencerEngineClear(AKDSPRef dsp) {
-    ((AKSequencerEngineDSP*)dsp)->clear();
 }
 
 void sequencerEngineSetAUTarget(AKDSPRef dsp, AudioUnit audioUnit) {
