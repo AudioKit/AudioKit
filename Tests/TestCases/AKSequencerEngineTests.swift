@@ -28,7 +28,7 @@ class AKSequencerEngineTests: XCTestCase {
             for index in 0 ..< length {
                 bytes.append(midiBytes[index])
             }
-            events.append(AKMIDIEvent(data: bytes, offset: MIDITimeStamp(sampleTime)))
+            events.append(AKMIDIEvent(data: bytes, offset: MIDITimeStamp(sampleTime - AUEventSampleTimeImmediate)))
 
         }
 
