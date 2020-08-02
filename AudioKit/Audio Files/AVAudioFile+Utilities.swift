@@ -14,7 +14,21 @@ extension AVAudioFile {
     }
 }
 
-// Moved from AKAudioFile properties as convenience utilities
+extension AVAudioFile {
+    /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
+    public convenience init(url: URL, fromBuffer buffer: AVAudioPCMBuffer) throws {
+        try self.init(forWriting: url, settings: buffer.format.settings)
+
+        // Write the buffer in file
+        do {
+            try self.write(from: buffer)
+        } catch let error as NSError {
+            AKLog(error, type: .error)
+            throw error
+        }
+    }
+}
+
 extension AVAudioFile {
     public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
@@ -49,5 +63,27 @@ extension AVAudioFile {
         }
 
         return result
+    }
+
+    public func extractSelection(into outputURL: URL,
+                                 from startTime: TimeInterval,
+                                 to endTime: TimeInterval) -> AVAudioFile? {
+        guard let inputBuffer = toAVAudioPCMBuffer() else {
+            AKLog("Error reading into input buffer", type: .error)
+            return nil
+        }
+
+        guard let editedBuffer = inputBuffer.extract(from: startTime, to: endTime) else {
+            AKLog("Failed to create edited buffer", type: .error)
+
+            return nil
+        }
+
+        guard let outputFile = try? AVAudioFile(url: outputURL, fromBuffer: editedBuffer) else {
+            AKLog("Failed to write new file at", outputURL, type: .error)
+            return nil
+        }
+
+        return outputFile
     }
 }
