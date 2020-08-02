@@ -90,8 +90,8 @@ class AKSequencerEngineTests: XCTestCase {
         let events = observerTest(sequence: seq)
         XCTAssertEqual(events.count, 6)
 
-        XCTAssertEqual(events.map { $0.noteNumber! }, [60,63,67,60,63,67])
-        XCTAssertEqual(events.map { $0.offset }, [0,0,0,22050,22050,22050])
+        XCTAssertEqual(events.map { $0.noteNumber! }, [60, 63, 67, 60, 63, 67])
+        XCTAssertEqual(events.map { $0.offset }, [0, 0, 0, 22050, 22050, 22050])
     }
 
     func testOverlap() {
@@ -104,8 +104,8 @@ class AKSequencerEngineTests: XCTestCase {
         let events = observerTest(sequence: seq)
         XCTAssertEqual(events.count, 4)
 
-        XCTAssertEqual(events.map { $0.noteNumber! }, [60,63,60,63])
-        XCTAssertEqual(events.map { $0.offset }, [0,2205,22050,4410])
+        XCTAssertEqual(events.map { $0.noteNumber! }, [60, 63, 60, 63])
+        XCTAssertEqual(events.map { $0.offset }, [0, 2205, 22050, 4410])
     }
 
 }
