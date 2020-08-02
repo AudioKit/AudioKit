@@ -72,3 +72,34 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 }
+
+extension AVAudioPCMBuffer {
+    public func extract(from startTime: TimeInterval, to endTime: TimeInterval) -> AVAudioPCMBuffer? {
+        let sampleRate = self.format.sampleRate
+        let startSample = AVAudioFrameCount(startTime * sampleRate)
+        var endSample = AVAudioFrameCount(endTime * sampleRate)
+
+        if endSample == 0 {
+            endSample = self.frameLength
+        }
+
+        let frameCapacity = endSample - startSample
+
+        guard frameCapacity > 0 else {
+            AKLog("startSample must be before endSample", type: .error)
+            return nil
+        }
+
+        guard let editedBuffer = AVAudioPCMBuffer(pcmFormat: self.format, frameCapacity: frameCapacity) else {
+            AKLog("Failed to create edited buffer", type: .error)
+            return nil
+        }
+
+        guard editedBuffer.copy(from: self, readOffset: startSample, frames: frameCapacity) > 0 else {
+            AKLog("Failed to write to edited buffer", type: .error)
+            return nil
+        }
+
+        return editedBuffer
+    }
+}

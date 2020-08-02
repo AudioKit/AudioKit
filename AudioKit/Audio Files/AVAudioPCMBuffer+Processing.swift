@@ -18,6 +18,37 @@ extension AVAudioPCMBuffer {
     }
 }
 
+// extension AVAudioPCMBuffer {
+//    /// Returns audio data as an `Array` of `Float` Arrays.
+//    ///
+//    /// If stereo:
+//    /// - `floatChannelData?[0]` will contain an Array of left channel samples as `Float`
+//    /// - `floatChannelData?[1]` will contains an Array of right channel samples as `Float`
+//    public func toFloatChannelData() -> FloatChannelData? {
+//        // Do we have PCM channel data?
+//        guard let pcmFloatChannelData = self.floatChannelData else {
+//            return nil
+//        }
+//
+//        let channelCount = Int(self.format.channelCount)
+//        let frameLength = Int(self.frameLength)
+//        let stride = self.stride
+//
+//        // Preallocate our Array so we're not constantly thrashing while resizing as we append.
+//        var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
+//
+//        // Loop across our channels...
+//        for channel in 0..<channelCount {
+//            // Make sure we go through all of the frames...
+//            for sampleIndex in 0..<frameLength {
+//                result[channel][sampleIndex] = pcmFloatChannelData[channel][sampleIndex * stride]
+//            }
+//        }
+//
+//        return result
+//    }
+// }
+
 extension AVAudioPCMBuffer {
     public struct Peak {
         public init() {} // allows for use outside of AudioKit
