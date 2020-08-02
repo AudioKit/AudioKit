@@ -28,7 +28,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = AKMixer(track, synth)
 
         var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
@@ -38,7 +38,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = seq
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("9bea8068185763c2b1a9970a916688fa")
+        AKTestMD5("a76e58a693062a48c91e8abbf7965460")
     }
 
     func testRemoveNote() throws {
@@ -49,7 +49,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = AKMixer(track, synth)
 
         var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
@@ -60,7 +60,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = seq
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("ec7e33775d8c926b2676a7002c123360")
+        AKTestMD5("01209b83a22f436e0578dc9bcedecb62")
     }
 
     func testRemoveInstances() throws {
@@ -71,7 +71,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = AKMixer(track, synth)
 
         var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
@@ -81,7 +81,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = seq
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("a1c11d9faec613e1676d5db7e0a0f434")
+        AKTestMD5("648d39f6c4cb49d91d32245574319342")
     }
 
     func testTempo() {
@@ -92,7 +92,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = AKMixer(track, synth)
 
         var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
@@ -103,7 +103,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.tempo = 30
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("813ae62aad95c3ee3155cf212828410e")
+        AKTestMD5("96b39a3d1f94085eeebfd97c6c6c1253")
 
     }
 
