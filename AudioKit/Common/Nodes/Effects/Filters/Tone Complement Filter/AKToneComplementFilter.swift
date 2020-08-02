@@ -34,7 +34,7 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createToneComplementFilterDSP()
+            return akToneComplementFilterCreateDSP()
         }
     }
 

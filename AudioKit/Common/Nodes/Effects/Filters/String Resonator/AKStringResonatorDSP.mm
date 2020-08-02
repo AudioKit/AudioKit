@@ -74,6 +74,6 @@ public:
     }
 };
 
-AKDSPRef createStringResonatorDSP() {
+AKDSPRef akStringResonatorCreateDSP() {
     return new AKStringResonatorDSP();
 }

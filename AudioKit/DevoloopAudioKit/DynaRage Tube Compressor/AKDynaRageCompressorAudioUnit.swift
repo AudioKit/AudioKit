@@ -53,6 +53,6 @@ public class AKDynaRageCompressorAudioUnit: AKAudioUnitBase {
         flags: .default)
 
     public override func createDSP() -> AKDSPRef {
-        return createDynaRageCompressorDSP()
+        return akDynaRageCompressorCreateDSP()
     }
 }

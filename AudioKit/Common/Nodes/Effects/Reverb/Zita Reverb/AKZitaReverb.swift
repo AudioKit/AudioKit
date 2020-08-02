@@ -142,7 +142,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createZitaReverbDSP()
+            return akZitaReverbCreateDSP()
         }
     }
 

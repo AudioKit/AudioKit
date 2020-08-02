@@ -86,6 +86,6 @@ public:
     }
 };
 
-AKDSPRef createTanhDistortionDSP() {
+AKDSPRef akTanhDistortionCreateDSP() {
     return new AKTanhDistortionDSP();
 }

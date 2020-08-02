@@ -88,7 +88,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPhaseDistortionOscillatorDSP()
+            return akPhaseDistortionOscillatorCreateDSP()
         }
     }
 

@@ -72,7 +72,7 @@ public:
     }
 };
 
-AKDSPRef createConvolutionDSP() {
+AKDSPRef akConvolutionCreateDSP() {
     return new AKConvolutionDSP();
 }
 

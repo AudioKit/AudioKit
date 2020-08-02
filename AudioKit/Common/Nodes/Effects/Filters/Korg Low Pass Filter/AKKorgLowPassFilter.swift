@@ -58,7 +58,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createKorgLowPassFilterDSP()
+            return akKorgLowPassFilterCreateDSP()
         }
     }
 

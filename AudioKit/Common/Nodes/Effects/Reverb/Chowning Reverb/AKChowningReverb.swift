@@ -22,7 +22,7 @@ public class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
     public class InternalAU: AKAudioUnitBase {
         public override func createDSP() -> AKDSPRef {
-            return createChowningReverbDSP()
+            return akChowningReverbCreateDSP()
         }
     }
 

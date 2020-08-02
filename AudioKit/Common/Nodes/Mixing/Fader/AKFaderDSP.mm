@@ -83,6 +83,6 @@ public:
     }
 };
 
-AKDSPRef createFaderDSP() {
+AKDSPRef akFaderCreateDSP() {
     return new AKFaderDSP();
 }

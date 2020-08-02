@@ -58,7 +58,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPeakingParametricEqualizerFilterDSP()
+            return akPeakingParametricEqualizerFilterCreateDSP()
         }
     }
 

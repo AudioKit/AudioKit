@@ -10,7 +10,7 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
     AKShakerParameterAmplitude,
 };
 
-AK_API AKDSPRef createShakerDSP(void);
+AK_API AKDSPRef akShakerCreateDSP(void);
 
 AK_API void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude);
 

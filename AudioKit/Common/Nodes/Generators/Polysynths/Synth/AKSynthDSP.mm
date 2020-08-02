@@ -3,7 +3,7 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-AKDSPRef createAKSynthDSP() {
+AKDSPRef akAKSynthCreateDSP() {
     return new AKSynthDSP();
 }
 

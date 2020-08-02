@@ -68,6 +68,6 @@ public:
     }
 };
 
-AKDSPRef createTremoloDSP() {
+AKDSPRef akTremoloCreateDSP() {
     return new AKTremoloDSP();
 }

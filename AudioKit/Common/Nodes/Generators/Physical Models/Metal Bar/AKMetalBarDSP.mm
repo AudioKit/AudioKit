@@ -70,6 +70,6 @@ public:
     }
 };
 
-AKDSPRef createMetalBarDSP() {
+AKDSPRef akMetalBarCreateDSP() {
     return new AKMetalBarDSP();
 }

@@ -9,7 +9,7 @@ public class AKRhodesPianoAudioUnit: AKAudioUnitBase {
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createRhodesPianoDSP()
+        return akRhodesPianoCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

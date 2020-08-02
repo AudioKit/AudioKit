@@ -131,7 +131,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPhaserDSP()
+            return akPhaserCreateDSP()
         }
     }
 

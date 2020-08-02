@@ -86,7 +86,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPWMOscillatorDSP()
+            return akPWMOscillatorCreateDSP()
         }
     }
 

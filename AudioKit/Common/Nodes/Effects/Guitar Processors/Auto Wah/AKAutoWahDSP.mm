@@ -80,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef createAutoWahDSP() {
+AKDSPRef akAutoWahCreateDSP() {
     return new AKAutoWahDSP();
 }

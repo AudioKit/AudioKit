@@ -9,7 +9,7 @@ public class AKClarinetAudioUnit: AKAudioUnitBase {
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createClarinetDSP()
+        return akClarinetCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

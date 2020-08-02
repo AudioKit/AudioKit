@@ -25,7 +25,7 @@ typedef struct {
     AKSequenceEvent noteOff;
 } AKSequenceNote;
 
-AK_API AKDSPRef createAKSequencerEngineDSP(void);
+AK_API AKDSPRef akAKSequencerEngineCreateDSP(void);
 AK_API void sequencerEngineUpdateSequence(AKDSPRef dsp,
                                           const AKSequenceEvent* events,
                                           size_t eventCount,

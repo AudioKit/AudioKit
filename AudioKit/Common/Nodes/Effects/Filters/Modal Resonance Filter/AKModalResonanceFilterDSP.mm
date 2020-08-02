@@ -74,6 +74,6 @@ public:
     }
 };
 
-AKDSPRef createModalResonanceFilterDSP() {
+AKDSPRef akModalResonanceFilterCreateDSP() {
     return new AKModalResonanceFilterDSP();
 }

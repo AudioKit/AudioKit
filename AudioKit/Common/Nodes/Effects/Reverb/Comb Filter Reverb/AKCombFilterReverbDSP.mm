@@ -74,7 +74,7 @@ public:
     }
 };
 
-AKDSPRef createCombFilterReverbDSP() {
+AKDSPRef akCombFilterReverbCreateDSP() {
     return new AKCombFilterReverbDSP();
 }
 

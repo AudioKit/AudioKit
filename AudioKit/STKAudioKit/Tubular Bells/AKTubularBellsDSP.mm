@@ -129,6 +129,6 @@ public:
     }
 };
 
-AKDSPRef createTubularBellsDSP() {
+AKDSPRef akTubularBellsCreateDSP() {
     return new AKTubularBellsDSP();
 }

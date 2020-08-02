@@ -268,7 +268,7 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
         flags: nonRampFlags)
 
     public override func createDSP() -> AKDSPRef {
-        return createAKSamplerDSP()
+        return akAKSamplerCreateDSP()
     }
 
     override init(componentDescription: AudioComponentDescription,

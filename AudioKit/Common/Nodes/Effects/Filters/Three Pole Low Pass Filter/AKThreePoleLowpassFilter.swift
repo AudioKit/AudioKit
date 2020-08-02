@@ -60,7 +60,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInpu
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createThreePoleLowpassFilterDSP()
+            return akThreePoleLowpassFilterCreateDSP()
         }
     }
 

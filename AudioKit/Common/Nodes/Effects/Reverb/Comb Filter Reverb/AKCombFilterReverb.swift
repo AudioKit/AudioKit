@@ -42,7 +42,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createCombFilterReverbDSP()
+            return akCombFilterReverbCreateDSP()
         }
     }
 

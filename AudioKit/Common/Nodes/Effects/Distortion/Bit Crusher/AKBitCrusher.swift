@@ -46,7 +46,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createBitCrusherDSP()
+            return akBitCrusherCreateDSP()
         }
     }
     // MARK: - Initialization

@@ -58,7 +58,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createPitchShifterDSP()
+            return akPitchShifterCreateDSP()
         }
     }
 

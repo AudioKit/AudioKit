@@ -7,12 +7,12 @@
 
 #include "AKModulatedDelayDSP.hpp"
 
-AKDSPRef createChorusDSP()
+AKDSPRef akChorusCreateDSP()
 {
     return new AKModulatedDelayDSP(kChorus);
 }
 
-AKDSPRef createFlangerDSP()
+AKDSPRef akFlangerCreateDSP()
 {
     return new AKModulatedDelayDSP(kFlanger);
 }

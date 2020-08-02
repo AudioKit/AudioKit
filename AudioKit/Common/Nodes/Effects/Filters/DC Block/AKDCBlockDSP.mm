@@ -62,6 +62,6 @@ public:
     }
 };
 
-AKDSPRef createDCBlockDSP() {
+AKDSPRef akDCBlockCreateDSP() {
     return new AKDCBlockDSP();
 }

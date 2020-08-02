@@ -11,5 +11,5 @@ typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
     AKClarinetParameterRampDuration
 };
 
-AK_API AKDSPRef createClarinetDSP(void);
+AK_API AKDSPRef akClarinetCreateDSP(void);
 

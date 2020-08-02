@@ -53,7 +53,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createStringResonatorDSP()
+            return akStringResonatorCreateDSP()
         }
     }
 

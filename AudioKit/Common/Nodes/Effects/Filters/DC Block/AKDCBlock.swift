@@ -17,7 +17,7 @@ public class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
 
     public class InternalAU: AKAudioUnitBase {
         public override func createDSP() -> AKDSPRef {
-            return createDCBlockDSP()
+            return akDCBlockCreateDSP()
         }
     }
 

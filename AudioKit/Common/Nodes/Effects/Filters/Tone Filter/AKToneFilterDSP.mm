@@ -68,6 +68,6 @@ public:
     }
 };
 
-AKDSPRef createToneFilterDSP() {
+AKDSPRef akToneFilterCreateDSP() {
     return new AKToneFilterDSP();
 }

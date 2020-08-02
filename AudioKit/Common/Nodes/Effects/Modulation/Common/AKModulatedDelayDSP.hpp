@@ -43,8 +43,8 @@ extern const float kAKFlanger_MaxDepth;
 extern const float kAKFlanger_MinDryWetMix;
 extern const float kAKFlanger_MaxDryWetMix;
 
-AK_API AKDSPRef createChorusDSP(void);
-AK_API AKDSPRef createFlangerDSP(void);
+AK_API AKDSPRef akChorusCreateDSP(void);
+AK_API AKDSPRef akFlangerCreateDSP(void);
 
 #ifdef __cplusplus
 

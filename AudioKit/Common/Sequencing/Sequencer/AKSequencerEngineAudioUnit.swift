@@ -15,7 +15,7 @@ public class AKSequencerEngineAudioUnit: AKAudioUnitBase {
     private(set) var loopEnabled: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createAKSequencerEngineDSP()
+        return akAKSequencerEngineCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

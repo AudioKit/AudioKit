@@ -9,7 +9,7 @@ public class AKShakerAudioUnit: AKAudioUnitBase {
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return createShakerDSP()
+        return akShakerCreateDSP()
     }
 
     public override init(componentDescription: AudioComponentDescription,

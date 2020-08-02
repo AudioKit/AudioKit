@@ -53,6 +53,6 @@ public:
     }
 };
 
-AKDSPRef createBrownianNoiseDSP() {
+AKDSPRef akBrownianNoiseCreateDSP() {
     return new AKBrownianNoiseDSP();
 }
