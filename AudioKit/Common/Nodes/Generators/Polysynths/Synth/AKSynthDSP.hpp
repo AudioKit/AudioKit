@@ -32,9 +32,9 @@ typedef NS_ENUM(AUParameterAddress, AKSynthParameter)
 };
 
 AK_API AKDSPRef akAKSynthCreateDSP(void);
-AK_API void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-AK_API void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
-AK_API void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
+AK_API void akSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+AK_API void akSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
+AK_API void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 

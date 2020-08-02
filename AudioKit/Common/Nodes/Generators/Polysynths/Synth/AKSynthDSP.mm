@@ -7,17 +7,17 @@ AKDSPRef akAKSynthCreateDSP() {
     return new AKSynthDSP();
 }
 
-void doAKSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+void akSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-void doAKSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
+void akSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-void doAKSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
+void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
 {
     ((AKSynthDSP*)pDSP)->sustainPedal(pedalDown);
 }

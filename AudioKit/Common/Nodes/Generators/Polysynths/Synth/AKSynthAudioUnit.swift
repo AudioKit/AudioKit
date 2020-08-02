@@ -215,15 +215,15 @@ public class AKSynthAudioUnit: AKAudioUnitBase {
     public func playNote(noteNumber: UInt8,
                          velocity: UInt8,
                          noteFrequency: Float) {
-        doAKSynthPlayNote(dsp, noteNumber, velocity, noteFrequency)
+        akSynthPlayNote(dsp, noteNumber, velocity, noteFrequency)
     }
 
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
-        doAKSynthStopNote(dsp, noteNumber, immediate)
+        akSynthStopNote(dsp, noteNumber, immediate)
     }
 
     public func sustainPedal(down: Bool) {
-        doAKSynthSustainPedal(dsp, down)
+        akSynthSustainPedal(dsp, down)
     }
 
 //    public override func shouldClearOutputBuffer() -> Bool {
