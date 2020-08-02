@@ -78,7 +78,7 @@ AKDSPRef createCombFilterReverbDSP() {
     return new AKCombFilterReverbDSP();
 }
 
-void setLoopDurationCombFilterReverDSP(AKDSPRef dspRef, float duration) {
+void akCombFilterReverbSetLoopDuration(AKDSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<AKCombFilterReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);}

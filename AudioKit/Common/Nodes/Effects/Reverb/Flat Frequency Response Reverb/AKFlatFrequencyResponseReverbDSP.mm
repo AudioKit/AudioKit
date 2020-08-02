@@ -78,7 +78,7 @@ AKDSPRef createFlatFrequencyResponseReverbDSP() {
     return new AKFlatFrequencyResponseReverbDSP();
 }
 
-extern "C" void setLoopDurationFlatFrequencyResponseDSP(AKDSPRef dspRef, float duration) {
+extern "C" void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<AKFlatFrequencyResponseReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
