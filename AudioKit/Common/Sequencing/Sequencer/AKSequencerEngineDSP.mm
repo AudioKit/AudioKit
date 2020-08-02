@@ -392,11 +392,10 @@ struct AKSequencerEngine {
         return true;
     }
 
-    void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
+    void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
-            // XXX: not sample-accurate.
-            midiBlock(AUEventSampleTimeImmediate, 0, 3, midiBytes);
+            midiBlock(offset, 0, 3, midiBytes);
         }
     }
 

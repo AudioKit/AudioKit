@@ -28,7 +28,7 @@ class AKSequencerEngineTests: XCTestCase {
             for index in 0 ..< length {
                 bytes.append(midiBytes[index])
             }
-            events.append(AKMIDIEvent(data: bytes))
+            events.append(AKMIDIEvent(data: bytes, offset: MIDITimeStamp(sampleTime)))
 
         }
 
@@ -67,8 +67,10 @@ class AKSequencerEngineTests: XCTestCase {
         XCTAssertEqual(events.count, 2)
         XCTAssertEqual(events[0].noteNumber!, 60)
         XCTAssertEqual(events[0].status!.type, .noteOn)
+        XCTAssertEqual(events[0].offset, 11025)
         XCTAssertEqual(events[1].noteNumber!, 60)
         XCTAssertEqual(events[1].status!.type, .noteOff)
+        XCTAssertEqual(events[1].offset, 13230)
     }
 
 }
