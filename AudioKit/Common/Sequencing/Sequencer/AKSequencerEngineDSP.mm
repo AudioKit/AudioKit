@@ -395,7 +395,7 @@ struct AKSequencerEngine {
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
-            midiBlock(offset, 0, 3, midiBytes);
+            midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
         }
     }
 
