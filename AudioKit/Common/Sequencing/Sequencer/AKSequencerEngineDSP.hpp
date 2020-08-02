@@ -34,3 +34,30 @@ AK_API void sequencerEngineUpdateSequence(AKDSPRef dsp,
 AK_API void sequencerEngineStopPlayingNotes(AKDSPRef dsp);
 
 AK_API void sequencerEngineSetAUTarget(AKDSPRef dsp, AudioUnit audioUnit);
+
+typedef struct {
+    int maximumPlayCount;
+    double length;
+    double tempo;
+    bool loopEnabled;
+    uint numberOfLoops;
+} AKSequenceSettings;
+
+typedef struct AKSequencerEngine* AKSequencerEngineRef;
+
+/// Creates the audio-thread-only state for the sequencer.
+AK_API AKSequencerEngineRef AKSequencerEngineCreate(void);
+
+/// Deallocate the sequencer.
+void AKSequencerEngineDestroy(AKSequencerEngineRef engine);
+
+/// Updates the sequence and returns a new render observer.
+AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
+                                                        const AKSequenceEvent* events,
+                                                        size_t eventCount,
+                                                        const AKSequenceNote* notes,
+                                                        size_t noteCount,
+                                                        AKSequenceSettings settings,
+                                                        double sampleRate,
+                                                        AUScheduleMIDIEventBlock block);
+
