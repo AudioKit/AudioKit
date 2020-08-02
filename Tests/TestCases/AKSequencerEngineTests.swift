@@ -73,4 +73,19 @@ class AKSequencerEngineTests: XCTestCase {
         XCTAssertEqual(events[1].offset, 13230)
     }
 
+    func testChord() {
+
+        var seq = AKSequence()
+
+        seq.add(noteNumber: 60, position: 0.0, duration: 1.0)
+        seq.add(noteNumber: 63, position: 0.0, duration: 1.0)
+        seq.add(noteNumber: 67, position: 0.0, duration: 1.0)
+
+        let events = observerTest(sequence: seq)
+        XCTAssertEqual(events.count, 6)
+
+        XCTAssertEqual(events.map { $0.noteNumber! }, [60,63,67,60,63,67])
+        XCTAssertEqual(events.map { $0.offset }, [0,0,0,22050,22050,22050])
+    }
+
 }
