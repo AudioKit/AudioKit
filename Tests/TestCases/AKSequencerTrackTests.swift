@@ -84,4 +84,27 @@ class AKSequencerTrackTests: AKTestCase {
         AKTestMD5("a1c11d9faec613e1676d5db7e0a0f434")
     }
 
+    func testTempo() {
+
+        duration = 1
+
+        let synth = AKOscillatorFilterSynth()
+
+        let track = AKSequencerTrack(targetNode: synth)
+
+        output = AKMixer(synth, track)
+
+        var seq = AKSequence()
+        seq.add(noteNumber: 60, position: 0, duration: 0.1)
+        seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
+        seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
+
+        track.sequence = seq
+        track.tempo = 30
+        track.playFromStart()
+        // auditionTest()
+        AKTestMD5("813ae62aad95c3ee3155cf212828410e")
+
+    }
+
 }
