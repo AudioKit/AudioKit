@@ -348,52 +348,52 @@ public class AKSamplerAudioUnit: AKAudioUnitBase {
     public override var canProcessInPlace: Bool { return true }
 
     public func stopAllVoices() {
-        doAKSamplerStopAllVoices(dsp)
+        akSamplerStopAllVoices(dsp)
     }
 
     public func restartVoices() {
-        doAKSamplerRestartVoices(dsp)
+        akSamplerRestartVoices(dsp)
     }
 
     public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         var copy = sampleDataDescriptor
-        doAKSamplerLoadData(dsp, &copy)
+        akSamplerLoadData(dsp, &copy)
     }
 
     public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         var copy = sampleFileDescriptor
-        doAKSamplerLoadCompressedFile(dsp, &copy)
+        akSamplerLoadCompressedFile(dsp, &copy)
     }
 
     public func unloadAllSamples() {
-        doAKSamplerUnloadAllSamples(dsp)
+        akSamplerUnloadAllSamples(dsp)
     }
 
     public func setNoteFrequency(noteNumber: Int32, noteFrequency: Float) {
-        doAKSamplerSetNoteFrequency(dsp, noteNumber, noteFrequency)
+        akSamplerSetNoteFrequency(dsp, noteNumber, noteFrequency)
     }
 
     public func buildSimpleKeyMap() {
-        doAKSamplerBuildSimpleKeyMap(dsp)
+        akSamplerBuildSimpleKeyMap(dsp)
     }
 
     public func buildKeyMap() {
-        doAKSamplerBuildKeyMap(dsp)
+        akSamplerBuildKeyMap(dsp)
     }
 
     public func setLoop(thruRelease: Bool) {
-        doAKSamplerSetLoopThruRelease(dsp, thruRelease)
+        akSamplerSetLoopThruRelease(dsp, thruRelease)
     }
 
     public func playNote(noteNumber: UInt8, velocity: UInt8) {
-        doAKSamplerPlayNote(dsp, noteNumber, velocity)
+        akSamplerPlayNote(dsp, noteNumber, velocity)
     }
 
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
-        doAKSamplerStopNote(dsp, noteNumber, immediate)
+        akSamplerStopNote(dsp, noteNumber, immediate)
     }
 
     public func sustainPedal(down: Bool) {
-        doAKSamplerSustainPedal(dsp, down)
+        akSamplerSustainPedal(dsp, down)
     }
 }

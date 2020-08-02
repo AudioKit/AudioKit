@@ -8,11 +8,11 @@ AKDSPRef akAKSamplerCreateDSP() {
     return new AKSamplerDSP();
 }
 
-void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
+void akSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
+void akSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
 {
     char errMsg[100];
     WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -48,49 +48,49 @@ void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
     delete[] sdd.data;
 }
 
-void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
+void akSamplerUnloadAllSamples(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->unloadAllSamples();
 }
 
-void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
+void akSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
 {
     ((AKSamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
 }
 
-void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
+void akSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
 
-void doAKSamplerBuildKeyMap(AKDSPRef pDSP) {
+void akSamplerBuildKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
-void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
+void akSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
+void akSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
 {
     ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity);
 }
 
-void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
+void akSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-void doAKSamplerStopAllVoices(AKDSPRef pDSP)
+void akSamplerStopAllVoices(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->stopAllVoices();
 }
 
-void doAKSamplerRestartVoices(AKDSPRef pDSP)
+void akSamplerRestartVoices(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->restartVoices();
 }
 
-void doAKSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown)
+void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown)
 {
     ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);
 }
