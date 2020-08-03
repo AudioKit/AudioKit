@@ -10,7 +10,7 @@ extension AVAudioFile {
 
     /// returns the max level in the file as a Peak struct
     public var peak: AVAudioPCMBuffer.Peak? {
-        self.toAVAudioPCMBuffer()?.peak()
+        toAVAudioPCMBuffer()?.peak()
     }
 
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
@@ -19,8 +19,8 @@ extension AVAudioFile {
 
         // Write the buffer in file
         do {
-            self.framePosition = 0
-            try self.write(from: buffer)
+            framePosition = 0
+            try write(from: buffer)
         } catch let error as NSError {
             AKLog(error, type: .error)
             throw error
@@ -33,10 +33,9 @@ extension AVAudioFile {
                                             frameCapacity: AVAudioFrameCount(length)) else { return nil }
 
         do {
-            self.framePosition = 0
-            try self.read(into: buffer)
             framePosition = 0
-            AKLog("Created buffer with format", self.processingFormat)
+            try read(into: buffer)
+            AKLog("Created buffer with format", processingFormat)
 
         } catch let error as NSError {
             AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
@@ -47,7 +46,7 @@ extension AVAudioFile {
 
     /// converts to Swift friendly Float array
     public func toFloatChannelData() -> FloatChannelData? {
-        guard let pcmBuffer = self.toAVAudioPCMBuffer(),
+        guard let pcmBuffer = toAVAudioPCMBuffer(),
             let data = pcmBuffer.toFloatChannelData() else { return nil }
         return data
     }
@@ -108,7 +107,7 @@ extension AVAudioFile {
         let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format)
 
         // first print CAF file
-        guard self.extract(to: tempFile,
+        guard extract(to: tempFile,
                            from: startTime,
                            to: endTime,
                            fadeInTime: fadeInTime,
