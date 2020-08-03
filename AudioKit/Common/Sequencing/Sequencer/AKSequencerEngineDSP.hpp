@@ -68,3 +68,6 @@ AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine);
 AK_API void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
 
 AK_API void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing);
+
+/// Stop all notes currently playing.
+AK_API void AKSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine);
