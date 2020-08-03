@@ -200,4 +200,19 @@ extension PlayerDemoViewController {
         savePanel.directoryURL = directory
         savePanel.message = message ?? ""
     }
+
+    @IBAction func terminate(_ sender: Any? = nil) {
+        deleteTempFile()
+        exit(0)
+    }
+
+    private func deleteTempFile() {
+        guard let tempFile = tempFile,
+            FileManager.default.fileExists(atPath: tempFile.path) else {
+            AKLog("No temp file found to delete.")
+            return
+        }
+
+        try? FileManager.default.removeItem(at: tempFile)
+    }
 }

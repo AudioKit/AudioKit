@@ -191,8 +191,6 @@ class PlayerDemoViewController: NSViewController {
 
     func open(audioFile: AVAudioFile) {
         if player != nil {
-            // register UNDO
-
             player?.disconnectOutput()
             player?.detach()
             player = nil
@@ -204,7 +202,7 @@ class PlayerDemoViewController: NSViewController {
 
         if tempFile == nil {
             tempFile = audioFile.url.deletingLastPathComponent()
-                .appendingPathComponent(filename + "_TEMP")
+                .appendingPathComponent(filename + "_TEMP.caf")
         }
 
         let player = AKDynamicPlayer(audioFile: audioFile)
@@ -214,6 +212,7 @@ class PlayerDemoViewController: NSViewController {
         waveformView?.open(url: audioFile.url)
 
         DispatchQueue.main.async {
+            self.currentTime = 0
             self.initSliders()
         }
     }
