@@ -87,7 +87,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Sequencer
 #import <AudioKit/AKSamplerMetronome.h>
 #if !TARGET_OS_TV
-#import <AudioKit/AKSequencerEngineDSP.hpp>
+#import <AudioKit/AKSequencerEngine.hpp>
 #endif
 
 // Automation

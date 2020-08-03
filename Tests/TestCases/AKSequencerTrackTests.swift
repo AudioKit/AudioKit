@@ -20,90 +20,64 @@ class AKSequencerTrackTests: AKTestCase {
         XCTAssertEqual(seq.loopEnabled, true) // Loop on
     }
 
-    func testBasicSequence() throws {
-
-        duration = 1
-
-        let synth = AKOscillatorFilterSynth()
-
-        let track = AKSequencerTrack(targetNode: synth)
-
-        output = AKMixer(synth, track)
+    func getTestSequence() -> AKSequence {
 
         var seq = AKSequence()
-        seq.add(noteNumber: 60, position: 0, duration: 0.1)
-        seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
-        seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
+        seq.add(noteNumber: 60, position: 0, duration: 0.5)
+        seq.add(noteNumber: 62, position: 1, duration: 0.5)
+        seq.add(noteNumber: 63, position: 2, duration: 0.5)
 
-        track.sequence = seq
-        track.playFromStart()
-        // auditionTest()
-        AKTestMD5("9bea8068185763c2b1a9970a916688fa")
+        return seq
     }
 
-    func testRemoveNote() throws {
+    func testLoop() {
 
-        duration = 1
+        duration = 5
 
         let synth = AKOscillatorFilterSynth()
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = synth
 
-        var seq = AKSequence()
-        seq.add(noteNumber: 60, position: 0, duration: 0.1)
-        seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
-        seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
-        seq.removeNote(at: 0.1)
-
-        track.sequence = seq
+        track.sequence = getTestSequence()
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("ec7e33775d8c926b2676a7002c123360")
+        AKTestMD5("c01d447a0f869a73f9ef82a9f2fa4607")
     }
 
-    func testRemoveInstances() throws {
+    func testOneShot() {
 
-        duration = 1
+        duration = 5
 
         let synth = AKOscillatorFilterSynth()
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = synth
 
-        var seq = AKSequence()
-        seq.add(noteNumber: 60, position: 0, duration: 0.1)
-        seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
-        seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
-        seq.removeAllInstancesOf(noteNumber: 63)
-        track.sequence = seq
+        track.sequence = getTestSequence()
+        track.loopEnabled = false
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("a1c11d9faec613e1676d5db7e0a0f434")
+        AKTestMD5("3553248d0221171d23aab45b4772c7b0")
     }
 
     func testTempo() {
 
-        duration = 1
+        duration = 5
 
         let synth = AKOscillatorFilterSynth()
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(synth, track)
+        output = synth
 
-        var seq = AKSequence()
-        seq.add(noteNumber: 60, position: 0, duration: 0.1)
-        seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
-        seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
-
-        track.sequence = seq
-        track.tempo = 30
+        track.sequence = getTestSequence()
+        track.tempo = 60
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("813ae62aad95c3ee3155cf212828410e")
+        AKTestMD5("9e4ef9914e766652ebdb8eb9b952e458")
 
     }
 
