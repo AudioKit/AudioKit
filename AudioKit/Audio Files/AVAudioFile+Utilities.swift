@@ -30,12 +30,18 @@ extension AVAudioFile {
 }
 
 extension AVAudioFile {
+    /// converts to a 32 bit PCM buffer
     public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
                                             frameCapacity: AVAudioFrameCount(self.length)) else { return nil }
 
         do {
-            try self.read(into: buffer)
+            // reopen file for safety
+            if let readFile = try? AVAudioFile(forReading: url) {
+                try readFile.read(into: buffer)
+                AKLog("Created buffer with format", self.processingFormat)
+            }
+
         } catch let error as NSError {
             AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
@@ -43,31 +49,17 @@ extension AVAudioFile {
         return buffer
     }
 
+    /// converts to Swift friendly Float array
     public func toFloatChannelData() -> FloatChannelData? {
         guard let pcmBuffer = self.toAVAudioPCMBuffer(),
-            let pcmFloatChannelData = pcmBuffer.floatChannelData else { return nil }
-
-        let channelCount = Int(pcmBuffer.format.channelCount)
-        let frameLength = Int(pcmBuffer.frameLength)
-        let stride = pcmBuffer.stride
-
-        // Preallocate our Array so we're not constantly thrashing while resizing as we append.
-        var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
-
-        // Loop across our channels...
-        for channel in 0 ..< channelCount {
-            // Make sure we go through all of the frames...
-            for sampleIndex in 0 ..< frameLength {
-                result[channel][sampleIndex] = pcmFloatChannelData[channel][sampleIndex * stride]
-            }
-        }
-
-        return result
+            let data = pcmBuffer.toFloatChannelData() else { return nil }
+        return data
     }
 
-    public func extractSelection(into outputURL: URL,
-                                 from startTime: TimeInterval,
-                                 to endTime: TimeInterval) -> AVAudioFile? {
+    /// Will return a 32bit CAF file of the sampleRate of this buffer
+    @discardableResult public func extract(to outputURL: URL,
+                                           from startTime: TimeInterval,
+                                           to endTime: TimeInterval) -> AVAudioFile? {
         guard let inputBuffer = toAVAudioPCMBuffer() else {
             AKLog("Error reading into input buffer", type: .error)
             return nil
@@ -75,8 +67,12 @@ extension AVAudioFile {
 
         guard let editedBuffer = inputBuffer.extract(from: startTime, to: endTime) else {
             AKLog("Failed to create edited buffer", type: .error)
-
             return nil
+        }
+
+        var outputURL = outputURL
+        if outputURL.pathExtension.lowercased() != "caf" {
+            outputURL = outputURL.deletingPathExtension().appendingPathExtension("caf")
         }
 
         guard let outputFile = try? AVAudioFile(url: outputURL, fromBuffer: editedBuffer) else {
@@ -85,5 +81,46 @@ extension AVAudioFile {
         }
 
         return outputFile
+    }
+
+    /// Will return an extracted section of this file of the passed in conversion options
+    public func extract(to url: URL,
+                        from startTime: TimeInterval,
+                        to endTime: TimeInterval,
+                        options: AKConverter.Options) {
+        let format = options.format ?? "caf"
+        let directory = url.deletingLastPathComponent()
+        let filename = url.deletingPathExtension().lastPathComponent
+        let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
+        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format)
+
+        // first print CAF file
+        guard self.extract(to: tempFile,
+                           from: startTime,
+                           to: endTime) != nil else {
+            AKLog("Failed to create new file", type: .error)
+            return
+        }
+
+        // then convert to desired format here:
+        guard FileManager.default.fileExists(atPath: tempFile.path) else {
+            AKLog(tempFile, "File not found", type: .error)
+            return
+        }
+
+        let converter = AKConverter(inputURL: tempFile, outputURL: outputURL, options: options)
+        converter.start { error in
+
+            if let error = error {
+                AKLog("Done, error", error, type: .error)
+            }
+
+            do {
+                // clean up temp file
+                try FileManager.default.removeItem(at: tempFile)
+            } catch {
+                AKLog("Unable to remove temp file at", tempFile, type: .error)
+            }
+        }
     }
 }
