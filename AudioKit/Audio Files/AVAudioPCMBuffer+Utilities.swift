@@ -72,10 +72,11 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 
-    /// - Returns: A new edited buffer from this buffer
+    /// - Parameter from: The time of the in point of the extraction
+    /// - Parameter to: The time of the out point
+    /// - Returns: A new edited AVAudioPCMBuffer
     public func extract(from startTime: TimeInterval,
                         to endTime: TimeInterval) -> AVAudioPCMBuffer? {
-        
         let sampleRate = self.format.sampleRate
         let startSample = AVAudioFrameCount(startTime * sampleRate)
         var endSample = AVAudioFrameCount(endTime * sampleRate)
