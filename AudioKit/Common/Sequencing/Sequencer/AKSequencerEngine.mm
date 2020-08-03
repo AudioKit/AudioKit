@@ -27,6 +27,9 @@ struct AKSequencerEngine {
     // Tell the DSP thread to seek.
     std::atomic<double> seekPosition{NAN};
 
+    // Current position as reported to the UI.
+    std::atomic<double> uiPosition{0};
+
     AKSequencerEngine() {
         // Try to reserve enough notes so allocation on the DSP
         // thread is unlikely. (This is not ideal)
@@ -180,6 +183,7 @@ struct AKSequencerEngine {
         }
         framesCounted += frameCount;
 
+        uiPosition = currentPositionInBeats();
     }
 };
 
@@ -220,7 +224,7 @@ AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
 }
 
 double akSequencerEngineGetPosition(AKSequencerEngineRef engine) {
-    return engine->currentPositionInBeats();
+    return engine->uiPosition;
 }
 
 void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
