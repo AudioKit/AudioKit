@@ -61,3 +61,5 @@ AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef eng
                                                         double sampleRate,
                                                         AUScheduleMIDIEventBlock block);
 
+/// Returns the sequencer playhead position in beats.
+AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine);

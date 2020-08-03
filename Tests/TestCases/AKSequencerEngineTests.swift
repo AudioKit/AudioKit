@@ -51,6 +51,9 @@ class AKSequencerEngineTests: XCTestCase {
             }
         }
 
+        // One second at 120bpm is two beats
+        XCTAssertEqual(AKSequencerEngineGetPosition(engine), 2.0)
+
         AKSequencerEngineDestroy(engine)
 
         return events

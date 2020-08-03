@@ -541,4 +541,8 @@ AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
     };
 }
 
+AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine) {
+    return engine->currentPositionInBeats();
+}
+
 #endif
