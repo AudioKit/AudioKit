@@ -10,11 +10,9 @@ extension AVAudioFile {
 
     /// returns the max level in the file as a Peak struct
     public var peak: AVAudioPCMBuffer.Peak? {
-        toAVAudioPCMBuffer()?.peak()
+        self.toAVAudioPCMBuffer()?.peak()
     }
-}
 
-extension AVAudioFile {
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
     public convenience init(url: URL, fromBuffer buffer: AVAudioPCMBuffer) throws {
         try self.init(forWriting: url, settings: buffer.format.settings)
@@ -27,9 +25,7 @@ extension AVAudioFile {
             throw error
         }
     }
-}
 
-extension AVAudioFile {
     /// converts to a 32 bit PCM buffer
     public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
@@ -94,15 +90,18 @@ extension AVAudioFile {
     public func extract(to url: URL,
                         from startTime: TimeInterval,
                         to endTime: TimeInterval,
-                        options: AKConverter.Options? = nil,
                         fadeInTime: TimeInterval = 0,
-                        fadeOutTime: TimeInterval = 0) {
-        guard let options = options ?? AKConverter.Options(url: url) else {
-            AKLog("Failed to determine output options", type: .error)
-            return
+                        fadeOutTime: TimeInterval = 0,
+                        options: AKConverter.Options? = nil,
+                        completionHandler: AKConverter.AKConverterCallback? = nil) {
+        func createError(message: String, code: Int = 1) -> NSError {
+            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
+            return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
         }
 
-        let format = options.format ?? "caf"
+        let options = options ?? AKConverter.Options(audioFile: self)
+
+        let format = options?.format ?? url.pathExtension
         let directory = url.deletingLastPathComponent()
         let filename = url.deletingPathExtension().lastPathComponent
         let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
@@ -114,13 +113,13 @@ extension AVAudioFile {
                            to: endTime,
                            fadeInTime: fadeInTime,
                            fadeOutTime: fadeOutTime) != nil else {
-            AKLog("Failed to create new file", type: .error)
+            completionHandler?(createError(message: "Failed to create new file"))
             return
         }
 
         // then convert to desired format here:
         guard FileManager.default.fileExists(atPath: tempFile.path) else {
-            AKLog(tempFile, "File not found", type: .error)
+            completionHandler?(createError(message: "File not found"))
             return
         }
 
@@ -130,6 +129,8 @@ extension AVAudioFile {
             if let error = error {
                 AKLog("Done, error", error, type: .error)
             }
+
+            completionHandler?(error)
 
             do {
                 // clean up temp file
