@@ -11,6 +11,8 @@ import AudioKitUI
 import AVFoundation
 import Cocoa
 
+/// A basic Waveform editor interface
+
 class WaveformView: NSView {
     private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
@@ -29,6 +31,8 @@ class WaveformView: NSView {
     internal var inOutLayer = ActionCAShapeLayer()
 
     private var visualScaleFactor: Double = 30
+
+    var mouseDownTime: TimeInterval = 0
 
     public var time: TimeInterval = 0 {
         didSet {
@@ -98,7 +102,9 @@ class WaveformView: NSView {
         initialize()
     }
 
-    public func initialize() {
+    // MARK: - Private Functions
+
+    private func initialize() {
         wantsLayer = true
 
         fadeInLayer.fillColor = fadeColor
@@ -106,53 +112,12 @@ class WaveformView: NSView {
         inOutLayer.backgroundColor = NSColor.white.withAlphaComponent(0.3).cgColor
 
         layer?.insertSublayer(inOutLayer, at: 0)
-        // waveform at: 1
+        // waveform to be inserted at: 1
         layer?.insertSublayer(fadeInLayer, at: 3)
         layer?.insertSublayer(fadeOutLayer, at: 4)
         layer?.insertSublayer(timelineBar, at: 5)
     }
 
-    public func open(audioFile: AVAudioFile) {
-        if waveform != nil {
-            close()
-        }
-
-        if waveform == nil {
-            duration = audioFile.duration
-
-            waveform = AKWaveform(channels: Int(audioFile.fileFormat.channelCount),
-                                  size: frame.size,
-                                  waveformColor: maroon.cgColor,
-                                  backgroundColor: nil)
-            waveform?.isMirrored = true
-            waveform?.allowActions = false
-
-            if let waveform = waveform {
-                layer?.insertSublayer(waveform, at: 1)
-                updateLayers()
-            }
-        }
-
-        AKWaveformDataRequest(audioFile: audioFile)
-            .getDataAsync(with: pixelsPerSample,
-                          completionHandler: { data in
-
-                              guard let floatData = data else {
-                                  AKLog("Error getting waveform data", type: .error)
-                                  return
-                              }
-                              self.waveform?.fill(with: floatData)
-                          })
-    }
-
-    public func close() {
-        waveform?.dispose()
-        waveform?.removeFromSuperlayer()
-        waveform = nil
-    }
-}
-
-extension WaveformView {
     private func updateLayers() {
         guard duration > 0 else { return }
 
@@ -169,7 +134,7 @@ extension WaveformView {
         timelineBar.setHeight(frame.height)
     }
 
-    func updateInOutLayer() {
+    private func updateInOutLayer() {
         let start = CGFloat(inPoint * visualScaleFactor)
         let end = CGFloat(outPoint * visualScaleFactor)
         inOutLayer.frame = CGRect(x: start, y: 0, width: end - start, height: frame.height)
@@ -223,29 +188,75 @@ extension WaveformView {
         fadeOutLayer.path = fadePath.cgPath
     }
 
-    override public func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-        let position = mousePositionToTime(with: event)
-        delegate?.waveformSelected(source: self, at: position)
-    }
-
-    override public func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-        let position = mousePositionToTime(with: event)
-        delegate?.waveformScrubComplete(source: self, at: position)
-    }
-
-    override public func mouseDragged(with event: NSEvent) {
-        let position = mousePositionToTime(with: event)
-        delegate?.waveformScrubbed(source: self, at: position)
-    }
-
-    private func mousePositionToTime(with event: NSEvent) -> Double {
+    private func convertToTime(with event: NSEvent) -> Double {
         let loc = convert(event.locationInWindow, from: nil)
         var mouseTime = Double(loc.x / frame.width) * timelineDuration
         mouseTime = max(0, mouseTime)
         mouseTime = min(timelineDuration, mouseTime)
         return mouseTime
+    }
+
+    // MARK: - Public Functions
+
+    public func open(audioFile: AVAudioFile) {
+        if waveform != nil {
+            close()
+        }
+
+        if waveform == nil {
+            duration = audioFile.duration
+
+            waveform = AKWaveform(channels: Int(audioFile.fileFormat.channelCount),
+                                  size: frame.size,
+                                  waveformColor: maroon.cgColor,
+                                  backgroundColor: nil)
+            waveform?.isMirrored = true
+            waveform?.allowActions = false
+
+            if let waveform = waveform {
+                layer?.insertSublayer(waveform, at: 1)
+                updateLayers()
+            }
+        }
+
+        AKWaveformDataRequest(audioFile: audioFile)
+            .getDataAsync(with: pixelsPerSample,
+                          completionHandler: { data in
+
+                              guard let floatData = data else {
+                                  AKLog("Error getting waveform data", type: .error)
+                                  return
+                              }
+                              self.waveform?.fill(with: floatData)
+                          })
+    }
+
+    public func close() {
+        waveform?.dispose()
+        waveform?.removeFromSuperlayer()
+        waveform = nil
+    }
+}
+
+// MARK: - Mouse Handlers
+
+extension WaveformView {
+    override public func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        inPoint = convertToTime(with: event)
+        delegate?.waveformSelected(source: self, at: inPoint)
+    }
+
+    override public func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        let time = convertToTime(with: event)
+        delegate?.waveformScrubComplete(source: self, at: time)
+    }
+
+    override public func mouseDragged(with event: NSEvent) {
+        outPoint = convertToTime(with: event)
+        updateInOutLayer()
+        delegate?.waveformScrubbed(source: self, at: outPoint)
     }
 }
 
@@ -254,6 +265,8 @@ protocol WaveformViewDelegate: class {
     func waveformScrubbed(source: WaveformView, at time: Double)
     func waveformScrubComplete(source: WaveformView, at time: Double)
 }
+
+// MARK: - Misc
 
 class TimelineBar: ActionCAShapeLayer {
     public init(color: CGColor) {
