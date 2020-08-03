@@ -427,12 +427,13 @@ extension AKConverter {
     }
 
     internal func isCompressed(url: URL) -> Bool {
+        // NOTE: account for files that don't have extensions
         let ext = url.pathExtension.lowercased()
         return (ext == "m4a" || ext == "mp3" || ext == "mp4" || ext == "m4v" || ext == "mpg")
     }
 
     internal func createError(message: String, code: Int = 1) -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "com.audiodesigndesk.AKConverter.error", code: code, userInfo: userInfo)
+        return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
     }
 }

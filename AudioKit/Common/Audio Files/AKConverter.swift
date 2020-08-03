@@ -29,6 +29,7 @@ open class AKConverter: NSObject {
         "snd",
         "au",
         "sd2",
+        "aif",
         "aiff",
         "aifc",
         "aac",
@@ -40,12 +41,11 @@ open class AKConverter: NSObject {
 
     /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
-        public init() {}
         public var format: String?
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
-        /// used only when outputting compressed from PCM - convertAsset()
+        /// used only when outputting compressed m4a from PCM - convertAsset()
         public var bitRate: UInt32 = 128_000 {
             didSet {
                 if bitRate < 64_000 {
@@ -58,6 +58,27 @@ open class AKConverter: NSObject {
         public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this before you call start()
         public var eraseFile: Bool = true
+
+        // Init
+
+        public init() {}
+
+        public init?(url: URL) {
+            guard let avFile = try? AVAudioFile(forReading: url) else { return nil }
+            self.init(audioFile: avFile)
+        }
+
+        public init?(audioFile: AVAudioFile) {
+            let streamDescription = audioFile.fileFormat.streamDescription.pointee
+
+            format = audioFile.url.pathExtension
+            // AKConverter.formatIDToString(streamDescription.mFormatID)
+            sampleRate = streamDescription.mSampleRate
+            bitDepth = streamDescription.mBitsPerChannel
+            channels = streamDescription.mChannelsPerFrame
+
+            AKLog(streamDescription)
+        }
     }
 
     // MARK: - public properties
@@ -127,4 +148,98 @@ open class AKConverter: NSObject {
             convertAsset(completionHandler: completionHandler)
         }
     }
+}
+
+extension AKConverter {
+    /**
+     @enum Audio File Types
+     @abstract   Constants for the built-in audio file types.
+     @discussion These constants are used to indicate the type of file to be written, or as a hint to
+                     what type of file to expect from data provided.
+     @constant   kAudioFileAIFFType
+                     Audio Interchange File Format (AIFF)
+     @constant   kAudioFileAIFCType
+                     Audio Interchange File Format Compressed (AIFF-C)
+     @constant   kAudioFileWAVEType
+                     Microsoft WAVE
+     @constant   kAudioFileRF64Type
+                     File Format specified in EBU Tech 3306
+     @constant   kAudioFileSoundDesigner2Type
+                     Sound Designer II
+     @constant   kAudioFileNextType
+                     NeXT / Sun
+     @constant   kAudioFileMP3Type
+                     MPEG Audio Layer 3 (.mp3)
+     @constant   kAudioFileMP2Type
+                     MPEG Audio Layer 2 (.mp2)
+     @constant   kAudioFileMP1Type
+                     MPEG Audio Layer 1 (.mp1)
+     @constant   kAudioFileAC3Type
+                     AC-3
+     @constant   kAudioFileAAC_ADTSType
+                     Advanced Audio Coding (AAC) Audio Data Transport Stream (ADTS)
+     @constant   kAudioFileMPEG4Type
+     @constant   kAudioFileM4AType
+     @constant   kAudioFileM4BType
+     @constant   kAudioFileCAFType
+                     CoreAudio File Format
+     @constant   kAudioFile3GPType
+     @constant   kAudioFile3GP2Type
+     @constant   kAudioFileAMRType
+     @constant   kAudioFileFLACType
+                     Free Lossless Audio Codec
+     @constant   kAudioFileLATMInLOASType
+                     Low-overhead audio stream with low-overhead audio transport multiplex, per ISO/IEC 14496-3.
+                     Support is limited to AudioSyncStream using AudioMuxElement with mux config present.
+     */
+    /**
+     public var kAudioFormatLinearPCM: AudioFormatID { get }
+     public var kAudioFormatAC3: AudioFormatID { get }
+     public var kAudioFormat60958AC3: AudioFormatID { get }
+     public var kAudioFormatAppleIMA4: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC: AudioFormatID { get }
+     public var kAudioFormatMPEG4CELP: AudioFormatID { get }
+     public var kAudioFormatMPEG4HVXC: AudioFormatID { get }
+     public var kAudioFormatMPEG4TwinVQ: AudioFormatID { get }
+     public var kAudioFormatMACE3: AudioFormatID { get }
+     public var kAudioFormatMACE6: AudioFormatID { get }
+     public var kAudioFormatULaw: AudioFormatID { get }
+     public var kAudioFormatALaw: AudioFormatID { get }
+     public var kAudioFormatQDesign: AudioFormatID { get }
+     public var kAudioFormatQDesign2: AudioFormatID { get }
+     public var kAudioFormatQUALCOMM: AudioFormatID { get }
+     public var kAudioFormatMPEGLayer1: AudioFormatID { get }
+     public var kAudioFormatMPEGLayer2: AudioFormatID { get }
+     public var kAudioFormatMPEGLayer3: AudioFormatID { get }
+     public var kAudioFormatTimeCode: AudioFormatID { get }
+     public var kAudioFormatMIDIStream: AudioFormatID { get }
+     public var kAudioFormatParameterValueStream: AudioFormatID { get }
+     public var kAudioFormatAppleLossless: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_HE: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_LD: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_ELD: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_ELD_SBR: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_ELD_V2: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_HE_V2: AudioFormatID { get }
+     public var kAudioFormatMPEG4AAC_Spatial: AudioFormatID { get }
+     public var kAudioFormatMPEGD_USAC: AudioFormatID { get }
+     public var kAudioFormatAMR: AudioFormatID { get }
+     public var kAudioFormatAMR_WB: AudioFormatID { get }
+     public var kAudioFormatAudible: AudioFormatID { get }
+     public var kAudioFormatiLBC: AudioFormatID { get }
+     public var kAudioFormatDVIIntelIMA: AudioFormatID { get }
+     public var kAudioFormatMicrosoftGSM: AudioFormatID { get }
+     public var kAudioFormatAES3: AudioFormatID { get }
+     public var kAudioFormatEnhancedAC3: AudioFormatID { get }
+     public var kAudioFormatFLAC: AudioFormatID { get }
+     public var kAudioFormatOpus: AudioFormatID { get }
+     */
+//    public static func formatIDToString(_ mFormatID: AudioFormatID) -> String? {
+//        switch mFormatID {
+//        case kAudioFormatLinearPCM:
+//            return "wav"
+//        default:
+//            return nil
+//        }
+//    }
 }
