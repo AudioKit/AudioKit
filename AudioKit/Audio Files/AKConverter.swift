@@ -234,12 +234,12 @@ extension AKConverter {
      public var kAudioFormatFLAC: AudioFormatID { get }
      public var kAudioFormatOpus: AudioFormatID { get }
      */
-    public static func formatIDToString(_ mFormatID: AudioFormatID) -> String? {
-        switch mFormatID {
-        case kAudioFormatLinearPCM:
-            return "wav"
-        default:
-            return nil
-        }
-    }
+//    public static func formatIDToString(_ mFormatID: AudioFormatID) -> String? {
+//        switch mFormatID {
+//        case kAudioFormatLinearPCM:
+//            return "wav"
+//        default:
+//            return nil
+//        }
+//    }
 }
