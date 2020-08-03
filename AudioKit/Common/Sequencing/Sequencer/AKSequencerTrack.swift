@@ -47,7 +47,9 @@ open class AKSequencerTrack {
     }
 
     /// Current position of the track
-    public var currentPosition: Double = 0
+    public var currentPosition: Double {
+        akSequencerEngineGetPosition(engine)
+    }
 
     private var engine: AKSequencerEngineRef
 
