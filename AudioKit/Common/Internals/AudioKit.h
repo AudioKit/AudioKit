@@ -101,6 +101,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
 AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
+AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 
 // Custom debug
 #define AKPhaseDistortionOscillatorDebugPhase 0

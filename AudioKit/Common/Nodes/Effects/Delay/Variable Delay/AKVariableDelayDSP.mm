@@ -7,6 +7,7 @@ class AKVariableDelayDSP : public AKSoundpipeDSPBase {
 private:
     sp_vdelay *vdelay0;
     sp_vdelay *vdelay1;
+    float maximumTime = 10.0;
     ParameterRamper timeRamp;
     ParameterRamper feedbackRamp;
 
@@ -17,12 +18,18 @@ public:
         bCanProcessInPlace = false;
     }
 
+    void setMaximumTime(float maxTime) {
+        maximumTime = maxTime;
+        reset();
+    }
+
+
     void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_vdelay_create(&vdelay0);
-        sp_vdelay_init(sp, vdelay0, 10);
+        sp_vdelay_init(sp, vdelay0, maximumTime);
         sp_vdelay_create(&vdelay1);
-        sp_vdelay_init(sp, vdelay1, 10);
+        sp_vdelay_init(sp, vdelay1, maximumTime);
     }
 
     void deinit() {
@@ -34,8 +41,8 @@ public:
     void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
-        sp_vdelay_init(sp, vdelay0, 10);
-        sp_vdelay_init(sp, vdelay1, 10);
+        sp_vdelay_init(sp, vdelay0, maximumTime);
+        sp_vdelay_init(sp, vdelay1, maximumTime);
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -44,6 +51,7 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             float time = timeRamp.getAndStep();
+            if (time > maximumTime) time = maximumTime;
             vdelay0->del = time;
             vdelay1->del = time;
 
@@ -77,4 +85,10 @@ public:
 
 AKDSPRef akVariableDelayCreateDSP() {
     return new AKVariableDelayDSP();
+}
+
+void akVariableDelaySetMaximumTime(AKDSPRef dspRef, float maximumTime) {
+    auto dsp = dynamic_cast<AKVariableDelayDSP *>(dspRef);
+    assert(dsp);
+    dsp->setMaximumTime(maximumTime);
 }

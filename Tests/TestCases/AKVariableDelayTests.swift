@@ -19,6 +19,18 @@ class AKVariableDelayTests: AKTestCase {
         AKTestMD5("58250ab52957d2aa3d9efca9ed10cf88")
     }
 
+    let maximumMD5 = "877024e36026c9245642aa1d659e2009"
+
+    func testMaximum() {
+        output = AKVariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
+        AKTestMD5(maximumMD5)
+    }
+
+    func testMaximumSurpassed() {
+        output = AKVariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
+        AKTestMD5(maximumMD5)
+    }
+
     func testParametersSetAfterInit() {
         let effect = AKVariableDelay(input)
         effect.rampDuration = 0.0
