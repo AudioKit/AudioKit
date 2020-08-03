@@ -63,3 +63,6 @@ AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef eng
 
 /// Returns the sequencer playhead position in beats.
 AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine);
+
+/// Move the playhead to a location in beats.
+AK_API void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
