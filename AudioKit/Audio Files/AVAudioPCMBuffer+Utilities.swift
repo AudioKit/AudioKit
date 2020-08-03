@@ -53,7 +53,7 @@ extension AVAudioPCMBuffer {
         return AVAudioFrameCount(totalFrames)
     }
 
-    /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
+    /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
             let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
@@ -63,7 +63,7 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 
-    /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
+    /// - Returns: an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
     public func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
@@ -71,10 +71,11 @@ extension AVAudioPCMBuffer {
         let framesCopied = buffer.copy(from: self, readOffset: 0, frames: min(count, frameLength))
         return framesCopied > 0 ? buffer : nil
     }
-}
 
-extension AVAudioPCMBuffer {
-    public func extract(from startTime: TimeInterval, to endTime: TimeInterval) -> AVAudioPCMBuffer? {
+    /// - Returns: A new edited buffer from this buffer
+    public func extract(from startTime: TimeInterval,
+                        to endTime: TimeInterval) -> AVAudioPCMBuffer? {
+        
         let sampleRate = self.format.sampleRate
         let startSample = AVAudioFrameCount(startTime * sampleRate)
         var endSample = AVAudioFrameCount(endTime * sampleRate)

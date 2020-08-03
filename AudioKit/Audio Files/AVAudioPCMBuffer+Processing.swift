@@ -112,7 +112,7 @@ extension AVAudioPCMBuffer {
         return peak
     }
 
-    /// Returns a normalized buffer
+    /// - Returns: A normalized buffer
     public func normalize() -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData else { return self }
 
@@ -142,7 +142,7 @@ extension AVAudioPCMBuffer {
         return normalizedBuffer
     }
 
-    /// Returns a reversed buffer
+    /// - Returns: A reversed buffer
     public func reverse() -> AVAudioPCMBuffer? {
         let reversedBuffer = AVAudioPCMBuffer(pcmFormat: format,
                                               frameCapacity: frameCapacity)
@@ -164,7 +164,7 @@ extension AVAudioPCMBuffer {
         return reversedBuffer
     }
 
-    /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter
+    /// - Returns: A new buffer from this one that has fades applied to it. Pass 0 for either parameter
     /// if you only want one of them
     public func fade(inTime: Double,
                      outTime: Double,
