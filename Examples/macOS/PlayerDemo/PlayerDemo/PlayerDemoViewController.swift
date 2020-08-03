@@ -333,6 +333,17 @@ extension PlayerDemoViewController {
         let strFraction = includeFraction ? fractionalDelimiter + String(format: "%02d", fraction) : ""
         return sign + strHours + strMinutes + ":" + strSeconds + strFraction
     }
+
+    func updateSlidersFromWaveform(source: WaveformView) {
+        let inTime = min(source.outPoint, source.inPoint)
+        let outTime = max(source.inPoint, source.outPoint)
+
+        bounceFromSlider?.doubleValue = inTime
+        bounceToSlider?.doubleValue = outTime
+
+        handleBounceToChange(bounceToSlider)
+        handleBounceFromChange(bounceFromSlider)
+    }
 }
 
 extension PlayerDemoViewController: WaveformViewDelegate {
@@ -344,9 +355,12 @@ extension PlayerDemoViewController: WaveformViewDelegate {
 
     func waveformScrubbed(source: WaveformView, at time: Double) {
         currentTime = time
+        updateSlidersFromWaveform(source: source)
     }
 
     func waveformScrubComplete(source: WaveformView, at time: Double) {
+        updateSlidersFromWaveform(source: source)
+
         currentTime = time
         if wasPlaying {
             play()

@@ -77,12 +77,12 @@ extension AVAudioPCMBuffer {
     /// - Returns: A new edited AVAudioPCMBuffer
     public func extract(from startTime: TimeInterval,
                         to endTime: TimeInterval) -> AVAudioPCMBuffer? {
-        let sampleRate = self.format.sampleRate
+        let sampleRate = format.sampleRate
         let startSample = AVAudioFrameCount(startTime * sampleRate)
         var endSample = AVAudioFrameCount(endTime * sampleRate)
 
         if endSample == 0 {
-            endSample = self.frameLength
+            endSample = frameLength
         }
 
         let frameCapacity = endSample - startSample
@@ -92,7 +92,7 @@ extension AVAudioPCMBuffer {
             return nil
         }
 
-        guard let editedBuffer = AVAudioPCMBuffer(pcmFormat: self.format, frameCapacity: frameCapacity) else {
+        guard let editedBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCapacity) else {
             AKLog("Failed to create edited buffer", type: .error)
             return nil
         }

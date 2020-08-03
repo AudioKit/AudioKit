@@ -250,9 +250,9 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-vn-pxP">
-                                <rect key="frame" x="9" y="32" width="62" height="11"/>
+                                <rect key="frame" x="44" y="32" width="27" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="Bounce From" id="7Uy-gv-Bcs">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="From" id="7Uy-gv-Bcs">
                                     <font key="font" metaFont="menu" size="9"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -261,7 +261,7 @@ DQ
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5d-Wt-Ab6">
                                 <rect key="frame" x="9" y="13" width="62" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="Bounce To" id="mCu-s8-bIm">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="To" id="mCu-s8-bIm">
                                     <font key="font" metaFont="menu" size="9"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
