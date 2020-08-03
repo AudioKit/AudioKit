@@ -38,7 +38,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(track, synth)
+        output = synth
 
         track.sequence = getTestSequence()
         track.playFromStart()
@@ -54,7 +54,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(track, synth)
+        output = synth
 
         track.sequence = getTestSequence()
         track.loopEnabled = false
@@ -71,7 +71,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: synth)
 
-        output = AKMixer(track, synth)
+        output = synth
 
         track.sequence = getTestSequence()
         track.tempo = 60
