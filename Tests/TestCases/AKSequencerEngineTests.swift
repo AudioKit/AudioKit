@@ -17,7 +17,7 @@ class AKSequencerEngineTests: XCTestCase {
         let settings = AKSequenceSettings(maximumPlayCount: 1,
                                           length: 4,
                                           tempo: 120,
-                                          loopEnabled: false,
+                                          loopEnabled: true,
                                           numberOfLoops: 0)
 
         var events = [AKMIDIEvent]()
@@ -57,7 +57,7 @@ class AKSequencerEngineTests: XCTestCase {
         }
 
         // One second at 120bpm is two beats
-        XCTAssertEqual(AKSequencerEngineGetPosition(engine), 2.0)
+        XCTAssertEqual(AKSequencerEngineGetPosition(engine), fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4), accuracy: 0.0001)
 
         AKSequencerEngineDestroy(engine)
 
@@ -100,6 +100,19 @@ class AKSequencerEngineTests: XCTestCase {
 
         XCTAssertEqual(events.map { $0.noteNumber! }, [60, 63, 67, 60, 63, 67])
         XCTAssertEqual(events.map { $0.offset }, [0, 0, 0, 22050, 22050, 22050])
+    }
+
+    func testLoop() {
+        var seq = AKSequence()
+
+        seq.add(noteNumber: 60, position: 0.0, duration: 0.1)
+        seq.add(noteNumber: 63, position: 1.0, duration: 0.1)
+
+        let events = observerTest(sequence: seq, frameCount: 256, renderCallCount: Int(44100 * 10 / 256))
+        XCTAssertEqual(events.count, 20)
+
+        XCTAssertEqual(events.map { $0.noteNumber! }, [60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63])
+        XCTAssertEqual(events.map { $0.offset },[0, 157, 34, 191, 136, 37, 170, 71, 16, 173, 50, 207, 152, 53, 186, 87, 32, 189, 66, 223])
     }
 
     func testOverlap() {
