@@ -10,7 +10,9 @@ import AudioKit
 
 class AKSequencerEngineTests: XCTestCase {
 
-    func observerTest(sequence: AKSequence, frameCount: AUAudioFrameCount = 44100, renderCallCount: Int = 1) -> [AKMIDIEvent] {
+    func observerTest(sequence: AKSequence,
+                      frameCount: AUAudioFrameCount = 44100,
+                      renderCallCount: Int = 1) -> [AKMIDIEvent] {
 
         let engine = AKSequencerEngineCreate()
 
@@ -111,8 +113,11 @@ class AKSequencerEngineTests: XCTestCase {
         let events = observerTest(sequence: seq, frameCount: 256, renderCallCount: Int(44100 * 10 / 256))
         XCTAssertEqual(events.count, 20)
 
-        XCTAssertEqual(events.map { $0.noteNumber! }, [60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63, 60, 60, 63, 63])
-        XCTAssertEqual(events.map { $0.offset },[0, 157, 34, 191, 136, 37, 170, 71, 16, 173, 50, 207, 152, 53, 186, 87, 32, 189, 66, 223])
+        XCTAssertEqual(events.map { $0.noteNumber! },
+                       [60, 60, 63, 63, 60, 60, 63, 63, 60, 60,
+                        63, 63, 60, 60, 63, 63, 60, 60, 63, 63])
+        XCTAssertEqual(events.map { $0.offset },[0, 157, 34, 191, 136, 37, 170, 71, 16, 173, 50,
+                                                 207, 152, 53, 186, 87, 32, 189, 66, 223])
     }
 
     func testOverlap() {
