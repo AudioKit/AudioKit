@@ -553,8 +553,12 @@ void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
     engine->seekTo(position);
 }
 
-AK_API void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
+void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
     engine->isStarted = playing;
+}
+
+void AKSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine) {
+    engine->notesOff = true;
 }
 
 #endif
