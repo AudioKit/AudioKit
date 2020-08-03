@@ -18,7 +18,7 @@ struct AKSequencerEngine {
     UInt64 framesCounted = 0;
     AKSequenceSettings settings = {0, 4.0, 120.0, true, 0};
     double sampleRate = 44100.0;
-    bool isStarted = false;
+    std::atomic<bool> isStarted{false};
     AUScheduleMIDIEventBlock midiBlock = nullptr;
 
     // Tell the DSP thread to turn off notes.
