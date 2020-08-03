@@ -56,7 +56,7 @@ open class AKSequencerTrack {
     /// Initialize the track
     public init(targetNode: AKNode?) {
         self.targetNode = targetNode
-        engine = AKSequencerEngineCreate()
+        engine = akSequencerEngineCreate()
     }
 
     deinit {
@@ -66,29 +66,29 @@ open class AKSequencerTrack {
             }
         }
 
-        AKSequencerEngineDestroy(engine)
+        akSequencerEngineDestroy(engine)
     }
 
     /// Start the track
     public func play() {
-        AKSequencerEngineSetPlaying(engine, true)
+        akSequencerEngineSetPlaying(engine, true)
     }
 
     /// Start the track from the beginning
     public func playFromStart() {
         seek(to: 0)
-        AKSequencerEngineSetPlaying(engine, true)
+        akSequencerEngineSetPlaying(engine, true)
     }
 
     /// Start the track after a certain delay in beats
     public func playAfterDelay(beats: Double) {
         seek(to: -1 * beats)
-        AKSequencerEngineSetPlaying(engine, true)
+        akSequencerEngineSetPlaying(engine, true)
     }
 
     /// Stop playback
     public func stop() {
-        AKSequencerEngineSetPlaying(engine, false)
+        akSequencerEngineSetPlaying(engine, false)
     }
 
     /// Set the current position to the start ofthe track
@@ -98,7 +98,7 @@ open class AKSequencerTrack {
 
     /// Move to a position in the track
     public func seek(to position: Double) {
-        AKSequencerEngineSeekTo(engine, position)
+        akSequencerEngineSeekTo(engine, position)
     }
 
     public var sequence = AKSequence() {
@@ -114,7 +114,7 @@ open class AKSequencerTrack {
 
     /// Stop playing all the notes current in the "now playing" array.
     public func stopPlayingNotes() {
-        AKSequencerEngineStopPlayingNotes(engine)
+        akSequencerEngineStopPlayingNotes(engine)
     }
 
     private var renderObserverToken: Int?
