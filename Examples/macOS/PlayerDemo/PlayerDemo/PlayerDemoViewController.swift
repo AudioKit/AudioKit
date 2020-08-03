@@ -41,6 +41,12 @@ class PlayerDemoViewController: NSViewController {
 
     var player: AKDynamicPlayer?
 
+    var audioFile: AVAudioFile? {
+        player?.audioFile
+    }
+
+    var tempFile: URL?
+
     var isPlaying: Bool = false
     var wasPlaying: Bool = false
 
@@ -93,17 +99,14 @@ class PlayerDemoViewController: NSViewController {
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
         panel.canChooseFiles = true
-        panel.allowedFileTypes = ["aac", "caf", "aif", "aiff",
-                                  "aifc", "m4v", "mov", "mp3",
-                                  "mp4", "m4a", "snd", "au",
-                                  "sd2", "wav"]
+        panel.allowedFileTypes = AKConverter.inputFormats
         return panel
     }()
 
     lazy var savePanel: NSSavePanel = {
         let panel = NSSavePanel()
         panel.appearance = view.window?.appearance
-        panel.allowedFileTypes = ["caf"]
+        panel.allowedFileTypes = AKConverter.outputFormats
         return panel
     }()
 
@@ -132,7 +135,8 @@ class PlayerDemoViewController: NSViewController {
 
         waveformView?.delegate = self
 
-        openPinkNoise()
+        // openPinkNoise()
+        open(url: URL(fileURLWithPath: "/Users/rf/Desktop/ADD Files/_Audio/12345/12345.wav"))
     }
 
     private func initSliders() {
@@ -176,24 +180,38 @@ class PlayerDemoViewController: NSViewController {
     }
 
     func open(url: URL) {
-        pathControl?.url = url
-
-        if player != nil {
-            player?.disconnectOutput()
-            player?.detach()
-            player = nil
-        }
+        AKLog("Opening", url)
 
         guard let audioFile = try? AVAudioFile(forReading: url) else {
             AKLog("Failed to open", url, type: .error)
             return
+        }
+        open(audioFile: audioFile)
+    }
+
+    func open(audioFile: AVAudioFile) {
+        if player != nil {
+            // register UNDO
+
+            player?.disconnectOutput()
+            player?.detach()
+            player = nil
+        }
+        pathControl?.url = audioFile.url
+        let filename = audioFile.url.deletingPathExtension().lastPathComponent
+
+        view.window?.title = filename
+
+        if tempFile == nil {
+            tempFile = audioFile.url.deletingLastPathComponent()
+                .appendingPathComponent(filename + "_TEMP")
         }
 
         let player = AKDynamicPlayer(audioFile: audioFile)
         player.connect(to: mixer)
         self.player = player
 
-        waveformView?.open(audioFile: audioFile)
+        waveformView?.open(url: audioFile.url)
 
         DispatchQueue.main.async {
             self.initSliders()
@@ -247,7 +265,7 @@ class PlayerDemoViewController: NSViewController {
     func rewind() {
         stop()
         DispatchQueue.main.async {
-            self.currentTime = 0
+            self.currentTime = self.inPoint
         }
     }
 
@@ -262,7 +280,7 @@ class PlayerDemoViewController: NSViewController {
         }
     }
 
-    internal func bounce(to url: URL, duration: Double, prerender: (() -> Void)?) {
+    func bounce(to url: URL, duration: Double, prerender: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 if let file = try? AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings) {
@@ -278,6 +296,25 @@ class PlayerDemoViewController: NSViewController {
 
             } catch let err as NSError {
                 AKLog("ERROR:", err, type: .error)
+            }
+        }
+    }
+
+    func extractSelection(to url: URL) {
+        guard let audioFile = audioFile,
+            let selection = waveformView?.selection else { return }
+
+        audioFile.extract(to: url,
+                          from: selection.startTime,
+                          to: selection.endTime,
+                          fadeInTime: 0.01,
+                          fadeOutTime: 0.01,
+                          options: nil) { error in
+
+            if let error = error {
+                AKLog(error, type: .error)
+            } else {
+                AKLog("Extracted", selection, "to", url)
             }
         }
     }
@@ -335,11 +372,8 @@ extension PlayerDemoViewController {
     }
 
     func updateSlidersFromWaveform(source: WaveformView) {
-        let inTime = min(source.outPoint, source.inPoint)
-        let outTime = max(source.inPoint, source.outPoint)
-
-        bounceFromSlider?.doubleValue = inTime
-        bounceToSlider?.doubleValue = outTime
+        bounceFromSlider?.doubleValue = source.selection.startTime
+        bounceToSlider?.doubleValue = source.selection.endTime
 
         handleBounceToChange(bounceToSlider)
         handleBounceFromChange(bounceFromSlider)
@@ -355,13 +389,12 @@ extension PlayerDemoViewController: WaveformViewDelegate {
 
     func waveformScrubbed(source: WaveformView, at time: Double) {
         currentTime = time
-        updateSlidersFromWaveform(source: source)
     }
 
     func waveformScrubComplete(source: WaveformView, at time: Double) {
         updateSlidersFromWaveform(source: source)
+        currentTime = inPoint
 
-        currentTime = time
         if wasPlaying {
             play()
         }

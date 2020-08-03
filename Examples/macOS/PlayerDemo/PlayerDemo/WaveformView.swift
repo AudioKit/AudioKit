@@ -14,6 +14,11 @@ import Cocoa
 /// A basic Waveform editor interface
 
 class WaveformView: NSView {
+    public struct Selection {
+        var startTime: TimeInterval = 0
+        var endTime: TimeInterval = 0
+    }
+
     private let maroon = NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1)
 
     public weak var delegate: WaveformViewDelegate?
@@ -50,15 +55,17 @@ class WaveformView: NSView {
         }
     }
 
+    public private(set) var selection = Selection()
+
     public var inPoint: TimeInterval = 0 {
         didSet {
-            updateInOutLayer()
+            updateSelectionLayer()
         }
     }
 
     public var outPoint: TimeInterval = 0 {
         didSet {
-            updateInOutLayer()
+            updateSelectionLayer()
         }
     }
 
@@ -134,10 +141,17 @@ class WaveformView: NSView {
         timelineBar.setHeight(frame.height)
     }
 
-    private func updateInOutLayer() {
+    private func updateSelectionLayer() {
         let start = CGFloat(inPoint * visualScaleFactor)
         let end = CGFloat(outPoint * visualScaleFactor)
         inOutLayer.frame = CGRect(x: start, y: 0, width: end - start, height: frame.height)
+        inOutLayer.setNeedsDisplay()
+        updateSelection()
+    }
+
+    private func updateSelection() {
+        selection.startTime = min(outPoint, inPoint)
+        selection.endTime = max(inPoint, outPoint)
     }
 
     private func updateFadeIn() {
@@ -170,13 +184,11 @@ class WaveformView: NSView {
         }
 
         let fh = frame.height - 1
-
         let fadePath = NSBezierPath()
         let startX = CGFloat(fadeOutOffset * visualScaleFactor)
 
         var fw = CGFloat(fadeOutTime * visualScaleFactor)
         if fw < 3.0 { fw = 3.0 }
-
         let x = fw
 
         fadeOutLayer.frame = CGRect(x: frame.width - startX - fw, y: 0, width: fw, height: fh)
@@ -198,9 +210,16 @@ class WaveformView: NSView {
 
     // MARK: - Public Functions
 
-    public func open(audioFile: AVAudioFile) {
+    public func open(url: URL) {
         if waveform != nil {
             close()
+        }
+
+        // it's good to reopen this file as using the same file object in multiple
+        // places can be problematic
+        guard let audioFile = try? AVAudioFile(forReading: url) else {
+            AKLog("Failed to open file for reading...")
+            return
         }
 
         if waveform == nil {
@@ -219,10 +238,10 @@ class WaveformView: NSView {
             }
         }
 
+        // fetch the waveform data
         AKWaveformDataRequest(audioFile: audioFile)
             .getDataAsync(with: pixelsPerSample,
                           completionHandler: { data in
-
                               guard let floatData = data else {
                                   AKLog("Error getting waveform data", type: .error)
                                   return
@@ -244,6 +263,7 @@ extension WaveformView {
     override public func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
         inPoint = convertToTime(with: event)
+        outPoint = inPoint
         delegate?.waveformSelected(source: self, at: inPoint)
     }
 
@@ -255,7 +275,7 @@ extension WaveformView {
 
     override public func mouseDragged(with event: NSEvent) {
         outPoint = convertToTime(with: event)
-        updateInOutLayer()
+        updateSelectionLayer()
         delegate?.waveformScrubbed(source: self, at: outPoint)
     }
 }
