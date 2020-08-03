@@ -45,7 +45,7 @@ open class AKConverter: NSObject {
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
-        /// used only when outputting compressed from PCM - convertAsset()
+        /// used only when outputting compressed m4a from PCM - convertAsset()
         public var bitRate: UInt32 = 128_000 {
             didSet {
                 if bitRate < 64_000 {
