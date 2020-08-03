@@ -14,7 +14,7 @@ class AKSequencerEngineTests: XCTestCase {
                       frameCount: AUAudioFrameCount = 44100,
                       renderCallCount: Int = 1) -> [AKMIDIEvent] {
 
-        let engine = AKSequencerEngineCreate()
+        let engine = akSequencerEngineCreate()
 
         let settings = AKSequenceSettings(maximumPlayCount: 1,
                                           length: 4,
@@ -48,7 +48,7 @@ class AKSequencerEngineTests: XCTestCase {
                 var timeStamp = AudioTimeStamp()
                 timeStamp.mSampleTime = 0
 
-                AKSequencerEngineSetPlaying(engine, true)
+                akSequencerEngineSetPlaying(engine, true)
 
                 for index in 0..<renderCallCount {
                     timeStamp.mSampleTime = Double(Int(frameCount) * index)
@@ -59,9 +59,9 @@ class AKSequencerEngineTests: XCTestCase {
         }
 
         // One second at 120bpm is two beats
-        XCTAssertEqual(AKSequencerEngineGetPosition(engine), fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4), accuracy: 0.0001)
+        XCTAssertEqual(akSequencerEngineGetPosition(engine), fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4), accuracy: 0.0001)
 
-        AKSequencerEngineDestroy(engine)
+        akSequencerEngineDestroy(engine)
 
         return events
     }
