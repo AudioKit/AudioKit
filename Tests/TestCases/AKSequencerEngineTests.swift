@@ -46,6 +46,8 @@ class AKSequencerEngineTests: XCTestCase {
                 var timeStamp = AudioTimeStamp()
                 timeStamp.mSampleTime = 0
 
+                AKSequencerEngineSetPlaying(engine, true)
+
                 observer(.unitRenderAction_PreRender, &timeStamp, 44100, 0)
 
             }

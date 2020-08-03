@@ -66,3 +66,5 @@ AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine);
 
 /// Move the playhead to a location in beats.
 AK_API void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
+
+AK_API void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing);

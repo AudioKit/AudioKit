@@ -353,7 +353,7 @@ struct AKSequencerEngine {
     UInt64 framesCounted = 0;
     AKSequenceSettings settings = {0, 4.0, 120.0, true, 0};
     double sampleRate = 44100.0;
-    bool isStarted = true; // XXX: need to stop and start
+    bool isStarted = false;
     AUScheduleMIDIEventBlock midiBlock = nullptr;
 
     // Tell the DSP thread to turn off notes.
@@ -551,6 +551,10 @@ double AKSequencerEngineGetPosition(AKSequencerEngineRef engine) {
 
 void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
     engine->seekTo(position);
+}
+
+AK_API void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
+    engine->isStarted = playing;
 }
 
 #endif
