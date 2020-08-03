@@ -22,7 +22,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         unit: .seconds,
         flags: .default)
 
-    /// Delay time (in seconds) This value must not exceed the maximum delay time.
+    /// Delay time (in seconds) This value must not exceed 10 seconds.
     @Parameter public var time: AUValue
 
     public static let feedbackDef = AKNodeParameterDef(
@@ -56,15 +56,13 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - time: Delay time (in seconds) This value must not exceed the maximum delay time.
+    ///   - time: Delay time (in seconds) This value must not exceed 10 seconds.
     ///   - feedback: Feedback amount. Should be a value between 0-1.
-    ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
         _ input: AKNode? = nil,
         time: AUValue = 0,
-        feedback: AUValue = 0,
-        maximumDelayTime: AUValue = 5
+        feedback: AUValue = 0
         ) {
         super.init(avAudioNode: AVAudioNode())
         self.time = time
