@@ -60,6 +60,12 @@ open class AKSequencerTrack {
     }
 
     deinit {
+        if let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit {
+            if let token = renderObserverToken {
+                auAudioUnit.removeRenderObserver(token)
+            }
+        }
+
         AKSequencerEngineDestroy(engine)
     }
 
