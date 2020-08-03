@@ -9,7 +9,7 @@ if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -
 fi
 set -o pipefail
 
-DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=14.0'
+DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=13.6'
 echo "Running iOS Unit Tests"
 xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination "$DESTINATION" | xcpretty -c || exit 100
 
