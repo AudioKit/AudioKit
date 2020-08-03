@@ -24,6 +24,9 @@ struct AKSequencerEngine {
     // Tell the DSP thread to turn off notes.
     std::atomic<bool> notesOff{false};
 
+    // Tell the DSP thread to seek.
+    std::atomic<double> seekPosition{NAN};
+
     AKSequencerEngine() {
         // Try to reserve enough notes so allocation on the DSP
         // thread is unlikely. (This is not ideal)
@@ -95,6 +98,12 @@ struct AKSequencerEngine {
                 stopPlayingNote(playingNotes[0], 0, 0);
             }
             notesOff = false;
+        }
+
+        double seekPos = seekPosition;
+        if(!isnan(seekPos)) {
+            seekTo(seekPos);
+            seekPosition = NAN;
         }
 
         if (isStarted) {
@@ -215,7 +224,7 @@ double akSequencerEngineGetPosition(AKSequencerEngineRef engine) {
 }
 
 void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
-    engine->seekTo(position);
+    engine->seekPosition = position;
 }
 
 void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
