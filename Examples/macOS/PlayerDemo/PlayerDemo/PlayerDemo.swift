@@ -19,12 +19,14 @@ class PlayerDemo: NSObject, NSApplicationDelegate {
         windowController.showWindow(self)
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {}
+    public func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        return .terminateNow
+    }
 }
 
 extension PlayerDemo: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        exit(0)
+        windowController.controller.terminate()
     }
 }
 

@@ -53,7 +53,7 @@ extension AVAudioPCMBuffer {
         return AVAudioFrameCount(totalFrames)
     }
 
-    /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
+    /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
             let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
@@ -63,12 +63,45 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 
-    /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
+    /// - Returns: an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
     public func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
         }
         let framesCopied = buffer.copy(from: self, readOffset: 0, frames: min(count, frameLength))
         return framesCopied > 0 ? buffer : nil
+    }
+
+    /// - Parameter from: The time of the in point of the extraction
+    /// - Parameter to: The time of the out point
+    /// - Returns: A new edited AVAudioPCMBuffer
+    public func extract(from startTime: TimeInterval,
+                        to endTime: TimeInterval) -> AVAudioPCMBuffer? {
+        let sampleRate = format.sampleRate
+        let startSample = AVAudioFrameCount(startTime * sampleRate)
+        var endSample = AVAudioFrameCount(endTime * sampleRate)
+
+        if endSample == 0 {
+            endSample = frameLength
+        }
+
+        let frameCapacity = endSample - startSample
+
+        guard frameCapacity > 0 else {
+            AKLog("startSample must be before endSample", type: .error)
+            return nil
+        }
+
+        guard let editedBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCapacity) else {
+            AKLog("Failed to create edited buffer", type: .error)
+            return nil
+        }
+
+        guard editedBuffer.copy(from: self, readOffset: startSample, frames: frameCapacity) > 0 else {
+            AKLog("Failed to write to edited buffer", type: .error)
+            return nil
+        }
+
+        return editedBuffer
     }
 }
