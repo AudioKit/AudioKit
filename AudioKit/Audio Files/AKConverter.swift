@@ -41,6 +41,17 @@ open class AKConverter: NSObject {
     /// The conversion options, leave nil to adopt the value of the input file
     public struct Options {
         public init() {}
+
+        public init?(url: URL) {
+            guard let avFile = try? AVAudioFile(forReading: url) else { return nil }
+            let streamDescription = avFile.fileFormat.streamDescription.pointee
+
+            format = url.pathExtension // TODO: use mFormatID
+            sampleRate = streamDescription.mSampleRate
+            bitDepth = streamDescription.mBitsPerChannel
+            channels = streamDescription.mChannelsPerFrame
+        }
+
         public var format: String?
         public var sampleRate: Double?
         /// used only with PCM data

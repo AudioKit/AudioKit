@@ -59,15 +59,22 @@ extension AVAudioFile {
     /// Will return a 32bit CAF file of the sampleRate of this buffer
     @discardableResult public func extract(to outputURL: URL,
                                            from startTime: TimeInterval,
-                                           to endTime: TimeInterval) -> AVAudioFile? {
+                                           to endTime: TimeInterval,
+                                           fadeInTime: TimeInterval = 0,
+                                           fadeOutTime: TimeInterval = 0) -> AVAudioFile? {
         guard let inputBuffer = toAVAudioPCMBuffer() else {
             AKLog("Error reading into input buffer", type: .error)
             return nil
         }
 
-        guard let editedBuffer = inputBuffer.extract(from: startTime, to: endTime) else {
+        guard var editedBuffer = inputBuffer.extract(from: startTime, to: endTime) else {
             AKLog("Failed to create edited buffer", type: .error)
             return nil
+        }
+
+        if fadeInTime != 0 || fadeOutTime != 0,
+            let fadedBuffer = editedBuffer.fade(inTime: fadeInTime, outTime: fadeOutTime) {
+            editedBuffer = fadedBuffer
         }
 
         var outputURL = outputURL
@@ -83,11 +90,18 @@ extension AVAudioFile {
         return outputFile
     }
 
-    /// Will return an extracted section of this file of the passed in conversion options
+    /// - Returns: An extracted section of this file of the passed in conversion options
     public func extract(to url: URL,
                         from startTime: TimeInterval,
                         to endTime: TimeInterval,
-                        options: AKConverter.Options) {
+                        options: AKConverter.Options? = nil,
+                        fadeInTime: TimeInterval = 0,
+                        fadeOutTime: TimeInterval = 0) {
+        guard let options = options ?? AKConverter.Options(url: url) else {
+            AKLog("Failed to determine output options", type: .error)
+            return
+        }
+
         let format = options.format ?? "caf"
         let directory = url.deletingLastPathComponent()
         let filename = url.deletingPathExtension().lastPathComponent
@@ -97,7 +111,9 @@ extension AVAudioFile {
         // first print CAF file
         guard self.extract(to: tempFile,
                            from: startTime,
-                           to: endTime) != nil else {
+                           to: endTime,
+                           fadeInTime: fadeInTime,
+                           fadeOutTime: fadeOutTime) != nil else {
             AKLog("Failed to create new file", type: .error)
             return
         }
