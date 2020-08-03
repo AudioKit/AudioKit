@@ -10,7 +10,7 @@ import AudioKit
 
 class AKSequencerEngineTests: XCTestCase {
 
-    func observerTest(sequence: AKSequence) -> [AKMIDIEvent] {
+    func observerTest(sequence: AKSequence, frameCount: AUAudioFrameCount = 44100, renderCallCount: Int = 1) -> [AKMIDIEvent] {
 
         let engine = AKSequencerEngineCreate()
 
@@ -48,7 +48,10 @@ class AKSequencerEngineTests: XCTestCase {
 
                 AKSequencerEngineSetPlaying(engine, true)
 
-                observer(.unitRenderAction_PreRender, &timeStamp, 44100, 0)
+                for index in 0..<renderCallCount {
+                    timeStamp.mSampleTime = Double(Int(frameCount) * index)
+                    observer(.unitRenderAction_PreRender, &timeStamp, frameCount, 0 /* outputBusNumber*/)
+                }
 
             }
         }
