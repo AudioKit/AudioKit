@@ -22,7 +22,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         unit: .seconds,
         flags: .default)
 
-    /// Delay time (in seconds) This value must not exceed 10 seconds.
+    /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
     public static let feedbackDef = AKNodeParameterDef(
@@ -45,6 +45,10 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
                     AKVariableDelay.feedbackDef]
         }
 
+        public func setMaximumTime(_ maximumTime: AUValue) {
+            akVariableDelaySetMaximumTime(dsp, maximumTime)
+        }
+
         public override func createDSP() -> AKDSPRef {
             return akVariableDelayCreateDSP()
         }
@@ -56,13 +60,15 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - time: Delay time (in seconds) This value must not exceed 10 seconds.
+    ///   - time: Delay time (in seconds) This value must not exceed the maximum delay time.
     ///   - feedback: Feedback amount. Should be a value between 0-1.
+    ///   - maximumTime: The maximum delay time, in seconds.
     ///
     public init(
         _ input: AKNode? = nil,
         time: AUValue = 0,
-        feedback: AUValue = 0
+        feedback: AUValue = 0,
+        maximumTime: AUValue = 5
         ) {
         super.init(avAudioNode: AVAudioNode())
         self.time = time
@@ -75,6 +81,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
+            self.internalAU?.setMaximumTime(maximumTime)
         }
     }
 }
