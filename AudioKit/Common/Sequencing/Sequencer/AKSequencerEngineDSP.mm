@@ -417,6 +417,10 @@ struct AKSequencerEngine {
         isStarted = false;
     }
 
+    void seekTo(double position) {
+        positionInSamples = beatToSamples(position);
+    }
+
     void process(const std::vector<AKSequenceEvent>& events,
                  const std::vector<AKSequenceNote>& notes,
                  AUAudioFrameCount frameCount) {
@@ -541,8 +545,12 @@ AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
     };
 }
 
-AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine) {
+double AKSequencerEngineGetPosition(AKSequencerEngineRef engine) {
     return engine->currentPositionInBeats();
+}
+
+void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
+    engine->seekTo(position);
 }
 
 #endif
