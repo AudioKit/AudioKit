@@ -233,7 +233,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider toolTip="Bounce from this point" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bX8-w3-59Y">
-                                <rect key="frame" x="77" y="30" width="50" height="15"/>
+                                <rect key="frame" x="85" y="30" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="j92-qQ-vqj"/>
                                 <connections>
@@ -241,25 +241,25 @@ DQ
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaA-13-KVj">
-                                <rect key="frame" x="18" y="52" width="53" height="11"/>
+                                <rect key="frame" x="4" y="52" width="75" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="Start Time" id="shP-nl-6BV">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="Scheduled Time" id="shP-nl-6BV">
                                     <font key="font" metaFont="menu" size="9"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-vn-pxP">
-                                <rect key="frame" x="44" y="32" width="27" height="11"/>
+                                <rect key="frame" x="9" y="32" width="70" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="From" id="7Uy-gv-Bcs">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="Selection From" id="7Uy-gv-Bcs">
                                     <font key="font" metaFont="menu" size="9"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5d-Wt-Ab6">
-                                <rect key="frame" x="9" y="13" width="62" height="11"/>
+                                <rect key="frame" x="17" y="13" width="62" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" alignment="right" title="To" id="mCu-s8-bIm">
                                     <font key="font" metaFont="menu" size="9"/>
@@ -268,7 +268,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <slider toolTip="Schedule the start of playback in the future..." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3Q-lf-b7r">
-                                <rect key="frame" x="77" y="51" width="50" height="15"/>
+                                <rect key="frame" x="85" y="51" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="KXw-4z-44t"/>
                                 <connections>
@@ -276,7 +276,7 @@ DQ
                                 </connections>
                             </slider>
                             <slider toolTip="Bounce to this point" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUp-tP-ij7">
-                                <rect key="frame" x="77" y="11" width="50" height="15"/>
+                                <rect key="frame" x="85" y="11" width="50" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="5" doubleValue="5" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="0st-MU-hMW"/>
                                 <connections>
@@ -284,7 +284,7 @@ DQ
                                 </connections>
                             </slider>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxe-Jz-ZUd">
-                                <rect key="frame" x="133" y="49" width="70" height="14"/>
+                                <rect key="frame" x="141" y="49" width="65" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" placeholderString="-" usesSingleLineMode="YES" id="GFy-qn-5gK">
                                     <font key="font" size="9" name="Menlo-Regular"/>
@@ -293,7 +293,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avl-19-Isv">
-                                <rect key="frame" x="133" y="29" width="70" height="14"/>
+                                <rect key="frame" x="141" y="29" width="65" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" placeholderString="-" usesSingleLineMode="YES" id="9zp-sd-9TY">
                                     <font key="font" size="9" name="Menlo-Regular"/>
@@ -302,7 +302,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rok-Tt-oVy">
-                                <rect key="frame" x="133" y="10" width="70" height="14"/>
+                                <rect key="frame" x="141" y="10" width="65" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" placeholderString="-" usesSingleLineMode="YES" id="lxE-ZS-EA1">
                                     <font key="font" size="9" name="Menlo-Regular"/>
@@ -333,6 +333,17 @@ DQ
                         <url key="url" string="file://localhost/Applications/"/>
                     </pathCell>
                 </pathControl>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3U-Ew-pgD">
+                    <rect key="frame" x="509" y="14" width="80" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Extract..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="apH-5d-Ocl">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="handleExtract:" target="-2" id="dyT-RR-5uZ"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-5" y="226.5"/>
         </customView>

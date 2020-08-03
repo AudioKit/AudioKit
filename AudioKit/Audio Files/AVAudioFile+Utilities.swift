@@ -19,6 +19,7 @@ extension AVAudioFile {
 
         // Write the buffer in file
         do {
+            self.framePosition = 0
             try self.write(from: buffer)
         } catch let error as NSError {
             AKLog(error, type: .error)
@@ -28,15 +29,14 @@ extension AVAudioFile {
 
     /// converts to a 32 bit PCM buffer
     public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
-                                            frameCapacity: AVAudioFrameCount(self.length)) else { return nil }
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
+                                            frameCapacity: AVAudioFrameCount(length)) else { return nil }
 
         do {
-            // reopen file for safety
-            if let readFile = try? AVAudioFile(forReading: url) {
-                try readFile.read(into: buffer)
-                AKLog("Created buffer with format", self.processingFormat)
-            }
+            self.framePosition = 0
+            try self.read(into: buffer)
+            framePosition = 0
+            AKLog("Created buffer with format", self.processingFormat)
 
         } catch let error as NSError {
             AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
@@ -52,7 +52,7 @@ extension AVAudioFile {
         return data
     }
 
-    /// Will return a 32bit CAF file of the sampleRate of this buffer
+    /// Will return a 32bit CAF file with the format of this buffer
     @discardableResult public func extract(to outputURL: URL,
                                            from startTime: TimeInterval,
                                            to endTime: TimeInterval,
@@ -82,7 +82,6 @@ extension AVAudioFile {
             AKLog("Failed to write new file at", outputURL, type: .error)
             return nil
         }
-
         return outputFile
     }
 
@@ -99,6 +98,7 @@ extension AVAudioFile {
             return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
         }
 
+        // if options are nil, create them to match the input file
         let options = options ?? AKConverter.Options(audioFile: self)
 
         let format = options?.format ?? url.pathExtension
@@ -118,8 +118,8 @@ extension AVAudioFile {
         }
 
         // then convert to desired format here:
-        guard FileManager.default.fileExists(atPath: tempFile.path) else {
-            completionHandler?(createError(message: "File not found"))
+        guard FileManager.default.isReadableFile(atPath: tempFile.path) else {
+            completionHandler?(createError(message: "File wasn't created correctly"))
             return
         }
 
