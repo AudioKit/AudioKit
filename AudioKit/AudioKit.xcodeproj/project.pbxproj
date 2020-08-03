@@ -53,7 +53,6 @@
 
 /* Begin PBXBuildFile section */
 		07C0F21B1F13EE1200F928C9 /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */; };
-		22D63258246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */; };
 		22D63259246D84FF00061D3B /* AKSequencerEngineDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22D63257246D84FF00061D3B /* AKSequencerEngineDSP.mm */; };
 		22D63269246DBF5100061D3B /* AKBalancerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22D63267246DBF5100061D3B /* AKBalancerDSP.mm */; };
 		22D8FAB1248E8B8C0009EE7C /* AKParameterAutomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D8FAB0248E8B8C0009EE7C /* AKParameterAutomation.swift */; };
@@ -2448,7 +2447,6 @@
 		EAA62DD0247F44E200BF4CDB /* maygate.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B116E204A06B6009C7C8E /* maygate.c */; };
 		EAA62DD1247F44E200BF4CDB /* AKResonantFilterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49232FB20284E4A001BB1C7 /* AKResonantFilterDSP.mm */; };
 		EAA62DD2247F44E200BF4CDB /* AKTuningTable+EqualTemperament.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */; };
-		EAA62DD3247F44E200BF4CDB /* AKSequencerEngineAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */; };
 		EAA62DD4247F44E200BF4CDB /* dmetro.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B124A204A06B6009C7C8E /* dmetro.c */; };
 		EAA62DD5247F44E200BF4CDB /* EZAudioFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41391C40E3A5009D870B /* EZAudioFloatConverter.m */; };
 		EAA62DD6247F44E200BF4CDB /* EZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C413D1C40E3A5009D870B /* EZAudioPlayer.m */; };
@@ -3494,7 +3492,6 @@
 		07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
 		22D63252246D84AD00061D3B /* AKRhinoGuitarProcessorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorAudioUnit.swift; sourceTree = "<group>"; };
 		22D63254246D84D900061D3B /* AKDynaRageCompressorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressorAudioUnit.swift; sourceTree = "<group>"; };
-		22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerEngineAudioUnit.swift; sourceTree = "<group>"; };
 		22D63257246D84FF00061D3B /* AKSequencerEngineDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSequencerEngineDSP.mm; sourceTree = "<group>"; };
 		22D63267246DBF5100061D3B /* AKBalancerDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerDSP.mm; sourceTree = "<group>"; };
 		22D8FAB0248E8B8C0009EE7C /* AKParameterAutomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKParameterAutomation.swift; sourceTree = "<group>"; };
@@ -7767,7 +7764,6 @@
 			children = (
 				29F0CF4024D636450033B494 /* AKSequence.swift */,
 				FEB3AB2622DFE06B0080A5CB /* AKSequencer.swift */,
-				22D63256246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift */,
 				FEB3AB2722DFE06B0080A5CB /* AKSequencerTrack.swift */,
 				FEB3AB2A22DFE06B0080A5CB /* AKSequencerEngineDSP.hpp */,
 				22D63257246D84FF00061D3B /* AKSequencerEngineDSP.mm */,
@@ -9272,7 +9268,6 @@
 				C49B13A8204A06B7009C7C8E /* maygate.c in Sources */,
 				C49232FC20284E4A001BB1C7 /* AKResonantFilterDSP.mm in Sources */,
 				F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */,
-				22D63258246D84FF00061D3B /* AKSequencerEngineAudioUnit.swift in Sources */,
 				C49B1480204A06B8009C7C8E /* dmetro.c in Sources */,
 				C40C41591C40E3A5009D870B /* EZAudioFloatConverter.m in Sources */,
 				C40C415D1C40E3A5009D870B /* EZAudioPlayer.m in Sources */,
@@ -10957,7 +10952,6 @@
 				EAA62DD0247F44E200BF4CDB /* maygate.c in Sources */,
 				EAA62DD1247F44E200BF4CDB /* AKResonantFilterDSP.mm in Sources */,
 				EAA62DD2247F44E200BF4CDB /* AKTuningTable+EqualTemperament.swift in Sources */,
-				EAA62DD3247F44E200BF4CDB /* AKSequencerEngineAudioUnit.swift in Sources */,
 				EAA62DD4247F44E200BF4CDB /* dmetro.c in Sources */,
 				EAA62DD5247F44E200BF4CDB /* EZAudioFloatConverter.m in Sources */,
 				EAA62DD6247F44E200BF4CDB /* EZAudioPlayer.m in Sources */,
