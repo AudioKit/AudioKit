@@ -28,10 +28,10 @@ typedef struct {
 typedef struct AKSequencerEngine* AKSequencerEngineRef;
 
 /// Creates the audio-thread-only state for the sequencer.
-AK_API AKSequencerEngineRef AKSequencerEngineCreate(void);
+AK_API AKSequencerEngineRef akSequencerEngineCreate(void);
 
 /// Deallocate the sequencer.
-AK_API void AKSequencerEngineDestroy(AKSequencerEngineRef engine);
+AK_API void akSequencerEngineDestroy(AKSequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
 AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
@@ -44,12 +44,12 @@ AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef eng
                                                         AUScheduleMIDIEventBlock block);
 
 /// Returns the sequencer playhead position in beats.
-AK_API double AKSequencerEngineGetPosition(AKSequencerEngineRef engine);
+AK_API double akSequencerEngineGetPosition(AKSequencerEngineRef engine);
 
 /// Move the playhead to a location in beats.
-AK_API void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
+AK_API void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
 
-AK_API void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing);
+AK_API void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing);
 
 /// Stop all notes currently playing.
-AK_API void AKSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine);
+AK_API void akSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine);

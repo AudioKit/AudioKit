@@ -175,11 +175,11 @@ struct AKSequencerEngine {
 };
 
 /// Creates the audio-thread-only state for the sequencer.
-AKSequencerEngineRef AKSequencerEngineCreate(void) {
+AKSequencerEngineRef akSequencerEngineCreate(void) {
     return new AKSequencerEngine;
 }
 
-void AKSequencerEngineDestroy(AKSequencerEngineRef engine) {
+void akSequencerEngineDestroy(AKSequencerEngineRef engine) {
     delete engine;
 }
 
@@ -210,19 +210,19 @@ AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
     };
 }
 
-double AKSequencerEngineGetPosition(AKSequencerEngineRef engine) {
+double akSequencerEngineGetPosition(AKSequencerEngineRef engine) {
     return engine->currentPositionInBeats();
 }
 
-void AKSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
+void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
     engine->seekTo(position);
 }
 
-void AKSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
+void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
     engine->isStarted = playing;
 }
 
-void AKSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine) {
+void akSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine) {
     engine->notesOff = true;
 }
 
