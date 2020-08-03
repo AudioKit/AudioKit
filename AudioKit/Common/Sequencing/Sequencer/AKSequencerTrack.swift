@@ -5,116 +5,99 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKSequencerTrack: AKNode, AKComponent {
-
-    public typealias AKAudioUnitType = AKSequencerEngineAudioUnit
-
-    /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(instrument: "sqcr")
+open class AKSequencerTrack {
 
     // MARK: - Properties
 
-    public private(set) var internalAU: AKAudioUnitType?
     public var targetNode: AKNode?
 
     /// Length of the track in beats
-    public var length: Double {
-        get { return Double(internalAU?.length.value ?? 0) }
-        set { internalAU?.length.value = AUValue(newValue) }
+    public var length: Double = 4 {
+        didSet {
+            updateSequence()
+        }
     }
 
     /// Speed of the track in beats per minute
-    public var tempo: BPM {
-        get { return BPM(internalAU?.tempo.value ?? 0) }
-        set { internalAU?.tempo.value = AUValue(newValue) }
+    public var tempo: BPM = 120 {
+        didSet {
+            updateSequence()
+        }
     }
 
     /// Maximum number of times to play, ie. loop the track
-    public var maximumPlayCount: Double {
-        get { return Double(internalAU?.maximumPlayCount.value ?? 0) }
-        set { internalAU?.maximumPlayCount.value = AUValue(newValue) }
+    public var maximumPlayCount: Double = 1 {
+        didSet {
+            updateSequence()
+        }
     }
 
     /// Is looping enabled?
-    public var loopEnabled: Bool {
-        set { internalAU?.loopEnabled.value = newValue ? 1 : 0 }
-        get { return (internalAU?.loopEnabled.value ?? 0) > 0.5 }
+    public var loopEnabled: Bool = true {
+        didSet {
+            updateSequence()
+        }
     }
 
     /// Is the track currently playing?
-    public var isPlaying: Bool {
-        return internalAU?.isStarted ?? false
+    public var isPlaying: Bool = false {
+        didSet {
+            updateSequence()
+        }
     }
 
     /// Current position of the track
-    public var currentPosition: Double {
-        return Double(internalAU?.position.value ?? 0)
-    }
+    public var currentPosition: Double = 0
+
+    private var engine: AKSequencerEngineRef
 
     // MARK: - Initialization
 
     /// Initialize the track
     public init(targetNode: AKNode?) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-        }
-
-        AKManager.internalConnections.append(self)
-        if let target = targetNode {
-            setTarget(node: target)
-        }
+        self.targetNode = targetNode
+        engine = AKSequencerEngineCreate()
     }
 
-    /// Set the target node
-    public func setTarget(node: AKNode) {
-        targetNode = node
-
-        guard let audioUnit = targetNode?.avAudioUnit?.audioUnit else {
-            AKLog("Failed to setTarget")
-            return
-        }
-        internalAU?.setTarget(audioUnit)
+    deinit {
+        AKSequencerEngineDestroy(engine)
     }
 
     /// Start the track
     public func play() {
-        internalAU?.start()
+        AKSequencerEngineSetPlaying(engine, true)
     }
 
     /// Start the track from the beginning
     public func playFromStart() {
         seek(to: 0)
-        internalAU?.start()
+        AKSequencerEngineSetPlaying(engine, true)
     }
 
     /// Start the track after a certain delay in beats
     public func playAfterDelay(beats: Double) {
         seek(to: -1 * beats)
-        internalAU?.start()
+        AKSequencerEngineSetPlaying(engine, true)
     }
 
     /// Stop playback
     public func stop() {
-        internalAU?.stop()
+        AKSequencerEngineSetPlaying(engine, false)
     }
 
     /// Set the current position to the start ofthe track
     public func rewind() {
-        internalAU?.position.value = 0
+        seek(to: 0)
     }
 
     /// Move to a position in the track
     public func seek(to position: Double) {
-        internalAU?.position.value = AUValue(position)
+        AKSequencerEngineSeekTo(engine, position)
     }
 
     public var sequence = AKSequence() {
         didSet {
-            internalAU?.update(sequence: sequence)
+            updateSequence()
         }
     }
 
@@ -125,7 +108,44 @@ open class AKSequencerTrack: AKNode, AKComponent {
 
     /// Stop playing all the notes current in the "now playing" array.
     public func stopPlayingNotes() {
-        internalAU?.stopPlayingNotes()
+        AKSequencerEngineStopPlayingNotes(engine)
+    }
+
+    private var renderObserverToken: Int?
+
+    private func updateSequence() {
+
+        guard let block = targetNode?.avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock else {
+            AKLog("Failed to get AUScheduleMIDIEventBlock")
+            return
+        }
+
+        let settings = AKSequenceSettings(maximumPlayCount: Int32(maximumPlayCount),
+                                          length: length,
+                                          tempo: tempo,
+                                          loopEnabled: loopEnabled,
+                                          numberOfLoops: 0)
+
+        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
+            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
+                guard let observer = AKSequencerEngineUpdateSequence(engine,
+                                                                     eventsPtr.baseAddress,
+                                                                     sequence.events.count,
+                                                                     notesPtr.baseAddress,
+                                                                     sequence.notes.count,
+                                                                     settings,
+                                                                     AKSettings.sampleRate,
+                                                                     block) else { return }
+
+                guard let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit else { return }
+
+                if let token = renderObserverToken {
+                    auAudioUnit.removeRenderObserver(token)
+                }
+
+                renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
+            }
+        }
     }
 }
 
