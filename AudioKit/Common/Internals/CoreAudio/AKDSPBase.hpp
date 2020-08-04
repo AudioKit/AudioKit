@@ -9,7 +9,7 @@
 #include <stdarg.h>
 
 AK_API AKDSPRef akCreateDSP(const char* name);
-AK_API AUParameterAddress akGetParameterAddress(const char* className, const char* paramName);
+AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
 AK_API AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
 
@@ -157,7 +157,7 @@ public:
     static void addCreateFunction(const char* name, CreateFunction func);
 
     /// Registers a parameter.
-    static void addParameter(const char* className, const char* paramName, AUParameterAddress address);
+    static void addParameter(const char* paramName, AUParameterAddress address);
 
     /// Create a subclass by name.
     static AKDSPRef create(const char* name);
@@ -196,11 +196,11 @@ struct AKDSPRegistration {
 #define AK_REGISTER_DSP(ClassName) AKDSPRegistration<ClassName> __register##ClassName(#ClassName);
 
 struct AKParameterRegistration {
-    AKParameterRegistration(const char* className, const char* paramName, AUParameterAddress address) {
-        AKDSPBase::addParameter(className, paramName, address);
+    AKParameterRegistration(const char* name, AUParameterAddress address) {
+        AKDSPBase::addParameter(name, address);
     }
 };
 
-#define AK_REGISTER_PARAMETER(ClassName, ParamAddress) AKParameterRegistration __register_param_##ParamAddress(#ClassName, #ParamAddress, ParamAddress);
+#define AK_REGISTER_PARAMETER(ParamAddress) AKParameterRegistration __register_param_##ParamAddress(#ParamAddress, ParamAddress);
 
 #endif

@@ -85,7 +85,7 @@ public:
 };
 
 AK_REGISTER_DSP(AKOscillatorDSP)
-AK_REGISTER_PARAMETER(AKOscillatorDSP, AKOscillatorParameterFrequency)
-AK_REGISTER_PARAMETER(AKOscillatorDSP, AKOscillatorParameterAmplitude)
-AK_REGISTER_PARAMETER(AKOscillatorDSP, AKOscillatorParameterDetuningOffset)
-AK_REGISTER_PARAMETER(AKOscillatorDSP, AKOscillatorParameterDetuningMultiplier)
+AK_REGISTER_PARAMETER(AKOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(AKOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningMultiplier)
