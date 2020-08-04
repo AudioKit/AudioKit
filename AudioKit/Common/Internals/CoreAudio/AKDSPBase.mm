@@ -311,17 +311,30 @@ void AKDSPBase::startRamp(const AUParameterEvent& event)
     }
 }
 
-static std::map<std::string, AKDSPBase::CreateFunction> factoryMap;
+using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;
+
+// A registry of creation functions.
+//
+// Note that this is a pointer because we can't guarantee the
+// order of initialization code. So we lazily init.
+static DSPFactoryMap* factoryMap = nullptr;
 
 void AKDSPBase::addCreateFunction(const char* name, CreateFunction func) {
-    factoryMap[std::string(name)] = func;
+
+    if(factoryMap == nullptr) {
+        factoryMap = new DSPFactoryMap;
+    }
+
+    (*factoryMap)[std::string(name)] = func;
 }
 
 AKDSPRef AKDSPBase::create(const char* name) {
 
-    auto iter = factoryMap.find(name);
+    assert(factoryMap && "Fatal error: node factory not initialized.");
 
-    if(iter == factoryMap.end()) {
+    auto iter = factoryMap->find(name);
+
+    if(iter == factoryMap->end()) {
         printf("Unknown AKDSPBase subclass: %s\n", name);
         return nullptr;
     }
