@@ -6,7 +6,7 @@
 
 #include "DebugDSP.h"
 
-typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
+enum AKOscilatorParameter : AUParameterAddress {
     AKOscillatorParameterFrequency,
     AKOscillatorParameterAmplitude,
     AKOscillatorParameterDetuningOffset,
