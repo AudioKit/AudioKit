@@ -73,7 +73,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akOscillatorCreateDSP()
+            return akCreateDSP("AKOscillatorDSP")
         }
 
     }
