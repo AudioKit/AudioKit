@@ -139,7 +139,6 @@ AK_API AKDSPRef akMetalBarCreateDSP(void);
 AK_API AKDSPRef akModalResonanceFilterCreateDSP(void);
 AK_API AKDSPRef akMoogLadderCreateDSP(void);
 AK_API AKDSPRef akMorphingOscillatorCreateDSP(void);
-AK_API AKDSPRef akOscillatorCreateDSP(void);
 AK_API AKDSPRef akPannerCreateDSP(void);
 AK_API AKDSPRef akPeakingParametricEqualizerFilterCreateDSP(void);
 AK_API AKDSPRef akPhaseDistortionOscillatorCreateDSP(void);
