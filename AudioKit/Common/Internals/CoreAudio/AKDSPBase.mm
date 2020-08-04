@@ -2,6 +2,8 @@
 
 #import "AKDSPBase.hpp"
 #import "ParameterRamper.hpp"
+#import <map>
+#import <string>
 
 AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
 {
@@ -307,4 +309,27 @@ void AKDSPBase::startRamp(const AUParameterEvent& event)
         case 0x0:
             ramper->startRamp(event.value, event.rampDurationSampleFrames);
     }
+}
+
+static std::map<std::string, AKDSPBase::CreateFunction> factoryMap;
+
+void AKDSPBase::addCreateFunction(const char* name, CreateFunction func) {
+    factoryMap[std::string(name)] = func;
+}
+
+AKDSPRef AKDSPBase::create(const char* name) {
+
+    auto iter = factoryMap.find(name);
+
+    if(iter == factoryMap.end()) {
+        printf("Unknown AKDSPBase subclass: %s\n", name);
+        return nullptr;
+    }
+
+    return iter->second();
+
+}
+
+AKDSPRef akCreateDSP(const char* name) {
+    return AKDSPBase::create(name);
 }
