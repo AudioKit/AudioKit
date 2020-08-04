@@ -44,9 +44,9 @@ open class AKSequencerTrack: AKNode, AKComponent {
         set { internalAU?.maximumPlayCount = newValue }
     }
 
-    public var enabled: Bool {
-        set { internalAU?.enabled = newValue }
-        get { return internalAU?.enabled ?? false }
+    public var seqEnabled: Bool {
+        set { internalAU?.seqEnabled = newValue }
+        get { return internalAU?.seqEnabled ?? false }
     }
 
     /// Is looping enabled?
