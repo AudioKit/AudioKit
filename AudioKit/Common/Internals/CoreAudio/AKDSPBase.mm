@@ -347,31 +347,32 @@ AKDSPRef akCreateDSP(const char* name) {
     return AKDSPBase::create(name);
 }
 
-using DSPParamKey = std::pair<std::string, std::string>;
-using DSPParameterMap = std::map< DSPParamKey, AUParameterAddress >;
+using DSPParameterMap = std::map< std::string, AUParameterAddress >;
 
 static DSPParameterMap* paramMap = nullptr;
 
-AUParameterAddress akGetParameterAddress(const char* className, const char* paramName) {
+AUParameterAddress akGetParameterAddress(const char* name) {
 
     assert(paramMap && "akGetParameterAddress: Fatal error: parameter map not initialized.");
 
-    auto iter = paramMap->find(DSPParamKey(className, paramName));
+    auto iter = paramMap->find(name);
 
     if(iter == paramMap->end()) {
-        printf("akGetParameterAddress: Unknown parameter name: %s\n", paramName);
+        printf("akGetParameterAddress: Unknown parameter name: %s\n", name);
         return 0;
     }
 
     return iter->second;
 }
 
-void AKDSPBase::addParameter(const char* className, const char* paramName, AUParameterAddress address) {
+void AKDSPBase::addParameter(const char* name, AUParameterAddress address) {
 
     if(paramMap == nullptr) {
         paramMap = new DSPParameterMap;
     }
 
-    (*paramMap)[DSPParamKey(className, paramName)] = address;
+    assert(paramMap->count(name) == 0 && "Parameter already registered.");
+
+    (*paramMap)[name] = address;
 
 }
