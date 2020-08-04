@@ -20,7 +20,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: AKOscillatorParameter.frequency.rawValue,
+        address: akGetParameterAddress("AKOscillatorDSP", "AKOscillatorParameterFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: AKOscillatorParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKOscillatorDSP", "AKOscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: AKOscillatorParameter.detuningOffset.rawValue,
+        address: akGetParameterAddress("AKOscillatorDSP", "AKOscillatorParameterDetuningOffset"),
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -53,7 +53,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: AKOscillatorParameter.detuningMultiplier.rawValue,
+        address: akGetParameterAddress("AKOscillatorDSP", "AKOscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
