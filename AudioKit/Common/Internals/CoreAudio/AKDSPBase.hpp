@@ -8,6 +8,8 @@
 
 #include <stdarg.h>
 
+AK_API AKDSPRef akCreateDSP(const char* name);
+
 AK_API AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
 
 AK_API size_t inputBusCountDSP(AKDSPRef pDSP);
@@ -147,6 +149,15 @@ public:
     
     void setParameterRampSkew(AUParameterAddress address, float skew);
 
+    /// Pointer to a factory function.
+    using CreateFunction = AKDSPRef (*)();
+
+    /// Adds a function to create a subclass by name.
+    static void addCreateFunction(const char* name, CreateFunction func);
+
+    /// Create a subclass by name.
+    static AKDSPRef create(const char* name);
+
 private:
 
     /**
@@ -162,5 +173,22 @@ private:
     
     void startRamp(const AUParameterEvent& event);
 };
+
+/// Registers a creation function when initialized.
+template<class T>
+struct AKDSPRegistration {
+    static AKDSPRef construct() {
+        return new T();
+    }
+
+    AKDSPRegistration(const char* name) {
+        AKDSPBase::addCreateFunction(name, construct);
+    }
+};
+
+/// Convenience macro for registering a subclass of AKDSPBase.
+///
+/// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("AKMyClass")`
+#define AK_REGISTER_DSP(ClassName) AKDSPRegistration<ClassName> __register##ClassName(#ClassName);
 
 #endif
