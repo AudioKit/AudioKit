@@ -323,13 +323,6 @@ typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
     AKMorphingOscillatorParameterDetuningMultiplier,
 };
 
-typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
-    AKOscillatorParameterFrequency,
-    AKOscillatorParameterAmplitude,
-    AKOscillatorParameterDetuningOffset,
-    AKOscillatorParameterDetuningMultiplier,
-};
-
 typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
     AKPannerParameterPan,
 };
