@@ -47,6 +47,14 @@
     return _kernel.currentPositionInBeats();
 }
 
+- (void)setEnabled:(bool)enabled {
+    _kernel.enabled = enabled;
+}
+
+- (bool)enabled {
+    return _kernel.enabled;
+}
+
 - (void)setLoopEnabled:(bool)loopEnabled {
     _kernel.loopEnabled = loopEnabled;
 }
