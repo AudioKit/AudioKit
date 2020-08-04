@@ -245,6 +245,9 @@ public:
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
+        if (!enabled) {
+            return;
+        }
 //        printf("%p: sending: %i %i %i at offset %f (%f beats)\n", &midiEndpoint, status, data1, data2, offset, time);
         if (midiPort == 0 || midiEndpoint == 0) {
             MusicDeviceMIDIEvent(targetAU, status, data1, data2, offset);
@@ -310,6 +313,7 @@ public:
     int maximumPlayCount = 0;
     double length = 4.0;
     double tempo = 120.0;
+    bool enabled = true;
     bool loopEnabled = true;
     uint numberOfLoops = 0;
 };
