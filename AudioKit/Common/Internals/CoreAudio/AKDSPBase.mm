@@ -2,6 +2,8 @@
 
 #import "AKDSPBase.hpp"
 #import "ParameterRamper.hpp"
+#import <map>
+#import <string>
 
 AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
 {
@@ -307,4 +309,40 @@ void AKDSPBase::startRamp(const AUParameterEvent& event)
         case 0x0:
             ramper->startRamp(event.value, event.rampDurationSampleFrames);
     }
+}
+
+using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;
+
+// A registry of creation functions.
+//
+// Note that this is a pointer because we can't guarantee the
+// order of initialization code. So we lazily init.
+static DSPFactoryMap* factoryMap = nullptr;
+
+void AKDSPBase::addCreateFunction(const char* name, CreateFunction func) {
+
+    if(factoryMap == nullptr) {
+        factoryMap = new DSPFactoryMap;
+    }
+
+    (*factoryMap)[std::string(name)] = func;
+}
+
+AKDSPRef AKDSPBase::create(const char* name) {
+
+    assert(factoryMap && "Fatal error: node factory not initialized.");
+
+    auto iter = factoryMap->find(name);
+
+    if(iter == factoryMap->end()) {
+        printf("Unknown AKDSPBase subclass: %s\n", name);
+        return nullptr;
+    }
+
+    return iter->second();
+
+}
+
+AKDSPRef akCreateDSP(const char* name) {
+    return AKDSPBase::create(name);
 }
