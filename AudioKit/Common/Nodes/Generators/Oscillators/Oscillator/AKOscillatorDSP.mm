@@ -6,6 +6,13 @@
 
 #include "DebugDSP.h"
 
+enum AKOscilatorParameter : AUParameterAddress {
+    AKOscillatorParameterFrequency,
+    AKOscillatorParameterAmplitude,
+    AKOscillatorParameterDetuningOffset,
+    AKOscillatorParameterDetuningMultiplier,
+};
+
 class AKOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *osc;
@@ -78,3 +85,7 @@ public:
 };
 
 AK_REGISTER_DSP(AKOscillatorDSP)
+AK_REGISTER_PARAMETER(AKOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(AKOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningMultiplier)
