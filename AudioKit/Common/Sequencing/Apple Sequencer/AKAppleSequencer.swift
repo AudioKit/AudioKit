@@ -421,7 +421,7 @@ open class AKAppleSequencer: NSObject {
                                 ticksPerMetronomeClick,
                                 thirtySecondNotesPerQuarter]
 
-        var metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 0x58, // i.e, set time signature
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 0x58, // i.e, set time signature
                                                   data: data)
 
         defer { metaEventPtr.deallocate() }
