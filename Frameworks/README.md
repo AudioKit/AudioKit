@@ -16,7 +16,6 @@ Starting with AudioKit 5, the new XCFramework format will be the prefered way to
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
-* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
 * Also for **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 * For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
@@ -30,7 +29,6 @@ You may obtain the source code archive directly from [GitHub](https://github.com
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
 * You should be able to find `AudioKit.framework` and `AudioKitUI.framework` in the `AudioKit/{platform}/Products` folder. If this is not the case, build the frameworks by running `build_frameworks.sh`.
 * In the **General** tab, add `AudioKit.framework` in **Frameworks, Libraries and Embedded Content** for your target. Also add `AudioKitUI.framework` as needed.
-* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, In your target settings make sure that **Swift 3 @objc inference** is set to `on`.
 
 ## Building universal frameworks from scratch
