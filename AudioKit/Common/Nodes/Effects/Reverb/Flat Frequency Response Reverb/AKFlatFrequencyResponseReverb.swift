@@ -21,7 +21,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
     public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
-        address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
+        address: akGetParameterAddress("AKFlatFrequencyResponseReverbParameterReverbDuration"),
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -34,15 +34,15 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKFlatFrequencyResponseReverb.reverbDurationDef]
+            [AKFlatFrequencyResponseReverb.reverbDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKFlatFrequencyResponseReverbDSP")
         }
 
         public func setLoopDuration(_ duration: AUValue) {
             akFlatFrequencyResponseSetLoopDuration(dsp, duration)
-        }
-
-        public override func createDSP() -> AKDSPRef {
-            return akFlatFrequencyResponseReverbCreateDSP()
         }
     }
 
