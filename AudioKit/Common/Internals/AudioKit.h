@@ -137,16 +137,13 @@ AK_API AKDSPRef akLowShelfParametricEqualizerFilterCreateDSP(void);
 AK_API AKDSPRef akMetalBarCreateDSP(void);
 AK_API AKDSPRef akModalResonanceFilterCreateDSP(void);
 AK_API AKDSPRef akMoogLadderCreateDSP(void);
-AK_API AKDSPRef akMorphingOscillatorCreateDSP(void);
 AK_API AKDSPRef akPannerCreateDSP(void);
 AK_API AKDSPRef akPeakingParametricEqualizerFilterCreateDSP(void);
-AK_API AKDSPRef akPhaseDistortionOscillatorCreateDSP(void);
 AK_API AKDSPRef akPhaseLockedVocoderCreateDSP(void);
 AK_API AKDSPRef akPhaserCreateDSP(void);
 AK_API AKDSPRef akPinkNoiseCreateDSP(void);
 AK_API AKDSPRef akPitchShifterCreateDSP(void);
 AK_API AKDSPRef akPluckedStringCreateDSP(void);
-AK_API AKDSPRef akPWMOscillatorCreateDSP(void);
 AK_API AKDSPRef akResonantFilterCreateDSP(void);
 AK_API AKDSPRef createRolandTB303FilterDSP(void);
 AK_API AKDSPRef akStereoDelayCreateDSP(void);
@@ -307,14 +304,6 @@ typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
     AKMoogLadderParameterResonance,
 };
 
-typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
-    AKMorphingOscillatorParameterFrequency,
-    AKMorphingOscillatorParameterAmplitude,
-    AKMorphingOscillatorParameterIndex,
-    AKMorphingOscillatorParameterDetuningOffset,
-    AKMorphingOscillatorParameterDetuningMultiplier,
-};
-
 typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
     AKPannerParameterPan,
 };
@@ -323,14 +312,6 @@ typedef NS_ENUM(AUParameterAddress, AKPeakingParametricEqualizerFilterParameter)
     AKPeakingParametricEqualizerFilterParameterCenterFrequency,
     AKPeakingParametricEqualizerFilterParameterGain,
     AKPeakingParametricEqualizerFilterParameterQ,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
-    AKPhaseDistortionOscillatorParameterFrequency,
-    AKPhaseDistortionOscillatorParameterAmplitude,
-    AKPhaseDistortionOscillatorParameterPhaseDistortion,
-    AKPhaseDistortionOscillatorParameterDetuningOffset,
-    AKPhaseDistortionOscillatorParameterDetuningMultiplier,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKPhaseLockedVocoderParameter) {
@@ -364,14 +345,6 @@ typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
 typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
     AKPluckedStringParameterFrequency,
     AKPluckedStringParameterAmplitude,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPWMOscillatorParameter) {
-    AKPWMOscillatorParameterFrequency,
-    AKPWMOscillatorParameterAmplitude,
-    AKPWMOscillatorParameterPulseWidth,
-    AKPWMOscillatorParameterDetuningOffset,
-    AKPWMOscillatorParameterDetuningMultiplier,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKResonantFilterParameter) {

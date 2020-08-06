@@ -21,7 +21,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: AKPWMOscillatorParameter.frequency.rawValue,
+        address: akGetParameterAddress("AKPWMOscillatorParameterFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -32,7 +32,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: AKPWMOscillatorParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKPWMOscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .hertz,
         flags: .default)
@@ -43,7 +43,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let pulseWidthDef = AKNodeParameterDef(
         identifier: "pulseWidth",
         name: "Pulse Width",
-        address: AKPWMOscillatorParameter.pulseWidth.rawValue,
+        address: akGetParameterAddress("AKPWMOscillatorParameterPulseWidth"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -54,7 +54,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: AKPWMOscillatorParameter.detuningOffset.rawValue,
+        address: akGetParameterAddress("AKPWMOscillatorParameterDetuningOffset"),
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -65,7 +65,7 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
+        address: akGetParameterAddress("AKPWMOscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -78,15 +78,15 @@ public class AKPWMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPWMOscillator.frequencyDef,
-                    AKPWMOscillator.amplitudeDef,
-                    AKPWMOscillator.pulseWidthDef,
-                    AKPWMOscillator.detuningOffsetDef,
-                    AKPWMOscillator.detuningMultiplierDef]
+            [AKPWMOscillator.frequencyDef,
+             AKPWMOscillator.amplitudeDef,
+             AKPWMOscillator.pulseWidthDef,
+             AKPWMOscillator.detuningOffsetDef,
+             AKPWMOscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPWMOscillatorCreateDSP()
+            akCreateDSP("AKPWMOscillatorDSP")
         }
     }
 
