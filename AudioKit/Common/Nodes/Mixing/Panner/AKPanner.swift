@@ -17,7 +17,7 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let panDef = AKNodeParameterDef(
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
-        address: AKPannerParameter.pan.rawValue,
+        address: akGetParameterAddress("AKPannerParameterPan"),
         range: -1 ... 1,
         unit: .generic,
         flags: .default)
@@ -30,11 +30,11 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPanner.panDef]
+            [AKPanner.panDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPannerCreateDSP()
+            akCreateDSP("AKPannerDSP")
         }
     }
 

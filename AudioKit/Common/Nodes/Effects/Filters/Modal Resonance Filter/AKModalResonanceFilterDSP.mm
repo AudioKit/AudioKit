@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKModalResonanceFilterParameter : AUParameterAddress {
+    AKModalResonanceFilterParameterFrequency,
+    AKModalResonanceFilterParameterQualityFactor,
+};
+
 class AKModalResonanceFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_mode *mode0;
@@ -38,7 +45,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef akModalResonanceFilterCreateDSP() {
-    return new AKModalResonanceFilterDSP();
-}
+AK_REGISTER_DSP(AKModalResonanceFilterDSP)
+AK_REGISTER_PARAMETER(AKModalResonanceFilterParameterFrequency)
+AK_REGISTER_PARAMETER(AKModalResonanceFilterParameterQualityFactor)

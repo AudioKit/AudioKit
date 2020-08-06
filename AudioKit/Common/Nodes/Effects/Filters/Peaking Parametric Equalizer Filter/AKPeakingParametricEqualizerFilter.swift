@@ -17,7 +17,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
+        address: akGetParameterAddress("AKPeakingParametricEqualizerFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
+        address: akGetParameterAddress("AKPeakingParametricEqualizerFilterParameterGain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public static let qDef = AKNodeParameterDef(
         identifier: "q",
         name: "Q",
-        address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,
+        address: akGetParameterAddress("AKPeakingParametricEqualizerFilterParameterQ"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -52,13 +52,13 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPeakingParametricEqualizerFilter.centerFrequencyDef,
-                    AKPeakingParametricEqualizerFilter.gainDef,
-                    AKPeakingParametricEqualizerFilter.qDef]
+            [AKPeakingParametricEqualizerFilter.centerFrequencyDef,
+             AKPeakingParametricEqualizerFilter.gainDef,
+             AKPeakingParametricEqualizerFilter.qDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPeakingParametricEqualizerFilterCreateDSP()
+            akCreateDSP("AKPeakingParametricEqualizerFilterDSP")
         }
     }
 

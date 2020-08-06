@@ -113,22 +113,12 @@ AK_API AKDSPRef akAutoPannerCreateDSP(void);
 AK_API AKDSPRef akBalancerCreateDSP(void);
 AK_API AKDSPRef akBoosterCreateDSP(void);
 AK_API AKDSPRef akFaderCreateDSP(void);
-AK_API AKDSPRef akHighShelfParametricEqualizerFilterCreateDSP(void);
-AK_API AKDSPRef akKorgLowPassFilterCreateDSP(void);
-AK_API AKDSPRef akLowShelfParametricEqualizerFilterCreateDSP(void);
-AK_API AKDSPRef akModalResonanceFilterCreateDSP(void);
-AK_API AKDSPRef akMoogLadderCreateDSP(void);
-AK_API AKDSPRef akPannerCreateDSP(void);
-AK_API AKDSPRef akPeakingParametricEqualizerFilterCreateDSP(void);
-AK_API AKDSPRef akPhaseLockedVocoderCreateDSP(void);
-AK_API AKDSPRef akPhaserCreateDSP(void);
 AK_API AKDSPRef akPitchShifterCreateDSP(void);
 AK_API AKDSPRef akResonantFilterCreateDSP(void);
 AK_API AKDSPRef createRolandTB303FilterDSP(void);
 AK_API AKDSPRef akStereoDelayCreateDSP(void);
 AK_API AKDSPRef akStereoFieldLimiterCreateDSP(void);
 AK_API AKDSPRef akStringResonatorCreateDSP(void);
-AK_API AKDSPRef akThreePoleLowpassFilterCreateDSP(void);
 AK_API AKDSPRef akToneFilterCreateDSP(void);
 AK_API AKDSPRef akTremoloCreateDSP(void);
 AK_API AKDSPRef akVariableDelayCreateDSP(void);
@@ -158,62 +148,6 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterRightGain,
     AKFaderParameterFlipStereo,
     AKFaderParameterMixToMono
-};
-
-typedef NS_ENUM(AUParameterAddress, AKHighShelfParametricEqualizerFilterParameter) {
-    AKHighShelfParametricEqualizerFilterParameterCenterFrequency,
-    AKHighShelfParametricEqualizerFilterParameterGain,
-    AKHighShelfParametricEqualizerFilterParameterQ,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKKorgLowPassFilterParameter) {
-    AKKorgLowPassFilterParameterCutoffFrequency,
-    AKKorgLowPassFilterParameterResonance,
-    AKKorgLowPassFilterParameterSaturation,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKLowShelfParametricEqualizerFilterParameter) {
-    AKLowShelfParametricEqualizerFilterParameterCornerFrequency,
-    AKLowShelfParametricEqualizerFilterParameterGain,
-    AKLowShelfParametricEqualizerFilterParameterQ,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKModalResonanceFilterParameter) {
-    AKModalResonanceFilterParameterFrequency,
-    AKModalResonanceFilterParameterQualityFactor,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
-    AKMoogLadderParameterCutoffFrequency,
-    AKMoogLadderParameterResonance,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
-    AKPannerParameterPan,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPeakingParametricEqualizerFilterParameter) {
-    AKPeakingParametricEqualizerFilterParameterCenterFrequency,
-    AKPeakingParametricEqualizerFilterParameterGain,
-    AKPeakingParametricEqualizerFilterParameterQ,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPhaseLockedVocoderParameter) {
-    AKPhaseLockedVocoderParameterPosition,
-    AKPhaseLockedVocoderParameterAmplitude,
-    AKPhaseLockedVocoderParameterPitchRatio,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKPhaserParameter) {
-    AKPhaserParameterNotchMinimumFrequency,
-    AKPhaserParameterNotchMaximumFrequency,
-    AKPhaserParameterNotchWidth,
-    AKPhaserParameterNotchFrequency,
-    AKPhaserParameterVibratoMode,
-    AKPhaserParameterDepth,
-    AKPhaserParameterFeedback,
-    AKPhaserParameterInverted,
-    AKPhaserParameterLfoBPM,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
@@ -248,12 +182,6 @@ typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
 typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
     AKStringResonatorParameterFundamentalFrequency,
     AKStringResonatorParameterFeedback,
-};
-
-typedef NS_ENUM(AUParameterAddress, AKThreePoleLowpassFilterParameter) {
-    AKThreePoleLowpassFilterParameterDistortion,
-    AKThreePoleLowpassFilterParameterCutoffFrequency,
-    AKThreePoleLowpassFilterParameterResonance,
 };
 
 typedef NS_ENUM(AUParameterAddress, AKToneFilterParameter) {

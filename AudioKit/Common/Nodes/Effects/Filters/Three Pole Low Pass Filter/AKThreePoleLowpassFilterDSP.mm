@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKThreePoleLowpassFilterParameter : AUParameterAddress {
+    AKThreePoleLowpassFilterParameterDistortion,
+    AKThreePoleLowpassFilterParameterCutoffFrequency,
+    AKThreePoleLowpassFilterParameterResonance,
+};
+
 class AKThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_lpf18 *lpf180;
@@ -40,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -80,6 +87,7 @@ public:
     }
 };
 
-AKDSPRef akThreePoleLowpassFilterCreateDSP() {
-    return new AKThreePoleLowpassFilterDSP();
-}
+AK_REGISTER_DSP(AKThreePoleLowpassFilterDSP)
+AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterDistortion)
+AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterResonance)

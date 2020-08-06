@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKHighShelfParametricEqualizerFilterParameter : AUParameterAddress {
+    AKHighShelfParametricEqualizerFilterParameterCenterFrequency,
+    AKHighShelfParametricEqualizerFilterParameterGain,
+    AKHighShelfParametricEqualizerFilterParameterQ,
+};
+
 class AKHighShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
@@ -44,7 +52,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -84,6 +91,7 @@ public:
     }
 };
 
-AKDSPRef akHighShelfParametricEqualizerFilterCreateDSP() {
-    return new AKHighShelfParametricEqualizerFilterDSP();
-}
+AK_REGISTER_DSP(AKHighShelfParametricEqualizerFilterDSP)
+AK_REGISTER_PARAMETER(AKHighShelfParametricEqualizerFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(AKHighShelfParametricEqualizerFilterParameterGain)
+AK_REGISTER_PARAMETER(AKHighShelfParametricEqualizerFilterParameterQ)

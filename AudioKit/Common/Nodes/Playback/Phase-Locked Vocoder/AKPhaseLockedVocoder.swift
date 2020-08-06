@@ -19,7 +19,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let positionDef = AKNodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
-        address: AKPhaseLockedVocoderParameter.position.rawValue,
+        address: akGetParameterAddress("AKPhaseLockedVocoderParameterPosition"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
-        address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKPhaseLockedVocoderParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -41,7 +41,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let pitchRatioDef = AKNodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
-        address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,
+        address: akGetParameterAddress("AKPhaseLockedVocoderParameterPitchRatio"),
         range: 0 ... 1_000,
         unit: .hertz,
         flags: .default)
@@ -54,13 +54,13 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPhaseLockedVocoder.positionDef,
-                    AKPhaseLockedVocoder.amplitudeDef,
-                    AKPhaseLockedVocoder.pitchRatioDef]
+            [AKPhaseLockedVocoder.positionDef,
+             AKPhaseLockedVocoder.amplitudeDef,
+             AKPhaseLockedVocoder.pitchRatioDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPhaseLockedVocoderCreateDSP()
+            akCreateDSP("AKPhaseLockedVocoderDSP")
         }
     }
 

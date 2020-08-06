@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKPeakingParametricEqualizerFilterParameter : AUParameterAddress {
+    AKPeakingParametricEqualizerFilterParameterCenterFrequency,
+    AKPeakingParametricEqualizerFilterParameterGain,
+    AKPeakingParametricEqualizerFilterParameterQ,
+};
+
 class AKPeakingParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
@@ -44,7 +52,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -84,6 +91,7 @@ public:
     }
 };
 
-AKDSPRef akPeakingParametricEqualizerFilterCreateDSP() {
-    return new AKPeakingParametricEqualizerFilterDSP();
-}
+AK_REGISTER_DSP(AKPeakingParametricEqualizerFilterDSP)
+AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterGain)
+AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterQ)

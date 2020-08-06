@@ -3,6 +3,20 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKPhaserParameter : AUParameterAddress {
+    AKPhaserParameterNotchMinimumFrequency,
+    AKPhaserParameterNotchMaximumFrequency,
+    AKPhaserParameterNotchWidth,
+    AKPhaserParameterNotchFrequency,
+    AKPhaserParameterVibratoMode,
+    AKPhaserParameterDepth,
+    AKPhaserParameterFeedback,
+    AKPhaserParameterInverted,
+    AKPhaserParameterLfoBPM,
+};
+
 class AKPhaserDSP : public AKSoundpipeDSPBase {
 private:
     sp_phaser *phaser;
@@ -47,7 +61,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -83,6 +96,13 @@ public:
     }
 };
 
-AKDSPRef akPhaserCreateDSP() {
-    return new AKPhaserDSP();
-}
+AK_REGISTER_DSP(AKPhaserDSP)
+AK_REGISTER_PARAMETER(AKPhaserParameterNotchMinimumFrequency)
+AK_REGISTER_PARAMETER(AKPhaserParameterNotchMaximumFrequency)
+AK_REGISTER_PARAMETER(AKPhaserParameterNotchWidth)
+AK_REGISTER_PARAMETER(AKPhaserParameterNotchFrequency)
+AK_REGISTER_PARAMETER(AKPhaserParameterVibratoMode)
+AK_REGISTER_PARAMETER(AKPhaserParameterDepth)
+AK_REGISTER_PARAMETER(AKPhaserParameterFeedback)
+AK_REGISTER_PARAMETER(AKPhaserParameterInverted)
+AK_REGISTER_PARAMETER(AKPhaserParameterLfoBPM)

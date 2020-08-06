@@ -19,7 +19,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput,
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
-        address: AKModalResonanceFilterParameter.frequency.rawValue,
+        address: akGetParameterAddress("AKModalResonanceFilterParameterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput,
     public static let qualityFactorDef = AKNodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
-        address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
+        address: akGetParameterAddress("AKModalResonanceFilterParameterQualityFactor"),
         range: 0.0 ... 100.0,
         unit: .generic,
         flags: .default)
@@ -43,12 +43,12 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput,
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKModalResonanceFilter.frequencyDef,
-                    AKModalResonanceFilter.qualityFactorDef]
+            [AKModalResonanceFilter.frequencyDef,
+             AKModalResonanceFilter.qualityFactorDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akModalResonanceFilterCreateDSP()
+            akCreateDSP("AKModalResonanceFilterDSP")
         }
     }
 

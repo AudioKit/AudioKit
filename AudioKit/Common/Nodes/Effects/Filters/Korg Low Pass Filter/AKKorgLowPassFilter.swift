@@ -17,7 +17,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
-        address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
+        address: akGetParameterAddress("AKKorgLowPassFilterParameterCutoffFrequency"),
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
-        address: AKKorgLowPassFilterParameter.resonance.rawValue,
+        address: akGetParameterAddress("AKKorgLowPassFilterParameterResonance"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let saturationDef = AKNodeParameterDef(
         identifier: "saturation",
         name: "Filter saturation.",
-        address: AKKorgLowPassFilterParameter.saturation.rawValue,
+        address: akGetParameterAddress("AKKorgLowPassFilterParameterSaturation"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -52,13 +52,13 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKKorgLowPassFilter.cutoffFrequencyDef,
-                    AKKorgLowPassFilter.resonanceDef,
-                    AKKorgLowPassFilter.saturationDef]
+            [AKKorgLowPassFilter.cutoffFrequencyDef,
+             AKKorgLowPassFilter.resonanceDef,
+             AKKorgLowPassFilter.saturationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akKorgLowPassFilterCreateDSP()
+            akCreateDSP("AKKorgLowPassFilterDSP")
         }
     }
 
