@@ -17,7 +17,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let predelayDef = AKNodeParameterDef(
         identifier: "predelay",
         name: "Delay in ms before reverberation begins.",
-        address: AKZitaReverbParameter.predelay.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterPredelay"),
         range: 0.0 ... 200.0,
         unit: .generic,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let crossoverFrequencyDef = AKNodeParameterDef(
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
-        address: AKZitaReverbParameter.crossoverFrequency.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterCrossoverFrequency"),
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let lowReleaseTimeDef = AKNodeParameterDef(
         identifier: "lowReleaseTime",
         name: "Time (in seconds) to decay 60db in low-frequency band.",
-        address: AKZitaReverbParameter.lowReleaseTime.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterLowReleaseTime"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -50,7 +50,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let midReleaseTimeDef = AKNodeParameterDef(
         identifier: "midReleaseTime",
         name: "Time (in seconds) to decay 60db in mid-frequency band.",
-        address: AKZitaReverbParameter.midReleaseTime.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterMidReleaseTime"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -61,7 +61,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let dampingFrequencyDef = AKNodeParameterDef(
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
-        address: AKZitaReverbParameter.dampingFrequency.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterDampingFrequency"),
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -72,7 +72,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let equalizerFrequency1Def = AKNodeParameterDef(
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
-        address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterEqualizerFrequency1"),
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -83,7 +83,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let equalizerLevel1Def = AKNodeParameterDef(
         identifier: "equalizerLevel1",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
-        address: AKZitaReverbParameter.equalizerLevel1.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterEqualizerLevel1"),
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -94,7 +94,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let equalizerFrequency2Def = AKNodeParameterDef(
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
-        address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterEqualizerFrequency2"),
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -105,7 +105,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let equalizerLevel2Def = AKNodeParameterDef(
         identifier: "equalizerLevel2",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
-        address: AKZitaReverbParameter.equalizerLevel2.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterEqualizerLevel2"),
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -116,7 +116,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let dryWetMixDef = AKNodeParameterDef(
         identifier: "dryWetMix",
         name: "0 = all dry, 1 = all wet",
-        address: AKZitaReverbParameter.dryWetMix.rawValue,
+        address: akGetParameterAddress("AKZitaReverbParameterDryWetMix"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -129,20 +129,20 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKZitaReverb.predelayDef,
-                    AKZitaReverb.crossoverFrequencyDef,
-                    AKZitaReverb.lowReleaseTimeDef,
-                    AKZitaReverb.midReleaseTimeDef,
-                    AKZitaReverb.dampingFrequencyDef,
-                    AKZitaReverb.equalizerFrequency1Def,
-                    AKZitaReverb.equalizerLevel1Def,
-                    AKZitaReverb.equalizerFrequency2Def,
-                    AKZitaReverb.equalizerLevel2Def,
-                    AKZitaReverb.dryWetMixDef]
+            [AKZitaReverb.predelayDef,
+             AKZitaReverb.crossoverFrequencyDef,
+             AKZitaReverb.lowReleaseTimeDef,
+             AKZitaReverb.midReleaseTimeDef,
+             AKZitaReverb.dampingFrequencyDef,
+             AKZitaReverb.equalizerFrequency1Def,
+             AKZitaReverb.equalizerLevel1Def,
+             AKZitaReverb.equalizerFrequency2Def,
+             AKZitaReverb.equalizerLevel2Def,
+             AKZitaReverb.dryWetMixDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akZitaReverbCreateDSP()
+            akCreateDSP("AKZitaReverbDSP")
         }
     }
 

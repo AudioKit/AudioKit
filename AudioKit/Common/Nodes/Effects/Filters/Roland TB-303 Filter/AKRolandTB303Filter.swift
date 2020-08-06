@@ -17,7 +17,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: AKRolandTB303FilterParameter.cutoffFrequency.rawValue,
+        address: akGetParameterAddress("AKRolandTB303FilterParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -28,20 +28,18 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
-        address: AKRolandTB303FilterParameter.resonance.rawValue,
+        address: akGetParameterAddress("AKRolandTB303FilterParameterResonance"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
 
-    /// Resonance, generally < 1, but not limited to it.
-    /// Higher than 1 resonance values might cause aliasing,
-    /// analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
     public static let distortionDef = AKNodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
-        address: AKRolandTB303FilterParameter.distortion.rawValue,
+        address: akGetParameterAddress("AKRolandTB303FilterParameterDistortion"),
         range: 0.0 ... 4.0,
         unit: .generic,
         flags: .default)
@@ -52,7 +50,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public static let resonanceAsymmetryDef = AKNodeParameterDef(
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
-        address: AKRolandTB303FilterParameter.resonanceAsymmetry.rawValue,
+        address: akGetParameterAddress("AKRolandTB303FilterParameterResonanceAsymmetry"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -65,14 +63,14 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKRolandTB303Filter.cutoffFrequencyDef,
-                    AKRolandTB303Filter.resonanceDef,
-                    AKRolandTB303Filter.distortionDef,
-                    AKRolandTB303Filter.resonanceAsymmetryDef]
+            [AKRolandTB303Filter.cutoffFrequencyDef,
+             AKRolandTB303Filter.resonanceDef,
+             AKRolandTB303Filter.distortionDef,
+             AKRolandTB303Filter.resonanceAsymmetryDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return createRolandTB303FilterDSP()
+            akCreateDSP("AKRolandTB303FilterDSP")
         }
     }
 

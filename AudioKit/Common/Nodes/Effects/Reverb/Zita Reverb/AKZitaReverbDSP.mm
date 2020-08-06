@@ -3,6 +3,21 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKZitaReverbParameter : AUParameterAddress {
+    AKZitaReverbParameterPredelay,
+    AKZitaReverbParameterCrossoverFrequency,
+    AKZitaReverbParameterLowReleaseTime,
+    AKZitaReverbParameterMidReleaseTime,
+    AKZitaReverbParameterDampingFrequency,
+    AKZitaReverbParameterEqualizerFrequency1,
+    AKZitaReverbParameterEqualizerLevel1,
+    AKZitaReverbParameterEqualizerFrequency2,
+    AKZitaReverbParameterEqualizerLevel2,
+    AKZitaReverbParameterDryWetMix,
+};
+
 class AKZitaReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_zitarev *zitarev;
@@ -49,7 +64,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -86,6 +100,14 @@ public:
     }
 };
 
-AKDSPRef akZitaReverbCreateDSP() {
-    return new AKZitaReverbDSP();
-}
+AK_REGISTER_DSP(AKZitaReverbDSP)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterPredelay)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterCrossoverFrequency)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterLowReleaseTime)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterMidReleaseTime)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterDampingFrequency)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerFrequency1)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerLevel1)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerFrequency2)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerLevel2)
+AK_REGISTER_PARAMETER(AKZitaReverbParameterDryWetMix)

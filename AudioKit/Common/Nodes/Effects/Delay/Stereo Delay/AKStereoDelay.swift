@@ -17,7 +17,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: AKVariableDelayParameter.time.rawValue,
+        address: AKStereoDelayParameter.time.rawValue,
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)

@@ -17,7 +17,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: AKVariableDelayParameter.time.rawValue,
+        address: akGetParameterAddress("AKVariableDelayParameterTime"),
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: AKVariableDelayParameter.feedback.rawValue,
+        address: akGetParameterAddress("AKVariableDelayParameterFeedback"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -41,16 +41,16 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKVariableDelay.timeDef,
-                    AKVariableDelay.feedbackDef]
-        }
-
-        public func setMaximumTime(_ maximumTime: AUValue) {
-            akVariableDelaySetMaximumTime(dsp, maximumTime)
+            [AKVariableDelay.timeDef,
+             AKVariableDelay.feedbackDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akVariableDelayCreateDSP()
+            akCreateDSP("AKVariableDelayDSP")
+        }
+        
+        public func setMaximumTime(_ maximumTime: AUValue) {
+            akVariableDelaySetMaximumTime(dsp, maximumTime)
         }
     }
 

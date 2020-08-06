@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKPitchShifterParameter : AUParameterAddress {
+    AKPitchShifterParameterShift,
+    AKPitchShifterParameterWindowSize,
+    AKPitchShifterParameterCrossfade,
+};
+
 class AKPitchShifterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pshift *pshift0;
@@ -40,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -79,6 +86,7 @@ public:
     }
 };
 
-AKDSPRef akPitchShifterCreateDSP() {
-    return new AKPitchShifterDSP();
-}
+AK_REGISTER_DSP(AKPitchShifterDSP)
+AK_REGISTER_PARAMETER(AKPitchShifterParameterShift)
+AK_REGISTER_PARAMETER(AKPitchShifterParameterWindowSize)
+AK_REGISTER_PARAMETER(AKPitchShifterParameterCrossfade)

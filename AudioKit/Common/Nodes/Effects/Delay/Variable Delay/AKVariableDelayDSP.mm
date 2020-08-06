@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKVariableDelayParameter : AUParameterAddress {
+    AKVariableDelayParameterTime,
+    AKVariableDelayParameterFeedback,
+};
+
 class AKVariableDelayDSP : public AKSoundpipeDSPBase {
 private:
     sp_vdelay *vdelay0;
@@ -46,7 +53,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -83,12 +89,12 @@ public:
     }
 };
 
-AKDSPRef akVariableDelayCreateDSP() {
-    return new AKVariableDelayDSP();
-}
-
 void akVariableDelaySetMaximumTime(AKDSPRef dspRef, float maximumTime) {
     auto dsp = dynamic_cast<AKVariableDelayDSP *>(dspRef);
     assert(dsp);
     dsp->setMaximumTime(maximumTime);
 }
+
+AK_REGISTER_DSP(AKVariableDelayDSP)
+AK_REGISTER_PARAMETER(AKVariableDelayParameterTime)
+AK_REGISTER_PARAMETER(AKVariableDelayParameterFeedback)
