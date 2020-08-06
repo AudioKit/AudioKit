@@ -16,8 +16,8 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
-        name: "Variable frequency. Values less than initial frequency will be doubled until it is greater than that.",
-        address: AKPluckedStringParameter.frequency.rawValue,
+        name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
+        address: akGetParameterAddress("AKPluckedStringParameterFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: AKPluckedStringParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKPluckedStringParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -41,12 +41,12 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPluckedString.frequencyDef,
-                    AKPluckedString.amplitudeDef]
+            [AKPluckedString.frequencyDef,
+             AKPluckedString.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPluckedStringCreateDSP()
+            akCreateDSP("AKPluckedStringDSP")
         }
     }
 
