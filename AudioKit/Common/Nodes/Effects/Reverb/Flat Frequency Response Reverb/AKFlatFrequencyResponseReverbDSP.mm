@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKFlatFrequencyResponseReverbParameter : AUParameterAddress {
+    AKFlatFrequencyResponseReverbParameterReverbDuration,
+};
+
 class AKFlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_allpass *allpass0;
@@ -42,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,12 +79,11 @@ public:
     }
 };
 
-AKDSPRef akFlatFrequencyResponseReverbCreateDSP() {
-    return new AKFlatFrequencyResponseReverbDSP();
-}
-
 void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<AKFlatFrequencyResponseReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
 }
+
+AK_REGISTER_DSP(AKFlatFrequencyResponseReverbDSP)
+AK_REGISTER_PARAMETER(AKFlatFrequencyResponseReverbParameterReverbDuration)

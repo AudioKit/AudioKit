@@ -125,7 +125,6 @@ AK_API AKDSPRef akDCBlockCreateDSP(void);
 AK_API AKDSPRef akDynamicRangeCompressorCreateDSP(void);
 AK_API AKDSPRef akEqualizerFilterCreateDSP(void);
 AK_API AKDSPRef akFaderCreateDSP(void);
-AK_API AKDSPRef akFlatFrequencyResponseReverbCreateDSP(void);
 AK_API AKDSPRef akFormantFilterCreateDSP(void);
 AK_API AKDSPRef akHighPassButterworthFilterCreateDSP(void);
 AK_API AKDSPRef akHighShelfParametricEqualizerFilterCreateDSP(void);
@@ -225,11 +224,6 @@ typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
     AKFaderParameterFlipStereo,
     AKFaderParameterMixToMono
 };
-
-typedef NS_ENUM(AUParameterAddress, AKFlatFrequencyResponseReverbParameter) {
-    AKFlatFrequencyResponseReverbParameterReverbDuration,
-};
-
 
 typedef NS_ENUM(AUParameterAddress, AKFormantFilterParameter) {
     AKFormantFilterParameterCenterFrequency,
