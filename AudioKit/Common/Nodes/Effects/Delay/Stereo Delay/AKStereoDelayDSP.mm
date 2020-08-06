@@ -3,8 +3,6 @@
 #include "AudioKit.h"
 #include "StereoDelay.hpp"
 
-#include "DebugDSP.h"
-
 enum AKStereoDelayParameter : AUParameterAddress {
     AKStereoDelayParameterTime,
     AKStereoDelayParameterFeedback,

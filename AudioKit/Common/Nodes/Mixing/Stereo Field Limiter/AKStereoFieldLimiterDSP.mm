@@ -2,8 +2,6 @@
 
 #import "AudioKit.h"
 
-#include "DebugDSP.h"
-
 enum AKStereoFieldLimiterParameter : AUParameterAddress {
     AKStereoFieldLimiterParameterAmount,
 };

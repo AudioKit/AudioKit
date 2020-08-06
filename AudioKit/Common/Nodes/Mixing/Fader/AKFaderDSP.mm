@@ -2,8 +2,6 @@
 
 #include "AudioKit.h"
 
-#include "DebugDSP.h"
-
 enum AKFaderParameter : AUParameterAddress {
     AKFaderParameterLeftGain,
     AKFaderParameterRightGain,

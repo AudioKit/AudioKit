@@ -4,8 +4,6 @@
 #include "soundpipe.h"
 #include <vector>
 
-#include "DebugDSP.h"
-
 enum AKMorphingOscillatorParameter : AUParameterAddress {
     AKMorphingOscillatorParameterFrequency,
     AKMorphingOscillatorParameterAmplitude,
