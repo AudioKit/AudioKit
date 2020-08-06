@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKBrownianNoiseParameter : AUParameterAddress {
+    AKBrownianNoiseParameterAmplitude,
+};
+
 class AKBrownianNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_brown *brown;
@@ -53,6 +59,5 @@ public:
     }
 };
 
-AKDSPRef akBrownianNoiseCreateDSP() {
-    return new AKBrownianNoiseDSP();
-}
+AK_REGISTER_DSP(AKBrownianNoiseDSP)
+AK_REGISTER_PARAMETER(AKBrownianNoiseParameterAmplitude)

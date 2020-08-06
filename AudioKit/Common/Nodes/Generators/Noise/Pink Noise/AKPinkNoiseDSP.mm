@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKPinkNoiseParameter : AUParameterAddress {
+    AKPinkNoiseParameterAmplitude,
+};
+
 class AKPinkNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_pinknoise *pinknoise;
@@ -52,6 +58,5 @@ public:
     }
 };
 
-AKDSPRef akPinkNoiseCreateDSP() {
-    return new AKPinkNoiseDSP();
-}
+AK_REGISTER_DSP(AKPinkNoiseDSP)
+AK_REGISTER_PARAMETER(AKPinkNoiseParameterAmplitude)
