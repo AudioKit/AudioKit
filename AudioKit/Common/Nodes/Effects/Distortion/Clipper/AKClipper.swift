@@ -18,7 +18,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public static let limitDef = AKNodeParameterDef(
         identifier: "limit",
         name: "Threshold",
-        address: AKClipperParameter.limit.rawValue,
+        address: akGetParameterAddress("AKClipperParameterLimit"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKClipper.limitDef]
+            [AKClipper.limitDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akClipperCreateDSP()
+            akCreateDSP("AKClipperDSP")
         }
     }
 

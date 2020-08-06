@@ -17,7 +17,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let pregainDef = AKNodeParameterDef(
         identifier: "pregain",
         name: "Pregain",
-        address: AKTanhDistortionParameter.pregain.rawValue,
+        address: akGetParameterAddress("AKTanhDistortionParameterPregain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let postgainDef = AKNodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
-        address: AKTanhDistortionParameter.postgain.rawValue,
+        address: akGetParameterAddress("AKTanhDistortionParameterPostgain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let positiveShapeParameterDef = AKNodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
-        address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
+        address: akGetParameterAddress("AKTanhDistortionParameterPositiveShapeParameter"),
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -50,7 +50,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let negativeShapeParameterDef = AKNodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
-        address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
+        address: akGetParameterAddress("AKTanhDistortionParameterNegativeShapeParameter"),
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -63,14 +63,14 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKTanhDistortion.pregainDef,
-                    AKTanhDistortion.postgainDef,
-                    AKTanhDistortion.positiveShapeParameterDef,
-                    AKTanhDistortion.negativeShapeParameterDef]
+            [AKTanhDistortion.pregainDef,
+             AKTanhDistortion.postgainDef,
+             AKTanhDistortion.positiveShapeParameterDef,
+             AKTanhDistortion.negativeShapeParameterDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akTanhDistortionCreateDSP()
+            akCreateDSP("AKTanhDistortionDSP")
         }
     }
 
@@ -80,7 +80,7 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - pregain: Gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+    ///   - pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     ///   - postgain: Gain applied after waveshaping
     ///   - positiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.

@@ -21,7 +21,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
     public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
-        address: AKCombFilterReverbParameter.reverbDuration.rawValue,
+        address: akGetParameterAddress("AKCombFilterReverbParameterReverbDuration"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -34,15 +34,15 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKCombFilterReverb.reverbDurationDef]
+            [AKCombFilterReverb.reverbDurationDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKCombFilterReverbDSP")
         }
 
         public func setLoopDuration(_ duration: AUValue) {
             akCombFilterReverbSetLoopDuration(dsp, duration)
-        }
-
-        public override func createDSP() -> AKDSPRef {
-            return akCombFilterReverbCreateDSP()
         }
     }
 

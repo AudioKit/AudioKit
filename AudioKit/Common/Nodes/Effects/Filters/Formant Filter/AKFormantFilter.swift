@@ -19,7 +19,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: AKFormantFilterParameter.centerFrequency.rawValue,
+        address: akGetParameterAddress("AKFormantFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
-        address: AKFormantFilterParameter.attackDuration.rawValue,
+        address: akGetParameterAddress("AKFormantFilterParameterAttackDuration"),
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -41,7 +41,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
-        address: AKFormantFilterParameter.decayDuration.rawValue,
+        address: akGetParameterAddress("AKFormantFilterParameterDecayDuration"),
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -54,13 +54,13 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKFormantFilter.centerFrequencyDef,
-                    AKFormantFilter.attackDurationDef,
-                    AKFormantFilter.decayDurationDef]
+            [AKFormantFilter.centerFrequencyDef,
+             AKFormantFilter.attackDurationDef,
+             AKFormantFilter.decayDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akFormantFilterCreateDSP()
+            akCreateDSP("AKFormantFilterDSP")
         }
     }
 

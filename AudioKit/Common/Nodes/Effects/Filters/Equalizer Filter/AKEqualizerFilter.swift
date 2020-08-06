@@ -20,7 +20,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: AKEqualizerFilterParameter.centerFrequency.rawValue,
+        address: akGetParameterAddress("AKEqualizerFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
-        address: AKEqualizerFilterParameter.bandwidth.rawValue,
+        address: akGetParameterAddress("AKEqualizerFilterParameterBandwidth"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
-        address: AKEqualizerFilterParameter.gain.rawValue,
+        address: akGetParameterAddress("AKEqualizerFilterParameterGain"),
         range: -100.0 ... 100.0,
         unit: .percent,
         flags: .default)
@@ -55,13 +55,13 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKEqualizerFilter.centerFrequencyDef,
-                    AKEqualizerFilter.bandwidthDef,
-                    AKEqualizerFilter.gainDef]
+            [AKEqualizerFilter.centerFrequencyDef,
+             AKEqualizerFilter.bandwidthDef,
+             AKEqualizerFilter.gainDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akEqualizerFilterCreateDSP()
+            akCreateDSP("AKEqualizerFilterDSP")
         }
     }
 

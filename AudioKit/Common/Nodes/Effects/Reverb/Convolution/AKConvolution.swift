@@ -20,13 +20,14 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
     public class InternalAU: AKAudioUnitBase {
 
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKConvolutionDSP")
+        }
+
         public func setPartitionLength(_ length: Int) {
             akConvolutionSetPartitionLength(dsp, Int32(length))
         }
 
-        public override func createDSP() -> AKDSPRef {
-            return akConvolutionCreateDSP()
-        }
     }
 
     // MARK: - Initialization

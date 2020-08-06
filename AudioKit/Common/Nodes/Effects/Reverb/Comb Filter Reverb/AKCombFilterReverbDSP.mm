@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKCombFilterReverbParameter : AUParameterAddress {
+    AKCombFilterReverbParameterReverbDuration,
+};
+
 class AKCombFilterReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_comb *comb0;
@@ -42,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,12 +79,12 @@ public:
     }
 };
 
-AKDSPRef akCombFilterReverbCreateDSP() {
-    return new AKCombFilterReverbDSP();
-}
-
 void akCombFilterReverbSetLoopDuration(AKDSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<AKCombFilterReverbDSP *>(dspRef);
     assert(dsp);
-    dsp->setLoopDuration(duration);}
+    dsp->setLoopDuration(duration);
+    
+}
 
+AK_REGISTER_DSP(AKCombFilterReverbDSP)
+AK_REGISTER_PARAMETER(AKCombFilterReverbParameterReverbDuration)

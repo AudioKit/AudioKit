@@ -3,6 +3,15 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKDynamicRangeCompressorParameter : AUParameterAddress {
+    AKDynamicRangeCompressorParameterRatio,
+    AKDynamicRangeCompressorParameterThreshold,
+    AKDynamicRangeCompressorParameterAttackDuration,
+    AKDynamicRangeCompressorParameterReleaseDuration,
+};
+
 class AKDynamicRangeCompressorDSP : public AKSoundpipeDSPBase {
 private:
     sp_compressor *compressor0;
@@ -42,7 +51,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -86,6 +94,8 @@ public:
     }
 };
 
-AKDSPRef akDynamicRangeCompressorCreateDSP() {
-    return new AKDynamicRangeCompressorDSP();
-}
+AK_REGISTER_DSP(AKDynamicRangeCompressorDSP)
+AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterRatio)
+AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterThreshold)
+AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterAttackDuration)
+AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterReleaseDuration)
