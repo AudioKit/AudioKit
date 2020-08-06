@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKPannerParameter : AUParameterAddress {
+    AKPannerParameterPan,
+};
+
 class AKPannerDSP : public AKSoundpipeDSPBase {
 private:
     sp_panst *panst;
@@ -31,7 +37,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -59,6 +64,5 @@ public:
     }
 };
 
-AKDSPRef akPannerCreateDSP() {
-    return new AKPannerDSP();
-}
+AK_REGISTER_DSP(AKPannerDSP)
+AK_REGISTER_PARAMETER(AKPannerParameterPan)

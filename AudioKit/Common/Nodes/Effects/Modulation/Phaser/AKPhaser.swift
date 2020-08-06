@@ -18,7 +18,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let notchMinimumFrequencyDef = AKNodeParameterDef(
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
-        address: AKPhaserParameter.notchMinimumFrequency.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterNotchMinimumFrequency"),
         range: 20 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let notchMaximumFrequencyDef = AKNodeParameterDef(
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
-        address: AKPhaserParameter.notchMaximumFrequency.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterNotchMaximumFrequency"),
         range: 20 ... 10_000,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let notchWidthDef = AKNodeParameterDef(
         identifier: "notchWidth",
         name: "Between 10 and 5000",
-        address: AKPhaserParameter.notchWidth.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterNotchWidth"),
         range: 10 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let notchFrequencyDef = AKNodeParameterDef(
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
-        address: AKPhaserParameter.notchFrequency.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterNotchFrequency"),
         range: 1.1 ... 4.0,
         unit: .hertz,
         flags: .default)
@@ -62,7 +62,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let vibratoModeDef = AKNodeParameterDef(
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
-        address: AKPhaserParameter.vibratoMode.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterVibratoMode"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -73,7 +73,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Between 0 and 1",
-        address: AKPhaserParameter.depth.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterDepth"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -84,7 +84,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Between 0 and 1",
-        address: AKPhaserParameter.feedback.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterFeedback"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -95,7 +95,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let invertedDef = AKNodeParameterDef(
         identifier: "inverted",
         name: "1 or 0",
-        address: AKPhaserParameter.inverted.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterInverted"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -106,7 +106,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public static let lfoBPMDef = AKNodeParameterDef(
         identifier: "lfoBPM",
         name: "Between 24 and 360",
-        address: AKPhaserParameter.lfoBPM.rawValue,
+        address: akGetParameterAddress("AKPhaserParameterLfoBPM"),
         range: 24 ... 360,
         unit: .generic,
         flags: .default)
@@ -119,19 +119,19 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKPhaser.notchMinimumFrequencyDef,
-                    AKPhaser.notchMaximumFrequencyDef,
-                    AKPhaser.notchWidthDef,
-                    AKPhaser.notchFrequencyDef,
-                    AKPhaser.vibratoModeDef,
-                    AKPhaser.depthDef,
-                    AKPhaser.feedbackDef,
-                    AKPhaser.invertedDef,
-                    AKPhaser.lfoBPMDef]
+            [AKPhaser.notchMinimumFrequencyDef,
+             AKPhaser.notchMaximumFrequencyDef,
+             AKPhaser.notchWidthDef,
+             AKPhaser.notchFrequencyDef,
+             AKPhaser.vibratoModeDef,
+             AKPhaser.depthDef,
+             AKPhaser.feedbackDef,
+             AKPhaser.invertedDef,
+             AKPhaser.lfoBPMDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akPhaserCreateDSP()
+            akCreateDSP("AKPhaserDSP")
         }
     }
 

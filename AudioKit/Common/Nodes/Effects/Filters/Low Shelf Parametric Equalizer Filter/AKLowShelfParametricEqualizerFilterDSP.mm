@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKLowShelfParametricEqualizerFilterParameter : AUParameterAddress {
+    AKLowShelfParametricEqualizerFilterParameterCornerFrequency,
+    AKLowShelfParametricEqualizerFilterParameterGain,
+    AKLowShelfParametricEqualizerFilterParameterQ,
+};
+
 class AKLowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
@@ -44,7 +52,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -84,6 +91,7 @@ public:
     }
 };
 
-AKDSPRef akLowShelfParametricEqualizerFilterCreateDSP() {
-    return new AKLowShelfParametricEqualizerFilterDSP();
-}
+AK_REGISTER_DSP(AKLowShelfParametricEqualizerFilterDSP)
+AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterCornerFrequency)
+AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterGain)
+AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterQ)

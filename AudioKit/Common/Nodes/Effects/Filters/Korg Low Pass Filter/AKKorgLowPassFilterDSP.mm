@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKKorgLowPassFilterParameter : AUParameterAddress {
+    AKKorgLowPassFilterParameterCutoffFrequency,
+    AKKorgLowPassFilterParameterResonance,
+    AKKorgLowPassFilterParameterSaturation,
+};
+
 class AKKorgLowPassFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_wpkorg35 *wpkorg350;
@@ -40,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -80,6 +87,7 @@ public:
     }
 };
 
-AKDSPRef akKorgLowPassFilterCreateDSP() {
-    return new AKKorgLowPassFilterDSP();
-}
+AK_REGISTER_DSP(AKKorgLowPassFilterDSP)
+AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterResonance)
+AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterSaturation)

@@ -17,7 +17,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Corner Frequency (Hz)",
-        address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
+        address: akGetParameterAddress("AKHighShelfParametricEqualizerFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
+        address: akGetParameterAddress("AKHighShelfParametricEqualizerFilterParameterGain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     public static let qDef = AKNodeParameterDef(
         identifier: "q",
         name: "Q",
-        address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,
+        address: akGetParameterAddress("AKHighShelfParametricEqualizerFilterParameterQ"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -52,13 +52,13 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKHighShelfParametricEqualizerFilter.centerFrequencyDef,
-                    AKHighShelfParametricEqualizerFilter.gainDef,
-                    AKHighShelfParametricEqualizerFilter.qDef]
+            [AKHighShelfParametricEqualizerFilter.centerFrequencyDef,
+             AKHighShelfParametricEqualizerFilter.gainDef,
+             AKHighShelfParametricEqualizerFilter.qDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akHighShelfParametricEqualizerFilterCreateDSP()
+            akCreateDSP("AKHighShelfParametricEqualizerFilterDSP")
         }
     }
 

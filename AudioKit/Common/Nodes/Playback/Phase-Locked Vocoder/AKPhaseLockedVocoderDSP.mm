@@ -2,6 +2,15 @@
 
 #include "AudioKit.h"
 #include "soundpipe.h"
+#include <vector>
+
+#include "DebugDSP.h"
+
+enum AKPhaseLockedVocoderParameter : AUParameterAddress {
+    AKPhaseLockedVocoderParameterPosition,
+    AKPhaseLockedVocoderParameterAmplitude,
+    AKPhaseLockedVocoderParameterPitchRatio,
+};
 
 class AKPhaseLockedVocoderDSP : public AKSoundpipeDSPBase {
 private:
@@ -50,7 +59,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -71,6 +79,7 @@ public:
     }
 };
 
-AKDSPRef akPhaseLockedVocoderCreateDSP() {
-    return new AKPhaseLockedVocoderDSP();
-}
+AK_REGISTER_DSP(AKPhaseLockedVocoderDSP)
+AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterPosition)
+AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterAmplitude)
+AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterPitchRatio)

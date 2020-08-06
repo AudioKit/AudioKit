@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKMoogLadderParameter : AUParameterAddress {
+    AKMoogLadderParameterCutoffFrequency,
+    AKMoogLadderParameterResonance,
+};
+
 class AKMoogLadderDSP : public AKSoundpipeDSPBase {
 private:
     sp_moogladder *moogladder0;
@@ -38,7 +45,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef akMoogLadderCreateDSP() {
-    return new AKMoogLadderDSP();
-}
+AK_REGISTER_DSP(AKMoogLadderDSP)
+AK_REGISTER_PARAMETER(AKMoogLadderParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(AKMoogLadderParameterResonance)
