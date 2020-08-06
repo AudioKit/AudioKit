@@ -3,6 +3,8 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
 class AKDCBlockDSP : public AKSoundpipeDSPBase {
 private:
     sp_dcblock *dcblock0;
@@ -34,7 +36,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -62,6 +63,4 @@ public:
     }
 };
 
-AKDSPRef akDCBlockCreateDSP() {
-    return new AKDCBlockDSP();
-}
+AK_REGISTER_DSP(AKDCBlockDSP)

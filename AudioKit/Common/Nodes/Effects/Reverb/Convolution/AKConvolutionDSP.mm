@@ -2,6 +2,12 @@
 
 #include "AudioKit.h"
 #include "soundpipe.h"
+#include <vector>
+
+#include "DebugDSP.h"
+
+enum AKConvolutionParameter : AUParameterAddress {
+};
 
 class AKConvolutionDSP : public AKSoundpipeDSPBase {
 private:
@@ -43,7 +49,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -72,10 +77,8 @@ public:
     }
 };
 
-AKDSPRef akConvolutionCreateDSP() {
-    return new AKConvolutionDSP();
-}
-
 void akConvolutionSetPartitionLength(AKDSPRef dsp, int length) {
     ((AKConvolutionDSP*)dsp)->setPartitionLength(length);
 }
+
+AK_REGISTER_DSP(AKConvolutionDSP)

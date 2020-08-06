@@ -3,6 +3,15 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKTanhDistortionParameter : AUParameterAddress {
+    AKTanhDistortionParameterPregain,
+    AKTanhDistortionParameterPostgain,
+    AKTanhDistortionParameterPositiveShapeParameter,
+    AKTanhDistortionParameterNegativeShapeParameter,
+};
+
 class AKTanhDistortionDSP : public AKSoundpipeDSPBase {
 private:
     sp_dist *dist0;
@@ -42,7 +51,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -86,6 +94,8 @@ public:
     }
 };
 
-AKDSPRef akTanhDistortionCreateDSP() {
-    return new AKTanhDistortionDSP();
-}
+AK_REGISTER_DSP(AKTanhDistortionDSP)
+AK_REGISTER_PARAMETER(AKTanhDistortionParameterPregain)
+AK_REGISTER_PARAMETER(AKTanhDistortionParameterPostgain)
+AK_REGISTER_PARAMETER(AKTanhDistortionParameterPositiveShapeParameter)
+AK_REGISTER_PARAMETER(AKTanhDistortionParameterNegativeShapeParameter)

@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKCostelloReverbParameter : AUParameterAddress {
+    AKCostelloReverbParameterFeedback,
+    AKCostelloReverbParameterCutoffFrequency,
+};
+
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_revsc *revsc;
@@ -33,7 +40,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -63,6 +69,6 @@ public:
     }
 };
 
-AKDSPRef akCostelloReverbCreateDSP() {
-    return new AKCostelloReverbDSP();
-}
+AK_REGISTER_DSP(AKCostelloReverbDSP)
+AK_REGISTER_PARAMETER(AKCostelloReverbParameterFeedback)
+AK_REGISTER_PARAMETER(AKCostelloReverbParameterCutoffFrequency)

@@ -19,19 +19,18 @@ public class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback",
-        address: AKCostelloReverbParameter.feedback.rawValue,
+        address: akGetParameterAddress("AKCostelloReverbParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
 
-    /// Feedback level in the range 0 to 1. 0.6 is good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall.
-    /// A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @Parameter public var feedback: AUValue
 
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
+        address: akGetParameterAddress("AKCostelloReverbParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -44,12 +43,12 @@ public class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAut
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKCostelloReverb.feedbackDef,
-                    AKCostelloReverb.cutoffFrequencyDef]
+            [AKCostelloReverb.feedbackDef,
+             AKCostelloReverb.cutoffFrequencyDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akCostelloReverbCreateDSP()
+            akCreateDSP("AKCostelloReverbDSP")
         }
     }
 

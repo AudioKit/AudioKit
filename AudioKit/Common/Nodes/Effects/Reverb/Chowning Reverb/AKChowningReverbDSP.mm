@@ -34,7 +34,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -62,6 +61,4 @@ public:
     }
 };
 
-AKDSPRef akChowningReverbCreateDSP() {
-    return new AKChowningReverbDSP();
-}
+AK_REGISTER_DSP(AKChowningReverbDSP)

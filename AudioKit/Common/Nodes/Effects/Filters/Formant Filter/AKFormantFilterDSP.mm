@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKFormantFilterParameter : AUParameterAddress {
+    AKFormantFilterParameterCenterFrequency,
+    AKFormantFilterParameterAttackDuration,
+    AKFormantFilterParameterDecayDuration,
+};
+
 class AKFormantFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_fofilt *fofilt0;
@@ -40,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -80,6 +87,7 @@ public:
     }
 };
 
-AKDSPRef akFormantFilterCreateDSP() {
-    return new AKFormantFilterDSP();
-}
+AK_REGISTER_DSP(AKFormantFilterDSP)
+AK_REGISTER_PARAMETER(AKFormantFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(AKFormantFilterParameterAttackDuration)
+AK_REGISTER_PARAMETER(AKFormantFilterParameterDecayDuration)

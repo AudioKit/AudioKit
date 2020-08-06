@@ -17,7 +17,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
     public static let ratioDef = AKNodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
-        address: AKDynamicRangeCompressorParameter.ratio.rawValue,
+        address: akGetParameterAddress("AKDynamicRangeCompressorParameterRatio"),
         range: 0.01 ... 100.0,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
     public static let thresholdDef = AKNodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
-        address: AKDynamicRangeCompressorParameter.threshold.rawValue,
+        address: akGetParameterAddress("AKDynamicRangeCompressorParameterThreshold"),
         range: -100.0 ... 0.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack duration",
-        address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
+        address: akGetParameterAddress("AKDynamicRangeCompressorParameterAttackDuration"),
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -50,7 +50,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
     public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release duration",
-        address: AKDynamicRangeCompressorParameter.releaseDuration.rawValue,
+        address: akGetParameterAddress("AKDynamicRangeCompressorParameterReleaseDuration"),
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -63,14 +63,14 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInpu
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKDynamicRangeCompressor.ratioDef,
-                    AKDynamicRangeCompressor.thresholdDef,
-                    AKDynamicRangeCompressor.attackDurationDef,
-                    AKDynamicRangeCompressor.releaseDurationDef]
+            [AKDynamicRangeCompressor.ratioDef,
+             AKDynamicRangeCompressor.thresholdDef,
+             AKDynamicRangeCompressor.attackDurationDef,
+             AKDynamicRangeCompressor.releaseDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akDynamicRangeCompressorCreateDSP()
+            akCreateDSP("AKDynamicRangeCompressorDSP")
         }
     }
 

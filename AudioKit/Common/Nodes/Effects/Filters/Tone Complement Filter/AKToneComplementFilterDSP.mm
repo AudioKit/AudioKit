@@ -18,6 +18,7 @@ private:
 public:
     AKToneComplementFilterDSP() {
         parameters[AKToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
+        bCanProcessInPlace = false;
     }
 
     void init(int channelCount, double sampleRate) {
