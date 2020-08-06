@@ -6,7 +6,7 @@
 
 #include "DebugDSP.h"
 
-enum AKOscilatorParameter : AUParameterAddress {
+enum AKOscillatorParameter : AUParameterAddress {
     AKOscillatorParameterFrequency,
     AKOscillatorParameterAmplitude,
     AKOscillatorParameterDetuningOffset,

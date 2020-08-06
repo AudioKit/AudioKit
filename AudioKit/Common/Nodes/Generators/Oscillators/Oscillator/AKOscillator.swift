@@ -66,16 +66,15 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKOscillator.frequencyDef,
-                    AKOscillator.amplitudeDef,
-                    AKOscillator.detuningOffsetDef,
-                    AKOscillator.detuningMultiplierDef]
+            [AKOscillator.frequencyDef,
+             AKOscillator.amplitudeDef,
+             AKOscillator.detuningOffsetDef,
+             AKOscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKOscillatorDSP")
+            akCreateDSP("AKOscillatorDSP")
         }
-
     }
 
     // MARK: - Initialization
