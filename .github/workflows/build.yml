@@ -117,9 +117,9 @@ jobs:
         set -euo pipefail
         sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
         #echo "Running unit tests with Thread Sanitizer"
-        #xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite-TSAN test | xcpretty -c
+        #xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite-TSAN test | xcpretty -c
         echo "Running unit tests with Address Sanitizer"
-        xcodebuild -project Tests/macOSTestSuiteForDev/macOSTestSuite.xcodeproj -scheme macOSTestSuite clean test | xcpretty -c
+        xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite clean test | xcpretty -c
 
   # Upload staging builds to S3
   staging:
