@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKHighPassButterworthFilterParameter : AUParameterAddress {
+    AKHighPassButterworthFilterParameterCutoffFrequency,
+};
+
 class AKHighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_buthp *buthp0;
@@ -36,7 +42,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -68,6 +73,5 @@ public:
     }
 };
 
-AKDSPRef akHighPassButterworthFilterCreateDSP() {
-    return new AKHighPassButterworthFilterDSP();
-}
+AK_REGISTER_DSP(AKHighPassButterworthFilterDSP)
+AK_REGISTER_PARAMETER(AKHighPassButterworthFilterParameterCutoffFrequency)

@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKBitCrusherParameter : AUParameterAddress {
+    AKBitCrusherParameterBitDepth,
+    AKBitCrusherParameterSampleRate,
+};
+
 class AKBitCrusherDSP : public AKSoundpipeDSPBase {
 private:
     sp_bitcrush *bitcrush0;
@@ -38,7 +45,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef akBitCrusherCreateDSP() {
-    return new AKBitCrusherDSP();
-}
+AK_REGISTER_DSP(AKBitCrusherDSP)
+AK_REGISTER_PARAMETER(AKBitCrusherParameterBitDepth)
+AK_REGISTER_PARAMETER(AKBitCrusherParameterSampleRate)

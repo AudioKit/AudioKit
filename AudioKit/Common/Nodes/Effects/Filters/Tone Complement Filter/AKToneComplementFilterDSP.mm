@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKToneComplementFilterParameter : AUParameterAddress {
+    AKToneComplementFilterParameterHalfPowerPoint,
+};
+
 class AKToneComplementFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_atone *atone0;
@@ -12,7 +18,6 @@ private:
 public:
     AKToneComplementFilterDSP() {
         parameters[AKToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
-        bCanProcessInPlace = false;
     }
 
     void init(int channelCount, double sampleRate) {
@@ -37,7 +42,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -69,6 +73,5 @@ public:
     }
 };
 
-AKDSPRef akToneComplementFilterCreateDSP() {
-    return new AKToneComplementFilterDSP();
-}
+AK_REGISTER_DSP(AKToneComplementFilterDSP)
+AK_REGISTER_PARAMETER(AKToneComplementFilterParameterHalfPowerPoint)

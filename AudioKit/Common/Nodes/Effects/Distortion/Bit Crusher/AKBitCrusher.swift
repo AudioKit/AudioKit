@@ -17,7 +17,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let bitDepthDef = AKNodeParameterDef(
         identifier: "bitDepth",
         name: "Bit Depth",
-        address: AKBitCrusherParameter.bitDepth.rawValue,
+        address: akGetParameterAddress("AKBitCrusherParameterBitDepth"),
         range: 1 ... 24,
         unit: .generic,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public static let sampleRateDef = AKNodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
-        address: AKBitCrusherParameter.sampleRate.rawValue,
+        address: akGetParameterAddress("AKBitCrusherParameterSampleRate"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -41,14 +41,15 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKBitCrusher.bitDepthDef,
-                    AKBitCrusher.sampleRateDef]
+            [AKBitCrusher.bitDepthDef,
+             AKBitCrusher.sampleRateDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akBitCrusherCreateDSP()
+            akCreateDSP("AKBitCrusherDSP")
         }
     }
+
     // MARK: - Initialization
 
     /// Initialize this bitcrusher node

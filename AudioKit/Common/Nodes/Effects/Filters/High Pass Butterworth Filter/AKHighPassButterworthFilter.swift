@@ -18,7 +18,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: AKHighPassButterworthFilterParameter.cutoffFrequency.rawValue,
+        address: akGetParameterAddress("AKHighPassButterworthFilterParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKHighPassButterworthFilter.cutoffFrequencyDef]
+            [AKHighPassButterworthFilter.cutoffFrequencyDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akHighPassButterworthFilterCreateDSP()
+            akCreateDSP("AKHighPassButterworthFilterDSP")
         }
     }
 
