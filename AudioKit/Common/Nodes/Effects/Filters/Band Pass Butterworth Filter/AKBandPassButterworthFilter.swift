@@ -18,8 +18,8 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: AKBandPassButterworthFilterParameter.centerFrequency.rawValue,
-        range: 12.0 ... 20_000.0,
+        address: akGetParameterAddress("AKBandPassButterworthFilterParameterCenterFrequency"),
+        range: 12.0 ... 20000.0,
         unit: .hertz,
         flags: .default)
 
@@ -29,8 +29,8 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
-        address: AKBandPassButterworthFilterParameter.bandwidth.rawValue,
-        range: 0.0 ... 20_000.0,
+        address: akGetParameterAddress("AKBandPassButterworthFilterParameterBandwidth"),
+        range: 0.0 ... 20000.0,
         unit: .hertz,
         flags: .default)
 
@@ -42,12 +42,12 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKBandPassButterworthFilter.centerFrequencyDef,
-                    AKBandPassButterworthFilter.bandwidthDef]
+            [AKBandPassButterworthFilter.centerFrequencyDef,
+             AKBandPassButterworthFilter.bandwidthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akBandPassButterworthFilterCreateDSP()
+            akCreateDSP("AKBandPassButterworthFilterDSP")
         }
     }
 
@@ -62,7 +62,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///
     public init(
         _ input: AKNode? = nil,
-        centerFrequency: AUValue = 2_000.0,
+        centerFrequency: AUValue = 2000.0,
         bandwidth: AUValue = 100.0
         ) {
         super.init(avAudioNode: AVAudioNode())

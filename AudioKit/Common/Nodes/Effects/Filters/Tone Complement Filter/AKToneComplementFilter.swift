@@ -17,7 +17,7 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
     public static let halfPowerPointDef = AKNodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
-        address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,
+        address: akGetParameterAddress("AKToneComplementFilterParameterHalfPowerPoint"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -30,11 +30,11 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKToneComplementFilter.halfPowerPointDef]
+            [AKToneComplementFilter.halfPowerPointDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akToneComplementFilterCreateDSP()
+            akCreateDSP("AKToneComplementFilterDSP")
         }
     }
 

@@ -3,6 +3,14 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKAutoWahParameter : AUParameterAddress {
+    AKAutoWahParameterWah,
+    AKAutoWahParameterMix,
+    AKAutoWahParameterAmplitude,
+};
+
 class AKAutoWahDSP : public AKSoundpipeDSPBase {
 private:
     sp_autowah *autowah0;
@@ -40,7 +48,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -80,6 +87,7 @@ public:
     }
 };
 
-AKDSPRef akAutoWahCreateDSP() {
-    return new AKAutoWahDSP();
-}
+AK_REGISTER_DSP(AKAutoWahDSP)
+AK_REGISTER_PARAMETER(AKAutoWahParameterWah)
+AK_REGISTER_PARAMETER(AKAutoWahParameterMix)
+AK_REGISTER_PARAMETER(AKAutoWahParameterAmplitude)
