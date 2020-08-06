@@ -18,7 +18,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let intensityDef = AKNodeParameterDef(
         identifier: "intensity",
         name: "The intensity of the dripping sounds.",
-        address: AKDripParameter.intensity.rawValue,
+        address: akGetParameterAddress("AKDripParameterIntensity"),
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let dampingFactorDef = AKNodeParameterDef(
         identifier: "dampingFactor",
         name: "The damping factor. Maximum value is 2.0.",
-        address: AKDripParameter.dampingFactor.rawValue,
+        address: akGetParameterAddress("AKDripParameterDampingFactor"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let energyReturnDef = AKNodeParameterDef(
         identifier: "energyReturn",
         name: "The amount of energy to add back into the system.",
-        address: AKDripParameter.energyReturn.rawValue,
+        address: akGetParameterAddress("AKDripParameterEnergyReturn"),
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let mainResonantFrequencyDef = AKNodeParameterDef(
         identifier: "mainResonantFrequency",
         name: "Main resonant frequency.",
-        address: AKDripParameter.mainResonantFrequency.rawValue,
+        address: akGetParameterAddress("AKDripParameterMainResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -62,7 +62,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let firstResonantFrequencyDef = AKNodeParameterDef(
         identifier: "firstResonantFrequency",
         name: "The first resonant frequency.",
-        address: AKDripParameter.firstResonantFrequency.rawValue,
+        address: akGetParameterAddress("AKDripParameterFirstResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -73,7 +73,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let secondResonantFrequencyDef = AKNodeParameterDef(
         identifier: "secondResonantFrequency",
         name: "The second resonant frequency.",
-        address: AKDripParameter.secondResonantFrequency.rawValue,
+        address: akGetParameterAddress("AKDripParameterSecondResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -84,7 +84,7 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
-        address: AKDripParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKDripParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -97,17 +97,17 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKDrip.intensityDef,
-                    AKDrip.dampingFactorDef,
-                    AKDrip.energyReturnDef,
-                    AKDrip.mainResonantFrequencyDef,
-                    AKDrip.firstResonantFrequencyDef,
-                    AKDrip.secondResonantFrequencyDef,
-                    AKDrip.amplitudeDef]
+            [AKDrip.intensityDef,
+             AKDrip.dampingFactorDef,
+             AKDrip.energyReturnDef,
+             AKDrip.mainResonantFrequencyDef,
+             AKDrip.firstResonantFrequencyDef,
+             AKDrip.secondResonantFrequencyDef,
+             AKDrip.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akDripCreateDSP()
+            akCreateDSP("AKDripDSP")
         }
     }
 

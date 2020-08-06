@@ -3,6 +3,18 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKMetalBarParameter : AUParameterAddress {
+    AKMetalBarParameterLeftBoundaryCondition,
+    AKMetalBarParameterRightBoundaryCondition,
+    AKMetalBarParameterDecayDuration,
+    AKMetalBarParameterScanSpeed,
+    AKMetalBarParameterPosition,
+    AKMetalBarParameterStrikeVelocity,
+    AKMetalBarParameterStrikeWidth,
+};
+
 class AKMetalBarDSP : public AKSoundpipeDSPBase {
 private:
     sp_bar *bar;
@@ -70,6 +82,11 @@ public:
     }
 };
 
-AKDSPRef akMetalBarCreateDSP() {
-    return new AKMetalBarDSP();
-}
+AK_REGISTER_DSP(AKMetalBarDSP)
+AK_REGISTER_PARAMETER(AKMetalBarParameterLeftBoundaryCondition)
+AK_REGISTER_PARAMETER(AKMetalBarParameterRightBoundaryCondition)
+AK_REGISTER_PARAMETER(AKMetalBarParameterDecayDuration)
+AK_REGISTER_PARAMETER(AKMetalBarParameterScanSpeed)
+AK_REGISTER_PARAMETER(AKMetalBarParameterPosition)
+AK_REGISTER_PARAMETER(AKMetalBarParameterStrikeVelocity)
+AK_REGISTER_PARAMETER(AKMetalBarParameterStrikeWidth)

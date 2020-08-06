@@ -3,6 +3,18 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKDripParameter : AUParameterAddress {
+    AKDripParameterIntensity,
+    AKDripParameterDampingFactor,
+    AKDripParameterEnergyReturn,
+    AKDripParameterMainResonantFrequency,
+    AKDripParameterFirstResonantFrequency,
+    AKDripParameterSecondResonantFrequency,
+    AKDripParameterAmplitude,
+};
+
 class AKDripDSP : public AKSoundpipeDSPBase {
 private:
     sp_drip *drip;
@@ -70,6 +82,11 @@ public:
     }
 };
 
-AKDSPRef akDripCreateDSP() {
-    return new AKDripDSP();
-}
+AK_REGISTER_DSP(AKDripDSP)
+AK_REGISTER_PARAMETER(AKDripParameterIntensity)
+AK_REGISTER_PARAMETER(AKDripParameterDampingFactor)
+AK_REGISTER_PARAMETER(AKDripParameterEnergyReturn)
+AK_REGISTER_PARAMETER(AKDripParameterMainResonantFrequency)
+AK_REGISTER_PARAMETER(AKDripParameterFirstResonantFrequency)
+AK_REGISTER_PARAMETER(AKDripParameterSecondResonantFrequency)
+AK_REGISTER_PARAMETER(AKDripParameterAmplitude)

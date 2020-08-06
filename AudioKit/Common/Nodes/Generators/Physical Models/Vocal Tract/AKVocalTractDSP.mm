@@ -4,6 +4,16 @@
 #include "soundpipe.h"
 #include "vocwrapper.h"
 
+#include "DebugDSP.h"
+
+enum AKVocalTractParameter : AUParameterAddress {
+    AKVocalTractParameterFrequency,
+    AKVocalTractParameterTonguePosition,
+    AKVocalTractParameterTongueDiameter,
+    AKVocalTractParameterTenseness,
+    AKVocalTractParameterNasality,
+};
+
 class AKVocalTractDSP : public AKSoundpipeDSPBase {
 private:
     sp_vocwrapper *vocwrapper;
@@ -43,7 +53,6 @@ public:
 
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -75,6 +84,9 @@ public:
     }
 };
 
-AKDSPRef akVocalTractCreateDSP() {
-    return new AKVocalTractDSP();
-}
+AK_REGISTER_DSP(AKVocalTractDSP)
+AK_REGISTER_PARAMETER(AKVocalTractParameterFrequency)
+AK_REGISTER_PARAMETER(AKVocalTractParameterTonguePosition)
+AK_REGISTER_PARAMETER(AKVocalTractParameterTongueDiameter)
+AK_REGISTER_PARAMETER(AKVocalTractParameterTenseness)
+AK_REGISTER_PARAMETER(AKVocalTractParameterNasality)
