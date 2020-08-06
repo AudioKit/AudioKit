@@ -3,6 +3,15 @@
 #include "AudioKit.h"
 #include "StereoDelay.hpp"
 
+#include "DebugDSP.h"
+
+enum AKStereoDelayParameter : AUParameterAddress {
+    AKStereoDelayParameterTime,
+    AKStereoDelayParameterFeedback,
+    AKStereoDelayParameterDryWetMix,
+    AKStereoDelayParameterPingPong,
+};
+
 class AKStereoDelayDSP : public AKDSPBase {
 private:
     AudioKitCore::StereoDelay delay;
@@ -103,7 +112,8 @@ public:
     }
 };
 
-AKDSPRef akStereoDelayCreateDSP() {
-    return new AKStereoDelayDSP();
-}
-
+AK_REGISTER_DSP(AKStereoDelayDSP)
+AK_REGISTER_PARAMETER(AKStereoDelayParameterTime)
+AK_REGISTER_PARAMETER(AKStereoDelayParameterFeedback)
+AK_REGISTER_PARAMETER(AKStereoDelayParameterDryWetMix)
+AK_REGISTER_PARAMETER(AKStereoDelayParameterPingPong)

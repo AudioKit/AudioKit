@@ -48,6 +48,4 @@ public:
     }
 };
 
-AKDSPRef akBalancerCreateDSP() {
-    return new AKBalancerDSP();
-}
+AK_REGISTER_DSP(AKBalancerDSP)

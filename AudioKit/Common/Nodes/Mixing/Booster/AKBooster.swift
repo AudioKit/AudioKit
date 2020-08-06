@@ -25,7 +25,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
         name: "Left Boosting Amount",
-        address: 0,
+        address: akGetParameterAddress("AKBoosterParameterLeftGain"),
         range: 0.0...2.0,
         unit: .linearGain,
         flags: .default)
@@ -36,7 +36,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public static let rightGainDef = AKNodeParameterDef(
         identifier: "rightGain",
         name: "Right Boosting Amount",
-        address: 1,
+        address: akGetParameterAddress("AKBoosterParameterRightGain"),
         range: 0.0...2.0,
         unit: .linearGain,
         flags: .default)
@@ -55,12 +55,12 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKBooster.leftGainDef,
-                    AKBooster.rightGainDef]
+            [AKBooster.leftGainDef,
+             AKBooster.rightGainDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akBoosterCreateDSP()
+            akCreateDSP("AKBoosterDSP")
         }
     }
 

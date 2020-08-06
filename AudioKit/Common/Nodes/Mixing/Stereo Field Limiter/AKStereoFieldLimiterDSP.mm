@@ -2,6 +2,12 @@
 
 #import "AudioKit.h"
 
+#include "DebugDSP.h"
+
+enum AKStereoFieldLimiterParameter : AUParameterAddress {
+    AKStereoFieldLimiterParameterAmount,
+};
+
 struct AKStereoFieldLimiterDSP : AKDSPBase {
 private:
     ParameterRamper amountRamp;
@@ -48,3 +54,5 @@ public:
 AKDSPRef akStereoFieldLimiterCreateDSP() {
     return new AKStereoFieldLimiterDSP();
 }
+AK_REGISTER_DSP(AKStereoFieldLimiterDSP)
+AK_REGISTER_PARAMETER(AKStereoFieldLimiterParameterAmount)
