@@ -3,7 +3,16 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 #include <vector>
+
 #include "DebugDSP.h"
+
+enum AKPhaseDistortionOscillatorParameter : AUParameterAddress {
+    AKPhaseDistortionOscillatorParameterFrequency,
+    AKPhaseDistortionOscillatorParameterAmplitude,
+    AKPhaseDistortionOscillatorParameterPhaseDistortion,
+    AKPhaseDistortionOscillatorParameterDetuningOffset,
+    AKPhaseDistortionOscillatorParameterDetuningMultiplier,
+};
 
 class AKPhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -17,9 +26,8 @@ private:
     ParameterRamper phaseDistortionRamp;
     ParameterRamper detuningOffsetRamp;
     ParameterRamper detuningMultiplierRamp;
-    
+
 public:
-    
     AKPhaseDistortionOscillatorDSP() {
         parameters[AKPhaseDistortionOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKPhaseDistortionOscillatorParameterAmplitude] = &amplitudeRamp;
@@ -29,12 +37,12 @@ public:
         
         isStarted = false;
     }
-    
+
     void setWavetable(const float* table, size_t length, int index) {
         waveform = std::vector<float>(table, table + length);
         reset();
     }
-    
+
     void init(int channelCount, double sampleRate) {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, waveform.size());
@@ -46,7 +54,7 @@ public:
         sp_phasor_create(&phasor);
         sp_phasor_init(sp, phasor, 0);
     }
-    
+
     void deinit() {
         AKSoundpipeDSPBase::deinit();
         sp_phasor_destroy(&phasor);
@@ -54,15 +62,13 @@ public:
         sp_tabread_destroy(&tabread);
         sp_ftbl_destroy(&ftbl);
     }
-    
+
     void reset() {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pdhalf_init(sp, pdhalf);
-        sp_tabread_init(sp, tabread, ftbl, 1);
-        sp_phasor_init(sp, phasor, 0);
     }
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -81,7 +87,7 @@ public:
             
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
-                
+
                 if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
@@ -98,10 +104,11 @@ public:
             }
         }
     }
-    
 };
 
-AKDSPRef akPhaseDistortionOscillatorCreateDSP() {
-    return new AKPhaseDistortionOscillatorDSP();
-}
-
+AK_REGISTER_DSP(AKPhaseDistortionOscillatorDSP)
+AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterPhaseDistortion)
+AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterDetuningMultiplier)

@@ -2,8 +2,17 @@
 
 #include "AudioKit.h"
 #include "soundpipe.h"
-
 #include <vector>
+
+#include "DebugDSP.h"
+
+enum AKMorphingOscillatorParameter : AUParameterAddress {
+    AKMorphingOscillatorParameterFrequency,
+    AKMorphingOscillatorParameterAmplitude,
+    AKMorphingOscillatorParameterIndex,
+    AKMorphingOscillatorParameterDetuningOffset,
+    AKMorphingOscillatorParameterDetuningMultiplier,
+};
 
 class AKMorphingOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -81,6 +90,9 @@ public:
     }
 };
 
-AKDSPRef akMorphingOscillatorCreateDSP() {
-    return new AKMorphingOscillatorDSP();
-}
+AK_REGISTER_DSP(AKMorphingOscillatorDSP)
+AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterIndex)
+AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterDetuningMultiplier)

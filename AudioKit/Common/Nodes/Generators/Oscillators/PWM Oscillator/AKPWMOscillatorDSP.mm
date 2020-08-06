@@ -1,7 +1,17 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AudioKit.h"
+#include "AudioKit.h"
 #include "soundpipe.h"
+
+#include "DebugDSP.h"
+
+enum AKPWMOscillatorParameter : AUParameterAddress {
+    AKPWMOscillatorParameterFrequency,
+    AKPWMOscillatorParameterAmplitude,
+    AKPWMOscillatorParameterPulseWidth,
+    AKPWMOscillatorParameterDetuningOffset,
+    AKPWMOscillatorParameterDetuningMultiplier,
+};
 
 class AKPWMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -69,9 +79,11 @@ public:
             }
         }
     }
-
 };
 
-AKDSPRef akPWMOscillatorCreateDSP() {
-    return new AKPWMOscillatorDSP();
-}
+AK_REGISTER_DSP(AKPWMOscillatorDSP)
+AK_REGISTER_PARAMETER(AKPWMOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(AKPWMOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(AKPWMOscillatorParameterPulseWidth)
+AK_REGISTER_PARAMETER(AKPWMOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(AKPWMOscillatorParameterDetuningMultiplier)
