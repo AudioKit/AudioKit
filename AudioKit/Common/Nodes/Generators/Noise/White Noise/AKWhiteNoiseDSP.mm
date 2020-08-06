@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKWhiteNoiseParameter : AUParameterAddress {
+    AKWhiteNoiseParameterAmplitude,
+};
+
 class AKWhiteNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_noise *noise;
@@ -52,6 +58,5 @@ public:
     }
 };
 
-AKDSPRef akWhiteNoiseCreateDSP() {
-    return new AKWhiteNoiseDSP();
-}
+AK_REGISTER_DSP(AKWhiteNoiseDSP)
+AK_REGISTER_PARAMETER(AKWhiteNoiseParameterAmplitude)

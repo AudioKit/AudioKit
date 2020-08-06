@@ -17,7 +17,7 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: AKBrownianNoiseParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKBrownianNoiseParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -30,11 +30,11 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKBrownianNoise.amplitudeDef]
+            [AKBrownianNoise.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akBrownianNoiseCreateDSP()
+            akCreateDSP("AKBrownianNoiseDSP")
         }
     }
 
