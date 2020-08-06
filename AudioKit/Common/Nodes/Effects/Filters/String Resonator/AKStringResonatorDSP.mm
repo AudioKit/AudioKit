@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKStringResonatorParameter : AUParameterAddress {
+    AKStringResonatorParameterFundamentalFrequency,
+    AKStringResonatorParameterFeedback,
+};
+
 class AKStringResonatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_streson *streson0;
@@ -38,7 +45,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef akStringResonatorCreateDSP() {
-    return new AKStringResonatorDSP();
-}
+AK_REGISTER_DSP(AKStringResonatorDSP)
+AK_REGISTER_PARAMETER(AKStringResonatorParameterFundamentalFrequency)
+AK_REGISTER_PARAMETER(AKStringResonatorParameterFeedback)

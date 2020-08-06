@@ -3,6 +3,13 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKResonantFilterParameter : AUParameterAddress {
+    AKResonantFilterParameterFrequency,
+    AKResonantFilterParameterBandwidth,
+};
+
 class AKResonantFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_reson *reson0;
@@ -38,7 +45,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,6 +80,6 @@ public:
     }
 };
 
-AKDSPRef akResonantFilterCreateDSP() {
-    return new AKResonantFilterDSP();
-}
+AK_REGISTER_DSP(AKResonantFilterDSP)
+AK_REGISTER_PARAMETER(AKResonantFilterParameterFrequency)
+AK_REGISTER_PARAMETER(AKResonantFilterParameterBandwidth)

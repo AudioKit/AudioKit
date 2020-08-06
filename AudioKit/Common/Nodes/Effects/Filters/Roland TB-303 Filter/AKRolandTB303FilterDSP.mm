@@ -3,6 +3,15 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKRolandTB303FilterParameter : AUParameterAddress {
+    AKRolandTB303FilterParameterCutoffFrequency,
+    AKRolandTB303FilterParameterResonance,
+    AKRolandTB303FilterParameterDistortion,
+    AKRolandTB303FilterParameterResonanceAsymmetry,
+};
+
 class AKRolandTB303FilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_tbvcf *tbvcf0;
@@ -42,7 +51,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -86,6 +94,8 @@ public:
     }
 };
 
-AKDSPRef createRolandTB303FilterDSP() {
-    return new AKRolandTB303FilterDSP();
-}
+AK_REGISTER_DSP(AKRolandTB303FilterDSP)
+AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterResonance)
+AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterDistortion)
+AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterResonanceAsymmetry)

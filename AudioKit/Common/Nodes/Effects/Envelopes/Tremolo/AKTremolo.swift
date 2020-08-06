@@ -17,7 +17,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: AKTremoloParameter.frequency.rawValue,
+        address: akGetParameterAddress("AKTremoloParameterFrequency"),
         range: 0.0 ... 100.0,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth",
-        address: AKTremoloParameter.depth.rawValue,
+        address: akGetParameterAddress("AKTremoloParameterDepth"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -41,12 +41,12 @@ public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKTremolo.frequencyDef,
-                    AKTremolo.depthDef]
+            [AKTremolo.frequencyDef,
+             AKTremolo.depthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akTremoloCreateDSP()
+            akCreateDSP("AKTremoloDSP")
         }
     }
 

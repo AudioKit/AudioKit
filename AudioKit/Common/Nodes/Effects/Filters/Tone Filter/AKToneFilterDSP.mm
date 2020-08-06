@@ -3,6 +3,12 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKToneFilterParameter : AUParameterAddress {
+    AKToneFilterParameterHalfPowerPoint,
+};
+
 class AKToneFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_tone *tone0;
@@ -36,7 +42,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -68,6 +73,5 @@ public:
     }
 };
 
-AKDSPRef akToneFilterCreateDSP() {
-    return new AKToneFilterDSP();
-}
+AK_REGISTER_DSP(AKToneFilterDSP)
+AK_REGISTER_PARAMETER(AKToneFilterParameterHalfPowerPoint)

@@ -22,7 +22,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let fundamentalFrequencyDef = AKNodeParameterDef(
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
-        address: AKStringResonatorParameter.fundamentalFrequency.rawValue,
+        address: akGetParameterAddress("AKStringResonatorParameterFundamentalFrequency"),
         range: 12.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -33,7 +33,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: AKStringResonatorParameter.feedback.rawValue,
+        address: akGetParameterAddress("AKStringResonatorParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -48,12 +48,12 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKStringResonator.fundamentalFrequencyDef,
-                    AKStringResonator.feedbackDef]
+            [AKStringResonator.fundamentalFrequencyDef,
+             AKStringResonator.feedbackDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akStringResonatorCreateDSP()
+            akCreateDSP("AKStringResonatorDSP")
         }
     }
 

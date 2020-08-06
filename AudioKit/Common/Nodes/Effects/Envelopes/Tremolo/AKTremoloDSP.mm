@@ -4,6 +4,13 @@
 #include "soundpipe.h"
 #include <vector>
 
+#include "DebugDSP.h"
+
+enum AKTremoloParameter : AUParameterAddress {
+    AKTremoloParameterFrequency,
+    AKTremoloParameterDepth,
+};
+
 class AKTremoloDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *trem;
@@ -43,9 +50,7 @@ public:
         sp_osc_init(sp, trem, ftbl, 0);
     }
 
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -68,6 +73,6 @@ public:
     }
 };
 
-AKDSPRef akTremoloCreateDSP() {
-    return new AKTremoloDSP();
-}
+AK_REGISTER_DSP(AKTremoloDSP)
+AK_REGISTER_PARAMETER(AKTremoloParameterFrequency)
+AK_REGISTER_PARAMETER(AKTremoloParameterDepth)
