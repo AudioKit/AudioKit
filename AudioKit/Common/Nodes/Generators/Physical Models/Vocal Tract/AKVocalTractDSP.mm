@@ -4,8 +4,6 @@
 #include "soundpipe.h"
 #include "vocwrapper.h"
 
-#include "DebugDSP.h"
-
 enum AKVocalTractParameter : AUParameterAddress {
     AKVocalTractParameterFrequency,
     AKVocalTractParameterTonguePosition,

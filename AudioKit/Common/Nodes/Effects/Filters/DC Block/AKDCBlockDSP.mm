@@ -3,8 +3,6 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
-#include "DebugDSP.h"
-
 class AKDCBlockDSP : public AKSoundpipeDSPBase {
 private:
     sp_dcblock *dcblock0;

@@ -3,8 +3,6 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
-#include "DebugDSP.h"
-
 enum AKPWMOscillatorParameter : AUParameterAddress {
     AKPWMOscillatorParameterFrequency,
     AKPWMOscillatorParameterAmplitude,

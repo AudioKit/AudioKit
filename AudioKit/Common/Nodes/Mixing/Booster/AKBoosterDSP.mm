@@ -2,8 +2,6 @@
 
 #include "AudioKit.h"
 
-#include "DebugDSP.h"
-
 enum AKBoosterParameter : AUParameterAddress {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,

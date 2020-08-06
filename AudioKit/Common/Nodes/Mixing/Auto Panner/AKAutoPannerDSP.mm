@@ -5,8 +5,6 @@
 
 #import <vector>
 
-#include "DebugDSP.h"
-
 enum AKAutoPannerParameter : AUParameterAddress {
     AKAutoPannerParameterFrequency,
     AKAutoPannerParameterDepth,
