@@ -19,7 +19,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let baseFrequencyDef = AKNodeParameterDef(
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
-        address: AKFMOscillatorParameter.baseFrequency.rawValue,
+        address: akGetParameterAddress("AKFMOscillatorParameterBaseFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let carrierMultiplierDef = AKNodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
-        address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
+        address: akGetParameterAddress("AKFMOscillatorParameterCarrierMultiplier"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -41,7 +41,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let modulatingMultiplierDef = AKNodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
-        address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
+        address: akGetParameterAddress("AKFMOscillatorParameterModulatingMultiplier"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -52,7 +52,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let modulationIndexDef = AKNodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
-        address: AKFMOscillatorParameter.modulationIndex.rawValue,
+        address: akGetParameterAddress("AKFMOscillatorParameterModulationIndex"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -63,7 +63,7 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: AKFMOscillatorParameter.amplitude.rawValue,
+        address: akGetParameterAddress("AKFMOscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -76,15 +76,15 @@ public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKFMOscillator.baseFrequencyDef,
-                    AKFMOscillator.carrierMultiplierDef,
-                    AKFMOscillator.modulatingMultiplierDef,
-                    AKFMOscillator.modulationIndexDef,
-                    AKFMOscillator.amplitudeDef]
+            [AKFMOscillator.baseFrequencyDef,
+             AKFMOscillator.carrierMultiplierDef,
+             AKFMOscillator.modulatingMultiplierDef,
+             AKFMOscillator.modulationIndexDef,
+             AKFMOscillator.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akFMOscillatorCreateDSP()
+            akCreateDSP("AKFMOscillatorDSP")
         }
     }
 

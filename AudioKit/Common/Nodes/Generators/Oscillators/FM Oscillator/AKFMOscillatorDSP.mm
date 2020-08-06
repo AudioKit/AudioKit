@@ -2,8 +2,17 @@
 
 #include "AudioKit.h"
 #include "soundpipe.h"
-
 #include <vector>
+
+#include "DebugDSP.h"
+
+enum AKFMOscillatorParameter : AUParameterAddress {
+    AKFMOscillatorParameterBaseFrequency,
+    AKFMOscillatorParameterCarrierMultiplier,
+    AKFMOscillatorParameterModulatingMultiplier,
+    AKFMOscillatorParameterModulationIndex,
+    AKFMOscillatorParameterAmplitude,
+};
 
 class AKFMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
@@ -76,6 +85,9 @@ public:
     }
 };
 
-AKDSPRef akFMOscillatorCreateDSP() {
-    return new AKFMOscillatorDSP();
-}
+AK_REGISTER_DSP(AKFMOscillatorDSP)
+AK_REGISTER_PARAMETER(AKFMOscillatorParameterBaseFrequency)
+AK_REGISTER_PARAMETER(AKFMOscillatorParameterCarrierMultiplier)
+AK_REGISTER_PARAMETER(AKFMOscillatorParameterModulatingMultiplier)
+AK_REGISTER_PARAMETER(AKFMOscillatorParameterModulationIndex)
+AK_REGISTER_PARAMETER(AKFMOscillatorParameterAmplitude)
