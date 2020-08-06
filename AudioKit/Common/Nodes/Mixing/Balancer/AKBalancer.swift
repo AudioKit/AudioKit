@@ -19,7 +19,7 @@ public class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
 
     public class InternalAU: AKAudioUnitBase {
         public override func createDSP() -> AKDSPRef {
-            return akBalancerCreateDSP()
+            akCreateDSP("AKBalancerDSP")
         }
     }
 

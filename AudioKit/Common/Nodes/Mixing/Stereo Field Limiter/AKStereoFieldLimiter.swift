@@ -14,10 +14,10 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
 
-    public static let amounDef = AKNodeParameterDef(
+    public static let amountDef = AKNodeParameterDef(
         identifier: "amount",
         name: "Limiting amount",
-        address: 0,
+        address: akGetParameterAddress("AKStereoFieldLimiterAmount"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -30,11 +30,11 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKStereoFieldLimiter.amounDef]
+            [AKStereoFieldLimiter.amountDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akStereoFieldLimiterCreateDSP()
+            akCreateDSP("AKStereoFieldLimiterDSP")
         }
     }
 

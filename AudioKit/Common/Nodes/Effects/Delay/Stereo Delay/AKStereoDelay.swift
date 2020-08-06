@@ -17,7 +17,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: AKStereoDelayParameter.time.rawValue,
+        address: akGetParameterAddress("AKStereoDelayParameterTime"),
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)
@@ -28,7 +28,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: AKStereoDelayParameter.feedback.rawValue,
+        address: akGetParameterAddress("AKStereoDelayParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let dryWetMixDef = AKNodeParameterDef(
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
-       address: AKStereoDelayParameter.dryWetMix.rawValue,
+       address: akGetParameterAddress("AKStereoDelayParameterDryWetMix"),
        range: 0.0 ... 1.0,
        unit: .generic,
        flags: .default)
@@ -50,7 +50,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public static let pingPongDef = AKNodeParameterDef(
        identifier: "pingPong",
        name: "Ping-Pong Mode",
-       address: AKStereoDelayParameter.pingPong.rawValue,
+       address: akGetParameterAddress("AKStereoDelayParameterPingPong"),
        range: 0.0...1.0,
        unit: .boolean,
        flags: [.flag_IsReadable, .flag_IsWritable])
@@ -63,14 +63,14 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKStereoDelay.timeDef,
-                    AKStereoDelay.feedbackDef,
-                    AKStereoDelay.dryWetMixDef,
-                    AKStereoDelay.pingPongDef]
+            [AKStereoDelay.timeDef,
+             AKStereoDelay.feedbackDef,
+             AKStereoDelay.dryWetMixDef,
+             AKStereoDelay.pingPongDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akStereoDelayCreateDSP()
+            akCreateDSP("AKStereoDelayDSP")
         }
     }
 

@@ -3,6 +3,15 @@
 #include "AudioKit.h"
 #include "soundpipe.h"
 
+#include "DebugDSP.h"
+
+enum AKAmplitudeEnvelopeParameter : AUParameterAddress {
+    AKAmplitudeEnvelopeParameterAttackDuration,
+    AKAmplitudeEnvelopeParameterDecayDuration,
+    AKAmplitudeEnvelopeParameterSustainLevel,
+    AKAmplitudeEnvelopeParameterReleaseDuration,
+};
+
 class AKAmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
 private:
     sp_adsr *adsr;
@@ -48,9 +57,7 @@ public:
         internalGate = 0;
     }
 
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -70,6 +77,8 @@ public:
     }
 };
 
-AKDSPRef akAmplitudeEnvelopeCreateDSP() {
-    return new AKAmplitudeEnvelopeDSP();
-}
+AK_REGISTER_DSP(AKAmplitudeEnvelopeDSP)
+AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterAttackDuration)
+AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterDecayDuration)
+AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterSustainLevel)
+AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterReleaseDuration)

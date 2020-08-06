@@ -5,6 +5,13 @@
 
 #import <vector>
 
+#include "DebugDSP.h"
+
+enum AKAutoPannerParameter : AUParameterAddress {
+    AKAutoPannerParameterFrequency,
+    AKAutoPannerParameterDepth,
+};
+
 class AKAutoPannerDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *trem;
@@ -74,6 +81,6 @@ public:
 
 };
 
-AKDSPRef akAutoPannerCreateDSP() {
-    return new AKAutoPannerDSP();
-}
+AK_REGISTER_DSP(AKAutoPannerDSP)
+AK_REGISTER_PARAMETER(AKAutoPannerParameterFrequency)
+AK_REGISTER_PARAMETER(AKAutoPannerParameterDepth)

@@ -27,7 +27,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
         name: "Left Gain",
-        address: AKFaderParameter.leftGain.rawValue,
+        address: akGetParameterAddress("AKFaderParameterLeftGain"),
         range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default)
@@ -38,7 +38,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let rightGainDef = AKNodeParameterDef(
         identifier: "rightGain",
         name: "Right Gain",
-        address: AKFaderParameter.rightGain.rawValue,
+        address: akGetParameterAddress("AKFaderParameterRightGain"),
         range: AKFader.gainRange,
         unit: .linearGain,
         flags: .default)
@@ -55,7 +55,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let flipStereoDef = AKNodeParameterDef(
         identifier: "flipStereo",
         name: "Flip Stereo",
-        address: AKFaderParameter.flipStereo.rawValue,
+        address: akGetParameterAddress("AKFaderParameterFlipStereo"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -66,7 +66,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public static let mixToMonoDef = AKNodeParameterDef(
         identifier: "mixToMono",
         name: "Mix To Mono",
-        address: AKFaderParameter.mixToMono.rawValue,
+        address: akGetParameterAddress("AKFaderParameterMixToMono"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -79,14 +79,14 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            return [AKFader.leftGainDef,
-                    AKFader.rightGainDef,
-                    AKFader.flipStereoDef,
-                    AKFader.mixToMonoDef]
+            [AKFader.leftGainDef,
+             AKFader.rightGainDef,
+             AKFader.flipStereoDef,
+             AKFader.mixToMonoDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            return akFaderCreateDSP()
+            akCreateDSP("AKFaderDSP")
         }
     }
     // MARK: - Initialization

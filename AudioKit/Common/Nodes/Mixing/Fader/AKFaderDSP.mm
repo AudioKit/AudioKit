@@ -2,6 +2,16 @@
 
 #include "AudioKit.h"
 
+#include "DebugDSP.h"
+
+enum AKFaderParameter : AUParameterAddress {
+    AKFaderParameterLeftGain,
+    AKFaderParameterRightGain,
+    AKFaderParameterFlipStereo,
+    AKFaderParameterMixToMono
+};
+
+
 struct AKFaderDSP : AKDSPBase {
 private:
     ParameterRamper leftGainRamp{1.0};
@@ -83,6 +93,8 @@ public:
     }
 };
 
-AKDSPRef akFaderCreateDSP() {
-    return new AKFaderDSP();
-}
+AK_REGISTER_DSP(AKFaderDSP)
+AK_REGISTER_PARAMETER(AKFaderParameterLeftGain)
+AK_REGISTER_PARAMETER(AKFaderParameterRightGain)
+AK_REGISTER_PARAMETER(AKFaderParameterFlipStereo)
+AK_REGISTER_PARAMETER(AKFaderParameterMixToMono)

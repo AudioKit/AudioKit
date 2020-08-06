@@ -2,6 +2,13 @@
 
 #include "AudioKit.h"
 
+#include "DebugDSP.h"
+
+enum AKBoosterParameter : AUParameterAddress {
+    AKBoosterParameterLeftGain,
+    AKBoosterParameterRightGain,
+};
+
 struct AKBoosterDSP : public AKDSPBase {
 private:
     ParameterRamper leftGainRamp;
@@ -39,6 +46,7 @@ public:
     }
 };
 
-AKDSPRef akBoosterCreateDSP() {
-    return new AKBoosterDSP();
-}
+AK_REGISTER_DSP(AKBoosterDSP)
+AK_REGISTER_PARAMETER(AKBoosterParameterLeftGain)
+AK_REGISTER_PARAMETER(AKBoosterParameterRightGain)
+
