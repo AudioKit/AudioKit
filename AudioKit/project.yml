@@ -2,7 +2,9 @@
 # xcodegen project file for AudioKit frameworks
 
 name: AudioKitGen # when ready, rename this to AudioKit
-
+fileGroups:
+  - "README.md"
+  - "Common/README.md"
 targets:
   AudioKit:
     type: framework
