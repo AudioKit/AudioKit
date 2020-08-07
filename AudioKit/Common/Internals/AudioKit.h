@@ -7,6 +7,7 @@
 #if !TARGET_OS_TV
 #import <CoreAudioKit/CoreAudioKit.h>
 #endif
+#import <AudioKit/EZAudio.h>
 
 //! Project version number for AudioKit.
 FOUNDATION_EXPORT double AudioKitVersionNumber;
@@ -68,13 +69,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKCoreSynth.hpp>
 #import <AudioKit/AKSamplerDSP.hpp>
 
-#if !TARGET_OS_TV
-#import <AudioKit/AKCallbackInstrumentAudioUnit.h>
-#endif
-
-// EZAudio
-#import <AudioKit/EZAudio.h>
-
 // Taps
 #import <AudioKit/AKRenderTap.h>
 #import <AudioKit/AKLazyTap.h>
@@ -84,10 +78,11 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/ParameterRamper.hpp>
 #import <AudioKit/AKTimeline.h>
 
-// Sequencer
+// Sequencing / MIDI
 #import <AudioKit/AKSamplerMetronome.h>
 #if !TARGET_OS_TV
 #import <AudioKit/AKSequencerEngine.hpp>
+#import <AudioKit/AKCallbackInstrumentAudioUnit.h>
 #endif
 
 // Automation
