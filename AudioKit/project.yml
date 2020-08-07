@@ -7,6 +7,9 @@ targets:
   AudioKit:
     type: framework
     platform: [macOS, iOS]
+    deploymentTarget:
+      iOS: "13.0"
+      macOS: "10.15"
     info:
       path: AudioKitInfo.plist
     sources:
@@ -155,6 +158,7 @@ targets:
           - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
+      PRODUCT_BUNDLE_IDENTIFIER: io.audiokit.framework
 
   AudioKit_tests:
     type: bundle.unit-test
