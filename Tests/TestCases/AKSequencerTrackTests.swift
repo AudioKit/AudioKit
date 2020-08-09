@@ -11,14 +11,7 @@ import AudioKit
 
 class AKSequencerTrackTests: AKTestCase {
 
-    func testEmptyTrack() {
-
-        let synth = AKOscillatorFilterSynth()
-        let seq = AKSequencerTrack(targetNode: synth)
-
-        XCTAssertEqual(seq.length, 4.0) // One measure
-        XCTAssertEqual(seq.loopEnabled, true) // Loop on
-    }
+    let sampler = AKAppleSampler()
 
     func getTestSequence() -> AKSequence {
 
@@ -30,54 +23,70 @@ class AKSequencerTrackTests: AKTestCase {
         return seq
     }
 
+    func setupSampler() {
+        let bundle = Bundle(for: AKSequencerTrackTests.self)
+        if let path = bundle.path(forResource: "sinechirp", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            let file = try! AVAudioFile(forReading: url)
+            try! sampler.loadAudioFile(file)
+            output = sampler
+        } else {
+            XCTFail("Could not load sinechirp.wav")
+        }
+    }
+
+
+    func testEmptyTrack() {
+
+
+        let seq = AKSequencerTrack(targetNode: sampler)
+
+        XCTAssertEqual(seq.length, 4.0) // One measure
+        XCTAssertEqual(seq.loopEnabled, true) // Loop on
+    }
+
     func testLoop() {
 
         duration = 5
 
-        let synth = AKOscillatorFilterSynth()
+        let track = AKSequencerTrack(targetNode: sampler)
 
-        let track = AKSequencerTrack(targetNode: synth)
-
-        output = synth
+        setupSampler()
 
         track.sequence = getTestSequence()
         track.playFromStart()
         // auditionTest()
-        AKTestMD5("c01d447a0f869a73f9ef82a9f2fa4607")
+        AKTestMD5("8dda603e249554576192a2bd524f8bca")
     }
 
     func testOneShot() {
 
         duration = 5
 
-        let synth = AKOscillatorFilterSynth()
+        let track = AKSequencerTrack(targetNode: sampler)
 
-        let track = AKSequencerTrack(targetNode: synth)
-
-        output = synth
+        setupSampler()
 
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()
-        // auditionTest()
-        AKTestMD5("3553248d0221171d23aab45b4772c7b0")
+        //auditionTest()
+        AKTestMD5("864f48d1881655b29fd1cca59887bed4")
     }
 
     func testTempo() {
 
         duration = 5
 
-        let synth = AKOscillatorFilterSynth()
+        let track = AKSequencerTrack(targetNode: sampler)
 
-        let track = AKSequencerTrack(targetNode: synth)
-
-        output = synth
+        setupSampler()
 
         track.sequence = getTestSequence()
         track.tempo = 60
         track.playFromStart()
-        // auditionTest()
-        AKTestMD5("9e4ef9914e766652ebdb8eb9b952e458")
+        //auditionTest()
+        AKTestMD5("ca831ed474d2d302f48c37fd2cff4850")
 
     }
 
