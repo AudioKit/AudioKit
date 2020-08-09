@@ -54,15 +54,15 @@ class AudioEngine {
 //: ### Error Handling
 //:
 //: In AudioKit playgrounds, failable initializers are just one line:
-let file = try AKAudioFile()
+let file = try AVAudioFile()
 try AKManager.start()
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
-    let file = try AKAudioFile(readFileName: "drumloop.wav")
+    let file = try AVAudioFile(forReading: URL(fileURLWithPath: "drumloop.wav"))
     try AKManager.start()
 } catch {
-    AKLog("File Not Found or AudioKit did not start")
+    print("File Not Found or AudioKit did not start")
 }
 
 //: ---

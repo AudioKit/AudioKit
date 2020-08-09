@@ -4,7 +4,6 @@
 //:
 //: ## Using Functions Part 2
 //:
-import AudioKitPlaygrounds
 import AudioKit
 
 func instrument(noteNumber: MIDINoteNumber, rate: Double, amplitude: Double) -> AKOperation {

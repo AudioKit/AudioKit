@@ -4,7 +4,6 @@
 //:
 //: ## Using Functions
 //: Encapsualating functionality of operations into functions
-import AudioKitPlaygrounds
 import AudioKit
 
 func drone(frequency: Double, rate: Double) -> AKOperation {
