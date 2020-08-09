@@ -13,7 +13,7 @@ targets:
       iOS: "13.0"
       macOS: "10.15"
     info:
-      path: AudioKitInfo.plist
+      path: Info.plist
     sources:
       - path: Externals
         excludes:
