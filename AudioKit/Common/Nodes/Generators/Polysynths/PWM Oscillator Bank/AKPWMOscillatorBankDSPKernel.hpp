@@ -20,11 +20,13 @@ protected:
         virtual ~NoteState() {
             sp_blsquare_destroy(&blsquare);
         }
+
+        void initTaylor() {
+            sp_blsquare_init(kernel->getSpData(), blsquare);
+        }
         
         void init() override {
-            sp_adsr_create(&adsr);
             sp_adsr_init(kernel->getSpData(), adsr);
-            sp_blsquare_init(kernel->getSpData(), blsquare);
             *blsquare->freq = 0;
             *blsquare->amp = 0;
             *blsquare->width = 0.5;
@@ -94,6 +96,9 @@ public:
     
     void init(int channelCount, double sampleRate) override {
         AKBankDSPKernel::init(channelCount, sampleRate);
+        for (auto& ns : noteStates) {
+            static_cast<NoteState*>(ns.get())->initTaylor();
+        }
         pulseWidthRamper.init(sampleRate);
     }
     
