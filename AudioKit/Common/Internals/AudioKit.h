@@ -45,20 +45,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKModulatedDelay.hpp>
 #import <AudioKit/AKModulatedDelayDSP.hpp>
 
-// Generators / Polysynths
-#import <AudioKit/AKFMOscillatorBankAudioUnit.h>
-#import <AudioKit/AKMorphingOscillatorBankAudioUnit.h>
-#import <AudioKit/AKOscillatorBankAudioUnit.h>
-#import <AudioKit/AKPhaseDistortionOscillatorBankAudioUnit.h>
-#import <AudioKit/AKPWMOscillatorBankAudioUnit.h>
+// Synth example
 #import <AudioKit/AKSynthDSP.hpp>
-
-// Generators / Filter Polysynths
-#import <AudioKit/AKFMOscillatorFilterSynthAudioUnit.h>
-#import <AudioKit/AKMorphingOscillatorFilterSynthAudioUnit.h>
-#import <AudioKit/AKOscillatorFilterSynthAudioUnit.h>
-#import <AudioKit/AKPhaseDistortionOscillatorFilterSynthAudioUnit.h>
-#import <AudioKit/AKPWMOscillatorFilterSynthAudioUnit.h>
 
 // Playback
 #import <AudioKit/AKWaveTableAudioUnit.h>
