@@ -13,6 +13,7 @@ typedef void (^AKCCallback)(void);
 
 @interface AKSequencerEngine : AKAudioUnit
 @property (nonatomic) float startPoint;
+@property (nonatomic) bool seqEnabled;
 @property (nonatomic) bool loopEnabled;
 @property (nonatomic) double tempo;
 @property (readonly) double currentPosition;
