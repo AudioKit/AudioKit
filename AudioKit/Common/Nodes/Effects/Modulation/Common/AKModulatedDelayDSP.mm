@@ -76,9 +76,9 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
     float *inBuffers[2], *outBuffers[2];
     inBuffers[0]  = (float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
     inBuffers[1]  = (float *)inputBufferLists[0]->mBuffers[1].mData  + bufferOffset;
-    outBuffers[0] = (float *)outputBufferLists[0]->mBuffers[0].mData + bufferOffset;
-    outBuffers[1] = (float *)outputBufferLists[0]->mBuffers[1].mData + bufferOffset;
-    unsigned channelCount = outputBufferLists[0]->mNumberBuffers;
+    outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
+    outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
+    unsigned channelCount = outputBufferList->mNumberBuffers;
 
     if (!isStarted)
     {
