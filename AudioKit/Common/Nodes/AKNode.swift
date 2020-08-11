@@ -37,7 +37,7 @@ open class AKNode: NSObject {
     }
 
     /// Initialize the node from an AVAudioUnit
-    public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+    internal init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
         if attach {
@@ -46,7 +46,7 @@ open class AKNode: NSObject {
     }
 
     /// Initialize the node from an AVAudioNode
-    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    internal init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
             AKManager.engine.attach(avAudioNode)
