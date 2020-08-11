@@ -40,14 +40,16 @@ xcodebuild -project Examples/iOS/Recorder/Recorder.xcodeproj -sdk iphonesimulato
 echo "Skipping iOS SequencerDemo"
 # xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk iphonesimulator -scheme SequencerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 18
 
-echo "Building iOS AudiobusMIDISender"
-cd Examples/iOS/AudiobusMIDISender; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/AudiobusMIDISender/AudiobusMIDISender.xcworkspace -sdk iphonesimulator -scheme AudiobusMIDISender -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 31
+echo "Skipping all Audiobus stuff"
 
-echo "Building iOS Sender Synth"
-cd Examples/iOS/SenderSynth; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/SenderSynth/SenderSynth.xcworkspace -sdk iphonesimulator -scheme SenderSynth -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 32
+# echo "Building iOS AudiobusMIDISender"
+# cd Examples/iOS/AudiobusMIDISender; pod install; cd ../../..
+# xcodebuild -workspace Examples/iOS/AudiobusMIDISender/AudiobusMIDISender.xcworkspace -sdk iphonesimulator -scheme AudiobusMIDISender -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 31
 
-echo "Building iOS Filter Effects"
-cd Examples/iOS/FilterEffects; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 33
+# echo "Building iOS Sender Synth"
+# cd Examples/iOS/SenderSynth; pod install; cd ../../..
+# xcodebuild -workspace Examples/iOS/SenderSynth/SenderSynth.xcworkspace -sdk iphonesimulator -scheme SenderSynth -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 32
+
+# echo "Building iOS Filter Effects"
+# cd Examples/iOS/FilterEffects; pod install; cd ../../..
+# xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 33
