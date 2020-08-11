@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
-
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
@@ -9,7 +7,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 
-    public typealias AKAudioUnitType = AKDynaRageCompressorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -61,16 +59,16 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     /// Release duration
     @Parameter public var releaseDuration: AUValue
 
-    public static let rageAmountDef = AKNodeParameterDef(
-        identifier: "rageAmount",
-        name: "Rage Amount",
-        address: akGetParameterAddress("AKDynaRageCompressorRageAmount"),
+    public static let rageDef = AKNodeParameterDef(
+        identifier: "rage",
+        name: "Rage",
+        address: akGetParameterAddress("AKDynaRageCompressorRage"),
         range: 0.1 ... 20.0,
         unit: .generic,
         flags: .default)
 
     /// Rage Amount
-    @Parameter public var rageAmount: AUValue
+    @Parameter public var rage: AUValue
 
     public static let rageEnabledDef = AKNodeParameterDef(
         identifier: "rageEnabled",
@@ -92,7 +90,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
              AKDynaRageCompressor.thresholdDef,
              AKDynaRageCompressor.attackDurationDef,
              AKDynaRageCompressor.releaseDurationDef,
-             AKDynaRageCompressor.rageAmountDef,
+             AKDynaRageCompressor.rageDef,
              AKDynaRageCompressor.rageEnabledDef]
         }
 
@@ -119,7 +117,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
         attackDuration: AUValue = 0.1,
         releaseDuration: AUValue = 0.1,
         rage: AUValue = 0.1,
-        rageIsOn: Bool = true
+        rageEnabled: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
         self.ratio = ratio
@@ -127,7 +125,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
         self.attackDuration = attackDuration
         self.releaseDuration = releaseDuration
         self.rage = rage
-        self.rageIsOn = rageIsOn
+        self.rageEnabled = rageEnabled
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
