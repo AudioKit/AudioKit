@@ -68,7 +68,7 @@ public:
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
                 *out = *in * amp;
             }
         }

@@ -388,9 +388,9 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float *)outputBufferLists[0]->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;
-        unsigned channelCount = outputBufferLists[0]->mNumberBuffers;
+        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
+        unsigned channelCount = outputBufferList->mNumberBuffers;
         AKCoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }

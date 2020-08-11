@@ -64,8 +64,8 @@ public:
             mincer->amp = amplitudeRamp.getAndStep();
             mincer->pitch = pitchRatioRamp.getAndStep();
 
-            float *outL = (float *)outputBufferLists[0]->mBuffers[0].mData  + frameOffset;
-            float *outR = (float *)outputBufferLists[0]->mBuffers[1].mData + frameOffset;
+            float *outL = (float *)outputBufferList->mBuffers[0].mData  + frameOffset;
+            float *outR = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
             if (isStarted) {
                 sp_mincer_compute(sp, mincer, NULL, outL);
                 *outR = *outL;
