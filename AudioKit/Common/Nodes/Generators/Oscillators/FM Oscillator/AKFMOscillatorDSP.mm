@@ -68,7 +68,7 @@ public:
             fosc->amp = amplitudeRamp.getAndStep();
             float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferLists[0]->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
                     if (channel == 0) {

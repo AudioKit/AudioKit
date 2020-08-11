@@ -82,7 +82,7 @@ public:
     virtual ~AKDSPBase() {}
     
     std::vector<AudioBufferList*> inputBufferLists;
-    std::vector<AudioBufferList*> outputBufferLists;
+    AudioBufferList* outputBufferList = nullptr;
     
     AUInternalRenderBlock internalRenderBlock();
     
