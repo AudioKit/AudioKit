@@ -17,23 +17,89 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
 
     // MARK: - Parameters
 
+    public static let ratioDef = AKNodeParameterDef(
+        identifier: "ratio",
+        name: "Ratio to compress with, a value > 1 will compress",
+        address: akGetParameterAddress("AKDynaRageCompressorRatio"),
+        range: 1.0 ... 20.0,
+        unit: .generic,
+        flags: .default)
+
     /// Ratio to compress with, a value > 1 will compress
     @Parameter public var ratio: AUValue
+
+    public static let thresholdDef = AKNodeParameterDef(
+        identifier: "threshold",
+        name: "Threshold (in dB) 0 = max",
+        address: akGetParameterAddress("AKDynaRageCompressorThreshold"),
+        range: -100.0 ... 0.0,
+        unit: .decibels,
+        flags: .default)
 
     /// Threshold (in dB) 0 = max
     @Parameter public var threshold: AUValue
 
+    public static let attackDurationDef = AKNodeParameterDef(
+        identifier: "attackDuration",
+        name: "Attack Duration",
+        address: akGetParameterAddress("AKDynaRageCompressorAttackDuration"),
+        range: 0.1 ... 500.0,
+        unit: .seconds,
+        flags: .default)
+
     /// Attack dration
     @Parameter public var attackDuration: AUValue
+
+    public static let releaseDurationDef = AKNodeParameterDef(
+        identifier: "releaseDuration",
+        name: "Release Duration",
+        address: akGetParameterAddress("AKDynaRageCompressorReleaseDuration"),
+        range: 1.0 ... 20.0,
+        unit: .seconds,
+        flags: .default)
 
     /// Release duration
     @Parameter public var releaseDuration: AUValue
 
+    public static let rageAmountDef = AKNodeParameterDef(
+        identifier: "rageAmount",
+        name: "Rage Amount",
+        address: akGetParameterAddress("AKDynaRageCompressorRageAmount"),
+        range: 0.1 ... 20.0,
+        unit: .generic,
+        flags: .default)
+
     /// Rage Amount
-    @Parameter public var rage: AUValue
+    @Parameter public var rageAmount: AUValue
+
+    public static let rageEnabledDef = AKNodeParameterDef(
+        identifier: "rageEnabled",
+        name: "Rage Enabled",
+        address: akGetParameterAddress("AKDynaRageCompressorRageEnabled"),
+        range: 0.0 ... 1.0,
+        unit: .boolean,
+        flags: .default)
 
     /// Rage ON/OFF Switch
-    @Parameter public var rageIsOn: Bool
+    @Parameter public var rageEnabled: Bool
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            [AKDynaRageCompressor.ratioDef,
+             AKDynaRageCompressor.thresholdDef,
+             AKDynaRageCompressor.attackDurationDef,
+             AKDynaRageCompressor.releaseDurationDef,
+             AKDynaRageCompressor.rageAmountDef,
+             AKDynaRageCompressor.rageEnabledDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKDynaRageCompressorDSP")
+        }
+    }
 
     // MARK: - Initialization
 

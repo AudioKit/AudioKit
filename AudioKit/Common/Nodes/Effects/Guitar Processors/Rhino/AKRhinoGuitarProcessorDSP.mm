@@ -1,13 +1,21 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKRhinoGuitarProcessorDSP.hpp"
-#import <AudioKit/AKDSPBase.hpp>
+#include "AudioKit.h"
 
 #include "RageProcessor.h"
 #include "Equalisator.h"
 #include "ParameterRamper.hpp"
 #include <math.h>
 #include <memory>
+
+enum AKRhinoGuitarProcessorParameter : AUParameterAddress {
+    AKRhinoGuitarProcessorParameterPreGain,
+    AKRhinoGuitarProcessorParameterPostGain,
+    AKRhinoGuitarProcessorParameterLowGain,
+    AKRhinoGuitarProcessorParameterMidGain,
+    AKRhinoGuitarProcessorParameterHighGain,
+    AKRhinoGuitarProcessorParameterDistortion
+};
 
 class AKRhinoGuitarProcessorDSP : public AKDSPBase {
 private:
@@ -104,6 +112,10 @@ public:
 
 };
 
-AKDSPRef akRhinoGuitarProcessorCreateDSP() {
-    return new AKRhinoGuitarProcessorDSP();
-}
+AK_REGISTER_DSP(AKRhinoGuitarProcessorDSP)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterPreGain)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterPostGain)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterLowGain)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterMidGain)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterHighGain)
+AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterDistortion)
