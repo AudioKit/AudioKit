@@ -82,7 +82,6 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput,
     /// Distortion Amount
     @Parameter public var distortion: AUValue
 
-
     // MARK: - Audio Unit
 
     public class InternalAU: AKAudioUnitBase {
