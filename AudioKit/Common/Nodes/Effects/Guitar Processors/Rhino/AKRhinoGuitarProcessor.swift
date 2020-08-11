@@ -1,14 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
-
 /// Guitar head and cab simulator.
 ///
 public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
-    public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
@@ -24,8 +22,8 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput,
         unit: .generic,
         flags: .default)
 
-    /// Gain applied after processing.
-    @Parameter public var postGain: AUValue
+    /// Gain applied before processing.
+    @Parameter public var preGain: AUValue
 
     public static let postGainDef = AKNodeParameterDef(
         identifier: "postGain",

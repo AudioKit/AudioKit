@@ -10,7 +10,7 @@ enum AKDynaRageCompressorParameter : AUParameterAddress {
     AKDynaRageCompressorParameterRatio,
     AKDynaRageCompressorParameterThreshold,
     AKDynaRageCompressorParameterAttackDuration,
-    AKDynaRageCompressorParameterReleaseDurtion,
+    AKDynaRageCompressorParameterReleaseDuration,
     AKDynaRageCompressorParameterRageAmount,
     AKDynaRageCompressorParameterRageEnabled
 };
@@ -130,9 +130,9 @@ public:
 };
 
 AK_REGISTER_DSP(AKDynaRageCompressorDSP)
-AK_REGISTER_PARAMETER(AKAutoWahParameterRatio)
-AK_REGISTER_PARAMETER(AKAutoWahParameterThreshold)
-AK_REGISTER_PARAMETER(AKAutoWahParameterAttackDuration)
-AK_REGISTER_PARAMETER(AKAutoWahParameterReleaseDurationDurtion)
-AK_REGISTER_PARAMETER(AKAutoWahParameterRageAmount)
-AK_REGISTER_PARAMETER(AKAutoWahParameterRageEnabled)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRatio)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterThreshold)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterAttackDuration)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterReleaseDuration)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRageAmount)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRageEnabled)
