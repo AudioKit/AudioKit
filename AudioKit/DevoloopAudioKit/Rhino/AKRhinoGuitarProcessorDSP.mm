@@ -4,7 +4,6 @@
 #import <AudioKit/AKDSPBase.hpp>
 
 #include "RageProcessor.h"
-#include "Filter.h"
 #include "Equalisator.h"
 #include "ParameterRamper.hpp"
 #include <math.h>
