@@ -37,7 +37,8 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
         unit: .percent,
         flags: .default)
 
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it.
+    /// Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
     // MARK: - Audio Unit

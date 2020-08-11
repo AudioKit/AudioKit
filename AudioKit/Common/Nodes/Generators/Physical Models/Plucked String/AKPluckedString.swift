@@ -16,7 +16,7 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
-        name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
+        name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
         address: akGetParameterAddress("AKPluckedStringParameterFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,

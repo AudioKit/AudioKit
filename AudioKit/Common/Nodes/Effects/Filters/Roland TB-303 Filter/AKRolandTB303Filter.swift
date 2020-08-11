@@ -33,7 +33,9 @@ public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AK
         unit: .generic,
         flags: .default)
 
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it.
+    /// Higher than 1 resonance values might cause aliasing,
+    /// analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
     public static let distortionDef = AKNodeParameterDef(
