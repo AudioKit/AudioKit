@@ -5,7 +5,7 @@ import Foundation
 
 class SequencerManager {
     var seq: AKAppleSequencer?
-    let oscBank = AKSynth()
+    let oscBank = AKSynth(attackDuration: 0.01, decayDuration: 0.03)
     let mixer = AKMixer()
     var node: AKMIDINode!
 
