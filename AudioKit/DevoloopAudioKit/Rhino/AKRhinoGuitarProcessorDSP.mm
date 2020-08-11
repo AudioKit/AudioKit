@@ -7,7 +7,6 @@
 #include "Equalisator.h"
 #include "ParameterRamper.hpp"
 #include <math.h>
-#include <iostream>
 
 class AKRhinoGuitarProcessorDSP : public AKDSPBase {
 private:
