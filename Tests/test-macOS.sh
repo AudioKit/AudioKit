@@ -19,8 +19,8 @@ xcodebuild -project Examples/macOS/AudioUnitManager/AudioUnitManager.xcodeproj -
 echo "Building macOS FileConverter"
 xcodebuild -project Examples/macOS/FileConverter/FileConverter.xcodeproj -scheme FileConverter ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 23
 
-echo "Building macOS FlangerAndChorus"
-xcodebuild -project Examples/macOS/FlangerAndChorus/FlangerAndChorus.xcodeproj -scheme FlangerAndChorus ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 24
+echo "Skipping macOS FlangerAndChorus"
+# xcodebuild -project Examples/macOS/FlangerAndChorus/FlangerAndChorus.xcodeproj -scheme FlangerAndChorus ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 24
 
 echo "Building macOS MicrophoneAnalysis"
 xcodebuild -project Examples/macOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -scheme MicrophoneAnalysis ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 25

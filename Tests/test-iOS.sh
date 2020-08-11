@@ -37,8 +37,8 @@ xcodebuild -project Examples/iOS/MIDIUtility/MIDIUtility.xcodeproj -sdk iphonesi
 echo "Building iOS Recorder"
 xcodebuild -project Examples/iOS/Recorder/Recorder.xcodeproj -sdk iphonesimulator -scheme Recorder -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 17
 
-echo "Building iOS SequencerDemo"
-xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk iphonesimulator -scheme SequencerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 18
+echo "Skipping iOS SequencerDemo"
+# xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk iphonesimulator -scheme SequencerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 18
 
 echo "Building iOS AudiobusMIDISender"
 cd Examples/iOS/AudiobusMIDISender; pod install; cd ../../..
