@@ -17,7 +17,7 @@ size_t inputBusCountDSP(AKDSPRef pDSP)
 
 size_t outputBusCountDSP(AKDSPRef pDSP)
 {
-    return pDSP->outputBufferLists.size();
+    return 1; // We don't currently support multiple output busses.
 }
 
 bool canProcessInPlaceDSP(AKDSPRef pDSP)
@@ -104,7 +104,6 @@ AKDSPBase::AKDSPBase()
 : channelCount(2)   // best guess
 , sampleRate(44100) // best guess
 , inputBufferLists(1)
-, outputBufferLists(1)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
 }
@@ -126,6 +125,9 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
         const AURenderEvent        *realtimeEventListHead,
         AURenderPullInputBlock      pullInputBlock)
     {
+
+        assert( (outputBusNumber == 0) && "We don't yet support multiple output busses" );
+
         if (pullInputBlock) {
             if (bCanProcessInPlace && inputBufferLists.size() == 1) {
                 // pull input directly to output buffer
@@ -152,7 +154,7 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
             }
         }
         
-        outputBufferLists[0] = outputData;
+        outputBufferList = outputData;
         
         processWithEvents(timestamp, frameCount, realtimeEventListHead);
         

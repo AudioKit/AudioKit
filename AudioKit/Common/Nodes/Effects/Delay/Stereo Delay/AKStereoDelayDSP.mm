@@ -69,10 +69,10 @@ public:
         float *outBuffers[2];
         inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
         inBuffers[1]  = (const float *)inputBufferLists[0]->mBuffers[1].mData  + bufferOffset;
-        outBuffers[0] = (float *)outputBufferLists[0]->mBuffers[0].mData + bufferOffset;
-        outBuffers[1] = (float *)outputBufferLists[0]->mBuffers[1].mData + bufferOffset;
+        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
+        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
         //unsigned inChannelCount = inputBufferLists[0]->mNumberBuffers;
-        //unsigned outChannelCount = outputBufferLists[0]->mNumberBuffers;
+        //unsigned outChannelCount = outputBufferList->mNumberBuffers;
 
         if (!isStarted)
         {
