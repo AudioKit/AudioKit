@@ -1,11 +1,19 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKDynaRageCompressorDSP.hpp"
-#import <AudioKit/AKDSPBase.hpp>
+#include "AudioKit.h"
 
 #include "Compressor.h"
 #include "RageProcessor.h"
 #include "ParameterRamper.hpp"
+
+enum AKDynaRageCompressorParameter : AUParameterAddress {
+    AKDynaRageCompressorParameterRatio,
+    AKDynaRageCompressorParameterThreshold,
+    AKDynaRageCompressorParameterAttackDuration,
+    AKDynaRageCompressorParameterReleaseDurtion,
+    AKDynaRageCompressorParameterRageAmount,
+    AKDynaRageCompressorParameterRageEnabled
+};
 
 class AKDynaRageCompressorDSP : public AKDSPBase {
 private:
@@ -17,8 +25,8 @@ private:
     
     ParameterRamper ratioRamp;
     ParameterRamper thresholdRamp;
-    ParameterRamper attackRamp;
-    ParameterRamper releaseRamp;
+    ParameterRamper attackDurationRamp;
+    ParameterRamper releaseDurationRamp;
     ParameterRamper rageRamp;
     
     bool rageIsOn = true;
@@ -27,8 +35,8 @@ public:
     AKDynaRageCompressorDSP() {
         parameters[AKDynaRageCompressorParameterRatio] = &ratioRamp;
         parameters[AKDynaRageCompressorParameterThreshold] = &thresholdRamp;
-        parameters[AKDynaRageCompressorParameterAttack] = &attackRamp;
-        parameters[AKDynaRageCompressorParameterRelease] = &releaseRamp;
+        parameters[AKDynaRageCompressorParameterAttackDuration] = &attackDurationRamp;
+        parameters[AKDynaRageCompressorParameterReleaseDuration] = &releaseDurationRamp;
         parameters[AKDynaRageCompressorParameterRageAmount] = &rageRamp;
     }
 
@@ -37,11 +45,11 @@ public:
 
         float ratio = ratioRamp.get();
         float threshold = thresholdRamp.get();
-        float attack = attackRamp.get();
-        float release = releaseRamp.get();
+        float attackDuration = attackDurationRamp.get();
+        float releaseDuration = releaseDurationRamp.get();
 
-        left_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
-        right_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
+        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
+        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
 
         left_rageprocessor = std::make_unique<RageProcessor>((int)sampleRate);
         right_rageprocessor = std::make_unique<RageProcessor>((int)sampleRate);
@@ -57,11 +65,11 @@ public:
     void reset() {
         float ratio = ratioRamp.get();
         float threshold = thresholdRamp.get();
-        float attack = attackRamp.get();
-        float release = releaseRamp.get();
+        float attackDuration = attackDurationRamp.get();
+        float releaseDuration = releaseDurationRamp.get();
 
-        left_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
-        right_compressor = std::make_unique<Compressor>(threshold, ratio, attack, release, (int) sampleRate);
+        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
+        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
     }
 
     void setParameter(AUParameterAddress address, float value, bool immediate)
@@ -91,12 +99,12 @@ public:
 
             float ratio = ratioRamp.getAndStep();
             float threshold = thresholdRamp.getAndStep();
-            float attack = attackRamp.getAndStep();
-            float release = releaseRamp.getAndStep();
+            float attackDuration = attackDurationRamp.getAndStep();
+            float releaseDuration = releaseDurationRamp.getAndStep();
             float rage = rageRamp.getAndStep();
 
-            left_compressor->setParameters(threshold, ratio, attack, release);
-            right_compressor->setParameters(threshold, ratio, attack, release);
+            left_compressor->setParameters(threshold, ratio, attackDuration, releaseDuration);
+            right_compressor->setParameters(threshold, ratio, attackDuration, releaseDuration);
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
@@ -121,6 +129,10 @@ public:
     }
 };
 
-AKDSPRef akDynaRageCompressorCreateDSP() {
-    return new AKDynaRageCompressorDSP();
-}
+AK_REGISTER_DSP(AKDynaRageCompressorDSP)
+AK_REGISTER_PARAMETER(AKAutoWahParameterRatio)
+AK_REGISTER_PARAMETER(AKAutoWahParameterThreshold)
+AK_REGISTER_PARAMETER(AKAutoWahParameterAttackDuration)
+AK_REGISTER_PARAMETER(AKAutoWahParameterReleaseDurationDurtion)
+AK_REGISTER_PARAMETER(AKAutoWahParameterRageAmount)
+AK_REGISTER_PARAMETER(AKAutoWahParameterRageEnabled)

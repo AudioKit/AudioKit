@@ -4,66 +4,102 @@ import AudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
+public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
-    // MARK: - Properties
+    public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
+
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// Determines the amount of gain applied to the signal before processing.
-    public var preGain: AUValue = 5.0 {
-        willSet {
-            guard preGain != newValue else { return }
-            internalAU?.preGain.value = newValue
-        }
-    }
+    public var parameterAutomation: AKParameterAutomation?
+
+    // MARK: - Parameters
+
+    public static let preGainDef = AKNodeParameterDef(
+        identifier: "preGain",
+        name: "PreGain",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorPreGain"),
+        range: 0.0 ... 10.0,
+        unit: .generic,
+        flags: .default)
 
     /// Gain applied after processing.
-    public var postGain: AUValue = 0.7 {
-        willSet {
-            guard postGain != newValue else { return }
-            internalAU?.postGain.value = (AUValue(0)...AUValue(1)).clamp(newValue)
-        }
-    }
+    @Parameter public var postGain: AUValue
+
+    public static let postGainDef = AKNodeParameterDef(
+        identifier: "postGain",
+        name: "PostGain",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorPostGain"),
+        range: 0.0 ... 1.0,
+        unit: .linearGain,
+        flags: .default)
+
+    /// Gain applied after processing.
+    @Parameter public var postGain: AUValue
+
+    public static let lowGainDef = AKNodeParameterDef(
+        identifier: "lowGain",
+        name: "Low Frequency Gain",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorLowGain"),
+        range: -1.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Amount of Low frequencies.
-    public var lowGain: AUValue = 0.0 {
-        willSet {
-            guard lowGain != newValue else { return }
-            internalAU?.lowGain.value = newValue
-        }
-    }
+    @Parameter public var lowGain: AUValue
+
+    public static let midGainDef = AKNodeParameterDef(
+        identifier: "midGain",
+        name: "Mid Frequency Gain",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorMidGain"),
+        range: -1.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Amount of Middle frequencies.
-    public var midGain: AUValue = 0.0 {
-        willSet {
-            guard midGain != newValue else { return }
-            internalAU?.midGain.value = newValue
-        }
-    }
+    @Parameter public var midGain: AUValue
+
+    public static let highGainDef = AKNodeParameterDef(
+        identifier: "highGain",
+        name: "High Frequency Gain",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorHighGain"),
+        range: -1.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Amount of High frequencies.
-    public var highGain: AUValue = 0.0 {
-        willSet {
-            guard highGain != newValue else { return }
-            internalAU?.highGain.value = newValue
-        }
-    }
+    @Parameter public var highGain: AUValue
+
+    public static let distortionDef = AKNodeParameterDef(
+        identifier: "distortion",
+        name: "Distortion",
+        address: akGetParameterAddress("AKRhinoGuitarProcessorDistortion"),
+        range: 1.0 ... 20.0,
+        unit: .generic,
+        flags: .default)
 
     /// Distortion Amount
-    public var distortion: AUValue = 1.0 {
-        willSet {
-            guard distortion != newValue else { return }
-            internalAU?.distortion.value = newValue
+    @Parameter public var distortion: AUValue
+
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            [AKRhinoGuitarProcessor.preGainDef,
+            AKRhinoGuitarProcessor.postGainDef,
+            AKRhinoGuitarProcessor.lowGainDef,
+            AKRhinoGuitarProcessor.midGainDef,
+            AKRhinoGuitarProcessor.highGainDef,
+            AKRhinoGuitarProcessor.distortionDef]
+        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKRhinoGuitarProcessorDSP")
         }
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
     // MARK: - Initialization
 
     /// Initialize this Rhino head and cab simulator node
@@ -87,20 +123,20 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput 
         distortion: AUValue = 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
+        self.preGain = preGain
+        self.postGain = postGain
+        self.lowGain = lowGain
+        self.midGain = midGain
+        self.highGain = highGain
+        self.distortion = distortion
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             input?.connect(to: self)
-
-            self.preGain = preGain
-            self.postGain = postGain
-            self.lowGain = lowGain
-            self.midGain = midGain
-            self.highGain = highGain
-            self.distortion = distortion
         }
     }
 }
