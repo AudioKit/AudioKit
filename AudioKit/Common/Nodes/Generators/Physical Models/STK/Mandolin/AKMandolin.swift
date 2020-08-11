@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
-
 /// Physical model of a 4 course mandolin
 ///
 public class AKMandolin: AKNode, AKComponent {
