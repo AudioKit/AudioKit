@@ -29,8 +29,6 @@ namespace stk {
     noteOn  60.01  111.132
     \endcode
 
-    \sa \ref skini
-
     by Perry R. Cook and Gary P. Scavone, 1995--2016.
 */
 /***************************************************/

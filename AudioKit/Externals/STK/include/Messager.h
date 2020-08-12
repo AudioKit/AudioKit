@@ -17,7 +17,7 @@
 namespace stk {
 
 /***************************************************/
-/*! \class Messager
+/*! class Messager
     \brief STK input control message parser.
 
     This class reads and parses control messages from a variety of

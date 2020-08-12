@@ -7,7 +7,7 @@
 namespace stk {
 
 /***************************************************/
-/*! \class PitShift
+/*! class PitShift
     \brief STK simple pitch shifter effect class.
 
     This class implements a simple pitch shifter

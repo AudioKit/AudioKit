@@ -7,7 +7,7 @@
 namespace stk {
 
 /***************************************************/
-/*! \class Mesh2D
+/*! class Mesh2D
     \brief Two-dimensional rectilinear waveguide mesh class.
 
     This class implements a rectilinear,
