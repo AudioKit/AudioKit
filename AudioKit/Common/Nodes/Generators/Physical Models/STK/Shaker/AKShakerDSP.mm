@@ -77,9 +77,7 @@ public:
     }
 };
 
-AKDSPRef akShakerCreateDSP() {
-    return new AKShakerDSP();
-}
+AK_REGISTER_DSP(AKShakerDSP)
 
 void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
     ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
