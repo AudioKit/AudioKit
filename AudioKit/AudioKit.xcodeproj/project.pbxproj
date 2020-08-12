@@ -469,19 +469,16 @@
 		C4980AE424E30B3A00D043D9 /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AE524E30B3A00D043D9 /* AKMandolinDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C407185F1D2267B800665C02 /* AKMandolinDSPKernel.hpp */; };
 		C4980AE624E30B3A00D043D9 /* AKRhodesPianoDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48F4D7A21CED91B006381F3 /* AKRhodesPianoDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4980AE724E30B3A00D043D9 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AE824E30B3A00D043D9 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AE924E30B3B00D043D9 /* AKClarinetDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A816D200C467200D1CCC2 /* AKClarinetDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AEA24E30B3B00D043D9 /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AEB24E30B3B00D043D9 /* AKMandolinDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C407185F1D2267B800665C02 /* AKMandolinDSPKernel.hpp */; };
 		C4980AEC24E30B3B00D043D9 /* AKRhodesPianoDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48F4D7A21CED91B006381F3 /* AKRhodesPianoDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4980AED24E30B3B00D043D9 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AEE24E30B3B00D043D9 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AEF24E30B3C00D043D9 /* AKClarinetDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A816D200C467200D1CCC2 /* AKClarinetDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AF024E30B3C00D043D9 /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AF124E30B3C00D043D9 /* AKMandolinDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C407185F1D2267B800665C02 /* AKMandolinDSPKernel.hpp */; };
 		C4980AF224E30B3C00D043D9 /* AKRhodesPianoDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48F4D7A21CED91B006381F3 /* AKRhodesPianoDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4980AF324E30B3C00D043D9 /* AKShakerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AF424E30B3C00D043D9 /* AKTubularBellsDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49160C521CED1E60086C765 /* AKTubularBellsDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AF624E30B7900D043D9 /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C407185D1D2267B800665C02 /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4980AF724E30B7A00D043D9 /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C407185D1D2267B800665C02 /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4312,7 +4309,6 @@
 		C4D890C7202845A00002A86A /* AKChowningReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKChowningReverbDSP.mm; sourceTree = "<group>"; };
 		C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKShakerAudioUnit.swift; sourceTree = "<group>"; };
 		C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSP.mm; sourceTree = "<group>"; };
-		C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKShakerDSP.hpp; sourceTree = "<group>"; };
 		C4DA41C924D38359002A5912 /* AKSoundpipeDSPBase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSoundpipeDSPBase.mm; sourceTree = "<group>"; };
 		C4DA41DF24D6058A002A5912 /* AVAudioPCMBuffer+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Utilities.swift"; sourceTree = "<group>"; };
 		C4DA41E024D6058A002A5912 /* AKWaveformDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWaveformDataRequest.swift; sourceTree = "<group>"; };
@@ -5978,7 +5974,6 @@
 			children = (
 				C47047741E76884C00D9906F /* AKShaker.swift */,
 				C4DA1E3921D9B24800D03B37 /* AKShakerAudioUnit.swift */,
-				C4DA1E3C21D9B31600D03B37 /* AKShakerDSP.hpp */,
 				C4DA1E3B21D9B31600D03B37 /* AKShakerDSP.mm */,
 			);
 			path = Shaker;
@@ -7301,7 +7296,6 @@
 				B15770482093C86A00830A3E /* AKParameterRamp.hpp in Headers */,
 				C4980B4724E3247A00D043D9 /* OscSinCos.hpp in Headers */,
 				C4980BD024E325BA00D043D9 /* PoleZero.h in Headers */,
-				C4980AE724E30B3A00D043D9 /* AKShakerDSP.hpp in Headers */,
 				C4980BD124E325BA00D043D9 /* BowTable.h in Headers */,
 				34F5A361205ECBE400290001 /* AdjustableDelayLine.hpp in Headers */,
 				C4980BE124E325BB00D043D9 /* BlowHole.h in Headers */,
@@ -7651,7 +7645,6 @@
 				C4980C9D24E325BC00D043D9 /* Noise.h in Headers */,
 				EAA62C45247F3A5B00BF4CDB /* AKRenderTap.h in Headers */,
 				EAA62C48247F3A5B00BF4CDB /* EZAudioFFT.h in Headers */,
-				C4980AF324E30B3C00D043D9 /* AKShakerDSP.hpp in Headers */,
 				C4980CBA24E325BC00D043D9 /* Drummer.h in Headers */,
 				C4980AF424E30B3C00D043D9 /* AKTubularBellsDSP.hpp in Headers */,
 				C4980B7724E3247B00D043D9 /* OnePoleLPF.h in Headers */,
@@ -7834,7 +7827,6 @@
 				EAA630C1247F44E200BF4CDB /* AKParameterRamp.hpp in Headers */,
 				C4980B6224E3247A00D043D9 /* OscSinCos.hpp in Headers */,
 				C4980C3824E325BB00D043D9 /* PoleZero.h in Headers */,
-				C4980AED24E30B3B00D043D9 /* AKShakerDSP.hpp in Headers */,
 				C4980C3924E325BB00D043D9 /* BowTable.h in Headers */,
 				EAA630C2247F44E200BF4CDB /* AdjustableDelayLine.hpp in Headers */,
 				C4980C4924E325BB00D043D9 /* BlowHole.h in Headers */,
