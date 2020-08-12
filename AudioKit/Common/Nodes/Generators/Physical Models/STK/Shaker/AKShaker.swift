@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// Type of shaker to use
 public enum AKShakerType: UInt8 {
 
@@ -140,3 +142,5 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
         internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
     }
 }
+
+#endif
