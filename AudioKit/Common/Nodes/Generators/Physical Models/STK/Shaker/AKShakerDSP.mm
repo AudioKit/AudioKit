@@ -65,6 +65,14 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
+        if (internalTrigger == 1) {
+            // As confusing as this looks, STK actually converts the frequency
+            // back to a note number to choose the model.
+            float frequency = pow(2.0, (type - 69.0) / 12.0) * 440.0;
+            shaker->noteOn(frequency, amplitude);
+            internalTrigger = 0;
+        }
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -72,18 +80,11 @@ public:
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
-                    if (internalTrigger == 1) {
-                        float frequency = pow(2.0, (type - 69.0) / 12.0) * 440.0;
-                        shaker->noteOn(frequency, amplitude);
-                    }
                     *out = shaker->tick();
                 } else {
                     *out = 0.0;
                 }
             }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
         }
     }
 };
@@ -94,4 +95,8 @@ AKDSPRef akShakerCreateDSP() {
 
 void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
     ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
+}
+
+void akShakerSetSeed(unsigned int seed) {
+    srand(seed);
 }

@@ -12,6 +12,7 @@
 		291F63B224C7C48400B754F9 /* AKParameterAutomationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291F63B024C7C48300B754F9 /* AKParameterAutomationTests.swift */; };
 		2930E5E824C8B00A00BAD0F4 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2930E5E724C8B00A00BAD0F4 /* PinkNoise.wav */; };
 		2938A92424D1BFE100D6D617 /* AKAutomationCurveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A92324D1BFE100D6D617 /* AKAutomationCurveTests.swift */; };
+		295F49B624E463B0004DC443 /* AKShakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F49B524E463B0004DC443 /* AKShakerTests.swift */; };
 		52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */; };
 		B172683724CF7DAD004A3E18 /* 12345.wav in Resources */ = {isa = PBXBuildFile; fileRef = B172683624CF7DAD004A3E18 /* 12345.wav */; };
 		C40D6BBE206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */; };
@@ -149,6 +150,7 @@
 		291F63B024C7C48300B754F9 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
 		2930E5E724C8B00A00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Developer/Common/PinkNoise.wav; sourceTree = "<group>"; };
 		2938A92324D1BFE100D6D617 /* AKAutomationCurveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAutomationCurveTests.swift; sourceTree = "<group>"; };
+		295F49B524E463B0004DC443 /* AKShakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKShakerTests.swift; sourceTree = "<group>"; };
 		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		B172683624CF7DAD004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12345.wav; path = ../../../Developer/Common/12345.wav; sourceTree = "<group>"; };
 		C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 				291F63AF24C7C48300B754F9 /* AKPlayerTests.swift */,
 				2938A92324D1BFE100D6D617 /* AKAutomationCurveTests.swift */,
 				2902413924D514BB009D2BDA /* AKSequencerTrackTests.swift */,
+				295F49B524E463B0004DC443 /* AKShakerTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
@@ -650,6 +653,7 @@
 				C44FF9041FD0994F00B2217D /* reverberateWithCostelloTests.swift in Sources */,
 				C44FF91A1FD0994F00B2217D /* AKOscillatorTests.swift in Sources */,
 				C468DC3121AC1DA700678959 /* VocalTractTests.swift in Sources */,
+				295F49B624E463B0004DC443 /* AKShakerTests.swift in Sources */,
 				C44FF8E41FD0994F00B2217D /* triangleWaveTests.swift in Sources */,
 				C419101E2009A7B60067B5E0 /* AKPannerTests.swift in Sources */,
 				C44FF9181FD0994F00B2217D /* AKTremoloTests.swift in Sources */,
