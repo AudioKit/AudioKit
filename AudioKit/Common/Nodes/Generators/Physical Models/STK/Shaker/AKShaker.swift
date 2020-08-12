@@ -97,13 +97,6 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
             return akCreateDSP("AKShakerDSP")
         }
 
-        public override init(componentDescription: AudioComponentDescription,
-                             options: AudioComponentInstantiationOptions = []) throws {
-            try super.init(componentDescription: componentDescription, options: options)
-
-            parameterTree = AUParameterTree.createTree(withChildren: [])
-        }
-
         public func trigger(type: AUValue, amplitude: AUValue) {
 
             if let midiBlock = scheduleMIDIEventBlock {
@@ -133,8 +126,10 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Trigger the sound with an optional set of parameters
-    /// - amplitude amplitude: Volume
     ///
+    /// - Parameters:
+    ///   - type: various shaker types are supported
+    ///   - amplitude: how hard to shake
     public func trigger(type: AKShakerType, amplitude: Double = 0.5) {
         internalAU?.start()
         internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
