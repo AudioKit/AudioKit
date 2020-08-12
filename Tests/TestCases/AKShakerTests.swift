@@ -13,7 +13,7 @@ class AKShakerTests: AKTestCase {
 
     func testShaker() {
 
-        akShakerSetSeed(0)
+        akSetSeed(0)
 
         let shaker = AKShaker()
         shaker.trigger(type: .maraca)
@@ -25,7 +25,7 @@ class AKShakerTests: AKTestCase {
 
     func testShakerType() {
 
-        akShakerSetSeed(0)
+        akSetSeed(0)
 
         let shaker = AKShaker()
         shaker.trigger(type: .tunedBambooChimes)
@@ -37,7 +37,7 @@ class AKShakerTests: AKTestCase {
 
     func testShakerAmplitude() {
 
-        akShakerSetSeed(0)
+        akSetSeed(0)
 
         let shaker = AKShaker()
         shaker.trigger(type: .tunedBambooChimes, amplitude: 1.0)
