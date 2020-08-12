@@ -26,11 +26,11 @@ public:
         bCanProcessInPlace = true;
     }
 
-    void setWavetable(const float* table, size_t length, int index) {
+    void setWavetable(const float* table, size_t length, int index) override {
         wavetable = std::vector<float>(table, table + length);
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &tbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), tbl->tbl);
@@ -40,14 +40,14 @@ public:
         sp_panst_init(sp, panst);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
         sp_panst_destroy(&panst);
         sp_ftbl_destroy(&tbl);
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) {
+    void process(uint32_t frameCount, uint32_t bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

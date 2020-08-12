@@ -24,7 +24,7 @@ public:
         reset();
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_comb_create(&comb0);
         sp_comb_init(sp, comb0, loopDuration);
@@ -32,20 +32,20 @@ public:
         sp_comb_init(sp, comb1, loopDuration);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_comb_destroy(&comb0);
         sp_comb_destroy(&comb1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_comb_init(sp, comb0, loopDuration);
         sp_comb_init(sp, comb1, loopDuration);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

@@ -18,7 +18,7 @@ public:
         parameters[AKLowPassButterworthFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_butlp_create(&butlp0);
         sp_butlp_init(sp, butlp0);
@@ -26,20 +26,20 @@ public:
         sp_butlp_init(sp, butlp1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_butlp_destroy(&butlp0);
         sp_butlp_destroy(&butlp1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_butlp_init(sp, butlp0);
         sp_butlp_init(sp, butlp1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

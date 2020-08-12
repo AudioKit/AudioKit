@@ -24,7 +24,7 @@ public:
         reset();
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_allpass_create(&allpass0);
         sp_allpass_init(sp, allpass0, loopDuration);
@@ -32,20 +32,20 @@ public:
         sp_allpass_init(sp, allpass1, loopDuration);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_allpass_destroy(&allpass0);
         sp_allpass_destroy(&allpass1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_allpass_init(sp, allpass0, loopDuration);
         sp_allpass_init(sp, allpass1, loopDuration);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

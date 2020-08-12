@@ -26,7 +26,7 @@ public:
     ~AKFluteDSP() = default;
 
     /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate)  {
+    void setParameter(AUParameterAddress address, float value, bool immediate) override {
         switch (address) {
             case AKFluteParameterFrequency:
                 frequencyRamp.setTarget(value, immediate);
@@ -42,7 +42,7 @@ public:
     }
 
     /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address)  {
+    float getParameter(AUParameterAddress address) override {
         switch (address) {
             case AKFluteParameterFrequency:
                 return frequencyRamp.getTarget();
@@ -54,30 +54,30 @@ public:
         return 0;
     }
 
-    void init(int channelCount, double sampleRate)  {
+    void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
         flute = new stk::Flute(100);
     }
 
-    void trigger() {
+    void trigger() override {
         internalTrigger = 1;
     }
 
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
+    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override {
         bool immediate = true;
         frequencyRamp.setTarget(freq, immediate);
         amplitudeRamp.setTarget(amp, immediate);
         trigger();
     }
 
-    void deinit() {
+    void deinit() override {
         AKDSPBase::deinit();
         delete flute;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

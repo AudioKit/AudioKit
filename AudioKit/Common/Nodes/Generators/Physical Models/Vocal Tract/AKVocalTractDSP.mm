@@ -30,7 +30,7 @@ public:
         parameters[AKVocalTractParameterNasality] = &nasalityRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
 
         sp_vocwrapper_create(&vocwrapper);
@@ -44,13 +44,13 @@ public:
         isStarted = false;
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_vocwrapper_destroy(&vocwrapper);
     }
 
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

@@ -18,7 +18,7 @@ public:
     ~AKShakerDSP() = default;
 
     /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate)  {
+    void setParameter(AUParameterAddress address, float value, bool immediate) override {
         switch (address) {
             case AKShakerParameterType:
                 type = (UInt8)value;
@@ -30,40 +30,40 @@ public:
     }
 
     /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address)  {
+    float getParameter(AUParameterAddress address) override {
         return 0;
     }
 
-    void init(int channelCount, double sampleRate)  {
+    void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
         shaker = new stk::Shakers();
     }
 
-    void trigger() {
+    void trigger() override {
         internalTrigger = 1;
     }
 
-    void handleMIDIEvent(AUMIDIEvent const& midiEvent) {
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         uint8_t veloc = midiEvent.data[2];
         type = (UInt8)midiEvent.data[1];
         amplitude = (AUValue)veloc / 127.0;
         trigger();
     }
 
-    void triggerTypeAmplitude(AUValue triggerType, AUValue amplitude)  {
+    void triggerTypeAmplitude(AUValue triggerType, AUValue amplitude) {
         type = triggerType;
         amplitude = amplitude;
         trigger();
     }
 
-    void deinit() {
+    void deinit() override {
         AKDSPBase::deinit();
         delete shaker;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

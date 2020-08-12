@@ -28,34 +28,34 @@ public:
         parameters[AKAmplitudeEnvelopeParameterReleaseDuration] = &releaseDurationRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_adsr_create(&adsr);
         sp_adsr_init(sp, adsr);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_adsr_destroy(&adsr);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_adsr_init(sp, adsr);
     }
 
-    void start() {
+    void start() override {
         AKSoundpipeDSPBase::start();
         internalGate = 1;
     }
 
-    void stop() {
+    void stop() override {
         AKSoundpipeDSPBase::stop();
         internalGate = 0;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

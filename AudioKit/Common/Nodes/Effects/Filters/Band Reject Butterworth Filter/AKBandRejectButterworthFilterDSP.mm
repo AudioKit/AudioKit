@@ -21,7 +21,7 @@ public:
         parameters[AKBandRejectButterworthFilterParameterBandwidth] = &bandwidthRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_butbr_create(&butbr0);
         sp_butbr_init(sp, butbr0);
@@ -29,20 +29,20 @@ public:
         sp_butbr_init(sp, butbr1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_butbr_destroy(&butbr0);
         sp_butbr_destroy(&butbr1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_butbr_init(sp, butbr0);
         sp_butbr_init(sp, butbr1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

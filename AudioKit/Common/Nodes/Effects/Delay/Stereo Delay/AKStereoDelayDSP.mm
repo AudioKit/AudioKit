@@ -27,7 +27,7 @@ public:
         bCanProcessInPlace = true;
     }
 
-    void setParameter(AUParameterAddress address, AUValue value, bool immediate) {
+    void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
         if (address == AKStereoDelayParameterPingPong) {
             delay.setPingPongMode(value > 0.5f);
         }
@@ -36,7 +36,7 @@ public:
         }
     }
 
-    float getParameter(uint64_t address) {
+    float getParameter(uint64_t address) override {
         if (address == AKStereoDelayParameterPingPong) {
             return delay.getPingPongMode() ? 1.0f : 0.0f;
         }
@@ -45,26 +45,25 @@ public:
         }
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
         // TODO add something to handle 1 vs 2 channels
         delay.init(sampleRate, timeUpperBound * 1000.0);
     }
 
-    void deinit() {
+    void deinit() override {
         AKDSPBase::deinit();
         delay.deinit();
     }
 
-    void reset() {
+    void reset() override {
         AKDSPBase::reset();
         delay.clear();
     }
 
 #define CHUNKSIZE 8     // defines ramp interval
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
-    {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         const float *inBuffers[2];
         float *outBuffers[2];
         inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
