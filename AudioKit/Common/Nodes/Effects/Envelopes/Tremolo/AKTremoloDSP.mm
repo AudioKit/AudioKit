@@ -23,7 +23,7 @@ public:
         parameters[AKTremoloParameterDepth] = &depthRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
@@ -31,24 +31,24 @@ public:
         sp_osc_init(sp, trem, ftbl, 0);
     }
 
-    void setWavetable(const float* table, size_t length, int index) {
+    void setWavetable(const float* table, size_t length, int index) override {
         wavetable = std::vector<float>(table, table + length);
         reset();
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
         sp_ftbl_destroy(&ftbl);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_osc_init(sp, trem, ftbl, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

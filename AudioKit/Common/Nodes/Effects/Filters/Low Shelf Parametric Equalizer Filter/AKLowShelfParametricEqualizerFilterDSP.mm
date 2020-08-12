@@ -24,7 +24,7 @@ public:
         parameters[AKLowShelfParametricEqualizerFilterParameterQ] = &qRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_pareq_create(&pareq0);
         sp_pareq_init(sp, pareq0);
@@ -34,13 +34,13 @@ public:
         pareq1->mode = 1;
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_pareq_destroy(&pareq0);
         sp_pareq_destroy(&pareq1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pareq_init(sp, pareq0);
@@ -49,7 +49,7 @@ public:
         pareq1->mode = 1;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

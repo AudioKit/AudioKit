@@ -24,7 +24,7 @@ public:
         parameters[AKKorgLowPassFilterParameterSaturation] = &saturationRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_wpkorg35_create(&wpkorg350);
         sp_wpkorg35_init(sp, wpkorg350);
@@ -32,20 +32,20 @@ public:
         sp_wpkorg35_init(sp, wpkorg351);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_wpkorg35_destroy(&wpkorg350);
         sp_wpkorg35_destroy(&wpkorg351);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_wpkorg35_init(sp, wpkorg350);
         sp_wpkorg35_init(sp, wpkorg351);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

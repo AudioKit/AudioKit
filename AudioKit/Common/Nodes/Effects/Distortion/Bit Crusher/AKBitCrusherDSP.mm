@@ -21,7 +21,7 @@ public:
         parameters[AKBitCrusherParameterSampleRate] = &sampleRateRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_bitcrush_create(&bitcrush0);
         sp_bitcrush_init(sp, bitcrush0);
@@ -29,20 +29,20 @@ public:
         sp_bitcrush_init(sp, bitcrush1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_bitcrush_destroy(&bitcrush0);
         sp_bitcrush_destroy(&bitcrush1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_bitcrush_init(sp, bitcrush0);
         sp_bitcrush_init(sp, bitcrush1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

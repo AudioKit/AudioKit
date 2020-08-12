@@ -24,7 +24,7 @@ public:
         parameters[AKEqualizerFilterParameterGain] = &gainRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_eqfil_create(&eqfil0);
         sp_eqfil_init(sp, eqfil0);
@@ -32,20 +32,20 @@ public:
         sp_eqfil_init(sp, eqfil1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_eqfil_destroy(&eqfil0);
         sp_eqfil_destroy(&eqfil1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_eqfil_init(sp, eqfil0);
         sp_eqfil_init(sp, eqfil1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

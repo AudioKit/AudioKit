@@ -27,7 +27,7 @@ public:
         parameters[AKPhaseLockedVocoderParameterPitchRatio] = &pitchRatioRamp;
     }
 
-    void setWavetable(const float *table, size_t length, int index) {
+    void setWavetable(const float *table, size_t length, int index) override {
         wavetable = std::vector<float>(table, table + length);
         if (!isInitialized) return;
         sp_ftbl_destroy(&ftbl);
@@ -36,7 +36,7 @@ public:
         reset();
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
@@ -44,19 +44,19 @@ public:
         sp_mincer_init(sp, mincer, ftbl, 2048);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_ftbl_destroy(&ftbl);
         sp_mincer_destroy(&mincer);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_mincer_init(sp, mincer, ftbl, 2048);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

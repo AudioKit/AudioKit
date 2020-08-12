@@ -27,7 +27,7 @@ public:
         parameters[AKDynamicRangeCompressorParameterReleaseDuration] = &releaseDurationRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_compressor_create(&compressor0);
         sp_compressor_init(sp, compressor0);
@@ -35,20 +35,20 @@ public:
         sp_compressor_init(sp, compressor1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_compressor_destroy(&compressor0);
         sp_compressor_destroy(&compressor1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_compressor_init(sp, compressor0);
         sp_compressor_init(sp, compressor1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

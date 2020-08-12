@@ -18,7 +18,7 @@ private:
 public:
     AKConvolutionDSP() {}
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
@@ -33,20 +33,20 @@ public:
         reset();
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_conv_destroy(&conv0);
         sp_conv_destroy(&conv1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_conv_init(sp, conv0, ftbl, (float)partitionLength);
         sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

@@ -26,8 +26,7 @@ public:
     }
 
     // Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, AUValue value, bool immediate)
-    {
+    void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
         switch (address) {
             case AKFaderParameterFlipStereo:
                 flipStereo = value > 0.5f;
@@ -41,8 +40,7 @@ public:
     }
 
     // Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address)
-    {
+    float getParameter(AUParameterAddress address) override {
         switch (address) {
             case AKFaderParameterFlipStereo:
                 return flipStereo ? 1.f : 0.f;
@@ -53,8 +51,7 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
-    {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

@@ -21,7 +21,7 @@ public:
         parameters[AKMoogLadderParameterResonance] = &resonanceRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_moogladder_create(&moogladder0);
         sp_moogladder_init(sp, moogladder0);
@@ -29,20 +29,20 @@ public:
         sp_moogladder_init(sp, moogladder1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_moogladder_destroy(&moogladder0);
         sp_moogladder_destroy(&moogladder1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_moogladder_init(sp, moogladder0);
         sp_moogladder_init(sp, moogladder1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

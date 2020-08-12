@@ -40,7 +40,7 @@ public:
         parameters[AKDynaRageCompressorParameterRageAmount] = &rageRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
 
         float ratio = ratioRamp.get();
@@ -55,14 +55,14 @@ public:
         right_rageprocessor = std::make_unique<RageProcessor>((int)sampleRate);
     }
 
-    void deinit() {
+    void deinit() override {
         left_compressor.reset();
         right_compressor.reset();
         left_rageprocessor.reset();
         right_rageprocessor.reset();
     }
 
-    void reset() {
+    void reset() override {
         float ratio = ratioRamp.get();
         float threshold = thresholdRamp.get();
         float attackDuration = attackDurationRamp.get();
@@ -72,8 +72,7 @@ public:
         right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
     }
 
-    void setParameter(AUParameterAddress address, float value, bool immediate)
-    {
+    void setParameter(AUParameterAddress address, float value, bool immediate) override {
         if (address == AKDynaRageCompressorParameterRageEnabled) {
             rageIsOn = value > 0.5f;
         }
@@ -82,8 +81,7 @@ public:
         }
     }
 
-    float getParameter(AUParameterAddress address)
-    {
+    float getParameter(AUParameterAddress address) override {
         if (address == AKDynaRageCompressorParameterRageEnabled) {
             return rageIsOn ? 1.f : 0.f;
         }
@@ -92,7 +90,7 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

@@ -12,7 +12,7 @@ public:
     AKChowningReverbDSP() {
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_jcrev_create(&jcrev0);
         sp_jcrev_init(sp, jcrev0);
@@ -20,20 +20,20 @@ public:
         sp_jcrev_init(sp, jcrev1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_jcrev_destroy(&jcrev0);
         sp_jcrev_destroy(&jcrev1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_jcrev_init(sp, jcrev0);
         sp_jcrev_init(sp, jcrev1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

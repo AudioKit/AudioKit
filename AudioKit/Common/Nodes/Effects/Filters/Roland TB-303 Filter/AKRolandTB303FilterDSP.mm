@@ -27,7 +27,7 @@ public:
         parameters[AKRolandTB303FilterParameterResonanceAsymmetry] = &resonanceAsymmetryRamp;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_tbvcf_create(&tbvcf0);
         sp_tbvcf_init(sp, tbvcf0);
@@ -35,20 +35,20 @@ public:
         sp_tbvcf_init(sp, tbvcf1);
     }
 
-    void deinit() {
+    void deinit() override {
         AKSoundpipeDSPBase::deinit();
         sp_tbvcf_destroy(&tbvcf0);
         sp_tbvcf_destroy(&tbvcf1);
     }
 
-    void reset() {
+    void reset() override {
         AKSoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_tbvcf_init(sp, tbvcf0);
         sp_tbvcf_init(sp, tbvcf1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 

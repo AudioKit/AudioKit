@@ -49,7 +49,7 @@ public:
         parameters[AKRhinoGuitarProcessorParameterDistortion] = &distortionRamper;
     }
 
-    void init(int channelCount, double sampleRate) {
+    void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
 
         leftRageProcessor = std::make_unique<RageProcessor>((int)sampleRate);
@@ -59,14 +59,14 @@ public:
         mikeFilterR.calc_filter_coeffs(2500.f, sampleRate);
     }
 
-    void deinit() {
+    void deinit() override {
         AKDSPBase::deinit();
 
         leftRageProcessor = nullptr;
         rightRageProcessor = nullptr;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
