@@ -7,7 +7,7 @@ extension AVAudioConnectionPoint {
 }
 
 /// Parent class for all nodes in AudioKit
-open class AKNode: NSObject {
+open class AKNode {
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -95,7 +95,7 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-@objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
+open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
