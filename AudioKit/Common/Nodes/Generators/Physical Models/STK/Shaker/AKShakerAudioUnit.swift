@@ -3,7 +3,7 @@
 public class AKShakerAudioUnit: AKAudioUnitBase {
 
     public override func createDSP() -> AKDSPRef {
-        return akShakerCreateDSP()
+        return akCreateDSP("AKShakerDSP")
     }
 
     public override init(componentDescription: AudioComponentDescription,
