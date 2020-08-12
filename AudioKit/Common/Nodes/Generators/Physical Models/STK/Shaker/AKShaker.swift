@@ -78,7 +78,7 @@ public enum AKShakerType: UInt8 {
 public class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
-    public typealias AKAudioUnitType = AKShakerAudioUnit
+    public typealias AKAudioUnitType = InternalAU
 
     // MARK: - Properties
 
@@ -87,6 +87,36 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU?.isStarted ?? false
+    }
+
+    // MARK: - Internal Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func createDSP() -> AKDSPRef {
+            return akCreateDSP("AKShakerDSP")
+        }
+
+        public override init(componentDescription: AudioComponentDescription,
+                             options: AudioComponentInstantiationOptions = []) throws {
+            try super.init(componentDescription: componentDescription, options: options)
+
+            parameterTree = AUParameterTree.createTree(withChildren: [])
+        }
+
+        public func trigger(type: AUValue, amplitude: AUValue) {
+
+            if let midiBlock = scheduleMIDIEventBlock {
+                let event = AKMIDIEvent(noteOn: UInt8(type),
+                                        velocity: UInt8(amplitude * 127.0),
+                                        channel: 0)
+                event.data.withUnsafeBufferPointer { ptr in
+                    guard let ptr = ptr.baseAddress else { return }
+                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+                }
+            }
+
+        }
     }
 
     // MARK: - Initialization
