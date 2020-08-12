@@ -61,6 +61,3 @@ public:
 
 AK_REGISTER_DSP(AKShakerDSP)
 
-void akShakerSetSeed(unsigned int seed) {
-    srand(seed);
-}

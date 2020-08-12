@@ -378,3 +378,7 @@ void AKDSPBase::addParameter(const char* name, AUParameterAddress address) {
     (*paramMap)[name] = address;
 
 }
+
+void akSetSeed(unsigned int seed) {
+    srand(seed);
+}

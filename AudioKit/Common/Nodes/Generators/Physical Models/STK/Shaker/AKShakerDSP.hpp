@@ -4,7 +4,3 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKInterop.h"
-
-/// For testing, set the random seed so we have deterministic results.
-AK_API void akShakerSetSeed(unsigned int seed);
-

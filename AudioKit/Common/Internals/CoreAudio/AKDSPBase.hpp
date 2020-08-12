@@ -41,6 +41,9 @@ AK_API void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, in
 
 AK_API void deleteDSP(AKDSPRef pDSP);
 
+/// Reset random seed to ensure deterministic results in tests.
+AK_API void akSetSeed(unsigned int);
+
 #ifdef __cplusplus
 
 #import <Foundation/Foundation.h>
