@@ -50,5 +50,4 @@ class AKShakerTests: AKTestCase {
         AKTestMD5("f122cdfc08bd68bbf5e5d0aa10a74565")
     }
 
-
 }
