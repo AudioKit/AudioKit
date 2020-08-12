@@ -6,7 +6,7 @@
 namespace stk {
 
 /***************************************************/
-/*! \class Asymp
+/*! class Asymp
     \brief STK asymptotic curve envelope class
 
     This class implements a simple envelope generator

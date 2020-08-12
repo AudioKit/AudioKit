@@ -10,7 +10,7 @@
 namespace stk {
 
 /***************************************************/
-/*! \class BandedWG
+/*! class BandedWG
     \brief Banded waveguide modeling class.
 
     This class uses banded waveguide techniques to
