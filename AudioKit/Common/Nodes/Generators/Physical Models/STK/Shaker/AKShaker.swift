@@ -92,14 +92,7 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the STK Shaker model
-    ///
-    /// - Parameters:
-    ///   - amplitude: Overall level
-    ///
-    public init(
-        type: AKShakerType = .maraca,
-        amplitude: Double = 0.5
-    ) {
+    public init() {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

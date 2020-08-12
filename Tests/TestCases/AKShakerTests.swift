@@ -20,7 +20,7 @@ class AKShakerTests: AKTestCase {
         output = shaker
 
         // auditionTest()
-        AKTestMD5("233971b259b64ee9e151ddc0c96224fb")
+        AKTestMD5("6ab4af41b487ea9faacf0f09a99bd304")
     }
 
     func testShakerType() {
@@ -32,7 +32,7 @@ class AKShakerTests: AKTestCase {
         output = shaker
 
         // auditionTest()
-        AKTestMD5("f122cdfc08bd68bbf5e5d0aa10a74565")
+        AKTestMD5("edafbc5ec1e2b17f6fa90246d2660969")
     }
 
     func testShakerAmplitude() {

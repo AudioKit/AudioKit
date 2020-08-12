@@ -8,9 +8,6 @@
 
 class AKShakerDSP : public AKDSPBase {
 private:
-    float internalTrigger = 0;
-    UInt8 type = 0;
-    float amplitude = 0.5;
     stk::Shakers *shaker;
 
 public:
@@ -29,21 +26,14 @@ public:
         shaker = new stk::Shakers();
     }
 
-    void trigger() override {
-        internalTrigger = 1;
-    }
-
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         uint8_t veloc = midiEvent.data[2];
-        type = (UInt8)midiEvent.data[1];
-        amplitude = (AUValue)veloc / 127.0;
-        trigger();
-    }
-
-    void triggerTypeAmplitude(AUValue triggerType, AUValue triggerAmplitude) {
-        type = triggerType;
-        amplitude = triggerAmplitude;
-        trigger();
+        auto type = midiEvent.data[1];
+        auto amplitude = (AUValue)veloc / 127.0;
+        // As confusing as this looks, STK actually converts the frequency
+        // back to a note number to choose the model.
+        float frequency = pow(2.0, (type - 69.0) / 12.0) * 440.0;
+        shaker->noteOn(frequency, amplitude);
     }
 
     void deinit() override {
@@ -52,14 +42,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        if (internalTrigger == 1) {
-            // As confusing as this looks, STK actually converts the frequency
-            // back to a note number to choose the model.
-            float frequency = pow(2.0, (type - 69.0) / 12.0) * 440.0;
-            shaker->noteOn(frequency, amplitude);
-            internalTrigger = 0;
-        }
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -78,10 +60,6 @@ public:
 };
 
 AK_REGISTER_DSP(AKShakerDSP)
-
-void triggerTypeShakerDSP(AKDSPRef dsp, AUValue type, AUValue amplitude) {
-    ((AKShakerDSP*)dsp)->triggerTypeAmplitude(type, amplitude);
-}
 
 void akShakerSetSeed(unsigned int seed) {
     srand(seed);
