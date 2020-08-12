@@ -84,23 +84,6 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// Type of shaker to use
-    open var type: AKShakerType = .maraca {
-        willSet {
-            guard type != newValue else { return }
-            internalAU?.type.value = AUValue(newValue.rawValue)
-        }
-    }
-
-    /// Amplitude
-    open var amplitude: Double = 0.5 {
-        willSet {
-            let clampedValue = (0.0 ... 10.0).clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = AUValue(clampedValue)
-        }
-    }
-
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU?.isStarted ?? false
@@ -123,20 +106,14 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.type = type
-            self.amplitude = amplitude
         }
     }
 
     /// Trigger the sound with an optional set of parameters
     /// - amplitude amplitude: Volume
     ///
-    public func trigger(amplitude: Double = -1) {
-        if amplitude != -1 {
-            self.amplitude = amplitude
-        }
+    public func trigger(type: AKShakerType, amplitude: Double = 0.5) {
         internalAU?.start()
-        internalAU?.triggerType(AUValue(type.rawValue), amplitude: AUValue(self.amplitude))
+        internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
     }
 }
