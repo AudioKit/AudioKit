@@ -14,6 +14,16 @@ public class AKShakerAudioUnit: AKAudioUnitBase {
     }
 
     public func trigger(type: AUValue, amplitude: AUValue) {
-        triggerTypeShakerDSP(dsp, type, amplitude)
+
+        if let midiBlock = scheduleMIDIEventBlock {
+            let event = AKMIDIEvent(noteOn: UInt8(type),
+                                    velocity: UInt8(amplitude * 127.0),
+                                    channel: 0)
+            event.data.withUnsafeBufferPointer { ptr in
+                guard let ptr = ptr.baseAddress else { return }
+                midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+            }
+        }
+
     }
 }
