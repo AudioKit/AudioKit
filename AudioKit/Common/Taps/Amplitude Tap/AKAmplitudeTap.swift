@@ -27,7 +27,7 @@ public class AKAmplitudeTap: AKToggleable {
             return _input
         }
         set {
-            guard newValue != _input else { return }
+            guard newValue !== _input else { return }
             let wasStarted = isStarted
 
             // if the input changes while it's on, stop and start the tap
