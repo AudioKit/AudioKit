@@ -18,18 +18,6 @@ public:
     ~AKShakerDSP() = default;
 
     /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKShakerParameterType:
-                type = (UInt8)value;
-                break;
-            case AKShakerParameterAmplitude:
-                amplitude = value;
-                break;
-        }
-    }
-
-    /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override {
         return 0;
     }
@@ -52,9 +40,9 @@ public:
         trigger();
     }
 
-    void triggerTypeAmplitude(AUValue triggerType, AUValue amplitude) {
+    void triggerTypeAmplitude(AUValue triggerType, AUValue triggerAmplitude) {
         type = triggerType;
-        amplitude = amplitude;
+        amplitude = triggerAmplitude;
         trigger();
     }
 

@@ -16,7 +16,7 @@ class AKShakerTests: AKTestCase {
         akShakerSetSeed(0)
 
         let shaker = AKShaker()
-        shaker.trigger()
+        shaker.trigger(type: .maraca)
         output = shaker
 
         // auditionTest()
@@ -28,8 +28,7 @@ class AKShakerTests: AKTestCase {
         akShakerSetSeed(0)
 
         let shaker = AKShaker()
-        shaker.type = .tunedBambooChimes
-        shaker.trigger()
+        shaker.trigger(type: .tunedBambooChimes)
         output = shaker
 
         // auditionTest()
@@ -41,13 +40,11 @@ class AKShakerTests: AKTestCase {
         akShakerSetSeed(0)
 
         let shaker = AKShaker()
-        shaker.type = .tunedBambooChimes
-        shaker.amplitude = 0.5
-        shaker.trigger()
+        shaker.trigger(type: .tunedBambooChimes, amplitude: 1.0)
         output = shaker
 
         // auditionTest()
-        AKTestMD5("f122cdfc08bd68bbf5e5d0aa10a74565")
+        AKTestMD5("ec88895331e9554ffd18d9484580cc44")
     }
 
 }
