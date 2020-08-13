@@ -21,10 +21,8 @@ Noise::Noise(unsigned int seed) {
 }
 
 void Noise::setSeed(unsigned int seed) {
-  if (seed == 0)
-    srand((unsigned int)time(NULL));
-  else
-    srand(seed);
+  // NOTE: AudioKit has changed this so our test runs are deterministic.
+  srand(seed);
 }
 
 }
