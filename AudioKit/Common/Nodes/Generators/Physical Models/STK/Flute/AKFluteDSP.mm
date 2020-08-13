@@ -1,9 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKFluteDSP.hpp"
-#import <AudioKit/AKLinearParameterRamp.hpp>
+#import "AudioKit.h"
 
 #include "Flute.h"
+
+enum AKFluteParameter : AUParameterAddress {
+    AKFluteParameterFrequency,
+    AKFluteParameterAmplitude
+};
+
 
 class AKFluteDSP : public AKDSPBase {
 private:
@@ -34,10 +39,6 @@ public:
             case AKFluteParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKFluteParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                amplitudeRamp.setRampDuration(value, sampleRate);
-                break;
         }
     }
 
@@ -48,8 +49,6 @@ public:
                 return frequencyRamp.getTarget();
             case AKFluteParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKFluteParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
@@ -111,4 +110,5 @@ public:
 };
 
 AK_REGISTER_DSP(AKFluteDSP);
-
+AK_REGISTER_PARAMETER(AKFluteParameterFrequency)
+AK_REGISTER_PARAMETER(AKFluteParameterAmplitude)
