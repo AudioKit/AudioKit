@@ -1,11 +1,15 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKTubularBellsDSP.hpp"
-#import <AudioKit/AKLinearParameterRamp.hpp>
+#import "AudioKit.h"
 
 #include "TubeBell.h"
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
+
+enum AKTubularBellsParameter : AUParameterAddress {
+    AKTubularBellsParameterFrequency,
+    AKTubularBellsParameterAmplitude
+};
 
 class AKTubularBellsDSP : public AKDSPBase {
 private:
@@ -36,10 +40,6 @@ public:
             case AKTubularBellsParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKTubularBellsParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                amplitudeRamp.setRampDuration(value, sampleRate);
-                break;
         }
     }
 
@@ -50,8 +50,6 @@ public:
                 return frequencyRamp.getTarget();
             case AKTubularBellsParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKTubularBellsParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
@@ -129,6 +127,6 @@ public:
     }
 };
 
-AKDSPRef akTubularBellsCreateDSP() {
-    return new AKTubularBellsDSP();
-}
+AK_REGISTER_DSP(AKTubularBellsDSP);
+AK_REGISTER_PARAMETER(AKTubularBellsParameterFrequency)
+AK_REGISTER_PARAMETER(AKTubularBellsParameterAmplitude)
