@@ -40,6 +40,7 @@ class AKSequencerTrackTests: AKTestCase {
 
 
         let seq = AKSequencerTrack(targetNode: sampler)
+        XCTAssertFalse(seq.isPlaying)
 
         XCTAssertEqual(seq.length, 4.0) // One measure
         XCTAssertEqual(seq.loopEnabled, true) // Loop on
@@ -55,6 +56,7 @@ class AKSequencerTrackTests: AKTestCase {
 
         track.sequence = getTestSequence()
         track.playFromStart()
+        XCTAssertTrue(track.isPlaying)
         // auditionTest()
         AKTestMD5("8dda603e249554576192a2bd524f8bca")
     }
@@ -70,6 +72,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()
+        XCTAssertTrue(track.isPlaying)
         //auditionTest()
         AKTestMD5("864f48d1881655b29fd1cca59887bed4")
     }
@@ -85,6 +88,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = getTestSequence()
         track.tempo = 60
         track.playFromStart()
+        XCTAssertTrue(track.isPlaying)
         //auditionTest()
         AKTestMD5("ca831ed474d2d302f48c37fd2cff4850")
 

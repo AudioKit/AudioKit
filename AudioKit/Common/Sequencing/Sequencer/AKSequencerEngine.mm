@@ -250,6 +250,10 @@ void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
     engine->isStarted = playing;
 }
 
+bool akSequencerEngineIsPlaying(AKSequencerEngineRef engine) {
+    return engine->isStarted;
+}
+
 void akSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine) {
     std::unique_lock<std::mutex> lock(engine->updateMutex);
     engine->notesOff = true;

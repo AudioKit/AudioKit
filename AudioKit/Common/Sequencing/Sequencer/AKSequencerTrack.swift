@@ -40,10 +40,8 @@ open class AKSequencerTrack {
     }
 
     /// Is the track currently playing?
-    public var isPlaying: Bool = false {
-        didSet {
-            updateSequence()
-        }
+    public var isPlaying: Bool {
+        return akSequencerEngineIsPlaying(engine)
     }
 
     /// Current position of the track
