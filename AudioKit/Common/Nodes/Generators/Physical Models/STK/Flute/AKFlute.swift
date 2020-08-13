@@ -33,14 +33,8 @@ public class AKFlute: AKNode, AKToggleable, AKComponent, AKAutomatable {
             unit: .generic,
             flags: .default)
 
-        /// Amplitude
-        @Parameter public var amplitude: AUValue
-
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    /// Amplitude
+    @Parameter public var amplitude: AUValue
 
     public class InternalAU: AKAudioUnitBase {
 
@@ -53,7 +47,6 @@ public class AKFlute: AKNode, AKToggleable, AKComponent, AKAutomatable {
             return akCreateDSP("AKFluteDSP")
         }
     }
-
 
     // MARK: - Initialization
 
