@@ -7,6 +7,7 @@ class AKOscillatorTests: AKTestCase {
     func testAmpitude() {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
         output = input
+        XCTAssertEqual(input.amplitude, 0.5)
         AKTestMD5("24c58d48adb46e273d63088f6ca30208")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "e23e315b977c7616b02f3b6534115212"))
     }
@@ -19,6 +20,7 @@ class AKOscillatorTests: AKTestCase {
     func testDetuningMultiplier() {
         input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
         output = input
+        XCTAssertEqual(input.detuningMultiplier, 0.9)
         AKTestMD5("591d314b30df8d6af0b2e9df86528af1")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "607f6c8ff1a6ffd0dcd52152ee8cdaae"))
     }
@@ -26,6 +28,7 @@ class AKOscillatorTests: AKTestCase {
     func testDetuningOffset() {
         input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
         output = input
+        XCTAssertEqual(input.detuningOffset, 11)
         AKTestMD5("c0d0d9e1cb39611efaf0b7b8b8d7c137")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "6a92817df787e4465991fe249b2245d4"))
     }
@@ -33,6 +36,7 @@ class AKOscillatorTests: AKTestCase {
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
+        XCTAssertEqual(input.frequency, 400)
         AKTestMD5("d3998b51af7f54f1c9088973b931e9af")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "ea430adbf3a856d283cc32e0f9601c9f"))
     }
@@ -42,6 +46,9 @@ class AKOscillatorTests: AKTestCase {
         input.rampDuration = 0.0
         input.frequency = 400
         input.amplitude = 0.5
+        XCTAssertEqual(input.rampDuration, 0.0)
+        XCTAssertEqual(input.frequency, 400)
+        XCTAssertEqual(input.amplitude, 0.5)
         output = input
         AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
         XCTAssertTrue(AKDebugDSPCheck(AKOscillatorDebugPhase, "ea430adbf3a856d283cc32e0f9601c9f"))
