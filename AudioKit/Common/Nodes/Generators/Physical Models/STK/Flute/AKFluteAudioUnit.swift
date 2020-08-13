@@ -7,7 +7,7 @@ public class AKFluteAudioUnit: AKAudioUnitBase {
     var amplitude: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return akFluteCreateDSP()
+        return akCreateDSP("AKFluteDSP")
     }
 
     public override init(componentDescription: AudioComponentDescription,

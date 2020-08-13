@@ -11,5 +11,3 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterRampDuration
 };
 
-AK_API AKDSPRef akFluteCreateDSP(void);
-

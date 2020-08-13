@@ -110,7 +110,5 @@ public:
 
 };
 
-AKDSPRef akFluteCreateDSP() {
-    return new AKFluteDSP();
-}
+AK_REGISTER_DSP(AKFluteDSP);
 
