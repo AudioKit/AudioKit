@@ -82,7 +82,7 @@ public class AKFlute: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     /// - Parameters:
     ///   - frequency: Frequency in Hz
-    ///   - amplitude amplitude: Volume
+    ///   - amplitude: Volume
     ///
     public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency

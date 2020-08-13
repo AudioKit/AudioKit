@@ -91,7 +91,7 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     /// - Parameters:
     ///   - frequency: Frequency in Hz
-    ///   - amplitude amplitude: Volume
+    ///   - amplitude: Volume
     ///
     open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
