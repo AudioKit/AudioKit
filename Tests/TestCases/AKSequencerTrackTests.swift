@@ -70,8 +70,25 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()
+
         //auditionTest()
         AKTestMD5("864f48d1881655b29fd1cca59887bed4")
+    }
+
+    func testStop() {
+
+        duration = 5
+
+        let track = AKSequencerTrack(targetNode: sampler)
+
+        setupSampler()
+
+        track.sequence = getTestSequence()
+        track.playFromStart()
+        track.stop()
+
+        //  auditionTest()
+        AKTestMD5("9b1be87c6b579fde2341515f4d82c008")
     }
 
     func testTempo() {
