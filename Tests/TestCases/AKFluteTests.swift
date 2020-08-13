@@ -13,8 +13,6 @@ class AKFluteTests: AKTestCase {
 
     func testFlute() {
 
-        akSetSeed(0)
-
         let flute = AKFlute()
         flute.trigger(frequency: 440)
         output = flute
