@@ -91,7 +91,6 @@ AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 #define AKOscillatorDebugPhase 0
 
 // STK
-#import "AKClarinetDSP.hpp"
 #import "AKMandolinAudioUnit.h"
 #import "AKRhodesPianoDSP.hpp"
 #import "AKTubularBellsDSP.hpp"

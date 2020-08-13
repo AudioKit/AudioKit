@@ -1,9 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKClarinetDSP.hpp"
-#import <AudioKit/AKLinearParameterRamp.hpp>
+#import "AudioKit.h"
 
 #include "Clarinet.h"
+
+enum AKClarinetParameter : AUParameterAddress {
+    AKClarinetParameterFrequency,
+    AKClarinetParameterAmplitude
+};
 
 class AKClarinetDSP : public AKDSPBase {
 private:
@@ -35,10 +39,6 @@ public:
             case AKClarinetParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKClarinetParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                amplitudeRamp.setRampDuration(value, sampleRate);
-                break;
         }
     }
     
@@ -49,8 +49,6 @@ public:
                 return frequencyRamp.getTarget();
             case AKClarinetParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKClarinetParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
@@ -111,7 +109,6 @@ public:
     
 };
 
-AKDSPRef akClarinetCreateDSP() {
-    return new AKClarinetDSP();
-}
-
+AK_REGISTER_DSP(AKClarinetDSP);
+AK_REGISTER_PARAMETER(AKClarinetParameterFrequency)
+AK_REGISTER_PARAMETER(AKClarinetParameterAmplitude)
