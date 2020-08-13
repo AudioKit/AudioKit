@@ -2,70 +2,55 @@
 
 /// STK Flute
 ///
-public class AKFlute: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = InternalAU
-    /// Four letter unique description of the node
+public class AKFlute: AKNode, AKToggleable, AKComponent, AKAutomatable {
+
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
-    // MARK: - Properties
+
+    public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    open var frequency: AUValue = 110 {
-        willSet {
-            let clampedValue = (0.0 ... 20_000.0).clamp(newValue)
-            guard frequency != clampedValue else { return }
-            internalAU?.frequency.value = clampedValue
-        }
-    }
+    public private(set) var parameterAutomation: AKParameterAutomation?
 
-    /// Amplitude
-    open var amplitude: AUValue = 0.5 {
-        willSet {
-            let clampedValue = (0.0 ... 10.0).clamp(newValue)
-            guard amplitude != clampedValue else { return }
-            internalAU?.amplitude.value = clampedValue
-        }
-    }
+    // MARK: - Parameters
+
+    public static let frequencyDef = AKNodeParameterDef(
+        identifier: "frequency",
+        name: "Frequency (Hz)",
+        address: akGetParameterAddress("AKFluteParameterFrequency"),
+        range: 0.0 ... 20_000.0,
+        unit: .hertz,
+        flags: .default)
+
+    /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+    @Parameter public var frequency: AUValue
+
+    public static let amplitudeDef = AKNodeParameterDef(
+            identifier: "amplitude",
+            name: "Amplitude",
+            address: akGetParameterAddress("AKFluteParameterAmplitude"),
+            range: 0...10,
+            unit: .generic,
+            flags: .default)
+
+        /// Amplitude
+        @Parameter public var amplitude: AUValue
+
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
     public class InternalAU: AKAudioUnitBase {
 
-        var frequency: AUParameter!
-
-        var amplitude: AUParameter!
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            [AKFlute.frequencyDef,
+             AKFlute.amplitudeDef]
+        }
 
         public override func createDSP() -> AKDSPRef {
             return akCreateDSP("AKFluteDSP")
-        }
-
-        public override init(componentDescription: AudioComponentDescription,
-                             options: AudioComponentInstantiationOptions = []) throws {
-            try super.init(componentDescription: componentDescription, options: options)
-
-            frequency = AUParameter(
-                identifier: "frequency",
-                name: "Frequency (Hz)",
-                address: 0,
-                range: 0...20_000,
-                unit: .hertz,
-                flags: .default)
-            amplitude = AUParameter(
-                identifier: "amplitude",
-                name: "Amplitude",
-                address: 1,
-                range: 0...10,
-                unit: .generic,
-                flags: .default)
-
-            parameterTree = AUParameterTree.createTree(withChildren: [frequency, amplitude])
-
-            frequency.value = 440
-            amplitude.value = 1
         }
     }
 
@@ -81,14 +66,15 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
     ///
     public init(frequency: AUValue = 440, amplitude: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
+        self.frequency = frequency
+        self.amplitude = amplitude
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self.frequency = frequency
-            self.amplitude = amplitude
+            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
     }
 
