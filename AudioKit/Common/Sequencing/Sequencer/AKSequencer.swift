@@ -176,7 +176,7 @@ open class AKSequencer {
     /// - Parameter node: Node you want to access the tack for
     /// - Returns: Track associated with the given node
     public func getTrackFor(node: AKNode) -> AKSequencerTrack? {
-        return tracks.first(where: { $0.targetNode == node })
+        return tracks.first(where: { $0.targetNode === node })
     }
 
     /// Add track associated with a node
