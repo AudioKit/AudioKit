@@ -44,14 +44,14 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
+            float outputSample = 0.0;
+            if(isStarted) {
+                outputSample = shaker->tick();
+            }
+
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    *out = shaker->tick();
-                } else {
-                    *out = 0.0;
-                }
+                *out = outputSample;
             }
         }
     }
