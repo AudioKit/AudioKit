@@ -73,7 +73,7 @@ public class AKTubularBells: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Trigger the sound with an optional set of parameters
     ///   - frequency: Frequency in Hz
-    /// - amplitude amplitude: Volume
+    /// - amplitude: Volume
     ///
     public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
