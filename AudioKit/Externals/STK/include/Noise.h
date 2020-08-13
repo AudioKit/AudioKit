@@ -20,17 +20,9 @@ namespace stk {
 class Noise : public Generator {
 public:
   //! Default constructor that can also take a specific seed value.
-  /*!
-    If the seed value is zero (the default value), the random number generator
-    is seeded with the system time.
-  */
   Noise(unsigned int seed = 0);
 
   //! Seed the random number generator with a specific seed value.
-  /*!
-    If no seed is provided or the seed value is zero, the random
-    number generator is seeded with the current system time.
-  */
   void setSeed(unsigned int seed = 0);
 
   //! Return the last computed output value.
