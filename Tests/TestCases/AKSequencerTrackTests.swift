@@ -1,10 +1,4 @@
-//
-//  AKSequencerTrackTests.swift
-//  macOSTestSuiteTests
-//
-//  Created by Taylor Holliday on 7/31/20.
-//  Copyright © 2020 AudioKit. All rights reserved.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import XCTest
 import AudioKit

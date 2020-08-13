@@ -1,9 +1,4 @@
-//
-//  AKSequencerEngineTests.swift
-//  AudioKitGen
-//
-//  Created by Taylor Holliday on 8/2/20.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import XCTest
 import AudioKit
