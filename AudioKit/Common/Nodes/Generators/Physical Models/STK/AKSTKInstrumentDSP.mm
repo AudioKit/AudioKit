@@ -3,7 +3,9 @@
 #include "AKSTKInstrumentDSP.hpp"
 
 void AKSTKInstrumentDSP::reset() {
-    getInstrument()->clear();
+    if(auto instr = getInstrument()) {
+        instr->clear();
+    }
 }
 
 void AKSTKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
