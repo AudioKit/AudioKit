@@ -16,12 +16,6 @@ public:
         // Do nothing.
     }
     
-    void processWithEvents(AudioTimeStamp const *timestamp,
-                           AUAudioFrameCount frameCount,
-                           AURenderEvent const *events) override {
-        
-        
-    }
 };
 
 #endif /* AKSoulDSPBase_hpp */
