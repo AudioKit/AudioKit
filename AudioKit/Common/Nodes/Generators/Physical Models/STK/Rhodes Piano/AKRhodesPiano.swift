@@ -4,7 +4,7 @@
 ///
 public class AKRhodesPiano: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
-    public static let ComponentDescription = AudioComponentDescription(generator: "flut")
+    public static let ComponentDescription = AudioComponentDescription(generator: "rhds")
 
     public typealias AKAudioUnitType = InternalAU
 
