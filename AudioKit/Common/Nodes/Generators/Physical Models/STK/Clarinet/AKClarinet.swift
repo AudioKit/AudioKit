@@ -1,50 +1,33 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// STK Clarinet
 ///
-public class AKClarinet: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKClarinet: AKNode, AKToggleable, AKComponent {
 
-    public static let ComponentDescription = AudioComponentDescription(generator: "clar")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "clar")
 
     public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
-    // MARK: - Parameters
-
-    public static let frequencyDef = AKNodeParameterDef(
-        identifier: "frequency",
-        name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKClarinetParameterFrequency"),
-        range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
-
-    /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @Parameter public var frequency: AUValue
-
-    public static let amplitudeDef = AKNodeParameterDef(
-        identifier: "amplitude",
-        name: "Amplitude",
-        address: akGetParameterAddress("AKClarinetParameterAmplitude"),
-        range: 0...10,
-        unit: .generic,
-        flags: .default)
-
-    /// Amplitude
-    @Parameter public var amplitude: AUValue
-
     public class InternalAU: AKAudioUnitBase {
-
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKClarinet.frequencyDef,
-             AKClarinet.amplitudeDef]
-        }
 
         public override func createDSP() -> AKDSPRef {
             return akCreateDSP("AKClarinetDSP")
+        }
+
+        public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
+
+            if let midiBlock = scheduleMIDIEventBlock {
+                let event = AKMIDIEvent(noteOn: note, velocity: velocity, channel: 0)
+                event.data.withUnsafeBufferPointer { ptr in
+                    guard let ptr = ptr.baseAddress else { return }
+                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+                }
+            }
+
         }
     }
 
@@ -53,42 +36,29 @@ public class AKClarinet: AKNode, AKToggleable, AKComponent, AKAutomatable {
     /// Initialize the STK Clarinet model
     ///
     /// - Parameters:
-    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is
-    ///                greater than that.
-    ///   - amplitude: Amplitude
+    ///   - note: MIDI note number
+    ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
-    public init(frequency: AUValue = 440, amplitude: AUValue = 0.5) {
+    public init() {
         super.init(avAudioNode: AVAudioNode())
-        self.frequency = frequency
-        self.amplitude = amplitude
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
-    }
-
-    /// Trigger the sound with current parameters
-    ///
-    public func trigger() {
-        internalAU?.start()
-        internalAU?.trigger()
     }
 
     /// Trigger the sound with a set of parameters
     ///
     /// - Parameters:
-    ///   - frequency: Frequency in Hz
-    ///   - amplitude: Volume
+    ///   - note: MIDI note number
+    ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
-    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
-        self.frequency = frequency
-        self.amplitude = amplitude
+    public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
         internalAU?.start()
-        internalAU?.triggerFrequency(frequency, amplitude: amplitude)
+        internalAU?.trigger(note: note, velocity: velocity)
     }
 
 }
+
+#endif
