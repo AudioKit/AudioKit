@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
+
 /// STK Flute
 ///
 public class AKFlute: AKNode, AKToggleable, AKComponent {
@@ -61,3 +63,5 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
     }
 
 }
+
+#endif
