@@ -25,6 +25,12 @@ public:
                            AUAudioFrameCount frameCount,
                            AURenderEvent const *events) override {
         
+        // Zero output channels.
+        for(int channel=0; channel<channelCount; ++channel) {
+            float* outputChanel = (float *)outputBufferList->mBuffers[channel].mData;
+            std::fill(outputChanel, outputChanel+frameCount, 0.0f);
+        }
+        
         Diode::RenderContext<float> context;
         
         midiMessages.clear();
