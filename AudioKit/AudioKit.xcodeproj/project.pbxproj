@@ -94,9 +94,9 @@
 		2982B3D724E726E80061C30A /* AKSoulDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSP.hpp */; };
 		2982B3D824E726E80061C30A /* AKSoulDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSP.hpp */; };
 		2982B3D924E726E80061C30A /* AKSoulDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSP.hpp */; };
-		2982B3E124E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
-		2982B3E224E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
-		2982B3E324E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
+		2982B3E124E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeClipperDSP.mm */; };
+		2982B3E224E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeClipperDSP.mm */; };
+		2982B3E324E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeClipperDSP.mm */; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29AB123424C2337C00547AA5 /* MIDIMetaEvent+allocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */; };
@@ -3289,7 +3289,7 @@
 		2982B3D324E726E80061C30A /* AKSoulDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKSoulDSP.hpp; sourceTree = "<group>"; };
 		2982B3DB24E728550061C30A /* DiodeClipper.soul */ = {isa = PBXFileReference; lastKnownFileType = text; path = DiodeClipper.soul; sourceTree = "<group>"; };
 		2982B3DC24E7290E0061C30A /* DiodeClipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DiodeClipper.hpp; sourceTree = "<group>"; };
-		2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiodeCliperDSP.mm; sourceTree = "<group>"; };
+		2982B3E024E7295D0061C30A /* AKDiodeClipperDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiodeClipperDSP.mm; sourceTree = "<group>"; };
 		29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Devices.swift"; sourceTree = "<group>"; };
 		29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIMetaEvent+allocate.swift"; sourceTree = "<group>"; };
@@ -4482,7 +4482,7 @@
 			children = (
 				2982B3DB24E728550061C30A /* DiodeClipper.soul */,
 				2982B3DC24E7290E0061C30A /* DiodeClipper.hpp */,
-				2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */,
+				2982B3E024E7295D0061C30A /* AKDiodeClipperDSP.mm */,
 			);
 			path = "Diode Clipper";
 			sourceTree = "<group>";
@@ -8531,7 +8531,7 @@
 				C40C41551C40E3A5009D870B /* EZAudioFFT.m in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
 				C4DD4D5C24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */,
-				2982B3E124E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
+				2982B3E124E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */,
 				FEB3AB2B22DFE06B0080A5CB /* AKDuration.swift in Sources */,
 				34BB6744205AC238000E5450 /* tag_utils.c in Sources */,
 				F4217894210D51AC005BA786 /* AKTable+AdditiveSynthesis.swift in Sources */,
@@ -9345,7 +9345,7 @@
 				EAA628FD247F3A5B00BF4CDB /* tseq.c in Sources */,
 				22D8FAB7248E8BBD0009EE7C /* AKParameterAutomation.mm in Sources */,
 				EAA628FE247F3A5B00BF4CDB /* maygate.c in Sources */,
-				2982B3E324E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
+				2982B3E324E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */,
 				EAA628FF247F3A5B00BF4CDB /* AKResonantFilterDSP.mm in Sources */,
 				EAA62900247F3A5B00BF4CDB /* AKTuningTable+EqualTemperament.swift in Sources */,
 				EAA62902247F3A5B00BF4CDB /* dmetro.c in Sources */,
@@ -10048,7 +10048,7 @@
 				C4980BA924E325A900D043D9 /* TubeBell.cpp in Sources */,
 				EAA62DB3247F44E200BF4CDB /* AKAppleSampler.swift in Sources */,
 				C4980BA024E325A900D043D9 /* Mandolin.cpp in Sources */,
-				2982B3E224E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
+				2982B3E224E7295D0061C30A /* AKDiodeClipperDSP.mm in Sources */,
 				EAA62DB4247F44E200BF4CDB /* basic.c in Sources */,
 				EAA62DB5247F44E200BF4CDB /* diode.c in Sources */,
 				EAA62DB6247F44E200BF4CDB /* AKMetalBarDSP.mm in Sources */,
