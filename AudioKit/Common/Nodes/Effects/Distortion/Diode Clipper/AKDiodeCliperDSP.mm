@@ -5,15 +5,37 @@
 #include "DiodeClipper.hpp"
 #include "AKSoulDSPBase.hpp"
 
+enum AKDiodeClipperParameter {
+    AKDiodeClipperParameterCutoff,
+    AKDiodeClipperParameterGaindB
+};
+
 class AKDiodeClipperDSP : public AKDSPBase {
 
 public:
     Diode patch;
     std::vector<Diode::MIDIMessage> midiMessages;
+    std::vector<Diode::ParameterProperties> properties;
     
     AKDiodeClipperDSP() {
         // Reserve space for MIDI messages so we don't have to allocate.
         midiMessages.reserve(1024);
+        properties = patch.getParameterProperties();
+    }
+    
+    void setParameter(AUParameterAddress address, AUValue value) {
+        if(address < properties.size()) {
+            properties[address].setValue(value);
+        }
+    }
+    
+    void init(int channelCount, double sampleRate) override {
+        // I'm not sure what sessionID is for.
+        patch.init(sampleRate, /*sessionID*/ 0);
+    }
+    
+    void reset() override {
+        patch.reset();
     }
     
     // Need to override this since it's pure virtual.
