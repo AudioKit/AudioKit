@@ -2,6 +2,10 @@
 
 #include "AKSTKInstrumentDSP.hpp"
 
+void AKSTKInstrumentDSP::reset() {
+    getInstrument()->clear();
+}
+
 void AKSTKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
 
     uint8_t status = midiEvent.data[0] & 0xF0;
