@@ -43,6 +43,7 @@ public:
                 message.byte0 = event->MIDI.data[0];
                 message.byte1 = event->MIDI.data[1];
                 message.byte2 = event->MIDI.data[2];
+                midiMessages.push_back(message);
             }
             event = event->head.next;
         }
