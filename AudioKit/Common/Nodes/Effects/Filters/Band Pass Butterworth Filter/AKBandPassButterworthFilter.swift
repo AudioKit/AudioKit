@@ -19,7 +19,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("AKBandPassButterworthFilterParameterCenterFrequency"),
-        range: 12.0 ... 20000.0,
+        range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -30,7 +30,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: akGetParameterAddress("AKBandPassButterworthFilterParameterBandwidth"),
-        range: 0.0 ... 20000.0,
+        range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
 
@@ -62,7 +62,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///
     public init(
         _ input: AKNode? = nil,
-        centerFrequency: AUValue = 2000.0,
+        centerFrequency: AUValue = 2_000.0,
         bandwidth: AUValue = 100.0
         ) {
         super.init(avAudioNode: AVAudioNode())
