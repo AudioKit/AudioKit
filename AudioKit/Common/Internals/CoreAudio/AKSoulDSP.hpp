@@ -1,12 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#ifndef AKSoulDSPBase_hpp
-#define AKSoulDSPBase_hpp
+#ifndef AKSoulDSP_hpp
+#define AKSoulDSP_hpp
 
 #import "AKDSPBase.hpp"
 
 template<typename SoulPatchType>
-class AKSoulDSPBase : public AKDSPBase {
+class AKSoulDSP : public AKDSPBase {
 
 public:
     SoulPatchType patch;
@@ -14,7 +14,7 @@ public:
     std::vector<typename SoulPatchType::MIDIMessage> midiMessages;
     std::vector<typename SoulPatchType::ParameterProperties> properties;
     
-    AKSoulDSPBase() {
+    AKSoulDSP() {
         // Reserve space for MIDI messages so we don't have to allocate.
         midiMessages.reserve(1024);
         properties = patch.getParameterProperties();
@@ -69,4 +69,4 @@ public:
     
 };
 
-#endif /* AKSoulDSPBase_hpp */
+#endif /* AKSoulDSP_hpp */

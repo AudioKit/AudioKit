@@ -3,14 +3,14 @@
 #include "AudioKit.h"
 
 #include "DiodeClipper.hpp"
-#include "AKSoulDSPBase.hpp"
+#include "AKSoulDSP.hpp"
 
 enum AKDiodeClipperParameter {
     AKDiodeClipperParameterCutoff,
     AKDiodeClipperParameterGaindB
 };
 
-using AKDiodeClipperDSP = AKSoulDSPBase<Diode>;
+using AKDiodeClipperDSP = AKSoulDSP<Diode>;
 AK_REGISTER_DSP(AKDiodeClipperDSP)
 AK_REGISTER_PARAMETER(AKDiodeClipperParameterCutoff)
 AK_REGISTER_PARAMETER(AKDiodeClipperParameterGaindB)
