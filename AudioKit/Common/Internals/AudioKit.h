@@ -89,6 +89,3 @@ AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 // Custom debug
 #define AKPhaseDistortionOscillatorDebugPhase 0
 #define AKOscillatorDebugPhase 0
-
-// STK
-#import "AKMandolinAudioUnit.h"
