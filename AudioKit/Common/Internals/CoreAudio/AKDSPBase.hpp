@@ -165,14 +165,14 @@ public:
     /// Create a subclass by name.
     static AKDSPRef create(const char* name);
 
-private:
+protected:
 
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
      */
-    void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                           AURenderEvent const *events);
+    virtual void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
+                                   AURenderEvent const *events);
     
     void handleOneEvent(AURenderEvent const *event);
     

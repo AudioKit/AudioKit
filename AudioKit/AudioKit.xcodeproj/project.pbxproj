@@ -88,6 +88,15 @@
 		294B533E24E23043008A40AA /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 294B533424E23043008A40AA /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		294B533F24E23043008A40AA /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 294B533424E23043008A40AA /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		294B534024E23043008A40AA /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 294B533424E23043008A40AA /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		2982B3D424E726E80061C30A /* AKSoulDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3D224E726E80061C30A /* AKSoulDSPBase.mm */; };
+		2982B3D524E726E80061C30A /* AKSoulDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3D224E726E80061C30A /* AKSoulDSPBase.mm */; };
+		2982B3D624E726E80061C30A /* AKSoulDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3D224E726E80061C30A /* AKSoulDSPBase.mm */; };
+		2982B3D724E726E80061C30A /* AKSoulDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSPBase.hpp */; };
+		2982B3D824E726E80061C30A /* AKSoulDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSPBase.hpp */; };
+		2982B3D924E726E80061C30A /* AKSoulDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2982B3D324E726E80061C30A /* AKSoulDSPBase.hpp */; };
+		2982B3E124E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
+		2982B3E224E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
+		2982B3E324E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */; };
 		29A53B0324BF4C3B004BDDEB /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		29A53B3724BF5F32004BDDEB /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
 		29AB123424C2337C00547AA5 /* MIDIMetaEvent+allocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */; };
@@ -3276,6 +3285,11 @@
 		294B533224E23043008A40AA /* AKSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSynth.swift; sourceTree = "<group>"; };
 		294B533324E23043008A40AA /* AKSynthDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSynthDSP.mm; sourceTree = "<group>"; };
 		294B533424E23043008A40AA /* AKSynthDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynthDSP.hpp; sourceTree = "<group>"; };
+		2982B3D224E726E80061C30A /* AKSoulDSPBase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSoulDSPBase.mm; sourceTree = "<group>"; };
+		2982B3D324E726E80061C30A /* AKSoulDSPBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKSoulDSPBase.hpp; sourceTree = "<group>"; };
+		2982B3DB24E728550061C30A /* DiodeClipper.soul */ = {isa = PBXFileReference; lastKnownFileType = text; path = DiodeClipper.soul; sourceTree = "<group>"; };
+		2982B3DC24E7290E0061C30A /* DiodeClipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DiodeClipper.hpp; sourceTree = "<group>"; };
+		2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiodeCliperDSP.mm; sourceTree = "<group>"; };
 		29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Devices.swift"; sourceTree = "<group>"; };
 		29AB123324C2337C00547AA5 /* MIDIMetaEvent+allocate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIMetaEvent+allocate.swift"; sourceTree = "<group>"; };
@@ -4463,6 +4477,16 @@
 			path = Synth;
 			sourceTree = "<group>";
 		};
+		2982B3DA24E727E80061C30A /* Diode Clipper */ = {
+			isa = PBXGroup;
+			children = (
+				2982B3DB24E728550061C30A /* DiodeClipper.soul */,
+				2982B3DC24E7290E0061C30A /* DiodeClipper.hpp */,
+				2982B3E024E7295D0061C30A /* AKDiodeCliperDSP.mm */,
+			);
+			path = "Diode Clipper";
+			sourceTree = "<group>";
+		};
 		3404A78120507B1500A2C9E4 /* AudioKitCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -4773,6 +4797,8 @@
 				C49B15BE204A070F009C7C8E /* AKSoundpipeDSPBase.hpp */,
 				C4DA41C924D38359002A5912 /* AKSoundpipeDSPBase.mm */,
 				C49B15BF204A070F009C7C8E /* AKSoundpipeKernel.hpp */,
+				2982B3D224E726E80061C30A /* AKSoulDSPBase.mm */,
+				2982B3D324E726E80061C30A /* AKSoulDSPBase.hpp */,
 				29CC6CB224B9654900446B73 /* AKGlobals.hpp */,
 				29CC6CB124B964EC00446B73 /* AKGlobals.mm */,
 				C4FF7CAF1D9F7F0B001BB82C /* AudioUnit+Helpers.swift */,
@@ -6011,6 +6037,7 @@
 				C4537F181C39D2A300A51738 /* Clipper */,
 				C4537F1D1C39D2A300A51738 /* Complex Distortion */,
 				C4537F1F1C39D2A300A51738 /* Decimator */,
+				2982B3DA24E727E80061C30A /* Diode Clipper */,
 				C4537F211C39D2A300A51738 /* Ring Modulator */,
 				C4537F231C39D2A300A51738 /* Tanh Distortion */,
 			);
@@ -7310,6 +7337,7 @@
 				C42F35041C057E03000E937C /* AudioKit.h in Headers */,
 				34F5A360205ECBE400290001 /* AKModulatedDelay.hpp in Headers */,
 				C4980BDC24E325BB00D043D9 /* Resonate.h in Headers */,
+				2982B3D724E726E80061C30A /* AKSoulDSPBase.hpp in Headers */,
 				C4980BF724E325BB00D043D9 /* Mesh2D.h in Headers */,
 				C40C415C1C40E3A5009D870B /* EZAudioPlayer.h in Headers */,
 				C4980BCA24E325BA00D043D9 /* Flute.h in Headers */,
@@ -7504,6 +7532,7 @@
 				C4980B6D24E3247B00D043D9 /* Array.h in Headers */,
 				C4980CB324E325BC00D043D9 /* VoicForm.h in Headers */,
 				EAA62BEE247F3A5B00BF4CDB /* AKParameterRamp.hpp in Headers */,
+				2982B3D924E726E80061C30A /* AKSoulDSPBase.hpp in Headers */,
 				EAA62BEF247F3A5B00BF4CDB /* AdjustableDelayLine.hpp in Headers */,
 				C4980CDC24E325BD00D043D9 /* TapDelay.h in Headers */,
 				EAA62BF0247F3A5B00BF4CDB /* AKWaveTableDSPKernel.hpp in Headers */,
@@ -7831,6 +7860,7 @@
 				EAA63114247F44E200BF4CDB /* AKModulatedDelay.hpp in Headers */,
 				C4980C4424E325BB00D043D9 /* Resonate.h in Headers */,
 				C4980C5F24E325BC00D043D9 /* Mesh2D.h in Headers */,
+				2982B3D824E726E80061C30A /* AKSoulDSPBase.hpp in Headers */,
 				EAA63117247F44E200BF4CDB /* EZAudioPlayer.h in Headers */,
 				C4980C3224E325BB00D043D9 /* Flute.h in Headers */,
 				C4980C5924E325BC00D043D9 /* Echo.h in Headers */,
@@ -8501,6 +8531,7 @@
 				C40C41551C40E3A5009D870B /* EZAudioFFT.m in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
 				C4DD4D5C24BA431500A69304 /* MIDIVariableLengthQuantity.swift in Sources */,
+				2982B3E124E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
 				FEB3AB2B22DFE06B0080A5CB /* AKDuration.swift in Sources */,
 				34BB6744205AC238000E5450 /* tag_utils.c in Sources */,
 				F4217894210D51AC005BA786 /* AKTable+AdditiveSynthesis.swift in Sources */,
@@ -9064,6 +9095,7 @@
 				C4CDDD081D04F25E003EA1BD /* AK3DPanner.swift in Sources */,
 				C4537FE61C3A438D00A51738 /* AKRolandTB303Filter.swift in Sources */,
 				3404A7C620507BEB00A2C9E4 /* AKSampler.swift in Sources */,
+				2982B3D424E726E80061C30A /* AKSoulDSPBase.mm in Sources */,
 				C46302841C20E7A7009B44D9 /* dcBlock.swift in Sources */,
 				FEB3AB3022DFE06B0080A5CB /* AKAppleSequencer.swift in Sources */,
 				C410F14E2030531F002EA801 /* AKMorphingOscillatorDSP.mm in Sources */,
@@ -9294,6 +9326,7 @@
 				EAA628E8247F3A5B00BF4CDB /* butlp.c in Sources */,
 				EAA628E9247F3A5B00BF4CDB /* moogladder.c in Sources */,
 				EAA628EB247F3A5B00BF4CDB /* EZAudioFFT.m in Sources */,
+				2982B3D624E726E80061C30A /* AKSoulDSPBase.mm in Sources */,
 				EAA628EC247F3A5B00BF4CDB /* EZRecorder.m in Sources */,
 				EAA628EE247F3A5B00BF4CDB /* tag_utils.c in Sources */,
 				EAA628F0247F3A5B00BF4CDB /* AKTable+AdditiveSynthesis.swift in Sources */,
@@ -9312,6 +9345,7 @@
 				EAA628FD247F3A5B00BF4CDB /* tseq.c in Sources */,
 				22D8FAB7248E8BBD0009EE7C /* AKParameterAutomation.mm in Sources */,
 				EAA628FE247F3A5B00BF4CDB /* maygate.c in Sources */,
+				2982B3E324E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
 				EAA628FF247F3A5B00BF4CDB /* AKResonantFilterDSP.mm in Sources */,
 				EAA62900247F3A5B00BF4CDB /* AKTuningTable+EqualTemperament.swift in Sources */,
 				EAA62902247F3A5B00BF4CDB /* dmetro.c in Sources */,
@@ -10014,6 +10048,7 @@
 				C4980BA924E325A900D043D9 /* TubeBell.cpp in Sources */,
 				EAA62DB3247F44E200BF4CDB /* AKAppleSampler.swift in Sources */,
 				C4980BA024E325A900D043D9 /* Mandolin.cpp in Sources */,
+				2982B3E224E7295D0061C30A /* AKDiodeCliperDSP.mm in Sources */,
 				EAA62DB4247F44E200BF4CDB /* basic.c in Sources */,
 				EAA62DB5247F44E200BF4CDB /* diode.c in Sources */,
 				EAA62DB6247F44E200BF4CDB /* AKMetalBarDSP.mm in Sources */,
@@ -10170,6 +10205,7 @@
 				EAA62E67247F44E200BF4CDB /* mixer.swift in Sources */,
 				EAA62E68247F44E200BF4CDB /* lpf18.c in Sources */,
 				EAA62E69247F44E200BF4CDB /* delay.c in Sources */,
+				2982B3D524E726E80061C30A /* AKSoulDSPBase.mm in Sources */,
 				C4980DAE24E326B200D043D9 /* AKClarinetDSP.mm in Sources */,
 				EAA62E6B247F44E200BF4CDB /* distort.swift in Sources */,
 				EAA62E6C247F44E200BF4CDB /* tabread.c in Sources */,
