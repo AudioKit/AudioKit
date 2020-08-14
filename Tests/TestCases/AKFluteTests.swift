@@ -16,14 +16,14 @@ class AKFluteTests: AKTestCase {
 
     }
 
-    func testAmplitude() {
+    func testVelocity() {
 
         let flute = AKFlute()
-        flute.trigger(note: 69, amplitude: 0.5)
+        flute.trigger(note: 69, velocity: 64)
         output = flute
 
         // auditionTest()
-        AKTestMD5("6d2f0919321285777c8028bc4902e262")
+        AKTestMD5("cee2cf38e1ea64300dc81158988c4a9d")
 
     }
 

@@ -18,12 +18,10 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
             return akCreateDSP("AKFluteDSP")
         }
 
-        public func trigger(note: UInt8, amplitude: AUValue) {
+        public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
 
             if let midiBlock = scheduleMIDIEventBlock {
-                let event = AKMIDIEvent(noteOn: note,
-                                        velocity: UInt8(amplitude * 127.0),
-                                        channel: 0)
+                let event = AKMIDIEvent(noteOn: note, velocity: velocity, channel: 0)
                 event.data.withUnsafeBufferPointer { ptr in
                     guard let ptr = ptr.baseAddress else { return }
                     midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
@@ -38,9 +36,8 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
     /// Initialize the STK Flute model
     ///
     /// - Parameters:
-    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is
-    ///                greater than that.
-    ///   - amplitude: Amplitude
+    ///   - note: MIDI note number
+    ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
     public init() {
         super.init(avAudioNode: AVAudioNode())
@@ -54,12 +51,12 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with a set of parameters
     ///
     /// - Parameters:
-    ///   - frequency: Frequency in Hz
-    ///   - amplitude: Volume
+    ///   - note: MIDI note number
+    ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
-    public func trigger(note: UInt8, amplitude: AUValue = 1) {
+    public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
         internalAU?.start()
-        internalAU?.trigger(note: note, amplitude: amplitude)
+        internalAU?.trigger(note: note, velocity: velocity)
     }
 
 }
