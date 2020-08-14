@@ -67,6 +67,12 @@
 		291F631624C54EF100B754F9 /* AKSettings+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4801EE124BD8E9C0049BA55 /* AKSettings+macOS.swift */; };
 		291F631724C54F1B00B754F9 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B0224BF4C3B004BDDEB /* DeviceUtils.swift */; };
 		291F631824C54F3800B754F9 /* AVAudioEngine+Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A53B3624BF5F32004BDDEB /* AVAudioEngine+Devices.swift */; };
+		2937435824E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2937435624E61E8300C322E4 /* AKSTKInstrumentDSP.mm */; };
+		2937435924E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2937435624E61E8300C322E4 /* AKSTKInstrumentDSP.mm */; };
+		2937435A24E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2937435624E61E8300C322E4 /* AKSTKInstrumentDSP.mm */; };
+		2937435B24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2937435724E61E8300C322E4 /* AKSTKInstrumentDSP.hpp */; };
+		2937435C24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2937435724E61E8300C322E4 /* AKSTKInstrumentDSP.hpp */; };
+		2937435D24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2937435724E61E8300C322E4 /* AKSTKInstrumentDSP.hpp */; };
 		2938A8FB24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
 		2938A8FC24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
 		2938A8FD24D1AEF500D6D617 /* AKAutomationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */; };
@@ -3275,6 +3281,8 @@
 		22D8FAB5248E8BBD0009EE7C /* AKParameterAutomation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKParameterAutomation.hpp; sourceTree = "<group>"; };
 		291F62E924C4FB3C00B754F9 /* DebugDSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDSP.h; sourceTree = "<group>"; };
 		291F62EA24C4FB3C00B754F9 /* DebugDSP.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DebugDSP.c; sourceTree = "<group>"; };
+		2937435624E61E8300C322E4 /* AKSTKInstrumentDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSTKInstrumentDSP.mm; sourceTree = "<group>"; };
+		2937435724E61E8300C322E4 /* AKSTKInstrumentDSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKSTKInstrumentDSP.hpp; sourceTree = "<group>"; };
 		2938A8FA24D1AEF500D6D617 /* AKAutomationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKAutomationCurve.swift; sourceTree = "<group>"; };
 		294B533124E23043008A40AA /* AKSynthAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSynthAudioUnit.swift; sourceTree = "<group>"; };
 		294B533224E23043008A40AA /* AKSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSynth.swift; sourceTree = "<group>"; };
@@ -6967,6 +6975,8 @@
 				C47047991E76A24A00D9906F /* Rhodes Piano */,
 				C47047731E76884C00D9906F /* Shaker */,
 				C47047A21E76A25200D9906F /* Tubular Bells */,
+				2937435624E61E8300C322E4 /* AKSTKInstrumentDSP.mm */,
+				2937435724E61E8300C322E4 /* AKSTKInstrumentDSP.hpp */,
 			);
 			path = STK;
 			sourceTree = "<group>";
@@ -7348,6 +7358,7 @@
 				C4980C1024E325BB00D043D9 /* RtWvIn.h in Headers */,
 				C4980C1A24E325BB00D043D9 /* BlitSaw.h in Headers */,
 				C4980B0624E3247300D043D9 /* FFTRealFixLen.h in Headers */,
+				2937435B24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */,
 				C433230A1FE05F0200330AEC /* TPCircularBuffer+Unit.h in Headers */,
 				C4980C0A24E325BB00D043D9 /* InetWvOut.h in Headers */,
 				69E269462320234B00861150 /* soundpipeextension.h in Headers */,
@@ -7748,6 +7759,7 @@
 				C4980B6E24E3247B00D043D9 /* CDelay.h in Headers */,
 				EAA62D31247F3A5B00BF4CDB /* DrawbarsOscillator.hpp in Headers */,
 				C4980CD424E325BD00D043D9 /* DelayL.h in Headers */,
+				2937435D24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */,
 				EAA62D37247F3A5B00BF4CDB /* AKDiskStreamerDSPKernel.hpp in Headers */,
 				C4980CE824E325BD00D043D9 /* Delay.h in Headers */,
 				C4980B2524E3247400D043D9 /* FFTRealPassDirect.h in Headers */,
@@ -7871,6 +7883,7 @@
 				C4980C7824E325BC00D043D9 /* RtWvIn.h in Headers */,
 				C4980C8224E325BC00D043D9 /* BlitSaw.h in Headers */,
 				C4980B1324E3247400D043D9 /* FFTRealFixLen.h in Headers */,
+				2937435C24E61E8300C322E4 /* AKSTKInstrumentDSP.hpp in Headers */,
 				EAA6313D247F44E200BF4CDB /* TPCircularBuffer+Unit.h in Headers */,
 				C4980C7224E325BC00D043D9 /* InetWvOut.h in Headers */,
 				EAA6313F247F44E200BF4CDB /* soundpipeextension.h in Headers */,
@@ -8619,6 +8632,7 @@
 				C49B1447204A06B7009C7C8E /* func.c in Sources */,
 				FE72B21F208AA72C00D861BC /* AKManager+StartStop.swift in Sources */,
 				C49B14BA204A06B8009C7C8E /* fm.c in Sources */,
+				2937435824E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */,
 				C49B14A0204A06B8009C7C8E /* dist.c in Sources */,
 				C49B14D4204A06B8009C7C8E /* in.c in Sources */,
 				C49B14A9204A06B8009C7C8E /* drip.c in Sources */,
@@ -9432,6 +9446,7 @@
 				EAA62987247F3A5B00BF4CDB /* AKBandRejectButterworthFilter.swift in Sources */,
 				EAA6298A247F3A5B00BF4CDB /* adsrEnvelope.swift in Sources */,
 				EAA6298B247F3A5B00BF4CDB /* lpf18.c in Sources */,
+				2937435A24E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */,
 				EAA6298C247F3A5B00BF4CDB /* base.c in Sources */,
 				EAA6298D247F3A5B00BF4CDB /* bal.c in Sources */,
 				EAA6298F247F3A5B00BF4CDB /* AKLog.swift in Sources */,
@@ -10471,6 +10486,7 @@
 				EAA62FA1247F44E200BF4CDB /* fog.c in Sources */,
 				EAA62FA2247F44E200BF4CDB /* phasor.c in Sources */,
 				EAA62FA3247F44E200BF4CDB /* pan.swift in Sources */,
+				2937435924E61E8300C322E4 /* AKSTKInstrumentDSP.mm in Sources */,
 				EAA62FA4247F44E200BF4CDB /* AKDelay.swift in Sources */,
 				EAA62FA6247F44E200BF4CDB /* AKKorgLowPassFilter.swift in Sources */,
 				EAA62FA7247F44E200BF4CDB /* add.swift in Sources */,
