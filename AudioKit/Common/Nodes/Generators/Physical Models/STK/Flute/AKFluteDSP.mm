@@ -1,112 +1,35 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AudioKit.h"
+#import "AKSTKInstrumentDSP.hpp"
 
 #include "Flute.h"
 
-enum AKFluteParameter : AUParameterAddress {
-    AKFluteParameterFrequency,
-    AKFluteParameterAmplitude
-};
-
-
-class AKFluteDSP : public AKDSPBase {
+class AKFluteDSP : public AKSTKInstrumentDSP {
 private:
-    float internalTrigger = 0;
-    stk::Flute *flute;
-
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
+    stk::Flute *flute = nullptr;
 
 public:
-    AKFluteDSP() {
-        frequencyRamp.setTarget(440, true);
-        frequencyRamp.setDurationInSamples(10000);
-        amplitudeRamp.setTarget(1, true);
-        amplitudeRamp.setDurationInSamples(10000);
-    }
-
+    AKFluteDSP() {}
     ~AKFluteDSP() = default;
-
-    /// Uses the ParameterAddress as a key
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKFluteParameterFrequency:
-                frequencyRamp.setTarget(value, immediate);
-                break;
-            case AKFluteParameterAmplitude:
-                amplitudeRamp.setTarget(value, immediate);
-                break;
-        }
-    }
-
-    /// Uses the ParameterAddress as a key
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKFluteParameterFrequency:
-                return frequencyRamp.getTarget();
-            case AKFluteParameterAmplitude:
-                return amplitudeRamp.getTarget();
-        }
-        return 0;
-    }
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
-        flute = new stk::Flute(100);
+        flute = new stk::Flute(/*lowestFrequency*/100);
     }
 
-    void trigger() override {
-        internalTrigger = 1;
-    }
-
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override {
-        bool immediate = true;
-        frequencyRamp.setTarget(freq, immediate);
-        amplitudeRamp.setTarget(amp, immediate);
-        trigger();
+    stk::Instrmnt* getInstrument() override {
+        return flute;
     }
 
     void deinit() override {
         AKDSPBase::deinit();
         delete flute;
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        float frequency = frequencyRamp.getValue();
-        float amplitude = amplitudeRamp.getValue();
-
-        if (internalTrigger == 1) {
-            flute->noteOn(frequency, amplitude);
-            internalTrigger = 0;
-        }
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            // do ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(now + frameOffset);
-                amplitudeRamp.advanceTo(now + frameOffset);
-            }
-
-            float outputSample = 0.0;
-            if(isStarted) {
-                outputSample = flute->tick();
-            }
-
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                *out = outputSample;
-            }
-        }
+        flute = nullptr;
     }
 
 };
 
 AK_REGISTER_DSP(AKFluteDSP);
-AK_REGISTER_PARAMETER(AKFluteParameterFrequency)
-AK_REGISTER_PARAMETER(AKFluteParameterAmplitude)
