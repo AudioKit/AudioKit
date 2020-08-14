@@ -7,13 +7,13 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-class AKRhodesPianoDSP : public AKSTKInstrumentDSP {
+class AKRhodesPianoKeyDSP : public AKSTKInstrumentDSP {
 private:
     stk::Rhodey *rhodesPiano = nullptr;
 
 public:
-    AKRhodesPianoDSP() {}
-    ~AKRhodesPianoDSP() = default;
+    AKRhodesPianoKeyDSP() {}
+    ~AKRhodesPianoKeyDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
@@ -51,4 +51,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKRhodesPianoDSP);
+AK_REGISTER_DSP(AKRhodesPianoKeyDSP);

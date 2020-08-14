@@ -3,27 +3,27 @@
 import AudioKit
 import XCTest
 
-class AKRhodesPianoTests: AKTestCase {
+class AKRhodesPianoKeyTests: AKTestCase {
 
     func testRhodesPiano() {
 
-        let rhodesPiano = AKRhodesPiano()
-        rhodesPiano.trigger(frequency: 440)
+        let rhodesPiano = AKRhodesPianoKey()
+        rhodesPiano.trigger(note: 69)
         output = rhodesPiano
 
         // auditionTest()
-        AKTestMD5("7f399d5145084b9ba57270501a19570e")
+        AKTestMD5("ed6b966db1f452e7f98a911d46bcc29b")
 
     }
 
     func testAmplitude() {
 
-        let rhodesPiano = AKRhodesPiano()
-        rhodesPiano.trigger(frequency: 440, amplitude: 0.5)
+        let rhodesPiano = AKRhodesPianoKey()
+        rhodesPiano.trigger(note: 69, velocity: 64)
         output = rhodesPiano
 
         // auditionTest()
-        AKTestMD5("3a8e3c1fa5db6eb8629b39c11abc0443")
+        AKTestMD5("487dbe47fe2384504aaa895b65b90a27")
 
     }
 
