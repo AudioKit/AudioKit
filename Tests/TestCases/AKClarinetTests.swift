@@ -14,7 +14,7 @@ class AKClarinetTest: AKTestCase {
         output = clarinet
 
         // auditionTest()
-        AKTestMD5("5ab7eb506d9dca36d3b402221031556a")
+        AKTestMD5("0ff85d140be73b31ad2639e7cbddec5a")
     }
 
     func testClarinetFrequency() {
@@ -28,7 +28,7 @@ class AKClarinetTest: AKTestCase {
         output = clarinet
 
         // auditionTest()
-        AKTestMD5("a3d469e11dfcb0e7210318785524e53e")
+        AKTestMD5("0ff85d140be73b31ad2639e7cbddec5a")
     }
 
     func testClarinetAmplitude() {
@@ -41,7 +41,7 @@ class AKClarinetTest: AKTestCase {
         output = clarinet
 
         // auditionTest()
-        AKTestMD5("d45b068983c2e0fe391519bf0b0f419c")
+        AKTestMD5("0ff85d140be73b31ad2639e7cbddec5a")
     }
 
 }
