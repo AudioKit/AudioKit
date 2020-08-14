@@ -16,8 +16,6 @@ private:
     
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
     
 public:
     AKClarinetDSP() {
