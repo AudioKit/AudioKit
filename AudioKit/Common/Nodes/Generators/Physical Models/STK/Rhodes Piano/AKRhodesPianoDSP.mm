@@ -1,11 +1,15 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKRhodesPianoDSP.hpp"
-#import <AudioKit/AKLinearParameterRamp.hpp>
+#import "AudioKit.h"
 
 #include "Rhodey.h"
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
+
+enum AKRhodesPianoParameter : AUParameterAddress {
+    AKRhodesPianoParameterFrequency,
+    AKRhodesPianoParameterAmplitude
+};
 
 class AKRhodesPianoDSP : public AKDSPBase {
 private:
@@ -36,10 +40,6 @@ public:
             case AKRhodesPianoParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKRhodesPianoParameterRampDuration:
-                frequencyRamp.setRampDuration(value, sampleRate);
-                amplitudeRamp.setRampDuration(value, sampleRate);
-                break;
         }
     }
 
@@ -50,8 +50,6 @@ public:
                 return frequencyRamp.getTarget();
             case AKRhodesPianoParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKRhodesPianoParameterRampDuration:
-                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
@@ -128,6 +126,6 @@ public:
     }
 };
 
-AKDSPRef akRhodesPianoCreateDSP() {
-    return new AKRhodesPianoDSP();
-}
+AK_REGISTER_DSP(AKRhodesPianoDSP);
+AK_REGISTER_PARAMETER(AKRhodesPianoParameterFrequency)
+AK_REGISTER_PARAMETER(AKRhodesPianoParameterAmplitude)
