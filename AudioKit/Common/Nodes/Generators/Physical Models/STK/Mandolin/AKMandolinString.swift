@@ -2,11 +2,11 @@
 
 #if !os(tvOS)
 
-/// STK RhodesPiano
+/// STK Mandolin
 ///
-public class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
+public class AKMandolinString: AKNode, AKToggleable, AKComponent {
 
-    public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "mand")
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -15,7 +15,7 @@ public class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AKAudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKRhodesPianoDSP")
+            return akCreateDSP("AKMandolinStringDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
@@ -33,7 +33,7 @@ public class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the STK Rhdoes Piano model
+    /// Initialize the STK Mandolin model
     ///
     /// - Parameters:
     ///   - note: MIDI note number

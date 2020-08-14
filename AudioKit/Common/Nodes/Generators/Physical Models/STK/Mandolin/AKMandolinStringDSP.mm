@@ -6,13 +6,13 @@
 #include "Mandolin.h"
 #include "mand_raw.h"
 
-class AKMandolinDSP : public AKSTKInstrumentDSP {
+class AKMandolinStringDSP : public AKSTKInstrumentDSP {
 private:
     stk::Mandolin *mandolin = nullptr;
 
 public:
-    AKMandolinDSP() {}
-    ~AKMandolinDSP() = default;
+    AKMandolinStringDSP() {}
+    ~AKMandolinStringDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
@@ -62,4 +62,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKMandolinDSP);
+AK_REGISTER_DSP(AKMandolinStringDSP);
