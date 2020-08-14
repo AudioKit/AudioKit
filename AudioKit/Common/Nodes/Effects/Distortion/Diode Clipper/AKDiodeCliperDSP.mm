@@ -44,6 +44,8 @@ public:
         context.numFrames = frameCount;
         context.inputChannels[0] = (const float *)inputBufferLists[0]->mBuffers[0].mData;
         context.outputChannels[0] = (float *)outputBufferList->mBuffers[0].mData;
+        context.incomingMIDI.messages = midiMessages.data();
+        context.incomingMIDI.numMessages = (uint32_t) midiMessages.size();
         
         patch.render(context);
         
