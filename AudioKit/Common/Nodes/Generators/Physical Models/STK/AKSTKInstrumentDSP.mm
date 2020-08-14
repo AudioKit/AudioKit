@@ -17,22 +17,24 @@ void AKSTKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
     auto amplitude = (AUValue)veloc / 127.0;
     float frequency = pow(2.0, (note - 69.0) / 12.0) * 440.0;
 
-    auto instr = getInstrument();
+    if(auto instr = getInstrument()) {
 
-    switch(status) {
-        case 0x80 : { // note off
-            uint8_t note = midiEvent.data[1];
-            if (note > 127) break;
-            instr->noteOff(amplitude);
-            break;
+        switch(status) {
+            case 0x80 : { // note off
+                uint8_t note = midiEvent.data[1];
+                if (note > 127) break;
+                instr->noteOff(amplitude);
+                break;
+            }
+            case 0x90 : { // note on
+                uint8_t note = midiEvent.data[1];
+                uint8_t veloc = midiEvent.data[2];
+                if (note > 127 || veloc > 127) break;
+                instr->noteOn(frequency, amplitude);
+                break;
+            }
         }
-        case 0x90 : { // note on
-            uint8_t note = midiEvent.data[1];
-            uint8_t veloc = midiEvent.data[2];
-            if (note > 127 || veloc > 127) break;
-            instr->noteOn(frequency, amplitude);
-            break;
-        }
+
     }
 
 }
@@ -45,7 +47,7 @@ void AKSTKInstrumentDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
         int frameOffset = int(frameIndex + bufferOffset);
 
         float outputSample = 0.0;
-        if(isStarted) {
+        if(isStarted && instr) {
             outputSample = instr->tick();
         }
 
