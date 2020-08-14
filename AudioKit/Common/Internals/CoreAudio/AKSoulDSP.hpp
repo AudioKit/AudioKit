@@ -11,8 +11,11 @@ class AKSoulDSP : public AKDSPBase {
 public:
     SoulPatchType patch;
     
-    std::vector<typename SoulPatchType::MIDIMessage> midiMessages;
-    std::vector<typename SoulPatchType::ParameterProperties> properties;
+    using MIDIMessage = typename SoulPatchType::MIDIMessage;
+    using ParameterProperties = typename SoulPatchType::ParameterProperties;
+    
+    std::vector<MIDIMessage> midiMessages;
+    std::vector<ParameterProperties> properties;
     
     AKSoulDSP() {
         // Reserve space for MIDI messages so we don't have to allocate.
@@ -36,7 +39,7 @@ public:
     }
     
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
-        typename SoulPatchType::MIDIMessage message;
+        MIDIMessage message;
         message.frameIndex = 0;
         message.byte0 = midiEvent.data[0];
         message.byte1 = midiEvent.data[1];
