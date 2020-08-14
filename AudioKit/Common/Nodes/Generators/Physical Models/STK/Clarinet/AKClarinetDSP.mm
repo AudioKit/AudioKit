@@ -77,6 +77,14 @@ public:
     }
     
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        float frequency = frequencyRamp.getValue();
+        float amplitude = amplitudeRamp.getValue();
+
+        if (internalTrigger == 1) {
+            clarinet->noteOn(frequency, amplitude);
+            internalTrigger = 0;
+        }
         
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -86,24 +94,16 @@ public:
                 frequencyRamp.advanceTo(now + frameOffset);
                 amplitudeRamp.advanceTo(now + frameOffset);
             }
-            float frequency = frequencyRamp.getValue();
-            float amplitude = amplitudeRamp.getValue();
+
+            float outputSample = 0.0;
+            if(isStarted) {
+                outputSample = clarinet->tick();
+            }
             
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                
-                if (isStarted) {
-                    if (internalTrigger == 1) {
-                        clarinet->noteOn(frequency, amplitude);
-                    }
-                    *out = clarinet->tick();
-                } else {
-                    *out = 0.0;
-                }
+                *out = outputSample;
             }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
         }
     }
     
