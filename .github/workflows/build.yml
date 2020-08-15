@@ -133,8 +133,13 @@ jobs:
       run: |
         set -euo pipefail
         sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
-        echo "Building xcodegen project"
-        xcodebuild -project AudioKit/AudioKitGen.xcodeproj -scheme AudioKit_macOS clean test | xcpretty -c
+        xcodebuild -project AudioKit/AudioKitGen.xcodeproj -scheme AudioKit_macOS clean build | xcpretty -c
+
+    - name: Run tests
+      run: |
+        set -euo pipefail
+        sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
+        xcodebuild -project AudioKit/AudioKitGen.xcodeproj -scheme AudioKit_macOS test | xcpretty -c
 
   # Upload staging builds to S3
   staging:
