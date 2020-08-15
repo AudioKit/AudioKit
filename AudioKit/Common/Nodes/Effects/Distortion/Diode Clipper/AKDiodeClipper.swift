@@ -30,7 +30,7 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("AKDiodeClipperParameterGaindB"),
-        range: 0.0 ... 10.0,
+        range: 0.0 ... 40.0,
         unit: .decibels,
         flags: .default)
 
@@ -62,8 +62,8 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutom
     ///
     public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: AUValue = 1.0,
-        gain: AUValue = 0.0
+        cutoffFrequency: AUValue = 10000.0,
+        gain: AUValue = 20.0
         ) {
         super.init(avAudioNode: AVAudioNode())
         self.cutoffFrequency = cutoffFrequency
