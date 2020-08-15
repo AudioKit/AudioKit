@@ -79,6 +79,9 @@ targets:
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
       PRODUCT_BUNDLE_IDENTIFIER: io.audiokit.framework
+    scheme:
+      testTargets:
+        - AudioKit_tests_${platform}
 
   AudioKit_tests:
     type: bundle.unit-test
