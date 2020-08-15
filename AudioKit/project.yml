@@ -65,7 +65,6 @@ targets:
           - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
           - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
           - "Nodes/Generators/Synth/AKSynthDSP.hpp"
-          - "Nodes/Generators/Physical Models/STK/ATSTKInstrumentDSP.hpp"
           - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
           - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
           - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
