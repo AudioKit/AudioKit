@@ -23,7 +23,7 @@ public:
         properties = patch.getParameterProperties();
     }
     
-    void setParameter(AUParameterAddress address, AUValue value) {
+    void setParameter(AUParameterAddress address, float value, bool immediate) override {
         if(address < properties.size()) {
             properties[address].setValue(value);
         }
@@ -32,6 +32,11 @@ public:
     void init(int channelCount, double sampleRate) override {
         // I'm not sure what sessionID is for.
         patch.init(sampleRate, /*sessionID*/ 0);
+        
+        // init will clear the properties, so set them back to their value
+        for(auto& property : properties) {
+            property.setValue(property.currentValue);
+        }
     }
     
     void reset() override {
