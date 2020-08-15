@@ -300,7 +300,7 @@
 		C43C770824C4BF5900E2DA97 /* AKPinkNoiseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoiseTest.swift; sourceTree = "<group>"; };
 		C43C770924C4BF5900E2DA97 /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C43C770A24C4BF5900E2DA97 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
-		C43C777A24C4C06700E2DA97 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../../Tests/Common/sinechirp.wav; sourceTree = "<group>"; };
+		C43C777A24C4C06700E2DA97 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../../Tests/Resources/sinechirp.wav; sourceTree = "<group>"; };
 		C43C778124C4D16100E2DA97 /* Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Examples.entitlements; sourceTree = "<group>"; };
 		C4EA5E1824D91CA400C9AFE3 /* AudioKitGen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKitGen.xcodeproj; path = ../../../AudioKit/AudioKitGen.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */

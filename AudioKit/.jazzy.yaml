@@ -93,7 +93,6 @@ custom_categories:
 
   - name: Analysis Nodes
     children:
-    - AKAmplitudeTracker
     - AKFrequencyTracker
 
   - name: Delay Nodes
