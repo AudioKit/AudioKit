@@ -71,9 +71,7 @@ targets:
           - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
           - "Nodes/Playback/AKSamplerMetronome.h"
           - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
-          - "Nodes/Playback/Samplers/Disk Streamer/AKDiskStreamerAudioUnit.h"
           - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
-          - "Nodes/Playback/Samplers/Wave Table/AKWaveTableAudioUnit.h"
           - "Sequencing/Sequencer/AKSequencerEngine.hpp"
           - "Taps/Lazy Tap/AKLazyTap.h"
           - "Taps/Render Tap/AKRenderTap.h"
@@ -95,7 +93,6 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
-          - "AKWaveTableTests.swift"
       - path: ../Developer/Common
         includes:
           - "*.wav"

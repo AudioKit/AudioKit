@@ -49,8 +49,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKSynthDSP.hpp>
 
 // Playback
-#import <AudioKit/AKWaveTableAudioUnit.h>
-#import <AudioKit/AKDiskStreamerAudioUnit.h>
 #import <AudioKit/AKPresetManager.h>
 #import <AudioKit/AKSampler_Typedefs.h>
 #import <AudioKit/AKCoreSampler.hpp>
