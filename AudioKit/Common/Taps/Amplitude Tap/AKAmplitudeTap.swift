@@ -56,10 +56,13 @@ public class AKAmplitudeTap: AKToggleable {
         return amp[1]
     }
 
+    private var handler: (Float) -> Void = { _ in }
+
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode?, bufferSize: UInt32 = 1_024) {
+    public init(_ input: AKNode?, bufferSize: UInt32 = 1_024, handler: @escaping (Float) -> Void = { _ in }) {
         self.bufferSize = bufferSize
         self.input = input
+        self.handler = handler
     }
 
     /// Enable the tap on input
@@ -100,6 +103,7 @@ public class AKAmplitudeTap: AKToggleable {
             vDSP_rmsqv(data, 1, &rms, UInt(length))
             amp[n] = rms
         }
+        handler(amplitude)
     }
 
     /// Remove the tap on the input

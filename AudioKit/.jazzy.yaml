@@ -93,28 +93,22 @@ custom_categories:
 
   - name: Analysis Nodes
     children:
-    - AKAmplitudeTracker
     - AKFrequencyTracker
 
   - name: Delay Nodes
     children:
     - AKDelay
     - AKStereoDelay
-    - AKStereoDelayAudioUnit
     - AKVariableDelay
-    - AKVariableDelayAudioUnit
 
   - name: Distortion Nodes
     children:
     - AKBitCrusher
-    - AKBitCrusherAudioUnit
     - AKClipper
-    - AKClipperAudioUnit
     - AKDecimator
     - AKDistortion
     - AKRingModulator
     - AKTanhDistortion
-    - AKTanhDistortionAudioUnit
 
   - name: Dynamics Nodes
     children:
@@ -122,7 +116,6 @@ custom_categories:
     - AKDynamicsProcessor
     - AKDynamicRangeCompressor
     - AKDynaRageCompressor
-    - AKDynamicRangeCompressorAudioUnit
     - AKExpander
     - AKPeakLimiter
 
@@ -130,147 +123,87 @@ custom_categories:
     children:
     - AKOperationEffect
     - AKPitchShifter
-    - AKPitchShifterAudioUnit
     - AKRhinoGuitarProcessor
   
   - name: Modulation Effect Nodes
     children:
     - AKChorus
-    - AKChorusAudioUnit
     - AKFlanger
-    - AKFlangerAudioUnit
     - AKPhaser
-    - AKPhaserAudioUnit
 
   - name: Envelopes
     children:
     - AKAmplitudeEnvelope 
-    - AKAmplitudeEnvelopeAudioUnit
     - AKTremolo
-    - AKTremoloAudioUnit
 
   - name: Filter Nodes
     children:
     - AKAutoWah
-    - AKAutoWahAudioUnit
     - AKBandPassButterworthFilter
-    - AKBandPassButterworthFilterAudioUnit
     - AKBandRejectButterworthFilter
-    - AKBandRejectButterworthFilterAudioUnit
     - AKCombFilterReverb
-    - AKCombFilterReverbAudioUnit
     - AKDCBlock
-    - AKDCBlockAudioUnit
     - AKEqualizerFilter
-    - AKEqualizerFilterAudioUnit
     - AKFormantFilter
-    - AKFormantFilterAudioUnit
     - AKHighPassButterworthFilter
-    - AKHighPassButterworthFilterAudioUnit
     - AKHighPassFilter
     - AKHighShelfFilter
     - AKHighShelfParametricEqualizerFilter
-    - AKHighShelfParametricEqualizerFilterAudioUnit
     - AKKorgLowPassFilter
-    - AKKorgLowPassFilterAudioUnit
     - AKLowPassButterworthFilter
-    - AKLowPassButterworthFilterAudioUnit
     - AKLowPassFilter
     - AKLowShelfFilter
     - AKLowShelfParametricEqualizerFilter
-    - AKLowShelfParametricEqualizerFilterAudioUnit
     - AKModalResonanceFilter
-    - AKModalResonanceFilterAudioUnit
     - AKMoogLadder
-    - AKMoogLadderAudioUnit
     - AKPeakingParametricEqualizerFilter
-    - AKPeakingParametricEqualizerFilterAudioUnit
     - AKResonantFilter
-    - AKResonantFilterAudioUnit
     - AKRolandTB303Filter
-    - AKRolandTB303FilterAudioUnit
     - AKStringResonator
-    - AKStringResonatorAudioUnit
     - AKThreePoleLowpassFilter
-    - AKThreePoleLowpassFilterAudioUnit
     - AKToneFilter
-    - AKToneFilterAudioUnit
     - AKToneComplementFilter
-    - AKToneComplementFilterAudioUnit
 
   - name: Reverb Nodes
     children:
     - AKChowningReverb
-    - AKChowningReverbAudioUnit
     - AKCostelloReverb
-    - AKCostelloReverbAudioUnit
     - AKConvolution
-    - AKConvolutionAudioUnit
     - AKFlatFrequencyResponseReverb
-    - AKFlatFrequencyResponseReverbAudioUnit
     - AKReverb
     - AKReverb2
     - AKZitaReverb
-    - AKZitaReverbAudioUnit
 
   - name: Noise Generator Nodes
     children:
     - AKBrownianNoise
-    - AKBrownianNoiseAudioUnit
     - AKPinkNoise
-    - AKPinkNoiseAudioUnit
     - AKWhiteNoise
-    - AKWhiteNoiseAudioUnit
 
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
-    - AKFMOscillatorAudioUnit
-    - AKFMOscillatorBank
-    - AKFMOscillatorFilterSynth
     - AKMorphingOscillator
-    - AKMorphingOscillatorAudioUnit
-    - AKMorphingOscillatorBank
-    - AKMorphingOscillatorFilterSynth
     - AKOscillator
-    - AKOscillatorAudioUnit
-    - AKOscillatorBank
-    - AKOscillatorFilterSynth
     - AKPhaseDistortionOscillator
-    - AKPhaseDistortionOscillatorAudioUnit
-    - AKPhaseDistortionOscillatorBank
-    - AKPhaseDistortionOscillatorFilterSynth
     - AKPWMOscillator
-    - AKPWMOscillatorAudioUnit
-    - AKPWMOscillatorBank
-    - AKPWMOscillatorFilterSynth
     - AKSynth
-    - AKSynthAudioUnit
 
   - name: Physical Models
     children:
     - AKClarinet
-    - AKClarinetAudioUnit
     - AKDrip
-    - AKDripAudioUnit
     - AKFlute
-    - AKFluteAudioUnit
-    - AKMandolin
+    - AKMandolinString
     - AKMetalBar
-    - AKMetalBarAudioUnit
     - AKPluckedString
-    - AKPluckedStringAudioUnit
-    - AKRhodesPiano
-    - AKRhodesPianoAudioUnit
+    - AKRhodesPianoKey
     - AKShaker
-    - AKShakerAudioUnit
     - AKShakerType
     - AKSynthKick
     - AKSynthSnare
     - AKTubularBells
-    - AKTubularBellsAudioUnit
     - AKVocalTract
-    - AKVocalTractAudioUnit
 
   - name: Input Node
     children:
@@ -281,18 +214,13 @@ custom_categories:
     children:
     - AK3DPanner
     - AKAutoPanner
-    - AKAutoPannerAudioUnit
     - AKBalancer
     - AKBooster
-    - AKBoosterAudioUnit
     - AKDryWetMixer
     - AKFader
-    - AKFaderAudioUnit
     - AKMixer
     - AKPanner
-    - AKPannerAudioUnit
     - AKStereoFieldLimiter
-    - AKStereoFieldLimiterAudioUnit
 
   - name: Playback Nodes
     children:
@@ -304,21 +232,17 @@ custom_categories:
     - AKClipMerger
     - AKClipPlayer
     - AKClipRecorder
-    - AKDiskStreamer
     - AKDynamicPlayer
     - AKFileClip
     - AKFileClipSequence
     - AKMetronome
     - AKPhaseLockedVocoder
-    - AKPhaseLockedVocoderAudioUnit
     - AKPlayer
     - AKRecordingResult
     - AKSampler
-    - AKSamplerAudioUnit
     - AKSamplePlayer
     - AKTimePitch
     - AKVariSpeed
-    - AKWaveTable
     - ClipMergeDelegate
     - ClipMergerError
     - ClipRecordingError

@@ -13,8 +13,6 @@
 
 * Apple Sampler Demo - example of AudioKit's AKAppleSampler
 * Hello Objective-C - Hello World in the Objective-C language (as opposed to Swift)
-* Loopback Recording - shows how to use the AKClipRecorder
-* Metronome Sampler Sync - highly accurate, sample triggering metronome
 * MIDI File Edit and Sync - demonstrates how to manipulate midifiles on the fly
 * Particles - Metal based audio visualizer (works on devices only, not the simulator)
 * Sequencer Demo - example of AudioKit's AKAppleSequencer

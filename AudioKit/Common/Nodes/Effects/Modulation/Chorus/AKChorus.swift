@@ -18,7 +18,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
-        range: 0.1 ... 10.0,
+        range: kAKChorus_MinFrequency ... kAKChorus_MaxFrequency,
         unit: .hertz,
         flags: .default)
 
@@ -29,7 +29,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
-        range: 0.0 ... 1.0,
+        range: kAKChorus_MinDepth ... kAKChorus_MaxDepth,
         unit: .generic,
         flags: .default)
 
@@ -40,7 +40,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
-        range: 0.0 ... 0.25,
+        range: kAKChorus_MinFeedback ... kAKChorus_MaxFeedback,
         unit: .generic,
         flags: .default)
 
@@ -51,7 +51,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,
-        range: 0.0 ... 1.0,
+        range: kAKChorus_MinDryWetMix ... kAKChorus_MaxDryWetMix,
         unit: .generic,
         flags: .default)
 
@@ -79,18 +79,18 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     /// Initialize this chorus node
     ///
     /// - Parameters:
-    ///   - input: Input node to process
-    ///   - frequency: Frequency. (in Hertz)
-    ///   - depth: Depth
-    ///   - feedback: Feedback
-    ///   - dryWetMix: Dry Wet Mix
+    ///   - input: AKNode whose output will be processed
+    ///   - frequency: modulation frequency Hz
+    ///   - depth: depth of modulation (fraction)
+    ///   - feedback: feedback fraction
+    ///   - dryWetMix: fraction of wet signal in mix
     ///
     public init(
         _ input: AKNode? = nil,
-        frequency: AUValue = 1,
-        depth: AUValue = 0,
-        feedback: AUValue = 0,
-        dryWetMix: AUValue = 0
+        frequency: AUValue = kAKChorus_DefaultFrequency,
+        depth: AUValue = kAKChorus_DefaultDepth,
+        feedback: AUValue = kAKChorus_DefaultFeedback,
+        dryWetMix: AUValue = kAKChorus_DefaultDryWetMix
     ) {
         super.init(avAudioNode: AVAudioNode())
         self.frequency = frequency

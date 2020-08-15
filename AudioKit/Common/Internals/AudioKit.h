@@ -29,7 +29,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/DebugDSP.h>
 
 // Analysis
-#import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
 #import <AudioKit/AKFrequencyTrackerAudioUnit.h>
 #if !TARGET_OS_TV
 #import <AudioKit/AKMicrophoneTrackerEngine.h>
@@ -49,25 +48,16 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKSynthDSP.hpp>
 
 // Playback
-#import <AudioKit/AKWaveTableAudioUnit.h>
-#import <AudioKit/AKDiskStreamerAudioUnit.h>
 #import <AudioKit/AKPresetManager.h>
 #import <AudioKit/AKSampler_Typedefs.h>
 #import <AudioKit/AKCoreSampler.hpp>
 #import <AudioKit/AKCoreSynth.hpp>
 #import <AudioKit/AKSamplerDSP.hpp>
 
-// Taps
-#import <AudioKit/AKRenderTap.h>
-#import <AudioKit/AKLazyTap.h>
-#import <AudioKit/AKTimelineTap.h>
-
 // Utilities
 #import <AudioKit/ParameterRamper.hpp>
-#import <AudioKit/AKTimeline.h>
 
 // Sequencing / MIDI
-#import <AudioKit/AKSamplerMetronome.h>
 #if !TARGET_OS_TV
 #import <AudioKit/AKSequencerEngine.hpp>
 #import <AudioKit/AKCallbackInstrumentAudioUnit.h>
