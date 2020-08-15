@@ -122,8 +122,8 @@ jobs:
 #        echo "Running unit tests with Address Sanitizer"
 #        xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite clean test | xcpretty -c
 
-  # Build xcodegen project.
-  build-xcodegen:
+  # Build and test xcodegen project.
+  test-xcodegen:
     runs-on: macos-latest
     steps:
     - name: Check out AudioKit
@@ -134,7 +134,7 @@ jobs:
         set -euo pipefail
         sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
         echo "Building xcodegen project"
-        xcodebuild -project AudioKit/AudioKitGen.xcodeproj clean build | xcpretty -c
+        xcodebuild -project AudioKit/AudioKitGen.xcodeproj -scheme AudioKit_macOS clean test | xcpretty -c
 
   # Upload staging builds to S3
   staging:
