@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
 class AKAmplitudeTapTests: AKTestCase {
 
@@ -26,7 +27,7 @@ class AKAmplitudeTapTests: AKTestCase {
 
         let knownValues: [Float] = [0.06389575, 0.16763051, 0.27164128, 0.36971274, 0.458969,
                                     0.53708506, 0.6020897, 0.6523612, 0.6866519, 0.70411265]
-        assert(amplitudes == knownValues)
+        XCTAssertTrue(amplitudes == knownValues)
     }
 
 }
