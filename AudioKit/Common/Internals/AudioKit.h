@@ -57,17 +57,11 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKCoreSynth.hpp>
 #import <AudioKit/AKSamplerDSP.hpp>
 
-// Taps
-#import <AudioKit/AKRenderTap.h>
-#import <AudioKit/AKLazyTap.h>
-#import <AudioKit/AKTimelineTap.h>
 
 // Utilities
 #import <AudioKit/ParameterRamper.hpp>
-#import <AudioKit/AKTimeline.h>
 
 // Sequencing / MIDI
-#import <AudioKit/AKSamplerMetronome.h>
 #if !TARGET_OS_TV
 #import <AudioKit/AKSequencerEngine.hpp>
 #import <AudioKit/AKCallbackInstrumentAudioUnit.h>
