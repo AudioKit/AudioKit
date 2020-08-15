@@ -52,7 +52,7 @@ AK_API AKDSPRef akFlangerCreateDSP(void);
 #import "AKModulatedDelay.hpp"
 #import "ParameterRamper.hpp"
 
-struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
+struct AKModulatedDelayDSP : AKDSPBase
 {
 private:
     // ramped parameters
@@ -60,6 +60,7 @@ private:
     ParameterRamper depthRamp;
     ParameterRamper feedbackRamp;
     ParameterRamper dryWetMixRamp;
+    AKModulatedDelay delay;
 
 public:
     AKModulatedDelayDSP(AKModulatedDelayType type);
