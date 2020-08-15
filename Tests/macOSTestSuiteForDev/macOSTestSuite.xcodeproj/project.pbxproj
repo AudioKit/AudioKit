@@ -116,7 +116,6 @@
 		C4D8A00C21981A84002B71EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D8A00B21981A84002B71EC /* AVFoundation.framework */; };
 		EA4E727C2417A90700F98A40 /* VocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72742417A90600F98A40 /* VocalTractTests.swift */; };
 		EA4E727D2417A90700F98A40 /* AKVocalTractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */; };
-		EA4E727E2417A90700F98A40 /* AKDiskStreamerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */; };
 		EA4E72802417A90700F98A40 /* AKRhinoGuitarProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */; };
 		EA4E72822417A90700F98A40 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */; };
 		EA4E72832417A90700F98A40 /* AKAppleSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */; };
@@ -181,57 +180,15 @@
 			remoteGlobalIDString = EAA62D6F247F410100BF4CDB;
 			remoteInfo = "AudioKitUI-tvOS";
 		};
-		C4801F0724BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB63FB2494B0E0001E1F37;
-			remoteInfo = "STKAudioKit-iOS";
-		};
-		C4801F0924BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB654C2494B656001E1F37;
-			remoteInfo = "STKAudioKit-macOS";
-		};
-		C4801F0B24BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB65F72494B681001E1F37;
-			remoteInfo = "STKAudioKit-tvOS";
-		};
-		C4801F0D24BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB660224955B0D001E1F37;
-			remoteInfo = "DevoloopAudioKit-iOS";
-		};
-		C4801F0F24BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB6687249560CD001E1F37;
-			remoteInfo = "DevoloopAudioKit-macOS";
-		};
-		C4801F1124BF66340049BA55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4801EE924BF66340049BA55 /* AudioKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4DB66C7249560CD001E1F37;
-			remoteInfo = "DevoloopAudioKit-tvOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		290240ED24D4B829009D2BDA /* AKSequencerTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKSequencerTrackTests.swift; sourceTree = "<group>"; };
 		291F63C824C7CF1800B754F9 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
 		291F63D724C7CF1800B754F9 /* AKPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlayerTests.swift; sourceTree = "<group>"; };
-		2930E5D124C8AC1D00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Developer/Common/PinkNoise.wav; sourceTree = "<group>"; };
+		2930E5D124C8AC1D00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Tests/Resources/PinkNoise.wav; sourceTree = "<group>"; };
 		2938A90024D1B75D00D6D617 /* AKAutomationCurveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKAutomationCurveTests.swift; sourceTree = "<group>"; };
-		B172682524CF785A004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12345.wav; path = ../../../Developer/Common/12345.wav; sourceTree = "<group>"; };
+		B172682524CF785A004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12345.wav; path = ../../../Tests/Resources/12345.wav; sourceTree = "<group>"; };
 		C41910212009A7E00067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
 		C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterTests.swift; sourceTree = "<group>"; };
 		C464077320105CE300299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
@@ -340,11 +297,10 @@
 		C4D8A00B21981A84002B71EC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA4E72742417A90600F98A40 /* VocalTractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalTractTests.swift; sourceTree = "<group>"; };
 		EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocalTractTests.swift; sourceTree = "<group>"; };
-		EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamerTests.swift; sourceTree = "<group>"; };
 		EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
 		EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencerTests.swift; sourceTree = "<group>"; };
-		EA4E72842417B53D00F98A40 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
+		EA4E72842417B53D00F98A40 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Tests/Resources/sinechirp.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,12 +374,6 @@
 				C4801F0224BF66340049BA55 /* AudioKitUI.framework */,
 				C4801F0424BF66340049BA55 /* AudioKitUI.framework */,
 				C4801F0624BF66340049BA55 /* AudioKitUI.framework */,
-				C4801F0824BF66340049BA55 /* STKAudioKit.framework */,
-				C4801F0A24BF66340049BA55 /* STKAudioKit.framework */,
-				C4801F0C24BF66340049BA55 /* STKAudioKit.framework */,
-				C4801F0E24BF66340049BA55 /* DevoloopAudioKit.framework */,
-				C4801F1024BF66340049BA55 /* DevoloopAudioKit.framework */,
-				C4801F1224BF66340049BA55 /* DevoloopAudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,7 +407,6 @@
 				C4AA79E41FD09BA300040720 /* AKHighPassButterworthFilterTests.swift */,
 				C4AA79B61FD09BA300040720 /* AKHighPassFilterTests.swift */,
 				EA4E727B2417A90700F98A40 /* AKAppleSequencerTests.swift */,
-				EA4E72762417A90600F98A40 /* AKDiskStreamerTests.swift */,
 				EA4E727A2417A90700F98A40 /* AKMusicTrackTests.swift */,
 				EA4E72782417A90600F98A40 /* AKRhinoGuitarProcessorTests.swift */,
 				EA4E72752417A90600F98A40 /* AKVocalTractTests.swift */,
@@ -687,48 +636,6 @@
 			remoteRef = C4801F0524BF66340049BA55 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C4801F0824BF66340049BA55 /* STKAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = STKAudioKit.framework;
-			remoteRef = C4801F0724BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C4801F0A24BF66340049BA55 /* STKAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = STKAudioKit.framework;
-			remoteRef = C4801F0924BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C4801F0C24BF66340049BA55 /* STKAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = STKAudioKit.framework;
-			remoteRef = C4801F0B24BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C4801F0E24BF66340049BA55 /* DevoloopAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DevoloopAudioKit.framework;
-			remoteRef = C4801F0D24BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C4801F1024BF66340049BA55 /* DevoloopAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DevoloopAudioKit.framework;
-			remoteRef = C4801F0F24BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C4801F1224BF66340049BA55 /* DevoloopAudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DevoloopAudioKit.framework;
-			remoteRef = C4801F1124BF66340049BA55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -824,7 +731,6 @@
 				C4AA7A581FD09BA400040720 /* AKPhaseDistortionOscillatorBankTests.swift in Sources */,
 				C4AA7A1C1FD09BA300040720 /* AKModalResonanceFilterTests.swift in Sources */,
 				C4AA7A1B1FD09BA300040720 /* AKLowPassButterworthFilterTests.swift in Sources */,
-				EA4E727E2417A90700F98A40 /* AKDiskStreamerTests.swift in Sources */,
 				C4AA7A5B1FD09BA400040720 /* AKThreePoleLowpassFilterTests.swift in Sources */,
 				C4AA7A0F1FD09BA300040720 /* reverberateWithChowningTests.swift in Sources */,
 				C4AA7A111FD09BA300040720 /* sineWaveTests.swift in Sources */,

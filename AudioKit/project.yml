@@ -16,16 +16,6 @@ targets:
       path: Info.plist
     sources:
       - path: Externals
-        excludes:
-          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
-          - "AudioKitCore/Sampler/AKCoreSampler.hpp"
-          - "AudioKitCore/Synth/AKCoreSynth.hpp"
-          - "AudioKitCore/ModulatedDelay/AKModulatedDelay.hpp"
-          - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
-          - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
-          - "Soundpipe/test/md5.h"
-        headerVisibility: project
-      - path: Externals
         includes:
           - "AudioKitCore/Sampler/AKCoreSampler.hpp"
           - "AudioKitCore/Synth/AKCoreSynth.hpp"
@@ -33,116 +23,64 @@ targets:
           - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
           - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
           - "Soundpipe/test/md5.h"
+        headerVisibility: public
+      - path: Externals
+        excludes:
+          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+        headerVisibility: project
+      - path: Common
+        includes:
+          - "Internals/AudioKit.h"
+          - "Internals/CoreAudio/AKAudioUnit.h"
+          - "Internals/CoreAudio/AKDSPBase.hpp"
+          - "Internals/CoreAudio/AKGlobals.hpp"
+          - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
+          - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
+          - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
+          - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
+          - "Internals/EZAudio/EZAudio.h"
+          - "Internals/EZAudio/EZAudioDevice.h"
+          - "Internals/EZAudio/EZAudioFFT.h"
+          - "Internals/EZAudio/EZAudioFile.h"
+          - "Internals/EZAudio/EZAudioFileMarker.h"
+          - "Internals/EZAudio/EZAudioFloatConverter.h"
+          - "Internals/EZAudio/EZAudioFloatData.h"
+          - "Internals/EZAudio/EZAudioPlayer.h"
+          - "Internals/EZAudio/EZAudioUtilities.h"
+          - "Internals/EZAudio/EZMicrophone.h"
+          - "Internals/EZAudio/EZOutput.h"
+          - "Internals/EZAudio/EZRecorder.h"
+          - "Internals/Hardware/Microphone Tracker/AKMicrophoneTrackerEngine.h"
+          - "Internals/Sporth Custom Ugens/AKSporthStack.h"
+          - "Internals/Utilities/AKInterop.h"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
+          - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
+          - "Internals/Utilities/DebugDSP.h"
+          - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
+          - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
+          - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
+          - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
+          - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
+          - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
+          - "Nodes/Generators/Synth/AKSynthDSP.hpp"
+          - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
+          - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
+          - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
+          - "Sequencing/Sequencer/AKSequencerEngine.hpp"
+        headerVisibility: public
       - path: Common
         excludes:
           - "**/*.md"
-          - "Internals/AudioKit.h"
-          - "Internals/CoreAudio/AKAudioUnit.h"
-          - "Internals/CoreAudio/AKDSPBase.hpp"
-          - "Internals/CoreAudio/AKGlobals.hpp"
-          - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
-          - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
-          - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
-          - "Internals/CoreAudio/Bank/AKBankAudioUnit.h"
-          - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
-          - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
-          - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
-          - "Internals/EZAudio/EZAudio.h"
-          - "Internals/EZAudio/EZAudioDevice.h"
-          - "Internals/EZAudio/EZAudioFFT.h"
-          - "Internals/EZAudio/EZAudioFile.h"
-          - "Internals/EZAudio/EZAudioFileMarker.h"
-          - "Internals/EZAudio/EZAudioFloatConverter.h"
-          - "Internals/EZAudio/EZAudioFloatData.h"
-          - "Internals/EZAudio/EZAudioPlayer.h"
-          - "Internals/EZAudio/EZAudioUtilities.h"
-          - "Internals/EZAudio/EZMicrophone.h"
-          - "Internals/EZAudio/EZOutput.h"
-          - "Internals/EZAudio/EZRecorder.h"
-          - "Internals/Hardware/Microphone Tracker/AKMicrophoneTrackerEngine.h"
-          - "Internals/Sporth Custom Ugens/AKSporthStack.h"
-          - "Internals/Utilities/AKInterop.h"
-          - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
-          - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
-          - "Internals/Utilities/DebugDSP.h"
-          - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
-          - "Internals/Utilities/Timeline/AKTimeline.h"
-          - "Nodes/Analysis/Amplitude Tracker/AKAmplitudeTrackerAudioUnit.h"
-          - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
-          - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
-          - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
-          - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
-          - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
-          - "Nodes/Generators/Synth/AKSynthDSP.hpp"
-          - "Nodes/Generators/Physical Models/STK/*/*.hpp"
-          - "Nodes/Generators/Physical Models/STK/*/*.h"
-          - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
-          - "Nodes/Playback/AKSamplerMetronome.h"
-          - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
-          - "Nodes/Playback/Samplers/Disk Streamer/AKDiskStreamerAudioUnit.h"
-          - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
-          - "Nodes/Playback/Samplers/Wave Table/AKWaveTableAudioUnit.h"
-          - "Sequencing/Sequencer/AKSequencerEngine.hpp"
-          - "Taps/Lazy Tap/AKLazyTap.h"
-          - "Taps/Render Tap/AKRenderTap.h"
-          - "Taps/Timeline Tap/AKTimelineTap.h"
           - "User Interface/**"
         headerVisibility: project
-      - path: Common
-        includes:
-          - "Internals/AudioKit.h"
-          - "Internals/CoreAudio/AKAudioUnit.h"
-          - "Internals/CoreAudio/AKDSPBase.hpp"
-          - "Internals/CoreAudio/AKGlobals.hpp"
-          - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
-          - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
-          - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
-          - "Internals/CoreAudio/Bank/AKBankAudioUnit.h"
-          - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
-          - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
-          - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
-          - "Internals/EZAudio/EZAudio.h"
-          - "Internals/EZAudio/EZAudioDevice.h"
-          - "Internals/EZAudio/EZAudioFFT.h"
-          - "Internals/EZAudio/EZAudioFile.h"
-          - "Internals/EZAudio/EZAudioFileMarker.h"
-          - "Internals/EZAudio/EZAudioFloatConverter.h"
-          - "Internals/EZAudio/EZAudioFloatData.h"
-          - "Internals/EZAudio/EZAudioPlayer.h"
-          - "Internals/EZAudio/EZAudioUtilities.h"
-          - "Internals/EZAudio/EZMicrophone.h"
-          - "Internals/EZAudio/EZOutput.h"
-          - "Internals/EZAudio/EZRecorder.h"
-          - "Internals/Hardware/Microphone Tracker/AKMicrophoneTrackerEngine.h"
-          - "Internals/Sporth Custom Ugens/AKSporthStack.h"
-          - "Internals/Utilities/AKInterop.h"
-          - "Internals/Utilities/Circular Buffer/TPCircularBuffer+Unit.h"
-          - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
-          - "Internals/Utilities/DebugDSP.h"
-          - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
-          - "Internals/Utilities/Timeline/AKTimeline.h"
-          - "Nodes/Analysis/Amplitude Tracker/AKAmplitudeTrackerAudioUnit.h"
-          - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
-          - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
-          - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
-          - "Nodes/Effects/Modulation/Common/AKModulatedDelayDSP.hpp"
-          - "Nodes/Generators/AudioKit Operation-Based Generator/AKOperationGeneratorAudioUnit.h"
-          - "Nodes/Generators/Synth/AKSynthDSP.hpp"
-          - "Nodes/Generators/Physical Models/STK/*/*.hpp"
-          - "Nodes/Generators/Physical Models/STK/*/*.h"
-          - "Nodes/Mixing/Automation/AKParameterAutomation.hpp"
-          - "Nodes/Playback/AKSamplerMetronome.h"
-          - "Nodes/Playback/Samplers/Apple Sampler/AKPresetManager.h"
-          - "Nodes/Playback/Samplers/Disk Streamer/AKDiskStreamerAudioUnit.h"
-          - "Nodes/Playback/Samplers/Sampler/AKSamplerDSP.hpp"
-          - "Nodes/Playback/Samplers/Wave Table/AKWaveTableAudioUnit.h"
-          - "Sequencing/Sequencer/AKSequencerEngine.hpp"
-          - "Taps/Lazy Tap/AKLazyTap.h"
-          - "Taps/Render Tap/AKRenderTap.h"
-          - "Taps/Timeline Tap/AKTimelineTap.h"
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
       PRODUCT_BUNDLE_IDENTIFIER: io.audiokit.framework
+    scheme:
+      testTargets:
+        - AudioKit_tests_${platform}
 
   AudioKit_tests:
     type: bundle.unit-test
@@ -151,7 +89,7 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
-      - path: ../Developer/Common
+      - path: ../Tests/Resources
         includes:
           - "*.wav"
     dependencies:

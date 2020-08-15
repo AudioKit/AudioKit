@@ -11,7 +11,7 @@ enum AKDynaRageCompressorParameter : AUParameterAddress {
     AKDynaRageCompressorParameterThreshold,
     AKDynaRageCompressorParameterAttackDuration,
     AKDynaRageCompressorParameterReleaseDuration,
-    AKDynaRageCompressorParameterRageAmount,
+    AKDynaRageCompressorParameterRage,
     AKDynaRageCompressorParameterRageEnabled
 };
 
@@ -37,7 +37,7 @@ public:
         parameters[AKDynaRageCompressorParameterThreshold] = &thresholdRamp;
         parameters[AKDynaRageCompressorParameterAttackDuration] = &attackDurationRamp;
         parameters[AKDynaRageCompressorParameterReleaseDuration] = &releaseDurationRamp;
-        parameters[AKDynaRageCompressorParameterRageAmount] = &rageRamp;
+        parameters[AKDynaRageCompressorParameterRage] = &rageRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -48,8 +48,8 @@ public:
         float attackDuration = attackDurationRamp.get();
         float releaseDuration = releaseDurationRamp.get();
 
-        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
-        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
+        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int)sampleRate);
+        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int)sampleRate);
 
         left_rageprocessor = std::make_unique<RageProcessor>((int)sampleRate);
         right_rageprocessor = std::make_unique<RageProcessor>((int)sampleRate);
@@ -68,8 +68,8 @@ public:
         float attackDuration = attackDurationRamp.get();
         float releaseDuration = releaseDurationRamp.get();
 
-        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
-        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int) sampleRate);
+        left_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int)sampleRate);
+        right_compressor = std::make_unique<Compressor>(threshold, ratio, attackDuration, releaseDuration, (int)sampleRate);
     }
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override {
@@ -110,7 +110,6 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-
                         float rageSignal = left_rageprocessor->doRage(*in, rage, rage);
                         float compSignal = left_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
                         *out = compSignal;
@@ -132,5 +131,5 @@ AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRatio)
 AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterThreshold)
 AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterAttackDuration)
 AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterReleaseDuration)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRageAmount)
+AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRage)
 AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRageEnabled)

@@ -48,7 +48,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
         public override func createDSP() -> AKDSPRef {
             akCreateDSP("AKVariableDelayDSP")
         }
-        
+
         public func setMaximumTime(_ maximumTime: AUValue) {
             akVariableDelaySetMaximumTime(dsp, maximumTime)
         }

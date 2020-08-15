@@ -2,7 +2,7 @@
 
 ## Examples for iOS that build on macOS Catalina through Catalyst
 
-* HelloWorld - a simple two frequency oscillator
+* HelloWorld - two simple frequency oscillators
 * Drums - trigger drum sounds from 8 pads on your iOS device. This one is the first built with SwiftUI.
 
 ## Examples for iOS and macOS
@@ -17,12 +17,7 @@
 ## Examples for iOS only
 
 * Apple Sampler Demo - example of AudioKit's AKAppleSampler
-* Hello Objective-C - Hello World in the Objective-C language (as opposed to Swift)
-* Loopback Recording - shows how to use the AKClipRecorder
-* Metronome Sampler Sync - highly accurate, sample triggering metronome
 * MIDI File Edit and Sync - demonstrates how to manipulate midifiles on the fly
-* Particles - Metal based audio visualizer (works on devices only, not the simulator)
-* Sequencer Demo - example of AudioKit's AKAppleSequencer
 
 ### Audiobus Examples for iOS
 
