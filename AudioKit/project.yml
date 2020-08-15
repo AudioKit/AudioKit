@@ -88,7 +88,7 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
-      - path: ../Developer/Common
+      - path: ../Tests/Common
         includes:
           - "*.wav"
     dependencies:

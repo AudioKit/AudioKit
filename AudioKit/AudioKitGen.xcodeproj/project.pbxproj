@@ -4074,7 +4074,7 @@
 				87156C5BD06BDEB8C7A6F567 /* sinechirp.wav */,
 			);
 			name = Common;
-			path = ../Developer/Common;
+			path = ../Tests/Common;
 			sourceTree = "<group>";
 		};
 		1E65D8255DA1B54C87FDD7FA /* Formant Filter */ = {

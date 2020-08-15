@@ -148,12 +148,12 @@
 		2902413924D514BB009D2BDA /* AKSequencerTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrackTests.swift; sourceTree = "<group>"; };
 		291F63AF24C7C48300B754F9 /* AKPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlayerTests.swift; sourceTree = "<group>"; };
 		291F63B024C7C48300B754F9 /* AKParameterAutomationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterAutomationTests.swift; sourceTree = "<group>"; };
-		2930E5E724C8B00A00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Developer/Common/PinkNoise.wav; sourceTree = "<group>"; };
+		2930E5E724C8B00A00BAD0F4 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Tests/Common/PinkNoise.wav; sourceTree = "<group>"; };
 		2938A92324D1BFE100D6D617 /* AKAutomationCurveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAutomationCurveTests.swift; sourceTree = "<group>"; };
 		295F49B524E463B0004DC443 /* AKShakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKShakerTests.swift; sourceTree = "<group>"; };
 		295F49CA24E4F5F4004DC443 /* AKFluteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFluteTests.swift; sourceTree = "<group>"; };
 		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
-		B172683624CF7DAD004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12345.wav; path = ../../../Developer/Common/12345.wav; sourceTree = "<group>"; };
+		B172683624CF7DAD004A3E18 /* 12345.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12345.wav; path = ../../../Tests/Common/12345.wav; sourceTree = "<group>"; };
 		C40D6BBD206F29420094FB23 /* AKRhinoGuitarProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessorTests.swift; sourceTree = "<group>"; };
 		C419101D2009A7B50067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
 		C419101F2009A7C10067B5E0 /* AKStereoFieldLimiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterTests.swift; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		C47C528220929D7800A6FB3C /* AKAppleSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencerTests.swift; sourceTree = "<group>"; };
 		C49498F7246E243B000775AB /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 		C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicRangeCompressorTests.swift; sourceTree = "<group>"; };
-		FEE0730420E56B0A003F7FD5 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
+		FEE0730420E56B0A003F7FD5 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Tests/Common/sinechirp.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
