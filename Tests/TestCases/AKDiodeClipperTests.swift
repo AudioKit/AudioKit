@@ -6,7 +6,7 @@ class AKDiodeClipperTests: AKTestCase {
 
     func testDefault() {
         output = AKDiodeClipper(input)
-        AKTestMD5("8cfb818d588cc576d6c9374e8343642c")
+        AKTestMD5("b4506e9954654342342546d932b52ec9")
     }
 
     func testParameters1() {
