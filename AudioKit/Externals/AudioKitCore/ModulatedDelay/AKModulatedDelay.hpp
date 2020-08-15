@@ -24,6 +24,8 @@ public:
     
     void setLeftFeedback(float feedback);
     void setRightFeedback(float feedback);
+    
+    void setDryWetMix(float mix) { dryWetMix = mix; }
         
     void Render(unsigned channelCount, unsigned sampleCount, float *inBuffers[], float *outBuffers[]);
     
