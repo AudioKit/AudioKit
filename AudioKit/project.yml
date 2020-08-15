@@ -37,7 +37,6 @@ targets:
           - "Internals/CoreAudio/AKSoundpipeDSPBase.hpp"
           - "Internals/CoreAudio/Apple Code/DSPKernel.hpp"
           - "Internals/CoreAudio/Apple Code/ParameterRamper.hpp"
-          - "Internals/CoreAudio/Bank/AKBankAudioUnit.h"
           - "Internals/CoreAudio/Parameter Rampers/AKLinearParameterRamp.hpp"
           - "Internals/CoreAudio/Parameter Rampers/AKParameterRamp.hpp"
           - "Internals/CoreAudio/Parameter Rampers/AKParameterRampBase.hpp"
@@ -85,7 +84,6 @@ targets:
           - "**/*.md"
           - "User Interface/**"
         headerVisibility: project
-  
     settings:
       GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) AUDIOKIT=1 NO_LIBSNDFILE=1"
       PRODUCT_BUNDLE_IDENTIFIER: io.audiokit.framework

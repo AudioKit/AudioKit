@@ -29,7 +29,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let thresholdDef = AKNodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
-        address: akGetParameterAddress("AKDynaRageCompressorThreshold"),
+        address: akGetParameterAddress("AKDynaRageCompressorParameterThreshold"),
         range: -100.0 ... 0.0,
         unit: .decibels,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack Duration",
-        address: akGetParameterAddress("AKDynaRageCompressorAttackDuration"),
+        address: akGetParameterAddress("AKDynaRageCompressorParameterAttackDuration"),
         range: 0.1 ... 500.0,
         unit: .seconds,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release Duration",
-        address: akGetParameterAddress("AKDynaRageCompressorReleaseDuration"),
+        address: akGetParameterAddress("AKDynaRageCompressorParameterReleaseDuration"),
         range: 1.0 ... 20.0,
         unit: .seconds,
         flags: .default)
@@ -62,7 +62,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let rageDef = AKNodeParameterDef(
         identifier: "rage",
         name: "Rage",
-        address: akGetParameterAddress("AKDynaRageCompressorRage"),
+        address: akGetParameterAddress("AKDynaRageCompressorParameterRage"),
         range: 0.1 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -73,7 +73,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput, A
     public static let rageEnabledDef = AKNodeParameterDef(
         identifier: "rageEnabled",
         name: "Rage Enabled",
-        address: akGetParameterAddress("AKDynaRageCompressorRageEnabled"),
+        address: akGetParameterAddress("AKDynaRageCompressorParameterRageEnabled"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
