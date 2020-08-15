@@ -12,9 +12,5 @@ class AKChorusTests: AKTestCase {
                           dryWetMix: 0.9)
         AKTestMD5("35e3290ff7046179cc267153153b0e7e")
     }
-
-//    func testDefault() {
-//        output = AKChorus(input)
-//        AKTestMD5("6ee413495f949542432eb00d32ecd903")
-//    }
 }
+
