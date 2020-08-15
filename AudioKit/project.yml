@@ -149,6 +149,7 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
+          - "AKWaveTableTests.swift"
       - path: ../Developer/Common
         includes:
           - "*.wav"
