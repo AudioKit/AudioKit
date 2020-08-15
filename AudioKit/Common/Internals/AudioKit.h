@@ -29,7 +29,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/DebugDSP.h>
 
 // Analysis
-#import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
 #import <AudioKit/AKFrequencyTrackerAudioUnit.h>
 #if !TARGET_OS_TV
 #import <AudioKit/AKMicrophoneTrackerEngine.h>
@@ -54,7 +53,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKCoreSampler.hpp>
 #import <AudioKit/AKCoreSynth.hpp>
 #import <AudioKit/AKSamplerDSP.hpp>
-
 
 // Utilities
 #import <AudioKit/ParameterRamper.hpp>

@@ -59,7 +59,6 @@ targets:
           - "Internals/Utilities/Circular Buffer/TPCircularBuffer.h"
           - "Internals/Utilities/DebugDSP.h"
           - "Internals/Utilities/Exception Catcher/ExceptionCatcher.h"
-          - "Nodes/Analysis/Amplitude Tracker/AKAmplitudeTrackerAudioUnit.h"
           - "Nodes/Analysis/Frequency Tracker/AKFrequencyTrackerAudioUnit.h"
           - "Nodes/Callback Instrument/AKCallbackInstrumentAudioUnit.h"
           - "Nodes/Effects/AudioKit Operation-Based Effect/AKOperationEffectAudioUnit.h"
@@ -88,7 +87,7 @@ targets:
       - path: ../Tests/TestCases
         excludes:
           - "AKDynaRageCompressorTests.swift"
-      - path: ../Tests/Common
+      - path: ../Tests/Resources
         includes:
           - "*.wav"
     dependencies:
