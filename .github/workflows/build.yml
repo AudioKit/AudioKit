@@ -127,7 +127,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - name: Check out AudioKit
-      uses: actions/checkout@v2A
+      uses: actions/checkout@v2
 
     - name: Build xocdegen project
       run: |

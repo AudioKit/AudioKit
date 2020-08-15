@@ -16,16 +16,6 @@ targets:
       path: Info.plist
     sources:
       - path: Externals
-        excludes:
-          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
-          - "AudioKitCore/Sampler/AKCoreSampler.hpp"
-          - "AudioKitCore/Synth/AKCoreSynth.hpp"
-          - "AudioKitCore/ModulatedDelay/AKModulatedDelay.hpp"
-          - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
-          - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
-          - "Soundpipe/test/md5.h"
-        headerVisibility: project
-      - path: Externals
         includes:
           - "AudioKitCore/Sampler/AKCoreSampler.hpp"
           - "AudioKitCore/Synth/AKCoreSynth.hpp"
@@ -33,6 +23,11 @@ targets:
           - "AudioKitCore/ModulatedDelay/AKModulatedDelay_Typedefs.h"
           - "AudioKitCore/Sampler/AKSampler_Typedefs.h"
           - "Soundpipe/test/md5.h"
+        headerVisibility: public
+      - path: Externals
+        excludes:
+          - "**/*.md" # Would like to include the README files but they need to be kept out of the copy files build phase
+        headerVisibility: project
       - path: Common
         excludes:
           - "**/*.md"
