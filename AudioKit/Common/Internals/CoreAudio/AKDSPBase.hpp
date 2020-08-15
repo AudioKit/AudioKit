@@ -172,7 +172,7 @@ private:
      From Apple Example code
      */
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                           AURenderEvent const *events);
+                                   AURenderEvent const *events);
     
     void handleOneEvent(AURenderEvent const *event);
     
