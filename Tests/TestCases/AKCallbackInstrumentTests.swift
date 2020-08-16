@@ -5,7 +5,7 @@ import AudioKit
 
 class AKCallbackInstrumentTests: AKTestCase {
 
-    let instrument = AKCallbackInstrument()
+    var instrument = AKCallbackInstrument()
 
     func getTestSequence() -> AKSequence {
 
@@ -31,7 +31,8 @@ class AKCallbackInstrumentTests: AKTestCase {
 
         let track = AKSequencerTrack(targetNode: instrument)
         var data: [UInt8] = []
-        instrument.callback = { status, data1, data2 in
+
+        instrument = AKCallbackInstrument() { status, data1, data2 in
             data.append(status)
             data.append(data1)
             data.append(data2)

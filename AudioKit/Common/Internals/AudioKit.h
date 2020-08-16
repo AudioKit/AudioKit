@@ -60,7 +60,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Sequencing / MIDI
 #if !TARGET_OS_TV
 #import <AudioKit/AKSequencerEngine.hpp>
-#import <AudioKit/AKCallbackInstrumentAudioUnit.h>
 #endif
 
 // Automation
