@@ -39,14 +39,6 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
         }
     }
 
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        internalAU?.startNote(noteNumber, velocity: velocity)
-    }
-
-    open override func stop(noteNumber: MIDINoteNumber) {
-        internalAU?.stopNote(noteNumber)
-    }
-
     deinit {
         internalAU?.destroy()
     }

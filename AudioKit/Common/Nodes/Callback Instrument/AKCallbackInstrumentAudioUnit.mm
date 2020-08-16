@@ -19,12 +19,6 @@
 -(void)setCallback:(AKCMIDICallback)callback {
     _kernel.callback = callback;
 }
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
-    _kernel.startNote(note, velocity);
-}
-- (void)stopNote:(uint8_t)note {
-    _kernel.stopNote(note);
-}
 
 standardKernelPassthroughs()
 
