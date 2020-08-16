@@ -26,7 +26,7 @@ let package = Package(
                     .headerSearchPath("lib/kissfft"),
                     .define("NO_LIBSNDFILE")
         ]),
-        .target(name: "Soundpipeextension",
+        .target(name: "SoundpipeExtension",
                 dependencies: ["Soundpipe"]),
         .target(name: "STK"),
         .target(name: "TPCircularBuffer"),
@@ -35,7 +35,7 @@ let package = Package(
             dependencies: ["TPCircularBuffer"]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "Soundpipe", "Soundpipeextension", "EZAudio"],
+            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "EZAudio"],
             cxxSettings: [
                 .headerSearchPath("CoreAudio")
             ]
