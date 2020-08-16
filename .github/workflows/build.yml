@@ -81,29 +81,28 @@ jobs:
         path: Frameworks/release
 
   # Perform unit tests in parallel
-  # XXX: disable due to SPM migration
-#  test:
-#    needs: xcframework
-#    runs-on: macos-latest
-#    strategy:
-#      matrix:
-#        env:
-#          [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
-#      fail-fast: false
-#
-#    steps:
-#    - name: Check out AudioKit
-#      uses: actions/checkout@v2
-#
-#    - name: Download XCFramework
-#      uses: actions/download-artifact@v1
-#      with:
-#        name: XCFrameworks
-#        path: Frameworks
-#
-#    - name: Run unit tests
-#      run: |
-#        sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
+  test:
+    needs: xcframework
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        env:
+          [PLATFORMS: iOS, PLATFORMS: macOS, PLATFORMS: tvOS]
+      fail-fast: false
+
+    steps:
+    - name: Check out AudioKit
+      uses: actions/checkout@v2
+    
+    - name: Download XCFramework
+      uses: actions/download-artifact@v1
+      with:
+        name: XCFrameworks
+        path: Frameworks
+
+    - name: Run unit tests
+      run: |
+        sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
 #        ./Tests/test-${{ matrix.env.PLATFORMS }}.sh
 
   # Run unit tests with thread/address sanitizers turned on - also builds AudioKit from source
