@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AudioKit.h"
+#include "AKSoundpipeDSPBase.hpp"
+#include "ParameterRamper.hpp"
 #include "soundpipe.h"
 #include <vector>
 
@@ -89,7 +90,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
-                        AKDebugDSP(AKPhaseDistortionOscillatorDebugPhase, ph);
+//                        AKDebugDSP(AKPhaseDistortionOscillatorDebugPhase, ph);
                         sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
                         tabread->index = pd;
                         sp_tabread_compute(sp, tabread, NULL, &temp);
