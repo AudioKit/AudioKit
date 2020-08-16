@@ -21,12 +21,24 @@ class AKCallbackInstrumentTests: AKTestCase {
 
         duration = 3
 
+        let expect = XCTestExpectation(description: "wait for callback")
+        let expectedData: [UInt8] = [144, 60, 127,
+                                     128, 60, 127,
+                                     144, 62, 127,
+                                     128, 62, 127,
+                                     144, 63, 127,
+                                     128, 63, 127]
+
         let track = AKSequencerTrack(targetNode: instrument)
         var data: [UInt8] = []
         instrument.callback = { status, data1, data2 in
             data.append(status)
             data.append(data1)
             data.append(data2)
+
+            if data.count == expectedData.count {
+                expect.fulfill()
+            }
         }
 
         track.sequence = getTestSequence()
@@ -36,12 +48,9 @@ class AKCallbackInstrumentTests: AKTestCase {
         output = instrument
 
         AKTestMD5("1d479b2f01ff096f729486321207710c")
-        XCTAssertEqual(data, [144, 60, 127,
-                              128, 60, 127,
-                              144, 62, 127,
-                              128,62, 127,
-                              144, 63, 127,
-                              128,  63, 127])
+
+        wait(for: [expect], timeout: 1.0)
+        XCTAssertEqual(data, expectedData)
     }
 
 
