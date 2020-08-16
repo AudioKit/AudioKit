@@ -18,8 +18,16 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(name: "Soundpipe",
+                cSettings: [
+                    .headerSearchPath("lib/dr_wav"),
+                    .headerSearchPath("lib/faust"),
+                    .headerSearchPath("lib/inih"),
+                    .headerSearchPath("lib/kissfft"),
+                    .define("NO_LIBSNDFILE")
+        ]),
         .target(name: "STK"),
-        .target(name: "CAudioKit", dependencies: ["STK"]),
+        .target(name: "CAudioKit", dependencies: ["STK", "Soundpipe"]),
         .target(
             name: "AudioKit",
             dependencies: ["CAudioKit"]),
