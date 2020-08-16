@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AudioKit.h"
+#include "AKSoundpipeDSPBase.hpp"
+#include "ParameterRamper.hpp"
 #include "soundpipe.h"
 #include <vector>
 
@@ -71,7 +72,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_osc_compute(sp, osc, nil, &temp);
-                        AKDebugDSP(AKOscillatorDebugPhase, osc->lphs);
+                        // AKDebugDSP(AKOscillatorDebugPhase, osc->lphs);
                     }
                     *out = temp;
                 } else {
