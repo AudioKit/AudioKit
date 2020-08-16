@@ -30,6 +30,7 @@ let package = Package(
                 dependencies: ["Soundpipe"]),
         .target(name: "STK"),
         .target(name: "TPCircularBuffer"),
+        .target(name: "Devoloop"),
         .target(
             name: "EZAudio",
             dependencies: ["TPCircularBuffer"]),
@@ -40,7 +41,7 @@ let package = Package(
         ]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "EZAudio", "AudioKitCore"],
+            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "EZAudio", "AudioKitCore", "Devoloop"],
             cxxSettings: [
                 .headerSearchPath("CoreAudio")
             ]
