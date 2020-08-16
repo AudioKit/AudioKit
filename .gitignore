@@ -40,3 +40,7 @@ AudioUnits
 SwiftStyleSettings.plist
 
 /Frameworks/distribute_built_frameworks.sh
+
+# Swift Package Manager
+/.build
+/Packages
