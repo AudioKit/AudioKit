@@ -22,7 +22,6 @@
 #import "EZAudioFloatConverter.h"
 #import "EZAudioUtilities.h"
 #import "EZAudioDevice.h"
-#import "AKGlobals.hpp"
 
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures
