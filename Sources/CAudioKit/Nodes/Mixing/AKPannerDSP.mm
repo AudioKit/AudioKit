@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AudioKit.h"
+#include "AKSoundpipeDSPBase.hpp"
+#include "ParameterRamper.hpp"
 #include "soundpipe.h"
 
 enum AKPannerParameter : AUParameterAddress {
