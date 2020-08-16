@@ -75,6 +75,9 @@ AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
 AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 
+typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
+AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback);
+
 // Custom debug
 #define AKPhaseDistortionOscillatorDebugPhase 0
 #define AKOscillatorDebugPhase 0

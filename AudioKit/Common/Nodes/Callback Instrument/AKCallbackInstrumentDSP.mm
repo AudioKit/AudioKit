@@ -3,8 +3,6 @@
 #include "AudioKit.h"
 #import "TPCircularBuffer.h"
 
-typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
-
 class AKCallbackInstrumentDSP : public AKSoundpipeDSPBase {
 public:
     // MARK: Member Functions
@@ -52,7 +50,7 @@ public:
         }
     }
 
-    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
         TPCircularBufferProduceBytes(&midiBuffer, midiEvent.data, 3);
     }
@@ -75,6 +73,10 @@ public:
         }
     }
     
+    void setCallback(AKCMIDICallback func) {
+        callback = func;
+    }
+    
 private:
     int count = 0;
     int lastFrameCount = 0;
@@ -85,5 +87,9 @@ public:
     bool resetted = false;
     AKCMIDICallback callback = nullptr;
 };
+
+AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback) {
+    static_cast<AKCallbackInstrumentDSP*>(dsp)->setCallback(callback);
+}
 
 AK_REGISTER_DSP(AKCallbackInstrumentDSP)
