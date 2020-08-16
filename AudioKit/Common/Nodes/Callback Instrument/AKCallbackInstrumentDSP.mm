@@ -1,17 +1,16 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#pragma once
-#import "AKSoundpipeKernel.hpp"
+#include "AudioKit.h"
 #import "TPCircularBuffer.h"
 
-class AKCallbackInstrumentDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKCallbackInstrumentDSP : public AKDSPBase {
 public:
     // MARK: Member Functions
 
     TPCircularBuffer midiBuffer;
     NSTimer* timer;
 
-    AKCallbackInstrumentDSPKernel() {
+    AKCallbackInstrumentDSP() {
         TPCircularBufferInit(&midiBuffer, 4096);
         // Hopefully this polling interval is ok.
         timer = [NSTimer scheduledTimerWithTimeInterval:0.01
@@ -21,41 +20,21 @@ public:
                  }];
     }
 
-    ~AKCallbackInstrumentDSPKernel() {
+    ~AKCallbackInstrumentDSP() {
         TPCircularBufferCleanup(&midiBuffer);
         [timer invalidate];
     }
-
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
-    }
-
-    void destroy() {
-        AKSoundpipeKernel::destroy();
-    }
     
-    void start() {
+    void start() override {
         started = true;
     }
 
-    void stop() {
+    void stop() override {
         started = false;
     }
 
-    void reset() {
+    void reset() override {
         resetted = true;
-    }
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        return 0.0f;
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
@@ -71,7 +50,7 @@ public:
         }
     }
 
-    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
         TPCircularBufferProduceBytes(&midiBuffer, midiEvent.data, 3);
     }
@@ -94,6 +73,10 @@ public:
         }
     }
     
+    void setCallback(AKCMIDICallback func) {
+        callback = func;
+    }
+    
 private:
     int count = 0;
     int lastFrameCount = 0;
@@ -104,3 +87,9 @@ public:
     bool resetted = false;
     AKCMIDICallback callback = nullptr;
 };
+
+AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback) {
+    static_cast<AKCallbackInstrumentDSP*>(dsp)->setCallback(callback);
+}
+
+AK_REGISTER_DSP(AKCallbackInstrumentDSP)
