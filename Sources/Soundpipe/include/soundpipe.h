@@ -1,6 +1,8 @@
 #ifndef SOUNDPIPE_H
 #define SOUNDPIPE_H
 
+#include "dr_wav.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -1716,7 +1718,6 @@ int sp_waveset_destroy(sp_waveset **p);
 int sp_waveset_init(sp_data *sp, sp_waveset *p, SPFLOAT ilen);
 int sp_waveset_compute(sp_data *sp, sp_waveset *p, SPFLOAT *in, SPFLOAT *out);
 
-#include "dr_wav.h"
 #define WAVIN_BUFSIZE 1024
 typedef struct {
     SPFLOAT buf[WAVIN_BUFSIZE];
