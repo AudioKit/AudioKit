@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKPresetManager.h"
-#import <AudioKit/AudioKit-Swift.h>
+//#import <AudioKit/AudioKit-Swift.h>
 
 
 #define FILEREFPREFIX @"Sample:"
