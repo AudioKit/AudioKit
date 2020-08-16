@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AudioKit.h"
+#include "AKSoundpipeDSPBase.hpp"
+#include "ParameterRamper.hpp"
 #include "soundpipe.h"
 
 #import <vector>
