@@ -886,6 +886,7 @@
 		5BEF48CAA78F6CAF214E01E2 /* buthp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EFB2D0EE5303766FCF92A77 /* buthp.c */; };
 		5C4E8D783B6275D5169B9947 /* Echo.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFCF6E698972543FA6BE521 /* Echo.h */; };
 		5C50F25965737835B6F66F3C /* gen_rand.c in Sources */ = {isa = PBXBuildFile; fileRef = 9460DFDC1D3D41781CDEDA5B /* gen_rand.c */; };
+		5C554FB44E6FC93DD7B7757E /* AKCallbackInstrumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF76132B02E470B78021BC /* AKCallbackInstrumentTests.swift */; };
 		5C79687C7CB01DE4D6FE7C5B /* AKLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5151EFF2D597365CF6E09D9 /* AKLowPassFilter.swift */; };
 		5CC5D6768FDB57D0A19F5D67 /* AdjustableDelayLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7FF7A23602BB9774BF655B /* AdjustableDelayLine.cpp */; };
 		5CD59DB7803A0D669FA2E69F /* Generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 26D4615A4FA851378C692B55 /* Generator.h */; };
@@ -1953,6 +1954,7 @@
 		CA000C1DB08286E046AA59C2 /* FFTRealPassDirect.h in Headers */ = {isa = PBXBuildFile; fileRef = F8298BFB4A406CAD526B0C17 /* FFTRealPassDirect.h */; };
 		CA46C11F791E03ED7B8D35D0 /* EZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83E482DADB23DD8A428896 /* EZAudioPlayer.m */; };
 		CA63C01A898D1AFD2B6E38C2 /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C26CC55F4503C44039FDDE /* AKClarinet.swift */; };
+		CA73429FD1210F0D76302825 /* AKCallbackInstrumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF76132B02E470B78021BC /* AKCallbackInstrumentTests.swift */; };
 		CA8282C31EFE4C9B4CD622A9 /* AKPitchShifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A530F0C5426FAD0D6C7FF335 /* AKPitchShifterTests.swift */; };
 		CA834475763E7D2024BFF8DA /* AKMicrophoneTrackerEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4807414256F013DD1464E7D5 /* AKMicrophoneTrackerEngine.m */; };
 		CA8400671F9332339A7229DF /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A278DD7AAC3176CCD6ACBD7 /* AKAUPresetBuilder.swift */; };
@@ -2753,6 +2755,7 @@
 		358593D69DDE8D1DA0EA9920 /* ahh.raw */ = {isa = PBXFileReference; path = ahh.raw; sourceTree = "<group>"; };
 		35C55080E5CB45BF689F3002 /* OnePoleLPF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OnePoleLPF.h; sourceTree = "<group>"; };
 		35E657E42C11D003232A6627 /* EZAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
+		35EF76132B02E470B78021BC /* AKCallbackInstrumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKCallbackInstrumentTests.swift; sourceTree = "<group>"; };
 		36163155D45E114AA59C5DE7 /* AKHighPassFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKHighPassFilterTests.swift; sourceTree = "<group>"; };
 		36349D42D7F7AAD94F2BA04A /* paulstretch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = paulstretch.c; sourceTree = "<group>"; };
 		369CCDD34B502F9481C92FF3 /* phasor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phasor.swift; sourceTree = "<group>"; };
@@ -3866,6 +3869,7 @@
 				C920E460F47F1A4A396B91D6 /* AKBitCrusherTests.swift */,
 				E3120073F2C18C044BD0B59D /* AKBoosterTests.swift */,
 				67B357DC608ABF541120F201 /* AKBrownianNoiseTests.swift */,
+				35EF76132B02E470B78021BC /* AKCallbackInstrumentTests.swift */,
 				82C5663FF4AAAEDDA0BA1BA6 /* AKChorusTests.swift */,
 				633D6BA7283B19699EE5424F /* AKChowningReverbTests.swift */,
 				E0C4B27EA03855923ACA15FD /* AKClarinetTests.swift */,
@@ -6500,6 +6504,27 @@
 			path = ModulatedDelay;
 			sourceTree = "<group>";
 		};
+		"TEMP_147FCC0B-2DDC-4E3C-908F-91BAF83B8655" /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		"TEMP_71A1D520-6D47-4941-886F-D608D13934F5" /* Dev.playground */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dev.playground;
+			sourceTree = "<group>";
+		};
+		"TEMP_82C42391-7CA4-4B8F-8CAC-3D4370082577" /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -7237,6 +7262,7 @@
 				BFDF169948CCDFAE25EF1341 /* AKBitCrusherTests.swift in Sources */,
 				CB2FB66016623DB72E5E41E1 /* AKBoosterTests.swift in Sources */,
 				694D87A6E4CDFD6380384BB3 /* AKBrownianNoiseTests.swift in Sources */,
+				CA73429FD1210F0D76302825 /* AKCallbackInstrumentTests.swift in Sources */,
 				5A5D5BCC9ADEF0C72508B8F9 /* AKChorusTests.swift in Sources */,
 				5E74B3A01D5D301546B34981 /* AKChowningReverbTests.swift in Sources */,
 				0D1ED716A99F21C3A9419013 /* AKClarinetTests.swift in Sources */,
@@ -8177,6 +8203,7 @@
 				05B58600805DFABC0E2B8B0B /* AKBitCrusherTests.swift in Sources */,
 				453D024ED3DFDF02001E14E2 /* AKBoosterTests.swift in Sources */,
 				485E8A271A7244AA8C56627D /* AKBrownianNoiseTests.swift in Sources */,
+				5C554FB44E6FC93DD7B7757E /* AKCallbackInstrumentTests.swift in Sources */,
 				AF50B19AC8230D07CA8152E1 /* AKChorusTests.swift in Sources */,
 				2C6C3228B932DE81A069ECBA /* AKChowningReverbTests.swift in Sources */,
 				A735C3073B6F4DB6C1390EE7 /* AKClarinetTests.swift in Sources */,
