@@ -33,6 +33,7 @@ let package = Package(
         .target(
             name: "EZAudio",
             dependencies: ["TPCircularBuffer"]),
+        .target(name: "AudioKitCore"),
         .target(
             name: "CAudioKit",
             dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "EZAudio"],
