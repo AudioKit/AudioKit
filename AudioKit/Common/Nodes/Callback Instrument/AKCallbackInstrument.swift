@@ -8,7 +8,7 @@ import Foundation
 /// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
 open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
-    public typealias AKAudioUnitType = AKCallbackInstrumentAudioUnit
+    public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
@@ -16,12 +16,17 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    /// This will be called on the main thread when the node receives MIDI.
-    open var callback: AKMIDICallback = { status, data1, data2 in } {
-        willSet {
-            internalAU?.callback = newValue
+    public class InternalAU: AKAudioUnitBase {
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKCallbackInstrumentDSP")
+        }
+        
+        public func setCallback(_ callback: AKMIDICallback?) {
+            akCallbackInstrumentSetCallback(dsp, callback)
         }
     }
+
     // MARK: - Initialization
 
     public init(midiCallback: AKMIDICallback? = nil) {
@@ -36,12 +41,9 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
         }
         if let callback = midiCallback {
-            self.callback = callback
+            self.internalAU?.setCallback(callback)
         }
     }
 
-    deinit {
-        internalAU?.destroy()
-    }
 }
 #endif
