@@ -1,6 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import <AudioKit/AKDSPBase.hpp>
 #import "AKSTKInstrumentDSP.hpp"
 #include "Shakers.h"
 
