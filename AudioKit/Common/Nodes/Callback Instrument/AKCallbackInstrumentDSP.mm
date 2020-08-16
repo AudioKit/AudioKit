@@ -3,7 +3,7 @@
 #include "AudioKit.h"
 #import "TPCircularBuffer.h"
 
-class AKCallbackInstrumentDSP : public AKSoundpipeDSPBase {
+class AKCallbackInstrumentDSP : public AKDSPBase {
 public:
     // MARK: Member Functions
 
