@@ -18,10 +18,12 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public class InternalAU: AKAudioUnitBase {
 
-        public var callback: AKMIDICallback = { status, data1, data2 in }
-
         public override func createDSP() -> AKDSPRef {
             akCreateDSP("AKCallbackInstrumentDSP")
+        }
+        
+        public func setCallback(_ callback: AKMIDICallback?) {
+            akCallbackInstrumentSetCallback(dsp, callback)
         }
     }
 
@@ -39,7 +41,7 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
         }
         if let callback = midiCallback {
-            self.internalAU?.callback = callback
+            self.internalAU?.setCallback(callback)
         }
     }
 
