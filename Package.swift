@@ -27,7 +27,13 @@ let package = Package(
                     .define("NO_LIBSNDFILE")
         ]),
         .target(name: "STK"),
-        .target(name: "CAudioKit", dependencies: ["STK", "Soundpipe"]),
+        .target(name: "TPCircularBuffer"),
+        .target(
+            name: "EZAudio",
+            dependencies: ["TPCircularBuffer"]),
+        .target(
+            name: "CAudioKit",
+            dependencies: ["STK", "Soundpipe", "EZAudio"]),
         .target(
             name: "AudioKit",
             dependencies: ["CAudioKit"]),
