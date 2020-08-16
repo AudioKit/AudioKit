@@ -6,8 +6,6 @@
 #include "vocwrapper.h"
 #include "soundpipe.h"
 
-#import "DSPKernel.hpp" // for the clamp
-
 void AKSoundpipeDSPBase::init(int channelCount, double sampleRate) {
     AKDSPBase::init(channelCount, sampleRate);
     sp_create(&sp);
