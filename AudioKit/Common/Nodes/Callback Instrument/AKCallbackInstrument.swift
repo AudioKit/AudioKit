@@ -16,6 +16,7 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public private(set) var internalAU: AKAudioUnitType?
 
+    /// This will be called on the main thread when the node receives MIDI.
     open var callback: AKMIDICallback = { status, data1, data2 in } {
         willSet {
             internalAU?.callback = newValue
