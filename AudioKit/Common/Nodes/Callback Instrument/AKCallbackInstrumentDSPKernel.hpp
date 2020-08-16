@@ -71,25 +71,9 @@ public:
         }
     }
 
-    void startNote(int note, int velocity) {
-        send(0x90, note, velocity);
-    }
-
-    void stopNote(int note) {
-        send(0x80, note, 0);
-    }
-
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
-        uint8_t status = midiEvent.data[0];
-        uint8_t data1 = midiEvent.data[1];
-        uint8_t data2 = midiEvent.data[2];
-        send(status, data1, data2);
-    }
-
-    void send(uint8_t status, uint8_t data1, uint8_t data2) {
-        uint8_t midi[3] = {status, data1, data2};
-        TPCircularBufferProduceBytes(&midiBuffer, midi, 3);
+        TPCircularBufferProduceBytes(&midiBuffer, midiEvent.data, 3);
     }
 
     void consumer() {
