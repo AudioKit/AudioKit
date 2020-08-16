@@ -8,7 +8,7 @@ env:
 jobs:
   test:
     env:
-      DEVELOPER_DIR: /Applications/Xcode_${{XCODE_VER}}.app
+      DEVELOPER_DIR: /Applications/Xcode_${XCODE_VER}.app
     steps:
       - name: Check out AudioKit
         uses: actions/checkout@v2
