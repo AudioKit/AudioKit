@@ -29,7 +29,6 @@ class AKCallbackInstrumentTests: AKTestCase {
                                      144, 63, 127,
                                      128, 63, 127]
 
-        let track = AKSequencerTrack(targetNode: instrument)
         var data: [UInt8] = []
 
         instrument = AKCallbackInstrument() { status, data1, data2 in
@@ -42,6 +41,7 @@ class AKCallbackInstrumentTests: AKTestCase {
             }
         }
 
+        let track = AKSequencerTrack(targetNode: instrument)
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()
