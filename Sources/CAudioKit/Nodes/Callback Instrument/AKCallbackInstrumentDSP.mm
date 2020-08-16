@@ -3,6 +3,8 @@
 #include "AKDSPBase.hpp"
 #import "TPCircularBuffer.h"
 
+typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
+
 class AKCallbackInstrumentDSP : public AKDSPBase {
 public:
     // MARK: Member Functions
