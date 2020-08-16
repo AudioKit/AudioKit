@@ -3,6 +3,8 @@
 #include "AudioKit.h"
 #import "TPCircularBuffer.h"
 
+typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
+
 class AKCallbackInstrumentDSP : public AKSoundpipeDSPBase {
 public:
     // MARK: Member Functions
@@ -24,37 +26,17 @@ public:
         TPCircularBufferCleanup(&midiBuffer);
         [timer invalidate];
     }
-
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
-    }
-
-    void destroy() {
-        AKSoundpipeKernel::destroy();
-    }
     
-    void start() {
+    void start() override {
         started = true;
     }
 
-    void stop() {
+    void stop() override {
         started = false;
     }
 
-    void reset() {
+    void reset() override {
         resetted = true;
-    }
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        return 0.0f;
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
