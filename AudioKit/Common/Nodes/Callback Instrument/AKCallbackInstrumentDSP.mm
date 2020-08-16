@@ -1,17 +1,16 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#pragma once
-#import "AKSoundpipeKernel.hpp"
+#include "AudioKit.h"
 #import "TPCircularBuffer.h"
 
-class AKCallbackInstrumentDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKCallbackInstrumentDSP : public AKSoundpipeDSPBase {
 public:
     // MARK: Member Functions
 
     TPCircularBuffer midiBuffer;
     NSTimer* timer;
 
-    AKCallbackInstrumentDSPKernel() {
+    AKCallbackInstrumentDSP() {
         TPCircularBufferInit(&midiBuffer, 4096);
         // Hopefully this polling interval is ok.
         timer = [NSTimer scheduledTimerWithTimeInterval:0.01
@@ -21,7 +20,7 @@ public:
                  }];
     }
 
-    ~AKCallbackInstrumentDSPKernel() {
+    ~AKCallbackInstrumentDSP() {
         TPCircularBufferCleanup(&midiBuffer);
         [timer invalidate];
     }
@@ -104,3 +103,5 @@ public:
     bool resetted = false;
     AKCMIDICallback callback = nullptr;
 };
+
+AK_REGISTER_DSP(AKCallbackInstrumentDSP)
