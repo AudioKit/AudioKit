@@ -21,7 +21,7 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(name: "Soundpipe",
+        .target(name: "soundpipe",
                 cSettings: [
                     .headerSearchPath("lib/dr_wav"),
                     .headerSearchPath("lib/faust"),
@@ -30,12 +30,12 @@ let package = Package(
                     .define("NO_LIBSNDFILE")
         ]),
         .target(name: "SoundpipeExtension",
-                dependencies: ["Soundpipe"]),
+                dependencies: ["soundpipe"]),
         .target(name: "STK"),
         .target(name: "TPCircularBuffer"),
         .target(name: "Devoloop"),
         .target(name: "Sporth",
-                dependencies: ["Soundpipe"],
+                dependencies: ["soundpipe"],
                 cSettings: [.define("NO_LIBSNDFILE")]
         ),
         .target(
@@ -43,7 +43,7 @@ let package = Package(
             dependencies: ["TPCircularBuffer"]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "Sporth", "EZAudio", "Devoloop"],
+            dependencies: ["STK", "soundpipe", "SoundpipeExtension", "Sporth", "EZAudio", "Devoloop"],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("Sporth Custom Ugens"),

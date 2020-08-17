@@ -5,7 +5,7 @@
 @_exported import AVFoundation
 @_exported import AudioToolbox
 @_exported import OSLog
-@_exported import Soundpipe
+@_exported import soundpipe
 @_exported import CoreAudioKit
 @_exported import EZAudio
 
