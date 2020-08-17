@@ -7,7 +7,6 @@
 @_exported import OSLog
 @_exported import soundpipe
 @_exported import CoreAudioKit
-@_exported import EZAudio
 
 struct AudioKit {
     var text = "Hello, World!"

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import EZAudio
+
 /// FFT Calculation for any node
 open class AKFFTTap: NSObject, EZAudioFFTDelegate {
 
