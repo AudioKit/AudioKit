@@ -28,7 +28,7 @@
 @import UIKit;
 typedef CGRect EZRect;
 #else
-@import Cocoa;
+#import <Cocoa/Cocoa.h>
 typedef NSRect EZRect;
 #endif
 
