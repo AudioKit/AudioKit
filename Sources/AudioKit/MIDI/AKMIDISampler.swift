@@ -4,6 +4,7 @@
 
 import AVFoundation
 import CoreAudio
+import OSLog
 
 /// MIDI receiving Sampler
 ///

@@ -9,6 +9,9 @@
 ///
 
 #if !os(tvOS)
+
+import OSLog
+
 let AKMIDIListenerLogging = false
 
 public protocol AKMIDIListener {

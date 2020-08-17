@@ -2,6 +2,7 @@
 
 #if !os(tvOS)
 import CoreMIDI
+import OSLog
 
 extension AKMIDI {
 

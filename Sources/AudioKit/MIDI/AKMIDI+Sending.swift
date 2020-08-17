@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import OSLog
+
 private let sizeOfMIDIPacketList = MemoryLayout<MIDIPacketList>.size
 private let sizeOfMIDIPacket = MemoryLayout<MIDIPacket>.size
 
