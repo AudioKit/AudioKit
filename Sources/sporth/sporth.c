@@ -29,6 +29,7 @@ static void process(sp_data *sp, void *udata){
     }
 }
 
+#if 0
 int main(int argc, char *argv[])
 {
     UserData ud;
@@ -36,3 +37,4 @@ int main(int argc, char *argv[])
     sporth_run(&ud.pd, argc, argv, &ud, process);
     return 0;
 }
+#endif
