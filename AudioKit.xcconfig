@@ -1,4 +1,4 @@
 
-# Generate Xcode project with:
-# swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig
+// Generate Xcode project with:
+// swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig
 HEADER_SEARCH_PATHS = $(SRCROOT)/Sources/CAudioKit/AudioKitCore/Common $(SRCROOT)/Sources/CAudioKit/CoreAudio $(SRCROOT)/Sources/CAudioKit
