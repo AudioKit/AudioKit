@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import OSLog
+
 public protocol AKMIDITransformer {
     func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent]
 }

@@ -2,6 +2,7 @@
 
 #if !os(tvOS)
 import CoreMIDI
+import OSLog
 
 /// A container for the values that define a MIDI event
 public struct AKMIDIEvent: AKMIDIMessage {

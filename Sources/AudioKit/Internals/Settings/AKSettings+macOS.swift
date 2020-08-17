@@ -1,6 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
+
+import OSLog
+
     extension AKSettings {
         /// Global audio format AudioKit will default to for new objects and connections
         public static var audioFormat = defaultAudioFormat

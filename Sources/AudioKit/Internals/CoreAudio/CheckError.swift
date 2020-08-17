@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import OSLog
+
 // Print out a more human readable error message
 ///
 /// - parameter error: OSStatus flag

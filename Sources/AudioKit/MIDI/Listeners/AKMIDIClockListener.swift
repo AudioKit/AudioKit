@@ -3,6 +3,7 @@
 #if !os(tvOS)
 import Foundation
 import CoreMIDI
+import OSLog
 
 /// This class is used to count midi clock events and inform observers
 /// every 24 pulses (1 quarter note)

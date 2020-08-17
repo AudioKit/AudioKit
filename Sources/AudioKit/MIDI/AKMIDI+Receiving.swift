@@ -14,6 +14,8 @@
 
 #if !os(tvOS)
 
+import OSLog
+
 internal struct MIDISources: Collection {
     typealias Index = Int
     typealias Element = MIDIEndpointRef

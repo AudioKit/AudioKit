@@ -3,6 +3,7 @@
 #if !os(tvOS)
 import Foundation
 import CoreMIDI
+import OSLog
 
 /// This AKMIDIListener looks for midi system real time (SRT)
 /// midi system messages.
