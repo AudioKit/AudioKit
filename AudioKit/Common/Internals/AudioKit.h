@@ -37,7 +37,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Sporth
 #import <AudioKit/AKOperationGeneratorAudioUnit.h>
 #import <AudioKit/AKOperationEffectAudioUnit.h>
-#import <AudioKit/AKSporthStack.h>
 
 // Effects / Modulation
 #import <AudioKit/AKModulatedDelay_Typedefs.h>

@@ -9,5 +9,4 @@
 @interface AKOperationEffectAudioUnit : AKAudioUnit
 @property (nonatomic) NSArray *parameters;
 - (void)setSporth:(NSString *)sporth;
-- (void)addCustomUgen:(AKCustomUgen *)ugen;
 @end

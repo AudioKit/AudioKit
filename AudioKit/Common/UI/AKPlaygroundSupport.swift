@@ -4,8 +4,6 @@ import SwiftUI
 
 open class PlaygroundConductor {
 
-    var performance: AKPeriodicFunction?
-
     public init() {}
 
     open func setup() {
@@ -16,11 +14,7 @@ open class PlaygroundConductor {
         shutdown()
         setup()
         do {
-            if let performance = performance {
-                try AKManager.start(withPeriodicFunctions: performance)
-            } else {
-                try AKManager.start()
-            }
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start! \(error)")
         }
