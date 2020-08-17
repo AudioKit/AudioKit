@@ -10,20 +10,6 @@ extension AKManager {
     /// Observer for AVAudioSession.routeChangeNotification
     private static var routeChangeObserver: Any?
 
-    /// Start up the audio engine with periodic functions
-    public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
-        // ensure that an output has been set previously
-        guard let finalMixer = finalMixer else {
-            AKLog("No output has been assigned yet.")
-            return
-        }
-
-        for function in functions {
-            function.connect(to: finalMixer)
-        }
-        try start()
-    }
-
     /// Start up the audio engine
     public static func start() throws {
         if output == nil {
