@@ -2,7 +2,7 @@
 
 #include "AKSoundpipeDSPBase.hpp"
 #include "ParameterRamper.hpp"
-#include "StereoDelay.hpp"
+#include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
 enum AKStereoDelayParameter : AUParameterAddress {
     AKStereoDelayParameterTime,
