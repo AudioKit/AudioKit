@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Foundation
+
 extension AKTuningTable {
 
     /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.

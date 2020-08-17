@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Foundation
+
 /// Effects Chain management
 extension AKAudioUnitManager {
     /// Create the Audio Unit at the specified index of the chain

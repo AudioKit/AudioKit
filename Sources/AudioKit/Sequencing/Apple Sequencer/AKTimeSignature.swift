@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Foundation
+
 public struct AKTimeSignature: CustomStringConvertible, Equatable {
     public enum TimeSignatureBottomValue: UInt8 {
         // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
