@@ -2,6 +2,7 @@
 #define SOUNDPIPE_H
 
 #include "dr_wav.h"
+#include "md5.h"
 
 #ifdef __cplusplus
 extern "C" {
