@@ -7,11 +7,7 @@
 #import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
 #include "plumber.h"
-}
 
 #import "AKCustomUgenInfo.h"
 

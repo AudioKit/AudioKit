@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AKSporthStack.h"
-#import "AKOperationEffectDSPKernel.hpp"
+#import "Nodes/Effects/Operation/AKOperationEffectDSPKernel.hpp"
 
 @implementation AKSporthStack
 {

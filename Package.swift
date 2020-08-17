@@ -47,7 +47,9 @@ let package = Package(
             name: "CAudioKit",
             dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "Sporth", "EZAudio", "AudioKitCore", "Devoloop"],
             cxxSettings: [
-                .headerSearchPath("CoreAudio")
+                .headerSearchPath("CoreAudio"),
+                .headerSearchPath("Sporth Custom Ugens"),
+                .headerSearchPath(".")
             ]
         ),
         .target(

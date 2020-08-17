@@ -1,6 +1,10 @@
 #include "soundpipe.h"
 #include "sporth.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* implement macros */
 #define SPORTH_UGEN(key, func, macro, ninputs, noutputs)  macro,
 enum {
@@ -199,4 +203,10 @@ int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p)
 int polysporth_eval(plumber_ptr *p, const char *str);
 
 void plumber_print(plumber_data *pd, const char *fmt, ...);
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif
+
