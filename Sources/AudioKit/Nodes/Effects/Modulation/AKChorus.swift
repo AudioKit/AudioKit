@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Shane's Chorus
 ///
 public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

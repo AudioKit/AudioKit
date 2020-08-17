@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Operation-based effect
 public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A complement to the AKLowPassFilter.
 ///
 public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

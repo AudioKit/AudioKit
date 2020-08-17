@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Classic FM Synthesis audio generation.
 ///
 public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {

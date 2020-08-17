@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///

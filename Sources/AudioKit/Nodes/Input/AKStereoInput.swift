@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
 public class AKStereoInput: AKNode, AKToggleable {
 

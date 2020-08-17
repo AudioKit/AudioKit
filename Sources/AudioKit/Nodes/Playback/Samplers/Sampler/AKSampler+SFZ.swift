@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
 /// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 

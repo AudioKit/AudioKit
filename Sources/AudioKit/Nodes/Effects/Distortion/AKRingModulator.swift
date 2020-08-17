@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
 public class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {

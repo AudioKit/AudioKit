@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 extension AVAudioConnectionPoint {
     convenience init(_ node: AKNode, to bus: Int) {
         self.init(node: node.avAudioUnitOrNode, bus: bus)

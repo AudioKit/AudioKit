@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Faust-based pink noise generator
 ///
 public class AKPinkNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {

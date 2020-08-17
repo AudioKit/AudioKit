@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Distortion using a modified hyperbolic tangent function.
 ///
 public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

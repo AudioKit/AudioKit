@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
 public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

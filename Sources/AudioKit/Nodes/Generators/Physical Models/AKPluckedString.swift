@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Karplus-Strong plucked string instrument.
 ///
 public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {

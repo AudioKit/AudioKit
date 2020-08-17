@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Guitar head and cab simulator.
 ///
 public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

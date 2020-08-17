@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Functions specific to buffering audio
 extension AKPlayer {
     // Fills the buffer with data read from audioFile

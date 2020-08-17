@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 public class AKDynamicPlayer: AKPlayer {
     /// The time pitch node - disabled by default
     public private(set) var timePitchNode: AKTimePitch?

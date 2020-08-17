@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Casio-style phase distortion with "pivot point" on the X axis This module is
 /// designed to emulate the classic phase distortion synthesis technique. From
 /// the mid 90's. The technique reads the first and second halves of the ftbl at

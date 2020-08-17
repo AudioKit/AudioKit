@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Emulation of the Roland TB-303 filter
 ///
 public class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

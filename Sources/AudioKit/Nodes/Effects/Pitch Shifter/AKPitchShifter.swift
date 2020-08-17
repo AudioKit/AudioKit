@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Faust-based pitch shfiter
 ///
 public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

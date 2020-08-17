@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Audio from the standard input
 public class AKMicrophone: AKNode, AKToggleable {
     internal let mixer = AVAudioMixerNode()

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Table-lookup tremolo with linear interpolation
 ///
 public class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

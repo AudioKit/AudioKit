@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
 public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Stereo Booster
 ///
 public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

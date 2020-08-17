@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// 3-D Spatialization of the input
 public class AK3DPanner: AKNode, AKInput {
     fileprivate let environmentNode = AVAudioEnvironmentNode()

@@ -3,6 +3,7 @@
 #if !os(tvOS)
 
 import Foundation
+import CAudioKit
 
 /// Audio player that loads a sample into memory
 open class AKSequencerTrack {
