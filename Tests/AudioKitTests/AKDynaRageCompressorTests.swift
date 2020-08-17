@@ -3,6 +3,9 @@
 import AudioKit
 import XCTest
 
+// XXX: Test was left out of old test suite.
+#if false
+
 class AKDynaRangeCompressorTests: AKTestCase {
 
     override func setUp() {
@@ -53,3 +56,5 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
 }
+
+#endif
