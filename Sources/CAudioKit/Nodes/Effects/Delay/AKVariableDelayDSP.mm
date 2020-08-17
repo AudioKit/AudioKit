@@ -88,7 +88,7 @@ public:
     }
 };
 
-void akVariableDelaySetMaximumTime(AKDSPRef dspRef, float maximumTime) {
+AK_API void akVariableDelaySetMaximumTime(AKDSPRef dspRef, float maximumTime) {
     auto dsp = dynamic_cast<AKVariableDelayDSP *>(dspRef);
     assert(dsp);
     dsp->setMaximumTime(maximumTime);

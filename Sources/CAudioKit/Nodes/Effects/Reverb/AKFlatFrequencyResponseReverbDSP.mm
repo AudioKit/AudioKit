@@ -78,7 +78,7 @@ public:
     }
 };
 
-void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dspRef, float duration) {
+AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<AKFlatFrequencyResponseReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
