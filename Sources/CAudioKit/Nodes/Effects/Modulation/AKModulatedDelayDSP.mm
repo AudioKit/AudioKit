@@ -17,7 +17,7 @@ AKDSPRef akFlangerCreateDSP()
     return new AKModulatedDelayDSP(kFlanger);
 }
 
-#import "ModulatedDelay_Defines.h"
+#import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
 const float kAKChorus_DefaultFrequency = kChorusDefaultModFreqHz;
 const float kAKChorus_DefaultDepth = kChorusDefaultDepth;
 const float kAKChorus_DefaultFeedback = kChorusDefaultFeedback;
