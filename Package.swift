@@ -21,39 +21,32 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(name: "soundpipe",
-                cSettings: [
-                    .headerSearchPath("lib/dr_wav"),
-                    .headerSearchPath("lib/faust"),
-                    .headerSearchPath("lib/inih"),
-                    .headerSearchPath("lib/kissfft"),
-                    .define("NO_LIBSNDFILE")
-        ]),
-        .target(name: "soundpipeextension",
-                dependencies: ["soundpipe"]),
-        .target(name: "STK"),
-        .target(name: "TPCircularBuffer"),
-        .target(name: "Devoloop"),
-        .target(name: "sporth",
-                dependencies: ["soundpipe"],
-                cSettings: [.define("NO_LIBSNDFILE")]
-        ),
-        .target(
-            name: "EZAudio",
-            dependencies: ["TPCircularBuffer"]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "soundpipe", "soundpipeextension", "sporth", "EZAudio", "Devoloop"],
+            dependencies: [],
+            cSettings: [
+                .headerSearchPath("soundpipe/lib/dr_wav"),
+                .headerSearchPath("soundpipe/lib/faust"),
+                .headerSearchPath("soundpipe/lib/inih"),
+                .headerSearchPath("soundpipe/lib/kissfft"),
+                .headerSearchPath("soundpipe/include"),
+                .headerSearchPath("sporth/include"),
+                .headerSearchPath("soundpipeextension/include"),
+                .headerSearchPath("TPCircularBuffer/include"),
+                .define("NO_LIBSNDFILE")],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
-                .headerSearchPath("sporth Custom Ugens"),
+                .headerSearchPath("Sporth Custom Ugens"),
                 .headerSearchPath("AudioKitCore/Common"),
+                .headerSearchPath("Devoloop/include"),
+                .headerSearchPath("STK/include"),
+                .headerSearchPath("EZAudio/include"),
                 .headerSearchPath(".")
             ]
         ),
         .target(
             name: "AudioKit",
-            dependencies: ["CAudioKit", "soundpipe", "EZAudio"]),
+            dependencies: ["CAudioKit"]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"]),
