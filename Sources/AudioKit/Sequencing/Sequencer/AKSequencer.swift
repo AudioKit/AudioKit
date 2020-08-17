@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import Foundation
+
 /// Open-source AudioKit Sequencer
 ///
 /// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AKAppleSequencer"

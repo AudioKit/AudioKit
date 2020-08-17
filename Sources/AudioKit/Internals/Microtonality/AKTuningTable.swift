@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Foundation
+
 /// helper object to simulate a Swift tuple for ObjC interoperability
 public class AKTuningTableETNN: NSObject {
 
