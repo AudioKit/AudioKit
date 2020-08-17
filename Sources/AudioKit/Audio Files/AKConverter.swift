@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /**
  AKConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```

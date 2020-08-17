@@ -11,6 +11,7 @@
 #if !os(tvOS)
 
 import OSLog
+import AVFoundation
 
 let AKMIDIListenerLogging = false
 

@@ -2,6 +2,8 @@
 
 import Foundation
 
+import AVFoundation
+
 extension AVAudioEngine {
 
     /// Adding connection between nodes with default format

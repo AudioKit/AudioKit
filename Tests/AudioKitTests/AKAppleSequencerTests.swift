@@ -2,6 +2,7 @@
 
 import AudioKit
 import XCTest
+import AVFoundation
 
 class AKAppleSequencerTests: AKTestCase {
     var seq: AKAppleSequencer!

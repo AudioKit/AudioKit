@@ -2,6 +2,7 @@
 
 import XCTest
 import AudioKit
+import AVFoundation
 
 class AKSequencerTrackTests: AKTestCase {
 

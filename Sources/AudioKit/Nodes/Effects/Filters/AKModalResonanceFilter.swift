@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
 import CAudioKit
 
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds

@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
 import XCTest
+import AVFoundation
 
 class AKMusicTrackTests: AKTestCase {
     var musicTrack: AKMusicTrack!

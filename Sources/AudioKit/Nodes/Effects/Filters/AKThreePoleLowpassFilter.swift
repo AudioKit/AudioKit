@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.

@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import AVFoundation
 
 /// A timing protocol used for syncronizing different audio sources.
 @objc public protocol AKTiming {

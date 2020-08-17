@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 extension AVAudioPCMBuffer {
     /// Read the contents of the url into this buffer
     public convenience init?(url: URL) throws {

@@ -1,4 +1,5 @@
 import AudioKit
+import AVFoundation
 import XCTest
 
 class AKPlayerTests: AKTestCase {

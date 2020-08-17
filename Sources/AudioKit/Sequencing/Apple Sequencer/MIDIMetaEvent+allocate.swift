@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import AVFoundation
 
 extension MIDIMetaEvent {
     /// `MIDIMetaEvent` is a variable length C structure. YOU MUST create one using this function

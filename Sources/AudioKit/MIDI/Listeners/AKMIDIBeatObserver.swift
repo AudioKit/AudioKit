@@ -2,6 +2,7 @@
 
 #if !os(tvOS)
 import Foundation
+import AVFoundation
 
 /// Protocol so that clients may observe beat events
 public protocol AKMIDIBeatObserver {

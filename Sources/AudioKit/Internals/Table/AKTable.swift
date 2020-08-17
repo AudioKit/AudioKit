@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /// Supported default table types
 public enum AKTableType: Int, Codable, CaseIterable {
     /// Standard sine waveform

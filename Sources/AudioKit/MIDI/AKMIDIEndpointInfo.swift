@@ -3,6 +3,8 @@
 #if !os(tvOS)
 /// MIDI Endpoint Information
 
+import AVFoundation
+
 public struct EndpointInfo: Hashable, Codable {
 
     /// Unique name

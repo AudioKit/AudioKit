@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import AVFoundation
+
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
 /// Another callback instrument, AKCallbackInstrument

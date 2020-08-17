@@ -6,6 +6,8 @@ public typealias DeviceID = AudioDeviceID
 public typealias DeviceID = String
 #endif
 
+import AVFoundation
+
 /// Wrapper for audio device selection
 public struct AKDevice: Equatable {
     /// The human-readable name for the device.

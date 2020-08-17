@@ -2,6 +2,7 @@
 
 import Foundation
 import soundpipe
+import AVFoundation
 
 extension AKManager {
     // MARK: - Testing

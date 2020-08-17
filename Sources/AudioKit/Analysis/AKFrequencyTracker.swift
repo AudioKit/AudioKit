@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CAudioKit
+import AVFoundation
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///

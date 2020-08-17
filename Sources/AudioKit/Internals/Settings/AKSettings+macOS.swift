@@ -2,6 +2,7 @@
 
 #if os(macOS)
 
+import AVFoundation
 import OSLog
 
     extension AKSettings {

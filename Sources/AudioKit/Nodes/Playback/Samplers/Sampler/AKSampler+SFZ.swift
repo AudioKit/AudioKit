@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
 import CAudioKit
 
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program

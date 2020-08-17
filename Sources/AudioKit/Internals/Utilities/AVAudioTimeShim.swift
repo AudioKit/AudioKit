@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /// Utility to convert between host time and seconds
 private let ticksToSeconds: Double = {
     var tinfo = mach_timebase_info()

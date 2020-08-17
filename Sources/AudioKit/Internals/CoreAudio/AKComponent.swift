@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /// Helpful in reducing repetitive code in AudioKit
 public protocol Aliased {
     associatedtype _Self = Self

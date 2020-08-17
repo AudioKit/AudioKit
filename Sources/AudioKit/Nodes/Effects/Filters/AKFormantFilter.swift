@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
 import CAudioKit
 
 /// When fed with a pulse train, it will generate a series of overlapping
