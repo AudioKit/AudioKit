@@ -38,8 +38,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    private var customUgens: [AKCustomUgen]
-
     // MARK: - Initializers
 
     /// Initialize with a mono or stereo operation
@@ -88,9 +86,8 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(sporth: String = "", customUgens: [AKCustomUgen] = []) {
+    public init(sporth: String = "") {
         self.sporth = sporth
-        self.customUgens = customUgens
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -98,9 +95,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            for ugen in self.customUgens {
-                self.internalAU?.add(ugen)
-            }
             self.internalAU?.setSporth(sporth)
         }
     }
@@ -124,9 +118,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Restart from scratch
     open func restart() {
         stop()
-        for ugen in customUgens {
-            internalAU?.add(ugen)
-        }
         internalAU?.setSporth(sporth)
         start()
     }

@@ -13,8 +13,6 @@ extern "C" {
 #include "plumber.h"
 }
 
-#import "AKCustomUgenInfo.h"
-
 class AKOperationEffectDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
@@ -25,10 +23,6 @@ public:
         AKSoundpipeKernel::init(channelCount, sampleRate);
         plumber_register(&pd);
         plumber_init(&pd);
-
-        for (auto info : customUgens) {
-            plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
-        }
 
         pd.sp = sp;
         if (sporthCode != nil) {
@@ -54,10 +48,6 @@ public:
             parameters[i] = temporaryParameters[i];
         }
     };
-
-    void addCustomUgen(AKCustomUgenInfo info) {
-        customUgens.push_back(info);
-    }
 
     void start() {
         started = true;
@@ -133,7 +123,6 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
-    std::vector<AKCustomUgenInfo> customUgens;
 public:
     float parameters[14] = {0};
     bool started = true;
