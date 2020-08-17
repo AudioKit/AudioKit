@@ -27,8 +27,6 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    private var customUgens: [AKCustomUgen]
-
     // MARK: - Initializers
 
     /// Initialize the generator for stereo (2 channels)
@@ -85,8 +83,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
-        self.customUgens = customUgens
+    public init(_ input: AKNode?, sporth: String) {
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -95,9 +92,6 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: self)
-            for ugen in self.customUgens {
-                self.internalAU?.add(ugen)
-            }
             self.internalAU?.setSporth(sporth)
         }
     }

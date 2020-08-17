@@ -9,8 +9,6 @@
 
 #include "plumber.h"
 
-#import "AKCustomUgenInfo.h"
-
 static int addUgensToKernel(plumber_data *pd, void *ud);
 
 class AKOperationGeneratorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -24,9 +22,7 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
-        if (customUgens.size() > 0) {
-            addUgensToFTable(&pd);
-        }
+
         pd.sp = sp;
         if (sporthCode != nil) {
             plumber_parse_string(&pd, sporthCode);
@@ -47,13 +43,6 @@ public:
         plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
     }
 
-    void addUgensToFTable(plumber_data *pd) {
-        for (auto info : customUgens) {
-            info.name = "triggerFunction"; // This should stored and freed like sporthCode instead of being a constant
-            plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
-        }
-    }
-
     void trigger(int trigger) {
         internalTriggers[trigger] = 1;
     }
@@ -63,10 +52,6 @@ public:
             parameters[i] = temporaryParameters[i];
         }
     };
-
-    void addCustomUgen(AKCustomUgenInfo info) {
-        customUgens.push_back(info);
-    }
 
     void start() {
         started = true;
@@ -150,7 +135,6 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
-    std::vector<AKCustomUgenInfo> customUgens;
 
 public:
     float parameters[14] = {0};
@@ -159,6 +143,5 @@ public:
 
 static int addUgensToKernel(plumber_data *pd, void *ud) {
     auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-    kernel->addUgensToFTable(pd);
     return PLUMBER_OK;
 }
