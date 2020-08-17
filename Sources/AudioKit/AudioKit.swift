@@ -5,7 +5,6 @@
 @_exported import AudioToolbox
 @_exported import OSLog
 @_exported import soundpipe
-@_exported import CoreAudioKit
 
 struct AudioKit {
     var text = "Hello, World!"
