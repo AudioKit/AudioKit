@@ -29,7 +29,7 @@ let package = Package(
                     .headerSearchPath("lib/kissfft"),
                     .define("NO_LIBSNDFILE")
         ]),
-        .target(name: "SoundpipeExtension",
+        .target(name: "soundpipeextension",
                 dependencies: ["soundpipe"]),
         .target(name: "STK"),
         .target(name: "TPCircularBuffer"),
@@ -43,7 +43,7 @@ let package = Package(
             dependencies: ["TPCircularBuffer"]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "soundpipe", "SoundpipeExtension", "sporth", "EZAudio", "Devoloop"],
+            dependencies: ["STK", "soundpipe", "soundpipeextension", "sporth", "EZAudio", "Devoloop"],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("sporth Custom Ugens"),
