@@ -41,17 +41,13 @@ let package = Package(
         .target(
             name: "EZAudio",
             dependencies: ["TPCircularBuffer"]),
-        .target(name: "AudioKitCore",
-                dependencies: ["Soundpipe"],
-                cxxSettings: [
-                    .headerSearchPath("Common")
-        ]),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "Sporth", "EZAudio", "AudioKitCore", "Devoloop"],
+            dependencies: ["STK", "Soundpipe", "SoundpipeExtension", "Sporth", "EZAudio", "Devoloop"],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("Sporth Custom Ugens"),
+                .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath(".")
             ]
         ),
