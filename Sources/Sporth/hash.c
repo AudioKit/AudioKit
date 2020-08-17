@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "h/sporth.h"
+#include "sporth.h"
 
 uint32_t sporth_hash(const char *str)
 {
