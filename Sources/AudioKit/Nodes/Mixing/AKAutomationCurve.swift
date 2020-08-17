@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 import Foundation
 
 /// An automation curve (with curved segments) suitable for any time varying parameter.

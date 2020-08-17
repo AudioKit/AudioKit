@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
 public class AKMixer: AKNode, AKToggleable, AKInput {
     /// The internal mixer node

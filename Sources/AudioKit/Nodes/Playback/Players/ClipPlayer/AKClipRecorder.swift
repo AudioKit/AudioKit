@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A closure that will be called when the clip is finished recording.
 /// Result will be an error or a clip. ClipRecording.url is the location
 /// of the recording in the temporary diretory, it should be moved or copied

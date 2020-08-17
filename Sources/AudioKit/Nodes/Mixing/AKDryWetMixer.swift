@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
 public class AKDryWetMixer: AKNode, AKInput {

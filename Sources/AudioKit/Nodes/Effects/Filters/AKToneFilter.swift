@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
 public class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A delay line with cubic interpolation.
 ///
 public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

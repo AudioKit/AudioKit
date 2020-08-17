@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// This will digitally degrade a signal.
 ///
 public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

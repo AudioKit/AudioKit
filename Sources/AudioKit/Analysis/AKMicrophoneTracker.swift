@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import CAudioKit
+
 /// An easy to use class to do usual microphone tracking
 public class AKMicrophoneTracker {
 

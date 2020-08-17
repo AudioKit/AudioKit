@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// This node outputs a version of the audio source, amplitude-modified so
 /// that its rms power is equal to that of the comparator audio source. Thus a
 /// signal that has suffered loss of power (eg., in passing through a filter

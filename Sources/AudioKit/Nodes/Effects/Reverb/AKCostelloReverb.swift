@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal
 /// characteristic impedance.

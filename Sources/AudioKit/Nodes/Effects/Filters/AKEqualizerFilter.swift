@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A 2nd order tunable equalization filter that provides a peak/notch filter
 /// for building parametric/graphic equalizers. With gain above 1, there will be
 /// a peak at the center frequency with a width dependent on bandwidth. If gain

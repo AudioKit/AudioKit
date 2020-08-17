@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Stereo Panner
 ///
 public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

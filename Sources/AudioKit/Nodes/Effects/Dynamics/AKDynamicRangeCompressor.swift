@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Dynamic range compressor from Faust
 ///
 public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

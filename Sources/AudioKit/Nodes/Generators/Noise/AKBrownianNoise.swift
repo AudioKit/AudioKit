@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Brownian noise generator
 ///
 public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {

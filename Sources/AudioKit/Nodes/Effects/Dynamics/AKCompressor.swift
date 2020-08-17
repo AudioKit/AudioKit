@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///
 public class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {

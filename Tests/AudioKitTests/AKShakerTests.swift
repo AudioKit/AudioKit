@@ -2,6 +2,7 @@
 
 import XCTest
 import AudioKit
+import CAudioKit
 
 class AKShakerTests: AKTestCase {
 

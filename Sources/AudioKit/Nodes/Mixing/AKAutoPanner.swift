@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Table-lookup panning with linear interpolation
 ///
 public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

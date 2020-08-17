@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
 public class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
 public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

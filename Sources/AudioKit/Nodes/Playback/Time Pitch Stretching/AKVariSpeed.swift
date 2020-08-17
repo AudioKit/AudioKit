@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
 public class AKVariSpeed: AKNode, AKToggleable, AKInput {

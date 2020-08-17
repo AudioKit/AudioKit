@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
 public class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {

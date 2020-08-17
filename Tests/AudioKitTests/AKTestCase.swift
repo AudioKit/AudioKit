@@ -2,6 +2,7 @@
 
 import AudioKit
 import XCTest
+import CAudioKit
 
 class AKTestCase: XCTestCase {
 

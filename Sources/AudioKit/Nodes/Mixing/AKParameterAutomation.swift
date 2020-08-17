@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 public class AKParameterAutomation {
     private var avAudioUnit: AVAudioUnit
     private var scheduleParameterBlock: AUScheduleParameterBlock?

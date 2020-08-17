@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 extension AKAppleSampler {
     static func getAUPresetXML() -> String {
         var templateStr: String

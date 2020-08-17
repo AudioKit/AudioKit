@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Operation-based generator
 public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit

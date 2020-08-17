@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// Analogue model of the Korg 35 Lowpass Filter
 ///
 public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {

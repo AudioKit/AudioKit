@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// A protocol containing timing information for scheduling audio clips in a timeline.  All
 /// properties are time values in seconds, relative to a zero based timeline.
 @objc public protocol AKClip: AnyObject {

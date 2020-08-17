@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// AKStringResonator passes the input through a network composed of comb,
 /// low-pass and all-pass filters, similar to the one used in some versions of
 /// the Karplus-Strong algorithm, creating a string resonator effect. The

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// This filter reiterates the input with an echo density determined by loop
 /// time. The attenuation rate is independent and is determined by the
 /// reverberation time (defined as the time in seconds for a signal to decay to

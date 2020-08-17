@@ -2,6 +2,7 @@
 
 import AVFoundation
 import Foundation
+import CAudioKit
 
 /// Global settings for AudioKit
 public class AKSettings: NSObject {

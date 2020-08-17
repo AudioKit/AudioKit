@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import CAudioKit
+
 /// White noise generator
 ///
 public class AKWhiteNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
