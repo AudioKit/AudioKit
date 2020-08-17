@@ -5,7 +5,7 @@ import AudioKit
 
 class AKSequencerTrackTests: AKTestCase {
 
-    let sampler = AKAppleSampler()
+    let flute = AKFlute()
 
     func getTestSequence() -> AKSequence {
 
@@ -17,23 +17,8 @@ class AKSequencerTrackTests: AKTestCase {
         return seq
     }
 
-    func setupSampler() {
-        let bundle = Bundle(for: AKSequencerTrackTests.self)
-        if let path = bundle.path(forResource: "sinechirp", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            let file = try! AVAudioFile(forReading: url)
-            try! sampler.loadAudioFile(file)
-            output = sampler
-        } else {
-            XCTFail("Could not load sinechirp.wav")
-        }
-    }
-
-
     func testEmptyTrack() {
-
-
-        let seq = AKSequencerTrack(targetNode: sampler)
+        let seq = AKSequencerTrack(targetNode: flute)
         XCTAssertFalse(seq.isPlaying)
 
         XCTAssertEqual(seq.length, 4.0) // One measure
@@ -44,47 +29,44 @@ class AKSequencerTrackTests: AKTestCase {
 
         duration = 5
 
-        let track = AKSequencerTrack(targetNode: sampler)
-
-        setupSampler()
+        let track = AKSequencerTrack(targetNode: flute)
+        output = flute
 
         track.sequence = getTestSequence()
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         // auditionTest()
-        AKTestMD5("8dda603e249554576192a2bd524f8bca")
+        AKTestMD5("dc0d2c869f272195494e1a3e08bb8bcf")
     }
 
     func testOneShot() {
 
         duration = 5
 
-        let track = AKSequencerTrack(targetNode: sampler)
-
-        setupSampler()
+        let track = AKSequencerTrack(targetNode: flute)
+        output = flute
 
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         //auditionTest()
-        AKTestMD5("864f48d1881655b29fd1cca59887bed4")
+        AKTestMD5("53d23f4b60e5e9d12631eb39df1e4d96")
     }
 
     func testTempo() {
 
         duration = 5
 
-        let track = AKSequencerTrack(targetNode: sampler)
-
-        setupSampler()
+        let track = AKSequencerTrack(targetNode: flute)
+        output = flute
 
         track.sequence = getTestSequence()
         track.tempo = 60
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        //auditionTest()
-        AKTestMD5("ca831ed474d2d302f48c37fd2cff4850")
+        // auditionTest()
+        AKTestMD5("e8f75a12a6c786a0e5f27cb3a6b078bf")
 
     }
 
