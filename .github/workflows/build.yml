@@ -14,5 +14,9 @@ jobs:
     steps:
       - name: Check out AudioKit
         uses: actions/checkout@v2
-      - name: Build AudioKit 
-        run: swift build 
+      - name: Generate Xcode Project 
+        run: swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig
+      - name: Build AudioKit
+        run: xcodebuild -project AudioKit.xcodeproj -scheme AudioKit-Package clean build | xcpretty -c
+      - name: Run Tests
+        run: xcodebuild -project AudioKit.xcodeproj -scheme AudioKit-Package test | xcpretty -c
