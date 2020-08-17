@@ -2,6 +2,8 @@
 
 public typealias BPM = Double
 
+import AVFoundation
+
 /// Container for the notion of time in sequencing
 public struct AKDuration: CustomStringConvertible, Comparable {
     static let secondsPerMinute = 60

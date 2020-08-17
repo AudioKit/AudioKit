@@ -2,6 +2,7 @@
 
 import AudioToolbox
 import CoreAudio
+import AVFoundation
 
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16

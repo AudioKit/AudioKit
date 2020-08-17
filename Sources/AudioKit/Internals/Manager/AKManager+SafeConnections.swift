@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import AVFoundation
 
 /// This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
 extension AKManager {

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 extension Notification.Name {
     static let ComponentRegistrationsChanged = Notification.Name(rawValue:
         kAudioComponentRegistrationsChangedNotification as String)

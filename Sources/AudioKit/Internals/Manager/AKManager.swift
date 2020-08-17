@@ -9,6 +9,8 @@ import UIKit
 #endif
 import Dispatch
 
+import AVFoundation
+
 public typealias AKCallback = () -> Void
 
 /// Function type for MIDI callbacks

@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 extension AVAudioPCMBuffer {
     /// Copies data from another PCM buffer.  Will copy to the end of the buffer (frameLength), and
     /// increment frameLength. Will not exceed frameCapacity.

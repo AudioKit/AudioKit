@@ -3,6 +3,7 @@
 import XCTest
 import AudioKit
 import CAudioKit
+import AVFoundation
 
 class AKParameterAutomationTests: AKTestCase {
 

@@ -3,6 +3,7 @@
 import AudioKit
 import XCTest
 import CAudioKit
+import AVFoundation
 
 class AKOscillatorTests: AKTestCase {
     func testAmpitude() {

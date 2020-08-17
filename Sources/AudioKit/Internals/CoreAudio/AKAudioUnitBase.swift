@@ -2,6 +2,7 @@
 
 import AudioToolbox
 import CAudioKit
+import AVFoundation
 
 open class AKAudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides

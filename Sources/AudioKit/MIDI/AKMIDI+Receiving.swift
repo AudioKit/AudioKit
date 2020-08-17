@@ -15,6 +15,7 @@
 #if !os(tvOS)
 
 import OSLog
+import AVFoundation
 
 internal struct MIDISources: Collection {
     typealias Index = Int

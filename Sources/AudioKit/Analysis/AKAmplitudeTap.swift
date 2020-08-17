@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Accelerate
+import AVFoundation
 
 /// Tap to do amplitude analysis on any node.
 /// start() will add the tap, and stop() will remove it.

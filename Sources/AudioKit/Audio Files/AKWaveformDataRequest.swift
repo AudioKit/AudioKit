@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Accelerate
+import AVFoundation
 
 public class AKWaveformDataRequest {
     public private(set) var audioFile: AVAudioFile?

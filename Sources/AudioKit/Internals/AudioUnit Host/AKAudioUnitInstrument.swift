@@ -2,6 +2,8 @@
 
 #if !os(tvOS)
 
+import AVFoundation
+
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
     /// Initialize the audio unit instrument

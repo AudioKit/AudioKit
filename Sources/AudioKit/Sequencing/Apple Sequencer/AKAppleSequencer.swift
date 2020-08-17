@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
 open class AKAppleSequencer: NSObject {
 

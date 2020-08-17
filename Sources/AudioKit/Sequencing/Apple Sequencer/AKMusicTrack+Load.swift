@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 extension AKMusicTrack {
     func loadMIDI(filePath: String) {
         AKLog("loading file from exists @ \(filePath)")

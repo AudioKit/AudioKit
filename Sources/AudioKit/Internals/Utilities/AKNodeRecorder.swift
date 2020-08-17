@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AVFoundation
+
 /// Simple audio recorder class
 open class AKNodeRecorder: NSObject {
     // MARK: - Properties
