@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if !os(macOS)
 import UIKit.UIGestureRecognizerSubclass
 
 /// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to
@@ -256,3 +256,5 @@ extension Array where Element: Equatable {
         self = filter { $0 != element }
     }
 }
+
+#endif

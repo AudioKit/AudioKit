@@ -1,5 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(macOS)
+
+import UIKit
+
 /// This is primarily for the telephone page in the Synthesis playground
 public class AKTelephoneView: UIView {
     //swiftlint:disable
@@ -350,3 +354,5 @@ public class AKTelephoneView: UIView {
         context?.restoreGState()
     }
 }
+
+#endif

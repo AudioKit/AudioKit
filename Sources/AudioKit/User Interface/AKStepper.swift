@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if !os(macOS)
+import AVFoundation
 import UIKit
 
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
@@ -180,3 +181,5 @@ import UIKit
     open var touchBeganCallback: () -> Void = { }
     open var touchEndedCallback: () -> Void = { }
 }
+
+#endif

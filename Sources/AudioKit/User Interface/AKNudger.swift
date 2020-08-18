@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
-import AudioKit
+#if !os(macOS)
+import UIKit
+import AVFoundation
 
 @IBDesignable public class AKNudger: AKStepper {
     open var linear = true
@@ -165,3 +166,5 @@ import AudioKit
                    callback: callback)
     }
 }
+
+#endif

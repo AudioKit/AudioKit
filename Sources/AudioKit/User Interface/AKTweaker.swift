@@ -1,7 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(macOS)
 import Foundation
-import AudioKit
+import AVFoundation
+import UIKit
 
 @IBDesignable public class AKTweaker: AKCoarseFineSlider {
 
@@ -170,3 +172,5 @@ import AudioKit
         name = "Tweaker"
     }
 }
+
+#endif

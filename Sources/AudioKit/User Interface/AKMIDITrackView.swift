@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(macOS)
 import Foundation
-
-import AudioKit
+import UIKit
 
 /*
 This file contains the code for a horizontal MIDI sequencer view, similar to what you see
@@ -212,3 +212,5 @@ public class AKMIDITrackView: AKButton {
         collectiveNoteView.frame.origin.x = CGFloat(noteGroupPosition)
     }
 }
+
+#endif
