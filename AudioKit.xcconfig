@@ -1,0 +1,7 @@
+
+// Generate Xcode project with:
+// swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig
+HEADER_SEARCH_PATHS = $(SRCROOT)/Sources/CAudioKit/**
+
+// Why aren't these picked up automatically in the generated project?
+OTHER_LDFLAGS = -framework AudioToolbox -framework AVFoundation -framework Accelerate -framework CoreAudio -framework CoreGraphics -framework QuartzCore -framework Cocoa
