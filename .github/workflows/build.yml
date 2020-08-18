@@ -21,8 +21,9 @@ jobs:
       - name: Build AudioKit
         run: |
           set -euo pipefail
-          xcodebuild -project AudioKit.xcodeproj -scheme AudioKit-Package clean build | xcpretty -c
+          swift package clean
+          swift build --sanitize="address"
       - name: Run Tests
         run: |
           set -euo pipefail
-          xcodebuild -project AudioKit.xcodeproj -scheme AudioKit-Package test | xcpretty -c
+          swift test --sanitize="address"
