@@ -384,18 +384,21 @@ int plumber_add(plumber_data *plumb, const char *str, plumber_ftbl **ft)
 
 int plumber_register(plumber_data *plumb)
 {
-#define SPORTH_UGEN(key, func, macro, ninputs, noutputs) {key, func, plumb},
-    sporth_func flist[] = {
-#include "ugens.h"
+    // Make this static to conserve stack space.
+    #define SPORTH_UGEN(key, func, macro, ninputs, noutputs) {key, func, NULL},
+    static const sporth_func flist[] = {
+    #include "ugens.h"
         {NULL, NULL, NULL}
     };
-#undef SPORTH_UGEN
-
+    #undef SPORTH_UGEN
+    
+    sporth_func *flist2 = malloc(sizeof(flist));
+    flist2 = memcpy(flist2, flist, sizeof(flist));
+    for(int i=0;flist2[i].name;++i) {
+        flist2[i].ud = plumb;
+    }
     sporth_htable_init(&plumb->sporth.dict);
-    sporth_register_func(&plumb->sporth, flist);
-
-    sporth_func *flist2 = malloc(sizeof(sporth_func) * plumb->sporth.nfunc);
-    flist2 = memcpy(flist2, flist, sizeof(sporth_func) * plumb->sporth.nfunc);
+    sporth_register_func(&plumb->sporth, flist2);
     plumb->sporth.flist = flist2;
     return PLUMBER_OK;
 }
