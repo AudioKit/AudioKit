@@ -2,6 +2,7 @@
 
 #if !os(macOS)
 import Foundation
+import UIKit
 
 extension UIColor {
     func lighter(by percentage: CGFloat = 30.0) -> UIColor? {

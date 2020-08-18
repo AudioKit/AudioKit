@@ -2,6 +2,7 @@
 
 import Foundation
 import CAudioKit
+import CoreGraphics
 
 extension Notification.Name {
     static let IAAConnected = Notification.Name(rawValue: "IAAConnected")
