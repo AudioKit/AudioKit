@@ -41,4 +41,6 @@ SwiftStyleSettings.plist
 
 /Frameworks/distribute_built_frameworks.sh
 
-.build
+# Swift Package Manager
+/.build
+/Packages
