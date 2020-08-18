@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Check out AudioKit
         uses: actions/checkout@v2
-      - name: Generate Xcode Project 
-        run: |
-          set -euo pipefail
-          swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig
       - name: Build AudioKit
         run: |
           set -euo pipefail
