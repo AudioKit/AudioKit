@@ -29,7 +29,7 @@ If you, your team or your company is using AudioKit, please consider [sponsoring
 
 ## Installation
 
-Installation details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
+**AudioKit is available as a Swift Package! (requires Xcode 11.x)**. To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
 
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
