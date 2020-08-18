@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-import AudioKit
+import CoreGraphics
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable

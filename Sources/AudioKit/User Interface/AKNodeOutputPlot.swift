@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+import Foundation
+import CAudioKit
 
 extension Notification.Name {
     static let IAAConnected = Notification.Name(rawValue: "IAAConnected")

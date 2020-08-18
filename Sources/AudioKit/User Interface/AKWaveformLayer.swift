@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CoreGraphics
+import QuartzCore
 
 /// A CAShapeLayer rendering of a mono waveform. Can be updated on any thread.
 public class AKWaveformLayer: CAShapeLayer {

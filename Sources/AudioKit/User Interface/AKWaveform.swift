@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+import QuartzCore
 
 /// Container CALayer based class for multiple CAWaveformLayers
 public class AKWaveform: CALayer {

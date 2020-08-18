@@ -1,9 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
+    import Cocoa
     public typealias AKView = NSView
     public typealias AKColor = NSColor
 #else
+    import UIKit
     public typealias AKView = UIView
     public typealias AKColor = UIColor
 #endif

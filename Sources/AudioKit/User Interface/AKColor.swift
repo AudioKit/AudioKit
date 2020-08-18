@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(macOS)
 import Foundation
 
 extension UIColor {
@@ -23,3 +24,5 @@ extension UIColor {
         }
     }
 }
+
+#endif

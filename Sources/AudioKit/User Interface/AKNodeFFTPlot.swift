@@ -1,6 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+import CAudioKit
+import Accelerate
+import Foundation
 
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
