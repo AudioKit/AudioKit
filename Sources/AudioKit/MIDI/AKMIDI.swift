@@ -2,7 +2,7 @@
 
 #if !os(tvOS)
 import CoreMIDI
-import OSLog
+import os.log
 
 /// MIDI input and output handler
 ///

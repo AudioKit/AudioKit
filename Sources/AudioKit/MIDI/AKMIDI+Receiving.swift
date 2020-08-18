@@ -14,7 +14,7 @@
 
 #if !os(tvOS)
 
-import OSLog
+import os.log
 import AVFoundation
 
 internal struct MIDISources: Collection {

@@ -3,6 +3,10 @@
 import Foundation
 import AVFoundation
 
+#if os(iOS)
+import UIKit
+#endif
+
 extension AKManager {
 
     /// Observes changes to AVAudioEngineConfigurationChange..

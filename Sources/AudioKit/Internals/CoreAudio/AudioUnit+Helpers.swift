@@ -1,8 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import CoreAudio
-
 #if !os(macOS)
+
+import CoreAudio
+import AVFoundation
 
 // MARK: - AudioUnit helpers
 
