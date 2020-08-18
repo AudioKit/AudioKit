@@ -1,6 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if os(macOS)
+import Cocoa
+import AVFoundation
 
 public enum AKRotaryKnobStyle {
     case round
@@ -375,3 +377,5 @@ public enum AKRotaryKnobStyle {
         return path
     }
 }
+
+#endif

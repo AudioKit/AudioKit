@@ -1,8 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
 
-public class AKLiveViewController: NSViewController {
+public class AKPlaygroundViewController: NSViewController {
     var stackView: NSStackView!
     var textField: NSTextField?
 
@@ -48,3 +49,5 @@ public class AKLiveViewController: NSViewController {
                                       height: stackView.frame.height + newView.frame.height))
     }
 }
+
+#endif

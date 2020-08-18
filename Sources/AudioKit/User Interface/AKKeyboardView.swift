@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
-import AudioKit
 
 public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
@@ -267,3 +267,5 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         // do nothing
     }
 }
+
+#endif

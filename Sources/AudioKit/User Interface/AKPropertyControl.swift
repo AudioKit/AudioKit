@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
-import AudioKit
+import AVFoundation
 
 @IBDesignable public class AKPropertyControl: NSView {
     override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
@@ -127,3 +128,4 @@ import AudioKit
     }
 
 }
+#endif

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if os(macOS)
 import Cocoa
 
 public class AKResourcesAudioFileLoaderView: NSView {
@@ -342,3 +342,5 @@ public class AKResourcesAudioFileLoaderView: NSView {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }
 }
+
+#endif

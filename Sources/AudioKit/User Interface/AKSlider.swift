@@ -1,6 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if os(macOS)
+import AVFoundation
+import Cocoa
 
 public enum AKSliderStyle {
     case roundIndicator
@@ -342,3 +344,5 @@ public enum AKSliderStyle {
         }
     }
 }
+
+#endif

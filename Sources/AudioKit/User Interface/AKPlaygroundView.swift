@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
-import AudioKit
 
 public typealias Label = AKLabel
 
@@ -95,3 +95,5 @@ public class AKPlaygroundView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+#endif
