@@ -37,12 +37,6 @@ AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit).
     pod 'AudioKit', '~> 5.0'
 ```
 
-If you do not need the UI components, you can select just the Core pod, like so:
-
-```
-   pod 'AudioKit/Core'
-```
-
 You can also use [Carthage](https://github.com/Carthage/Carthage) (v0.30 or higher) to install our precompiled static frameworks in your project.
 
 ## Example Code
