@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
-import AudioKit
+#if !os(macOS)
+import UIKit
+import AVFoundation
 
 @IBDesignable public class AKCoarseFineSlider: UIView {
 
@@ -244,3 +245,5 @@ import AudioKit
         genStackViews(rect: bounds)
     }
 }
+
+#endif
