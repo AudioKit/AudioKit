@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if os(macOS)
+import Cocoa
 
 public class AKPresetLoaderView: NSView {
     // Default corner radius
@@ -295,3 +296,4 @@ public class AKPresetLoaderView: NSView {
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }
 }
+#endif

@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
-import AudioKit
+#if os(macOS)
+import Cocoa
 
 public enum AKButtonStyle {
     case standard
@@ -227,3 +228,4 @@ public enum AKButtonStyle {
                                      withAttributes: labelFontAttributes)
     }
 }
+#endif

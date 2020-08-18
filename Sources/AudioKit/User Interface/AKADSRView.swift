@@ -1,6 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+#if os(macOS)
+import AVFoundation
+import Cocoa
 
 public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
@@ -275,3 +277,4 @@ public class AKADSRView: NSView {
                         sustainLevel: CGFloat(1.0 - sustainLevel))
     }
 }
+#endif

@@ -1,9 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
-import AudioKit
-
-public typealias AKLabel = NSTextField
 
 open class AKLiveViewController: NSViewController {
 
@@ -61,3 +59,5 @@ open class AKLiveViewController: NSViewController {
                                       height: stackView.frame.height + newView.frame.height))
     }
 }
+
+#endif

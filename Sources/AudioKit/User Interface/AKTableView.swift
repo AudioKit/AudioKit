@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if os(macOS)
 import Cocoa
-import AudioKit
 
 public class AKTableView: NSView {
 
@@ -73,3 +73,5 @@ public class AKTableView: NSView {
         bezierPath.stroke()
     }
 }
+
+#endif
