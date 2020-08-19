@@ -7,10 +7,11 @@
 #include <stdarg.h>
 
 #include "plumber.h"
+#include "ugens.h"
 
 #define SPORTH_UGEN(key, func, macro, ninputs, noutputs) \
     int func(sporth_stack *stack, void *ud);
-#include "ugens.h"
+SPORTH_UGENS
 #undef SPORTH_UGEN
 
 #ifdef BUILD_JACK
@@ -387,7 +388,7 @@ int plumber_register(plumber_data *plumb)
     // Make this static to conserve stack space.
     #define SPORTH_UGEN(key, func, macro, ninputs, noutputs) {key, func, NULL},
     static const sporth_func flist[] = {
-    #include "ugens.h"
+    SPORTH_UGENS
         {NULL, NULL, NULL}
     };
     #undef SPORTH_UGEN
