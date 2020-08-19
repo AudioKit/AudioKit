@@ -25,7 +25,7 @@
 //------------------------------------------------------------------------------
 
 #if TARGET_OS_IPHONE
-@import UIKit;
+#import <UIKit/UIKit.h>
 typedef CGRect EZRect;
 #else
 #import <Cocoa/Cocoa.h>
