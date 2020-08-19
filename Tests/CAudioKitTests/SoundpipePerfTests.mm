@@ -52,7 +52,7 @@ static int iterations = 60 * 44100;
     plumber_register(&pd);
     plumber_init(&pd);
     
-    const char* sporthCode = "\"sine\" 4096 gen_sine 440 0.5 0 \"sine\" osc";
+    const char* sporthCode = "440 1 sine";
 
     pd.sp = sp;
     if (sporthCode != nil) {
