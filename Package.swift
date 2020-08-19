@@ -47,7 +47,10 @@ let package = Package(
             dependencies: ["CAudioKit"]),
         .testTarget(
             name: "AudioKitTests",
-            dependencies: ["AudioKit"])
+            dependencies: ["AudioKit"]),
+        .testTarget(
+            name: "CAudioKitTests",
+            dependencies: ["CAudioKit"])
     ],
     cxxLanguageStandard: .cxx14
 )
