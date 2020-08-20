@@ -117,7 +117,7 @@ class AKAutomationCurveTests: AKTestCase {
                                     resolution: 0.5)
 
         XCTAssertEqual(events[0].startTime, 0.0)
-        XCTAssert(fabs(events[0].targetValue - 0.5) < 0.0001)
+        XCTAssert(abs(events[0].targetValue - 0.5) < 0.0001)
 
         XCTAssertEqual(events[1].startTime, 0.5)
         XCTAssertEqual(events[1].targetValue, 1.0)
@@ -157,7 +157,7 @@ class AKAutomationCurveTests: AKTestCase {
         XCTAssertEqual(events[0].targetValue, 1.0)
 
         XCTAssertEqual(events[1].startTime, 1.0)
-        XCTAssert(fabs(events[1].targetValue - 0.5) < 0.0001)
+        XCTAssert(abs(events[1].targetValue - 0.5) < 0.0001)
 
         XCTAssertEqual(events[2].startTime, 1.5)
         XCTAssert(abs(events[2].targetValue) < 0.0001)
@@ -184,7 +184,7 @@ class AKAutomationCurveTests: AKTestCase {
         XCTAssertEqual(events[0].targetValue, 0.25)
 
         XCTAssertEqual(events[1].startTime, 0.5)
-        XCTAssert(fabs(events[1].targetValue - 0.5) < 0.0001)
+        XCTAssert(abs(events[1].targetValue - 0.5) < 0.0001)
 
         XCTAssertEqual(events[2].startTime, 1.0)
         XCTAssertEqual(events[2].targetValue, 1.0)
