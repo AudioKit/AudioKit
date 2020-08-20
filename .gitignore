@@ -44,3 +44,6 @@ SwiftStyleSettings.plist
 # Swift Package Manager
 /.build
 /Packages
+
+# Generated Xcode project
+/AudioKit.xcodeproj
