@@ -177,7 +177,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     public var phaseOffset: Int {
         @inline(__always)
         get {
-            Int(phase * Float(count))
+            Int(phase * Double(count))
         }
     }
 
