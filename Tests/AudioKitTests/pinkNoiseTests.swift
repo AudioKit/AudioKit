@@ -4,7 +4,7 @@ import AudioKit
 
 class PinkNoiseTests: AKTestCase {
 
-    var noise = AKOperationGenerator { _ in return AKOperation.pinkNoise() }
+    var noise = AKOperationGenerator { AKOperation.pinkNoise() }
 
     override func setUp() {
         afterStart = { self.noise.start() }
@@ -17,7 +17,7 @@ class PinkNoiseTests: AKTestCase {
     }
 
     func testAmplitude() {
-        noise = AKOperationGenerator { _ in
+        noise = AKOperationGenerator {
             return AKOperation.pinkNoise(amplitude: 0.456)
         }
         output = noise
@@ -25,7 +25,7 @@ class PinkNoiseTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        noise = AKOperationGenerator { _ in
+        noise = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,

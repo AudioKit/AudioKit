@@ -4,7 +4,7 @@ import AudioKit
 
 class SineWaveTests: AKTestCase {
 
-    let sine = AKOperationGenerator { _ in return AKOperation.sineWave() }
+    let sine = AKOperationGenerator { AKOperation.sineWave() }
 
     override func setUp() {
         afterStart = { self.sine.start() }

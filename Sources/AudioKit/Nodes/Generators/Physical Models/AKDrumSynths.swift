@@ -16,7 +16,7 @@ public class AKSynthKick: AKMIDIInstrument {
     /// - Parameter midiInputName: Name of the instrument's MIDI input.
     public override init(midiInputName: String? = nil) {
 
-        generator = AKOperationGenerator { _ in
+        generator = AKOperationGenerator {
             let frequency = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 120, end: 40, duration: 0.03)
             let volumeSlide = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 1, end: 0, duration: 0.3)
             return AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
@@ -56,7 +56,7 @@ public class AKSynthSnare: AKMIDIInstrument {
         self.duration = duration
         self.resonance = resonance
 
-        generator = AKOperationGenerator { _ in
+        generator = AKOperationGenerator {
             let volSlide = AKOperation.lineSegment(
                 trigger: AKOperation.trigger,
                 start: 1,

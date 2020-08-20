@@ -35,7 +35,7 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator { _ in
+let synth = AKOperationGenerator {
 
     let oscillator = AKOperation.fmOscillator(baseFrequency: Synth.frequency,
                                               carrierMultiplier: 3,

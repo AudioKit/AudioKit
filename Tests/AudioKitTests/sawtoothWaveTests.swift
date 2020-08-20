@@ -4,7 +4,7 @@ import AudioKit
 
 class SawtoothWaveTests: AKTestCase {
 
-    let sawtooth = AKOperationGenerator { _ in return AKOperation.sawtoothWave() }
+    let sawtooth = AKOperationGenerator { AKOperation.sawtoothWave() }
 
     override func setUp() {
         afterStart = { self.sawtooth.start() }

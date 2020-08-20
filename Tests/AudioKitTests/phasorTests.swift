@@ -4,7 +4,7 @@ import AudioKit
 
 class PhasorTests: AKTestCase {
 
-    let phasor = AKOperationGenerator { _ in return AKOperation.phasor() }
+    let phasor = AKOperationGenerator { AKOperation.phasor() }
 
     override func setUp() {
         super.setUp()

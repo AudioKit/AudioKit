@@ -4,7 +4,7 @@ import AudioKit
 
 class TriangleWaveTests: AKTestCase {
 
-    var triangle = AKOperationGenerator { _ in return AKOperation.triangleWave() }
+    var triangle = AKOperationGenerator { AKOperation.triangleWave() }
 
     override func setUp() {
         afterStart = { self.triangle.start() }
@@ -12,7 +12,7 @@ class TriangleWaveTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        triangle = AKOperationGenerator { _ in
+        triangle = AKOperationGenerator {
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 1,

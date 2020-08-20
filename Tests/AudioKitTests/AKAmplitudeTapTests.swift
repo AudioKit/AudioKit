@@ -8,7 +8,7 @@ class AKAmplitudeTapTests: AKTestCase {
     var tap: AKAmplitudeTap!
     var amplitudes: [Float] = []
 
-    let sine = AKOperationGenerator { _ in
+    let sine = AKOperationGenerator {
         let amplitude = AKOperation.sineWave(frequency: 0.25, amplitude: 1)
         return AKOperation.sineWave() * amplitude }
 

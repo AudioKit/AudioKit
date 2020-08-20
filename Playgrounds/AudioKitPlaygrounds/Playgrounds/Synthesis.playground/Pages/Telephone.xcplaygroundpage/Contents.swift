@@ -6,7 +6,7 @@ import AudioKitUI
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies
-let dialTone = AKOperationGenerator { _ in
+let dialTone = AKOperationGenerator {
     let dialTone1 = AKOperation.sineWave(frequency: 350)
     let dialTone2 = AKOperation.sineWave(frequency: 440)
     return mixer(dialTone1, dialTone2) * 0.3
@@ -15,7 +15,7 @@ let dialTone = AKOperationGenerator { _ in
 //: ### Telephone Ringing
 //: The ringing sound is also a pair of frequencies that play for 2 seconds,
 //: and repeats every 6 seconds.
-let ringing = AKOperationGenerator { _ in
+let ringing = AKOperationGenerator {
     let ringingTone1 = AKOperation.sineWave(frequency: 480)
     let ringingTone2 = AKOperation.sineWave(frequency: 440)
 
@@ -32,7 +32,7 @@ let ringing = AKOperationGenerator { _ in
 
 //: ### Busy Signal
 //: The busy signal is similar as well, just a different set of parameters.
-let busy = AKOperationGenerator { _ in
+let busy = AKOperationGenerator {
     let busySignalTone1 = AKOperation.sineWave(frequency: 480)
     let busySignalTone2 = AKOperation.sineWave(frequency: 620)
     let busySignalTone = mixer(busySignalTone1, busySignalTone2)

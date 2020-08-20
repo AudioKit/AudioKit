@@ -12,7 +12,7 @@ class TriangleTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        triangle = AKOperationGenerator { _ in
+        triangle = AKOperationGenerator {
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 1,

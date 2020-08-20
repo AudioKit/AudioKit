@@ -4,7 +4,7 @@ import AudioKit
 
 class WhiteNoiseTests: AKTestCase {
 
-    var noise = AKOperationGenerator { _ in return AKOperation.whiteNoise() }
+    var noise = AKOperationGenerator { AKOperation.whiteNoise() }
 
     override func setUp() {
         afterStart = { self.noise.start() }
@@ -17,7 +17,7 @@ class WhiteNoiseTests: AKTestCase {
     }
 
     func testAmplitude() {
-        noise = AKOperationGenerator { _ in
+        noise = AKOperationGenerator {
             return AKOperation.whiteNoise(amplitude: 0.456)
         }
         output = noise
@@ -25,7 +25,7 @@ class WhiteNoiseTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        noise = AKOperationGenerator { _ in
+        noise = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,
