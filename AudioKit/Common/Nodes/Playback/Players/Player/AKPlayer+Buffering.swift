@@ -112,7 +112,7 @@ extension AKPlayer {
     ///  - Parameters:
     ///     - inTime specified in seconds, 0 if no fade
     ///     - outTime specified in seconds, 0 if no fade
-    fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
+    fileprivate func fadeBuffer(inTime: TimeInterval = 0, outTime: TimeInterval = 0) {
         guard isBuffered, let buffer = self.buffer else { return }
         if let fadedBuffer = buffer.fade(inTime: inTime,
                                          outTime: outTime) {
