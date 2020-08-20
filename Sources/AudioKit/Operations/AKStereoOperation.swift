@@ -58,6 +58,10 @@ open class AKStereoOperation: AKComputedParameter {
         return opString
     }
 
+    func getSetup() -> String {
+        return setupSporth == "" ? "" : setupSporth + " "
+    }
+
     /// Final sporth string when this operation is the last operation in the stack
     internal var sporth: String {
         let rd = recursiveDependencies
@@ -68,11 +72,11 @@ open class AKStereoOperation: AKComputedParameter {
         var counter = 0
         for op in rd {
             op.savedLocation = counter
-            str += op.setupSporth
+            str += op.getSetup()
             str += op.inlineSporth + "\(op.savedLocation) \"ak\" tset "
             counter += 1
         }
-        str += setupSporth
+        str += getSetup()
         str += inlineSporth
         return str
     }
