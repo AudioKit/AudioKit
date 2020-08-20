@@ -16,7 +16,7 @@ extension Double {
 }
 
 // MARK: - Tools for obtaining average and std_dev arrays of floating points
-extension Array where Element: Numeric {
+extension Array where Element == Double {
 
     func sum() -> Double {
         return self.reduce( Double(0), +)
@@ -33,8 +33,7 @@ extension Array where Element: Numeric {
         let start = Double(0)
         let v = self.reduce(start) { (priorResult, item) -> Double in
             let accumulator = Double(priorResult)
-            let floatItem = (item as? Double) ?? 0
-            let diff = floatItem - mean
+            let diff = item - mean
             return accumulator + diff * diff
         }
         return sqrt(v / (Double(self.count) - 1))

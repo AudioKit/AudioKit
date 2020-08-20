@@ -57,9 +57,9 @@ import AVFoundation
                 minusHeldCounter += 1
             }
         }
-        let addValue = AUValue(increment * plusHeldCounter) *
+        let addValue = increment * AUValue(plusHeldCounter) *
             (linear ? 1 : AUValue(plusHeldCounter) / AUValue(maxPlusCounter))
-        let subValue = AUValue(increment * minusHeldCounter) *
+        let subValue = increment * AUValue(minusHeldCounter) *
             (linear ? 1 : AUValue(minusHeldCounter) / AUValue(maxMinusCounter))
         currentValue = AUValue(originalValue + addValue - subValue)
         callbackOnChange()

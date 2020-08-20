@@ -47,18 +47,18 @@ public class AKTableView: UIView {
         midline.stroke()
 
         let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: 0.0, y: (1.0 - table[0] / absmax) * height))
+        bezierPath.move(to: CGPoint(x: 0.0, y: (1.0 - Double(table[0]) / absmax) * height))
 
         for index in 1..<table.count {
 
-            let xPoint = Double(index) / table.count * width
+            let xPoint = Double(index) / Double(table.count) * width
 
-            let yPoint = (1.0 - table[index] / absmax * padding) * height
+            let yPoint = (1.0 - Double(table[index]) / absmax * padding) * height
 
             bezierPath.addLine(to: CGPoint(x: xPoint, y: yPoint))
         }
 
-        bezierPath.addLine(to: CGPoint(x: Double(frame.width), y: (1.0 - table[0] / absmax * padding) * height))
+        bezierPath.addLine(to: CGPoint(x: Double(frame.width), y: (1.0 - Double(table[0]) / absmax * padding) * height))
 
         UIColor.black.setStroke()
         bezierPath.lineWidth = 2
