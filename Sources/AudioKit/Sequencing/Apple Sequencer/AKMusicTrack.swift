@@ -211,7 +211,7 @@ open class AKMusicTrack {
                         return
                     }
 
-                    if eventTime + dur > duration.beats {
+                    if eventTime + Double(dur) > duration.beats {
                         var newNote = MIDINoteMessage(channel: channel,
                                                       note: note,
                                                       velocity: velocity,

@@ -51,7 +51,7 @@ public class AKMIDIFileTrackNoteMap {
             //data is in the proper format
             //for a MIDI end of track message before trying to parse it
             if event.data[1] == endOfTrackEvent && event.data.count >= 3 {
-                eventTime = (event.positionInBeats ?? 0.0) / (self.midiFile.ticksPerBeat ?? 1)
+                eventTime = (event.positionInBeats ?? 0.0) / Double(self.midiFile.ticksPerBeat ?? 1)
                 return eventTime
             } else {
                 //Some MIDI files may not
@@ -100,7 +100,7 @@ public class AKMIDIFileTrackNoteMap {
                 //A note played with a velocity of zero is the equivalent
                 //of a noteOff command
                 if velocityEvent == 0 {
-                    eventPosition = (event.positionInBeats ?? 1.0) / (self.midiFile.ticksPerBeat ?? 1)
+                    eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
                     noteNum = Int(data[1])
                     if let prevPosValue = notesInProgress[noteNum]?.0 {
                         notesInProgress[noteNum] = (prevPosValue, eventPosition)
@@ -119,14 +119,14 @@ public class AKMIDIFileTrackNoteMap {
                         finalNoteList.append(noteTracker)
                     }
                 } else {
-                    eventPosition = (event.positionInBeats ?? 1.0) / (self.midiFile.ticksPerBeat ?? 1)
+                    eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
                     noteNum = Int(data[1])
                     notesInProgress[noteNum] = (eventPosition, 0.0)
                 }
             }
 
             if eventTypeNum == noteOff {
-                eventPosition = (event.positionInBeats ?? 1.0) / (self.midiFile.ticksPerBeat ?? 1)
+                eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
                 noteNum = Int(data[1])
                 if let prevPosValue = notesInProgress[noteNum]?.0 {
                     notesInProgress[noteNum] = (prevPosValue, eventPosition)

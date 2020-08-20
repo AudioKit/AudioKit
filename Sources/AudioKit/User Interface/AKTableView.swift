@@ -120,20 +120,21 @@ public class AKTableView: NSView {
         midline.stroke()
 
         let bezierPath = NSBezierPath()
-        bezierPath.move(to: NSPoint(x: 0.0, y: (1.0 - table[0] / absmax) * height))
+        bezierPath.move(to: NSPoint(x: 0.0, y: (1.0 - Double(table[0]) / absmax) * height))
 
         let strideWidth = max(1, Int(Double(table.count) / Double(frame.width)))
 
         for i in  stride(from: 0, to: table.count, by: strideWidth) {
 
-            let x = Double(i) / table.count * width
+            let x = Double(i) / Double(table.count) * width
 
-            let y = (1.0 - table[i] / absmax * padding) * height
+            let y = (1.0 - Double(table[i]) / absmax * padding) * height
 
             bezierPath.line(to: NSPoint(x: x, y: y))
         }
 
-        bezierPath.line(to: NSPoint(x: Double(frame.width), y: (1.0 - table[0] / absmax * padding) * height))
+        bezierPath.line(to: NSPoint(x: Double(frame.width),
+                                    y: (1.0 - Double(table[0]) / absmax * padding) * height))
 
         NSColor.black.setStroke()
         bezierPath.lineWidth = 2

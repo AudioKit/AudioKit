@@ -20,7 +20,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
         get {
-            let doubleSamples = beats / tempo * AKDuration.secondsPerMinute * sampleRate
+            let doubleSamples = beats / tempo * Double(AKDuration.secondsPerMinute) * sampleRate
             if doubleSamples <= Double(Int.max) {
                 return Int(doubleSamples)
             } else {
@@ -29,7 +29,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
             }
         }
         set {
-            beats = (newValue / sampleRate) / AKDuration.secondsPerMinute * tempo
+            beats = (Double(newValue) / Double(sampleRate)) / Double(AKDuration.secondsPerMinute) * tempo
         }
     }
 
@@ -60,7 +60,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     ///   - sampleRate: Sample rate in samples per second
     ///
     public init(samples: Int, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
-        self.beats = tempo * (samples / sampleRate) / AKDuration.secondsPerMinute
+        self.beats = tempo * (Double(samples) / sampleRate) / Double(AKDuration.secondsPerMinute)
         self.sampleRate = sampleRate
         self.tempo = tempo
     }
@@ -85,7 +85,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public init(seconds: Double, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
-        self.beats = tempo * (seconds / AKDuration.secondsPerMinute)
+        self.beats = tempo * (seconds / Double(AKDuration.secondsPerMinute))
     }
 
     /// Add to a duration

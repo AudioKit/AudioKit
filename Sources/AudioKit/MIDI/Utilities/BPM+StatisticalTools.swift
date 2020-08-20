@@ -83,7 +83,7 @@ struct BPMHistoryStatistics {
         let firstIndex = max(timeHistory.count - historyCounts[regressionCountIndex], 0)
         let first = timeHistory[firstIndex]
         let last = timeHistory.last ?? first
-        let value = first + ((last - first) * ratio)
+        let value = first + ((last - first) * Double(ratio))
         return UInt64(value)
     }
 
