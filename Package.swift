@@ -36,7 +36,6 @@ let package = Package(
                 .headerSearchPath("soundpipe/include"),
                 .headerSearchPath("sporth/include"),
                 .headerSearchPath("soundpipeextension/include"),
-                .headerSearchPath("TPCircularBuffer/include"),
                 .define("NO_LIBSNDFILE")],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
