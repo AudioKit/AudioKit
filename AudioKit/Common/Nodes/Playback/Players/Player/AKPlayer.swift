@@ -336,7 +336,10 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
-    public func play(from startingTime: TimeInterval, to endingTime: TimeInterval, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+    public func play(from startingTime: TimeInterval,
+                     to endingTime: TimeInterval,
+                     at audioTime: AVAudioTime?,
+                     hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
         var audioTime = audioTime ?? AVAudioTime.now()
         isPlaying = true
