@@ -55,10 +55,10 @@ public class AKPlayer: AKAbstractPlayer {
     internal var startingFrame: AVAudioFramePosition?
     internal var endingFrame: AVAudioFramePosition?
 
-    private var playerTime: Double {
+    private var playerTime: TimeInterval {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return Double(playerTime.sampleTime) / playerTime.sampleRate
+            return TimeInterval(playerTime.sampleTime) / playerTime.sampleRate
         }
         return 0
     }
@@ -115,9 +115,9 @@ public class AKPlayer: AKAbstractPlayer {
     public internal(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    override public var duration: Double {
+    override public var duration: TimeInterval {
         guard let audioFile = audioFile else { return 0 }
-        return Double(audioFile.length) / audioFile.fileFormat.sampleRate
+        return TimeInterval(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
     override public var sampleRate: Double {
@@ -152,7 +152,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Current time of the player in seconds while playing.
-    public var currentTime: Double {
+    public var currentTime: TimeInterval {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         var normalizedPauseTime = 0.0
         if let pauseTime = pauseTime, pauseTime > startTime {
@@ -163,7 +163,7 @@ public class AKPlayer: AKAbstractPlayer {
         return current
     }
 
-    public var pauseTime: Double? {
+    public var pauseTime: TimeInterval? {
         didSet {
             isPaused = pauseTime != nil
         }
@@ -336,7 +336,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
-    public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+    public func play(from startingTime: TimeInterval, to endingTime: TimeInterval, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
         var audioTime = audioTime ?? AVAudioTime.now()
         isPlaying = true
@@ -353,7 +353,7 @@ public class AKPlayer: AKAbstractPlayer {
             if renderingMode == .offline, sampleRate != AKSettings.sampleRate {
                 let sampleRateRatio = sampleRate / AKSettings.sampleRate
 
-                let sampleTime = AVAudioFramePosition(Double(audioTime.sampleTime) / sampleRateRatio)
+                let sampleTime = AVAudioFramePosition(TimeInterval(audioTime.sampleTime) / sampleRateRatio)
                 audioTime = AVAudioTime(hostTime: audioTime.hostTime, sampleTime: sampleTime, atRate: sampleRate)
 
                 // AKLog("AKSettings sample rate (\(AKSettings.sampleRate) is mismatched from the player ", sampleRate)

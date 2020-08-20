@@ -32,7 +32,7 @@ extension AKPlayer {
     /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
     /// Otherwise it just sets the edit points and enables the fader if the region
     /// has fade in or out applied to it.
-    public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
+    public func preroll(from startingTime: TimeInterval = 0, to endingTime: TimeInterval = 0) {
         var from = startingTime
         var to = endingTime
 
@@ -71,7 +71,7 @@ extension AKPlayer {
     }
 
     /// Play segments of a file
-    public func play(from startingTime: Double, to endingTime: Double = 0) {
+    public func play(from startingTime: TimeInterval, to endingTime: TimeInterval = 0) {
         var to = endingTime
         if to == 0 {
             to = endTime
@@ -101,13 +101,13 @@ extension AKPlayer {
 
     /// Play file using previously set startTime and endTime at some point in the future specified in seconds
     /// with a hostTime reference
-    public func play(when scheduledTime: Double, hostTime: UInt64? = nil) {
+    public func play(when scheduledTime: TimeInterval, hostTime: UInt64? = nil) {
         play(from: startTime, to: endTime, when: scheduledTime, hostTime: hostTime)
     }
 
-    public func play(from startingTime: Double,
-                     to endingTime: Double,
-                     when scheduledTime: Double,
+    public func play(from startingTime: TimeInterval,
+                     to endingTime: TimeInterval,
+                     when scheduledTime: TimeInterval,
                      hostTime: UInt64? = nil) {
         let refTime = hostTime ?? mach_absolute_time()
         var avTime: AVAudioTime?
@@ -355,7 +355,7 @@ extension AKPlayer: AKTiming {
         return isPlaying
     }
 
-    public func setPosition(_ position: Double) {
+    public func setPosition(_ position: TimeInterval) {
         startTime = position
         if isPlaying {
             stop()
@@ -363,14 +363,14 @@ extension AKPlayer: AKTiming {
         }
     }
 
-    public func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> TimeInterval {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return startTime
         }
-        return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
+        return startTime + TimeInterval(playerTime.sampleTime) / playerTime.sampleRate
     }
 
-    public func audioTime(at position: Double) -> AVAudioTime? {
+    public func audioTime(at position: TimeInterval) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (position - startTime) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
