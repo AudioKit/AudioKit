@@ -80,6 +80,10 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
         self.init(input, sporth: "")
     }
 
+    public convenience init(_ input: AKNode?, operation: (AKStereoOperation) -> AKComputedParameter) {
+        self.init(input, operation: { node, _ in operation(node) })
+    }
+
     /// Initialize the effect with an input and a valid Sporth string
     ///
     /// - Parameters:

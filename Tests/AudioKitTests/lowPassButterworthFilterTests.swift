@@ -10,9 +10,7 @@ class  LowPassButterworthFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.lowPassButterworthFilter()
-        }
+        output = AKOperationEffect(input) { $0.lowPassButterworthFilter() }
         AKTest()
     }
 

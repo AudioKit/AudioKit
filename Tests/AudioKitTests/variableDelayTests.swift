@@ -10,7 +10,7 @@ class VariableDelayTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        output = AKOperationEffect(input) { input, _ in
+        output = AKOperationEffect(input) { input in
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 1,

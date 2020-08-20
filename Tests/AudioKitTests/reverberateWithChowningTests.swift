@@ -10,7 +10,7 @@ class ReverberateWithChowningTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
+        output = AKOperationEffect(input) { input in
             return input.reverberateWithChowning()
         }
         AKTest()

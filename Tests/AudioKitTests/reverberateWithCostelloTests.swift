@@ -10,9 +10,7 @@ class ReverberateWithCostelloTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.reverberateWithCostello()
-        }
+        output = AKOperationEffect(input) { $0.reverberateWithCostello() }
         AKTest()
     }
 

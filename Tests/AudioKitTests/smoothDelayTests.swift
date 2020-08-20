@@ -10,28 +10,22 @@ class SmoothDelayTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay()
-        }
+        output = AKOperationEffect(input) { $0.smoothDelay() }
         AKTest()
     }
 
     func testFeedback() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(feedback: 0.66)
-        }
+        output = AKOperationEffect(input) { $0.smoothDelay(feedback: 0.66) }
         AKTest()
     }
 
     func testParameters() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(time: 0.05, feedback: 0.66, samples: 256)
-        }
+        output = AKOperationEffect(input) { $0.smoothDelay(time: 0.05, feedback: 0.66, samples: 256) }
         AKTest()
     }
 
     func testParameterSweep() {
-        output = AKOperationEffect(input) { input, _ in
+        output = AKOperationEffect(input) { input in
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 1.0 / self.duration),
                 start: 0,
@@ -43,9 +37,7 @@ class SmoothDelayTests: AKTestCase {
     }
 
     func testTime() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(time: 0.05)
-        }
+        output = AKOperationEffect(input) { $0.smoothDelay(time: 0.05) }
         AKTest()
     }
 
