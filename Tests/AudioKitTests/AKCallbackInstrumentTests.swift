@@ -48,7 +48,7 @@ class AKCallbackInstrumentTests: AKTestCase {
 
         output = instrument
 
-        AKTestMD5("1d479b2f01ff096f729486321207710c")
+        AKTest()
 
         wait(for: [expect], timeout: 1.0)
         XCTAssertEqual(data, expectedData)

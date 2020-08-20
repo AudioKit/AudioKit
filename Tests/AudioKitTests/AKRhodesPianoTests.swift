@@ -12,7 +12,7 @@ class AKRhodesPianoKeyTests: AKTestCase {
         output = rhodesPiano
 
         // auditionTest()
-        AKTestMD5("ed6b966db1f452e7f98a911d46bcc29b")
+        AKTest()
 
     }
 
@@ -23,7 +23,7 @@ class AKRhodesPianoKeyTests: AKTestCase {
         output = rhodesPiano
 
         // auditionTest()
-        AKTestMD5("487dbe47fe2384504aaa895b65b90a27")
+        AKTest()
 
     }
 

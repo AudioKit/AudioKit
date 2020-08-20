@@ -12,7 +12,7 @@ class AKMandolinStringTests: AKTestCase {
         output = mandolin
 
         // auditionTest()
-        AKTestMD5("2e192fd0c660a517e6fe1daefd639521")
+        AKTest()
 
     }
 
@@ -23,7 +23,7 @@ class AKMandolinStringTests: AKTestCase {
         output = mandolin
 
         // auditionTest()
-        AKTestMD5("a7f9870da8e9b9aad6af57ad8ac2503f")
+        AKTest()
 
     }
 

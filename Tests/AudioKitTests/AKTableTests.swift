@@ -7,13 +7,13 @@ class AKTableTests: AKTestCase {
     func testReverseSawtooth() {
         input = AKOscillator(waveform: AKTable(.reverseSawtooth))
         output = input
-        AKTestMD5("5b4a1cdcd9864f80ad5163d7cbe3e01f")
+        AKTest()
     }
 
     func testSawtooth() {
         input = AKOscillator(waveform: AKTable(.sawtooth))
         output = input
-        AKTestMD5("429344b732d20f8e8c89379bd75147a3")
+        AKTest()
     }
 
     func testSine() {
@@ -26,7 +26,7 @@ class AKTableTests: AKTestCase {
     func testTriangle() {
         input = AKOscillator(waveform: AKTable(.triangle))
         output = input
-        AKTestMD5("c533c2b5975c4817d1c54f5821779a8f")
+        AKTest()
     }
 
 }

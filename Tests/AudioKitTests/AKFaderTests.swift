@@ -27,14 +27,12 @@ class AKFaderTests: AKTestCase {
         AKTestNoEffect()
     }
 
-    let flippedMD5 = "8c774ff60ef1a5c47f8beec155d25f11"
-
     func testFlipStereo() {
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
         fader.flipStereo = true
         output = fader
-        AKTestMD5(flippedMD5)
+        AKTest()
     }
 
     func testFlipStereoTwice() {
@@ -44,7 +42,7 @@ class AKFaderTests: AKTestCase {
         let fader2 = AKFader(fader, gain: 1.0)
         fader2.flipStereo = true
         output = fader2
-        AKTestMD5("6b75baedc4700e335f665785e8648c14")
+        AKTest()
     }
 
     func testFlipStereoThrice() {
@@ -56,7 +54,7 @@ class AKFaderTests: AKTestCase {
         let fader3 = AKFader(fader2, gain: 1.0)
         fader3.flipStereo = true
         output = fader3
-        AKTestMD5(flippedMD5)
+        AKTest()
     }
 
     func testMixToMono() {
@@ -64,16 +62,16 @@ class AKFaderTests: AKTestCase {
         let fader = AKFader(pan, gain: 1.0)
         fader.mixToMono = true
         output = fader
-        AKTestMD5("986675abd9c15378e8f4eb581bf90857")
+        AKTest()
     }
 
     func testParameters() {
         output = AKFader(input, gain: 2.0)
-        AKTestMD5("09fdb24adb3181f6985eba4b408d8c6d")
+        AKTest()
     }
 
     func testParameters2() {
         output = AKFader(input, gain: 0.5)
-        AKTestMD5("79972090508032a146d806185f9bc871")
+        AKTest()
     }
 }

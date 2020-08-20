@@ -15,7 +15,7 @@ class AKClarinetTest: AKTestCase {
         output = clarinet
 
         // auditionTest()
-        AKTestMD5("0ff85d140be73b31ad2639e7cbddec5a")
+        AKTest()
     }
 
     func testVelocity() {
@@ -27,7 +27,7 @@ class AKClarinetTest: AKTestCase {
         output = clarinet
 
         // auditionTest()
-        AKTestMD5("dd21424f2848b399b393d4f5b0308680")
+        AKTest()
     }
 
 }

@@ -15,7 +15,7 @@ class AKMorphingOscillatorTests: AKTestCase {
 
     func testDefault() {
         output = oscillator
-        AKTestMD5("b3168bffcc63e44c6850fbf7c17ad98d")
+        AKTest()
     }
 
     func testParametersSetAfterInit() {
@@ -27,7 +27,7 @@ class AKMorphingOscillatorTests: AKTestCase {
         oscillator.detuningOffset = 11
         oscillator.detuningMultiplier = 1.1
         output = oscillator
-        AKTestMD5("382e738d40fdda8c38e4b9ad1fbde591")
+        AKTest()
     }
 
     func testParametersSetOnInit() {
@@ -39,6 +39,6 @@ class AKMorphingOscillatorTests: AKTestCase {
                                           detuningMultiplier: 1.1)
         output = oscillator
 
-        AKTestMD5("382e738d40fdda8c38e4b9ad1fbde591")
+        AKTest()
     }
 }

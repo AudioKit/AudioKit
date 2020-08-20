@@ -11,7 +11,7 @@ class AKZitaReverbTests: AKTestCase {
 
     func testDefault() {
         output = AKZitaReverb(input)
-        AKTestMD5("8910ee130583a9702c5eb27c65ef09a3")
+        AKTest()
     }
 
     func testParametersSetAfterInit() {
@@ -28,7 +28,7 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
         output = effect
-        AKTestMD5("b824be4839f14474fb80eca60da317f7")
+        AKTest()
     }
 
     func testParametersSetOnInit() {
@@ -44,7 +44,7 @@ class AKZitaReverbTests: AKTestCase {
                               equalizerLevel2: -1,
                               dryWetMix: 0.5)
 
-        AKTestMD5("b824be4839f14474fb80eca60da317f7")
+        AKTest()
     }
 
 }

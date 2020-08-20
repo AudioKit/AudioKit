@@ -13,7 +13,7 @@ class ResonantFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.resonantFilter()
         }
-        AKTestMD5("63b1c6599a5efafd457cc9464073943f")
+        AKTest()
     }
 
 }

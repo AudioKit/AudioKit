@@ -13,7 +13,7 @@ class DistortTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.distort()
         }
-        AKTestMD5("5f38e5319cad3899cae5f4d5e7cef11b")
+        AKTest()
     }
 
 }

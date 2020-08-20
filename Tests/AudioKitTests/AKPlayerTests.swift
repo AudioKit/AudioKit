@@ -136,7 +136,7 @@ class AKPlayerTests: AKTestCase {
 
         AKLog("from", startingTime, "to", endingTime, "duration:", duration)
 
-        auditioning ? auditionTest() : AKTestMD5(md5)
+        auditioning ? auditionTest() : AKTest(md5)
     }
 }
 

@@ -19,31 +19,31 @@ class AKAmplitudeEnvelopeTests: AKTestCase {
     func testAttack() {
         envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
         output = envelope
-        AKTestMD5("73731f4bd688af999e29938ff02e9c0d")
+        AKTest()
     }
 
     func testDecay() {
         envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         output = envelope
-        AKTestMD5("7ae70f11c78ea07a57d29fc93a42b53d")
+        AKTest()
     }
 
     func testDefault() {
         envelope = AKAmplitudeEnvelope(input)
         output = envelope
-        AKTestMD5("ed96eabba9ccc7b2ebc3c7d48f7f3abc")
+        AKTest()
     }
 
     func testParameters() {
         envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         output = envelope
-        AKTestMD5("c25e1343ea146ceff27ce83885e4b61a")
+        AKTest()
     }
 
     func testSustain() {
         envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
         output = envelope
-        AKTestMD5("74ce58757e70947544ed8353e2477e63")
+        AKTest()
     }
 
     // Release is not tested at this time since there is no sample accurate way to define release point
