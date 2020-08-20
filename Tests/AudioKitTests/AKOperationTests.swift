@@ -5,6 +5,13 @@ import XCTest
 
 class AKOperationTests: XCTestCase {
 
+    func testAdd() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let sum = operation1 + operation2
+        XCTAssertEqual(sum.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget + "#)
+    }
+
     func testBitCrush() {
         let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
         let output = generator.bitCrush(bitDepth: 8, sampleRate: 8000)
@@ -22,6 +29,11 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 0.7 clip "#)
     }
 
+    func testCount() {
+        let operation = AKOperation.periodicTrigger(period: 1.1).count(maximum: 9, looping: true)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 1.1 dmetro 0 "ak" tset 0 "ak" tget 9.0 0.0 count "#)
+    }
+
     func testDelay() {
         let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
         let output = generator.delay(time: 1.2, feedback: 0.8)
@@ -34,14 +46,75 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 0.6 1.5 0.7 0.8 dist "#)
     }
 
+    func testDivide() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let quotient = operation1 / operation2
+        XCTAssertEqual(quotient.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget / "#)
+    }
+
+    func testExponentialSegment() {
+        let operation = AKOperation.exponentialSegment(trigger: AKOperation.metronome(), start: 0.7, end: 1.1, duration: 0.3)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 2.0 metro 0 "ak" tset 0 "ak" tget 0.7 0.3 1.1 expon "#)
+    }
+
     func testFMOscillator() {
         let operation = AKOperation.fmOscillator(baseFrequency: 220, carrierMultiplier: 1.1, modulatingMultiplier: 1.2, modulationIndex: 1.3, amplitude: 1.4)
         XCTAssertEqual(operation.sporth, "220.0 1.4 1.1 1.2 1.3 fm ")
     }
 
+    func testIncrement() {
+        let operation = AKOperation.periodicTrigger(period: 1.1).increment(on: 1.1, by: 1.2, minimum: 0.1, maximum: 11.1)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 1.1 dmetro 0 "ak" tset 1.1 1.2 0.1 11.1 0 "ak" tget incr "#)
+    }
+
+    func testJitter() {
+        let operation = AKOperation.jitter(amplitude: 1.1, minimumFrequency: 1.2, maximumFrequency: 1.3)
+        XCTAssertEqual(operation.sporth, "1.1 1.2 1.3 jitter ")
+    }
+
+    func testLineSegment() {
+        let operation = AKOperation.lineSegment(trigger: AKOperation.metronome(), start: 0.7, end: 1.1, duration: 0.3)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 2.0 metro 0 "ak" tset 0 "ak" tget 0.7 0.3 1.1 line "#)
+    }
+
+    func testMax() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let maximum = max(operation1, operation2)
+        XCTAssertEqual(maximum.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget max "#)
+    }
+
+    func testMin() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let minimum = min(operation1, operation2)
+        XCTAssertEqual(minimum.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget min "#)
+    }
+
+    func testMix() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let mix = mixer(operation1, operation2, balance: 0.7)
+        XCTAssertEqual(mix.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget 0.7 1 swap - cf "#)
+    }
+
     func testMorphingOscillator() {
         let operation = AKOperation.morphingOscillator(frequency: 220, amplitude: 0.8, index: 2)
         XCTAssertEqual(operation.sporth, #""sine" 4096 gen_sine  "square" 4096 "0 1 2047 1 2048 -1 4095 -1" gen_line  "sawtooth" 4096 "0 -1 4095 1" gen_line  "revsaw" 4096 "0 1 4095 -1" gen_line 220.0 0.8 2.0 3 / 0 "sine" "square" "sawtooth" "revsaw" oscmorph4 "#)
+    }
+
+    func testMultiply() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let multiple = operation1 * operation2
+        XCTAssertEqual(multiple.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget * "#)
+    }
+
+    func testPan() {
+        let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
+        let output = generator.pan(0.7)
+        XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 0.7 pan "#)
     }
 
     func testPhasor() {
@@ -52,6 +125,16 @@ class AKOperationTests: XCTestCase {
     func testPinkNoise() {
         let operation = AKOperation.pinkNoise(amplitude: 0.9)
         XCTAssertEqual(operation.sporth, "0.9 pinknoise ")
+    }
+
+    func testRandomNumberPulse() {
+        let operation = AKOperation.randomNumberPulse(minimum: 1.1, maximum: 1.2, updateFrequency: 1.3)
+        XCTAssertEqual(operation.sporth, "1.1 1.2 1.3 randh ")
+    }
+
+    func testRandomVertexPulse() {
+        let operation = AKOperation.randomVertexPulse(minimum: 1.1, maximum: 1.2, updateFrequency: 1.3)
+        XCTAssertEqual(operation.sporth, "1.1 1.2 1.3 randi ")
     }
 
     func testReverberateWithChowning() {
@@ -78,6 +161,11 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 1.1 1.2 allpass "#)
     }
 
+    func testSave() {
+        let operation = AKOperation.sineWave().save(parameterIndex: 7)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 440.0 1.0 sine 0 "ak" tset 0 "ak" tget dup 7 pset "#)
+    }
+
     func testSawtooth() {
         let operation = AKOperation.sawtooth(frequency: 1.1, amplitude: 1.2, phase: 0.1)
         XCTAssertEqual(operation.sporth, #""sawtooth" 4096 "0 -1 4095 1" gen_line1.1 1.2 0.1 "sawtooth" osc "#)
@@ -86,6 +174,16 @@ class AKOperationTests: XCTestCase {
     func testSawtoothWave() {
         let operation = AKOperation.sawtoothWave(frequency: 220, amplitude: 0.8)
         XCTAssertEqual(operation.sporth, "220.0 0.8 blsaw ")
+    }
+
+    func testScale() {
+        let operation = AKOperation.sineWave().scale(minimum: 0.7, maximum: 0.9)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 440.0 1.0 sine 0 "ak" tset 0 "ak" tget 0.7 0.9 biscale "#)
+    }
+
+    func testScaledBy() {
+        let operation = AKOperation.sineWave().scaledBy(0.9)
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 440.0 1.0 sine 0 "ak" tset 0 "ak" tget 0.9 * "#)
     }
 
     func testSineWave() {
@@ -107,6 +205,18 @@ class AKOperationTests: XCTestCase {
     func testSquareWave() {
         let operation = AKOperation.squareWave(frequency: 220, amplitude: 0.8)
         XCTAssertEqual(operation.sporth, "220.0 0.8 0.5 blsquare ")
+    }
+
+    func testSubtract() {
+        let operation1 = AKOperation.sineWave()
+        let operation2 = AKOperation.squareWave()
+        let difference = operation1 - operation2
+        XCTAssertEqual(difference.sporth, #""ak" "0 0" gen_vals 440.0 1.0 sine 0 "ak" tset 440.0 1.0 0.5 blsquare 1 "ak" tset 0 "ak" tget 1 "ak" tget - "#)
+    }
+
+    func testTrackedAmplitude() {
+        let operation = AKOperation.sineWave().trackedAmplitude(AKOperation.parameters[7])
+        XCTAssertEqual(operation.sporth, #""ak" "0" gen_vals 440.0 1.0 sine 0 "ak" tset 0 "ak" tget rms "#)
     }
 
     func testTriangle() {
