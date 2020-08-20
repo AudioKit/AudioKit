@@ -37,7 +37,7 @@ open class AKTuningTableBase: NSObject {
     public override init() {
         super.init()
         for noteNumber in 0..<AKTuningTable.midiNoteCount {
-            let f = 440 * exp2((noteNumber - 69) / 12)
+            let f = 440 * exp2(Double(noteNumber - 69) / 12.0)
             setFrequency(f, at: MIDINoteNumber(noteNumber) )
         }
     }

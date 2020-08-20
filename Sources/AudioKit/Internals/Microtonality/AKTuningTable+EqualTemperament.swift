@@ -26,7 +26,7 @@ extension AKTuningTable {
     public func equalTemperament(notesPerOctave npo: Int) -> Int {
         var nf = [Frequency](repeatElement(1.0, count: npo))
         for i in 0 ..< npo {
-            nf[i] = Frequency(pow(2.0, Frequency(Frequency(i) / npo)))
+            nf[i] = Frequency(pow(2.0, Frequency(Frequency(i) / Double(npo))))
         }
         _ = tuningTable(fromFrequencies: nf)
         return npo

@@ -90,7 +90,7 @@ extension AVAudioPCMBuffer {
 
                 if blockPeak > peakValue {
                     value.framePosition = position
-                    value.time = Double(position / format.sampleRate)
+                    value.time = Double(position) / Double(format.sampleRate)
                     peakValue = blockPeak
                 }
                 position += block.count

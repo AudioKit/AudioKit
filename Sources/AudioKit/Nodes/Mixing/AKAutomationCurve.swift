@@ -24,7 +24,7 @@ public struct AKAutomationCurve {
                          endTime: Double) -> Double {
         let remain = endTime - time
         let taper = Double(segment.rampTaper)
-        let goal = segment.targetValue
+        let goal = Double(segment.targetValue)
 
         // x is normalized position in ramp segment
         let x = (segment.rampDuration - remain) / segment.rampDuration
@@ -32,7 +32,7 @@ public struct AKAutomationCurve {
         let absxm1 = abs((segment.rampDuration - remain) / segment.rampDuration - 1.0)
         let taper2 = start + (goal - start) * (1.0 - pow(absxm1, 1.0 / abs(taper)))
 
-        return taper1 * (1.0 - segment.rampSkew) + taper2 * segment.rampSkew
+        return taper1 * (1.0 - Double(segment.rampSkew)) + taper2 * Double(segment.rampSkew)
     }
 
     /// Returns a new piecewise-linear automation curve which can be handed off to the audio thread

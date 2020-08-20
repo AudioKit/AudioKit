@@ -35,7 +35,7 @@ extension AKTable {
             var maxHarmonic = 1
             var frequency = rootFrequency * pow(2, octave)
             octave += octaveStepSize
-            while harmonic * frequency < nyquist {
+            while Double(harmonic) * frequency < nyquist {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
@@ -74,8 +74,8 @@ extension AKTable {
         for i in 0..<wavetableCount {
             var harmonic = 1
             var maxHarmonic = 1
-            var frequency = f0 + (f1 - f0) * i / (wavetableCount - 1)
-            while harmonic * frequency < nyquist {
+            var frequency = f0 + (f1 - f0) * Double(i) / Double(wavetableCount - 1)
+            while Double(harmonic) * frequency < nyquist {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
@@ -112,7 +112,7 @@ extension AKTable {
 
         for h in 1...harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
             }
         }
     }
@@ -136,7 +136,7 @@ extension AKTable {
 
         for h in 1...harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
             }
         }
     }
@@ -170,7 +170,7 @@ extension AKTable {
 
         for h in 1...harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count) ) )
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.141_592_65 * Float(i + phaseOffset) / Float(count) ) )
             }
         }
     }
@@ -194,16 +194,16 @@ extension AKTable {
         }
 
         let coefficient = {(harmonic: Int) -> Float in
-            let c: Float = ((2 * a) / (Float(harmonic) * 3.141_592_65)) * sin( Float(harmonic * 3.141_592_65 * d) )
+            let c: Float = ((2.0 * a) / (Float(harmonic) * 3.141_592_65)) * sin( Float(Float(harmonic) * 3.141_592_65 * d) )
             return c
         }
 
         // offset the samples by 1/2 period
-        let sampleOffset = Int(period * count * 0.5)
+        let sampleOffset = Int(period * Float(count) * 0.5)
 
         for h in 1...harmonicCount {
             for i in indices {
-                let x = Float(coefficient(h) * cos(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+                let x = Float(coefficient(h) * cos(Float(h) * 2.0 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
                 let index = (i + sampleOffset) % count
                 self[index] += x
             }

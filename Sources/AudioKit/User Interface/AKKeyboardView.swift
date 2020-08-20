@@ -522,7 +522,8 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(width: width, height: height))
-        size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        size = CGSize(width: Double(width) / Double(octaveCount) - Double(width) / Double(octaveCount * octaveCount * 7),
+                      height: Double(height))
         needsDisplay = true
     }
 
