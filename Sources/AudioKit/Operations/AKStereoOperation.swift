@@ -61,21 +61,19 @@ open class AKStereoOperation: AKComputedParameter {
     /// Final sporth string when this operation is the last operation in the stack
     internal var sporth: String {
         let rd = recursiveDependencies
-        var str = "\"ak\" \""
-        for _ in rd {
-            str += "0 "
-        }
-        str += "\" gen_vals \n"
+        var str = #""ak" ""#
+        str += rd.compactMap { _ in "0" }.joined(separator: " ")
+        str += #"" gen_vals "#
 
         var counter = 0
         for op in rd {
             op.savedLocation = counter
-            str += "\(op.setupSporth) \n"
-            str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
+            str += op.setupSporth
+            str += op.inlineSporth + "\(op.savedLocation) \"ak\" tset "
             counter += 1
         }
-        str += "\(setupSporth) \n"
-        str += "\(inlineSporth) \n"
+        str += setupSporth
+        str += inlineSporth
         return str
     }
 

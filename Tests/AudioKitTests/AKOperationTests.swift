@@ -54,6 +54,30 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(operation.sporth, "0.9 pinknoise ")
     }
 
+    func testReverberateWithChowning() {
+        let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
+        let output = generator.reverberateWithChowning()
+        XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget jcrev "#)
+    }
+
+    func testReverberateWithCombFilter() {
+        let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
+        let output = generator.reverberateWithCombFilter(reverbDuration: 1.1, loopDuration: 1.2)
+        XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 1.1 1.2 comb "#)
+    }
+
+    func testReverberateWithCostello() {
+        let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
+        let output = generator.reverberateWithCostello(feedback: 0.8, cutoffFrequency: 1000)
+        XCTAssertEqual(output.sporth, #""ak" "" gen_vals 1.1 2.2 sine  1.1 2.2 sine   0.8 1000.0 revsc "#)
+    }
+
+    func testReverberateWithFlatFrequencyResponse() {
+        let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
+        let output = generator.reverberateWithFlatFrequencyResponse(reverbDuration: 1.1, loopDuration: 1.2)
+        XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 1.1 1.2 allpass "#)
+    }
+
     func testSawtooth() {
         let operation = AKOperation.sawtooth(frequency: 1.1, amplitude: 1.2, phase: 0.1)
         XCTAssertEqual(operation.sporth, #""sawtooth" 4096 "0 -1 4095 1" gen_line1.1 1.2 0.1 "sawtooth" osc "#)
