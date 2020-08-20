@@ -4,7 +4,7 @@ import AudioKit
 
 class VocalTractTests: AKTestCase {
 
-    var vocalTract = AKOperationGenerator { _ in return AKOperation.vocalTract() }
+    var vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
 
     override func setUp() {
         afterStart = { self.vocalTract.start() }
@@ -17,7 +17,7 @@ class VocalTractTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        vocalTract = AKOperationGenerator { _ in
+        vocalTract = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,

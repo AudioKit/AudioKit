@@ -4,7 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let generator = AKOperationGenerator { _ in
+let generator = AKOperationGenerator {
 
     // Set up the operations that will be used to make a generator node
     let sine = AKOperation.sineWave(frequency: 1)

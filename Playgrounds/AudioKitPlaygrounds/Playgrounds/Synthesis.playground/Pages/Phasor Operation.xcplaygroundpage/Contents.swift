@@ -7,7 +7,7 @@ let interval: Double = 2
 let noteCount: Double = 24
 let startingNote: Double = 48 // C
 
-let generator = AKOperationGenerator { _ in
+let generator = AKOperationGenerator {
 
     let frequency = (floor(AKOperation.phasor(frequency: 0.5) * noteCount) * interval + startingNote)
         .midiNoteToFrequency()

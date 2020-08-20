@@ -4,7 +4,7 @@ import AudioKit
 
 class FMOscillatorTests: AKTestCase {
 
-    var oscillator = AKOperationGenerator { _ in return AKOperation.fmOscillator() }
+    var oscillator = AKOperationGenerator { AKOperation.fmOscillator() }
 
     override func setUp() {
         afterStart = { self.oscillator.start() }
@@ -17,7 +17,7 @@ class FMOscillatorTests: AKTestCase {
     }
 
     func testFMOscillatorOperation() {
-        oscillator = AKOperationGenerator { _ in
+        oscillator = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
                 start: 0.001, end: 5, duration: self.duration)

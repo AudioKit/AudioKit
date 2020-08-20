@@ -4,7 +4,7 @@ import AudioKit
 
 class MorphingOscillatorTests: AKTestCase {
 
-    var oscillator = AKOperationGenerator { _ in return AKOperation.morphingOscillator() }
+    var oscillator = AKOperationGenerator { AKOperation.morphingOscillator() }
 
     override func setUp() {
         afterStart = { self.oscillator.start() }
