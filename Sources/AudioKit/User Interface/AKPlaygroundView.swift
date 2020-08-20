@@ -2,7 +2,6 @@
 
 #if !os(macOS)
 import UIKit
-import AudioKit
 
 public typealias Label = UILabel
 
