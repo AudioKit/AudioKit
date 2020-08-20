@@ -68,21 +68,19 @@ open class AKOperation: AKComputedParameter {
         var str = ""
         if rd.isNotEmpty {
             str = "\"ak\" \""
-            for _ in rd {
-                str += "0 "
-            }
-            str += "\" gen_vals \n"
+            str += rd.compactMap { _ in "0" }.joined(separator: " ")
+            str += "\" gen_vals "
 
             var counter = 0
             for op in rd {
                 op.savedLocation = counter
-                str += "\(op.setupSporth) \n"
-                str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
+                str += op.setupSporth
+                str += op.inlineSporth + "\(op.savedLocation) \"ak\" tset "
                 counter += 1
             }
         }
-        str += "\(setupSporth) \n"
-        str += "\(inlineSporth) \n"
+        str += setupSporth
+        str += inlineSporth
 
         return str
     }
