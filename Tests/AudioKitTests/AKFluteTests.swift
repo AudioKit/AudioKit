@@ -12,7 +12,7 @@ class AKFluteTests: AKTestCase {
         output = flute
 
         // auditionTest()
-        AKTestMD5("f7fd94da1321d1727af4d12d6355437c")
+        AKTest()
 
     }
 
@@ -23,7 +23,7 @@ class AKFluteTests: AKTestCase {
         output = flute
 
         // auditionTest()
-        AKTestMD5("cee2cf38e1ea64300dc81158988c4a9d")
+        AKTest()
 
     }
 

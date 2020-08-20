@@ -12,7 +12,7 @@ class AKDCBlockTests: AKTestCase {
 
     func testDefault() {
         output = AKDCBlock(input)
-        AKTestMD5("cdca0c19d803bbf2cce357df5fca3013")
+        AKTest()
     }
 
 }

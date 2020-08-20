@@ -10,33 +10,33 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
         output = input
         XCTAssertEqual(input.amplitude, 0.5)
-        AKTestMD5("24c58d48adb46e273d63088f6ca30208")
+        AKTest()
     }
 
     func testDefault() {
         output = input
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testDetuningMultiplier() {
         input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
         output = input
         XCTAssertEqual(input.detuningMultiplier, 0.9)
-        AKTestMD5("591d314b30df8d6af0b2e9df86528af1")
+        AKTest()
     }
 
     func testDetuningOffset() {
         input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
         output = input
         XCTAssertEqual(input.detuningOffset, 11)
-        AKTestMD5("c0d0d9e1cb39611efaf0b7b8b8d7c137")
+        AKTest()
     }
 
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
         XCTAssertEqual(input.frequency, 400)
-        AKTestMD5("d3998b51af7f54f1c9088973b931e9af")
+        AKTest()
     }
 
     func testParametersSetAfterInit() {
@@ -48,13 +48,13 @@ class AKOscillatorTests: AKTestCase {
         XCTAssertEqual(input.frequency, 400)
         XCTAssertEqual(input.amplitude, 0.5)
         output = input
-        AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
+        AKTest()
     }
 
     func testParameters() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         output = input
-        AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
+        AKTest()
     }
 
     func testAutomationFrequency() {
@@ -71,7 +71,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
+        AKTest()
     }
 
     func testAutomationAmplitude() {
@@ -88,7 +88,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("f1f313f396fd5962a36db24e675df274")
+        AKTest()
     }
 
     func testAutomationMultiple() {
@@ -109,7 +109,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+        AKTest()
     }
 
     func testNewAutomationFrequency() {
@@ -124,7 +124,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("9965c44f94946252a78cba4c1f8df1e9")
+        AKTest()
     }
 
     func testNewAutomationAmplitude() {
@@ -140,7 +140,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("f1f313f396fd5962a36db24e675df274")
+        AKTest()
     }
 
     func testNewAutomationMultiple() {
@@ -159,7 +159,7 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("33320d40f5fa6f469d06f877aae338a8")
+        AKTest()
     }
 
     func testNewAutomationDelayed() {
@@ -181,6 +181,6 @@ class AKOscillatorTests: AKTestCase {
 
         // auditionTest()
 
-        AKTestMD5("1ce448c3c5c3d1020990917931b0116b")
+        AKTest()
     }
 }

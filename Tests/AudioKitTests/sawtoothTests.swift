@@ -13,7 +13,7 @@ class SawtoothTests: AKTestCase {
 
     func testDefault() {
         output = sawtooth
-        AKTestMD5("582e76f338bafc30a1a0954313891a5e")
+        AKTest()
     }
 
 }

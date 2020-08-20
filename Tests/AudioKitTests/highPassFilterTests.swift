@@ -13,7 +13,7 @@ class HighPassFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.highPassFilter()
         }
-        AKTestMD5("8233910ec0ca0f293541f7ec2ae9f2c8")
+        AKTest()
     }
 
 }

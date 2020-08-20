@@ -13,7 +13,7 @@ class VocalTractTests: AKTestCase {
 
     func testDefault() {
         output = vocalTract
-        AKTestMD5("08151832dac3e5d23d194b4004dc9916")
+        AKTest()
     }
 
     func testParameterSweep() {
@@ -30,7 +30,7 @@ class VocalTractTests: AKTestCase {
                                           nasality: line)
         }
         output = vocalTract
-        AKTestMD5("73de198b2746be67144e9cd865815f4b")
+        AKTest()
     }
 
 }

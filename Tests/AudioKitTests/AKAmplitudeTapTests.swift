@@ -23,7 +23,7 @@ class AKAmplitudeTapTests: AKTestCase {
             self.amplitudes.append(amp)
         }
         tap.start()
-        AKTestMD5("82a462832878304dd2b4a11ce62b940e")
+        AKTest()
 
         let knownValues: [Float] = [0.06389575, 0.16763051, 0.27164128, 0.36971274, 0.458969,
                                     0.53708506, 0.6020897, 0.6523612, 0.6866519, 0.70411265]

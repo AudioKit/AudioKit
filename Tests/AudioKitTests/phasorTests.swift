@@ -14,7 +14,7 @@ class PhasorTests: AKTestCase {
 
     func testDefault() {
         output = phasor
-        AKTestMD5("3158517a6a14167e736cf7038a828dc8")
+        AKTest()
     }
 
 }

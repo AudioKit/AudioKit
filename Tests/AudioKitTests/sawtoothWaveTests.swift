@@ -13,7 +13,7 @@ class SawtoothWaveTests: AKTestCase {
 
     func testDefault() {
         output = sawtooth
-        AKTestMD5("1876f099ad6aa4f04c8d2b52ced9a87a")
+        AKTest()
     }
 
 }

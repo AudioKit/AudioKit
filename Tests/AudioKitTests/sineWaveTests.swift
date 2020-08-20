@@ -13,7 +13,7 @@ class SineWaveTests: AKTestCase {
 
     func testDefault() {
         output = sine
-        AKTestMD5("02e8662be33038033cb0d01763792a11")
+        AKTest()
     }
 
 }

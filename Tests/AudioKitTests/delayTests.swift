@@ -13,21 +13,21 @@ class DelayTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.delay()
         }
-        AKTestMD5("e1f204032e3e37c75551f9bd6bc53e89")
+        AKTest()
     }
 
     func testFeedback() {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(feedback: 0.99)
         }
-        AKTestMD5("5422eea539cebf3530b7b4f665214cce")
+        AKTest()
     }
 
     func testParameters() {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(time: 0.01, feedback: 0.99)
         }
-        AKTestMD5("34c508d5ce57651024935660f7e3c877")
+        AKTest()
     }
 
 //    func testParameterSweep() {
@@ -39,14 +39,14 @@ class DelayTests: AKTestCase {
 //                duration: self.duration)
 //            return input.delay(time: 0.01, feedback: 0.99 - ramp)
 //        }
-//        AKTestMD5("")
+//        AKTest("")
 //    }
 
     func testTime() {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(time: 0.01)
         }
-        AKTestMD5("102a6ed78dc39aec1a209302008800ef")
+        AKTest()
     }
 
 }

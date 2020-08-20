@@ -13,7 +13,7 @@ class MorphingOscillatorTests: AKTestCase {
 
     func testDefault() {
         output = oscillator
-        AKTestMD5("d45f894aa1d536e63bffc536dc7f4edf")
+        AKTest()
     }
 
 }

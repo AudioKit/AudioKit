@@ -18,7 +18,7 @@ class ThreePoleLowPassFilterTests: AKTestCase {
                 duration: self.duration)
             return input.threePoleLowPassFilter(distortion: ramp, cutoffFrequency: ramp * 8_000, resonance: ramp * 0.9)
         }
-        AKTestMD5("07d5c8083b2a4dfd4a2659994ddd76c7")
+        AKTest()
     }
 
 }

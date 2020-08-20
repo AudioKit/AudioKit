@@ -37,7 +37,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         // auditionTest()
-        AKTestMD5("dc0d2c869f272195494e1a3e08bb8bcf")
+        AKTest()
     }
 
     func testOneShot() {
@@ -52,7 +52,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         //auditionTest()
-        AKTestMD5("53d23f4b60e5e9d12631eb39df1e4d96")
+        AKTest()
     }
 
     func testTempo() {
@@ -67,7 +67,7 @@ class AKSequencerTrackTests: AKTestCase {
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         // auditionTest()
-        AKTestMD5("e8f75a12a6c786a0e5f27cb3a6b078bf")
+        AKTest()
 
     }
 

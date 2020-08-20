@@ -19,12 +19,12 @@ class AKBoosterTests: AKTestCase {
 
     func testParameters() {
         output = AKBooster(input, gain: 2.0)
-        AKTestMD5("09fdb24adb3181f6985eba4b408d8c6d")
+        AKTest()
     }
 
     func testParameters2() {
         output = AKBooster(input, gain: 0.5)
-        AKTestMD5("79972090508032a146d806185f9bc871")
+        AKTest()
     }
 
     #if os(macOS)

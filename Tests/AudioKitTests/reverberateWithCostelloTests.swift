@@ -13,7 +13,7 @@ class ReverberateWithCostelloTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithCostello()
         }
-        AKTestMD5("55c6eee38a8133299e47a9d3a570b118")
+        AKTest()
     }
 
 }

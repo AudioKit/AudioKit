@@ -15,7 +15,7 @@ class PluckedStringTests: AKTestCase {
 
     func testDefault() {
         output = pluckedString
-        AKTestMD5("382cdbd27558fed9c8723ba435cdb4cf")
+        AKTest()
     }
 
 }

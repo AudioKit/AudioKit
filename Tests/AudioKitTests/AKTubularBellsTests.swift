@@ -12,7 +12,7 @@ class AKTubularBellsTests: AKTestCase {
         output = bells
 
         // auditionTest()
-        AKTestMD5("c8f43180f9daa01b148c3bb7a83d39c0")
+        AKTest()
 
     }
 
@@ -23,7 +23,7 @@ class AKTubularBellsTests: AKTestCase {
         output = bells
 
         // auditionTest()
-        AKTestMD5("5b9e18cf26831053ff3345dca113cd48")
+        AKTest()
 
     }
 

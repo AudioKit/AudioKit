@@ -12,7 +12,7 @@ class AKChowningReverbTests: AKTestCase {
 
     func testDefault() {
         output = AKChowningReverb(input)
-        AKTestMD5("e0fccf8b15ddbc286c73bdcffdfd7c9b")
+        AKTest()
     }
 
 }

@@ -13,7 +13,7 @@ class SquareTests: AKTestCase {
 
     func testDefault() {
         output = square
-        AKTestMD5("008643a12bbc8fbca8c65e9787e3825d")
+        AKTest()
     }
 
 }

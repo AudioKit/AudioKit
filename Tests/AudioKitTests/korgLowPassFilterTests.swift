@@ -13,14 +13,14 @@ class KorgLowPassFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.korgLowPassFilter()
         }
-        AKTestMD5("aeb433486d45f43ca56fc2129b6e139b")
+        AKTest()
     }
 
     func testParameters() {
         output = AKOperationEffect(input) { input, _ in
             return input.korgLowPassFilter(cutoffFrequency: 2_000, resonance: 0.9, saturation: 0.5)
         }
-        AKTestMD5("a4acbe1dd84c0075659f10f9e48d45dd")
+        AKTest()
     }
 
 }
