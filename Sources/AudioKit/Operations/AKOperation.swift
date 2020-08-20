@@ -67,9 +67,9 @@ open class AKOperation: AKComputedParameter {
         let rd = recursiveDependencies
         var str = ""
         if rd.isNotEmpty {
-            str = "\"ak\" \""
+            str = #""ak" ""#
             str += rd.compactMap { _ in "0" }.joined(separator: " ")
-            str += "\" gen_vals "
+            str += #"" gen_vals "#
 
             var counter = 0
             for op in rd {
