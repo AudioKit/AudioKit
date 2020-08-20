@@ -236,7 +236,7 @@ extension AKPlayer {
                                       at: audioTime,
                                       options: bufferOptions,
                                       completionCallbackType: .dataRendered,
-                                      completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                      completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -274,7 +274,7 @@ extension AKPlayer {
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                       completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
