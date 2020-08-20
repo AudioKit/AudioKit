@@ -23,8 +23,11 @@ let package = Package(
             name: "TPCircularBuffer",
             dependencies: []),
         .target(
+            name: "STK",
+            dependencies: []),
+        .target(
             name: "CAudioKit",
-            dependencies: ["TPCircularBuffer"],
+            dependencies: ["TPCircularBuffer", "STK"],
             cSettings: [
                 .headerSearchPath("soundpipe/lib/dr_wav"),
                 .headerSearchPath("soundpipe/lib/faust"),
@@ -33,14 +36,12 @@ let package = Package(
                 .headerSearchPath("soundpipe/include"),
                 .headerSearchPath("sporth/include"),
                 .headerSearchPath("soundpipeextension/include"),
-                .headerSearchPath("TPCircularBuffer/include"),
                 .define("NO_LIBSNDFILE")],
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("Sporth Custom Ugens"),
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
-                .headerSearchPath("STK/include"),
                 .headerSearchPath("EZAudio/include"),
                 .headerSearchPath(".")
             ]
