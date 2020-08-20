@@ -11,6 +11,11 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 8.0 8000.0 bitcrush "#)
     }
 
+    func testBrownianNoise() {
+        let operation = AKOperation.brownianNoise(amplitude: 0.9)
+        XCTAssertEqual(operation.sporth, "0.9 brown * ")
+    }
+
     func testClip() {
         let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
         let output = generator.clip(0.7)
@@ -29,6 +34,11 @@ class AKOperationTests: XCTestCase {
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 0.6 1.5 0.7 0.8 dist "#)
     }
 
+    func testPinkNoise() {
+        let operation = AKOperation.pinkNoise(amplitude: 0.9)
+        XCTAssertEqual(operation.sporth, "0.9 pinknoise ")
+    }
+
     func testSineWave() {
         let operation = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
         XCTAssertEqual(operation.sporth, "1.1 2.2 sine ")
@@ -44,5 +54,10 @@ class AKOperationTests: XCTestCase {
         let generator = AKOperation.sineWave(frequency: 1.1, amplitude: 2.2)
         let output = generator.variableDelay(time: 1.1, feedback: 0.8, maximumDelayTime: 1.9)
         XCTAssertEqual(output.sporth, #""ak" "0" gen_vals 1.1 2.2 sine 0 "ak" tset 0 "ak" tget 0.8 1.1 1.9 vdelay "#)
+    }
+
+    func testWhiteNoise() {
+        let operation = AKOperation.whiteNoise(amplitude: 0.9)
+        XCTAssertEqual(operation.sporth, "0.9 noise ")
     }
 }
