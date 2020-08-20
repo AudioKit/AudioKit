@@ -1,0 +1,5 @@
+module TPCircularBuffer {
+  header "TPCircularBuffer.h"
+  header "TPCircularBuffer+AudioBufferList.h"
+  header "TPCircularBuffer+Unit.h"
+}
