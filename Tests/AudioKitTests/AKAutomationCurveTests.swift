@@ -99,7 +99,7 @@ class AKAutomationCurveTests: AKTestCase {
         let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
         XCTAssertEqual(events[0].startTime, 0.0)
-        XCTAssert(fabs(events[0].targetValue - 0.5) < 0.0001)
+        XCTAssert(abs(events[0].targetValue - 0.5) < 0.0001)
 
         XCTAssertEqual(events[1].startTime, 0.5)
         XCTAssertEqual(events[1].targetValue, 1.0)
