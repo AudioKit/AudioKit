@@ -20,8 +20,11 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "TPCircularBuffer",
+            dependencies: []),
+        .target(
             name: "CAudioKit",
-            dependencies: [],
+            dependencies: ["TPCircularBuffer"],
             cSettings: [
                 .headerSearchPath("soundpipe/lib/dr_wav"),
                 .headerSearchPath("soundpipe/lib/faust"),
