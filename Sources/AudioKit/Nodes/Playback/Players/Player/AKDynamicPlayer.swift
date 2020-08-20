@@ -36,7 +36,7 @@ public class AKDynamicPlayer: AKPlayer {
     }
 
     // override this with the actual rate property above
-    internal override var _rate: Double {
+    override internal var _rate: Double {
         return Double(rate)
     }
 
@@ -69,7 +69,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     // MARK: - Initialization
 
-    public override func initialize(restartIfPlaying: Bool = true) {
+    override public func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = self.timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
                 AKManager.engine.attach(timePitchNode.avAudioNode)
@@ -80,7 +80,7 @@ public class AKDynamicPlayer: AKPlayer {
         super.initialize(restartIfPlaying: restartIfPlaying)
     }
 
-    internal override func connectNodes() {
+    override internal func connectNodes() {
         guard let processingFormat = processingFormat else {
             AKLog("Error: the audioFile processingFormat is nil, so nothing can be connected.",
                   log: .fileHandling,
@@ -136,7 +136,7 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    public override func play(from startingTime: Double,
+    override public func play(from startingTime: Double,
                               to endingTime: Double,
                               at audioTime: AVAudioTime?,
                               hostTime: UInt64?) {
@@ -145,7 +145,7 @@ public class AKDynamicPlayer: AKPlayer {
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
-    public override func stop() {
+    override public func stop() {
         super.stop()
 
         // the time strecher draws a fair bit of CPU when it isn't bypassed, so auto bypass it
@@ -154,7 +154,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     /// Dispose the audio file, buffer and nodes and release resources.
     /// Only call when you are totally done with this class.
-    public override func detach() {
+    override public func detach() {
         super.detach()
         timePitchNode?.detach()
     }
