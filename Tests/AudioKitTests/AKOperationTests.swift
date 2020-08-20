@@ -38,6 +38,12 @@ class AKOperationTests: XCTestCase {
         let operation = AKOperation.fmOscillator(baseFrequency: 220, carrierMultiplier: 1.1, modulatingMultiplier: 1.2, modulationIndex: 1.3, amplitude: 1.4)
         XCTAssertEqual(operation.sporth, "220.0 1.4 1.1 1.2 1.3 fm ")
     }
+
+    func testMorphingOscillator() {
+        let operation = AKOperation.morphingOscillator(frequency: 220, amplitude: 0.8, index: 2)
+        XCTAssertEqual(operation.sporth, #""sine" 4096 gen_sine  "square" 4096 "0 1 2047 1 2048 -1 4095 -1" gen_line  "sawtooth" 4096 "0 -1 4095 1" gen_line  "revsaw" 4096 "0 1 4095 -1" gen_line 220.0 0.8 2.0 3 / 0 "sine" "square" "sawtooth" "revsaw" oscmorph4 "#)
+    }
+
     func testPhasor() {
         let operation = AKOperation.phasor(frequency: 1.1, phase: 0.1)
         XCTAssertEqual(operation.sporth, "1.1 0.1 phasor ")
