@@ -10,42 +10,22 @@ class DelayTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.delay()
-        }
+        output = AKOperationEffect(input) { $0.delay() }
         AKTest()
     }
 
     func testFeedback() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.delay(feedback: 0.99)
-        }
+        output = AKOperationEffect(input) { $0.delay(feedback: 0.99) }
         AKTest()
     }
 
     func testParameters() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.delay(time: 0.01, feedback: 0.99)
-        }
+        output = AKOperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
         AKTest()
     }
 
-//    func testParameterSweep() {
-//        output = AKOperationEffect(input) { input, _ in
-//            let ramp = AKOperation.lineSegment(
-//                trigger: AKOperation.metronome(frequency: 1.0 / self.duration),
-//                start: 0,
-//                end: 0.99,
-//                duration: self.duration)
-//            return input.delay(time: 0.01, feedback: 0.99 - ramp)
-//        }
-//        AKTest("")
-//    }
-
     func testTime() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.delay(time: 0.01)
-        }
+        output = AKOperationEffect(input) { $0.delay(time: 0.01) }
         AKTest()
     }
 

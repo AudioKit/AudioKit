@@ -6,7 +6,7 @@ import AudioKit
 //: Noise Example
 // Bring down the amplitude so that when it is mixed it is not so loud
 let whiteNoise = AKWhiteNoise(amplitude: 0.1)
-let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
+let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise in
     let cutoff = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return whiteNoise.korgLowPassFilter(cutoffFrequency: cutoff, resonance: 1, saturation: 1)
 }
@@ -17,7 +17,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-let filteredPlayer = AKOperationEffect(player) { player, _ in
+let filteredPlayer = AKOperationEffect(player) { player in
     let cutoff = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return player.korgLowPassFilter(cutoffFrequency: cutoff, resonance: 1, saturation: 1)
 }

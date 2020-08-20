@@ -10,7 +10,7 @@ player.looping = true
 
 let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1_200)
 
-let effect = AKOperationEffect(player) { player, _ in
+let effect = AKOperationEffect(player) { player in
     return player.modalResonanceFilter(frequency: frequency, qualityFactor: 50) * 0.2
 }
 

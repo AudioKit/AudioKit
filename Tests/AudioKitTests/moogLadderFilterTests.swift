@@ -10,9 +10,7 @@ class MoogLadderFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.moogLadderFilter()
-        }
+        output = AKOperationEffect(input) { $0.moogLadderFilter() }
         AKTest()
     }
 

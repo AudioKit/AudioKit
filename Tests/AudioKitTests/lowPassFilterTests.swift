@@ -10,9 +10,7 @@ class LowPassFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.lowPassFilter()
-        }
+        output = AKOperationEffect(input) { $0.lowPassFilter() }
         AKTest()
     }
 
