@@ -14,7 +14,7 @@ public class AKReverb: AKNode, AKToggleable, AKInput {
     public var dryWetMix: AUValue = 0.5 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            reverbAU.wetDryMix = dryWetMix * 100
+            reverbAU.wetDryMix = dryWetMix * 100.0
         }
     }
 
