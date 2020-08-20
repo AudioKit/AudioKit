@@ -101,7 +101,7 @@ class AKOperationTests: XCTestCase {
 
     func testMorphingOscillator() {
         let operation = AKOperation.morphingOscillator(frequency: 220, amplitude: 0.8, index: 2)
-        XCTAssertEqual(operation.sporth, #""sine" 4096 gen_sine  "square" 4096 "0 1 2047 1 2048 -1 4095 -1" gen_line  "sawtooth" 4096 "0 -1 4095 1" gen_line  "revsaw" 4096 "0 1 4095 -1" gen_line 220.0 0.8 2.0 3 / 0 "sine" "square" "sawtooth" "revsaw" oscmorph4 "#)
+        XCTAssertEqual(operation.sporth, #""sine" 4096 gen_sine  "square" 4096 "0 1 2047 1 2048 -1 4095 -1" gen_line  "sawtooth" 4096 "0 -1 4095 1" gen_line  "revsaw" 4096 "0 1 4095 -1" gen_line  220.0 0.8 2.0 3 / 0 "sine" "square" "sawtooth" "revsaw" oscmorph4 "#)
     }
 
     func testMultiply() {
@@ -168,7 +168,7 @@ class AKOperationTests: XCTestCase {
 
     func testSawtooth() {
         let operation = AKOperation.sawtooth(frequency: 1.1, amplitude: 1.2, phase: 0.1)
-        XCTAssertEqual(operation.sporth, #""sawtooth" 4096 "0 -1 4095 1" gen_line1.1 1.2 0.1 "sawtooth" osc "#)
+        XCTAssertEqual(operation.sporth, #""sawtooth" 4096 "0 -1 4095 1" gen_line 1.1 1.2 0.1 "sawtooth" osc "#)
     }
 
     func testSawtoothWave() {
@@ -199,7 +199,7 @@ class AKOperationTests: XCTestCase {
 
     func testSquare() {
         let operation = AKOperation.square(frequency: 1.1, amplitude: 1.2, phase: 0.1)
-        XCTAssertEqual(operation.sporth, #""square" 4096 "0 -1 2047 -1 2048 1 4095 1" gen_line1.1 1.2 0.1 "square" osc "#)
+        XCTAssertEqual(operation.sporth, #""square" 4096 "0 -1 2047 -1 2048 1 4095 1" gen_line 1.1 1.2 0.1 "square" osc "#)
     }
 
     func testSquareWave() {
@@ -221,7 +221,7 @@ class AKOperationTests: XCTestCase {
 
     func testTriangle() {
         let operation = AKOperation.triangle(frequency: 1.1, amplitude: 1.2, phase: 0.1)
-        XCTAssertEqual(operation.sporth, #""triangle" 4096 "0 -1 2048 1 4096 -1" gen_line1.1 1.2 0.1 "triangle" osc "#)
+        XCTAssertEqual(operation.sporth, #""triangle" 4096 "0 -1 2048 1 4096 -1" gen_line 1.1 1.2 0.1 "triangle" osc "#)
     }
 
     func testTriangleWave() {
