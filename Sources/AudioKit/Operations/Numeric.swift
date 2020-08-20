@@ -16,23 +16,3 @@ extension Double: Numeric {
         return Double(self)
     }
 }
-
-/// Addition
-public func + (lhs: Numeric, rhs: Numeric) -> Double {
-    return lhs.value() + rhs.value()
-}
-
-/// Subtraction
-public func - (lhs: Numeric, rhs: Numeric) -> Double {
-    return lhs.value() - rhs.value()
-}
-
-/// Division
-public func / (lhs: Numeric, rhs: Numeric) -> Double {
-    return lhs.value() / rhs.value()
-}
-
-/// Multiplication
-public func * (lhs: Numeric, rhs: Numeric) -> Double {
-    return lhs.value() * rhs.value()
-}

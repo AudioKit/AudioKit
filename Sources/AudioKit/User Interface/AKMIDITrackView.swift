@@ -135,7 +135,7 @@ public class AKMIDITrackView: AKButton {
 
         let trackHeight = Double(self.frame.size.height)
 
-        let noteHeight = Double(trackHeight / (noteRange))
+        let noteHeight = trackHeight / Double(noteRange)
         let maxHeight = Double(trackHeight - (noteHeight))
 
         let loNote = midiTrackNoteMap.loNote
@@ -154,7 +154,7 @@ public class AKMIDITrackView: AKButton {
             let noteDuration = Double(note.noteDuration)
             let noteLength = Double(noteDuration * zoomConstant)
             let notePosition = Double(noteStart * zoomConstant)
-            let noteLevel = (maxHeight - (noteNum * noteHeight))
+            let noteLevel = (maxHeight - (Double(noteNum) * noteHeight))
             let singleNoteRect = CGRect(x: notePosition, y: noteLevel, width: noteLength, height: noteHeight)
             let singleNoteView = UIView(frame: singleNoteRect)
             singleNoteView.backgroundColor = self.highlightedColor

@@ -235,7 +235,7 @@ public enum AKRotaryKnobStyle {
                              y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
 
         let valuePercent = val
-        let angle = Double.pi * (0.75 + valuePercent * 1.5)
+        let angle = Double.pi * (0.75 + Double(valuePercent) * 1.5)
         let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)),
                                      y: (knobDiameter / 5.0) * CGFloat(sin(angle)))
         let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)),
@@ -367,7 +367,7 @@ public enum AKRotaryKnobStyle {
         let path = UIBezierPath()
         path.move(to: startPoint)
         for index in 0...numberOfSides {
-            let angle = 2 * Double.pi * index / numberOfSides + offsetAngle
+            let angle = 2 * Double.pi * Double(index) / Double(numberOfSides) + offsetAngle
             let nextX = rect.midX + rect.width / 2.0 * CGFloat(cos(angle))
             let nextY = rect.midY + rect.height / 2.0 * CGFloat(sin(angle))
             if curvature == 0.0 {
@@ -380,7 +380,7 @@ public enum AKRotaryKnobStyle {
                 if curvature < AKRotaryKnob.maximumPolygonCurvature * -1.0 {
                     actualCurvature = AKRotaryKnob.maximumPolygonCurvature * -1.0
                 }
-                let arcAngle = 2 * Double.pi * (index - 0.5) / numberOfSides + offsetAngle
+                let arcAngle = 2 * Double.pi * (Double(index) - 0.5) / Double(numberOfSides) + offsetAngle
                 let arcX = rect.midX + (rect.width * CGFloat(1 + actualCurvature * 0.5)) / 2 * CGFloat(cos(arcAngle))
                 let arcY = rect.midY + (rect.height * CGFloat(1 + actualCurvature * 0.5)) / 2 * CGFloat(sin(arcAngle))
                 path.addQuadCurve(to: CGPoint(x: nextX, y: nextY), controlPoint: CGPoint(x: arcX, y: arcY))
