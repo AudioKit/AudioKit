@@ -65,6 +65,10 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         AKLog("Operation initialization failed.")
         self.init(sporth: "")
     }
+    
+    public convenience init(operation: () -> AKComputedParameter) {
+        self.init(operation: { _ in operation() })
+    }
 
     /// Initialize the generator for stereo (2 channels)
     ///

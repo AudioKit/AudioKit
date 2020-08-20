@@ -4,7 +4,7 @@ import AudioKit
 
 class SquareTests: AKTestCase {
 
-    let square = AKOperationGenerator { _ in return AKOperation.square() }
+    let square = AKOperationGenerator { AKOperation.square() }
 
     override func setUp() {
         afterStart = { self.square.start() }
