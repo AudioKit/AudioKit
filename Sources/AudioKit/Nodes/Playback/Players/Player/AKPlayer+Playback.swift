@@ -185,10 +185,11 @@ extension AKPlayer {
     internal func stopCompletion() {
         guard isPlaying else { return }
         playerNode.stop()
+        isPlaying = false
+
         if isFaded {
             super.faderNode?.stopAutomation()
         }
-        isPlaying = false
     }
 
     // MARK: - Scheduling
@@ -239,7 +240,7 @@ extension AKPlayer {
                                       at: audioTime,
                                       options: bufferOptions,
                                       completionCallbackType: .dataRendered,
-                                      completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                      completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -277,7 +278,7 @@ extension AKPlayer {
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                       completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
@@ -294,8 +295,6 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // only forward the completion if is actually done playing without user intervention.
-
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
@@ -305,30 +304,39 @@ extension AKPlayer {
                 self.pauseTime = nil
                 return
             }
+
+            #if os(macOS)
+            // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
+            // in this case, don't call the completion handler
+            if self.currentFrame > 0 {
+                self.handleComplete()
+            }
+            #else
+            // RF: I'm unsure who added this AKTry here and for what reason exactly?
             do {
                 try AKTry {
-                    // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
-                    // in this case, don't call the completion handler
                     if self.currentFrame > 0 {
                         self.handleComplete()
                     }
                 }
-            } catch {
-                AKLog("Failed to check currentFrame and call completion handler: \(error)... ",
+            } catch let error as NSError {
+                AKLog("Failed to check currentFrame and call completion handler", error,
                       "Possible Media Service Reset?", type: .error)
             }
+            #endif
         }
     }
 
     private func handleComplete() {
         stop()
-        super.faderNode?.stopAutomation()
 
         if isLooping {
             startTime = loop.start
             endTime = loop.end
             play()
             loopCompletionHandler?()
+
+            // don't call the user completion handler
             return
         }
         if pauseTime != nil {
@@ -336,6 +344,7 @@ extension AKPlayer {
             pauseTime = nil
         }
 
+        // user completion handler
         completionHandler?()
     }
 }
