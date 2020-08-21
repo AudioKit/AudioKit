@@ -112,7 +112,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Will return whether the engine is rendering offline or realtime
     /// Requires iOS 11, macOS 10.13 for offline rendering
-    public override var renderingMode: RenderingMode {
+    override public var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
             if playerNode.engine?.manualRenderingMode == .offline {
@@ -126,12 +126,12 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public private(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    @objc public override var duration: Double {
+    @objc override public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    @objc public override var sampleRate: Double {
+    @objc override public var sampleRate: Double {
         return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
@@ -237,7 +237,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     // MARK: - Initialization
 
-    public override init() {
+    override public init() {
         let output = AKFader()
         super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
         faderNode = output
@@ -285,7 +285,7 @@ public class AKPlayer: AKAbstractPlayer {
         initialize(restartIfPlaying: false)
     }
 
-    open override func initialize(restartIfPlaying: Bool = true) {
+    override open func initialize(restartIfPlaying: Bool = true) {
         let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
@@ -407,7 +407,7 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Play
 
     /// Play entire file right now
-    @objc public override func play() {
+    @objc override public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
@@ -445,7 +445,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
-    @objc public override func stop() {
+    @objc override public func stop() {
         stopCompletion()
     }
 
@@ -453,7 +453,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Dispose the audio file, buffer and nodes and release resources.
     /// Only call when you are totally done with this class.
-    @objc public override func detach() {
+    @objc override public func detach() {
         stop()
         super.detach() // get rid of the faderNode
         audioFile = nil
