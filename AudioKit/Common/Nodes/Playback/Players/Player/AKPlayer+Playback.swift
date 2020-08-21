@@ -274,7 +274,7 @@ extension AKPlayer {
                                        startingFrame: startFrame,
                                        frameCount: frameCount,
                                        at: audioTime,
-                                       completionCallbackType: .dataRendered, // .dataPlayedBack,
+                                       completionCallbackType: .dataRendered,
                                        completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
@@ -309,7 +309,6 @@ extension AKPlayer {
                 self.handleComplete()
             }
             #else
-            // RF: I'm unsure who added this AKTry here and for what reason exactly?
             do {
                 try AKTry {
                     if self.currentFrame > 0 {
