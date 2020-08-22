@@ -30,7 +30,6 @@
 //:
 //: * [Oscillator](Oscillator)
 //: * [Oscillator Synth](Oscillator%20Synth)
-//: * [FM Oscillator](FM%20Oscillator)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
 //: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
 //: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
@@ -43,15 +42,6 @@
 //:
 //: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Filter Envelope](Filter%20Envelope)
-//:
-//: There are also oscillator banks which are a collection of oscillators
-//: that allow you to play several notes at once (polyphony).
-//:
-//: * [Oscillator Bank](Oscillator%20Bank)
-//: * [FM Oscillator Bank](FM%20Oscillator%20Bank)
-//: * [Morphing Oscillator Bank](Morphing%20Oscillator%20Bank)
-//: * [Phase Distortion Oscillator Bank](Phase%20Distortion%20Oscillator%20Bank)
-//: * [Pulse Width Modulation Oscillator Bank](PWM%20Oscillator%20Bank)
 //:
 //: ### Noise Generators
 //:
