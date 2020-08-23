@@ -58,7 +58,6 @@ public:
         parameters[AKOperationGeneratorParameter12] = &parameter12Ramp;
         parameters[AKOperationGeneratorParameter13] = &parameter13Ramp;
         parameters[AKOperationGeneratorParameter14] = &parameter14Ramp;
-        bCanProcessInPlace = false;
     }
 
     void setSporth(const char *sporth, int length) {
@@ -110,20 +109,20 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            parameters[AKOperationGeneratorParameter1] = &parameter1Ramp;
-            parameters[AKOperationGeneratorParameter2] = &parameter2Ramp;
-            parameters[AKOperationGeneratorParameter3] = &parameter3Ramp;
-            parameters[AKOperationGeneratorParameter4] = &parameter4Ramp;
-            parameters[AKOperationGeneratorParameter5] = &parameter5Ramp;
-            parameters[AKOperationGeneratorParameter6] = &parameter6Ramp;
-            parameters[AKOperationGeneratorParameter7] = &parameter7Ramp;
-            parameters[AKOperationGeneratorParameter8] = &parameter8Ramp;
-            parameters[AKOperationGeneratorParameter9] = &parameter9Ramp;
-            parameters[AKOperationGeneratorParameter10] = &parameter10Ramp;
-            parameters[AKOperationGeneratorParameter11] = &parameter11Ramp;
-            parameters[AKOperationGeneratorParameter12] = &parameter12Ramp;
-            parameters[AKOperationGeneratorParameter13] = &parameter13Ramp;
-            parameters[AKOperationGeneratorParameter14] = &parameter14Ramp;
+            pd.p[0] = parameter1Ramp.getAndStep();
+            pd.p[1] = parameter2Ramp.getAndStep();
+            pd.p[2] = parameter3Ramp.getAndStep();
+            pd.p[3] = parameter4Ramp.getAndStep();
+            pd.p[4] = parameter5Ramp.getAndStep();
+            pd.p[5] = parameter6Ramp.getAndStep();
+            pd.p[6] = parameter7Ramp.getAndStep();
+            pd.p[7] = parameter8Ramp.getAndStep();
+            pd.p[8] = parameter9Ramp.getAndStep();
+            pd.p[9] = parameter10Ramp.getAndStep();
+            pd.p[10] = parameter11Ramp.getAndStep();
+            pd.p[11] = parameter12Ramp.getAndStep();
+            pd.p[12] = parameter13Ramp.getAndStep();
+            pd.p[13] = parameter14Ramp.getAndStep();
 
             if (internalTrigger == 1) {
                 pd.p[15] = 1.0;
