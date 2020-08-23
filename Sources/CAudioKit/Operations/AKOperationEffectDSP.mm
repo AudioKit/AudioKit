@@ -5,14 +5,58 @@
 #include "soundpipe.h"
 #include "plumber.h"
 
+enum AKVariableDelayParameter : AUParameterAddress {
+    AKOperationEffectParameter1,
+    AKOperationEffectParameter2,
+    AKOperationEffectParameter3,
+    AKOperationEffectParameter4,
+    AKOperationEffectParameter5,
+    AKOperationEffectParameter6,
+    AKOperationEffectParameter7,
+    AKOperationEffectParameter8,
+    AKOperationEffectParameter9,
+    AKOperationEffectParameter10,
+    AKOperationEffectParameter11,
+    AKOperationEffectParameter12,
+    AKOperationEffectParameter13,
+    AKOperationEffectParameter14,
+};
+
 class AKOperationEffectDSP : public AKSoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
-    float params[14] = {0};
+    ParameterRamper parameter1Ramp;
+    ParameterRamper parameter2Ramp;
+    ParameterRamper parameter3Ramp;
+    ParameterRamper parameter4Ramp;
+    ParameterRamper parameter5Ramp;
+    ParameterRamper parameter6Ramp;
+    ParameterRamper parameter7Ramp;
+    ParameterRamper parameter8Ramp;
+    ParameterRamper parameter9Ramp;
+    ParameterRamper parameter10Ramp;
+    ParameterRamper parameter11Ramp;
+    ParameterRamper parameter12Ramp;
+    ParameterRamper parameter13Ramp;
+    ParameterRamper parameter14Ramp;
 
 public:
     AKOperationEffectDSP() {
+        parameters[AKOperationEffectParameter1] = &parameter1Ramp;
+        parameters[AKOperationEffectParameter2] = &parameter2Ramp;
+        parameters[AKOperationEffectParameter3] = &parameter3Ramp;
+        parameters[AKOperationEffectParameter4] = &parameter4Ramp;
+        parameters[AKOperationEffectParameter5] = &parameter5Ramp;
+        parameters[AKOperationEffectParameter6] = &parameter6Ramp;
+        parameters[AKOperationEffectParameter7] = &parameter7Ramp;
+        parameters[AKOperationEffectParameter8] = &parameter8Ramp;
+        parameters[AKOperationEffectParameter9] = &parameter9Ramp;
+        parameters[AKOperationEffectParameter10] = &parameter10Ramp;
+        parameters[AKOperationEffectParameter11] = &parameter11Ramp;
+        parameters[AKOperationEffectParameter12] = &parameter12Ramp;
+        parameters[AKOperationEffectParameter13] = &parameter13Ramp;
+        parameters[AKOperationEffectParameter14] = &parameter14Ramp;
         bCanProcessInPlace = false;
     }
 
@@ -24,16 +68,6 @@ public:
         if (length) {
             sporthCode = (char *)malloc(length);
             memcpy(sporthCode, sporth, length);
-        }
-    }
-
-    float* getParameters() {
-        return params;
-    }
-
-    void setParameters(float* newParams) {
-        for (int i = 0; i < 14; i++) {
-            params[i] = newParams[i];
         }
     }
 
@@ -78,18 +112,26 @@ public:
                 }
             }
 
-            for (int i = 0; i < 14; i++) {
-                pd.p[i] = params[i];
-            }
+            pd.p[0] = parameter1Ramp.getAndStep();
+            pd.p[1] = parameter2Ramp.getAndStep();
+            pd.p[2] = parameter3Ramp.getAndStep();
+            pd.p[3] = parameter4Ramp.getAndStep();
+            pd.p[4] = parameter5Ramp.getAndStep();
+            pd.p[5] = parameter6Ramp.getAndStep();
+            pd.p[6] = parameter7Ramp.getAndStep();
+            pd.p[7] = parameter8Ramp.getAndStep();
+            pd.p[8] = parameter9Ramp.getAndStep();
+            pd.p[9] = parameter10Ramp.getAndStep();
+            pd.p[10] = parameter11Ramp.getAndStep();
+            pd.p[11] = parameter12Ramp.getAndStep();
+            pd.p[12] = parameter13Ramp.getAndStep();
+            pd.p[13] = parameter14Ramp.getAndStep();
+
             plumber_compute(&pd, PLUMBER_COMPUTE);
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
-            }
-
-            for (int i = 0; i < 14; i++) {
-                params[i] = pd.p[i];
             }
         }
     }
@@ -101,16 +143,18 @@ AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int 
     dsp->setSporth(sporth, length);
 }
 
-AK_API float* akOperationEffectGetParameters(AKDSPRef dspRef) {
-    auto dsp = dynamic_cast<AKOperationEffectDSP *>(dspRef);
-    assert(dsp);
-    dsp->getParameters();
-}
-
-AK_API float* akOperationEffectSetParameters(AKDSPRef dspRef, float *params) {
-    auto dsp = dynamic_cast<AKOperationEffectDSP *>(dspRef);
-    assert(dsp);
-    dsp->setParameters(params);
-}
-
 AK_REGISTER_DSP(AKOperationEffectDSP)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter1)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter2)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter3)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter4)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter5)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter6)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter7)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter8)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter9)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter10)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter11)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter12)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter13)
+AK_REGISTER_PARAMETER(AKOperationEffectParameter14)

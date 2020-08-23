@@ -24,7 +24,9 @@ class AKOperationParametersTests: AKTestCase {
                                         feedback: feedback,
                                         maximumDelayTime: 1.0)
         }
-        effect.parameters = [0.02, 1, 0.99]
+        effect.parameter1 = 0.02
+        effect.parameter2 = 1
+        effect.parameter3 = 0.99
         output = effect
         AKTest()
     }
@@ -39,7 +41,9 @@ class AKOperationParametersTests: AKTestCase {
                                         feedback: feedback,
                                         maximumDelayTime: 1.0)
         }
-        effect.parameters = [0.02, 2, 0.99]
+        effect.parameter1 = 0.02
+        effect.parameter2 = 2
+        effect.parameter3 = 0.99
         output = effect
         AKTest()
     }
@@ -54,7 +58,9 @@ class AKOperationParametersTests: AKTestCase {
                                         feedback: feedback,
                                         maximumDelayTime: 1.0)
         }
-        effect.parameters = [0.02, 2, 0.5]
+        effect.parameter1 = 0.02
+        effect.parameter2 = 2
+        effect.parameter3 = 0.5
         output = effect
         AKTest()
     }
