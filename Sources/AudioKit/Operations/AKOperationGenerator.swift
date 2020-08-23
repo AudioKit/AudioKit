@@ -59,7 +59,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
             public func setSporth(_ sporth: String) {
                 sporth.withCString { str -> Void in
-                    akOperationGeneratorSetSporth(dsp, str, Int32(sporth.count))
+                    akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
                 }
 
             }
