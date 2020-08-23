@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Operation-based effect
 public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKOperationEffectAudioUnit
+    public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
 
@@ -15,20 +15,20 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
     /// Parameters for changing internal operations
-    public var parameters: [Double] {
-        get {
-            return (internalAU?.parameters as? [NSNumber]).flatMap {
-                $0.compactMap { $0.doubleValue }
-            } ?? []
-        }
-        set {
-            internalAU?.parameters = newValue
-        }
-    }
+//    public var parameters: [Double] {
+//        get {
+//            return (internalAU?.parameters as? [NSNumber]).flatMap {
+//                $0.compactMap { $0.doubleValue }
+//            } ?? []
+//        }
+//        set {
+//            internalAU?.parameters = newValue
+//        }
+//    }
 
     // MARK: - Initializers
 
@@ -82,6 +82,27 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
 
     public convenience init(_ input: AKNode?, operation: (AKStereoOperation) -> AKComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
+    }
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+
+//        public override func getParameterDefs() -> [AKNodeParameterDef] {
+//            [AKVariableDelay.timeDef,
+//             AKVariableDelay.feedbackDef]
+//        }
+
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKOperationEffectDSP")
+        }
+
+        public func setSporth(_ sporth: String) {
+            sporth.withCString { str -> Void in
+                akOperationEffectSetSporth(dsp, str, Int32(sporth.count))
+            }
+
+        }
     }
 
     /// Initialize the effect with an input and a valid Sporth string

@@ -69,6 +69,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
 AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
+AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int length);
 AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
