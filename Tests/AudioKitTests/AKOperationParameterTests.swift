@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKOperationParametersTests: AKTestCase {
+class AKOperationGeneratorParametersTests: AKTestCase {
 
     let gen = AKOperationGenerator() { parameters in
         AKOperation.sineWave(frequency: parameters[0], amplitude: parameters[1])
@@ -14,13 +14,16 @@ class AKOperationParametersTests: AKTestCase {
         duration = 1.0
     }
 
-    func testGeneratorSetParameters() {
+    func testSetParameters() {
         gen.parameter1 = 333
         gen.parameter2 = 0.5
         output = gen
         AKTest()
     }
 
+}
+
+class AKOperationEffectParametersTests: AKTestCase {
     func testSetParameters() {
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
