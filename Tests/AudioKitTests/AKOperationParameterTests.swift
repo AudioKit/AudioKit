@@ -5,7 +5,7 @@ import XCTest
 
 class AKOperationGeneratorParametersTests: AKTestCase {
 
-    let gen = AKOperationGenerator() { parameters in
+    let gen = AKOperationGenerator { parameters in
         AKOperation.sineWave(frequency: parameters[0], amplitude: parameters[1])
     }
 
