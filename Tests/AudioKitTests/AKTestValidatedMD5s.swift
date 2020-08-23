@@ -180,6 +180,7 @@ let validatedMD5s = [
     "-[AKMorphingOscillatorTests testDefault]": "b3168bffcc63e44c6850fbf7c17ad98d",
     "-[AKMorphingOscillatorTests testParametersSetAfterInit]": "382e738d40fdda8c38e4b9ad1fbde591",
     "-[AKMorphingOscillatorTests testParametersSetOnInit]": "382e738d40fdda8c38e4b9ad1fbde591",
+    "-[AKOperationParametersTests testGeneratorSetParameters]": "b7aabf2627758e00cc9c7e76b5c8d4c6",
     "-[AKOperationParametersTests testSetParameters]": "3bc509f9b9ceb71d2c3b010969561e25",
     "-[AKOperationParametersTests testSetParameters2]": "b9497a32e1cb30bc5862688187d86db6",
     "-[AKOperationParametersTests testSetParameters3]": "6e1615feea3192808883a5ac36332d1a",
