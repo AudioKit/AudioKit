@@ -5,7 +5,7 @@
 #include "soundpipe.h"
 #include "plumber.h"
 
-enum AKVariableDelayParameter : AUParameterAddress {
+enum AKOperationEffectParameter : AUParameterAddress {
     AKOperationEffectParameter1,
     AKOperationEffectParameter2,
     AKOperationEffectParameter3,
