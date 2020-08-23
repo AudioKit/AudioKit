@@ -28,7 +28,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         /// Parameters for changing internal operations
         public var parameters: [Float] {
             get {
-                return internalAU?.getParameters() ?? []
+                return []
             }
             set {
                 internalAU?.setParameters(newValue)
@@ -41,11 +41,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
             public override func createDSP() -> AKDSPRef {
                 akCreateDSP("AKOperationGeneratorDSP")
-            }
-
-            public func getParameters() -> [Float] {
-//            let p = akOperationEffectGetParameters(dsp)
-                return []
             }
 
             public func setParameters(_ params: [Float]) -> Void {
