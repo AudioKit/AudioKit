@@ -45,7 +45,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
             public func setParameters(_ params: [Float]) -> Void {
                 var p = params
-                akOperationEffectSetParameters(dsp, &p)
+                akOperationGeneratorSetParameters(dsp, &p)
             }
 
             public func trigger(_ triggerNumber: Int) -> Void {
