@@ -237,14 +237,4 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self.internalAU?.setSporth(sporth)
         }
     }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
-        internalAU?.stop()
-    }
 }
