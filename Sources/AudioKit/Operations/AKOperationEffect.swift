@@ -48,9 +48,8 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
 
         public func setSporth(_ sporth: String) {
             sporth.withCString { str -> Void in
-                akOperationEffectSetSporth(dsp, str, Int32(sporth.count))
+                akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))
             }
-
         }
     }
 
