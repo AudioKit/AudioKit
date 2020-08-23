@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Operation-based generator
 public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
@@ -15,7 +15,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
     /// Sporth language snippet
@@ -25,21 +25,45 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Parameters for changing internal operations
-    public var parameters: [Double] {
-        get {
-            var result: [Double] = []
-            if let floatParameters = internalAU?.parameters as? [NSNumber] {
-                for number in floatParameters {
-                    result.append(number.doubleValue)
-                }
+        /// Parameters for changing internal operations
+        public var parameters: [Float] {
+            get {
+                return internalAU?.getParameters() ?? []
             }
-            return result
+            set {
+                internalAU?.setParameters(newValue)
+            }
         }
-        set {
-            internalAU?.parameters = newValue
+
+        // MARK: - Audio Unit
+
+        public class InternalAU: AKAudioUnitBase {
+
+            public override func createDSP() -> AKDSPRef {
+                akCreateDSP("AKOperationGeneratorDSP")
+            }
+
+            public func getParameters() -> [Float] {
+//            let p = akOperationEffectGetParameters(dsp)
+                return []
+            }
+
+            public func setParameters(_ params: [Float]) -> Void {
+                var p = params
+                akOperationEffectSetParameters(dsp, &p)
+            }
+
+            public func trigger(_ triggerNumber: Int) -> Void {
+                akOperationGeneratorTrigger(dsp, Int32(triggerNumber))
+            }
+
+            public func setSporth(_ sporth: String) {
+                sporth.withCString { str -> Void in
+                    akOperationGeneratorSetSporth(dsp, str, Int32(sporth.count))
+                }
+
+            }
         }
-    }
 
     // MARK: - Initializers
 
@@ -109,7 +133,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with current parameters
     ///
     open func trigger(_ triggerNumber: Int = 0) {
-        internalAU?.trigger(Int32(triggerNumber))
+        internalAU?.trigger(triggerNumber)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

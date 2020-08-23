@@ -31,9 +31,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMicrophoneTrackerEngine.h"
 #endif
 
-// Sporth
-#import "AKOperationGeneratorAudioUnit.h"
-
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
 #import "AKModulatedDelay.hpp"
