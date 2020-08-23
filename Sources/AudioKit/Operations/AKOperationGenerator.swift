@@ -154,12 +154,11 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
              AKOperationGenerator.parameter14Def]
         }
 
-
         public override func createDSP() -> AKDSPRef {
             akCreateDSP("AKOperationGeneratorDSP")
         }
 
-        public func trigger(_ triggerNumber: Int) -> Void {
+        public func trigger(_ triggerNumber: Int) {
             akOperationGeneratorTrigger(dsp)
         }
 
