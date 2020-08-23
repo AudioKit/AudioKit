@@ -5,6 +5,15 @@ import XCTest
 
 class AKOperationParametersTests: AKTestCase {
 
+    func testGeneratorSetParameters() {
+        let gen = AKOperationGenerator() { parameters in
+            AKOperation.sineWave(frequency: parameters[0], amplitude: parameters[1])
+        }
+        gen.parameters = [333, 0.5]
+        output = gen
+        AKTest()
+    }
+
     func testSetParameters() {
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
