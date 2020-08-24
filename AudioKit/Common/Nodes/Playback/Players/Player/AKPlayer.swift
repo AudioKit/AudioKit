@@ -144,6 +144,9 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// The current frame while playing
     public var currentFrame: AVAudioFramePosition {
+        // make sure there is a valid engine otherwise this will crash
+        guard playerNode.engine != nil else { return 0 }
+
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return playerTime.sampleTime

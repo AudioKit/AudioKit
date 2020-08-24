@@ -292,6 +292,10 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
+        guard audioFile != nil else {
+            AKLog("Audio file has been disposed.", type: .error)
+            return
+        }
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
