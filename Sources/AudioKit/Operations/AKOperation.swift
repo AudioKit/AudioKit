@@ -103,7 +103,7 @@ open class AKOperation: AKComputedParameter {
     public static var rightInput = AKOperation("(15 p) ")
 
     /// Dummy trigger
-    public static var trigger = AKOperation("(0 p) ")
+    public static var trigger = AKOperation("(14 p) ")
 
     // MARK: - Functions
 

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Operation-based generator
 public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit
+    public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
@@ -15,29 +15,157 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return internalAU?.isStarted ?? false
     }
 
-    /// Sporth language snippet
-    public var sporth: String = "" {
-        didSet {
-            restart()
+    // MARK: - Parameters
+
+    public static let parameter1Def = AKNodeParameterDef(
+        identifier: "parameter1",
+        name: "Parameter 1",
+        address: akGetParameterAddress("AKOperationGeneratorParameter1"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter2Def = AKNodeParameterDef(
+        identifier: "parameter2",
+        name: "Parameter 2",
+        address: akGetParameterAddress("AKOperationGeneratorParameter2"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter3Def = AKNodeParameterDef(
+        identifier: "parameter3",
+        name: "Parameter 3",
+        address: akGetParameterAddress("AKOperationGeneratorParameter3"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter4Def = AKNodeParameterDef(
+        identifier: "parameter4",
+        name: "Parameter 4",
+        address: akGetParameterAddress("AKOperationGeneratorParameter4"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter5Def = AKNodeParameterDef(
+        identifier: "parameter5",
+        name: "Parameter 5",
+        address: akGetParameterAddress("AKOperationGeneratorParameter5"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter6Def = AKNodeParameterDef(
+        identifier: "parameter6",
+        name: "Parameter 6",
+        address: akGetParameterAddress("AKOperationGeneratorParameter6"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter7Def = AKNodeParameterDef(
+        identifier: "parameter7",
+        name: "Parameter 7",
+        address: akGetParameterAddress("AKOperationGeneratorParameter7"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter8Def = AKNodeParameterDef(
+        identifier: "parameter8",
+        name: "Parameter 8",
+        address: akGetParameterAddress("AKOperationGeneratorParameter8"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter9Def = AKNodeParameterDef(
+        identifier: "parameter9",
+        name: "Parameter 9",
+        address: akGetParameterAddress("AKOperationGeneratorParameter9"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter10Def = AKNodeParameterDef(
+        identifier: "parameter10",
+        name: "Parameter 10",
+        address: akGetParameterAddress("AKOperationGeneratorParameter10"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter11Def = AKNodeParameterDef(
+        identifier: "parameter11",
+        name: "Parameter 11",
+        address: akGetParameterAddress("AKOperationGeneratorParameter11"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter12Def = AKNodeParameterDef(
+        identifier: "parameter12",
+        name: "Parameter 12",
+        address: akGetParameterAddress("AKOperationGeneratorParameter12"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter13Def = AKNodeParameterDef(
+        identifier: "parameter13",
+        name: "Parameter 13",
+        address: akGetParameterAddress("AKOperationGeneratorParameter13"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+    public static let parameter14Def = AKNodeParameterDef(
+        identifier: "parameter14",
+        name: "Parameter 14",
+        address: akGetParameterAddress("AKOperationGeneratorParameter14"),
+        range: -1_000_000 ... 1_000_000,
+        unit: .generic,
+        flags: .default)
+
+    @Parameter public var parameter1: AUValue
+    @Parameter public var parameter2: AUValue
+    @Parameter public var parameter3: AUValue
+    @Parameter public var parameter4: AUValue
+    @Parameter public var parameter5: AUValue
+    @Parameter public var parameter6: AUValue
+    @Parameter public var parameter7: AUValue
+    @Parameter public var parameter8: AUValue
+    @Parameter public var parameter9: AUValue
+    @Parameter public var parameter10: AUValue
+    @Parameter public var parameter11: AUValue
+    @Parameter public var parameter12: AUValue
+    @Parameter public var parameter13: AUValue
+    @Parameter public var parameter14: AUValue
+
+    // MARK: - Audio Unit
+
+    public class InternalAU: AKAudioUnitBase {
+        public override func getParameterDefs() -> [AKNodeParameterDef] {
+            [AKOperationGenerator.parameter1Def,
+             AKOperationGenerator.parameter2Def,
+             AKOperationGenerator.parameter3Def,
+             AKOperationGenerator.parameter4Def,
+             AKOperationGenerator.parameter5Def,
+             AKOperationGenerator.parameter6Def,
+             AKOperationGenerator.parameter7Def,
+             AKOperationGenerator.parameter8Def,
+             AKOperationGenerator.parameter9Def,
+             AKOperationGenerator.parameter10Def,
+             AKOperationGenerator.parameter11Def,
+             AKOperationGenerator.parameter12Def,
+             AKOperationGenerator.parameter13Def,
+             AKOperationGenerator.parameter14Def]
         }
-    }
 
-    /// Parameters for changing internal operations
-    public var parameters: [Double] {
-        get {
-            var result: [Double] = []
-            if let floatParameters = internalAU?.parameters as? [NSNumber] {
-                for number in floatParameters {
-                    result.append(number.doubleValue)
-                }
+        public override func createDSP() -> AKDSPRef {
+            akCreateDSP("AKOperationGeneratorDSP")
+        }
+
+        public func trigger(_ triggerNumber: Int) {
+            akOperationGeneratorTrigger(dsp)
+        }
+
+        public func setSporth(_ sporth: String) {
+            sporth.withCString { str -> Void in
+                akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
             }
-            return result
-        }
-        set {
-            internalAU?.parameters = newValue
         }
     }
 
@@ -94,7 +222,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// - parameter sporth: String of valid Sporth code
     ///
     public init(sporth: String = "") {
-        self.sporth = sporth
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -109,23 +236,6 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with current parameters
     ///
     open func trigger(_ triggerNumber: Int = 0) {
-        internalAU?.trigger(Int32(triggerNumber))
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
-        internalAU?.stop()
-    }
-
-    /// Restart from scratch
-    open func restart() {
-        stop()
-        internalAU?.setSporth(sporth)
-        start()
+        internalAU?.trigger(triggerNumber)
     }
 }
