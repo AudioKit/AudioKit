@@ -31,10 +31,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMicrophoneTrackerEngine.h"
 #endif
 
-// Sporth
-#import "AKOperationGeneratorAudioUnit.h"
-#import "AKOperationEffectAudioUnit.h"
-
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
 #import "AKModulatedDelay.hpp"
@@ -69,6 +65,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
 AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
+AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int length);
+AK_API void akOperationGeneratorSetSporth(AKDSPRef dspRef, const char *sporth, int length);
+AK_API float* akOperationGeneratorTrigger(AKDSPRef dspRef);
 AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);

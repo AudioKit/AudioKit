@@ -14,4 +14,9 @@ class HighPassFilterTests: AKTestCase {
         AKTest()
     }
 
+    func testHalfPowerPoint() {
+        output = AKOperationEffect(input) { $0.highPassFilter(halfPowerPoint: 100) }
+        AKTest()
+    }
+
 }
