@@ -30,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #if !TARGET_OS_TV
 #import "AKMicrophoneTrackerEngine.h"
 #endif
+#import "AKPitchTracker.h"
 
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
