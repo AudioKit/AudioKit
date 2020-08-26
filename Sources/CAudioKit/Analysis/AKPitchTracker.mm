@@ -10,7 +10,7 @@ struct AKPitchTracker {
     sp_data *sp = nullptr;
     sp_ptrack *ptrack = nullptr;
 
-    AKPitchTracker(size_t sampleRate) {
+    AKPitchTracker(size_t sampleRate, int hopSize, int peakCount) {
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = 1;
@@ -36,12 +36,10 @@ struct AKPitchTracker {
 
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;
-    int hopSize = 4096;
-    int peakCount = 20;
 };
 
 AK_API AKPitchTrackerRef akPitchTrackerCreate(unsigned int sampleRate, int hopSize, int peakCount) {
-    return new AKPitchTracker(sampleRate);
+    return new AKPitchTracker(sampleRate, hopSize, peakCount);
 }
 
 AK_API void akPitchTrackerDestroy(AKPitchTrackerRef tracker) {
