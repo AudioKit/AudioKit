@@ -292,10 +292,6 @@ extension AKPlayer {
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        guard audioFile != nil else {
-            AKLog("Audio file has been disposed.", type: .error)
-            return
-        }
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
@@ -306,24 +302,11 @@ extension AKPlayer {
                 return
             }
 
-            #if os(macOS)
             // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
             // in this case, don't call the completion handler
             if self.currentFrame > 0 {
                 self.handleComplete()
             }
-            #else
-            do {
-                try AKTry {
-                    if self.currentFrame > 0 {
-                        self.handleComplete()
-                    }
-                }
-            } catch let error as NSError {
-                AKLog("Failed to check currentFrame and call completion handler", error,
-                      "Possible Media Service Reset?", type: .error)
-            }
-            #endif
         }
     }
 
