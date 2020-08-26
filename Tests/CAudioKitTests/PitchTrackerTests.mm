@@ -28,9 +28,9 @@ static int sampleRate = 44100;
     float amp, freq;
     akPitchTrackerGetResults(tracker, &amp, &freq);
 
-    float epilon = 0.1;
-    XCTAssertEqualWithAccuracy(amp, 2.0, epilon);
-    XCTAssertEqualWithAccuracy(freq, 440.0, epilon);
+    float epsilon = 0.1;
+    XCTAssertEqualWithAccuracy(amp, 2.0, epsilon);
+    XCTAssertEqualWithAccuracy(freq, 440.0, epsilon);
 
 }
 
