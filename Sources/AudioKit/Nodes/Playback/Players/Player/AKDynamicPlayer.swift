@@ -136,8 +136,8 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    override public func play(from startingTime: Double,
-                              to endingTime: Double,
+    override public func play(from startingTime: TimeInterval,
+                              to endingTime: TimeInterval,
                               at audioTime: AVAudioTime?,
                               hostTime: UInt64?) {
         timePitchNode?.start()

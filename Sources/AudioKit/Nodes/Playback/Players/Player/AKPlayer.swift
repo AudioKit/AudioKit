@@ -58,10 +58,10 @@ public class AKPlayer: AKAbstractPlayer {
     internal var startingFrame: AVAudioFramePosition?
     internal var endingFrame: AVAudioFramePosition?
 
-    private var playerTime: Double {
+    private var playerTime: TimeInterval {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return Double(playerTime.sampleTime) / playerTime.sampleRate
+            return TimeInterval(playerTime.sampleTime) / playerTime.sampleRate
         }
         return 0
     }
@@ -118,9 +118,9 @@ public class AKPlayer: AKAbstractPlayer {
     public internal(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    override public var duration: Double {
+    override public var duration: TimeInterval {
         guard let audioFile = audioFile else { return 0 }
-        return Double(audioFile.length) / audioFile.fileFormat.sampleRate
+        return TimeInterval(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
     override public var sampleRate: Double {
@@ -140,22 +140,24 @@ public class AKPlayer: AKAbstractPlayer {
         set { playerNode.pan = newValue }
     }
 
-    /// The total frame count that is being playing.
+    /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
     public internal(set) var frameCount: AVAudioFrameCount = 0
 
-    /// The current frame while playing
+    /// - Returns: The current frame while playing. It will return 0 on error.
     public var currentFrame: AVAudioFramePosition {
-        if let nodeTime = playerNode.lastRenderTime,
-            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return playerTime.sampleTime
+        guard playerNode.engine != nil,
+            let nodeTime = playerNode.lastRenderTime,
+            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) else {
+            AKLog("Error getting currentFrame, player may have been detached", type: .error)
+            return 0
         }
-        return 0
+        return playerTime.sampleTime
     }
 
-    /// Current time of the player in seconds while playing.
-    public var currentTime: Double {
+    /// - Returns: Current time of the player in seconds while playing.
+    public var currentTime: TimeInterval {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         var normalizedPauseTime = 0.0
         if let pauseTime = pauseTime, pauseTime > startTime {
@@ -166,13 +168,13 @@ public class AKPlayer: AKAbstractPlayer {
         return current
     }
 
-    public var pauseTime: Double? {
+    public var pauseTime: TimeInterval? {
         didSet {
             isPaused = pauseTime != nil
         }
     }
 
-    /// Returns the audioFile's internal processingFormat
+    ///  - Returns: the audioFile's internal processingFormat
     public var processingFormat: AVAudioFormat? {
         return audioFile?.processingFormat
     }
@@ -339,7 +341,10 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
-    public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+    public func play(from startingTime: TimeInterval,
+                     to endingTime: TimeInterval,
+                     at audioTime: AVAudioTime?,
+                     hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
         var audioTime = audioTime ?? AVAudioTime.now()
         isPlaying = true
@@ -356,7 +361,7 @@ public class AKPlayer: AKAbstractPlayer {
             if renderingMode == .offline, sampleRate != AKSettings.sampleRate {
                 let sampleRateRatio = sampleRate / AKSettings.sampleRate
 
-                let sampleTime = AVAudioFramePosition(Double(audioTime.sampleTime) / sampleRateRatio)
+                let sampleTime = AVAudioFramePosition(TimeInterval(audioTime.sampleTime) / sampleRateRatio)
                 audioTime = AVAudioTime(hostTime: audioTime.hostTime, sampleTime: sampleTime, atRate: sampleRate)
 
                 // AKLog("AKSettings sample rate (\(AKSettings.sampleRate) is mismatched from the player ", sampleRate)
