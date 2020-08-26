@@ -59,10 +59,10 @@ public class AKPitchTap: AKToggleable {
         return pitch[1]
     }
 
-    private var handler: (Float) -> Void = { _ in }
+    private var handler: () -> Void = { }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode?, bufferSize: UInt32 = 4_096, handler: @escaping (Float) -> Void = { _ in }) {
+    public init(_ input: AKNode?, bufferSize: UInt32 = 4_096, handler: @escaping () -> Void = {}) {
         self.bufferSize = bufferSize
         self.input = input
         self.handler = handler
@@ -126,7 +126,7 @@ public class AKPitchTap: AKToggleable {
             amp[n] = a
             pitch[n] = f
         }
-        handler(amplitude)
+        handler()
     }
 
     /// Remove the tap on the input
