@@ -244,24 +244,11 @@ extension AKPlayer {
                 return
             }
 
-            #if os(macOS)
             // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
             // in this case, don't call the completion handler
             if self.currentFrame > 0 {
                 self.handleComplete()
             }
-            #else
-            do {
-                try AKTry {
-                    if self.currentFrame > 0 {
-                        self.handleComplete()
-                    }
-                }
-            } catch let error as NSError {
-                AKLog("Failed to check currentFrame and call completion handler", error,
-                      "Possible Media Service Reset?", type: .error)
-            }
-            #endif
         }
     }
 

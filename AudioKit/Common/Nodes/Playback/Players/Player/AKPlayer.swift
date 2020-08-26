@@ -166,13 +166,15 @@ public class AKPlayer: AKAbstractPlayer {
     /// of frames based on startTime and endTime
     @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
-    /// - Returns: The current frame while playing
+    /// - Returns: The current frame while playing. It will return 0 on error.
     @objc public var currentFrame: AVAudioFramePosition {
-        if let nodeTime = playerNode.lastRenderTime,
-            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return playerTime.sampleTime
+        guard playerNode.engine != nil,
+            let nodeTime = playerNode.lastRenderTime,
+            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) else {
+            AKLog("Error getting currentFrame, player may have been detached", type: .error)
+            return 0
         }
-        return 0
+        return playerTime.sampleTime
     }
 
     /// - Returns: Current time of the player in seconds while playing.
@@ -193,7 +195,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// Returns the audioFile's internal processingFormat
+    ///  - Returns: the audioFile's internal processingFormat
     @objc public var processingFormat: AVAudioFormat? {
         return audioFile?.processingFormat
     }
