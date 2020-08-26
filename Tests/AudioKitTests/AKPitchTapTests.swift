@@ -20,10 +20,8 @@ class AKPitchTapTests: AKTestCase {
 
     func testBasic() {
         output = sine
-        tap = AKPitchTap(sine) { [weak self] in
-            if let pitch = self?.tap.leftPitch {
-               self?.pitches.append(pitch)
-            }
+        tap = AKPitchTap(sine) {  [weak self] (pitches, _) in
+            self?.pitches.append(pitches[0])
         }
         tap.start()
         AKTest()
