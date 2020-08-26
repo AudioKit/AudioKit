@@ -71,13 +71,13 @@ open class AKAbstractPlayer: AKNode {
         /// So that the Loop struct can be used outside of AKPlayer
         public init() {}
 
-        public var start: Double = 0 {
+        public var start: TimeInterval = 0 {
             willSet {
                 if newValue != start { needsUpdate = true }
             }
         }
 
-        public var end: Double = 0 {
+        public var end: TimeInterval = 0 {
             willSet {
                 if newValue != end { needsUpdate = true }
             }
@@ -128,10 +128,10 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
-    private var _startTime: Double = 0
+    private var _startTime: TimeInterval = 0
 
     /// Get or set the start time of the player.
-    open var startTime: Double {
+    open var startTime: TimeInterval {
         get {
             return _startTime
         }
@@ -141,10 +141,10 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
-    private var _endTime: Double = 0
+    private var _endTime: TimeInterval = 0
 
     /// Get or set the end time of the player.
-    open var endTime: Double {
+    open var endTime: TimeInterval {
         get {
             return isLooping ? loop.end : _endTime
         }
@@ -158,7 +158,7 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
-    public var offsetTime: Double = 0
+    public var offsetTime: TimeInterval = 0
 
     // MARK: - public flags
 
@@ -173,11 +173,11 @@ open class AKAbstractPlayer: AKNode {
 
     // MARK: - stub items, to be implemented in subclasses
 
-    open var duration: Double {
+    open var duration: TimeInterval {
         return 0
     }
 
-    internal var editedDuration: Double {
+    internal var editedDuration: TimeInterval {
         return (duration - startTime) - (duration - endTime)
     }
 
@@ -258,7 +258,7 @@ open class AKAbstractPlayer: AKNode {
         }
     }
 
-    func secondsToFrames(_ value: Double) -> AUAudioFrameCount {
+    func secondsToFrames(_ value: TimeInterval) -> AUAudioFrameCount {
         return AUAudioFrameCount(value * sampleRate)
     }
 
@@ -281,7 +281,7 @@ open class AKAbstractPlayer: AKNode {
         faderNode?.gain = fade.maximumGain
     }
 
-    public func fadeOut(with duration: Double, taper: AUValue? = nil) {
+    public func fadeOut(with duration: TimeInterval, taper: AUValue? = nil) {
         faderNode?.parameterAutomation?.stopPlayback()
         faderNode?.clearAutomationPoints()
         faderNode?.addAutomationPoint(value: Fade.minimumGain,
