@@ -17,21 +17,21 @@ import AVFoundation
     var isStarted: Bool { get }
 
     /// Set position in playback timeline (seconds).
-    @objc func setPosition(_ position: Double)
+    @objc func setPosition(_ position: TimeInterval)
 
     /// Timeline time at an audio time
     /// - Parameter audioTime: A time in the audio render context.
     /// - Return: Position in the timeline context (seconds).
     ///
     @objc(positionAtAudioTime:)
-    func position(at audioTime: AVAudioTime?) -> Double
+    func position(at audioTime: AVAudioTime?) -> TimeInterval
 
     /// Audio time at timeline time
     /// - Parameter position: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
     @objc(audioTimeAtPosition:)
-    func audioTime(at position: Double) -> AVAudioTime?
+    func audioTime(at position: TimeInterval) -> AVAudioTime?
 
     /// Prepare for playback.  After prepare has been called, the node should be ready to begine playback immediately.
     /// Time consuming operations necessary for playback (eg. disk reads) should be complete once prepare is called.
@@ -51,7 +51,7 @@ extension AKTiming {
     /// - Parameter nodes: The nodes that will be synchronously started.
     /// - Parameter position: The position of the nodes when started.
     /// - Returns: The audioTime (in the future) that the nodes will be started at.
-    public static func syncStart(_ nodes: [AKTiming], at position: Double = 0) -> AVAudioTime {
+    public static func syncStart(_ nodes: [AKTiming], at position: TimeInterval = 0) -> AVAudioTime {
         for node in nodes {
             node.stop()
             node.setPosition(position)
@@ -98,14 +98,14 @@ open class AKNodeTiming: NSObject {
     open weak var node: AKOutput?
 
     // Used to hold current time when not playing.
-    private var idleTime = Double()
+    private var idleTime = TimeInterval()
 
     // When playback begins, this is set to a time in the past that represent "time zero" in
     // the timeline.
     private var baseTime: AVAudioTime?
 
     /// The current time in the timeline (seconds).
-    open var currentTime: Double {
+    open var currentTime: TimeInterval {
         get { return position(at: nil) }
         set { setPosition(newValue) }
     }
@@ -139,7 +139,7 @@ extension AKNodeTiming: AKTiming {
 
     public var isNotStarted: Bool { return !isStarted }
 
-    public func position(at audioTime: AVAudioTime?) -> Double {
+    public func position(at audioTime: AVAudioTime?) -> TimeInterval {
         guard let baseTime = baseTime else {
             return idleTime
         }
@@ -147,7 +147,7 @@ extension AKNodeTiming: AKTiming {
         return refTime.timeIntervalSince(otherTime: baseTime) ?? idleTime
     }
 
-    public func audioTime(at position: Double) -> AVAudioTime? {
+    public func audioTime(at position: TimeInterval) -> AVAudioTime? {
         return baseTime?.offset(seconds: position)
     }
     public func start(at audioTime: AVAudioTime?) {
@@ -158,7 +158,7 @@ extension AKNodeTiming: AKTiming {
         baseTime = audioTime?.offset(seconds: -idleTime).extrapolateTimeShimmed(fromAnchor: lastRenderTime)
         baseTime = baseTime ?? lastRenderTime.offset(seconds: AKSettings.ioBufferDuration)
     }
-    public func setPosition(_ position: Double) {
+    public func setPosition(_ position: TimeInterval) {
         stop()
         idleTime = position
     }
