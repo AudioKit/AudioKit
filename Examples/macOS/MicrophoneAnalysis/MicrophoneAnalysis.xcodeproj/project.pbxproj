@@ -11,8 +11,7 @@
 		78D63E301D0FCDA300C53875 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D63E2F1D0FCDA300C53875 /* ViewController.swift */; };
 		78D63E321D0FCDA300C53875 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E311D0FCDA300C53875 /* Assets.xcassets */; };
 		78D63E351D0FCDA300C53875 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E331D0FCDA300C53875 /* Main.storyboard */; };
-		EAF51B3A241728D5005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B38241728D5005E7000 /* AudioKit.xcframework */; };
-		EAF51B3C241728D5005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B39241728D5005E7000 /* AudioKitUI.xcframework */; };
+		C4E8A94324F72E5700F80086 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4E8A94224F72E5700F80086 /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +21,7 @@
 		78D63E311D0FCDA300C53875 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78D63E341D0FCDA300C53875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78D63E361D0FCDA300C53875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EAF51B38241728D5005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
-		EAF51B39241728D5005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
+		C4E8A94124F72E4A00F80086 /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,8 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B3A241728D5005E7000 /* AudioKit.xcframework in Frameworks */,
-				EAF51B3C241728D5005E7000 /* AudioKitUI.xcframework in Frameworks */,
+				C4E8A94324F72E5700F80086 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +39,7 @@
 		78D63E211D0FCDA300C53875 = {
 			isa = PBXGroup;
 			children = (
+				C4E8A94124F72E4A00F80086 /* AudioKit */,
 				78D63E2C1D0FCDA300C53875 /* MicrophoneAnalysis */,
 				78D63E471D0FCF6700C53875 /* Frameworks */,
 				78D63E2B1D0FCDA300C53875 /* Products */,
@@ -71,8 +69,6 @@
 		78D63E471D0FCF6700C53875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAF51B38241728D5005E7000 /* AudioKit.xcframework */,
-				EAF51B39241728D5005E7000 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -93,6 +89,9 @@
 			dependencies = (
 			);
 			name = MicrophoneAnalysis;
+			packageProductDependencies = (
+				C4E8A94224F72E5700F80086 /* AudioKit */,
+			);
 			productName = MicrophoneAnalysis;
 			productReference = 78D63E2A1D0FCDA300C53875 /* MicrophoneAnalysis.app */;
 			productType = "com.apple.product-type.application";
@@ -288,7 +287,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = (
 					"-lc++",
 					"-all_load",
@@ -314,7 +313,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = (
 					"-lc++",
 					"-all_load",
@@ -347,6 +346,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4E8A94224F72E5700F80086 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 78D63E221D0FCDA300C53875 /* Project object */;
 }

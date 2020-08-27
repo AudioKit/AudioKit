@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -9,10 +8,11 @@ class ViewController: UIViewController {
     @IBOutlet private var amplitudeLabel: UILabel!
     @IBOutlet private var noteNameWithSharpsLabel: UILabel!
     @IBOutlet private var noteNameWithFlatsLabel: UILabel!
-    @IBOutlet private var audioInputPlot: EZAudioPlot!
+    @IBOutlet private var audioInputPlot: AKNodeOutputPlot!
 
-    var mic: AKMicrophone!
-    var tracker: AKFrequencyTracker!
+    lazy var mic = AKMicrophone()
+    let mixer = AKMixer()
+    var tracker: AKPitchTap!
     var silence: AKBooster!
 
     let noteFrequencies = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87]
@@ -43,9 +43,14 @@ class ViewController: UIViewController {
         AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.audioInputEnabled = true
-        mic = AKMicrophone()
-        tracker = AKFrequencyTracker(mic)
-        silence = AKBooster(tracker, gain: 0)
+        mic! >>> mixer
+        tracker = AKPitchTap(mixer) { pitch, amp in
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        }
+        silence = AKBooster(mixer, gain: 0)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,27 +59,23 @@ class ViewController: UIViewController {
         AKManager.output = silence
         do {
             try AKManager.start()
+            tracker.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
         setupPlot()
-        Timer.scheduledTimer(timeInterval: 0.1,
-                             target: self,
-                             selector: #selector(ViewController.updateUI),
-                             userInfo: nil,
-                             repeats: true)
     }
 
     @objc func updateUI() {
         if tracker.amplitude > 0.1 {
-            let trackerFrequency = Float(tracker.frequency)
+            let trackerFrequency = Float(tracker.leftPitch)
 
             guard trackerFrequency < 7_000 else {
                 // This is a bit of hack because of modern Macbooks giving super high frequencies
                 return
             }
 
-            frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
+            frequencyLabel.text = String(format: "%0.1f", tracker.leftPitch)
 
             var frequency = trackerFrequency
             while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
@@ -132,7 +133,7 @@ extension ViewController: UIPopoverPresentationControllerDelegate {
 extension ViewController: InputDeviceDelegate {
     func didSelectInputDevice(_ device: AKDevice) {
         do {
-            try mic.setDevice(device)
+            try mic!.setDevice(device)
         } catch {
             AKLog("Error setting input device")
         }
