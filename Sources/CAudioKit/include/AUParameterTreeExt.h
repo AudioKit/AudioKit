@@ -19,6 +19,8 @@
                                             min:(AUValue)min
                                             max:(AUValue)max
                                            unit:(AudioUnitParameterUnit)unit;
+@end
 
+@interface AUParameterTree(Ext)
 +(_Nonnull instancetype)treeWithChildren:(NSArray<AUParameter *> * _Nonnull)children;
 @end
