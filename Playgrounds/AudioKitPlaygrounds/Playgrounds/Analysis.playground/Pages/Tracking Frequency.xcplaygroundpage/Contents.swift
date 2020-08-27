@@ -16,7 +16,7 @@ let oscillatorNode = AKOperationGenerator {
     return AKOperation.sineWave(frequency: frequency, amplitude: volume)
 }
 
-let tracker = AKFrequencyTracker(oscillatorNode)
+let tracker = AKPitchTap(oscillatorNode)
 let booster = AKBooster(tracker, gain: 0.5)
 let secondaryOscillator = AKOscillator()
 

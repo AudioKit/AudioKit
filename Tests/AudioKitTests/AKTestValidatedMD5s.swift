@@ -368,5 +368,6 @@ let validatedMD5s = [
     "-[WhiteNoiseTests testAmplitude]": "1c052b4e036810c10a6f6fae633daa91",
     "-[WhiteNoiseTests testDefault]": "3383b3631de1e37d309c4e35ff023c1b",
     "-[WhiteNoiseTests testParameterSweep]": "d5713a02d87070053570eeb6a75f3283",
+    "-[AKPitchTapTests testBasic]": "8a1e22d782bdb942c7089e2807dce6e5",
 ]
 

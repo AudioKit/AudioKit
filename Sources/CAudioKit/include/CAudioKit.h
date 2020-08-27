@@ -20,16 +20,17 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "DSPKernel.hpp"
 #import "ExceptionCatcher.h"
 #import "AKGlobals.hpp"
+#import "AUParameterTreeExt.h"
 
 // Testing
 #import "md5.h"
 #import "DebugDSP.h"
 
 // Analysis
-#import "AKFrequencyTrackerAudioUnit.h"
 #if !TARGET_OS_TV
 #import "AKMicrophoneTrackerEngine.h"
 #endif
+#import "AKPitchTracker.h"
 
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
