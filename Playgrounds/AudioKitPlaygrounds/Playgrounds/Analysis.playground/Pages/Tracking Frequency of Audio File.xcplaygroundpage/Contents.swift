@@ -9,7 +9,7 @@ var player = AKPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
-let tracker = AKFrequencyTracker(player)
+let tracker = AKPitchTap(player)
 
 AKManager.output = tracker
 try AKManager.start()
