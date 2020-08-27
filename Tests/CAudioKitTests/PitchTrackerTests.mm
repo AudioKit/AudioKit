@@ -23,7 +23,6 @@ static int sampleRate = 44100;
     }
 
     akPitchTrackerAnalyze(tracker, frames.data(), frameCount);
-    akPitchTrackerDestroy(tracker);
 
     float amp, freq;
     akPitchTrackerGetResults(tracker, &amp, &freq);
@@ -31,6 +30,8 @@ static int sampleRate = 44100;
     float epsilon = 0.1;
     XCTAssertEqualWithAccuracy(amp, 2.0, epsilon);
     XCTAssertEqualWithAccuracy(freq, 440.0, epsilon);
+
+    akPitchTrackerDestroy(tracker);
 
 }
 
