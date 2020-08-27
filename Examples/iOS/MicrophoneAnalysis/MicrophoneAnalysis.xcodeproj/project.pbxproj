@@ -13,8 +13,7 @@
 		789CA9BB1D0A01F500D6EFF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9B91D0A01F500D6EFF1 /* Main.storyboard */; };
 		789CA9BD1D0A01F500D6EFF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */; };
 		789CA9C01D0A01F500D6EFF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BE1D0A01F500D6EFF1 /* LaunchScreen.storyboard */; };
-		EAF51B0624172582005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B0424172581005E7000 /* AudioKitUI.xcframework */; };
-		EAF51B0824172582005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B0524172581005E7000 /* AudioKit.xcframework */; };
+		C4E8A94624F75F9D00F80086 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4E8A94524F75F9D00F80086 /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +25,7 @@
 		789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		789CA9BF1D0A01F500D6EFF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		789CA9C11D0A01F500D6EFF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EAF51B0424172581005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
-		EAF51B0524172581005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		C4E8A94424F75F8100F80086 /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,8 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B0624172582005E7000 /* AudioKitUI.xcframework in Frameworks */,
-				EAF51B0824172582005E7000 /* AudioKit.xcframework in Frameworks */,
+				C4E8A94624F75F9D00F80086 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +43,7 @@
 		789CA9A91D0A01F500D6EFF1 = {
 			isa = PBXGroup;
 			children = (
+				C4E8A94424F75F8100F80086 /* AudioKit */,
 				789CA9B41D0A01F500D6EFF1 /* MicrophoneAnalysis */,
 				78E189C41D0C059B006474D5 /* Frameworks */,
 				789CA9B31D0A01F500D6EFF1 /* Products */,
@@ -77,8 +75,6 @@
 		78E189C41D0C059B006474D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAF51B0524172581005E7000 /* AudioKit.xcframework */,
-				EAF51B0424172581005E7000 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,6 +95,9 @@
 			dependencies = (
 			);
 			name = MicrophoneAnalysis;
+			packageProductDependencies = (
+				C4E8A94524F75F9D00F80086 /* AudioKit */,
+			);
 			productName = MicrophoneAnalysis;
 			productReference = 789CA9B21D0A01F500D6EFF1 /* MicrophoneAnalysis.app */;
 			productType = "com.apple.product-type.application";
@@ -304,6 +303,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,6 +323,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,6 +357,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4E8A94524F75F9D00F80086 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 789CA9AA1D0A01F500D6EFF1 /* Project object */;
 }
