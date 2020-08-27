@@ -1,8 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #import "AUParameterTreeExt.h"
-#import <AVFoundation/AVFoundation.h>
-#include "AKGlobals.hpp"
 
 @implementation AUParameter(Ext)
 
