@@ -43,13 +43,6 @@
 //: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Filter Envelope](Filter%20Envelope)
 //:
-//: ### Noise Generators
-//:
-//: There are two noise "colors" to start off with, pink and white,
-//: but we aim to have a much larger spectrum soon.
-//:
-//: * [Noise Generators](Noise%20Generators)
-//:
 //: ### Physical Models
 //:
 //: These playgrounds highlight sound synthesis in which the intent is to
