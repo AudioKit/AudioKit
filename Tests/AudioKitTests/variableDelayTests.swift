@@ -15,7 +15,7 @@ class VariableDelayTests: AKTestCase {
                 trigger: AKOperation.metronome(),
                 start: 1,
                 end: 0,
-                duration: self.duration)
+                duration: duration)
             return input.variableDelay(time: 0.1 * ramp, feedback: 0.9 * ramp)
         }
         AKTest()

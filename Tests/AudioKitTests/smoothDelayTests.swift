@@ -27,10 +27,10 @@ class SmoothDelayTests: AKTestCase {
     func testParameterSweep() {
         output = AKOperationEffect(input) { input in
             let ramp = AKOperation.lineSegment(
-                trigger: AKOperation.metronome(frequency: 1.0 / self.duration),
-                start: 0,
+                trigger: AKOperation.metronome(frequency: 1.0 / duration),
+                start: 0.0,
                 end: 0.1,
-                duration: self.duration)
+                duration: duration)
             return input.smoothDelay(time: 0.01 + ramp, feedback: 0.99 - ramp, samples: 512)
         }
         AKTest()

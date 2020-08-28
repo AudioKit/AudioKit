@@ -15,8 +15,8 @@ class TriangleTests: AKTestCase {
         triangle = AKOperationGenerator {
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
-                start: 1,
-                end: 0,
+                start: 1.0,
+                end: 0.0,
                 duration: duration)
             return AKOperation.triangle(frequency: ramp * 2_000, amplitude: ramp, phase: ramp)
         }

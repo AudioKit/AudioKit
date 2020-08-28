@@ -20,7 +20,9 @@ class FMOscillatorTests: AKTestCase {
         oscillator = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
-                start: 0.001, end: 5, duration: self.duration)
+                start: 0.001,
+                end: 5,
+                duration: duration)
             return AKOperation.fmOscillator(
                 baseFrequency: line * 1_000,
                 carrierMultiplier: line,
