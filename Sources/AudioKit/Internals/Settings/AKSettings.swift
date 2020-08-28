@@ -85,7 +85,7 @@ public class AKSettings: NSObject {
     public static var audioInputEnabled: Bool = false
 
     /// Global default rampDuration value
-    public static var rampDuration: Double = 0.000_2 {
+    public static var rampDuration: AUValue = 0.000_2 {
         didSet {
             __akRampDuration = rampDuration
         }

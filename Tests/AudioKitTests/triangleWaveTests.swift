@@ -17,7 +17,7 @@ class TriangleWaveTests: AKTestCase {
                 trigger: AKOperation.metronome(),
                 start: 1,
                 end: 0,
-                duration: self.duration)
+                duration: duration)
             return AKOperation.triangleWave(frequency: ramp * 2_000, amplitude: ramp)
         }
         output = triangle

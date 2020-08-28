@@ -30,7 +30,7 @@ class PinkNoiseTests: AKTestCase {
                 trigger: AKOperation.metronome(),
                 start: 0,
                 end: 1,
-                duration: self.duration)
+                duration: duration)
             return AKOperation.pinkNoise(amplitude: line)
         }
         output = noise

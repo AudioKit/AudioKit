@@ -30,7 +30,7 @@ class WhiteNoiseTests: AKTestCase {
                 trigger: AKOperation.metronome(),
                 start: 0,
                 end: 1,
-                duration: self.duration)
+                duration: duration)
             return AKOperation.whiteNoise(amplitude: line)
         }
         output = noise

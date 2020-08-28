@@ -22,7 +22,7 @@ class VocalTractTests: AKTestCase {
                 trigger: AKOperation.metronome(),
                 start: 0,
                 end: 1,
-                duration: self.duration)
+                duration: duration)
             return AKOperation.vocalTract(frequency: 200 + 200 * line,
                                           tonguePosition: line,
                                           tongueDiameter: line,
