@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
-#if !os(macOS)
+#if !os(macOS) || targetEnvironment(macCatalyst)
 
 import UIKit
 
