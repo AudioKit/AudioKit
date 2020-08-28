@@ -70,7 +70,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     return self;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 - (id)initWithFrame:(CGRect)frameRect
 #elif TARGET_OS_MAC
 - (id)initWithFrame:(NSRect)frameRect
@@ -84,7 +84,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     return self;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -125,7 +125,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.waveformLayer.backgroundColor = nil;
     self.waveformLayer.opaque = YES;
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     self.color = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
 #elif TARGET_OS_MAC
     self.color = [NSColor colorWithCalibratedHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
@@ -301,7 +301,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
         CGFloat translateY = 0.0f;
         if (!self.shouldCenterYAxis)
         {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
             translateY = CGRectGetHeight(rect);
 #elif TARGET_OS_MAC
             translateY = 0.0f;
@@ -427,7 +427,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 - (BOOL)isDeviceOriginFlipped
 {
     BOOL isDeviceOriginFlipped = NO;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     isDeviceOriginFlipped = YES;
 #elif TARGET_OS_MAC
 #endif

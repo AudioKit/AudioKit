@@ -4,9 +4,6 @@
 import CoreAudioKit
 #endif
 
-#if !os(macOS)
-import UIKit
-#endif
 import Dispatch
 
 import AVFoundation
