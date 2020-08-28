@@ -24,7 +24,7 @@
 #pragma mark - Types
 //------------------------------------------------------------------------------
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 #import <UIKit/UIKit.h>
 typedef CGRect EZRect;
 #else
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, EZPlotType)
 
  This class isn't meant to be directly used in practice, but instead establishes the default properties and behaviors subclasses should obey to provide consistent behavior across multiple types of graphs (i.e. set background color, plot type, should fill in, etc.). Subclasses should make use of the inherited properties from this class to allow all child plots to benefit from the same
  */
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 #import <UIKit/UIKit.h>
 @interface EZPlot : UIView
 #elif TARGET_OS_MAC
@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, EZPlotType)
 /**
  The default background color of the plot. For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is black.
  */
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 @property (nonatomic, strong) IBInspectable UIColor *backgroundColor;
 #elif TARGET_OS_MAC
 @property (nonatomic, strong) IBInspectable NSColor *backgroundColor;
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, EZPlotType)
 /**
  The default color of the plot's data (i.e. waveform, y-axis values). For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is red.
  */
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 @property (nonatomic, strong) IBInspectable UIColor *color;
 #elif TARGET_OS_MAC
 @property (nonatomic, strong) IBInspectable NSColor *color;

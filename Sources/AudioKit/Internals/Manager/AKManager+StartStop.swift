@@ -3,7 +3,7 @@
 import Foundation
 import AVFoundation
 
-#if os(iOS)
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 #endif
 
@@ -70,7 +70,7 @@ extension AKManager {
         }
         shouldBeRunning = false
 
-        #if os(iOS)
+        #if os(iOS) || targetEnvironment(macCatalyst)
         do {
             if !AKSettings.disableAudioSessionDeactivationOnStop {
                 try AVAudioSession.sharedInstance().setActive(false)
@@ -106,7 +106,7 @@ extension AKManager {
                 }
 
                 if AKSettings.enableConfigurationChangeHandling, !engine.isRunning, shouldBeRunning {
-                    #if os(iOS)
+                    #if os(iOS) || targetEnvironment(macCatalyst)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
 
@@ -140,7 +140,7 @@ extension AKManager {
     }
 }
 
-#if !os(macOS)
+#if !os(macOS) || targetEnvironment(macCatalyst)
 extension AKManager {
     internal static func updateSessionCategoryAndOptions() throws {
         guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }

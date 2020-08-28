@@ -24,7 +24,7 @@
 #pragma mark - CVDisplayLink Callback (Declaration)
 //------------------------------------------------------------------------------
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 #elif TARGET_OS_MAC
 static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
                                            const CVTimeStamp *now,
@@ -39,7 +39,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 //------------------------------------------------------------------------------
 
 @interface EZAudioDisplayLink ()
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 @property (nonatomic, strong) CADisplayLink *displayLink;
 #elif TARGET_OS_MAC
 @property (nonatomic, assign) CVDisplayLinkRef displayLink;
@@ -59,7 +59,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 
 - (void)dealloc
 {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     [self.displayLink invalidate];
 #elif TARGET_OS_MAC
     CVDisplayLinkStop(self.displayLink);
@@ -100,7 +100,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 - (void)setup
 {
     self.stopped = YES;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(update)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 #elif TARGET_OS_MAC
@@ -118,7 +118,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 
 - (void)start
 {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     self.displayLink.paused = NO;
 #elif TARGET_OS_MAC
     CVDisplayLinkStart(self.displayLink);
@@ -130,7 +130,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 
 - (void)stop
 {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
     self.displayLink.paused = YES;
 #elif TARGET_OS_MAC
     CVDisplayLinkStop(self.displayLink);
@@ -159,7 +159,7 @@ static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
 #pragma mark - CVDisplayLink Callback (Implementation)
 //------------------------------------------------------------------------------
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 #elif TARGET_OS_MAC
 static CVReturn EZAudioDisplayLinkCallback(CVDisplayLinkRef displayLinkRef,
                                            const CVTimeStamp *now,
