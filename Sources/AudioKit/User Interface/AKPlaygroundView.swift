@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if !os(macOS)
+#if !os(macOS) || targetEnvironment(macCatalyst)
 import UIKit
 
 public typealias Label = UILabel

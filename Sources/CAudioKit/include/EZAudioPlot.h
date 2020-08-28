@@ -215,7 +215,7 @@ typedef struct _EZPlotHistoryInfo EZPlotHistoryInfo;
 @property (nonatomic, assign) CGPoint            *points;
 @property (nonatomic, assign) UInt32              pointCount;
 @property (nonatomic, assign) bool                fadeout;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_UIKITFORMAC
 @property (nonatomic, strong) UIColor            *originalColor;
 #elif TARGET_OS_MAC
 @property (nonatomic, strong) NSColor            *originalColor;
