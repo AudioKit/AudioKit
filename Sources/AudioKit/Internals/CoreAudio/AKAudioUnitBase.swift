@@ -145,7 +145,9 @@ open class AKAudioUnitBase: AUAudioUnit {
     /// Paramater ramp duration (seconds)
     public var rampDuration = AKSettings.rampDuration {
         didSet {
-            setParameterRampDurationDSP(dsp, 0, Float(rampDuration))
+            for index in 0 ..< (parameterTree?.children.count ?? 0) {
+                setParameterRampDurationDSP(dsp, AUParameterAddress(index), Float(rampDuration))
+            }
         }
     }
 
