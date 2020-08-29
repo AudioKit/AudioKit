@@ -10,11 +10,13 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
         output = input
         XCTAssertEqual(input.amplitude, 0.5)
+        input.start()
         AKTest()
     }
 
     func testDefault() {
         output = input
+        input.start()
         AKTest()
     }
 
@@ -22,6 +24,7 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
         output = input
         XCTAssertEqual(input.detuningMultiplier, 0.9)
+        input.start()
         AKTest()
     }
 
@@ -29,6 +32,7 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
         output = input
         XCTAssertEqual(input.detuningOffset, 11)
+        input.start()
         AKTest()
     }
 
@@ -36,6 +40,7 @@ class AKOscillatorTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
         XCTAssertEqual(input.frequency, 400)
+        input.start()
         AKTest()
     }
 
@@ -48,12 +53,14 @@ class AKOscillatorTests: AKTestCase {
         XCTAssertEqual(input.frequency, 400)
         XCTAssertEqual(input.amplitude, 0.5)
         output = input
+        input.start()
         AKTest()
     }
 
     func testParameters() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         output = input
+        input.start()
         AKTest()
     }
 
@@ -69,6 +76,7 @@ class AKOscillatorTests: AKTestCase {
             self.input.parameterAutomation?.startPlayback()
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -86,6 +94,7 @@ class AKOscillatorTests: AKTestCase {
             self.input.parameterAutomation?.startPlayback()
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -107,6 +116,7 @@ class AKOscillatorTests: AKTestCase {
             self.input.parameterAutomation?.startPlayback()
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -122,6 +132,7 @@ class AKOscillatorTests: AKTestCase {
                                                                       rampDuration: self.duration)])
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -138,6 +149,7 @@ class AKOscillatorTests: AKTestCase {
                                                                       rampDuration: self.duration)])
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -157,6 +169,7 @@ class AKOscillatorTests: AKTestCase {
                                                                       rampDuration: self.duration)])
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()
@@ -179,6 +192,7 @@ class AKOscillatorTests: AKTestCase {
                                            startTime: startTime)
         }
 
+        input.start()
         // auditionTest()
 
         AKTest()

@@ -4,20 +4,18 @@ import AudioKit
 
 class AKWhiteNoiseTests: AKTestCase {
 
+    let white = AKWhiteNoise()
+
     func testDefault() {
-        output = AKWhiteNoise()
+        output = white
+        white.start()
         AKTest()
     }
 
     func testAmplitude() {
-        output = AKWhiteNoise(amplitude: 0.5)
-        AKTest()
-    }
-
-    func testAmplitude2() {
-        let white = AKWhiteNoise()
         white.amplitude = 0.5
         output = white
+        white.start()
         AKTest()
     }
 }
