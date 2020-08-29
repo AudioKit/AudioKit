@@ -12,17 +12,12 @@
         <page name='FM Oscillator Operation'/>
         <page name='Mandolin'/>
         <page name='Microtonality'/>
-        <page name='Morphing Oscillator'/>
         <page name='Noise Generators'/>
         <page name='Noise Operations'/>
-        <page name='Oscillator'/>
-        <page name='Oscillator Synth'/>
         <page name='Pedestrians'/>
-        <page name='Phase Distortion Oscillator'/>
         <page name='Phasor Operation'/>
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
-        <page name='PWM Oscillator'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Segment Operations'/>
         <page name='Shaker'/>
