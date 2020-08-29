@@ -54,4 +54,34 @@ class AKNode2Tests: XCTestCase {
         engine.stop()
 
     }
+
+    func testNode2DeferredConnection() {
+
+        let engine = AKEngine()
+
+        let osc = AKOscillator2()
+        XCTAssertNotNil(osc.avAudioUnit)
+        osc.start()
+
+        let verb = AKCostelloReverb2()
+
+        osc >>> verb
+
+        engine.output = verb
+
+        do {
+            try engine.start()
+        } catch let error {
+            XCTFail("Couldn't start engine: \(error)")
+        }
+
+        sleep(2)
+
+        osc.stop()
+
+        sleep(2)
+
+        engine.stop()
+
+    }
 }
