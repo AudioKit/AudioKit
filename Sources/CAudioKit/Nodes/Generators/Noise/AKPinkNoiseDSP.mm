@@ -16,6 +16,7 @@ private:
 public:
     AKPinkNoiseDSP() {
         parameters[AKPinkNoiseParameterAmplitude] = &amplitudeRamp;
+        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
