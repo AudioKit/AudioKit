@@ -196,6 +196,21 @@ public extension AKToggleable where Self: AKComponent {
     }
 }
 
+public extension AKToggleable where Self: AKComponent2 {
+
+    var isStarted: Bool {
+        return (internalAU as? AKAudioUnitBase)?.isStarted ?? false
+    }
+
+    func start() {
+        (internalAU as? AKAudioUnitBase)?.start()
+    }
+
+    func stop() {
+        (internalAU as? AKAudioUnitBase)?.stop()
+    }
+}
+
 struct AKNodeConnection {
     var node: AKNode2
     var bus: Int
@@ -251,11 +266,13 @@ open class AKNode2 {
 
 }
 
-class AKEngine {
+public class AKEngine {
 
     let avEngine = AVAudioEngine()
 
-    var output: AKNode2? {
+    public init() { }
+
+    public var output: AKNode2? {
         didSet {
             if let node = output {
                 attach(node: node)
@@ -272,5 +289,13 @@ class AKEngine {
             attach(node: connection.node)
             avEngine.connect(connection.node.avAudioNode, to: node.avAudioNode)
         }
+    }
+
+    public func start() throws {
+        try avEngine.start()
+    }
+
+    public func stop() {
+        avEngine.stop()
     }
 }
