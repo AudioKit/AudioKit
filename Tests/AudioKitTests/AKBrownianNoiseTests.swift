@@ -4,20 +4,19 @@ import AudioKit
 
 class AKBrownianNoiseTests: AKTestCase {
 
+    let brown = AKBrownianNoise()
+
     func testDefault() {
-        output = AKBrownianNoise()
+        output = brown
+        brown.start()
         AKTest()
     }
 
     func testAmplitude() {
-        output = AKBrownianNoise(amplitude: 0.5)
-        AKTest()
-    }
 
-    func testAmplitude2() {
-        let brown = AKBrownianNoise()
         brown.amplitude = 0.5
         output = brown
+        brown.start()
         AKTest()
     }
 }

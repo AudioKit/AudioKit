@@ -4,20 +4,18 @@ import AudioKit
 
 class AKPinkNoiseTests: AKTestCase {
 
+    let pink = AKPinkNoise()
+
     func testDefault() {
-        output = AKPinkNoise()
+        output = pink
+        pink.start()
         AKTest()
     }
 
     func testAmplitude() {
-        output = AKPinkNoise(amplitude: 0.5)
-        AKTest()
-    }
-
-    func testAmplitude2() {
-        let pink = AKPinkNoise()
         pink.amplitude = 0.5
         output = pink
+        pink.start()
         AKTest()
     }
 }
