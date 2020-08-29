@@ -124,7 +124,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 ///
 public class AKOscillator2: AKNode2, AKComponent2, AKToggleable {
 
-    public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
+    public static let ComponentDescription = AudioComponentDescription(generator: "osc2")
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -226,10 +226,13 @@ public class AKOscillator2: AKNode2, AKComponent2, AKToggleable {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            self.internalAU?.setWavetable(waveform.content)
+            audioUnit.setWavetable(waveform.content)
         }
 
     }
