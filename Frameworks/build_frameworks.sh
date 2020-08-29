@@ -77,11 +77,11 @@ fi
 # Provide 3 arguments: platform (iOS or tvOS), simulator os, native os
 create_universal_frameworks()
 {
-	PROJECT="../AudioKit/AudioKit.xcodeproj"
+	PROJECT="../AudioKit.xcodeproj"
 	DIR="AudioKit-$1"
 	rm -rf $DIR/*.framework
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
+	xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
 		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
@@ -102,7 +102,7 @@ create_universal_frameworks()
 			cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/Modules/${f}.swiftmodule/"* "${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
 		done
 	else # Build device slices
-		xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
+		xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
 			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 3
 		for f in ${PROJECT_NAME} $FRAMEWORKS; do
 			cp -av "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Modules/${f}.swiftmodule/"* \
@@ -159,7 +159,7 @@ create_universal_frameworks()
 # 2 arguments: platform (iOS or tvOS), platform (iphoneos, iphonesimulator, appletvos, appletvsimulator)
 create_framework()
 {
-	PROJECT="../AudioKit/AudioKit.xcodeproj"
+	PROJECT="../AudioKit.xcodeproj"
 	DIR="AudioKit-$1/$2"
 	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
 	mkdir -p "$DIR"
@@ -169,7 +169,7 @@ create_framework()
 		XCCONFIG=device.xcconfig
 	fi
 	echo "Building static frameworks for $1 / $2"
-	xcodebuild -project "$PROJECT" -target "All-$1" -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
+	xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
 		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
@@ -181,11 +181,11 @@ create_framework()
 # Provide 2 arguments: platform (macOS), native os (macosx)
 create_macos_frameworks()
 {
-	PROJECT="../AudioKit/AudioKit.xcodeproj"
+	PROJECT="../AudioKit.xcodeproj"
 	DIR="AudioKit-$1"
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "All-macOS" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+	xcodebuild -project "$PROJECT" -target "AudioKit" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
 		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework" "$DIR/"
@@ -207,11 +207,11 @@ create_catalyst_frameworks()
 		echo "Skipping Catalyst build, macOS Catalina is required"
 		return
 	fi
-	PROJECT="../AudioKit/AudioKit.xcodeproj"
+	PROJECT="../AudioKit.xcodeproj"
 	DIR="AudioKit-macOS/Catalyst"
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild archive -project "$PROJECT" -scheme All-iOS ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
+	xcodebuild archive -project "$PROJECT" -scheme AudioKit-Package ONLY_ACTIVE_ARCH=$ACTIVE_ARCH SDKROOT=iphoneos CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
 			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
 			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do

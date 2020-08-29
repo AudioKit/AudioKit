@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if !os(macOS) || targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst) || os(iOS)
 import UIKit
 import AVFoundation
 
