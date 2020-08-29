@@ -28,6 +28,7 @@ public:
         parameters[AKOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[AKOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

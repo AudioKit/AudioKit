@@ -16,6 +16,7 @@ private:
 public:
     AKWhiteNoiseDSP() {
         parameters[AKWhiteNoiseParameterAmplitude] = &amplitudeRamp;
+        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {

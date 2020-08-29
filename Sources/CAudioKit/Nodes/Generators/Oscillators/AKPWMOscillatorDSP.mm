@@ -28,6 +28,8 @@ public:
         parameters[AKPWMOscillatorParameterPulseWidth] = &pulseWidthRamp;
         parameters[AKPWMOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[AKPWMOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+
+        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {

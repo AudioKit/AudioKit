@@ -31,6 +31,7 @@ public:
         parameters[AKFMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;
         parameters[AKFMOscillatorParameterModulationIndex] = &modulationIndexRamp;
         parameters[AKFMOscillatorParameterAmplitude] = &amplitudeRamp;
+        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

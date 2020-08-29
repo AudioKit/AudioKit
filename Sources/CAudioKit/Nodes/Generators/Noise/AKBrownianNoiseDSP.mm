@@ -16,6 +16,7 @@ private:
 public:
     AKBrownianNoiseDSP() {
         parameters[AKBrownianNoiseParameterAmplitude] = &amplitudeRamp;
+        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
