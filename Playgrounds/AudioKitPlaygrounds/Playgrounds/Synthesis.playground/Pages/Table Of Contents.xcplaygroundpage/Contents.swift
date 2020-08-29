@@ -21,19 +21,6 @@
 //: Hopefully we'll add more practicals over time.  If you're interested in
 //: making more, submit a pull-request to the git repository and we'll be sure to include them.
 //:
-//: ## Generator Nodes
-//:
-//: ### Oscillators
-//:
-//: Oscillators are the bread and butter of audio synthesis and there's no
-//: shortage of them in AudioKit.
-//:
-//: * [Oscillator](Oscillator)
-//: * [Oscillator Synth](Oscillator%20Synth)
-//: * [Morphing Oscillator](Morphing%20Oscillator)
-//: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
-//: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
-//:
 //: Microtonal Functionality:
 //:
 //: * [Microtonality](Microtonality)
