@@ -3,7 +3,6 @@
 ## Examples for iOS that build on macOS Catalina through Catalyst
 
 * HelloWorld - two simple frequency oscillators
-* Drums - trigger drum sounds from 8 pads on your iOS device. This one is the first built with SwiftUI.
 
 ## Examples for iOS and macOS
 

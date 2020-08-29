@@ -58,7 +58,6 @@ create_package()
 	mkdir -p Examples
 	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
-	rm -rf Examples/SongProcessor Examples/Drums
 	find Examples -name project.pbxproj -exec $SED -i -f ../fix_paths.sed {} \;
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;

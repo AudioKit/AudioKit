@@ -4,10 +4,7 @@
 # Primary Owners
 * @aure
 
-.travis.yml @aure @megastep
-
 # Folders
-/Developer/ @aure @getdunne
 /Frameworks/ @aure @megastep
 
 /AudioKit/Core/AudioKitCore/ @aure @getdunne
@@ -29,7 +26,6 @@
 /docs/ @aure @getdunne
 
 /Examples/iOS/AppleSamplerDemo/ @aure @eljeff 
-/Examples/iOS/DrumsSwiftUI/ @aure @sieren
 /Examples/iOS/MetronomeSamplerSync/ @aure @dave234
 /Examples/iOS/MIDIUtility/ @aure @eljeff 
 /Examples/iOS/SequencerDemo/ @aure @eljeff 
