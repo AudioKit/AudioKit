@@ -195,3 +195,82 @@ public extension AKToggleable where Self: AKComponent {
         (internalAU as? AKAudioUnitBase)?.stop()
     }
 }
+
+struct AKNodeConnection {
+    var node: AKNode2
+    var bus: Int
+}
+
+open class AKNode2 {
+
+    var connections: [AKNodeConnection] = []
+
+    /// The internal AVAudioEngine AVAudioNode
+    open var avAudioNode: AVAudioNode
+
+    /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
+    open var avAudioUnit: AVAudioUnit? {
+        didSet {
+            guard let avAudioUnit = avAudioUnit else { return }
+
+            let mirror = Mirror(reflecting: self)
+
+            for child in mirror.children {
+                if let param = child.value as? ParameterBase, let label = child.label {
+                    // Property wrappers create a variable with an underscore
+                    // prepended. Drop the underscore to look up the parameter.
+                    let name = String(label.dropFirst())
+                    param.projectedValue.associate(with: avAudioUnit,
+                                                   identifier: name)
+                }
+            }
+        }
+    }
+
+    /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
+    open var avAudioUnitOrNode: AVAudioNode {
+        return self.avAudioUnit ?? self.avAudioNode
+    }
+
+    /// Initialize the node from an AVAudioUnit
+    public init(avAudioUnit: AVAudioUnit) {
+        self.avAudioUnit = avAudioUnit
+        self.avAudioNode = avAudioUnit
+    }
+
+    /// Initialize the node from an AVAudioNode
+    public init(avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
+    }
+
+    deinit {
+        if let engine = self.avAudioNode.engine {
+            engine.detach(self.avAudioNode)
+        }
+    }
+
+}
+
+class AKEngine {
+
+    let avEngine = AVAudioEngine()
+
+    var output: AKNode2? {
+        didSet {
+            if let node = output {
+                attach(node: node)
+                avEngine.connect(node.avAudioNode, to: avEngine.outputNode)
+            }
+        }
+    }
+
+    func attach(node: AKNode2) {
+
+        avEngine.attach(node.avAudioNode)
+
+        for connection in node.connections {
+            attach(node: connection.node)
+            avEngine.connect(connection.node.avAudioNode, to: node.avAudioNode)
+        }
+    }
+}
