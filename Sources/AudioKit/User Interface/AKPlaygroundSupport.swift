@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import SwiftUI
 import AVFoundation
@@ -72,3 +73,5 @@ public struct ParameterSlider: View {
         }
     }
 }
+
+#endif
