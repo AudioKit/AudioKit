@@ -211,7 +211,11 @@ public extension AKToggleable where Self: AKComponent2 {
     }
 }
 
-struct AKNodeConnection {
+struct AKNodeConnection: Equatable {
+    static func == (lhs: AKNodeConnection, rhs: AKNodeConnection) -> Bool {
+        return lhs.node === rhs.node && lhs.bus == rhs.bus
+    }
+
     var node: AKNode2
     var bus: Int
 }
@@ -276,20 +280,33 @@ open class AKNode2 {
                     }
                 }
                 engine.attach(node.avAudioNode)
-                engine.connect(node.avAudioNode, to: self.avAudioNode)
+                engine.connect(node.avAudioNode, to: avAudioNode)
                 node.makeAVConnections()
             }
         }
     }
 
-    public func connect(node: AKNode2, bus: Int) {
-        connections.append(AKNodeConnection(node: node, bus: bus))
+    public func connect(node: AKNode2) {
+        connections.append(AKNodeConnection(node: node, bus: 0))
         makeAVConnections()
+    }
+
+    public func disconnect(node: AKNode2) {
+        connections.removeAll(where: { $0.node === node })
+        if let engine = avAudioNode.engine {
+            for bus in 0 ..< avAudioNode.numberOfInputs {
+                if let cp = engine.inputConnectionPoint(for: avAudioNode, inputBus: bus) {
+                    if cp.node === node.avAudioNode {
+                        engine.disconnectNodeInput(avAudioNode, bus: bus)
+                    }
+                }
+            }
+        }
     }
 
 }
 
 @discardableResult public func >>> (left: AKNode2, right: AKNode2) -> AKNode2 {
-    right.connect(node: left, bus: 0)
+    right.connect(node: left)
     return right
 }
