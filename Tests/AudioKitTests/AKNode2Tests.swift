@@ -90,4 +90,51 @@ class AKNode2DynamicConnectionTests: XCTestCase {
         engine2.output = verb
 
     }
+
+    func testDisconnect() {
+
+        let engine = AKEngine()
+        let osc = AKOscillator2()
+        let mixer = AKMixer2(osc)
+        osc.start()
+        engine.output = mixer
+        try! engine.start()
+
+        sleep(1)
+
+        mixer.disconnect(node: osc)
+
+        print("disconnected")
+        sleep(1)
+        print("done")
+
+        engine.stop()
+
+    }
+
+    func testDynamicConnection3() {
+
+        let osc = AKOscillator2()
+        let mixer = AKMixer2(osc)
+        let engine = AKEngine()
+        engine.output = mixer
+
+        osc.start()
+        try! engine.start()
+
+        sleep(1)
+
+        let osc2 = AKOscillator2(frequency: 880)
+        osc2.start()
+
+        osc2 >>> mixer
+
+        sleep(1)
+
+        mixer.disconnect(node: osc2)
+
+        sleep(1)
+
+        engine.stop()
+    }
 }
