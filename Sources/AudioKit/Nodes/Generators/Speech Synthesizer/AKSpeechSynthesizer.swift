@@ -8,7 +8,7 @@ import CAudioKit
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
 
-public class AKSpeechSynthesizer: AKNode {
+public class AKSpeechSynthesizer: AKNode2 {
     public static let ComponentDescription = AudioComponentDescription(
         componentType: kAudioUnitType_Generator,
         componentSubType: kAudioUnitSubType_SpeechSynthesis,
@@ -121,7 +121,7 @@ public class AKSpeechSynthesizer: AKNode {
     }
 
     public init(rate: Int = 200, frequency: Int = 200, modulation: Int = 0) {
-        super.init(avAudioNode: speechAU, attach: true)
+        super.init(avAudioNode: speechAU)
 
         // Grab the speech channel
         CheckError(AudioUnitGetProperty(speechAU.audioUnit,
