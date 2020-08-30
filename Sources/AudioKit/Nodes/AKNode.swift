@@ -264,4 +264,19 @@ open class AKNode2 {
         }
     }
 
+    public func connect(node: AKNode2, bus: Int) {
+        connections.append(AKNodeConnection(node: node, bus: bus))
+
+        // Are we attached?
+        if let engine = self.avAudioNode.engine {
+            engine.attach(node.avAudioNode)
+            engine.connect(node.avAudioNode, to: self.avAudioNode)
+        }
+    }
+
+}
+
+@discardableResult public func >>> (left: AKNode2, right: AKNode2) -> AKNode2 {
+    right.connect(node: left, bus: 0)
+    return right
 }

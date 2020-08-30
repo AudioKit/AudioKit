@@ -3,11 +3,6 @@
 import AVFoundation
 import CAudioKit
 
-@discardableResult public func >>> (left: AKNode2, right: AKNode2) -> AKNode2 {
-    right.connections.append(AKNodeConnection(node: left, bus: 0))
-    return right
-}
-
 public class AKEngine {
 
     let avEngine = AVAudioEngine()
