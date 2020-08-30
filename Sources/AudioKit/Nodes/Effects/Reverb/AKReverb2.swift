@@ -183,7 +183,7 @@ public class AKReverb2: AKNode2, AKToggleable {
             super.init(avAudioNode: AVAudioNode())
 
             if let input = input {
-                connections.append(AKNodeConnection(node: input, bus: 0))
+                connections.append(input)
             }
             avAudioUnit = internalEffect
             internalAU = internalEffect.audioUnit

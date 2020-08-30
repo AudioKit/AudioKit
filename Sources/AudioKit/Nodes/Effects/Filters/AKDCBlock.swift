@@ -42,7 +42,7 @@ public class AKDCBlock: AKNode2, AKToggleable, AKComponent2 {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

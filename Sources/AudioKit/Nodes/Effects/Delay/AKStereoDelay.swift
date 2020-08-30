@@ -113,7 +113,7 @@ public class AKStereoDelay: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

@@ -211,18 +211,9 @@ public extension AKToggleable where Self: AKComponent2 {
     }
 }
 
-struct AKNodeConnection: Equatable {
-    static func == (lhs: AKNodeConnection, rhs: AKNodeConnection) -> Bool {
-        return lhs.node === rhs.node && lhs.bus == rhs.bus
-    }
-
-    var node: AKNode2
-    var bus: Int
-}
-
 open class AKNode2 {
 
-    var connections: [AKNodeConnection] = []
+    var connections: [AKNode2] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -272,27 +263,26 @@ open class AKNode2 {
         // Are we attached?
         if let engine = self.avAudioNode.engine {
             for connection in connections {
-                let node = connection.node
-                if let sourceEngine = node.avAudioNode.engine {
+                if let sourceEngine = connection.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
                         AKLog("error: Attempt to connect nodes from different engines.")
                         return
                     }
                 }
-                engine.attach(node.avAudioNode)
-                engine.connect(node.avAudioNode, to: avAudioNode)
-                node.makeAVConnections()
+                engine.attach(connection.avAudioNode)
+                engine.connect(connection.avAudioNode, to: avAudioNode)
+                connection.makeAVConnections()
             }
         }
     }
 
     public func connect(node: AKNode2) {
-        connections.append(AKNodeConnection(node: node, bus: 0))
+        connections.append(node)
         makeAVConnections()
     }
 
     public func disconnect(node: AKNode2) {
-        connections.removeAll(where: { $0.node === node })
+        connections.removeAll(where: { $0 === node })
         if let engine = avAudioNode.engine {
             for bus in 0 ..< avAudioNode.numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: avAudioNode, inputBus: bus) {

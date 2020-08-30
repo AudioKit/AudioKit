@@ -65,7 +65,7 @@ public class AKLowPassButterworthFilter: AKNode2, AKToggleable, AKComponent2, AK
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

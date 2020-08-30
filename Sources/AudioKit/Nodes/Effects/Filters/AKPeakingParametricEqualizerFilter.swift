@@ -94,7 +94,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode2, AKToggleable, AKCompon
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

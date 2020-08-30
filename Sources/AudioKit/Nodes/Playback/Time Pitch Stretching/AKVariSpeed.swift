@@ -39,7 +39,7 @@ public class AKVariSpeed: AKNode2, AKToggleable {
         avAudioNode = variSpeedAU
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 

@@ -44,9 +44,9 @@ public class AKBalancer: AKNode2, AKToggleable, AKComponent2 {
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
-        connections.append(AKNodeConnection(node: comparator, bus: 1))
+        connections.append(comparator)
     }
 
     // TODO This node needs to have tests

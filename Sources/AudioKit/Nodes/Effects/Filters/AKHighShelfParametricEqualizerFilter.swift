@@ -94,7 +94,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode2, AKToggleable, AKComp
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

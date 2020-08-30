@@ -35,7 +35,7 @@ public class AKReverb: AKNode2, AKToggleable {
         avAudioNode = reverbAU
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
 
         reverbAU.wetDryMix = dryWetMix * 100.0

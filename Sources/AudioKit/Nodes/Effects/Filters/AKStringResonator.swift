@@ -88,7 +88,7 @@ public class AKStringResonator: AKNode2, AKToggleable, AKComponent2, AKAutomatab
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

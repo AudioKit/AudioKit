@@ -84,7 +84,7 @@ public class AKCostelloReverb: AKNode2, AKComponent2, AKToggleable, AKAutomatabl
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

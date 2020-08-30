@@ -81,7 +81,7 @@ public class AKModalResonanceFilter: AKNode2, AKToggleable, AKComponent2, AKAuto
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }
