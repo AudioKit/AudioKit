@@ -12,19 +12,10 @@ public class AKEngine {
     public var output: AKNode2? {
         didSet {
             if let node = output {
-                attach(node: node)
+                avEngine.attach(node.avAudioNode)
+                node.makeAVConnections()
                 avEngine.connect(node.avAudioNode, to: avEngine.outputNode)
             }
-        }
-    }
-
-    func attach(node: AKNode2) {
-
-        avEngine.attach(node.avAudioNode)
-
-        for connection in node.connections {
-            attach(node: connection.node)
-            avEngine.connect(connection.node.avAudioNode, to: node.avAudioNode)
         }
     }
 
