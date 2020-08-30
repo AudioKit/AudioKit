@@ -38,13 +38,13 @@ open class AKSequencer {
     /// Initialize with a single node or with no node at all
     /// You must provide a target node for the sequencer to drive or it will not run at all
     /// - Parameter targetNode: Required node
-    public convenience init(targetNode: AKNode) {
+    public convenience init(targetNode: AKNode2) {
         self.init(targetNodes: [targetNode])
     }
 
     /// Initialize with target nodes. This will create a track for each node
     /// - Parameter targetNodes: Array of nodes to target for each track
-    public required init(targetNodes: [AKNode]? = nil) {
+    public required init(targetNodes: [AKNode2]? = nil) {
         if let targetNodes = targetNodes {
             tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
         } else {
@@ -56,7 +56,7 @@ open class AKSequencer {
     /// - Parameters:
     ///   - fileURL: Location of the MIDI File
     ///   - targetNodes: Nodes to place the tracks from the MIDI file into
-    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
+    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode2]) {
         self.init(targetNodes: targetNodes)
         load(midiFileURL: fileURL)
     }
@@ -177,14 +177,14 @@ open class AKSequencer {
     /// Retrived a track for a given node
     /// - Parameter node: Node you want to access the tack for
     /// - Returns: Track associated with the given node
-    public func getTrackFor(node: AKNode) -> AKSequencerTrack? {
+    public func getTrackFor(node: AKNode2) -> AKSequencerTrack? {
         return tracks.first(where: { $0.targetNode === node })
     }
 
     /// Add track associated with a node
     /// - Parameter node: Node to create the track for
     /// - Returns: Track associated with the given node
-    public func addTrack(for node: AKNode) -> AKSequencerTrack {
+    public func addTrack(for node: AKNode2) -> AKSequencerTrack {
         let track = AKSequencerTrack(targetNode: node)
         tracks.append(track)
         return track

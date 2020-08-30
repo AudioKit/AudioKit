@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import CAudioKit
 
-class AKShakerTests: AKTestCase {
+class AKShakerTests: AKTestCase2 {
 
     func testShaker() {
 

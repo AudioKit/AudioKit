@@ -98,7 +98,7 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-open class AKPolyphonicNode: AKNode, AKPolyphonic {
+open class AKPolyphonicNode: AKNode2, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
