@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKTanhDistortionTests: AKTestCase {
+class AKTanhDistortionTests: AKTestCase2 {
 
     func testDefault() {
         output = AKTanhDistortion(input)

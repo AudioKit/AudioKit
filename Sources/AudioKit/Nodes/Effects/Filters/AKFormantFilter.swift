@@ -7,7 +7,7 @@ import CAudioKit
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFormantFilter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
@@ -78,7 +78,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
     ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         centerFrequency: AUValue = 1_000,
         attackDuration: AUValue = 0.007,
         decayDuration: AUValue = 0.04
@@ -93,8 +93,10 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

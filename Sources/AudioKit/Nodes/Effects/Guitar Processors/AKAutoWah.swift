@@ -5,7 +5,7 @@ import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAutoWah: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
@@ -76,7 +76,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     ///   - amplitude: Overall level
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         wah: AUValue = 0.0,
         mix: AUValue = 1.0,
         amplitude: AUValue = 0.1
@@ -91,8 +91,10 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

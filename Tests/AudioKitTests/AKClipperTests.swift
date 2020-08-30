@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKClipperTests: AKTestCase {
+class AKClipperTests: AKTestCase2 {
 
     func testDefault() {
         output = AKClipper(input)

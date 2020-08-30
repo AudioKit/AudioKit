@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKFormantFilterTests: AKTestCase {
+class AKFormantFilterTests: AKTestCase2 {
 
     func testAttack() {
         output = AKFormantFilter(input, attackDuration: 0.023_4)

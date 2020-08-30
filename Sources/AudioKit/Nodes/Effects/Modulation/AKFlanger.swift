@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFlanger: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
@@ -89,7 +89,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     ///   - dryWetMix: fraction of wet signal in mix  - traditionally 50%, avoid changing this value
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         frequency: AUValue = kAKFlanger_DefaultFrequency,
         depth: AUValue = kAKFlanger_DefaultDepth,
         feedback: AUValue = kAKFlanger_DefaultFeedback,
@@ -107,8 +107,10 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

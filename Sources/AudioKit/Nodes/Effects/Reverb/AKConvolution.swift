@@ -6,7 +6,7 @@ import CAudioKit
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
 ///
-public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKConvolution: AKNode2, AKToggleable, AKComponent2 {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
@@ -41,7 +41,7 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - partitionLength: Partition length (in samples). Must be a power of 2.
     ///     Lower values will add less latency, at the cost of requiring more CPU power.
     ///
-    public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode2? = nil,
                 impulseResponseFileURL: URL,
                 partitionLength: Int = 2_048
     ) {
@@ -59,8 +59,10 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             self.internalAU?.setPartitionLength(partitionLength)
             self.readAudioFile()
             self.internalAU?.start()
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 

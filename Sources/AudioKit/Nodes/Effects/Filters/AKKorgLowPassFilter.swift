@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
 ///
-public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKKorgLowPassFilter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
@@ -76,7 +76,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
     ///   - saturation: Filter saturation.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         cutoffFrequency: AUValue = 1_000.0,
         resonance: AUValue = 1.0,
         saturation: AUValue = 0.0
@@ -91,8 +91,10 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput, AK
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

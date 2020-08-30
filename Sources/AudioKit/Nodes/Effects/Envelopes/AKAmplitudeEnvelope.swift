@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Triggerable classic ADSR envelope
 ///
-public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAmplitudeEnvelope: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
@@ -89,7 +89,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
     ///   - releaseDuration: Release time
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         attackDuration: AUValue = 0.1,
         decayDuration: AUValue = 0.1,
         sustainLevel: AUValue = 1.0,
@@ -106,8 +106,10 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput, AK
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

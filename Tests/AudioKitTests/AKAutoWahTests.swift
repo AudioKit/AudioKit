@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKAutoWahTests: AKTestCase {
+class AKAutoWahTests: AKTestCase2 {
 
     func testAmplitude() {
         output = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
