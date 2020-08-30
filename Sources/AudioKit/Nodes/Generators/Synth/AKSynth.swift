@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class AKSynth: AKPolyphonicNode, AKComponent {
+public class AKSynth: AKPolyphonicNode, AKComponent2 {
     public typealias AKAudioUnitType = AKSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")
@@ -206,4 +206,6 @@ public class AKSynth: AKPolyphonicNode, AKComponent {
     public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
+
+    // TODO This node is untested
 }

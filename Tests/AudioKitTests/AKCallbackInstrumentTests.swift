@@ -18,8 +18,7 @@ class AKCallbackInstrumentTests: AKTestCase2 {
     }
 
     func testDefault() {
-// TODO FIXME
-        return
+
         duration = 3
 
         let expect = XCTestExpectation(description: "wait for callback")
