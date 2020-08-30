@@ -291,15 +291,7 @@ open class AKNode2 {
 
     public func disconnect(node: AKNode2) {
         connections.removeAll(where: { $0 === node })
-        if let engine = avAudioNode.engine {
-            for bus in 0 ..< avAudioNode.numberOfInputs {
-                if let cp = engine.inputConnectionPoint(for: avAudioNode, inputBus: bus) {
-                    if cp.node === node.avAudioNode {
-                        engine.disconnectNodeInput(avAudioNode, bus: bus)
-                    }
-                }
-            }
-        }
+        avAudioNode.disconnect(input: node.avAudioNode)
     }
 
 }

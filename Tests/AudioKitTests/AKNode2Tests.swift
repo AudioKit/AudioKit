@@ -164,4 +164,26 @@ class AKNode2DynamicConnectionTests: XCTestCase {
         engine.stop()
 
     }
+
+    func testDynamicOutput() {
+
+        let engine = AKEngine()
+
+        let osc1 = AKOscillator2()
+        osc1.start()
+        engine.output = osc1
+
+        try! engine.start()
+
+        sleep(1)
+
+        let osc2 = AKOscillator2(frequency: 880)
+        osc2.start()
+        engine.output = osc2
+
+        sleep(1)
+
+        engine.stop()
+
+    }
 }
