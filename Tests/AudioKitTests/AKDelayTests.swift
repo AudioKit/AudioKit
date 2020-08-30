@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDelayTests: AKTestCase {
+class AKDelayTests: AKTestCase2 {
 
     func testDryWetMix() {
         output = AKDelay(input, time: 0.012_3, dryWetMix: 0.456)

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class AKDelay: AKNode, AKToggleable, AKInput {
+public class AKDelay: AKNode2, AKToggleable {
     let delayAU = AVAudioUnitDelay()
 
     fileprivate var lastKnownMix: AUValue = 0.5
@@ -59,7 +59,7 @@ public class AKDelay: AKNode, AKToggleable, AKInput {
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         time: AUValue = 1,
         feedback: AUValue = 0.5,
         lowPassCutoff: AUValue = 15_000,
@@ -70,8 +70,10 @@ public class AKDelay: AKNode, AKToggleable, AKInput {
         self.lowPassCutoff = lowPassCutoff
         self.dryWetMix = dryWetMix
 
-        super.init(avAudioUnit: delayAU, attach: true)
-        input?.connect(to: self)
+        super.init(avAudioUnit: delayAU)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
+        }
 
         delayAU.delayTime = self.time
         delayAU.feedback = feedback * 100.0

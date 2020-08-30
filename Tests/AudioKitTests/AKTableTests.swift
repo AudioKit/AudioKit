@@ -2,29 +2,29 @@
 
 import AudioKit
 
-class AKTableTests: AKTestCase {
+class AKTableTests: AKTestCase2 {
 
     func testReverseSawtooth() {
-        input = AKOscillator(waveform: AKTable(.reverseSawtooth))
+        input = AKOscillator2(waveform: AKTable(.reverseSawtooth))
         output = input
         AKTest()
     }
 
     func testSawtooth() {
-        input = AKOscillator(waveform: AKTable(.sawtooth))
+        input = AKOscillator2(waveform: AKTable(.sawtooth))
         output = input
         AKTest()
     }
 
     func testSine() {
-        input = AKOscillator(waveform: AKTable(.sine))
+        input = AKOscillator2(waveform: AKTable(.sine))
         output = input
         // This is just the usual tested sine wave
         AKTestNoEffect()
     }
 
     func testTriangle() {
-        input = AKOscillator(waveform: AKTable(.triangle))
+        input = AKOscillator2(waveform: AKTable(.triangle))
         output = input
         AKTest()
     }
