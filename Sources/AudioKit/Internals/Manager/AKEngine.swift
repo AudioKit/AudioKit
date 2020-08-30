@@ -3,6 +3,22 @@
 import AVFoundation
 import CAudioKit
 
+extension AVAudioNode {
+
+    public func disconnect(input: AVAudioNode) {
+        if let engine = engine {
+            for bus in 0 ..< numberOfInputs {
+                if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+                    if cp.node === input {
+                        engine.disconnectNodeInput(self, bus: bus)
+                    }
+                }
+            }
+        }
+    }
+
+}
+
 public class AKEngine {
 
     let avEngine = AVAudioEngine()
@@ -11,10 +27,13 @@ public class AKEngine {
 
     public var output: AKNode2? {
         didSet {
+            if let node = oldValue {
+                avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
+            }
             if let node = output {
                 avEngine.attach(node.avAudioNode)
                 node.makeAVConnections()
-                avEngine.connect(node.avAudioNode, to: avEngine.outputNode)
+                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode)
             }
         }
     }
