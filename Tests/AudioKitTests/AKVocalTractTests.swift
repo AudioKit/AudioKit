@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKVocalTractTests: AKTestCase {
+class AKVocalTractTests: AKTestCase2 {
     var vocalTract = AKVocalTract()
 
     override func setUp() {
