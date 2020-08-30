@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Panner
 ///
-public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPanner: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
@@ -50,7 +50,7 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         pan: AUValue = 0
         ) {
         super.init(avAudioNode: AVAudioNode())
@@ -61,8 +61,10 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDCBlockTests: AKTestCase {
+class AKDCBlockTests: AKTestCase2 {
 
     func testDefault() {
         output = AKDCBlock(input)

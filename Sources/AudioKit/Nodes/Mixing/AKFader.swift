@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
-public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKFader: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -100,7 +100,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode2? = nil,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         self.leftGain = gain
@@ -112,8 +112,10 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 
@@ -121,8 +123,9 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         AKLog("* { AKFader }")
     }
 
-    public override func detach() {
-        super.detach()
+    public func detach() {
+        // TODO
+//        super.detach()
         parameterAutomation = nil
     }
 

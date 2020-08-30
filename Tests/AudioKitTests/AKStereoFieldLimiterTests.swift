@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKStereoFieldLimiterTests: AKTestCase {
+class AKStereoFieldLimiterTests: AKTestCase2 {
 
     func testDefault() {
         let pannedInput = AKPanner(input, pan: -1)
