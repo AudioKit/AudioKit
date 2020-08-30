@@ -156,6 +156,9 @@ extension AKAudioUnitManager {
 //            }
 //        }
 
+        // TODO Make sure to uncomment these when conversion to Node2 is done
+        // TODO Also, wouldn't be surprised if WTH could do this with mirror
+
         // kind of a maintainence mess, but there it is
         switch name {
         case "AKLowShelfFilter":
@@ -244,8 +247,8 @@ extension AKAudioUnitManager {
             node = AKChowningReverb()
         case "AKCombFilterReverb":
             node = AKCombFilterReverb()
-        case "AKCostelloReverb":
-            node = AKCostelloReverb()
+//        case "AKCostelloReverb":
+//            node = AKCostelloReverb()
         case "AKFlatFrequencyResponseReverb":
             node = AKFlatFrequencyResponseReverb()
         case "AKZitaReverb":
