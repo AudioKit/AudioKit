@@ -269,6 +269,12 @@ open class AKNode2 {
         if let engine = self.avAudioNode.engine {
             for connection in connections {
                 let node = connection.node
+                if let sourceEngine = node.avAudioNode.engine {
+                    if sourceEngine != avAudioNode.engine {
+                        AKLog("error: Attempt to connect nodes from different engines.")
+                        return
+                    }
+                }
                 engine.attach(node.avAudioNode)
                 engine.connect(node.avAudioNode, to: self.avAudioNode)
                 node.makeAVConnections()
