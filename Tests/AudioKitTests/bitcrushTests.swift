@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class BitcrushTests: AKTestCase {
+class BitcrushTests: AKTestCase2 {
 
     func testBitDepth() {
         output = AKOperationEffect(input) { $0.bitCrush(bitDepth: 7) }

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class MorphingOscillatorTests: AKTestCase {
+class MorphingOscillatorTests: AKTestCase2 {
 
     var oscillator = AKOperationGenerator { AKOperation.morphingOscillator() }
 

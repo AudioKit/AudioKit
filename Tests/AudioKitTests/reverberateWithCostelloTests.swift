@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ReverberateWithCostelloTests: AKTestCase {
+class ReverberateWithCostelloTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()

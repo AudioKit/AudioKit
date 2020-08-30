@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class TriangleTests: AKTestCase {
+class TriangleTests: AKTestCase2 {
 
     var triangle = AKOperationGenerator { AKOperation.triangle() }
 

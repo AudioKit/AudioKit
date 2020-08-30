@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class WhiteNoiseTests: AKTestCase {
+class WhiteNoiseTests: AKTestCase2 {
 
     var noise = AKOperationGenerator { AKOperation.whiteNoise() }
 

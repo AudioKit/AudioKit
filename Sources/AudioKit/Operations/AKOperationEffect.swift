@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKOperationEffect: AKNode2, AKToggleable, AKComponent2 {
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
@@ -176,7 +176,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode?,
+    public convenience init(_ input: AKNode2?,
                             channelCount: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
 
@@ -197,7 +197,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input:     AKNode to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode?,
+    public convenience init(_ input: AKNode2?,
                             operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
@@ -217,7 +217,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
         self.init(input, sporth: "")
     }
 
-    public convenience init(_ input: AKNode?, operation: (AKStereoOperation) -> AKComputedParameter) {
+    public convenience init(_ input: AKNode2?, operation: (AKStereoOperation) -> AKComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
     }
 
@@ -227,7 +227,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode?, sporth: String) {
+    public init(_ input: AKNode2?, sporth: String) {
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -235,8 +235,11 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.connect(to: self)
             self.internalAU?.setSporth(sporth)
+        }
+
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

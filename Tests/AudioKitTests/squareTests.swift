@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class SquareTests: AKTestCase {
+class SquareTests: AKTestCase2 {
 
     let square = AKOperationGenerator { AKOperation.square() }
 

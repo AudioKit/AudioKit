@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class StringResonatorTests: AKTestCase {
+class StringResonatorTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()
