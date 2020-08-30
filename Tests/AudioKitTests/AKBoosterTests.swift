@@ -3,7 +3,7 @@
 import AudioKit
 import AVFoundation
 
-class AKBoosterTests: AKTestCase {
+class AKBoosterTests: AKTestCase2 {
 
     func testDefault() {
         output = AKBooster(input)
@@ -33,16 +33,18 @@ class AKBoosterTests: AKTestCase {
         let url = desktop.appendingPathComponent("TestOutput.aif")
         let settings: [String: Any] = [AVSampleRateKey: 44_100.0, AVNumberOfChannelsKey: 2]
         let audioFile = try! AVAudioFile(forWriting: url, settings: settings)
-        let osc = AKOscillator()
+        let osc = AKOscillator2()
         let booster = AKBooster(osc, gain: 1.0)
         booster.rampDuration = 1
         booster.leftGain = 0.0
         booster.rightGain = 0.0
-        osc.connect(to: booster)
-        AKManager.output = booster
-        try! AKManager.renderToFile(audioFile, duration: 4, prerender: {
-            osc.start()
-        })
+        osc >>> booster
+        output = booster
+
+        // TODO, is this testing anything?
+//        try! AKManager.renderToFile(audioFile, duration: 4, prerender: {
+//            osc.start()
+//        })
     }
     #endif
 
