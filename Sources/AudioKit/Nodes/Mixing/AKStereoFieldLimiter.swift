@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKStereoFieldLimiter: AKNode2, AKToggleable, AKComponent2 {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
@@ -49,7 +49,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil, amount: AUValue = 1) {
+    public init(_ input: AKNode2? = nil, amount: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         self.amount = amount
 
@@ -57,7 +57,9 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self)
+        }
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }
