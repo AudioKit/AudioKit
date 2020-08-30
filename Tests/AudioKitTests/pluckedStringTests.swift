@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class PluckedStringTests: AKTestCase {
+class PluckedStringTests: AKTestCase2 {
 
     let pluckedString = AKOperationGenerator {
         return AKOperation.pluckedString(trigger: AKOperation.metronome())

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ClipTests: AKTestCase {
+class ClipTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()

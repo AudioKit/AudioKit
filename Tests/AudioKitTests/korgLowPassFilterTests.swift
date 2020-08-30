@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class KorgLowPassFilterTests: AKTestCase {
+class KorgLowPassFilterTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()

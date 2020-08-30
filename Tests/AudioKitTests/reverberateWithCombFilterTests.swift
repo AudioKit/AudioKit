@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ReverberateWithCombFilterTests: AKTestCase {
+class ReverberateWithCombFilterTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()
