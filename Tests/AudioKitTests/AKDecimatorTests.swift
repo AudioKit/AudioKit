@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDecimatorTests: AKTestCase {
+class AKDecimatorTests: AKTestCase2 {
 
     func testDecimation() {
         output = AKDecimator(input, decimation: 0.75)
