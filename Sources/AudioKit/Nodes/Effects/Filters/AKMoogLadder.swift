@@ -9,7 +9,7 @@ import CAudioKit
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKMoogLadder: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
@@ -70,7 +70,7 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     ///     analogue synths generally allow resonances to be above 1.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         cutoffFrequency: AUValue = 1_000,
         resonance: AUValue = 0.5
         ) {
@@ -83,8 +83,10 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

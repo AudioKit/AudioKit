@@ -6,7 +6,7 @@ import CAudioKit
 /// A stereo phaser This is a stereo phaser, generated from Faust code taken
 /// from the Guitarix project.
 ///
-public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPhaser: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
@@ -155,7 +155,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
     ///   - lfoBPM: Between 24 and 360
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         notchMinimumFrequency: AUValue = 100,
         notchMaximumFrequency: AUValue = 800,
         notchWidth: AUValue = 1_000,
@@ -182,8 +182,10 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

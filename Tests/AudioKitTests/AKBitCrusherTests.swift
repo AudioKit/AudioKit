@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKBitCrusherTests: AKTestCase {
+class AKBitCrusherTests: AKTestCase2 {
 
     func testBitDepth() {
         output = AKBitCrusher(input, bitDepth: 12)

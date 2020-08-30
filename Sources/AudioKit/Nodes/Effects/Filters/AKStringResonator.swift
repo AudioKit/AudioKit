@@ -10,7 +10,7 @@ import CAudioKit
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKStringResonator: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
@@ -72,7 +72,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
     ///   Small values may leave input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         fundamentalFrequency: AUValue = 100,
         feedback: AUValue = 0.95
         ) {
@@ -85,8 +85,10 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput, AKAu
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

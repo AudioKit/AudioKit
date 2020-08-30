@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDynamicRangeCompressorTests: AKTestCase {
+class AKDynamicRangeCompressorTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()

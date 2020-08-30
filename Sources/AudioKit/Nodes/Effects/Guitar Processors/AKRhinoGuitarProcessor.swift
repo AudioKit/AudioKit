@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKRhinoGuitarProcessor: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
@@ -114,7 +114,7 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput,
     ///   - distortion: Distortion Amount
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         preGain: AUValue = 5.0,
         postGain: AUValue = 0.7,
         lowGain: AUValue = 0.0,
@@ -135,8 +135,10 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput,
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

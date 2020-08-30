@@ -6,7 +6,7 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKClipper: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
@@ -51,7 +51,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
     ///   - limit: Threshold / limiting value.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         limit: AUValue = 1.0
         ) {
         super.init(avAudioNode: AVAudioNode())
@@ -62,8 +62,10 @@ public class AKClipper: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
 ///
-public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKZitaReverb: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
@@ -167,7 +167,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         predelay: AUValue = 60.0,
         crossoverFrequency: AUValue = 200.0,
         lowReleaseTime: AUValue = 3.0,
@@ -196,8 +196,10 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
         }
     }
 }

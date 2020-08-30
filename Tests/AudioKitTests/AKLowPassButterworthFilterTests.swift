@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKLowPassButterworthFilterTests: AKTestCase {
+class AKLowPassButterworthFilterTests: AKTestCase2 {
 
     func testCutoffFrequency() {
         output = AKLowPassButterworthFilter(input, cutoffFrequency: 500)

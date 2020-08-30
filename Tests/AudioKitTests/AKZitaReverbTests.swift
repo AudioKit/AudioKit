@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKZitaReverbTests: AKTestCase {
+class AKZitaReverbTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()
