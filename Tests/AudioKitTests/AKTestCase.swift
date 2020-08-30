@@ -63,6 +63,14 @@ class AKTestCase2: XCTestCase {
 
     var afterStart: () -> Void = {}
 
+
+    func auditionTest() {
+        if let existingOutput = output {
+            try! engine.auditionTest(node: existingOutput, duration: duration, afterStart: afterStart)
+        }
+    }
+
+
     func AKTest(_ testName: String = "") {
         var localMD5 = ""
         if let existingOutput = output {

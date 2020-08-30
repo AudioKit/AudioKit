@@ -397,4 +397,29 @@ public class AKEngine {
 
         return digestHex
     }
+
+    /// Audition the test to hear what it sounds like
+    ///
+    /// - Parameters:
+    ///   - node: AKNode to test
+    ///   - duration: Number of seconds to test (accurate to the sample)
+    ///
+    public func auditionTest(node: AKNode2, duration: Double, afterStart: () -> Void = {}) throws {
+        output = node
+
+        try avEngine.start()
+
+        // if the engine isn't running you need to give it time to get its act together before
+        // playing, otherwise the start of the audio is cut off
+        if !avEngine.isRunning {
+            usleep(UInt32(1_000_000))
+        }
+
+        afterStart()
+        if let playableNode = node as? AKToggleable {
+            playableNode.play()
+        }
+        usleep(UInt32(duration * 1_000_000))
+    }
+
 }

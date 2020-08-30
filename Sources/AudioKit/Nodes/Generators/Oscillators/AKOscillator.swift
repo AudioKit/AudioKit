@@ -122,7 +122,7 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 ///
-public class AKOscillator2: AKNode2, AKComponent2, AKToggleable {
+public class AKOscillator2: AKNode2, AKComponent2, AKToggleable, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "osc2")
 
