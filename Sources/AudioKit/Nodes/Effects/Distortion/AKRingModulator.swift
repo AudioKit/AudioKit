@@ -107,10 +107,4 @@ public class AKRingModulator: AKNode2, AKToggleable, AUEffect {
             isStarted = false
         }
     }
-
-    /// Disconnect the node
-    public func detach() {
-        stop()
-        AKManager.detach(nodes: [self.avAudioNode])
-    }
 }
