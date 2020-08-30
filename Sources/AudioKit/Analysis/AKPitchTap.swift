@@ -6,8 +6,8 @@ import CAudioKit
 /// Tap to do pitch tracking on any node.
 /// start() will add the tap, and stop() will remove it.
 public class AKPitchTap: AKToggleable {
-    private var pitch: [Float] = [0,0]
-    private var amp: [Float] = [0,0]
+    private var pitch: [Float] = [0, 0]
+    private var amp: [Float] = [0, 0]
     private var trackers: [AKPitchTrackerRef] = []
     public private(set) var bufferSize: UInt32
 
@@ -24,8 +24,8 @@ public class AKPitchTap: AKToggleable {
         }
     }
 
-    private var _input: AKNode?
-    public var input: AKNode? {
+    private var _input: AKNode2?
+    public var input: AKNode2? {
         get {
             return _input
         }
@@ -64,7 +64,7 @@ public class AKPitchTap: AKToggleable {
     private var handler: Handler = { (_,_) in }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode?, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
+    public init(_ input: AKNode2?, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self.input = input
         self.handler = handler
