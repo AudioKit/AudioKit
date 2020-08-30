@@ -123,12 +123,6 @@ public class AKFader: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
         AKLog("* { AKFader }")
     }
 
-    public func detach() {
-        // TODO
-//        super.detach()
-        parameterAutomation = nil
-    }
-
     // MARK: - AKAutomatable
 
     /// Convenience function for adding a pair of points for both left and right addresses

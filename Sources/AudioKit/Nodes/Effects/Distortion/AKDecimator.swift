@@ -99,9 +99,4 @@ public class AKDecimator: AKNode2, AKToggleable, AUEffect {
         }
     }
 
-    /// Disconnect the node
-    public func detach() {
-        stop()
-        AKManager.detach(nodes: [self.avAudioUnitOrNode])
-    }
 }

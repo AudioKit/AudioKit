@@ -146,4 +146,22 @@ class AKNode2DynamicConnectionTests: XCTestCase {
         osc >>> mixer
         
     }
+
+    func testNodeDetach() {
+
+        let engine = AKEngine()
+
+        let osc = AKOscillator2()
+        let mixer = AKMixer2(osc)
+        engine.output = mixer
+        osc.start()
+        try! engine.start()
+        sleep(1)
+
+        osc.detach()
+        sleep(1)
+
+        engine.stop()
+
+    }
 }
