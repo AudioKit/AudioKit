@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKMandolinStringTests: AKTestCase {
+class AKMandolinStringTests: AKTestCase2 {
 
     func testMandolin() {
 
