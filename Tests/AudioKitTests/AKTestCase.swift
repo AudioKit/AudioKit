@@ -96,7 +96,7 @@ class AKTestCase2: XCTestCase {
 
     override func tearDown() {
         // This method is called after the invocation of each test method in the class.
-        try! engine.stop()
+        engine.stop()
         super.tearDown()
         AKDebugDSPSetActive(false)
     }
