@@ -62,7 +62,7 @@ class AKTestCase2: XCTestCase {
     var input = AKOscillator2()
 
     var afterStart: () -> Void = {}
-
+    var afterSetOutput: () -> Void = {}
 
     func auditionTest() {
         if let existingOutput = output {
@@ -74,7 +74,7 @@ class AKTestCase2: XCTestCase {
     func AKTest(_ testName: String = "") {
         var localMD5 = ""
         if let existingOutput = output {
-            localMD5 = try! engine.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! engine.test(node: existingOutput, duration: duration, afterStart: afterStart, afterSetOutput: afterSetOutput)
         }
         var name = testName
         if name == "" {
