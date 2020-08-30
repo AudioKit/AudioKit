@@ -3,85 +3,29 @@ import AudioKit
 import XCTest
 import AVFoundation
 
-class AKNode2Tests: XCTestCase {
+class AKNode2Tests: AKTestCase2 {
+
+    let osc = AKOscillator2()
 
     func testNode2Basic() {
-
-        let engine = AKEngine()
-
-        let osc = AKOscillator2()
         XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
-
-        engine.output = osc
-
-        do {
-            try engine.start()
-        } catch let error {
-            XCTFail("Couldn't start engine: \(error)")
-        }
-
-        sleep(2)
-
-        engine.stop()
-
+        output = osc
+        AKTest()
     }
 
     func testNode2Connection() {
-
-        let engine = AKEngine()
-
-        let osc = AKOscillator2()
-        XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
-
-        let verb = AKCostelloReverb2(osc)
-
-        engine.output = verb
-
-        do {
-            try engine.start()
-        } catch let error {
-            XCTFail("Couldn't start engine: \(error)")
-        }
-
-        sleep(2)
-
-        osc.stop()
-
-        sleep(2)
-
-        engine.stop()
-
+        let verb = AKCostelloReverb(osc)
+        output = verb
+        AKTest()
     }
 
     func testNode2DeferredConnection() {
-
-        let engine = AKEngine()
-
-        let osc = AKOscillator2()
-        XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
-
-        let verb = AKCostelloReverb2()
-
+        let verb = AKCostelloReverb()
         osc >>> verb
-
-        engine.output = verb
-
-        do {
-            try engine.start()
-        } catch let error {
-            XCTFail("Couldn't start engine: \(error)")
-        }
-
-        sleep(2)
-
-        osc.stop()
-
-        sleep(2)
-
-        engine.stop()
-
+        output = verb
+        AKTest()
     }
 }
