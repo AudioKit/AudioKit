@@ -94,7 +94,7 @@ public class AKKorgLowPassFilter: AKNode2, AKToggleable, AKComponent2, AKAutomat
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

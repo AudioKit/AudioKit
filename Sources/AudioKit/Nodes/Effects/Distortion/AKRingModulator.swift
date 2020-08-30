@@ -78,7 +78,7 @@ public class AKRingModulator: AKNode2, AKToggleable, AUEffect {
         super.init(avAudioUnit: effect)
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
 
         // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter

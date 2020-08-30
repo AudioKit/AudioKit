@@ -211,7 +211,7 @@ public class AKDistortion: AKNode2, AKToggleable, AUEffect {
         super.init(avAudioUnit: effect)
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
 
         au[kDistortionParam_Delay] = delay

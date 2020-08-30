@@ -127,7 +127,7 @@ public class AKMixer2: AKNode2, AKToggleable {
     public convenience init(_ inputs: [AKNode2]) {
         self.init()
         for input in inputs {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 

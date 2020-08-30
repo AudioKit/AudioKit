@@ -109,7 +109,7 @@ public class AKTanhDistortion: AKNode2, AKToggleable, AKComponent2, AKAutomatabl
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

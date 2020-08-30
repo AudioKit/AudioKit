@@ -100,7 +100,7 @@ public class AKThreePoleLowpassFilter: AKNode2, AKToggleable, AKComponent2, AKAu
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }

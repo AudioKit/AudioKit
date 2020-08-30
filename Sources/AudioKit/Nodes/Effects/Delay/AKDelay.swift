@@ -72,7 +72,7 @@ public class AKDelay: AKNode2, AKToggleable {
 
         super.init(avAudioUnit: delayAU)
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
 
         delayAU.delayTime = self.time

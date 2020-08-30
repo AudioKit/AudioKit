@@ -112,7 +112,7 @@ public class AKRolandTB303Filter: AKNode2, AKToggleable, AKComponent2, AKAutomat
         }
 
         if let input = input {
-            connections.append(AKNodeConnection(node: input, bus: 0))
+            connections.append(input)
         }
     }
 }
