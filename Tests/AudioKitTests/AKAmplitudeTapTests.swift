@@ -5,25 +5,27 @@ import XCTest
 
 class AKAmplitudeTapTests: AKTestCase2 {
 
-    var tap: AKAmplitudeTap!
-    var amplitudes: [Float] = []
-
-    let sine = AKOperationGenerator {
-        let amplitude = AKOperation.sineWave(frequency: 0.25, amplitude: 1)
-        return AKOperation.sineWave() * amplitude }
-
     override func setUp() {
-        afterStart = { self.sine.start() }
         duration = 1.0
     }
 
     func testDefault() {
+
+        var tap: AKAmplitudeTap!
+        var amplitudes: [Float] = []
+
+        let sine = AKOperationGenerator {
+            let amplitude = AKOperation.sineWave(frequency: 0.25, amplitude: 1)
+            return AKOperation.sineWave() * amplitude }
+
+        afterStart = { sine.start() }
+
         output = sine
         afterSetOutput = {
-            self.tap = AKAmplitudeTap(self.sine) { amp in
-                self.amplitudes.append(amp)
+            tap = AKAmplitudeTap(sine) { amp in
+                amplitudes.append(amp)
             }
-            self.tap.start()
+            tap.start()
         }
         AKTest()
 
