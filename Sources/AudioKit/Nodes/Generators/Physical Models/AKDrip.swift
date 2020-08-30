@@ -6,7 +6,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///
-public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDrip: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
@@ -163,4 +163,6 @@ public class AKDrip: AKNode, AKToggleable, AKComponent, AKAutomatable {
         internalAU?.start()
         internalAU?.trigger()
     }
+
+    // TODO This node needs to have tests
 }
