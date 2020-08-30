@@ -137,4 +137,13 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         engine.stop()
     }
+
+    func testRedundantConnection() {
+
+        let osc = AKOscillator2()
+        let mixer = AKMixer2()
+        osc >>> mixer
+        osc >>> mixer
+        
+    }
 }

@@ -277,6 +277,10 @@ open class AKNode2 {
     }
 
     public func connect(node: AKNode2) {
+        if connections.contains(where: { $0 === node }) {
+            AKLog("error: Node is already connected.")
+            return
+        }
         connections.append(node)
         makeAVConnections()
     }
