@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKMorphingOscillatorTests: AKTestCase {
+class AKMorphingOscillatorTests: AKTestCase2 {
 
     let waveforms = [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)]
 

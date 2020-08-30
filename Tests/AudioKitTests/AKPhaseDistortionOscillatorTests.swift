@@ -4,7 +4,7 @@ import AudioKit
 import XCTest
 import CAudioKit
 
-class AKPhaseDistortionOscillatorTests: AKTestCase {
+class AKPhaseDistortionOscillatorTests: AKTestCase2 {
 
     var oscillator = AKPhaseDistortionOscillator()
 
