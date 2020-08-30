@@ -62,6 +62,4 @@ public class AKReverb: AKNode2, AKToggleable {
             isStarted = false
         }
     }
-
-    // TODO This node is untested
 }

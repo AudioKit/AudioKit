@@ -2,16 +2,17 @@
 
 import AudioKit
 
-class AKReverbTests: AKTestCase {
-
-    #if os(iOS)
+class AKReverbTests: AKTestCase2 {
 
     func testBypass() {
         let reverb = AKReverb(input)
         reverb.bypass()
         output = reverb
+
         AKTestNoEffect()
     }
+
+    #if os(iOS)
 
     func testCathedral() {
         let effect = AKReverb(input)
