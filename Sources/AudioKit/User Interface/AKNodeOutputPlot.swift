@@ -82,6 +82,15 @@ public class AKNodeOutputPlot: EZAudioPlot {
     }
 
     deinit {
+        removeTap()
+    }
+
+    public func removeTap() {
+        guard node?.avAudioUnitOrNode.engine != nil else {
+            AKLog("The tapped node isn't attached to the engine")
+            return
+        }
+
         node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
@@ -114,3 +123,102 @@ public class AKNodeOutputPlot: EZAudioPlot {
         setupReconnection()
     }
 }
+
+public class AKNodeOutputPlot2: EZAudioPlot {
+
+    public var isConnected = false
+    public var isNotConnected: Bool { return !isConnected }
+
+    public func setupNode(_ input: AKNode2?) {
+        if isNotConnected {
+            input?.avAudioUnitOrNode.installTap(
+                onBus: 0,
+                bufferSize: bufferSize,
+                format: nil) { [weak self] (buffer, _) in
+
+                    guard let strongSelf = self else {
+                        AKLog("Unable to create strong reference to self")
+                        return
+                    }
+                    buffer.frameLength = strongSelf.bufferSize
+                    let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                    if let tail = buffer.floatChannelData?[0] {
+                        strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
+                    }
+            }
+        }
+        isConnected = true
+    }
+
+    // Useful to reconnect after connecting to Audiobus or IAA
+    @objc func reconnect() {
+        pause()
+        resume()
+    }
+
+    public func pause() {
+        if isConnected {
+            node?.avAudioUnitOrNode.removeTap(onBus: 0)
+            isConnected = false
+        }
+    }
+
+    public func resume() {
+        setupNode(node)
+    }
+
+    internal var bufferSize: UInt32 = 1_024
+
+    /// The node whose output to graph
+    ///
+    /// Defaults to AKManager.output
+    open var node: AKNode2? {
+        willSet {
+            pause()
+        }
+        didSet {
+            resume()
+        }
+    }
+
+    deinit {
+        removeTap()
+    }
+
+    public func removeTap() {
+        guard node?.avAudioUnitOrNode.engine != nil else {
+            AKLog("The tapped node isn't attached to the engine")
+            return
+        }
+
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
+    }
+
+    /// Required coder-based initialization (for use with Interface Builder)
+    ///
+    /// - parameter coder: NSCoder
+    ///
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Stop using interface builder.")
+    }
+
+    /// Initialize the plot with the output from a given node and optional plot size
+    ///
+    /// - Parameters:
+    ///   - input: AKNode from which to get the plot data
+    ///   - width: Width of the view
+    ///   - height: Height of the view
+    ///
+    public init(_ input: AKNode2?, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+        super.init(frame: frame)
+        self.plotType = .buffer
+        self.backgroundColor = AKColor.white
+        self.shouldCenterYAxis = true
+        self.bufferSize = UInt32(bufferSize)
+        if let input = input {
+            setupNode(input)
+            self.node = input
+        }
+    }
+}
+
