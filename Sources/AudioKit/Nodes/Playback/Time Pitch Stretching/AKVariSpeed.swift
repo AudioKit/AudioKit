@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-public class AKVariSpeed: AKNode, AKToggleable, AKInput {
+public class AKVariSpeed: AKNode2, AKToggleable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
@@ -30,15 +30,17 @@ public class AKVariSpeed: AKNode, AKToggleable, AKInput {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    public init(_ input: AKNode? = nil, rate: AUValue = 1.0) {
+    public init(_ input: AKNode2? = nil, rate: AUValue = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 
         super.init(avAudioNode: AVAudioNode())
         avAudioUnit = variSpeedAU
         avAudioNode = variSpeedAU
-        AKManager.engine.attach(avAudioUnitOrNode)
-        input?.connect(to: self)
+
+        if let input = input {
+            connections.append(AKNodeConnection(node: input, bus: 0))
+        }
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -51,4 +53,6 @@ public class AKVariSpeed: AKNode, AKToggleable, AKInput {
         lastKnownRate = rate
         rate = 1.0
     }
+
+    // TODO This node is untested
 }

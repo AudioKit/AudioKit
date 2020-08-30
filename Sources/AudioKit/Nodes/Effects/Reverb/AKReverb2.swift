@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-public class AKReverb2: AKNode, AKToggleable, AKInput {
+public class AKReverb2: AKNode2, AKToggleable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -161,7 +161,7 @@ public class AKReverb2: AKNode, AKToggleable, AKInput {
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         dryWetMix: AUValue = 0.5,
         gain: AUValue = 0,
         minDelayTime: AUValue = 0.008,
@@ -181,9 +181,11 @@ public class AKReverb2: AKNode, AKToggleable, AKInput {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
             super.init(avAudioNode: AVAudioNode())
+
+            if let input = input {
+                connections.append(AKNodeConnection(node: input, bus: 0))
+            }
             avAudioUnit = internalEffect
-            AKManager.engine.attach(avAudioUnitOrNode)
-            input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 
             if let audioUnit = internalAU {
@@ -250,4 +252,6 @@ public class AKReverb2: AKNode, AKToggleable, AKInput {
             isStarted = false
         }
     }
+
+    // TODO This node is untested
 }
