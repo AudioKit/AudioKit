@@ -264,14 +264,21 @@ open class AKNode2 {
         }
     }
 
-    public func connect(node: AKNode2, bus: Int) {
-        connections.append(AKNodeConnection(node: node, bus: bus))
-
+    func makeAVConnections() {
         // Are we attached?
         if let engine = self.avAudioNode.engine {
-            engine.attach(node.avAudioNode)
-            engine.connect(node.avAudioNode, to: self.avAudioNode)
+            for connection in connections {
+                let node = connection.node
+                engine.attach(node.avAudioNode)
+                engine.connect(node.avAudioNode, to: self.avAudioNode)
+                node.makeAVConnections()
+            }
         }
+    }
+
+    public func connect(node: AKNode2, bus: Int) {
+        connections.append(AKNodeConnection(node: node, bus: bus))
+        makeAVConnections()
     }
 
 }

@@ -53,4 +53,27 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         engine.stop()
     }
+
+    func testDynamicConnection2() {
+
+        let osc = AKOscillator2()
+        let mixer = AKMixer2(osc)
+        let engine = AKEngine()
+        engine.output = mixer
+
+        osc.start()
+        try! engine.start()
+
+        sleep(1)
+
+        let osc2 = AKOscillator2(frequency: 880)
+        let verb = AKCostelloReverb(osc2)
+        osc2.start()
+
+        verb >>> mixer
+
+        sleep(1)
+
+        engine.stop()
+    }
 }
