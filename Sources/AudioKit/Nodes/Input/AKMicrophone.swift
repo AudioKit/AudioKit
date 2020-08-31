@@ -18,7 +18,7 @@ public class AKMicrophone: AKNode, AKToggleable {
     /// Set the actual microphone device
     public func setDevice(_ device: AKDevice) throws {
         do {
-            try AKManager.setInputDevice(device)
+            try AKEngine.setInputDevice(device)
         } catch {
             AKLog("Could not set input device")
         }
