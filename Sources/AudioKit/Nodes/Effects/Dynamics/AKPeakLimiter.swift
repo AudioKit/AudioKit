@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-public class AKPeakLimiter: AKNode2, AKToggleable, AUEffect {
+public class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
@@ -50,7 +50,7 @@ public class AKPeakLimiter: AKNode2, AKToggleable, AUEffect {
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         attackDuration: AUValue = 0.012,
         decayDuration: AUValue = 0.024,
         preGain: AUValue = 0) {

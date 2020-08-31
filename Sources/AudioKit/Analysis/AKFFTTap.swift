@@ -20,7 +20,7 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     ///   - input: Node on whose output the FFT will be computed
     ///   - fftSize: The sample size of the FFT buffer
     ///
-    public init(_ input: AKNode2, fftSize: AKSettings.BufferLength = .veryLong) {
+    public init(_ input: AKNode, fftSize: AKSettings.BufferLength = .veryLong) {
         self.fftSize = fftSize
         self.fftData = [Double](zeros: Int(self.fftSize.samplesCount / 2))
         super.init()

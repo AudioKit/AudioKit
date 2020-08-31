@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
 ///
-public class AKTremolo: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKTremolo: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
@@ -64,7 +64,7 @@ public class AKTremolo: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - waveform: Shape of the tremolo curve
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         frequency: AUValue = 10,
         depth: AUValue = 1,
         waveform: AKTable = AKTable(.positiveSine)

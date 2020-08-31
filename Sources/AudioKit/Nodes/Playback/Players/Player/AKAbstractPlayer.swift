@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Psuedo abstract base class for players that wish to use AKFader based automation.
-open class AKAbstractPlayer: AKNode2 {
+open class AKAbstractPlayer: AKNode {
     /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
         case realtime, offline

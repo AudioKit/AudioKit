@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-public class AKHighShelfFilter: AKNode2, AKToggleable, AUEffect {
+public class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
@@ -43,7 +43,7 @@ public class AKHighShelfFilter: AKNode2, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         cutOffFrequency: AUValue = 10_000,
         gain: AUValue = 0) {
 

@@ -9,7 +9,7 @@ import CAudioKit
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-public class AKFlatFrequencyResponseReverb: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
@@ -60,7 +60,7 @@ public class AKFlatFrequencyResponseReverb: AKNode2, AKToggleable, AKComponent, 
     ///     This can also be thought of as the delay time or “echo density” of the reverberation.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         reverbDuration: AUValue = 0.5,
         loopDuration: AUValue = 0.1
         ) {

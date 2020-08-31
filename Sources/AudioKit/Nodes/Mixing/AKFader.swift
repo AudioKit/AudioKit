@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
-public class AKFader: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -100,7 +100,7 @@ public class AKFader: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode2? = nil,
+    public init(_ input: AKNode? = nil,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         self.leftGain = gain

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit Expander based on Apple's DynamicsProcessor Audio Unit
 ///
-public class AKExpander: AKNode2, AKToggleable, AUEffect {
+public class AKExpander: AKNode, AKToggleable, AUEffect {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
@@ -84,7 +84,7 @@ public class AKExpander: AKNode2, AKToggleable, AUEffect {
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         threshold: AUValue = -20,
         headRoom: AUValue = 5,
         expansionRatio: AUValue = 2,

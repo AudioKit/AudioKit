@@ -7,7 +7,7 @@ import CAudioKit
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-public class AKModalResonanceFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
@@ -65,7 +65,7 @@ public class AKModalResonanceFilter: AKNode2, AKToggleable, AKComponent, AKAutom
     ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         frequency: AUValue = 500.0,
         qualityFactor: AUValue = 50.0
         ) {

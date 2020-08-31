@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Faust-based pitch shfiter
 ///
-public class AKPitchShifter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
@@ -76,7 +76,7 @@ public class AKPitchShifter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - crossfade: Crossfade (in samples)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         shift: AUValue = 0,
         windowSize: AUValue = 1_024,
         crossfade: AUValue = 512

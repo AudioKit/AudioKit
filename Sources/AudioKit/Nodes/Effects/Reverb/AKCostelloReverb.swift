@@ -7,7 +7,7 @@ import CAudioKit
 /// modeling scattering junction of 8 lossless waveguides of equal
 /// characteristic impedance.
 ///
-public class AKCostelloReverb: AKNode2, AKComponent, AKToggleable, AKAutomatable {
+public class AKCostelloReverb: AKNode, AKComponent, AKToggleable, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
@@ -68,7 +68,7 @@ public class AKCostelloReverb: AKNode2, AKComponent, AKToggleable, AKAutomatable
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         feedback: AUValue = 0.6,
         cutoffFrequency: AUValue = 4_000.0
         ) {

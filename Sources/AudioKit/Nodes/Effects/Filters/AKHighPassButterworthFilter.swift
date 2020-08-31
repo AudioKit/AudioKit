@@ -6,7 +6,7 @@ import CAudioKit
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-public class AKHighPassButterworthFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
@@ -51,7 +51,7 @@ public class AKHighPassButterworthFilter: AKNode2, AKToggleable, AKComponent, AK
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         cutoffFrequency: AUValue = 500.0
         ) {
         super.init(avAudioNode: AVAudioNode())

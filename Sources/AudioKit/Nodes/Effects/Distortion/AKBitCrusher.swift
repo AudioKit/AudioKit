@@ -5,7 +5,7 @@ import CAudioKit
 
 /// This will digitally degrade a signal.
 ///
-public class AKBitCrusher: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
@@ -63,7 +63,7 @@ public class AKBitCrusher: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - sampleRate: The sample rate of signal output.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         bitDepth: AUValue = 8,
         sampleRate: AUValue = 10_000
         ) {

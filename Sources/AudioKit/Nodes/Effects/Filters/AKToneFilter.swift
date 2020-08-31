@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-public class AKToneFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKToneFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
@@ -50,7 +50,7 @@ public class AKToneFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - halfPowerPoint: Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         halfPowerPoint: AUValue = 1_000.0
         ) {
         super.init(avAudioNode: AVAudioNode())

@@ -95,7 +95,7 @@ extension AKTiming {
 open class AKNodeTiming: NSObject {
 
     /// An output node used for tming info.
-    open weak var node: AKNode2?
+    open weak var node: AKNode?
 
     // Used to hold current time when not playing.
     private var idleTime = TimeInterval()
@@ -126,7 +126,7 @@ open class AKNodeTiming: NSObject {
 
     /// Initialize with a node to be used for timing info.
     /// - Parameter node: A node to be used for timing information.
-    public init(node: AKNode2) {
+    public init(node: AKNode) {
         self.node = node
     }
 

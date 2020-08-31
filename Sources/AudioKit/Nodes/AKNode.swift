@@ -3,14 +3,9 @@
 import AVFoundation
 import CAudioKit
 
-extension AVAudioConnectionPoint {
-    convenience init(_ node: AKNode, to bus: Int) {
-        self.init(node: node.avAudioUnitOrNode, bus: bus)
-    }
-}
-
-/// Parent class for all nodes in AudioKit
 open class AKNode {
+
+    var connections: [AKNode] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -40,37 +35,71 @@ open class AKNode {
     }
 
     /// Initialize the node from an AVAudioUnit
-    public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+    public init(avAudioUnit: AVAudioUnit) {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
-        if attach {
-            AKManager.engine.attach(avAudioUnit)
-        }
     }
 
     /// Initialize the node from an AVAudioNode
-    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    public init(avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
-        if attach {
-            AKManager.engine.attach(avAudioNode)
-        }
     }
 
     deinit {
         detach()
     }
 
-    /// Subclasses should override to detach all internal nodes
-    open func detach() {
-//        AKManager.detach(nodes: [avAudioUnitOrNode])
+    public func detach() {
+        if let engine = self.avAudioNode.engine {
+            engine.detach(self.avAudioNode)
+        }
     }
+
+    func makeAVConnections() {
+        // Are we attached?
+        if let engine = self.avAudioNode.engine {
+            for connection in connections {
+                if let sourceEngine = connection.avAudioNode.engine {
+                    if sourceEngine != avAudioNode.engine {
+                        AKLog("error: Attempt to connect nodes from different engines.")
+                        return
+                    }
+                }
+                engine.attach(connection.avAudioNode)
+                engine.connect(connection.avAudioNode, to: avAudioNode)
+                connection.makeAVConnections()
+            }
+        }
+    }
+
+    public func connect(node: AKNode) {
+        if connections.contains(where: { $0 === node }) {
+            AKLog("error: Node is already connected.")
+            return
+        }
+        connections.append(node)
+        makeAVConnections()
+    }
+
+    public func connect(to nodes: [AKNode]) {
+        for node in nodes { connect(node: node) }
+    }
+
+    public func disconnect(node: AKNode) {
+        connections.removeAll(where: { $0 === node })
+        avAudioNode.disconnect(input: node.avAudioNode)
+    }
+
 }
 
-extension AKNode: AKOutput {
-    public var outputNode: AVAudioNode {
-        return self.avAudioUnitOrNode
-    }
+// Set output connection(s)
+infix operator >>>: AdditionPrecedence
+
+@discardableResult public func >>> (left: AKNode, right: AKNode) -> AKNode {
+    right.connect(node: left)
+    return right
 }
+
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {
@@ -98,7 +127,7 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-open class AKPolyphonicNode: AKNode2, AKPolyphonic {
+open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
@@ -194,101 +223,4 @@ public extension AKToggleable where Self: AKComponent {
     func stop() {
         (internalAU as? AKAudioUnitBase)?.stop()
     }
-}
-
-open class AKNode2 {
-
-    var connections: [AKNode2] = []
-
-    /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
-
-    /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
-    open var avAudioUnit: AVAudioUnit? {
-        didSet {
-            guard let avAudioUnit = avAudioUnit else { return }
-
-            let mirror = Mirror(reflecting: self)
-
-            for child in mirror.children {
-                if let param = child.value as? ParameterBase, let label = child.label {
-                    // Property wrappers create a variable with an underscore
-                    // prepended. Drop the underscore to look up the parameter.
-                    let name = String(label.dropFirst())
-                    param.projectedValue.associate(with: avAudioUnit,
-                                                   identifier: name)
-                }
-            }
-        }
-    }
-
-    /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
-    open var avAudioUnitOrNode: AVAudioNode {
-        return self.avAudioUnit ?? self.avAudioNode
-    }
-
-    /// Initialize the node from an AVAudioUnit
-    public init(avAudioUnit: AVAudioUnit) {
-        self.avAudioUnit = avAudioUnit
-        self.avAudioNode = avAudioUnit
-    }
-
-    /// Initialize the node from an AVAudioNode
-    public init(avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-    }
-
-    deinit {
-        detach()
-    }
-
-    public func detach() {
-        if let engine = self.avAudioNode.engine {
-            engine.detach(self.avAudioNode)
-        }
-    }
-
-    func makeAVConnections() {
-        // Are we attached?
-        if let engine = self.avAudioNode.engine {
-            for connection in connections {
-                if let sourceEngine = connection.avAudioNode.engine {
-                    if sourceEngine != avAudioNode.engine {
-                        AKLog("error: Attempt to connect nodes from different engines.")
-                        return
-                    }
-                }
-                engine.attach(connection.avAudioNode)
-                engine.connect(connection.avAudioNode, to: avAudioNode)
-                connection.makeAVConnections()
-            }
-        }
-    }
-
-    public func connect(node: AKNode2) {
-        if connections.contains(where: { $0 === node }) {
-            AKLog("error: Node is already connected.")
-            return
-        }
-        connections.append(node)
-        makeAVConnections()
-    }
-
-    public func connect(to nodes: [AKNode2]) {
-        for node in nodes { connect(node: node) }
-    }
-
-    public func disconnect(node: AKNode2) {
-        connections.removeAll(where: { $0 === node })
-        avAudioNode.disconnect(input: node.avAudioNode)
-    }
-
-}
-
-// Set output connection(s)
-infix operator >>>: AdditionPrecedence
-
-@discardableResult public func >>> (left: AKNode2, right: AKNode2) -> AKNode2 {
-    right.connect(node: left)
-    return right
 }

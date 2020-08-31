@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A complement to the AKLowPassFilter.
 ///
-public class AKToneComplementFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
@@ -50,7 +50,7 @@ public class AKToneComplementFilter: AKNode2, AKToggleable, AKComponent, AKAutom
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         halfPowerPoint: AUValue = 1_000.0
         ) {
         super.init(avAudioNode: AVAudioNode())

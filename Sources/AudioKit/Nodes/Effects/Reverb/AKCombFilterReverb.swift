@@ -9,7 +9,7 @@ import CAudioKit
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-public class AKCombFilterReverb: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
@@ -62,7 +62,7 @@ public class AKCombFilterReverb: AKNode2, AKToggleable, AKComponent, AKAutomatab
     ///     Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         reverbDuration: AUValue = 1.0,
         loopDuration: AUValue = 0.1
         ) {
