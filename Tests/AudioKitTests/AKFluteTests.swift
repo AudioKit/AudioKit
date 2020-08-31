@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKFluteTests: AKTestCase2 {
+class AKFluteTests: AKTestCase {
 
     func testFlute() {
 

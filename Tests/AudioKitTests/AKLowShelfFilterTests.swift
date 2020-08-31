@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKLowShelfFilterTests: AKTestCase2 {
+class AKLowShelfFilterTests: AKTestCase {
 
     func testCutoffFrequency() {
         output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)

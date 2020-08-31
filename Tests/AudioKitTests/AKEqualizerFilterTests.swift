@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKEqualizerFilterTests: AKTestCase2 {
+class AKEqualizerFilterTests: AKTestCase {
 
     func testBandwidth() {
         output = AKEqualizerFilter(input, bandwidth: 50)

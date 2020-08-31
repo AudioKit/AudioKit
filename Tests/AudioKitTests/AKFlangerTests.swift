@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKFlangerTests: AKTestCase2 {
+class AKFlangerTests: AKTestCase {
 
     func testParameters() {
         output = AKFlanger(input,

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKBrownianNoiseTests: AKTestCase2 {
+class AKBrownianNoiseTests: AKTestCase {
 
     let brown = AKBrownianNoise()
 

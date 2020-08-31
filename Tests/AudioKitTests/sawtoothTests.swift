@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class SawtoothTests: AKTestCase2 {
+class SawtoothTests: AKTestCase {
 
     let sawtooth = AKOperationGenerator { AKOperation.sawtooth() }
 

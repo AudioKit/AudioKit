@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKExpanderTests: AKTestCase2 {
+class AKExpanderTests: AKTestCase {
 
     func testDefault() {
         output = AKExpander(input)

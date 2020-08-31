@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKBandPassButterworthFilterTests: AKTestCase2 {
+class AKBandPassButterworthFilterTests: AKTestCase {
 
     func testBandwidth() {
         output = AKBandPassButterworthFilter(input, bandwidth: 200)

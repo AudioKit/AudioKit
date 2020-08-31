@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class PhasorTests: AKTestCase2 {
+class PhasorTests: AKTestCase {
 
     let phasor = AKOperationGenerator { AKOperation.phasor() }
 

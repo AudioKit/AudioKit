@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class DCBlockTests: AKTestCase2 {
+class DCBlockTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

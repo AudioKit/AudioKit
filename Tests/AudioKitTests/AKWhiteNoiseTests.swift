@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKWhiteNoiseTests: AKTestCase2 {
+class AKWhiteNoiseTests: AKTestCase {
 
     let white = AKWhiteNoise()
 

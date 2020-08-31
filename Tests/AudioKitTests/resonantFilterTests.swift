@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ResonantFilterTests: AKTestCase2 {
+class ResonantFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

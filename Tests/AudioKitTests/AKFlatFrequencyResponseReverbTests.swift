@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKFlatFrequencyResponseReverbTests: AKTestCase2 {
+class AKFlatFrequencyResponseReverbTests: AKTestCase {
 
     func testDefault() {
         output = AKFlatFrequencyResponseReverb(input)

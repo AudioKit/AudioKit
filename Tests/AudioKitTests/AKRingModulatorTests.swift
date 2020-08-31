@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKRingModulatorTests: AKTestCase2 {
+class AKRingModulatorTests: AKTestCase {
 
     func testDefault() {
         output = AKRingModulator(input)

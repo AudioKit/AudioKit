@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class SineWaveTests: AKTestCase2 {
+class SineWaveTests: AKTestCase {
 
     let sine = AKOperationGenerator { AKOperation.sineWave() }
 

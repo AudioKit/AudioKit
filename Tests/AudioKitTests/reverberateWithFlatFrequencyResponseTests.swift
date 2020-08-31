@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ReverberateWithFlatFrequencyResponseTests: AKTestCase2 {
+class ReverberateWithFlatFrequencyResponseTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

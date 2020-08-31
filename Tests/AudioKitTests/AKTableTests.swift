@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKTableTests: AKTestCase2 {
+class AKTableTests: AKTestCase {
 
     func testReverseSawtooth() {
         input = AKOscillator2(waveform: AKTable(.reverseSawtooth))

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKModalResonanceFilterTests: AKTestCase2 {
+class AKModalResonanceFilterTests: AKTestCase {
 
     func testDefault() {
         output = AKModalResonanceFilter(input)

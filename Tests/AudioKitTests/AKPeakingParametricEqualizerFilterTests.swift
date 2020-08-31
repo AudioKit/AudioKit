@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPeakingParametricEqualizerFilterTests: AKTestCase2 {
+class AKPeakingParametricEqualizerFilterTests: AKTestCase {
 
     func testCenterFrequency() {
         output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500)

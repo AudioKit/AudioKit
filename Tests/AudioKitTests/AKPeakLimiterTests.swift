@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPeakLimiterTests: AKTestCase2 {
+class AKPeakLimiterTests: AKTestCase {
 
     func testAttackDuration() {
         output = AKPeakLimiter(input, attackDuration: 0.02)

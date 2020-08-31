@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKFMOscillatorTests: AKTestCase2 {
+class AKFMOscillatorTests: AKTestCase {
 
     var oscillator = AKFMOscillator()
 

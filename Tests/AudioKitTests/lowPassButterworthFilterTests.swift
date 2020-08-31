@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class  LowPassButterworthFilterTests: AKTestCase2 {
+class  LowPassButterworthFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

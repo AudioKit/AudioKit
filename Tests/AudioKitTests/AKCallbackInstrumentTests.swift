@@ -3,7 +3,7 @@
 import XCTest
 import AudioKit
 
-class AKCallbackInstrumentTests: AKTestCase2 {
+class AKCallbackInstrumentTests: AKTestCase {
 
     var instrument = AKCallbackInstrument()
 

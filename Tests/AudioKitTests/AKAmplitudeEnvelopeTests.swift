@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKAmplitudeEnvelopeTests: AKTestCase2 {
+class AKAmplitudeEnvelopeTests: AKTestCase {
 
     var envelope: AKAmplitudeEnvelope!
 

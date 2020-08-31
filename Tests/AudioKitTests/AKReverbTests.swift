@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKReverbTests: AKTestCase2 {
+class AKReverbTests: AKTestCase {
 
     func testBypass() {
         let reverb = AKReverb(input)

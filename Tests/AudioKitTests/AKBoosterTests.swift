@@ -3,7 +3,7 @@
 import AudioKit
 import AVFoundation
 
-class AKBoosterTests: AKTestCase2 {
+class AKBoosterTests: AKTestCase {
 
     func testDefault() {
         output = AKBooster(input)

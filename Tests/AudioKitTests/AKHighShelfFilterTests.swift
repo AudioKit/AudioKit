@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKHighShelfFilterTests: AKTestCase2 {
+class AKHighShelfFilterTests: AKTestCase {
 
     func testDefault() {
         output = AKHighShelfFilter(input)

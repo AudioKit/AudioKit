@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKMoogLadderTests: AKTestCase2 {
+class AKMoogLadderTests: AKTestCase {
 
     func testCutoffFrequency() {
         output = AKMoogLadder(input, cutoffFrequency: 500)

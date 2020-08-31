@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKChorusTests: AKTestCase2 {
+class AKChorusTests: AKTestCase {
 
     func testParameters() {
         output = AKChorus(input,

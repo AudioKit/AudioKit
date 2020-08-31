@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class DistortTests: AKTestCase2 {
+class DistortTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

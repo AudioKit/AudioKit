@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import CAudioKit
 
-class AKClarinetTest: AKTestCase2 {
+class AKClarinetTest: AKTestCase {
 
     func testClarinet() {
 

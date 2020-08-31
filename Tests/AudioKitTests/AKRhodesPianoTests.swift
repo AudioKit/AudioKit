@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKRhodesPianoKeyTests: AKTestCase2 {
+class AKRhodesPianoKeyTests: AKTestCase {
 
     func testRhodesPiano() {
 

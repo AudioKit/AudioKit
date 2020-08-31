@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKTubularBellsTests: AKTestCase2 {
+class AKTubularBellsTests: AKTestCase {
 
     func testTubularBells() {
 

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKTremoloTests: AKTestCase2 {
+class AKTremoloTests: AKTestCase {
 
     func testDefault() {
         output = AKTremolo(input)

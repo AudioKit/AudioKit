@@ -3,7 +3,7 @@
 import AudioKit
 import Foundation
 
-class AKCompressorTests: AKTestCase2 {
+class AKCompressorTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class VocalTractTests: AKTestCase2 {
+class VocalTractTests: AKTestCase {
 
     var vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
 

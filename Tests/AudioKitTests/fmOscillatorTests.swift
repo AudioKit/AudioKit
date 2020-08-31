@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class FMOscillatorTests: AKTestCase2 {
+class FMOscillatorTests: AKTestCase {
 
     var oscillator = AKOperationGenerator { AKOperation.fmOscillator() }
 
