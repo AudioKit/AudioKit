@@ -166,4 +166,92 @@ public class AKEngine {
         usleep(UInt32(duration * 1_000_000))
     }
 
+    /// Enumerate the list of available input devices.
+    public static var inputDevices: [AKDevice]? {
+        #if os(macOS)
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.inputChannels(id) > 0 {
+                return AKDevice(deviceID: id)
+            }
+            return nil
+        }
+        #else
+        var returnDevices = [AKDevice]()
+        if let devices = AVAudioSession.sharedInstance().availableInputs {
+            for device in devices {
+                if device.dataSources == nil || device.dataSources?.isEmpty == true {
+                    returnDevices.append(AKDevice(portDescription: device))
+
+                } else if let dataSources = device.dataSources {
+                    for dataSource in dataSources {
+                        returnDevices.append(AKDevice(name: device.portName,
+                                                      deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                    }
+                }
+            }
+            return returnDevices
+        }
+        return nil
+        #endif
+    }
+
+    /// Enumerate the list of available output devices.
+    public static var outputDevices: [AKDevice]? {
+        #if os(macOS)
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+            if AudioDeviceUtils.outputChannels(id) > 0 {
+                return AKDevice(deviceID: id)
+            }
+            return nil
+        }
+        #else
+        let devs = AVAudioSession.sharedInstance().currentRoute.outputs
+        if devs.isNotEmpty {
+            var outs = [AKDevice]()
+            for dev in devs {
+                outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
+            }
+            return outs
+        }
+        return nil
+        #endif
+    }
+
+    #if os(macOS)
+    /// Enumerate the list of available devices.
+    public static var devices: [AKDevice]? {
+        return AudioDeviceUtils.devices().map { id in
+            return AKDevice(deviceID: id)
+        }
+    }
+    #endif
+
+    /// Change the preferred input device, giving it one of the names from the list of available inputs.
+    public static func setInputDevice(_ input: AKDevice) throws {
+        #if os(macOS)
+        try AKTry {
+            var address = AudioObjectPropertyAddress(
+                mSelector: kAudioHardwarePropertyDefaultInputDevice,
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMaster)
+            var devid = input.deviceID
+            AudioObjectSetPropertyData(
+                AudioObjectID(kAudioObjectSystemObject),
+                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
+        }
+        #else
+        // Set the port description first eg iPhone Microphone / Headset Microphone etc
+        guard let portDescription = input.portDescription else {
+            throw AKError.DeviceNotFound
+        }
+        try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
+
+        // Set the data source (if any) eg. Back/Bottom/Front microphone
+        guard let dataSourceDescription = input.dataSource else {
+            return
+        }
+        try AVAudioSession.sharedInstance().setInputDataSource(dataSourceDescription)
+        #endif
+    }
+
 }
