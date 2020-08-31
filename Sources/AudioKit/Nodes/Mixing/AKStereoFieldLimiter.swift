@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
@@ -57,7 +57,9 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self)
+        }
+        if let input = input {
+            connections.append(input)
         }
     }
 }

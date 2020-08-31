@@ -5,7 +5,7 @@ import CAudioKit
 
 /// This will digitally degrade a signal.
 ///
-public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
@@ -76,8 +76,10 @@ public class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

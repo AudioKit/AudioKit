@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class AKTimePitch: AKNode, AKToggleable, AKInput {
+public class AKTimePitch: AKNode, AKToggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
@@ -59,8 +59,10 @@ public class AKTimePitch: AKNode, AKToggleable, AKInput {
         super.init(avAudioNode: AVAudioNode())
         avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
-        AKManager.engine.attach(avAudioUnitOrNode)
-        input?.connect(to: self)
+
+        if let input = input {
+            connections.append(input)
+        }
     }
 
     /// Function to start, play, or activate the node, all do the same thing

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Booster
 ///
-public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 
@@ -86,8 +86,10 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatabl
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

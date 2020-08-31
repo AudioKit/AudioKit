@@ -6,6 +6,7 @@ import AVFoundation
 
 open class PlaygroundConductor {
 
+    let engine = AKEngine()
     public init() {}
 
     open func setup() {
@@ -16,7 +17,7 @@ open class PlaygroundConductor {
         shutdown()
         setup()
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start! \(error)")
         }
@@ -24,7 +25,7 @@ open class PlaygroundConductor {
 
     open func shutdown() {
         do {
-            try AKManager.shutdown()
+            engine.stop()
         } catch {
             AKLog("AudioKit did not stop! \(error)")
         }

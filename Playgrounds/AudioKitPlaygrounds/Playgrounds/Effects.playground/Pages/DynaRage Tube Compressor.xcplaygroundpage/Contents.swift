@@ -10,8 +10,8 @@ player.looping = true
 
 var effect = AKDynaRageCompressor(player)
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 //: User Interface Set up

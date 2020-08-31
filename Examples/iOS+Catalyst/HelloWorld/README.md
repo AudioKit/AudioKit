@@ -20,8 +20,8 @@ Then, in viewDidLoad, hook up the oscillators to the speakers and start the Audi
 
     // Cut the volume in half since we have two oscillators
     mixer.volume = 0.5
-    AKManager.output = mixer
-    AKManager.start()
+    engine.output = mixer
+    engine.start()
 ```
 
 Finally, we just to need to connect the button from the Main.storyboard file to an action.  The only AudioKit code here is to set the frequency of the oscillators and play/stop them.  The other parts are just to update the UI to reflect the state of the instrument.

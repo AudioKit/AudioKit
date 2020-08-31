@@ -17,8 +17,8 @@ var filter = AKBandPassButterworthFilter(player)
 filter.centerFrequency = 5_000 // Hz
 filter.bandwidth = 600 // Cents
 filter.rampDuration = 1.0
-AKManager.output = filter
-try AKManager.start()
+engine.output = filter
+try engine.start()
 player.play()
 
 //: User Interface Set up

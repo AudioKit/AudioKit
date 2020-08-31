@@ -14,8 +14,8 @@ let effect = AKOperationEffect(player) { player in
         cutoffFrequency: 10_000)
 }
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 //: User Interface

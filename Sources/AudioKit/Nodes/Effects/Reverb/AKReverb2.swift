@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-public class AKReverb2: AKNode, AKToggleable, AKInput {
+public class AKReverb2: AKNode, AKToggleable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -170,66 +170,69 @@ public class AKReverb2: AKNode, AKToggleable, AKInput {
         decayTimeAtNyquist: AUValue = 0.5,
         randomizeReflections: AUValue = 1) {
 
-            self.dryWetMix = dryWetMix
-            self.gain = gain
-            self.minDelayTime = minDelayTime
-            self.maxDelayTime = maxDelayTime
-            self.decayTimeAt0Hz = decayTimeAt0Hz
-            self.decayTimeAtNyquist = decayTimeAtNyquist
-            self.randomizeReflections = randomizeReflections
+        self.dryWetMix = dryWetMix
+        self.gain = gain
+        self.minDelayTime = minDelayTime
+        self.maxDelayTime = maxDelayTime
+        self.decayTimeAt0Hz = decayTimeAt0Hz
+        self.decayTimeAtNyquist = decayTimeAtNyquist
+        self.randomizeReflections = randomizeReflections
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
-            super.init(avAudioNode: AVAudioNode())
-            avAudioUnit = internalEffect
-            AKManager.engine.attach(avAudioUnitOrNode)
-            input?.connect(to: self)
-            internalAU = internalEffect.audioUnit
+        super.init(avAudioNode: AVAudioNode())
 
-            if let audioUnit = internalAU {
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_DryWetMix,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      dryWetMix * 100.0,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_Gain,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      gain,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_MinDelayTime,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      minDelayTime,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_MaxDelayTime,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      maxDelayTime,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_DecayTimeAt0Hz,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      decayTimeAt0Hz,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_DecayTimeAtNyquist,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      decayTimeAtNyquist,
-                                      0)
-                AudioUnitSetParameter(audioUnit,
-                                      kReverb2Param_RandomizeReflections,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      randomizeReflections,
-                                      0)
-            }
+        avAudioUnit = internalEffect
+        internalAU = internalEffect.audioUnit
+
+        if let audioUnit = internalAU {
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_DryWetMix,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  dryWetMix * 100.0,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_Gain,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  gain,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_MinDelayTime,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  minDelayTime,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_MaxDelayTime,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  maxDelayTime,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_DecayTimeAt0Hz,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  decayTimeAt0Hz,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_DecayTimeAtNyquist,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  decayTimeAtNyquist,
+                                  0)
+            AudioUnitSetParameter(audioUnit,
+                                  kReverb2Param_RandomizeReflections,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  randomizeReflections,
+                                  0)
+        }
+        if let input = input {
+            connections.append(input)
+        }
+
     }
 
     // MARK: - Control
@@ -250,4 +253,6 @@ public class AKReverb2: AKNode, AKToggleable, AKInput {
             isStarted = false
         }
     }
+
+    // TODO This node is untested
 }

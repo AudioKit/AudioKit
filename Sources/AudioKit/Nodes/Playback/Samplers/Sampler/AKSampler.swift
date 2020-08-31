@@ -355,4 +355,6 @@ public class AKSampler: AKPolyphonicNode, AKComponent {
     public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
+
+    // TODO This node is untested
 }

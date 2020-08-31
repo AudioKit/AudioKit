@@ -6,8 +6,8 @@ import CAudioKit
 /// Tap to do pitch tracking on any node.
 /// start() will add the tap, and stop() will remove it.
 public class AKPitchTap: AKToggleable {
-    private var pitch: [Float] = [0,0]
-    private var amp: [Float] = [0,0]
+    private var pitch: [Float] = [0, 0]
+    private var amp: [Float] = [0, 0]
     private var trackers: [AKPitchTrackerRef] = []
     public private(set) var bufferSize: UInt32
 

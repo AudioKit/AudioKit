@@ -16,8 +16,8 @@ let drips = AKPeriodicFunction(frequency: playRate) {
     drip.trigger()
 }
 
-AKManager.output = AKBooster(reverb, gain: 0.4)
-try AKManager.start(withPeriodicFunctions: drips)
+engine.output = AKBooster(reverb, gain: 0.4)
+try engine.start(withPeriodicFunctions: drips)
 drips.start()
 
 class LiveView: AKLiveViewController {

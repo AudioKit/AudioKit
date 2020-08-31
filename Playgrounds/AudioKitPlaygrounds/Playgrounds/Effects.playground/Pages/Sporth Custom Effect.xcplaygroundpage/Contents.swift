@@ -25,8 +25,8 @@ let sporth = "(\(input) ((0 p) 40 (_throttle f)) 1000 100 pshift) dup"
 
 let effect = AKOperationEffect(player, sporth: sporth, customUgens: [throttleUgen])
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 
 player.play()
 

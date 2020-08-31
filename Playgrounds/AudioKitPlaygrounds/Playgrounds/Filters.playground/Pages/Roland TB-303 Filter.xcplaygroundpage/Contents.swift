@@ -12,8 +12,8 @@ var filter = AKRolandTB303Filter(player)
 filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 
-AKManager.output = filter
-try AKManager.start()
+engine.output = filter
+try engine.start()
 player.play()
 
 var time = 0.0

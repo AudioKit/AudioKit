@@ -14,8 +14,6 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         super.init()
         midiInstrument = audioUnit
 
-        AKManager.engine.attach(audioUnit)
-
         // assign the output to the mixer
         avAudioUnit = audioUnit
         avAudioNode = audioUnit

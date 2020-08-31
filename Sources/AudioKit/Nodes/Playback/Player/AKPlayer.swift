@@ -216,7 +216,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     public init() {
         let output = AKFader()
-        super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
+        super.init(avAudioNode: output.avAudioUnitOrNode)
         faderNode = output
 
         // start this bypassed
@@ -272,23 +272,23 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if playerNode.engine == nil {
-            AKManager.engine.attach(playerNode)
+//            engine.attach(playerNode)
         } else {
-            playerNode.disconnectOutput()
+//            playerNode.disconnectOutput()
         }
 
         if let strongMixer = mixerNode {
             if strongMixer.engine == nil {
-                AKManager.engine.attach(strongMixer)
+//                engine.attach(strongMixer)
             } else {
                 // intermediate nodes get disconnected and re-connected
-                strongMixer.disconnectOutput()
+//                strongMixer.disconnectOutput()
             }
         }
 
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
-                AKManager.engine.attach(faderNode.avAudioUnitOrNode)
+//                engine.attach(faderNode.avAudioUnitOrNode)
             }
             // but, don't disconnect the main output!
             // faderNode stays plugged in
@@ -319,7 +319,7 @@ public class AKPlayer: AKAbstractPlayer {
         // this is used only for dynamic sample rate conversion to
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
-            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
+//            engine.connect(playerNode, to: mixerNode, format: processingFormat)
             playerOutput = mixerNode
         }
 
@@ -327,7 +327,7 @@ public class AKPlayer: AKAbstractPlayer {
         let connectionFormat = AKSettings.audioFormat
 
         if let faderNode = faderNode {
-            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+//            engine.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
         bypassFader()
     }
@@ -388,10 +388,10 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AKManager.detach(nodes: [playerNode])
+//        engine.detach(nodes: [playerNode])
 
         if let mixerNode = self.mixerNode {
-            AKManager.detach(nodes: [mixerNode])
+//            engine.detach(nodes: [mixerNode])
             self.mixerNode = nil
         }
     }

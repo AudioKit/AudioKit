@@ -28,8 +28,8 @@ reverb.loadFactoryPreset(.largeChamber)
 
 let mixture = AKDryWetMixer(drums, reverb, balance: 0.5)
 
-AKManager.output = mixture
-try AKManager.start()
+engine.output = mixture
+try engine.start()
 drums.play()
 
 //: User Interface Set up

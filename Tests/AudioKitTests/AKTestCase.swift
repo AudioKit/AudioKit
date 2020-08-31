@@ -10,20 +10,26 @@ class AKTestCase: XCTestCase {
     var duration = 0.1
     var output: AKNode?
 
+    let engine = AKEngine()
     var input = AKOscillator()
 
     var afterStart: () -> Void = {}
+    var afterSetOutput: () -> Void = {}
 
     func auditionTest() {
         if let existingOutput = output {
-            try! AKManager.auditionTest(node: existingOutput, duration: duration, afterStart: afterStart)
+            try! engine.auditionTest(node: existingOutput, duration: duration, afterStart: afterStart)
         }
     }
+
 
     func AKTest(_ testName: String = "") {
         var localMD5 = ""
         if let existingOutput = output {
-            localMD5 = try! AKManager.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            localMD5 = try! engine.test(node: existingOutput,
+                                        duration: duration,
+                                        afterStart: afterStart,
+                                        afterSetOutput: afterSetOutput)
         }
         var name = testName
         if name == "" {
@@ -45,8 +51,7 @@ class AKTestCase: XCTestCase {
 
     override func tearDown() {
         // This method is called after the invocation of each test method in the class.
-        AKManager.disconnectAllInputs()
-        try! AKManager.stop()
+        engine.stop()
         super.tearDown()
         AKDebugDSPSetActive(false)
     }

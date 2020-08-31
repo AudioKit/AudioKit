@@ -27,9 +27,9 @@ class ViewController: NSViewController {
         let reverb = AKReverb(delay)
         reverb.loadFactoryPreset(.cathedral)
 
-        AKManager.output = reverb
+        engine.output = reverb
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

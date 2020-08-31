@@ -33,7 +33,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.audioInputEnabled = true
         mic! >>> mixer
@@ -45,9 +45,9 @@ class ViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        AKManager.output = silence
+        engine.output = silence
         do {
-            try AKManager.start()
+            try engine.start()
             tracker.start()
         } catch {
             AKLog("AudioKit did not start!")

@@ -53,8 +53,8 @@ class Conductor: ObservableObject {
     }
 
     func start() {
-        AKManager.output = booster
-        try! AKManager.start()
+        engine.output = booster
+        try! engine.start()
     }
 
     func play() {

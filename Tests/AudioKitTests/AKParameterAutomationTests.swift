@@ -5,7 +5,7 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKParameterAutomationTests: AKTestCase {
+class AKParameterAutomationTests: XCTestCase {
 
     func observerTest(events: [AKAutomationEvent],
                       sampleTime: Float64,
@@ -101,9 +101,12 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testRecord() {
 
+        let engine = AKEngine()
+
         let osc = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        AKManager.output = osc
-        try! AKManager.start()
+        engine.output = osc
+
+        try! engine.start()
         osc.start()
 
         var values:[AUValue] = []

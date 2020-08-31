@@ -10,8 +10,8 @@ player.looping = true
 
 var chorus = AKChorus(player)
 
-AKManager.output = chorus
-try AKManager.start()
+engine.output = chorus
+try engine.start()
 
 player.play()
 

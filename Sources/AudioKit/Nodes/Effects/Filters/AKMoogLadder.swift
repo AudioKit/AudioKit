@@ -9,7 +9,7 @@ import CAudioKit
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
@@ -83,8 +83,10 @@ public class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A delay line with cubic interpolation.
 ///
-public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
@@ -83,8 +83,11 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAuto
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            input?.connect(to: self)
             self.internalAU?.setMaximumTime(maximumTime)
+        }
+
+        if let input = input {
+            connections.append(input)
         }
     }
 }

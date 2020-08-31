@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A complement to the AKLowPassFilter.
 ///
-public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
@@ -61,8 +61,10 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput,
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

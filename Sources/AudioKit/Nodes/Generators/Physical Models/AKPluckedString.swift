@@ -102,4 +102,6 @@ public class AKPluckedString: AKNode, AKToggleable, AKComponent, AKAutomatable {
         internalAU?.start()
         internalAU?.triggerFrequency(frequency, amplitude: amplitude)
     }
+
+    // TODO This node needs to have tests
 }

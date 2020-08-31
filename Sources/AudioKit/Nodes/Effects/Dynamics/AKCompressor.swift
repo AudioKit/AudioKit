@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///
-public class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKCompressor: AKNode, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
@@ -66,21 +66,6 @@ public class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Dry/Wet Mix (Default 1 / Fully Wet)
-    public var dryWetMix: AUValue = 1 {
-        didSet {
-            dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain.volume = 1 - dryWetMix
-            effectGain.volume = dryWetMix
-        }
-    }
-
-    private var lastKnownMix: AUValue = 1
-    private var mixer = AKMixer()
-    private var inputMixer = AKMixer()
-    private var inputGain = AKMixer()
-    private var effectGain = AKMixer()
-
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
 
@@ -111,22 +96,15 @@ public class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         self.releaseDuration = releaseDuration
         self.masterGain = masterGain
 
-        inputGain.volume = 0
-        effectGain.volume = 1
-
-        input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain, effectGain])
-
         let effect = _Self.effect
-        self.internalEffect = effect
-        AKManager.engine.attach(effect)
+        internalEffect = effect
         au = AUWrapper(effect)
 
-        input?.connect(to: inputMixer)
-        inputMixer >>> inputGain >>> mixer
-        inputMixer >>> effectGain >>> effect >>> mixer
+        super.init(avAudioNode: effect)
 
-        super.init(avAudioNode: mixer.avAudioNode)
+        if let input = input {
+            connections.append(input)
+        }
 
         au[kDynamicsProcessorParam_Threshold] = threshold
         au[kDynamicsProcessorParam_HeadRoom] = headRoom
@@ -135,31 +113,15 @@ public class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 
-    public var inputNode: AVAudioNode {
-        return inputMixer.avAudioNode
-    }
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
-        if isStopped {
-            dryWetMix = lastKnownMix
-            isStarted = true
-        }
+        internalEffect.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
-            isStarted = false
-        }
-    }
-
-    /// Disconnect the node
-    public override func detach() {
-        stop()
-        AKManager.detach(nodes: [inputGain.avAudioUnitOrNode, effectGain.avAudioUnitOrNode, mixer.avAudioNode])
-        AKManager.engine.detach(self.internalEffect)
+        internalEffect.bypass = true
     }
 }

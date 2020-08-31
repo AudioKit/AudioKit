@@ -27,8 +27,8 @@ let toggling = AKPeriodicFunction(frequency: 2.66) {
     counter += 1
 }
 
-AKManager.output = filter
-try AKManager.start(withPeriodicFunctions: toggling)
+engine.output = filter
+try engine.start(withPeriodicFunctions: toggling)
 
 noise.start()
 toggling.start()

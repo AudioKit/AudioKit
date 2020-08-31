@@ -26,8 +26,8 @@ let generator = AKOperationGenerator {
     return mixer(instruments, reverb, balance: 0.4)
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 
 generator.start()
 

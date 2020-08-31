@@ -70,9 +70,9 @@ class ViewController: NSViewController {
         drumPlayer.volume = 0.6
         ambientGuitar.volume = 0.3
 
-        AKManager.output = mixer
+        engine.output = mixer
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

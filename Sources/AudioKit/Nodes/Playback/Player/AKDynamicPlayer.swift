@@ -72,9 +72,9 @@ public class AKDynamicPlayer: AKPlayer {
     override public func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = self.timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
-                AKManager.engine.attach(timePitchNode.avAudioNode)
+//                engine.attach(timePitchNode.avAudioNode)
             } else {
-                timePitchNode.disconnectOutput()
+                timePitchNode.detach()
             }
         }
         super.initialize(restartIfPlaying: restartIfPlaying)
@@ -94,7 +94,7 @@ public class AKDynamicPlayer: AKPlayer {
         // this is used only for dynamic sample rate conversion to
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
-            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
+//            engine.connect(playerNode, to: mixerNode, format: processingFormat)
             playerOutput = mixerNode
         }
 
@@ -103,15 +103,15 @@ public class AKDynamicPlayer: AKPlayer {
 
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
             // AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
-            AKManager.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
-            AKManager.connect(timePitchNode.avAudioUnitOrNode,
-                              to: faderNode.avAudioUnitOrNode,
-                              format: connectionFormat)
+//            engine.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
+//            engine.connect(timePitchNode.avAudioUnitOrNode,
+//                              to: faderNode.avAudioUnitOrNode,
+//                              format: connectionFormat)
             timePitchNode.bypass()
 
         } else if let faderNode = super.faderNode {
             // AKLog("👉 Player → Fader using", connectionFormat)
-            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+//            engine.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
     }
 
@@ -128,7 +128,7 @@ public class AKDynamicPlayer: AKPlayer {
         guard timePitchNode != nil else { return }
         let wasPlaying = isPlaying
         stop()
-        timePitchNode?.disconnectOutput()
+        timePitchNode?.detach()
         timePitchNode = nil
         initialize()
         if wasPlaying {

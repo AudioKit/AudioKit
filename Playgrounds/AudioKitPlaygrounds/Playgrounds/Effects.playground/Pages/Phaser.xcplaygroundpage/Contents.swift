@@ -10,8 +10,8 @@ player.looping = true
 
 var phaser = AKPhaser(player)
 
-AKManager.output = phaser
-try AKManager.start()
+engine.output = phaser
+try engine.start()
 
 player.play()
 

@@ -9,7 +9,7 @@ import CAudioKit
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
@@ -75,8 +75,11 @@ public class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput, AKA
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            input?.connect(to: self)
             self.internalAU?.setLoopDuration(loopDuration)
+        }
+
+        if let input = input {
+            connections.append(input)
         }
     }
 }

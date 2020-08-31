@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class AKReverb: AKNode, AKToggleable, AKInput {
+public class AKReverb: AKNode, AKToggleable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     fileprivate var lastKnownMix: AUValue = 0.5
@@ -33,8 +33,10 @@ public class AKReverb: AKNode, AKToggleable, AKInput {
 
         avAudioUnit = reverbAU
         avAudioNode = reverbAU
-        AKManager.engine.attach(avAudioUnitOrNode)
-        input?.connect(to: self)
+
+        if let input = input {
+            connections.append(input)
+        }
 
         reverbAU.wetDryMix = dryWetMix * 100.0
     }

@@ -31,8 +31,8 @@ delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.cathedral)
 
-AKManager.output = reverb
-try AKManager.start()
+engine.output = reverb
+try engine.start()
 
 player.play()
 

@@ -15,8 +15,8 @@ delay.time = 0.01 // seconds
 delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
-AKManager.output = delay
-try AKManager.start()
+engine.output = delay
+try engine.start()
 player.play()
 
 class LiveView: AKLiveViewController {

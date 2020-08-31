@@ -19,8 +19,8 @@ let effect = AKOperationEffect(player) { player, parameters in
 }
 effect.parameters = [0.2, 0.3, 0.21]
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 //: User Interface
