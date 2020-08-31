@@ -62,7 +62,7 @@ open class AKNode {
 
     /// Subclasses should override to detach all internal nodes
     open func detach() {
-        AKManager.detach(nodes: [avAudioUnitOrNode])
+//        AKManager.detach(nodes: [avAudioUnitOrNode])
     }
 }
 

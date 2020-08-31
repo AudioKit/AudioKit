@@ -319,7 +319,7 @@ public class AKPlayer: AKAbstractPlayer {
         // this is used only for dynamic sample rate conversion to
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
-            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
+//            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
             playerOutput = mixerNode
         }
 
@@ -327,7 +327,7 @@ public class AKPlayer: AKAbstractPlayer {
         let connectionFormat = AKSettings.audioFormat
 
         if let faderNode = faderNode {
-            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+//            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
         bypassFader()
     }
@@ -388,10 +388,10 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AKManager.detach(nodes: [playerNode])
+//        AKManager.detach(nodes: [playerNode])
 
         if let mixerNode = self.mixerNode {
-            AKManager.detach(nodes: [mixerNode])
+//            AKManager.detach(nodes: [mixerNode])
             self.mixerNode = nil
         }
     }

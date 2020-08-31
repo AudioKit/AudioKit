@@ -29,7 +29,9 @@ extension AKOutput {
     /// Output connection points of outputNode.
     public var connectionPoints: [AVAudioConnectionPoint] {
         get { return outputNode.engine?.outputConnectionPoints(for: outputNode, outputBus: 0) ?? [] }
-        set { AKManager.connect(outputNode, to: newValue, fromBus: 0, format: AKSettings.audioFormat) }
+        set {
+            //AKManager.connect(outputNode, to: newValue, fromBus: 0, format: AKSettings.audioFormat)
+        }
     }
 
     /// Disconnects all outputNode's output connections.
@@ -91,7 +93,7 @@ extension AKOutput {
     ///   - Parameter bus: The bus on the input that the output will connect to.
     ///   - Parameter format: The format of the connection.
     @discardableResult public func setOutput(to node: AKInputCrap, bus: Int, format: AVAudioFormat?) -> AKInputCrap {
-        AKManager.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
+//        AKManager.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
         return node
     }
 
@@ -135,7 +137,7 @@ extension AKOutput {
     ///   - Parameter connectionPoints: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
     public func setOutput(to connectionPoints: [AVAudioConnectionPoint], format: AVAudioFormat?) {
-        AKManager.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
+//        AKManager.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
     }
 
 }
