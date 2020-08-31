@@ -35,7 +35,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
     func testDynamicConnection() {
 
         let osc = AKOscillator()
-        let mixer = AKMixer2(osc)
+        let mixer = AKMixer(osc)
         let engine = AKEngine()
         engine.output = mixer
 
@@ -57,7 +57,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
     func testDynamicConnection2() {
 
         let osc = AKOscillator()
-        let mixer = AKMixer2(osc)
+        let mixer = AKMixer(osc)
         let engine = AKEngine()
         engine.output = mixer
 
@@ -95,7 +95,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         let engine = AKEngine()
         let osc = AKOscillator()
-        let mixer = AKMixer2(osc)
+        let mixer = AKMixer(osc)
         osc.start()
         engine.output = mixer
         try! engine.start()
@@ -115,7 +115,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
     func testDynamicConnection3() {
 
         let osc = AKOscillator()
-        let mixer = AKMixer2(osc)
+        let mixer = AKMixer(osc)
         let engine = AKEngine()
         engine.output = mixer
 
@@ -141,7 +141,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
     func testRedundantConnection() {
 
         let osc = AKOscillator()
-        let mixer = AKMixer2()
+        let mixer = AKMixer()
         osc >>> mixer
         osc >>> mixer
         
@@ -152,7 +152,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
         let engine = AKEngine()
 
         let osc = AKOscillator()
-        let mixer = AKMixer2(osc)
+        let mixer = AKMixer(osc)
         engine.output = mixer
         osc.start()
         try! engine.start()
