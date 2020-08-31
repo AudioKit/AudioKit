@@ -55,13 +55,6 @@ public class AKDryWetMixer: AKNode2 {
         input2Attenuator.gain = AUValue(balance)
     }
 
-    // Disconnect the node
-    public override func detach() {
-        AKManager.detach(nodes: [mixer.avAudioUnitOrNode,
-                                input1Attenuator.avAudioUnitOrNode,
-                                input2Attenuator.avAudioUnitOrNode])
-    }
-
     open var dryInput: AVAudioConnectionPoint {
         return AVAudioConnectionPoint(node: input1Attenuator.avAudioUnitOrNode, bus: 0)
     }
