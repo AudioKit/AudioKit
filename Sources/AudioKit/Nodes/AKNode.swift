@@ -5,6 +5,7 @@ import CAudioKit
 
 open class AKNode {
 
+    /// Nodes providing input to this node.
     var connections: [AKNode] = []
 
     /// The internal AVAudioEngine AVAudioNode
