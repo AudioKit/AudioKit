@@ -50,12 +50,12 @@ public class AKManager: NSObject {
 
     /// internalConnections are used for not-strictly audio processing nodes that need
     /// a mechanism to pull samples (ie. the sequencer)
-    static var internalConnections: [AKNode] = []
+    static var internalConnections: [AKNode2] = []
 
     // MARK: - Device Management
 
     /// An audio output operation that most applications will need to use last
-    public static var output: AKNode? {
+    public static var output: AKNode2? {
         didSet {
             #if !os(macOS)
             do {
