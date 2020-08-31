@@ -23,7 +23,7 @@ public enum ClipRecordingResult {
 
 public class AKClipRecorder {
 
-    open var node: AKOutput
+    open var node: AKNode2
     private let timing: AKNodeTiming
     fileprivate var clips = [AKClipRecording]()
 
@@ -31,13 +31,13 @@ public class AKClipRecorder {
     ///
     /// - Parameter node: The node that audio will be recorded from
     ///
-    public init(node: AKOutput) {
+    public init(node: AKNode2) {
         self.node = node
         timing = AKNodeTiming(node: node)
-        node.outputNode.installTap(onBus: 0, bufferSize: 256, format: nil, block: self.audioTap)
+        node.avAudioNode.installTap(onBus: 0, bufferSize: 256, format: nil, block: self.audioTap)
     }
     deinit {
-        node.outputNode.removeTap(onBus: 0)
+        node.avAudioNode.removeTap(onBus: 0)
     }
 
     /// Starts the internal timeline.

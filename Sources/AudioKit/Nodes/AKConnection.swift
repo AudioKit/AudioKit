@@ -1,10 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
-
-import Foundation
-import AVFoundation
 
 /// A transitory used to pass connection information.
 open class AKInputConnection: NSObject {

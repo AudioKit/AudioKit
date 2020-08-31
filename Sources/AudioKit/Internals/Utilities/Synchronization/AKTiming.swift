@@ -95,7 +95,7 @@ extension AKTiming {
 open class AKNodeTiming: NSObject {
 
     /// An output node used for tming info.
-    open weak var node: AKOutput?
+    open weak var node: AKNode2?
 
     // Used to hold current time when not playing.
     private var idleTime = TimeInterval()
@@ -126,7 +126,7 @@ open class AKNodeTiming: NSObject {
 
     /// Initialize with a node to be used for timing info.
     /// - Parameter node: A node to be used for timing information.
-    public init(node: AKOutput) {
+    public init(node: AKNode2) {
         self.node = node
     }
 
@@ -152,7 +152,7 @@ extension AKNodeTiming: AKTiming {
     }
     public func start(at audioTime: AVAudioTime?) {
         guard !isStarted,
-            let lastRenderTime = node?.outputNode.lastRenderTime else {
+            let lastRenderTime = node?.avAudioNode.lastRenderTime else {
                 return
         }
         baseTime = audioTime?.offset(seconds: -idleTime).extrapolateTimeShimmed(fromAnchor: lastRenderTime)
