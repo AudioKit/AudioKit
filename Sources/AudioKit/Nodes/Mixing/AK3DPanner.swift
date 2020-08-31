@@ -46,8 +46,8 @@ public class AK3DPanner: AKNode2 {
             connections.append(input)
         }
 
-        let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
-        input?.avAudioNode.setOutput(to: environmentNode, bus: 0, format: monoFormat)
+//        let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
+//        input?.avAudioNode.setOutput(to: environmentNode, bus: 0, format: monoFormat)
 
     }
 

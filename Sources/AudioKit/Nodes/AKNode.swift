@@ -300,6 +300,9 @@ open class AKNode2 {
 
 }
 
+// Set output connection(s)
+infix operator >>>: AdditionPrecedence
+
 @discardableResult public func >>> (left: AKNode2, right: AKNode2) -> AKNode2 {
     right.connect(node: left)
     return right
