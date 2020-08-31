@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-public class AKLowPassFilter: AKNode2, AKToggleable, AUEffect {
+public class AKLowPassFilter: AKNode, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter)
 
@@ -43,7 +43,7 @@ public class AKLowPassFilter: AKNode2, AKToggleable, AUEffect {
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         cutoffFrequency: AUValue = 6_900,
         resonance: AUValue = 0) {
 

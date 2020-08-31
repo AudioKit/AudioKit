@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-public class AKDecimator: AKNode2, AKToggleable, AUEffect {
+public class AKDecimator: AKNode, AKToggleable, AUEffect {
     // MARK: - Properties
 
     /// Four letter unique description of the node
@@ -52,7 +52,7 @@ public class AKDecimator: AKNode2, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         decimation: AUValue = 0.5,
         rounding: AUValue = 0,
         mix: AUValue = 1) {

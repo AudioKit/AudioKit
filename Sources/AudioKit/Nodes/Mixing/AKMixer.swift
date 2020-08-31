@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
-public class AKMixer: AKNode2, AKToggleable {
+public class AKMixer: AKNode, AKToggleable {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 
@@ -42,7 +42,7 @@ public class AKMixer: AKNode2, AKToggleable {
     ///
     /// - parameter inputs: A variadic list of AKNodes
     ///
-    public convenience init(_ inputs: AKNode2?...) {
+    public convenience init(_ inputs: AKNode?...) {
         self.init(inputs.compactMap { $0 })
     }
 
@@ -52,7 +52,7 @@ public class AKMixer: AKNode2, AKToggleable {
     ///
     /// - parameter inputs: An array of AKNodes
     ///
-    public convenience init(_ inputs: [AKNode2]) {
+    public convenience init(_ inputs: [AKNode]) {
         self.init()
         for input in inputs {
             connections.append(input)

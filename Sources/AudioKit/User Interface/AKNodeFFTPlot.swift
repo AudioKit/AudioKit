@@ -11,7 +11,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    internal func setupNode(_ input: AKNode2?) {
+    internal func setupNode(_ input: AKNode?) {
         if isNotConnected {
             if fft == nil {
                 fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
@@ -70,7 +70,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     fileprivate var fft: EZAudioFFT?
 
     /// The node whose output to graph
-    open var node: AKNode2? {
+    open var node: AKNode? {
         willSet {
             pause()
         }
@@ -100,7 +100,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode2?, frame: CGRect, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode?, frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

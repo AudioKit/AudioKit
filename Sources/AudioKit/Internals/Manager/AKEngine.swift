@@ -25,7 +25,7 @@ public class AKEngine {
 
     public init() { }
 
-    public var output: AKNode2? {
+    public var output: AKNode? {
         didSet {
             if let node = oldValue {
                 avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
@@ -54,7 +54,7 @@ public class AKEngine {
     ///   - afterStart: Closure to execute at the beginning of the test
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
-    public func test(node: AKNode2, duration: Double, afterStart: () -> Void = {}, afterSetOutput: () -> Void = {}) throws -> String {
+    public func test(node: AKNode, duration: Double, afterStart: () -> Void = {}, afterSetOutput: () -> Void = {}) throws -> String {
 
         var digestHex = ""
 
@@ -148,7 +148,7 @@ public class AKEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public func auditionTest(node: AKNode2, duration: Double, afterStart: () -> Void = {}) throws {
+    public func auditionTest(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
         output = node
 
         try avEngine.start()

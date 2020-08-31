@@ -13,7 +13,7 @@ import CoreAudio
 /// 3. connect to the engine: AKManager.output = sampler
 /// 4. start the engine AKManager.start()
 ///
-open class AKAppleSampler: AKNode2 {
+open class AKAppleSampler: AKNode {
 
     // MARK: - Properties
 

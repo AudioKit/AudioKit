@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Schedules multiple audio files to be played in a sequence.
-public class AKClipPlayer: AKNode2 {
+public class AKClipPlayer: AKNode {
 
     private var timeAtStart: Double = 0
 

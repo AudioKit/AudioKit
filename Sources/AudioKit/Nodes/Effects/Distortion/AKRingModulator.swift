@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-public class AKRingModulator: AKNode2, AKToggleable, AUEffect {
+public class AKRingModulator: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 
@@ -61,7 +61,7 @@ public class AKRingModulator: AKNode2, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         frequency1: AUValue = 100,
         frequency2: AUValue = 100,
         balance: AUValue = 0.5,

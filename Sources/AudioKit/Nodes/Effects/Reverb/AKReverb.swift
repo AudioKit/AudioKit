@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class AKReverb: AKNode2, AKToggleable {
+public class AKReverb: AKNode, AKToggleable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     fileprivate var lastKnownMix: AUValue = 0.5
@@ -27,7 +27,7 @@ public class AKReverb: AKNode2, AKToggleable {
     ///   - input: AKNode to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
-    public init(_ input: AKNode2? = nil, dryWetMix: AUValue = 0.5) {
+    public init(_ input: AKNode? = nil, dryWetMix: AUValue = 0.5) {
         self.dryWetMix = dryWetMix
         super.init(avAudioNode: AVAudioNode())
 

@@ -18,7 +18,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    internal func setupNode(_ input: AKNode2?) {
+    internal func setupNode(_ input: AKNode?) {
         if isNotConnected {
             input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
@@ -72,7 +72,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     /// The node whose output to graph
     ///
     /// Defaults to AKManager.output
-    open var node: AKNode2? {
+    open var node: AKNode? {
         willSet {
             pause()
         }
@@ -111,7 +111,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode2? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
@@ -129,7 +129,7 @@ public class AKNodeOutputPlot2: EZAudioPlot {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    public func setupNode(_ input: AKNode2?) {
+    public func setupNode(_ input: AKNode?) {
         if isNotConnected {
             input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
@@ -172,7 +172,7 @@ public class AKNodeOutputPlot2: EZAudioPlot {
     /// The node whose output to graph
     ///
     /// Defaults to AKManager.output
-    open var node: AKNode2? {
+    open var node: AKNode? {
         willSet {
             pause()
         }
@@ -209,7 +209,7 @@ public class AKNodeOutputPlot2: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode2?, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode?, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

@@ -145,7 +145,7 @@ extension AKAudioUnitManager {
 
     // Create an instance of an AudioKit internal effect based on a class name
     public static func createInternalEffect(name: String) -> AVAudioUnit? {
-        var node: AKNode2?
+        var node: AKNode?
         // currently, the auAudioUnit.audioUnitName comes with "Local" on the front
         let name = name.replacingOccurrences(of: "Local AK", with: "AK")
 

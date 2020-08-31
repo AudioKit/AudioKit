@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Brownian noise generator
 ///
-public class AKBrownianNoise: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")
 

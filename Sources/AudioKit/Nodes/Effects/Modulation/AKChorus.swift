@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class AKChorus: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKChorus: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
@@ -89,7 +89,7 @@ public class AKChorus: AKNode2, AKToggleable, AKComponent, AKAutomatable {
     ///   - dryWetMix: fraction of wet signal in mix
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         frequency: AUValue = kAKChorus_DefaultFrequency,
         depth: AUValue = kAKChorus_DefaultDepth,
         feedback: AUValue = kAKChorus_DefaultFeedback,

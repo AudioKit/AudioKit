@@ -11,7 +11,7 @@ import CAudioKit
 /// three series allpass units, followed by four parallel comb filters, and two
 /// decorrelation delay lines in parallel at the output.
 ///
-public class AKChowningReverb: AKNode2, AKToggleable, AKComponent {
+public class AKChowningReverb: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
@@ -37,7 +37,7 @@ public class AKChowningReverb: AKNode2, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///
     public init(
-        _ input: AKNode2? = nil
+        _ input: AKNode? = nil
         ) {
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in

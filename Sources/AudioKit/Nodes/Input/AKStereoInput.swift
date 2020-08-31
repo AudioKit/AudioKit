@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
-public class AKStereoInput: AKNode2, AKToggleable {
+public class AKStereoInput: AKNode, AKToggleable {
 
     internal let mixer = AVAudioMixerNode()
 

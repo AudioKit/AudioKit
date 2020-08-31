@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-D Spatialization of the input
-public class AK3DPanner: AKNode2 {
+public class AK3DPanner: AKNode {
     fileprivate let environmentNode = AVAudioEnvironmentNode()
 
     /// Position of sound source along x-axis
@@ -36,7 +36,7 @@ public class AK3DPanner: AKNode2 {
     ///   - y:     y-axis location in meters
     ///   - z:     z-axis location in meters
     ///
-    public init(_ input: AKNode2? = nil, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
+    public init(_ input: AKNode? = nil, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
         self.x = x
         self.y = y
         self.z = z

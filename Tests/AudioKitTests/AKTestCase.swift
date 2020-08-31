@@ -8,7 +8,7 @@ import Foundation
 class AKTestCase: XCTestCase {
 
     var duration = 0.1
-    var output: AKNode2?
+    var output: AKNode?
 
     let engine = AKEngine()
     var input = AKOscillator()

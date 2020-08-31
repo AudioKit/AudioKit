@@ -10,7 +10,7 @@ open class AKSequencerTrack {
 
     // MARK: - Properties
 
-    public var targetNode: AKNode2?
+    public var targetNode: AKNode?
 
     /// Length of the track in beats
     public var length: Double = 4 {
@@ -55,7 +55,7 @@ open class AKSequencerTrack {
     // MARK: - Initialization
 
     /// Initialize the track
-    public init(targetNode: AKNode2?) {
+    public init(targetNode: AKNode?) {
         self.targetNode = targetNode
         engine = akSequencerEngineCreate()
     }

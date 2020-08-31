@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-public class AKDistortion: AKNode2, AKToggleable, AUEffect {
+public class AKDistortion: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 
@@ -170,7 +170,7 @@ public class AKDistortion: AKNode2, AKToggleable, AUEffect {
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         delay: AUValue = 0.1,
         decay: AUValue = 1.0,
         delayMix: AUValue = 0.5,

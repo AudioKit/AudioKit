@@ -6,7 +6,7 @@ import CAudioKit
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-public class AKResonantFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
@@ -64,7 +64,7 @@ public class AKResonantFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable
     ///   - bandwidth: Bandwidth of the filter.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         frequency: AUValue = 4_000.0,
         bandwidth: AUValue = 1_000.0
         ) {

@@ -10,7 +10,7 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class AKBalancer: AKNode2, AKToggleable, AKComponent {
+public class AKBalancer: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
@@ -34,7 +34,7 @@ public class AKBalancer: AKNode2, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    public init(_ input: AKNode2? = nil, comparator: AKNode2) {
+    public init(_ input: AKNode? = nil, comparator: AKNode) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

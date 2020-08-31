@@ -4,7 +4,7 @@ import AVFoundation
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class AKDryWetMixer: AKNode2 {
+public class AKDryWetMixer: AKNode {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
@@ -28,7 +28,7 @@ public class AKDryWetMixer: AKNode2 {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    public init(_ input1: AKNode2, _ input2: AKNode2, balance: Double = 0.5) {
+    public init(_ input1: AKNode, _ input2: AKNode, balance: Double = 0.5) {
         super.init(avAudioNode: AVAudioNode())
         self.balance = balance
         setGainsViaBalance()
@@ -46,7 +46,7 @@ public class AKDryWetMixer: AKNode2 {
 
     }
 
-    public convenience init(dry: AKNode2, wet: AKNode2, balance: Double = 0.5) {
+    public convenience init(dry: AKNode, wet: AKNode, balance: Double = 0.5) {
         self.init(dry, wet, balance: balance)
     }
 

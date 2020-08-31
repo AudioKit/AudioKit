@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-public class AKTanhDistortion: AKNode2, AKToggleable, AKComponent, AKAutomatable {
+public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
@@ -89,7 +89,7 @@ public class AKTanhDistortion: AKNode2, AKToggleable, AKComponent, AKAutomatable
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode2? = nil,
+        _ input: AKNode? = nil,
         pregain: AUValue = 2.0,
         postgain: AUValue = 0.5,
         positiveShapeParameter: AUValue = 0.0,

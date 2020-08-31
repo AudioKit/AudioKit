@@ -22,8 +22,8 @@ public class AKAmplitudeTap: AKToggleable {
         }
     }
 
-    private var _input: AKNode2?
-    public var input: AKNode2? {
+    private var _input: AKNode?
+    public var input: AKNode? {
         get {
             return _input
         }
@@ -60,7 +60,7 @@ public class AKAmplitudeTap: AKToggleable {
     private var handler: (Float) -> Void = { _ in }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode2?, bufferSize: UInt32 = 1_024, handler: @escaping (Float) -> Void = { _ in }) {
+    public init(_ input: AKNode?, bufferSize: UInt32 = 1_024, handler: @escaping (Float) -> Void = { _ in }) {
         self.bufferSize = bufferSize
         self.input = input
         self.handler = handler
