@@ -9,7 +9,7 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
-    private var mixer: AKMixer
+    private var mixer = AKMixer()
     private var au: AUWrapper
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
@@ -32,14 +32,14 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     public var dryWetMix: AUValue = 1 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = 1 - dryWetMix
-            effectGain?.volume = dryWetMix
+            inputGain.volume = 1 - dryWetMix
+            effectGain.volume = dryWetMix
         }
     }
 
     private var lastKnownMix: AUValue = 1
-    private var inputGain: AKMixer?
-    private var effectGain: AKMixer?
+    private var inputGain = AKMixer()
+    private var effectGain = AKMixer()
     var inputMixer = AKMixer()
 
     // Store the internal effect
@@ -64,32 +64,22 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        inputGain = AKMixer()
-        inputGain?.volume = 0
-        mixer = AKMixer(inputGain)
-
-        effectGain = AKMixer()
-        effectGain?.volume = 1
-
-        input?.connect(to: inputMixer)
-
-        if let inputGain = inputGain,
-            let effectGain = effectGain {
-            inputMixer.connect(to: [inputGain, effectGain])
-        }
-
         let effect = _Self.effect
         internalEffect = effect
-
         au = AUWrapper(effect)
+
         super.init(avAudioNode: mixer.avAudioNode)
 
-        AKManager.engine.attach(effect)
+        inputGain.volume = 0
+        effectGain.volume = 1
 
-        if let node = effectGain?.avAudioNode {
-            AKManager.engine.connect(node, to: effect)
+        if let input = input {
+            input >>> inputMixer
+            input >>> inputGain
+            input >>> effectGain
         }
-        AKManager.engine.connect(effect, to: mixer.avAudioNode)
+        effectGain >>> effect >>> mixer
+        inputGain >>> mixer
 
         au[kHipassParam_CutoffFrequency] = cutoffFrequency
         au[kHipassParam_Resonance] = resonance
@@ -122,17 +112,11 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     public override func detach() {
         stop()
 
-        var nodes: [AVAudioNode] = [inputMixer.avAudioNode,
-                                    mixer.avAudioNode,
-                                    internalEffect]
-
-        if let inputGain = inputGain {
-            nodes.append(inputGain.avAudioNode)
-        }
-
-        if let effectGain = effectGain {
-            nodes.append(effectGain.avAudioNode)
-        }
+        let nodes = [inputMixer.avAudioNode,
+                     mixer.avAudioNode,
+                     internalEffect,
+                     inputGain.avAudioNode,
+                     effectGain.avAudioNode]
 
         AKManager.detach(nodes: nodes)
     }
