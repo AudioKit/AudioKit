@@ -20,13 +20,13 @@ extension AUEffect {
     }
 }
 
-public protocol AKComponent2: AUComponent {
+public protocol AKComponent: AUComponent {
     associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
     var internalAU: AKAudioUnitType? { get }
     var rampDuration: AUValue { get set }
 }
 
-extension AKComponent2 {
+extension AKComponent {
     /// Register the audio unit subclass
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,

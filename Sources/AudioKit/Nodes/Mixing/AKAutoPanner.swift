@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup panning with linear interpolation
 ///
-public class AKAutoPanner: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKAutoPanner: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 

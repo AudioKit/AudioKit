@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Faust-based pitch shfiter
 ///
-public class AKPitchShifter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKPitchShifter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
-public class AKFader: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKFader: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public typealias AKAudioUnitType = InternalAU
 

@@ -6,7 +6,7 @@ import CAudioKit
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
 ///
-public class AKConvolution: AKNode2, AKToggleable, AKComponent2 {
+public class AKConvolution: AKNode2, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 

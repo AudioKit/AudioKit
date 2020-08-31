@@ -9,7 +9,7 @@ import CAudioKit
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-public class AKFlatFrequencyResponseReverb: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKFlatFrequencyResponseReverb: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 

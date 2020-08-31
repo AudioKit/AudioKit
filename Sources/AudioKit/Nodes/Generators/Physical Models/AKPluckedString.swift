@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 ///
-public class AKPluckedString: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKPluckedString: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 

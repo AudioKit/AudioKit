@@ -181,7 +181,7 @@ public extension AKToggleable {
     }
 }
 
-public extension AKToggleable where Self: AKComponent2 {
+public extension AKToggleable where Self: AKComponent {
 
     var isStarted: Bool {
         return (internalAU as? AKAudioUnitBase)?.isStarted ?? false

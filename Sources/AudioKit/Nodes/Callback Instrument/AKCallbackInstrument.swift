@@ -9,7 +9,7 @@ import Foundation
 /// New sample-accurate version of AKCallbackInstrument
 /// Old AKCallbackInstrument renamed to AKMIDICallbackInstrument
 /// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
-open class AKCallbackInstrument: AKPolyphonicNode, AKComponent2 {
+open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node

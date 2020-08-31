@@ -6,7 +6,7 @@ import CAudioKit
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
 /// Based on work by Perry Cook.
 ///
-public class AKDCBlock: AKNode2, AKToggleable, AKComponent2 {
+public class AKDCBlock: AKNode2, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 

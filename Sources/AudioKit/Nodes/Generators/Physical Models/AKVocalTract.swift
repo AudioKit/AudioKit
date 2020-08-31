@@ -8,7 +8,7 @@ import CAudioKit
 /// based on the classic Kelly-Lochbaum segmented cylindrical 1d waveguide
 /// model, and the glottal pulse wave is a LF glottal pulse model.
 ///
-public class AKVocalTract: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKVocalTract: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
