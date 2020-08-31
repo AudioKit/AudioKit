@@ -28,6 +28,6 @@ During the init() function we initialize the instruments, connect them to a mixi
     engine.output = filter
     arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
     engine.start()
-    sequence = AKAppleSequencer(filename: "seqDemo", engine: AKManager.engine)
+    sequence = AKAppleSequencer(filename: "seqDemo", engine: engine.engine)
     sequence!.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
 ```

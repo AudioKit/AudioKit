@@ -36,7 +36,7 @@ extension AudioUnitManager {
                 self.startAudioTimer()
             }
         } else {
-            if AKManager.engine.isRunning {
+            if engine.isRunning {
                 // just turns off reverb tails or delay lines etc
                 internalManager.reset()
             }
