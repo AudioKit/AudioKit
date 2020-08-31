@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-import AudioKit
+@testable import AudioKit
 import XCTest
 import AVFoundation
 
@@ -185,5 +185,15 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         engine.stop()
 
+    }
+
+    func testBadConnection() {
+
+        let osc1 = AKOscillator()
+        let osc2 = AKOscillator()
+
+        osc1 >>> osc2
+
+        XCTAssertEqual(osc2.connections.count, 0)
     }
 }

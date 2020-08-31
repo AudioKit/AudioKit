@@ -5,6 +5,7 @@ import CAudioKit
 
 open class AKNode {
 
+    /// Nodes providing input to this node.
     var connections: [AKNode] = []
 
     /// The internal AVAudioEngine AVAudioNode
@@ -73,6 +74,14 @@ open class AKNode {
     }
 
     public func connect(node: AKNode) {
+        if avAudioNode.numberOfInputs == 0 {
+            AKLog("error: Node has no input buses.")
+            return
+        }
+        if node.avAudioNode.numberOfOutputs == 0 {
+            AKLog("error: Node has no output buses.")
+            return
+        }
         if connections.contains(where: { $0 === node }) {
             AKLog("error: Node is already connected.")
             return
