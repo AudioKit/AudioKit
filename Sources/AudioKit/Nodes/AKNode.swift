@@ -289,6 +289,10 @@ open class AKNode2 {
         makeAVConnections()
     }
 
+    public func connect(to nodes: [AKNode2]) {
+        for node in nodes { connect(node: node) }
+    }
+
     public func disconnect(node: AKNode2) {
         connections.removeAll(where: { $0 === node })
         avAudioNode.disconnect(input: node.avAudioNode)
