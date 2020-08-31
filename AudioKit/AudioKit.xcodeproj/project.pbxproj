@@ -181,6 +181,8 @@
 		B11F88762329B8F000CB8D3F /* AKFaderDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = B11F88722329B8F000CB8D3F /* AKFaderDSP.mm */; };
 		B11F88772329B8F000CB8D3F /* AKFaderDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B11F88732329B8F000CB8D3F /* AKFaderDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B11F88782329B8F000CB8D3F /* AKFader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11F88742329B8F000CB8D3F /* AKFader.swift */; };
+		B1341D1724FD6E2800D4E7AE /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1341D1624FD6DD600D4E7AE /* AKAudioUnitManager+Connections.swift */; };
+		B1341D1824FD6E2900D4E7AE /* AKAudioUnitManager+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1341D1624FD6DD600D4E7AE /* AKAudioUnitManager+Connections.swift */; };
 		B1468E3020D06FCC0030BA66 /* AKPlayer+Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E2A20D06FCC0030BA66 /* AKPlayer+Playback.swift */; };
 		B1468E3420D06FCC0030BA66 /* AKPlayer+Buffering.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E2E20D06FCC0030BA66 /* AKPlayer+Buffering.swift */; };
 		B1468E3520D06FCC0030BA66 /* AKDynamicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E2F20D06FCC0030BA66 /* AKDynamicPlayer.swift */; };
@@ -10210,6 +10212,7 @@
 				C4CDDD081D04F25E003EA1BD /* AK3DPanner.swift in Sources */,
 				C4537FE61C3A438D00A51738 /* AKRolandTB303Filter.swift in Sources */,
 				B1D27BC524BBC0C000F8D447 /* AVAudioPCMBuffer+Processing.swift in Sources */,
+				B1341D1824FD6E2900D4E7AE /* AKAudioUnitManager+Connections.swift in Sources */,
 				3404A7C620507BEB00A2C9E4 /* AKSampler.swift in Sources */,
 				C46302841C20E7A7009B44D9 /* dcBlock.swift in Sources */,
 				FEB3AB3022DFE06B0080A5CB /* AKAppleSequencer.swift in Sources */,
@@ -11625,6 +11628,7 @@
 				EAA62EFE247F44E200BF4CDB /* streson.c in Sources */,
 				EAA62F00247F44E200BF4CDB /* AKStereoInput.swift in Sources */,
 				EAA62F01247F44E200BF4CDB /* AKMIDIObserverMaster.swift in Sources */,
+				B1341D1724FD6E2800D4E7AE /* AKAudioUnitManager+Connections.swift in Sources */,
 				EAA62F02247F44E200BF4CDB /* dust.c in Sources */,
 				EAA62F03247F44E200BF4CDB /* AKHighPassButterworthFilterDSP.mm in Sources */,
 				EAA62F04247F44E200BF4CDB /* vocoder.c in Sources */,
