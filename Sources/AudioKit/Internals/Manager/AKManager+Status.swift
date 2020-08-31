@@ -1,11 +1,11 @@
-//// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-//
-//import Foundation
-//import AudioToolbox
-//
-//extension AKManager {
-//
-//    static var shouldBeRunning = false
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
+import Foundation
+import AudioToolbox
+
+extension AKManager {
+
+    static var shouldBeRunning = false
 //
 //    #if os(iOS)
 //    var isIAAConnected: Bool {
@@ -22,4 +22,4 @@
 //        return false
 //    }
 //    #endif
-//}
+}
