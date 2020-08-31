@@ -32,6 +32,8 @@ if [ ! -f build_frameworks.sh ]; then
     exit 0
 fi
 
+(cd ..; swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig)
+
 VERSION=$(cat ../VERSION)
 FRAMEWORKS=$(cat Frameworks.list)
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
@@ -82,7 +84,7 @@ create_universal_frameworks()
 	rm -rf $DIR/*.framework
 	mkdir -p "$DIR"
 	xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 \
-		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
+		BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
 		if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework.dSYM"; then
@@ -99,14 +101,18 @@ create_universal_frameworks()
 	then # Only build for simulator on Travis CI, unless we're building a release
 		for f in ${PROJECT_NAME} $FRAMEWORKS; do
 			cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/${f}" "${DIR}/${f}.framework/"
-			cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/Modules/${f}.swiftmodule/"* "${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+			if test -d "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/Modules/${f}.swiftmodule/"; then
+				cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework/Modules/${f}.swiftmodule/"* "${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+			fi
 		done
 	else # Build device slices
 		xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig device.xcconfig -configuration ${CONFIGURATION} -sdk $3 \
-			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 3
+			BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 3
 		for f in ${PROJECT_NAME} $FRAMEWORKS; do
-			cp -av "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Modules/${f}.swiftmodule/"* \
-				"${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+			if test -d "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Modules/${f}.swiftmodule/"; then
+				cp -av "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Modules/${f}.swiftmodule/"* \
+					"${DIR}/${f}.framework/Modules/${f}.swiftmodule/"
+			fi
 			cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${f}.framework/Info.plist" "${DIR}/${f}.framework/"
 			# Merge the frameworks proper - apparently it's important that device OS is first starting in Xcode 10.2
 			lipo -create -output "${DIR}/${f}.framework/${f}" \
@@ -145,12 +151,14 @@ create_universal_frameworks()
 		# Swift 5 / Xcode 10.2 bug (!?) - must combine the generated AudioKit-Swift.h headers
 		for fw in ${PROJECT_NAME} ${FRAMEWORKS};
 		do
-			echo '#include <TargetConditionals.h>' > "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
-			echo '#if TARGET_OS_SIMULATOR' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
-			cat "${BUILD_DIR}/${CONFIGURATION}-$2/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
-			echo '#else' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
-			cat "${BUILD_DIR}/${CONFIGURATION}-$3/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
-			echo '#endif' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+			if test -f "${BUILD_DIR}/${CONFIGURATION}-$2/${fw}.framework/Headers/${fw}-Swift.h"; then
+				echo '#include <TargetConditionals.h>' > "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+				echo '#if TARGET_OS_SIMULATOR' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+				cat "${BUILD_DIR}/${CONFIGURATION}-$2/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+				echo '#else' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+				cat "${BUILD_DIR}/${CONFIGURATION}-$3/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+				echo '#endif' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+			fi
 		done
 	fi
 }
@@ -170,7 +178,7 @@ create_framework()
 	fi
 	echo "Building static frameworks for $1 / $2"
 	xcodebuild -project "$PROJECT" -target "AudioKit" -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 \
-		BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
+		BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${f}.framework" "$DIR/"
 		strip -S "${DIR}/${f}.framework/${f}"
@@ -186,7 +194,7 @@ create_macos_frameworks()
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
 	xcodebuild -project "$PROJECT" -target "AudioKit" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
+		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework" "$DIR/"
 		if test -d  "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM";
@@ -213,7 +221,7 @@ create_catalyst_frameworks()
 	mkdir -p "$DIR"
 	xcodebuild archive -project "$PROJECT" -scheme AudioKit-Package ONLY_ACTIVE_ARCH=$ACTIVE_ARCH SDKROOT=iphoneos CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
 			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
-			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
+			BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${f}.framework" "$DIR/"
 		if test -d  "${BUILD_DIR}/${CONFIGURATION}/${f}.framework.dSYM";
