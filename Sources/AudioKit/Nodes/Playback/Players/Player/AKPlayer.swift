@@ -216,7 +216,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     public init() {
         let output = AKFader()
-        super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
+        super.init(avAudioNode: output.avAudioUnitOrNode)
         faderNode = output
 
         // start this bypassed
