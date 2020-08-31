@@ -38,17 +38,12 @@ public class AKMIDIPlayer: AVAudioSequencer {
     /// Loop control
     public var loopEnabled: Bool = false
 
-    /// Sequencer Initialization
-    public override init() {
-        super.init(audioEngine: AKManager.engine)
-    }
-
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter filename: Location of the MIDI File
     ///
-    public init(filename: String) {
-        super.init(audioEngine: AKManager.engine)
+    public init(audioEngine: AVAudioEngine, filename: String) {
+        super.init(audioEngine: audioEngine)
         loadMIDIFile(filename)
     }
 
