@@ -218,7 +218,7 @@ class PlayerDemoViewController: NSViewController {
     }
 
     func play() {
-        if !AKManager.engine.isRunning {
+        if !engine.isRunning {
             try? engine.start()
 
             // the engine doesn't really like starting and playing right away
@@ -283,7 +283,7 @@ class PlayerDemoViewController: NSViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 if let file = try? AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings) {
-                    try AKManager.renderToFile(file, duration: duration, prerender: {
+                    try engine.renderToFile(file, duration: duration, prerender: {
                         prerender?()
                     })
 

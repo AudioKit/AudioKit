@@ -272,14 +272,14 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if playerNode.engine == nil {
-            AKManager.engine.attach(playerNode)
+//            engine.attach(playerNode)
         } else {
 //            playerNode.disconnectOutput()
         }
 
         if let strongMixer = mixerNode {
             if strongMixer.engine == nil {
-                AKManager.engine.attach(strongMixer)
+//                engine.attach(strongMixer)
             } else {
                 // intermediate nodes get disconnected and re-connected
 //                strongMixer.disconnectOutput()
@@ -288,7 +288,7 @@ public class AKPlayer: AKAbstractPlayer {
 
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
-                AKManager.engine.attach(faderNode.avAudioUnitOrNode)
+//                engine.attach(faderNode.avAudioUnitOrNode)
             }
             // but, don't disconnect the main output!
             // faderNode stays plugged in

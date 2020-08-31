@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         }
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.defaultToSpeaker = true
 

@@ -27,7 +27,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.black
@@ -49,7 +49,7 @@ class ViewController: NSViewController {
             self.record()
         }
 
-        AKLog(AKSettings.audioFormat, "inputNode:", AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate)
+        AKLog(AKSettings.audioFormat, "inputNode:", engine.inputNode.outputFormat(forBus: 0).sampleRate)
 
         // Patching
         inputPlot.node = mic

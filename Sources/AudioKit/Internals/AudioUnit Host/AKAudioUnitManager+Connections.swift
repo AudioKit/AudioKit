@@ -2,8 +2,6 @@
 
 import Foundation
 
-// TODO This contained references to AKManager that should be converted to AKEngine
-
 /// Effects Chain management
 extension AKAudioUnitManager {
     /// Create the Audio Unit at the specified index of the chain
@@ -55,8 +53,8 @@ extension AKAudioUnitManager {
             // AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
             if au.engine != nil {
-                AKManager.engine.disconnectNodeInput(au)
-                AKManager.engine.detach(au)
+//                engine.disconnectNodeInput(au)
+//                engine.detach(au)
             }
         }
         _effectsChain[index] = nil
@@ -72,8 +70,8 @@ extension AKAudioUnitManager {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
                 if au.engine != nil {
-                    AKManager.engine.disconnectNodeInput(au)
-                    AKManager.engine.detach(au)
+//                    engine.disconnectNodeInput(au)
+//                    engine.detach(au)
                 }
                 _effectsChain[i] = nil
             }

@@ -33,7 +33,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.audioInputEnabled = true
         mic! >>> mixer
