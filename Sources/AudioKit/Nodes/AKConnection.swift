@@ -9,9 +9,9 @@ import AVFoundation
 /// A transitory used to pass connection information.
 open class AKInputConnection: NSObject {
 
-    open var node: AKInput
+    open var node: AKInputCrap
     open var bus: Int
-    public init(node: AKInput, bus: Int) {
+    public init(node: AKInputCrap, bus: Int) {
         self.node = node
         self.bus = bus
         super.init()
@@ -43,37 +43,37 @@ extension AKOutput {
 
     /// Breaks connection from outputNode to an input's node if exists.
     ///   - Parameter from: The node that output will disconnect from.
-    public func disconnectOutput(from: AKInput) {
+    public func disconnectOutput(from: AKInputCrap) {
         connectionPoints = connectionPoints.filter({ $0.node != from.inputNode })
     }
 
     /// Add a connection to an input using the input's nextInput for the bus.
-    @discardableResult public func connect(to node: AKInput) -> AKInput {
+    @discardableResult public func connect(to node: AKInputCrap) -> AKInputCrap {
         return connect(to: node, bus: node.nextInput.bus)
     }
 
     /// Add a connection to input.node on input.bus.
     ///   - Parameter input: Contains node and input bus used to make a connection.
-    @discardableResult public func connect(to input: AKInputConnection) -> AKInput {
+    @discardableResult public func connect(to input: AKInputConnection) -> AKInputCrap {
         return connect(to: input.node, bus: input.bus)
     }
 
     /// Add a connection to node on a specific bus.
-    @discardableResult public func connect(to node: AKInput, bus: Int) -> AKInput {
+    @discardableResult public func connect(to node: AKInputCrap, bus: Int) -> AKInputCrap {
         connectionPoints.append(AVAudioConnectionPoint(node: node.inputNode, bus: bus))
         return node
     }
 
     /// Add an output connection to each input in inputs.
     ///   - Parameter nodes: Inputs that will be connected to.
-    @discardableResult public func connect(to nodes: [AKInput]) -> [AKInput] {
+    @discardableResult public func connect(to nodes: [AKInputCrap]) -> [AKInputCrap] {
         connectionPoints += nodes.map { $0.nextInput }.map { $0.avConnection }
         return nodes
     }
 
     /// Add an output connection to each connectionPoint in toInputs.
     ///   - Parameter toInputs: Inputs that will be connected to.
-    @discardableResult public func connect(toInputs: [AKInputConnection]) -> [AKInput] {
+    @discardableResult public func connect(toInputs: [AKInputConnection]) -> [AKInputCrap] {
         connectionPoints += toInputs.map { $0.avConnection }
         return toInputs.map { $0.node }
     }
@@ -86,7 +86,7 @@ extension AKOutput {
 
     /// Sets output connection, removes existing output connections.
     ///   - Parameter node: Input that output will be connected to.
-    @discardableResult public func setOutput(to node: AKInput) -> AKInput {
+    @discardableResult public func setOutput(to node: AKInputCrap) -> AKInputCrap {
         return setOutput(to: node, bus: node.nextInput.bus, format: AKSettings.audioFormat)
     }
 
@@ -94,7 +94,7 @@ extension AKOutput {
     ///   - Parameter node: Input that output will be connected to.
     ///   - Parameter bus: The bus on the input that the output will connect to.
     ///   - Parameter format: The format of the connection.
-    @discardableResult public func setOutput(to node: AKInput, bus: Int, format: AVAudioFormat?) -> AKInput {
+    @discardableResult public func setOutput(to node: AKInputCrap, bus: Int, format: AVAudioFormat?) -> AKInputCrap {
         AKManager.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
         return node
     }
@@ -102,14 +102,14 @@ extension AKOutput {
     /// Sets output connections to an array of inputs, removes previously existing output connections.
     ///   - Parameter nodes: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
-    @discardableResult public func setOutput(to nodes: [AKInput], format: AVAudioFormat?) -> [AKInput] {
+    @discardableResult public func setOutput(to nodes: [AKInputCrap], format: AVAudioFormat?) -> [AKInputCrap] {
         setOutput(to: nodes.map { $0.nextInput.avConnection }, format: format)
         return nodes
     }
 
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
-    @discardableResult public func setOutput(toInputs: [AKInputConnection]) -> [AKInput] {
+    @discardableResult public func setOutput(toInputs: [AKInputConnection]) -> [AKInputCrap] {
         return setOutput(toInputs: toInputs, format: AKSettings.audioFormat)
     }
 
@@ -117,7 +117,7 @@ extension AKOutput {
     ///   - Parameter toInputs: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
     ///  - returns: Array of input connections
-    @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInput] {
+    @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInputCrap] {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }
     }
@@ -145,7 +145,7 @@ extension AKOutput {
 }
 
 /// Manages connections to inputNode.
-public protocol AKInput: AKOutput {
+public protocol AKInputCrap: AKOutput {
 
     /// The node that an output's node can connect to.  Default implementation will return outputNode.
     var inputNode: AVAudioNode { get }
@@ -167,7 +167,7 @@ public protocol AKInput: AKOutput {
     func input(_ bus: Int) -> AKInputConnection
 }
 
-extension AKInput {
+extension AKInputCrap {
     public var inputNode: AVAudioNode {
         return outputNode
     }
@@ -190,33 +190,9 @@ extension AKInput {
 
 }
 
-extension AVAudioNode: AKInput {
+extension AVAudioNode: AKInputCrap {
     public var outputNode: AVAudioNode {
         return self
     }
 }
 
-// Set output connection(s)
-infix operator >>>: AdditionPrecedence
-
-@discardableResult public func >>> (left: AKOutput, right: AKInput) -> AKInput {
-    return left.connect(to: right)
-}
-@discardableResult public func >>> (left: AKOutput, right: [AKInput]) -> [AKInput] {
-    return left.connect(to: right)
-}
-@discardableResult public func >>> (left: [AKOutput], right: AKInput) -> AKInput {
-    for node in left {
-        node.connect(to: right)
-    }
-    return right
-}
-@discardableResult public func >>> (left: AKOutput, right: AKInputConnection) -> AKInput {
-    return left.connect(to: right.node, bus: right.bus)
-}
-@discardableResult public func >>> (left: AKOutput, right: [AKInputConnection]) -> [AKInput] {
-    return left.connect(toInputs: right)
-}
-public func >>> (left: AKOutput, right: AVAudioConnectionPoint) {
-    return left.connect(to: right)
-}
