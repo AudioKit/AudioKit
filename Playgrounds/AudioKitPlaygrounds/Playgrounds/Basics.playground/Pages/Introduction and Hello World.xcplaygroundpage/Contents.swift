@@ -17,8 +17,8 @@ import AudioKit
 
 let oscillator = AKOscillator()
 
-AKManager.output = oscillator
-try AKManager.start()
+engine.output = oscillator
+try engine.start()
 
 oscillator.start()
 

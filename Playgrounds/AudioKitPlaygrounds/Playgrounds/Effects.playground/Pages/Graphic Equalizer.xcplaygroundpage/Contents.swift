@@ -15,8 +15,8 @@ let filterBand5 = AKEqualizerFilter(filterBand4, centerFrequency: 250, bandwidth
 let filterBand6 = AKEqualizerFilter(filterBand5, centerFrequency: 500, bandwidth: 562, gain: 1.0)
 let filterBand7 = AKEqualizerFilter(filterBand6, centerFrequency: 1_000, bandwidth: 1_112, gain: 1.0)
 
-AKManager.output = filterBand7
-try AKManager.start()
+engine.output = filterBand7
+try engine.start()
 player.play()
 
 //: User Interface Set up

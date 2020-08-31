@@ -15,8 +15,8 @@ timePitch.rate = 2.0
 timePitch.pitch = -400.0
 timePitch.overlap = 8.0
 
-AKManager.output = timePitch
-try AKManager.start()
+engine.output = timePitch
+try engine.start()
 player.play()
 
 //: User Interface Set up

@@ -39,8 +39,8 @@ clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 10)
 sequencer.setTempo(tempo)
 
 //: We must link the clock's output to AudioKit (even if we don't need the sound)
-AKManager.output = callbacker
-try AKManager.start()
+engine.output = callbacker
+try engine.start()
 
 //: Also note that when deploying this approach to an app, make sure to
 //: enable "Background Modes - Audio" otherwise it won't work.

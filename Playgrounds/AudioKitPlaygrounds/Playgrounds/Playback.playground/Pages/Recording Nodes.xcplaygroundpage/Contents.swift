@@ -31,9 +31,9 @@ let mixer = AKMixer(player, reverb)
 //: node to "reverb" if you prefer to record a "wet" oscillator...
 let recorder = try AKNodeRecorder(node: mixer, file: tape)
 
-AKManager.output = mixer
+engine.output = mixer
 
-try AKManager.start()
+try engine.start()
 
 //: Build our User interface
 import AudioKitUI

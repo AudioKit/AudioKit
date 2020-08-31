@@ -13,8 +13,8 @@ stringResonator.feedback = 0.9
 stringResonator.fundamentalFrequency = 1_000
 stringResonator.rampDuration = 0.1
 
-AKManager.output = stringResonator
-try AKManager.start()
+engine.output = stringResonator
+try engine.start()
 
 player.play()
 

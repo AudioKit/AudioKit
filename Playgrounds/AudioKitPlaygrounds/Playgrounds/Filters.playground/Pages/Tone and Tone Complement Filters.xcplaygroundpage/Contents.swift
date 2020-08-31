@@ -11,8 +11,8 @@ player.looping = true
 var toneFilter = AKToneFilter(player)
 var toneComplement = AKToneComplementFilter(toneFilter)
 
-AKManager.output = toneComplement
-try AKManager.start()
+engine.output = toneComplement
+try engine.start()
 
 player.play()
 

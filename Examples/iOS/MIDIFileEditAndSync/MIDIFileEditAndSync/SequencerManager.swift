@@ -23,12 +23,12 @@ class SequencerManager {
         node = AKMIDINode(node: oscBank)
         seq?.setGlobalMIDIOutput(node.midiIn)
         oscBank >>> mixer
-        AKManager.output = mixer
+        engine.output = mixer
     }
 
     fileprivate func startAudioKit() {
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("Couldn't start AudioKit")
         }

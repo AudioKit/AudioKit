@@ -42,12 +42,6 @@ public class AKManager: NSObject {
 
     internal static var _engine = AVAudioEngine()
 
-    /// Reference to singleton MIDI
-
-    #if !os(tvOS)
-    public static let midi = AKMIDI()
-    #endif
-
     /// internalConnections are used for not-strictly audio processing nodes that need
     /// a mechanism to pull samples (ie. the sequencer)
     static var internalConnections: [AKNode] = []

@@ -69,9 +69,9 @@ class ViewController: UIViewController {
 
         mainMixer = AKMixer(moogLadder, micBooster)
 
-        AKManager.output = mainMixer
+        engine.output = mainMixer
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

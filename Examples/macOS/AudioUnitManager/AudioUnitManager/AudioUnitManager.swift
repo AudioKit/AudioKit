@@ -99,7 +99,7 @@ class AudioUnitManager: NSViewController {
                                                object: nil)
         let mainOutput = AKMixer()
         mixer.connect(to: mainOutput)
-        AKManager.output = mainOutput
+        engine.output = mainOutput
 
         initManager()
         initMIDI()
@@ -111,7 +111,7 @@ class AudioUnitManager: NSViewController {
 
         if !AKManager.engine.isRunning {
             do {
-                try AKManager.start()
+                try engine.start()
             } catch {
                 AKLog("AudioKit did not start!")
             }
@@ -304,7 +304,7 @@ extension AudioUnitManager: NSWindowDelegate {
             if w == view.window {
                 internalManager.reset()
                 do {
-                    try AKManager.stop()
+                    try engine.stop()
                 } catch {
                     AKLog("AudioKit did not stop!")
                 }

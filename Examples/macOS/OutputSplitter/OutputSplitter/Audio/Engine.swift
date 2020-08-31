@@ -79,9 +79,9 @@ class Engine {
         sink = AKBooster(renderer, gain: 0)
 
         // Set output Node and start Engine
-        AKManager.output = sink
+        engine.output = sink
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

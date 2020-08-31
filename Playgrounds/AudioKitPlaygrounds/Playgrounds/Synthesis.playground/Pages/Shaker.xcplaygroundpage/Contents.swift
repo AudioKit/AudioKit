@@ -19,8 +19,8 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     shaker.trigger(amplitude: random(in: 0...1))
 }
 
-AKManager.output = reverb
-try AKManager.start(withPeriodicFunctions: performance)
+engine.output = reverb
+try engine.start(withPeriodicFunctions: performance)
 performance.start()
 
 import PlaygroundSupport

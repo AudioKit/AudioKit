@@ -13,8 +13,8 @@ var wah = AKAutoWah(player)
 wah.wah = 1
 wah.amplitude = 1
 
-AKManager.output = wah
-try AKManager.start()
+engine.output = wah
+try engine.start()
 
 player.play()
 

@@ -11,8 +11,8 @@ player.looping = true
 
 var expander = AKExpander(player)
 
-AKManager.output = expander
-try AKManager.start()
+engine.output = expander
+try engine.start()
 
 player.play()
 

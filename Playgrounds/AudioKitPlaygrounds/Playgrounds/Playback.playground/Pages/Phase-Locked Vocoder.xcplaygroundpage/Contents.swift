@@ -6,8 +6,8 @@ import AudioKit
 let file = try AKAudioFile(readFileName: "guitarloop.wav")
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
-AKManager.output = phaseLockedVocoder
-try AKManager.start()
+engine.output = phaseLockedVocoder
+try engine.start()
 phaseLockedVocoder.start()
 phaseLockedVocoder.amplitude = 1
 phaseLockedVocoder.pitchRatio = 1

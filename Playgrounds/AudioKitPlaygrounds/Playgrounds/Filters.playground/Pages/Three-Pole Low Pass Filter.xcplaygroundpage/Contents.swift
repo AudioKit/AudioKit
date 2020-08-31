@@ -13,8 +13,8 @@ filter.cutoffFrequency = 300 // Hz
 filter.resonance = 0.6
 filter.rampDuration = 0.1
 
-AKManager.output = filter
-try AKManager.start()
+engine.output = filter
+try engine.start()
 
 player.play()
 

@@ -11,8 +11,8 @@ player.looping = true
 var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 reverb.reverbDuration = 1
 
-AKManager.output = reverb
-try AKManager.start()
+engine.output = reverb
+try engine.start()
 player.play()
 
 //: User Interface Set up

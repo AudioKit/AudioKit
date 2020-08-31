@@ -20,8 +20,8 @@ var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6
 
-AKManager.output = moogLadder
-try AKManager.start()
+engine.output = moogLadder
+try engine.start()
 
 player.play()
 

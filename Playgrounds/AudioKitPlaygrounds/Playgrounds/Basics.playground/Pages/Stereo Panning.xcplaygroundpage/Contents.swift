@@ -25,8 +25,8 @@ let timer = AKPeriodicFunction(every: timeStep) {
     time += timeStep
 }
 
-AKManager.output = panner
-try AKManager.start(withPeriodicFunctions: timer)
+engine.output = panner
+try engine.start(withPeriodicFunctions: timer)
 
 player.play()
 timer.start()

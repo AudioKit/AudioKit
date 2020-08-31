@@ -73,7 +73,7 @@ extension AudioUnitManager {
 
     /// open an audio URL for playing
     func open(url: URL) {
-        try? AKManager.stop()
+        try? engine.stop()
         handlePlay(state: false)
 
         if player == nil {

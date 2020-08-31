@@ -16,8 +16,8 @@ decimator.decimation = 0.5 // Normalized Value 0 - 1
 decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
 
-AKManager.output = decimator
-try AKManager.start()
+engine.output = decimator
+try engine.start()
 player.play()
 
 //: User Interface Set up

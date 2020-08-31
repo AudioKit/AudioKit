@@ -11,8 +11,8 @@ player.looping = true
 
 var compressor = AKCompressor(player)
 
-AKManager.output = compressor
-try AKManager.start()
+engine.output = compressor
+try engine.start()
 
 player.play()
 
