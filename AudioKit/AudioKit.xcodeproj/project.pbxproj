@@ -5282,8 +5282,8 @@
 			isa = PBXGroup;
 			children = (
 				B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */,
-				B1341D1624FD6DD600D4E7AE /* AKAudioUnitManager+Connections.swift */,
 				B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */,
+				B1341D1624FD6DD600D4E7AE /* AKAudioUnitManager+Connections.swift */,
 				C42371EE20A7F5CB00507E72 /* AKAudioUnitManager+Utilities.swift */,
 			);
 			name = "AudioUnit Hosting";
