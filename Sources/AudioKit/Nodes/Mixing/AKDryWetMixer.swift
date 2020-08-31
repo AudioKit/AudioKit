@@ -5,7 +5,7 @@ import AVFoundation
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
 public class AKDryWetMixer: AKNode2 {
-    fileprivate let mixer = AKMixer2()
+    fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
     public var balance: Double = 0.5 {
