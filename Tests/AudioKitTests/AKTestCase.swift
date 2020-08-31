@@ -11,7 +11,7 @@ class AKTestCase: XCTestCase {
     var output: AKNode2?
 
     let engine = AKEngine()
-    var input = AKOscillator2()
+    var input = AKOscillator()
 
     var afterStart: () -> Void = {}
     var afterSetOutput: () -> Void = {}

@@ -3,8 +3,8 @@
 import AudioKit
 
 class AKDryWetMixerTests: AKTestCase {
-    let input1 = AKOscillator2()
-    let input2 = AKOscillator2(frequency: 1280)
+    let input1 = AKOscillator()
+    let input2 = AKOscillator(frequency: 1280)
 
     func testDefault() {
 

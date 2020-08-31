@@ -33,7 +33,7 @@ class AKBoosterTests: AKTestCase {
         let url = desktop.appendingPathComponent("TestOutput.aif")
         let settings: [String: Any] = [AVSampleRateKey: 44_100.0, AVNumberOfChannelsKey: 2]
         let audioFile = try! AVAudioFile(forWriting: url, settings: settings)
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let booster = AKBooster(osc, gain: 1.0)
         booster.rampDuration = 1
         booster.leftGain = 0.0
