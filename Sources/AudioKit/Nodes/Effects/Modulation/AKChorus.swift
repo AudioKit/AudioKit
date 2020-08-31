@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKChorus: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
@@ -107,8 +107,10 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

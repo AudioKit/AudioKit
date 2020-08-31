@@ -4,7 +4,7 @@ import AudioKit
 
 extension AudioUnitManager: AKMIDIListener {
     internal func initMIDI() {
-        midiManager = AKManager.midi
+        midiManager = AKMIDI()
         midiManager?.addListener(self)
         initMIDIDevices()
     }

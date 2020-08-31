@@ -66,9 +66,9 @@ class ViewController: UIViewController {
         self.player = player
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
-        AKManager.output = mixer
+        engine.output = mixer
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

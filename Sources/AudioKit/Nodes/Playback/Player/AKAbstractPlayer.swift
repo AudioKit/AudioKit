@@ -95,9 +95,9 @@ open class AKAbstractPlayer: AKNode {
     public var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
-            if outputNode.engine?.manualRenderingMode == .offline {
-                return .offline
-            }
+//            if outputNode.engine?.manualRenderingMode == .offline {
+//                return .offline
+//            }
         }
         return .realtime
     }

@@ -9,8 +9,8 @@ protocol InputDeviceDelegate: AnyObject {
 
 class InputDeviceTableViewController: UITableViewController {
 
-    private var currentInputDevice = AKManager.inputDevice
-    private var inputDevices = AKManager.inputDevices ?? []
+    private var currentInputDevice = AKEngine.inputDevice
+    private var inputDevices = AKEngine.inputDevices ?? []
     private let reuseIdentifier = "inputCell"
     weak var settingsDelegate: InputDeviceDelegate?
 

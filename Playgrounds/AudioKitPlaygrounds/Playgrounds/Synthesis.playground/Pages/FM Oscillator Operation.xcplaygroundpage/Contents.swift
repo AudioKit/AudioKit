@@ -29,8 +29,8 @@ let delay1 = AKDelay(generator, time: 0.01, feedback: 0.99, lowPassCutoff: 0, dr
 let delay2 = AKDelay(delay1, time: 0.1, feedback: 0.1, lowPassCutoff: 0, dryWetMix: 0.5)
 let reverb = AKReverb(delay2, dryWetMix: 0.5)
 
-AKManager.output = reverb
-try AKManager.start()
+engine.output = reverb
+try engine.start()
 
 generator.start()
 

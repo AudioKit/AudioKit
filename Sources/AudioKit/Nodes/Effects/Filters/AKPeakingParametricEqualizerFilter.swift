@@ -5,7 +5,7 @@ import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
@@ -91,8 +91,10 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

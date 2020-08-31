@@ -71,8 +71,8 @@ let keypad = AKOperationGenerator { parameters in
     return momentaryPress * 0.4
 }
 
-AKManager.output = AKMixer(dialTone, ringing, busy, keypad)
-try AKManager.start()
+engine.output = AKMixer(dialTone, ringing, busy, keypad)
+try engine.start()
 dialTone.start()
 
 keypad.start()

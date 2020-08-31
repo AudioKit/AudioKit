@@ -335,38 +335,38 @@ extension AKPlayer {
     }
 }
 
-extension AKPlayer: AKTiming {
-    public func start(at audioTime: AVAudioTime?) {
-        play(at: audioTime)
-    }
-
-    public var isStarted: Bool {
-        return isPlaying
-    }
-
-    public func setPosition(_ position: TimeInterval) {
-        startTime = position
-        if isPlaying {
-            stop()
-            play()
-        }
-    }
-
-    public func position(at audioTime: AVAudioTime?) -> TimeInterval {
-        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
-            return startTime
-        }
-        return startTime + TimeInterval(playerTime.sampleTime) / playerTime.sampleRate
-    }
-
-    public func audioTime(at position: TimeInterval) -> AVAudioTime? {
-        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
-        let sampleTime = (position - startTime) * sampleRate
-        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
-        return playerNode.nodeTime(forPlayerTime: playerTime)
-    }
-
-    public func prepare() {
-        preroll(from: startTime, to: endTime)
-    }
-}
+//extension AKPlayer: AKTiming {
+//    public func start(at audioTime: AVAudioTime?) {
+//        play(at: audioTime)
+//    }
+//
+//    public var isStarted: Bool {
+//        return isPlaying
+//    }
+//
+//    public func setPosition(_ position: TimeInterval) {
+//        startTime = position
+//        if isPlaying {
+//            stop()
+//            play()
+//        }
+//    }
+//
+//    public func position(at audioTime: AVAudioTime?) -> TimeInterval {
+//        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
+//            return startTime
+//        }
+//        return startTime + TimeInterval(playerTime.sampleTime) / playerTime.sampleRate
+//    }
+//
+//    public func audioTime(at position: TimeInterval) -> AVAudioTime? {
+//        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
+//        let sampleTime = (position - startTime) * sampleRate
+//        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
+//        return playerNode.nodeTime(forPlayerTime: playerTime)
+//    }
+//
+//    public func prepare() {
+//        preroll(from: startTime, to: endTime)
+//    }
+//}

@@ -48,9 +48,9 @@ class Conductor {
         chorus = AKChorus(flanger)
 
         // Set Output & Start AudioKit
-        AKManager.output = chorus
+        engine.output = chorus
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

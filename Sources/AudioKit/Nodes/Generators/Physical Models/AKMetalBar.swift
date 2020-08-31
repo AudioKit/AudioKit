@@ -158,4 +158,6 @@ public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
     }
+
+    // TODO This node needs to have tests
 }

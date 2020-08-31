@@ -6,9 +6,9 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 ///
-public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKOscillator: AKNode, AKComponent, AKToggleable, AKAutomatable {
 
-    public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
+    public static let ComponentDescription = AudioComponentDescription(generator: "osc2")
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -110,10 +110,13 @@ public class AKOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
-            self.internalAU?.setWavetable(waveform.content)
+            audioUnit.setWavetable(waveform.content)
         }
 
     }

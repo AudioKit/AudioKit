@@ -20,8 +20,8 @@ effect.attackDuration
 effect.releaseDuration
 effect.masterGain
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 //: User Interface Set up

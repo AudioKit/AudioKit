@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
+public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
@@ -235,8 +235,11 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.connect(to: self)
             self.internalAU?.setSporth(sporth)
+        }
+
+        if let input = input {
+            connections.append(input)
         }
     }
 }

@@ -9,7 +9,7 @@ import CAudioKit
 public class AKSynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
-    var filter: AKMoogLadder
+//    var filter: AKMoogLadder
 
     /// Create the synth kick voice
     ///
@@ -22,19 +22,20 @@ public class AKSynthKick: AKMIDIInstrument {
             return AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
         }
 
-        filter = AKMoogLadder(generator)
-        filter.cutoffFrequency = 666
-        filter.resonance = 0.00
+        // TODO FIXME
+//        filter = AKMoogLadder(generator)
+//        filter.cutoffFrequency = 666
+//        filter.resonance = 0.00
 
         super.init(midiInputName: midiInputName)
-        avAudioUnit = filter.avAudioUnit
+//        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-        filter.cutoffFrequency = (AUValue(velocity) / 127.0 * 366.0) + 300.0
-        filter.resonance = 1.0 - AUValue(velocity) / 127.0
+//        filter.cutoffFrequency = (AUValue(velocity) / 127.0 * 366.0) + 300.0
+//        filter.resonance = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
     }
 
@@ -48,7 +49,7 @@ public class AKSynthKick: AKMIDIInstrument {
 public class AKSynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
-    var filter: AKMoogLadder
+//    var filter: AKMoogLadder
     var duration = 0.143
 
     /// Create the synth snare voice
@@ -64,23 +65,23 @@ public class AKSynthSnare: AKMIDIInstrument {
                 duration: duration)
             return AKOperation.whiteNoise(amplitude: volSlide)
         }
-
-        filter = AKMoogLadder(generator)
-        filter.cutoffFrequency = AUValue(1_666)
+// TODO FIXME
+//        filter = AKMoogLadder(generator)
+//        filter.cutoffFrequency = AUValue(1_666)
 
         super.init()
-        avAudioUnit = filter.avAudioUnit
+//        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 
     internal var cutoff: Double = 1_666 {
         didSet {
-            filter.cutoffFrequency = AUValue(cutoff)
+//            filter.cutoffFrequency = AUValue(cutoff)
         }
     }
     internal var resonance: Double = 0.3 {
         didSet {
-            filter.resonance = AUValue(resonance)
+//            filter.resonance = AUValue(resonance)
         }
     }
 

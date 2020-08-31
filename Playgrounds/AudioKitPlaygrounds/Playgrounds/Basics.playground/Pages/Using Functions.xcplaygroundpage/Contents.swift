@@ -21,8 +21,8 @@ let generator = AKOperationGenerator {
     return (drone1 + drone2 + drone3) / 3
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 
 generator.start()
 

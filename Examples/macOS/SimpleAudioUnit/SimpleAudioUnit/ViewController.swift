@@ -22,7 +22,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AKManager.output = mixer
+        engine.output = mixer
 
         guard let url = Bundle.main.resourceURL?.appendingPathComponent("Organ.wav"),
             FileManager.default.fileExists(atPath: url.path),
@@ -36,7 +36,7 @@ class ViewController: NSViewController {
         player?.buffering = .always
 
         do {
-            try AKManager.start()
+            try engine.start()
         } catch let error as NSError {
             AKLog(error.localizedDescription)
             return
@@ -84,10 +84,10 @@ class ViewController: NSViewController {
         let processingFormat = player.avAudioNode.outputFormat(forBus: 0)
 
         // connect the player to the delay
-        AKManager.connect(player.avAudioNode, to: avUnit, format: processingFormat)
+        engine.connect(player.avAudioNode, to: avUnit, format: processingFormat)
 
         // connect the delay to the mixer
-        AKManager.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
+        engine.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
 
         // ask the audio unit for a view controller, if it is an AU with no UI this will return nil
         // it's the job of the host to then create an interface. See the AudioUnitManager example.

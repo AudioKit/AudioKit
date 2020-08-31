@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Panner
 ///
-public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPanner: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
@@ -61,8 +61,10 @@ public class AKPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

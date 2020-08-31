@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
@@ -106,8 +106,10 @@ public class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput, AKAut
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

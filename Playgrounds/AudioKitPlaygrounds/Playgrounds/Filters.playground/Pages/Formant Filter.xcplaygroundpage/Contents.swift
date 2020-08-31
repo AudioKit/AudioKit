@@ -8,8 +8,8 @@ osc.pulseWidth = 0.1
 
 var filter = AKFormantFilter(osc)
 
-AKManager.output = filter
-try AKManager.start()
+engine.output = filter
+try engine.start()
 osc.play()
 
 //: User Interface Set up

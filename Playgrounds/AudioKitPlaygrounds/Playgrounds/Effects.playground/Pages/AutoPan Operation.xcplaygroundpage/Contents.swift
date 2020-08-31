@@ -31,8 +31,8 @@ let effect = AKOperationEffect(player) { input, parameters in
 }
 
 effect.parameters = [10, 1]
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 import AudioKitUI

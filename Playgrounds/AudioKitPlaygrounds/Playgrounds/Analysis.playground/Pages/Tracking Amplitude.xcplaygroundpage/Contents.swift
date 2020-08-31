@@ -18,8 +18,8 @@ let oscillatorNode = AKOperationGenerator {
 }
 
 let trackedAmplitude = AKAmplitudeTap(oscillatorNode)
-AKManager.output = trackedAmplitude
-try AKManager.start()
+engine.output = trackedAmplitude
+try engine.start()
 oscillatorNode.start()
 trackedAmplitude.start()
 

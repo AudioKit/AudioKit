@@ -20,7 +20,6 @@ extension AUEffect {
     }
 }
 
-/// Helpful in reducing repetitive code in AudioKit
 public protocol AKComponent: AUComponent {
     associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
     var internalAU: AKAudioUnitType? { get }
@@ -39,7 +38,6 @@ extension AKComponent {
             guard let au = avAudioUnit else {
                 fatalError("Unable to instantiate AVAudioUnit")
             }
-            AKManager.engine.attach(au)
             callback(au)
         }
     }

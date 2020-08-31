@@ -29,6 +29,7 @@ public:
         parameters[AKOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[AKOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         isStarted = false;
+        inputBufferLists.clear(); // Shouldn't have an input bus.
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

@@ -11,8 +11,8 @@ player.looping = true
 var reverb = AKReverb(player)
 reverb.dryWetMix = 0.5
 
-AKManager.output = reverb
-try AKManager.start()
+engine.output = reverb
+try engine.start()
 
 player.play()
 
