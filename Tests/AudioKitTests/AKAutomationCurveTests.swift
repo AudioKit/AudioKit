@@ -5,7 +5,7 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKAutomationCurveTests: AKTestCase {
+class AKAutomationCurveTests: XCTestCase {
 
     typealias Point = AKParameterAutomationPoint
 

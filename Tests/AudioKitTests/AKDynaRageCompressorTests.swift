@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-// XXX: Test was left out of old test suite.
+// TODO: Test was left out of old test suite.
 #if false
 
 class AKDynaRangeCompressorTests: AKTestCase {
