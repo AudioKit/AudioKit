@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class AKTimePitch: AKNode, AKToggleable, AKInput {
+public class AKTimePitch: AKNode2, AKToggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
@@ -47,7 +47,7 @@ public class AKTimePitch: AKNode, AKToggleable, AKInput {
     ///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         rate: AUValue = 1.0,
         pitch: AUValue = 0.0,
         overlap: AUValue = 8.0) {
@@ -59,8 +59,10 @@ public class AKTimePitch: AKNode, AKToggleable, AKInput {
         super.init(avAudioNode: AVAudioNode())
         avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
-        AKManager.engine.attach(avAudioUnitOrNode)
-        input?.connect(to: self)
+
+        if let input = input {
+            connections.append(input)
+        }
     }
 
     /// Function to start, play, or activate the node, all do the same thing

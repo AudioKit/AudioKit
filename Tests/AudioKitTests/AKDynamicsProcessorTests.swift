@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDynamicsProcessorTests: AKTestCase {
+class AKDynamicsProcessorTests: AKTestCase2 {
 
     func testDefault() {
         output = AKDynamicsProcessor(input)

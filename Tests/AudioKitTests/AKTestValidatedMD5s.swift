@@ -103,7 +103,7 @@ let validatedMD5s = [
     "-[AKEqualizerFilterTests testDefault]": "9ae09de062c903829560a4d2c3a21ef0",
     "-[AKEqualizerFilterTests testGain]": "624f8a68d8df7f2f0d2ac3b525e49be6",
     "-[AKEqualizerFilterTests testParameters]": "119f7097a05d378fc74da0b9680b405a",
-    "-[AKExpanderTests testDefault]": "8c982ba0f104fa61e8b03a9fd47f3e62",
+    "-[AKExpanderTests testDefault]": "16b3a9a955158cade35c2e0e4b9bd072",
     "-[AKFMOscillatorTests testDefault]": "0823d3ff0f613917b5dc47ffe9d61439",
     "-[AKFMOscillatorTests testParametersSetAfterInit]": "8387b7242dbb91c0a1f397a9bb9f2b06",
     "-[AKFMOscillatorTests testParametersSetOnInit]": "8387b7242dbb91c0a1f397a9bb9f2b06",

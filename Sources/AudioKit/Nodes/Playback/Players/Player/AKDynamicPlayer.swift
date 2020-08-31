@@ -74,7 +74,7 @@ public class AKDynamicPlayer: AKPlayer {
             if timePitchNode.avAudioNode.engine == nil {
                 AKManager.engine.attach(timePitchNode.avAudioNode)
             } else {
-                timePitchNode.disconnectOutput()
+                timePitchNode.detach()
             }
         }
         super.initialize(restartIfPlaying: restartIfPlaying)
@@ -128,7 +128,7 @@ public class AKDynamicPlayer: AKPlayer {
         guard timePitchNode != nil else { return }
         let wasPlaying = isPlaying
         stop()
-        timePitchNode?.disconnectOutput()
+        timePitchNode?.detach()
         timePitchNode = nil
         initialize()
         if wasPlaying {
