@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Audio from the standard input
-public class AKMicrophone: AKNode, AKToggleable {
+public class AKMicrophone: AKNode2, AKToggleable {
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)

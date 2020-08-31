@@ -18,7 +18,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    internal func setupNode(_ input: AKNode?) {
+    internal func setupNode(_ input: AKNode2?) {
         if isNotConnected {
             input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
@@ -72,7 +72,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     /// The node whose output to graph
     ///
     /// Defaults to AKManager.output
-    open var node: AKNode? {
+    open var node: AKNode2? {
         willSet {
             pause()
         }
@@ -100,7 +100,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(AKManager.output)
+//        setupNode(AKManager.output)
         setupReconnection()
     }
 
@@ -111,7 +111,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode2? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

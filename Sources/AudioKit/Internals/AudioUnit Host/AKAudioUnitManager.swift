@@ -36,10 +36,10 @@ open class AKAudioUnitManager: NSObject {
     }
 
     /// first node in chain, generally a player or instrument
-    public var input: AKNode?
+    public var input: AKNode2?
 
     /// last node in chain, generally a mixer or some kind of output
-    public var output: AKNode?
+    public var output: AKNode2?
 
     /// if true, it will use AKSettings.audioFormat rather than the input source for the internal processing chain
     public var useSystemAVFormat: Bool = false

@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Schedules multiple audio files to be played in a sequence.
-public class AKClipPlayer: AKNode {
+public class AKClipPlayer: AKNode2 {
 
     private var timeAtStart: Double = 0
 
@@ -113,7 +113,7 @@ public class AKClipPlayer: AKNode {
         AKManager.engine.attach(playerNode)
         AKManager.engine.attach(mixer)
         AKManager.engine.connect(playerNode, to: mixer)
-        super.init(avAudioNode: mixer, attach: false)
+        super.init(avAudioNode: mixer)
 
         if let clips = clips {
             self.clips = clips

@@ -7,7 +7,7 @@ open class AKNodeRecorder: NSObject {
     // MARK: - Properties
 
     // The node we record from
-    public private(set) var node: AKNode?
+    public private(set) var node: AKNode2?
 
     /// True if we are recording.
     public private(set) var isRecording = false
@@ -64,7 +64,7 @@ open class AKNodeRecorder: NSObject {
     ///   - file: Audio file to record to
     ///   - bus: Integer index of the bus to use
     ///
-    public init(node: AKNode? = AKManager.output,
+    public init(node: AKNode2,
                 file: AVAudioFile? = AKNodeRecorder.createTempFile(),
                 bus: Int = 0) throws {
         super.init()
