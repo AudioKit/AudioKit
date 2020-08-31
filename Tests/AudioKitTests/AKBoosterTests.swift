@@ -27,25 +27,4 @@ class AKBoosterTests: AKTestCase {
         AKTest()
     }
 
-    #if os(macOS)
-    func testRamp() {
-        let desktop = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
-        let url = desktop.appendingPathComponent("TestOutput.aif")
-        let settings: [String: Any] = [AVSampleRateKey: 44_100.0, AVNumberOfChannelsKey: 2]
-        let audioFile = try! AVAudioFile(forWriting: url, settings: settings)
-        let osc = AKOscillator()
-        let booster = AKBooster(osc, gain: 1.0)
-        booster.rampDuration = 1
-        booster.leftGain = 0.0
-        booster.rightGain = 0.0
-        osc >>> booster
-        output = booster
-
-        // TODO, is this testing anything?
-//        try! AKEngine.renderToFile(audioFile, duration: 4, prerender: {
-//            osc.start()
-//        })
-    }
-    #endif
-
 }

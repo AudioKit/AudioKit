@@ -254,4 +254,74 @@ public class AKEngine {
         #endif
     }
 
+    /// The current input device, if available.
+    ///
+    /// Note that on macOS, this will always be the same as `outputDevice`
+    public var inputDevice: AKDevice? {
+        #if os(macOS)
+        return AKDevice(deviceID: avEngine.getDevice())
+        #else
+        if let portDescription = AVAudioSession.sharedInstance().preferredInput {
+            return AKDevice(portDescription: portDescription)
+        } else {
+            let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
+            if inputDevices.isNotEmpty {
+                for device in inputDevices {
+                    return AKDevice(portDescription: device)
+                }
+            }
+        }
+        return nil
+        #endif
+    }
+
+    /// The current output device, if available.
+    ///
+    /// Note that on macOS, this will always be the same as `inputDevice`
+    public var outputDevice: AKDevice? {
+        #if os(macOS)
+        return AKDevice(deviceID: avEngine.getDevice())
+        #else
+        let devs = AVAudioSession.sharedInstance().currentRoute.outputs
+        if devs.isNotEmpty {
+            return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+        }
+        return nil
+        #endif
+    }
+
+
+    /// Change the preferred output device, giving it one of the names from the list of available output.
+    public func setOutputDevice(_ output: AKDevice) throws {
+        #if os(macOS)
+        avEngine.setDevice(id: output.deviceID)
+        #endif
+    }
+
+    // TODO write a test for render to file
+
+    /// Render output to an AVAudioFile for a duration.
+    ///
+    /// NOTE: This will NOT render sequencer content;
+    /// MIDI content will need to be recorded in real time
+    ///
+    ///     - Parameters:
+    ///         - audioFile: A file initialized for writing
+    ///         - duration: Duration to render, in seconds
+    ///         - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
+    ///         - progress: Closure called while rendering, use this to fetch render progress
+    ///
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
+    public func renderToFile(_ audioFile: AVAudioFile,
+                             maximumFrameCount: AVAudioFrameCount = 4_096,
+                             duration: Double,
+                             prerender: (() -> Void)? = nil,
+                             progress: ((Double) -> Void)? = nil) throws {
+
+        try avEngine.renderToFile(audioFile,
+                                  maximumFrameCount: maximumFrameCount,
+                                  duration: duration,
+                                  prerender: prerender,
+                                  progress: progress)
+    }
 }
