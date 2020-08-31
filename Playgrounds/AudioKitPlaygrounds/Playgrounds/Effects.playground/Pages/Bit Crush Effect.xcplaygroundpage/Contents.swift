@@ -20,8 +20,8 @@ var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3_333
 
-AKManager.output = bitcrusher
-try AKManager.start()
+engine.output = bitcrusher
+try engine.start()
 
 player.play()
 

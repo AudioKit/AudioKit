@@ -5,7 +5,7 @@ import UIKit
 
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: UITextView!
-    var midi = AKManager.midi
+    var midi = AKMIDI()
     var senderVC: MIDISenderVC?
 
     override func viewDidLoad() {

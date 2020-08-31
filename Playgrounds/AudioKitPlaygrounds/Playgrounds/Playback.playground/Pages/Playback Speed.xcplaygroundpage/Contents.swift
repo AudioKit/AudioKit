@@ -12,8 +12,8 @@ player.looping = true
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0
 
-AKManager.output = variSpeed
-try AKManager.start()
+engine.output = variSpeed
+try engine.start()
 player.play()
 
 //: User Interface Set up

@@ -20,8 +20,8 @@ let generator = AKOperationGenerator(channelCount: 2) { _ in
     return [leftOutput, rightOutput]
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 generator.start()
 
 import PlaygroundSupport

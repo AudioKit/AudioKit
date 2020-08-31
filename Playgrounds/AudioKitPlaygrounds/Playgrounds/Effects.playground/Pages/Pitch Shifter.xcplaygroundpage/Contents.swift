@@ -12,8 +12,8 @@ player.looping = true
 
 var pitchshifter = AKPitchShifter(player)
 
-AKManager.output = pitchshifter
-try AKManager.start()
+engine.output = pitchshifter
+try engine.start()
 player.play()
 
 //: User Interface Set up

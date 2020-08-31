@@ -10,8 +10,8 @@ let samplePlayer = AKSamplePlayer(file: file) {
     AKLog("Playback completed.")
 }
 
-AKManager.output = samplePlayer
-try AKManager.start()
+engine.output = samplePlayer
+try engine.start()
 
 import AudioKitUI
 

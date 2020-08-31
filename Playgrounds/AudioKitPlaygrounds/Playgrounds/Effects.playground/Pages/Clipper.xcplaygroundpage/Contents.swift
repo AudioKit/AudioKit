@@ -12,8 +12,8 @@ player.looping = true
 var clipper = AKClipper(player)
 clipper.limit = 0.1
 
-AKManager.output = clipper
-try AKManager.start()
+engine.output = clipper
+try engine.start()
 
 player.play()
 

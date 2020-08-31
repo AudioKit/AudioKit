@@ -13,8 +13,8 @@ reverb.loadFactoryPreset(.largeRoom)
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
-AKManager.output = mixer
-try AKManager.start()
+engine.output = mixer
+try engine.start()
 
 enum Key {
     case C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B

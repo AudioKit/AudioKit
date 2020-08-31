@@ -14,8 +14,8 @@ ringModulator.frequency2 = 660 // Hz
 ringModulator.balance = 0.5
 ringModulator.mix = 0.5
 
-AKManager.output = ringModulator
-try AKManager.start()
+engine.output = ringModulator
+try engine.start()
 player.play()
 
 //: User Interface Set up

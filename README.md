@@ -51,8 +51,8 @@ For Hello World, you only need to understand a few lines of code:
 | Code                                           | Description                  |
 |------------------------------------------------|------------------------------|
 | `var oscillator = AKOscillator()`              | Create the sound generator   |
-| `AKManager.output = oscillator`                | Tell AudioKit what to output |
-| `AKManager.start()`                            | Start up AudioKit            |
+| `engine.output = oscillator`                | Tell AudioKit what to output |
+| `engine.start()`                            | Start up AudioKit            |
 | `oscillator.start()`                           | Start the oscillator         |
 | `oscillator.frequency = random(in: 220...880)` | Set oscillator parameters    |
 | `oscillator.stop()`                            | Stop the oscillator          |

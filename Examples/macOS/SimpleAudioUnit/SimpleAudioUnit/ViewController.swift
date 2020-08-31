@@ -22,7 +22,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AKManager.output = mixer
+        engine.output = mixer
 
         guard let url = Bundle.main.resourceURL?.appendingPathComponent("Organ.wav"),
             FileManager.default.fileExists(atPath: url.path),
@@ -36,7 +36,7 @@ class ViewController: NSViewController {
         player?.buffering = .always
 
         do {
-            try AKManager.start()
+            try engine.start()
         } catch let error as NSError {
             AKLog(error.localizedDescription)
             return

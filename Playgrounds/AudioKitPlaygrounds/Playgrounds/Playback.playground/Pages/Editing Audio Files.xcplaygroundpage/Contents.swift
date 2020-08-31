@@ -67,8 +67,8 @@ for i in 0..<16 {
 let sequencePlayer = try AKAudioPlayer(file: sequence)
 sequencePlayer.looping = true
 
-AKManager.output = sequencePlayer
-try AKManager.start()
+engine.output = sequencePlayer
+try engine.start()
 sequencePlayer.play()
 
 import PlaygroundSupport

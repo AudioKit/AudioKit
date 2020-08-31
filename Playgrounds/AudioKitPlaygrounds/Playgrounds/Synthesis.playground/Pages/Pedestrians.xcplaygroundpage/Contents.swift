@@ -21,8 +21,8 @@ let generator = AKOperationGenerator {
     return crossingSignal * 0.2
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 //: Activate the signal
 generator.start()
 

@@ -13,8 +13,8 @@ player.looping = true
 var filter = AKLowPassButterworthFilter(player)
 filter.cutoffFrequency = 500 // Hz
 
-AKManager.output = filter
-try AKManager.start()
+engine.output = filter
+try engine.start()
 player.play()
 
 //: User Interface Set up

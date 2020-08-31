@@ -10,8 +10,8 @@ player.looping = true
 
 var limitedOutput = AKStereoFieldLimiter(player)
 
-AKManager.output = limitedOutput
-try AKManager.start()
+engine.output = limitedOutput
+try engine.start()
 player.play()
 
 //: User Interface Set up

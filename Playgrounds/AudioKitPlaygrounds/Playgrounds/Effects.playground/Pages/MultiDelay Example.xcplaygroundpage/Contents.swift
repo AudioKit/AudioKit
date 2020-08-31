@@ -40,8 +40,8 @@ let delayPannedRight = AKPanner(rightDelay, pan: 1)
 
 let mix = AKMixer(delayPannedLeft, delayPannedRight)
 
-AKManager.output = mix
-try AKManager.start()
+engine.output = mix
+try engine.start()
 player.play()
 
 import PlaygroundSupport

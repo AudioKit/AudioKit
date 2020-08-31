@@ -12,8 +12,8 @@ do {
     player.looping = true
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
-    AKManager.output = AKMixer(reverb, rhino)
-    try AKManager.start()
+    engine.output = AKMixer(reverb, rhino)
+    try engine.start()
     player.play()
 } catch let error as NSError {
     AKLog(error.localizedDescription)

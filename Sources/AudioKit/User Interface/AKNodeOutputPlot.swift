@@ -11,7 +11,7 @@ extension Notification.Name {
 
 /// Plot the output from any node in an signal processing graph
 ///
-/// By default this plots the output of AKManager.output
+/// By default this plots the output of engine.output
 @IBDesignable
 public class AKNodeOutputPlot: EZAudioPlot {
 
@@ -71,7 +71,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     /// The node whose output to graph
     ///
-    /// Defaults to AKManager.output
+    /// Defaults to engine.output
     open var node: AKNode? {
         willSet {
             pause()
@@ -100,7 +100,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        setupNode(AKManager.output)
+//        setupNode(engine.output)
         setupReconnection()
     }
 
@@ -171,7 +171,7 @@ public class AKNodeOutputPlot2: EZAudioPlot {
 
     /// The node whose output to graph
     ///
-    /// Defaults to AKManager.output
+    /// Defaults to engine.output
     open var node: AKNode? {
         willSet {
             pause()

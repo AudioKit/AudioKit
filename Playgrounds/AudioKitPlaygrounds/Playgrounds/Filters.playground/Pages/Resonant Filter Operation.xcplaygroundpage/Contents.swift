@@ -15,8 +15,8 @@ let effect = AKOperationEffect(player) { player in
     return player.resonantFilter(frequency: frequency, bandwidth: bandwidth) * 0.1
 }
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 import PlaygroundSupport

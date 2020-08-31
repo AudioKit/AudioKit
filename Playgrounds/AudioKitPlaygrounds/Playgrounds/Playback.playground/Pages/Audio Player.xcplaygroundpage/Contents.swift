@@ -11,8 +11,8 @@ if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
     player = AKPlayer(audioFile: mixloop)
     player.completionHandler = { AKLog("completion callback has been triggered!") }
     player.isLooping = true
-    AKManager.output = player
-    try AKManager.start()
+    engine.output = player
+    try engine.start()
     player.play()
 }
 //: Don't forget to show the "debug area" to see what messages are printed by the player

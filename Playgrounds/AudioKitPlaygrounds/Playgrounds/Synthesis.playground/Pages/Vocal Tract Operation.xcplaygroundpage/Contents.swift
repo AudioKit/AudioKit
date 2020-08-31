@@ -20,8 +20,8 @@ let generator = AKOperationGenerator {
                                   nasality: nasality)
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 generator.start()
 
 import PlaygroundSupport

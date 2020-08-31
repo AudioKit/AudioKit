@@ -9,8 +9,8 @@ player.looping = true
 
 let panner = AK3DPanner(player)
 
-AKManager.output = panner
-try AKManager.start()
+engine.output = panner
+try engine.start()
 player.play()
 
 //: User Interface Set up

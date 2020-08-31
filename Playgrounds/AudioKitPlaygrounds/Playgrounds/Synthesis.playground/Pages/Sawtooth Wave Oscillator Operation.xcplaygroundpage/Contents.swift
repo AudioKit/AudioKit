@@ -11,8 +11,8 @@ let generator = AKOperationGenerator {
     return AKOperation.sawtoothWave(frequency: freq, amplitude: amp)
 }
 
-AKManager.output = generator
-try AKManager.start()
+engine.output = generator
+try engine.start()
 
 generator.start()
 

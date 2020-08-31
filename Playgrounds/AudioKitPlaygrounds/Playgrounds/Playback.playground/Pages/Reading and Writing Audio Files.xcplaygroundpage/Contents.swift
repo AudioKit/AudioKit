@@ -55,8 +55,8 @@ drumloop.exportAsynchronously(name: "exported.m4a",
 
             AKLog(successfulFile.fileNamePlusExtension)
             let player = try! AKAudioPlayer(file: successfulFile)
-            AKManager.output = player
-            try! AKManager.start()
+            engine.output = player
+            try! engine.start()
             player.play()
         }
 

@@ -45,9 +45,9 @@ class ViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        AKManager.output = silence
+        engine.output = silence
         do {
-            try AKManager.start()
+            try engine.start()
             tracker.start()
         } catch {
             AKLog("AudioKit did not start!")
