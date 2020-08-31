@@ -84,7 +84,6 @@ extension AKManager {
 
     public static func shutdown() throws {
         engine = AVAudioEngine()
-        finalMixer = nil
         output = nil
         shouldBeRunning = false
     }
