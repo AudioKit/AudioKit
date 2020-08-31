@@ -101,9 +101,12 @@ class AKParameterAutomationTests: AKTestCase {
 
     func testRecord() {
 
-        let osc = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
-        AKManager.output = osc
-        try! AKManager.start()
+        let engine = AKEngine()
+
+        let osc = AKOscillator2(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        engine.output = osc
+
+        try! engine.start()
         osc.start()
 
         var values:[AUValue] = []
