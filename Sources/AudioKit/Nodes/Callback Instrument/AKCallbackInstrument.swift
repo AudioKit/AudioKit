@@ -3,8 +3,13 @@
 import AVFoundation
 import CAudioKit
 
+public typealias AKCallback = () -> Void
+
 #if !os(tvOS)
 import Foundation
+
+/// Function type for MIDI callbacks
+public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// New sample-accurate version of AKCallbackInstrument
 /// Old AKCallbackInstrument renamed to AKMIDICallbackInstrument

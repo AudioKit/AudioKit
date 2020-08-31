@@ -1,17 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if !os(tvOS)
-import CoreAudioKit
-#endif
-
-import Dispatch
-
 import AVFoundation
-
-public typealias AKCallback = () -> Void
-
-/// Function type for MIDI callbacks
-public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// Top level AudioKit managing class
 public class AKManager: NSObject {
