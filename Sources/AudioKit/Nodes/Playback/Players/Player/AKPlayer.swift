@@ -274,7 +274,7 @@ public class AKPlayer: AKAbstractPlayer {
         if playerNode.engine == nil {
             AKManager.engine.attach(playerNode)
         } else {
-            playerNode.disconnectOutput()
+//            playerNode.disconnectOutput()
         }
 
         if let strongMixer = mixerNode {
@@ -282,7 +282,7 @@ public class AKPlayer: AKAbstractPlayer {
                 AKManager.engine.attach(strongMixer)
             } else {
                 // intermediate nodes get disconnected and re-connected
-                strongMixer.disconnectOutput()
+//                strongMixer.disconnectOutput()
             }
         }
 
