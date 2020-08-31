@@ -47,7 +47,7 @@ public class AKMicrophone: AKNode, AKToggleable {
         #elseif !os(tvOS)
         // AKLog("avAudioNode.outputFormat(forBus: 0)", avAudioNode.outputFormat(forBus: 0))
         // NOTE: format is ignored on macOS here. AKMicrophone for macOS is partially functional
-//        AKManager.engine.inputNode.connect(to: avAudioNode)
+//        engine.inputNode.connect(to: avAudioNode)
         #endif
     }
 

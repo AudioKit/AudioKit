@@ -111,22 +111,22 @@ extension AKAudioUnitManager {
         // AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
-//            AKManager.connect(inputAV, to: outputAV, format: processingFormat)
+//            engine.connect(inputAV, to: outputAV, format: processingFormat)
             return
         }
         var au = effects[0]
 
-//        AKManager.connect(inputAV, to: au, format: processingFormat)
+//        engine.connect(inputAV, to: au, format: processingFormat)
 
         if effects.count > 1 {
             for i in 1 ..< effects.count {
                 au = effects[i]
                 let prevAU = effects[i - 1]
 
-//                AKManager.connect(prevAU, to: au, format: processingFormat)
+//                engine.connect(prevAU, to: au, format: processingFormat)
             }
         }
 
-//        AKManager.connect(au, to: outputAV, format: processingFormat)
+//        engine.connect(au, to: outputAV, format: processingFormat)
     }
 }

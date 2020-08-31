@@ -107,9 +107,9 @@ class AudioUnitManager: NSViewController {
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
-        AKLog("* engine.isRunning: \(AKManager.engine.isRunning)")
+        AKLog("* engine.isRunning: \(engine.isRunning)")
 
-        if !AKManager.engine.isRunning {
+        if !engine.isRunning {
             do {
                 try engine.start()
             } catch {

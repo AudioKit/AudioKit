@@ -42,7 +42,7 @@ class AKBoosterTests: AKTestCase {
         output = booster
 
         // TODO, is this testing anything?
-//        try! AKManager.renderToFile(audioFile, duration: 4, prerender: {
+//        try! AKEngine.renderToFile(audioFile, duration: 4, prerender: {
 //            osc.start()
 //        })
     }
