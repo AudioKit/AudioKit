@@ -28,7 +28,6 @@ public class AK3DPanner: AKNode2 {
         }
     }
 
-    var inputMixer = AKMixer()
     /// Initialize the panner node
     ///
     /// - Parameters:
@@ -48,7 +47,7 @@ public class AK3DPanner: AKNode2 {
         }
 
         let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
-        inputMixer.setOutput(to: environmentNode, bus: 0, format: monoFormat)
+        input?.avAudioNode.setOutput(to: environmentNode, bus: 0, format: monoFormat)
 
     }
 
