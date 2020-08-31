@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKHighPassFilterTests: AKTestCase {
+class AKHighPassFilterTests: AKTestCase2 {
 
     func testCutoffFrequency() {
         output = AKHighPassFilter(input, cutoffFrequency: 500)
