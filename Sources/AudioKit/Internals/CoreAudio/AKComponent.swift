@@ -20,36 +20,6 @@ extension AUEffect {
     }
 }
 
-/// Helpful in reducing repetitive code in AudioKit
-public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
-    var internalAU: AKAudioUnitType? { get }
-    var rampDuration: AUValue { get set }
-}
-
-extension AKComponent {
-    /// Register the audio unit subclass
-    public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
-        AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
-                                     as: Self.ComponentDescription,
-                                     name: "Local \(Self.self)",
-                                     version: .max)
-
-        AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
-            guard let au = avAudioUnit else {
-                fatalError("Unable to instantiate AVAudioUnit")
-            }
-            AKManager.engine.attach(au)
-            callback(au)
-        }
-    }
-
-    public var rampDuration: AUValue {
-        get { return (internalAU as? AKAudioUnitBase)?.rampDuration ?? 0.0 }
-        set { (internalAU as? AKAudioUnitBase)?.rampDuration = newValue }
-    }
-}
-
 public protocol AKComponent2: AUComponent {
     associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
     var internalAU: AKAudioUnitType? { get }
