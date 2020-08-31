@@ -5,11 +5,10 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKHighPassFilter: AKNode2, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
-    private var mixer = AKMixer()
     private var au: AUWrapper
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
@@ -28,20 +27,6 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Dry/Wet Mix (Default: 1)
-    public var dryWetMix: AUValue = 1 {
-        didSet {
-            dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain.volume = 1 - dryWetMix
-            effectGain.volume = dryWetMix
-        }
-    }
-
-    private var lastKnownMix: AUValue = 1
-    private var inputGain = AKMixer()
-    private var effectGain = AKMixer()
-    var inputMixer = AKMixer()
-
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
 
@@ -58,7 +43,7 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode2? = nil,
         cutoffFrequency: AUValue = 6_900,
         resonance: AUValue = 0) {
         self.cutoffFrequency = cutoffFrequency
@@ -68,56 +53,26 @@ public class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         internalEffect = effect
         au = AUWrapper(effect)
 
-        super.init(avAudioNode: mixer.avAudioNode)
-
-        inputGain.volume = 0
-        effectGain.volume = 1
+        super.init(avAudioNode: effect)
 
         if let input = input {
-            input >>> inputMixer
-            input >>> inputGain
-            input >>> effectGain
+            connections.append(input)
         }
-        effectGain >>> effect >>> mixer
-        inputGain >>> mixer
 
         au[kHipassParam_CutoffFrequency] = cutoffFrequency
         au[kHipassParam_Resonance] = resonance
-    }
-
-    public var inputNode: AVAudioNode {
-        return inputMixer.avAudioNode
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
-        if isStopped {
-            dryWetMix = lastKnownMix
-            isStarted = true
-        }
+        internalEffect.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
-            isStarted = false
-        }
+        internalEffect.bypass = true
     }
 
-    /// Disconnect the node
-    public override func detach() {
-        stop()
-
-        let nodes = [inputMixer.avAudioNode,
-                     mixer.avAudioNode,
-                     internalEffect,
-                     inputGain.avAudioNode,
-                     effectGain.avAudioNode]
-
-        AKManager.detach(nodes: nodes)
-    }
 }
