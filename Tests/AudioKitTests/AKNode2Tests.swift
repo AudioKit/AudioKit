@@ -3,25 +3,25 @@
 import XCTest
 import AVFoundation
 
-class AKNode2Tests: AKTestCase {
+class AKNodeTests: AKTestCase {
 
     let osc = AKOscillator()
 
-    func testNode2Basic() {
+    func testNodeBasic() {
         XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
         output = osc
         AKTest()
     }
 
-    func testNode2Connection() {
+    func testNodeConnection() {
         osc.start()
         let verb = AKCostelloReverb(osc)
         output = verb
         AKTest()
     }
 
-    func testNode2DeferredConnection() {
+    func testNodeDeferredConnection() {
         osc.start()
         let verb = AKCostelloReverb()
         osc >>> verb
@@ -30,7 +30,7 @@ class AKNode2Tests: AKTestCase {
     }
 }
 
-class AKNode2DynamicConnectionTests: XCTestCase {
+class AKNodeDynamicConnectionTests: XCTestCase {
 
     func testDynamicConnection() {
 
