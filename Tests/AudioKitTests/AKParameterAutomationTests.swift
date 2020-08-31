@@ -103,7 +103,7 @@ class AKParameterAutomationTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator2(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let osc = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
         engine.output = osc
 
         try! engine.start()

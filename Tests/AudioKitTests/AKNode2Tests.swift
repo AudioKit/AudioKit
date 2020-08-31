@@ -5,7 +5,7 @@ import AVFoundation
 
 class AKNode2Tests: AKTestCase {
 
-    let osc = AKOscillator2()
+    let osc = AKOscillator()
 
     func testNode2Basic() {
         XCTAssertNotNil(osc.avAudioUnit)
@@ -34,7 +34,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
     func testDynamicConnection() {
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2(osc)
         let engine = AKEngine()
         engine.output = mixer
@@ -44,7 +44,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         sleep(1)
 
-        let osc2 = AKOscillator2(frequency: 880)
+        let osc2 = AKOscillator(frequency: 880)
         osc2.start()
 
         osc2 >>> mixer
@@ -56,7 +56,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
     func testDynamicConnection2() {
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2(osc)
         let engine = AKEngine()
         engine.output = mixer
@@ -66,7 +66,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         sleep(1)
 
-        let osc2 = AKOscillator2(frequency: 880)
+        let osc2 = AKOscillator(frequency: 880)
         let verb = AKCostelloReverb(osc2)
         osc2.start()
 
@@ -82,7 +82,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
         let engine1 = AKEngine()
         let engine2 = AKEngine()
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         engine1.output = osc
         osc.start()
 
@@ -94,7 +94,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
     func testDisconnect() {
 
         let engine = AKEngine()
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2(osc)
         osc.start()
         engine.output = mixer
@@ -114,7 +114,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
     func testDynamicConnection3() {
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2(osc)
         let engine = AKEngine()
         engine.output = mixer
@@ -124,7 +124,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         sleep(1)
 
-        let osc2 = AKOscillator2(frequency: 880)
+        let osc2 = AKOscillator(frequency: 880)
         osc2.start()
 
         osc2 >>> mixer
@@ -140,7 +140,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
     func testRedundantConnection() {
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2()
         osc >>> mixer
         osc >>> mixer
@@ -151,7 +151,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator2()
+        let osc = AKOscillator()
         let mixer = AKMixer2(osc)
         engine.output = mixer
         osc.start()
@@ -169,7 +169,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc1 = AKOscillator2()
+        let osc1 = AKOscillator()
         osc1.start()
         engine.output = osc1
 
@@ -177,7 +177,7 @@ class AKNode2DynamicConnectionTests: XCTestCase {
 
         sleep(1)
 
-        let osc2 = AKOscillator2(frequency: 880)
+        let osc2 = AKOscillator(frequency: 880)
         osc2.start()
         engine.output = osc2
 
