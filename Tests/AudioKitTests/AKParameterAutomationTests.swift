@@ -5,7 +5,7 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKParameterAutomationTests: AKTestCase {
+class AKParameterAutomationTests: XCTestCase {
 
     func observerTest(events: [AKAutomationEvent],
                       sampleTime: Float64,

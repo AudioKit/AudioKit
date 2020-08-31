@@ -5,7 +5,7 @@ import XCTest
 // XXX: Disable AKPlayerTests for now since SPM doesn't allow test resources until Xcode 12.
 #if false
 
-class AKPlayerTests: AKTestCase {
+class AKPlayerTests: AKTestCase2 {
     // 12345 is good for testing editing, PinkNoise is good to check fade amplitudes
     static let pinkNoise = "PinkNoise"
     static let counting = "12345"
