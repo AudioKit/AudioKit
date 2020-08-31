@@ -3,7 +3,7 @@ import AudioKit
 import XCTest
 import AVFoundation
 
-class AKNode2Tests: AKTestCase2 {
+class AKNode2Tests: AKTestCase {
 
     let osc = AKOscillator2()
 

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPWMOscillatorTests: AKTestCase2 {
+class AKPWMOscillatorTests: AKTestCase {
 
     var oscillator = AKPWMOscillator()
 

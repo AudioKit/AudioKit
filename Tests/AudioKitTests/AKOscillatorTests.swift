@@ -5,7 +5,7 @@ import XCTest
 import CAudioKit
 import AVFoundation
 
-class AKOscillatorTests: AKTestCase2 {
+class AKOscillatorTests: AKTestCase {
     func testAmpitude() {
         input = AKOscillator2(waveform: AKTable(.square), amplitude: 0.5)
         output = input

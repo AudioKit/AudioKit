@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKLowShelfParametricEqualizerFilterTests: AKTestCase2 {
+class AKLowShelfParametricEqualizerFilterTests: AKTestCase {
 
     func testCornerFrequency() {
         output = AKLowShelfParametricEqualizerFilter(input, cornerFrequency: 500)

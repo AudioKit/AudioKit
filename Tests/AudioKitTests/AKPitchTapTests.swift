@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKPitchTapTests: AKTestCase2 {
+class AKPitchTapTests: AKTestCase {
 
     override func setUp() {
         duration = 1.0

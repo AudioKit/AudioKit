@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKFaderTests: AKTestCase2 {
+class AKFaderTests: AKTestCase {
 
     func testDefault() {
         output = AKFader(input, gain: 1.0)

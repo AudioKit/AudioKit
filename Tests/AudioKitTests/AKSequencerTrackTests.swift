@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFoundation
 
-class AKSequencerTrackTests: AKTestCase2 {
+class AKSequencerTrackTests: AKTestCase {
 
     let flute = AKFlute()
 

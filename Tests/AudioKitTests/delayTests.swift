@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class DelayTests: AKTestCase2 {
+class DelayTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

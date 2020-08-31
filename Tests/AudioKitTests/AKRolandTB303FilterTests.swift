@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKRolandTB303FilterTests: AKTestCase2 {
+class AKRolandTB303FilterTests: AKTestCase {
 
     func testCutoffFrequency() {
         output = AKRolandTB303Filter(input, cutoffFrequency: 400)

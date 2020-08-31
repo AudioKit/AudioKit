@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDryWetMixerTests: AKTestCase2 {
+class AKDryWetMixerTests: AKTestCase {
     let input1 = AKOscillator2()
     let input2 = AKOscillator2(frequency: 1280)
 

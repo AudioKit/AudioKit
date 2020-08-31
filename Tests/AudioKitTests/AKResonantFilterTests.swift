@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKResonantFilterTests: AKTestCase2 {
+class AKResonantFilterTests: AKTestCase {
 
     func testBandwidth() {
         output = AKResonantFilter(input, bandwidth: 500)

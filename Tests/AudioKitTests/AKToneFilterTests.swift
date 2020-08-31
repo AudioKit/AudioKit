@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKToneFilterTests: AKTestCase2 {
+class AKToneFilterTests: AKTestCase {
 
     func testDefault() {
         output = AKToneFilter(input)

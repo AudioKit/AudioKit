@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class SquareWaveTests: AKTestCase2 {
+class SquareWaveTests: AKTestCase {
 
     let square = AKOperationGenerator { AKOperation.squareWave() }
 

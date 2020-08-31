@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class PinkNoiseTests: AKTestCase2 {
+class PinkNoiseTests: AKTestCase {
 
     var noise = AKOperationGenerator { AKOperation.pinkNoise() }
 

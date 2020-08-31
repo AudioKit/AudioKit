@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKDiodeClipperTests: AKTestCase2 {
+class AKDiodeClipperTests: AKTestCase {
 
     func testDefault() {
         output = AKDiodeClipper(input)

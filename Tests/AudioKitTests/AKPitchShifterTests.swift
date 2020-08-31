@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPitchShifterTests: AKTestCase2 {
+class AKPitchShifterTests: AKTestCase {
 
     func testCrossfade() {
         output = AKPitchShifter(input, shift: 7, crossfade: 1_024)

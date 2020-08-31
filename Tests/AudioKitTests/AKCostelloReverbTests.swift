@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKCostelloReverbTests: AKTestCase2 {
+class AKCostelloReverbTests: AKTestCase {
 
     func testCutoffFrequency() {
         output = AKCostelloReverb(input, cutoffFrequency: 1_234)

@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPinkNoiseTests: AKTestCase2 {
+class AKPinkNoiseTests: AKTestCase {
 
     let pink = AKPinkNoise()
 

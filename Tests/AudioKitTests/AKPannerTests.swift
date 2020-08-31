@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class AKPannerTests: AKTestCase2 {
+class AKPannerTests: AKTestCase {
 
     func testDefault() {
         output = AKPanner(input)

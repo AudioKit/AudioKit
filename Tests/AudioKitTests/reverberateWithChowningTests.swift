@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class ReverberateWithChowningTests: AKTestCase2 {
+class ReverberateWithChowningTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

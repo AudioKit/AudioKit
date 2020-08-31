@@ -2,7 +2,7 @@
 
 import AudioKit
 
-class MoogLadderFilterTests: AKTestCase2 {
+class MoogLadderFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()
