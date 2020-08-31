@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-D Spatialization of the input
-public class AK3DPanner: AKNode, AKInput {
+public class AK3DPanner: AKNode2 {
     fileprivate let environmentNode = AVAudioEnvironmentNode()
 
     /// Position of sound source along x-axis
@@ -37,22 +37,20 @@ public class AK3DPanner: AKNode, AKInput {
     ///   - y:     y-axis location in meters
     ///   - z:     z-axis location in meters
     ///
-    public init(_ input: AKNode? = nil, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
+    public init(_ input: AKNode2? = nil, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
         self.x = x
         self.y = y
         self.z = z
-        super.init(avAudioNode: environmentNode, attach: true)
+        super.init(avAudioNode: environmentNode)
 
-        input?.connect(to: inputMixer)
+        if let input = input {
+            connections.append(input)
+        }
 
         let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
         inputMixer.setOutput(to: environmentNode, bus: 0, format: monoFormat)
 
     }
-    public var inputNode: AVAudioNode {
-        return inputMixer.avAudioNode
-    }
-    public override func detach() {
-        AKManager.detach(nodes: [environmentNode, inputMixer.avAudioNode])
-    }
+
+    // TODO This node is untested
 }
