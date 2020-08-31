@@ -1,8 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import Foundation
 
-class AKCompressorTests: AKTestCase {
+class AKCompressorTests: AKTestCase2 {
 
     override func setUp() {
         super.setUp()
