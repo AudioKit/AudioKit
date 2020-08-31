@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class AKOperationEffect: AKNode2, AKToggleable, AKComponent2 {
+public class AKOperationEffect: AKNode2, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")

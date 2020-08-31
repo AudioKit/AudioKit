@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK TubularBells
 ///
-public class AKTubularBells: AKNode2, AKToggleable, AKComponent2 {
+public class AKTubularBells: AKNode2, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")
 

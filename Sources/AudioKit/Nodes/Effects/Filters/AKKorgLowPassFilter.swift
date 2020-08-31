@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
 ///
-public class AKKorgLowPassFilter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKKorgLowPassFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 

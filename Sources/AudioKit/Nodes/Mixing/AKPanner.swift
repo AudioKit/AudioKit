@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Panner
 ///
-public class AKPanner: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKPanner: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 

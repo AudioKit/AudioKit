@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
 ///
-public class AKRolandTB303Filter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKRolandTB303Filter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 

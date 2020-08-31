@@ -5,7 +5,7 @@ import CAudioKit
 
 /// This will digitally degrade a signal.
 ///
-public class AKBitCrusher: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKBitCrusher: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 

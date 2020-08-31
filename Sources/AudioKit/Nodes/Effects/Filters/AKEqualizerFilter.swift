@@ -8,7 +8,7 @@ import CAudioKit
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
 /// is less than 1, a notch is formed around the center frequency.
 ///
-public class AKEqualizerFilter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKEqualizerFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 

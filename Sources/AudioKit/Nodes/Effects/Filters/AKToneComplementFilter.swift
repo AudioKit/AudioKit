@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A complement to the AKLowPassFilter.
 ///
-public class AKToneComplementFilter: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKToneComplementFilter: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 

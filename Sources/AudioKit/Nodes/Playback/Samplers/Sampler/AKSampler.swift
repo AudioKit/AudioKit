@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Sampler
 ///
-public class AKSampler: AKPolyphonicNode, AKComponent2 {
+public class AKSampler: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")

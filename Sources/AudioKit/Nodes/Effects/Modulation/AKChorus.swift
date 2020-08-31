@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class AKChorus: AKNode2, AKToggleable, AKComponent2, AKAutomatable {
+public class AKChorus: AKNode2, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
