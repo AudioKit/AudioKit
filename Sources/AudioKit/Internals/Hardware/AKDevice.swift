@@ -9,7 +9,7 @@ public typealias DeviceID = String
 import AVFoundation
 
 /// Wrapper for audio device selection
-public struct AKDevice: Equatable {
+public struct AKDevice: Equatable, Hashable {
     /// The human-readable name for the device.
     public private(set) var name: String
     public private(set) var nInputChannels: Int?
