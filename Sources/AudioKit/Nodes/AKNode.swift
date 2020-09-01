@@ -86,6 +86,12 @@ open class AKNode {
             AKLog("error: Node is already connected.")
             return
         }
+        if let engine = avAudioNode.engine {
+            if engine.isRunning && ((avAudioNode as? AVAudioMixerNode) == nil) {
+                AKLog("error: connections may only be made to mixers while the engine is running.")
+                return
+            }
+        }
         connections.append(node)
         makeAVConnections()
     }

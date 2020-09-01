@@ -14,7 +14,7 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKBrownianNoiseDSP() {
+    AKBrownianNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKBrownianNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }

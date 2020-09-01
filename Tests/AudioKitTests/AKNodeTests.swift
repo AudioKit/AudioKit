@@ -192,5 +192,25 @@ class AKNodeTests: AKTestCase {
 
     }
 
+    func testBadDynamicConnection() {
+
+        let engine = AKEngine()
+
+        let osc = AKOscillator()
+        let verb = AKCostelloReverb()
+
+        engine.output = verb
+
+        try! engine.start()
+
+        sleep(1)
+
+        osc >>> verb
+
+        // Ensure connection was not made.
+        XCTAssertEqual(verb.connections.count, 0)
+
+    }
+
 }
 

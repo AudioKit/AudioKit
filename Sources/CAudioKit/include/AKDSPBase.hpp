@@ -79,7 +79,7 @@ protected:
 
 public:
     
-    AKDSPBase();
+    AKDSPBase(int inputBusCount=1);
     
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}

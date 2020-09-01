@@ -100,10 +100,10 @@ void deleteDSP(AKDSPRef pDSP)
     delete pDSP;
 }
 
-AKDSPBase::AKDSPBase()
+AKDSPBase::AKDSPBase(int inputBusCount)
 : channelCount(2)   // best guess
 , sampleRate(44100) // best guess
-, inputBufferLists(1)
+, inputBufferLists(inputBusCount)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
 }

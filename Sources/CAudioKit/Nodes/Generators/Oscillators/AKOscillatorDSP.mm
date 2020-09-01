@@ -23,13 +23,12 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKOscillatorDSP() {
+    AKOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[AKOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         isStarted = false;
-        inputBufferLists.clear(); // Shouldn't have an input bus.
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

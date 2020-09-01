@@ -25,7 +25,7 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKFMOscillatorDSP() {
+    AKFMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKFMOscillatorParameterBaseFrequency] = &baseFrequencyRamp;
         parameters[AKFMOscillatorParameterCarrierMultiplier] = &carrierMultiplierRamp;
         parameters[AKFMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;

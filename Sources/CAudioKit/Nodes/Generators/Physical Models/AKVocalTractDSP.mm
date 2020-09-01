@@ -23,7 +23,7 @@ private:
     ParameterRamper nasalityRamp;
 
 public:
-    AKVocalTractDSP() {
+    AKVocalTractDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKVocalTractParameterFrequency] = &frequencyRamp;
         parameters[AKVocalTractParameterTonguePosition] = &tonguePositionRamp;
         parameters[AKVocalTractParameterTongueDiameter] = &tongueDiameterRamp;
