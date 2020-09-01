@@ -10,7 +10,7 @@ class StringResonatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.stringResonator() }
+        engine.output = AKOperationEffect(input) { $0.stringResonator() }
         AKTest()
     }
 

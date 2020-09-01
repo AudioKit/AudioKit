@@ -5,7 +5,7 @@ import AudioKit
 class AKFlangerTests: AKTestCase {
 
     func testParameters() {
-        output = AKFlanger(input,
+        engine.output = AKFlanger(input,
                           frequency: 1.1,
                           depth: 0.8,
                           feedback: 0.7,
@@ -14,27 +14,27 @@ class AKFlangerTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKFlanger(input)
+        engine.output = AKFlanger(input)
         AKTest()
     }
 
     func testDepth() {
-        output = AKFlanger(input, depth: 0.88)
+        engine.output = AKFlanger(input, depth: 0.88)
         AKTest()
     }
 
     func testDryWetMix() {
-        output = AKFlanger(input, dryWetMix: 0.55)
+        engine.output = AKFlanger(input, dryWetMix: 0.55)
         AKTest()
     }
 
     func testFeedback() {
-        output = AKFlanger(input, feedback: 0.77)
+        engine.output = AKFlanger(input, feedback: 0.77)
         AKTest()
     }
 
     func testFrequency() {
-        output = AKFlanger(input, frequency: 1.11)
+        engine.output = AKFlanger(input, frequency: 1.11)
         AKTest()
     }
 

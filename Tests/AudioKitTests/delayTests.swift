@@ -10,22 +10,22 @@ class DelayTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.delay() }
+        engine.output = AKOperationEffect(input) { $0.delay() }
         AKTest()
     }
 
     func testFeedback() {
-        output = AKOperationEffect(input) { $0.delay(feedback: 0.99) }
+        engine.output = AKOperationEffect(input) { $0.delay(feedback: 0.99) }
         AKTest()
     }
 
     func testParameters() {
-        output = AKOperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
+        engine.output = AKOperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
         AKTest()
     }
 
     func testTime() {
-        output = AKOperationEffect(input) { $0.delay(time: 0.01) }
+        engine.output = AKOperationEffect(input) { $0.delay(time: 0.01) }
         AKTest()
     }
 

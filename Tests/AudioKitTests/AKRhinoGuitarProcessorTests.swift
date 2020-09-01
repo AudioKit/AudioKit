@@ -9,37 +9,37 @@ import AudioKit
 //class AKRhinoGuitarProcessorTests: AKTestCase {
 //
 //    func testDefault() {
-//        output = AKRhinoGuitarProcessor(input)
+//        engine.output = AKRhinoGuitarProcessor(input)
 //        AKTest()
 //    }
 //
 //    func testDistortion() {
-//        output = AKRhinoGuitarProcessor(input, distortion: 3)
+//        engine.output = AKRhinoGuitarProcessor(input, distortion: 3)
 //        AKTest()
 //    }
 //
 //    func testHighGain() {
-//        output = AKRhinoGuitarProcessor(input, highGain: 0.55)
+//        engine.output = AKRhinoGuitarProcessor(input, highGain: 0.55)
 //        AKTest()
 //    }
 //
 //    func testLowGain() {
-//        output = AKRhinoGuitarProcessor(input, lowGain: 0.66)
+//        engine.output = AKRhinoGuitarProcessor(input, lowGain: 0.66)
 //        AKTest()
 //    }
 //
 //    func testMidGain() {
-//        output = AKRhinoGuitarProcessor(input, midGain: 0.44)
+//        engine.output = AKRhinoGuitarProcessor(input, midGain: 0.44)
 //        AKTest()
 //    }
 //
 //    func testPostGain() {
-//        output = AKRhinoGuitarProcessor(input, postGain: 2.2)
+//        engine.output = AKRhinoGuitarProcessor(input, postGain: 2.2)
 //        AKTest()
 //    }
 //
 //    func testPreGain() {
-//        output = AKRhinoGuitarProcessor(input, preGain: 2.2)
+//        engine.output = AKRhinoGuitarProcessor(input, preGain: 2.2)
 //        AKTest()
 //    }
 //

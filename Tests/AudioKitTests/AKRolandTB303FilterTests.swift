@@ -5,22 +5,22 @@ import AudioKit
 class AKRolandTB303FilterTests: AKTestCase {
 
     func testCutoffFrequency() {
-        output = AKRolandTB303Filter(input, cutoffFrequency: 400)
+        engine.output = AKRolandTB303Filter(input, cutoffFrequency: 400)
         AKTest()
     }
 
     func testDefault() {
-        output = AKRolandTB303Filter(input)
+        engine.output = AKRolandTB303Filter(input)
         AKTest()
     }
 
     func testDistortion() {
-        output = AKRolandTB303Filter(input, distortion: 1)
+        engine.output = AKRolandTB303Filter(input, distortion: 1)
         AKTest()
     }
 
     func testParameters() {
-        output = AKRolandTB303Filter(input,
+        engine.output = AKRolandTB303Filter(input,
                                      cutoffFrequency: 400,
                                      resonance: 1,
                                      distortion: 1,
@@ -29,12 +29,12 @@ class AKRolandTB303FilterTests: AKTestCase {
     }
 
     func testResonance() {
-        output = AKRolandTB303Filter(input, resonance: 1)
+        engine.output = AKRolandTB303Filter(input, resonance: 1)
         AKTest()
     }
 
     func testResonanceAsymmetry() {
-        output = AKRolandTB303Filter(input, resonanceAsymmetry: 0.66)
+        engine.output = AKRolandTB303Filter(input, resonanceAsymmetry: 0.66)
         AKTest()
     }
 }

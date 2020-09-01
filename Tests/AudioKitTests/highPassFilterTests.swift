@@ -10,12 +10,12 @@ class HighPassFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.highPassFilter() }
+        engine.output = AKOperationEffect(input) { $0.highPassFilter() }
         AKTest()
     }
 
     func testHalfPowerPoint() {
-        output = AKOperationEffect(input) { $0.highPassFilter(halfPowerPoint: 100) }
+        engine.output = AKOperationEffect(input) { $0.highPassFilter(halfPowerPoint: 100) }
         AKTest()
     }
 

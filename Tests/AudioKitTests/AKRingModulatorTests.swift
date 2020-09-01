@@ -5,7 +5,7 @@ import AudioKit
 class AKRingModulatorTests: AKTestCase {
 
     func testDefault() {
-        output = AKRingModulator(input)
+        engine.output = AKRingModulator(input)
         AKTest()
     }
 }

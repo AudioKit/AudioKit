@@ -9,7 +9,7 @@ class AKTubularBellsTests: AKTestCase {
 
         let bells = AKTubularBells()
         bells.trigger(note: 69)
-        output = bells
+        engine.output = bells
 
         // auditionTest()
         AKTest()
@@ -20,7 +20,7 @@ class AKTubularBellsTests: AKTestCase {
 
         let bells = AKTubularBells()
         bells.trigger(note: 69, velocity: 64)
-        output = bells
+        engine.output = bells
 
         // auditionTest()
         AKTest()

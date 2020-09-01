@@ -12,7 +12,7 @@ class AKPWMOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -22,37 +22,37 @@ class AKPWMOscillatorTests: AKTestCase {
                                      pulseWidth: 0.75,
                                      detuningOffset: 1.234,
                                      detuningMultiplier: 1.1)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testFrequency() {
         oscillator = AKPWMOscillator(frequency: 1_234)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testAmplitude() {
         oscillator = AKPWMOscillator(frequency: 1_234, amplitude: 0.5)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPulseWidth() {
         oscillator = AKPWMOscillator(frequency: 1_234, pulseWidth: 0.75)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testDetuningOffset() {
         oscillator = AKPWMOscillator(frequency: 1_234, detuningOffset: 1.234)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testDetuningMultiplier() {
         oscillator = AKPWMOscillator(frequency: 1_234, detuningMultiplier: 1.1)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -64,6 +64,6 @@ class AKPWMOscillatorTests: AKTestCase {
         oscillator.pulseWidth = 0.75
         oscillator.detuningOffset = 1.234
         oscillator.detuningMultiplier = 1.11
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }}

@@ -5,7 +5,7 @@ import AudioKit
 class AKChowningReverbTests: AKTestCase {
 
     func testDefault() {
-        output = AKChowningReverb(input)
+        engine.output = AKChowningReverb(input)
         AKTest()
     }
 

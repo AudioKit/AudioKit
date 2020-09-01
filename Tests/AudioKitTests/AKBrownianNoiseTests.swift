@@ -7,7 +7,7 @@ class AKBrownianNoiseTests: AKTestCase {
     let brown = AKBrownianNoise()
 
     func testDefault() {
-        output = brown
+        engine.output = brown
         brown.start()
         AKTest()
     }
@@ -15,7 +15,7 @@ class AKBrownianNoiseTests: AKTestCase {
     func testAmplitude() {
 
         brown.amplitude = 0.5
-        output = brown
+        engine.output = brown
         brown.start()
         AKTest()
     }

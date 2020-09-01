@@ -5,27 +5,27 @@ import AudioKit
 class AKEqualizerFilterTests: AKTestCase {
 
     func testBandwidth() {
-        output = AKEqualizerFilter(input, bandwidth: 50)
+        engine.output = AKEqualizerFilter(input, bandwidth: 50)
         AKTest()
     }
 
     func testCenterFrequency() {
-        output = AKEqualizerFilter(input, centerFrequency: 500)
+        engine.output = AKEqualizerFilter(input, centerFrequency: 500)
         AKTest()
     }
 
     func testDefault() {
-        output = AKEqualizerFilter(input)
+        engine.output = AKEqualizerFilter(input)
         AKTest()
     }
 
     func testGain() {
-        output = AKEqualizerFilter(input, gain: 5)
+        engine.output = AKEqualizerFilter(input, gain: 5)
         AKTest()
     }
 
     func testParameters() {
-        output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
+        engine.output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
         AKTest()
     }
 

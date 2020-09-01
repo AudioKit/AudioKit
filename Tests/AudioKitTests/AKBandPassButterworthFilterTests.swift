@@ -5,22 +5,22 @@ import AudioKit
 class AKBandPassButterworthFilterTests: AKTestCase {
 
     func testBandwidth() {
-        output = AKBandPassButterworthFilter(input, bandwidth: 200)
+        engine.output = AKBandPassButterworthFilter(input, bandwidth: 200)
         AKTest()
     }
 
     func testCenterFrequency() {
-        output = AKBandPassButterworthFilter(input, centerFrequency: 1_500)
+        engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500)
         AKTest()
     }
 
     func testDefault() {
-        output = AKBandPassButterworthFilter(input)
+        engine.output = AKBandPassButterworthFilter(input)
         AKTest()
     }
 
     func testParameters() {
-        output = AKBandPassButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
+        engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
         AKTest()
     }
 

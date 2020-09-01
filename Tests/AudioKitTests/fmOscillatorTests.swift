@@ -12,7 +12,7 @@ class FMOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -30,7 +30,7 @@ class FMOscillatorTests: AKTestCase {
                 modulationIndex: line * 6,
                 amplitude: line / 5)
         }
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 

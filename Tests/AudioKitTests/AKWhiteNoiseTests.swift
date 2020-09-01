@@ -7,14 +7,14 @@ class AKWhiteNoiseTests: AKTestCase {
     let white = AKWhiteNoise()
 
     func testDefault() {
-        output = white
+        engine.output = white
         white.start()
         AKTest()
     }
 
     func testAmplitude() {
         white.amplitude = 0.5
-        output = white
+        engine.output = white
         white.start()
         AKTest()
     }

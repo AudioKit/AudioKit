@@ -5,17 +5,17 @@ import AudioKit
 class AKLowShelfFilterTests: AKTestCase {
 
     func testCutoffFrequency() {
-        output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
+        engine.output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
         AKTest()
     }
 
     func testDefault() {
-        output = AKLowShelfFilter(input)
+        engine.output = AKLowShelfFilter(input)
         AKTestNoEffect()
     }
 
     func testGain() {
-        output = AKLowShelfFilter(input, gain: 1)
+        engine.output = AKLowShelfFilter(input, gain: 1)
         AKTest()
     }
 }

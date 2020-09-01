@@ -12,7 +12,7 @@ class SquareWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = square
+        engine.output = square
         AKTest()
     }
 

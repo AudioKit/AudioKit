@@ -6,24 +6,24 @@ import AVFoundation
 class AKBoosterTests: AKTestCase {
 
     func testDefault() {
-        output = AKBooster(input)
+        engine.output = AKBooster(input)
         AKTestNoEffect()
     }
 
     func testBypass() {
         let booster = AKBooster(input, gain: 2.0)
         booster.bypass()
-        output = booster
+        engine.output = booster
         AKTestNoEffect()
     }
 
     func testParameters() {
-        output = AKBooster(input, gain: 2.0)
+        engine.output = AKBooster(input, gain: 2.0)
         AKTest()
     }
 
     func testParameters2() {
-        output = AKBooster(input, gain: 0.5)
+        engine.output = AKBooster(input, gain: 0.5)
         AKTest()
     }
 

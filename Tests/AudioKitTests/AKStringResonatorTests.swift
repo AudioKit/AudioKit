@@ -5,22 +5,22 @@ import AudioKit
 class AKStringResonatorTests: AKTestCase {
 
     func testBandwidth() {
-        output = AKResonantFilter(input, bandwidth: 100)
+        engine.output = AKResonantFilter(input, bandwidth: 100)
         AKTest()
     }
 
     func testDefault() {
-        output = AKStringResonator(input)
+        engine.output = AKStringResonator(input)
         AKTest()
     }
 
     func testFrequency() {
-        output = AKResonantFilter(input, frequency: 500)
+        engine.output = AKResonantFilter(input, frequency: 500)
         AKTest()
     }
 
     func testParameters() {
-        output = AKResonantFilter(input, frequency: 500, bandwidth: 100)
+        engine.output = AKResonantFilter(input, frequency: 500, bandwidth: 100)
         AKTest()
     }
 

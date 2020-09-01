@@ -5,22 +5,22 @@ import AudioKit
 class AKLowPassFilterTests: AKTestCase {
 
     func testCutoffFrequency() {
-        output = AKLowPassFilter(input, cutoffFrequency: 500)
+        engine.output = AKLowPassFilter(input, cutoffFrequency: 500)
         AKTest()
     }
 
     func testDefault() {
-        output = AKLowPassFilter(input)
+        engine.output = AKLowPassFilter(input)
         AKTest()
     }
 
     func testParameters() {
-        output = AKLowPassFilter(input, cutoffFrequency: 500, resonance: 1)
+        engine.output = AKLowPassFilter(input, cutoffFrequency: 500, resonance: 1)
         AKTest()
     }
 
     func testResonance() {
-        output = AKLowPassFilter(input, resonance: 1)
+        engine.output = AKLowPassFilter(input, resonance: 1)
         AKTest()
     }
 }
