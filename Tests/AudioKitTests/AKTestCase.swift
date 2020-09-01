@@ -15,16 +15,13 @@ class AKTestCase: XCTestCase {
     var buffer: AVAudioPCMBuffer!
 
     var afterStart: () -> Void = {}
-    var afterSetOutput: () -> Void = {}
 
     func auditionTest() {
         try! engine.auditionTest(duration: duration, afterStart: afterStart)
     }
 
     func AKTest(_ testName: String = "") {
-        var localMD5 = try! engine.test(duration: duration,
-                                        afterStart: afterStart,
-                                        afterSetOutput: afterSetOutput)
+        var localMD5 = try! engine.test(duration: duration, afterStart: afterStart)
         var name = testName
         if name == "" {
             name = self.description

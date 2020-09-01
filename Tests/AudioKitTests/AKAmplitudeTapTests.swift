@@ -21,12 +21,12 @@ class AKAmplitudeTapTests: AKTestCase {
         afterStart = { sine.start() }
 
         engine.output = sine
-        afterSetOutput = {
-            tap = AKAmplitudeTap(sine) { amp in
-                amplitudes.append(amp)
-            }
-            tap.start()
+
+        tap = AKAmplitudeTap(sine) { amp in
+            amplitudes.append(amp)
         }
+        tap.start()
+
         AKTest()
 
         let knownValues: [Float] = [0.06389575, 0.16763051, 0.27164128, 0.36971274, 0.458969,

@@ -53,15 +53,13 @@ public class AKEngine {
     ///   - afterStart: Closure to execute at the beginning of the test
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
-    public func test(duration: Double, afterStart: () -> Void = {}, afterSetOutput: () -> Void = {}) throws -> String {
+    public func test(duration: Double, afterStart: () -> Void = {}) throws -> String {
 
         var digestHex = ""
 
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
-
-            afterSetOutput()
 
             // maximum number of frames the engine will be asked to render in any single render call
             let maximumFrameCount: AVAudioFrameCount = 4_096
