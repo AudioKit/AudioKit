@@ -28,6 +28,25 @@ class AKNodeTests: AKTestCase {
         output = verb
         AKTest()
     }
+
+    func testBadConnection() {
+
+        let osc1 = AKOscillator()
+        let osc2 = AKOscillator()
+
+        osc1 >>> osc2
+
+        XCTAssertEqual(osc2.connections.count, 0)
+    }
+
+    func testRedundantConnection() {
+
+        let osc = AKOscillator()
+        let mixer = AKMixer()
+        osc >>> mixer
+        osc >>> mixer
+        XCTAssertEqual(mixer.connections.count, 1)
+    }
 }
 
 class AKNodeDynamicConnectionTests: XCTestCase {
@@ -138,14 +157,6 @@ class AKNodeDynamicConnectionTests: XCTestCase {
         engine.stop()
     }
 
-    func testRedundantConnection() {
-
-        let osc = AKOscillator()
-        let mixer = AKMixer()
-        osc >>> mixer
-        osc >>> mixer
-        
-    }
 
     func testNodeDetach() {
 
@@ -187,13 +198,5 @@ class AKNodeDynamicConnectionTests: XCTestCase {
 
     }
 
-    func testBadConnection() {
 
-        let osc1 = AKOscillator()
-        let osc2 = AKOscillator()
-
-        osc1 >>> osc2
-
-        XCTAssertEqual(osc2.connections.count, 0)
-    }
 }

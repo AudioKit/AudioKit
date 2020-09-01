@@ -71,8 +71,8 @@ public class AKEngine {
             try AKTry {
                 self.avEngine.reset()
                 try self.avEngine.enableManualRenderingMode(.offline,
-                                                     format: AKSettings.audioFormat,
-                                                     maximumFrameCount: maximumFrameCount)
+                                                            format: AKSettings.audioFormat,
+                                                            maximumFrameCount: maximumFrameCount)
                 try self.avEngine.start()
             }
 
