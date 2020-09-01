@@ -58,6 +58,7 @@ public:
         parameters[AKOperationGeneratorParameter12] = &parameter12Ramp;
         parameters[AKOperationGeneratorParameter13] = &parameter13Ramp;
         parameters[AKOperationGeneratorParameter14] = &parameter14Ramp;
+        isStarted = false;
     }
 
     void setSporth(const char *sporth, int length) {
@@ -128,11 +129,16 @@ public:
                 pd.p[15] = 1.0;
             }
 
-            plumber_compute(&pd, PLUMBER_COMPUTE);
+            if (isStarted)
+                plumber_compute(&pd, PLUMBER_COMPUTE);
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                *out = sporth_stack_pop_float(&pd.sporth.stack);
+                if (isStarted) {
+                    *out = sporth_stack_pop_float(&pd.sporth.stack);
+                } else {
+                    *out = 0;
+                }
             }
 
             internalTrigger = 0;
