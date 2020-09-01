@@ -38,12 +38,6 @@ public class AKNodeOutputPlot: EZAudioPlot {
         isConnected = true
     }
 
-    // Useful to reconnect after connecting to Audiobus or IAA
-    @objc func reconnect() {
-        pause()
-        resume()
-    }
-
     public func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
@@ -57,9 +51,6 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     internal var bufferSize: UInt32 = 1_024
 
-    /// The node whose output to graph
-    ///
-    /// Defaults to engine.output
     open var node: AKNode? {
         willSet {
             pause()
@@ -97,7 +88,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode?, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
