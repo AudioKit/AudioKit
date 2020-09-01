@@ -5,17 +5,17 @@ import AudioKit
 class AutoWahTests: AKTestCase {
 
     func testAmplitude() {
-        output = AKOperationEffect(input) { $0.autoWah(wah: 0.5, amplitude: 0.5) }
+        engine.output = AKOperationEffect(input) { $0.autoWah(wah: 0.5, amplitude: 0.5) }
         AKTest()
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.autoWah() }
+        engine.output = AKOperationEffect(input) { $0.autoWah() }
         AKTest()
     }
 
     func testWah() {
-        output = AKOperationEffect(input) { $0.autoWah(wah: 0.5) }
+        engine.output = AKOperationEffect(input) { $0.autoWah(wah: 0.5) }
         AKTest()
     }
 

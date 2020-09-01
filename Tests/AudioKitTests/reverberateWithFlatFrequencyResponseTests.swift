@@ -10,7 +10,7 @@ class ReverberateWithFlatFrequencyResponseTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.reverberateWithFlatFrequencyResponse() }
+        engine.output = AKOperationEffect(input) { $0.reverberateWithFlatFrequencyResponse() }
         AKTest()
     }
 

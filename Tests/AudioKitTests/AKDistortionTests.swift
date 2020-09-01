@@ -10,52 +10,52 @@ class AKDistortionTests: AKTestCase {
     }
 
     func testCubicTerm() {
-        output = AKDistortion(input, cubicTerm: 0.65)
+        engine.output = AKDistortion(input, cubicTerm: 0.65)
         AKTest()
     }
 
     func testDecay() {
-        output = AKDistortion(input, decay: 2)
+        engine.output = AKDistortion(input, decay: 2)
         AKTest()
     }
 
     func testDecimation() {
-        output = AKDistortion(input, decimation: 0.61)
+        engine.output = AKDistortion(input, decimation: 0.61)
         AKTest()
     }
 
     func testDecimationMix() {
-        output = AKDistortion(input, decimationMix: 0.62)
+        engine.output = AKDistortion(input, decimationMix: 0.62)
         AKTest()
     }
 
     func testDefault() {
-        output = AKDistortion(input)
+        engine.output = AKDistortion(input)
         AKTest()
     }
 
     func testDelay() {
-        output = AKDistortion(input, delay: 0.2)
+        engine.output = AKDistortion(input, delay: 0.2)
         AKTest()
     }
 
     func testDelayMix() {
-        output = AKDistortion(input, delayMix: 0.6)
+        engine.output = AKDistortion(input, delayMix: 0.6)
         AKTest()
     }
 
     func testFinalMix() {
-        output = AKDistortion(input, finalMix: 0.69)
+        engine.output = AKDistortion(input, finalMix: 0.69)
         AKTest()
     }
 
     func testLinearTerm() {
-        output = AKDistortion(input, linearTerm: 0.63)
+        engine.output = AKDistortion(input, linearTerm: 0.63)
         AKTest()
     }
 
     func testParameters() {
-        output = AKDistortion(input,
+        engine.output = AKDistortion(input,
                               delay: 0.2,
                               decay: 2,
                               delayMix: 0.6,
@@ -76,42 +76,42 @@ class AKDistortionTests: AKTestCase {
     }
 
     func testPolynomialMix() {
-        output = AKDistortion(input, polynomialMix: 0.66)
+        engine.output = AKDistortion(input, polynomialMix: 0.66)
         AKTest()
     }
 
     func testRingModBalance() {
-        output = AKDistortion(input, ringModBalance: 0.67, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModBalance: 0.67, ringModMix: 0.68)
         AKTest()
     }
 
     func testRingModFreq1() {
-        output = AKDistortion(input, ringModFreq1: 200, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModFreq1: 200, ringModMix: 0.68)
         AKTest()
     }
 
     func testRingModFreq2() {
-        output = AKDistortion(input, ringModFreq2: 300, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModFreq2: 300, ringModMix: 0.68)
         AKTest()
     }
 
     func testRingModMix() {
-        output = AKDistortion(input, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModMix: 0.68)
         AKTest()
     }
 
     func testRounding() {
-        output = AKDistortion(input, rounding: 0.5)
+        engine.output = AKDistortion(input, rounding: 0.5)
         AKTest()
     }
 
     func testSquaredTerm() {
-        output = AKDistortion(input, squaredTerm: 0.64)
+        engine.output = AKDistortion(input, squaredTerm: 0.64)
         AKTest()
     }
 
     func testSoftClipGain() {
-        output = AKDistortion(input, softClipGain: 0)
+        engine.output = AKDistortion(input, softClipGain: 0)
         AKTest()
     }
 

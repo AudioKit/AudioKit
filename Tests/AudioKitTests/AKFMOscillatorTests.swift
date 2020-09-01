@@ -12,7 +12,7 @@ class AKFMOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -24,7 +24,7 @@ class AKFMOscillatorTests: AKTestCase {
         oscillator.modulatingMultiplier = 1.234
         oscillator.modulationIndex = 1.234
         oscillator.amplitude = 0.5
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -35,43 +35,43 @@ class AKFMOscillatorTests: AKTestCase {
                                     modulatingMultiplier: 1.234,
                                     modulationIndex: 1.234,
                                     amplitude: 0.5)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPresetBuzzer() {
         oscillator.presetBuzzer()
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPresetFogHorn() {
         oscillator.presetFogHorn()
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPresetSpiral() {
         oscillator.presetSpiral()
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPresetStunRay() {
         oscillator.presetStunRay()
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPresetWobble() {
         oscillator.presetWobble()
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testSquareWave() {
         oscillator = AKFMOscillator(waveform: AKTable(.square, count: 4_096))
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 

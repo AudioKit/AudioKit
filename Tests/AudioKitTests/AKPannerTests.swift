@@ -5,24 +5,24 @@ import AudioKit
 class AKPannerTests: AKTestCase {
 
     func testDefault() {
-        output = AKPanner(input)
+        engine.output = AKPanner(input)
         AKTest()
     }
 
     func testBypass() {
         let pan = AKPanner(input, pan: -1)
         pan.bypass()
-        output = pan
+        engine.output = pan
         AKTestNoEffect()
     }
 
     func testPanLeft() {
-        output = AKPanner(input, pan: -1)
+        engine.output = AKPanner(input, pan: -1)
         AKTest()
     }
 
     func testPanRight() {
-        output = AKPanner(input, pan: 1)
+        engine.output = AKPanner(input, pan: 1)
         AKTest()
     }
 }

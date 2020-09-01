@@ -5,7 +5,7 @@ import AudioKit
 class AKChorusTests: AKTestCase {
 
     func testParameters() {
-        output = AKChorus(input,
+        engine.output = AKChorus(input,
                           frequency: 1.1,
                           depth: 0.8,
                           feedback: 0.7,
@@ -14,27 +14,27 @@ class AKChorusTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKChorus(input)
+        engine.output = AKChorus(input)
         AKTest()
     }
 
     func testDepth() {
-        output = AKChorus(input, depth: 0.88)
+        engine.output = AKChorus(input, depth: 0.88)
         AKTest()
     }
 
     func testDryWetMix() {
-        output = AKChorus(input, dryWetMix: 0.55)
+        engine.output = AKChorus(input, dryWetMix: 0.55)
         AKTest()
     }
 
     func testFeedback() {
-        output = AKChorus(input, feedback: 0.77)
+        engine.output = AKChorus(input, feedback: 0.77)
         AKTest()
     }
 
     func testFrequency() {
-        output = AKChorus(input, frequency: 1.11)
+        engine.output = AKChorus(input, frequency: 1.11)
         AKTest()
     }
 }

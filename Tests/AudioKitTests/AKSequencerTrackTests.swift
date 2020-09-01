@@ -31,7 +31,7 @@ class AKSequencerTrackTests: AKTestCase {
         duration = 5
 
         let track = AKSequencerTrack(targetNode: flute)
-        output = flute
+        engine.output = flute
 
         track.sequence = getTestSequence()
         track.playFromStart()
@@ -45,7 +45,7 @@ class AKSequencerTrackTests: AKTestCase {
         duration = 5
 
         let track = AKSequencerTrack(targetNode: flute)
-        output = flute
+        engine.output = flute
 
         track.sequence = getTestSequence()
         track.loopEnabled = false
@@ -60,7 +60,7 @@ class AKSequencerTrackTests: AKTestCase {
         duration = 5
 
         let track = AKSequencerTrack(targetNode: flute)
-        output = flute
+        engine.output = flute
 
         track.sequence = getTestSequence()
         track.tempo = 60

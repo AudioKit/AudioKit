@@ -9,7 +9,7 @@ class AKDryWetMixerTests: AKTestCase {
     func testDefault() {
 
         let mixer = AKDryWetMixer(dry: input1, wet: input2)
-        output = mixer
+        engine.output = mixer
 
         input1.start()
         input2.start()
@@ -19,7 +19,7 @@ class AKDryWetMixerTests: AKTestCase {
     func testBalance0() {
 
         let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 0)
-        output = mixer
+        engine.output = mixer
 
         input1.start()
         input2.start()
@@ -29,7 +29,7 @@ class AKDryWetMixerTests: AKTestCase {
     func testBalance1() {
 
         let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 1)
-        output = mixer
+        engine.output = mixer
 
         input1.start()
         input2.start()

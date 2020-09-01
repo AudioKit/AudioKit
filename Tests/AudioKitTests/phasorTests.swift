@@ -13,7 +13,7 @@ class PhasorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = phasor
+        engine.output = phasor
         AKTest()
     }
 

@@ -14,7 +14,7 @@ class AKMorphingOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -26,7 +26,7 @@ class AKMorphingOscillatorTests: AKTestCase {
         oscillator.index = 1.234
         oscillator.detuningOffset = 11
         oscillator.detuningMultiplier = 1.1
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -37,7 +37,7 @@ class AKMorphingOscillatorTests: AKTestCase {
                                           index: 1.234,
                                           detuningOffset: 11,
                                           detuningMultiplier: 1.1)
-        output = oscillator
+        engine.output = oscillator
 
         AKTest()
     }

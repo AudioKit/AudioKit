@@ -5,27 +5,27 @@ import AudioKit
 class AKThreePoleLowpassFilterTests: AKTestCase {
 
     func testCutoffFrequency() {
-        output = AKThreePoleLowpassFilter(input, cutoffFrequency: 500)
+        engine.output = AKThreePoleLowpassFilter(input, cutoffFrequency: 500)
         AKTest()
     }
 
     func testDefault() {
-        output = AKThreePoleLowpassFilter(input)
+        engine.output = AKThreePoleLowpassFilter(input)
         AKTest()
     }
 
     func testDistortion() {
-        output = AKThreePoleLowpassFilter(input, distortion: 1)
+        engine.output = AKThreePoleLowpassFilter(input, distortion: 1)
         AKTest()
     }
 
     func testParameters() {
-        output = AKThreePoleLowpassFilter(input, distortion: 1, cutoffFrequency: 500, resonance: 1)
+        engine.output = AKThreePoleLowpassFilter(input, distortion: 1, cutoffFrequency: 500, resonance: 1)
         AKTest()
     }
 
     func testResonance() {
-        output = AKThreePoleLowpassFilter(input, resonance: 1)
+        engine.output = AKThreePoleLowpassFilter(input, resonance: 1)
         AKTest()
     }
 }

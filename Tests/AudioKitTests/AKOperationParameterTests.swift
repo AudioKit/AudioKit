@@ -17,7 +17,7 @@ class AKOperationGeneratorParametersTests: AKTestCase {
     func testSetParameters() {
         gen.parameter1 = 333
         gen.parameter2 = 0.5
-        output = gen
+        engine.output = gen
         AKTest()
     }
 
@@ -37,7 +37,7 @@ class AKOperationEffectParametersTests: AKTestCase {
         effect.parameter1 = 0.02
         effect.parameter2 = 1
         effect.parameter3 = 0.99
-        output = effect
+        engine.output = effect
         AKTest()
     }
 
@@ -54,7 +54,7 @@ class AKOperationEffectParametersTests: AKTestCase {
         effect.parameter1 = 0.02
         effect.parameter2 = 2
         effect.parameter3 = 0.99
-        output = effect
+        engine.output = effect
         AKTest()
     }
 
@@ -71,7 +71,7 @@ class AKOperationEffectParametersTests: AKTestCase {
         effect.parameter1 = 0.02
         effect.parameter2 = 2
         effect.parameter3 = 0.5
-        output = effect
+        engine.output = effect
         AKTest()
     }
 }

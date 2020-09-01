@@ -12,7 +12,7 @@ class SawtoothWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = sawtooth
+        engine.output = sawtooth
         AKTest()
     }
 

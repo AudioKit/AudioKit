@@ -5,17 +5,17 @@ import AudioKit
 class AKClipperTests: AKTestCase {
 
     func testDefault() {
-        output = AKClipper(input)
+        engine.output = AKClipper(input)
         AKTest()
     }
 
     func testParameters1() {
-        output = AKClipper(input, limit: 0.1)
+        engine.output = AKClipper(input, limit: 0.1)
         AKTest()
     }
 
     func testParameters2() {
-        output = AKClipper(input, limit: 0.5)
+        engine.output = AKClipper(input, limit: 0.5)
         AKTest()
     }
 

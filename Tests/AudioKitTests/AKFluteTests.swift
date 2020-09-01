@@ -9,7 +9,7 @@ class AKFluteTests: AKTestCase {
 
         let flute = AKFlute()
         flute.trigger(note: 69)
-        output = flute
+        engine.output = flute
 
         // auditionTest()
         AKTest()
@@ -20,7 +20,7 @@ class AKFluteTests: AKTestCase {
 
         let flute = AKFlute()
         flute.trigger(note: 69, velocity: 64)
-        output = flute
+        engine.output = flute
 
         // auditionTest()
         AKTest()

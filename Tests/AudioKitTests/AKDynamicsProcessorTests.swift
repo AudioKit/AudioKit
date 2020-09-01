@@ -5,7 +5,7 @@ import AudioKit
 class AKDynamicsProcessorTests: AKTestCase {
 
     func testDefault() {
-        output = AKDynamicsProcessor(input)
+        engine.output = AKDynamicsProcessor(input)
         AKTest()
     }
 

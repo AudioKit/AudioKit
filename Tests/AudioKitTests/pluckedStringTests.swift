@@ -14,7 +14,7 @@ class PluckedStringTests: AKTestCase {
     }
 
     func testDefault() {
-        output = pluckedString
+        engine.output = pluckedString
         AKTest()
     }
 

@@ -12,7 +12,7 @@ class MorphingOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 

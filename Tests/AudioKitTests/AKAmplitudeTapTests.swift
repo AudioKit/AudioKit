@@ -20,7 +20,7 @@ class AKAmplitudeTapTests: AKTestCase {
 
         afterStart = { sine.start() }
 
-        output = sine
+        engine.output = sine
         afterSetOutput = {
             tap = AKAmplitudeTap(sine) { amp in
                 amplitudes.append(amp)

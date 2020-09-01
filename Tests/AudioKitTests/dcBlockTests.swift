@@ -10,7 +10,7 @@ class DCBlockTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.dcBlock() }
+        engine.output = AKOperationEffect(input) { $0.dcBlock() }
         AKTest()
     }
 

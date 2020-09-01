@@ -12,7 +12,7 @@ class VocalTractTests: AKTestCase {
     }
 
     func testDefault() {
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
@@ -29,7 +29,7 @@ class VocalTractTests: AKTestCase {
                                           tenseness: line,
                                           nasality: line)
         }
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 

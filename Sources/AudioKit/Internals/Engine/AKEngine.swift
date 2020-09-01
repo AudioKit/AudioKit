@@ -49,20 +49,17 @@ public class AKEngine {
     /// Test the output of a given node
     ///
     /// - Parameters:
-    ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///   - afterStart: Closure to execute at the beginning of the test
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
-    public func test(node: AKNode, duration: Double, afterStart: () -> Void = {}, afterSetOutput: () -> Void = {}) throws -> String {
+    public func test(duration: Double, afterStart: () -> Void = {}, afterSetOutput: () -> Void = {}) throws -> String {
 
         var digestHex = ""
 
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
-
-            output = node
 
             afterSetOutput()
 
@@ -145,12 +142,10 @@ public class AKEngine {
     /// Audition the test to hear what it sounds like
     ///
     /// - Parameters:
-    ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
+    ///   - afterStart: Block of code to run before audition
     ///
-    public func auditionTest(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
-        output = node
-
+    public func auditionTest(duration: Double, afterStart: () -> Void = {}) throws {
         try avEngine.start()
 
         // if the engine isn't running you need to give it time to get its act together before
@@ -160,9 +155,6 @@ public class AKEngine {
         }
 
         afterStart()
-        if let playableNode = node as? AKToggleable {
-            playableNode.play()
-        }
         usleep(UInt32(duration * 1_000_000))
     }
 

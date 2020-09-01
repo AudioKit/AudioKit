@@ -5,27 +5,27 @@ import AudioKit
 class AKPitchShifterTests: AKTestCase {
 
     func testCrossfade() {
-        output = AKPitchShifter(input, shift: 7, crossfade: 1_024)
+        engine.output = AKPitchShifter(input, shift: 7, crossfade: 1_024)
         AKTest()
     }
 
     func testDefault() {
-        output = AKPitchShifter(input)
+        engine.output = AKPitchShifter(input)
         AKTest()
     }
 
     func testParameters() {
-        output = AKPitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
+        engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
         AKTest()
     }
 
     func testShift() {
-        output = AKPitchShifter(input, shift: 7)
+        engine.output = AKPitchShifter(input, shift: 7)
         AKTest()
     }
 
     func testWindowSize() {
-        output = AKPitchShifter(input, shift: 7, windowSize: 2_048)
+        engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048)
         AKTest()
     }
 

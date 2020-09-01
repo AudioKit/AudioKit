@@ -10,7 +10,7 @@ class DistortTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.distort() }
+        engine.output = AKOperationEffect(input) { $0.distort() }
         AKTest()
     }
 

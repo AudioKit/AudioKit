@@ -5,17 +5,17 @@ import AudioKit
 class AKFlatFrequencyResponseReverbTests: AKTestCase {
 
     func testDefault() {
-        output = AKFlatFrequencyResponseReverb(input)
+        engine.output = AKFlatFrequencyResponseReverb(input)
         AKTest()
     }
 
     func testLoopDuration() {
-        output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
+        engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
         AKTest()
     }
 
     func testReverbDuration() {
-        output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1)
+        engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1)
         AKTest()
     }
 }

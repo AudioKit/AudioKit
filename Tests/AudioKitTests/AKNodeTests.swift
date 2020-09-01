@@ -12,14 +12,14 @@ class AKNodeTests: AKTestCase {
         duration = 0.1
         XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
-        output = osc
+        engine.output = osc
         AKTest()
     }
 
     func testNodeConnection() {
         osc.start()
         let verb = AKCostelloReverb(osc)
-        output = verb
+        engine.output = verb
         AKTest()
     }
 
@@ -27,7 +27,7 @@ class AKNodeTests: AKTestCase {
         osc.start()
         let verb = AKCostelloReverb()
         osc >>> verb
-        output = verb
+        engine.output = verb
         AKTest()
     }
 
@@ -49,9 +49,30 @@ class AKNodeTests: AKTestCase {
         XCTAssertEqual(mixer.connections.count, 1)
     }
 
+    func testDynamicOutput() {
+
+        duration = 2.0
+
+        let osc1 = AKOscillator()
+        osc1.start()
+        engine.output = osc1
+
+        AKStartSegmentedTest(duration: 1.0)
+
+        let osc2 = AKOscillator(frequency: 880)
+        osc2.start()
+        engine.output = osc2
+
+        AKAppendSegmentedTest(duration: 1.0)
+
+        AKFinishSegmentedTest()
+
+    }
+
     func testDynamicConnection() {
 
         duration = 2.0
+
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
@@ -69,22 +90,17 @@ class AKNodeTests: AKTestCase {
         AKFinishSegmentedTest()
     }
 
-}
-
-class AKNodeDynamicConnectionTests: XCTestCase {
-
-
     func testDynamicConnection2() {
+
+        duration = 2.0
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
-        let engine = AKEngine()
+
         engine.output = mixer
-
         osc.start()
-        try! engine.start()
 
-        sleep(1)
+        AKStartSegmentedTest(duration: 1.0)
 
         let osc2 = AKOscillator(frequency: 880)
         let verb = AKCostelloReverb(osc2)
@@ -92,112 +108,89 @@ class AKNodeDynamicConnectionTests: XCTestCase {
 
         verb >>> mixer
 
-        sleep(1)
+        AKAppendSegmentedTest(duration: 1.0)
 
-        engine.stop()
-    }
-
-    func testTwoEngines() {
-
-        let engine1 = AKEngine()
-        let engine2 = AKEngine()
-
-        let osc = AKOscillator()
-        engine1.output = osc
-        osc.start()
-
-        let verb = AKCostelloReverb(osc)
-        engine2.output = verb
-
-    }
-
-    func testDisconnect() {
-
-        let engine = AKEngine()
-        let osc = AKOscillator()
-        let mixer = AKMixer(osc)
-        osc.start()
-        engine.output = mixer
-        try! engine.start()
-
-        sleep(1)
-
-        mixer.disconnect(node: osc)
-
-        print("disconnected")
-        sleep(1)
-        print("done")
-
-        engine.stop()
-
+        AKFinishSegmentedTest()
     }
 
     func testDynamicConnection3() {
 
+        duration = 3.0
+
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
-        let engine = AKEngine()
         engine.output = mixer
 
         osc.start()
-        try! engine.start()
 
-        sleep(1)
+        AKStartSegmentedTest(duration: 1.0)
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = AKOscillator(frequency: 880)////////////////////////
         osc2.start()
 
         osc2 >>> mixer
 
-        sleep(1)
+        AKAppendSegmentedTest(duration: 1.0)
 
         mixer.disconnect(node: osc2)
 
-        sleep(1)
+        AKAppendSegmentedTest(duration: 1.0)
 
-        engine.stop()
+        AKFinishSegmentedTest()
     }
 
+    func testDisconnect() {
+
+        duration = 2.0
+
+        let osc = AKOscillator()
+        let mixer = AKMixer(osc)
+        osc.start()
+        engine.output = mixer
+
+        AKStartSegmentedTest(duration: 1.0)
+
+        mixer.disconnect(node: osc)
+
+        AKAppendSegmentedTest(duration: 1.0)
+
+        AKFinishSegmentedTest()
+
+    }
 
     func testNodeDetach() {
 
-        let engine = AKEngine()
+        duration = 2.0
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
         osc.start()
-        try! engine.start()
-        sleep(1)
+
+        AKStartSegmentedTest(duration: 1.0)
 
         osc.detach()
-        sleep(1)
 
-        engine.stop()
+        AKAppendSegmentedTest(duration: 1.0)
 
-    }
-
-    func testDynamicOutput() {
-
-        let engine = AKEngine()
-
-        let osc1 = AKOscillator()
-        osc1.start()
-        engine.output = osc1
-
-        try! engine.start()
-
-        sleep(1)
-
-        let osc2 = AKOscillator(frequency: 880)
-        osc2.start()
-        engine.output = osc2
-
-        sleep(1)
-
-        engine.stop()
+        AKFinishSegmentedTest()
 
     }
 
+    func testTwoEngines() {
+
+        let engine2 = AKEngine()
+
+        let osc = AKOscillator()
+        engine2.output = osc
+        osc.start()
+
+        let verb = AKCostelloReverb(osc)
+        engine.output = verb
+
+        AKTest()
+
+    }
 
 }
+

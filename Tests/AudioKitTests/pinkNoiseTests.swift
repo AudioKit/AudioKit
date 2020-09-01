@@ -12,7 +12,7 @@ class PinkNoiseTests: AKTestCase {
     }
 
     func testDefault() {
-        output = noise
+        engine.output = noise
         AKTest()
     }
 
@@ -20,7 +20,7 @@ class PinkNoiseTests: AKTestCase {
         noise = AKOperationGenerator {
             return AKOperation.pinkNoise(amplitude: 0.456)
         }
-        output = noise
+        engine.output = noise
         AKTest()
     }
 
@@ -33,7 +33,7 @@ class PinkNoiseTests: AKTestCase {
                 duration: duration)
             return AKOperation.pinkNoise(amplitude: line)
         }
-        output = noise
+        engine.output = noise
         AKTest()
     }
 

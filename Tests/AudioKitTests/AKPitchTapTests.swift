@@ -21,7 +21,7 @@ class AKPitchTapTests: AKTestCase {
         var tap: AKPitchTap!
         var pitches: [Float] = []
 
-        output = sine
+        engine.output = sine
         afterSetOutput = {
             tap = AKPitchTap(sine) {  (tapPitches, _) in
                 pitches.append(tapPitches[0])
