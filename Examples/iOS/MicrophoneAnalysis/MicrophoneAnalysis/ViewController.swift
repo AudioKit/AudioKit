@@ -10,7 +10,8 @@ class ViewController: UIViewController {
     @IBOutlet private var noteNameWithFlatsLabel: UILabel!
     @IBOutlet private var audioInputPlot: AKNodeOutputPlot!
 
-    lazy var mic = AKMicrophone()
+    let engine = AKEngine()
+    lazy var mic = AKMicrophone(engine: engine.avEngine)
     let mixer = AKMixer()
     var tracker: AKPitchTap!
     var silence: AKBooster!
@@ -40,7 +41,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.avEngine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.audioInputEnabled = true
         mic! >>> mixer
