@@ -43,7 +43,7 @@ private:
     int internalTrigger = 0;
 
 public:
-    AKOperationGeneratorDSP() {
+    AKOperationGeneratorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKOperationGeneratorParameter1] = &parameter1Ramp;
         parameters[AKOperationGeneratorParameter2] = &parameter2Ramp;
         parameters[AKOperationGeneratorParameter3] = &parameter3Ramp;
