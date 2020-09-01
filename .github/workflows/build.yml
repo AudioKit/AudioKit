@@ -23,3 +23,28 @@ jobs:
         run: |
           set -euo pipefail
           swift test --sanitize="address"
+
+  staging:
+    needs: test
+    if: github.ref == 'refs/heads/staging'
+    runs-on: macos-latest
+    steps:
+      - name: Check out AudioKit
+        uses: actions/checkout@v2
+      - name: Build and Upload XCFrameworks
+        run: |
+          set -euo pipefail
+          cd Frameworks
+          ./build_frameworks.sh
+          ./build_xcframework.sh
+          zip -9r AudioKit.xcframeworks.zip *.xcframework
+          #aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CF_DISTRIBUTION: ${{ secrets.CF_DISTRIBUTION }}
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: XCFrameworks
+          path: Frameworks/AudioKit.xcframeworks.zip
