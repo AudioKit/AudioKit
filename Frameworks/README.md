@@ -12,7 +12,7 @@ Starting with AudioKit 5, the new XCFramework format will be the prefered way to
 
 
 * Select the target in your Xcode project that will link with AudioKit.
-* Go to [AudoKit Downloads](https://audiokit.io/downloads/) and download the AudioKit-\*.zip archives that contain universal precompiled frameworks to be able to drag and drop them in the project folder.
+* Go to [AudioKit Downloads](https://audiokit.io/downloads/) and download the AudioKit-\*.zip archives that contain universal precompiled frameworks to be able to drag and drop them in the project folder.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
