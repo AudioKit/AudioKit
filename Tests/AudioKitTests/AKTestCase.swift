@@ -20,16 +20,13 @@ class AKTestCase: XCTestCase {
         try! engine.auditionTest(duration: duration, afterStart: afterStart)
     }
 
-    func AKTest(_ testName: String = "") {
-        var localMD5 = try! engine.test(duration: duration, afterStart: afterStart)
-        var name = testName
-        if name == "" {
-            name = self.description
-        }
+    func AKTest(_ testName: String? = nil) {
+        let localMD5 = try! engine.test(duration: duration, afterStart: afterStart)
+        let name = testName ?? self.description
         XCTAssert(validatedMD5s[name] == localMD5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
 
-    func AKFinishSegmentedTest(_ testName: String = "") {
+    func AKFinishSegmentedTest(_ testName: String? = nil) {
         engine.stop()
 
         let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
@@ -69,10 +66,7 @@ class AKTestCase: XCTestCase {
 
         let localMD5 = digestHex
 
-        var name = testName
-        if name == "" {
-            name = self.description
-        }
+        let name = testName ?? self.description
         XCTAssert(validatedMD5s[name] == localMD5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
 
