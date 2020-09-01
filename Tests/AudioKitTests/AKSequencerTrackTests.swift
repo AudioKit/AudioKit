@@ -36,7 +36,6 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = getTestSequence()
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        // auditionTest()
         AKTest()
     }
 
@@ -66,7 +65,6 @@ class AKSequencerTrackTests: AKTestCase {
         track.tempo = 60
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        // auditionTest()
         AKTest()
 
     }

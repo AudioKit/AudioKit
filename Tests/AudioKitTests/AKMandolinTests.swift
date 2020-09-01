@@ -11,7 +11,6 @@ class AKMandolinStringTests: AKTestCase {
         mandolin.trigger(note: 69)
         engine.output = mandolin
 
-        // auditionTest()
         AKTest()
 
     }
@@ -22,7 +21,6 @@ class AKMandolinStringTests: AKTestCase {
         mandolin.trigger(note: 69, velocity: 64)
         engine.output = mandolin
 
-        // auditionTest()
         AKTest()
 
     }

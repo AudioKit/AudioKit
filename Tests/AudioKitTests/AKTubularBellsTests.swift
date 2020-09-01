@@ -11,7 +11,6 @@ class AKTubularBellsTests: AKTestCase {
         bells.trigger(note: 69)
         engine.output = bells
 
-        // auditionTest()
         AKTest()
 
     }
@@ -22,7 +21,6 @@ class AKTubularBellsTests: AKTestCase {
         bells.trigger(note: 69, velocity: 64)
         engine.output = bells
 
-        // auditionTest()
         AKTest()
 
     }

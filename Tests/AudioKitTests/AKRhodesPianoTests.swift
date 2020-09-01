@@ -11,7 +11,6 @@ class AKRhodesPianoKeyTests: AKTestCase {
         rhodesPiano.trigger(note: 69)
         engine.output = rhodesPiano
 
-        // auditionTest()
         AKTest()
 
     }
@@ -22,7 +21,6 @@ class AKRhodesPianoKeyTests: AKTestCase {
         rhodesPiano.trigger(note: 69, velocity: 64)
         engine.output = rhodesPiano
 
-        // auditionTest()
         AKTest()
 
     }
