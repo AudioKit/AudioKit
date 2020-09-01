@@ -21,7 +21,7 @@ extension AVAudioNode {
 
 public class AKEngine {
 
-    let avEngine = AVAudioEngine()
+    public let avEngine = AVAudioEngine()
 
     public init() { }
 

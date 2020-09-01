@@ -9,6 +9,7 @@ class AKNodeTests: AKTestCase {
     let osc = AKOscillator()
 
     func testNodeBasic() {
+        duration = 0.1
         XCTAssertNotNil(osc.avAudioUnit)
         osc.start()
         output = osc
@@ -41,90 +42,37 @@ class AKNodeTests: AKTestCase {
     }
 
     func testRedundantConnection() {
-
         let osc = AKOscillator()
         let mixer = AKMixer()
         osc >>> mixer
         osc >>> mixer
         XCTAssertEqual(mixer.connections.count, 1)
     }
+
+    func testDynamicConnection() {
+
+        duration = 2.0
+        let osc = AKOscillator()
+        let mixer = AKMixer(osc)
+        engine.output = mixer
+
+        osc.start()
+
+        AKStartSegmentedTest(duration: 1.0)
+
+        let osc2 = AKOscillator(frequency: 880)
+        osc2.start()
+        osc2 >>> mixer
+
+        AKAppendSegmentedTest(duration: 1.0)
+
+        AKFinishSegmentedTest()
+    }
+
 }
 
 class AKNodeDynamicConnectionTests: XCTestCase {
 
-    func testDynamicConnection() {
-
-        let osc = AKOscillator()
-        let mixer = AKMixer(osc)
-        let engine = AKEngine()
-        let framesToRender = 2 * 44100
-        engine.output = mixer
-
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-
-        engine.avEngine.reset()
-        try! engine.avEngine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: 44100)
-        try! engine.start()
-
-        osc.start()
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 88200)!
-        do {
-            try engine.avEngine.renderOffline(44100, to: buffer)
-        } catch let err {
-            print("1", err)
-            return
-        }
-
-        let osc2 = AKOscillator(frequency: 881)
-        osc2.start()
-
-        osc2 >>> mixer
-        do {
-            try engine.avEngine.renderOffline(44100, to: buffer)
-        } catch let err {
-            print("2", err)
-            return
-        }
-
-        engine.stop()
-
-        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
-        md5_init(md5state)
-        var samplesHashed = 0
-
-        if let floatChannelData = buffer.floatChannelData {
-
-            for frame in 0 ..< framesToRender {
-                for channel in 0 ..< buffer.format.channelCount where samplesHashed < framesToRender {
-                    let sample = floatChannelData[Int(channel)][Int(frame)]
-                    withUnsafeBytes(of: sample) { samplePtr in
-                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
-                            md5_append(md5state, baseAddress, 4)
-                        }
-                    }
-                    samplesHashed += 1
-                }
-            }
-
-        }
-
-        var digest = [md5_byte_t](repeating: 0, count: 16)
-        var digestHex = ""
-
-        digest.withUnsafeMutableBufferPointer { digestPtr in
-            md5_finish(md5state, digestPtr.baseAddress)
-        }
-
-        for index in 0..<16 {
-            digestHex += String(format: "%02x", digest[index])
-        }
-
-        md5state.deallocate()
-
-        print(digestHex)
-
-
-    }
 
     func testDynamicConnection2() {
 
