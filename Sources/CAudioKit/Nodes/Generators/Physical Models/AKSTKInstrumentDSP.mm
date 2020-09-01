@@ -2,6 +2,8 @@
 
 #include "AKSTKInstrumentDSP.hpp"
 
+AKSTKInstrumentDSP::AKSTKInstrumentDSP() : AKDSPBase(/*inputBusCount*/0) { }
+
 void AKSTKInstrumentDSP::reset() {
     if(auto instr = getInstrument()) {
         instr->clear();

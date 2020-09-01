@@ -26,7 +26,7 @@ private:
     ParameterRamper strikeWidthRamp;
 
 public:
-    AKMetalBarDSP() {
+    AKMetalBarDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKMetalBarParameterLeftBoundaryCondition] = &leftBoundaryConditionRamp;
         parameters[AKMetalBarParameterRightBoundaryCondition] = &rightBoundaryConditionRamp;
         parameters[AKMetalBarParameterDecayDuration] = &decayDurationRamp;
