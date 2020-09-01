@@ -16,14 +16,14 @@
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
-        "osx": "10.11",
-        "ios": "9.0",
-        "tvos": "10.0"
+        "osx": "10.15",
+        "ios": "13.0",
+        "tvos": "12.0"
     },
     "swift_version": "5.0",
     "cocoapods_version": ">= 1.9.0",
     "frameworks": [
-	"AVFoundation"
+	    "AVFoundation"
     ],
     "libraries": [
         "c++"
@@ -32,15 +32,10 @@
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "LIBRARY_SEARCH_PATHS": "$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)"
     },
-    "subspecs" : [
-      {
-        "name": "Core",
-        "vendored_frameworks": "AudioKit.xcframework"
-      },
-      {
-        "name": "UI",
-        "dependencies": { "AudioKit/Core" : [] },
-        "vendored_frameworks": "AudioKitUI.xcframework"
-      },
+    "vendored_frameworks": [
+        "AudioKit.xcframework",
+        "CAudioKit.xcframework",
+        "STK.xcframework",
+        "TPCircularBuffer.xcframework"
     ]
 }
