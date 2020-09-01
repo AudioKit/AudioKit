@@ -10,7 +10,7 @@ class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
     struct sp_data *sp = nullptr;
 public:
-    AKSoundpipeDSPBase() {
+    AKSoundpipeDSPBase(int inputBusCount=1) : AKDSPBase(inputBusCount) {
         bCanProcessInPlace = true;
     }
 
