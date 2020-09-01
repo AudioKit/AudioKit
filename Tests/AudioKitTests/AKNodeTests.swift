@@ -2,6 +2,7 @@
 @testable import AudioKit
 import XCTest
 import AVFoundation
+import CAudioKit
 
 class AKNodeTests: AKTestCase {
 
@@ -56,21 +57,73 @@ class AKNodeDynamicConnectionTests: XCTestCase {
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         let engine = AKEngine()
+        let framesToRender = 2 * 44100
         engine.output = mixer
 
-        osc.start()
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+
+        engine.avEngine.reset()
+        try! engine.avEngine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: 44100)
         try! engine.start()
 
-        sleep(1)
+        osc.start()
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 88200)!
+        do {
+            try engine.avEngine.renderOffline(44100, to: buffer)
+        } catch let err {
+            print("1", err)
+            return
+        }
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = AKOscillator(frequency: 881)
         osc2.start()
 
         osc2 >>> mixer
-
-        sleep(1)
+        do {
+            try engine.avEngine.renderOffline(44100, to: buffer)
+        } catch let err {
+            print("2", err)
+            return
+        }
 
         engine.stop()
+
+        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
+        md5_init(md5state)
+        var samplesHashed = 0
+
+        if let floatChannelData = buffer.floatChannelData {
+
+            for frame in 0 ..< framesToRender {
+                for channel in 0 ..< buffer.format.channelCount where samplesHashed < framesToRender {
+                    let sample = floatChannelData[Int(channel)][Int(frame)]
+                    withUnsafeBytes(of: sample) { samplePtr in
+                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
+                            md5_append(md5state, baseAddress, 4)
+                        }
+                    }
+                    samplesHashed += 1
+                }
+            }
+
+        }
+
+        var digest = [md5_byte_t](repeating: 0, count: 16)
+        var digestHex = ""
+
+        digest.withUnsafeMutableBufferPointer { digestPtr in
+            md5_finish(md5state, digestPtr.baseAddress)
+        }
+
+        for index in 0..<16 {
+            digestHex += String(format: "%02x", digest[index])
+        }
+
+        md5state.deallocate()
+
+        print(digestHex)
+
+
     }
 
     func testDynamicConnection2() {
