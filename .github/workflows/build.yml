@@ -38,7 +38,8 @@ jobs:
           ./build_frameworks.sh
           ./build_xcframework.sh
           zip -9r AudioKit.xcframeworks.zip *.xcframework
-          #aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
+          aws s3 cp AudioKit.xcframeworks.zip s3://files.audiokit.io/staging/v$(<../VERSION).b$(<BETA)/
+          aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -48,3 +49,26 @@ jobs:
         with:
           name: XCFrameworks
           path: Frameworks/AudioKit.xcframeworks.zip
+
+  # Upload release assets for tags
+  release:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: macos-latest
+    steps:
+      - name: Check out AudioKit
+        uses: actions/checkout@v2
+      - name: Build XCFrameworks
+        run: |
+          set -euo pipefail
+          cd Frameworks
+          ./build_frameworks.sh
+          ./build_xcframework.sh
+          zip -9r AudioKit.xcframeworks.zip *.xcframework
+      - name: Upload files to release draft
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          draft: true
+          files: Frameworks/AudioKit.xcframeworks.zip
