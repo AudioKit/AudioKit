@@ -22,12 +22,12 @@ class AKPitchTapTests: AKTestCase {
         var pitches: [Float] = []
 
         engine.output = sine
-        afterSetOutput = {
-            tap = AKPitchTap(sine) {  (tapPitches, _) in
-                pitches.append(tapPitches[0])
-            }
-            tap.start()
+
+        tap = AKPitchTap(sine) {  (tapPitches, _) in
+            pitches.append(tapPitches[0])
         }
+        tap.start()
+
         AKTest()
 
         let knownValues: [Float] = [447.32297, 455.59183, 481.56384, 497.71292, 519.39923, 542.7518, 555.37006, 583.9163, 602.96344, 621.56274]
