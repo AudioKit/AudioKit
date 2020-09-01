@@ -77,7 +77,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -95,7 +94,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -117,7 +115,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -133,7 +130,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -150,7 +146,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -170,7 +165,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -193,7 +187,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }

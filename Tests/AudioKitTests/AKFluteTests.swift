@@ -11,7 +11,6 @@ class AKFluteTests: AKTestCase {
         flute.trigger(note: 69)
         engine.output = flute
 
-        // auditionTest()
         AKTest()
 
     }
@@ -22,7 +21,6 @@ class AKFluteTests: AKTestCase {
         flute.trigger(note: 69, velocity: 64)
         engine.output = flute
 
-        // auditionTest()
         AKTest()
 
     }

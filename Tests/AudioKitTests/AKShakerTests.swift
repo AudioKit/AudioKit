@@ -14,7 +14,6 @@ class AKShakerTests: AKTestCase {
         shaker.trigger(type: .maraca)
         engine.output = shaker
 
-        // auditionTest()
         AKTest()
     }
 
@@ -26,7 +25,6 @@ class AKShakerTests: AKTestCase {
         shaker.trigger(type: .tunedBambooChimes)
         engine.output = shaker
 
-        // auditionTest()
         AKTest()
     }
 
@@ -38,7 +36,6 @@ class AKShakerTests: AKTestCase {
         shaker.trigger(type: .tunedBambooChimes, amplitude: 1.0)
         engine.output = shaker
 
-        // auditionTest()
         AKTest()
     }
 
