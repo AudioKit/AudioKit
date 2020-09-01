@@ -22,7 +22,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKPWMOscillatorDSP() {
+    AKPWMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKPWMOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKPWMOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKPWMOscillatorParameterPulseWidth] = &pulseWidthRamp;

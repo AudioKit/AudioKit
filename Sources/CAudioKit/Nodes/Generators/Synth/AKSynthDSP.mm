@@ -23,7 +23,7 @@ void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
 }
 
 
-AKSynthDSP::AKSynthDSP() : AKCoreSynth()
+AKSynthDSP::AKSynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);

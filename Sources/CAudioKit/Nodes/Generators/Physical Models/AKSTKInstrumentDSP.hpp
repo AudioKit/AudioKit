@@ -10,6 +10,8 @@ class AKSTKInstrumentDSP : public AKDSPBase {
 
 public:
 
+    AKSTKInstrumentDSP();
+
     virtual stk::Instrmnt* getInstrument() = 0;
 
     void reset() override;
