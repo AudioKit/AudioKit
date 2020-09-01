@@ -12,11 +12,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        do {
-            try engine.stop()
-        } catch {
-            AKLog("Problem in engine.stop()")
-        }
     }
 
 }
