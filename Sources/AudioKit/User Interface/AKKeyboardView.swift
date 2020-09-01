@@ -112,7 +112,7 @@ public protocol AKKeyboardDelegate: AnyObject {
 
     /// Keyboard view size
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 1_024, height: 84)
+        return CGSize(width: 0, height: 0)
     }
 
     /// Require constraints
