@@ -73,7 +73,8 @@ public class AKMixer: AKNode, AKToggleable {
     }
 
     public func addInput(_ node: AKNode) {
-        if connections.contains(node) {
+        if connections.contains(where: { $0 === node }) {
+            AKLog("🛑 Error: Node is already connected to AKMixer.")
             return
         }
         connections.append(node)
