@@ -12,8 +12,7 @@
 		C4486EF31D42AE4700FE135F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */; };
 		C4486EF41D42AE4700FE135F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EED1D42AE4700FE135F /* Main.storyboard */; };
 		C4486EF61D42AE4700FE135F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4486EF01D42AE4700FE135F /* ViewController.swift */; };
-		EAF51B1324172628005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B1124172628005E7000 /* AudioKitUI.xcframework */; };
-		EAF51B1524172628005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B1224172628005E7000 /* AudioKit.xcframework */; };
+		C4708A9E24FF0A0100DB985F /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4708A9D24FF0A0100DB985F /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +23,7 @@
 		C4486EEE1D42AE4700FE135F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4486EEF1D42AE4700FE135F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4486EF01D42AE4700FE135F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EAF51B1124172628005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
-		EAF51B1224172628005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		C4708A9C24FF09F100DB985F /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,8 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B1324172628005E7000 /* AudioKitUI.xcframework in Frameworks */,
-				EAF51B1524172628005E7000 /* AudioKit.xcframework in Frameworks */,
+				C4708A9E24FF0A0100DB985F /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,8 +41,6 @@
 		7814CAEB1D463D04004EA355 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAF51B1224172628005E7000 /* AudioKit.xcframework */,
-				EAF51B1124172628005E7000 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -64,6 +59,7 @@
 		8DAD9ED41D3E4A3400CD3B0A = {
 			isa = PBXGroup;
 			children = (
+				C4708A9C24FF09F100DB985F /* AudioKit */,
 				C4486EE81D42AE4700FE135F /* Recorder */,
 				7814CAEB1D463D04004EA355 /* Frameworks */,
 				8DAD9EDE1D3E4A3400CD3B0A /* Products */,
@@ -104,6 +100,9 @@
 			dependencies = (
 			);
 			name = Recorder;
+			packageProductDependencies = (
+				C4708A9D24FF0A0100DB985F /* AudioKit */,
+			);
 			productName = RecorderDemo;
 			productReference = 8DAD9EDD1D3E4A3400CD3B0A /* Recorder.app */;
 			productType = "com.apple.product-type.application";
@@ -309,7 +308,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Recorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,7 +331,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Recorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,6 +368,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4708A9D24FF0A0100DB985F /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DAD9ED51D3E4A3400CD3B0A /* Project object */;
 }
