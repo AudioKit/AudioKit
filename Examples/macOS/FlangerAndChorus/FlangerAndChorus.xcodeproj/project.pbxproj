@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		34735BF120141FA200700F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34735BF020141FA200700F22 /* Conductor.swift */; };
+		C4708AA124FF0F8D00DB985F /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4708AA024FF0F8D00DB985F /* AudioKit */; };
 		C4BDE7ED1C12FAE600207DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EC1C12FAE600207DA9 /* AppDelegate.swift */; };
 		C4BDE7EF1C12FAE600207DA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EE1C12FAE600207DA9 /* ViewController.swift */; };
 		C4BDE7F11C12FAE600207DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */; };
 		C4BDE7F41C12FAE600207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F21C12FAE600207DA9 /* Main.storyboard */; };
-		EAF51B3324172897005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B3124172897005E7000 /* AudioKitUI.xcframework */; };
-		EAF51B3524172897005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B3224172897005E7000 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		34735BF020141FA200700F22 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		C4708A9F24FF0F8600DB985F /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../..; sourceTree = "<group>"; };
 		C4BDE7E91C12FAE600207DA9 /* FlangerAndChorus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlangerAndChorus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BDE7EC1C12FAE600207DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4BDE7EE1C12FAE600207DA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,8 +25,6 @@
 		C4BDE7F31C12FAE600207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE7F51C12FAE600207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DD02BC2023062800AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		EAF51B3124172897005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
-		EAF51B3224172897005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,8 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B3324172897005E7000 /* AudioKitUI.xcframework in Frameworks */,
-				EAF51B3524172897005E7000 /* AudioKit.xcframework in Frameworks */,
+				C4708AA124FF0F8D00DB985F /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +42,7 @@
 		C4BDE7E01C12FAE600207DA9 = {
 			isa = PBXGroup;
 			children = (
+				C4708A9F24FF0F8600DB985F /* AudioKit */,
 				C4DD02BC2023062800AC39DD /* README.md */,
 				C4BDE7EB1C12FAE600207DA9 /* FlangerAndChorus */,
 				EA127F541C42123600289567 /* Frameworks */,
@@ -76,8 +74,6 @@
 		EA127F541C42123600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAF51B3224172897005E7000 /* AudioKit.xcframework */,
-				EAF51B3124172897005E7000 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -98,6 +94,9 @@
 			dependencies = (
 			);
 			name = FlangerAndChorus;
+			packageProductDependencies = (
+				C4708AA024FF0F8D00DB985F /* AudioKit */,
+			);
 			productName = FlangerAndChorus;
 			productReference = C4BDE7E91C12FAE600207DA9 /* FlangerAndChorus.app */;
 			productType = "com.apple.product-type.application";
@@ -289,7 +288,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FlangerAndChorus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -309,7 +308,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FlangerAndChorus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -339,6 +338,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4708AA024FF0F8D00DB985F /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C4BDE7E11C12FAE600207DA9 /* Project object */;
 }
