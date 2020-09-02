@@ -18,7 +18,6 @@ public class AKPlayer: AKNode {
     override func makeAVConnections() {
         if let engine = mixerNode.engine {
             engine.attach(playerNode)
-            engine.attach(mixerNode)
             engine.connect(playerNode, to: mixerNode)
         }
     }
