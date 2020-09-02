@@ -23,29 +23,11 @@ class AKNodeTests: AKTestCase {
         AKTest()
     }
 
-    func testNodeDeferredConnection() {
-        osc.start()
-        let verb = AKCostelloReverb()
-        osc >>> verb
-        engine.output = verb
-        AKTest()
-    }
-
-    func testBadConnection() {
-
-        let osc1 = AKOscillator()
-        let osc2 = AKOscillator()
-
-        osc1 >>> osc2
-
-        XCTAssertEqual(osc2.connections.count, 0)
-    }
-
     func testRedundantConnection() {
         let osc = AKOscillator()
         let mixer = AKMixer()
-        osc >>> mixer
-        osc >>> mixer
+        mixer.addInput(osc)
+        mixer.addInput(osc)
         XCTAssertEqual(mixer.connections.count, 1)
     }
 
@@ -83,7 +65,7 @@ class AKNodeTests: AKTestCase {
 
         let osc2 = AKOscillator(frequency: 880)
         osc2.start()
-        osc2 >>> mixer
+        mixer.addInput(osc2)
 
         AKAppendSegmentedTest(duration: 1.0)
 
@@ -105,8 +87,7 @@ class AKNodeTests: AKTestCase {
         let osc2 = AKOscillator(frequency: 880)
         let verb = AKCostelloReverb(osc2)
         osc2.start()
-
-        verb >>> mixer
+        mixer.addInput(verb)
 
         AKAppendSegmentedTest(duration: 1.0)
 
@@ -127,8 +108,7 @@ class AKNodeTests: AKTestCase {
 
         let osc2 = AKOscillator(frequency: 880)
         osc2.start()
-
-        osc2 >>> mixer
+        mixer.addInput(osc2)
 
         AKAppendSegmentedTest(duration: 1.0)
 
@@ -192,23 +172,60 @@ class AKNodeTests: AKTestCase {
 
     }
 
-    func testBadDynamicConnection() {
+    func testManyMixerConnections() {
+
+        let engine = AKEngine()
+        var oscs: [AKOscillator] = []
+        for _ in 0..<16 {
+            oscs.append(AKOscillator())
+        }
+
+        let mixer = AKMixer(oscs)
+        engine.output = mixer
+
+        XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
+
+    }
+
+    func connectionCount(node: AVAudioNode) -> Int {
+        var count = 0
+        for bus in 0 ..< node.numberOfInputs {
+            if let cp = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
+                if cp.node != nil {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+
+    func testFanout() {
+
+        let engine = AKEngine()
+        let osc = AKOscillator()
+        let verb = AKCostelloReverb(osc)
+        let mixer = AKMixer(osc, verb)
+        engine.output = mixer
+
+        XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
+        XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
+    }
+
+    func testMixerRedundantUpstreamConnection() {
 
         let engine = AKEngine()
 
         let osc = AKOscillator()
-        let verb = AKCostelloReverb()
+        let mixer1 = AKMixer(osc)
+        let mixer2 = AKMixer(mixer1)
 
-        engine.output = verb
+        engine.output = mixer2
 
-        try! engine.start()
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
-        sleep(1)
+        mixer2.addInput(osc)
 
-        osc >>> verb
-
-        // Ensure connection was not made.
-        XCTAssertEqual(verb.connections.count, 0)
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
     }
 
