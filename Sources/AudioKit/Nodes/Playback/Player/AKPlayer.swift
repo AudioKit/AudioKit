@@ -43,4 +43,12 @@ public class AKPlayer: AKNode {
         playerNode.play()
     }
 
+    public func stop() {
+        playerNode.stop()
+    }
+
+    public func pause() {
+        playerNode.pause()
+    }
+
 }
