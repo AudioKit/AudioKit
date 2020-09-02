@@ -88,8 +88,6 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-
-        setupNode(input)
     }
 
     /// Callback function for FFT data:
@@ -105,5 +103,9 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }
+    }
+
+    public func start() {
+        setupNode(node)
     }
 }
