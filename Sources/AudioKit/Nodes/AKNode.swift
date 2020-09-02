@@ -62,7 +62,7 @@ open class AKNode {
             for (bus, connection) in connections.enumerated() {
                 if let sourceEngine = connection.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
-                        AKLog("error: Attempt to connect nodes from different engines.")
+                        AKLog("🛑 Error: Attempt to connect nodes from different engines.")
                         return
                     }
                 }
@@ -82,20 +82,20 @@ open class AKNode {
 
     public func connect(node: AKNode) {
         if avAudioNode.numberOfInputs == 0 {
-            AKLog("error: Node has no input buses.")
+            AKLog("🛑 Error: Node has no input buses.")
             return
         }
         if node.avAudioNode.numberOfOutputs == 0 {
-            AKLog("error: Node has no output buses.")
+            AKLog("🛑 Error: Node has no output buses.")
             return
         }
         if connections.contains(where: { $0 === node }) {
-            AKLog("error: Node is already connected.")
+            AKLog("🛑 Error: Node is already connected.")
             return
         }
         if let engine = avAudioNode.engine {
             if engine.isRunning && ((avAudioNode as? AVAudioMixerNode) == nil) {
-                AKLog("error: connections may only be made to mixers while the engine is running.")
+                AKLog("🛑 Error: connections may only be made to mixers while the engine is running.")
                 return
             }
         }
