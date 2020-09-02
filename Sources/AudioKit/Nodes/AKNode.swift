@@ -5,11 +5,6 @@ import CAudioKit
 
 open class AKNode {
 
-    /// The engine this node is attached to.
-    /// Nodes are implicitly attached by their connections so the user doesn't
-    /// have to explicitly do it.
-    var akEngine: AKEngine?
-
     /// Nodes providing input to this node.
     var connections: [AKNode] = []
 
