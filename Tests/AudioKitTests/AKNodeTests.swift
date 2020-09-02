@@ -112,7 +112,7 @@ class AKNodeTests: AKTestCase {
 
         AKAppendSegmentedTest(duration: 1.0)
 
-        mixer.disconnect(node: osc2)
+        mixer.removeInput(osc2)
 
         AKAppendSegmentedTest(duration: 1.0)
 
@@ -130,7 +130,7 @@ class AKNodeTests: AKTestCase {
 
         AKStartSegmentedTest(duration: 1.0)
 
-        mixer.disconnect(node: osc)
+        mixer.removeInput(osc)
 
         AKAppendSegmentedTest(duration: 1.0)
 

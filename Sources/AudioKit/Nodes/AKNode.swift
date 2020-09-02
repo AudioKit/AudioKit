@@ -85,11 +85,6 @@ open class AKNode {
         }
     }
 
-    public func disconnect(node: AKNode) {
-        connections.removeAll(where: { $0 === node })
-        avAudioNode.disconnect(input: node.avAudioNode)
-    }
-
 }
 
 /// Protocol for responding to play and stop of MIDI notes

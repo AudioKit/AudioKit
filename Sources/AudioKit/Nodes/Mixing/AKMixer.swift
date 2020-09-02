@@ -80,4 +80,9 @@ public class AKMixer: AKNode, AKToggleable {
         connections.append(node)
         makeAVConnections()
     }
+
+    public func removeInput(_ node: AKNode) {
+        connections.removeAll(where: { $0 === node })
+        avAudioNode.disconnect(input: node.avAudioNode)
+    }
 }
