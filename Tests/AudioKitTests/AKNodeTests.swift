@@ -229,5 +229,28 @@ class AKNodeTests: AKTestCase {
 
     }
 
+    func testTransientNodes() {
+        let osc = AKOscillator()
+        func exampleStart() {
+            let env = AKAmplitudeEnvelope(osc)
+            osc.amplitude = 1
+            engine.output = env
+            osc.start()
+            try! engine.start()
+            sleep(1)
+        }
+        func exampleStop() {
+            osc.stop()
+            engine.stop()
+            sleep(1)
+        }
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+    }
+
 }
 

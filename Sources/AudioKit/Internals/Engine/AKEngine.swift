@@ -44,6 +44,7 @@ public class AKEngine {
         didSet {
             if let node = oldValue {
                 avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
+                node.detach()
             }
             if let node = output {
                 avEngine.attach(node.avAudioNode)
