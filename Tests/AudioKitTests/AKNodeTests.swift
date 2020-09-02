@@ -125,7 +125,7 @@ class AKNodeTests: AKTestCase {
 
         AKStartSegmentedTest(duration: 1.0)
 
-        let osc2 = AKOscillator(frequency: 880)////////////////////////
+        let osc2 = AKOscillator(frequency: 880)
         osc2.start()
 
         osc2 >>> mixer

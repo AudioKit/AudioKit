@@ -3,10 +3,21 @@
 import AVFoundation
 import CAudioKit
 
+internal struct AKConnection {
+    let node: AKNode
+    let bus: AVAudioNodeBus
+}
+
+extension Array where Element == AKConnection {
+    mutating func append(_ node: AKNode) {
+        self.append(AKConnection(node: node, bus: 0))
+    }
+}
+
 open class AKNode {
 
     /// Nodes providing input to this node.
-    var connections: [AKNode] = []
+    var connections: [AKConnection] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -60,15 +71,15 @@ open class AKNode {
         // Are we attached?
         if let engine = self.avAudioNode.engine {
             for connection in connections {
-                if let sourceEngine = connection.avAudioNode.engine {
+                if let sourceEngine = connection.node.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
                         AKLog("error: Attempt to connect nodes from different engines.")
                         return
                     }
                 }
-                engine.attach(connection.avAudioNode)
-                engine.connect(connection.avAudioNode, to: avAudioNode)
-                connection.makeAVConnections()
+                engine.attach(connection.node.avAudioNode)
+                engine.connect(connection.node.avAudioNode, to: avAudioNode, bus: connection.bus)
+                connection.node.makeAVConnections()
             }
         }
     }
@@ -82,7 +93,7 @@ open class AKNode {
             AKLog("error: Node has no output buses.")
             return
         }
-        if connections.contains(where: { $0 === node }) {
+        if connections.contains(where: { $0.node === node }) {
             AKLog("error: Node is already connected.")
             return
         }
@@ -101,7 +112,7 @@ open class AKNode {
     }
 
     public func disconnect(node: AKNode) {
-        connections.removeAll(where: { $0 === node })
+        connections.removeAll(where: { $0.node === node })
         avAudioNode.disconnect(input: node.avAudioNode)
     }
 
