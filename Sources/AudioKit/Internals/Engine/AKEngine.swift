@@ -34,7 +34,7 @@ public class AKEngine {
             if let node = output {
                 avEngine.attach(node.avAudioNode)
                 node.makeAVConnections()
-                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode)
+                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
             }
         }
     }

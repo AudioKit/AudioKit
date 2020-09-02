@@ -6,11 +6,6 @@ import AVFoundation
 
 extension AVAudioEngine {
 
-    /// Adding connection between nodes with default format
-    public func connect(_ node1: AVAudioNode, to node2: AVAudioNode, bus: Int = 0) {
-        connect(node1, to: node2, fromBus: 0, toBus: bus, format: nil)
-    }
-
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
     ///         - audioFile: A file initialized for writing

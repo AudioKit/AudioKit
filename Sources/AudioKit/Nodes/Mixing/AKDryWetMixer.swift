@@ -62,7 +62,7 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
         }
 
         connections.append(input1)
-        connections.append(AKConnection(node: input2, bus: 1))
+        connections.append(input2)
     }
 
     public convenience init(dry: AKNode, wet: AKNode, balance: AUValue = 0.5) {
