@@ -3,9 +3,34 @@ import AVFoundation
 import XCTest
 
 // XXX: Disable AKPlayerTests for now since SPM doesn't allow test resources until Xcode 12.
-#if false
+
 
 class AKPlayerTests: AKTestCase {
+
+    // Because SPM doesn't support resources yet, render out a test file.
+    func generateTestFile() {
+
+        let osc = AKOscillator()
+        let engine = AKEngine()
+        engine.output = osc
+        osc.start()
+
+        // let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 44100, channels: 2, interleaved: true)!
+
+        let mgr = FileManager.default
+        let url = mgr.temporaryDirectory.appendingPathComponent("test.aiff")
+        try? mgr.removeItem(at: url)
+        let file = try! AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings)
+
+        try! engine.renderToFile(file, duration: 5)
+        print("rendered test file to \(url)")
+    }
+
+    func testBasic() {
+        generateTestFile()
+    }
+
+    #if false
     // 12345 is good for testing editing, PinkNoise is good to check fade amplitudes
     static let pinkNoise = "PinkNoise"
     static let counting = "12345"
@@ -138,6 +163,8 @@ class AKPlayerTests: AKTestCase {
 
         auditioning ? auditionTest() : AKTest(md5)
     }
+
+    #endif
 }
 
-#endif
+
