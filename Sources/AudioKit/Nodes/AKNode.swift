@@ -46,13 +46,12 @@ open class AKNode {
         self.avAudioNode = avAudioNode
     }
 
-    deinit {
-        detach()
-    }
-
     func detach() {
         if let engine = self.avAudioNode.engine {
             engine.detach(self.avAudioNode)
+        }
+        for connection in connections {
+            connection.detach()
         }
     }
 
