@@ -8,7 +8,7 @@ import XCTest
 class AKPlayerTests: AKTestCase {
 
     // Because SPM doesn't support resources yet, render out a test file.
-    func generateTestFile() {
+    func generateTestFile() -> URL {
 
         let osc = AKOscillator()
         let engine = AKEngine()
@@ -24,10 +24,25 @@ class AKPlayerTests: AKTestCase {
 
         try! engine.renderToFile(file, duration: 5)
         print("rendered test file to \(url)")
+
+        return url
     }
 
     func testBasic() {
-        generateTestFile()
+        let url = generateTestFile()
+
+        let file = try! AVAudioFile(forReading: url)
+
+        let engine = AKEngine()
+        let player = AKPlayer()
+        engine.output = player
+
+        try! engine.start()
+        player.scheduleFile(file, at: nil)
+        player.play()
+        sleep(5)
+        engine.stop()
+
     }
 
     #if false
