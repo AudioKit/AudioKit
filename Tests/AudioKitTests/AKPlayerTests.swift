@@ -61,6 +61,16 @@ class AKPlayerTests: AKTestCase {
 
     }
 
+    func testScheduleEarly() {
+        
+        let url = generateTestFile()
+        
+        let file = try! AVAudioFile(forReading: url)
+        
+        let player = AKPlayer()
+        player.scheduleFile(file, at: nil)
+    }
+    
 }
 
 
