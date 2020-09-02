@@ -33,22 +33,6 @@ extension AVAudioNode {
 
 }
 
-extension AKNode: Equatable {
-    public static func == (lhs: AKNode, rhs: AKNode) -> Bool {
-        ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
-    }
-}
-
-extension AKNode: Hashable {
-    public var hashValue: Int {
-        return ObjectIdentifier(self).hashValue
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-}
-
 public class AKEngine {
 
     // TODO make this internal
@@ -66,27 +50,6 @@ public class AKEngine {
                 node.makeAVConnections()
                 avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
             }
-        }
-    }
-
-    func updateConnections(node: AKNode) {
-        node.setEngine(self)
-        var connections = [(AKNode, AKNode)]()
-        node.findConnections(&connections)
-
-        var connectionMap = [AKNode: [AKNode]]()
-
-        for (source, dest) in connections {
-            if let value = connectionMap[source] {
-                connectionMap[source] = value + [dest]
-            } else {
-                connectionMap[source] = [dest]
-            }
-        }
-
-        for (source, dests) in connectionMap {
-            let points = dests.enumerated().map { AVAudioConnectionPoint(node: $1.avAudioNode, bus: $0) }
-            avEngine.connect(source.avAudioNode, to: points, fromBus: 0, format: nil)
         }
     }
 

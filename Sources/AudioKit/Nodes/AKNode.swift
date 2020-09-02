@@ -75,7 +75,6 @@ open class AKNode {
 
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
-                    print("nextAvailableInputBus: \(mixer.nextAvailableInputBus)")
                     mixer.connect(input: connection.avAudioNode, bus: mixer.nextAvailableInputBus)
                 } else {
                     avAudioNode.connect(input: connection.avAudioNode, bus: bus)
@@ -83,23 +82,6 @@ open class AKNode {
 
                 connection.makeAVConnections()
             }
-        }
-    }
-
-    /// Sets the engine for all upstream nodes.
-    func setEngine(_ engine: AKEngine) {
-        akEngine = engine
-        engine.avEngine.attach(avAudioNode)
-        for connection in connections {
-            connection.setEngine(engine)
-        }
-    }
-
-    /// Recursively accumulate all the connections.
-    func findConnections(_ allConnections: inout [(AKNode, AKNode)]) {
-        for connection in connections {
-            allConnections.append((connection, self))
-            connection.findConnections(&allConnections)
         }
     }
 
