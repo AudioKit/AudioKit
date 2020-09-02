@@ -3,6 +3,7 @@
 import AVFoundation
 import CAudioKit
 
+/// Wrapper for AVAudioPlayerNode.
 public class AKPlayer: AKNode {
 
     /// The underlying player node
@@ -24,6 +25,10 @@ public class AKPlayer: AKNode {
 
     public func scheduleFile(_ file: AVAudioFile, at when: AVAudioTime?, completionHandler: AVAudioNodeCompletionHandler? = nil) {
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
+    }
+
+    public func scheduleBuffer(_ buffer: AVAudioPCMBuffer, at when: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions = [], completionHandler: AVAudioNodeCompletionHandler? = nil) {
+        playerNode.scheduleBuffer(buffer, at: when, options: options, completionHandler: completionHandler)
     }
 
     public func play() {

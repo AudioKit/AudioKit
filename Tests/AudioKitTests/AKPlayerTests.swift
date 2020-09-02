@@ -22,7 +22,7 @@ class AKPlayerTests: AKTestCase {
         try? mgr.removeItem(at: url)
         let file = try! AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings)
 
-        try! engine.renderToFile(file, duration: 5)
+        try! engine.renderToFile(file, duration: 1)
         print("rendered test file to \(url)")
 
         return url
@@ -39,6 +39,25 @@ class AKPlayerTests: AKTestCase {
 
         try! engine.start()
         player.scheduleFile(file, at: nil)
+        player.play()
+        sleep(5)
+        engine.stop()
+
+    }
+
+    func testLoop() {
+        let url = generateTestFile()
+        let file = try! AVAudioFile(forReading: url)
+
+        let engine = AKEngine()
+        let player = AKPlayer()
+        engine.output = player
+
+        let buffer = try! AVAudioPCMBuffer(file: file)!
+
+        try! engine.start()
+        player.scheduleBuffer(buffer, at: nil, options: .loops)
+
         player.play()
         sleep(5)
         engine.stop()
