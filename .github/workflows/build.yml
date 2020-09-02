@@ -2,6 +2,8 @@
 name: CI
 
 on: [push, pull_request]
+env:
+  XCODE_VER: 12_beta
 
 jobs:
   test:
@@ -34,6 +36,7 @@ jobs:
       - name: Build and Upload XCFrameworks
         run: |
           set -euo pipefail
+          sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
           cd Frameworks
           ./build_frameworks.sh
           ./build_xcframework.sh
@@ -61,6 +64,7 @@ jobs:
       - name: Build XCFrameworks
         run: |
           set -euo pipefail
+          sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
           cd Frameworks
           ./build_frameworks.sh
           ./build_xcframework.sh
