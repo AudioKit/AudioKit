@@ -94,7 +94,7 @@ open class AKNode {
             return
         }
         if let engine = avAudioNode.engine {
-            if engine.isRunning && ((avAudioNode as? AVAudioMixerNode) == nil) {
+            if engine.isRunning && !(avAudioNode is AVAudioMixerNode) {
                 AKLog("🛑 Error: connections may only be made to mixers while the engine is running.")
                 return
             }
