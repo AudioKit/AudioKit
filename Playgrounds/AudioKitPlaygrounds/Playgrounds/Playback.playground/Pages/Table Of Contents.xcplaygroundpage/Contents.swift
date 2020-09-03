@@ -6,8 +6,6 @@
 //: * [Sample Player](Sample%20Player)
 //: * [Editing Audio Files](Editing%20Audio%20Files)
 //: * [Exporting Files](Exporting%20Files)
-//: * [Processing Audio File Asynchronously](Processing%20Audio%20File%20Asynchronously)
-//: * [Reading and Writing Audio Files](Reading%20and%20Writing%20Audio%20Files)
 //:
 //: ## MIDI
 //:
