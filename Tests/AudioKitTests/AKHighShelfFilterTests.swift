@@ -6,7 +6,7 @@ class AKHighShelfFilterTests: AKTestCase {
 
     func testDefault() {
         engine.output = AKHighShelfFilter(input)
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testGain() {
