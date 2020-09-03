@@ -44,10 +44,11 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let audio = engine.startTest(totalDuration: 2.0)
         let osc1 = AKOscillator()
         osc1.start()
         engine.output = osc1
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
@@ -60,6 +61,7 @@ class AKNodeTests: XCTestCase {
         audio.append(newAudio2)
 
         testMD5(audio)
+        audition(audio)
     }
 
     func testDynamicConnection() {
