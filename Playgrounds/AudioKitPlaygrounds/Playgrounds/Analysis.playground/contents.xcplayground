@@ -3,7 +3,6 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='FFT Analysis'/>
-        <page name='Node Output Plot'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency of Audio File'/>
         <page name='Tracking Frequency'/>

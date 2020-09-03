@@ -27,7 +27,6 @@
 //:
 //: A gentle introduction to the power of AudioKit operations:
 //:
-//: * [Metronome](Metronome)
 //: * [Low-Frequency Oscillating of Parameters](Low-Frequency%20Oscillating%20of%20Parameters)
 //: * [Using Functions](Using%20Functions)
 //: * [Using Functions Part 2](Using%20Functions%20Part%202)
