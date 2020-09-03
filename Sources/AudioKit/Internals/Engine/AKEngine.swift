@@ -58,6 +58,10 @@ public class AKEngine {
     }
 
     public func start() throws {
+        if output == nil {
+            AKLog("🛑 Error: Attempt to start engine with no output.")
+            return
+        }
         try avEngine.start()
     }
 
@@ -73,9 +77,9 @@ public class AKEngine {
             try self.avEngine.enableManualRenderingMode(.offline,
                                                         format: AKSettings.audioFormat,
                                                         maximumFrameCount: maximumFrameCount)
-            try self.avEngine.start()
+            try start()
         } catch let err {
-            AKLog("Start Test Erro:r \(err)")
+            AKLog("🛑 Start Test Error: \(err)")
         }
 
         return AVAudioPCMBuffer(
@@ -102,7 +106,7 @@ public class AKEngine {
                 buffer.append(tempBuffer)
             }
         } catch let err {
-            AKLog("Could not render offline \(err)")
+            AKLog("🛑 Could not render offline \(err)")
         }
         return buffer
     }

@@ -12,8 +12,10 @@ class AKNodeTests: XCTestCase {
         let engine = AKEngine()
         let osc = AKOscillator()
         XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
         engine.output = osc
+        XCTAssertNotNil(osc.avAudioNode.engine)
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
@@ -63,11 +65,18 @@ class AKNodeTests: XCTestCase {
     func testDynamicConnection() {
 
         let engine = AKEngine()
-        let audio = engine.startTest(totalDuration: 2.0)
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
+
+        XCTAssertNil(osc.avAudioNode.engine)
+
         engine.output = mixer
+
+        // Osc should be attached.
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         osc.start()
 
@@ -85,13 +94,14 @@ class AKNodeTests: XCTestCase {
     func testDynamicConnection2() {
 
         let engine = AKEngine()
-        let audio = engine.startTest(totalDuration: 2.0)
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
 
         engine.output = mixer
         osc.start()
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -103,17 +113,19 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
+        audition(audio)
     }
 
     func testDynamicConnection3() {
         let engine = AKEngine()
-        let audio = engine.startTest(totalDuration: 3.0)
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
 
         osc.start()
+
+        let audio = engine.startTest(totalDuration: 3.0)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -134,11 +146,12 @@ class AKNodeTests: XCTestCase {
     func testDisconnect() {
 
         let engine = AKEngine()
-        let audio = engine.startTest(totalDuration: 2.0)
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         osc.start()
 
@@ -149,17 +162,19 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-
+        audition(audio)
     }
 
     func testNodeDetach() {
         let engine = AKEngine()
-        let audio = engine.startTest(totalDuration: 2.0)
+
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
         osc.start()
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -168,7 +183,6 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-
     }
 
     func testTwoEngines() {
