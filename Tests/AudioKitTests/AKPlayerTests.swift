@@ -25,7 +25,7 @@ class AKPlayerTests: AKTestCase {
         return url
     }
 
-    func testBasic() {
+    func testBasicOriginal() {
         let url = generateTestFile()
 
         let file = try! AVAudioFile(forReading: url)
@@ -42,22 +42,37 @@ class AKPlayerTests: AKTestCase {
 
     }
 
-    func testLoop() {
+    func testBasic() {
         let url = generateTestFile()
+
         let file = try! AVAudioFile(forReading: url)
 
         let engine = AKEngine()
         let player = AKPlayer()
         engine.output = player
 
+        var audio = try! engine.startTest(totalDuration: 5.0)!
+        player.scheduleFile(file, at: nil)
+        player.play()
+        audio.append(try! engine.render(duration: 5.0))
+        testMD5(buffer: audio)
+    }
+
+    func testLoop() {
+        let url = generateTestFile()
+        let file = try! AVAudioFile(forReading: url)
         let buffer = try! AVAudioPCMBuffer(file: file)!
 
-        try! engine.start()
-        player.scheduleBuffer(buffer, at: nil, options: .loops)
+        let engine = AKEngine()
+        let player = AKPlayer()
+        engine.output = player
 
-        player.play()
-        sleep(5)
-        engine.stop()
+        duration = 5
+        afterStart = {
+            player.scheduleBuffer(buffer, at: nil, options: .loops)
+            player.play()
+        }
+        AKTest()
 
     }
 

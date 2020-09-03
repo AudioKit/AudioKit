@@ -26,45 +26,16 @@ class AKTestCase: XCTestCase {
         XCTAssert(validatedMD5s[name] == localMD5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
 
+    func testMD5(buffer: AVAudioPCMBuffer) {
+        let localMD5 = buffer.md5
+        let name = self.description
+        XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
+    }
+
     func AKFinishSegmentedTest(_ testName: String? = nil) {
         engine.stop()
 
-        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
-        md5_init(md5state)
-        var samplesHashed = 0
-
-        let framesToRender = AVAudioFrameCount(duration * AKSettings.sampleRate)
-
-        if let floatChannelData = buffer.floatChannelData {
-
-            for frame in 0 ..< framesToRender {
-                for channel in 0 ..< buffer.format.channelCount where samplesHashed < framesToRender {
-                    let sample = floatChannelData[Int(channel)][Int(frame)]
-                    withUnsafeBytes(of: sample) { samplePtr in
-                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
-                            md5_append(md5state, baseAddress, 4)
-                        }
-                    }
-                    samplesHashed += 1
-                }
-            }
-
-        }
-
-        var digest = [md5_byte_t](repeating: 0, count: 16)
-        var digestHex = ""
-
-        digest.withUnsafeMutableBufferPointer { digestPtr in
-            md5_finish(md5state, digestPtr.baseAddress)
-        }
-
-        for index in 0..<16 {
-            digestHex += String(format: "%02x", digest[index])
-        }
-
-        md5state.deallocate()
-
-        let localMD5 = digestHex
+        let localMD5 = buffer.md5
 
         let name = testName ?? self.description
         XCTAssert(validatedMD5s[name] == localMD5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
