@@ -62,55 +62,46 @@ public class AKEngine {
         avEngine.stop()
     }
 
-    public func startTest(totalDuration duration: Double) throws -> AVAudioPCMBuffer? {
+    public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
         let samples = Int(duration * AKSettings.sampleRate)
 
         // maximum number of frames the engine will be asked to render in any single render call
-        let maximumFrameCount: AVAudioFrameCount = 4_096
-        try AKTry {
+        let maximumFrameCount: AVAudioFrameCount = 1024
+        do {
             self.avEngine.reset()
             try self.avEngine.enableManualRenderingMode(.offline,
                                                         format: AKSettings.audioFormat,
                                                         maximumFrameCount: maximumFrameCount)
             try self.avEngine.start()
+        } catch let err {
+            AKLog("Start Test Erro:r \(err)")
         }
 
         return AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(samples))
+            frameCapacity: AVAudioFrameCount(samples))!
     }
 
-    public func render(duration: Double) throws -> AVAudioPCMBuffer {
+    public func render(duration: Double) -> AVAudioPCMBuffer {
         let samples = Int(duration * AKSettings.sampleRate)
-
-        let maximumFrameCount: AVAudioFrameCount = 4_096
+        let startingSampleCount = Int(avEngine.manualRenderingSampleTime)
 
         let buffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
             frameCapacity: AVAudioFrameCount(samples))!
 
-        while avEngine.manualRenderingSampleTime < samples {
-            let framesToRender = min(UInt32(samples - Int(avEngine.manualRenderingSampleTime)), maximumFrameCount)
-            let status = try avEngine.renderOffline(framesToRender, to: buffer)
-            switch status {
-            case .success:
-                // data rendered successfully
-                break
+        let tempBuffer = AVAudioPCMBuffer(
+            pcmFormat: avEngine.manualRenderingFormat,
+            frameCapacity: AVAudioFrameCount(1024))!
 
-            case .insufficientDataFromInputNode:
-                // applicable only if using the input node as one of the sources
-                break
-
-            case .cannotDoInCurrentContext:
-                // engine could not render in the current render call, retry in next iteration
-                break
-
-            case .error:
-                // error occurred while rendering
-                fatalError("render failed")
-            @unknown default:
-                fatalError("Unknown render result")
+        do {
+            while avEngine.manualRenderingSampleTime < samples + startingSampleCount {
+                let framesToRender = min(UInt32(samples + startingSampleCount - Int( avEngine.manualRenderingSampleTime)), 1024)
+                try avEngine.renderOffline(AVAudioFrameCount(framesToRender), to: tempBuffer)
+                buffer.append(tempBuffer)
             }
+        } catch let err {
+            AKLog("Could not render offline \(err)")
         }
         return buffer
     }
@@ -123,29 +114,10 @@ public class AKEngine {
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
     public func test(duration: Double, afterStart: () -> Void = {}) throws -> String {
-        let buffer = try startTest(totalDuration: duration)!
+        let buffer = try startTest(totalDuration: duration)
         afterStart()
-        buffer.append(try render(duration: duration))
+        buffer.append(render(duration: duration))
         return buffer.md5
-    }
-
-    /// Audition the test to hear what it sounds like
-    ///
-    /// - Parameters:
-    ///   - duration: Number of seconds to test (accurate to the sample)
-    ///   - afterStart: Block of code to run before audition
-    ///
-    public func auditionTest(duration: Double, afterStart: () -> Void = {}) throws {
-        try avEngine.start()
-
-        // if the engine isn't running you need to give it time to get its act together before
-        // playing, otherwise the start of the audio is cut off
-        if !avEngine.isRunning {
-            usleep(UInt32(1_000_000))
-        }
-
-        afterStart()
-        usleep(UInt32(duration * 1_000_000))
     }
 
     /// Enumerate the list of available input devices.
