@@ -185,7 +185,7 @@ let validatedMD5s = [
     "-[AKNodeTests testDynamicConnection]": "7104c45d69212359cd6bccd938b0db16",
     "-[AKNodeTests testDynamicConnection2]": "5ac39c4f2e660b590df4acfee8a31044",
     "-[AKNodeTests testDynamicConnection3]": "65a45f1008b4525277b738e53142d36a",
-    "-[AKNodeTests testDynamicOutput]": "1234dd57f3af7775d57493b54d59bceb",
+    "-[AKNodeTests testDynamicOutput]": "bd77147a5aa06468fa1b36d4d3607d96",
     "-[AKNodeTests testNodeDetach]": "5c4f9baf9ef5a78cb0bdeef9b8f6b00b",
     "-[AKNodeTests testNodeBasic]": "9d9c8a2e65fd7b6d6b1fe4c47b59ba5d",
     "-[AKNodeTests testNodeConnection]": "6dcac84600df97b1365fd3893d020864",
