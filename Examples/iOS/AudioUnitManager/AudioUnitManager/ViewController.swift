@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         let player = AKPlayer(audioFile: audioFile)
         player.isLooping = true
         player.buffering = .always // clean loop
-        player >>> mixer
+        mixer.addInput(player)
 
         // setup the initial input/output connections
         auManager?.input = player

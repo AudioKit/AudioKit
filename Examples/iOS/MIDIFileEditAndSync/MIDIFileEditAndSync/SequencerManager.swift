@@ -22,7 +22,7 @@ class SequencerManager {
         seq?.enableLooping()
         node = AKMIDINode(node: oscBank)
         seq?.setGlobalMIDIOutput(node.midiIn)
-        oscBank >>> mixer
+        mixer.addInput(oscBank)
         engine.output = mixer
     }
 
