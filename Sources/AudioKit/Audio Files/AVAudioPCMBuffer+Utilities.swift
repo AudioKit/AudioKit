@@ -9,24 +9,19 @@ extension AVAudioPCMBuffer {
     public var md5: String {
         let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
         md5_init(md5state)
-        var samplesHashed = 0
-
-        let framesToRender = self.frameCapacity
 
         if let floatChannelData = self.floatChannelData {
 
-            for frame in 0 ..< framesToRender {
-                for channel in 0 ..< self.format.channelCount where samplesHashed < framesToRender {
+            for frame in 0 ..< self.frameCapacity {
+                for channel in 0 ..< self.format.channelCount {
                     let sample = floatChannelData[Int(channel)][Int(frame)]
                     withUnsafeBytes(of: sample) { samplePtr in
                         if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
                             md5_append(md5state, baseAddress, 4)
                         }
                     }
-                    samplesHashed += 1
                 }
             }
-
         }
 
         var digest = [md5_byte_t](repeating: 0, count: 16)
