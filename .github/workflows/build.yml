@@ -2,12 +2,14 @@
 name: CI
 
 on: [push, pull_request]
+env:
+  XCODE_VER: 12_beta
 
 jobs:
   test:
     strategy:
       matrix:
-        xcode_version: ['11.6']
+        xcode_version: ['11.6', '12_beta']
     runs-on: macos-latest
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
@@ -23,3 +25,54 @@ jobs:
         run: |
           set -euo pipefail
           swift test --sanitize="address"
+
+  staging:
+    needs: test
+    if: github.ref == 'refs/heads/staging'
+    runs-on: macos-latest
+    steps:
+      - name: Check out AudioKit
+        uses: actions/checkout@v2
+      - name: Build and Upload XCFrameworks
+        run: |
+          set -euo pipefail
+          sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
+          cd Frameworks
+          ./build_frameworks.sh
+          ./build_xcframework.sh
+          zip -9r AudioKit.xcframeworks.zip *.xcframework
+          aws s3 cp AudioKit.xcframeworks.zip s3://files.audiokit.io/staging/v$(<../VERSION).b$(<BETA)/
+          aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CF_DISTRIBUTION: ${{ secrets.CF_DISTRIBUTION }}
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: XCFrameworks
+          path: Frameworks/AudioKit.xcframeworks.zip
+
+  # Upload release assets for tags
+  release:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: macos-latest
+    steps:
+      - name: Check out AudioKit
+        uses: actions/checkout@v2
+      - name: Build XCFrameworks
+        run: |
+          set -euo pipefail
+          sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
+          cd Frameworks
+          ./build_frameworks.sh
+          ./build_xcframework.sh
+          zip -9r AudioKit.xcframeworks.zip *.xcframework
+      - name: Upload files to release draft
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          draft: true
+          files: Frameworks/AudioKit.xcframeworks.zip
