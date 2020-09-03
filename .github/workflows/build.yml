@@ -9,7 +9,7 @@ jobs:
   test:
     strategy:
       matrix:
-        xcode_version: ['11.6']
+        xcode_version: ['11.6', XCODE_VER]
     runs-on: macos-latest
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
