@@ -1,49 +1,73 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class AKAmplitudeEnvelopeTests: AKTestCase {
-
-    var envelope: AKAmplitudeEnvelope!
-
-    override func setUp() {
-        super.setUp()
-        // Need to have a longer test duration to allow for envelope to progress
-        duration = 1.0
-        afterStart = {
-            self.input.play()
-            self.envelope.start()
-         }
-    }
+class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testAttack() {
-        envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
+        let engine = AKEngine()
+        let input = AKOscillator()
+        let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
         engine.output = envelope
-        AKTest()
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDecay() {
-        envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
+        let engine = AKEngine()
+        let input = AKOscillator()
+        let envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
-        AKTest()
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDefault() {
-        envelope = AKAmplitudeEnvelope(input)
+        let engine = AKEngine()
+        let input = AKOscillator()
+        let envelope = AKAmplitudeEnvelope(input)
         engine.output = envelope
-        AKTest()
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameters() {
-        envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
+        let engine = AKEngine()
+        let input = AKOscillator()
+        let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
-        AKTest()
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testSustain() {
-        envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
+        let engine = AKEngine()
+        let input = AKOscillator()
+        let envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
         engine.output = envelope
-        AKTest()
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     // Release is not tested at this time since there is no sample accurate way to define release point

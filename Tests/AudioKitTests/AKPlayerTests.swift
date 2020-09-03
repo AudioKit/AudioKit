@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AKPlayerTests: AKTestCase {
+class AKPlayerTests: XCTestCase {
 
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL {
@@ -11,8 +11,6 @@ class AKPlayerTests: AKTestCase {
         let engine = AKEngine()
         engine.output = osc
         osc.start()
-
-        // let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 44100, channels: 2, interleaved: true)!
 
         let mgr = FileManager.default
         let url = mgr.temporaryDirectory.appendingPathComponent("test.aiff")
@@ -25,23 +23,6 @@ class AKPlayerTests: AKTestCase {
         return url
     }
 
-    func testBasicOriginal() {
-        let url = generateTestFile()
-
-        let file = try! AVAudioFile(forReading: url)
-
-        let engine = AKEngine()
-        let player = AKPlayer()
-        engine.output = player
-
-        try! engine.start()
-        player.scheduleFile(file, at: nil)
-        player.play()
-        sleep(5)
-        engine.stop()
-
-    }
-
     func testBasic() {
         let url = generateTestFile()
 
@@ -51,12 +32,18 @@ class AKPlayerTests: AKTestCase {
         let player = AKPlayer()
         engine.output = player
 
-        var audio = try! engine.startTest(totalDuration: 5.0)!
+        let audio = engine.startTest(totalDuration: 2.0)
         player.scheduleFile(file, at: nil)
         player.play()
-        audio.append(try! engine.render(duration: 5.0))
-        testMD5(buffer: audio)
+        audio.append(engine.render(duration: 2.0))
+        engine.stop()
+
+        testMD5(audio)
+        // audition(audio)
+
     }
+
+
 
     func testLoop() {
         let url = generateTestFile()
@@ -67,13 +54,16 @@ class AKPlayerTests: AKTestCase {
         let player = AKPlayer()
         engine.output = player
 
-        duration = 5
-        afterStart = {
-            player.scheduleBuffer(buffer, at: nil, options: .loops)
-            player.play()
-        }
-        AKTest()
+        let audio = engine.startTest(totalDuration: 2.0)
 
+        player.scheduleBuffer(buffer, at: nil, options: .loops)
+        player.play()
+
+        audio.append(engine.render(duration: 2.0))
+        engine.stop()
+
+        testMD5(audio)
+        // audition(audio)
     }
 
     func testScheduleEarly() {
