@@ -45,10 +45,15 @@ extension AVAudioPCMBuffer {
         append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
     }
 
-    public func append(_ buffer: AVAudioPCMBuffer, startingFrame: AVAudioFramePosition, frameCount: AVAudioFrameCount) {
-        precondition(format == buffer.format, "Format mismatch")
-        precondition(startingFrame + AVAudioFramePosition(frameCount) <= AVAudioFramePosition(buffer.frameLength), "Insufficient audio in buffer")
-        precondition(frameLength + frameCount <= frameCapacity, "Insufficient space in buffer")
+    public func append(_ buffer: AVAudioPCMBuffer,
+                       startingFrame: AVAudioFramePosition,
+                       frameCount: AVAudioFrameCount) {
+        precondition(format == buffer.format,
+                     "Format mismatch")
+        precondition(startingFrame + AVAudioFramePosition(frameCount) <= AVAudioFramePosition(buffer.frameLength),
+                     "Insufficient audio in buffer")
+        precondition(frameLength + frameCount <= frameCapacity,
+                     "Insufficient space in buffer")
 
         let dst = floatChannelData!
         let src = buffer.floatChannelData!

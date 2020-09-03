@@ -379,6 +379,6 @@ let validatedMD5s = [
     "-[VocalTractTests testParameterSweep]": "c9f4706bae8d9c308393d44846839660",
     "-[WhiteNoiseTests testAmplitude]": "c07a6ef5d9d05c99096abf66e26c5ba8",
     "-[WhiteNoiseTests testDefault]": "ec5171195b3832867a9617b972c9eb1b",
-    "-[WhiteNoiseTests testParameterSweep]": "a6f20d4cd538ed168709165888aa4afc",
+    "-[WhiteNoiseTests testParameterSweep]": "a6f20d4cd538ed168709165888aa4afc"
 ]
 

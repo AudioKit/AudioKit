@@ -61,7 +61,7 @@ class AKNodeTests: XCTestCase {
         audio.append(newAudio2)
 
         testMD5(audio)
-        audition(audio)
+        // audition(audio)
     }
 
     func testDynamicConnection() {
@@ -115,7 +115,7 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        audition(audio)
+        // audition(audio)
     }
 
     func testDynamicConnection3() {
@@ -142,7 +142,7 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        audition(audio)
+        // audition(audio)
     }
 
     func testDisconnect() {
@@ -164,7 +164,7 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        audition(audio)
+        // audition(audio)
     }
 
     func testNodeDetach() {
@@ -223,8 +223,8 @@ class AKNodeTests: XCTestCase {
     func connectionCount(node: AVAudioNode) -> Int {
         var count = 0
         for bus in 0 ..< node.numberOfInputs {
-            if let cp = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
-                if cp.node != nil {
+            if let inputConnection = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
+                if inputConnection.node != nil {
                     count += 1
                 }
             }

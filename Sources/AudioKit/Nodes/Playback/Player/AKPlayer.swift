@@ -23,7 +23,9 @@ public class AKPlayer: AKNode {
         }
     }
 
-    public func scheduleFile(_ file: AVAudioFile, at when: AVAudioTime?, completionHandler: AVAudioNodeCompletionHandler? = nil) {
+    public func scheduleFile(_ file: AVAudioFile,
+                             at when: AVAudioTime?,
+                             completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
             AKLog("🛑 Error: AKPlayer must be attached before scheduling playback.")
             return
@@ -31,12 +33,18 @@ public class AKPlayer: AKNode {
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
     }
 
-    public func scheduleBuffer(_ buffer: AVAudioPCMBuffer, at when: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions = [], completionHandler: AVAudioNodeCompletionHandler? = nil) {
+    public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
+                               at when: AVAudioTime?,
+                               options: AVAudioPlayerNodeBufferOptions = [],
+                               completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
             AKLog("🛑 Error: AKPlayer must be attached before scheduling playback.")
             return
         }
-        playerNode.scheduleBuffer(buffer, at: when, options: options, completionHandler: completionHandler)
+        playerNode.scheduleBuffer(buffer,
+                                  at: when,
+                                  options: options,
+                                  completionHandler: completionHandler)
     }
 
     public func play() {

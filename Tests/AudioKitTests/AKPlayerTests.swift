@@ -40,10 +40,7 @@ class AKPlayerTests: XCTestCase {
 
         testMD5(audio)
         // audition(audio)
-
     }
-
-
 
     func testLoop() {
         let url = generateTestFile()
@@ -67,15 +64,12 @@ class AKPlayerTests: XCTestCase {
     }
 
     func testScheduleEarly() {
-        
+
         let url = generateTestFile()
-        
+
         let file = try! AVAudioFile(forReading: url)
-        
+
         let player = AKPlayer()
         player.scheduleFile(file, at: nil)
     }
-    
 }
-
-
