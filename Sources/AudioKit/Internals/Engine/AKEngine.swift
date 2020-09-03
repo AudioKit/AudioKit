@@ -21,11 +21,7 @@ extension AVAudioNode {
     public func connect(input: AVAudioNode, bus: Int) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            for point in points {
-                if point.node === self {
-                    return
-                }
-            }
+            if points.contains(where: { $0.node === self}) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: bus))
             engine.connect(input, to: points, fromBus: 0, format: nil)
         }
@@ -88,20 +84,21 @@ public class AKEngine {
     }
 
     public func render(duration: Double) -> AVAudioPCMBuffer {
-        let samples = Int(duration * AKSettings.sampleRate)
-        let startingSampleCount = Int(avEngine.manualRenderingSampleTime)
+        let sampleCount = Int(duration * AKSettings.sampleRate)
+        let startSampleCount = Int(avEngine.manualRenderingSampleTime)
 
         let buffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(samples))!
+            frameCapacity: AVAudioFrameCount(sampleCount))!
 
         let tempBuffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
             frameCapacity: AVAudioFrameCount(maximumFrameCount))!
 
         do {
-            while avEngine.manualRenderingSampleTime < samples + startingSampleCount {
-                let framesToRender = min(UInt32(samples + startingSampleCount - Int( avEngine.manualRenderingSampleTime)), maximumFrameCount)
+            while avEngine.manualRenderingSampleTime < sampleCount + startSampleCount {
+                let currentSampleCount = Int(avEngine.manualRenderingSampleTime)
+                let framesToRender = min(UInt32(sampleCount + startSampleCount - currentSampleCount), maximumFrameCount)
                 try avEngine.renderOffline(AVAudioFrameCount(framesToRender), to: tempBuffer)
                 buffer.append(tempBuffer)
             }

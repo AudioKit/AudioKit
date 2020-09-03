@@ -18,7 +18,7 @@ import UIKit
     open var decayDuration: AUValue = 0.100
 
     /// Sustain Level (0-1), Default: 0.5
-    open var sustainLevel: AUValue = 0.50
+    open var sustainLevel: AUValue = 1.0
 
     /// Release duration in seconds, Default: 0.1
     open var releaseDuration: AUValue = 0.100

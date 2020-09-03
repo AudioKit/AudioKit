@@ -35,7 +35,6 @@ class ResonantFilterTests: XCTestCase {
         testMD5(audio)
     }
 
-
     func testParameters3() {
         let engine = AKEngine()
         let input = AKOscillator()
@@ -44,5 +43,4 @@ class ResonantFilterTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-
 }

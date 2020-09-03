@@ -25,9 +25,8 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
         unit: .generic,
         flags: .default)
 
-    /// Left Channel Amplification Factor
+    /// Balance between input signals
     @Parameter public var balance: AUValue
-
 
     // MARK: - Audio Unit
 
