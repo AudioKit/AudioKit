@@ -25,7 +25,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKMorphingOscillatorDSP() {
+    AKMorphingOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKMorphingOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKMorphingOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKMorphingOscillatorParameterIndex] = &indexRamp;

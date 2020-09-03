@@ -36,7 +36,7 @@ extension AudioUnitManager {
                 self.startAudioTimer()
             }
         } else {
-            if AKManager.engine.isRunning {
+            if engine.isRunning {
                 // just turns off reverb tails or delay lines etc
                 internalManager.reset()
             }
@@ -73,7 +73,7 @@ extension AudioUnitManager {
 
     /// open an audio URL for playing
     func open(url: URL) {
-        try? AKManager.stop()
+        try? engine.stop()
         handlePlay(state: false)
 
         if player == nil {

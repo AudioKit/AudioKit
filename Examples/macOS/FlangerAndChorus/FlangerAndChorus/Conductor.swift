@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import AVFoundation
 
 func OffsetNote(_ note: MIDINoteNumber, semitones: Int) -> MIDINoteNumber {
     let nn = Int(note)
@@ -11,8 +12,9 @@ class Conductor {
 
     static let shared = Conductor()
 
+    let engine = AKEngine()
     let midi = AKMIDI()
-    var oscillator: AKOscillatorBank
+    var oscillator: AKSynth
     var flanger: AKFlanger
     var chorus: AKChorus
 
@@ -43,14 +45,14 @@ class Conductor {
         AKSettings.enableLogging = false
 
         // Signal Chain
-        oscillator = AKOscillatorBank(waveform: waveforms[waveformIndex])
+        oscillator = AKSynth()
         flanger = AKFlanger(oscillator)
         chorus = AKChorus(flanger)
 
         // Set Output & Start AudioKit
-        AKManager.output = chorus
+        engine.output = chorus
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -61,7 +63,6 @@ class Conductor {
         oscillator.sustainLevel = 0.8
         oscillator.releaseDuration = 0.25
         oscillator.vibratoDepth = 0.0
-        oscillator.vibratoRate = 5
 
         // Initial parameters setup: flanger
         flanger.frequency = 2.0
@@ -124,9 +125,9 @@ class Conductor {
         let pwValue = AUValue(pitchWheelValue)
         let scale: AUValue = (pwValue - 8_192.0) / 8_192.0
         if scale >= 0.0 {
-            oscillator.pitchBend = AUValue(scale * self.pitchBendUpSemitones)
+            oscillator.pitchBend = scale * AUValue(pitchBendUpSemitones)
         } else {
-            oscillator.pitchBend = AUValue(scale * self.pitchBendDownSemitones)
+            oscillator.pitchBend = scale * AUValue(pitchBendDownSemitones)
         }
     }
 

@@ -11,8 +11,8 @@ player.buffering = .always
 
 let tracker = AKPitchTap(player)
 
-AKManager.output = tracker
-try AKManager.start()
+engine.output = tracker
+try engine.start()
 player.play()
 
 //: User Interface

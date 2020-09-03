@@ -23,7 +23,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKOscillatorDSP() {
+    AKOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKOscillatorParameterDetuningOffset] = &detuningOffsetRamp;

@@ -10,22 +10,22 @@ class AKVariableDelayTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKVariableDelay(input)
+        engine.output = AKVariableDelay(input)
         AKTest()
     }
 
     func testFeedback() {
-        output = AKVariableDelay(input, feedback: 0.95)
+        engine.output = AKVariableDelay(input, feedback: 0.95)
         AKTest()
     }
 
     func testMaximum() {
-        output = AKVariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
+        engine.output = AKVariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
         AKTest()
     }
 
     func testMaximumSurpassed() {
-        output = AKVariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
+        engine.output = AKVariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
         AKTest()
     }
 
@@ -34,17 +34,17 @@ class AKVariableDelayTests: AKTestCase {
         effect.rampDuration = 0.0
         effect.time = 0.123_4
         effect.feedback = 0.95
-        output = effect
+        engine.output = effect
         AKTest()
     }
 
     func testParametersSetOnInit() {
-        output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
+        engine.output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
         AKTest()
     }
 
     func testTime() {
-        output = AKVariableDelay(input, time: 0.123_4)
+        engine.output = AKVariableDelay(input, time: 0.123_4)
         AKTest()
     }
 

@@ -9,9 +9,8 @@ class AKMandolinStringTests: AKTestCase {
 
         let mandolin = AKMandolinString()
         mandolin.trigger(note: 69)
-        output = mandolin
+        engine.output = mandolin
 
-        // auditionTest()
         AKTest()
 
     }
@@ -20,9 +19,8 @@ class AKMandolinStringTests: AKTestCase {
 
         let mandolin = AKMandolinString()
         mandolin.trigger(note: 69, velocity: 64)
-        output = mandolin
+        engine.output = mandolin
 
-        // auditionTest()
         AKTest()
 
     }

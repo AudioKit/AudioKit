@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-public class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKDecimator: AKNode, AKToggleable, AUEffect {
     // MARK: - Properties
 
     /// Four letter unique description of the node
@@ -63,9 +63,11 @@ public class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
 
         let effect = _Self.effect
         au = AUWrapper(effect)
-        super.init(avAudioUnit: effect, attach: true)
+        super.init(avAudioUnit: effect)
 
-        input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
+        }
 
         // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
 
@@ -97,9 +99,4 @@ public class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Disconnect the node
-    public override func detach() {
-        stop()
-        AKManager.detach(nodes: [self.avAudioUnitOrNode])
-    }
 }

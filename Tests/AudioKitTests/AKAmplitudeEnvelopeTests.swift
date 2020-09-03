@@ -18,31 +18,31 @@ class AKAmplitudeEnvelopeTests: AKTestCase {
 
     func testAttack() {
         envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
-        output = envelope
+        engine.output = envelope
         AKTest()
     }
 
     func testDecay() {
         envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
-        output = envelope
+        engine.output = envelope
         AKTest()
     }
 
     func testDefault() {
         envelope = AKAmplitudeEnvelope(input)
-        output = envelope
+        engine.output = envelope
         AKTest()
     }
 
     func testParameters() {
         envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
-        output = envelope
+        engine.output = envelope
         AKTest()
     }
 
     func testSustain() {
         envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
-        output = envelope
+        engine.output = envelope
         AKTest()
     }
 

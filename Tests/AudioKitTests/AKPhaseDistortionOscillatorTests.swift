@@ -15,7 +15,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -31,37 +31,37 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
         XCTAssertEqual(oscillator.phaseDistortion, 1.234)
         XCTAssertEqual(oscillator.detuningOffset, 1.234)
         XCTAssertEqual(oscillator.detuningMultiplier, 1.1)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testFrequency() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), frequency: 1_234)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testAmplitude() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), amplitude: 0.5)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testPhaseDistortion() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), phaseDistortion: 1.234)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testDetuningOffset() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningOffset: 1.234)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
     func testDetuningMultiplier() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningMultiplier: 1.1)
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 
@@ -73,7 +73,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
         oscillator.phaseDistortion = 1.234
         oscillator.detuningOffset = 1.234
         oscillator.detuningMultiplier = 1.1
-        output = oscillator
+        engine.output = oscillator
         AKTest()
     }
 }

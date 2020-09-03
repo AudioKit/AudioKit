@@ -28,8 +28,8 @@ delay.dryWetMix = 1
 //: don't have that property by default
 let mixer = AKMixer(player, delay)
 
-AKManager.output = mixer
-try AKManager.start()
+engine.output = mixer
+try engine.start()
 player.play()
 
 import PlaygroundSupport

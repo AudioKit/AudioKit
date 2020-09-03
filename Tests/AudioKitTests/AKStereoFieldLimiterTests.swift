@@ -6,19 +6,19 @@ class AKStereoFieldLimiterTests: AKTestCase {
 
     func testDefault() {
         let pannedInput = AKPanner(input, pan: -1)
-        output = AKStereoFieldLimiter(pannedInput)
+        engine.output = AKStereoFieldLimiter(pannedInput)
         AKTest()
     }
 
     func testHalf() {
         let pannedInput = AKPanner(input, pan: -1)
-        output = AKStereoFieldLimiter(pannedInput, amount: 0.5)
+        engine.output = AKStereoFieldLimiter(pannedInput, amount: 0.5)
         AKTest()
     }
 
     func testNone() {
         let pannedInput = AKPanner(input, pan: -1)
-        output = AKStereoFieldLimiter(pannedInput, amount: 0)
+        engine.output = AKStereoFieldLimiter(pannedInput, amount: 0)
         AKTest()
     }
 }

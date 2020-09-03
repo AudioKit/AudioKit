@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import AudioKitUI
+import AVFoundation
 import UIKit
 
 class ViewController: UIViewController {
@@ -13,8 +13,9 @@ class ViewController: UIViewController {
     var moogLadder: AKMoogLadder!
     var mainMixer: AKMixer!
 
+    let engine = AKEngine()
     // this is lazy here so that the sample rate can be set before it's created by reference
-    lazy var mic = AKMicrophone()
+    lazy var mic = AKMicrophone(engine: engine.avEngine)
 
     var state = State.readyToRecord
 
@@ -47,7 +48,7 @@ class ViewController: UIViewController {
         }
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = AKManager.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        AKSettings.sampleRate = engine.avEngine.inputNode.inputFormat(forBus: 0).sampleRate
 
         AKSettings.defaultToSpeaker = true
 
@@ -69,9 +70,9 @@ class ViewController: UIViewController {
 
         mainMixer = AKMixer(moogLadder, micBooster)
 
-        AKManager.output = mainMixer
+        engine.output = mainMixer
         do {
-            try AKManager.start()
+            try engine.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -80,7 +81,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        plot?.node = mic
+//        plot?.node = mic
         setupButtonNames()
         setupUIForRecording()
     }

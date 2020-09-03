@@ -3,7 +3,7 @@ import AudioKit
 import XCTest
 import AVFoundation
 
-class AKMusicTrackTests: AKTestCase {
+class AKMusicTrackTests: XCTestCase {
     var musicTrack: AKMusicTrack!
 
     override func setUp() {

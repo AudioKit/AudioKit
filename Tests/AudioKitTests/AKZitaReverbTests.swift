@@ -10,7 +10,7 @@ class AKZitaReverbTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKZitaReverb(input)
+        engine.output = AKZitaReverb(input)
         AKTest()
     }
 
@@ -27,12 +27,12 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerFrequency2 = 1_400
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
-        output = effect
+        engine.output = effect
         AKTest()
     }
 
     func testParametersSetOnInit() {
-        output = AKZitaReverb(input,
+        engine.output = AKZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,
                               lowReleaseTime: 1.5,

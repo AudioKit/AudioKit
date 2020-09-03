@@ -14,8 +14,8 @@ let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
 
 let effect = AKOperationEffect(player, sporth: sporth)
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 
 player.play()
 

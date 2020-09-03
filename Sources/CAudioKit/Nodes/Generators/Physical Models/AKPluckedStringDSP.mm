@@ -17,7 +17,7 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKPluckedStringDSP() {
+    AKPluckedStringDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKPluckedStringParameterFrequency] = &frequencyRamp;
         parameters[AKPluckedStringParameterAmplitude] = &amplitudeRamp;
     }

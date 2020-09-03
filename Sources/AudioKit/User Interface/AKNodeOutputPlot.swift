@@ -11,14 +11,13 @@ extension Notification.Name {
 
 /// Plot the output from any node in an signal processing graph
 ///
-/// By default this plots the output of AKManager.output
-@IBDesignable
+/// By default this plots the output of engine.output
 public class AKNodeOutputPlot: EZAudioPlot {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    internal func setupNode(_ input: AKNode?) {
+    public func setupNode(_ input: AKNode?) {
         if isNotConnected {
             input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
@@ -39,12 +38,6 @@ public class AKNodeOutputPlot: EZAudioPlot {
         isConnected = true
     }
 
-    // Useful to reconnect after connecting to Audiobus or IAA
-    @objc func reconnect() {
-        pause()
-        resume()
-    }
-
     public func pause() {
         if isConnected {
             node?.avAudioUnitOrNode.removeTap(onBus: 0)
@@ -56,22 +49,8 @@ public class AKNodeOutputPlot: EZAudioPlot {
         setupNode(node)
     }
 
-    private func setupReconnection() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reconnect),
-                                               name: .IAAConnected,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reconnect),
-                                               name: .IAADisconnected,
-                                               object: nil)
-    }
-
     internal var bufferSize: UInt32 = 1_024
 
-    /// The node whose output to graph
-    ///
-    /// Defaults to AKManager.output
     open var node: AKNode? {
         willSet {
             pause()
@@ -82,6 +61,15 @@ public class AKNodeOutputPlot: EZAudioPlot {
     }
 
     deinit {
+        removeTap()
+    }
+
+    public func removeTap() {
+        guard node?.avAudioUnitOrNode.engine != nil else {
+            AKLog("The tapped node isn't attached to the engine")
+            return
+        }
+
         node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
@@ -90,9 +78,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     /// - parameter coder: NSCoder
     ///
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupNode(AKManager.output)
-        setupReconnection()
+        fatalError("Stop using interface builder.")
     }
 
     /// Initialize the plot with the output from a given node and optional plot size
@@ -102,15 +88,16 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode? = AKManager.output, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-
-        setupNode(input)
-        self.node = input
-        setupReconnection()
+        if let input = input {
+            setupNode(input)
+            self.node = input
+        }
     }
 }
+

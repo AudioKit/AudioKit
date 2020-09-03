@@ -14,8 +14,8 @@ let effect = AKOperationEffect(player) { player in
     return player.reverberateWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
 }
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 import PlaygroundSupport

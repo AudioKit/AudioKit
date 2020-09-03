@@ -112,7 +112,7 @@ public protocol AKKeyboardDelegate: AnyObject {
 
     /// Keyboard view size
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 1_024, height: 84)
+        return CGSize(width: 0, height: 0)
     }
 
     /// Require constraints
@@ -419,7 +419,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    let midi = AKManager.midi
+    let midi = AKMIDI()
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]

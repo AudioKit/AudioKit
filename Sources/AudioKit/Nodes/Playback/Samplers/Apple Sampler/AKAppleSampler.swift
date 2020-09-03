@@ -3,15 +3,12 @@
 import AVFoundation
 import CAudioKit
 
-import AVFoundation
-import CoreAudio
-
 /// Sampler audio generation.
 ///
 /// 1. init the audio unit like this: var sampler = AKAppleSampler()
 /// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3. connect to the engine: AKManager.output = sampler
-/// 4. start the engine AKManager.start()
+/// 3. connect to the engine: engine.output = sampler
+/// 4. start the engine engine.start()
 ///
 open class AKAppleSampler: AKNode {
 
@@ -60,8 +57,6 @@ open class AKAppleSampler: AKNode {
         avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AKManager.engine.attach(avAudioUnitOrNode)
-        //you still need to connect the output, and you must do this before starting the processing graph
 
         if let newFile = file {
             do {
@@ -221,14 +216,7 @@ open class AKAppleSampler: AKNode {
     public func play(noteNumber: MIDINoteNumber = 60,
                      velocity: MIDIVelocity = 127,
                      channel: MIDIChannel = 0) throws {
-        try AKTry {
-            if AKManager.engine.isRunning == false {
-                AKLog("Cannot play note - AudioKit not running")
-                throw AKError.AudioKitNotRunning
-            } else {
-                self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
-            }
-        }
+        self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
     /// Stop a MIDI Note
     ///

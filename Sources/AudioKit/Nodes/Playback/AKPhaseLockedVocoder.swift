@@ -7,7 +7,7 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "minc")
 
@@ -100,4 +100,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKInput, A
         let copy = AKPhaseLockedVocoder(position: position, amplitude: amplitude, pitchRatio: pitchRatio)
         return copy
     }
+
+    // TODO A lot of code was deleted accidentally by someone down the line, check history
+    // TODO This needs to be tested
 }

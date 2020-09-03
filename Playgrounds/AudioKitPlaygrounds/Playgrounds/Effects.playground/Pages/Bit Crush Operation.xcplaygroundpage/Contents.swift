@@ -24,8 +24,8 @@ let effect = AKOperationEffect(player) { input, parameters in
 }
 effect.parameters = [22_050, 0, 16, 0, 1]
 
-AKManager.output = effect
-try AKManager.start()
+engine.output = effect
+try engine.start()
 player.play()
 
 class LiveView: AKLiveViewController {

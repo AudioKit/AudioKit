@@ -9,8 +9,8 @@ let mixloop = try AKAudioFile(readFileName: "mixloop.wav")
 //: Export will be done asynchronously. So you can play some music while exporting
 
 let player = try AKAudioPlayer(file: mixloop)
-AKManager.output = player
-try AKManager.start()
+engine.output = player
+try engine.start()
 player.play()
 
 //: You need a callback that will be triggered as soon as Export has been completed.

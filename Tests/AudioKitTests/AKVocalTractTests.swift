@@ -12,37 +12,37 @@ class AKVocalTractTests: AKTestCase {
     }
 
     func testDefault() {
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
     func testFrequency() {
         vocalTract.frequency = 444.5
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
     func testNasality() {
         vocalTract.nasality = 0.6
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
     func testTenseness() {
         vocalTract.tenseness = 0.5
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
     func testTongueDiameter() {
         vocalTract.tongueDiameter = 0.4
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
     func testTonguePosition() {
         vocalTract.tonguePosition = 0.3
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
@@ -52,7 +52,7 @@ class AKVocalTractTests: AKTestCase {
         vocalTract.tongueDiameter = 0.4
         vocalTract.tenseness = 0.5
         vocalTract.nasality = 0.6
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 
@@ -62,7 +62,7 @@ class AKVocalTractTests: AKTestCase {
                                   tongueDiameter: 0.4,
                                   tenseness: 0.5,
                                   nasality: 0.6)
-        output = vocalTract
+        engine.output = vocalTract
         AKTest()
     }
 

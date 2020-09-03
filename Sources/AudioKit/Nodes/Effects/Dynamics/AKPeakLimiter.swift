@@ -5,12 +5,11 @@ import CAudioKit
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-public class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
     private var au: AUWrapper
-    private var mixer: AKMixer
 
     /// Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
     public var attackDuration: AUValue = 0.012 {
@@ -36,20 +35,6 @@ public class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Dry/Wet Mix (Default 1)
-    public var dryWetMix: AUValue = 1 {
-        didSet {
-            dryWetMix = (0...1).clamp(dryWetMix)
-            inputGain?.volume = 1 - dryWetMix
-            effectGain?.volume = dryWetMix
-        }
-    }
-
-    private var lastKnownMix: AUValue = 1
-    private var inputGain: AKMixer?
-    private var effectGain: AKMixer?
-    private var inputMixer = AKMixer()
-
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
 
@@ -69,81 +54,35 @@ public class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         attackDuration: AUValue = 0.012,
         decayDuration: AUValue = 0.024,
         preGain: AUValue = 0) {
+
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
         self.preGain = preGain
 
-        inputGain = AKMixer()
-        inputGain?.volume = 0
-        mixer = AKMixer(inputGain)
-
-        effectGain = AKMixer()
-        effectGain?.volume = 1
-
-        input?.connect(to: inputMixer)
-
-        if let inputGain = inputGain,
-            let effectGain = effectGain {
-            inputMixer.connect(to: [inputGain, effectGain])
-        }
-
         let effect = _Self.effect
         internalEffect = effect
-
         au = AUWrapper(effect)
 
-        super.init(avAudioNode: mixer.avAudioNode)
-        AKManager.engine.attach(effect)
+        super.init(avAudioNode: effect)
 
-        if let node = effectGain?.avAudioNode {
-            AKManager.engine.connect(node, to: effect, format: AKSettings.audioFormat)
+        if let input = input {
+            connections.append(input)
         }
-        AKManager.engine.connect(effect, to: mixer.avAudioNode, format: AKSettings.audioFormat)
 
         au[kLimiterParam_AttackTime] = attackDuration
         au[kLimiterParam_DecayTime] = decayDuration
         au[kLimiterParam_PreGain] = preGain
     }
 
-    public var inputNode: AVAudioNode {
-        return inputMixer.avAudioNode
-    }
-
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
-        if isStopped {
-            dryWetMix = lastKnownMix
-            isStarted = true
-        }
+        internalEffect.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
-            isStarted = false
-        }
-    }
-
-    /// Disconnect the node
-    public override func detach() {
-        stop()
-
-        var nodes: [AVAudioNode] = [inputMixer.avAudioNode,
-                                    mixer.avAudioNode,
-                                    internalEffect]
-
-        if let inputGain = inputGain {
-            nodes.append(inputGain.avAudioNode)
-        }
-
-        if let effectGain = effectGain {
-            nodes.append(effectGain.avAudioNode)
-        }
-
-        AKManager.detach(nodes: nodes)
+        internalEffect.bypass = true
     }
 }

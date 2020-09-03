@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup panning with linear interpolation
 ///
-public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
@@ -81,8 +81,12 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput, AKAutomat
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.internalAU?.setWavetable(waveform.content)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
+
+    // TODO this node needs tests
 }

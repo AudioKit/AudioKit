@@ -10,7 +10,7 @@ class ReverberateWithCombFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.reverberateWithCombFilter() }
+        engine.output = AKOperationEffect(input) { $0.reverberateWithCombFilter() }
         AKTest()
     }
 

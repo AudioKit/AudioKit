@@ -6,6 +6,7 @@ import CAudioKit
 /// Audio from the standard input
 public class AKMicrophone: AKNode, AKToggleable {
     internal let mixer = AVAudioMixerNode()
+    internal let engine: AVAudioEngine
 
     /// Output Volume (Default 1)
     public var volume: AUValue = 1.0 {
@@ -18,7 +19,7 @@ public class AKMicrophone: AKNode, AKToggleable {
     /// Set the actual microphone device
     public func setDevice(_ device: AKDevice) throws {
         do {
-            try AKManager.setInputDevice(device)
+            try AKEngine.setInputDevice(device)
         } catch {
             AKLog("Could not set input device")
         }
@@ -32,7 +33,8 @@ public class AKMicrophone: AKNode, AKToggleable {
     }
 
     /// Initialize the microphone
-    public init?(with format: AVAudioFormat? = nil) {
+    public init?(engine: AVAudioEngine, with format: AVAudioFormat? = nil) {
+        self.engine = engine
         super.init(avAudioNode: mixer)
 
         guard let formatForDevice = getFormatForDevice() else {
@@ -42,12 +44,12 @@ public class AKMicrophone: AKNode, AKToggleable {
         AKSettings.audioInputEnabled = true
 
         #if os(iOS)
-        AKManager.engine.attach(avAudioUnitOrNode)
-        AKManager.engine.connect(AKManager.engine.inputNode, to: avAudioNode, format: format ?? formatForDevice)
+        engine.attach(avAudioUnitOrNode)
+        engine.connect(engine.inputNode, to: avAudioNode, format: format ?? formatForDevice)
         #elseif !os(tvOS)
         // AKLog("avAudioNode.outputFormat(forBus: 0)", avAudioNode.outputFormat(forBus: 0))
         // NOTE: format is ignored on macOS here. AKMicrophone for macOS is partially functional
-        AKManager.engine.inputNode.connect(to: avAudioNode)
+//        engine.inputNode.connect(to: avAudioNode)
         #endif
     }
 
@@ -87,10 +89,10 @@ public class AKMicrophone: AKNode, AKToggleable {
 
         #if os(iOS) && !targetEnvironment(simulator)
         sampleRate = AVAudioSession.sharedInstance().sampleRate
-        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        currentFormat = engine.inputNode.inputFormat(forBus: 0)
         #elseif os(macOS)
-        sampleRate = AKManager.engine.inputNode.outputFormat(forBus: 0).sampleRate
-        currentFormat = AKManager.engine.inputNode.inputFormat(forBus: 0)
+        sampleRate = engine.inputNode.outputFormat(forBus: 0).sampleRate
+        currentFormat = engine.inputNode.inputFormat(forBus: 0)
         #endif
 
         if let layout = currentFormat.channelLayout {

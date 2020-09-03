@@ -118,10 +118,10 @@ class PlayerDemoViewController: NSViewController {
         AKSettings.sampleRate = 48000 // arbritary, but PinkNoise is 48k
 
         // setup signal chain
-        AKManager.output = mixer
+        engine.output = mixer
 
         do {
-            try AKManager.start()
+            try engine.start()
         } catch let error as NSError {
             AKLog(error.localizedDescription, type: .error)
             return
@@ -218,8 +218,8 @@ class PlayerDemoViewController: NSViewController {
     }
 
     func play() {
-        if !AKManager.engine.isRunning {
-            try? AKManager.start()
+        if !engine.isRunning {
+            try? engine.start()
 
             // the engine doesn't really like starting and playing right away
             delayed(by: 1, closure: {
@@ -283,7 +283,7 @@ class PlayerDemoViewController: NSViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 if let file = try? AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings) {
-                    try AKManager.renderToFile(file, duration: duration, prerender: {
+                    try engine.renderToFile(file, duration: duration, prerender: {
                         prerender?()
                     })
 

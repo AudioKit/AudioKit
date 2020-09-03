@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-public class AKVariSpeed: AKNode, AKToggleable, AKInput {
+public class AKVariSpeed: AKNode, AKToggleable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
@@ -37,8 +37,10 @@ public class AKVariSpeed: AKNode, AKToggleable, AKInput {
         super.init(avAudioNode: AVAudioNode())
         avAudioUnit = variSpeedAU
         avAudioNode = variSpeedAU
-        AKManager.engine.attach(avAudioUnitOrNode)
-        input?.connect(to: self)
+
+        if let input = input {
+            connections.append(input)
+        }
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -51,4 +53,6 @@ public class AKVariSpeed: AKNode, AKToggleable, AKInput {
         lastKnownRate = rate
         rate = 1.0
     }
+
+    // TODO This node is untested
 }

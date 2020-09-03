@@ -131,7 +131,7 @@ class AKPlayerTests: AKTestCase {
                         at: audioTime,
                         hostTime: nil)
         }
-        output = player
+        engine.output = player
         duration = testDuration / rate
 
         AKLog("from", startingTime, "to", endingTime, "duration:", duration)

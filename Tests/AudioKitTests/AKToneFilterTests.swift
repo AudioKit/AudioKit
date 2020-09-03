@@ -5,12 +5,12 @@ import AudioKit
 class AKToneFilterTests: AKTestCase {
 
     func testDefault() {
-        output = AKToneFilter(input)
+        engine.output = AKToneFilter(input)
         AKTest()
     }
 
     func testHalfPowerPoint() {
-        output = AKToneFilter(input, halfPowerPoint: 599)
+        engine.output = AKToneFilter(input, halfPowerPoint: 599)
         AKTest()
     }
 }

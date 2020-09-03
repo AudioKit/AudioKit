@@ -30,8 +30,8 @@ if let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withEx
 mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
 dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
-AKManager.output = dryWetMixer
-try AKManager.start()
+engine.output = dryWetMixer
+try engine.start()
 
 stairwellConvolution.start()
 dishConvolution.start()

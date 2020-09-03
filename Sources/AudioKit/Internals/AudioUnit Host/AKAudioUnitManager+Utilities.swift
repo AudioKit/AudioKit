@@ -156,6 +156,8 @@ extension AKAudioUnitManager {
 //            }
 //        }
 
+        // TODO Wouldn't be surprised if WTH could do this with mirror
+
         // kind of a maintainence mess, but there it is
         switch name {
         case "AKLowShelfFilter":

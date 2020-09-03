@@ -10,12 +10,12 @@ class ClipTests: AKTestCase {
     }
 
     func testClip() {
-        output = AKOperationEffect(input) { $0.clip(0.5) }
+        engine.output = AKOperationEffect(input) { $0.clip(0.5) }
         AKTest()
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.clip() }
+        engine.output = AKOperationEffect(input) { $0.clip() }
         AKTest()
     }
 

@@ -19,8 +19,8 @@ let fatten = AKOperationEffect(player) { input, parameters in
     return AKStereoOperation(fatten)
 }
 
-AKManager.output = fatten
-try AKManager.start()
+engine.output = fatten
+try engine.start()
 
 player.play()
 

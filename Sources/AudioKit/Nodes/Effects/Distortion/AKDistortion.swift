@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-public class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
+public class AKDistortion: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 
@@ -208,9 +208,11 @@ public class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
         let effect = _Self.effect
         au = AUWrapper(effect)
 
-        super.init(avAudioUnit: effect, attach: true)
+        super.init(avAudioUnit: effect)
 
-        input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
+        }
 
         au[kDistortionParam_Delay] = delay
         au[kDistortionParam_Decay] = decay
@@ -249,9 +251,4 @@ public class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Disconnect the node
-    public override func detach() {
-        stop()
-        AKManager.detach(nodes: [self.avAudioNode])
-    }
 }

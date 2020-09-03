@@ -12,7 +12,7 @@ class SineWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = sine
+        engine.output = sine
         AKTest()
     }
 

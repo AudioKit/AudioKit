@@ -12,11 +12,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        do {
-            try AKManager.stop()
-        } catch {
-            AKLog("Problem in AKManager.stop()")
-        }
     }
 
 }

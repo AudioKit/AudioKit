@@ -10,7 +10,7 @@ class HighPassButterworthFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.highPassButterworthFilter() }
+        engine.output = AKOperationEffect(input) { $0.highPassButterworthFilter() }
         AKTest()
     }
 

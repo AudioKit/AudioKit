@@ -5,7 +5,6 @@ import Accelerate
 import Foundation
 
 /// Plot the FFT output from any node in an signal processing graph
-@IBDesignable
 public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public var isConnected = false
@@ -36,11 +35,6 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         isConnected = true
     }
 
-    // Useful to reconnect after connecting to Audiobus or IAA
-    @objc func reconnect() {
-        pause()
-        resume()
-    }
 
     public func pause() {
         if isConnected {
@@ -51,17 +45,6 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public func resume() {
         setupNode(node)
-    }
-
-    private func setupReconnection() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reconnect),
-                                               name: .IAAConnected,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reconnect),
-                                               name: .IAADisconnected,
-                                               object: nil)
     }
 
     internal var bufferSize: UInt32 = 1_024
@@ -88,9 +71,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     /// - parameter coder: NSCoder
     ///
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupNode(AKManager.output)
-        setupReconnection()
+        fatalError("Stop using interface builder.")
     }
 
     /// Initialize the plot with the output from a given node and optional plot size
@@ -100,7 +81,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode?, frame: CGRect, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
@@ -109,7 +90,6 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
         setupNode(input)
         self.node = input
-        setupReconnection()
     }
 
     /// Callback function for FFT data:

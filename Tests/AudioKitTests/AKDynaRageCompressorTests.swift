@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-// XXX: Test was left out of old test suite.
+// TODO: Test was left out of old test suite.
 #if false
 
 class AKDynaRangeCompressorTests: AKTestCase {
@@ -17,17 +17,17 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
     func testAttackTime() {
-        output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
+        engine.output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
         AKTest()
     }
 
     func testDefault() {
-        output = AKDynaRageCompressor(input)
+        engine.output = AKDynaRageCompressor(input)
         AKTest()
     }
 
     func testParameters() {
-        output = AKDynaRageCompressor(input,
+        engine.output = AKDynaRageCompressor(input,
                                       ratio: 10,
                                       threshold: -1,
                                       attackDuration: 21,
@@ -36,22 +36,22 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
     func testRage() {
-        output = AKDynaRageCompressor(input, ratio: 10, rage: 10)
+        engine.output = AKDynaRageCompressor(input, ratio: 10, rage: 10)
         AKTest()
     }
 
     func testRatio() {
-        output = AKDynaRageCompressor(input, ratio: 10)
+        engine.output = AKDynaRageCompressor(input, ratio: 10)
         AKTest()
     }
 
     func testReleaseTime() {
-        output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
+        engine.output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
         AKTest()
     }
 
     func testThreshold() {
-        output = AKDynaRageCompressor(input, ratio: 10, threshold: -1)
+        engine.output = AKDynaRageCompressor(input, ratio: 10, threshold: -1)
         AKTest()
     }
 

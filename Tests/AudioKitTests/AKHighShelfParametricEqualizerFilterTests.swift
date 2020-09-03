@@ -5,27 +5,27 @@ import AudioKit
 class AKHighShelfParametricEqualizerFilterTests: AKTestCase {
 
     func testCenterFrequency() {
-        output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500)
+        engine.output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500)
         AKTest()
     }
 
     func testDefault() {
-        output = AKHighShelfParametricEqualizerFilter(input)
+        engine.output = AKHighShelfParametricEqualizerFilter(input)
         AKTest()
     }
 
     func testGain() {
-        output = AKHighShelfParametricEqualizerFilter(input, gain: 2)
+        engine.output = AKHighShelfParametricEqualizerFilter(input, gain: 2)
         AKTest()
     }
 
     func testParameters() {
-        output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
+        engine.output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
         AKTest()
     }
 
     func testQ() {
-        output = AKHighShelfParametricEqualizerFilter(input, q: 1.415)
+        engine.output = AKHighShelfParametricEqualizerFilter(input, q: 1.415)
         AKTest()
     }
 }

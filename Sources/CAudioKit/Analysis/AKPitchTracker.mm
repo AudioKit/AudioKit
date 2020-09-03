@@ -12,7 +12,7 @@ struct AKPitchTracker {
 
     AKPitchTracker(size_t sampleRate, int hopSize, int peakCount) {
         sp_create(&sp);
-        sp->sr = sampleRate;
+        sp->sr = (int)sampleRate;
         sp->nchan = 1;
 
         sp_ptrack_create(&ptrack);

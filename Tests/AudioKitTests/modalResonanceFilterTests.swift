@@ -10,7 +10,7 @@ class ModalResonanceFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.modalResonanceFilter() }
+        engine.output = AKOperationEffect(input) { $0.modalResonanceFilter() }
         AKTest()
     }
 

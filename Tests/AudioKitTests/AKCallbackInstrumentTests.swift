@@ -46,7 +46,7 @@ class AKCallbackInstrumentTests: AKTestCase {
         track.loopEnabled = false
         track.playFromStart()
 
-        output = instrument
+        engine.output = instrument
 
         AKTest()
 

@@ -121,7 +121,7 @@ public class AKSpeechSynthesizer: AKNode {
     }
 
     public init(rate: Int = 200, frequency: Int = 200, modulation: Int = 0) {
-        super.init(avAudioNode: speechAU, attach: true)
+        super.init(avAudioNode: speechAU)
 
         // Grab the speech channel
         CheckError(AudioUnitGetProperty(speechAU.audioUnit,

@@ -15,8 +15,8 @@ peakLimiter.attackDuration = 0.001 // Secs
 peakLimiter.decayDuration = 0.01 // Secs
 peakLimiter.preGain = 10 // dB
 
-AKManager.output = peakLimiter
-try AKManager.start()
+engine.output = peakLimiter
+try engine.start()
 player.play()
 
 //: User Interface Set up

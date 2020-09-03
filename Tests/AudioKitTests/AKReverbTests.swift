@@ -4,30 +4,31 @@ import AudioKit
 
 class AKReverbTests: AKTestCase {
 
-    #if os(iOS)
-
     func testBypass() {
         let reverb = AKReverb(input)
         reverb.bypass()
-        output = reverb
+        engine.output = reverb
+
         AKTestNoEffect()
     }
 
+    #if os(iOS)
+
     func testCathedral() {
         let effect = AKReverb(input)
-        output = effect
+        engine.output = effect
         effect.loadFactoryPreset(.cathedral)
         AKTest()
     }
 
     func testDefault() {
-        output = AKReverb(input)
+        engine.output = AKReverb(input)
         AKTest()
     }
 
     func testSmallRoom() {
         let effect = AKReverb(input)
-        output = effect
+        engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
         AKTest()
     }

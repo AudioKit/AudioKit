@@ -54,6 +54,7 @@ public:
     void stop() override {
         AKSoundpipeDSPBase::stop();
         internalGate = 0;
+        sp_adsr_compute(sp, adsr, &internalGate, &amp);
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

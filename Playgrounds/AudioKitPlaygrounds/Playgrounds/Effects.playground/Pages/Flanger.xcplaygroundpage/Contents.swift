@@ -10,9 +10,9 @@ player.looping = true
 
 var flanger = AKFlanger(player)
 
-AKManager.output = flanger
+engine.output = flanger
 
-try AKManager.start()
+try engine.start()
 
 player.play()
 

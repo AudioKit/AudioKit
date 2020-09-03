@@ -5,12 +5,12 @@ import AudioKit
 class AKHighPassButterworthFilterTests: AKTestCase {
 
     func testCutoffFrequency() {
-        output = AKHighPassButterworthFilter(input, cutoffFrequency: 400)
+        engine.output = AKHighPassButterworthFilter(input, cutoffFrequency: 400)
         AKTest()
     }
 
     func testDefault() {
-        output = AKHighPassButterworthFilter(input)
+        engine.output = AKHighPassButterworthFilter(input)
         AKTest()
     }
 

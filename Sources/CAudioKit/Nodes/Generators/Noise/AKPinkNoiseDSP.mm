@@ -14,7 +14,7 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKPinkNoiseDSP() {
+    AKPinkNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKPinkNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }

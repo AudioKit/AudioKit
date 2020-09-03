@@ -20,7 +20,7 @@ class TriangleWaveTests: AKTestCase {
                 duration: duration)
             return AKOperation.triangleWave(frequency: ramp * 2_000, amplitude: ramp)
         }
-        output = triangle
+        engine.output = triangle
         AKTest()
     }
 

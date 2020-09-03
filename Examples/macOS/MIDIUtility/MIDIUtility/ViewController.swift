@@ -6,7 +6,7 @@ import Cocoa
 class ViewController: NSViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: NSTextView!
     @IBOutlet private var sourcePopUpButton: NSPopUpButton!
-    var midi = AKManager.midi
+    var midi = AKMIDI()
 
     override func viewDidLoad() {
         super.viewDidLoad()

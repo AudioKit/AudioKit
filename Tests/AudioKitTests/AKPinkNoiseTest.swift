@@ -7,14 +7,14 @@ class AKPinkNoiseTests: AKTestCase {
     let pink = AKPinkNoise()
 
     func testDefault() {
-        output = pink
+        engine.output = pink
         pink.start()
         AKTest()
     }
 
     func testAmplitude() {
         pink.amplitude = 0.5
-        output = pink
+        engine.output = pink
         pink.start()
         AKTest()
     }

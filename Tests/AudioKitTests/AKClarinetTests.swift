@@ -12,9 +12,8 @@ class AKClarinetTest: AKTestCase {
 
         let clarinet = AKClarinet()
         clarinet.trigger(note: 69)
-        output = clarinet
+        engine.output = clarinet
 
-        // auditionTest()
         AKTest()
     }
 
@@ -24,9 +23,8 @@ class AKClarinetTest: AKTestCase {
 
         let clarinet = AKClarinet()
         clarinet.trigger(note: 69, velocity: 64)
-        output = clarinet
+        engine.output = clarinet
 
-        // auditionTest()
         AKTest()
     }
 

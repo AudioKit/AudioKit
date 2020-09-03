@@ -27,7 +27,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKPhaseDistortionOscillatorDSP() {
+    AKPhaseDistortionOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKPhaseDistortionOscillatorParameterFrequency] = &frequencyRamp;
         parameters[AKPhaseDistortionOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[AKPhaseDistortionOscillatorParameterPhaseDistortion] = &phaseDistortionRamp;

@@ -12,7 +12,7 @@ class WhiteNoiseTests: AKTestCase {
     }
 
     func testDefault() {
-        output = noise
+        engine.output = noise
         AKTest()
     }
 
@@ -20,7 +20,7 @@ class WhiteNoiseTests: AKTestCase {
         noise = AKOperationGenerator {
             return AKOperation.whiteNoise(amplitude: 0.456)
         }
-        output = noise
+        engine.output = noise
         AKTest()
     }
 
@@ -33,7 +33,7 @@ class WhiteNoiseTests: AKTestCase {
                 duration: duration)
             return AKOperation.whiteNoise(amplitude: line)
         }
-        output = noise
+        engine.output = noise
         AKTest()
     }
 

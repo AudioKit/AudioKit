@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import Foundation
 
 class AKCompressorTests: AKTestCase {
 
@@ -10,27 +11,27 @@ class AKCompressorTests: AKTestCase {
     }
 
     func testAttackDuration() {
-        output = AKCompressor(input, attackDuration: 0.1)
+        engine.output = AKCompressor(input, attackDuration: 0.1)
         AKTest()
     }
 
     func testDefault() {
-        output = AKCompressor(input)
+        engine.output = AKCompressor(input)
         AKTest()
     }
 
     func testHeadRoom() {
-        output = AKCompressor(input, headRoom: 0)
+        engine.output = AKCompressor(input, headRoom: 0)
         AKTest()
     }
 
     func testMasterGain() {
-        output = AKCompressor(input, masterGain: 1)
+        engine.output = AKCompressor(input, masterGain: 1)
         AKTest()
     }
 
     func testParameters() {
-        output = AKCompressor(input,
+        engine.output = AKCompressor(input,
                               threshold: -25,
                               headRoom: 10,
                               attackDuration: 0.1,
@@ -42,7 +43,7 @@ class AKCompressorTests: AKTestCase {
     // Release time is not currently tested
 
     func testThreshold() {
-        output = AKCompressor(input, threshold: -25)
+        engine.output = AKCompressor(input, threshold: -25)
         AKTest()
     }
 

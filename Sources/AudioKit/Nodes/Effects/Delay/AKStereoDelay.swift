@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
+public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
@@ -110,8 +110,10 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput, AKAutoma
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+        }
 
-            input?.connect(to: self)
+        if let input = input {
+            connections.append(input)
         }
     }
 }

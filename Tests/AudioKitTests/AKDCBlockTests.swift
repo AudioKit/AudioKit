@@ -5,7 +5,7 @@ import AudioKit
 class AKDCBlockTests: AKTestCase {
 
     func testDefault() {
-        output = AKDCBlock(input)
+        engine.output = AKDCBlock(input)
         AKTest()
     }
 

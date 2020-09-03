@@ -3,14 +3,10 @@
 import AVFoundation
 import CAudioKit
 
-extension AVAudioConnectionPoint {
-    convenience init(_ node: AKNode, to bus: Int) {
-        self.init(node: node.avAudioUnitOrNode, bus: bus)
-    }
-}
-
-/// Parent class for all nodes in AudioKit
 open class AKNode {
+
+    /// Nodes providing input to this node.
+    var connections: [AKNode] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -40,37 +36,85 @@ open class AKNode {
     }
 
     /// Initialize the node from an AVAudioUnit
-    public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+    public init(avAudioUnit: AVAudioUnit) {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
-        if attach {
-            AKManager.engine.attach(avAudioUnit)
-        }
     }
 
     /// Initialize the node from an AVAudioNode
-    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    public init(avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
-        if attach {
-            AKManager.engine.attach(avAudioNode)
-        }
     }
 
     deinit {
         detach()
     }
 
-    /// Subclasses should override to detach all internal nodes
-    open func detach() {
-        AKManager.detach(nodes: [avAudioUnitOrNode])
+    public func detach() {
+        if let engine = self.avAudioNode.engine {
+            engine.detach(self.avAudioNode)
+        }
     }
+
+    func makeAVConnections() {
+        // Are we attached?
+        if let engine = self.avAudioNode.engine {
+            for connection in connections {
+                if let sourceEngine = connection.avAudioNode.engine {
+                    if sourceEngine != avAudioNode.engine {
+                        AKLog("error: Attempt to connect nodes from different engines.")
+                        return
+                    }
+                }
+                engine.attach(connection.avAudioNode)
+                engine.connect(connection.avAudioNode, to: avAudioNode)
+                connection.makeAVConnections()
+            }
+        }
+    }
+
+    public func connect(node: AKNode) {
+        if avAudioNode.numberOfInputs == 0 {
+            AKLog("error: Node has no input buses.")
+            return
+        }
+        if node.avAudioNode.numberOfOutputs == 0 {
+            AKLog("error: Node has no output buses.")
+            return
+        }
+        if connections.contains(where: { $0 === node }) {
+            AKLog("error: Node is already connected.")
+            return
+        }
+        if let engine = avAudioNode.engine {
+            if engine.isRunning && ((avAudioNode as? AVAudioMixerNode) == nil) {
+                AKLog("error: connections may only be made to mixers while the engine is running.")
+                return
+            }
+        }
+        connections.append(node)
+        makeAVConnections()
+    }
+
+    public func connect(to nodes: [AKNode]) {
+        for node in nodes { connect(node: node) }
+    }
+
+    public func disconnect(node: AKNode) {
+        connections.removeAll(where: { $0 === node })
+        avAudioNode.disconnect(input: node.avAudioNode)
+    }
+
 }
 
-extension AKNode: AKOutput {
-    public var outputNode: AVAudioNode {
-        return self.avAudioUnitOrNode
-    }
+// Set output connection(s)
+infix operator >>>: AdditionPrecedence
+
+@discardableResult public func >>> (left: AKNode, right: AKNode) -> AKNode {
+    right.connect(node: left)
+    return right
 }
+
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {

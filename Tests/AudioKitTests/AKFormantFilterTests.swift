@@ -5,22 +5,22 @@ import AudioKit
 class AKFormantFilterTests: AKTestCase {
 
     func testAttack() {
-        output = AKFormantFilter(input, attackDuration: 0.023_4)
+        engine.output = AKFormantFilter(input, attackDuration: 0.023_4)
         AKTest()
     }
 
     func testCenterFrequency() {
-        output = AKFormantFilter(input, centerFrequency: 500)
+        engine.output = AKFormantFilter(input, centerFrequency: 500)
         AKTest()
     }
 
     func testDecay() {
-        output = AKFormantFilter(input, decayDuration: 0.023_4)
+        engine.output = AKFormantFilter(input, decayDuration: 0.023_4)
         AKTest()
     }
 
     func testDefault() {
-        output = AKFormantFilter(input)
+        engine.output = AKFormantFilter(input)
         AKTest()
     }
 }

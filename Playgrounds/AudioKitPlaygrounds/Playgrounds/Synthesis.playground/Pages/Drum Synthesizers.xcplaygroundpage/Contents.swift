@@ -31,8 +31,8 @@ let beats = AKPeriodicFunction(frequency: 5) {
     counter += 1
 }
 
-AKManager.output = reverb
-try AKManager.start(withPeriodicFunctions: beats)
+engine.output = reverb
+try engine.start(withPeriodicFunctions: beats)
 reverb.loadFactoryPreset(.mediumRoom)
 beats.start()
 

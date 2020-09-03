@@ -32,7 +32,7 @@ public class AKStereoInput: AKNode, AKToggleable {
 
         #if !os(tvOS)
         AKSettings.audioInputEnabled = true
-        AKManager.engine.inputNode.connect(to: self.avAudioNode)
+//        engine.inputNode.connect(to: self.avAudioNode)
         #endif
 
         self.volume = volume

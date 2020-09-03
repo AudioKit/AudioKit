@@ -8,21 +8,21 @@ import AVFoundation
 class AKOscillatorTests: AKTestCase {
     func testAmpitude() {
         input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
-        output = input
+        engine.output = input
         XCTAssertEqual(input.amplitude, 0.5)
         input.start()
         AKTest()
     }
 
     func testDefault() {
-        output = input
+        engine.output = input
         input.start()
         AKTest()
     }
 
     func testDetuningMultiplier() {
         input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
-        output = input
+        engine.output = input
         XCTAssertEqual(input.detuningMultiplier, 0.9)
         input.start()
         AKTest()
@@ -30,7 +30,7 @@ class AKOscillatorTests: AKTestCase {
 
     func testDetuningOffset() {
         input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
-        output = input
+        engine.output = input
         XCTAssertEqual(input.detuningOffset, 11)
         input.start()
         AKTest()
@@ -38,7 +38,7 @@ class AKOscillatorTests: AKTestCase {
 
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
-        output = input
+        engine.output = input
         XCTAssertEqual(input.frequency, 400)
         input.start()
         AKTest()
@@ -52,14 +52,14 @@ class AKOscillatorTests: AKTestCase {
         XCTAssertEqual(input.rampDuration, 0.0)
         XCTAssertEqual(input.frequency, 400)
         XCTAssertEqual(input.amplitude, 0.5)
-        output = input
+        engine.output = input
         input.start()
         AKTest()
     }
 
     func testParameters() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        output = input
+        engine.output = input
         input.start()
         AKTest()
     }
@@ -70,14 +70,13 @@ class AKOscillatorTests: AKTestCase {
                                                                          startTime: 0,
                                                                          rampDuration: duration),
                                        to: input.$frequency)
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.parameterAutomation?.startPlayback()
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -88,14 +87,13 @@ class AKOscillatorTests: AKTestCase {
                                                                          startTime: 0,
                                                                          rampDuration: duration),
                                        to: input.$amplitude)
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.parameterAutomation?.startPlayback()
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -110,21 +108,20 @@ class AKOscillatorTests: AKTestCase {
                                                                          startTime: 0,
                                                                          rampDuration: duration),
                                        to: input.$amplitude)
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.parameterAutomation?.startPlayback()
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
 
     func testNewAutomationFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
@@ -133,7 +130,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -141,7 +137,7 @@ class AKOscillatorTests: AKTestCase {
     func testNewAutomationAmplitude() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
 
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.$amplitude.automate(events: [AKAutomationEvent(targetValue: 1.0,
@@ -150,7 +146,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -158,7 +153,7 @@ class AKOscillatorTests: AKTestCase {
     func testNewAutomationMultiple() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
 
-        output = input
+        engine.output = input
 
         afterStart = {
             self.input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
@@ -170,7 +165,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }
@@ -180,7 +174,7 @@ class AKOscillatorTests: AKTestCase {
         duration = 2.0
 
         input = AKOscillator(waveform: AKTable(.sine), frequency: 400, amplitude: 0.5)
-        output = input
+        engine.output = input
 
         afterStart = {
             // Delay a second.
@@ -193,7 +187,6 @@ class AKOscillatorTests: AKTestCase {
         }
 
         input.start()
-        // auditionTest()
 
         AKTest()
     }

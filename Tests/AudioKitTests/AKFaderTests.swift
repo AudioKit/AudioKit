@@ -5,14 +5,14 @@ import AudioKit
 class AKFaderTests: AKTestCase {
 
     func testDefault() {
-        output = AKFader(input, gain: 1.0)
+        engine.output = AKFader(input, gain: 1.0)
         AKTestNoEffect()
     }
 
     func testBypass() {
         let fader = AKFader(input, gain: 2.0)
         fader.bypass()
-        output = fader
+        engine.output = fader
         AKTestNoEffect()
     }
 
@@ -23,7 +23,7 @@ class AKFaderTests: AKTestCase {
             let fader = AKFader(nextFader, gain: 1.0)
             nextFader = fader
         }
-        output = nextFader
+        engine.output = nextFader
         AKTestNoEffect()
     }
 
@@ -31,7 +31,7 @@ class AKFaderTests: AKTestCase {
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
         fader.flipStereo = true
-        output = fader
+        engine.output = fader
         AKTest()
     }
 
@@ -41,7 +41,7 @@ class AKFaderTests: AKTestCase {
         fader.flipStereo = true
         let fader2 = AKFader(fader, gain: 1.0)
         fader2.flipStereo = true
-        output = fader2
+        engine.output = fader2
         AKTest()
     }
 
@@ -53,7 +53,7 @@ class AKFaderTests: AKTestCase {
         fader2.flipStereo = true
         let fader3 = AKFader(fader2, gain: 1.0)
         fader3.flipStereo = true
-        output = fader3
+        engine.output = fader3
         AKTest()
     }
 
@@ -61,17 +61,17 @@ class AKFaderTests: AKTestCase {
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
         fader.mixToMono = true
-        output = fader
+        engine.output = fader
         AKTest()
     }
 
     func testParameters() {
-        output = AKFader(input, gain: 2.0)
+        engine.output = AKFader(input, gain: 2.0)
         AKTest()
     }
 
     func testParameters2() {
-        output = AKFader(input, gain: 0.5)
+        engine.output = AKFader(input, gain: 0.5)
         AKTest()
     }
 }

@@ -13,17 +13,17 @@ class AKDynamicRangeCompressorTests: AKTestCase {
    }
 
     func testAttackDuration() {
-        output = AKDynamicRangeCompressor(input, ratio: 0.5, attackDuration: 0.2)
+        engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, attackDuration: 0.2)
         AKTest()
     }
 
     func testDefault() {
-        output = AKDynamicRangeCompressor(input)
+        engine.output = AKDynamicRangeCompressor(input)
         AKTest()
     }
 
     func testParameters() {
-        output = AKDynamicRangeCompressor(input,
+        engine.output = AKDynamicRangeCompressor(input,
                                           ratio: 0.5,
                                           threshold: -1,
                                           attackDuration: 0.2,
@@ -32,17 +32,17 @@ class AKDynamicRangeCompressorTests: AKTestCase {
     }
 
     func testRatio() {
-        output = AKDynamicRangeCompressor(input, ratio: 0.5)
+        engine.output = AKDynamicRangeCompressor(input, ratio: 0.5)
         AKTest()
     }
 
     func testReleaseDuration() {
-        output = AKDynamicRangeCompressor(input, ratio: 0.5, releaseDuration: 0.2)
+        engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, releaseDuration: 0.2)
         AKTest()
     }
 
     func testThreshold() {
-        output = AKDynamicRangeCompressor(input, ratio: 0.5, threshold: -1)
+        engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, threshold: -1)
         AKTest()
     }
 

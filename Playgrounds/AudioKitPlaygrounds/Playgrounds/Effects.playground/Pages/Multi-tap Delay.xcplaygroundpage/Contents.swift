@@ -28,8 +28,8 @@ func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixe
     return mix
 }
 
-AKManager.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0, 0.5])
-try AKManager.start()
+engine.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0, 0.5])
+try engine.start()
 player.play()
 
 import PlaygroundSupport

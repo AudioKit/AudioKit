@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class AKDryWetMixer: AKNode, AKInput {
+public class AKDryWetMixer: AKNode {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
@@ -16,8 +15,8 @@ public class AKDryWetMixer: AKNode, AKInput {
         }
     }
 
-    fileprivate var input1Attenuator = AKMixer()
-    fileprivate var input2Attenuator = AKMixer()
+    fileprivate var input1Attenuator = AKBooster()
+    fileprivate var input2Attenuator = AKBooster()
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -29,54 +28,31 @@ public class AKDryWetMixer: AKNode, AKInput {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    public init(_ input1: AKNode? = nil, _ input2: AKNode? = nil, balance: Double = 0.5) {
+    public init(_ input1: AKNode, _ input2: AKNode, balance: Double = 0.5) {
         super.init(avAudioNode: AVAudioNode())
-        avAudioNode = mixer.avAudioNode
-        self.input1Attenuator.connect(to: mixer)
-        self.input2Attenuator.connect(to: mixer)
-
+        self.balance = balance
         setGainsViaBalance()
 
-        if let input1 = input1 {
-            connectInput1(using: input1)
-        }
-        if let input2 = input2 {
-            connectInput2(using: input2)
-        }
+        avAudioNode = mixer.avAudioNode
+        input1 >>> input1Attenuator
+        input2 >>> input2Attenuator
+
+        connections.append(input1Attenuator)
+        connections.append(input2Attenuator)
+
         self.balance = balance
+        setGainsViaBalance()
+
+
     }
 
     public convenience init(dry: AKNode, wet: AKNode, balance: Double = 0.5) {
         self.init(dry, wet, balance: balance)
     }
 
-    public var inputNode: AVAudioNode {
-        return input1Attenuator.avAudioUnitOrNode
-    }
-
-    func connectInputs(input1: AKNode, input2: AKNode) {
-        connectInput1(using: input1)
-        connectInput2(using: input2)
-    }
-
-    func connectInput1(using node: AKNode) {
-        node.connect(to: input1Attenuator)
-    }
-
-    func connectInput2(using node: AKNode) {
-        node.connect(to: input2Attenuator)
-    }
-
     private func setGainsViaBalance() {
-        input1Attenuator.volume = AUValue(1 - balance)
-        input2Attenuator.volume = AUValue(balance)
-    }
-
-    // Disconnect the node
-    public override func detach() {
-        AKManager.detach(nodes: [mixer.avAudioUnitOrNode,
-                                input1Attenuator.avAudioUnitOrNode,
-                                input2Attenuator.avAudioUnitOrNode])
+        input1Attenuator.gain = AUValue(1 - balance)
+        input2Attenuator.gain = AUValue(balance)
     }
 
     open var dryInput: AVAudioConnectionPoint {

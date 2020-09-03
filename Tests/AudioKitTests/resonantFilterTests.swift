@@ -10,7 +10,7 @@ class ResonantFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationEffect(input) { $0.resonantFilter() }
+        engine.output = AKOperationEffect(input) { $0.resonantFilter() }
         AKTest()
     }
 

@@ -16,7 +16,6 @@
 //: examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
 //:
 //: * [Pedestrians](Pedestrians)
-//: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //:
 //: Hopefully we'll add more practicals over time.  If you're interested in
 //: making more, submit a pull-request to the git repository and we'll be sure to include them.
@@ -27,7 +26,6 @@
 //:
 //: Oscillators are the basis of many synths which also usually have envelopes:
 //:
-//: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Filter Envelope](Filter%20Envelope)
 //:
 //: ### Physical Models
@@ -42,7 +40,6 @@
 //: * [Mandolin](Mandolin)
 //: * [Plucked String](Plucked%20String)
 //: * [Tubular Bells](Tubular%20Bells)
-//: * [Vocal Tract](Vocal%20Tract)
 //: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:
 //: ## Operations
