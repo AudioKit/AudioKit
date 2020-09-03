@@ -38,6 +38,9 @@ public class AKEngine {
     // TODO make this internal
     public let avEngine = AVAudioEngine()
 
+    // maximum number of frames the engine will be asked to render in any single render call
+    let maximumFrameCount: AVAudioFrameCount = 1024
+
     public init() { }
 
     public var output: AKNode? {
@@ -65,8 +68,6 @@ public class AKEngine {
     public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
         let samples = Int(duration * AKSettings.sampleRate)
 
-        // maximum number of frames the engine will be asked to render in any single render call
-        let maximumFrameCount: AVAudioFrameCount = 1024
         do {
             self.avEngine.reset()
             try self.avEngine.enableManualRenderingMode(.offline,
@@ -92,11 +93,11 @@ public class AKEngine {
 
         let tempBuffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(1024))!
+            frameCapacity: AVAudioFrameCount(maximumFrameCount))!
 
         do {
             while avEngine.manualRenderingSampleTime < samples + startingSampleCount {
-                let framesToRender = min(UInt32(samples + startingSampleCount - Int( avEngine.manualRenderingSampleTime)), 1024)
+                let framesToRender = min(UInt32(samples + startingSampleCount - Int( avEngine.manualRenderingSampleTime)), maximumFrameCount)
                 try avEngine.renderOffline(AVAudioFrameCount(framesToRender), to: tempBuffer)
                 buffer.append(tempBuffer)
             }
@@ -251,8 +252,6 @@ public class AKEngine {
         avEngine.setDevice(id: output.deviceID)
         #endif
     }
-
-    // TODO write a test for render to file
 
     /// Render output to an AVAudioFile for a duration.
     ///
