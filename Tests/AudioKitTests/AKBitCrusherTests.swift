@@ -13,7 +13,7 @@ class AKBitCrusherTests: AKTestCase {
         let crush = AKBitCrusher(input, bitDepth: 12)
         crush.bypass()
         engine.output = crush
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testDefault() {

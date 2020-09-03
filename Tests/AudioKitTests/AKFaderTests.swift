@@ -6,14 +6,14 @@ class AKFaderTests: AKTestCase {
 
     func testDefault() {
         engine.output = AKFader(input, gain: 1.0)
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testBypass() {
         let fader = AKFader(input, gain: 2.0)
         fader.bypass()
         engine.output = fader
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testMany() {
@@ -24,7 +24,7 @@ class AKFaderTests: AKTestCase {
             nextFader = fader
         }
         engine.output = nextFader
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testFlipStereo() {

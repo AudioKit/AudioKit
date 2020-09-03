@@ -13,12 +13,12 @@ class AKAutoWahTests: AKTestCase {
         let wah = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
         wah.bypass()
         engine.output = wah
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testDefault() {
         engine.output = AKAutoWah(input)
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testMix() {
