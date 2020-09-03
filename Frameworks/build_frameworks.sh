@@ -220,7 +220,7 @@ create_catalyst_frameworks()
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
 	xcodebuild archive -project "$PROJECT" -scheme AudioKit-Package ONLY_ACTIVE_ARCH=$ACTIVE_ARCH SDKROOT=iphoneos CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
-			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
+			-configuration ${CONFIGURATION} -destination 'platform=macOS,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
 			BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${f}.framework" "$DIR/"
@@ -248,13 +248,13 @@ rm -f build.log
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
-		create_universal_frameworks iOS iphonesimulator iphoneos
-		#create_framework iOS iphoneos
-		#create_framework iOS iphonesimulator
+		#create_universal_frameworks iOS iphonesimulator iphoneos
+		create_framework iOS iphoneos
+		create_framework iOS iphonesimulator
 	elif test $os = 'tvOS'; then
-		create_universal_frameworks tvOS appletvsimulator appletvos
-		#create_framework tvOS appletvos
-		#create_framework tvOS appletvsimulator
+		#create_universal_frameworks tvOS appletvsimulator appletvos
+		create_framework tvOS appletvos
+		create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
 		create_macos_frameworks macOS macosx
 		create_catalyst_frameworks
