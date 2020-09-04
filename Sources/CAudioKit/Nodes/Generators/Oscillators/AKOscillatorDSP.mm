@@ -14,8 +14,8 @@ enum AKOscillatorParameter : AUParameterAddress {
 
 class AKOscillatorDSP : public AKSoundpipeDSPBase {
 private:
-    sp_osc *osc;
-    sp_ftbl *ftbl;
+    sp_osc *osc = nullptr;
+    sp_ftbl *ftbl = nullptr;
     std::vector<float> waveform;
     ParameterRamper frequencyRamp;
     ParameterRamper amplitudeRamp;

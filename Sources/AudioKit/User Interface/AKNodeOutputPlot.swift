@@ -17,9 +17,9 @@ public class AKNodeOutputPlot: EZAudioPlot {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    public func setupNode(_ input: AKNode?) {
+    public func setupNode(_ input: AKNode) {
         if isNotConnected {
-            input?.avAudioUnitOrNode.installTap(
+            input.avAudioUnitOrNode.installTap(
                 onBus: 0,
                 bufferSize: bufferSize,
                 format: nil) { [weak self] (buffer, _) in
@@ -40,7 +40,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     public func pause() {
         if isConnected {
-            node?.avAudioUnitOrNode.removeTap(onBus: 0)
+            node.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
@@ -51,7 +51,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     internal var bufferSize: UInt32 = 1_024
 
-    open var node: AKNode? {
+    open var node: AKNode {
         willSet {
             pause()
         }
@@ -65,12 +65,12 @@ public class AKNodeOutputPlot: EZAudioPlot {
     }
 
     public func removeTap() {
-        guard node?.avAudioUnitOrNode.engine != nil else {
+        guard node.avAudioUnitOrNode.engine != nil else {
             AKLog("The tapped node isn't attached to the engine")
             return
         }
 
-        node?.avAudioUnitOrNode.removeTap(onBus: 0)
+        node.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
@@ -88,16 +88,17 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+        self.node = input
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-        if let input = input {
-            setupNode(input)
-            self.node = input
-        }
+    }
+
+    public func start() {
+        setupNode(node)
     }
 }
 

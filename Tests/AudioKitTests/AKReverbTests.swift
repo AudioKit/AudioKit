@@ -9,7 +9,7 @@ class AKReverbTests: AKTestCase {
         reverb.bypass()
         engine.output = reverb
 
-        AKTestNoEffect()
+        AKTest()
     }
 
     #if os(iOS)

@@ -10,7 +10,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    internal func setupNode(_ input: AKNode?) {
+    internal func setupNode(_ input: AKNode) {
         if isNotConnected {
             if fft == nil {
                 fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
@@ -18,7 +18,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                                  delegate: self)
             }
 
-            input?.avAudioUnitOrNode.installTap(
+            input.avAudioUnitOrNode.installTap(
                 onBus: 0,
                 bufferSize: bufferSize,
                 format: nil) { [weak self] (buffer, _) in
@@ -38,7 +38,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public func pause() {
         if isConnected {
-            node?.avAudioUnitOrNode.removeTap(onBus: 0)
+            node.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
@@ -53,7 +53,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     fileprivate var fft: EZAudioFFT?
 
     /// The node whose output to graph
-    open var node: AKNode? {
+    open var node: AKNode {
         willSet {
             pause()
         }
@@ -63,7 +63,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     }
 
     deinit {
-        node?.avAudioUnitOrNode.removeTap(onBus: 0)
+        node.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
@@ -81,15 +81,13 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode? = nil, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: AKNode, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+        self.node = input
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-
-        setupNode(input)
-        self.node = input
     }
 
     /// Callback function for FFT data:
@@ -105,5 +103,9 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }
+    }
+
+    public func start() {
+        setupNode(node)
     }
 }

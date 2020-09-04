@@ -42,7 +42,7 @@ public class AKMixer: AKNode, AKToggleable {
     ///
     /// - parameter inputs: A variadic list of AKNodes
     ///
-    public convenience init(_ inputs: AKNode?...) {
+    public convenience init(_ inputs: AKNode...) {
         self.init(inputs.compactMap { $0 })
     }
 
@@ -54,9 +54,7 @@ public class AKMixer: AKNode, AKToggleable {
     ///
     public convenience init(_ inputs: [AKNode]) {
         self.init()
-        for input in inputs {
-            connections.append(input)
-        }
+        connections = inputs
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -72,5 +70,19 @@ public class AKMixer: AKNode, AKToggleable {
             lastKnownVolume = volume
             volume = 0
         }
+    }
+
+    public func addInput(_ node: AKNode) {
+        if connections.contains(where: { $0 === node }) {
+            AKLog("🛑 Error: Node is already connected to AKMixer.")
+            return
+        }
+        connections.append(node)
+        makeAVConnections()
+    }
+
+    public func removeInput(_ node: AKNode) {
+        connections.removeAll(where: { $0 === node })
+        avAudioNode.disconnect(input: node.avAudioNode)
     }
 }
