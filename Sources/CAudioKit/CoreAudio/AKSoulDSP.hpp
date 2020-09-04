@@ -51,6 +51,13 @@ public:
         message.byte2 = midiEvent.data[2];
         midiMessages.push_back(message);
     }
+
+    void startRamp(const AUParameterEvent &event) override {
+        auto address = event.parameterAddress;
+        if(address < properties.size()) {
+            properties[address].setValue(event.value);
+        }
+    }
     
     // Need to override this since it's pure virtual.
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
