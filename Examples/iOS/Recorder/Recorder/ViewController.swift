@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     let engine = AKEngine()
     // this is lazy here so that the sample rate can be set before it's created by reference
-    lazy var mic = AKMicrophone(engine: engine.avEngine)
+    lazy var mic = engine.input
 
     var state = State.readyToRecord
 

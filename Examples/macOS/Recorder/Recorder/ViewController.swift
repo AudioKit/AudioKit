@@ -21,7 +21,7 @@ class ViewController: NSViewController {
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-    lazy var mic = AKMicrophone()
+    lazy var mic = engine.input
 
     override func viewDidLoad() {
         super.viewDidLoad()
