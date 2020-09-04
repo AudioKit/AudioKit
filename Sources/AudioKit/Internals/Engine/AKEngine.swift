@@ -40,7 +40,7 @@ public class AKEngine {
     public class InputNode: AKMixer {
         func connect(to engine: AKEngine) {
             engine.avEngine.attach(avAudioNode)
-            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
+            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: AKSettings.audioFormat)
 
         }
     }
