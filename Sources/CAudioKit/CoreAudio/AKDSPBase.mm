@@ -156,7 +156,6 @@ void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immed
         }
         else {
             parameter->setUIValue(value);
-            parameter->dezipperCheck();
         }
     }
 }
@@ -193,6 +192,15 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
                                   AURenderEvent const *events)
 {
     now = timestamp->mSampleTime;
+
+    // Chceck for parameter updates from the UI.
+    for(int index = 0; index < maxParameters; ++index) {
+        if(parameters[index]) {
+            parameters[index]->dezipperCheck();
+        } else {
+            break;
+        }
+    }
 
     AUAudioFrameCount framesRemaining = frameCount;
     AURenderEvent const *event = events;
