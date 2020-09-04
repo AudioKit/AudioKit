@@ -19,12 +19,8 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        .target(
-            name: "TPCircularBuffer",
-            dependencies: []),
-        .target(
-            name: "STK",
-            dependencies: []),
+        .target(name: "TPCircularBuffer"),
+        .target(name: "STK"),
         .target(name: "soundpipe", cSettings: [.define("NO_LIBSNDFILE")]),
         .target(
             name: "CAudioKit",
