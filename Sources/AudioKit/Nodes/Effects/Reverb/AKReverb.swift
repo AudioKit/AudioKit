@@ -27,16 +27,14 @@ public class AKReverb: AKNode, AKToggleable {
     ///   - input: AKNode to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
-    public init(_ input: AKNode? = nil, dryWetMix: AUValue = 0.5) {
+    public init(_ input: AKNode, dryWetMix: AUValue = 0.5) {
         self.dryWetMix = dryWetMix
         super.init(avAudioNode: AVAudioNode())
 
         avAudioUnit = reverbAU
         avAudioNode = reverbAU
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         reverbAU.wetDryMix = dryWetMix * 100.0
     }

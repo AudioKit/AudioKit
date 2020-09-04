@@ -112,7 +112,7 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     ///   - distortion: Distortion Amount
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         preGain: AUValue = 5.0,
         postGain: AUValue = 0.7,
         lowGain: AUValue = 0.0,
@@ -134,8 +134,6 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

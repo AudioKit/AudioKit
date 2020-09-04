@@ -66,7 +66,7 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     ///   - maximumTime: The maximum delay time, in seconds.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         time: AUValue = 0,
         feedback: AUValue = 0,
         maximumTime: AUValue = 5
@@ -83,8 +83,6 @@ public class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             self.internalAU?.setMaximumTime(maximumTime)
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

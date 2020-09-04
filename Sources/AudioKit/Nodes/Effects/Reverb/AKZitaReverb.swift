@@ -165,7 +165,7 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         predelay: AUValue = 60.0,
         crossoverFrequency: AUValue = 200.0,
         lowReleaseTime: AUValue = 3.0,
@@ -195,8 +195,6 @@ public class AKZitaReverb: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

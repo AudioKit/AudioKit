@@ -87,7 +87,7 @@ public class AKChorus: AKNode, AKToggleable, AKComponent {
     ///   - dryWetMix: fraction of wet signal in mix
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = kAKChorus_DefaultFrequency,
         depth: AUValue = kAKChorus_DefaultDepth,
         feedback: AUValue = kAKChorus_DefaultFeedback,
@@ -106,8 +106,6 @@ public class AKChorus: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

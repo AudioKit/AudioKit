@@ -32,7 +32,7 @@ public class AKDCBlock: AKNode, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///
     public init(
-        _ input: AKNode? = nil
+        _ input: AKNode
         ) {
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -41,8 +41,6 @@ public class AKDCBlock: AKNode, AKToggleable, AKComponent {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

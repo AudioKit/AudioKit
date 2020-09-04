@@ -74,7 +74,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     ///   - saturation: Filter saturation.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         cutoffFrequency: AUValue = 1_000.0,
         resonance: AUValue = 1.0,
         saturation: AUValue = 0.0
@@ -90,8 +90,6 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

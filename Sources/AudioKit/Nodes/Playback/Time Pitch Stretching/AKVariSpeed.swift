@@ -30,7 +30,7 @@ public class AKVariSpeed: AKNode, AKToggleable {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    public init(_ input: AKNode? = nil, rate: AUValue = 1.0) {
+    public init(_ input: AKNode, rate: AUValue = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 
@@ -38,9 +38,7 @@ public class AKVariSpeed: AKNode, AKToggleable {
         avAudioUnit = variSpeedAU
         avAudioNode = variSpeedAU
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

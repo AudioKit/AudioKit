@@ -58,7 +58,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     ///     This can also be thought of as the delay time or “echo density” of the reverberation.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         reverbDuration: AUValue = 0.5,
         loopDuration: AUValue = 0.1
         ) {
@@ -73,8 +73,6 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             self.internalAU?.setLoopDuration(loopDuration)
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

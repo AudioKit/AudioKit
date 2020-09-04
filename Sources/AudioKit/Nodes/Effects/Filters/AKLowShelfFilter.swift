@@ -43,7 +43,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         cutoffFrequency: AUValue = 80,
         gain: AUValue = 0) {
         self.cutoffFrequency = cutoffFrequency
@@ -55,9 +55,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioNode: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
         au[kAULowShelfParam_Gain] = gain

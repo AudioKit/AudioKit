@@ -70,7 +70,7 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent {
     ///   Small values may leave input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         fundamentalFrequency: AUValue = 100,
         feedback: AUValue = 0.95
         ) {
@@ -84,8 +84,6 @@ public class AKStringResonator: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

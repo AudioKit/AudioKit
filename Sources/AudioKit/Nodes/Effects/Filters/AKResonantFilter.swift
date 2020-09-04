@@ -62,7 +62,7 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     ///   - bandwidth: Bandwidth of the filter.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = 4_000.0,
         bandwidth: AUValue = 1_000.0
         ) {
@@ -76,8 +76,6 @@ public class AKResonantFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

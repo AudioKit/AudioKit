@@ -74,7 +74,7 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     ///   - crossfade: Crossfade (in samples)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         shift: AUValue = 0,
         windowSize: AUValue = 1_024,
         crossfade: AUValue = 512
@@ -90,8 +90,6 @@ public class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

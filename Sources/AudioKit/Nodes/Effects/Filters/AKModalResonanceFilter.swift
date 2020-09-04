@@ -63,7 +63,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = 500.0,
         qualityFactor: AUValue = 50.0
         ) {
@@ -77,8 +77,6 @@ public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

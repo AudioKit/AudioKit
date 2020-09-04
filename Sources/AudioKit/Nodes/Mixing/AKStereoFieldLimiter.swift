@@ -47,7 +47,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil, amount: AUValue = 1) {
+    public init(_ input: AKNode, amount: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         self.amount = amount
 
@@ -56,8 +56,6 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

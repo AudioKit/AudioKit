@@ -153,7 +153,7 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent {
     ///   - lfoBPM: Between 24 and 360
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         notchMinimumFrequency: AUValue = 100,
         notchMaximumFrequency: AUValue = 800,
         notchWidth: AUValue = 1_000,
@@ -181,8 +181,6 @@ public class AKPhaser: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

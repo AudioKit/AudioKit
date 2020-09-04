@@ -176,7 +176,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode?,
+    public convenience init(_ input: AKNode,
                             channelCount: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
 
@@ -197,7 +197,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - input:     AKNode to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode?,
+    public convenience init(_ input: AKNode,
                             operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
@@ -217,7 +217,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
         self.init(input, sporth: "")
     }
 
-    public convenience init(_ input: AKNode?, operation: (AKStereoOperation) -> AKComputedParameter) {
+    public convenience init(_ input: AKNode, operation: (AKStereoOperation) -> AKComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
     }
 
@@ -227,7 +227,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode?, sporth: String) {
+    public init(_ input: AKNode, sporth: String) {
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
@@ -238,8 +238,6 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self.internalAU?.setSporth(sporth)
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }
