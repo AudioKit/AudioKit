@@ -15,8 +15,6 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKAutomata
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let positionDef = AKNodeParameterDef(
@@ -91,7 +89,6 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent, AKAutomata
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
         }
     }

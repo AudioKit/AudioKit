@@ -13,8 +13,6 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     /// Amplification Factor
@@ -85,7 +83,6 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

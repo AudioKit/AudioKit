@@ -13,8 +13,6 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
    public private(set) var internalAU: AKAudioUnitType?
 
-   public var parameterAutomation: AKParameterAutomation?
-
    // MARK: - Parameters
 
     public static let balanceDef = AKNodeParameterDef(
@@ -57,7 +55,6 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         connections.append(input1)

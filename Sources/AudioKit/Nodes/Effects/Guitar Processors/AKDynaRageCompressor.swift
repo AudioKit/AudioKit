@@ -14,8 +14,6 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKAutomata
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let ratioDef = AKNodeParameterDef(
@@ -135,7 +133,6 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKAutomata
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

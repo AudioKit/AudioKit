@@ -17,8 +17,6 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     fileprivate var waveform: AKTable?
@@ -129,7 +127,6 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent, AKA
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.internalAU?.setWavetable(waveform.content)
         }

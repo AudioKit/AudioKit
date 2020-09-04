@@ -13,8 +13,6 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let amplitudeDef = AKNodeParameterDef(
@@ -60,7 +58,6 @@ public class AKBrownianNoise: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
     }

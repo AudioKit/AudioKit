@@ -13,8 +13,6 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKAuto
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let distortionDef = AKNodeParameterDef(
@@ -96,7 +94,6 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKAuto
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

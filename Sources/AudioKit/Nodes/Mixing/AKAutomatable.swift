@@ -4,5 +4,4 @@ import AVFoundation
 import CAudioKit
 
 public protocol AKAutomatable: AnyObject {
-    var parameterAutomation: AKParameterAutomation? { get }
 }

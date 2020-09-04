@@ -13,8 +13,6 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     /// Amplification Factor, from 0 ... 4
@@ -111,7 +109,6 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {
@@ -137,14 +134,14 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
                                                rampTaper: taperValue,
                                                rampSkew: skewValue)
 
-        parameterAutomation?.add(point: point, to: $leftGain)
-        parameterAutomation?.add(point: point, to: $rightGain)
+//        parameterAutomation?.add(point: point, to: $leftGain)
+//        parameterAutomation?.add(point: point, to: $rightGain)
     }
 
     /// Convenience function for clearing all points for both left and right addresses
     public func clearAutomationPoints() {
-        parameterAutomation?.clearAllPoints(of: $leftGain)
-        parameterAutomation?.clearAllPoints(of: $rightGain)
+//        parameterAutomation?.clearAllPoints(of: $leftGain)
+//        parameterAutomation?.clearAllPoints(of: $rightGain)
     }
 
     // MARK: - Automation

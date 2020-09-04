@@ -14,8 +14,6 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable, AKAutomatable {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     fileprivate var waveform: AKTable?
@@ -114,7 +112,6 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable, AKAutomatable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             audioUnit.setWavetable(waveform.content)
         }
