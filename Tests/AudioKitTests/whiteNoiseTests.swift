@@ -1,40 +1,47 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class WhiteNoiseTests: AKTestCase {
-
-    var noise = AKOperationGenerator { AKOperation.whiteNoise() }
-
-    override func setUp() {
-        afterStart = { self.noise.start() }
-        duration = 1.0
-    }
+class WhiteNoiseTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let noise = AKOperationGenerator { AKOperation.whiteNoise() }
         engine.output = noise
-        AKTest()
+        noise.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testAmplitude() {
-        noise = AKOperationGenerator {
+        let engine = AKEngine()
+        let noise = AKOperationGenerator {
             return AKOperation.whiteNoise(amplitude: 0.456)
         }
         engine.output = noise
-        AKTest()
+        noise.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameterSweep() {
-        noise = AKOperationGenerator {
+        let engine = AKEngine()
+        let noise = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,
                 end: 1,
-                duration: duration)
+                duration: 1.0)
             return AKOperation.whiteNoise(amplitude: line)
         }
         engine.output = noise
-        AKTest()
+        noise.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

@@ -1,19 +1,18 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class SquareTests: AKTestCase {
-
-    let square = AKOperationGenerator { AKOperation.square() }
-
-    override func setUp() {
-        afterStart = { self.square.start() }
-        duration = 1.0
-    }
+class SquareTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let square = AKOperationGenerator { AKOperation.square() }
         engine.output = square
-        AKTest()
+        square.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

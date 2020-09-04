@@ -1,28 +1,28 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class FMOscillatorTests: AKTestCase {
-
-    var oscillator = AKOperationGenerator { AKOperation.fmOscillator() }
-
-    override func setUp() {
-        afterStart = { self.oscillator.start() }
-        duration = 1.0
-    }
+class FMOscillatorTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let oscillator = AKOperationGenerator { AKOperation.fmOscillator() }
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testFMOscillatorOperation() {
-        oscillator = AKOperationGenerator {
+        let engine = AKEngine()
+        let oscillator = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
                 start: 0.001,
                 end: 5,
-                duration: duration)
+                duration: 1.0)
             return AKOperation.fmOscillator(
                 baseFrequency: line * 1_000,
                 carrierMultiplier: line,
@@ -31,7 +31,10 @@ class FMOscillatorTests: AKTestCase {
                 amplitude: line / 5)
         }
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

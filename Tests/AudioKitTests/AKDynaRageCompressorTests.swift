@@ -6,7 +6,7 @@ import XCTest
 // TODO: Test was left out of old test suite.
 #if false
 
-class AKDynaRangeCompressorTests: AKTestCase {
+class AKDynaRangeCompressorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -17,42 +17,77 @@ class AKDynaRangeCompressorTests: AKTestCase {
     }
 
     func testAttackTime() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDefault() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameters() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input,
                                       ratio: 10,
                                       threshold: -1,
                                       attackDuration: 21,
                                       releaseDuration: 22)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testRage() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, rage: 10)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testRatio() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testReleaseTime() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testThreshold() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, threshold: -1)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }
