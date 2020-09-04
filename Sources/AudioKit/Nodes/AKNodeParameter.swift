@@ -69,6 +69,20 @@ public class AKNodeParameter {
         }
     }
 
+    public var rampTaper: Float = 1 {
+        didSet {
+            guard let dsp = dsp, let addr = parameter?.address else { return }
+            setParameterRampTaperDSP(dsp, addr, rampTaper)
+        }
+    }
+
+    public var rampSkew: Float = 0 {
+        didSet {
+            guard let dsp = dsp, let addr = parameter?.address else { return }
+            setParameterRampSkewDSP(dsp, addr, rampSkew)
+        }
+    }
+
     // MARK: Automation
 
     private var renderObserverToken: Int?
@@ -173,6 +187,8 @@ public class AKNodeParameter {
 
         guard let dsp = dsp, let addr = parameter?.address else { return }
         setParameterRampDurationDSP(dsp, addr, rampDuration)
+        setParameterRampTaperDSP(dsp, addr, rampTaper)
+        setParameterRampSkewDSP(dsp, addr, rampSkew)
 
         guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
         parameter?.value = (min...max).clamp(value)
