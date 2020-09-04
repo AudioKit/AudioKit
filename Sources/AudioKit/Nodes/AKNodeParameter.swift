@@ -110,6 +110,11 @@ public class AKNodeParameter {
 
     }
 
+    /// Automate to a new value using a ramp.
+    public func ramp(to value: AUValue, duration: Double) {
+        automate(events: [AKAutomationEvent(targetValue: value, startTime: 0, rampDuration: duration)])
+    }
+
     public func stopAutomation() {
 
         if let token = renderObserverToken {
