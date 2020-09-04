@@ -2,6 +2,7 @@
 
 import AVFoundation
 import CAudioKit
+import soundpipe
 
 extension AVAudioPCMBuffer {
 
