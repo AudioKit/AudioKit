@@ -13,8 +13,6 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKAutoma
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let halfPowerPointDef = AKNodeParameterDef(
@@ -60,7 +58,6 @@ public class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKAutoma
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

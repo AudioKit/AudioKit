@@ -15,8 +15,6 @@ public class AKCostelloReverb: AKNode, AKComponent, AKToggleable, AKAutomatable 
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let feedbackDef = AKNodeParameterDef(
@@ -80,7 +78,6 @@ public class AKCostelloReverb: AKNode, AKComponent, AKToggleable, AKAutomatable 
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

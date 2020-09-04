@@ -13,8 +13,6 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Properties
 
     public static let amountDef = AKNodeParameterDef(

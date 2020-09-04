@@ -17,8 +17,6 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let reverbDurationDef = AKNodeParameterDef(
@@ -71,7 +69,6 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, A
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             self.internalAU?.setLoopDuration(loopDuration)
         }

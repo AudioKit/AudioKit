@@ -13,8 +13,6 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKAutoma
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let preGainDef = AKNodeParameterDef(
@@ -134,7 +132,6 @@ public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKAutoma
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {

@@ -14,8 +14,6 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     fileprivate var waveformArray = [AKTable]()
@@ -126,7 +124,6 @@ public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomata
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
 
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setWavetable(waveform.content, index: i)

@@ -13,8 +13,6 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public private(set) var parameterAutomation: AKParameterAutomation?
-
     // MARK: - Parameters
 
     public static let centerFrequencyDef = AKNodeParameterDef(
@@ -90,7 +88,6 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompo
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
         }
 
         if let input = input {
