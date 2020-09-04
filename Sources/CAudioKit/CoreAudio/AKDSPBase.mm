@@ -60,16 +60,6 @@ void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, floa
     pDSP->setParameterRampDuration(address, rampDuration);
 }
 
-void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
-{
-    pDSP->setParameterRampTaper(address, taper);
-}
-
-void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
-{
-    pDSP->setParameterRampSkew(address, skew);
-}
-
 void startDSP(AKDSPRef pDSP)
 {
     pDSP->start();
@@ -212,22 +202,6 @@ void AKDSPBase::setParameterRampDuration(AUParameterAddress address, float durat
     }
 }
 
-void AKDSPBase::setParameterRampTaper(AUParameterAddress address, float taper)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setTaper(taper);
-    }
-}
-
-void AKDSPBase::setParameterRampSkew(AUParameterAddress address, float skew)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setSkew(skew);
-    }
-}
-
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {
@@ -299,12 +273,6 @@ void AKDSPBase::startRamp(const AUParameterEvent& event)
     auto ramper = parameters[address];
     if(ramper == nullptr) return;
     switch (event.parameterAddress >> 61) {
-        case 0x4: // taper
-            ramper->setTaper(event.value);
-            break;
-        case 0x2: // skew
-            ramper->setSkew(event.value);
-            break;
         case 0x1: // offset
             ramper->setOffset(event.rampDurationSampleFrames);
             break;
