@@ -27,9 +27,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "DebugDSP.h"
 
 // Analysis
-#if !TARGET_OS_TV
-#import "AKMicrophoneTrackerEngine.h"
-#endif
 #import "AKPitchTracker.h"
 
 // Effects / Modulation

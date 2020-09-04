@@ -37,6 +37,10 @@ public class AKEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1024
 
+    public class InputNode: AKNode {}
+
+    public let input = InputNode(avAudioNode: AVAudioNode())
+
     public init() { }
 
     public var output: AKNode? {
