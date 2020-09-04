@@ -279,23 +279,11 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
 
 void AKDSPBase::startRamp(const AUParameterEvent& event)
 {
-    auto address = event.parameterAddress & 0xFFFFFFFF;
+    auto address = event.parameterAddress;
     assert(address < maxParameters);
     auto ramper = parameters[address];
     if(ramper == nullptr) return;
-    switch (event.parameterAddress >> 61) {
-        case 0x4: // taper
-            ramper->setTaper(event.value);
-            break;
-        case 0x2: // skew
-            ramper->setSkew(event.value);
-            break;
-        case 0x1: // offset
-            ramper->setOffset(event.rampDurationSampleFrames);
-            break;
-        case 0x0:
-            ramper->startRamp(event.value, event.rampDurationSampleFrames);
-    }
+    ramper->startRamp(event.value, event.rampDurationSampleFrames);
 }
 
 using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;
