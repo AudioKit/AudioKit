@@ -8,7 +8,7 @@ import CAudioKit
 ///
 public class AKOscillator: AKNode, AKComponent, AKToggleable {
 
-    public static let ComponentDescription = AudioComponentDescription(generator: "osc2")
+    public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     public typealias AKAudioUnitType = InternalAU
 
