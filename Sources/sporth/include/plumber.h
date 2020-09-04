@@ -1,11 +1,10 @@
 #include "soundpipe.h"
 #include "sporth.h"
+#include "ugens.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "ugens.h"
 
 /* implement macros */
 #define SPORTH_UGEN(key, func, macro, ninputs, noutputs)  macro,

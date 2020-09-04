@@ -1,6 +1,7 @@
-#ifdef MINIMAL
 #include <stdlib.h>
-#endif
+#include <stdio.h>
+
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
