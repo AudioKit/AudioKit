@@ -98,12 +98,6 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        self.waveform = waveform
-        self.frequency = frequency
-        self.amplitude = amplitude
-        self.detuningOffset = detuningOffset
-        self.detuningMultiplier = detuningMultiplier
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
@@ -114,6 +108,12 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
             self.internalAU = audioUnit
 
             audioUnit.setWavetable(waveform.content)
+
+            self.waveform = waveform
+            self.frequency = frequency
+            self.amplitude = amplitude
+            self.detuningOffset = detuningOffset
+            self.detuningMultiplier = detuningMultiplier
         }
 
     }
