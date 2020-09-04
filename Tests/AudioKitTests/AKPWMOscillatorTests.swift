@@ -7,7 +7,6 @@ class AKPWMOscillatorTests: AKTestCase {
     var oscillator = AKPWMOscillator()
 
     override func setUp() {
-        oscillator.rampDuration = 0.0
         afterStart = { self.oscillator.start() }
     }
 
@@ -58,7 +57,6 @@ class AKPWMOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         oscillator = AKPWMOscillator()
-        oscillator.rampDuration = 0.0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.pulseWidth = 0.75

@@ -46,10 +46,8 @@ class AKOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         input = AKOscillator(waveform: AKTable(.square))
-        input.rampDuration = 0.0
         input.frequency = 400
         input.amplitude = 0.5
-        XCTAssertEqual(input.rampDuration, 0.0)
         XCTAssertEqual(input.frequency, 400)
         XCTAssertEqual(input.amplitude, 0.5)
         engine.output = input

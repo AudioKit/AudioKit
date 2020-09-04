@@ -7,7 +7,6 @@ class AKFMOscillatorTests: AKTestCase {
     var oscillator = AKFMOscillator()
 
     override func setUp() {
-        oscillator.rampDuration = 0.0
         afterStart = { self.oscillator.start() }
     }
 
@@ -18,7 +17,6 @@ class AKFMOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         oscillator = AKFMOscillator(waveform: AKTable(.square))
-        oscillator.rampDuration = 0.0
         oscillator.baseFrequency = 1_234
         oscillator.carrierMultiplier = 1.234
         oscillator.modulatingMultiplier = 1.234
