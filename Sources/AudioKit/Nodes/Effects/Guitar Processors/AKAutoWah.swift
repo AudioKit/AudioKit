@@ -74,7 +74,7 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Overall level
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         wah: AUValue = 0.0,
         mix: AUValue = 1.0,
         amplitude: AUValue = 0.1
@@ -90,8 +90,6 @@ public class AKAutoWah: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

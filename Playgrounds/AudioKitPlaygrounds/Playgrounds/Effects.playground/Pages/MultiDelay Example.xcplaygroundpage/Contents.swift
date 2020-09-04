@@ -11,7 +11,7 @@ player.looping = true
 var delays = [AKVariableDelay]()
 var counter = 0
 
-func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixer {
+func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
 
     zip(times, gains).forEach { (time, gain) -> Void in

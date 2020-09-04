@@ -87,7 +87,7 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
     ///   - releaseDuration: Release Duration
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         ratio: AUValue = 1,
         threshold: AUValue = 0.0,
         attackDuration: AUValue = 0.1,
@@ -105,8 +105,6 @@ public class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

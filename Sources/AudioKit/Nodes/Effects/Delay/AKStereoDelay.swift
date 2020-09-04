@@ -88,7 +88,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     ///   - pingPong: true for ping-pong mode, false for stereo mode.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         maximumDelayTime: AUValue = 2.0,
         time: AUValue = 0,
         feedback: AUValue = 0,
@@ -109,8 +109,6 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

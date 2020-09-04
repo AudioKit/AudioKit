@@ -76,7 +76,7 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         centerFrequency: AUValue = 1_000,
         attackDuration: AUValue = 0.007,
         decayDuration: AUValue = 0.04
@@ -92,8 +92,6 @@ public class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

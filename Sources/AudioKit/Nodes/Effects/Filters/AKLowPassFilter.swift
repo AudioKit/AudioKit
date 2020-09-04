@@ -43,7 +43,7 @@ public class AKLowPassFilter: AKNode, AKToggleable, AUEffect {
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         cutoffFrequency: AUValue = 6_900,
         resonance: AUValue = 0) {
 
@@ -56,9 +56,7 @@ public class AKLowPassFilter: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioNode: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         au[kLowPassParam_Resonance] = resonance
         au[kLowPassParam_CutoffFrequency] = cutoffFrequency

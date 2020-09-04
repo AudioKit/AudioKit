@@ -49,7 +49,7 @@ public class AKClipper: AKNode, AKToggleable, AKComponent {
     ///   - limit: Threshold / limiting value.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         limit: AUValue = 1.0
         ) {
         super.init(avAudioNode: AVAudioNode())
@@ -61,8 +61,6 @@ public class AKClipper: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

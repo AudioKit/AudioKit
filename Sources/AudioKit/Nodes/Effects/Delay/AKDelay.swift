@@ -59,7 +59,7 @@ public class AKDelay: AKNode, AKToggleable {
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         time: AUValue = 1,
         feedback: AUValue = 0.5,
         lowPassCutoff: AUValue = 15_000,
@@ -71,9 +71,7 @@ public class AKDelay: AKNode, AKToggleable {
         self.dryWetMix = dryWetMix
 
         super.init(avAudioUnit: delayAU)
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         delayAU.delayTime = self.time
         delayAU.feedback = feedback * 100.0

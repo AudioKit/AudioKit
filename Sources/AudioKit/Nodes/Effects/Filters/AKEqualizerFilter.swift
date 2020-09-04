@@ -77,7 +77,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     ///   - gain: The peak/notch gain
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         centerFrequency: AUValue = 1_000.0,
         bandwidth: AUValue = 100.0,
         gain: AUValue = 10.0
@@ -93,8 +93,6 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

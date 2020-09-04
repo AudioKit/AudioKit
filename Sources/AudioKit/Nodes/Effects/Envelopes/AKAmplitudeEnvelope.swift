@@ -87,7 +87,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     ///   - releaseDuration: Release time
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         attackDuration: AUValue = 0.1,
         decayDuration: AUValue = 0.1,
         sustainLevel: AUValue = 1.0,
@@ -105,8 +105,6 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

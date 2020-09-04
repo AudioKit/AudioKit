@@ -62,7 +62,7 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
     ///   - gain: Gain in dB
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         cutoffFrequency: AUValue = 10000.0,
         gain: AUValue = 20.0
         ) {
@@ -77,8 +77,6 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

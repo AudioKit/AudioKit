@@ -62,7 +62,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the panner (default to sine)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = 10,
         depth: AUValue = 1.0,
         waveform: AKTable = AKTable(.positiveSine)
@@ -80,9 +80,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
             self.internalAU?.setWavetable(waveform.content)
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 
     // TODO this node needs tests

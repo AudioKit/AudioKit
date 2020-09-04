@@ -80,7 +80,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///     possible for more sustained oscillation and an “overdrive” effect.
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         distortion: AUValue = 0.5,
         cutoffFrequency: AUValue = 1_500,
         resonance: AUValue = 0.5
@@ -96,8 +96,6 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

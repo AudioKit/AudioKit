@@ -87,7 +87,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
     ///   - dryWetMix: fraction of wet signal in mix  - traditionally 50%, avoid changing this value
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = kAKFlanger_DefaultFrequency,
         depth: AUValue = kAKFlanger_DefaultDepth,
         feedback: AUValue = kAKFlanger_DefaultFeedback,
@@ -106,8 +106,6 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

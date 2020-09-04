@@ -73,7 +73,7 @@ public class AKBooster: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil, gain: AUValue = 1) {
+    public init(_ input: AKNode, gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
         self.leftGain = gain
         self.rightGain = gain
@@ -85,8 +85,6 @@ public class AKBooster: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

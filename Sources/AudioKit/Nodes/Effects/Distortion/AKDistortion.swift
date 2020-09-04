@@ -170,7 +170,7 @@ public class AKDistortion: AKNode, AKToggleable, AUEffect {
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         delay: AUValue = 0.1,
         decay: AUValue = 1.0,
         delayMix: AUValue = 0.5,
@@ -210,9 +210,7 @@ public class AKDistortion: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioUnit: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         au[kDistortionParam_Delay] = delay
         au[kDistortionParam_Decay] = decay
