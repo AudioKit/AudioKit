@@ -9,6 +9,8 @@ struct AKParameterAutomationPoint {
     AUValue targetValue;
     double startTime;
     double rampDuration;
+    float rampTaper;
+    float rampSkew;
 };
 
 /// Linear automation segment.

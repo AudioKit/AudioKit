@@ -125,10 +125,14 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     /// Convenience function for adding a pair of points for both left and right addresses
     public func addAutomationPoint(value: AUValue,
                                    at startTime: Double,
-                                   rampDuration: Double = 0) {
+                                   rampDuration: Double = 0,
+                                   taper taperValue: Float = 1,
+                                   skew skewValue: Float = 0) {
         let point = AKParameterAutomationPoint(targetValue: value,
                                                startTime: startTime,
-                                               rampDuration: rampDuration)
+                                               rampDuration: rampDuration,
+                                               rampTaper: taperValue,
+                                               rampSkew: skewValue)
 
 //        parameterAutomation?.add(point: point, to: $leftGain)
 //        parameterAutomation?.add(point: point, to: $rightGain)
