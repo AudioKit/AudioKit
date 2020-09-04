@@ -37,11 +37,19 @@ public class AKEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1024
 
-    public class InputNode: AKNode {}
+    public class InputNode: AKMixer {
+        func connect(to engine: AKEngine) {
+            engine.avEngine.attach(avAudioNode)
+            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
 
-    public let input = InputNode(avAudioNode: AVAudioNode())
+        }
+    }
 
-    public init() { }
+    public let input = InputNode()
+
+    public init() {
+        input.connect(to: self)
+    }
 
     public var output: AKNode? {
         didSet {

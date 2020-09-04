@@ -66,13 +66,7 @@ open class AKNode {
                     }
                 }
 
-                // Have we reached the microphone? If so don't attach or connect as usual.
-                if let _ = connection as? AKEngine.InputNode {
-                    avAudioNode.connect(input: engine.inputNode, bus: bus)
-                    return
-                } else {
-                    engine.attach(connection.avAudioNode)
-                }
+                engine.attach(connection.avAudioNode)
 
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
