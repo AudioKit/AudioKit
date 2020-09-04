@@ -7,7 +7,7 @@ import CAudioKit
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A delay line with cubic interpolation.
 ///
-public class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKVariableDelay: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 

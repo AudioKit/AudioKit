@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Triggerable classic ADSR envelope
 ///
-public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 

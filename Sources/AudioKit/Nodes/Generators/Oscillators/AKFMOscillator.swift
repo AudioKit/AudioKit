@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Classic FM Synthesis audio generation.
 ///
-public class AKFMOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 

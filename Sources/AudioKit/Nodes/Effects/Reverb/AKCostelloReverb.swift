@@ -7,7 +7,7 @@ import CAudioKit
 /// modeling scattering junction of 8 lossless waveguides of equal
 /// characteristic impedance.
 ///
-public class AKCostelloReverb: AKNode, AKComponent, AKToggleable, AKAutomatable {
+public class AKCostelloReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 

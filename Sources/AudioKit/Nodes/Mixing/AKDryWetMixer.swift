@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
 
    public static let ComponentDescription = AudioComponentDescription(effect: "dwmx")
 

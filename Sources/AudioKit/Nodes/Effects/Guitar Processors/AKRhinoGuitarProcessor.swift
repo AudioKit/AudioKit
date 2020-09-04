@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
-public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
