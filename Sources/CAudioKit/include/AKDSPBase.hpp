@@ -155,6 +155,8 @@ public:
     /// Create a subclass by name.
     static AKDSPRef create(const char* name);
 
+    virtual void startRamp(const AUParameterEvent& event);
+
 private:
 
     /**
@@ -168,7 +170,6 @@ private:
     
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
     
-    void startRamp(const AUParameterEvent& event);
 };
 
 /// Registers a creation function when initialized.
