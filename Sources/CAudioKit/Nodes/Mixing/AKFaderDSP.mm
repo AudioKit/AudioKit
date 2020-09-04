@@ -62,7 +62,7 @@ public:
                 mixToMono = event.value > 0.5f;
                 break;
             default:
-                break;
+                AKDSPBase::startRamp(event);
         }
     }
 
