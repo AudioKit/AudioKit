@@ -30,7 +30,6 @@ let package = Package(
             name: "CAudioKit",
             dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
             cSettings: [
-                .headerSearchPath("sporth/include"),
                 .headerSearchPath("soundpipeextension/include"),
                 .define("NO_LIBSNDFILE")],
             cxxSettings: [
