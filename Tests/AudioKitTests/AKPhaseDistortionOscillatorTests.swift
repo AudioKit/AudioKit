@@ -9,7 +9,6 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
     var oscillator = AKPhaseDistortionOscillator()
 
     override func setUp() {
-        oscillator.rampDuration = 0.0
         afterStart = { self.oscillator.start() }
         AKDebugDSPSetActive(true)
     }
@@ -67,7 +66,6 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
-        oscillator.rampDuration = 0.0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.phaseDistortion = 1.234

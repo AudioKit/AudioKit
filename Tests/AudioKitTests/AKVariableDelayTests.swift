@@ -31,7 +31,6 @@ class AKVariableDelayTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKVariableDelay(input)
-        effect.rampDuration = 0.0
         effect.time = 0.123_4
         effect.feedback = 0.95
         engine.output = effect

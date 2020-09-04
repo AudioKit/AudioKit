@@ -142,15 +142,6 @@ open class AKAudioUnitBase: AUAudioUnit {
 
     public private(set) var isStarted: Bool = true
 
-    /// Paramater ramp duration (seconds)
-    public var rampDuration = AKSettings.rampDuration {
-        didSet {
-            for index in 0 ..< (parameterTree?.children.count ?? 0) {
-                setParameterRampDurationDSP(dsp, AUParameterAddress(index), Float(rampDuration))
-            }
-        }
-    }
-
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
     open func createDSP() -> AKDSPRef? {
         return nil

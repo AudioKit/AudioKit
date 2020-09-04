@@ -55,21 +55,6 @@ AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
     return pDSP->getParameter(address);
 }
 
-void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
-{
-    pDSP->setParameterRampDuration(address, rampDuration);
-}
-
-void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
-{
-    pDSP->setParameterRampTaper(address, taper);
-}
-
-void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
-{
-    pDSP->setParameterRampSkew(address, skew);
-}
-
 void startDSP(AKDSPRef pDSP)
 {
     pDSP->start();

@@ -7,7 +7,6 @@ class AKVocalTractTests: AKTestCase {
 
     override func setUp() {
         afterStart = { self.vocalTract.start() }
-        vocalTract.rampDuration = 0
         vocalTract.start()
     }
 

@@ -16,7 +16,6 @@ class AKZitaReverbTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKZitaReverb(input)
-        effect.rampDuration = 0
         effect.predelay = 10
         effect.crossoverFrequency = 200
         effect.lowReleaseTime = 1.5

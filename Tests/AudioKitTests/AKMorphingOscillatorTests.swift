@@ -9,7 +9,6 @@ class AKMorphingOscillatorTests: AKTestCase {
     var oscillator = AKMorphingOscillator()
 
     override func setUp() {
-        oscillator.rampDuration = 0.0
         afterStart = { self.oscillator.start() }
     }
 
@@ -20,7 +19,6 @@ class AKMorphingOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         oscillator = AKMorphingOscillator(waveformArray: waveforms)
-        oscillator.rampDuration = 0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.index = 1.234
