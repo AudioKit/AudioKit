@@ -132,7 +132,6 @@ class AKAutomationCurveTests: XCTestCase {
 
         let events = curve.evaluate(initialValue: 0, resolution: 0.1)
 
-        print(events)
         XCTAssertEqual(events.count, 10)
 
     }

@@ -74,7 +74,7 @@ public struct AKAutomationCurve {
 
                 // March t along the segment
                 // this is effectively `while t <= endTime - resolution` without potentional for rounding errors
-                while Int(round(t / resolution)) <= Int(round(endTime / resolution - 1)) {
+                for _ in 0 ..< Int(round(endTime / resolution)) {
 
                     value = AKAutomationCurve.evalRamp(start: start,
                                                        segment: point,
