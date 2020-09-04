@@ -2,8 +2,9 @@
 
 import XCTest
 import AudioKit
+import XCTest
 
-class AKCallbackInstrumentTests: AKTestCase {
+class AKCallbackInstrumentTests: XCTestCase {
 
     var instrument = AKCallbackInstrument()
 
@@ -18,8 +19,7 @@ class AKCallbackInstrumentTests: AKTestCase {
     }
 
     func testDefault() {
-
-        duration = 3
+        let engine = AKEngine()
 
         let expect = XCTestExpectation(description: "wait for callback")
         let expectedData: [UInt8] = [144, 60, 127,
@@ -48,11 +48,10 @@ class AKCallbackInstrumentTests: AKTestCase {
 
         engine.output = instrument
 
-        AKTest()
+        let audio = engine.startTest(totalDuration: 3.0)
+        audio.append(engine.render(duration: 3.0))
 
         wait(for: [expect], timeout: 1.0)
         XCTAssertEqual(data, expectedData)
     }
-
-
 }

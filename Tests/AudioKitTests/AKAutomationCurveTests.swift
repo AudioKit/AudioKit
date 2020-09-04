@@ -40,7 +40,6 @@ class AKAutomationCurveTests: XCTestCase {
         XCTAssertEqual(newCurve.points, expected)
     }
 
-
     func testReplaceAutomationErase() {
         let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
                                                       startTime: 0,

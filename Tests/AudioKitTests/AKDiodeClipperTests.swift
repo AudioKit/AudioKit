@@ -3,7 +3,6 @@
 import AudioKit
 import XCTest
 
-
 class AKDiodeClipperTests: XCTestCase {
 
     func testDefault() {

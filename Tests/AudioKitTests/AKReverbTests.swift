@@ -1,36 +1,55 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class AKReverbTests: AKTestCase {
+class AKReverbTests: XCTestCase {
 
     func testBypass() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         let reverb = AKReverb(input)
         reverb.bypass()
         engine.output = reverb
 
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     #if os(iOS)
 
     func testCathedral() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         let effect = AKReverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDefault() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKReverb(input)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testSmallRoom() {
         let effect = AKReverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
     #endif
 

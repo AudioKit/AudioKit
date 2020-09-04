@@ -4,12 +4,9 @@ import XCTest
 import AudioKit
 import AVFoundation
 
-class AKSequencerTrackTests: AKTestCase {
-
-    let flute = AKFlute()
+class AKSequencerTrackTests: XCTestCase {
 
     func getTestSequence() -> AKSequence {
-
         var seq = AKSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.5)
         seq.add(noteNumber: 62, position: 1, duration: 0.5)
@@ -19,6 +16,7 @@ class AKSequencerTrackTests: AKTestCase {
     }
 
     func testEmptyTrack() {
+        let flute = AKFlute()
         let seq = AKSequencerTrack(targetNode: flute)
         XCTAssertFalse(seq.isPlaying)
 
@@ -27,8 +25,8 @@ class AKSequencerTrackTests: AKTestCase {
     }
 
     func testLoop() {
-
-        duration = 5
+        let engine = AKEngine()
+        let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute
@@ -36,12 +34,16 @@ class AKSequencerTrackTests: AKTestCase {
         track.sequence = getTestSequence()
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        AKTest()
+
+        let audio = engine.startTest(totalDuration: 5.0)
+        audio.append(engine.render(duration: 5.0))
+        testMD5(audio)
     }
 
     func testOneShot() {
 
-        duration = 5
+        let engine = AKEngine()
+        let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute
@@ -51,12 +53,15 @@ class AKSequencerTrackTests: AKTestCase {
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
         //auditionTest()
-        AKTest()
+        let audio = engine.startTest(totalDuration: 5.0)
+        audio.append(engine.render(duration: 5.0))
+        testMD5(audio)
     }
 
     func testTempo() {
 
-        duration = 5
+        let engine = AKEngine()
+        let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute
@@ -65,7 +70,9 @@ class AKSequencerTrackTests: AKTestCase {
         track.tempo = 60
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        AKTest()
+        let audio = engine.startTest(totalDuration: 5.0)
+        audio.append(engine.render(duration: 5.0))
+        testMD5(audio)
 
     }
 

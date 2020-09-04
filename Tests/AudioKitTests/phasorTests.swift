@@ -1,20 +1,18 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class PhasorTests: AKTestCase {
-
-    let phasor = AKOperationGenerator { AKOperation.phasor() }
-
-    override func setUp() {
-        super.setUp()
-        afterStart = { self.phasor.start() }
-        duration = 1.0
-    }
+class PhasorTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let phasor = AKOperationGenerator { AKOperation.phasor() }
         engine.output = phasor
-        AKTest()
+        phasor.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }
