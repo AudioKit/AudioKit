@@ -20,7 +20,7 @@ class AKAutomationCurveTests: XCTestCase {
                                                       startTime: 2,
                                                       rampDuration: 0.1)])
 
-        let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+        let events: [(Float, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
         let newCurve = curve.replace(range: 0.25 ... 1.75, withPoints: events)
 
@@ -51,7 +51,7 @@ class AKAutomationCurveTests: XCTestCase {
                                                       startTime: 2,
                                                       rampDuration: 0.1)])
 
-        let events: [(Double, AUValue)] = [ ]
+        let events: [(Float, AUValue)] = [ ]
 
         let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
 
@@ -61,7 +61,7 @@ class AKAutomationCurveTests: XCTestCase {
     func testReplaceAutomationAdd() {
         let curve = AKAutomationCurve(points: [])
 
-        let events: [(Double, AUValue)] = [ (0.5, 100), (1.5, 200) ]
+        let events: [(Float, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
         let newCurve = curve.replace(range: 0 ... 2, withPoints: events)
 
@@ -130,9 +130,9 @@ class AKAutomationCurveTests: XCTestCase {
                                                      rampTaper: 0.5,
                                                      rampSkew: 0.1)])
 
-        let events = curve.evaluate(initialValue: 0,
-                                    resolution: 0.1)
+        let events = curve.evaluate(initialValue: 0, resolution: 0.1)
 
+        print(events)
         XCTAssertEqual(events.count, 10)
 
     }
@@ -149,8 +149,7 @@ class AKAutomationCurveTests: XCTestCase {
                                                      rampTaper: 1.0,
                                                      rampSkew: 0.000001)])
 
-        let events = curve.evaluate(initialValue: 0,
-                                    resolution: 0.5)
+        let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
         XCTAssertEqual(events[0].startTime, 0.0)
         XCTAssertEqual(events[0].targetValue, 1.0)
@@ -175,8 +174,7 @@ class AKAutomationCurveTests: XCTestCase {
                                                      startTime: 1,
                                                      rampDuration: 0.0)])
 
-        let events = curve.evaluate(initialValue: 0,
-                                    resolution: 0.5)
+        let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
         XCTAssertEqual(events[0].startTime, 0.0)
         XCTAssertEqual(events[0].rampDuration, 0.5)

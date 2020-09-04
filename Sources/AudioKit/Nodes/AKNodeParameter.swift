@@ -100,8 +100,8 @@ public class AKNodeParameter {
 
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
                                                                   avAudioUnit.auAudioUnit.scheduleParameterBlock,
-                                                                  AKSettings.sampleRate,
-                                                                  Double(lastTime.sampleTime),
+                                                                  Float(AKSettings.sampleRate),
+                                                                  Float(lastTime.sampleTime),
                                                                   automationBaseAddress,
                                                                   events.count) else { return }
 
@@ -111,7 +111,7 @@ public class AKNodeParameter {
     }
 
     /// Automate to a new value using a ramp.
-    public func ramp(to value: AUValue, duration: Double) {
+    public func ramp(to value: AUValue, duration: AUValue) {
         automate(events: [AKAutomationEvent(targetValue: value, startTime: 0, rampDuration: duration)])
     }
 

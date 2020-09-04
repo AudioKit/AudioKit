@@ -7,8 +7,8 @@
 
 struct AKParameterAutomationPoint {
     AUValue targetValue;
-    double startTime;
-    double rampDuration;
+    float startTime;
+    float rampDuration;
     float rampTaper;
     float rampSkew;
 };
@@ -16,8 +16,8 @@ struct AKParameterAutomationPoint {
 /// Linear automation segment.
 struct AKAutomationEvent {
     AUValue targetValue;
-    double startTime;
-    double rampDuration;
+    float startTime;
+    float rampDuration;
 };
 
 #ifndef __cplusplus
@@ -25,8 +25,8 @@ struct AKAutomationEvent {
 /// Returns a render observer block which will apply the automation to the selected parameter.
 AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
                                                         AUScheduleParameterBlock scheduleParameterBlock,
-                                                        double sampleRate,
-                                                        double startSampleTime,
+                                                        float sampleRate,
+                                                        float startSampleTime,
                                                         const struct AKAutomationEvent* events,
                                                         size_t count);
 
