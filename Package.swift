@@ -23,8 +23,12 @@ let package = Package(
         .target(name: "STK"),
         .target(name: "soundpipe", cSettings: [.define("NO_LIBSNDFILE")]),
         .target(
+            name: "sporth",
+            dependencies: ["soundpipe"],
+            cSettings: [.define("NO_LIBSNDFILE")]),
+        .target(
             name: "CAudioKit",
-            dependencies: ["TPCircularBuffer", "STK", "soundpipe"],
+            dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
             cSettings: [
                 .headerSearchPath("sporth/include"),
                 .headerSearchPath("soundpipeextension/include"),
