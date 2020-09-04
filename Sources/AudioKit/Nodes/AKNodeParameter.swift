@@ -29,7 +29,6 @@ public struct AKNodeParameterDef {
 /// New version for use with Parameter property wrapper.
 public class AKNodeParameter {
 
-    private var dsp: AKDSPRef?
     private var avAudioUnit: AVAudioUnit!
 
     public private(set) var parameter: AUParameter?
@@ -167,11 +166,7 @@ public class AKNodeParameter {
                           identifier: String) {
 
         self.avAudioUnit = avAudioUnit
-        guard let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase else {
-            fatalError("AUAudioUnit is not an AKAudioUnitBase")
-        }
-        dsp = akAudioUnit.dsp
-        parameter = akAudioUnit.parameterTree?[identifier]
+        parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
 
         guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
