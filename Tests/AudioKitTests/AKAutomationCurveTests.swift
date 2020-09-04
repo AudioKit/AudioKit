@@ -92,9 +92,7 @@ class AKAutomationCurveTests: XCTestCase {
 
         let curve = AKAutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
-                                                     rampDuration: 1.0,
-                                                     rampTaper: 1.0,
-                                                     rampSkew: 0.000001)])
+                                                     rampDuration: 1.0)])
 
         let events = curve.evaluate(initialValue: 0, resolution: 0.5)
 
@@ -109,9 +107,7 @@ class AKAutomationCurveTests: XCTestCase {
 
         let curve = AKAutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
-                                                     rampDuration: 1.0,
-                                                     rampTaper: 1.00001,
-                                                     rampSkew: 0.0)])
+                                                     rampDuration: 1.0)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.5)
@@ -127,9 +123,7 @@ class AKAutomationCurveTests: XCTestCase {
 
         let curve = AKAutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
-                                                     rampDuration: 1.0,
-                                                     rampTaper: 0.5,
-                                                     rampSkew: 0.1)])
+                                                     rampDuration: 1.0)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.1)
@@ -146,9 +140,7 @@ class AKAutomationCurveTests: XCTestCase {
                                                      rampDuration: 1.0),
                                                Point(targetValue: 0,
                                                      startTime: 1.0,
-                                                     rampDuration: 1.0,
-                                                     rampTaper: 1.0,
-                                                     rampSkew: 0.000001)])
+                                                     rampDuration: 1.0)])
 
         let events = curve.evaluate(initialValue: 0,
                                     resolution: 0.5)
@@ -169,9 +161,7 @@ class AKAutomationCurveTests: XCTestCase {
         // Curved segment cut off by linear segment.
         let curve = AKAutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
-                                                     rampDuration: 2.0,
-                                                     rampTaper: 1.0,
-                                                     rampSkew: 0.000001),
+                                                     rampDuration: 2.0),
                                                Point(targetValue: 1,
                                                      startTime: 1,
                                                      rampDuration: 0.0)])
