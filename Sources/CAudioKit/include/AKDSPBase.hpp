@@ -142,12 +142,6 @@ public:
     }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
-    
-    void setParameterRampDuration(AUParameterAddress address, float duration);
-    
-    void setParameterRampTaper(AUParameterAddress address, float taper);
-    
-    void setParameterRampSkew(AUParameterAddress address, float skew);
 
     /// Pointer to a factory function.
     using CreateFunction = AKDSPRef (*)();

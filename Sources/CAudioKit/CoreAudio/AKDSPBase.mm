@@ -189,30 +189,6 @@ void AKDSPBase::deinit()
     isInitialized = false;
 }
 
-void AKDSPBase::setParameterRampDuration(AUParameterAddress address, float duration)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setDefaultRampDuration(duration);
-    }
-}
-
-void AKDSPBase::setParameterRampTaper(AUParameterAddress address, float taper)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setTaper(taper);
-    }
-}
-
-void AKDSPBase::setParameterRampSkew(AUParameterAddress address, float skew)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setSkew(skew);
-    }
-}
-
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {
