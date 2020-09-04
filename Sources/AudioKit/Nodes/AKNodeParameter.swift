@@ -116,7 +116,7 @@ public class AKNodeParameter {
         paramBlock(AUEventSampleTimeImmediate,
                    AUAudioFrameCount(duration * AKSettings.sampleRate),
                    parameter.address,
-                   value)
+                   (parameter.minValue...parameter.maxValue).clamp(value))
     }
 
     public func stopAutomation() {
