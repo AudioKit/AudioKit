@@ -5,8 +5,8 @@ import CAudioKit
 
 public extension AKParameterAutomationPoint {
     init(targetValue: AUValue,
-         startTime: Double,
-         rampDuration: Double) {
+         startTime: Float,
+         rampDuration: Float) {
         self.init(targetValue: targetValue,
                   startTime: startTime,
                   rampDuration: rampDuration,

@@ -9,7 +9,7 @@ class AKParameterAutomationTests: XCTestCase {
 
     func observerTest(events: [AKAutomationEvent],
                       sampleTime: Float64,
-                      startTime: Double = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
+                      startTime: Float = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
 
         let address = AUParameterAddress(42)
 
