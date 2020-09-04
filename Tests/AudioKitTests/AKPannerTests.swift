@@ -13,7 +13,7 @@ class AKPannerTests: AKTestCase {
         let pan = AKPanner(input, pan: -1)
         pan.bypass()
         engine.output = pan
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testPanLeft() {

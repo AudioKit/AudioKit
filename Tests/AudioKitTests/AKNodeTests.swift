@@ -1,98 +1,101 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 @testable import AudioKit
-import XCTest
 import AVFoundation
 import CAudioKit
+import XCTest
 
-class AKNodeTests: AKTestCase {
+class AKNodeTests: XCTestCase {
 
     let osc = AKOscillator()
 
     func testNodeBasic() {
-        duration = 0.1
+        let engine = AKEngine()
+        let osc = AKOscillator()
         XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
         engine.output = osc
-        AKTest()
+        XCTAssertNotNil(osc.avAudioNode.engine)
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
     }
 
     func testNodeConnection() {
+        let engine = AKEngine()
+        let osc = AKOscillator()
         osc.start()
         let verb = AKCostelloReverb(osc)
         engine.output = verb
-        AKTest()
-    }
-
-    func testNodeDeferredConnection() {
-        osc.start()
-        let verb = AKCostelloReverb()
-        osc >>> verb
-        engine.output = verb
-        AKTest()
-    }
-
-    func testBadConnection() {
-
-        let osc1 = AKOscillator()
-        let osc2 = AKOscillator()
-
-        osc1 >>> osc2
-
-        XCTAssertEqual(osc2.connections.count, 0)
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
     }
 
     func testRedundantConnection() {
         let osc = AKOscillator()
         let mixer = AKMixer()
-        osc >>> mixer
-        osc >>> mixer
+        mixer.addInput(osc)
+        mixer.addInput(osc)
         XCTAssertEqual(mixer.connections.count, 1)
     }
 
     func testDynamicOutput() {
 
-        duration = 2.0
+        let engine = AKEngine()
 
         let osc1 = AKOscillator()
         osc1.start()
         engine.output = osc1
 
-        AKStartSegmentedTest(duration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        let newAudio = engine.render(duration: 1.0)
+        audio.append(newAudio)
 
         let osc2 = AKOscillator(frequency: 880)
         osc2.start()
         engine.output = osc2
 
-        AKAppendSegmentedTest(duration: 1.0)
+        let newAudio2 = engine.render(duration: 1.0)
+        audio.append(newAudio2)
 
-        AKFinishSegmentedTest()
-
+        testMD5(audio)
+        // audition(audio)
     }
 
     func testDynamicConnection() {
 
-        duration = 2.0
+        let engine = AKEngine()
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
+
+        XCTAssertNil(osc.avAudioNode.engine)
+
         engine.output = mixer
+
+        // Osc should be attached.
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        let audio = engine.startTest(totalDuration: 2.0)
 
         osc.start()
 
-        AKStartSegmentedTest(duration: 1.0)
+        audio.append(engine.render(duration: 1.0))
 
         let osc2 = AKOscillator(frequency: 880)
         osc2.start()
-        osc2 >>> mixer
+        mixer.addInput(osc2)
 
-        AKAppendSegmentedTest(duration: 1.0)
+        audio.append(engine.render(duration: 1.0))
 
-        AKFinishSegmentedTest()
+        testMD5(audio)
     }
 
     func testDynamicConnection2() {
 
-        duration = 2.0
+        let engine = AKEngine()
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
@@ -100,22 +103,23 @@ class AKNodeTests: AKTestCase {
         engine.output = mixer
         osc.start()
 
-        AKStartSegmentedTest(duration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
 
         let osc2 = AKOscillator(frequency: 880)
         let verb = AKCostelloReverb(osc2)
         osc2.start()
+        mixer.addInput(verb)
 
-        verb >>> mixer
+        audio.append(engine.render(duration: 1.0))
 
-        AKAppendSegmentedTest(duration: 1.0)
-
-        AKFinishSegmentedTest()
+        testMD5(audio)
+        // audition(audio)
     }
 
     func testDynamicConnection3() {
-
-        duration = 3.0
+        let engine = AKEngine()
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
@@ -123,62 +127,68 @@ class AKNodeTests: AKTestCase {
 
         osc.start()
 
-        AKStartSegmentedTest(duration: 1.0)
+        let audio = engine.startTest(totalDuration: 3.0)
 
-        let osc2 = AKOscillator(frequency: 880)////////////////////////
+        audio.append(engine.render(duration: 1.0))
+
+        let osc2 = AKOscillator(frequency: 880)
         osc2.start()
+        mixer.addInput(osc2)
 
-        osc2 >>> mixer
+        audio.append(engine.render(duration: 1.0))
 
-        AKAppendSegmentedTest(duration: 1.0)
+        mixer.removeInput(osc2)
 
-        mixer.disconnect(node: osc2)
+        audio.append(engine.render(duration: 1.0))
 
-        AKAppendSegmentedTest(duration: 1.0)
-
-        AKFinishSegmentedTest()
+        testMD5(audio)
+        // audition(audio)
     }
 
     func testDisconnect() {
 
-        duration = 2.0
+        let engine = AKEngine()
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
-        osc.start()
         engine.output = mixer
 
-        AKStartSegmentedTest(duration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
 
-        mixer.disconnect(node: osc)
+        osc.start()
 
-        AKAppendSegmentedTest(duration: 1.0)
+        audio.append(engine.render(duration: 1.0))
 
-        AKFinishSegmentedTest()
+        mixer.removeInput(osc)
 
+        audio.append(engine.render(duration: 1.0))
+
+        testMD5(audio)
+        // audition(audio)
     }
 
     func testNodeDetach() {
+        let engine = AKEngine()
 
-        duration = 2.0
 
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
         osc.start()
 
-        AKStartSegmentedTest(duration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
 
         osc.detach()
 
-        AKAppendSegmentedTest(duration: 1.0)
+        audio.append(engine.render(duration: 1.0))
 
-        AKFinishSegmentedTest()
-
+        testMD5(audio)
     }
 
     func testTwoEngines() {
-
+        let engine = AKEngine()
         let engine2 = AKEngine()
 
         let osc = AKOscillator()
@@ -188,28 +198,92 @@ class AKNodeTests: AKTestCase {
         let verb = AKCostelloReverb(osc)
         engine.output = verb
 
-        AKTest()
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
 
     }
 
-    func testBadDynamicConnection() {
+    func testManyMixerConnections() {
+
+        let engine = AKEngine()
+
+        var oscs: [AKOscillator] = []
+        for _ in 0..<16 {
+            oscs.append(AKOscillator())
+        }
+
+        let mixer = AKMixer(oscs)
+        engine.output = mixer
+
+        XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
+
+    }
+
+    func connectionCount(node: AVAudioNode) -> Int {
+        var count = 0
+        for bus in 0 ..< node.numberOfInputs {
+            if let inputConnection = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
+                if inputConnection.node != nil {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+
+    func testFanout() {
+
+        let engine = AKEngine()
+        let osc = AKOscillator()
+        let verb = AKCostelloReverb(osc)
+        let mixer = AKMixer(osc, verb)
+        engine.output = mixer
+
+        XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
+        XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
+    }
+
+    func testMixerRedundantUpstreamConnection() {
 
         let engine = AKEngine()
 
         let osc = AKOscillator()
-        let verb = AKCostelloReverb()
+        let mixer1 = AKMixer(osc)
+        let mixer2 = AKMixer(mixer1)
 
-        engine.output = verb
+        engine.output = mixer2
 
-        try! engine.start()
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
-        sleep(1)
+        mixer2.addInput(osc)
 
-        osc >>> verb
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
-        // Ensure connection was not made.
-        XCTAssertEqual(verb.connections.count, 0)
+    }
 
+    func testTransientNodes() {
+        let engine = AKEngine()
+        let osc = AKOscillator()
+        func exampleStart() {
+            let env = AKAmplitudeEnvelope(osc)
+            osc.amplitude = 1
+            engine.output = env
+            osc.start()
+            try! engine.start()
+            sleep(1)
+        }
+        func exampleStop() {
+            osc.stop()
+            engine.stop()
+            sleep(1)
+        }
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
     }
 
 }

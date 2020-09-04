@@ -46,75 +46,40 @@ open class AKNode {
         self.avAudioNode = avAudioNode
     }
 
-    deinit {
-        detach()
-    }
-
-    public func detach() {
+    func detach() {
         if let engine = self.avAudioNode.engine {
             engine.detach(self.avAudioNode)
+        }
+        for connection in connections {
+            connection.detach()
         }
     }
 
     func makeAVConnections() {
         // Are we attached?
         if let engine = self.avAudioNode.engine {
-            for connection in connections {
+            for (bus, connection) in connections.enumerated() {
                 if let sourceEngine = connection.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
-                        AKLog("error: Attempt to connect nodes from different engines.")
+                        AKLog("🛑 Error: Attempt to connect nodes from different engines.")
                         return
                     }
                 }
                 engine.attach(connection.avAudioNode)
-                engine.connect(connection.avAudioNode, to: avAudioNode)
+
+                // Mixers will decide which input bus to use.
+                if let mixer = avAudioNode as? AVAudioMixerNode {
+                    mixer.connect(input: connection.avAudioNode, bus: mixer.nextAvailableInputBus)
+                } else {
+                    avAudioNode.connect(input: connection.avAudioNode, bus: bus)
+                }
+
                 connection.makeAVConnections()
             }
         }
     }
 
-    public func connect(node: AKNode) {
-        if avAudioNode.numberOfInputs == 0 {
-            AKLog("error: Node has no input buses.")
-            return
-        }
-        if node.avAudioNode.numberOfOutputs == 0 {
-            AKLog("error: Node has no output buses.")
-            return
-        }
-        if connections.contains(where: { $0 === node }) {
-            AKLog("error: Node is already connected.")
-            return
-        }
-        if let engine = avAudioNode.engine {
-            if engine.isRunning && ((avAudioNode as? AVAudioMixerNode) == nil) {
-                AKLog("error: connections may only be made to mixers while the engine is running.")
-                return
-            }
-        }
-        connections.append(node)
-        makeAVConnections()
-    }
-
-    public func connect(to nodes: [AKNode]) {
-        for node in nodes { connect(node: node) }
-    }
-
-    public func disconnect(node: AKNode) {
-        connections.removeAll(where: { $0 === node })
-        avAudioNode.disconnect(input: node.avAudioNode)
-    }
-
 }
-
-// Set output connection(s)
-infix operator >>>: AdditionPrecedence
-
-@discardableResult public func >>> (left: AKNode, right: AKNode) -> AKNode {
-    right.connect(node: left)
-    return right
-}
-
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {

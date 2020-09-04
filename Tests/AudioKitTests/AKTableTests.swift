@@ -20,7 +20,7 @@ class AKTableTests: AKTestCase {
         input = AKOscillator(waveform: AKTable(.sine))
         engine.output = input
         // This is just the usual tested sine wave
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testTriangle() {

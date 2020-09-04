@@ -1,8 +1,70 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import CAudioKit
 
 extension AVAudioPCMBuffer {
+
+    // Hash useful for testing
+    public var md5: String {
+        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
+        md5_init(md5state)
+
+        if let floatChannelData = self.floatChannelData {
+
+            for frame in 0 ..< self.frameCapacity {
+                for channel in 0 ..< self.format.channelCount {
+                    let sample = floatChannelData[Int(channel)][Int(frame)]
+                    withUnsafeBytes(of: sample) { samplePtr in
+                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
+                            md5_append(md5state, baseAddress, 4)
+                        }
+                    }
+                }
+            }
+        }
+
+        var digest = [md5_byte_t](repeating: 0, count: 16)
+        var digestHex = ""
+
+        digest.withUnsafeMutableBufferPointer { digestPtr in
+            md5_finish(md5state, digestPtr.baseAddress)
+        }
+
+        for index in 0..<16 {
+            digestHex += String(format: "%02x", digest[index])
+        }
+
+        md5state.deallocate()
+
+        return digestHex
+
+    }
+
+    public func append(_ buffer: AVAudioPCMBuffer) {
+        append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
+    }
+
+    public func append(_ buffer: AVAudioPCMBuffer,
+                       startingFrame: AVAudioFramePosition,
+                       frameCount: AVAudioFrameCount) {
+        precondition(format == buffer.format,
+                     "Format mismatch")
+        precondition(startingFrame + AVAudioFramePosition(frameCount) <= AVAudioFramePosition(buffer.frameLength),
+                     "Insufficient audio in buffer")
+        precondition(frameLength + frameCount <= frameCapacity,
+                     "Insufficient space in buffer")
+
+        let dst = floatChannelData!
+        let src = buffer.floatChannelData!
+
+        memcpy(dst.pointee.advanced(by: stride * Int(frameLength)),
+               src.pointee.advanced(by: stride * Int(startingFrame)),
+               Int(frameCount) * stride * MemoryLayout<Float>.size)
+
+        frameLength += frameCount
+    }
+
     /// Copies data from another PCM buffer.  Will copy to the end of the buffer (frameLength), and
     /// increment frameLength. Will not exceed frameCapacity.
     ///

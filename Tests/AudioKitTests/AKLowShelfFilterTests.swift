@@ -11,7 +11,7 @@ class AKLowShelfFilterTests: AKTestCase {
 
     func testDefault() {
         engine.output = AKLowShelfFilter(input)
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testGain() {

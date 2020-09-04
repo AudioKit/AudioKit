@@ -30,7 +30,6 @@ custom_categories:
     - AKTry(_:)
     - CheckError(_:)
     - fourCC(_:)
-    - ">>>(_:_:)"
 
   - name: MIDI
     children:

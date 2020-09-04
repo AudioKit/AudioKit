@@ -7,14 +7,14 @@ class AKBoosterTests: AKTestCase {
 
     func testDefault() {
         engine.output = AKBooster(input)
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testBypass() {
         let booster = AKBooster(input, gain: 2.0)
         booster.bypass()
         engine.output = booster
-        AKTestNoEffect()
+        AKTest()
     }
 
     func testParameters() {
