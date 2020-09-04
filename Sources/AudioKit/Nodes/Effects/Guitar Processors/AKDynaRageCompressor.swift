@@ -6,7 +6,7 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 

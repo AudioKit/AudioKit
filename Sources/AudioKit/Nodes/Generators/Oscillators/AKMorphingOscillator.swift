@@ -6,7 +6,7 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 

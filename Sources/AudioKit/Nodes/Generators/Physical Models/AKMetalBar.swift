@@ -5,7 +5,7 @@ import CAudioKit
 
 /// 
 ///
-public class AKMetalBar: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKMetalBar: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 

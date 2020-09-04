@@ -5,7 +5,7 @@ import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq2")
 

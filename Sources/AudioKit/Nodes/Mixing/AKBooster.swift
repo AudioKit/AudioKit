@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Booster
 ///
-public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKBooster: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 

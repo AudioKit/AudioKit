@@ -10,7 +10,7 @@ import CAudioKit
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-public class AKStringResonator: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKStringResonator: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 

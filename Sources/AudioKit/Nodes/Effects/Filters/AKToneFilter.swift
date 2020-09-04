@@ -5,7 +5,7 @@ import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-public class AKToneFilter: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKToneFilter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
 ///
-public class AKTremolo: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKTremolo: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 

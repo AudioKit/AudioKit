@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class AKFlanger: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKFlanger: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 

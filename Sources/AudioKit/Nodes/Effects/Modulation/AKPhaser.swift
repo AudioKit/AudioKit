@@ -6,7 +6,7 @@ import CAudioKit
 /// A stereo phaser This is a stereo phaser, generated from Faust code taken
 /// from the Guitarix project.
 ///
-public class AKPhaser: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKPhaser: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
