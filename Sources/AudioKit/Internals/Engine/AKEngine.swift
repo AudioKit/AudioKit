@@ -116,7 +116,7 @@ public class AKEngine {
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
     public func test(duration: Double, afterStart: () -> Void = {}) throws -> String {
-        let buffer = try startTest(totalDuration: duration)
+        let buffer = startTest(totalDuration: duration)
         afterStart()
         buffer.append(render(duration: duration))
         return buffer.md5
