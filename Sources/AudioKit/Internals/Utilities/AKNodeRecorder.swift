@@ -7,7 +7,7 @@ open class AKNodeRecorder: NSObject {
     // MARK: - Properties
 
     // The node we record from
-    public private(set) var node: AKNode?
+    public private(set) var node: AKNode
 
     /// True if we are recording.
     public private(set) var isRecording = false
@@ -67,6 +67,7 @@ open class AKNodeRecorder: NSObject {
     public init(node: AKNode,
                 file: AVAudioFile? = AKNodeRecorder.createTempFile(),
                 bus: Int = 0) throws {
+        self.node = node
         super.init()
 
         guard let file = file else {
@@ -84,7 +85,6 @@ open class AKNodeRecorder: NSObject {
         }
 
         self.bus = bus
-        self.node = node
     }
 
     // MARK: - Methods
@@ -119,11 +119,6 @@ open class AKNodeRecorder: NSObject {
     public func record() throws {
         if isRecording == true {
             AKLog("Warning: already recording")
-            return
-        }
-
-        guard let node = node else {
-            AKLog("Error: input node is nil")
             return
         }
 
@@ -182,7 +177,7 @@ open class AKNodeRecorder: NSObject {
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node?.avAudioUnitOrNode.removeTap(onBus: bus)
+        node.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
     /// Reset the AVAudioFile to clear previous recordings
