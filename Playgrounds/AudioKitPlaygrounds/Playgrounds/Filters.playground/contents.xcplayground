@@ -2,16 +2,12 @@
 <playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
-        <page name='Band Pass Butterworth Filter'/>
         <page name='Band Pass Filter'/>
-        <page name='Band Reject Butterworth Filter'/>
         <page name='Formant Filter'/>
-        <page name='High Pass Butterworth Filter'/>
         <page name='High Pass Filter'/>
         <page name='High Pass Filter Operation'/>
         <page name='High Shelf Filter'/>
         <page name='Korg Low Pass Filter Operation'/>
-        <page name='Low Pass Butterworth Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Pass Filter Operation'/>
         <page name='Low Shelf Filter'/>
