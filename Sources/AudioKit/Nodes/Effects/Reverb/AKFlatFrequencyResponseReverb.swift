@@ -71,6 +71,8 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
             }
             self.internalAU = audioUnit
 
+            audioUnit.setLoopDuration(loopDuration)
+
             self.reverbDuration = reverbDuration
         }
         connections.append(input)

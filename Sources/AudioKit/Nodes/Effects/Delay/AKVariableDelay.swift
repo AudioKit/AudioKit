@@ -82,6 +82,8 @@ public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
             }
             self.internalAU = audioUnit
 
+            audioUnit.setMaximumTime(maximumTime)
+
             self.time = time
             self.feedback = feedback
         }
