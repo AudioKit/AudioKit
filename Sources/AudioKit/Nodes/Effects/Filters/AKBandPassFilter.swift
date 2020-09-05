@@ -3,41 +3,41 @@
 
 import AVFoundation
 
-/// AudioKit version of Apple's HighPassFilter Audio Unit
+/// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable {
+open class AKBandPassFilter: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter))
+    AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter))
 
-    /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    @Parameter public var cutoffFrequency: AUValue
+    /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+    @Parameter public var centerFrequency: AUValue
 
-    /// Resonance (dB) ranges from -20 to 40 (Default: 0)
-    @Parameter public var resonance: AUValue
+    /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
+    @Parameter public var bandwidth: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
-    /// Initialize the high pass filter node
+    /// Initialize the band pass filter node
     ///
     /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
+    /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+    /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: AUValue = 6900,
-        resonance: AUValue = 0) {
+        centerFrequency: AUValue = 5000,
+        bandwidth: AUValue = 600) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$cutoffFrequency.associate(with: effectAU, index: 0)
-        self.$resonance.associate(with: effectAU, index: 1)
+        self.$centerFrequency.associate(with: effectAU, index: 0)
+        self.$bandwidth.associate(with: effectAU, index: 1)
 
-        self.cutoffFrequency = cutoffFrequency
-        self.resonance = resonance
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
     }
 
     /// Function to start, play, or activate the node, all do the same thing
