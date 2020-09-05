@@ -62,7 +62,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
         flags: .default)
 
     /// Flip left and right signal
-    @Parameter public var flipStereo: Bool = false
+    @Parameter public var flipStereo: Bool
 
     public static let mixToMonoDef = AKNodeParameterDef(
         identifier: "mixToMono",
@@ -73,7 +73,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
         flags: .default)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    @Parameter public var mixToMono: Bool = false
+    @Parameter public var mixToMono: Bool
 
     // MARK: - Audio Unit
 
@@ -110,6 +110,8 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
 
             self.leftGain = gain
             self.rightGain = gain
+            self.flipStereo = false
+            self.mixToMono = false
         }
 
         connections.append(input)
