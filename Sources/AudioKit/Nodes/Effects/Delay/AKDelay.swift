@@ -48,17 +48,13 @@ public class AKDelay: AKNode, AKToggleable {
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
-        if isStopped {
-            isStarted = true
-            delayAU.bypass = false
-        }
+        isStarted = true
+        delayAU.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        if isPlaying {
-            isStarted = false
-            delayAU.bypass = true
-        }
+        isStarted = false
+        delayAU.bypass = true
     }
 }
