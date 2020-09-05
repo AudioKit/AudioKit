@@ -38,18 +38,25 @@ public class AKEngine {
     let maximumFrameCount: AVAudioFrameCount = 1024
 
     public class InputNode: AKMixer {
+        var isNotConnected = true
         func connect(to engine: AKEngine) {
             engine.avEngine.attach(avAudioNode)
-            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: AKSettings.audioFormat)
+            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
 
         }
     }
 
-    public let input = InputNode()
-
-    public init() {
-        input.connect(to: self)
+    let _input = InputNode()
+    public var input: InputNode {
+        if _input.isNotConnected {
+            _input.connect(to: self)
+            _input.isNotConnected = false
+        }
+        return _input
     }
+
+
+    public init() {}
 
     public var output: AKNode? {
         didSet {
