@@ -31,18 +31,13 @@ public class AKNodeParameter {
 
     private var avAudioUnit: AVAudioUnit!
 
-    public private(set) var parameter: AUParameter?
+    public private(set) var parameter: AUParameter!
 
     // MARK: Parameter properties
 
-    public var value: AUValue = 0 {
-        didSet {
-            assert(parameter != nil)
-            guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-            value = (min...max).clamp(value)
-            if value == oldValue { return }
-            parameter?.value = value
-        }
+    public var value: AUValue {
+        get { parameter.value }
+        set { parameter.value = range.clamp(newValue) }
     }
 
     public var boolValue: Bool {
@@ -51,15 +46,15 @@ public class AKNodeParameter {
     }
 
     public var minValue: AUValue {
-        parameter?.minValue ?? 0
+        parameter.minValue
     }
 
     public var maxValue: AUValue {
-        parameter?.maxValue ?? 1
+        parameter.maxValue
     }
 
     public var range: ClosedRange<AUValue> {
-        (parameter?.minValue ?? 0) ... (parameter?.maxValue ?? 1)
+        (parameter.minValue ... parameter.maxValue)
     }
 
     // MARK: Automation
@@ -81,7 +76,6 @@ public class AKNodeParameter {
         }
 
         var lastTime = startTime ?? lastRenderTime
-        guard let parameter = parameter else { return }
 
         if lastTime.isHostTimeValid {
             // Convert to sample time.
@@ -112,12 +106,11 @@ public class AKNodeParameter {
 
     /// Automate to a new value using a ramp.
     public func ramp(to value: AUValue, duration: Float) {
-        guard let parameter = parameter else { return }
         let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate,
                    AUAudioFrameCount(duration * Float(AKSettings.sampleRate)),
                    parameter.address,
-                   (parameter.minValue...parameter.maxValue).clamp(value))
+                   range.clamp(value))
     }
 
     public func stopAutomation() {
@@ -134,7 +127,6 @@ public class AKNodeParameter {
     /// - Parameter callback: Called on the main queue for each parameter event.
     public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
 
-        guard let parameter = parameter else { return }
         parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { (numberEvents, events) in
 
             for index in 0..<numberEvents {
@@ -153,8 +145,6 @@ public class AKNodeParameter {
     /// Stop calling the function passed to `recordAutomation`
     public func stopRecording() {
 
-        guard let parameter = parameter else { return }
-
         if let token = parameterObserverToken {
             parameter.removeParameterObserver(token)
         }
@@ -169,9 +159,6 @@ public class AKNodeParameter {
         self.avAudioUnit = avAudioUnit
         parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
-
-        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-        parameter?.value = (min...max).clamp(value)
     }
 
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
