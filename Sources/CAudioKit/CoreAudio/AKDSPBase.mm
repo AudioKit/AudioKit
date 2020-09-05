@@ -55,21 +55,6 @@ AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
     return pDSP->getParameter(address);
 }
 
-void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration)
-{
-    pDSP->setParameterRampDuration(address, rampDuration);
-}
-
-void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper)
-{
-    pDSP->setParameterRampTaper(address, taper);
-}
-
-void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew)
-{
-    pDSP->setParameterRampSkew(address, skew);
-}
-
 void startDSP(AKDSPRef pDSP)
 {
     pDSP->start();
@@ -171,7 +156,6 @@ void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immed
         }
         else {
             parameter->setUIValue(value);
-            parameter->dezipperCheck();
         }
     }
 }
@@ -204,34 +188,19 @@ void AKDSPBase::deinit()
     isInitialized = false;
 }
 
-void AKDSPBase::setParameterRampDuration(AUParameterAddress address, float duration)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setDefaultRampDuration(duration);
-    }
-}
-
-void AKDSPBase::setParameterRampTaper(AUParameterAddress address, float taper)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setTaper(taper);
-    }
-}
-
-void AKDSPBase::setParameterRampSkew(AUParameterAddress address, float skew)
-{
-    assert(address < maxParameters);
-    if(parameters[address]) {
-        parameters[address]->setSkew(skew);
-    }
-}
-
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {
     now = timestamp->mSampleTime;
+
+    // Chceck for parameter updates from the UI.
+    for(int index = 0; index < maxParameters; ++index) {
+        if(parameters[index]) {
+            parameters[index]->dezipperCheck();
+        } else {
+            break;
+        }
+    }
 
     AUAudioFrameCount framesRemaining = frameCount;
     AURenderEvent const *event = events;
@@ -294,23 +263,11 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
 
 void AKDSPBase::startRamp(const AUParameterEvent& event)
 {
-    auto address = event.parameterAddress & 0xFFFFFFFF;
+    auto address = event.parameterAddress;
     assert(address < maxParameters);
     auto ramper = parameters[address];
     if(ramper == nullptr) return;
-    switch (event.parameterAddress >> 61) {
-        case 0x4: // taper
-            ramper->setTaper(event.value);
-            break;
-        case 0x2: // skew
-            ramper->setSkew(event.value);
-            break;
-        case 0x1: // offset
-            ramper->setOffset(event.rampDurationSampleFrames);
-            break;
-        case 0x0:
-            ramper->startRamp(event.value, event.rampDurationSampleFrames);
-    }
+    ramper->startRamp(event.value, event.rampDurationSampleFrames);
 }
 
 using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;

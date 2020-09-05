@@ -1,32 +1,58 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class AKDelayTests: AKTestCase {
+class AKDelayTests: XCTestCase {
 
     func testDryWetMix() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDelay(input, time: 0.012_3, dryWetMix: 0.456)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testFeedback() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDelay(input, time: 0.012_3, feedback: 0.345)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testLowpassCutoff() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDelay(input, time: 0.012_3, lowPassCutoff: 1_234)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameters() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDelay(input, time: 0.012_3, feedback: 0.345, lowPassCutoff: 1_234, dryWetMix: 0.456)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testTime() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKDelay(input, time: 0.012_3)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

@@ -5,15 +5,13 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class AKChorus: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKChorus: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
     public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
@@ -89,28 +87,26 @@ public class AKChorus: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - dryWetMix: fraction of wet signal in mix
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency: AUValue = kAKChorus_DefaultFrequency,
         depth: AUValue = kAKChorus_DefaultDepth,
         feedback: AUValue = kAKChorus_DefaultFeedback,
         dryWetMix: AUValue = kAKChorus_DefaultDryWetMix
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.frequency = frequency
-        self.depth = depth
-        self.feedback = feedback
-        self.dryWetMix = dryWetMix
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
+            self.frequency = frequency
+            self.depth = depth
+            self.feedback = feedback
+            self.dryWetMix = dryWetMix
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

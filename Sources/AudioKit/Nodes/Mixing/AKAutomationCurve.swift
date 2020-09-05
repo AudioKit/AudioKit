@@ -18,13 +18,13 @@ public struct AKAutomationCurve {
         self.points = points
     }
 
-    static func evalRamp(start: Double,
+    static func evalRamp(start: Float,
                          segment: Point,
-                         time: Double,
-                         endTime: Double) -> Double {
+                         time: Float,
+                         endTime: Float) -> Float {
         let remain = endTime - time
-        let taper = Double(segment.rampTaper)
-        let goal = Double(segment.targetValue)
+        let taper = segment.rampTaper
+        let goal = segment.targetValue
 
         // x is normalized position in ramp segment
         let x = (segment.rampDuration - remain) / segment.rampDuration
@@ -32,7 +32,7 @@ public struct AKAutomationCurve {
         let absxm1 = abs((segment.rampDuration - remain) / segment.rampDuration - 1.0)
         let taper2 = start + (goal - start) * (1.0 - pow(absxm1, 1.0 / abs(taper)))
 
-        return taper1 * (1.0 - Double(segment.rampSkew)) + taper2 * Double(segment.rampSkew)
+        return taper1 * (1.0 - segment.rampSkew) + taper2 * segment.rampSkew
     }
 
     /// Returns a new piecewise-linear automation curve which can be handed off to the audio thread
@@ -44,12 +44,12 @@ public struct AKAutomationCurve {
     ///
     /// - Returns: A new array of piecewise linear automation points
     public func evaluate(initialValue: AUValue,
-                         resolution: Double) -> [AKAutomationEvent] {
+                         resolution: Float) -> [AKAutomationEvent] {
 
         var result = [AKAutomationEvent]()
 
         // The last evaluated value
-        var value = Double(initialValue)
+        var value = initialValue
 
         for i in 0 ..< points.count {
             let point = points[i]
@@ -59,28 +59,29 @@ public struct AKAutomationCurve {
                 result.append(AKAutomationEvent(targetValue: point.targetValue,
                                                 startTime: point.startTime,
                                                 rampDuration: point.rampDuration))
-                value = Double(point.targetValue)
+                value = point.targetValue
 
             } else {
 
                 // Cut off the end if another point comes along.
                 let nextPointStart = i < points.count - 1 ? points[i + 1].startTime
-                                                          : Double.greatestFiniteMagnitude
-                let endTime: Double = min(nextPointStart,
-                                          point.startTime + point.rampDuration)
+                                                          : Float.greatestFiniteMagnitude
+                let endTime: Float = min(nextPointStart,
+                                         point.startTime + point.rampDuration)
 
                 var t = point.startTime
                 let start = value
 
                 // March t along the segment
-                while t <= endTime - resolution {
+                // this is effectively `while t <= endTime - resolution` without potentional for rounding errors
+                for _ in 0 ..< Int(round(endTime / resolution)) {
 
                     value = AKAutomationCurve.evalRamp(start: start,
                                                        segment: point,
                                                        time: t + resolution,
                                                        endTime: point.startTime + point.rampDuration)
 
-                    result.append(AKAutomationEvent(targetValue: AUValue(value),
+                    result.append(AKAutomationEvent(targetValue: value,
                                                     startTime: t,
                                                     rampDuration: resolution))
 
@@ -101,7 +102,7 @@ public struct AKAutomationCurve {
     ///   - range: time range
     ///   - withPoints: new automation events
     /// - Returns: new automation curve
-    public func replace(range: ClosedRange<Double>, withPoints newPoints: [(Double, AUValue)]) -> AKAutomationCurve {
+    public func replace(range: ClosedRange<Float>, withPoints newPoints: [(Float, AUValue)]) -> AKAutomationCurve {
 
         var result = points
         let startTime = range.lowerBound

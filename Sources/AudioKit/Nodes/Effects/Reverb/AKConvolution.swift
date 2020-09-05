@@ -41,7 +41,7 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent {
     ///   - partitionLength: Partition length (in samples). Must be a power of 2.
     ///     Lower values will add less latency, at the cost of requiring more CPU power.
     ///
-    public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode,
                 impulseResponseFileURL: URL,
                 partitionLength: Int = 2_048
     ) {
@@ -61,9 +61,7 @@ public class AKConvolution: AKNode, AKToggleable, AKComponent {
             self.internalAU?.start()
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 
     private func readAudioFile() {

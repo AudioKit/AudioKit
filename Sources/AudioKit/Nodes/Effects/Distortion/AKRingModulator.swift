@@ -61,7 +61,7 @@ public class AKRingModulator: AKNode, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         frequency1: AUValue = 100,
         frequency2: AUValue = 100,
         balance: AUValue = 0.5,
@@ -77,9 +77,7 @@ public class AKRingModulator: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioUnit: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
         au[kDistortionParam_RingModMix] = 100

@@ -2,7 +2,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 //: Components
-let mic = AKMicrophone()
+let mic = engine.input
 let reverb = AKCostelloReverb()
 var reverbMixer = AKDryWetMixer()
 //: Signal Chain

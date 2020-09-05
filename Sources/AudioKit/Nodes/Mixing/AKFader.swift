@@ -5,15 +5,13 @@ import CAudioKit
 
 /// Stereo Fader. Similar to AKBooster but with the addition of
 /// Automation support.
-public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKFader: AKNode, AKToggleable, AKComponent {
 
     public typealias AKAudioUnitType = InternalAU
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
@@ -64,7 +62,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
         flags: .default)
 
     /// Flip left and right signal
-    @Parameter public var flipStereo: Bool = false
+    @Parameter public var flipStereo: Bool
 
     public static let mixToMonoDef = AKNodeParameterDef(
         identifier: "mixToMono",
@@ -75,7 +73,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
         flags: .default)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    @Parameter public var mixToMono: Bool = false
+    @Parameter public var mixToMono: Bool
 
     // MARK: - Audio Unit
 
@@ -100,23 +98,23 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
-        self.leftGain = gain
-        self.rightGain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
+            self.leftGain = gain
+            self.rightGain = gain
+            self.flipStereo = false
+            self.mixToMono = false
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 
     deinit {
@@ -127,8 +125,8 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
 
     /// Convenience function for adding a pair of points for both left and right addresses
     public func addAutomationPoint(value: AUValue,
-                                   at startTime: Double,
-                                   rampDuration: Double = 0,
+                                   at startTime: Float,
+                                   rampDuration: Float = 0,
                                    taper taperValue: Float = 1,
                                    skew skewValue: Float = 0) {
         let point = AKParameterAutomationPoint(targetValue: value,
@@ -137,14 +135,14 @@ public class AKFader: AKNode, AKToggleable, AKComponent, AKAutomatable {
                                                rampTaper: taperValue,
                                                rampSkew: skewValue)
 
-        parameterAutomation?.add(point: point, to: $leftGain)
-        parameterAutomation?.add(point: point, to: $rightGain)
+//        parameterAutomation?.add(point: point, to: $leftGain)
+//        parameterAutomation?.add(point: point, to: $rightGain)
     }
 
     /// Convenience function for clearing all points for both left and right addresses
     public func clearAutomationPoints() {
-        parameterAutomation?.clearAllPoints(of: $leftGain)
-        parameterAutomation?.clearAllPoints(of: $rightGain)
+//        parameterAutomation?.clearAllPoints(of: $leftGain)
+//        parameterAutomation?.clearAllPoints(of: $rightGain)
     }
 
     // MARK: - Automation

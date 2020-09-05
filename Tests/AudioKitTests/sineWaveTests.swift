@@ -1,19 +1,18 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class SineWaveTests: AKTestCase {
-
-    let sine = AKOperationGenerator { AKOperation.sineWave() }
-
-    override func setUp() {
-        afterStart = { self.sine.start() }
-        duration = 1.0
-    }
+class SineWaveTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let sine = AKOperationGenerator { AKOperation.sineWave() }
         engine.output = sine
-        AKTest()
+        sine.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

@@ -65,6 +65,7 @@ open class AKNode {
                         return
                     }
                 }
+
                 engine.attach(connection.avAudioNode)
 
                 // Mixers will decide which input bus to use.

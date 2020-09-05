@@ -170,7 +170,6 @@ class AKNodeTests: XCTestCase {
     func testNodeDetach() {
         let engine = AKEngine()
 
-
         let osc = AKOscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer

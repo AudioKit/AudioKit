@@ -1,19 +1,18 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class SawtoothWaveTests: AKTestCase {
-
-    let sawtooth = AKOperationGenerator { AKOperation.sawtoothWave() }
-
-    override func setUp() {
-        afterStart = { self.sawtooth.start() }
-        duration = 1.0
-    }
+class SawtoothWaveTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let sawtooth = AKOperationGenerator { AKOperation.sawtoothWave() }
         engine.output = sawtooth
-        AKTest()
+        sawtooth.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

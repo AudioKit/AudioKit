@@ -161,7 +161,7 @@ public class AKReverb2: AKNode, AKToggleable {
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         dryWetMix: AUValue = 0.5,
         gain: AUValue = 0,
         minDelayTime: AUValue = 0.008,
@@ -229,9 +229,7 @@ public class AKReverb2: AKNode, AKToggleable {
                                   randomizeReflections,
                                   0)
         }
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
     }
 

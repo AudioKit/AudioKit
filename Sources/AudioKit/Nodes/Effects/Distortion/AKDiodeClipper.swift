@@ -6,15 +6,13 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class AKDiodeClipper: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
     public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    public private(set) var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
@@ -64,24 +62,22 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - gain: Gain in dB
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         cutoffFrequency: AUValue = 10000.0,
         gain: AUValue = 20.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.cutoffFrequency = cutoffFrequency
-        self.gain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
+            self.cutoffFrequency = cutoffFrequency
+            self.gain = gain
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

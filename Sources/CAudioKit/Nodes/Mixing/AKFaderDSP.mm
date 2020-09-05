@@ -52,6 +52,20 @@ public:
         }
     }
 
+    void startRamp(const AUParameterEvent &event) override {
+        auto address = event.parameterAddress;
+        switch (address) {
+            case AKFaderParameterFlipStereo:
+                flipStereo = event.value > 0.5f;
+                break;
+            case AKFaderParameterMixToMono:
+                mixToMono = event.value > 0.5f;
+                break;
+            default:
+                AKDSPBase::startRamp(event);
+        }
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

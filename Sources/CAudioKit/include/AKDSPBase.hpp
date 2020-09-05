@@ -25,10 +25,6 @@ AK_API void resetDSP(AKDSPRef pDSP);
 AK_API void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
 AK_API AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
 
-AK_API void setParameterRampDurationDSP(AKDSPRef pDSP, AUParameterAddress address, float rampDuration);
-AK_API void setParameterRampTaperDSP(AKDSPRef pDSP, AUParameterAddress address, float taper);
-AK_API void setParameterRampSkewDSP(AKDSPRef pDSP, AUParameterAddress address, float skew);
-
 AK_API void startDSP(AKDSPRef pDSP);
 AK_API void stopDSP(AKDSPRef pDSP);
 
@@ -146,12 +142,6 @@ public:
     }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
-    
-    void setParameterRampDuration(AUParameterAddress address, float duration);
-    
-    void setParameterRampTaper(AUParameterAddress address, float taper);
-    
-    void setParameterRampSkew(AUParameterAddress address, float skew);
 
     /// Pointer to a factory function.
     using CreateFunction = AKDSPRef (*)();
@@ -164,6 +154,8 @@ public:
 
     /// Create a subclass by name.
     static AKDSPRef create(const char* name);
+
+    virtual void startRamp(const AUParameterEvent& event);
 
 private:
 
@@ -178,7 +170,6 @@ private:
     
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
     
-    void startRamp(const AUParameterEvent& event);
 };
 
 /// Registers a creation function when initialized.

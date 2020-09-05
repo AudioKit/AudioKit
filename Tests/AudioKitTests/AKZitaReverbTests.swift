@@ -1,22 +1,24 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class AKZitaReverbTests: AKTestCase {
-
-    override func setUp() {
-        super.setUp()
-        duration = 1.0
-    }
+class AKZitaReverbTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKZitaReverb(input)
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParametersSetAfterInit() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         let effect = AKZitaReverb(input)
-        effect.rampDuration = 0
         effect.predelay = 10
         effect.crossoverFrequency = 200
         effect.lowReleaseTime = 1.5
@@ -28,10 +30,15 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
         engine.output = effect
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParametersSetOnInit() {
+        let engine = AKEngine()
+        let input = AKOscillator()
         engine.output = AKZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,
@@ -44,7 +51,10 @@ class AKZitaReverbTests: AKTestCase {
                               equalizerLevel2: -1,
                               dryWetMix: 0.5)
 
-        AKTest()
+        input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

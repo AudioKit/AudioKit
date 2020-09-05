@@ -36,15 +36,13 @@ public class AK3DPanner: AKNode {
     ///   - y:     y-axis location in meters
     ///   - z:     z-axis location in meters
     ///
-    public init(_ input: AKNode? = nil, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
+    public init(_ input: AKNode, x: AUValue = 0, y: AUValue = 0, z: AUValue = 0) {
         self.x = x
         self.y = y
         self.z = z
         super.init(avAudioNode: environmentNode)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
 //        let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
 //        input?.avAudioNode.setOutput(to: environmentNode, bus: 0, format: monoFormat)

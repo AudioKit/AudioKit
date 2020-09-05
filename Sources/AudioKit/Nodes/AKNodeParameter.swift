@@ -29,20 +29,15 @@ public struct AKNodeParameterDef {
 /// New version for use with Parameter property wrapper.
 public class AKNodeParameter {
 
-    private var dsp: AKDSPRef?
     private var avAudioUnit: AVAudioUnit!
 
-    public private(set) var parameter: AUParameter?
+    public private(set) var parameter: AUParameter!
 
     // MARK: Parameter properties
 
-    public var value: AUValue = 0 {
-        didSet {
-            guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-            value = (min...max).clamp(value)
-            if value == oldValue { return }
-            parameter?.value = value
-        }
+    public var value: AUValue {
+        get { parameter.value }
+        set { parameter.value = range.clamp(newValue) }
     }
 
     public var boolValue: Bool {
@@ -51,36 +46,15 @@ public class AKNodeParameter {
     }
 
     public var minValue: AUValue {
-        parameter?.minValue ?? 0
+        parameter.minValue
     }
 
     public var maxValue: AUValue {
-        parameter?.maxValue ?? 1
+        parameter.maxValue
     }
 
     public var range: ClosedRange<AUValue> {
-        (parameter?.minValue ?? 0) ... (parameter?.maxValue ?? 1)
-    }
-
-    public var rampDuration: Float = Float(AKSettings.rampDuration) {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampDurationDSP(dsp, addr, rampDuration)
-        }
-    }
-
-    public var rampTaper: Float = 1 {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampTaperDSP(dsp, addr, rampTaper)
-        }
-    }
-
-    public var rampSkew: Float = 0 {
-        didSet {
-            guard let dsp = dsp, let addr = parameter?.address else { return }
-            setParameterRampSkewDSP(dsp, addr, rampSkew)
-        }
+        (parameter.minValue ... parameter.maxValue)
     }
 
     // MARK: Automation
@@ -102,7 +76,6 @@ public class AKNodeParameter {
         }
 
         var lastTime = startTime ?? lastRenderTime
-        guard let parameter = parameter else { return }
 
         if lastTime.isHostTimeValid {
             // Convert to sample time.
@@ -121,14 +94,23 @@ public class AKNodeParameter {
 
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
                                                                   avAudioUnit.auAudioUnit.scheduleParameterBlock,
-                                                                  AKSettings.sampleRate,
-                                                                  Double(lastTime.sampleTime),
+                                                                  Float(AKSettings.sampleRate),
+                                                                  Float(lastTime.sampleTime),
                                                                   automationBaseAddress,
                                                                   events.count) else { return }
 
             renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
         }
 
+    }
+
+    /// Automate to a new value using a ramp.
+    public func ramp(to value: AUValue, duration: Float) {
+        let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
+        paramBlock(AUEventSampleTimeImmediate,
+                   AUAudioFrameCount(duration * Float(AKSettings.sampleRate)),
+                   parameter.address,
+                   range.clamp(value))
     }
 
     public func stopAutomation() {
@@ -145,7 +127,6 @@ public class AKNodeParameter {
     /// - Parameter callback: Called on the main queue for each parameter event.
     public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
 
-        guard let parameter = parameter else { return }
         parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { (numberEvents, events) in
 
             for index in 0..<numberEvents {
@@ -164,8 +145,6 @@ public class AKNodeParameter {
     /// Stop calling the function passed to `recordAutomation`
     public func stopRecording() {
 
-        guard let parameter = parameter else { return }
-
         if let token = parameterObserverToken {
             parameter.removeParameterObserver(token)
         }
@@ -178,20 +157,8 @@ public class AKNodeParameter {
                           identifier: String) {
 
         self.avAudioUnit = avAudioUnit
-        guard let akAudioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitBase else {
-            fatalError("AUAudioUnit is not an AKAudioUnitBase")
-        }
-        dsp = akAudioUnit.dsp
-        parameter = akAudioUnit.parameterTree?[identifier]
+        parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
-
-        guard let dsp = dsp, let addr = parameter?.address else { return }
-        setParameterRampDurationDSP(dsp, addr, rampDuration)
-        setParameterRampTaperDSP(dsp, addr, rampTaper)
-        setParameterRampSkewDSP(dsp, addr, rampSkew)
-
-        guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
-        parameter?.value = (min...max).clamp(value)
     }
 
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
@@ -248,16 +215,15 @@ protocol ParameterBase {
 /// @Parameter var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
+///
+/// Note that we don't allow initialization of Parameters to values
+/// because we don't yet have an underlying AUParameter.
 @propertyWrapper
 public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
 
     var param = AKNodeParameter()
 
     public init() { }
-
-    public init(wrappedValue: Value) {
-        param.value = wrappedValue.toAUValue()
-    }
 
     public var wrappedValue: Value {
         get { Value(param.value) }
