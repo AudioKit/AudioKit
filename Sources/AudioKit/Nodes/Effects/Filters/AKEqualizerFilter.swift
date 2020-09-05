@@ -83,16 +83,20 @@ public class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         gain: AUValue = 10.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.centerFrequency = centerFrequency
-        self.bandwidth = bandwidth
-        self.gain = gain
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-        }
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
+            self.centerFrequency = centerFrequency
+            self.bandwidth = bandwidth
+            self.gain = gain
+        }
         connections.append(input)
     }
 }
