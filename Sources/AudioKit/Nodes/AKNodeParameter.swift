@@ -110,11 +110,11 @@ public class AKNodeParameter {
     }
 
     /// Automate to a new value using a ramp.
-    public func ramp(to value: AUValue, duration: Double) {
+    public func ramp(to value: AUValue, duration: Float) {
         guard let parameter = parameter else { return }
         let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate,
-                   AUAudioFrameCount(duration * AKSettings.sampleRate),
+                   AUAudioFrameCount(duration * Float(AKSettings.sampleRate)),
                    parameter.address,
                    (parameter.minValue...parameter.maxValue).clamp(value))
     }
