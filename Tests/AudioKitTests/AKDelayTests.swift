@@ -18,7 +18,7 @@ class AKDelayTests: XCTestCase {
     func testFeedback() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDelay(input, time: 0.012_3, feedback: 0.345)
+        engine.output = AKDelay(input, time: 0.012_3, feedback: 34.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKDelayTests: XCTestCase {
     func testParameters() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDelay(input, time: 0.012_3, feedback: 0.345, lowPassCutoff: 1_234, dryWetMix: 45.6)
+        engine.output = AKDelay(input, time: 0.012_3, feedback: 34.5, lowPassCutoff: 1_234, dryWetMix: 45.6)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
