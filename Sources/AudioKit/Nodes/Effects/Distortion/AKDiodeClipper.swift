@@ -67,14 +67,15 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
         gain: AUValue = 20.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.cutoffFrequency = cutoffFrequency
-        self.gain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            self.cutoffFrequency = cutoffFrequency
+            self.gain = gain
         }
 
         connections.append(input)

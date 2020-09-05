@@ -48,13 +48,14 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
     ///
     public init(_ input1: AKNode, _ input2: AKNode, balance: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
-        self.balance = balance
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            self.balance = balance
         }
 
         connections.append(input1)
