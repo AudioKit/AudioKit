@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// TODO This node needs to have tests
-///
+/// 
 public class AKMetalBar: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
