@@ -23,7 +23,7 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
         unit: .generic,
         flags: .default)
 
-    /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+    /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter public var pregain: AUValue
 
     public static let postgainDef = AKNodeParameterDef(

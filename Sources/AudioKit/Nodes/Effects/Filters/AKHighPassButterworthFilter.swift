@@ -4,10 +4,10 @@
 import AVFoundation
 import CAudioKit
 
-/// These filters are Butterworth second-order IIR filters. They offer an almost
-/// flat passband and very good precision and stopband attenuation.
-///
-public class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+/// These filters are Butterworth second-order IIR filters. They offer an almost flat
+/// passband and very good precision and stopband attenuation.
+/// 
+public class AKHighPassButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 

@@ -72,17 +72,19 @@ public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
         maximumTime: AUValue = 5
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.time = time
-        self.feedback = feedback
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
-            self.internalAU?.setMaximumTime(maximumTime)
+            self.time = time
+            self.feedback = feedback
         }
-
         connections.append(input)
     }
 }

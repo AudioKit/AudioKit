@@ -66,15 +66,19 @@ public class AKBitCrusher: AKNode, AKComponent, AKToggleable {
         sampleRate: AUValue = 10_000
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.bitDepth = bitDepth
-        self.sampleRate = sampleRate
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-        }
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
+            self.bitDepth = bitDepth
+            self.sampleRate = sampleRate
+        }
         connections.append(input)
     }
 }

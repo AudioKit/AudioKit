@@ -4,11 +4,10 @@
 import AVFoundation
 import CAudioKit
 
-/// When fed with a pulse train, it will generate a series of overlapping
-/// grains. Overlapping will occur when 1/freq < dec, but there is no upper
-/// limit on the number of overlaps.
-///
-public class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+/// When fed with a pulse train, it will generate a series of overlapping grains. 
+/// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
+/// 
+public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
