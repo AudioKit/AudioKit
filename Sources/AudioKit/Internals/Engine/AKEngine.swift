@@ -127,20 +127,6 @@ public class AKEngine {
         return buffer
     }
 
-    /// Test the output of a given node
-    ///
-    /// - Parameters:
-    ///   - duration: Number of seconds to test (accurate to the sample)
-    ///   - afterStart: Closure to execute at the beginning of the test
-    ///
-    /// - Returns: MD5 hash of audio output for comparison with test baseline.
-    public func test(duration: Double, afterStart: () -> Void = {}) throws -> String {
-        let buffer = startTest(totalDuration: duration)
-        afterStart()
-        buffer.append(render(duration: duration))
-        return buffer.md5
-    }
-
     /// Enumerate the list of available input devices.
     public static var inputDevices: [AKDevice]? {
         #if os(macOS)
