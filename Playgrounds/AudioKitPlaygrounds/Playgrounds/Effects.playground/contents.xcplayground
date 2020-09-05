@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='rendered'>
+<playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='AutoPan Operation'/>
@@ -12,7 +12,6 @@
         <page name='Comb Filter Reverb'/>
         <page name='Compressor'/>
         <page name='Convolution'/>
-        <page name='Costello Reverb'/>
         <page name='Costello Reverb Operation'/>
         <page name='Decimator'/>
         <page name='Delay'/>
