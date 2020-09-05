@@ -230,7 +230,7 @@ let validatedMD5s: [String: String] = [
     "-[AKPhaseDistortionOscillatorTests testDetuningMultiplier]": "64895b7ac74f450495f03612ad72dd65",
     "-[AKPhaseDistortionOscillatorTests testDetuningOffset]": "a73050e43cd0f55bb89afac905bbdb91",
     "-[AKPhaseDistortionOscillatorTests testFrequency]": "0c422610350a7b5715f63092b6562140",
-    "-[AKPhaseDistortionOscillatorTests testParameters]": "f4464ac6d6fec586d349638d321d73c9",
+    "-[AKPhaseDistortionOscillatorTests testParameters]": "ef101a6b0bff9e98217cb767cb98621f",
     "-[AKPhaseDistortionOscillatorTests testParametersSetAfterInit]": "f4464ac6d6fec586d349638d321d73c9",
     "-[AKPhaseDistortionOscillatorTests testPhaseDistortion]": "e26b26f851bc20be3f37323585ec84b6",
     "-[AKPinkNoiseTests testAmplitude]": "bf787cd61b14396ea8981beac5ad8de5",
