@@ -4,76 +4,100 @@ import AudioKit
 import XCTest
 import CAudioKit
 
-class AKPhaseDistortionOscillatorTests: AKTestCase {
-
-    var oscillator = AKPhaseDistortionOscillator()
-
-    override func setUp() {
-        oscillator.rampDuration = 0.0
-        afterStart = { self.oscillator.start() }
-        AKDebugDSPSetActive(true)
-    }
+class AKPhaseDistortionOscillatorTests: XCTestCase {
 
     func testDefault() {
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator()
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameters() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square),
-                                                 frequency: 1_234,
-                                                 amplitude: 0.5,
-                                                 phaseDistortion: 1.234,
-                                                 detuningOffset: 1.234,
-                                                 detuningMultiplier: 1.1)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square),
+                                                     frequency: 1_234,
+                                                     amplitude: 0.5,
+                                                     phaseDistortion: 0.234,
+                                                     detuningOffset: 1.234,
+                                                     detuningMultiplier: 1.1)
         XCTAssertEqual(oscillator.frequency, 1_234)
         XCTAssertEqual(oscillator.amplitude, 0.5)
-        XCTAssertEqual(oscillator.phaseDistortion, 1.234)
+        XCTAssertEqual(oscillator.phaseDistortion, 0.234)
         XCTAssertEqual(oscillator.detuningOffset, 1.234)
         XCTAssertEqual(oscillator.detuningMultiplier, 1.1)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testFrequency() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), frequency: 1_234)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), frequency: 1_234)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testAmplitude() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), amplitude: 0.5)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), amplitude: 0.5)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testPhaseDistortion() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), phaseDistortion: 1.234)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), phaseDistortion: 1.234)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDetuningOffset() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningOffset: 1.234)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningOffset: 1.234)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testDetuningMultiplier() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningMultiplier: 1.1)
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningMultiplier: 1.1)
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParametersSetAfterInit() {
-        oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
-        oscillator.rampDuration = 0.0
+        let engine = AKEngine()
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.phaseDistortion = 1.234
         oscillator.detuningOffset = 1.234
         oscillator.detuningMultiplier = 1.1
         engine.output = oscillator
-        AKTest()
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 }

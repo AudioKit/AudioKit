@@ -159,112 +159,112 @@ extension AKAudioUnitManager {
         // TODO Wouldn't be surprised if WTH could do this with mirror
 
         // kind of a maintainence mess, but there it is
-        switch name {
-        case "AKLowShelfFilter":
-            node = AKLowShelfFilter()
-        case "AKLowPassFilter":
-            node = AKLowPassFilter()
-        case "AKHighShelfFilter":
-            node = AKHighShelfFilter()
-        case "AKHighPassFilter":
-            node = AKHighPassFilter()
-        case "AKDecimator":
-            node = AKDecimator()
-        case "AKDistortion":
-            node = AKDistortion()
-        case "AKDelay":
-            node = AKDelay()
-        case "AKStereoDelay":
-            node = AKStereoDelay()
-        case "AKVariableDelay":
-            node = AKVariableDelay()
-        case "AKChorus":
-            node = AKChorus()
-        case "AKCompressor":
-            node = AKCompressor()
-        case "AKFlanger":
-            node = AKFlanger()
-        case "AKBitCrusher":
-            node = AKBitCrusher()
-        case "AKClipper":
-            node = AKClipper()
-        case "AKRingModulator":
-            node = AKRingModulator()
-        case "AKDynamicRangeCompressor":
-            node = AKDynamicRangeCompressor()
-        case "AKAmplitudeEnvelope":
-            node = AKAmplitudeEnvelope()
-        case "AKTremolo":
-            node = AKTremolo()
-        case "AKAutoWah":
-            node = AKAutoWah()
-        case "AKBandPassButterworthFilter":
-            node = AKBandPassButterworthFilter()
-        case "AKBandRejectButterworthFilter":
-            node = AKBandRejectButterworthFilter()
-        case "AKDCBlock":
-            node = AKDCBlock()
-        case "AKEqualizerFilter":
-            node = AKEqualizerFilter()
-        case "AKFormantFilter":
-            node = AKFormantFilter()
-        case "AKHighPassButterworthFilter":
-            node = AKHighPassButterworthFilter()
-        case "AKHighShelfParametricEqualizerFilter":
-            node = AKHighShelfParametricEqualizerFilter()
-        case "AKKorgLowPassFilter":
-            node = AKKorgLowPassFilter()
-        case "AKLowPassButterworthFilter":
-            node = AKLowPassButterworthFilter()
-        case "AKLowShelfParametricEqualizerFilter":
-            node = AKLowShelfParametricEqualizerFilter()
-        case "AKModalResonanceFilter":
-            node = AKModalResonanceFilter()
-        case "AKMoogLadder":
-            node = AKMoogLadder()
-        case "AKPanner":
-            node = AKPanner()
-        case "AKPeakingParametricEqualizerFilter":
-            node = AKPeakingParametricEqualizerFilter()
-        case "AKResonantFilter":
-            node = AKResonantFilter()
-        case "AKRolandTB303Filter":
-            node = AKRolandTB303Filter()
-        case "AKStringResonator":
-            node = AKStringResonator()
-        case "AKThreePoleLowpassFilter":
-            node = AKThreePoleLowpassFilter()
-        case "AKToneComplementFilter":
-            node = AKToneComplementFilter()
-        case "AKToneFilter":
-            node = AKToneFilter()
-        case "AKPhaser":
-            node = AKPhaser()
-        case "AKPitchShifter":
-            node = AKPitchShifter()
-        case "AKChowningReverb":
-            node = AKChowningReverb()
-        case "AKCombFilterReverb":
-            node = AKCombFilterReverb()
-        case "AKCostelloReverb":
-            node = AKCostelloReverb()
-        case "AKFlatFrequencyResponseReverb":
-            node = AKFlatFrequencyResponseReverb()
-        case "AKZitaReverb":
-            node = AKZitaReverb()
-        case "AKBooster":
-            node = AKBooster()
-        case "AKFader":
-            node = AKFader()
-        case "AKTanhDistortion":
-            node = AKTanhDistortion()
-        case "AKTimePitch":
-            node = AKTimePitch()
-        case "AKVariSpeed":
-            node = AKVariSpeed()
-        default:
-            return nil
-        }
+//        switch name {
+//        case "AKLowShelfFilter":
+//            node = AKLowShelfFilter()
+//        case "AKLowPassFilter":
+//            node = AKLowPassFilter()
+//        case "AKHighShelfFilter":
+//            node = AKHighShelfFilter()
+//        case "AKHighPassFilter":
+//            node = AKHighPassFilter()
+//        case "AKDecimator":
+//            node = AKDecimator()
+//        case "AKDistortion":
+//            node = AKDistortion()
+//        case "AKDelay":
+//            node = AKDelay()
+//        case "AKStereoDelay":
+//            node = AKStereoDelay()
+//        case "AKVariableDelay":
+//            node = AKVariableDelay()
+//        case "AKChorus":
+//            node = AKChorus()
+//        case "AKCompressor":
+//            node = AKCompressor()
+//        case "AKFlanger":
+//            node = AKFlanger()
+//        case "AKBitCrusher":
+//            node = AKBitCrusher()
+//        case "AKClipper":
+//            node = AKClipper()
+//        case "AKRingModulator":
+//            node = AKRingModulator()
+//        case "AKDynamicRangeCompressor":
+//            node = AKDynamicRangeCompressor()
+//        case "AKAmplitudeEnvelope":
+//            node = AKAmplitudeEnvelope()
+//        case "AKTremolo":
+//            node = AKTremolo()
+//        case "AKAutoWah":
+//            node = AKAutoWah()
+//        case "AKBandPassButterworthFilter":
+//            node = AKBandPassButterworthFilter()
+//        case "AKBandRejectButterworthFilter":
+//            node = AKBandRejectButterworthFilter()
+//        case "AKDCBlock":
+//            node = AKDCBlock()
+//        case "AKEqualizerFilter":
+//            node = AKEqualizerFilter()
+//        case "AKFormantFilter":
+//            node = AKFormantFilter()
+//        case "AKHighPassButterworthFilter":
+//            node = AKHighPassButterworthFilter()
+//        case "AKHighShelfParametricEqualizerFilter":
+//            node = AKHighShelfParametricEqualizerFilter()
+//        case "AKKorgLowPassFilter":
+//            node = AKKorgLowPassFilter()
+//        case "AKLowPassButterworthFilter":
+//            node = AKLowPassButterworthFilter()
+//        case "AKLowShelfParametricEqualizerFilter":
+//            node = AKLowShelfParametricEqualizerFilter()
+//        case "AKModalResonanceFilter":
+//            node = AKModalResonanceFilter()
+//        case "AKMoogLadder":
+//            node = AKMoogLadder()
+//        case "AKPanner":
+//            node = AKPanner()
+//        case "AKPeakingParametricEqualizerFilter":
+//            node = AKPeakingParametricEqualizerFilter()
+//        case "AKResonantFilter":
+//            node = AKResonantFilter()
+//        case "AKRolandTB303Filter":
+//            node = AKRolandTB303Filter()
+//        case "AKStringResonator":
+//            node = AKStringResonator()
+//        case "AKThreePoleLowpassFilter":
+//            node = AKThreePoleLowpassFilter()
+//        case "AKToneComplementFilter":
+//            node = AKToneComplementFilter()
+//        case "AKToneFilter":
+//            node = AKToneFilter()
+//        case "AKPhaser":
+//            node = AKPhaser()
+//        case "AKPitchShifter":
+//            node = AKPitchShifter()
+//        case "AKChowningReverb":
+//            node = AKChowningReverb()
+//        case "AKCombFilterReverb":
+//            node = AKCombFilterReverb()
+//        case "AKCostelloReverb":
+//            node = AKCostelloReverb()
+//        case "AKFlatFrequencyResponseReverb":
+//            node = AKFlatFrequencyResponseReverb()
+//        case "AKZitaReverb":
+//            node = AKZitaReverb()
+//        case "AKBooster":
+//            node = AKBooster()
+//        case "AKFader":
+//            node = AKFader()
+//        case "AKTanhDistortion":
+//            node = AKTanhDistortion()
+//        case "AKTimePitch":
+//            node = AKTimePitch()
+//        case "AKVariSpeed":
+//            node = AKVariSpeed()
+//        default:
+//            return nil
+//        }
         (node as? AKToggleable)?.start()
         return node?.avAudioUnit
     }

@@ -5,15 +5,13 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
 
    public static let ComponentDescription = AudioComponentDescription(effect: "dwmx")
 
    public typealias AKAudioUnitType = InternalAU
 
    public private(set) var internalAU: AKAudioUnitType?
-
-   public var parameterAutomation: AKParameterAutomation?
 
    // MARK: - Parameters
 
@@ -50,14 +48,14 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///
     public init(_ input1: AKNode, _ input2: AKNode, balance: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
-        self.balance = balance
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
+            self.balance = balance
         }
 
         connections.append(input1)

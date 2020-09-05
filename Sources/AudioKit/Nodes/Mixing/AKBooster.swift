@@ -5,15 +5,13 @@ import CAudioKit
 
 /// Stereo Booster
 ///
-public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
+public class AKBooster: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 
     public typealias AKAudioUnitType = InternalAU
 
     public private(set) var internalAU: AKAudioUnitType?
-
-    public var parameterAutomation: AKParameterAutomation?
 
     // MARK: - Parameters
 
@@ -75,21 +73,19 @@ public class AKBooster: AKNode, AKToggleable, AKComponent, AKAutomatable {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode? = nil, gain: AUValue = 1) {
+    public init(_ input: AKNode, gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
-        self.leftGain = gain
-        self.rightGain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self.parameterAutomation = AKParameterAutomation(avAudioUnit)
+
+            self.leftGain = gain
+            self.rightGain = gain
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 }

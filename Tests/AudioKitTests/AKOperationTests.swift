@@ -2,6 +2,7 @@
 
 import XCTest
 @testable import AudioKit
+import XCTest
 
 class AKOperationTests: XCTestCase {
 

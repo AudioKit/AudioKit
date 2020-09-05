@@ -34,7 +34,7 @@ public class AKBalancer: AKNode, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    public init(_ input: AKNode? = nil, comparator: AKNode) {
+    public init(_ input: AKNode, comparator: AKNode) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -43,9 +43,7 @@ public class AKBalancer: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
         connections.append(comparator)
     }
 

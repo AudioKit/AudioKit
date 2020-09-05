@@ -24,8 +24,8 @@ public class AKPitchTap: AKToggleable {
         }
     }
 
-    private var _input: AKNode?
-    public var input: AKNode? {
+    private var _input: AKNode
+    public var input: AKNode {
         get {
             return _input
         }
@@ -64,9 +64,9 @@ public class AKPitchTap: AKToggleable {
     private var handler: Handler = { (_,_) in }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode?, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
+    public init(_ input: AKNode, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
-        self.input = input
+        self._input = input
         self.handler = handler
     }
 
@@ -78,7 +78,7 @@ public class AKPitchTap: AKToggleable {
 
     /// Enable the tap on input
     public func start() {
-        guard let input = input, !isStarted else { return }
+        guard !isStarted else { return }
         isStarted = true
 
         // a node can only have one tap at a time installed on it
@@ -141,12 +141,12 @@ public class AKPitchTap: AKToggleable {
     }
 
     private func removeTap() {
-        guard input?.avAudioUnitOrNode.engine != nil else {
+        guard input.avAudioUnitOrNode.engine != nil else {
             AKLog("The tapped node isn't attached to the engine")
             return
         }
 
-        input?.avAudioUnitOrNode.removeTap(onBus: bus)
+        input.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
     /// remove the tap and nil out the input reference
@@ -155,6 +155,5 @@ public class AKPitchTap: AKToggleable {
         if isStarted {
             stop()
         }
-        input = nil
     }
 }

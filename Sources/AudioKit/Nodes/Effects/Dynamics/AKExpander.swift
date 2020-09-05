@@ -84,7 +84,7 @@ public class AKExpander: AKNode, AKToggleable, AUEffect {
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         threshold: AUValue = -20,
         headRoom: AUValue = 5,
         expansionRatio: AUValue = 2,
@@ -108,9 +108,7 @@ public class AKExpander: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioNode: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
         au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
         au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
         au[kDynamicsProcessorParam_AttackTime] = attackDuration

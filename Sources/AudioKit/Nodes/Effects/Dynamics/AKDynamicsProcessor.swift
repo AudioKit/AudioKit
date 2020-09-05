@@ -104,7 +104,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode? = nil,
+        _ input: AKNode,
         threshold: AUValue = -20,
         headRoom: AUValue = 5,
         expansionRatio: AUValue = 2,
@@ -129,9 +129,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
 
         super.init(avAudioNode: effect)
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
 
         au[kDynamicsProcessorParam_Threshold] = threshold
         au[kDynamicsProcessorParam_HeadRoom] = headRoom

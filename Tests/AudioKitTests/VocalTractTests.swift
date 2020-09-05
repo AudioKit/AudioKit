@@ -1,28 +1,30 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import XCTest
 
-class VocalTractTests: AKTestCase {
+class VocalTractTests: XCTestCase {
 
-    var vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
-
-    override func setUp() {
-        afterStart = { self.vocalTract.start() }
-        duration = 1.0
-    }
+    let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
 
     func testDefault() {
+        let engine = AKEngine()
+        let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
         engine.output = vocalTract
-        AKTest()
+        vocalTract.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
     func testParameterSweep() {
-        vocalTract = AKOperationGenerator {
+        let engine = AKEngine()
+        let vocalTract = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,
                 end: 1,
-                duration: duration)
+                duration: 1.0)
             return AKOperation.vocalTract(frequency: 200 + 200 * line,
                                           tonguePosition: line,
                                           tongueDiameter: line,
@@ -30,7 +32,10 @@ class VocalTractTests: AKTestCase {
                                           nasality: line)
         }
         engine.output = vocalTract
-        AKTest()
+        vocalTract.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
     }
 
 }

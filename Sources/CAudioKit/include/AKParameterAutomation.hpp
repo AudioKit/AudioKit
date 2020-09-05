@@ -7,8 +7,8 @@
 
 struct AKParameterAutomationPoint {
     AUValue targetValue;
-    double startTime;
-    double rampDuration;
+    float startTime;
+    float rampDuration;
     float rampTaper;
     float rampSkew;
 };
@@ -16,47 +16,17 @@ struct AKParameterAutomationPoint {
 /// Linear automation segment.
 struct AKAutomationEvent {
     AUValue targetValue;
-    double startTime;
-    double rampDuration;
+    float startTime;
+    float rampDuration;
 };
 
-typedef struct AKParameterAutomationHelper* AKParameterAutomationHelperRef;
-
 #ifndef __cplusplus
-
-AKParameterAutomationHelperRef createAKParameterAutomation(AUScheduleParameterBlock scheduleParameterBlock);
-
-void deleteAKParameterAutomation(AKParameterAutomationHelperRef automation);
-
-AURenderObserver getAKParameterAutomationRenderObserverBlock(AKParameterAutomationHelperRef automation);
-
-AUParameterAutomationObserver getAKParameterAutomationAutomationObserverBlock(AKParameterAutomationHelperRef automation);
-
-void playAKParameterAutomation(AKParameterAutomationHelperRef automation, const AVAudioTime* startTime, double rate);
-
-void stopAKParameterAutomation(AKParameterAutomationHelperRef automation);
-
-void setAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address, bool enabled);
-
-bool getAKParameterAutomationRecordingEnabled(AKParameterAutomationHelperRef automation, AUParameterAddress address);
-
-/// If `points` is null, this returns the number of automation points for a given parameter.
-/// If `points` is not null, this fills points with up to `capacity` points and returns the count filled.
-size_t getAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, struct AKParameterAutomationPoint* points, size_t capacity);
-
-void addAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
-
-void setAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address, const struct AKParameterAutomationPoint* points, size_t count);
-
-void clearAKParameterAutomationRange(AKParameterAutomationHelperRef automation, AUParameterAddress address, double startTime, double endTime);
-
-void clearAKParameterAutomationPoints(AKParameterAutomationHelperRef automation, AUParameterAddress address);
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
 AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
                                                         AUScheduleParameterBlock scheduleParameterBlock,
-                                                        double sampleRate,
-                                                        double startSampleTime,
+                                                        float sampleRate,
+                                                        float startSampleTime,
                                                         const struct AKAutomationEvent* events,
                                                         size_t count);
 

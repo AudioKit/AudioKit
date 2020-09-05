@@ -37,7 +37,19 @@ public class AKEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1024
 
-    public init() { }
+    public class InputNode: AKMixer {
+        func connect(to engine: AKEngine) {
+            engine.avEngine.attach(avAudioNode)
+            engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: AKSettings.audioFormat)
+
+        }
+    }
+
+    public let input = InputNode()
+
+    public init() {
+        input.connect(to: self)
+    }
 
     public var output: AKNode? {
         didSet {
@@ -116,7 +128,7 @@ public class AKEngine {
     ///
     /// - Returns: MD5 hash of audio output for comparison with test baseline.
     public func test(duration: Double, afterStart: () -> Void = {}) throws -> String {
-        let buffer = try startTest(totalDuration: duration)
+        let buffer = startTest(totalDuration: duration)
         afterStart()
         buffer.append(render(duration: duration))
         return buffer.md5
