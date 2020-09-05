@@ -34,17 +34,7 @@ public class AKDelay: AKNode, AKToggleable {
         }
     }
 
-    /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var dryWetMix: AUValue = 0.5 {
-        didSet {
-            internalSetDryWetMix(dryWetMix)
-        }
-    }
-
-    internal func internalSetDryWetMix(_ value: AUValue) {
-        let newValue = (0...1).clamp(value)
-        delayAU.wetDryMix = newValue * 100.0
-    }
+    @Parameter var dryWetMix: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -56,19 +46,18 @@ public class AKDelay: AKNode, AKToggleable {
     ///   - time: Delay time in seconds (Default: 1)
     ///   - feedback: Amount of feedback, ranges from 0 to 1 (Default: 0.5)
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
-    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
+    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 100 (Default: 50.0)
     ///
     public init(
         _ input: AKNode,
         time: AUValue = 1,
         feedback: AUValue = 0.5,
         lowPassCutoff: AUValue = 15_000,
-        dryWetMix: AUValue = 0.5) {
+        dryWetMix: AUValue = 50.0) {
 
         self.time = TimeInterval(AUValue(time))
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
-        self.dryWetMix = dryWetMix
 
         super.init(avAudioUnit: delayAU)
         connections.append(input)
@@ -76,7 +65,9 @@ public class AKDelay: AKNode, AKToggleable {
         delayAU.delayTime = self.time
         delayAU.feedback = feedback * 100.0
         delayAU.lowPassCutoff = lowPassCutoff
-        internalSetDryWetMix(dryWetMix)
+
+        self.$dryWetMix.associate(with: delayAU, index: 0)
+        self.dryWetMix = dryWetMix
     }
 
     /// Function to start, play, or activate the node, all do the same thing
