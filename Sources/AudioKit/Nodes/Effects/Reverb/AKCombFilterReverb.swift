@@ -73,6 +73,8 @@ public class AKCombFilterReverb: AKNode, AKComponent, AKToggleable {
             }
             self.internalAU = audioUnit
 
+            audioUnit.setLoopDuration(loopDuration)
+
             self.reverbDuration = reverbDuration
         }
         connections.append(input)

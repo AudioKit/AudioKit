@@ -64,8 +64,9 @@ public class AKTremolo: AKNode, AKComponent, AKToggleable {
     public init(
         _ input: AKNode,
         frequency: AUValue = 10.0,
-        depth: AUValue = 1.0
-        waveform: AKTable = AKTable(.positiveSine)        ) {
+        depth: AUValue = 1.0,
+        waveform: AKTable = AKTable(.positiveSine)
+        ) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
