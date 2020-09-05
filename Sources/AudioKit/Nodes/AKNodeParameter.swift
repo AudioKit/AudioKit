@@ -228,16 +228,15 @@ protocol ParameterBase {
 /// @Parameter var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
+///
+/// Note that we don't allow initialization of Parameters to values
+/// because we don't yet have an underlying AUParameter.
 @propertyWrapper
 public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
 
     var param = AKNodeParameter()
 
     public init() { }
-
-    public init(wrappedValue: Value) {
-        param.value = wrappedValue.toAUValue()
-    }
 
     public var wrappedValue: Value {
         get { Value(param.value) }
