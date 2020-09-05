@@ -34,7 +34,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggle
         unit: .generic,
         flags: .default)
 
-    /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
     public static let qDef = AKNodeParameterDef(
@@ -80,16 +80,20 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggle
         q: AUValue = 0.707
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.centerFrequency = centerFrequency
-        self.gain = gain
-        self.q = q
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-        }
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
+            self.centerFrequency = centerFrequency
+            self.gain = gain
+            self.q = q
+        }
         connections.append(input)
     }
 }

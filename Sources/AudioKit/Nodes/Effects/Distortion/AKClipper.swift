@@ -52,14 +52,18 @@ public class AKClipper: AKNode, AKComponent, AKToggleable {
         limit: AUValue = 1.0
         ) {
         super.init(avAudioNode: AVAudioNode())
-        self.limit = limit
+
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-        }
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
+            self.limit = limit
+        }
         connections.append(input)
     }
 }
