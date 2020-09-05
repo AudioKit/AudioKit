@@ -63,23 +63,25 @@ public class AKTremolo: AKNode, AKComponent, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        frequency: AUValue = 10,
-        depth: AUValue = 1,
-        waveform: AKTable = AKTable(.positiveSine)
-    ) {
+        frequency: AUValue = 10.0,
+        depth: AUValue = 1.0
+        waveform: AKTable = AKTable(.positiveSine)        ) {
         super.init(avAudioNode: AVAudioNode())
-        self.frequency = frequency
-        self.depth = depth
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+                fatalError("Couldn't create audio unit")
+            }
+            self.internalAU = audioUnit
 
-            self.internalAU?.setWavetable(waveform.content)
+            audioUnit.setWavetable(waveform.content)
+
+            self.frequency = frequency
+            self.depth = depth
         }
-
         connections.append(input)
     }
 }
