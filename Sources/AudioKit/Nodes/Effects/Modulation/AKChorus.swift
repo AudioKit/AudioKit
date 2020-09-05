@@ -94,16 +94,17 @@ public class AKChorus: AKNode, AKToggleable, AKComponent {
         dryWetMix: AUValue = kAKChorus_DefaultDryWetMix
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.frequency = frequency
-        self.depth = depth
-        self.feedback = feedback
-        self.dryWetMix = dryWetMix
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            self.frequency = frequency
+            self.depth = depth
+            self.feedback = feedback
+            self.dryWetMix = dryWetMix
         }
 
         connections.append(input)

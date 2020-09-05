@@ -101,14 +101,15 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public init(_ input: AKNode,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
-        self.leftGain = gain
-        self.rightGain = gain
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            self.leftGain = gain
+            self.rightGain = gain
         }
 
         connections.append(input)

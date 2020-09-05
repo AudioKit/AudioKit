@@ -37,6 +37,7 @@ public class AKNodeParameter {
 
     public var value: AUValue = 0 {
         didSet {
+            assert(parameter != nil)
             guard let min = parameter?.minValue, let max = parameter?.maxValue else { return }
             value = (min...max).clamp(value)
             if value == oldValue { return }
