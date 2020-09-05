@@ -95,7 +95,7 @@ public class AKPitchTap: AKToggleable {
 
         input.avAudioUnitOrNode.installTap(onBus: bus,
                                            bufferSize: bufferSize,
-                                           format: AKSettings.audioFormat,
+                                           format: nil,
                                            block: handleTapBlock(buffer:at:))
     }
 

@@ -9,7 +9,6 @@
 //: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
-//: * [Korg Low Pass Filter](Korg%20Low%20Pass%20Filter)
 //: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)

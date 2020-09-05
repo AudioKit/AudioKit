@@ -57,7 +57,6 @@
 //:
 //: These are the more traditional reverb efffects.
 //:
-//: * [Costello Reverb](Costello%20Reverb)
 //: * [Simple Reverb](Reverb)
 //: * iOS-only Reverb - appears in the iOS Development Playground
 //:
