@@ -39,6 +39,7 @@ public class AKEngine {
 
     public class InputNode: AKMixer {
         var isNotConnected = true
+
         func connect(to engine: AKEngine) {
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
@@ -48,6 +49,9 @@ public class AKEngine {
 
     let _input = InputNode()
     public var input: InputNode {
+        guard let _ = Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String else {
+            fatalError("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist")
+        }
         if _input.isNotConnected {
             _input.connect(to: self)
             _input.isNotConnected = false
