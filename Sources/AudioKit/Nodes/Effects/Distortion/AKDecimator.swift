@@ -38,9 +38,6 @@ open class AKDecimator: AKNode, AKToggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        for index in 0..<16 {
-            print(effectAU.auAudioUnit.parameterTree?.allParameters[index].displayName, index)
-        }
         self.$decimation.associate(with: effectAU, index: 7)
         self.$rounding.associate(with: effectAU, index: 8)
         self.$finalMix.associate(with: effectAU, index: 15)
