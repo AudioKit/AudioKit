@@ -2,14 +2,9 @@
 //:
 //: ## Nodes
 //:
-//: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
-//: * [Band Pass Filter](Band%20Pass%20Filter)
-//: * [Band Reject Butterworth Filter](Band%20Reject%20Butterworth%20Filter)
 //: * [Formant Filter](Formant%20Filter)
-//: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
-//: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
