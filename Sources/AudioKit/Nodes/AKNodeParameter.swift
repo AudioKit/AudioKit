@@ -161,6 +161,14 @@ public class AKNodeParameter {
         assert(parameter != nil)
     }
 
+    public func associate(with avAudioUnit: AVAudioUnit,
+                          index: Int) {
+
+        self.avAudioUnit = avAudioUnit
+        parameter = avAudioUnit.auAudioUnit.parameterTree!.allParameters[index]
+        assert(parameter != nil)
+    }
+
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
     /// enabled in AKParameterAutomation.
     /// A value may be passed as the initial automation value. The current value is used if none is passed.

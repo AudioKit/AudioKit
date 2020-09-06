@@ -17,7 +17,6 @@
 //: Delay is a lot more powerful than simply repeating an earlier sound.
 //: By varying parameters, you can get startlingly beautiful effects.
 //:
-//: * [Delay](Delay)
 //: * [Smooth Delay](Smooth%20Delay)
 //: * [Variable Delay](Variable%20Delay)
 //:
@@ -27,7 +26,6 @@
 //: and basically change something essential to the sound, usually making for a
 //: harsher sound, but that's a matter of taste.
 //:
-//: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
 //: * [Distortion](Distortion)
 //: * [Ring Modulator](Ring%20Modulator)
@@ -71,7 +69,6 @@
 //:
 //: ### Other
 //:
-//: * [Auto Wah Wah](Auto%20Wah%20Wah)
 //: * [Graphic Equalizer](Graphic%20Equalizer)
 //: * [String Resonator](String%20Resonator)
 //: * [Tremolo](Tremolo)

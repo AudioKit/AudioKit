@@ -12,14 +12,6 @@ public protocol AUComponent: AnyObject, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
-protocol AUEffect: AUComponent { }
-
-extension AUEffect {
-    static var effect: AVAudioUnitEffect {
-        return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
-    }
-}
-
 public protocol AKComponent: AUComponent {
     associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
     var internalAU: AKAudioUnitType? { get }

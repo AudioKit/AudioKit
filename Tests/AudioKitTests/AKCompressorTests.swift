@@ -5,10 +5,10 @@ import XCTest
 
 class AKCompressorTests: XCTestCase {
 
-    func testAttackDuration() {
+    func testAttackTime() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKCompressor(input, attackDuration: 0.1)
+        engine.output = AKCompressor(input, attackTime: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -49,11 +49,11 @@ class AKCompressorTests: XCTestCase {
         let engine = AKEngine()
         let input = AKOscillator()
         engine.output = AKCompressor(input,
-                              threshold: -25,
-                              headRoom: 10,
-                              attackDuration: 0.1,
-                              releaseDuration: 0.1,
-                              masterGain: 1)
+                                     threshold: -25,
+                                     headRoom: 10,
+                                     attackTime: 0.1,
+                                     releaseTime: 0.1,
+                                     masterGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

@@ -8,7 +8,7 @@ class AKDistortionTests: XCTestCase {
     func testCubicTerm() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, cubicTerm: 0.65)
+        engine.output = AKDistortion(input, cubicTerm: 65)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKDistortionTests: XCTestCase {
     func testDecimation() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, decimation: 0.61)
+        engine.output = AKDistortion(input, decimation: 61)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKDistortionTests: XCTestCase {
     func testDecimationMix() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, decimationMix: 0.62)
+        engine.output = AKDistortion(input, decimationMix: 62)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -68,7 +68,7 @@ class AKDistortionTests: XCTestCase {
     func testDelayMix() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, delayMix: 0.6)
+        engine.output = AKDistortion(input, delayMix: 60)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -88,7 +88,7 @@ class AKDistortionTests: XCTestCase {
     func testLinearTerm() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, linearTerm: 0.63)
+        engine.output = AKDistortion(input, linearTerm: 63)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -101,20 +101,20 @@ class AKDistortionTests: XCTestCase {
         engine.output = AKDistortion(input,
                               delay: 0.2,
                               decay: 2,
-                              delayMix: 0.6,
-                              decimation: 0.61,
-                              rounding: 0.5,
-                              decimationMix: 0.62,
-                              linearTerm: 0.63,
-                              squaredTerm: 0.64,
-                              cubicTerm: 0.65,
-                              polynomialMix: 0.66,
+                              delayMix: 60,
+                              decimation: 61,
+                              rounding: 50,
+                              decimationMix: 62,
+                              linearTerm: 63,
+                              squaredTerm: 64,
+                              cubicTerm: 65,
+                              polynomialMix: 66,
                               ringModFreq1: 200,
                               ringModFreq2: 300,
-                              ringModBalance: 0.67,
-                              ringModMix: 0.68,
+                              ringModBalance: 67,
+                              ringModMix: 68,
                               softClipGain: 0,
-                              finalMix: 0.69)
+                              finalMix: 69)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -124,7 +124,7 @@ class AKDistortionTests: XCTestCase {
     func testPolynomialMix() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, polynomialMix: 0.66)
+        engine.output = AKDistortion(input, polynomialMix: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -134,7 +134,7 @@ class AKDistortionTests: XCTestCase {
     func testRingModBalance() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, ringModBalance: 0.67, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModBalance: 67, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -144,7 +144,7 @@ class AKDistortionTests: XCTestCase {
     func testRingModFreq1() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, ringModFreq1: 200, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModFreq1: 200, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -154,7 +154,7 @@ class AKDistortionTests: XCTestCase {
     func testRingModFreq2() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, ringModFreq2: 300, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModFreq2: 300, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -164,7 +164,7 @@ class AKDistortionTests: XCTestCase {
     func testRingModMix() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, ringModMix: 0.68)
+        engine.output = AKDistortion(input, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -174,7 +174,7 @@ class AKDistortionTests: XCTestCase {
     func testRounding() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, rounding: 0.5)
+        engine.output = AKDistortion(input, rounding: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -184,7 +184,7 @@ class AKDistortionTests: XCTestCase {
     func testSquaredTerm() {
         let engine = AKEngine()
         let input = AKOscillator()
-        engine.output = AKDistortion(input, squaredTerm: 0.64)
+        engine.output = AKDistortion(input, squaredTerm: 64)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
