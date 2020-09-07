@@ -1,5 +1,7 @@
 #pragma once
 
+#include "soundpipe.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
