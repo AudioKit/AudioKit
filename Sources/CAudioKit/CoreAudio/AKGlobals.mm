@@ -6,5 +6,4 @@
 // Note that eventually we shouldn't have these globals.
 extern "C" float __akDefaultSampleRate = 44100;
 extern "C" int __akDefaultChannelCount = 2;
-extern "C" float __akRampDuration = 0.0002;
 extern "C" bool __akEnableEchoCancellation = false;
