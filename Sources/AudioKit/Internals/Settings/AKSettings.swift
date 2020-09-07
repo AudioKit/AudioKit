@@ -84,13 +84,6 @@ public class AKSettings: NSObject {
     /// Whether we should be listening to audio input (microphone)
     public static var audioInputEnabled: Bool = false
 
-    /// Global default rampDuration value
-    public static var rampDuration: AUValue = 0.000_2 {
-        didSet {
-            __akRampDuration = rampDuration
-        }
-    }
-
     /// Allows AudioKit to send Notifications
     public static var notificationsEnabled: Bool = false
 
