@@ -97,16 +97,16 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        self.time = time
-        self.feedback = feedback
-        self.dryWetMix = dryWetMix
-        self.pingPong = pingPong ? 1.0 : 0.0
-
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
+            self.time = time
+            self.feedback = feedback
+            self.dryWetMix = dryWetMix
+            self.pingPong = pingPong ? 1.0 : 0.0
         }
 
         connections.append(input)
