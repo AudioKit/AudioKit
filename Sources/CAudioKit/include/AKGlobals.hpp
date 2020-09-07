@@ -9,12 +9,10 @@
 
 extern "C" float __akDefaultSampleRate;
 extern "C" int __akDefaultChannelCount;
-extern "C" bool __akEnableEchoCancellation;
 
 #else
 
 extern float __akDefaultSampleRate;
 extern int __akDefaultChannelCount;
-extern bool __akEnableEchoCancellation;
 
 #endif
