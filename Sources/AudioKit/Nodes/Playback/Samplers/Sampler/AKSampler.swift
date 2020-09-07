@@ -274,7 +274,7 @@ public class AKSampler: AKPolyphonicNode, AKComponent {
 
     /// Initialize this sampler node. There are many parameters, change them after initialization
     ///
-    public init() {
+    public init(sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -282,9 +282,36 @@ public class AKSampler: AKPolyphonicNode, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
+        self.loadAudioFile(from: sampleDescriptor, file: file)
     }
 
-    public func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+    /// Initialize this sampler node. There are many parameters, change them after initialization
+    ///
+    public init(sfzURL: URL) {
+        super.init(avAudioNode: AVAudioNode())
+
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        }
+        self.loadSFZ(url: sfzURL)
+    }
+
+    /// Initialize this sampler node. There are many parameters, change them after initialization
+    ///
+    public init(sfzPath: String, sfzFileName: String) {
+        super.init(avAudioNode: AVAudioNode())
+
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+        }
+        self.loadSFZ(path: sfzPath, fileName: sfzFileName)
+    }
+
+    internal func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
         let sampleRate = Float(file.fileFormat.sampleRate)
