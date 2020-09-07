@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
-#include "soundpipeextension.h"
+#include "soundpipe.h"
 
 int sp_oscmorph2d_create(sp_oscmorph2d **p)
 {

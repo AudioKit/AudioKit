@@ -2,9 +2,8 @@
 
 #import "AKSoundpipeDSPBase.hpp"
 
-#include "soundpipeextension.h"
-#include "vocwrapper.h"
 #include "soundpipe.h"
+#include "vocwrapper.h"
 
 void AKSoundpipeDSPBase::init(int channelCount, double sampleRate) {
     AKDSPBase::init(channelCount, sampleRate);

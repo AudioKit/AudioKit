@@ -3,7 +3,6 @@
 #include "AKPitchTracker.h"
 
 #include "soundpipe.h"
-#include "soundpipeextension.h"
 
 struct AKPitchTracker {
 
