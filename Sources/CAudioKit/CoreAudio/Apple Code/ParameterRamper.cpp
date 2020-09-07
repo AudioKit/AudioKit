@@ -55,53 +55,6 @@ void ParameterRamper::reset()
     data->changeCounter = data->updateCounter = 0;
 }
 
-void ParameterRamper::setDefaultRampDuration(float duration)
-{
-    data->defaultRampDuration = duration;
-}
-
-void ParameterRamper::setTaper(float taper)
-{
-    data->taper = taper;
-    atomic_fetch_add(&data->changeCounter, 1);
-}
-
-float ParameterRamper::getTaper() const
-{
-    return data->taper;
-}
-
-void ParameterRamper::setSkew(float skew)
-{
-    if (skew > 1) {
-        skew = 1.0;
-    }
-    if (skew < 0) {
-        skew = 0.0;
-    }
-    data->skew = skew;
-    atomic_fetch_add(&data->changeCounter, 1);
-}
-
-float ParameterRamper::getSkew() const
-{
-    return data->skew;
-}
-
-void ParameterRamper::setOffset(uint32_t offset)
-{
-    if (offset < 0) {
-        offset = 0;
-    }
-    data->offset = offset;
-    atomic_fetch_add(&data->changeCounter, 1);
-}
-
-uint32_t ParameterRamper::getOffset() const
-{
-    return data->offset;
-}
-
 void ParameterRamper::setUIValue(float value)
 {
     data->uiValue = value;
