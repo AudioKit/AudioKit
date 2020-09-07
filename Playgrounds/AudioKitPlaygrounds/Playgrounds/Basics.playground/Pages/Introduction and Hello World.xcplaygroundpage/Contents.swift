@@ -12,8 +12,10 @@
 //:
 //: If your playground errors, build the frameworks by typing ⌘-B or
 //: pressing the play button on Xcode, or choosing Product/Build from the menu.
-import AudioKitPlaygrounds
 import AudioKit
+import Foundation
+
+let engine = AKEngine()
 
 let oscillator = AKOscillator()
 
