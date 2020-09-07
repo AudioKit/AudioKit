@@ -30,19 +30,7 @@ public:
     void reset();
     
     /// Ramp duration (seconds) to use for UI changes (dezipper checks)
-    void setDefaultRampDuration(float duration);
-
-    void setTaper(float taper);
-
-    float getTaper() const;
-
-    void setSkew(float skew);
-
-    float getSkew() const;
-
-    void setOffset(uint32_t offset);
-
-    uint32_t getOffset() const;
+//    void setDefaultRampDuration(float duration);
 
     void setUIValue(float value);
 
