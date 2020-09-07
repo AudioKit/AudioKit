@@ -4,7 +4,6 @@
 #pragma once
 
 #include "soundpipe.h"
-#include "soundpipeextension.h"
 
 #import "AKDSPKernel.hpp"
 
