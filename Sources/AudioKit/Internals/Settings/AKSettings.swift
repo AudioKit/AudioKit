@@ -81,6 +81,9 @@ public class AKSettings: NSObject {
         }
     }
 
+    // temporary location of AKMIDI
+    public static var midi = AKMIDI()
+
     /// Whether we should be listening to audio input (microphone)
     public static var audioInputEnabled: Bool = false
 
