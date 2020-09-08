@@ -419,7 +419,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    let midi = AKMIDI()
+    let midi = AKSettings.midi
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]

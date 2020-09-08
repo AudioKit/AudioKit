@@ -114,12 +114,12 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
-                    AKMIDI().startReceivingSysEx(with: midiBytes)
+                    AKSettings.midi.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
                     if let sysExEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysExEnd.byte) {
                         let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
-                        AKMIDI().stopReceivingSysEx()
+                        AKSettings.midi.stopReceivingSysEx()
                     } else {
                         data.removeAll()
                     }
@@ -160,7 +160,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
-        if AKMIDI().isReceivingSysEx {
+        if AKSettings.midi.isReceivingSysEx {
             if let sysExEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
@@ -290,10 +290,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-            AKMIDI().incomingSysEx += midiBytes
+            AKSettings.midi.incomingSysEx += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = AKMIDIEvent(data: AKMIDI().incomingSysEx, offset: packet.timeStamp)
-                AKMIDI().stopReceivingSysEx()
+                let sysExEvent = AKMIDIEvent(data: AKSettings.midi.incomingSysEx, offset: packet.timeStamp)
+                AKSettings.midi.stopReceivingSysEx()
                 return sysExEvent
             }
         }
