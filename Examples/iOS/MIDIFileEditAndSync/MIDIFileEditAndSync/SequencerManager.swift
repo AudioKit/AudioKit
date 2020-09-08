@@ -4,6 +4,7 @@ import AudioKit
 import Foundation
 
 class SequencerManager {
+    let engine = AKEngine()
     var seq: AKAppleSequencer?
     let oscBank = AKSynth(attackDuration: 0.01, decayDuration: 0.03)
     let mixer = AKMixer()
