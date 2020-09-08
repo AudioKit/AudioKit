@@ -374,6 +374,65 @@ public protocol AKKeyboardDelegate: AnyObject {
         return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
     }
+
+    // MARK: - MIDI
+
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        DispatchQueue.main.async(execute: {
+            self.onKeys.insert(noteNumber)
+            self.delegate?.noteOn(note: noteNumber)
+            self.setNeedsDisplay()
+        })
+    }
+
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        DispatchQueue.main.async(execute: {
+            self.onKeys.remove(noteNumber)
+            self.delegate?.noteOff(note: noteNumber)
+            self.setNeedsDisplay()
+        })
+    }
+
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
+            for note in onKeys {
+                delegate?.noteOff(note: note)
+            }
+        }
+    }
+
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
+    }
+
 }
 
 #elseif os(macOS)
