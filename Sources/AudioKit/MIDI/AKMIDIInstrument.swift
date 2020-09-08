@@ -58,15 +58,16 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     // MARK: - Handling MIDI Data
 
     /// Handle MIDI commands that come in externally
-    ///
     /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - velocity:   MIDI velocity
-    ///   - channel:    MIDI channel
-    ///
-    open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
+    ///   - noteNumber: MIDI Note Numbe
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel
+    ///   - portID: Incoming MIDI Source
+    ///   - offset: Sample accurate timing offset
+    open func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel,
+                                 portID: MIDIUniqueID? = nil,
                                  offset: MIDITimeStamp = 0) {
         mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
@@ -77,12 +78,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     }
 
     /// Handle MIDI commands that come in externally
-    ///
     /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - velocity:   MIDI velocity
-    ///   - channel:    MIDI channel
-    ///
+    ///   - noteNumber: MIDI Note Numbe
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel
+    ///   - portID: Incoming MIDI Source
+    ///   - offset: Sample accurate timing offset
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
                                   channel: MIDIChannel,
@@ -98,7 +99,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - controller: MIDI Controller Number
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
-    ///
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     open func receivedMIDIController(_ controller: MIDIByte,
                                      value: MIDIByte,
                                      channel: MIDIChannel,
@@ -113,7 +115,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - noteNumber: Note number of touched note
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
-    ///
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                      pressure: MIDIByte,
                                      channel: MIDIChannel,
@@ -122,12 +125,14 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         // Override in subclass
     }
 
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
-    ///
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     open func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                      channel: MIDIChannel,
                                      portID: MIDIUniqueID? = nil,
@@ -140,12 +145,33 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// - Parameters:
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
-    ///
+    ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
     open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                      channel: MIDIChannel,
                                      portID: MIDIUniqueID? = nil,
                                      offset: MIDITimeStamp = 0) {
         // Override in subclass
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
     }
 
     // MARK: - MIDI Note Start/Stop
@@ -182,7 +208,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
+    open func receivedMIDIProgramChange(_ program: MIDIByte,
+                                        channel: MIDIChannel,
+                                        offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 

@@ -73,22 +73,52 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         }
     }
 
-    /// Handle MIDI commands that come in externally
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - velocity:   MIDI velocity
-    ///   - channel:    MIDI channel
-    ///
-    public func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel,
-                                   offset: MIDITimeStamp = 0) {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
             internalNode.stop(noteNumber: noteNumber)
         }
+    }
+
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
     }
 }
 

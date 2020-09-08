@@ -2,6 +2,7 @@
 
 #if targetEnvironment(macCatalyst) || os(iOS)
 import UIKit
+import CoreMIDI
 
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: AnyObject {
@@ -378,6 +379,7 @@ public protocol AKKeyboardDelegate: AnyObject {
 #elseif os(macOS)
 
 import Cocoa
+import CoreMIDI
 
 public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
@@ -612,9 +614,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     // MARK: - MIDI
 
-    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel) {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         DispatchQueue.main.async(execute: {
             self.onKeys.insert(noteNumber)
             self.delegate?.noteOn(note: noteNumber)
@@ -622,27 +622,54 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         })
     }
 
-    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                                    velocity: MIDIVelocity,
-                                    channel: MIDIChannel) {
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         DispatchQueue.main.async(execute: {
             self.onKeys.remove(noteNumber)
             self.delegate?.noteOff(note: noteNumber)
             self.needsDisplay = true
         })
     }
-    public func receivedMIDIController(_ controller: MIDIByte,
-                                       value: MIDIByte,
-                                       channel: MIDIChannel) {
+
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
                 delegate?.noteOff(note: note)
             }
         }
     }
-    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
-        // do nothing
+
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
     }
+
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
+    }
+
 }
 
 #endif
