@@ -21,11 +21,15 @@ public class AKMIDIOMNIListener: NSObject {
 // MARK: - AKMIDIOMNIListener should be used as an AKMIDIListener
 
 extension AKMIDIOMNIListener: AKMIDIListener {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
 
-    public func receivedMIDIController(_ controller: MIDIByte,
-                                       value: MIDIByte,
-                                       channel: MIDIChannel,
-                                       offset: MIDITimeStamp = 0) {
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         if controller == AKMIDIControl.omniModeOff.rawValue {
             guard omniMode == true else { return }
             omniMode = false
@@ -38,8 +42,41 @@ extension AKMIDIOMNIListener: AKMIDIListener {
         }
     }
 
-    public func omniStateChange() {
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
 
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
+    }
+
+
+    public func omniStateChange() {
+        // override in subclass?
     }
 }
 

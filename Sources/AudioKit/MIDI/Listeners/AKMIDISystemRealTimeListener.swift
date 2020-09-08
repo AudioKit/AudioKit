@@ -57,8 +57,36 @@ open class AKMIDISystemRealTimeListener: NSObject {
 }
 
 extension AKMIDISystemRealTimeListener: AKMIDIListener {
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
-        if data[0] == AKMIDISystemCommand.stop.rawValue {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+        // Do nothing
+    }
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+                if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]", log: OSLog.midi)
             let newState = state.event(event: .stop)
             state = newState
@@ -79,6 +107,18 @@ extension AKMIDISystemRealTimeListener: AKMIDIListener {
 
             sendContinueToObservers()
         }
+    }
+
+    public func receivedMIDISetupChange() {
+        // Do nothing
+    }
+
+    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        // Do nothing
+    }
+
+    public func receivedMIDINotification(notification: MIDINotification) {
+        // Do nothing
     }
 }
 
