@@ -2,6 +2,7 @@
 
 import UIKit
 import AudioKit
+import AVFoundation
 
 class SequencerSettingsVC: UIViewController {
     @IBOutlet weak var loopEnabledSwitch: UISwitch!
