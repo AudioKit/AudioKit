@@ -114,12 +114,12 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
-                    AKSettings.midi.startReceivingSysEx(with: midiBytes)
+                    AKMIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
                     if let sysExEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysExEnd.byte) {
                         let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
-                        AKSettings.midi.stopReceivingSysEx()
+                        AKMIDI.sharedInstance.stopReceivingSysEx()
                     } else {
                         data.removeAll()
                     }
@@ -160,7 +160,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
-        if AKSettings.midi.isReceivingSysEx {
+        if AKMIDI.sharedInstance.isReceivingSysEx {
             if let sysExEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
@@ -290,10 +290,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-            AKSettings.midi.incomingSysEx += midiBytes
+            AKMIDI.sharedInstance.incomingSysEx += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = AKMIDIEvent(data: AKSettings.midi.incomingSysEx, offset: packet.timeStamp)
-                AKSettings.midi.stopReceivingSysEx()
+                let sysExEvent = AKMIDIEvent(data: AKMIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
+                AKMIDI.sharedInstance.stopReceivingSysEx()
                 return sysExEvent
             }
         }

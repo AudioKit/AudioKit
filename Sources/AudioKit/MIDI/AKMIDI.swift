@@ -8,6 +8,8 @@ import os.log
 ///
 public class AKMIDI {
 
+    public static var sharedInstance = AKMIDI()
+
     // MARK: - Properties
 
     /// MIDI Client Reference
