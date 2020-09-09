@@ -9,15 +9,17 @@
 //: by connecting nodes together. A node is simply an object that will
 //: take in audio input, process it, and pass the processed audio to
 //: another node, or to the Digital-Analog Converter (speaker).
-import AudioKitPlaygrounds
 import AudioKit
+import AVFoundation
 
-let file = try AKAudioFile(readFileName: "drumloop.wav")
+let engine = AKEngine()
+//let file = try AKAudioFile(readFileName: "drumloop.wav")
+let file = try! AVAudioFile(forReading: Bundle.main.url(forResource: "drumloop", withExtension: "wav")!)
 
 //: Set up a player to the loop the file's playback
 var player = AKPlayer(audioFile: file)
-player.isLooping = true
-player.buffering = .always
+//player.isLooping = true
+//player.buffering = .always
 
 //: Next we'll connect the audio player to a delay effect
 var delay = AKDelay(player)

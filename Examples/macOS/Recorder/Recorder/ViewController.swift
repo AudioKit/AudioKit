@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
@@ -14,6 +13,7 @@ class ViewController: NSViewController {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
 
+    let engine = AKEngine()
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
@@ -27,7 +27,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Kludge to align sample rates of the graph with the current input sample rate
-        AKSettings.sampleRate = engine.inputNode.inputFormat(forBus: 0).sampleRate
+//        AKSettings.sampleRate = engine.input.avAudioNode.inputFormat(forBus: 0).sampleRate
 
         view.wantsLayer = true
         view.layer?.backgroundColor = CGColor.black
@@ -41,6 +41,7 @@ class ViewController: NSViewController {
 
         playButton.title = "Play"
         playButton.callback = { _ in
+            self.player.scheduleFile(self.recorder.audioFile!, at: nil)
             self.play()
         }
 
@@ -49,13 +50,13 @@ class ViewController: NSViewController {
             self.record()
         }
 
-        AKLog(AKSettings.audioFormat, "inputNode:", engine.inputNode.outputFormat(forBus: 0).sampleRate)
+//        AKLog(AKSettings.audioFormat, "inputNode:", engine.inputNode.outputFormat(forBus: 0).sampleRate)
 
         // Patching
         inputPlot.node = mic
         inputPlot.backgroundColor = NSColor.black
 
-        AKLog(mic?.outputNode.inputFormat(forBus: 0))
+//        AKLog(mic?.outputNode.inputFormat(forBus: 0))
 
         micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
@@ -65,8 +66,8 @@ class ViewController: NSViewController {
         recorder = try? AKNodeRecorder(node: micMixer)
 
         player = AKPlayer()
-        player.isLooping = false
-        player.completionHandler = playingEnded
+//        player.isLooping = false
+//        player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
         mainMixer = AKMixer(moogLadder, micBooster)
@@ -109,13 +110,13 @@ class ViewController: NSViewController {
 
         guard let audioFile = recorder.audioFile else { return }
 
-        do {
-            try player.load(url: audioFile.url)
-
-        } catch let err as NSError {
-            AKLog(err.localizedDescription)
-            return
-        }
+//        do {
+//            try player.load(url: audioFile.url)
+//
+//        } catch let err as NSError {
+//            AKLog(err.localizedDescription)
+//            return
+//        }
 
         let savePanel = NSSavePanel()
         savePanel.allowedFileTypes = ["m4a"]

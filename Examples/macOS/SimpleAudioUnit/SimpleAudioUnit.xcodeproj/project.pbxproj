@@ -12,8 +12,7 @@
 		B1F827C2209CDAD2006DE336 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F827C1209CDAD2006DE336 /* ViewController.swift */; };
 		B1F827C4209CDAD4006DE336 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C3209CDAD4006DE336 /* Assets.xcassets */; };
 		B1F827C7209CDAD4006DE336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C5209CDAD4006DE336 /* Main.storyboard */; };
-		EAF51B5924172AB1005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B5724172AB1005E7000 /* AudioKit.xcframework */; };
-		EAF51B5B24172AB1005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B5824172AB1005E7000 /* AudioKitUI.xcframework */; };
+		C4BEA50925085DDA007274A1 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4BEA50825085DDA007274A1 /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +24,6 @@
 		B1F827C6209CDAD4006DE336 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1F827C8209CDAD4006DE336 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1F827C9209CDAD4006DE336 /* SimpleAudioUnit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleAudioUnit.entitlements; sourceTree = "<group>"; };
-		EAF51B5724172AB1005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
-		EAF51B5824172AB1005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,8 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B5924172AB1005E7000 /* AudioKit.xcframework in Frameworks */,
-				EAF51B5B24172AB1005E7000 /* AudioKitUI.xcframework in Frameworks */,
+				C4BEA50925085DDA007274A1 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +43,6 @@
 			children = (
 				B1F827BE209CDAD2006DE336 /* SimpleAudioUnit */,
 				B1F827BD209CDAD2006DE336 /* Products */,
-				EAA07330215CD58600FCFE54 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,15 +68,6 @@
 			path = SimpleAudioUnit;
 			sourceTree = "<group>";
 		};
-		EAA07330215CD58600FCFE54 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EAF51B5724172AB1005E7000 /* AudioKit.xcframework */,
-				EAF51B5824172AB1005E7000 /* AudioKitUI.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,6 +84,9 @@
 			dependencies = (
 			);
 			name = SimpleAudioUnit;
+			packageProductDependencies = (
+				C4BEA50825085DDA007274A1 /* AudioKit */,
+			);
 			productName = SimpleAudioUnit;
 			productReference = B1F827BC209CDAD2006DE336 /* SimpleAudioUnit.app */;
 			productType = "com.apple.product-type.application";
@@ -132,6 +121,9 @@
 				Base,
 			);
 			mainGroup = B1F827B3209CDAD2006DE336;
+			packageReferences = (
+				C4BEA50725085DDA007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = B1F827BD209CDAD2006DE336 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -303,6 +295,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -322,6 +315,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -351,6 +345,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C4BEA50725085DDA007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				branch = "v5-develop";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4BEA50825085DDA007274A1 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4BEA50725085DDA007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B1F827B4209CDAD2006DE336 /* Project object */;
 }

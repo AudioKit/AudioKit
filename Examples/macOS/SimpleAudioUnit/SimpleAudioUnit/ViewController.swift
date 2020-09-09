@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import AVFoundation
 import Cocoa
 
 // A simple demo for showing how to load a single audio unit and route a player through it
@@ -9,8 +10,9 @@ class ViewController: NSViewController {
     var requestedAU = "AUDelay"
     var requestedManufacturer = "Apple"
 
+    var engine = AKEngine()
     var manager = AKAudioUnitManager()
-    var player: AKPlayer?
+    var player = AKPlayer()
     var mixer = AKMixer()
 
     override var representedObject: Any? {
@@ -31,9 +33,7 @@ class ViewController: NSViewController {
             return
         }
 
-        player = AKPlayer(audioFile: audioFile)
-        player?.isLooping = true
-        player?.buffering = .always
+        player.scheduleFile(audioFile, at: nil)
 
         do {
             try engine.start()
@@ -78,16 +78,15 @@ class ViewController: NSViewController {
 
     func connectUnit(_ avUnit: AVAudioUnit) {
         // make sure our player is good
-        guard let player = player else { return }
 
         // take the format from the player for the chain
         let processingFormat = player.avAudioNode.outputFormat(forBus: 0)
 
         // connect the player to the delay
-        engine.connect(player.avAudioNode, to: avUnit, format: processingFormat)
+        engine.avEngine.connect(player.avAudioNode, to: avUnit, format: processingFormat)
 
         // connect the delay to the mixer
-        engine.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
+        engine.avEngine.connect(avUnit, to: mixer.avAudioNode, format: processingFormat)
 
         // ask the audio unit for a view controller, if it is an AU with no UI this will return nil
         // it's the job of the host to then create an interface. See the AudioUnitManager example.
@@ -114,7 +113,6 @@ class ViewController: NSViewController {
     }
 
     @IBAction func handlePlayButton(_ sender: NSButton) {
-        guard let player = player else { return }
 
         if sender.state == .on {
             player.play()
