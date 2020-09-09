@@ -25,8 +25,7 @@
 		B1B1B7EF2117F62700C5E395 /* AudioUnitToolbarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */; };
 		B1D2A7A61FDBB8400067DC39 /* AudioUnitManager+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */; };
 		B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */; };
-		EAF51B282417280C005E7000 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B262417280C005E7000 /* AudioKit.xcframework */; };
-		EAF51B2A2417280C005E7000 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF51B272417280C005E7000 /* AudioKitUI.xcframework */; };
+		C4BEA50C2508839A007274A1 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C4BEA50B2508839A007274A1 /* AudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,8 +49,6 @@
 		B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitToolbarController.xib; sourceTree = "<group>"; };
 		B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+Player.swift"; sourceTree = "<group>"; };
 		B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstrumentPlayer.swift; sourceTree = "<group>"; };
-		EAF51B262417280C005E7000 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
-		EAF51B272417280C005E7000 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF51B282417280C005E7000 /* AudioKit.xcframework in Frameworks */,
-				EAF51B2A2417280C005E7000 /* AudioKitUI.xcframework in Frameworks */,
+				C4BEA50C2508839A007274A1 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
-				EA2FA53E215AFB01001C210A /* Frameworks */,
 				B12311FC1F193EA100888115 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,15 +129,6 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
-		EA2FA53E215AFB01001C210A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EAF51B262417280C005E7000 /* AudioKit.xcframework */,
-				EAF51B272417280C005E7000 /* AudioKitUI.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,6 +145,9 @@
 			dependencies = (
 			);
 			name = AudioUnitManager;
+			packageProductDependencies = (
+				C4BEA50B2508839A007274A1 /* AudioKit */,
+			);
 			productName = AudioUnitManagerExample;
 			productReference = B12311FB1F193EA100888115 /* AudioUnitManager.app */;
 			productType = "com.apple.product-type.application";
@@ -189,6 +178,9 @@
 				Base,
 			);
 			mainGroup = B12311F21F193EA100888115;
+			packageReferences = (
+				C4BEA50A2508839A007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = B12311FC1F193EA100888115 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -375,7 +367,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -398,7 +390,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,6 +421,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C4BEA50A2508839A007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit/";
+			requirement = {
+				branch = "v5-develop";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4BEA50B2508839A007274A1 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4BEA50A2508839A007274A1 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B12311F31F193EA100888115 /* Project object */;
 }
