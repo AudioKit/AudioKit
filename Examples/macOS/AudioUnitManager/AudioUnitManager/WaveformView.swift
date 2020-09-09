@@ -1,6 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
-import AudioKitUI
 
 /// This is a demo of an Audio Region class. Not for production use... ;)
 public class WaveformView: AKView {
