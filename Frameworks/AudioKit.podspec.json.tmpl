@@ -32,12 +32,38 @@
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "LIBRARY_SEARCH_PATHS": "$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)"
     },
-    "vendored_frameworks": [
-        "AudioKit.xcframework",
-        "CAudioKit.xcframework",
-        "STK.xcframework",
-        "TPCircularBuffer.xcframework",
-	"soundpipe.framework",
-	"sporth.framework"
+    "subspecs": [
+        {
+            "name": "Core",
+            "dependencies": { "AudioKit/C" : [] },
+            "vendored_frameworks": "AudioKit.xcframework"
+        },
+        {
+            "name": "C",
+            "dependencies": {
+                "AudioKit/STK" : [],
+                "AudioKit/CircularBuffer" : [],
+                "AudioKit/Sporth" : [],
+                "AudioKit/Soundpipe" : []
+             },
+            "vendored_frameworks": "CAudioKit.xcframework"
+        },
+        {
+            "name": "STK",
+            "vendored_frameworks": "STK.xcframework"
+        },
+        {
+            "name": "CircularBuffer",
+            "vendored_frameworks": "TPCircularBuffer.xcframework"
+        },
+        {
+            "name": "Soundpipe",
+            "vendored_frameworks": "soundpipe.xcframework"
+        },
+        {
+            "name": "Sporth",
+            "dependencies": { "AudioKit/Soundpipe" : [] },
+            "vendored_frameworks": "sporth.xcframework"
+        }
     ]
 }
