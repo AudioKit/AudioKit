@@ -4,7 +4,10 @@ import AVFoundation
 import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode.
-public class AKPlayer: AKNode {
+public class AKPlayer: AKNode, AKToggleable {
+    public var isStarted: Bool {
+        playerNode.isPlaying
+    }
 
     /// The underlying player node
     public var playerNode = AVAudioPlayerNode()
@@ -48,6 +51,10 @@ public class AKPlayer: AKNode {
     }
 
     public func play() {
+        playerNode.play()
+    }
+
+    public func start() {
         playerNode.play()
     }
 
