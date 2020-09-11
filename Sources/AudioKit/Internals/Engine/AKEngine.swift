@@ -4,7 +4,6 @@ import AVFoundation
 import CAudioKit
 
 extension AVAudioNode {
-
     public func disconnect(input: AVAudioNode) {
         if let engine = engine {
             for bus in 0 ..< numberOfInputs {
@@ -21,21 +20,19 @@ extension AVAudioNode {
     public func connect(input: AVAudioNode, bus: Int) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: { $0.node === self}) { return }
+            if points.contains(where: { $0.node === self }) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: bus))
             engine.connect(input, to: points, fromBus: 0, format: nil)
         }
     }
-
 }
 
 public class AKEngine {
-
-    // TODO make this internal
+    // TODO: make this internal
     public let avEngine = AVAudioEngine()
 
     // maximum number of frames the engine will be asked to render in any single render call
-    let maximumFrameCount: AVAudioFrameCount = 1024
+    let maximumFrameCount: AVAudioFrameCount = 1_024
 
     public class InputNode: AKMixer {
         var isNotConnected = true
@@ -43,7 +40,6 @@ public class AKEngine {
         func connect(to engine: AKEngine) {
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
-
         }
     }
 
@@ -58,7 +54,6 @@ public class AKEngine {
         }
         return _input
     }
-
 
     public init() {}
 
@@ -92,10 +87,10 @@ public class AKEngine {
         let samples = Int(duration * AKSettings.sampleRate)
 
         do {
-            self.avEngine.reset()
-            try self.avEngine.enableManualRenderingMode(.offline,
-                                                        format: AKSettings.audioFormat,
-                                                        maximumFrameCount: maximumFrameCount)
+            avEngine.reset()
+            try avEngine.enableManualRenderingMode(.offline,
+                                                   format: AKSettings.audioFormat,
+                                                   maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
             AKLog("🛑 Start Test Error: \(err)")
@@ -186,7 +181,7 @@ public class AKEngine {
     /// Enumerate the list of available devices.
     public static var devices: [AKDevice]? {
         return AudioDeviceUtils.devices().map { id in
-            return AKDevice(deviceID: id)
+            AKDevice(deviceID: id)
         }
     }
     #endif
@@ -255,7 +250,6 @@ public class AKEngine {
         #endif
     }
 
-
     /// Change the preferred output device, giving it one of the names from the list of available output.
     public func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
@@ -280,11 +274,10 @@ public class AKEngine {
                              duration: Double,
                              prerender: (() -> Void)? = nil,
                              progress: ((Double) -> Void)? = nil) throws {
-
-        try avEngine.renderToFile(audioFile,
-                                  maximumFrameCount: maximumFrameCount,
-                                  duration: duration,
-                                  prerender: prerender,
-                                  progress: progress)
+        try avEngine.render(to: audioFile,
+                            maximumFrameCount: maximumFrameCount,
+                            duration: duration,
+                            prerender: prerender,
+                            progress: progress)
     }
 }
