@@ -53,8 +53,8 @@ extension AKAudioUnitManager {
             // AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
             if au.engine != nil {
-//                engine.disconnectNodeInput(au)
-//                engine.detach(au)
+                au.engine?.disconnectNodeInput(au)
+                au.engine?.detach(au)
             }
         }
         _effectsChain[index] = nil
@@ -69,10 +69,8 @@ extension AKAudioUnitManager {
     public func removeEffects() {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
-                if au.engine != nil {
-//                    engine.disconnectNodeInput(au)
-//                    engine.detach(au)
-                }
+                au.engine?.disconnectNodeInput(au)
+                au.engine?.detach(au)
                 _effectsChain[i] = nil
             }
         }
@@ -109,22 +107,22 @@ extension AKAudioUnitManager {
         // AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
-//            engine.connect(inputAV, to: outputAV, format: processingFormat)
+            engine.connect(inputAV, to: outputAV, format: processingFormat)
             return
         }
         var au = effects[0]
 
-//        engine.connect(inputAV, to: au, format: processingFormat)
+        outputAV.engine?.connect(inputAV, to: au, format: processingFormat)
 
         if effects.count > 1 {
             for i in 1 ..< effects.count {
                 au = effects[i]
                 let prevAU = effects[i - 1]
 
-//                engine.connect(prevAU, to: au, format: processingFormat)
+                engine.connect(prevAU, to: au, format: processingFormat)
             }
         }
 
-//        engine.connect(au, to: outputAV, format: processingFormat)
+        engine.connect(au, to: outputAV, format: processingFormat)
     }
 }

@@ -170,14 +170,18 @@ open class AKAudioUnitManager: NSObject {
 
     // MARK: - Initialization
 
+    var engine: AVAudioEngine
+
     /// Initialize the manager with arbritary amount of inserts
-    public convenience init(inserts: Int) {
-        self.init()
+    public init(engine: AVAudioEngine, inserts: Int) {
+        self.engine = engine
+        super.init()
         _effectsChain = [AVAudioUnit?](repeating: nil, count: inserts)
     }
 
     /// Initialize the manager
-    override public init() {
+    public init(engine: AVAudioEngine) {
+        self.engine = engine
         super.init()
 
         // regardless of how they're organized above, this'll sort them out
