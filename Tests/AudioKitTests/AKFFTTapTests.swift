@@ -19,7 +19,7 @@ class AKFFTTapTests: XCTestCase {
 
         engine.output = sine
 
-        let tap = AKFFTTap(sine) { fft, _ in
+        let tap = AKFFTTap(sine) { fft in
             let max: Float = fft.max() ?? 0.0
             let index = Int(fft.firstIndex(of: max) ?? 0)
             fftData.append(index)
@@ -29,7 +29,6 @@ class AKFFTTapTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-        print(fftData)
         let knownValues: [Int] = [42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
         for i in 0..<knownValues.count {
             XCTAssertEqual(fftData[i], knownValues[i])
