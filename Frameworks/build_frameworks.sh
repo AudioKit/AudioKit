@@ -193,7 +193,7 @@ create_macos_frameworks()
 	DIR="AudioKit-$1"
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "AudioKit" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+	xcodebuild -project "$PROJECT" -target "AudioKit" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEFINES_MODULE=YES \
 		-configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" clean build | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
 		cp -av "${BUILD_DIR}/${CONFIGURATION}/${f}.framework" "$DIR/"
@@ -219,7 +219,8 @@ create_catalyst_frameworks()
 	DIR="AudioKit-macOS/Catalyst"
 	rm -rf ${DIR}/*.framework
 	mkdir -p "$DIR"
-	xcodebuild archive -project "$PROJECT" -scheme AudioKit-Package ONLY_ACTIVE_ARCH=$ACTIVE_ARCH SDKROOT=iphoneos CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
+	xcodebuild archive -project "$PROJECT" -scheme AudioKit-Package ONLY_ACTIVE_ARCH=$ACTIVE_ARCH SDKROOT=iphoneos \
+			CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO DEFINES_MODULE=YES APPLY_RULES_IN_COPY_HEADERS=YES \
 			-configuration ${CONFIGURATION} -destination 'platform=macOS,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
 			BUILD_DIR="${BUILD_DIR}" CURRENT_PROJECT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
 	for f in ${PROJECT_NAME} $FRAMEWORKS; do
