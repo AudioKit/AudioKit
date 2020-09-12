@@ -13,8 +13,7 @@ open class AKFFTTap: AKToggleable {
     public private(set) var bufferSize: UInt32
 
     /// Array of FFT data
-    open var leftFFTData: [Float]
-    open var rightFFTData: [Float]
+    open var fftData: [Float]
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public private(set) var isStarted: Bool = false
@@ -52,17 +51,16 @@ open class AKFFTTap: AKToggleable {
         }
     }
 
-    public typealias Handler = ([Float], [Float]) -> Void
+    public typealias Handler = ([Float]) -> Void
 
-    private var handler: Handler = { (_, _) in }
+    private var handler: Handler = { _ in }
 
     /// - parameter input: Node to analyze
     public init(_ input: AKNode, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self._input = input
         self.handler = handler
-        self.leftFFTData = Array(repeating: 0.0, count: Int(bufferSize))
-        self.rightFFTData = Array(repeating: 0.0, count: Int(bufferSize))
+        self.fftData = Array(repeating: 0.0, count: Int(bufferSize))
     }
 
     /// Enable the tap on input
@@ -95,9 +93,8 @@ open class AKFFTTap: AKToggleable {
         let channelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)
 
-        leftFFTData = performFFT(buffer: buffer)
-        rightFFTData = performFFT(buffer: buffer) // TODO the buffer need to be separated to left and right channels
-        handler(leftFFTData, rightFFTData)
+        fftData = performFFT(buffer: buffer)
+        handler(fftData)
     }
 
     func performFFT(buffer: AVAudioPCMBuffer) -> [Float] {
@@ -146,8 +143,7 @@ open class AKFFTTap: AKToggleable {
     public func stop() {
         removeTap()
         isStarted = false
-        for i in 0 ..< leftFFTData.count { leftFFTData[i] = 0.0 }
-        for i in 0 ..< rightFFTData.count { rightFFTData[i] = 0.0 }
+        for i in 0 ..< fftData.count { fftData[i] = 0.0 }
     }
 
     private func removeTap() {
