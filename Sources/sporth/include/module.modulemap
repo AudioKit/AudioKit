@@ -1,3 +1,4 @@
 module sporth {
   header "sporth.h"
+  export *
 }
