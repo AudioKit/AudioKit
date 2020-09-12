@@ -1,0 +1,3 @@
+module sporth {
+  header "sporth.h"
+}
