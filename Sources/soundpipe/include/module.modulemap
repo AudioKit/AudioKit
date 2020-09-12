@@ -1,0 +1,3 @@
+module soundpipe {
+  header "soundpipe.h"
+}
