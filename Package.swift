@@ -28,7 +28,13 @@ let package = Package(
             cSettings: [.define("NO_LIBSNDFILE")]),
         .target(
             name: "CAudioKit",
-            dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"]
+            dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
+            cxxSettings: [
+                .headerSearchPath("CoreAudio"),
+                .headerSearchPath("AudioKitCore/Common"),
+                .headerSearchPath("Devoloop/include"),
+                .headerSearchPath(".")
+            ]
         ),
         .target(
             name: "AudioKit",
