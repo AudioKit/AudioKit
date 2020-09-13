@@ -35,9 +35,6 @@ public:
     void setUIValue(float value);
 
     float getUIValue() const;
-
-    /// Dezipper using the default ramp duration
-    void dezipperCheck();
     
     void dezipperCheck(uint32_t rampDuration);
 
