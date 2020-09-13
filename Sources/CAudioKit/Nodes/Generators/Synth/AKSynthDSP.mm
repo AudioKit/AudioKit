@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKSynthDSP.hpp"
+#import "AKSynthDSP.h"
 #include <math.h>
 
 AKDSPRef akAKSynthCreateDSP() {

@@ -7,7 +7,7 @@
 
 #import <cstdint>
 
-#include "ParameterRamper.hpp"
+#include "ParameterRamper.h"
 
 #import <AudioToolbox/AUAudioUnit.h>
 #include <atomic>

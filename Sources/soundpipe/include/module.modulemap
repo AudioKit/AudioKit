@@ -1,4 +1,0 @@
-module soundpipe {
-  header "soundpipe.h"
-  export *
-}

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKDSPBase.hpp"
-#include "ParameterRamper.hpp"
+#include "AKDSPBase.h"
+#include "ParameterRamper.h"
 
 enum AKStereoFieldLimiterParameter : AUParameterAddress {
     AKStereoFieldLimiterParameterAmount,

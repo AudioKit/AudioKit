@@ -3,7 +3,7 @@
 #ifndef AKSoulDSP_hpp
 #define AKSoulDSP_hpp
 
-#import "AKDSPBase.hpp"
+#import "AKDSPBase.h"
 
 template<typename SoulPatchType>
 class AKSoulDSP : public AKDSPBase {
