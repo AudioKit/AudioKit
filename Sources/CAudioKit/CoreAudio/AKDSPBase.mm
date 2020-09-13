@@ -152,7 +152,7 @@ void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immed
     assert(address < maxParameters);
     if(auto parameter = parameters[address]) {
         if (immediate || !isInitialized) {
-            parameter->setImmediate(value);
+            parameter->startRamp(value, 0);
         }
         else {
             parameter->setUIValue(value);
