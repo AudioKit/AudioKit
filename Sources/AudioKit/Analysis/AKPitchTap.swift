@@ -61,7 +61,7 @@ public class AKPitchTap: AKToggleable {
 
     public typealias Handler = ([Float], [Float]) -> Void
 
-    private var handler: Handler = { (_,_) in }
+    private var handler: Handler = { (_, _) in }
 
     /// - parameter input: Node to analyze
     public init(_ input: AKNode, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
