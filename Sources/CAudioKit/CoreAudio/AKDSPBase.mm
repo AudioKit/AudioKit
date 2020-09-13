@@ -196,7 +196,7 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
     // Chceck for parameter updates from the UI.
     for(int index = 0; index < maxParameters; ++index) {
         if(parameters[index]) {
-            parameters[index]->dezipperCheck();
+            parameters[index]->dezipperCheck(sampleRate * 0.02f);
         } else {
             break;
         }

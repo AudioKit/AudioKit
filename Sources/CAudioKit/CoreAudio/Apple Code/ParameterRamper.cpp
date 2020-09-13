@@ -63,11 +63,6 @@ float ParameterRamper::getUIValue() const
     return data->uiValue;
 }
 
-void ParameterRamper::dezipperCheck()
-{
-    dezipperCheck(data->defaultRampDuration * data->sampleRate);
-}
-
 void ParameterRamper::dezipperCheck(uint32_t rampDuration)
 {
     // check to see if the UI has changed and if so, start a ramp to dezipper it.
