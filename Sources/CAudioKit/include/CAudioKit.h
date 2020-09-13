@@ -14,16 +14,16 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "AKDSPBase.hpp"
-#import "AKSoundpipeDSPBase.hpp"
+#import "AKDSPBase.h"
+#import "AKSoundpipeDSPBase.h"
 
-#import "DSPKernel.hpp"
+#import "DSPKernel.h"
 #import "ExceptionCatcher.h"
-#import "AKGlobals.hpp"
+#import "AKGlobals.h"
 #import "AUParameterTreeExt.h"
 
 // Testing
-#import "md5.h"
+#import "soundpipe/md5.h"
 #import "DebugDSP.h"
 
 // Analysis
@@ -31,30 +31,30 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Modulation
 #import "AKModulatedDelay_Typedefs.h"
-#import "AKModulatedDelay.hpp"
-#import "AKModulatedDelayDSP.hpp"
+#import "AKModulatedDelay.h"
+#import "AKModulatedDelayDSP.h"
 
 // Synth example
-#import "AKSynthDSP.hpp"
+#import "AKSynthDSP.h"
 
 // Playback
 #import "AKPresetManager.h"
 #import "AKSampler_Typedefs.h"
-#import "AKCoreSampler.hpp"
-#import "AKCoreSynth.hpp"
-#import "AKSamplerDSP.hpp"
+#import "AKCoreSampler.h"
+#import "AKCoreSynth.h"
+#import "AKSamplerDSP.h"
 
 // Utilities
-#import "ParameterRamper.hpp"
+#import "ParameterRamper.h"
 
 // Sequencing / MIDI
 #if !TARGET_OS_TV
-#import "AKSequencerEngine.hpp"
+#import "AKSequencerEngine.h"
 #endif
 
 // Automation
-#import "AKParameterAutomation.hpp"
-#import "AKLinearParameterRamp.hpp"
+#import "AKParameterAutomation.h"
+#import "AKLinearParameterRamp.h"
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
@@ -78,6 +78,6 @@ AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callba
 #import "EZAudioPlot.h"
 #import "EZAudioFFT.h"
 
-#import "dr_wav.h"
-#import "soundpipe.h"
-#import "plumber.h"
+#import "soundpipe/dr_wav.h"
+#import "soundpipe/soundpipe.h"
+#import "sporth/plumber.h"

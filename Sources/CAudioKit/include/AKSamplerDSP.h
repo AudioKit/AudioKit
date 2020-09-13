@@ -65,9 +65,9 @@ AK_API void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 
-#import "AKDSPBase.hpp"
-#include "AKCoreSampler.hpp"
-#include "AKLinearParameterRamp.hpp"
+#import "AKDSPBase.h"
+#include "AKCoreSampler.h"
+#include "AKLinearParameterRamp.h"
 
 struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 {

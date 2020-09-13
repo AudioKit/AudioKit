@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKCoreSynth.hpp"
+#include "AKCoreSynth.h"
 #include "FunctionTable.hpp"
 #include "SynthVoice.hpp"
 #include "WaveStack.hpp"

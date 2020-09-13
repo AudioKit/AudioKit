@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKDSPBase.hpp"
-#import "ParameterRamper.hpp"
+#import "AKDSPBase.h"
+#import "ParameterRamper.h"
 #import <map>
 #import <string>
 

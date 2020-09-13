@@ -1,4 +1,0 @@
-module CAudioKit {
-  header "CAudioKit.h"
-  export *
-}
