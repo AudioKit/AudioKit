@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKPitchTapTests: XCTestCase {
+class AKFFTTapTests: XCTestCase {
 
     func testBasic() {
         let engine = AKEngine()
@@ -15,22 +15,23 @@ class AKPitchTapTests: XCTestCase {
 
         sine.start()
 
-        var pitches: [Float] = []
+        var fftData: [Int] = []
 
         engine.output = sine
 
-        let tap = AKPitchTap(sine) {  (tapPitches, _) in
-            pitches.append(tapPitches[0])
+        let tap = AKFFTTap(sine) { fft in
+            let max: Float = fft.max() ?? 0.0
+            let index = Int(fft.firstIndex(of: max) ?? 0)
+            fftData.append(index)
         }
         tap.start()
 
-        let audio = engine.startTest(totalDuration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-
-        let knownValues: [Float] = [447.32297, 455.59183, 481.56384, 497.71292, 519.39923, 542.7518, 555.37006, 583.9163, 602.96344, 621.56274]
+        let knownValues: [Int] = [42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
         for i in 0..<knownValues.count {
-            XCTAssertEqual(pitches[i], knownValues[i], accuracy: 0.001)
+            XCTAssertEqual(fftData[i], knownValues[i])
         }
     }
 
