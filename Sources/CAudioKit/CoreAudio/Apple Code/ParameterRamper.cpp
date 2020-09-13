@@ -28,6 +28,9 @@ struct ParameterRamper::InternalData {
 ParameterRamper::ParameterRamper(float value) : data(new InternalData)
 {
     setImmediate(value);
+    data->sampleRate = 44100;
+    data->duration = data->defaultRampDuration * 44100;
+    setImmediate(data->uiValue);
 }
 
 ParameterRamper::~ParameterRamper() = default;
@@ -37,14 +40,6 @@ void ParameterRamper::setImmediate(float value)
     // only to be called from the render thread or when resources are not allocated.
     data->goal = data->uiValue = data->startingPoint = value;
     data->samplesRemaining = 0;
-}
-
-/// Call this from AUAudioUnit's allocateRenderResources
-void ParameterRamper::init(float sampleRate)
-{
-    data->sampleRate = sampleRate;
-    data->duration = data->defaultRampDuration * sampleRate;
-    setImmediate(data->uiValue);
 }
 
 void ParameterRamper::reset()

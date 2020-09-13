@@ -174,13 +174,6 @@ void AKDSPBase::init(int channelCount, double sampleRate)
     this->channelCount = channelCount;
     this->sampleRate = sampleRate;
     isInitialized = true;
-    
-    // update parameter ramp durations with new sample rate
-    for(int index = 0; index < maxParameters; ++index) {
-        if(parameters[index]) {
-            parameters[index]->init(sampleRate);
-        }
-    }
 }
 
 void AKDSPBase::deinit()

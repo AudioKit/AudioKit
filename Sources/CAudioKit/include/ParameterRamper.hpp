@@ -25,8 +25,6 @@ public:
 
     void setImmediate(float value);
 
-    void init(float sampleRate);
-
     void reset();
     
     /// Ramp duration (seconds) to use for UI changes (dezipper checks)
