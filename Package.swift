@@ -36,7 +36,8 @@ let package = Package(
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
-                .headerSearchPath("include")
+                .headerSearchPath("include"),
+                .headerSearchPath(".")
             ]
         ),
         .target(
