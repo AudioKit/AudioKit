@@ -239,7 +239,7 @@ let validatedMD5s: [String: String] = [
     "-[AKPitchTapTests testBasic]": "60f9aadf98b27feaaef06a7dc692f385",
     "-[AKPlayerTests testBasic]": "5c4f9baf9ef5a78cb0bdeef9b8f6b00b",
     "-[AKPlayerTests testLoop]": "43be7cf44568520f680c1e52d362ed11",
-    "-[AKPluckedStringTests testDefault]": "9b260ccce8104d63f38757c6853a6851",
+    "-[AKPluckedStringTests testDefault]": "5dba546cfab2beaa91178c187ef122a9",
     "-[AKResonantFilterTests testBandwidth]": "3aa490a344b341fa2d58ad828857b4f5",
     "-[AKResonantFilterTests testDefault]": "f176a31fa6107cfdacbeeddd2aa83995",
     "-[AKResonantFilterTests testFrequency]": "94056ef1d9234a5bb8252cefe5e73969",
