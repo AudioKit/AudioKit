@@ -23,7 +23,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AUParameterTreeExt.h"
 
 // Testing
-#import "soundpipe/md5.h"
 #import "DebugDSP.h"
 
 // Analysis
@@ -77,7 +76,3 @@ AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callba
 
 #import "EZAudioPlot.h"
 #import "EZAudioFFT.h"
-
-#import "soundpipe/dr_wav.h"
-#import "soundpipe/soundpipe.h"
-#import "sporth/plumber.h"
