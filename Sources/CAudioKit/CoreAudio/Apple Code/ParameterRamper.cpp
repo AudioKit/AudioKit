@@ -17,9 +17,6 @@ struct ParameterRamper::InternalData {
     float uiValue;
     float sampleRate;
     float defaultRampDuration = 0.02;
-    float taper = 1;
-    float skew = 0;
-    uint32_t offset = 0;
     float startingPoint;
     float goal;
     uint32_t duration;
@@ -77,7 +74,6 @@ void ParameterRamper::dezipperCheck(uint32_t rampDuration)
     int32_t changeCounterSnapshot = data->changeCounter;
     if (data->updateCounter != changeCounterSnapshot) {
         data->updateCounter = changeCounterSnapshot;
-        data->offset = 0; // only use offset for automation
         startRamp(data->uiValue, rampDuration);
     }
 }
@@ -89,7 +85,7 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration)
     } else {
         data->startingPoint = get();
         data->duration = duration;
-        data->samplesRemaining = duration - data->offset;
+        data->samplesRemaining = duration;
         data->goal = data->uiValue = newGoal;
     }
 }
