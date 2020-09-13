@@ -114,6 +114,7 @@ let validatedMD5s: [String: String] = [
     "-[AKFaderTests testMixToMono]": "af951af5d8482fca914aacc2e6cd091c",
     "-[AKFaderTests testParameters]": "423eeeefeaad3bb3e129d6bc9613ac7d",
     "-[AKFaderTests testParameters2]": "b479c2a2d000e0865ea96070afbb4aca",
+    "-[AKFFTTapTests testBasic]": "87e0a4450fba76bc6ee180108d170f88",
     "-[AKFlangerTests testDefault]": "074135ff704b00c93e553c6a75aa5286",
     "-[AKFlangerTests testDepth]": "20c9a942b7da3ac0ea9eaa75603a27e1",
     "-[AKFlangerTests testDryWetMix]": "a60c042414c1ca10e2b1821f4e4fb6fb",
