@@ -17,7 +17,7 @@
 
 class ParameterRamper {
     float clampLow, clampHigh;
-    float _uiValue;
+    std::atomic<float> _uiValue{0};
     float _goal;
     float inverseSlope;
     AUAudioFrameCount samplesRemaining;
