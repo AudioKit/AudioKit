@@ -64,7 +64,7 @@ protected:
     
     // To support AKAudioUnit functions
     bool isInitialized = false;
-    bool isStarted = true;
+    std::atomic<bool> isStarted{true};
 
     // current time in samples
     AUEventSampleTime now = 0;
