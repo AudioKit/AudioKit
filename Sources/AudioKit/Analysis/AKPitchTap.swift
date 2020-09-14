@@ -106,29 +106,35 @@ public class AKPitchTap: AKToggleable {
         let channelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)
 
-        // Create trackers as needed.
-        while trackers.count < channelCount {
-            trackers.append(akPitchTrackerCreate(UInt32(AKSettings.audioFormat.sampleRate), 4_096, 20))
+        // Call on the main thread so the client doesn't have to worry
+        // about thread safety.
+        DispatchQueue.main.sync {
+
+            // Create trackers as needed.
+            while self.trackers.count < channelCount {
+                self.trackers.append(akPitchTrackerCreate(UInt32(AKSettings.audioFormat.sampleRate), 4_096, 20))
+            }
+
+            while self.amp.count < channelCount {
+                self.amp.append(0)
+                self.pitch.append(0)
+            }
+
+            // n is the channel
+            for n in 0 ..< channelCount {
+                let data = floatData[n]
+
+                akPitchTrackerAnalyze(trackers[n], data, UInt32(length))
+
+                var a: Float = 0
+                var f: Float = 0
+                akPitchTrackerGetResults(trackers[n], &a, &f)
+                self.amp[n] = a
+                self.pitch[n] = f
+            }
+            self.handler(pitch, amp)
+
         }
-
-        while amp.count < channelCount {
-            amp.append(0)
-            pitch.append(0)
-        }
-
-        // n is the channel
-        for n in 0 ..< channelCount {
-            let data = floatData[n]
-
-            akPitchTrackerAnalyze(trackers[n], data, UInt32(length))
-
-            var a: Float = 0
-            var f: Float = 0
-            akPitchTrackerGetResults(trackers[n], &a, &f)
-            amp[n] = a
-            pitch[n] = f
-        }
-        handler(pitch, amp)
     }
 
     /// Remove the tap on the input

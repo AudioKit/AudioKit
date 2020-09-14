@@ -88,16 +88,18 @@ open class AKFFTTap: AKToggleable {
 
     // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        guard let floatData = buffer.floatChannelData else { return }
 
-        let channelCount = Int(buffer.format.channelCount)
-        let length = UInt(buffer.frameLength)
+        if buffer.floatChannelData == nil { return }
 
-        fftData = performFFT(buffer: buffer)
-        handler(fftData)
+        // Call on the main thread so the client doesn't have to worry
+        // about thread safety.
+        DispatchQueue.main.sync {
+            fftData = AKFFTTap.performFFT(buffer: buffer)
+            handler(fftData)
+        }
     }
 
-    func performFFT(buffer: AVAudioPCMBuffer) -> [Float] {
+    static func performFFT(buffer: AVAudioPCMBuffer) -> [Float] {
         let frameCount = buffer.frameLength
         let log2n = UInt(round(log2(Double(frameCount))))
         let bufferSizePOT = Int(1 << log2n)
