@@ -25,11 +25,6 @@ jobs:
         run: |
           set -euo pipefail
           swift test --sanitize="address"
-      - name: Run Tests (TSAN)
-        run: |
-          set -euo pipefail
-          swift test --sanitize="thread"
-
 
   staging:
     needs: test
