@@ -3,7 +3,7 @@
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
-#import "AKDSPBase.hpp"  // have to put this here to get it included in umbrella header
+#import "AKDSPBase.h"  // have to put this here to get it included in umbrella header
 
 #ifdef __cplusplus
 

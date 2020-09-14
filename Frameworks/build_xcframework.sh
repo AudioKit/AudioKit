@@ -26,8 +26,6 @@ create_xcframework()
 	else
 		xcodebuild -create-xcframework -output ${DESTINATION}/$1.xcframework $BASIC_OPTS
 	fi
-	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
-	find ${DESTINATION}/$1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
 }
 
 for f in AudioKit $(cat Frameworks.list); do

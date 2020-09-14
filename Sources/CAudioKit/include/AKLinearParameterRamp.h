@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "AKParameterRampBase.hpp" // have to put this here to get it included in umbrella header
+#import "AKParameterRampBase.h" // have to put this here to get it included in umbrella header
 
 #ifdef __cplusplus
 

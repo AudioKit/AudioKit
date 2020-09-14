@@ -1,10 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKDSPBase.hpp"
+#include "AKDSPBase.h"
 
 #include "Compressor.h"
 #include "RageProcessor.h"
-#include "ParameterRamper.hpp"
+#include "ParameterRamper.h"
 
 enum AKDynaRageCompressorParameter : AUParameterAddress {
     AKDynaRageCompressorParameterRatio,

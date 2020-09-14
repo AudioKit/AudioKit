@@ -1,10 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKDSPBase.hpp"
+#include "AKDSPBase.h"
 
 #include "RageProcessor.h"
 #include "Equalisator.h"
-#include "ParameterRamper.hpp"
+#include "ParameterRamper.h"
 #include <math.h>
 #include <memory>
 
