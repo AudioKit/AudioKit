@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKParameterAutomation.hpp"
+#include "AKParameterAutomation.h"
 #include <algorithm>
 #include <mach/mach_time.h>
 #include <map>

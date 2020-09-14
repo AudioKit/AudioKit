@@ -5,7 +5,7 @@
 #import <AVFoundation/AVFoundation.h>
 #include <math.h>
 
-#include "AKModulatedDelayDSP.hpp"
+#include "AKModulatedDelayDSP.h"
 
 AKDSPRef akChorusCreateDSP()
 {

@@ -12,6 +12,7 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "AudioKit",
+            type: .static,
             targets: ["AudioKit"])
     ],
     dependencies: [
@@ -19,20 +20,31 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        .target(name: "TPCircularBuffer"),
-        .target(name: "STK"),
-        .target(name: "soundpipe", cSettings: [.define("NO_LIBSNDFILE")]),
+        .target(name: "TPCircularBuffer", publicHeadersPath: "include"),
+        .target(name: "STK", publicHeadersPath: "include"),
+        .target(name: "soundpipe",
+                publicHeadersPath: "include",
+                cSettings: [
+                    .define("NO_LIBSNDFILE"),
+                    .headerSearchPath("lib/kissfft"),
+                    .headerSearchPath("modules"),
+                    .headerSearchPath("external"),
+                    .headerSearchPath("lib/inih")
+                ]),
         .target(
             name: "sporth",
             dependencies: ["soundpipe"],
+            publicHeadersPath: "include",
             cSettings: [.define("NO_LIBSNDFILE")]),
         .target(
             name: "CAudioKit",
             dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
+            publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
+                .headerSearchPath("include"),
                 .headerSearchPath(".")
             ]
         ),

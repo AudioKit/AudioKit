@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKSoundpipeDSPBase.hpp"
-#include "ParameterRamper.hpp"
+#include "AKSoundpipeDSPBase.h"
+#include "ParameterRamper.h"
 #include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
 enum AKStereoDelayParameter : AUParameterAddress {
