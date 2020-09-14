@@ -211,11 +211,6 @@ public class AKWaveform: CALayer {
 
         plotSize = CGSize(width: round(size.width), height: round(size.height))
 
-        //         AKLog("** relayout, showStereo", showStereo, "flipStereo", flipStereo,
-        //                   "plotSize", plotSize, "numberOfPoints", numberOfPoints,
-        //                   "halfWidth", halfWidth, "maxNumberOfPoints", maxNumberOfPoints,
-        //                   "adjustedHeight", adjustedHeight)
-
         let leftFrame = CGRect(origin: CGPoint(x: 0, y: heightDivisor == 1 ? 0 : adjustedHeight),
                                size: plotSize)
         let rightFrame = CGRect(origin: CGPoint(), size: plotSize)
