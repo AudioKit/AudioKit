@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKGlobals.hpp"
+#include "AKGlobals.h"
 
 // Avoid needing to expose AKSettings to ObjC.
 // Note that eventually we shouldn't have these globals.

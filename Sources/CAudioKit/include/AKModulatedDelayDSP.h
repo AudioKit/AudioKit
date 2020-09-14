@@ -48,9 +48,9 @@ AK_API AKDSPRef akFlangerCreateDSP(void);
 
 #ifdef __cplusplus
 
-#import "AKDSPBase.hpp"
-#import "AKModulatedDelay.hpp"
-#import "ParameterRamper.hpp"
+#import "AKDSPBase.h"
+#import "AKModulatedDelay.h"
+#import "ParameterRamper.h"
 
 struct AKModulatedDelayDSP : AKDSPBase
 {

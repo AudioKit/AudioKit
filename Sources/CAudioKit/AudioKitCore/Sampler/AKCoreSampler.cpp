@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKCoreSampler.hpp"
+#include "AKCoreSampler.h"
 #include "SamplerVoice.hpp"
 #include "FunctionTable.hpp"
 #include "SustainPedalLogic.hpp"

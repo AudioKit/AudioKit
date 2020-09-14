@@ -4,7 +4,7 @@
 
 #if !TARGET_OS_TV
 
-#include "AKSequencerEngine.hpp"
+#include "AKSequencerEngine.h"
 #include <vector>
 #include <stdio.h>
 #include <atomic>
