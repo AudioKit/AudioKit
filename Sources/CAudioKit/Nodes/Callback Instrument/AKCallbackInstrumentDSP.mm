@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKDSPBase.hpp"
+#include "AKDSPBase.h"
 #import "TPCircularBuffer.h"
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);

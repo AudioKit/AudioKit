@@ -3,8 +3,8 @@
 #pragma once
 
 #ifdef __cplusplus
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
+#import "DSPKernel.h"
+#import "ParameterRamper.h"
 
 class AKDSPKernel : public DSPKernel {
 protected:

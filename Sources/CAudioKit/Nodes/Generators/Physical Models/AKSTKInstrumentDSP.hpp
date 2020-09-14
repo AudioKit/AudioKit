@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Instrmnt.h"
-#include "AKDSPBase.hpp"
+#include "AKDSPBase.h"
 
 /// Common base class for STK instruments.
 class AKSTKInstrumentDSP : public AKDSPBase {

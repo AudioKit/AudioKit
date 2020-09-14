@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AKModulatedDelay.hpp"
+#include "AKModulatedDelay.h"
 #include "ModulatedDelay_Defines.h"
 
 #include "AdjustableDelayLine.hpp"

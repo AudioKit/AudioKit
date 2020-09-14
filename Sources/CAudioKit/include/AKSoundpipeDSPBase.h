@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "AKDSPBase.hpp"
+#import "AKDSPBase.h"
 
 #ifdef __cplusplus
 

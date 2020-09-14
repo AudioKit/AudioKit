@@ -38,9 +38,9 @@ AK_API void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 
-#import "AKDSPBase.hpp"
-#include "AKCoreSynth.hpp"
-#include "AKLinearParameterRamp.hpp"
+#import "AKDSPBase.h"
+#include "AKCoreSynth.h"
+#include "AKLinearParameterRamp.h"
 
 struct AKSynthDSP : AKDSPBase, AKCoreSynth
 {
