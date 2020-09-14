@@ -22,8 +22,8 @@ let package = Package(
     targets: [
         .target(name: "TPCircularBuffer", publicHeadersPath: "include"),
         .target(name: "STK", publicHeadersPath: "include"),
-        .target(name: "soundpipe", 
-                publicHeadersPath: "include", 
+        .target(name: "soundpipe",
+                publicHeadersPath: "include",
                 cSettings: [
                     .define("NO_LIBSNDFILE"),
                     .headerSearchPath("lib/kissfft"),
