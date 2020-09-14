@@ -22,7 +22,15 @@ let package = Package(
     targets: [
         .target(name: "TPCircularBuffer", publicHeadersPath: "include"),
         .target(name: "STK", publicHeadersPath: "include"),
-        .target(name: "soundpipe", publicHeadersPath: "include", cSettings: [.define("NO_LIBSNDFILE")]),
+        .target(name: "soundpipe", 
+                publicHeadersPath: "include", 
+                cSettings: [
+                    .define("NO_LIBSNDFILE"),
+                    .headerSearchPath("lib/kissfft"),
+                    .headerSearchPath("modules"),
+                    .headerSearchPath("external"),
+                    .headerSearchPath("lib/inih")
+                ]),
         .target(
             name: "sporth",
             dependencies: ["soundpipe"],
