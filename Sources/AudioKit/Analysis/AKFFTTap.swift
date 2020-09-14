@@ -89,7 +89,7 @@ open class AKFFTTap: AKToggleable {
     // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
 
-        if buffer.floatChannelData == nil { return }
+        guard buffer.floatChannelData != nil else { return }
 
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
