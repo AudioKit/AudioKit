@@ -110,8 +110,12 @@ extension AKMIDI {
     ///
     /// - Parameter inputIndex: Index of source port
     public func openInput(name: String = "") {
-        guard  let index = inputNames.firstIndex(of: name) else {
-            openInput(uid: 0)
+        guard let index = inputNames.firstIndex(of: name) else {
+            if name == "" {
+                for uid in inputUIDs {
+                    openInput(uid: uid)
+                }
+            }
             return
         }
         let uid = inputUIDs[index]
@@ -173,10 +177,7 @@ extension AKMIDI {
     /// - Parameter inputIndex: Index of source port
     @available(*, deprecated, message: "Try to not use names any more because they are not unique across devices")
     public func closeInput(name: String) {
-        guard  let index = inputNames.firstIndex(of: name) else {
-            closeInput(uid: 0)
-            return
-        }
+        guard  let index = inputNames.firstIndex(of: name) else { return }
         let uid = inputUIDs[index]
         closeInput(uid: uid)
     }
