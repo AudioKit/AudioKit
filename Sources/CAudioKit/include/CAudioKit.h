@@ -74,5 +74,7 @@ AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callba
 #define AKPhaseDistortionOscillatorDebugPhase 0
 #define AKOscillatorDebugPhase 0
 
+// EZAudio
+#import "EZAudio.h"
 #import "EZAudioPlot.h"
 #import "EZAudioFFT.h"
