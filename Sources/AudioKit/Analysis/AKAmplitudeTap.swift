@@ -96,15 +96,21 @@ public class AKAmplitudeTap: AKToggleable {
         let channelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)
 
-        // n is the channel
-        for n in 0 ..< channelCount {
-            let data = floatData[n]
+        // Call on the main thread so the client doesn't have to worry
+        // about thread safety.
+        DispatchQueue.main.sync {
 
-            var rms: Float = 0
-            vDSP_rmsqv(data, 1, &rms, UInt(length))
-            amp[n] = rms
+            // n is the channel
+            for n in 0 ..< channelCount {
+                let data = floatData[n]
+
+                var rms: Float = 0
+                vDSP_rmsqv(data, 1, &rms, UInt(length))
+                self.amp[n] = rms
+            }
+
+            self.handler(self.amplitude)
         }
-        handler(amplitude)
     }
 
     /// Remove the tap on the input

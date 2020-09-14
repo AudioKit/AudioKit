@@ -19,7 +19,6 @@ public:
     
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
-        amountRamp.init(sampleRate);
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
