@@ -354,6 +354,13 @@ void AKSamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
 
 void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
+
+    float *pLeft = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
+    float *pRight = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
+
+    memset(pLeft, 0, frameCount * sizeof(float));
+    memset(pRight, 0, frameCount * sizeof(float));
+
     // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE
     for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKCORESAMPLER_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
