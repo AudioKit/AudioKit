@@ -152,7 +152,7 @@ void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immed
     assert(address < maxParameters);
     if(auto parameter = parameters[address]) {
         if (immediate || !isInitialized) {
-            parameter->setImmediate(value);
+            parameter->startRamp(value, 0);
         }
         else {
             parameter->setUIValue(value);
@@ -174,13 +174,6 @@ void AKDSPBase::init(int channelCount, double sampleRate)
     this->channelCount = channelCount;
     this->sampleRate = sampleRate;
     isInitialized = true;
-    
-    // update parameter ramp durations with new sample rate
-    for(int index = 0; index < maxParameters; ++index) {
-        if(parameters[index]) {
-            parameters[index]->init(sampleRate);
-        }
-    }
 }
 
 void AKDSPBase::deinit()
@@ -196,7 +189,7 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
     // Chceck for parameter updates from the UI.
     for(int index = 0; index < maxParameters; ++index) {
         if(parameters[index]) {
-            parameters[index]->dezipperCheck();
+            parameters[index]->dezipperCheck(sampleRate * 0.02f);
         } else {
             break;
         }
