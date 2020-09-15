@@ -46,6 +46,14 @@ open class AKNode {
         self.avAudioNode = avAudioNode
     }
 
+    /// Reset the internal state of the unit
+    /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
+    public func reset() {
+        if let avAudioUnit = self.avAudioUnit {
+            AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0);
+        }
+    }
+
     func detach() {
         if let engine = self.avAudioNode.engine {
             engine.detach(self.avAudioNode)

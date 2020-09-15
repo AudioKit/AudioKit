@@ -313,13 +313,8 @@ open class AKAppleSampler: AKNode {
         samplerUnit.sendPitchBend(amount, onChannel: channel)
     }
 
-    /// Reset the internal state of the unit
-    /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
-    public func reset() {
-        if let avAudioUnit = self.avAudioUnit {
-            AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0);
-        }
+    /// Reset the internal sampler
+    public func resetSampler() {
+        samplerUnit.reset()
     }
-
-
 }
