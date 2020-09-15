@@ -17,7 +17,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKDSPBase.h"
 #import "AKSoundpipeDSPBase.h"
 
-#import "DSPKernel.h"
 #import "ExceptionCatcher.h"
 #import "AKGlobals.h"
 #import "AUParameterTreeExt.h"
