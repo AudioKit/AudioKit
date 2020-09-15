@@ -20,7 +20,7 @@ distortion.polynomialMix = 0.5
 distortion.softClipGain = -6
 distortion.finalMix = 0.5
 
-engine.output = AKBooster(distortion, gain: 0.1)
+engine.output = AKFader(distortion, gain: 0.1)
 try engine.start()
 player.play()
 

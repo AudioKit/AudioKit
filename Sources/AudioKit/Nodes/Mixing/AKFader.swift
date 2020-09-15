@@ -3,8 +3,10 @@
 import AVFoundation
 import CAudioKit
 
-/// Stereo Fader. Similar to AKBooster but with the addition of
-/// Automation support.
+@available(*, deprecated, message: "@deprecated Use AKFader instead.")
+public typealias AKBooster = AKFader
+
+/// Stereo Fader.
 public class AKFader: AKNode, AKToggleable, AKComponent {
 
     public typealias AKAudioUnitType = InternalAU
@@ -119,30 +121,6 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
 
     deinit {
         AKLog("* { AKFader }")
-    }
-
-    // MARK: - AKAutomatable
-
-    /// Convenience function for adding a pair of points for both left and right addresses
-    public func addAutomationPoint(value: AUValue,
-                                   at startTime: Float,
-                                   rampDuration: Float = 0,
-                                   taper taperValue: Float = 1,
-                                   skew skewValue: Float = 0) {
-        let point = AKParameterAutomationPoint(targetValue: value,
-                                               startTime: startTime,
-                                               rampDuration: rampDuration,
-                                               rampTaper: taperValue,
-                                               rampSkew: skewValue)
-
-//        parameterAutomation?.add(point: point, to: $leftGain)
-//        parameterAutomation?.add(point: point, to: $rightGain)
-    }
-
-    /// Convenience function for clearing all points for both left and right addresses
-    public func clearAutomationPoints() {
-//        parameterAutomation?.clearAllPoints(of: $leftGain)
-//        parameterAutomation?.clearAllPoints(of: $rightGain)
     }
 
     // MARK: - Automation

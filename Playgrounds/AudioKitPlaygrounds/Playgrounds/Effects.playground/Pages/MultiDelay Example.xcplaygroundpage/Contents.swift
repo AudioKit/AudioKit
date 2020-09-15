@@ -16,7 +16,7 @@ func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer
 
     zip(times, gains).forEach { (time, gain) -> Void in
         delays.append(AKVariableDelay(input, time: time))
-        mix.connect(AKBooster(delays[counter], gain: gain))
+        mix.connect(AKFader(delays[counter], gain: gain))
         counter += 1
     }
     return mix
