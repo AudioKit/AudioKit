@@ -31,12 +31,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 //------------------------------------------------------------------------------
 
 #import "EZAudioDevice.h"
-#import "EZAudioFile.h"
-#import "EZMicrophone.h"
 #import "EZOutput.h"
-#import "EZRecorder.h"
-#import "EZAudioPlayer.h"
-#import "EZAudioFileMarker.h"
 
 
 
