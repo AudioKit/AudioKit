@@ -27,21 +27,10 @@ FOUNDATION_EXPORT double EZAudioVersionNumber;
 FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 
 //------------------------------------------------------------------------------
-#pragma mark - Core Components
-//------------------------------------------------------------------------------
-
-#import "EZAudioDevice.h"
-#import "EZOutput.h"
-
-
-
-//------------------------------------------------------------------------------
 #pragma mark - Utility Components
 //------------------------------------------------------------------------------
 
 #import "EZAudioFFT.h"
-#import "EZAudioFloatConverter.h"
-#import "EZAudioFloatData.h"
 #import "EZAudioUtilities.h"
 
 //------------------------------------------------------------------------------
