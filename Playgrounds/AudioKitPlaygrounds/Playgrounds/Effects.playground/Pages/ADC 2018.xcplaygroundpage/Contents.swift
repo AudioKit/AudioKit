@@ -20,9 +20,9 @@ reverbMixer.balance = 0.2
 reverbMixer.balance = 0.5
 
 // Copies for plotting
-let micCopy1 = AKBooster(mic)
-let micCopy2 = AKBooster(mic)
-let micCopy3 = AKBooster(mic)
+let micCopy1 = AKFader(mic)
+let micCopy2 = AKFader(mic)
+let micCopy3 = AKFader(mic)
 
 engine.output = AKStereoFieldLimiter(reverbMixer)
 try engine.start()

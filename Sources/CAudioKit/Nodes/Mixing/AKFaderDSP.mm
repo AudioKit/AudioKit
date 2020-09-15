@@ -84,18 +84,22 @@ public:
                     *out = *in;
                 }
             }
+
+            float lgain = leftGainRamp.getAndStep();
+            float rgain = rightGainRamp.getAndStep();
+
             if (isStarted) {
                 if (channelCount == 2 && mixToMono) {
-                    *tmpout[0] = 0.5 * (*tmpin[0] * leftGainRamp.getAndStep() + *tmpin[1] * rightGainRamp.getAndStep());
+                    *tmpout[0] = 0.5 * (*tmpin[0] * lgain + *tmpin[1] * rgain);
                     *tmpout[1] = *tmpout[0];
                 } else {
                     if (channelCount == 2 && flipStereo) {
                         float leftSaved = *tmpin[0];
-                        *tmpout[0] = *tmpin[1] * leftGainRamp.getAndStep();
-                        *tmpout[1] = leftSaved * rightGainRamp.getAndStep();
+                        *tmpout[0] = *tmpin[1] * lgain;
+                        *tmpout[1] = leftSaved * rgain;
                     } else {
-                        *tmpout[0] = *tmpin[0] * leftGainRamp.getAndStep();
-                        *tmpout[1] = *tmpin[1] * rightGainRamp.getAndStep();
+                        *tmpout[0] = *tmpin[0] * lgain;
+                        *tmpout[1] = *tmpin[1] * rgain;
                     }
                 }
             }

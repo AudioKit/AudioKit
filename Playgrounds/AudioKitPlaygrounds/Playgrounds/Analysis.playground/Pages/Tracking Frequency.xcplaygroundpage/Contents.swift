@@ -17,7 +17,7 @@ let oscillatorNode = AKOperationGenerator {
 }
 
 let tracker = AKPitchTap(oscillatorNode)
-let booster = AKBooster(tracker, gain: 0.5)
+let booster = AKFader(tracker, gain: 0.5)
 let secondaryOscillator = AKOscillator()
 
 //: The frequency tracker passes its input to the output,

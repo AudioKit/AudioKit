@@ -15,7 +15,7 @@ class Conductor: ObservableObject {
     var guitar: AKPlayer
     var lead: AKPlayer
     var mixer: AKMixer
-    var booster: AKBooster
+    var booster: AKFader
 
     init() {
 
@@ -30,7 +30,7 @@ class Conductor: ObservableObject {
         lead = AKPlayer(audioFile: leadFile)
 
         mixer = AKMixer(drums, bass, guitar, lead)
-        booster = AKBooster(mixer)
+        booster = AKFader(mixer)
 
         drums.isLooping = true
         drums.buffering = .always

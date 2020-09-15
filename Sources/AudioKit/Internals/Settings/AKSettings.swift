@@ -45,7 +45,7 @@ public class AKSettings: NSObject {
         }
     }
 
-    /// Constants for ramps used in AKParameterRamp.hpp, AKBooster, and others
+    /// Constants for ramps used in AKParameterRamp.hpp, AKFader, and others
     public enum RampType: Int {
         case linear = 0
         case exponential = 1

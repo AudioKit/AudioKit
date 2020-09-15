@@ -20,27 +20,27 @@ osc.releaseDuration = 0.125
 let filter = AKKorgLowPassFilter(osc)
 filter.cutoffFrequency = 5_500
 filter.resonance = 0.2
-let generatorBooster = AKBooster(filter)
-generatorBooster.gain = 0.618
+let generatorFader = AKFader(filter)
+generatorFader.gain = 0.618
 
 // DELAY
-let delay = AKDelay(generatorBooster)
+let delay = AKDelay(generatorFader)
 delay.time = 1.0 / playRate
 delay.feedback = 0.618
 delay.lowPassCutoff = 12_048
 delay.dryWetMix = 0.75
-let delayBooster = AKBooster(delay)
-delayBooster.gain = 1.550_8
+let delayFader = AKFader(delay)
+delayFader.gain = 1.550_8
 
 // REVERB
-let reverb = AKCostelloReverb(delayBooster)
+let reverb = AKCostelloReverb(delayFader)
 reverb.feedback = 0.758_816_18
 reverb.cutoffFrequency = 2_222 + 1_000
-let reverbBooster = AKBooster(reverb)
-reverbBooster.gain = 0.746_7
+let reverbFader = AKFader(reverb)
+reverbFader.gain = 0.746_7
 
 // MIX
-let mixer = AKMixer(generatorBooster, reverbBooster)
+let mixer = AKMixer(generatorFader, reverbFader)
 
 // MICROTONAL PRESETS
 var presetDictionary = [String: () -> Void]()
@@ -152,8 +152,8 @@ class LiveView: AKLiveViewController {
             osc.index = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
-            generatorBooster.gain = sliderValue
+        addView(AKSlider(property: "OSC Gain", value: generatorFader.gain, range: 0 ... 4) { sliderValue in
+            generatorFader.gain = sliderValue
         })
 
         addView(AKSlider(property: "FILTER Frequency Cutoff",
