@@ -572,7 +572,7 @@ public enum AKSliderStyle {
                         currentValueText: String = "0.0") {
 
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
+        let context = NSGraphicsContext.current!.cgContext
 
         let width = self.frame.width
         let height = self.frame.height
