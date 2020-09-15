@@ -15,7 +15,7 @@ class Conductor: ObservableObject {
     var guitar: AKPlayer
     var lead: AKPlayer
     var mixer: AKMixer
-    var booster: AKFader
+    var fader: AKFader
 
     init() {
 
@@ -30,7 +30,7 @@ class Conductor: ObservableObject {
         lead = AKPlayer(audioFile: leadFile)
 
         mixer = AKMixer(drums, bass, guitar, lead)
-        booster = AKFader(mixer)
+        fader = AKFader(mixer)
 
         drums.isLooping = true
         drums.buffering = .always
@@ -53,7 +53,7 @@ class Conductor: ObservableObject {
     }
 
     func start() {
-        engine.output = booster
+        engine.output = fader
         try! engine.start()
     }
 
@@ -105,7 +105,7 @@ struct ContentView: View {
                 Slider(value: $conductor.bass.volume,   label: { Text("Bass")  .frame(width: 100) } )
                 Slider(value: $conductor.guitar.volume, label: { Text("Guitar").frame(width: 100) } )
                 Slider(value: $conductor.lead.volume,   label: { Text("Lead")  .frame(width: 100) } )
-                Slider(value: $conductor.booster.gain,  label: { Text("All")   .frame(width: 100) } )
+                Slider(value: $conductor.fader.gain,  label: { Text("All")   .frame(width: 100) } )
             }
             Divider()
             Text("Pan").font(.headline)

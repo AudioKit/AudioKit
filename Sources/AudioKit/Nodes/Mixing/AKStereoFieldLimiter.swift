@@ -41,7 +41,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this booster node
+    /// Initialize this stereo field limiter node
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be amplified
