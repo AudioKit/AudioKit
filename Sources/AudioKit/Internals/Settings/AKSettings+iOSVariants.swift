@@ -239,7 +239,7 @@
             case playAndRecord
             #if !os(tvOS)
                 /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
-                case audioProcessing
+            case audioProcessing
             #endif
             /// Use to multi-route audio. May be used on input, output, or both.
             case multiRoute
@@ -258,8 +258,10 @@
                     return AVAudioSession.Category.playAndRecord.rawValue
                 case .multiRoute:
                     return AVAudioSession.Category.multiRoute.rawValue
+                #if !os(tvOS)
                 default:
                     return AVAudioSession.Category.soloAmbient.rawValue
+                #endif
                 }
             }
 
@@ -277,8 +279,10 @@
                     return .playAndRecord
                 case .multiRoute:
                     return .multiRoute
+                #if !os(tvOS)
                 default:
                     return .soloAmbient
+                #endif
                 }
             }
         }

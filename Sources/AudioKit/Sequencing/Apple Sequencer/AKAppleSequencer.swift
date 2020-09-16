@@ -797,6 +797,7 @@ open class AKAppleSequencer: NSObject {
     }
 
     /// Set the midi output for all tracks
+    @available(tvOS 12.0, *)
     public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
         for track in tracks {
             track.setMIDIOutput(midiEndpoint)
