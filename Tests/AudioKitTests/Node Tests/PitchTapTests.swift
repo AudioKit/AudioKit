@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKPitchTapTests: XCTestCase {
+class PitchTapTests: XCTestCase {
 
     func testBasic() {
         let engine = AKEngine()
@@ -22,7 +22,7 @@ class AKPitchTapTests: XCTestCase {
 
         let expect = expectation(description: "wait for amplitudes")
 
-        let tap = AKPitchTap(sine) {  (tapPitches, _) in
+        let tap = PitchTap(sine) {  (tapPitches, _) in
             pitches.append(tapPitches[0])
 
             if pitches.count == knownValues.count {

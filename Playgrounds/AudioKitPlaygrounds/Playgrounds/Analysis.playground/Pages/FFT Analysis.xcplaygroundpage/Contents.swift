@@ -13,7 +13,7 @@ player.buffering = .always
 engine.output = player
 try engine.start()
 player.play()
-let fft = AKFFTTap(player)
+let fft = FFTTap(player)
 
 AKPlaygroundLoop(every: 0.1) {
     if let max = fft.fftData.max() {

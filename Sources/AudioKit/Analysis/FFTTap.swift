@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// FFT Calculation for any node
-open class AKFFTTap: AKToggleable {
+open class FFTTap: AKToggleable {
 //    public let fftSize: AKSettings.BufferLength
 //    internal var bufferSize: UInt32 { fftSize.samplesCount }
 
@@ -92,7 +92,7 @@ open class AKFFTTap: AKToggleable {
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
         DispatchQueue.main.sync {
-            fftData = AKFFTTap.performFFT(buffer: buffer)
+            fftData = FFTTap.performFFT(buffer: buffer)
             handler(fftData)
         }
     }

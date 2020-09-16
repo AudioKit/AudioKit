@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKFFTTapTests: XCTestCase {
+class FFTTapTests: XCTestCase {
 
     func testBasic() {
         let engine = AKEngine()
@@ -22,7 +22,7 @@ class AKFFTTapTests: XCTestCase {
         let expect = expectation(description: "wait for amplitudes")
         let knownValues: [Int] = [42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
 
-        let tap = AKFFTTap(sine) { fft in
+        let tap = FFTTap(sine) { fft in
             let max: Float = fft.max() ?? 0.0
             let index = Int(fft.firstIndex(of: max) ?? 0)
             fftData.append(index)
