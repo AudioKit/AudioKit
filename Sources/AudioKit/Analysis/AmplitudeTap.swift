@@ -5,7 +5,7 @@ import AVFoundation
 
 /// Tap to do amplitude analysis on any node.
 /// start() will add the tap, and stop() will remove it.
-public class AKAmplitudeTap: AKToggleable {
+public class AmplitudeTap: AKToggleable {
     private var amp: [Float] = Array(repeating: 0, count: 2)
     public private(set) var bufferSize: UInt32
 

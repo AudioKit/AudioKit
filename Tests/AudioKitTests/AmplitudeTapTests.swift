@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AKAmplitudeTapTests: XCTestCase {
+class AmplitudeTapTests: XCTestCase {
 
     func testDefault() {
 
@@ -20,7 +20,7 @@ class AKAmplitudeTapTests: XCTestCase {
 
         let expect = expectation(description: "wait for amplitudes")
 
-        let tap = AKAmplitudeTap(sine) { amp in
+        let tap = AmplitudeTap(sine) { amp in
             amplitudes.append(amp)
 
             if amplitudes.count == 10 {
