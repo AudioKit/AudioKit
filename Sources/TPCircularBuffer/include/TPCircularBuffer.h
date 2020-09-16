@@ -61,7 +61,7 @@
 extern "C" {
 #endif
 
-typedef struct {
+typedef struct _TPCircularBuffer {
     void             *buffer;
     int32_t           length;
     int32_t           tail;
