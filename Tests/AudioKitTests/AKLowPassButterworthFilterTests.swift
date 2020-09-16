@@ -7,7 +7,7 @@ class AKLowPassButterworthFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKLowPassButterworthFilter(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKLowPassButterworthFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKLowPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

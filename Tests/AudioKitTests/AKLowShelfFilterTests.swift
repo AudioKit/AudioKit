@@ -7,7 +7,7 @@ class AKLowShelfFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKLowShelfFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKLowShelfFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKLowShelfFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKLowShelfFilter(input, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

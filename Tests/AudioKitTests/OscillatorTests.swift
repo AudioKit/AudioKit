@@ -5,10 +5,10 @@ import XCTest
 import CAudioKit
 import AVFoundation
 
-class AKOscillatorTests: XCTestCase {
+class OscillatorTests: XCTestCase {
     func testAmpitude() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
+        let input = Oscillator(waveform: AKTable(.square), amplitude: 0.5)
         engine.output = input
         XCTAssertEqual(input.amplitude, 0.5)
         input.start()
@@ -19,7 +19,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -29,7 +29,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testDetuningMultiplier() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
+        let input = Oscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
         engine.output = input
         XCTAssertEqual(input.detuningMultiplier, 0.9)
         input.start()
@@ -40,7 +40,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testDetuningOffset() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
+        let input = Oscillator(waveform: AKTable(.square), detuningOffset: 11)
         engine.output = input
         XCTAssertEqual(input.detuningOffset, 11)
         input.start()
@@ -51,7 +51,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), frequency: 400)
+        let input = Oscillator(waveform: AKTable(.square), frequency: 400)
         engine.output = input
         XCTAssertEqual(input.frequency, 400)
         input.start()
@@ -62,7 +62,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square))
+        let input = Oscillator(waveform: AKTable(.square))
         input.frequency = 400
         input.amplitude = 0.5
         XCTAssertEqual(input.frequency, 400)
@@ -76,7 +76,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -86,7 +86,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testNewAutomationFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -99,7 +99,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testNewAutomationAmplitude() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
 
         engine.output = input
 
@@ -114,7 +114,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testNewAutomationMultiple() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
 
         engine.output = input
 
@@ -132,7 +132,7 @@ class AKOscillatorTests: XCTestCase {
 
     func testNewAutomationDelayed() {
         let engine = AKEngine()
-        let input = AKOscillator(waveform: AKTable(.sine), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: AKTable(.sine), frequency: 400, amplitude: 0.5)
         engine.output = input
 
         input.start()

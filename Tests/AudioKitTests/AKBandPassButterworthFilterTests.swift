@@ -7,7 +7,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBandPassButterworthFilter(input, bandwidth: 200)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
 
     func testCenterFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBandPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

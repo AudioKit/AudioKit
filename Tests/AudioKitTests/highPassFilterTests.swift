@@ -7,7 +7,7 @@ class HighPassFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.highPassFilter() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class HighPassFilterTests: XCTestCase {
 
     func testHalfPowerPoint() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.highPassFilter(halfPowerPoint: 100) }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

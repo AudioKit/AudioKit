@@ -7,7 +7,7 @@ class AKPannerTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPanner(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKPannerTests: XCTestCase {
 
     func testBypass() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let pan = AKPanner(input, pan: -1)
         pan.bypass()
         engine.output = pan
@@ -29,7 +29,7 @@ class AKPannerTests: XCTestCase {
 
     func testPanLeft() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPanner(input, pan: -1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -39,7 +39,7 @@ class AKPannerTests: XCTestCase {
 
     func testPanRight() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPanner(input, pan: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

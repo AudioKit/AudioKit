@@ -7,7 +7,7 @@ class AKHighShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testCenterFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKHighShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfParametricEqualizerFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKHighShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfParametricEqualizerFilter(input, gain: 2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKHighShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class AKHighShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testQ() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfParametricEqualizerFilter(input, q: 1.415)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

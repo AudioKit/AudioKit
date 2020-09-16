@@ -7,7 +7,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
@@ -17,7 +17,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testFeedback() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
@@ -27,7 +27,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testMaximum() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
@@ -37,7 +37,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testMaximumSurpassed() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
@@ -47,7 +47,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let effect = AKVariableDelay(input)
         effect.time = 0.123_4
         effect.feedback = 0.95
@@ -60,7 +60,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
@@ -70,7 +70,7 @@ class AKVariableDelayTests: XCTestCase {
 
     func testTime() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKVariableDelay(input, time: 0.123_4)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)

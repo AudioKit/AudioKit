@@ -4,8 +4,8 @@ import AudioKit
 import XCTest
 
 class AKDryWetMixerTests: XCTestCase {
-    let input1 = AKOscillator()
-    let input2 = AKOscillator(frequency: 1280)
+    let input1 = Oscillator()
+    let input2 = Oscillator(frequency: 1280)
 
     func testDefault() {
         let engine = AKEngine()

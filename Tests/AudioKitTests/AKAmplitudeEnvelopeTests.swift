@@ -7,7 +7,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testAttack() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
         engine.output = envelope
         input.play()
@@ -20,7 +20,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testDecay() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
@@ -33,7 +33,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let envelope = AKAmplitudeEnvelope(input)
         engine.output = envelope
         input.play()
@@ -46,7 +46,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
@@ -59,7 +59,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
 
     func testSustain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
         engine.output = envelope
         input.play()

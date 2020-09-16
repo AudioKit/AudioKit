@@ -7,7 +7,7 @@ class AKPeakLimiterTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPeakLimiter(input, attackTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKPeakLimiterTests: XCTestCase {
 
     func testDecayTime() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPeakLimiter(input, decayTime: 0.03)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKPeakLimiterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPeakLimiter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKPeakLimiterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPeakLimiter(input, attackTime: 0.02, decayTime: 0.03, preGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class AKPeakLimiterTests: XCTestCase {
 
     func testPreGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKPeakLimiter(input, preGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

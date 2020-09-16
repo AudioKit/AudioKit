@@ -5,7 +5,7 @@ import AudioKitPlaygrounds
 import AudioKit
 import AudioKitUI
 
-var oscillator = AKOscillatorBank()
+var oscillator = OscillatorBank()
 engine.output = oscillator
 try engine.start()
 
