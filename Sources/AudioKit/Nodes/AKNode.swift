@@ -4,7 +4,6 @@ import AVFoundation
 import CAudioKit
 
 open class AKNode {
-
     /// Nodes providing input to this node.
     var connections: [AKNode] = []
 
@@ -32,7 +31,7 @@ open class AKNode {
 
     /// Returns either the avAudioUnit or avAudioNode (prefers the avAudioUnit if it exists)
     open var avAudioUnitOrNode: AVAudioNode {
-        return self.avAudioUnit ?? self.avAudioNode
+        return avAudioUnit ?? avAudioNode
     }
 
     /// Initialize the node from an AVAudioUnit
@@ -50,13 +49,13 @@ open class AKNode {
     /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
     public func reset() {
         if let avAudioUnit = self.avAudioUnit {
-            AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0);
+            AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0)
         }
     }
 
     func detach() {
-        if let engine = self.avAudioNode.engine {
-            engine.detach(self.avAudioNode)
+        if let engine = avAudioNode.engine {
+            engine.detach(avAudioNode)
         }
         for connection in connections {
             connection.detach()
@@ -65,7 +64,7 @@ open class AKNode {
 
     func makeAVConnections() {
         // Are we attached?
-        if let engine = self.avAudioNode.engine {
+        if let engine = avAudioNode.engine {
             for (bus, connection) in connections.enumerated() {
                 if let sourceEngine = connection.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
@@ -87,7 +86,6 @@ open class AKNode {
             }
         }
     }
-
 }
 
 /// Protocol for responding to play and stop of MIDI notes
@@ -143,11 +141,11 @@ open class AKPolyphonicNode: AKNode, AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-        // MARK: Microtonal pitch lookup
+        // Microtonal pitch lookup
 
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        self.play(noteNumber: noteNumber, velocity: velocity, frequency: AUValue(frequency), channel: channel)
+        play(noteNumber: noteNumber, velocity: velocity, frequency: AUValue(frequency), channel: channel)
     }
 
     /// Stop a sound corresponding to a MIDI note
@@ -200,7 +198,6 @@ public extension AKToggleable {
 }
 
 public extension AKToggleable where Self: AKComponent {
-
     var isStarted: Bool {
         return (internalAU as? AKAudioUnitBase)?.isStarted ?? false
     }

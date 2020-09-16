@@ -28,7 +28,6 @@ public struct AKNodeParameterDef {
 /// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class AKNodeParameter {
-
     private var avAudioUnit: AVAudioUnit!
 
     public private(set) var parameter: AUParameter!
@@ -68,7 +67,6 @@ public class AKNodeParameter {
     /// - Parameter events: automation curve
     /// - Parameter startTime: optional time to start automation
     public func automate(events: [AKAutomationEvent], startTime: AVAudioTime? = nil) {
-
         var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {
@@ -82,7 +80,7 @@ public class AKNodeParameter {
             let lastTimeSeconds = AVAudioTime.seconds(forHostTime: lastRenderTime.hostTime)
             let startTimeSeconds = AVAudioTime.seconds(forHostTime: lastTime.hostTime)
 
-            lastTime = lastRenderTime.offset(seconds: (startTimeSeconds - lastTimeSeconds))
+            lastTime = lastRenderTime.offset(seconds: startTimeSeconds - lastTimeSeconds)
         }
 
         assert(lastTime.isSampleTimeValid)
@@ -93,15 +91,14 @@ public class AKNodeParameter {
             guard let automationBaseAddress = automationPtr.baseAddress else { return }
 
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
-                                                                  avAudioUnit.auAudioUnit.scheduleParameterBlock,
-                                                                  Float(AKSettings.sampleRate),
-                                                                  Float(lastTime.sampleTime),
-                                                                  automationBaseAddress,
-                                                                  events.count) else { return }
+                                                                        avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                        Float(AKSettings.sampleRate),
+                                                                        Float(lastTime.sampleTime),
+                                                                        automationBaseAddress,
+                                                                        events.count) else { return }
 
             renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
         }
-
     }
 
     /// Automate to a new value using a ramp.
@@ -114,11 +111,9 @@ public class AKNodeParameter {
     }
 
     public func stopAutomation() {
-
         if let token = renderObserverToken {
             avAudioUnit.auAudioUnit.removeRenderObserver(token)
         }
-
     }
 
     private var parameterObserverToken: AUParameterObserverToken?
@@ -126,10 +121,9 @@ public class AKNodeParameter {
     /// Records automation for this parameter.
     /// - Parameter callback: Called on the main queue for each parameter event.
     public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
+        parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { numberEvents, events in
 
-        parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { (numberEvents, events) in
-
-            for index in 0..<numberEvents {
+            for index in 0 ..< numberEvents {
                 let event = events[index]
 
                 // Dispatching to main thread avoids the restrictions
@@ -137,14 +131,12 @@ public class AKNodeParameter {
                 DispatchQueue.main.async {
                     callback(event)
                 }
-
             }
         })
     }
 
     /// Stop calling the function passed to `recordAutomation`
     public func stopRecording() {
-
         if let token = parameterObserverToken {
             parameter.removeParameterObserver(token)
         }
@@ -153,17 +145,13 @@ public class AKNodeParameter {
     // MARK: Lifecycle
 
     /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
-    public func associate(with avAudioUnit: AVAudioUnit,
-                          identifier: String) {
-
+    public func associate(with avAudioUnit: AVAudioUnit, identifier: String) {
         self.avAudioUnit = avAudioUnit
         parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
     }
 
-    public func associate(with avAudioUnit: AVAudioUnit,
-                          index: Int) {
-
+    public func associate(with avAudioUnit: AVAudioUnit, index: Int) {
         self.avAudioUnit = avAudioUnit
         parameter = avAudioUnit.auAudioUnit.parameterTree!.allParameters[index]
         assert(parameter != nil)
@@ -195,6 +183,7 @@ extension Bool: AKNodeParameterType {
     public func toAUValue() -> AUValue {
         self ? 1.0 : 0.0
     }
+
     public init(_ value: AUValue) {
         self = value > 0.5
     }
@@ -228,10 +217,9 @@ protocol ParameterBase {
 /// because we don't yet have an underlying AUParameter.
 @propertyWrapper
 public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
-
     var param = AKNodeParameter()
 
-    public init() { }
+    public init() {}
 
     public var wrappedValue: Value {
         get { Value(param.value) }

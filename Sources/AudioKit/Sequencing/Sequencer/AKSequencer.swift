@@ -8,7 +8,6 @@ import Foundation
 ///
 /// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AKAppleSequencer"
 open class AKSequencer {
-
     /// Array of sequencer tracks
     open var tracks = [AKSequencerTrack]()
 
@@ -46,7 +45,7 @@ open class AKSequencer {
     /// - Parameter targetNodes: Array of nodes to target for each track
     public required init(targetNodes: [AKNode]? = nil) {
         if let targetNodes = targetNodes {
-            tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+            tracks = targetNodes.enumerated().map { AKSequencerTrack(targetNode: $0.element) }
         } else {
             AKLog("no nodes connected to sequencer at init - be sure to connect some via addTrack")
         }
@@ -102,7 +101,7 @@ open class AKSequencer {
         if tracks.count > midiTracks.count {
             AKLog("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")
         }
-        for index in 0..<min(midiTracks.count, tracks.count) {
+        for index in 0 ..< min(midiTracks.count, tracks.count) {
             let track = midiTracks[index]
             tracks[index].clear()
             var sequence = AKSequence()
@@ -111,10 +110,10 @@ open class AKSequencer {
                     sequence.add(event: event, position: pos)
                 }
             }
-            self.tracks[index].sequence = sequence
-            self.tracks[index].length = track.length
+            tracks[index].sequence = sequence
+            tracks[index].length = track.length
         }
-        length = self.tracks.max(by: { $0.length > $1.length })?.length ?? 0
+        length = tracks.max(by: { $0.length > $1.length })?.length ?? 0
     }
 
     /// Add a MIDI note to the track
@@ -166,7 +165,7 @@ open class AKSequencer {
     /// Move to a new time in the playback
     /// - Parameter position: Time to jump to, in beats
     public func seek(to position: Double) {
-        tracks.forEach({ $0.seek(to: position) })
+        tracks.forEach { $0.seek(to: position) }
     }
 
     /// Equivalent to stop
