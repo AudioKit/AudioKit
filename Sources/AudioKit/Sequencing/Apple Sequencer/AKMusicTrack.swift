@@ -715,6 +715,7 @@ open class AKMusicTrack {
     ///
     /// - parameter endpoint: MIDI Endpoint Port
     ///
+    @available(tvOS 12.0, *)
     public func setMIDIOutput(_ endpoint: MIDIEndpointRef) {
         if let track = internalMusicTrack {
             MusicTrackSetDestMIDIEndpoint(track, endpoint)

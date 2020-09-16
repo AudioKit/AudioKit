@@ -46,9 +46,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "ParameterRamper.h"
 
 // Sequencing / MIDI
-#if !TARGET_OS_TV
 #import "AKSequencerEngine.h"
-#endif
 
 // Automation
 #import "AKParameterAutomation.h"
