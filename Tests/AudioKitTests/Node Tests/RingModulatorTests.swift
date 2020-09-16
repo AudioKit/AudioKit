@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKRingModulatorTests: XCTestCase {
+class RingModulatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKRingModulator(input)
+        engine.output = RingModulator(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

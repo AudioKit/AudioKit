@@ -16,7 +16,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: The following nodes are both acting on the original player node
-var ringMod = AKRingModulator(player)
+var ringMod = RingModulator(player)
 
 var delay = Delay(player)
 delay.time = 0.01

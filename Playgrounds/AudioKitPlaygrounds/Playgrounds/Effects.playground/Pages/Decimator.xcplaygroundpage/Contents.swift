@@ -11,7 +11,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: Next, we'll connect the audio sources to a decimator
-var decimator = AKDecimator(player)
+var decimator = Decimator(player)
 decimator.decimation = 0.5 // Normalized Value 0 - 1
 decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1

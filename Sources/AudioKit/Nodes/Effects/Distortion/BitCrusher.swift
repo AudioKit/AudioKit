@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This will digitally degrade a signal.
-public class AKBitCrusher: AKNode, AKComponent, AKToggleable {
+public class BitCrusher: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
@@ -18,7 +18,7 @@ public class AKBitCrusher: AKNode, AKComponent, AKToggleable {
     public static let bitDepthDef = AKNodeParameterDef(
         identifier: "bitDepth",
         name: "Bit Depth",
-        address: akGetParameterAddress("AKBitCrusherParameterBitDepth"),
+        address: akGetParameterAddress("BitCrusherParameterBitDepth"),
         range: 1 ... 24,
         unit: .generic,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKBitCrusher: AKNode, AKComponent, AKToggleable {
     public static let sampleRateDef = AKNodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
-        address: akGetParameterAddress("AKBitCrusherParameterSampleRate"),
+        address: akGetParameterAddress("BitCrusherParameterSampleRate"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -42,12 +42,12 @@ public class AKBitCrusher: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKBitCrusher.bitDepthDef,
-             AKBitCrusher.sampleRateDef]
+            [BitCrusher.bitDepthDef,
+             BitCrusher.sampleRateDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKBitCrusherDSP")
+            akCreateDSP("BitCrusherDSP")
         }
     }
 

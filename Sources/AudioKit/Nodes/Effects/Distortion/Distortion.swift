@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable {
+open class Distortion: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

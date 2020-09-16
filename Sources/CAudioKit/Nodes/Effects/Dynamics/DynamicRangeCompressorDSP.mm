@@ -4,14 +4,14 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKDynamicRangeCompressorParameter : AUParameterAddress {
-    AKDynamicRangeCompressorParameterRatio,
-    AKDynamicRangeCompressorParameterThreshold,
-    AKDynamicRangeCompressorParameterAttackDuration,
-    AKDynamicRangeCompressorParameterReleaseDuration,
+enum DynamicRangeCompressorParameter : AUParameterAddress {
+    DynamicRangeCompressorParameterRatio,
+    DynamicRangeCompressorParameterThreshold,
+    DynamicRangeCompressorParameterAttackDuration,
+    DynamicRangeCompressorParameterReleaseDuration,
 };
 
-class AKDynamicRangeCompressorDSP : public AKSoundpipeDSPBase {
+class DynamicRangeCompressorDSP : public AKSoundpipeDSPBase {
 private:
     sp_compressor *compressor0;
     sp_compressor *compressor1;
@@ -21,11 +21,11 @@ private:
     ParameterRamper releaseDurationRamp;
 
 public:
-    AKDynamicRangeCompressorDSP() {
-        parameters[AKDynamicRangeCompressorParameterRatio] = &ratioRamp;
-        parameters[AKDynamicRangeCompressorParameterThreshold] = &thresholdRamp;
-        parameters[AKDynamicRangeCompressorParameterAttackDuration] = &attackDurationRamp;
-        parameters[AKDynamicRangeCompressorParameterReleaseDuration] = &releaseDurationRamp;
+    DynamicRangeCompressorDSP() {
+        parameters[DynamicRangeCompressorParameterRatio] = &ratioRamp;
+        parameters[DynamicRangeCompressorParameterThreshold] = &thresholdRamp;
+        parameters[DynamicRangeCompressorParameterAttackDuration] = &attackDurationRamp;
+        parameters[DynamicRangeCompressorParameterReleaseDuration] = &releaseDurationRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -93,8 +93,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKDynamicRangeCompressorDSP)
-AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterRatio)
-AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterThreshold)
-AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterAttackDuration)
-AK_REGISTER_PARAMETER(AKDynamicRangeCompressorParameterReleaseDuration)
+AK_REGISTER_DSP(DynamicRangeCompressorDSP)
+AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterRatio)
+AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterThreshold)
+AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterAttackDuration)
+AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterReleaseDuration)

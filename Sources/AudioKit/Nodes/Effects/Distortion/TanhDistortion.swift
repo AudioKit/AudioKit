@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
-public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
+public class TanhDistortion: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
@@ -18,7 +18,7 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
     public static let pregainDef = AKNodeParameterDef(
         identifier: "pregain",
         name: "Pregain",
-        address: akGetParameterAddress("AKTanhDistortionParameterPregain"),
+        address: akGetParameterAddress("TanhDistortionParameterPregain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
     public static let postgainDef = AKNodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
-        address: akGetParameterAddress("AKTanhDistortionParameterPostgain"),
+        address: akGetParameterAddress("TanhDistortionParameterPostgain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
     public static let positiveShapeParameterDef = AKNodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
-        address: akGetParameterAddress("AKTanhDistortionParameterPositiveShapeParameter"),
+        address: akGetParameterAddress("TanhDistortionParameterPositiveShapeParameter"),
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
     public static let negativeShapeParameterDef = AKNodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
-        address: akGetParameterAddress("AKTanhDistortionParameterNegativeShapeParameter"),
+        address: akGetParameterAddress("TanhDistortionParameterNegativeShapeParameter"),
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -64,14 +64,14 @@ public class AKTanhDistortion: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKTanhDistortion.pregainDef,
-             AKTanhDistortion.postgainDef,
-             AKTanhDistortion.positiveShapeParameterDef,
-             AKTanhDistortion.negativeShapeParameterDef]
+            [TanhDistortion.pregainDef,
+             TanhDistortion.postgainDef,
+             TanhDistortion.positiveShapeParameterDef,
+             TanhDistortion.negativeShapeParameterDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKTanhDistortionDSP")
+            akCreateDSP("TanhDistortionDSP")
         }
     }
 

@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Compression Parts
 ///
-open class AKCompressor: AKNode, AKToggleable {
+open class Compressor: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

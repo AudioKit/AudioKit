@@ -4,19 +4,19 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKClipperParameter : AUParameterAddress {
-    AKClipperParameterLimit,
+enum ClipperParameter : AUParameterAddress {
+    ClipperParameterLimit,
 };
 
-class AKClipperDSP : public AKSoundpipeDSPBase {
+class ClipperDSP : public AKSoundpipeDSPBase {
 private:
     sp_clip *clip0;
     sp_clip *clip1;
     ParameterRamper limitRamp;
 
 public:
-    AKClipperDSP() {
-        parameters[AKClipperParameterLimit] = &limitRamp;
+    ClipperDSP() {
+        parameters[ClipperParameterLimit] = &limitRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKClipperDSP)
-AK_REGISTER_PARAMETER(AKClipperParameterLimit)
+AK_REGISTER_DSP(ClipperDSP)
+AK_REGISTER_PARAMETER(ClipperParameterLimit)

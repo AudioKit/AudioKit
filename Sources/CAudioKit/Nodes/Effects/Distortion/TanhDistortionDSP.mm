@@ -4,14 +4,14 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKTanhDistortionParameter : AUParameterAddress {
-    AKTanhDistortionParameterPregain,
-    AKTanhDistortionParameterPostgain,
-    AKTanhDistortionParameterPositiveShapeParameter,
-    AKTanhDistortionParameterNegativeShapeParameter,
+enum TanhDistortionParameter : AUParameterAddress {
+    TanhDistortionParameterPregain,
+    TanhDistortionParameterPostgain,
+    TanhDistortionParameterPositiveShapeParameter,
+    TanhDistortionParameterNegativeShapeParameter,
 };
 
-class AKTanhDistortionDSP : public AKSoundpipeDSPBase {
+class TanhDistortionDSP : public AKSoundpipeDSPBase {
 private:
     sp_dist *dist0;
     sp_dist *dist1;
@@ -21,11 +21,11 @@ private:
     ParameterRamper negativeShapeParameterRamp;
 
 public:
-    AKTanhDistortionDSP() {
-        parameters[AKTanhDistortionParameterPregain] = &pregainRamp;
-        parameters[AKTanhDistortionParameterPostgain] = &postgainRamp;
-        parameters[AKTanhDistortionParameterPositiveShapeParameter] = &positiveShapeParameterRamp;
-        parameters[AKTanhDistortionParameterNegativeShapeParameter] = &negativeShapeParameterRamp;
+    TanhDistortionDSP() {
+        parameters[TanhDistortionParameterPregain] = &pregainRamp;
+        parameters[TanhDistortionParameterPostgain] = &postgainRamp;
+        parameters[TanhDistortionParameterPositiveShapeParameter] = &positiveShapeParameterRamp;
+        parameters[TanhDistortionParameterNegativeShapeParameter] = &negativeShapeParameterRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -93,8 +93,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKTanhDistortionDSP)
-AK_REGISTER_PARAMETER(AKTanhDistortionParameterPregain)
-AK_REGISTER_PARAMETER(AKTanhDistortionParameterPostgain)
-AK_REGISTER_PARAMETER(AKTanhDistortionParameterPositiveShapeParameter)
-AK_REGISTER_PARAMETER(AKTanhDistortionParameterNegativeShapeParameter)
+AK_REGISTER_DSP(TanhDistortionDSP)
+AK_REGISTER_PARAMETER(TanhDistortionParameterPregain)
+AK_REGISTER_PARAMETER(TanhDistortionParameterPostgain)
+AK_REGISTER_PARAMETER(TanhDistortionParameterPositiveShapeParameter)
+AK_REGISTER_PARAMETER(TanhDistortionParameterNegativeShapeParameter)

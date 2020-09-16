@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Expansion Components
 ///
-open class AKExpander: AKNode, AKToggleable {
+open class Expander: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

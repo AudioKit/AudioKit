@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKBitCrusherParameter : AUParameterAddress {
-    AKBitCrusherParameterBitDepth,
-    AKBitCrusherParameterSampleRate,
+enum BitCrusherParameter : AUParameterAddress {
+    BitCrusherParameterBitDepth,
+    BitCrusherParameterSampleRate,
 };
 
-class AKBitCrusherDSP : public AKSoundpipeDSPBase {
+class BitCrusherDSP : public AKSoundpipeDSPBase {
 private:
     sp_bitcrush *bitcrush0;
     sp_bitcrush *bitcrush1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper sampleRateRamp;
 
 public:
-    AKBitCrusherDSP() {
-        parameters[AKBitCrusherParameterBitDepth] = &bitDepthRamp;
-        parameters[AKBitCrusherParameterSampleRate] = &sampleRateRamp;
+    BitCrusherDSP() {
+        parameters[BitCrusherParameterBitDepth] = &bitDepthRamp;
+        parameters[BitCrusherParameterSampleRate] = &sampleRateRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKBitCrusherDSP)
-AK_REGISTER_PARAMETER(AKBitCrusherParameterBitDepth)
-AK_REGISTER_PARAMETER(AKBitCrusherParameterSampleRate)
+AK_REGISTER_DSP(BitCrusherDSP)
+AK_REGISTER_PARAMETER(BitCrusherParameterBitDepth)
+AK_REGISTER_PARAMETER(BitCrusherParameterSampleRate)

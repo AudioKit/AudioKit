@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKCompressorTests: XCTestCase {
+class CompressorTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input, attackTime: 0.1)
+        engine.output = Compressor(input, attackTime: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKCompressorTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input)
+        engine.output = Compressor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKCompressorTests: XCTestCase {
     func testHeadRoom() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input, headRoom: 0)
+        engine.output = Compressor(input, headRoom: 0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKCompressorTests: XCTestCase {
     func testMasterGain() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input, masterGain: 1)
+        engine.output = Compressor(input, masterGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -48,7 +48,7 @@ class AKCompressorTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input,
+        engine.output = Compressor(input,
                                      threshold: -25,
                                      headRoom: 10,
                                      attackTime: 0.1,
@@ -65,7 +65,7 @@ class AKCompressorTests: XCTestCase {
     func testThreshold() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCompressor(input, threshold: -25)
+        engine.output = Compressor(input, threshold: -25)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

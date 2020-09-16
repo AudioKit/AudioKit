@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKDecimatorTests: XCTestCase {
+class DecimatorTests: XCTestCase {
 
     func testDecimation() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDecimator(input, decimation: 75)
+        engine.output = Decimator(input, decimation: 75)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKDecimatorTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDecimator(input)
+        engine.output = Decimator(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKDecimatorTests: XCTestCase {
     func testMix() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDecimator(input, finalMix: 50)
+        engine.output = Decimator(input, finalMix: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKDecimatorTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDecimator(input, decimation: 75, rounding: 50, finalMix: 50)
+        engine.output = Decimator(input, decimation: 75, rounding: 50, finalMix: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -48,7 +48,7 @@ class AKDecimatorTests: XCTestCase {
     func testRounding() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDecimator(input, rounding: 50)
+        engine.output = Decimator(input, rounding: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

@@ -9,7 +9,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var compressor = AKCompressor(player)
+var compressor = Compressor(player)
 
 engine.output = compressor
 try engine.start()
