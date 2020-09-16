@@ -77,3 +77,6 @@ AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callba
 #import "EZAudio.h"
 #import "EZAudioPlot.h"
 #import "EZAudioFFT.h"
+
+// Misc
+#import "BufferedAudioBus.h"

@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TargetConditionals.h>
-@import TPCircularBuffer;
+#import <TPCircularBuffer.h>
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <AVFoundation/AVFoundation.h>
 #elif TARGET_OS_MAC
