@@ -199,14 +199,14 @@ public extension AKToggleable {
 
 public extension AKToggleable where Self: AKComponent {
     var isStarted: Bool {
-        return (internalAU as? AKAudioUnitBase)?.isStarted ?? false
+        return (internalAU as? AudioUnitBase)?.isStarted ?? false
     }
 
     func start() {
-        (internalAU as? AKAudioUnitBase)?.start()
+        (internalAU as? AudioUnitBase)?.start()
     }
 
     func stop() {
-        (internalAU as? AKAudioUnitBase)?.stop()
+        (internalAU as? AudioUnitBase)?.stop()
     }
 }

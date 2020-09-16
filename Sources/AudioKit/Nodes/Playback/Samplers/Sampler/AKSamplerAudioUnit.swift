@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 import AVFoundation
 
-public class AKSamplerAudioUnit: AKAudioUnitBase {
+public class AKSamplerAudioUnit: AudioUnitBase {
     private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
     private static var _parameterAddress: AUParameterAddress = 0

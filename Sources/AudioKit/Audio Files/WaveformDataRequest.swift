@@ -3,7 +3,7 @@
 import Accelerate
 import AVFoundation
 
-public class AKWaveformDataRequest {
+public class WaveformDataRequest {
     public private(set) var audioFile: AVAudioFile?
 
     private let abortWaveformDataQueue = DispatchQueue(label: "WaveformDataRequest.abortWaveformDataQueue",

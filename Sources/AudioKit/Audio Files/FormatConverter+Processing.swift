@@ -2,11 +2,11 @@
 
 import AVFoundation
 
-extension AKConverter {
+extension FormatConverter {
     // MARK: - private helper functions
 
     // The AVFoundation way. This method doesn't handle compressed input - only compressed output.
-    internal func convertAsset(completionHandler: AKConverterCallback? = nil) {
+    internal func convertAsset(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return
@@ -19,7 +19,7 @@ extension AKConverter {
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
         // verify outputFormat
-        guard AKConverter.outputFormats.contains(outputFormat) else {
+        guard FormatConverter.outputFormats.contains(outputFormat) else {
             completionHandler?(createError(message: "The output file format isn't able to be produced by this class."))
             return
         }
@@ -162,7 +162,7 @@ extension AKConverter {
             return
         }
 
-        let queue = DispatchQueue(label: "com.audiodesigndesk.AKConverter.convertAsset")
+        let queue = DispatchQueue(label: "com.audiodesigndesk.FormatConverter.convertAsset")
 
         // session.progress could be sent out via a delegate for this session
         writerInput.requestMediaDataWhenReady(on: queue, using: {
@@ -206,7 +206,7 @@ extension AKConverter {
 
     // Example of the most simplistic AVFoundation conversion.
     // With this approach you can't really specify any settings other than the limited presets.
-    internal func convertCompressed(completionHandler: AKConverterCallback? = nil) {
+    internal func convertCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return
@@ -231,7 +231,7 @@ extension AKConverter {
 
     // Currently, as of 2017, if you want to convert from a compressed
     // format to a pcm one, you still have to hit CoreAudio
-    internal func convertToPCM(completionHandler: AKConverterCallback? = nil) {
+    internal func convertToPCM(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return
@@ -436,6 +436,6 @@ extension AKConverter {
 
     internal func createError(message: String, code: Int = 1) -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
+        return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
     }
 }

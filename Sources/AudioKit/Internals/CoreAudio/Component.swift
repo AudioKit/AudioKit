@@ -13,7 +13,7 @@ public protocol AUComponent: AnyObject, Aliased {
 }
 
 public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AUAudioUnit // eventually AKAudioUnitBase
+    associatedtype AKAudioUnitType: AUAudioUnit // eventually AudioUnitBase
     var internalAU: AKAudioUnitType? { get }
 }
 

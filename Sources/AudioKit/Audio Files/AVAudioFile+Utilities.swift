@@ -91,15 +91,15 @@ extension AVAudioFile {
                         to endTime: TimeInterval,
                         fadeInTime: TimeInterval = 0,
                         fadeOutTime: TimeInterval = 0,
-                        options: AKConverter.Options? = nil,
-                        completionHandler: AKConverter.AKConverterCallback? = nil) {
+                        options: FormatConverter.Options? = nil,
+                        completionHandler: FormatConverter.FormatConverterCallback? = nil) {
         func createError(message: String, code: Int = 1) -> NSError {
             let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-            return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
+            return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
         }
 
         // if options are nil, create them to match the input file
-        let options = options ?? AKConverter.Options(audioFile: self)
+        let options = options ?? FormatConverter.Options(audioFile: self)
 
         let format = options?.format ?? url.pathExtension
         let directory = url.deletingLastPathComponent()
@@ -123,7 +123,7 @@ extension AVAudioFile {
             return
         }
 
-        let converter = AKConverter(inputURL: tempFile, outputURL: outputURL, options: options)
+        let converter = FormatConverter(inputURL: tempFile, outputURL: outputURL, options: options)
         converter.start { error in
 
             if let error = error {

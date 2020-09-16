@@ -50,7 +50,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKTogglea
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
             [AKLowShelfParametricEqualizerFilter.cornerFrequencyDef,

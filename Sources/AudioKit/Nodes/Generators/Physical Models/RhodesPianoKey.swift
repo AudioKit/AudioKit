@@ -15,7 +15,7 @@ public class AKRhodesPianoKey: AKNode, AKToggleable, AKComponent {
 
     public private(set) var internalAU: AKAudioUnitType?
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
             return akCreateDSP("AKRhodesPianoKeyDSP")

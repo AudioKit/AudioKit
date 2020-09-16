@@ -96,7 +96,7 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Internal Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
             return akCreateDSP("AKShakerDSP")
