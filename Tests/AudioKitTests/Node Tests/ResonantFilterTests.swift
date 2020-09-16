@@ -6,7 +6,7 @@ import XCTest
 class AKResonantFilterTests: XCTestCase {
 
     func testBandwidth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKResonantFilter(input, bandwidth: 500)
         input.play()
@@ -16,7 +16,7 @@ class AKResonantFilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKResonantFilter(input)
         input.play()
@@ -26,7 +26,7 @@ class AKResonantFilterTests: XCTestCase {
     }
 
     func testFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKResonantFilter(input, frequency: 1_000)
         input.play()
@@ -36,7 +36,7 @@ class AKResonantFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKResonantFilter(input, frequency: 1_000, bandwidth: 500)
         input.play()

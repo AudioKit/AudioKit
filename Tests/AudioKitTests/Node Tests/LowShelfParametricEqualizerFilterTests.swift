@@ -6,7 +6,7 @@ import XCTest
 class AKLowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testCornerFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKLowShelfParametricEqualizerFilter(input, cornerFrequency: 500)
         input.start()
@@ -16,7 +16,7 @@ class AKLowShelfParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKLowShelfParametricEqualizerFilter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKLowShelfParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testGain() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKLowShelfParametricEqualizerFilter(input, gain: 2)
         input.start()
@@ -36,7 +36,7 @@ class AKLowShelfParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKLowShelfParametricEqualizerFilter(input, cornerFrequency: 500, gain: 2, q: 1.414)
         input.start()
@@ -46,7 +46,7 @@ class AKLowShelfParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testQ() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKLowShelfParametricEqualizerFilter(input, q: 1.415)
         input.start()

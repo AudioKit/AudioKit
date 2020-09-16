@@ -17,7 +17,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testAttackTime() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
         input.start()
@@ -27,7 +27,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input)
         input.start()
@@ -37,7 +37,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input,
                                       ratio: 10,
@@ -51,7 +51,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testRage() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, rage: 10)
         input.start()
@@ -61,7 +61,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testRatio() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10)
         input.start()
@@ -71,7 +71,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testReleaseTime() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
         input.start()
@@ -81,7 +81,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     }
 
     func testThreshold() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynaRageCompressor(input, ratio: 10, threshold: -1)
         input.start()

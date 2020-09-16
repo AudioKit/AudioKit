@@ -6,7 +6,7 @@ import XCTest
 class AKTanhDistortionTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input)
         input.start()
@@ -16,7 +16,7 @@ class AKTanhDistortionTests: XCTestCase {
     }
 
     func testNegativeShapeParameter() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input, negativeShapeParameter: 1)
         input.start()
@@ -26,7 +26,7 @@ class AKTanhDistortionTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input, pregain: 4, postgain: 1, positiveShapeParameter: 1, negativeShapeParameter: 1)
         input.start()
@@ -36,7 +36,7 @@ class AKTanhDistortionTests: XCTestCase {
     }
 
     func testPositiveShapeParameter() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input, positiveShapeParameter: 1)
         input.start()
@@ -46,7 +46,7 @@ class AKTanhDistortionTests: XCTestCase {
     }
 
     func testPostgain() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input, postgain: 1)
         input.start()
@@ -56,7 +56,7 @@ class AKTanhDistortionTests: XCTestCase {
     }
 
     func testPregain() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTanhDistortion(input, pregain: 4)
         input.start()

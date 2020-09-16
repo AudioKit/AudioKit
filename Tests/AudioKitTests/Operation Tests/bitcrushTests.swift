@@ -6,7 +6,7 @@ import XCTest
 class BitcrushTests: XCTestCase {
 
     func testBitDepth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.bitCrush(bitDepth: 7) }
         input.start()
@@ -16,7 +16,7 @@ class BitcrushTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.bitCrush() }
         input.start()
@@ -26,7 +26,7 @@ class BitcrushTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.bitCrush(bitDepth: 7, sampleRate: 4_000) }
         input.start()
@@ -36,7 +36,7 @@ class BitcrushTests: XCTestCase {
     }
 
     func testSampleRate() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.bitCrush(sampleRate: 4_000) }
         input.start()

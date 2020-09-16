@@ -101,7 +101,7 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testRecord() {
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         let osc = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
         engine.output = osc

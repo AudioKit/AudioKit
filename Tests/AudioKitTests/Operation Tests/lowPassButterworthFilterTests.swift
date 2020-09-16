@@ -6,7 +6,7 @@ import XCTest
 class  LowPassButterworthFilterTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.lowPassButterworthFilter() }
         input.start()

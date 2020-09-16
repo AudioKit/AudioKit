@@ -6,7 +6,7 @@ import XCTest
 class AKPitchShifterTests: XCTestCase {
 
     func testCrossfade() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPitchShifter(input, shift: 7, crossfade: 1_024)
         input.start()
@@ -16,7 +16,7 @@ class AKPitchShifterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPitchShifter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKPitchShifterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
         input.start()
@@ -36,7 +36,7 @@ class AKPitchShifterTests: XCTestCase {
     }
 
     func testShift() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPitchShifter(input, shift: 7)
         input.start()
@@ -46,7 +46,7 @@ class AKPitchShifterTests: XCTestCase {
     }
 
     func testWindowSize() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048)
         input.start()

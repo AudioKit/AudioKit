@@ -15,7 +15,7 @@
 import AudioKit
 import Foundation
 
-let engine = AKEngine()
+let engine = AudioEngine()
 
 let oscillator = Oscillator()
 

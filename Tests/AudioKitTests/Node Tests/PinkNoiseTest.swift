@@ -7,7 +7,7 @@ class AKPinkNoiseTests: XCTestCase {
 
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let pink = AKPinkNoise()
         engine.output = pink
         pink.start()
@@ -17,7 +17,7 @@ class AKPinkNoiseTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let pink = AKPinkNoise()
         pink.amplitude = 0.5
         engine.output = pink

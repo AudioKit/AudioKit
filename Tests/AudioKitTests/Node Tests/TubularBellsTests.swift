@@ -6,7 +6,7 @@ import XCTest
 class AKTubularBellsTests: XCTestCase {
 
     func testTubularBells() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let bells = AKTubularBells()
         bells.trigger(note: 69)
         engine.output = bells
@@ -16,7 +16,7 @@ class AKTubularBellsTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let bells = AKTubularBells()
         bells.trigger(note: 69, velocity: 64)
         engine.output = bells

@@ -6,7 +6,7 @@ import XCTest
 class AKPWMOscillatorTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator()
         engine.output = oscillator
         oscillator.start()
@@ -16,7 +16,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234,
                                          amplitude: 0.5,
                                          pulseWidth: 0.75,
@@ -30,7 +30,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234)
         engine.output = oscillator
         oscillator.start()
@@ -40,7 +40,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234, amplitude: 0.5)
         engine.output = oscillator
         oscillator.start()
@@ -50,7 +50,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testPulseWidth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234, pulseWidth: 0.75)
         engine.output = oscillator
         oscillator.start()
@@ -60,7 +60,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testDetuningOffset() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234, detuningOffset: 1.234)
         engine.output = oscillator
         oscillator.start()
@@ -70,7 +70,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testDetuningMultiplier() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator(frequency: 1_234, detuningMultiplier: 1.1)
         engine.output = oscillator
         oscillator.start()
@@ -80,7 +80,7 @@ class AKPWMOscillatorTests: XCTestCase {
     }
 
     func testParametersSetAfterInit() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKPWMOscillator()
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5

@@ -19,7 +19,7 @@ class AKCallbackInstrumentTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         let expect = XCTestExpectation(description: "wait for callback")
         let expectedData: [UInt8] = [144, 60, 127,

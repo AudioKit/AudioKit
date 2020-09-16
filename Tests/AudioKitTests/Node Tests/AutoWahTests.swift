@@ -6,7 +6,7 @@ import XCTest
 class AKAutoWahTests: XCTestCase {
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
         input.start()
@@ -16,7 +16,7 @@ class AKAutoWahTests: XCTestCase {
     }
 
     func testBypass() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let wah = AKAutoWah(input, wah: 0.123, amplitude: 0.789)
         wah.bypass()
@@ -28,7 +28,7 @@ class AKAutoWahTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKAutoWah(input)
         input.start()
@@ -38,7 +38,7 @@ class AKAutoWahTests: XCTestCase {
     }
 
     func testMix() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKAutoWah(input, wah: 0.123, mix: 0.456)
         input.start()
@@ -48,7 +48,7 @@ class AKAutoWahTests: XCTestCase {
     }
 
     func testParamters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKAutoWah(input, wah: 0.123, mix: 0.456, amplitude: 0.789)
         input.start()
@@ -58,7 +58,7 @@ class AKAutoWahTests: XCTestCase {
     }
 
     func testWah() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKAutoWah(input, wah: 0.123)
         input.start()

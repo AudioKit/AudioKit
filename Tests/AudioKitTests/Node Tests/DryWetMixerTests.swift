@@ -8,7 +8,7 @@ class AKDryWetMixerTests: XCTestCase {
     let input2 = Oscillator(frequency: 1280)
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let mixer = AKDryWetMixer(dry: input1, wet: input2)
         engine.output = mixer
 
@@ -20,7 +20,7 @@ class AKDryWetMixerTests: XCTestCase {
     }
 
     func testBalance0() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 0)
         engine.output = mixer
 
@@ -32,7 +32,7 @@ class AKDryWetMixerTests: XCTestCase {
     }
 
     func testBalance1() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 1)
         engine.output = mixer
 

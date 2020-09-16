@@ -6,7 +6,7 @@ import XCTest
 class TriangleTests: XCTestCase {
 
     func testParameterSweep() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let triangle = AKOperationGenerator {
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),

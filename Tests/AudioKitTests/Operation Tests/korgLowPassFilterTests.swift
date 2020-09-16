@@ -6,7 +6,7 @@ import XCTest
 class KorgLowPassFilterTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.korgLowPassFilter() }
         input.start()
@@ -16,7 +16,7 @@ class KorgLowPassFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { input in
             return input.korgLowPassFilter(cutoffFrequency: 2_000, resonance: 0.9, saturation: 0.5)

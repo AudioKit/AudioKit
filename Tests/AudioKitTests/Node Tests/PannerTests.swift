@@ -6,7 +6,7 @@ import XCTest
 class AKPannerTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPanner(input)
         input.start()
@@ -16,7 +16,7 @@ class AKPannerTests: XCTestCase {
     }
 
     func testBypass() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let pan = AKPanner(input, pan: -1)
         pan.bypass()
@@ -28,7 +28,7 @@ class AKPannerTests: XCTestCase {
     }
 
     func testPanLeft() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPanner(input, pan: -1)
         input.start()
@@ -38,7 +38,7 @@ class AKPannerTests: XCTestCase {
     }
 
     func testPanRight() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPanner(input, pan: 1)
         input.start()

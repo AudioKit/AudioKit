@@ -6,7 +6,7 @@ import XCTest
 class AKToneComplementFilterTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKToneComplementFilter(input)
         input.start()
@@ -16,7 +16,7 @@ class AKToneComplementFilterTests: XCTestCase {
     }
 
     func testHalfPowerPoint() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKToneComplementFilter(input, halfPowerPoint: 500)
         input.start()

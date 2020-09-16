@@ -8,7 +8,7 @@ class AKPlayerTests: XCTestCase {
     func generateTestFile() -> URL {
 
         let osc = Oscillator()
-        let engine = AKEngine()
+        let engine = AudioEngine()
         engine.output = osc
         osc.start()
 
@@ -28,7 +28,7 @@ class AKPlayerTests: XCTestCase {
 
         let file = try! AVAudioFile(forReading: url)
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let player = AKPlayer()
         engine.output = player
 
@@ -47,7 +47,7 @@ class AKPlayerTests: XCTestCase {
         let file = try! AVAudioFile(forReading: url)
         let buffer = try! AVAudioPCMBuffer(file: file)!
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let player = AKPlayer()
         engine.output = player
 

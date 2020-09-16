@@ -6,7 +6,7 @@ import XCTest
 class AKFluteTests: XCTestCase {
 
     func testFlute() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let flute = AKFlute()
         flute.trigger(note: 69)
         engine.output = flute
@@ -18,7 +18,7 @@ class AKFluteTests: XCTestCase {
     }
 
     func testVelocity() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let flute = AKFlute()
         flute.trigger(note: 69, velocity: 64)
         engine.output = flute

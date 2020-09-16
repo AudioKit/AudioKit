@@ -6,7 +6,7 @@ import XCTest
 class AKOperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let gen = AKOperationGenerator { parameters in
             AKOperation.sineWave(frequency: parameters[0], amplitude: parameters[1])
         }
@@ -20,7 +20,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
     }
 
     func testSetParameters2() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
@@ -42,7 +42,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
     }
 
     func testSetParameters3() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])

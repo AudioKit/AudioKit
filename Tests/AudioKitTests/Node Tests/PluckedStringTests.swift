@@ -6,7 +6,7 @@ import XCTest
 class AKPluckedStringTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let pluck = AKPluckedString()
         pluck.start()
         pluck.trigger()

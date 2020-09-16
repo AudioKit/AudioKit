@@ -6,7 +6,7 @@ import XCTest
 class VariableDelayTests: XCTestCase {
 
     func testParameterSweep() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { input in
             let ramp = AKOperation.lineSegment(

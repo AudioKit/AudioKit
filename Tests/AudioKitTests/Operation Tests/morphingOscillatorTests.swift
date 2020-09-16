@@ -6,7 +6,7 @@ import XCTest
 class MorphingOscillatorTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKOperationGenerator { AKOperation.morphingOscillator() }
         engine.output = oscillator
         oscillator.start()

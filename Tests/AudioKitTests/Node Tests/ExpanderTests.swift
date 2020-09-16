@@ -6,7 +6,7 @@ import XCTest
 class AKExpanderTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKExpander(input)
         input.start()

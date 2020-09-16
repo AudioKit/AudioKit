@@ -6,7 +6,7 @@ import XCTest
 class PitchTapTests: XCTestCase {
 
     func testBasic() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         let sine = AKOperationGenerator {
             let s = AKOperation.sawtooth(frequency: 0.25, amplitude: 1, phase: 0) + 2

@@ -6,7 +6,7 @@ import XCTest
 class AKDelayTests: XCTestCase {
 
     func testDryWetMix() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDelay(input, time: 0.012_3, dryWetMix: 45.6)
         input.start()
@@ -16,7 +16,7 @@ class AKDelayTests: XCTestCase {
     }
 
     func testFeedback() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDelay(input, time: 0.012_3, feedback: 34.5)
         input.start()
@@ -26,7 +26,7 @@ class AKDelayTests: XCTestCase {
     }
 
     func testLowpassCutoff() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDelay(input, time: 0.012_3, lowPassCutoff: 1_234)
         input.start()
@@ -36,7 +36,7 @@ class AKDelayTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDelay(input, time: 0.012_3, feedback: 34.5, lowPassCutoff: 1_234, dryWetMix: 45.6)
         input.start()
@@ -46,7 +46,7 @@ class AKDelayTests: XCTestCase {
     }
 
     func testTime() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDelay(input, time: 0.012_3)
         input.start()
