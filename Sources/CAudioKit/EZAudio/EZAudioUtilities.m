@@ -19,6 +19,7 @@
 //  THE SOFTWARE.
 #import <Accelerate/Accelerate.h>
 #import "EZAudioUtilities.h"
+#import "EZPlotHistoryInfo.h"
 
 static float    const  EZAudioUtilitiesFixedNoteA       = 440.0f;
 static int      const  EZAudioUtilitiesFixedNoteAIndex  = 9;

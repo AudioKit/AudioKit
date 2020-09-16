@@ -21,7 +21,6 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TargetConditionals.h>
-#import <TPCircularBuffer.h>
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <AVFoundation/AVFoundation.h>
 #elif TARGET_OS_MAC
@@ -34,12 +33,11 @@
 /**
  A data structure that holds information about audio data over time. It contains a circular buffer to incrementally write the audio data to and a scratch buffer to hold a window of audio data relative to the whole circular buffer. In use, this will provide a way to continuously append data while having an adjustable viewable window described by the bufferSize.
  */
-typedef struct _EZPlotHistoryInfo
-{
-    float            *buffer;
-    int               bufferSize;
-    TPCircularBuffer  circularBuffer;
-} EZPlotHistoryInfo;
+struct _EZPlotHistoryInfo;
+struct _TPCircularBuffer;
+
+typedef struct _EZPlotHistoryInfo EZPlotHistoryInfo;
+typedef struct _TPCircularBuffer TPCircularBuffer;
 
 //------------------------------------------------------------------------------
 

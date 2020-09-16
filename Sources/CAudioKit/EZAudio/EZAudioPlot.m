@@ -20,6 +20,7 @@
 
 #import "EZAudio.h"
 #import "EZAudioPlot.h"
+#import "EZPlotHistoryInfo.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Constants

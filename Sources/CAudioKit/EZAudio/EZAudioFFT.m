@@ -20,6 +20,7 @@
 
 #import "EZAudioFFT.h"
 #import "EZAudioUtilities.h"
+#import "EZPlotHistoryInfo.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures
