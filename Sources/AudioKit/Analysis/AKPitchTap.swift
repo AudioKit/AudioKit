@@ -61,7 +61,7 @@ public class AKPitchTap: AKToggleable {
 
     public typealias Handler = ([Float], [Float]) -> Void
 
-    private var handler: Handler = { (_, _) in }
+    private var handler: Handler = { _, _ in }
 
     /// - parameter input: Node to analyze
     public init(_ input: AKNode, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
@@ -109,7 +109,6 @@ public class AKPitchTap: AKToggleable {
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
         DispatchQueue.main.sync {
-
             // Create trackers as needed.
             while self.trackers.count < channelCount {
                 self.trackers.append(akPitchTrackerCreate(UInt32(AKSettings.audioFormat.sampleRate), 4_096, 20))
@@ -133,7 +132,6 @@ public class AKPitchTap: AKToggleable {
                 self.pitch[n] = f
             }
             self.handler(pitch, amp)
-
         }
     }
 

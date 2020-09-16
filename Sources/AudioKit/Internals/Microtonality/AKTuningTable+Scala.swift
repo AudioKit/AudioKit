@@ -3,14 +3,13 @@
 import Foundation
 
 extension AKTuningTable {
-
     /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.
     public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
-                AKLog("can't read filePath: \(filePath)")
-                return nil
+            AKLog("can't read filePath: \(filePath)")
+            return nil
         }
 
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
@@ -109,7 +108,7 @@ extension AKTuningTable {
                 if let newFrequencyCount = Int(lineStr) {
                     frequencyCount = newFrequencyCount
                     if frequencyCount == 0 || frequencyCount > 127 {
-                        //#warning SPEC SAYS 0 notes is okay because 1/1 is implicit
+                        // #warning SPEC SAYS 0 notes is okay because 1/1 is implicit
                         AKLog("ERROR: number of notes in scala file: \(frequencyCount)")
                         parsedScala = false
                         break

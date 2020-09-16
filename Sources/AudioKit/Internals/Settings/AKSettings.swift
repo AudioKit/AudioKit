@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import Foundation
 import CAudioKit
+import Foundation
 
 /// Global settings for AudioKit
 public class AKSettings: NSObject {
@@ -54,7 +54,7 @@ public class AKSettings: NSObject {
     }
 
     public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
-                                                               channels: 2) ?? AVAudioFormat()
+                                                         channels: 2) ?? AVAudioFormat()
 
     /// The sample rate in Hertz, default is 44100 kHz. Set a new audioFormat if you want to change this value.
     /// See audioFormat. This is the format that is used for node connections.

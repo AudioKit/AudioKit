@@ -7,7 +7,6 @@ import UIKit
 
 /// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
 @IBDesignable public class AKADSRView: UIView {
-
     /// Type of function to call when values of the ADSR have changed
     public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
@@ -113,7 +112,7 @@ import UIKit
     // MARK: - Storyboard Rendering
 
     /// Perform necessary operation to allow the view to be rendered in interface builder
-    public override func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         contentMode = .scaleAspectFill
@@ -121,19 +120,19 @@ import UIKit
     }
 
     /// Size of the view
-    public override var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
 
     /// Requeire a constraint based layout with interface builder
-    public class override var requiresConstraintBasedLayout: Bool {
+    override public class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Touch Handling
 
     /// Handle new touches
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -152,7 +151,7 @@ import UIKit
     }
 
     /// Handle moving touches
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
 
@@ -175,7 +174,7 @@ import UIKit
             releaseTime = max(releaseTime, 0)
             sustainPercent = min(max(sustainPercent, 0), 100)
 
-            if let realCallback = self.callback {
+            if let realCallback = callback {
                 realCallback(AUValue(attackTime / 1_000.0),
                              AUValue(decayTime / 1_000.0),
                              AUValue(sustainPercent / 100.0),
@@ -202,7 +201,7 @@ import UIKit
         let attackClickRoom = CGFloat(30) // to allow the attack to be clicked even if is zero
         let oneSecond: CGFloat = 0.65 * size.width
         let initialPoint = CGPoint(x: attackClickRoom, y: size.height)
-        let buffer = CGFloat(10)//curveStrokeWidth / 2.0 // make a little room for drwing the stroke
+        let buffer = CGFloat(10) // curveStrokeWidth / 2.0 // make a little room for drwing the stroke
         let endAxes = CGPoint(x: size.width, y: size.height)
         let releasePoint = CGPoint(x: attackClickRoom + oneSecond, y: sustainLevel * (size.height - buffer) + buffer)
         let endPoint = CGPoint(x: releasePoint.x + releaseDurationMS / 1_000.0 * oneSecond, y: size.height)
@@ -275,11 +274,11 @@ import UIKit
         let releaseAreaPath = UIBezierPath()
         releaseAreaPath.move(to: releaseAxis)
         releaseAreaPath.addCurve(to: endPoint,
-                                        controlPoint1: releaseAxis,
-                                        controlPoint2: endPoint)
+                                 controlPoint1: releaseAxis,
+                                 controlPoint2: endPoint)
         releaseAreaPath.addCurve(to: releasePoint,
-                                        controlPoint1: releaseToEndControlPoint,
-                                        controlPoint2: releasePoint)
+                                 controlPoint1: releaseToEndControlPoint,
+                                 controlPoint2: releasePoint)
         releaseAreaPath.addLine(to: releaseAxis)
         releaseAreaPath.close()
         releaseColor.setFill()
@@ -309,11 +308,11 @@ import UIKit
         decayAreaPath.move(to: highPointAxis)
         decayAreaPath.addLine(to: sustainAxis)
         decayAreaPath.addCurve(to: sustainPoint,
-                                      controlPoint1: sustainAxis,
-                                      controlPoint2: sustainPoint)
+                               controlPoint1: sustainAxis,
+                               controlPoint2: sustainPoint)
         decayAreaPath.addCurve(to: highPoint,
-                                      controlPoint1: highToSustainControlPoint,
-                                      controlPoint2: highPoint)
+                               controlPoint1: highToSustainControlPoint,
+                               controlPoint2: highPoint)
         decayAreaPath.addLine(to: highPoint)
         decayAreaPath.close()
         decayColor.setFill()
@@ -329,8 +328,8 @@ import UIKit
         attackAreaPath.addLine(to: highPointAxis)
         attackAreaPath.addLine(to: highPoint)
         attackAreaPath.addCurve(to: initialPoint,
-                                       controlPoint1: initialToHighControlPoint,
-                                       controlPoint2: initialPoint)
+                                controlPoint1: initialToHighControlPoint,
+                                controlPoint2: initialPoint)
         attackAreaPath.close()
         attackColor.setFill()
         attackAreaPath.fill()
@@ -343,15 +342,15 @@ import UIKit
         let curvePath = UIBezierPath()
         curvePath.move(to: initialPoint)
         curvePath.addCurve(to: highPoint,
-                                  controlPoint1: initialPoint,
-                                  controlPoint2: initialToHighControlPoint)
+                           controlPoint1: initialPoint,
+                           controlPoint2: initialToHighControlPoint)
         curvePath.addCurve(to: sustainPoint,
-                                  controlPoint1: highPoint,
-                                  controlPoint2: highToSustainControlPoint)
+                           controlPoint1: highPoint,
+                           controlPoint2: highToSustainControlPoint)
         curvePath.addLine(to: releasePoint)
         curvePath.addCurve(to: endPoint,
-                                  controlPoint1: releasePoint,
-                                  controlPoint2: releaseToEndControlPoint)
+                           controlPoint1: releasePoint,
+                           controlPoint2: releaseToEndControlPoint)
         curveColor.setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
@@ -360,7 +359,7 @@ import UIKit
     }
 
     /// Draw the view
-    public override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,
                         decayDurationMS: decayTime,
                         releaseDurationMS: releaseTime,
@@ -376,7 +375,6 @@ import Cocoa
 public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
 public class AKADSRView: NSView {
-
     public var attackDuration: AUValue = 0.1
     public var decayDuration: AUValue = 0.1
     public var sustainLevel: AUValue = 0.1
@@ -394,12 +392,12 @@ public class AKADSRView: NSView {
     override public var isFlipped: Bool {
         return true
     }
+
     override public var wantsDefaultClipping: Bool {
         return false
     }
 
     override public func mouseDown(with theEvent: NSEvent) {
-
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if decaySustainTouchAreaPath.contains(touchLocation) {
             currentDragArea = "ds"
@@ -415,7 +413,6 @@ public class AKADSRView: NSView {
     }
 
     override public func mouseDragged(with theEvent: NSEvent) {
-
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
 
         if currentDragArea != "" {
@@ -438,7 +435,7 @@ public class AKADSRView: NSView {
         if sustainLevel < 0 { sustainLevel = 0 }
         if sustainLevel > 1 { sustainLevel = 1 }
 
-        self.callback(attackDuration, decayDuration, sustainLevel, releaseDuration)
+        callback(attackDuration, decayDuration, sustainLevel, releaseDuration)
         lastPoint = touchLocation
         needsDisplay = true
     }
@@ -449,7 +446,7 @@ public class AKADSRView: NSView {
         super.init(frame: frame)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -469,15 +466,15 @@ public class AKADSRView: NSView {
         let releaseColor = #colorLiteral(red: 0.72, green: 0.519, blue: 0.888, alpha: 1)
         let backgroundColor = AKStylist.sharedInstance.bgColor
 
-        self.wantsLayer = true
-        self.layer?.backgroundColor = backgroundColor.cgColor
+        wantsLayer = true
+        layer?.backgroundColor = backgroundColor.cgColor
 
         //// Variable Declarations
         let attackClickRoom = CGFloat(30) // to allow the attack to be clicked even if is zero
         let oneSecond: CGFloat = 0.7 * size.width
         let initialPoint = NSPoint(x: attackClickRoom, y: size.height)
         let curveStrokeWidth: CGFloat = min(max(1, size.height / 50.0), max(1, size.width / 100.0))
-        let buffer = CGFloat(10)//curveStrokeWidth / 2.0 // make a little room for drwing the stroke
+        let buffer = CGFloat(10) // curveStrokeWidth / 2.0 // make a little room for drwing the stroke
         let endAxes = NSPoint(x: size.width, y: size.height)
         let releasePoint = NSPoint(x: attackClickRoom + oneSecond,
                                    y: sustainLevel * (size.height - buffer) + buffer)

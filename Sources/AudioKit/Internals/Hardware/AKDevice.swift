@@ -66,7 +66,6 @@ public struct AKDevice: Equatable, Hashable {
         return dataSources.filter { deviceID.contains($0.dataSourceName) }.first
     }
     #endif
-
 }
 
 extension AKDevice: CustomDebugStringConvertible {

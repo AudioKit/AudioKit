@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioToolbox
-import CAudioKit
 import AVFoundation
+import CAudioKit
 
 open class AKAudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
@@ -12,7 +12,7 @@ open class AKAudioUnitBase: AUAudioUnit {
 
     private var pcmBufferArray: [AVAudioPCMBuffer?] = []
 
-    public override func allocateRenderResources() throws {
+    override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
         let format = AKSettings.audioFormat
@@ -32,13 +32,13 @@ open class AKAudioUnitBase: AUAudioUnit {
         allocateRenderResourcesDSP(dsp, format)
     }
 
-    public override func deallocateRenderResources() {
+    override public func deallocateRenderResources() {
         super.deallocateRenderResources()
         deallocateRenderResourcesDSP(dsp)
         pcmBufferArray.removeAll()
     }
 
-    public override func reset() {
+    override public func reset() {
         resetDSP(dsp)
     }
 
@@ -46,7 +46,7 @@ open class AKAudioUnitBase: AUAudioUnit {
         AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: inputBusArray)
     }()
 
-    public override var inputBusses: AUAudioUnitBusArray {
+    override public var inputBusses: AUAudioUnitBusArray {
         return auInputBusArray
     }
 
@@ -54,16 +54,16 @@ open class AKAudioUnitBase: AUAudioUnit {
         AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: outputBusArray)
     }()
 
-    public override var outputBusses: AUAudioUnitBusArray {
+    override public var outputBusses: AUAudioUnitBusArray {
         return auOutputBusArray
     }
 
-    public override var internalRenderBlock: AUInternalRenderBlock {
+    override public var internalRenderBlock: AUInternalRenderBlock {
         internalRenderBlockDSP(dsp)
     }
 
     private var _parameterTree: AUParameterTree?
-    public override var parameterTree: AUParameterTree? {
+    override public var parameterTree: AUParameterTree? {
         get { return _parameterTree }
         set {
             _parameterTree = newValue
@@ -86,7 +86,7 @@ open class AKAudioUnitBase: AUAudioUnit {
         }
     }
 
-    public override var canProcessInPlace: Bool {
+    override public var canProcessInPlace: Bool {
         return canProcessInPlaceDSP(dsp)
     }
 
@@ -94,7 +94,7 @@ open class AKAudioUnitBase: AUAudioUnit {
 
     public private(set) var dsp: AKDSPRef?
 
-    public override init(componentDescription: AudioComponentDescription,
+    override public init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -112,7 +112,6 @@ open class AKAudioUnitBase: AUAudioUnit {
         }
 
         if let paramDefs = getParameterDefs() {
-
             parameterTree = AUParameterTree.createTree(withChildren:
                 paramDefs.map {
                     AUParameter(identifier: $0.identifier,

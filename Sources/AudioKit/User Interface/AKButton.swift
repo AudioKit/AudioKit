@@ -24,6 +24,7 @@ public enum AKButtonStyle {
     var isPressed: Bool {
         return isHighlighted
     }
+
     private var isHighlighted = false {
         didSet {
             setNeedsDisplay()
@@ -82,14 +83,14 @@ public enum AKButtonStyle {
     }
 
     /// Handle new touches
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         callback(self)
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
     }
 
     /// Handle touch events
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         releaseCallback(self)
         transform = CGAffineTransform.identity
         isHighlighted = false
@@ -110,7 +111,7 @@ public enum AKButtonStyle {
     }
 
     /// Initialization with no details
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
         self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
@@ -133,14 +134,14 @@ public enum AKButtonStyle {
     }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
-    public override func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         clipsToBounds = true
     }
 
     /// Require constraint-based layout
-    public class override var requiresConstraintBasedLayout: Bool {
+    override public class var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -173,7 +174,7 @@ public enum AKButtonStyle {
     }
 
     /// Draw the button
-    public override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawButton(rect: rect)
     }
 
@@ -231,7 +232,6 @@ public enum AKButtonStyle {
                                                 height: labelTextHeight),
                                      withAttributes: labelFontAttributes)
         context?.restoreGState()
-
     }
 }
 
@@ -245,7 +245,6 @@ public enum AKButtonStyle {
 }
 
 @IBDesignable public class AKButton: AKView {
-
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -308,19 +307,19 @@ public enum AKButtonStyle {
         }
     }
 
-    public override func mouseDown(with event: NSEvent) {
+    override public func mouseDown(with event: NSEvent) {
         callback(self)
         isHighlighted = true
     }
 
-    public override func mouseUp(with event: NSEvent) {
+    override public func mouseUp(with event: NSEvent) {
         isHighlighted = false
 
         if let highlightAnimationTimer = highlightAnimationTimer {
             highlightAnimationTimer.invalidate()
             self.highlightAnimationTimer = nil
         }
-        self.highlightAnimationAlpha = 0.6
+        highlightAnimationAlpha = 0.6
         highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002,
                                                        target: self,
                                                        selector: #selector(highlightAnimationTimerDidFire),
@@ -359,7 +358,7 @@ public enum AKButtonStyle {
     }
 
     /// Initialization within Interface Builder
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         self.title = "Title"
         self.color = AKStylist.sharedInstance.nextColor
         super.init(coder: coder)
@@ -371,7 +370,7 @@ public enum AKButtonStyle {
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
-        self.wantsLayer = true
+        wantsLayer = true
     }
 
     // Default border color per theme
@@ -447,8 +446,8 @@ public enum AKButtonStyle {
         labelStyle.alignment = .center
 
         let labelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24),
-                                   .foregroundColor: textColorForTheme,
-                                   .paragraphStyle: labelStyle]
+                                                                  .foregroundColor: textColorForTheme,
+                                                                  .paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(

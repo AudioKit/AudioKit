@@ -32,12 +32,10 @@ extension AKComponent {
             callback(au)
         }
     }
-
 }
 
 extension AUParameterTree {
-
-    public subscript (key: String) -> AUParameter? {
+    public subscript(key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
 }
@@ -86,5 +84,4 @@ extension AudioComponentDescription {
     public init(instrument subType: String) {
         self.init(type: kAudioUnitType_MusicDevice, subType: fourCC(subType))
     }
-
 }

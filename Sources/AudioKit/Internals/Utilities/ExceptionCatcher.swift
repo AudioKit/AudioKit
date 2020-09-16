@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import CAudioKit
+import Foundation
 
 public func AKTry(_ operation: @escaping (() throws -> Void)) throws {
     var error: Error?

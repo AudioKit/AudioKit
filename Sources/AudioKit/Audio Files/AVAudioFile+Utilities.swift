@@ -109,10 +109,10 @@ extension AVAudioFile {
 
         // first print CAF file
         guard extract(to: tempFile,
-                           from: startTime,
-                           to: endTime,
-                           fadeInTime: fadeInTime,
-                           fadeOutTime: fadeOutTime) != nil else {
+                      from: startTime,
+                      to: endTime,
+                      fadeInTime: fadeInTime,
+                      fadeOutTime: fadeOutTime) != nil else {
             completionHandler?(createError(message: "Failed to create new file"))
             return
         }

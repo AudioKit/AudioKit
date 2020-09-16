@@ -3,7 +3,6 @@
 import Foundation
 
 extension AKTuningTable {
-
     // Viggo Brun algorithm
     // return (numerator, denominator) approximation to generator after level iterations
     fileprivate static func brunLevel_0_1_1_0(level l: Int, generator g: Double) -> (numerator: Int, denominator: Int) {
@@ -43,14 +42,14 @@ extension AKTuningTable {
         let den = d.denominator
         var f = [Frequency]()
         for i in 0..<den {
-            let p = exp2( (Double(i) * g).truncatingRemainder(dividingBy: 1.0) )
+            let p = exp2((Double(i) * g).truncatingRemainder(dividingBy: 1.0))
             f.append(Frequency(p))
         }
 
         // apply murchana then octave reduce
         let m = (mInput > den) ? (den - 1) : ((mInput < 0) ? 0 : mInput)
         let murchana = f[m]
-        f = f.map({(frequency: Frequency) -> Frequency in
+        f = f.map { (frequency: Frequency) -> Frequency in
             // murchana = index of modulation == normalize by this scale degree
             var ff = frequency / murchana
             // octave reduce.  Assumes octave = 2
@@ -61,7 +60,7 @@ extension AKTuningTable {
                 ff /= 2.0
             }
             return ff
-        })
+        }
         f.sort()
 
         // update tuning table

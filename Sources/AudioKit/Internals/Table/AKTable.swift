@@ -221,7 +221,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     /// Instantiate the table as a sine wave
     func standardSineWave() {
         for i in indices {
-            content[i] = Float(sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 
@@ -265,7 +265,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     /// Instantiate the table as a sine wave
     func positiveSineWave() {
         for i in indices {
-            content[i] = Float(0.5 + 0.5 * sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(0.5 + 0.5 * sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 

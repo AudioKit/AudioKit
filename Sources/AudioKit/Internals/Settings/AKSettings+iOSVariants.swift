@@ -2,9 +2,9 @@
 
 #if !os(macOS)
 
-import Foundation
-import AVFoundation
-import os.log
+    import AVFoundation
+    import Foundation
+    import os.log
 
     extension AKSettings {
         /// Global audio format AudioKit will default to for new objects and connections

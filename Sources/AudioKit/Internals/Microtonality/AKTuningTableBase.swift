@@ -7,7 +7,6 @@ import Foundation
 /// The default behavior is "12-tone equal temperament" so
 /// we can integrate in non-microtonal settings with backwards compatibility
 open class AKTuningTableBase: NSObject {
-
     // Definitions:
     // f = Frequency
     // p = Pitch = log2(frequency) for tunings where octave powers of 2
@@ -34,11 +33,11 @@ open class AKTuningTableBase: NSObject {
     internal var tableData = [Frequency](repeating: 1.0, count: midiNoteCount)
 
     /// Initialization for standard default 12 tone equal temperament
-    public override init() {
+    override public init() {
         super.init()
-        for noteNumber in 0..<AKTuningTable.midiNoteCount {
+        for noteNumber in 0 ..< AKTuningTable.midiNoteCount {
             let f = 440 * exp2(Double(noteNumber - 69) / 12.0)
-            setFrequency(f, at: MIDINoteNumber(noteNumber) )
+            setFrequency(f, at: MIDINoteNumber(noteNumber))
         }
     }
 
