@@ -2,12 +2,11 @@
 
 #if !os(tvOS)
 
-import Foundation
 import CAudioKit
+import Foundation
 
 /// Audio player that loads a sample into memory
 open class AKSequencerTrack {
-
     // MARK: - Properties
 
     public var targetNode: AKNode?
@@ -121,7 +120,6 @@ open class AKSequencerTrack {
     private var renderObserverToken: Int?
 
     private func updateSequence() {
-
         guard let block = targetNode?.avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock else {
             AKLog("Failed to get AUScheduleMIDIEventBlock")
             return

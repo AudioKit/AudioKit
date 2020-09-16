@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import CAudioKit
+import Foundation
 
 #if !os(tvOS)
 
@@ -23,7 +23,6 @@ extension AKSequenceEvent: Equatable {
 
 /// A value type for sequences.
 public struct AKSequence: Equatable {
-
     public var notes: [AKSequenceNote]
     public var events: [AKSequenceEvent]
 
@@ -40,7 +39,6 @@ public struct AKSequence: Equatable {
                              channel: MIDIChannel = 0,
                              position: Double,
                              duration: Double) {
-
         var newNote = AKSequenceNote()
 
         newNote.noteOn.status = AKSequence.noteOn
@@ -79,7 +77,6 @@ public struct AKSequence: Equatable {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }
     }
-
 }
 
 #endif

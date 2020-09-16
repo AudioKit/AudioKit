@@ -163,8 +163,9 @@ private:
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
      */
-    void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                                   AURenderEvent const *events);
+    void processWithEvents(AudioTimeStamp const *timestamp,
+                           AUAudioFrameCount frameCount,
+                           AURenderEvent const *events);
     
     void handleOneEvent(AURenderEvent const *event);
     
