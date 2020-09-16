@@ -3,7 +3,7 @@
 import Foundation
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-public class AKTuningTableETNN: NSObject {
+public class TuningTableETNN: NSObject {
     public var nn: MIDINoteNumber = 60
     public var pitchBend: Int = 16_384 / 2
     public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
@@ -13,7 +13,7 @@ public class AKTuningTableETNN: NSObject {
 }
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-public class AKTuningTableDelta12ET: NSObject {
+public class TuningTableDelta12ET: NSObject {
     public var nn: MIDINoteNumber = 60
     public var cents: Double = 0
     public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
@@ -22,11 +22,11 @@ public class AKTuningTableDelta12ET: NSObject {
     }
 }
 
-/// AKTuningTable provides high-level methods to create musically useful tuning tables
+/// TuningTable provides high-level methods to create musically useful tuning tables
 
 // Definitions:
 // masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
-public class AKTuningTable: AKTuningTableBase {
+public class TuningTable: TuningTableBase {
     public private(set) var masterSet = [Frequency]()
 
     /// Note number for standard reference note
@@ -75,23 +75,23 @@ public class AKTuningTable: AKTuningTableBase {
 
     internal let pitchBendHigh: Double = 16_383
 
-    internal var etNNDictionary = [MIDINoteNumber: AKTuningTableETNN]()
+    internal var etNNDictionary = [MIDINoteNumber: TuningTableETNN]()
 
-    /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN
+    /// Given the tuning table's MIDINoteNumber NN return an TuningTableETNN
     /// of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
-    public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
+    public func etNNPitchBend(NN nn: MIDINoteNumber) -> TuningTableETNN? {
         return etNNDictionary[nn]
     }
 
-    internal var delta12ETDictionary = [MIDINoteNumber: AKTuningTableDelta12ET]()
+    internal var delta12ETDictionary = [MIDINoteNumber: TuningTableDelta12ET]()
 
     /// Given the tuning table's MIDINoteNumber NN return an
-    /// AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
+    /// TuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
-    public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
+    public func delta12ET(NN nn: MIDINoteNumber) -> TuningTableDelta12ET? {
         return delta12ETDictionary[nn]
     }
 
@@ -190,7 +190,7 @@ public class AKTuningTable: AKTuningTableBase {
         etNNDictionary.removeAll(keepingCapacity: true)
         delta12ETDictionary.removeAll(keepingCapacity: true)
 
-        for i in 0 ..< AKTuningTable.midiNoteCount {
+        for i in 0 ..< TuningTable.midiNoteCount {
             let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(masterSet.count)
             var ttOctaveFactor = Frequency(trunc(ff))
             if ff < 0 {
@@ -206,19 +206,19 @@ public class AKTuningTable: AKTuningTableBase {
             let lp2 = pow(2, ttOctaveFactor)
 
             var f = tone * lp2 * middleCFrequency
-            f = (0 ... AKTuningTable.NYQUIST).clamp(f)
+            f = (0 ... TuningTable.NYQUIST).clamp(f)
             tableData[i] = Frequency(f)
 
             // UPDATE etNNPitchBend
             if f <= 0 { continue } // defensive, in case clamp above is removed
             let freqAs12ETNN = Double(middleCNoteNumber) + 12 * log2(f / middleCFrequency)
-            if freqAs12ETNN >= 0 && freqAs12ETNN < Double(AKTuningTable.midiNoteCount) {
+            if freqAs12ETNN >= 0 && freqAs12ETNN < Double(TuningTable.midiNoteCount) {
                 let etnnt = modf(freqAs12ETNN)
                 var nnAs12ETNN = MIDINoteNumber(etnnt.0) // integer part "12ET note number"
                 var etnnpbf = 100 * etnnt.1 // convert fractional part to Cents
 
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
-                if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
+                if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(TuningTable.midiNoteCount - 1) {
                     nnAs12ETNN += 1
                     etnnpbf -= 100
                 }
@@ -226,8 +226,8 @@ public class AKTuningTable: AKTuningTableBase {
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)
                 if netnnpbf >= -0.5 && netnnpbf <= 0.5 {
                     let netnnpb = Int( (netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow )
-                    etNNDictionary[MIDINoteNumber(i)] = AKTuningTableETNN(nnAs12ETNN, netnnpb)
-                    delta12ETDictionary[MIDINoteNumber(i)] = AKTuningTableDelta12ET(nnAs12ETNN, delta12ETpbf)
+                    etNNDictionary[MIDINoteNumber(i)] = TuningTableETNN(nnAs12ETNN, netnnpb)
+                    delta12ETDictionary[MIDINoteNumber(i)] = TuningTableDelta12ET(nnAs12ETNN, delta12ETpbf)
                 }
             }
         }

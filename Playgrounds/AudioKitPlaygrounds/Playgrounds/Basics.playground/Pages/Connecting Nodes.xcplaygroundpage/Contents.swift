@@ -22,7 +22,7 @@ var player = AKPlayer(audioFile: file)
 //player.buffering = .always
 
 //: Next we'll connect the audio player to a delay effect
-var delay = AKDelay(player)
+var delay = Delay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds

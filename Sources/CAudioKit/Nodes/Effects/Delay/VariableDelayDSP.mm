@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKVariableDelayParameter : AUParameterAddress {
-    AKVariableDelayParameterTime,
-    AKVariableDelayParameterFeedback,
+enum VariableDelayParameter : AUParameterAddress {
+    VariableDelayParameterTime,
+    VariableDelayParameterFeedback,
 };
 
-class AKVariableDelayDSP : public AKSoundpipeDSPBase {
+class VariableDelayDSP : public AKSoundpipeDSPBase {
 private:
     sp_vdelay *vdelay0;
     sp_vdelay *vdelay1;
@@ -18,9 +18,9 @@ private:
     ParameterRamper feedbackRamp;
 
 public:
-    AKVariableDelayDSP() {
-        parameters[AKVariableDelayParameterTime] = &timeRamp;
-        parameters[AKVariableDelayParameterFeedback] = &feedbackRamp;
+    VariableDelayDSP() {
+        parameters[VariableDelayParameterTime] = &timeRamp;
+        parameters[VariableDelayParameterFeedback] = &feedbackRamp;
         bCanProcessInPlace = false;
     }
 
@@ -89,11 +89,11 @@ public:
 };
 
 AK_API void akVariableDelaySetMaximumTime(AKDSPRef dspRef, float maximumTime) {
-    auto dsp = dynamic_cast<AKVariableDelayDSP *>(dspRef);
+    auto dsp = dynamic_cast<VariableDelayDSP *>(dspRef);
     assert(dsp);
     dsp->setMaximumTime(maximumTime);
 }
 
-AK_REGISTER_DSP(AKVariableDelayDSP)
-AK_REGISTER_PARAMETER(AKVariableDelayParameterTime)
-AK_REGISTER_PARAMETER(AKVariableDelayParameterFeedback)
+AK_REGISTER_DSP(VariableDelayDSP)
+AK_REGISTER_PARAMETER(VariableDelayParameterTime)
+AK_REGISTER_PARAMETER(VariableDelayParameterFeedback)

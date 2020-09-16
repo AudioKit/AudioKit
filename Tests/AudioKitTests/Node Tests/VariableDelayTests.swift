@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKVariableDelayTests: XCTestCase {
+class VariableDelayTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input)
+        engine.output = VariableDelay(input)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -18,7 +18,7 @@ class AKVariableDelayTests: XCTestCase {
     func testFeedback() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input, feedback: 0.95)
+        engine.output = VariableDelay(input, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -28,7 +28,7 @@ class AKVariableDelayTests: XCTestCase {
     func testMaximum() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
+        engine.output = VariableDelay(input, time: 0.02, feedback: 0.8, maximumTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -38,7 +38,7 @@ class AKVariableDelayTests: XCTestCase {
     func testMaximumSurpassed() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
+        engine.output = VariableDelay(input, time: 0.03, feedback: 0.8, maximumTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -48,7 +48,7 @@ class AKVariableDelayTests: XCTestCase {
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKVariableDelay(input)
+        let effect = VariableDelay(input)
         effect.time = 0.123_4
         effect.feedback = 0.95
         engine.output = effect
@@ -61,7 +61,7 @@ class AKVariableDelayTests: XCTestCase {
     func testParametersSetOnInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
+        engine.output = VariableDelay(input, time: 0.123_4, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -71,7 +71,7 @@ class AKVariableDelayTests: XCTestCase {
     func testTime() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKVariableDelay(input, time: 0.123_4)
+        engine.output = VariableDelay(input, time: 0.123_4)
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))

@@ -6,7 +6,7 @@ import Cocoa
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.4
-let delay = AKDelay(oscillator)
+let delay = Delay(oscillator)
 delay.feedback = 0.3
 delay.time = 0.1
 let reverb = AKCostelloReverb(delay)

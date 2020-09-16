@@ -21,7 +21,7 @@ class AudioEngine {
 
     // Declare your nodes as instance variables
     var player: AKPlayer!
-    var delay: AKDelay!
+    var delay: Delay!
     var reverb: AKReverb!
     var file: AKAudioFile!
 
@@ -38,7 +38,7 @@ class AudioEngine {
         player.buffering = .always
 
         // Next we'll connect the audio player to a delay effect
-        delay = AKDelay(player)
+        delay = Delay(player)
 
         // Set the parameters of the delay here
         delay.time = 0.1 // seconds

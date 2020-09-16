@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKTuningTable {
+extension TuningTable {
     /// From Erv Wilson.  See http://anaphoria.com/genus.pdf
     public func presetHighlandBagPipes() -> Int {
         let npo = tuningTable(fromFrequencies: [32, 36, 39, 171, 48, 52, 57])

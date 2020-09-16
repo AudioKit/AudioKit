@@ -18,7 +18,7 @@ player.looping = true
 //: The following nodes are both acting on the original player node
 var ringMod = AKRingModulator(player)
 
-var delay = AKDelay(player)
+var delay = Delay(player)
 delay.time = 0.01
 delay.feedback = 0.8
 delay.dryWetMix = 1

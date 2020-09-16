@@ -24,7 +24,7 @@ let generatorFader = AKFader(filter)
 generatorFader.gain = 0.618
 
 // DELAY
-let delay = AKDelay(generatorFader)
+let delay = Delay(generatorFader)
 delay.time = 1.0 / playRate
 delay.feedback = 0.618
 delay.lowPassCutoff = 12_048

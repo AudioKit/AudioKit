@@ -2,7 +2,7 @@
 
 import Foundation
 
-extension AKTuningTable {
+extension TuningTable {
     /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.
     public func scalaFile(_ filePath: String) -> Int? {
         guard

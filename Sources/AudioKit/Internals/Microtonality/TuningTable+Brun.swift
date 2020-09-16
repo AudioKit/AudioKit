@@ -2,7 +2,7 @@
 
 import Foundation
 
-extension AKTuningTable {
+extension TuningTable {
     // Viggo Brun algorithm
     // return (numerator, denominator) approximation to generator after level iterations
     fileprivate static func brunLevel_0_1_1_0(level l: Int, generator g: Double) -> (numerator: Int, denominator: Int) {
@@ -36,7 +36,7 @@ extension AKTuningTable {
         // CLAMP
         let g = (gInput > 1.0) ? 1.0 : ((gInput < 0) ? 0.0 : gInput)
         let l = (lInput > 7) ? 7 : ((lInput < 0) ? 0 : lInput)
-        let d = AKTuningTable.brunLevel_0_1_1_0(level: l, generator: g)
+        let d = TuningTable.brunLevel_0_1_1_0(level: l, generator: g)
 
         // NPO number of notes per octave
         let den = d.denominator

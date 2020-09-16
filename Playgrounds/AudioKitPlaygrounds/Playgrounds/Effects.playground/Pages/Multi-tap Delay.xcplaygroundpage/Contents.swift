@@ -15,13 +15,13 @@ player.looping = true
 
 //: In AudioKit, you can create a multitap easily through creating a function
 //: that mixes together several delays and gains.
-var delays = [AKVariableDelay]()
+var delays = [VariableDelay]()
 
 func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     var counter = 0
     zip(times, gains).forEach { (time, gain) -> Void in
-        delays.append(AKVariableDelay(input, time: time))
+        delays.append(VariableDelay(input, time: time))
         mix.connect(AKFader(delays[counter], gain: gain))
         counter += 1
     }

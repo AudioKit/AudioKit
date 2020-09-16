@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKTuningTable {
+extension TuningTable {
     /// Set tuning to 22 Indian Scale.
     /// From Erv Wilson.  See http://anaphoria.com/Khiasmos.pdf
     @discardableResult public func khiasmos22Indian() -> Int {
@@ -50,9 +50,9 @@ extension AKTuningTable {
                                                            243 / 128]
 
     fileprivate func helper(_ input: [Int]) -> [Frequency] {
-        assert(input.count < AKTuningTable.persianNorthIndianMasterSet.count - 1, "internal error: index out of bounds")
+        assert(input.count < TuningTable.persianNorthIndianMasterSet.count - 1, "internal error: index out of bounds")
         let retVal: [Frequency] = input.map { (number: Int) -> Frequency in
-            Frequency(AKTuningTable.persianNorthIndianMasterSet[number])
+            Frequency(TuningTable.persianNorthIndianMasterSet[number])
         }
         return retVal
     }

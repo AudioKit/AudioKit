@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class VariableDelayTests: XCTestCase {
+class VariableDelayOperationTests: XCTestCase {
 
     func testParameterSweep() {
         let engine = AudioEngine()
