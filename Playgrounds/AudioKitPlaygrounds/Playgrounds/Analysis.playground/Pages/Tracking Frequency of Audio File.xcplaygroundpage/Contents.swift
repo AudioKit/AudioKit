@@ -9,7 +9,7 @@ var player = AKPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
-let tracker = AKPitchTap(player)
+let tracker = PitchTap(player)
 
 engine.output = tracker
 try engine.start()
