@@ -24,12 +24,12 @@ let package = Package(
         .target(name: "STK", publicHeadersPath: "include"),
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
-                cSettings: [
+                cxxSettings: [
                     .define("NO_LIBSNDFILE"),
-                    .headerSearchPath("lib/kissfft"),
-                    .headerSearchPath("modules"),
-                    .headerSearchPath("external"),
-                    .headerSearchPath("lib/inih")
+                    .headerSearchPath("Sources/soundpipe/lib/kissfft"),
+                    .headerSearchPath("Sources/soundpipe/lib/inih"),
+                    .headerSearchPath("Sources/soundpipe/modules"),
+                    .headerSearchPath("Sources/soundpipe/external")
                 ]),
         .target(
             name: "sporth",
@@ -41,11 +41,11 @@ let package = Package(
             dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
             publicHeadersPath: "include",
             cxxSettings: [
-                .headerSearchPath("CoreAudio"),
-                .headerSearchPath("AudioKitCore/Common"),
-                .headerSearchPath("Devoloop/include"),
-                .headerSearchPath("include"),
-                .headerSearchPath(".")
+                .headerSearchPath("Sources/CAudioKit/CoreAudio"),
+                .headerSearchPath("Sources/CAudioKit/AudioKitCore/Common"),
+                .headerSearchPath("Sources/CAudioKit/Devoloop/include"),
+                .headerSearchPath("Sources/CAudioKit/include"),
+                .headerSearchPath("Sources/CAudioKit")
             ]
         ),
         .target(
