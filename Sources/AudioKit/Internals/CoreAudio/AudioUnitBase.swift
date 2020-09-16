@@ -4,7 +4,7 @@ import AudioToolbox
 import AVFoundation
 import CAudioKit
 
-open class AKAudioUnitBase: AUAudioUnit {
+open class AudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
     private var inputBusArray: [AUAudioUnitBus] = []

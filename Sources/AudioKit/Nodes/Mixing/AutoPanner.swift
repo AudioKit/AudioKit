@@ -39,7 +39,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
             [AKAutoPanner.frequencyDef,

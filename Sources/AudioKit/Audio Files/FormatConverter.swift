@@ -3,30 +3,30 @@
 import AVFoundation
 
 /**
- AKConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
+ FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```
- let options = AKConverter.Options()
+ let options = FormatConverter.Options()
  // any options left nil will assume the value of the input file
  options.format = "wav"
  options.sampleRate == 48000
  options.bitDepth = 24
 
- let converter = AKConverter(inputURL: oldURL, outputURL: newURL, options: options)
+ let converter = FormatConverter(inputURL: oldURL, outputURL: newURL, options: options)
  converter.start { error in
  // check to see if error isn't nil, otherwise you're good
  })
  ```
  */
-open class AKConverter: NSObject {
-    /// AKConverterCallback is the callback format for start()
+open class FormatConverter: NSObject {
+    /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
-    public typealias AKConverterCallback = (_ error: Error?) -> Void
+    public typealias FormatConverterCallback = (_ error: Error?) -> Void
 
     /// Formats that this class can write
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /// Formats that this class can read
-    public static let inputFormats = AKConverter.outputFormats + [
+    public static let inputFormats = FormatConverter.outputFormats + [
         "mp3",
         "snd",
         "au",
@@ -74,7 +74,7 @@ open class AKConverter: NSObject {
             let streamDescription = audioFile.fileFormat.streamDescription.pointee
 
             format = audioFile.url.pathExtension
-            // AKConverter.formatIDToString(streamDescription.mFormatID)
+            // FormatConverter.formatIDToString(streamDescription.mFormatID)
             sampleRate = streamDescription.mSampleRate
             bitDepth = streamDescription.mBitsPerChannel
             channels = streamDescription.mChannelsPerFrame
@@ -106,7 +106,7 @@ open class AKConverter: NSObject {
     }
 
     deinit {
-        // AKLog("* { AKConverter \(inputURL?.lastPathComponent ?? "?") }")
+        // AKLog("* { FormatConverter \(inputURL?.lastPathComponent ?? "?") }")
         reader = nil
         writer = nil
         inputURL = nil
@@ -118,7 +118,7 @@ open class AKConverter: NSObject {
 
     /// The entry point for file conversion
     /// - Parameter completionHandler: the callback that will be triggered when process has completed.
-    public func start(completionHandler: AKConverterCallback? = nil) {
+    public func start(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return
@@ -131,7 +131,7 @@ open class AKConverter: NSObject {
 
         let inputFormat = inputURL.pathExtension.lowercased()
         // verify inputFormat
-        guard AKConverter.inputFormats.contains(inputFormat) else {
+        guard FormatConverter.inputFormats.contains(inputFormat) else {
             completionHandler?(createError(message: "The input file format isn't able to be processed."))
             return
         }
@@ -152,7 +152,7 @@ open class AKConverter: NSObject {
     }
 }
 
-extension AKConverter {
+extension FormatConverter {
     /**
      @enum Audio File Types
      @abstract   Constants for the built-in audio file types.

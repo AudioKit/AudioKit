@@ -52,7 +52,7 @@ public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
             [AKFormantFilter.centerFrequencyDef,

@@ -19,7 +19,7 @@ public class AKDCBlock: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
             akCreateDSP("AKDCBlockDSP")

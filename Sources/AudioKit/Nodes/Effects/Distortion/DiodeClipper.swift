@@ -40,7 +40,7 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
             [AKDiodeClipper.cutoffFrequencyDef,

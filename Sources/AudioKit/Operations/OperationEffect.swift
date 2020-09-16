@@ -138,7 +138,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Audio Unit
 
-    public class InternalAU: AKAudioUnitBase {
+    public class InternalAU: AudioUnitBase {
         public override func getParameterDefs() -> [AKNodeParameterDef] {
             [AKOperationEffect.parameter1Def,
              AKOperationEffect.parameter2Def,

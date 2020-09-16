@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-public class AKSynthAudioUnit: AKAudioUnitBase {
+public class AKSynthAudioUnit: AudioUnitBase {
 
     var masterVolume: AUParameter!
 
