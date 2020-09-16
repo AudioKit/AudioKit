@@ -5,14 +5,14 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKOscillatorParameter : AUParameterAddress {
-    AKOscillatorParameterFrequency,
-    AKOscillatorParameterAmplitude,
-    AKOscillatorParameterDetuningOffset,
-    AKOscillatorParameterDetuningMultiplier,
+enum OscillatorParameter : AUParameterAddress {
+    OscillatorParameterFrequency,
+    OscillatorParameterAmplitude,
+    OscillatorParameterDetuningOffset,
+    OscillatorParameterDetuningMultiplier,
 };
 
-class AKOscillatorDSP : public AKSoundpipeDSPBase {
+class OscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *osc = nullptr;
     sp_ftbl *ftbl = nullptr;
@@ -23,11 +23,11 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKOscillatorParameterFrequency] = &frequencyRamp;
-        parameters[AKOscillatorParameterAmplitude] = &amplitudeRamp;
-        parameters[AKOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
-        parameters[AKOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+    OscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[OscillatorParameterFrequency] = &frequencyRamp;
+        parameters[OscillatorParameterAmplitude] = &amplitudeRamp;
+        parameters[OscillatorParameterDetuningOffset] = &detuningOffsetRamp;
+        parameters[OscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         isStarted = false;
     }
 
@@ -73,7 +73,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_osc_compute(sp, osc, nil, &temp);
-                        // AKDebugDSP(AKOscillatorDebugPhase, osc->lphs);
+                        // AKDebugDSP(OscillatorDebugPhase, osc->lphs);
                     }
                     *out = temp;
                 } else {
@@ -84,8 +84,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKOscillatorDSP)
-AK_REGISTER_PARAMETER(AKOscillatorParameterFrequency)
-AK_REGISTER_PARAMETER(AKOscillatorParameterAmplitude)
-AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningOffset)
-AK_REGISTER_PARAMETER(AKOscillatorParameterDetuningMultiplier)
+AK_REGISTER_DSP(OscillatorDSP)
+AK_REGISTER_PARAMETER(OscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(OscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(OscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(OscillatorParameterDetuningMultiplier)

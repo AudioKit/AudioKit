@@ -7,7 +7,7 @@ class AKModalResonanceFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKModalResonanceFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKModalResonanceFilterTests: XCTestCase {
 
     func testFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, frequency: 400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKModalResonanceFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, frequency: 400, qualityFactor: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKModalResonanceFilterTests: XCTestCase {
 
     func testQualityFactor() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, qualityFactor: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

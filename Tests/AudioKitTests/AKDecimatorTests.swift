@@ -7,7 +7,7 @@ class AKDecimatorTests: XCTestCase {
 
     func testDecimation() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDecimator(input, decimation: 75)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKDecimatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDecimator(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKDecimatorTests: XCTestCase {
 
     func testMix() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDecimator(input, finalMix: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKDecimatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDecimator(input, decimation: 75, rounding: 50, finalMix: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class AKDecimatorTests: XCTestCase {
 
     func testRounding() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDecimator(input, rounding: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

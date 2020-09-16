@@ -7,7 +7,7 @@ class AKEqualizerFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKEqualizerFilter(input, bandwidth: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKEqualizerFilterTests: XCTestCase {
 
     func testCenterFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKEqualizerFilter(input, centerFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKEqualizerFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKEqualizerFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKEqualizerFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKEqualizerFilter(input, gain: 5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class AKEqualizerFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

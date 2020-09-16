@@ -6,11 +6,11 @@ import XCTest
 
 class AKNodeTests: XCTestCase {
 
-    let osc = AKOscillator()
+    let osc = Oscillator()
 
     func testNodeBasic() {
         let engine = AKEngine()
-        let osc = AKOscillator()
+        let osc = Oscillator()
         XCTAssertNotNil(osc.avAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
@@ -23,7 +23,7 @@ class AKNodeTests: XCTestCase {
 
     func testNodeConnection() {
         let engine = AKEngine()
-        let osc = AKOscillator()
+        let osc = Oscillator()
         osc.start()
         let verb = AKCostelloReverb(osc)
         engine.output = verb
@@ -33,7 +33,7 @@ class AKNodeTests: XCTestCase {
     }
 
     func testRedundantConnection() {
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer()
         mixer.addInput(osc)
         mixer.addInput(osc)
@@ -44,7 +44,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc1 = AKOscillator()
+        let osc1 = Oscillator()
         osc1.start()
         engine.output = osc1
 
@@ -53,7 +53,7 @@ class AKNodeTests: XCTestCase {
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = Oscillator(frequency: 880)
         osc2.start()
         engine.output = osc2
 
@@ -68,7 +68,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer(osc)
 
         XCTAssertNil(osc.avAudioNode.engine)
@@ -84,7 +84,7 @@ class AKNodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = Oscillator(frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
@@ -97,7 +97,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer(osc)
 
         engine.output = mixer
@@ -107,7 +107,7 @@ class AKNodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = Oscillator(frequency: 880)
         let verb = AKCostelloReverb(osc2)
         osc2.start()
         mixer.addInput(verb)
@@ -121,7 +121,7 @@ class AKNodeTests: XCTestCase {
     func testDynamicConnection3() {
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
 
@@ -131,7 +131,7 @@ class AKNodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = AKOscillator(frequency: 880)
+        let osc2 = Oscillator(frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
@@ -149,7 +149,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
 
@@ -170,7 +170,7 @@ class AKNodeTests: XCTestCase {
     func testNodeDetach() {
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer = AKMixer(osc)
         engine.output = mixer
         osc.start()
@@ -190,7 +190,7 @@ class AKNodeTests: XCTestCase {
         let engine = AKEngine()
         let engine2 = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         engine2.output = osc
         osc.start()
 
@@ -207,9 +207,9 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        var oscs: [AKOscillator] = []
+        var oscs: [Oscillator] = []
         for _ in 0..<16 {
-            oscs.append(AKOscillator())
+            oscs.append(Oscillator())
         }
 
         let mixer = AKMixer(oscs)
@@ -234,7 +234,7 @@ class AKNodeTests: XCTestCase {
     func testFanout() {
 
         let engine = AKEngine()
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let verb = AKCostelloReverb(osc)
         let mixer = AKMixer(osc, verb)
         engine.output = mixer
@@ -247,7 +247,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AKEngine()
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let mixer1 = AKMixer(osc)
         let mixer2 = AKMixer(mixer1)
 
@@ -263,7 +263,7 @@ class AKNodeTests: XCTestCase {
 
     func testTransientNodes() {
         let engine = AKEngine()
-        let osc = AKOscillator()
+        let osc = Oscillator()
         func exampleStart() {
             let env = AKAmplitudeEnvelope(osc)
             osc.amplitude = 1

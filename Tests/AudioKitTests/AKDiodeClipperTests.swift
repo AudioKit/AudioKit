@@ -7,7 +7,7 @@ class AKDiodeClipperTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDiodeClipper(input)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKDiodeClipperTests: XCTestCase {
 
     func testParameters1() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDiodeClipper(input, cutoffFrequency: 1000, gain: 1.0)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKDiodeClipperTests: XCTestCase {
 
     func testParameters2() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKDiodeClipper(input, cutoffFrequency: 2000, gain: 2.0)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)

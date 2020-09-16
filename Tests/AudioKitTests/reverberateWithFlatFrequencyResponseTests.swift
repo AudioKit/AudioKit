@@ -7,7 +7,7 @@ class ReverberateWithFlatFrequencyResponseTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.reverberateWithFlatFrequencyResponse() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

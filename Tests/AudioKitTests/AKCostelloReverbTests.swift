@@ -7,7 +7,7 @@ class AKCostelloReverbTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCostelloReverb(input, cutoffFrequency: 1_234)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKCostelloReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCostelloReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKCostelloReverbTests: XCTestCase {
 
     func testFeedback() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCostelloReverb(input, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKCostelloReverbTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let effect = AKCostelloReverb(input)
         effect.cutoffFrequency = 1_234
         effect.feedback = 0.95
@@ -50,7 +50,7 @@ class AKCostelloReverbTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCostelloReverb(input,
                                   feedback: 0.95,
                                   cutoffFrequency: 1_234)

@@ -7,7 +7,7 @@ class AKRingModulatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKRingModulator(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

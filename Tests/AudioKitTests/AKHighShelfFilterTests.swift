@@ -7,7 +7,7 @@ class AKHighShelfFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKHighShelfFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfFilter(input, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKHighShelfFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKHighShelfFilter(input, cutOffFrequency: 400, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -21,7 +21,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters2() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])
@@ -43,7 +43,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters3() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let effect = AKOperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])

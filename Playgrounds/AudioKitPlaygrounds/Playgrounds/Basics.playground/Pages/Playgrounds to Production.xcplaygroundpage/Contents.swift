@@ -18,14 +18,14 @@ import AudioKit
 //:
 //: In a playground, you don't have to worry about whether a node is retained, so you can
 //: just write:
-let oscillator = AKOscillator()
+let oscillator = Oscillator()
 engine.output = oscillator
 try engine.start()
 
 //: But if you did the same type of thing in a project:
 class BadAudioEngine {
     init() {
-        let oscillator = AKOscillator()
+        let oscillator = Oscillator()
         engine.output = oscillator
         do {
             try engine.start()
@@ -38,10 +38,10 @@ class BadAudioEngine {
 //: It wouldn't work because the oscillator node would be lost right after the init
 //: method completed.  Instead,  make sure it is declared as an instance variable:
 class AudioEngine {
-    var oscillator: AKOscillator
+    var oscillator: Oscillator
 
     init() {
-        oscillator = AKOscillator()
+        oscillator = Oscillator()
         engine.output = oscillator
         do {
             try engine.start()

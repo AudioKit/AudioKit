@@ -7,7 +7,7 @@ class AKPlayerTests: XCTestCase {
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL {
 
-        let osc = AKOscillator()
+        let osc = Oscillator()
         let engine = AKEngine()
         engine.output = osc
         osc.start()

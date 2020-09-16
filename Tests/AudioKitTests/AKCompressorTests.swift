@@ -7,7 +7,7 @@ class AKCompressorTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input, attackTime: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKCompressorTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKCompressorTests: XCTestCase {
 
     func testHeadRoom() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input, headRoom: 0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKCompressorTests: XCTestCase {
 
     func testMasterGain() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input, masterGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class AKCompressorTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input,
                                      threshold: -25,
                                      headRoom: 10,
@@ -64,7 +64,7 @@ class AKCompressorTests: XCTestCase {
 
     func testThreshold() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKCompressor(input, threshold: -25)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

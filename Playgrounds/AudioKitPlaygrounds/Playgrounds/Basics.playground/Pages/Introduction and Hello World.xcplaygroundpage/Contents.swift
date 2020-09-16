@@ -17,7 +17,7 @@ import Foundation
 
 let engine = AKEngine()
 
-let oscillator = AKOscillator()
+let oscillator = Oscillator()
 
 engine.output = oscillator
 try engine.start()

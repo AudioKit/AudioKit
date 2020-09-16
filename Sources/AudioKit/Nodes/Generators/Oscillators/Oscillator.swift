@@ -7,7 +7,7 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 /// 
-public class AKOscillator: AKNode, AKComponent, AKToggleable {
+public class Oscillator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
@@ -22,7 +22,7 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKOscillatorParameterFrequency"),
+        address: akGetParameterAddress("OscillatorParameterFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -33,7 +33,7 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKOscillatorParameterAmplitude"),
+        address: akGetParameterAddress("OscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -44,7 +44,7 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: akGetParameterAddress("AKOscillatorParameterDetuningOffset"),
+        address: akGetParameterAddress("OscillatorParameterDetuningOffset"),
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -55,7 +55,7 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: akGetParameterAddress("AKOscillatorParameterDetuningMultiplier"),
+        address: akGetParameterAddress("OscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -68,14 +68,14 @@ public class AKOscillator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AKAudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKOscillator.frequencyDef,
-             AKOscillator.amplitudeDef,
-             AKOscillator.detuningOffsetDef,
-             AKOscillator.detuningMultiplierDef]
+            [Oscillator.frequencyDef,
+             Oscillator.amplitudeDef,
+             Oscillator.detuningOffsetDef,
+             Oscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKOscillatorDSP")
+            akCreateDSP("OscillatorDSP")
         }
     }
 

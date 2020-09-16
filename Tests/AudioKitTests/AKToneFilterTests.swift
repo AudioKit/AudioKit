@@ -7,7 +7,7 @@ class AKToneFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKToneFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKToneFilterTests: XCTestCase {
 
     func testHalfPowerPoint() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKToneFilter(input, halfPowerPoint: 599)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -7,7 +7,7 @@ class AutoWahTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.autoWah(wah: 0.5, amplitude: 0.5) }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AutoWahTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.autoWah() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AutoWahTests: XCTestCase {
 
     func testWah() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.autoWah(wah: 0.5) }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

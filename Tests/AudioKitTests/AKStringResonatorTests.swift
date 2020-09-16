@@ -7,7 +7,7 @@ class AKStringResonatorTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKResonantFilter(input, bandwidth: 100)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKStringResonatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKStringResonator(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKStringResonatorTests: XCTestCase {
 
     func testFrequency() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKResonantFilter(input, frequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class AKStringResonatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKResonantFilter(input, frequency: 500, bandwidth: 100)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -7,7 +7,7 @@ class AKStereoFieldLimiterTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let pannedInput = AKPanner(input, pan: -1)
         engine.output = AKStereoFieldLimiter(pannedInput)
         input.start()
@@ -18,7 +18,7 @@ class AKStereoFieldLimiterTests: XCTestCase {
 
     func testHalf() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let pannedInput = AKPanner(input, pan: -1)
         engine.output = AKStereoFieldLimiter(pannedInput, amount: 0.5)
         input.start()
@@ -29,7 +29,7 @@ class AKStereoFieldLimiterTests: XCTestCase {
 
     func testNone() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let pannedInput = AKPanner(input, pan: -1)
         engine.output = AKStereoFieldLimiter(pannedInput, amount: 0)
         input.start()

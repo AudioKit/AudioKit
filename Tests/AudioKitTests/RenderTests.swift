@@ -9,7 +9,7 @@ class RenderTests: XCTestCase {
 
     func runWith(feedback: Float, silenceThreshold: Float = 0.05) -> Float {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let automationEvent = AKAutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
         engine.output = AKCostelloReverb(input, feedback: feedback)
         input.$amplitude.automate(events: [automationEvent])

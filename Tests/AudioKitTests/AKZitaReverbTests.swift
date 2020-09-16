@@ -7,7 +7,7 @@ class AKZitaReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKZitaReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKZitaReverbTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let effect = AKZitaReverb(input)
         effect.predelay = 10
         effect.crossoverFrequency = 200
@@ -38,7 +38,7 @@ class AKZitaReverbTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,

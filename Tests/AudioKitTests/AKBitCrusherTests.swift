@@ -7,7 +7,7 @@ class AKBitCrusherTests: XCTestCase {
 
     func testBitDepth() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBitCrusher(input, bitDepth: 12)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKBitCrusherTests: XCTestCase {
 
     func testBypass() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         let crush = AKBitCrusher(input, bitDepth: 12)
         crush.bypass()
         engine.output = crush
@@ -29,7 +29,7 @@ class AKBitCrusherTests: XCTestCase {
 
     func testDefault() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBitCrusher(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -39,7 +39,7 @@ class AKBitCrusherTests: XCTestCase {
 
     func testParameters() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBitCrusher(input, bitDepth: 12, sampleRate: 2_400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -49,7 +49,7 @@ class AKBitCrusherTests: XCTestCase {
 
     func testSampleRate() {
         let engine = AKEngine()
-        let input = AKOscillator()
+        let input = Oscillator()
         engine.output = AKBitCrusher(input, sampleRate: 2_400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
