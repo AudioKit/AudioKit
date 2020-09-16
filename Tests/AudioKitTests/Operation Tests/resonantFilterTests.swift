@@ -6,7 +6,7 @@ import XCTest
 class ResonantFilterTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         input.start()
         engine.output = AKOperationEffect(input) { $0.resonantFilter() }
@@ -16,7 +16,7 @@ class ResonantFilterTests: XCTestCase {
     }
 
     func testParameters1() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         input.start()
         engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 40) }
@@ -26,7 +26,7 @@ class ResonantFilterTests: XCTestCase {
     }
 
     func testParameters2() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         input.start()
         engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 60) }
@@ -36,7 +36,7 @@ class ResonantFilterTests: XCTestCase {
     }
 
     func testParameters3() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 220, bandwidth: 40) }
         let audio = engine.startTest(totalDuration: 1.0)

@@ -12,7 +12,7 @@
 import AudioKit
 import AVFoundation
 
-let engine = AKEngine()
+let engine = AudioEngine()
 //let file = try AKAudioFile(readFileName: "drumloop.wav")
 let file = try! AVAudioFile(forReading: Bundle.main.url(forResource: "drumloop", withExtension: "wav")!)
 

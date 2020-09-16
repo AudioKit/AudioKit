@@ -6,7 +6,7 @@ import XCTest
 class AKDCBlockTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDCBlock(input)
         input.start()

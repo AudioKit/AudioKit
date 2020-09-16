@@ -6,7 +6,7 @@ import XCTest
 class AKZitaReverbTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKZitaReverb(input)
         input.start()
@@ -16,7 +16,7 @@ class AKZitaReverbTests: XCTestCase {
     }
 
     func testParametersSetAfterInit() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let effect = AKZitaReverb(input)
         effect.predelay = 10
@@ -37,7 +37,7 @@ class AKZitaReverbTests: XCTestCase {
     }
 
     func testParametersSetOnInit() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKZitaReverb(input,
                               predelay: 10,

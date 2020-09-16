@@ -6,7 +6,7 @@ import XCTest
 class DelayTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.delay() }
         input.start()
@@ -16,7 +16,7 @@ class DelayTests: XCTestCase {
     }
 
     func testFeedback() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.delay(feedback: 0.99) }
         input.start()
@@ -26,7 +26,7 @@ class DelayTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
         input.start()
@@ -36,7 +36,7 @@ class DelayTests: XCTestCase {
     }
 
     func testTime() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.delay(time: 0.01) }
         input.start()

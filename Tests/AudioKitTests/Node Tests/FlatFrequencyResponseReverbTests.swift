@@ -6,7 +6,7 @@ import XCTest
 class AKFlatFrequencyResponseReverbTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlatFrequencyResponseReverb(input)
         input.start()
@@ -16,7 +16,7 @@ class AKFlatFrequencyResponseReverbTests: XCTestCase {
     }
 
     func testLoopDuration() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
         input.start()
@@ -26,7 +26,7 @@ class AKFlatFrequencyResponseReverbTests: XCTestCase {
     }
 
     func testReverbDuration() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1)
         input.start()

@@ -6,7 +6,7 @@ import XCTest
 class AKHighPassFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKHighPassFilter(input, cutoffFrequency: 500)
         input.start()
@@ -16,7 +16,7 @@ class AKHighPassFilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKHighPassFilter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKHighPassFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKHighPassFilter(input, cutoffFrequency: 500, resonance: 1)
         input.start()
@@ -36,7 +36,7 @@ class AKHighPassFilterTests: XCTestCase {
     }
 
     func testResonance() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKHighPassFilter(input, resonance: 1)
         input.start()

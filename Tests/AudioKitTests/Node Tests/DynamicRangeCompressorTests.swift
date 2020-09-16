@@ -6,7 +6,7 @@ import XCTest
 class AKDynamicRangeCompressorTests: XCTestCase {
 
     func testAttackDuration() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, attackDuration: 0.2)
         input.start()
@@ -16,7 +16,7 @@ class AKDynamicRangeCompressorTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input)
         input.start()
@@ -26,7 +26,7 @@ class AKDynamicRangeCompressorTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input,
                                           ratio: 0.5,
@@ -40,7 +40,7 @@ class AKDynamicRangeCompressorTests: XCTestCase {
     }
 
     func testRatio() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input, ratio: 0.5)
         input.start()
@@ -50,7 +50,7 @@ class AKDynamicRangeCompressorTests: XCTestCase {
     }
 
     func testReleaseDuration() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, releaseDuration: 0.2)
         input.start()
@@ -60,7 +60,7 @@ class AKDynamicRangeCompressorTests: XCTestCase {
     }
 
     func testThreshold() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(amplitude: 2.0)
         engine.output = AKDynamicRangeCompressor(input, ratio: 0.5, threshold: -1)
         input.start()

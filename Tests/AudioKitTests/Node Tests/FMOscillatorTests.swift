@@ -6,7 +6,7 @@ import XCTest
 class AKFMOscillatorTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKFMOscillator()
         engine.output = oscillator
         oscillator.start()
@@ -16,7 +16,7 @@ class AKFMOscillatorTests: XCTestCase {
     }
 
     func testParametersSetAfterInit() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKFMOscillator(waveform: AKTable(.square))
         oscillator.baseFrequency = 1_234
         oscillator.carrierMultiplier = 1.234
@@ -31,7 +31,7 @@ class AKFMOscillatorTests: XCTestCase {
     }
 
     func testParametersSetOnInit() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let oscillator = AKFMOscillator(waveform: AKTable(.square),
                                         baseFrequency: 1_234,
                                         carrierMultiplier: 1.234,

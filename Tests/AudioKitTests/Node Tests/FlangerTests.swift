@@ -6,7 +6,7 @@ import XCTest
 class AKFlangerTests: XCTestCase {
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input,
                           frequency: 1.1,
@@ -20,7 +20,7 @@ class AKFlangerTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input)
         input.start()
@@ -30,7 +30,7 @@ class AKFlangerTests: XCTestCase {
     }
 
     func testDepth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input, depth: 0.88)
         input.start()
@@ -40,7 +40,7 @@ class AKFlangerTests: XCTestCase {
     }
 
     func testDryWetMix() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input, dryWetMix: 0.55)
         input.start()
@@ -50,7 +50,7 @@ class AKFlangerTests: XCTestCase {
     }
 
     func testFeedback() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input, feedback: 0.77)
         input.start()
@@ -60,7 +60,7 @@ class AKFlangerTests: XCTestCase {
     }
 
     func testFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFlanger(input, frequency: 1.11)
         input.start()

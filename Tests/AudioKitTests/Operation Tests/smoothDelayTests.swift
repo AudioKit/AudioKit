@@ -6,7 +6,7 @@ import XCTest
 class SmoothDelayTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.smoothDelay() }
         input.start()
@@ -16,7 +16,7 @@ class SmoothDelayTests: XCTestCase {
     }
 
     func testFeedback() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.smoothDelay(feedback: 0.66) }
         input.start()
@@ -26,7 +26,7 @@ class SmoothDelayTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.smoothDelay(time: 0.05, feedback: 0.66, samples: 256) }
         input.start()
@@ -36,7 +36,7 @@ class SmoothDelayTests: XCTestCase {
     }
 
     func testParameterSweep() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { input in
             let ramp = AKOperation.lineSegment(
@@ -53,7 +53,7 @@ class SmoothDelayTests: XCTestCase {
     }
 
     func testTime() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.smoothDelay(time: 0.05) }
         input.start()

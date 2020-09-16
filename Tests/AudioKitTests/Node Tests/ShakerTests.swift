@@ -7,7 +7,7 @@ import CAudioKit
 class AKShakerTests: XCTestCase {
 
     func testShaker() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         akSetSeed(0)
 
@@ -21,7 +21,7 @@ class AKShakerTests: XCTestCase {
     }
 
     func testShakerType() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         akSetSeed(0)
 
@@ -35,7 +35,7 @@ class AKShakerTests: XCTestCase {
     }
 
     func testShakerAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         akSetSeed(0)
 

@@ -27,7 +27,7 @@ extension AVAudioNode {
     }
 }
 
-public class AKEngine {
+public class AudioEngine {
     // TODO: make this internal
     public let avEngine = AVAudioEngine()
 
@@ -37,7 +37,7 @@ public class AKEngine {
     public class InputNode: AKMixer {
         var isNotConnected = true
 
-        func connect(to engine: AKEngine) {
+        func connect(to engine: AudioEngine) {
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
         }

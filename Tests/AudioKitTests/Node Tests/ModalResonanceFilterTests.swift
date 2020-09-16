@@ -6,7 +6,7 @@ import XCTest
 class AKModalResonanceFilterTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKModalResonanceFilter(input)
         input.start()
@@ -16,7 +16,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     }
 
     func testFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, frequency: 400)
         input.start()
@@ -26,7 +26,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, frequency: 400, qualityFactor: 66)
         input.start()
@@ -36,7 +36,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     }
 
     func testQualityFactor() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKModalResonanceFilter(input, qualityFactor: 66)
         input.start()

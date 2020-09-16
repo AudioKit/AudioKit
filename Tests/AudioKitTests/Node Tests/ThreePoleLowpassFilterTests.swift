@@ -6,7 +6,7 @@ import XCTest
 class AKThreePoleLowpassFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKThreePoleLowpassFilter(input, cutoffFrequency: 500)
         input.start()
@@ -16,7 +16,7 @@ class AKThreePoleLowpassFilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKThreePoleLowpassFilter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKThreePoleLowpassFilterTests: XCTestCase {
     }
 
     func testDistortion() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKThreePoleLowpassFilter(input, distortion: 1)
         input.start()
@@ -36,7 +36,7 @@ class AKThreePoleLowpassFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKThreePoleLowpassFilter(input, distortion: 1, cutoffFrequency: 500, resonance: 1)
         input.start()
@@ -46,7 +46,7 @@ class AKThreePoleLowpassFilterTests: XCTestCase {
     }
 
     func testResonance() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKThreePoleLowpassFilter(input, resonance: 1)
         input.start()

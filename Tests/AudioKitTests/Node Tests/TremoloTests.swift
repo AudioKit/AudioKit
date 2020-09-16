@@ -6,7 +6,7 @@ import XCTest
 class AKTremoloTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTremolo(input)
         input.start()
@@ -16,7 +16,7 @@ class AKTremoloTests: XCTestCase {
     }
 
     func testDepth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTremolo(input, depth: 0.5)
         input.start()
@@ -26,7 +26,7 @@ class AKTremoloTests: XCTestCase {
     }
 
     func testFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTremolo(input, frequency: 20)
         input.start()
@@ -36,7 +36,7 @@ class AKTremoloTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKTremolo(input, frequency: 20, depth: 0.5)
         input.start()

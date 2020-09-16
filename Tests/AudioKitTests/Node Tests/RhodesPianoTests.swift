@@ -6,7 +6,7 @@ import XCTest
 class AKRhodesPianoKeyTests: XCTestCase {
 
     func testRhodesPiano() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let rhodesPiano = AKRhodesPianoKey()
         rhodesPiano.trigger(note: 69)
         engine.output = rhodesPiano
@@ -16,7 +16,7 @@ class AKRhodesPianoKeyTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let rhodesPiano = AKRhodesPianoKey()
         rhodesPiano.trigger(note: 69, velocity: 64)
         engine.output = rhodesPiano

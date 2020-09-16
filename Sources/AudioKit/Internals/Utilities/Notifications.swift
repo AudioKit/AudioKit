@@ -11,7 +11,7 @@ extension Notification.Name {
     /// The userInfo dictionary of this notification contains the AVAudioSessionRouteChangeReasonKey
     ///  and AVAudioSessionSilenceSecondaryAudioHintTypeKey keys, which provide information about the route change.
     ///
-    public static let AKEngineRestartedAfterRouteChange =
+    public static let AudioEngineRestartedAfterRouteChange =
         Notification.Name(rawValue: "io.audiokit.enginerestartedafterroutechange")
 
     /// After the audio engine configuration is changed, (change in input or output hardware's channel count or
@@ -20,7 +20,7 @@ extension Notification.Name {
     /// The userInfo dictionary of this notification is the same as the originating
     /// AVAudioEngineConfigurationChange notification's userInfo.
     ///
-    public static let AKEngineRestartedAfterConfigurationChange =
+    public static let AudioEngineRestartedAfterConfigurationChange =
         Notification.Name(rawValue: "io.audiokit.enginerestartedafterconfigurationchange")
 
     /// After the audio session is changed, (example: setting session from .playback to .playAndRecord);
@@ -29,6 +29,6 @@ extension Notification.Name {
     ///
     /// This notification is giving the right time when AudioKit Engine is ready.
     ///
-    public static let AKEngineStarted =
+    public static let AudioEngineStarted =
         Notification.Name(rawValue: "io.audiokit.engineStarted")
 }

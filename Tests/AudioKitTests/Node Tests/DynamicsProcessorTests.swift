@@ -6,7 +6,7 @@ import XCTest
 class AKDynamicsProcessorTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKDynamicsProcessor(input)
         input.start()

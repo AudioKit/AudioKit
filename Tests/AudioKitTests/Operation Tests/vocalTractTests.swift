@@ -8,7 +8,7 @@ class VocalTractTests: XCTestCase {
     let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
         engine.output = vocalTract
         vocalTract.start()
@@ -18,7 +18,7 @@ class VocalTractTests: XCTestCase {
     }
 
     func testParameterSweep() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let vocalTract = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),

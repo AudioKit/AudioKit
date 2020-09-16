@@ -6,7 +6,7 @@ import XCTest
 class AKFaderTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFader(input, gain: 1.0)
         input.play()
@@ -16,7 +16,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testBypass() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let fader = AKFader(input, gain: 2.0)
         fader.bypass()
@@ -28,7 +28,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testMany() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let initialFader = AKFader(input, gain: 1.0)
         var nextFader = initialFader
@@ -44,7 +44,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testFlipStereo() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
@@ -57,7 +57,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testFlipStereoTwice() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
@@ -72,7 +72,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testFlipStereoThrice() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
@@ -89,7 +89,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testMixToMono() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let pan = AKPanner(input, pan: 1.0)
         let fader = AKFader(pan, gain: 1.0)
@@ -102,7 +102,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFader(input, gain: 2.0)
         input.play()
@@ -112,7 +112,7 @@ class AKFaderTests: XCTestCase {
     }
 
     func testParameters2() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKFader(input, gain: 0.5)
         input.play()

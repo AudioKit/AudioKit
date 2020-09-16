@@ -6,7 +6,7 @@ import XCTest
 class SquareTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let square = AKOperationGenerator { AKOperation.square() }
         engine.output = square
         square.start()

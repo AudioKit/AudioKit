@@ -7,7 +7,7 @@ class AmplitudeTapTests: XCTestCase {
 
     func testDefault() {
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
 
         var amplitudes: [Float] = []
 

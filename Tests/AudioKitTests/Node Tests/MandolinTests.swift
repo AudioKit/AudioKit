@@ -6,7 +6,7 @@ import XCTest
 class AKMandolinStringTests: XCTestCase {
 
     func testMandolin() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let mandolin = AKMandolinString()
         mandolin.trigger(note: 69)
         engine.output = mandolin
@@ -17,7 +17,7 @@ class AKMandolinStringTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let mandolin = AKMandolinString()
         mandolin.trigger(note: 69, velocity: 64)
         engine.output = mandolin

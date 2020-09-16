@@ -6,7 +6,7 @@ import XCTest
 class AKBrownianNoiseTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let brown = AKBrownianNoise()
         engine.output = brown
         brown.start()
@@ -16,7 +16,7 @@ class AKBrownianNoiseTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let brown = AKBrownianNoise()
         brown.amplitude = 0.5
         engine.output = brown

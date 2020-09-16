@@ -6,7 +6,7 @@ import XCTest
 class ClipTests: XCTestCase {
 
     func testClip() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.clip(0.5) }
         input.start()
@@ -16,7 +16,7 @@ class ClipTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKOperationEffect(input) { $0.clip() }
         input.start()

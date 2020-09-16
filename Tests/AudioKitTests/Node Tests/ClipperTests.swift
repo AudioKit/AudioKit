@@ -6,7 +6,7 @@ import XCTest
 class AKClipperTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKClipper(input)
         input.start()
@@ -16,7 +16,7 @@ class AKClipperTests: XCTestCase {
     }
 
     func testParameters1() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKClipper(input, limit: 0.1)
         input.start()
@@ -26,7 +26,7 @@ class AKClipperTests: XCTestCase {
     }
 
     func testParameters2() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKClipper(input, limit: 0.5)
         input.start()

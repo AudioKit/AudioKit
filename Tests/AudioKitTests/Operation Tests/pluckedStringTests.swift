@@ -6,7 +6,7 @@ import XCTest
 class PluckedStringTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let pluckedString = AKOperationGenerator {_ in
             return AKOperation.pluckedString(trigger: AKOperation.metronome())
         }

@@ -8,7 +8,7 @@ class AKClarinetTest: XCTestCase {
 
     func testClarinet() {
         akSetSeed(0)
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let clarinet = AKClarinet()
         clarinet.trigger(note: 69)
         engine.output = clarinet
@@ -19,7 +19,7 @@ class AKClarinetTest: XCTestCase {
 
     func testVelocity() {
         akSetSeed(0)
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let clarinet = AKClarinet()
         clarinet.trigger(note: 69, velocity: 64)
         engine.output = clarinet

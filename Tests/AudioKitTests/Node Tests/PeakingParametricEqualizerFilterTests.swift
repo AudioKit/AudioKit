@@ -6,7 +6,7 @@ import XCTest
 class AKPeakingParametricEqualizerFilterTests: XCTestCase {
 
     func testCenterFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500)
         input.start()
@@ -16,7 +16,7 @@ class AKPeakingParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPeakingParametricEqualizerFilter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKPeakingParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testGain() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPeakingParametricEqualizerFilter(input, gain: 2)
         input.start()
@@ -36,7 +36,7 @@ class AKPeakingParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
         input.start()
@@ -46,7 +46,7 @@ class AKPeakingParametricEqualizerFilterTests: XCTestCase {
     }
 
     func testQ() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKPeakingParametricEqualizerFilter(input, q: 1.415)
         input.start()

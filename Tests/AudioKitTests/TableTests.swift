@@ -6,7 +6,7 @@ import XCTest
 class AKTableTests: XCTestCase {
 
     func testReverseSawtooth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(waveform: AKTable(.reverseSawtooth))
         engine.output = input
         input.start()
@@ -16,7 +16,7 @@ class AKTableTests: XCTestCase {
     }
 
     func testSawtooth() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(waveform: AKTable(.sawtooth))
         engine.output = input
         input.start()
@@ -26,7 +26,7 @@ class AKTableTests: XCTestCase {
     }
 
     func testSine() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(waveform: AKTable(.sine))
         engine.output = input
         // This is just the usual tested sine wave
@@ -37,7 +37,7 @@ class AKTableTests: XCTestCase {
     }
 
     func testTriangle() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator(waveform: AKTable(.triangle))
         engine.output = input
         input.start()

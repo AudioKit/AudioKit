@@ -25,7 +25,7 @@ class AKSequencerTrackTests: XCTestCase {
     }
 
     func testLoop() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)
@@ -42,7 +42,7 @@ class AKSequencerTrackTests: XCTestCase {
 
     func testOneShot() {
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)
@@ -60,7 +60,7 @@ class AKSequencerTrackTests: XCTestCase {
 
     func testTempo() {
 
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let flute = AKFlute()
 
         let track = AKSequencerTrack(targetNode: flute)

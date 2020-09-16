@@ -6,7 +6,7 @@ import XCTest
 class WhiteNoiseTests: XCTestCase {
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let noise = AKOperationGenerator { AKOperation.whiteNoise() }
         engine.output = noise
         noise.start()
@@ -16,7 +16,7 @@ class WhiteNoiseTests: XCTestCase {
     }
 
     func testAmplitude() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let noise = AKOperationGenerator {
             return AKOperation.whiteNoise(amplitude: 0.456)
         }
@@ -28,7 +28,7 @@ class WhiteNoiseTests: XCTestCase {
     }
 
     func testParameterSweep() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let noise = AKOperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),

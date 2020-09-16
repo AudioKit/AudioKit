@@ -6,7 +6,7 @@ import XCTest
 class AKRolandTB303FilterTests: XCTestCase {
 
     func testCutoffFrequency() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input, cutoffFrequency: 400)
         input.start()
@@ -16,7 +16,7 @@ class AKRolandTB303FilterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input)
         input.start()
@@ -26,7 +26,7 @@ class AKRolandTB303FilterTests: XCTestCase {
     }
 
     func testDistortion() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input, distortion: 1)
         input.start()
@@ -36,7 +36,7 @@ class AKRolandTB303FilterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input,
                                      cutoffFrequency: 400,
@@ -50,7 +50,7 @@ class AKRolandTB303FilterTests: XCTestCase {
     }
 
     func testResonance() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input, resonance: 1)
         input.start()
@@ -60,7 +60,7 @@ class AKRolandTB303FilterTests: XCTestCase {
     }
 
     func testResonanceAsymmetry() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKRolandTB303Filter(input, resonanceAsymmetry: 0.66)
         input.start()

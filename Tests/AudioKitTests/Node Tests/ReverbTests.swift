@@ -6,7 +6,7 @@ import XCTest
 class AKReverbTests: XCTestCase {
 
     func testBypass() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let reverb = AKReverb(input)
         reverb.bypass()
@@ -21,7 +21,7 @@ class AKReverbTests: XCTestCase {
     #if os(iOS)
 
     func testCathedral() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         let effect = AKReverb(input)
         engine.output = effect
@@ -33,7 +33,7 @@ class AKReverbTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AKEngine()
+        let engine = AudioEngine()
         let input = Oscillator()
         engine.output = AKReverb(input)
         input.start()
