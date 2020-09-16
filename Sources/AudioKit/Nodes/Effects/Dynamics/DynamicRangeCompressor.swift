@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Dynamic range compressor from Faust
-public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
+public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
@@ -18,7 +18,7 @@ public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     public static let ratioDef = AKNodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
-        address: akGetParameterAddress("AKDynamicRangeCompressorParameterRatio"),
+        address: akGetParameterAddress("DynamicRangeCompressorParameterRatio"),
         range: 0.01 ... 100.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     public static let thresholdDef = AKNodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
-        address: akGetParameterAddress("AKDynamicRangeCompressorParameterThreshold"),
+        address: akGetParameterAddress("DynamicRangeCompressorParameterThreshold"),
         range: -100.0 ... 0.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack duration",
-        address: akGetParameterAddress("AKDynamicRangeCompressorParameterAttackDuration"),
+        address: akGetParameterAddress("DynamicRangeCompressorParameterAttackDuration"),
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release duration",
-        address: akGetParameterAddress("AKDynamicRangeCompressorParameterReleaseDuration"),
+        address: akGetParameterAddress("DynamicRangeCompressorParameterReleaseDuration"),
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -64,14 +64,14 @@ public class AKDynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKDynamicRangeCompressor.ratioDef,
-             AKDynamicRangeCompressor.thresholdDef,
-             AKDynamicRangeCompressor.attackDurationDef,
-             AKDynamicRangeCompressor.releaseDurationDef]
+            [DynamicRangeCompressor.ratioDef,
+             DynamicRangeCompressor.thresholdDef,
+             DynamicRangeCompressor.attackDurationDef,
+             DynamicRangeCompressor.releaseDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKDynamicRangeCompressorDSP")
+            akCreateDSP("DynamicRangeCompressorDSP")
         }
     }
 

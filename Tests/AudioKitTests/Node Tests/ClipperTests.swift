@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKClipperTests: XCTestCase {
+class ClipperTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKClipper(input)
+        engine.output = Clipper(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKClipperTests: XCTestCase {
     func testParameters1() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKClipper(input, limit: 0.1)
+        engine.output = Clipper(input, limit: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKClipperTests: XCTestCase {
     func testParameters2() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKClipper(input, limit: 0.5)
+        engine.output = Clipper(input, limit: 0.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

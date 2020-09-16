@@ -9,7 +9,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var distortion = AKDistortion(player)
+var distortion = Distortion(player)
 distortion.delay = 0.1
 distortion.decay = 1.0
 distortion.delayMix = 0.5

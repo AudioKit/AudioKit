@@ -8,7 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var ringModulator = AKRingModulator(player)
+var ringModulator = RingModulator(player)
 ringModulator.frequency1 = 440 // Hz
 ringModulator.frequency2 = 660 // Hz
 ringModulator.balance = 0.5

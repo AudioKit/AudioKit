@@ -3,14 +3,14 @@
 #include "DiodeClipper.hpp"
 #include "SoulDSP.hpp"
 
-enum AKDiodeClipperParameter {
-    AKDiodeClipperParameterCutoff,
-    AKDiodeClipperParameterGaindB
+enum DiodeClipperParameter {
+    DiodeClipperParameterCutoff,
+    DiodeClipperParameterGaindB
 };
 
-using AKDiodeClipperDSP = AKSoulDSP<Diode>;
-AK_REGISTER_DSP(AKDiodeClipperDSP)
-AK_REGISTER_PARAMETER(AKDiodeClipperParameterCutoff)
-AK_REGISTER_PARAMETER(AKDiodeClipperParameterGaindB)
+using DiodeClipperDSP = AKSoulDSP<Diode>;
+AK_REGISTER_DSP(DiodeClipperDSP)
+AK_REGISTER_PARAMETER(DiodeClipperParameterCutoff)
+AK_REGISTER_PARAMETER(DiodeClipperParameterGaindB)
 
 

@@ -6,7 +6,7 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
+public class DiodeClipper: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
@@ -19,7 +19,7 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: akGetParameterAddress("AKDiodeClipperParameterCutoff"),
+        address: akGetParameterAddress("DiodeClipperParameterCutoff"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: akGetParameterAddress("AKDiodeClipperParameterGaindB"),
+        address: akGetParameterAddress("DiodeClipperParameterGaindB"),
         range: 0.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -43,12 +43,12 @@ public class AKDiodeClipper: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKDiodeClipper.cutoffFrequencyDef,
-             AKDiodeClipper.gainDef]
+            [DiodeClipper.cutoffFrequencyDef,
+             DiodeClipper.gainDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKDiodeClipperDSP")
+            akCreateDSP("DiodeClipperDSP")
         }
     }
 

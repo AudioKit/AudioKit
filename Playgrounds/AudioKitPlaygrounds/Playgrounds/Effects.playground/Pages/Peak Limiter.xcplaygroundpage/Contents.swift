@@ -10,7 +10,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var peakLimiter = AKPeakLimiter(player)
+var peakLimiter = PeakLimiter(player)
 peakLimiter.attackDuration = 0.001 // Secs
 peakLimiter.decayDuration = 0.01 // Secs
 peakLimiter.preGain = 10 // dB

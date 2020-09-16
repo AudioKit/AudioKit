@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-public class AKClipper: AKNode, AKComponent, AKToggleable {
+public class Clipper: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
@@ -18,7 +18,7 @@ public class AKClipper: AKNode, AKComponent, AKToggleable {
     public static let limitDef = AKNodeParameterDef(
         identifier: "limit",
         name: "Threshold",
-        address: akGetParameterAddress("AKClipperParameterLimit"),
+        address: akGetParameterAddress("ClipperParameterLimit"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKClipper: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKClipper.limitDef]
+            [Clipper.limitDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKClipperDSP")
+            akCreateDSP("ClipperDSP")
         }
     }
 
