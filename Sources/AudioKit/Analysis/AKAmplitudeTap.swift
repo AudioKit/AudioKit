@@ -99,7 +99,6 @@ public class AKAmplitudeTap: AKToggleable {
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
         DispatchQueue.main.sync {
-
             // n is the channel
             for n in 0 ..< channelCount {
                 let data = floatData[n]

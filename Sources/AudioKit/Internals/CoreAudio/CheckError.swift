@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import os.log
 import AVFoundation
+import os.log
 
 // Print out a more human readable error message
 ///

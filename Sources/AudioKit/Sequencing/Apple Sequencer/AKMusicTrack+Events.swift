@@ -1,10 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AVFoundation
+import Foundation
 
 extension AKMusicTrack {
-
     open var eventData: [AppleMIDIEvent]? {
         return getRawEventData()
     }
@@ -22,7 +21,7 @@ extension AKMusicTrack {
                 )
                 guard let data1 = data?.pointee.data1,
                     let statusData: MIDIByte = data?.pointee.status else {
-                        break
+                    break
                 }
                 let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
                 let channel = statusData.lowBit
@@ -47,8 +46,8 @@ extension AKMusicTrack {
                     let note = data?.pointee.note,
                     let velocity = data?.pointee.velocity,
                     let dur = data?.pointee.duration else {
-                        AKLog("Problem with raw midi note message")
-                        return
+                    AKLog("Problem with raw midi note message")
+                    return
                 }
                 AKLog("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
             case kMusicEventType_Meta:
@@ -56,8 +55,8 @@ extension AKMusicTrack {
                 guard let midiData = data?.pointee.data,
                     let length = data?.pointee.dataLength,
                     let type = data?.pointee.metaEventType else {
-                        AKLog("Problem with raw midi meta message")
-                        return
+                    AKLog("Problem with raw midi meta message")
+                    return
                 }
                 AKLog("MIDI Meta @ \(event.time) - size: \(length) - type: \(type) - data: \(midiData)")
             case kMusicEventType_MIDIChannelMessage:
@@ -67,8 +66,8 @@ extension AKMusicTrack {
                 guard let data1 = data?.pointee.data1,
                     let data2 = data?.pointee.data2,
                     let statusData = data?.pointee.status else {
-                        AKLog("Problem with raw midi channel message")
-                        return
+                    AKLog("Problem with raw midi channel message")
+                    return
                 }
                 if let statusType = AKMIDIStatus(byte: statusData)?.type {
                     switch statusType {
@@ -115,7 +114,6 @@ extension AKMusicTrack {
         DisposeMusicEventIterator(iterator)
         return events
     }
-
 }
 
 public struct AppleMIDIEvent {

@@ -41,7 +41,7 @@ public func AKLog(_ items: Any?...,
 
     let fileName = (file as NSString).lastPathComponent
     let content = (items.map {
-        String(describing: ($0 ?? "nil"))
+        String(describing: $0 ?? "nil")
     }).joined(separator: " ")
 
     let message = "\(fileName):\(function):\(line):\(content)"

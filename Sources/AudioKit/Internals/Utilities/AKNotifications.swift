@@ -12,7 +12,7 @@ extension Notification.Name {
     ///  and AVAudioSessionSilenceSecondaryAudioHintTypeKey keys, which provide information about the route change.
     ///
     public static let AKEngineRestartedAfterRouteChange =
-      Notification.Name(rawValue: "io.audiokit.enginerestartedafterroutechange")
+        Notification.Name(rawValue: "io.audiokit.enginerestartedafterroutechange")
 
     /// After the audio engine configuration is changed, (change in input or output hardware's channel count or
     /// sample rate, for example) AudioKit restarts, and engineRestartAfterCategoryChange is sent.

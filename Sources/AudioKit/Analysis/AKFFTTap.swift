@@ -1,12 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AVFoundation
 import Accelerate
+import AVFoundation
 import CAudioKit
 
 /// FFT Calculation for any node
 open class AKFFTTap: AKToggleable {
-
 //    public let fftSize: AKSettings.BufferLength
 //    internal var bufferSize: UInt32 { fftSize.samplesCount }
 
@@ -88,7 +87,6 @@ open class AKFFTTap: AKToggleable {
 
     // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-
         guard buffer.floatChannelData != nil else { return }
 
         // Call on the main thread so the client doesn't have to worry
@@ -128,7 +126,7 @@ open class AKFFTTap: AKToggleable {
                 let temp = UnsafePointer<Float>(transferBuffer)
                 temp.withMemoryRebound(to: DSPComplex.self,
                                        capacity: transferBuffer.count) {
-                                        vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
+                    vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
                 }
 
                 // Perform the FFT
@@ -148,7 +146,6 @@ open class AKFFTTap: AKToggleable {
 
                 vDSP_destroy_fftsetup(fftSetup)
                 return normalizedMagnitudes
-
             }
         }
     }

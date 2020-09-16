@@ -3,7 +3,6 @@
 import Foundation
 
 extension AKTuningTable {
-
     /// Default tuning table is 12ET.
     public func defaultTuning() -> Int {
         return twelveToneEqualTemperament()

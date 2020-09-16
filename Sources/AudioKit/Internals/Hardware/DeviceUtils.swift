@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
-import Foundation
 import CoreAudio
+import Foundation
 
 struct AudioDeviceUtils {
-
     static func devices() -> [AudioDeviceID] {
         var propsize: UInt32 = 0
 
@@ -53,7 +52,6 @@ struct AudioDeviceUtils {
     }
 
     static func name(_ device: AudioDeviceID) -> String {
-
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceNameCFString),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
@@ -71,11 +69,9 @@ struct AudioDeviceUtils {
         }
 
         return ""
-
     }
 
     static func outputChannels(_ device: AudioDeviceID) -> Int {
-
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyStreamConfiguration),
             mScope: AudioObjectPropertyScope(kAudioDevicePropertyScopeOutput),
@@ -100,11 +96,9 @@ struct AudioDeviceUtils {
         }
 
         return channels
-
     }
 
     static func inputChannels(_ device: AudioDeviceID) -> Int {
-
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyStreamConfiguration),
             mScope: AudioObjectPropertyScope(kAudioDevicePropertyScopeInput),
@@ -129,11 +123,9 @@ struct AudioDeviceUtils {
         }
 
         return channels
-
     }
 
     static func uid(_ device: AudioDeviceID) -> String {
-
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceUID),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
@@ -152,6 +144,5 @@ struct AudioDeviceUtils {
 
         return ""
     }
-
 }
 #endif

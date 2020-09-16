@@ -63,8 +63,7 @@ open class AKMusicTrack {
 
         let data = [MIDIByte](name.utf8)
 
-        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3,
-        data: data)
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3, data: data)
         defer { metaEventPtr.deallocate() }
 
         if let track = internalMusicTrack {
@@ -87,8 +86,7 @@ open class AKMusicTrack {
 
         let data = [MIDIByte](name.utf8)
 
-        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3,
-                                                  data: data)
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3, data: data)
         defer { metaEventPtr.deallocate() }
 
         let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), metaEventPtr)
@@ -174,12 +172,18 @@ open class AKMusicTrack {
             AKLog("internalMusicTrack does not exist")
             return
         }
-        MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+        MusicTrackSetProperty(track,
+                              kSequenceTrackProperty_TrackLength,
+                              &durationAsMusicTimeStamp,
+                              size)
 
         if isNotEmpty {
             MusicTrackCopyInsert(track, 0, durationAsMusicTimeStamp, newTrack, 0)
             clear()
-            MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+            MusicTrackSetProperty(track,
+                                  kSequenceTrackProperty_TrackLength,
+                                  &durationAsMusicTimeStamp,
+                                  size)
             MusicTrackCopyInsert(newTrack, 0, durationAsMusicTimeStamp, track, 0)
 
             // now to clean up any notes that are too long
@@ -198,7 +202,11 @@ open class AKMusicTrack {
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
 
             while hasNextEvent.boolValue {
-                MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+                MusicEventIteratorGetEventInfo(iterator,
+                                               &eventTime,
+                                               &eventType,
+                                               &eventData,
+                                               &eventDataSize)
 
                 if eventType == kMusicEventType_MIDINoteMessage {
                     let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
@@ -225,7 +233,10 @@ open class AKMusicTrack {
             }
             DisposeMusicEventIterator(iterator)
         } else {
-            MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+            MusicTrackSetProperty(track,
+                                  kSequenceTrackProperty_TrackLength,
+                                  &durationAsMusicTimeStamp,
+                                  size)
         }
         MusicSequenceDisposeTrack(newSequence, newTrack)
         DisposeMusicSequence(newSequence)
@@ -239,7 +250,10 @@ open class AKMusicTrack {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
         if let track = internalMusicTrack {
-            _ = MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+            _ = MusicTrackSetProperty(track,
+                                      kSequenceTrackProperty_TrackLength,
+                                      &durationAsMusicTimeStamp,
+                                      size)
         }
     }
 
@@ -282,7 +296,11 @@ open class AKMusicTrack {
 
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
 
             if targetEventType == eventType {
                 MusicEventIteratorDeleteEvent(iterator)
@@ -316,7 +334,11 @@ open class AKMusicTrack {
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
             isReadyForNextEvent = true
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let convertedData = eventData?.load(as: MIDINoteMessage.self) {
                     if convertedData.note == MIDIByte(note) {
@@ -352,7 +374,11 @@ open class AKMusicTrack {
         var hasNextEvent: DarwinBoolean = false
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
 
             outBool = false
             MusicEventIteratorNextEvent(iterator)
@@ -439,7 +465,10 @@ open class AKMusicTrack {
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
     ///
-    public func addController(_ controller: MIDIByte, value: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+    public func addController(_ controller: MIDIByte,
+                              value: MIDIByte,
+                              position: AKDuration,
+                              channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -479,7 +508,9 @@ open class AKMusicTrack {
     ///   - pressure: Amount of pressure
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
-    public func addChannelAftertouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+    public func addChannelAftertouch(pressure: MIDIByte,
+                                     position: AKDuration,
+                                     channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -506,11 +537,11 @@ open class AKMusicTrack {
         var midiData = MIDIRawData()
         midiData.length = UInt32(data.count)
 
-        withUnsafeMutablePointer(to: &midiData.data, { pointer in
+        withUnsafeMutablePointer(to: &midiData.data) { pointer in
             for i in 0 ..< data.count {
                 pointer[i] = data[i]
             }
-        })
+        }
 
         let result = MusicTrackNewMIDIRawDataEvent(track, position.musicTimeStamp, &midiData)
         if result != 0 {
@@ -526,7 +557,9 @@ open class AKMusicTrack {
     ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
     ///   - channel: MIDI channel to insert pitch bend on
     ///
-    public func addPitchBend(_ value: Int = 8_192, position: AKDuration, channel: MIDIChannel = 0) {
+    public func addPitchBend(_ value: Int = 8_192,
+                             position: AKDuration,
+                             channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -622,7 +655,10 @@ open class AKMusicTrack {
         clear()
         if let internalMusicTrack = internalMusicTrack, let existingInittrack = initMusicTrack {
             setLength(AKDuration(beats: initLength))
-            _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
+            _ = MusicTrackSetProperty(existingInittrack,
+                                      kSequenceTrackProperty_TrackLength,
+                                      &initLengthCopy,
+                                      0)
             MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack, 0.0)
         }
     }
@@ -656,9 +692,18 @@ open class AKMusicTrack {
 
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
 
-            midiEventHandler(iterator, eventTime, eventType, eventData, eventDataSize, &isReadyForNextEvent)
+            midiEventHandler(iterator,
+                             eventTime,
+                             eventType,
+                             eventData,
+                             eventDataSize,
+                             &isReadyForNextEvent)
 
             if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)

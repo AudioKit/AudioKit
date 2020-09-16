@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioToolbox
-import CoreAudio
 import AVFoundation
+import CoreAudio
 
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16

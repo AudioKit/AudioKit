@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AVFoundation
+import Foundation
 
 extension MIDIMetaEvent {
     /// `MIDIMetaEvent` is a variable length C structure. YOU MUST create one using this function
@@ -11,7 +11,6 @@ extension MIDIMetaEvent {
     ///   - data: event data
     /// - Returns: pointer to allocated event.
     static func allocate(metaEventType: UInt8, data: [UInt8]) -> UnsafeMutablePointer<MIDIMetaEvent> {
-
         let size = MemoryLayout<MIDIMetaEvent>.size + data.count
         let mem = UnsafeMutableRawPointer.allocate(byteCount: size,
                                                    alignment: MemoryLayout<Int8>.alignment)
@@ -20,11 +19,11 @@ extension MIDIMetaEvent {
         ptr.pointee.metaEventType = metaEventType
         ptr.pointee.dataLength = UInt32(data.count)
 
-        withUnsafeMutablePointer(to: &ptr.pointee.data, { pointer in
+        withUnsafeMutablePointer(to: &ptr.pointee.data) { pointer in
             for i in 0 ..< data.count {
                 pointer[i] = data[i]
             }
-        })
+        }
 
         return ptr
     }

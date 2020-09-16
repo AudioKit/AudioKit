@@ -7,7 +7,7 @@ private let ticksToSeconds: Double = {
     var tinfo = mach_timebase_info()
     let err = mach_timebase_info(&tinfo)
     let timecon = Double(tinfo.numer) / Double(tinfo.denom)
-    return timecon * 0.000_000_001
+    return timecon * 0.000000001
 }()
 
 /// Utility to convert between seconds to host time.
@@ -111,7 +111,7 @@ public func - (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(-right))
 }
 
-fileprivate extension UInt64 {
+private extension UInt64 {
     func safeSubtract(_ other: UInt64) -> Int64 {
         return self > other ? Int64(self - other) : -Int64(other - self)
     }

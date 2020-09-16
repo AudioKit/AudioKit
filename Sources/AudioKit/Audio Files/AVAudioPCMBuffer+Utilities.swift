@@ -5,14 +5,12 @@ import CAudioKit
 import soundpipe
 
 extension AVAudioPCMBuffer {
-
     // Hash useful for testing
     public var md5: String {
         let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
         md5_init(md5state)
 
         if let floatChannelData = self.floatChannelData {
-
             for frame in 0 ..< self.frameCapacity {
                 for channel in 0 ..< self.format.channelCount {
                     let sample = floatChannelData[Int(channel)][Int(frame)]
@@ -32,18 +30,17 @@ extension AVAudioPCMBuffer {
             md5_finish(md5state, digestPtr.baseAddress)
         }
 
-        for index in 0..<16 {
+        for index in 0 ..< 16 {
             digestHex += String(format: "%02x", digest[index])
         }
 
         md5state.deallocate()
 
         return digestHex
-
     }
 
     public func append(_ buffer: AVAudioPCMBuffer) {
-        append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
+        self.append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
     }
 
     public func append(_ buffer: AVAudioPCMBuffer,

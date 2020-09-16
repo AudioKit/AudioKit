@@ -2,14 +2,13 @@
 
 #if !os(macOS)
 
-import CoreAudio
 import AVFoundation
+import CoreAudio
 
 // MARK: - AudioUnit helpers
 
 /// Get, set, and listen to properties
 public extension AudioUnit {
-
     /// Get value for a property
     func getValue<T>(forProperty property: AudioUnitPropertyID) throws -> T {
         let (dataSize, _) = try getPropertyInfo(propertyID: property)
@@ -40,17 +39,16 @@ public extension AudioUnit {
             AKLog("Error Removing Property Listener")
         }
     }
-
 }
 
 // MARK: - AudioUnit callbacks
 
 /// Listener to properties in an audio unit
 public struct AudioUnitPropertyListener {
-
     public typealias AudioUnitPropertyListenerCallback = (
         _ audioUnit: AudioUnit,
-        _ property: AudioUnitPropertyID) -> Void
+        _ property: AudioUnitPropertyID
+    ) -> Void
 
     let proc: AudioUnitPropertyListenerProc
     let procInput: UnsafeMutablePointer<AudioUnitPropertyListenerCallback>
@@ -68,14 +66,12 @@ public struct AudioUnitPropertyListener {
         )
         self.procInput.initialize(to: callback)
     }
-
 }
 
 // MARK: - AudioUnit function wrappers
 
 /// Extension for getting and setting properties
 public extension AudioUnit {
-
     /// Get property information
     func getPropertyInfo(propertyID: AudioUnitPropertyID) throws -> (dataSize: UInt32, writable: Bool) {
         var dataSize: UInt32 = 0
@@ -115,21 +111,18 @@ public extension AudioUnit {
                                          fromProperty propertyID: AudioUnitPropertyID) throws {
         try AudioUnitRemovePropertyListenerWithUserData(self, propertyID, listener.proc, listener.procInput).check()
     }
-
 }
 
 // MARK: - AudioUnit function validation
 
 /// Extension to add a check function
 public extension OSStatus {
-
     /// Check for and throw an error
     func check() throws {
         if self != noErr {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)
         }
     }
-
 }
 
 #endif
