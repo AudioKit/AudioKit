@@ -4,7 +4,7 @@ let validatedMD5s: [String: String] = [
     "-[AKAmplitudeEnvelopeTests testDefault]": "41015ae34df3753b009ad7aa946e4dbe",
     "-[AKAmplitudeEnvelopeTests testParameters]": "f14f011b660fa57ffcc5596477bdb356",
     "-[AKAmplitudeEnvelopeTests testSustain]": "68a78c87cf271f6ea8c43dd52d24c359",
-    "-[AKAmplitudeTapTests testDefault]": "9f56624966d29af3ddf62a3374aa0702",
+    "-[AmplitudeTapTests testDefault]": "9f56624966d29af3ddf62a3374aa0702",
     "-[AKAutoWahTests testAmplitude]": "41a00c2f506e4456ca244434d805b84e",
     "-[AKAutoWahTests testBypass]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[AKAutoWahTests testDefault]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
