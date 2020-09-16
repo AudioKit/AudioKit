@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKTuningTable {
+extension TuningTable {
     // swiftlint:disable variable_name
 
     /// Create a hexany from 4 frequencies (4 choose 2)

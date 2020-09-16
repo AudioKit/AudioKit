@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A delay line with cubic interpolation.
-public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
+public class VariableDelay: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
@@ -18,7 +18,7 @@ public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
     public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: akGetParameterAddress("AKVariableDelayParameterTime"),
+        address: akGetParameterAddress("VariableDelayParameterTime"),
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: akGetParameterAddress("AKVariableDelayParameterFeedback"),
+        address: akGetParameterAddress("VariableDelayParameterFeedback"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -42,12 +42,12 @@ public class AKVariableDelay: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKVariableDelay.timeDef,
-             AKVariableDelay.feedbackDef]
+            [VariableDelay.timeDef,
+             VariableDelay.feedbackDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKVariableDelayDSP")
+            akCreateDSP("VariableDelayDSP")
         }
 
         public func setMaximumTime(_ maximumTime: AUValue) {

@@ -2,11 +2,11 @@
 
 import Foundation
 
-/// AKTuningTableBase provides low-level methods for creating
+/// TuningTableBase provides low-level methods for creating
 /// arbitrary mappings of midi note numbers to musical frequencies
 /// The default behavior is "12-tone equal temperament" so
 /// we can integrate in non-microtonal settings with backwards compatibility
-open class AKTuningTableBase: NSObject {
+open class TuningTableBase: NSObject {
     // Definitions:
     // f = Frequency
     // p = Pitch = log2(frequency) for tunings where octave powers of 2
@@ -35,7 +35,7 @@ open class AKTuningTableBase: NSObject {
     /// Initialization for standard default 12 tone equal temperament
     override public init() {
         super.init()
-        for noteNumber in 0 ..< AKTuningTable.midiNoteCount {
+        for noteNumber in 0 ..< TuningTable.midiNoteCount {
             let f = 440 * exp2(Double(noteNumber - 69) / 12.0)
             setFrequency(f, at: MIDINoteNumber(noteNumber))
         }

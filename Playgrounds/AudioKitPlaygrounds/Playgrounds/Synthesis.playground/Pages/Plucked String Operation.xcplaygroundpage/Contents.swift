@@ -14,7 +14,7 @@ let pluckNode = AKOperationGenerator { parameters in
         lowestFrequency: 50)
 }
 
-var delay = AKDelay(pluckNode)
+var delay = Delay(pluckNode)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2

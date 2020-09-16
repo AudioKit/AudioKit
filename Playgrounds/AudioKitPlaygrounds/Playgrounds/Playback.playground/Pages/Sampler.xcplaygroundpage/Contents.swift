@@ -9,7 +9,7 @@ let pulse = 0.23 // seconds
 let sampler = AKAppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
-var delay = AKDelay(sampler)
+var delay = Delay(sampler)
 delay.time = pulse * 1.5
 delay.dryWetMix = 0.3
 delay.feedback = 0.2

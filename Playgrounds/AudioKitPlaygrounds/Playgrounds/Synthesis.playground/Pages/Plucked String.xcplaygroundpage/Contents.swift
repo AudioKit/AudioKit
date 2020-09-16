@@ -7,7 +7,7 @@ let playRate = 2.0
 
 let pluckedString = AKPluckedString()
 
-var delay = AKDelay(pluckedString)
+var delay = Delay(pluckedString)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2

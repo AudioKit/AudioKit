@@ -4,14 +4,14 @@
 #include "ParameterRamper.h"
 #include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
-enum AKStereoDelayParameter : AUParameterAddress {
-    AKStereoDelayParameterTime,
-    AKStereoDelayParameterFeedback,
-    AKStereoDelayParameterDryWetMix,
-    AKStereoDelayParameterPingPong,
+enum StereoDelayParameter : AUParameterAddress {
+    StereoDelayParameterTime,
+    StereoDelayParameterFeedback,
+    StereoDelayParameterDryWetMix,
+    StereoDelayParameterPingPong,
 };
 
-class AKStereoDelayDSP : public AKDSPBase {
+class StereoDelayDSP : public AKDSPBase {
 private:
     AudioKitCore::StereoDelay delay;
     float timeUpperBound = 2.f;
@@ -20,16 +20,16 @@ private:
     ParameterRamper dryWetMixRamp;
 
 public:
-    AKStereoDelayDSP() {
-        parameters[AKStereoDelayParameterTime] = &timeRamp;
-        parameters[AKStereoDelayParameterFeedback] = &feedbackRamp;
-        parameters[AKStereoDelayParameterDryWetMix] = &dryWetMixRamp;
+    StereoDelayDSP() {
+        parameters[StereoDelayParameterTime] = &timeRamp;
+        parameters[StereoDelayParameterFeedback] = &feedbackRamp;
+        parameters[StereoDelayParameterDryWetMix] = &dryWetMixRamp;
 
         bCanProcessInPlace = true;
     }
 
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
-        if (address == AKStereoDelayParameterPingPong) {
+        if (address == StereoDelayParameterPingPong) {
             delay.setPingPongMode(value > 0.5f);
         }
         else {
@@ -38,7 +38,7 @@ public:
     }
 
     float getParameter(uint64_t address) override {
-        if (address == AKStereoDelayParameterPingPong) {
+        if (address == StereoDelayParameterPingPong) {
             return delay.getPingPongMode() ? 1.0f : 0.0f;
         }
         else {
@@ -110,8 +110,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKStereoDelayDSP)
-AK_REGISTER_PARAMETER(AKStereoDelayParameterTime)
-AK_REGISTER_PARAMETER(AKStereoDelayParameterFeedback)
-AK_REGISTER_PARAMETER(AKStereoDelayParameterDryWetMix)
-AK_REGISTER_PARAMETER(AKStereoDelayParameterPingPong)
+AK_REGISTER_DSP(StereoDelayDSP)
+AK_REGISTER_PARAMETER(StereoDelayParameterTime)
+AK_REGISTER_PARAMETER(StereoDelayParameterFeedback)
+AK_REGISTER_PARAMETER(StereoDelayParameterDryWetMix)
+AK_REGISTER_PARAMETER(StereoDelayParameterPingPong)

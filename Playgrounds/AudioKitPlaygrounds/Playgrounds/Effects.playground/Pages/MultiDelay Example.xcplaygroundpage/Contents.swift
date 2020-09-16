@@ -8,14 +8,14 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var delays = [AKVariableDelay]()
+var delays = [VariableDelay]()
 var counter = 0
 
 func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
 
     zip(times, gains).forEach { (time, gain) -> Void in
-        delays.append(AKVariableDelay(input, time: time))
+        delays.append(VariableDelay(input, time: time))
         mix.connect(AKFader(delays[counter], gain: gain))
         counter += 1
     }

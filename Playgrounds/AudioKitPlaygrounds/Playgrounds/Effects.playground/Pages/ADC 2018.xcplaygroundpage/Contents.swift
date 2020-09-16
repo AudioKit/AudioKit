@@ -6,7 +6,7 @@ let mic = engine.input
 let reverb = AKCostelloReverb()
 var reverbMixer = AKDryWetMixer()
 //: Signal Chain
-let delay = AKVariableDelay(mic)
+let delay = VariableDelay(mic)
 let delayMixer = AKDryWetMixer(mic, delay)
 let reverb = AKCostelloReverb(delayMixer)
 reverbMixer = AKDryWetMixer(delayMixer, reverb)

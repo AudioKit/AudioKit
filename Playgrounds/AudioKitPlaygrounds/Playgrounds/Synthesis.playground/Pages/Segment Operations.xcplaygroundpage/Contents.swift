@@ -23,7 +23,7 @@ let generator = AKOperationGenerator { parameters in
     return AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
 }
 
-var delay = AKDelay(generator)
+var delay = Delay(generator)
 
 //: Add some effects for good fun
 delay.time = 0.125

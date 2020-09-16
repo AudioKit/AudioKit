@@ -7,7 +7,7 @@ let playRate = 2.0
 
 let shaker = AKShaker()
 
-var delay = AKDelay(shaker)
+var delay = Delay(shaker)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2

@@ -10,7 +10,7 @@ mandolin.detune = 1
 mandolin.bodySize = 1
 var pluckPosition = 0.2
 
-var delay = AKDelay(mandolin)
+var delay = Delay(mandolin)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2

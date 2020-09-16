@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
+public class StereoDelay: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
@@ -18,7 +18,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     public static let timeDef = AKNodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: akGetParameterAddress("AKStereoDelayParameterTime"),
+        address: akGetParameterAddress("StereoDelayParameterTime"),
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: akGetParameterAddress("AKStereoDelayParameterFeedback"),
+        address: akGetParameterAddress("StereoDelayParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     public static let dryWetMixDef = AKNodeParameterDef(
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
-       address: akGetParameterAddress("AKStereoDelayParameterDryWetMix"),
+       address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
        range: 0.0 ... 1.0,
        unit: .generic,
        flags: .default)
@@ -51,7 +51,7 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     public static let pingPongDef = AKNodeParameterDef(
        identifier: "pingPong",
        name: "Ping-Pong Mode",
-       address: akGetParameterAddress("AKStereoDelayParameterPingPong"),
+       address: akGetParameterAddress("StereoDelayParameterPingPong"),
        range: 0.0...1.0,
        unit: .boolean,
        flags: [.flag_IsReadable, .flag_IsWritable])
@@ -64,14 +64,14 @@ public class AKStereoDelay: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKStereoDelay.timeDef,
-             AKStereoDelay.feedbackDef,
-             AKStereoDelay.dryWetMixDef,
-             AKStereoDelay.pingPongDef]
+            [StereoDelay.timeDef,
+             StereoDelay.feedbackDef,
+             StereoDelay.dryWetMixDef,
+             StereoDelay.pingPongDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKStereoDelayDSP")
+            akCreateDSP("StereoDelayDSP")
         }
     }
 

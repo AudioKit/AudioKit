@@ -6,7 +6,7 @@ let playRate = 2.0
 
 let tubularBells = AKTubularBells()
 
-var delay = AKDelay(tubularBells)
+var delay = Delay(tubularBells)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
