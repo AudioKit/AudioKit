@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKSamplerDSP.h"
+#import "SamplerDSP.h"
 #include "wavpack.h"
 #include <math.h>
 

@@ -14,46 +14,46 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "AKDSPBase.h"
-#import "AKSoundpipeDSPBase.h"
+#import "DSPBase.h"
+#import "SoundpipeDSPBase.h"
 
 #import "ExceptionCatcher.h"
-#import "AKGlobals.h"
+#import "Globals.h"
 #import "AUParameterTreeExt.h"
 
 // Testing
 #import "DebugDSP.h"
 
 // Analysis
-#import "AKPitchTracker.h"
+#import "PitchTracker.h"
 
 // Effects / Modulation
-#import "AKModulatedDelay_Typedefs.h"
-#import "AKModulatedDelay.h"
-#import "AKModulatedDelayDSP.h"
+#import "ModulatedDelay_Typedefs.h"
+#import "ModulatedDelay.h"
+#import "ModulatedDelayDSP.h"
 
 // Synth example
-#import "AKSynthDSP.h"
+#import "SynthDSP.h"
 
 // Playback
-#import "AKPresetManager.h"
-#import "AKSampler_Typedefs.h"
-#import "AKCoreSampler.h"
-#import "AKCoreSynth.h"
-#import "AKSamplerDSP.h"
+#import "PresetManager.h"
+#import "Sampler_Typedefs.h"
+#import "CoreSampler.h"
+#import "CoreSynth.h"
+#import "SamplerDSP.h"
 
 // Utilities
 #import "ParameterRamper.h"
 
 // Sequencing / MIDI
-#import "AKSequencerEngine.h"
+#import "SequencerEngine.h"
 
 // Automation
-#import "AKParameterAutomation.h"
-#import "AKLinearParameterRamp.h"
+#import "ParameterAutomation.h"
+#import "LinearParameterRamp.h"
 
 // Swift/ObjC/C/C++ Inter-operability
-#import "AKInterop.h"
+#import "Interop.h"
 
 // Custom interop
 AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
