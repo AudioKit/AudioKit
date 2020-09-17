@@ -4,7 +4,7 @@ import Foundation
 
 #if !os(tvOS)
 
-public struct AKMIDIFileTrack {
+public struct MIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk
 

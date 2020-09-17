@@ -15,7 +15,7 @@ adding an AppleSequencer,
 For example:
 
 var trackView1: MIDITrackView = MIDITrackView(frame: CGRect(x: , y: , width: , height: ),
-midiFile: AKMIDIFile(url: urltoyourmidifile),
+midiFile: MIDIFile(url: urltoyourmidifile),
 trackNumber: The MIDI track number you want to display,
  sampler: MIDISampler,
  sequencer: AppleSequencer)
@@ -47,7 +47,7 @@ public class MIDITrackView: Button {
     var readyToPlay: Bool = false
     var playbackCursorPosition: Double = 0.0
     var noteGroupPosition: Double = 0.0
-    public var midiTrackNoteMap: AKMIDIFileTrackNoteMap!
+    public var midiTrackNoteMap: MIDIFileTrackNoteMap!
     public var sampler: MIDISampler!
     public var sequencer: AppleSequencer!
     var previousTempo = 0.0
@@ -68,7 +68,7 @@ public class MIDITrackView: Button {
         clipsToBounds = true
         self.sampler = sampler
         self.sequencer = sequencer
-        self.midiTrackNoteMap = AKMIDIFileTrackNoteMap(midiFile: AKMIDIFile(url: midiFile), trackNum: trackNumber)
+        self.midiTrackNoteMap = MIDIFileTrackNoteMap(midiFile: MIDIFile(url: midiFile), trackNum: trackNumber)
         populateViewNotes()
     }
 

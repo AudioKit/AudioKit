@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct MIDIFileTrackChunk: AKMIDIFileChunk {
+public struct MIDIFileTrackChunk: MIDIFileChunk {
     public let rawData: [UInt8]
 
     let timeFormat: MIDITimeFormat
@@ -27,7 +27,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         }
     }
 
-    init?(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
+    init?(chunk: MIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
         guard chunk.type == .track else {
             return nil
         }
@@ -36,8 +36,8 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         self.timeDivision = timeDivision
     }
 
-    public var chunkEvents: [AKMIDIFileChunkEvent] {
-        var events = [AKMIDIFileChunkEvent]()
+    public var chunkEvents: [MIDIFileChunkEvent] {
+        var events = [MIDIFileChunkEvent]()
         var accumulatedDeltaTime = 0
         var currentTimeVLQ: MIDIVariableLengthQuantity?
         var runningStatus: MIDIByte?
@@ -49,10 +49,10 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentTimeVLQ = vlqTime
                 processedBytes += vlqTime.length
             } else if let vlqTime = currentTimeVLQ {
-                var event: AKMIDIFileChunkEvent?
+                var event: MIDIFileChunkEvent?
                 if let metaEvent = AKMIDIMetaEvent(data: subData) {
                     let metaData = metaEvent.data
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
+                    event = MIDIFileChunkEvent(data: vlqTime.data + metaData,
                                                  timeFormat: timeFormat,
                                                  timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
@@ -60,7 +60,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     runningStatus = nil
                 } else if let sysExEvent = MIDISysExMessage(bytes: subData) {
                     let sysExData = sysExEvent.data
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysExData,
+                    event = MIDIFileChunkEvent(data: vlqTime.data + sysExData,
                                                  timeFormat: timeFormat,
                                                  timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
@@ -69,7 +69,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 } else if let status = MIDIStatus(byte: byte) {
                     let messageLength = status.length
                     let chunkData = Array(subData.prefix(messageLength))
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
+                    event = MIDIFileChunkEvent(data: vlqTime.data + chunkData,
                                                  timeFormat: timeFormat,
                                                  timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime)
@@ -79,7 +79,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     let status = MIDIStatus(byte: activeRunningStatus) {
                     let messageLength = status.length - 1 // drop one since running status is used
                     let chunkData = Array(subData.prefix(messageLength))
-                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
+                    event = MIDIFileChunkEvent(data: vlqTime.data + chunkData,
                                                  timeFormat: timeFormat,
                                                  timeDivision: timeDivision,
                                                  timeOffset: accumulatedDeltaTime,

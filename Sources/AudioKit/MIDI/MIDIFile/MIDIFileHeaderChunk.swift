@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct MIDIFileHeaderChunk: AKMIDIFileChunk {
+struct MIDIFileHeaderChunk: MIDIFileChunk {
 
     var rawData: [UInt8]
 
@@ -23,7 +23,7 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
         }
     }
 
-    init?(chunk: AKMIDIFileChunk) {
+    init?(chunk: MIDIFileChunk) {
         guard chunk.type == .header else {
             return nil
         }

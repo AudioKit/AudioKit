@@ -2,7 +2,7 @@
 
 import Foundation
 
-public protocol AKMIDIFileChunk {
+public protocol MIDIFileChunk {
     var rawData: [UInt8] { get }    // All data used to init this chunk
     var typeData: [UInt8] { get }       // The subset of data used to determine type ("MTrk" or "MThd")
     var lengthData: [UInt8] { get }     // The subset of data used to determine chunk length
@@ -10,7 +10,7 @@ public protocol AKMIDIFileChunk {
     init?(data: [UInt8])
 }
 
-public extension AKMIDIFileChunk {
+public extension MIDIFileChunk {
 
     var isValid: Bool { return isTypeValid && isLengthValid }
     var isNotValid: Bool { return !isValid }

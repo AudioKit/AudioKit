@@ -87,12 +87,12 @@ open class Sequencer {
 
     /// Load MIDI data from a file URL
     public func load(midiFileURL: URL) {
-        load(midiFile: AKMIDIFile(url: midiFileURL))
+        load(midiFile: MIDIFile(url: midiFileURL))
     }
 
     /// Load MIDI data from a file
     /// - Parameter midiFile: MIDI File to load data out of
-    public func load(midiFile: AKMIDIFile) {
+    public func load(midiFile: MIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
             Log("Error: Track count and file track count do not match ",

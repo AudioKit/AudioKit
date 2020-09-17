@@ -19,9 +19,9 @@ public class AKMIDINoteDuration {
     }
 }
 //Get the MIDI events which occur inside a MIDI track in a MIDI file
-public class AKMIDIFileTrackNoteMap {
-    public let midiTrack: AKMIDIFileTrack!
-    public let midiFile: AKMIDIFile!
+public class MIDIFileTrackNoteMap {
+    public let midiTrack: MIDIFileTrack!
+    public let midiFile: MIDIFile!
     public let trackNum: Int!
     public var loNote: Int {
         if noteList.count >= 2 {
@@ -153,7 +153,7 @@ public class AKMIDIFileTrackNoteMap {
         return finalNoteList
     }
 
-    public init(midiFile: AKMIDIFile, trackNum: Int) {
+    public init(midiFile: MIDIFile, trackNum: Int) {
         self.midiFile = midiFile
         if midiFile.tracks.isNotEmpty {
             if trackNum > (midiFile.tracks.count - 1) {
