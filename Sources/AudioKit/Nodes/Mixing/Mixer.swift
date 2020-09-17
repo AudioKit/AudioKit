@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
-public class AKMixer: AKNode, AKToggleable {
+public class Mixer: AKNode, AKToggleable {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 
@@ -74,7 +74,7 @@ public class AKMixer: AKNode, AKToggleable {
 
     public func addInput(_ node: AKNode) {
         if connections.contains(where: { $0 === node }) {
-            AKLog("🛑 Error: Node is already connected to AKMixer.")
+            AKLog("🛑 Error: Node is already connected to Mixer.")
             return
         }
         connections.append(node)

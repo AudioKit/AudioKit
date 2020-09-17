@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class AKPanner: AKNode, AKComponent, AKToggleable {
+public class Panner: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
@@ -18,7 +18,7 @@ public class AKPanner: AKNode, AKComponent, AKToggleable {
     public static let panDef = AKNodeParameterDef(
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
-        address: akGetParameterAddress("AKPannerParameterPan"),
+        address: akGetParameterAddress("PannerParameterPan"),
         range: -1 ... 1,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKPanner: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKPanner.panDef]
+            [Panner.panDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPannerDSP")
+            akCreateDSP("PannerDSP")
         }
     }
 

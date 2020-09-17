@@ -12,7 +12,7 @@ try sampler.loadWav("Samples/FM Piano")
 let reverb = AKReverb(sampler)
 reverb.loadFactoryPreset(.largeRoom)
 
-var mixer = AKMixer(reverb)
+var mixer = Mixer(reverb)
 mixer.volume = 5.0
 
 engine.output = mixer

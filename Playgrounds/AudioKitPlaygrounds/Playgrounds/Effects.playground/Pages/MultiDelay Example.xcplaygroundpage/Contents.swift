@@ -11,12 +11,12 @@ player.looping = true
 var delays = [VariableDelay]()
 var counter = 0
 
-func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
-    let mix = AKMixer(input)
+func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> Mixer {
+    let mix = Mixer(input)
 
     zip(times, gains).forEach { (time, gain) -> Void in
         delays.append(VariableDelay(input, time: time))
-        mix.connect(AKFader(delays[counter], gain: gain))
+        mix.connect(Fader(delays[counter], gain: gain))
         counter += 1
     }
     return mix
@@ -35,10 +35,10 @@ let leftDelay = multitapDelay(input,
 let rightDelay = multitapDelay(input,
                                times: [1.0, 2.0, 3.0].map { t -> Double in t * delayTime },
                                gains: gains)
-let delayPannedLeft = AKPanner(leftDelay, pan: -1)
-let delayPannedRight = AKPanner(rightDelay, pan: 1)
+let delayPannedLeft = Panner(leftDelay, pan: -1)
+let delayPannedRight = Panner(rightDelay, pan: 1)
 
-let mix = AKMixer(delayPannedLeft, delayPannedRight)
+let mix = Mixer(delayPannedLeft, delayPannedRight)
 
 engine.output = mix
 try engine.start()

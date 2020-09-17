@@ -8,7 +8,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var limitedOutput = AKStereoFieldLimiter(player)
+var limitedOutput = StereoFieldLimiter(player)
 
 engine.output = limitedOutput
 try engine.start()

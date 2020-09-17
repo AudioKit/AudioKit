@@ -3,13 +3,13 @@
 import AudioKit
 import XCTest
 
-class AKStereoFieldLimiterTests: XCTestCase {
+class StereoFieldLimiterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let pannedInput = AKPanner(input, pan: -1)
-        engine.output = AKStereoFieldLimiter(pannedInput)
+        let pannedInput = Panner(input, pan: -1)
+        engine.output = StereoFieldLimiter(pannedInput)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -19,8 +19,8 @@ class AKStereoFieldLimiterTests: XCTestCase {
     func testHalf() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let pannedInput = AKPanner(input, pan: -1)
-        engine.output = AKStereoFieldLimiter(pannedInput, amount: 0.5)
+        let pannedInput = Panner(input, pan: -1)
+        engine.output = StereoFieldLimiter(pannedInput, amount: 0.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -30,8 +30,8 @@ class AKStereoFieldLimiterTests: XCTestCase {
     func testNone() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let pannedInput = AKPanner(input, pan: -1)
-        engine.output = AKStereoFieldLimiter(pannedInput, amount: 0)
+        let pannedInput = Panner(input, pan: -1)
+        engine.output = StereoFieldLimiter(pannedInput, amount: 0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

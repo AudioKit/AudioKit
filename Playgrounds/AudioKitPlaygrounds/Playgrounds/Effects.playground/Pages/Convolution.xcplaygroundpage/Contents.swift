@@ -12,8 +12,8 @@ player.looping = true
 
 let bundle = Bundle.main
 
-var dryWetMixer: AKDryWetMixer!
-var mixer: AKDryWetMixer!
+var dryWetMixer: DryWetMixer!
+var mixer: DryWetMixer!
 var dishConvolution: AKConvolution!
 var stairwellConvolution: AKConvolution!
 
@@ -27,8 +27,8 @@ if let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withEx
                                     impulseResponseFileURL: dish,
                                     partitionLength: 8_192)
 }
-mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
-dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
+mixer = DryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+dryWetMixer = DryWetMixer(player, mixer, balance: 0.5)
 
 engine.output = dryWetMixer
 try engine.start()

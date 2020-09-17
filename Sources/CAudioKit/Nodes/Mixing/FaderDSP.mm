@@ -3,15 +3,15 @@
 #include "DSPBase.h"
 #include "ParameterRamper.h"
 
-enum AKFaderParameter : AUParameterAddress {
-    AKFaderParameterLeftGain,
-    AKFaderParameterRightGain,
-    AKFaderParameterFlipStereo,
-    AKFaderParameterMixToMono
+enum FaderParameter : AUParameterAddress {
+    FaderParameterLeftGain,
+    FaderParameterRightGain,
+    FaderParameterFlipStereo,
+    FaderParameterMixToMono
 };
 
 
-struct AKFaderDSP : AKDSPBase {
+struct FaderDSP : AKDSPBase {
 private:
     ParameterRamper leftGainRamp{1.0};
     ParameterRamper rightGainRamp{1.0};
@@ -19,9 +19,9 @@ private:
     bool mixToMono = false;
 
 public:
-    AKFaderDSP() {
-        parameters[AKFaderParameterLeftGain] = &leftGainRamp;
-        parameters[AKFaderParameterRightGain] = &rightGainRamp;
+    FaderDSP() {
+        parameters[FaderParameterLeftGain] = &leftGainRamp;
+        parameters[FaderParameterRightGain] = &rightGainRamp;
 
         bCanProcessInPlace = true;
     }
@@ -29,10 +29,10 @@ public:
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
         switch (address) {
-            case AKFaderParameterFlipStereo:
+            case FaderParameterFlipStereo:
                 flipStereo = value > 0.5f;
                 break;
-            case AKFaderParameterMixToMono:
+            case FaderParameterMixToMono:
                 mixToMono = value > 0.5f;
                 break;
             default:
@@ -43,9 +43,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override {
         switch (address) {
-            case AKFaderParameterFlipStereo:
+            case FaderParameterFlipStereo:
                 return flipStereo ? 1.f : 0.f;
-            case AKFaderParameterMixToMono:
+            case FaderParameterMixToMono:
                 return mixToMono ? 1.f : 0.f;
             default:
                 return AKDSPBase::getParameter(address);
@@ -55,10 +55,10 @@ public:
     void startRamp(const AUParameterEvent &event) override {
         auto address = event.parameterAddress;
         switch (address) {
-            case AKFaderParameterFlipStereo:
+            case FaderParameterFlipStereo:
                 flipStereo = event.value > 0.5f;
                 break;
-            case AKFaderParameterMixToMono:
+            case FaderParameterMixToMono:
                 mixToMono = event.value > 0.5f;
                 break;
             default:
@@ -107,8 +107,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKFaderDSP)
-AK_REGISTER_PARAMETER(AKFaderParameterLeftGain)
-AK_REGISTER_PARAMETER(AKFaderParameterRightGain)
-AK_REGISTER_PARAMETER(AKFaderParameterFlipStereo)
-AK_REGISTER_PARAMETER(AKFaderParameterMixToMono)
+AK_REGISTER_DSP(FaderDSP)
+AK_REGISTER_PARAMETER(FaderParameterLeftGain)
+AK_REGISTER_PARAMETER(FaderParameterRightGain)
+AK_REGISTER_PARAMETER(FaderParameterFlipStereo)
+AK_REGISTER_PARAMETER(FaderParameterMixToMono)

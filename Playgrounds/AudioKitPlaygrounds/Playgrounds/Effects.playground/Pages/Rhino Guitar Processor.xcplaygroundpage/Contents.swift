@@ -12,7 +12,7 @@ do {
     player.looping = true
     rhino = RhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
-    engine.output = AKMixer(reverb, rhino)
+    engine.output = Mixer(reverb, rhino)
     try engine.start()
     player.play()
 } catch let error as NSError {

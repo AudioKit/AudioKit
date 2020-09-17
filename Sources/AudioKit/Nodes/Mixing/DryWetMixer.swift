@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
+public class DryWetMixer: AKNode, AKToggleable, AKComponent {
 
    public static let ComponentDescription = AudioComponentDescription(effect: "dwmx")
 
@@ -18,7 +18,7 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
     public static let balanceDef = AKNodeParameterDef(
         identifier: "balance",
         name: "Balance",
-        address: akGetParameterAddress("AKDryWetMixerParameterBalance"),
+        address: akGetParameterAddress("DryWetMixerParameterBalance"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKDryWetMixer: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKDryWetMixer.balanceDef]
+            [DryWetMixer.balanceDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKDryWetMixerDSP")
+            akCreateDSP("DryWetMixerDSP")
         }
     }
 

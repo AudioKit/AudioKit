@@ -10,7 +10,7 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class AKBalancer: AKNode, AKToggleable, AKComponent {
+public class Balancer: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
@@ -22,7 +22,7 @@ public class AKBalancer: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKBalancerDSP")
+            akCreateDSP("BalancerDSP")
         }
     }
 

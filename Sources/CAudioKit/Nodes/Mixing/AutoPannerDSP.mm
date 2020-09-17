@@ -6,12 +6,12 @@
 
 #import <vector>
 
-enum AKAutoPannerParameter : AUParameterAddress {
-    AKAutoPannerParameterFrequency,
-    AKAutoPannerParameterDepth,
+enum AutoPannerParameter : AUParameterAddress {
+    AutoPannerParameterFrequency,
+    AutoPannerParameterDepth,
 };
 
-class AKAutoPannerDSP : public AKSoundpipeDSPBase {
+class AutoPannerDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *trem;
     sp_ftbl *tbl;
@@ -21,9 +21,9 @@ private:
     ParameterRamper depthRamp;
 
 public:
-    AKAutoPannerDSP() {
-        parameters[AKAutoPannerParameterFrequency] = &frequencyRamp;
-        parameters[AKAutoPannerParameterDepth] = &depthRamp;
+    AutoPannerDSP() {
+        parameters[AutoPannerParameterFrequency] = &frequencyRamp;
+        parameters[AutoPannerParameterDepth] = &depthRamp;
         bCanProcessInPlace = true;
     }
 
@@ -80,6 +80,6 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKAutoPannerDSP)
-AK_REGISTER_PARAMETER(AKAutoPannerParameterFrequency)
-AK_REGISTER_PARAMETER(AKAutoPannerParameterDepth)
+AK_REGISTER_DSP(AutoPannerDSP)
+AK_REGISTER_PARAMETER(AutoPannerParameterFrequency)
+AK_REGISTER_PARAMETER(AutoPannerParameterDepth)

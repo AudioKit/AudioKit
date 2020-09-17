@@ -5,7 +5,7 @@
 //: ## Balancing Nodes
 //: Sometimes you want to ensure that an audio signal that you're processing
 //: remains at a volume similar to where it started.
-//: Such an application is perfect for the AKBalancer node.
+//: Such an application is perfect for the Balancer node.
 import AudioKit
 import AudioKitUI
 
@@ -18,7 +18,7 @@ let highPassFiltering = HighPassFilter(source, cutoffFrequency: 900)
 let lowPassFiltering = LowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
-let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
+let rebalancedWithSource = Balancer(lowPassFiltering, comparator: source)
 
 engine.output = rebalancedWithSource
 try engine.start()

@@ -10,9 +10,9 @@ var currentAmplitude = 0.1
 var currentRampDuration = 0.2
 
 //: Pass our Oscillator thru a mixer. It fixes a problem with raw oscillator
-//: nodes that can only be recorded once they passed thru an AKMixer.
+//: nodes that can only be recorded once they passed thru an Mixer.
 
-let oscMixer = AKMixer(oscillator)
+let oscMixer = Mixer(oscillator)
 
 //: Let's add some space to our oscillator
 let reverb = AKReverb(oscMixer)
@@ -25,7 +25,7 @@ let tape = try AVAudioFile()
 let player = try AKAudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
-let mixer = AKMixer(player, reverb)
+let mixer = Mixer(player, reverb)
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...

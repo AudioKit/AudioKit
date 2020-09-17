@@ -16,7 +16,7 @@ let drips = AKPeriodicFunction(frequency: playRate) {
     drip.trigger()
 }
 
-engine.output = AKFader(reverb, gain: 0.4)
+engine.output = Fader(reverb, gain: 0.4)
 try engine.start(withPeriodicFunctions: drips)
 drips.start()
 

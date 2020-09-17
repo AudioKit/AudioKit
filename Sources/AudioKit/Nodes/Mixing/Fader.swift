@@ -3,11 +3,11 @@
 import AVFoundation
 import CAudioKit
 
-@available(*, deprecated, message: "@deprecated Use AKFader instead.")
-public typealias AKBooster = AKFader
+@available(*, deprecated, message: "@deprecated Use Fader instead.")
+public typealias AKBooster = Fader
 
 /// Stereo Fader.
-public class AKFader: AKNode, AKToggleable, AKComponent {
+public class Fader: AKNode, AKToggleable, AKComponent {
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -30,8 +30,8 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public static let leftGainDef = AKNodeParameterDef(
         identifier: "leftGain",
         name: "Left Gain",
-        address: akGetParameterAddress("AKFaderParameterLeftGain"),
-        range: AKFader.gainRange,
+        address: akGetParameterAddress("FaderParameterLeftGain"),
+        range: Fader.gainRange,
         unit: .linearGain,
         flags: .default)
 
@@ -41,8 +41,8 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public static let rightGainDef = AKNodeParameterDef(
         identifier: "rightGain",
         name: "Right Gain",
-        address: akGetParameterAddress("AKFaderParameterRightGain"),
-        range: AKFader.gainRange,
+        address: akGetParameterAddress("FaderParameterRightGain"),
+        range: Fader.gainRange,
         unit: .linearGain,
         flags: .default)
 
@@ -58,7 +58,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public static let flipStereoDef = AKNodeParameterDef(
         identifier: "flipStereo",
         name: "Flip Stereo",
-        address: akGetParameterAddress("AKFaderParameterFlipStereo"),
+        address: akGetParameterAddress("FaderParameterFlipStereo"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -69,7 +69,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public static let mixToMonoDef = AKNodeParameterDef(
         identifier: "mixToMono",
         name: "Mix To Mono",
-        address: akGetParameterAddress("AKFaderParameterMixToMono"),
+        address: akGetParameterAddress("FaderParameterMixToMono"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -82,14 +82,14 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKFader.leftGainDef,
-             AKFader.rightGainDef,
-             AKFader.flipStereoDef,
-             AKFader.mixToMonoDef]
+            [Fader.leftGainDef,
+             Fader.rightGainDef,
+             Fader.flipStereoDef,
+             Fader.mixToMonoDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKFaderDSP")
+            akCreateDSP("FaderDSP")
         }
     }
     // MARK: - Initialization
@@ -120,7 +120,7 @@ public class AKFader: AKNode, AKToggleable, AKComponent {
     }
 
     deinit {
-        AKLog("* { AKFader }")
+        AKLog("* { Fader }")
     }
 
     // MARK: - Automation

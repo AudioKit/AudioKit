@@ -4,7 +4,7 @@
 //:
 //: ## Stereo Panning
 //: Panning is a basic operation that is essential to mixing and direction
-//: perception and it couldn't be easier with AKPanner.
+//: perception and it couldn't be easier with Panner.
 
 import AudioKit
 
@@ -15,7 +15,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: Route the audio player through the panner
-var panner = AKPanner(player)
+var panner = Panner(player)
 
 //: Adjust the pan to smoothly cycle left and right over time
 var time = 0.0

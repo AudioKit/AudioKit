@@ -26,7 +26,7 @@ delay.dryWetMix = 1
 //: Any number of inputs can be equally summed into one output, including the
 //: original player, allowing us to create dry/wet mixes even for effects that
 //: don't have that property by default
-let mixer = AKMixer(player, delay)
+let mixer = Mixer(player, delay)
 
 engine.output = mixer
 try engine.start()

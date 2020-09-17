@@ -17,12 +17,12 @@ let oscillatorNode = AKOperationGenerator {
 }
 
 let tracker = PitchTap(oscillatorNode)
-let fader = AKFader(tracker, gain: 0.5)
+let fader = Fader(tracker, gain: 0.5)
 let secondaryOscillator = Oscillator()
 
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
-engine.output = AKMixer(fader, secondaryOscillator)
+engine.output = Mixer(fader, secondaryOscillator)
 try engine.start()
 
 oscillatorNode.start()

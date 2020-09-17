@@ -14,8 +14,8 @@ class Conductor: ObservableObject {
     var bass: AKPlayer
     var guitar: AKPlayer
     var lead: AKPlayer
-    var mixer: AKMixer
-    var fader: AKFader
+    var mixer: Mixer
+    var fader: Fader
 
     init() {
 
@@ -29,8 +29,8 @@ class Conductor: ObservableObject {
         guitar = AKPlayer(audioFile: guitarFile)
         lead = AKPlayer(audioFile: leadFile)
 
-        mixer = AKMixer(drums, bass, guitar, lead)
-        fader = AKFader(mixer)
+        mixer = Mixer(drums, bass, guitar, lead)
+        fader = Fader(mixer)
 
         drums.isLooping = true
         drums.buffering = .always

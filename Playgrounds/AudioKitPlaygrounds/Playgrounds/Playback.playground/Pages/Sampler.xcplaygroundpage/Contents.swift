@@ -17,7 +17,7 @@ delay.feedback = 0.2
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.largeRoom)
 
-var mixer = AKMixer(reverb)
+var mixer = Mixer(reverb)
 mixer.volume = 5.0
 
 engine.output = mixer
