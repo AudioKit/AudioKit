@@ -31,13 +31,13 @@ extension MIDIPacket: Sequence {
             }
 
             func pop() -> MIDIByte {
-                assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysex.byte))
+                assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysEx.byte))
                 index += 1
                 return generator.next() as! MIDIByte
             }
             let status = pop()
-            if AudioKit.midi.isReceivingSysex {
-                return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
+            if AudioKit.midi.isReceivingSysEx {
+                return AKMIDIEvent.appendIncomingSysEx(packet: self) //will be nil until SysEx is done
             } else if var mstat = AKMIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
@@ -60,7 +60,7 @@ extension MIDIPacket: Sequence {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
                 switch command {
-                case .sysex:
+                case .sysEx:
                     index = self.length
                     return AKMIDIEvent(packet: self)
                 case .songPosition:

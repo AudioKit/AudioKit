@@ -241,7 +241,6 @@ namespace AudioKitCore
         if (restartVoiceLFO || !hasStartedVoiceLFO) {
             vibratoLFO.phase = 0;
             hasStartedVoiceLFO = true;
-            printf("restarting lfo\n");
         }
     }
 

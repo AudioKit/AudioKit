@@ -9,11 +9,11 @@
 /// MIDI System Command
 ///
 /// - None: Trivial Case
-/// - Sysex: System Exclusive
+/// - sysEx: System Exclusive
 /// - SongPosition: Song Position
 /// - SongSelect: Song Selection
 /// - TuneRequest: Request Tune
-/// - SysexEnd: End System Exclusive
+/// - SysExEnd: End System Exclusive
 /// - Clock
 /// - Start
 /// - Continue
@@ -23,8 +23,8 @@
 ///
 public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
 
-    /// System Exclusive (Sysex)
-    case sysex = 0xF0
+    /// System Exclusive (SysEx)
+    case sysEx = 0xF0
     /// MIDI Time Code Quarter Frame (System Common)
     case timeCodeQuarterFrame = 0xF1
     /// Song Position Pointer (System Common)
@@ -33,8 +33,8 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
     case songSelect = 0xF3
     /// Tune Request (System Common)
     case tuneRequest = 0xF6
-    /// End System Exclusive (Sysex)
-    case sysexEnd = 0xF7
+    /// End System Exclusive (SysEx)
+    case sysExEnd = 0xF7
     /// Timing Clock (System Realtime)
     case clock = 0xF8
     /// Start (System Realtime)
@@ -50,7 +50,7 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
 
     var type: AKMIDISystemCommandType {
         switch self {
-        case .sysex, .sysexEnd:
+        case .sysEx, .sysExEnd:
             return .systemExclusive
         case .activeSensing, .clock, .continue, .start, .stop, .sysReset:
             return .systemRealtime
@@ -67,15 +67,15 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
             return 2
         case .songPosition:
             return 3
-        case .sysex, .sysexEnd:
+        case .sysEx, .sysExEnd:
             return nil
         }
     }
 
     public var description: String {
         switch self {
-        case .sysex:
-            return "Sysex Begin"
+        case .sysEx:
+            return "SysEx Begin"
         case .timeCodeQuarterFrame:
             return "Timecode Quater Frame"
         case .songPosition:
@@ -84,8 +84,8 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
             return "Song Selection"
         case .tuneRequest:
             return "Tune Request"
-        case .sysexEnd:
-            return "Sysex End"
+        case .sysExEnd:
+            return "SysEx End"
         case .clock:
             return "Timing Clock"
         case .start:

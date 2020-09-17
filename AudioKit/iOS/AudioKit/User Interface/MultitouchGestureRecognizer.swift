@@ -6,7 +6,6 @@
 //  Copyright © 2015 Daniel Clelland. All rights reserved.
 //
 
-import UIKit
 import UIKit.UIGestureRecognizerSubclass
 import AudioKit
 
@@ -166,6 +165,12 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
                 move(touch)
             case .ended:
                 end(touch)
+            case .regionEntered:
+                break
+            case .regionMoved:
+                break
+            case .regionExited:
+                break
             @unknown default:
                 fatalError("Unknown touch phase!")
             }
