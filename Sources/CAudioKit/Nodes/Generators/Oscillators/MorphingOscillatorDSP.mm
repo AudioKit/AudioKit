@@ -5,15 +5,15 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKMorphingOscillatorParameter : AUParameterAddress {
-    AKMorphingOscillatorParameterFrequency,
-    AKMorphingOscillatorParameterAmplitude,
-    AKMorphingOscillatorParameterIndex,
-    AKMorphingOscillatorParameterDetuningOffset,
-    AKMorphingOscillatorParameterDetuningMultiplier,
+enum MorphingOscillatorParameter : AUParameterAddress {
+    MorphingOscillatorParameterFrequency,
+    MorphingOscillatorParameterAmplitude,
+    MorphingOscillatorParameterIndex,
+    MorphingOscillatorParameterDetuningOffset,
+    MorphingOscillatorParameterDetuningMultiplier,
 };
 
-class AKMorphingOscillatorDSP : public AKSoundpipeDSPBase {
+class MorphingOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_oscmorph *oscmorph;
     sp_ftbl *ft_array[4];
@@ -25,12 +25,12 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKMorphingOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKMorphingOscillatorParameterFrequency] = &frequencyRamp;
-        parameters[AKMorphingOscillatorParameterAmplitude] = &amplitudeRamp;
-        parameters[AKMorphingOscillatorParameterIndex] = &indexRamp;
-        parameters[AKMorphingOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
-        parameters[AKMorphingOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+    MorphingOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[MorphingOscillatorParameterFrequency] = &frequencyRamp;
+        parameters[MorphingOscillatorParameterAmplitude] = &amplitudeRamp;
+        parameters[MorphingOscillatorParameterIndex] = &indexRamp;
+        parameters[MorphingOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
+        parameters[MorphingOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
 
         isStarted = false;
     }
@@ -89,9 +89,9 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKMorphingOscillatorDSP)
-AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterFrequency)
-AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterAmplitude)
-AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterIndex)
-AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterDetuningOffset)
-AK_REGISTER_PARAMETER(AKMorphingOscillatorParameterDetuningMultiplier)
+AK_REGISTER_DSP(MorphingOscillatorDSP)
+AK_REGISTER_PARAMETER(MorphingOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(MorphingOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(MorphingOscillatorParameterIndex)
+AK_REGISTER_PARAMETER(MorphingOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(MorphingOscillatorParameterDetuningMultiplier)

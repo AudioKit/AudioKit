@@ -6,7 +6,6 @@
 //: Sometimes you want to ensure that an audio signal that you're processing
 //: remains at a volume similar to where it started.
 //: Such an application is perfect for the AKBalancer node.
-import AudioKitPlaygrounds
 import AudioKit
 import AudioKitUI
 

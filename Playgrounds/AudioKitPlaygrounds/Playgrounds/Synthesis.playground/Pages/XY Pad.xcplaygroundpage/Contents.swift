@@ -4,7 +4,7 @@ import AudioKitPlaygrounds
 import AudioKit
 import Cocoa
 
-var oscillator = AKFMOscillator()
+var oscillator = FMOscillator()
 oscillator.amplitude = 0.4
 let delay = Delay(oscillator)
 delay.feedback = 0.3

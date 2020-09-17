@@ -7,7 +7,6 @@
 //: Its very common need to change these parameters in a smooth way
 //: to avoid pops and clicks, so you can set a ramp duration to slow the
 //: variation of a property from its current value to its next.
-import AudioKitPlaygrounds
 import AudioKit
 
 var noise = WhiteNoise(amplitude: 1)

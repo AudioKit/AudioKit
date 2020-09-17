@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKFMOscillatorTests: XCTestCase {
+class FMOscillatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let oscillator = AKFMOscillator()
+        let oscillator = FMOscillator()
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKFMOscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let oscillator = AKFMOscillator(waveform: AKTable(.square))
+        let oscillator = FMOscillator(waveform: AKTable(.square))
         oscillator.baseFrequency = 1_234
         oscillator.carrierMultiplier = 1.234
         oscillator.modulatingMultiplier = 1.234
@@ -32,7 +32,7 @@ class AKFMOscillatorTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AudioEngine()
-        let oscillator = AKFMOscillator(waveform: AKTable(.square),
+        let oscillator = FMOscillator(waveform: AKTable(.square),
                                         baseFrequency: 1_234,
                                         carrierMultiplier: 1.234,
                                         modulatingMultiplier: 1.234,
