@@ -21,7 +21,7 @@ do {
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Rhino Guitar Processor")

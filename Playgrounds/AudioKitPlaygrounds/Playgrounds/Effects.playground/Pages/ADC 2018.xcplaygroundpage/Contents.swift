@@ -29,7 +29,7 @@ try engine.start()
 //: User Interface
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     var trackedAmplitudeSlider: Slider!
     var trackedFrequencySlider: Slider!

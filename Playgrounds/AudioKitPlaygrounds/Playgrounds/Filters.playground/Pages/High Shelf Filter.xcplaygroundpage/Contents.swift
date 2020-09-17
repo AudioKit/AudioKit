@@ -19,7 +19,7 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("High Shelf Filter")

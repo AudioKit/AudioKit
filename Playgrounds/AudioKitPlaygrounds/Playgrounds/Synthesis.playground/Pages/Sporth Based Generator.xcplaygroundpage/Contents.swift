@@ -10,7 +10,7 @@ try engine.start()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, AKKeyboardDelegate {
 
     var p0Slider: Slider!
     var p1Slider: Slider!

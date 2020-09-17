@@ -22,7 +22,7 @@ for i in custom.indices {
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
 

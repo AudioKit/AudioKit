@@ -38,7 +38,7 @@ try engine.start()
 //: Build our User interface
 import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, AKKeyboardDelegate {
 
     var recordLabel: AKLabel!
     var playLabel: AKLabel!

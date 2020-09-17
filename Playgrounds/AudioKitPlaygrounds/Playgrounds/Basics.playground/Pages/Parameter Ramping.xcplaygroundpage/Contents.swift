@@ -35,7 +35,7 @@ toggling.start()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Parameter Ramping")

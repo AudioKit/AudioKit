@@ -46,7 +46,7 @@ performance.start()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     var detuneSlider: Slider!
     var bodySizeSlider: Slider!

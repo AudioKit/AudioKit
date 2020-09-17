@@ -15,7 +15,7 @@ try engine.start()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     var current = 0
     override func viewDidLoad() {

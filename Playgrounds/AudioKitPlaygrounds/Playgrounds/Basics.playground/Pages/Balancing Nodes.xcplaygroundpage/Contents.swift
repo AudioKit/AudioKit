@@ -26,7 +26,7 @@ source.play()
 
 //: User Interface Set up
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Balancing Nodes")
