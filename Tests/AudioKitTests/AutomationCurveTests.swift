@@ -5,12 +5,12 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKAutomationCurveTests: XCTestCase {
+class AutomationCurveTests: XCTestCase {
 
-    typealias Point = AKParameterAutomationPoint
+    typealias Point = ParameterAutomationPoint
 
     func testReplaceAutomationBasic() {
-        let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
+        let curve = AutomationCurve(points: [ Point(targetValue: 440,
                                                       startTime: 0,
                                                       rampDuration: 0.1),
                                                 Point(targetValue: 880,
@@ -41,7 +41,7 @@ class AKAutomationCurveTests: XCTestCase {
     }
 
     func testReplaceAutomationErase() {
-        let curve = AKAutomationCurve(points: [ Point(targetValue: 440,
+        let curve = AutomationCurve(points: [ Point(targetValue: 440,
                                                       startTime: 0,
                                                       rampDuration: 0.1),
                                                 Point(targetValue: 880,
@@ -59,7 +59,7 @@ class AKAutomationCurveTests: XCTestCase {
     }
 
     func testReplaceAutomationAdd() {
-        let curve = AKAutomationCurve(points: [])
+        let curve = AutomationCurve(points: [])
 
         let events: [(Float, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
@@ -76,7 +76,7 @@ class AKAutomationCurveTests: XCTestCase {
     }
 
     func testEvaluateAutomationLinear() {
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 1.0)])
 
@@ -89,7 +89,7 @@ class AKAutomationCurveTests: XCTestCase {
 
     func testEvaluateAutomationAlmostLinear() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 1.0,
                                                      rampTaper: 1.0,
@@ -106,7 +106,7 @@ class AKAutomationCurveTests: XCTestCase {
 
     func testEvaluateAutomationSlightTaper() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 1.0,
                                                      rampTaper: 1.00001,
@@ -124,7 +124,7 @@ class AKAutomationCurveTests: XCTestCase {
 
     func testEvaluateAutomationCurved() {
 
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 1.0,
                                                      rampTaper: 0.5,
@@ -139,7 +139,7 @@ class AKAutomationCurveTests: XCTestCase {
     func testEvaluateAutomationTwoSegment() {
 
         // One linear, one curved segment.
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 1.0),
                                                Point(targetValue: 0,
@@ -164,7 +164,7 @@ class AKAutomationCurveTests: XCTestCase {
     func testEvaluateAutomationTwoSegment2() {
 
         // Curved segment cut off by linear segment.
-        let curve = AKAutomationCurve(points: [Point(targetValue: 1,
+        let curve = AutomationCurve(points: [Point(targetValue: 1,
                                                      startTime: 0,
                                                      rampDuration: 2.0,
                                                      rampTaper: 1.0,

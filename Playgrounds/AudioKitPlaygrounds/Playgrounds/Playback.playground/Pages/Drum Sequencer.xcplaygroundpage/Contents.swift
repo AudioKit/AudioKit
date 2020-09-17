@@ -27,10 +27,10 @@ try drums.loadAudioFiles([bassDrumFile,
                           snareDrumFile])
 
 let sequencer = AppleSequencer(filename: "4tracks")
-sequencer.clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: 100))
+sequencer.clearRange(start: Duration(beats: 0), duration: Duration(beats: 100))
 sequencer.debug()
 sequencer.setGlobalMIDIOutput(drums.midiIn)
-sequencer.enableLooping(AKDuration(beats: 4))
+sequencer.enableLooping(Duration(beats: 4))
 sequencer.setTempo(150)
 
 import AudioKitUI
@@ -51,31 +51,31 @@ class LiveView: AKLiveViewController {
             }
         })
 
-        sequencer.tracks[0].add(noteNumber: 24, velocity: 127, position: AKDuration(beats: 0), duration: AKDuration(beats: 1))
+        sequencer.tracks[0].add(noteNumber: 24, velocity: 127, position: Duration(beats: 0), duration: Duration(beats: 1))
 
-        sequencer.tracks[0].add(noteNumber: 24, velocity: 127, position: AKDuration(beats: 2), duration: AKDuration(beats: 1))
+        sequencer.tracks[0].add(noteNumber: 24, velocity: 127, position: Duration(beats: 2), duration: Duration(beats: 1))
 
-        sequencer.tracks[1].add(noteNumber: 26, velocity: 127, position: AKDuration(beats: 2), duration: AKDuration(beats: 1))
+        sequencer.tracks[1].add(noteNumber: 26, velocity: 127, position: Duration(beats: 2), duration: Duration(beats: 1))
 
         for i in 0 ... 7 {
             sequencer.tracks[2].add(
                 noteNumber: 30,
                 velocity: 80,
-                position: AKDuration(beats: i / 2.0),
-                duration: AKDuration(beats: 0.5))
+                position: Duration(beats: i / 2.0),
+                duration: Duration(beats: 0.5))
         }
 
-        sequencer.tracks[3].add(noteNumber: 26, velocity: 127, position: AKDuration(beats: 2), duration: AKDuration(beats: 1))
+        sequencer.tracks[3].add(noteNumber: 26, velocity: 127, position: Duration(beats: 2), duration: Duration(beats: 1))
 
         addView(AKButton(title: "Randomize Hi-hats") { _ in
 
-            sequencer.tracks[2].clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: 4))
+            sequencer.tracks[2].clearRange(start: Duration(beats: 0), duration: Duration(beats: 4))
             for i in 0 ... 15 {
                 sequencer.tracks[2].add(
                     noteNumber: MIDINoteNumber(30 + Int(random(in: 0 ... 1.99))),
                     velocity: MIDIVelocity(random(in: 80 ... 127)),
-                    position: AKDuration(beats: i / 4.0),
-                    duration: AKDuration(beats: 0.5))
+                    position: Duration(beats: i / 4.0),
+                    duration: Duration(beats: 0.5))
             }
 
         })

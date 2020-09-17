@@ -138,7 +138,7 @@ open class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     /// - parameter numberOfLoops: how many times to loop. 0 is infinte
     ///
-    public func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
+    public func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
         let size: UInt32 = UInt32(MemoryLayout<MusicTrackLoopInfo>.size)
         let loopDuration = duration.musicTimeStamp
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
@@ -154,7 +154,7 @@ open class AKMusicTrack {
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
-    public func setLength(_ duration: AKDuration) {
+    public func setLength(_ duration: Duration) {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
         var tempSequence: MusicSequence?
@@ -246,7 +246,7 @@ open class AKMusicTrack {
     ///
     /// - parameter duration:
     ///
-    public func setLengthSoft(_ duration: AKDuration) {
+    public func setLengthSoft(_ duration: Duration) {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
         if let track = internalMusicTrack {
@@ -394,7 +394,7 @@ open class AKMusicTrack {
     ///   - start: Start of the range to clear, in beats (inclusive)
     ///   - duration: Length of time after the start position to clear, in beats (exclusive)
     ///
-    public func clearRange(start: AKDuration, duration: AKDuration) {
+    public func clearRange(start: Duration, duration: Duration) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -418,8 +418,8 @@ open class AKMusicTrack {
     ///
     public func add(noteNumber: MIDINoteNumber,
                     velocity: MIDIVelocity,
-                    position: AKDuration,
-                    duration: AKDuration,
+                    position: Duration,
+                    duration: Duration,
                     channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
@@ -453,7 +453,7 @@ open class AKMusicTrack {
     /// - parameter midiNoteData: AKMIDINoteData array containing relevant note details
     ///
     public func replaceMIDINoteData(with trackMIDINoteData: [AKMIDINoteData]) {
-        clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: length))
+        clearRange(start: Duration(beats: 0), duration: Duration(beats: length))
         trackMIDINoteData.forEach { add(midiNoteData: $0) }
     }
 
@@ -467,7 +467,7 @@ open class AKMusicTrack {
     ///
     public func addController(_ controller: MIDIByte,
                               value: MIDIByte,
-                              position: AKDuration,
+                              position: Duration,
                               channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
@@ -489,7 +489,7 @@ open class AKMusicTrack {
     ///   - channel: MIDI channel for this event
     public func addAftertouch(_ noteNumber: MIDINoteNumber,
                               pressure: MIDIByte,
-                              position: AKDuration, channel: MIDIChannel = 0) {
+                              position: Duration, channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -509,7 +509,7 @@ open class AKMusicTrack {
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
     public func addChannelAftertouch(pressure: MIDIByte,
-                                     position: AKDuration,
+                                     position: Duration,
                                      channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
@@ -529,7 +529,7 @@ open class AKMusicTrack {
     ///   - data: The MIDI data byte array - standard SysEx start and end messages are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
-    public func addSysEx(_ data: [MIDIByte], position: AKDuration) {
+    public func addSysEx(_ data: [MIDIByte], position: Duration) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -558,7 +558,7 @@ open class AKMusicTrack {
     ///   - channel: MIDI channel to insert pitch bend on
     ///
     public func addPitchBend(_ value: Int = 8_192,
-                             position: AKDuration,
+                             position: Duration,
                              channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
@@ -580,7 +580,7 @@ open class AKMusicTrack {
     ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
     ///   - channel: MIDI channel to insert pitch bend reset on
     ///
-    public func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
+    public func resetPitchBend(position: Duration, channel: MIDIChannel = 0) {
         addPitchBend(8_192, position: position, channel: channel)
     }
 
@@ -613,8 +613,8 @@ open class AKMusicTrack {
             let noteDetails = AKMIDINoteData(noteNumber: note,
                                              velocity: velocity,
                                              channel: channel,
-                                             duration: AKDuration(beats: Double(dur)),
-                                             position: AKDuration(beats: eventTime))
+                                             duration: Duration(beats: Double(dur)),
+                                             position: Duration(beats: eventTime))
 
             noteData.append(noteDetails)
         }
@@ -654,7 +654,7 @@ open class AKMusicTrack {
         var initLengthCopy: Double = initLength
         clear()
         if let internalMusicTrack = internalMusicTrack, let existingInittrack = initMusicTrack {
-            setLength(AKDuration(beats: initLength))
+            setLength(Duration(beats: initLength))
             _ = MusicTrackSetProperty(existingInittrack,
                                       kSequenceTrackProperty_TrackLength,
                                       &initLengthCopy,

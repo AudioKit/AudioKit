@@ -26,16 +26,16 @@ let clickTrack = sequencer.newTrack()
 for i in 0 ..< division {
     clickTrack?.add(noteNumber: 80,
                     velocity: 100,
-                    position: AKDuration(beats: Double(i) / Double(division)),
-                    duration: AKDuration(beats: Double(0.1 / Double(division))))
+                    position: Duration(beats: Double(i) / Double(division)),
+                    duration: Duration(beats: Double(0.1 / Double(division))))
     clickTrack?.add(noteNumber: 60,
                     velocity: 100,
-                    position: AKDuration(beats: (Double(i) + 0.5) / Double(division)),
-                    duration: AKDuration(beats: Double(0.1 / Double(division))))
+                    position: Duration(beats: (Double(i) + 0.5) / Double(division)),
+                    duration: Duration(beats: Double(0.1 / Double(division))))
 }
 
 clickTrack?.setMIDIOutput(callbacker.midiIn)
-clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 10)
+clickTrack?.setLoopInfo(Duration(beats: 1.0), numberOfLoops: 10)
 sequencer.setTempo(tempo)
 
 //: We must link the clock's output to AudioKit (even if we don't need the sound)

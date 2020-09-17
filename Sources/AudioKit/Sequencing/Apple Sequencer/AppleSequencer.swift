@@ -101,14 +101,14 @@ open class AppleSequencer: NSObject {
     ///
     /// - parameter loopLength: Loop length in beats
     ///
-    public func enableLooping(_ loopLength: AKDuration) {
+    public func enableLooping(_ loopLength: Duration) {
         setLoopInfo(loopLength, numberOfLoops: 0)
         loopEnabled = true
     }
 
     /// Disable looping for all tracks
     public func disableLooping() {
-        setLoopInfo(AKDuration(beats: 0), numberOfLoops: 0)
+        setLoopInfo(Duration(beats: 0), numberOfLoops: 0)
         loopEnabled = false
     }
 
@@ -118,7 +118,7 @@ open class AppleSequencer: NSObject {
     ///   - duration: Duration of the loop in beats
     ///   - numberOfLoops: The number of time to repeat
     ///
-    public func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
+    public func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
         for track in tracks {
             track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
         }
@@ -131,7 +131,7 @@ open class AppleSequencer: NSObject {
     ///
     /// - parameter length: Length of tracks in beats
     ///
-    public func setLength(_ length: AKDuration) {
+    public func setLength(_ length: Duration) {
         for track in tracks {
             track.setLength(length)
         }
@@ -147,7 +147,7 @@ open class AppleSequencer: NSObject {
     }
 
     /// Length of longest track in the sequence
-    open var length: AKDuration {
+    open var length: Duration {
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
 
@@ -156,7 +156,7 @@ open class AppleSequencer: NSObject {
             if tmpLength >= length { length = tmpLength }
         }
 
-        return AKDuration(beats: length, tempo: tempo)
+        return Duration(beats: length, tempo: tempo)
     }
 
     // MARK: - Tempo and Rate
@@ -213,7 +213,7 @@ open class AppleSequencer: NSObject {
     ///   - bpm: Tempo in beats per minute
     ///   - position: Point in time in beats
     ///
-    public func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
+    public func addTempoEventAt(tempo bpm: Double, position: Duration) {
         let constrainedTempo = (10 ... 280).clamp(bpm)
 
         var tempoTrack: MusicTrack?
@@ -454,14 +454,14 @@ open class AppleSequencer: NSObject {
 
     // MARK: - Duration
 
-    /// Convert seconds into AKDuration
+    /// Convert seconds into Duration
     ///
     /// - parameter seconds: time in seconds
     ///
-    public func duration(seconds: Double) -> AKDuration {
+    public func duration(seconds: Double) -> Duration {
         let sign = seconds > 0 ? 1.0 : -1.0
         let absoluteValueSeconds = fabs(seconds)
-        var outBeats = AKDuration(beats: MusicTimeStamp())
+        var outBeats = Duration(beats: MusicTimeStamp())
         if let existingSequence = sequence {
             MusicSequenceGetBeatsForSeconds(existingSequence, Float64(absoluteValueSeconds), &outBeats.beats)
         }
@@ -471,9 +471,9 @@ open class AppleSequencer: NSObject {
 
     /// Convert beats into seconds
     ///
-    /// - parameter duration: AKDuration
+    /// - parameter duration: Duration
     ///
-    public func seconds(duration: AKDuration) -> Double {
+    public func seconds(duration: Duration) -> Double {
         let sign = duration.beats > 0 ? 1.0 : -1.0
         let absoluteValueBeats = fabs(duration.beats)
         var outSecs: Double = MusicTimeStamp()
@@ -517,17 +517,17 @@ open class AppleSequencer: NSObject {
     }
 
     /// Current Time
-    open var currentPosition: AKDuration {
+    open var currentPosition: Duration {
         var currentTime = MusicTimeStamp()
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerGetTime(existingMusicPlayer, &currentTime)
         }
-        let duration = AKDuration(beats: currentTime)
+        let duration = Duration(beats: currentTime)
         return duration
     }
 
     /// Current Time relative to sequencer length
-    open var currentRelativePosition: AKDuration {
+    open var currentRelativePosition: Duration {
         return currentPosition % length // can switch to modTime func when/if % is removed
     }
 
@@ -753,7 +753,7 @@ open class AppleSequencer: NSObject {
     ///   - start: Start of the range to clear, in beats (inclusive)
     ///   - duration: Length of time after the start position to clear, in beats (exclusive)
     ///
-    public func clearRange(start: AKDuration, duration: AKDuration) {
+    public func clearRange(start: Duration, duration: Duration) {
         for track in tracks {
             track.clearRange(start: start, duration: duration)
         }
@@ -805,33 +805,33 @@ open class AppleSequencer: NSObject {
     }
 
     /// Nearest time of quantized beat
-    public func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
+    public func nearestQuantizedPosition(quantizationInBeats: Double) -> Duration {
         let noteOnTimeRel = currentRelativePosition.beats
         let quantizationPositions = getQuantizationPositions(quantizationInBeats: quantizationInBeats)
         let lastSpot = quantizationPositions[0]
         let nextSpot = quantizationPositions[1]
-        let diffToLastSpot = AKDuration(beats: noteOnTimeRel) - lastSpot
-        let diffToNextSpot = nextSpot - AKDuration(beats: noteOnTimeRel)
+        let diffToLastSpot = Duration(beats: noteOnTimeRel) - lastSpot
+        let diffToNextSpot = nextSpot - Duration(beats: noteOnTimeRel)
         let optimisedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
         return optimisedQuantTime
     }
 
     /// The last quantized beat
-    public func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
+    public func previousQuantizedPosition(quantizationInBeats: Double) -> Duration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[0]
     }
 
     /// Next quantized beat
-    public func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
+    public func nextQuantizedPosition(quantizationInBeats: Double) -> Duration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[1]
     }
 
     /// An array of all quantization points
-    func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
+    func getQuantizationPositions(quantizationInBeats: Double) -> [Duration] {
         let noteOnTimeRel = currentRelativePosition.beats
-        let lastSpot = AKDuration(beats:
+        let lastSpot = Duration(beats:
             modTime(noteOnTimeRel - noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats)))
-        let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
+        let nextSpot = Duration(beats: modTime(lastSpot.beats + quantizationInBeats))
         return [lastSpot, nextSpot]
     }
 

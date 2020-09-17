@@ -5,7 +5,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <AVFoundation/AVFoundation.h>
 
-struct AKParameterAutomationPoint {
+struct ParameterAutomationPoint {
     AUValue targetValue;
     float startTime;
     float rampDuration;

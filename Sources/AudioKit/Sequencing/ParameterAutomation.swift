@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-public extension AKParameterAutomationPoint {
+public extension ParameterAutomationPoint {
     init(targetValue: AUValue,
          startTime: Float,
          rampDuration: Float) {
@@ -19,7 +19,7 @@ public extension AKParameterAutomationPoint {
     }
 }
 
-extension AKParameterAutomationPoint: Equatable {
+extension ParameterAutomationPoint: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.targetValue == rhs.targetValue
             && lhs.startTime == rhs.startTime

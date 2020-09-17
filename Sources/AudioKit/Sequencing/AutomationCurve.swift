@@ -8,9 +8,9 @@ import Foundation
 /// An automation curve (with curved segments) suitable for any time varying parameter.
 /// Includes functions for manipulating automation curves and conversion to linear automation ramps
 /// used by DSP code.
-public struct AKAutomationCurve {
+public struct AutomationCurve {
 
-    public typealias Point = AKParameterAutomationPoint
+    public typealias Point = ParameterAutomationPoint
 
     public var points: [Point]
 
@@ -76,7 +76,7 @@ public struct AKAutomationCurve {
                 // this is effectively `while t <= endTime - resolution` without potentional for rounding errors
                 for _ in 0 ..< Int(round(endTime / resolution)) {
 
-                    value = AKAutomationCurve.evalRamp(start: start,
+                    value = AutomationCurve.evalRamp(start: start,
                                                        segment: point,
                                                        time: t + resolution,
                                                        endTime: point.startTime + point.rampDuration)
@@ -102,7 +102,7 @@ public struct AKAutomationCurve {
     ///   - range: time range
     ///   - withPoints: new automation events
     /// - Returns: new automation curve
-    public func replace(range: ClosedRange<Float>, withPoints newPoints: [(Float, AUValue)]) -> AKAutomationCurve {
+    public func replace(range: ClosedRange<Float>, withPoints newPoints: [(Float, AUValue)]) -> AutomationCurve {
 
         var result = points
         let startTime = range.lowerBound
@@ -121,7 +121,7 @@ public struct AKAutomationCurve {
         // Sort vector by time.
         result.sort { $0.startTime < $1.startTime }
 
-        return AKAutomationCurve(points: result)
+        return AutomationCurve(points: result)
 
     }
 

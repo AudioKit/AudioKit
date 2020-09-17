@@ -5,14 +5,14 @@ public struct AKMIDINoteData: CustomStringConvertible, Equatable {
     public var noteNumber: MIDINoteNumber
     public var velocity: MIDIVelocity
     public var channel: MIDIChannel
-    public var duration: AKDuration
-    public var position: AKDuration
+    public var duration: Duration
+    public var position: Duration
 
     public init(noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel,
-                duration: AKDuration,
-                position: AKDuration) {
+                duration: Duration,
+                position: Duration) {
         self.noteNumber = noteNumber
         self.velocity = velocity
         self.channel = channel

@@ -18,7 +18,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testAppleSequencerDefault_newlyCreatedSequencerLengthis0() {
-        XCTAssertEqual(seq.length, AKDuration(beats: 0))
+        XCTAssertEqual(seq.length, Duration(beats: 0))
     }
 
     func testNewTrack_addingTrackWillIncreaseTrackCount() {
@@ -30,28 +30,28 @@ class AppleSequencerTests: XCTestCase {
     func testNewTrack_addingNewEmptyTrackWillNotAffectLength() {
         _ = seq.newTrack()
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 0))
+        XCTAssertEqual(seq.length, Duration(beats: 0))
     }
 
     // MARK: - Length
     func testSetLength_settingLengthHasNoEffectIfThereAreNoTracks() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 0))
+        XCTAssertEqual(seq.length, Duration(beats: 0))
     }
 
     func testSetLength_settingLengthHasEffectsOnSequenceWithEmptyTrack() {
         _ = seq.newTrack()
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 4.0))
+        XCTAssertEqual(seq.length, Duration(beats: 4.0))
     }
 
     func testSetLength_settingLengthSetsTheLengthOfEachInternalMusicTrack() {
         _ = seq.newTrack()
         _ = seq.newTrack()
 
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
 
         for track in seq.tracks {
             XCTAssertEqual(track.length, 4.0)
@@ -67,7 +67,7 @@ class AppleSequencerTests: XCTestCase {
         XCTAssertEqual(trackA!.getMIDINoteData().count, Int(originalLength))
 
         let newLength: Double = 4.0
-        seq.setLength(AKDuration(beats: newLength))
+        seq.setLength(Duration(beats: newLength))
 
         XCTAssertEqual(trackA!.length, newLength)
         XCTAssertEqual(trackA!.getMIDINoteData().count, Int(newLength))
@@ -84,12 +84,12 @@ class AppleSequencerTests: XCTestCase {
         let trackC = seq.newTrack()
         trackC?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 4))
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 8.0))
+        XCTAssertEqual(seq.length, Duration(beats: 8.0))
     }
 
     func testLength_settingLengthThenAddingShorterTrackDoesNOTAffectLength() {
         _ = seq.newTrack()
-        let originalLength = AKDuration(beats: 4.0)
+        let originalLength = Duration(beats: 4.0)
         seq.setLength(originalLength)
 
         let trackA = seq.newTrack()
@@ -100,20 +100,20 @@ class AppleSequencerTests: XCTestCase {
 
     func testLength_settingLengthThenAddingLongerTrackWillIncreaseLength() {
         _ = seq.newTrack()
-        let originalLength = AKDuration(beats: 4.0)
+        let originalLength = Duration(beats: 4.0)
         seq.setLength(originalLength)
 
         let trackA = seq.newTrack()
         trackA?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 8))
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 8))
+        XCTAssertEqual(seq.length, Duration(beats: 8))
     }
 
     func testSetLength_willNotTruncateTempoEventsOutsideOfRange() {
         _ = seq.newTrack()
-        seq.addTempoEventAt(tempo: 200, position: AKDuration(beats: 8.0))
+        seq.addTempoEventAt(tempo: 200, position: Duration(beats: 8.0))
 
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         XCTAssertEqual(seq.allTempoEvents.count, 1)
     }
 
@@ -124,7 +124,7 @@ class AppleSequencerTests: XCTestCase {
                                                                  bottomValue: AKTimeSignature.TimeSignatureBottomValue.eight))
 
         XCTAssertEqual(seq.allTimeSignatureEvents.count, 1)
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         XCTAssertEqual(seq.allTimeSignatureEvents.count, 1)
     }
 
@@ -134,7 +134,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testGetTempoAt_noTempoEventsYieldsDefault120BPMAtAnyPoint() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         XCTAssertEqual(seq.getTempo(at: 0.0), 120.0)
         XCTAssertEqual(seq.getTempo(at: 4.0), 120.0)
         XCTAssertEqual(seq.getTempo(at: 8.0), 120.0)
@@ -156,7 +156,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testSetTempo_shouldClearPreviousTempoEvents() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         seq.setTempo(100.0)
         seq.setTempo(50.0)
         seq.setTempo(200.0)
@@ -166,7 +166,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testSetTempo_shouldPreserveTimeSignature() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         seq.addTimeSignatureEvent(timeSignature: sevenEight)
         XCTAssertEqual(seq.allTimeSignatureEvents.count, 1)
         seq.setTempo(200.0)
@@ -181,35 +181,35 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testAddTempoEventAtAllTempoEvents_addingFourEventsYieldsForEventsInArray() {
-        seq.setLength(AKDuration(beats: 4.0))
-        seq.addTempoEventAt(tempo: 100.0, position: AKDuration(beats: 0.0))
-        seq.addTempoEventAt(tempo: 110.0, position: AKDuration(beats: 1.0))
-        seq.addTempoEventAt(tempo: 120.0, position: AKDuration(beats: 2.0))
-        seq.addTempoEventAt(tempo: 130.0, position: AKDuration(beats: 3.0))
+        seq.setLength(Duration(beats: 4.0))
+        seq.addTempoEventAt(tempo: 100.0, position: Duration(beats: 0.0))
+        seq.addTempoEventAt(tempo: 110.0, position: Duration(beats: 1.0))
+        seq.addTempoEventAt(tempo: 120.0, position: Duration(beats: 2.0))
+        seq.addTempoEventAt(tempo: 130.0, position: Duration(beats: 3.0))
 
         XCTAssertEqual(seq.allTempoEvents.count, 4)
     }
 
     func testAddTempoEventAtGetTempoAt_getTempoAtGivesTempoForEventWhenTimeStampIsEqual() {
-        seq.setLength(AKDuration(beats: 4.0))
-        seq.addTempoEventAt(tempo: 130.0, position: AKDuration(beats: 3.0))
+        seq.setLength(Duration(beats: 4.0))
+        seq.addTempoEventAt(tempo: 130.0, position: Duration(beats: 3.0))
 
         XCTAssertEqual(seq.getTempo(at: 3.0), 130.0)
     }
 
     func testAddTempoEventAtGetTempoAt_givesTempoForEarlierEventWhenBetweenEvents() {
-        seq.setLength(AKDuration(beats: 4.0))
-        seq.addTempoEventAt(tempo: 100.0, position: AKDuration(beats: 0.0))
-        seq.addTempoEventAt(tempo: 130.0, position: AKDuration(beats: 3.0))
+        seq.setLength(Duration(beats: 4.0))
+        seq.addTempoEventAt(tempo: 100.0, position: Duration(beats: 0.0))
+        seq.addTempoEventAt(tempo: 130.0, position: Duration(beats: 3.0))
 
         XCTAssertEqual(seq.getTempo(at: 2.0), 100.0)
     }
 
     func testSetTempo_shouldClearEventsAddedByAddTempoEventAt() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
 
         for i in 0 ..< 4 {
-            seq.addTempoEventAt(tempo: 100.0, position: AKDuration(beats: Double(i)))
+            seq.addTempoEventAt(tempo: 100.0, position: Duration(beats: Double(i)))
         }
 
         seq.setTempo(200.0)
@@ -217,17 +217,17 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testAddTempoEventAt_shouldLeaveEventAddedBySetTempo() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         seq.setTempo(100.0)
-        seq.addTempoEventAt(tempo: 200.0, position: AKDuration(beats: 2.0))
+        seq.addTempoEventAt(tempo: 200.0, position: Duration(beats: 2.0))
 
         XCTAssertEqual(seq.allTempoEvents.count, 2)
     }
 
     func testAddTempoEventAt_shouldOverrideButNotDeleteExistingEvent() {
-        seq.setLength(AKDuration(beats: 4.0))
+        seq.setLength(Duration(beats: 4.0))
         seq.setTempo(100.0) // sets at 0.0
-        seq.addTempoEventAt(tempo: 200.0, position: AKDuration(beats: 0.0))
+        seq.addTempoEventAt(tempo: 200.0, position: Duration(beats: 0.0))
 
         XCTAssertEqual(seq.allTempoEvents.count, 2)
         XCTAssertEqual(seq.getTempo(at: 0.0), 200.0)
@@ -260,11 +260,11 @@ class AppleSequencerTests: XCTestCase {
         let trackB = seq.newTrack()
         trackB?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 4))
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 8.0))
+        XCTAssertEqual(seq.length, Duration(beats: 8.0))
 
         seq.deleteTrack(trackIndex: 0)
 
-        XCTAssertEqual(seq.length, AKDuration(beats: 4.0))
+        XCTAssertEqual(seq.length, Duration(beats: 4.0))
     }
 
     func testDeleteTrack_indexOfTracksWithHigherIndicesWillDecrement() {
@@ -296,7 +296,7 @@ class AppleSequencerTests: XCTestCase {
             newTrack?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 8))
         }
         XCTAssertEqual(seq.trackCount, 3)
-        XCTAssertEqual(seq.length, AKDuration(beats: 8))
+        XCTAssertEqual(seq.length, Duration(beats: 8))
 
         // replacement has one track, 4 beats long
         let replacement = generatePopulatedSequencer(numBeats: 4, numTracks: 1)
@@ -304,7 +304,7 @@ class AppleSequencerTests: XCTestCase {
         seq.loadMIDIFile(fromURL: midiURL)
 
         XCTAssertEqual(seq.trackCount, 1)
-        XCTAssertEqual(seq.length, AKDuration(beats: 4))
+        XCTAssertEqual(seq.length, Duration(beats: 4))
     }
 
     func testLoadMIDIFile_shouldCopyTracksWithoutMIDINoteEvents() {
@@ -459,7 +459,7 @@ class AppleSequencerTests: XCTestCase {
         seq.addMIDIFileTracks(midiURL)
 
         // sequence has not become shorter
-        XCTAssertEqual(seq.length, AKDuration(beats: Double(originalLength)))
+        XCTAssertEqual(seq.length, Duration(beats: Double(originalLength)))
     }
 
     func testAddMIDIFileTracks_useExistingSequencerLength_shouldTruncateNewTracks() {
@@ -474,7 +474,7 @@ class AppleSequencerTests: XCTestCase {
         let midiURL = newSeq.writeDataToURL()
         seq.addMIDIFileTracks(midiURL, useExistingSequencerLength: true) // default
 
-        XCTAssertEqual(seq.length, AKDuration(beats: Double(originalLength)))
+        XCTAssertEqual(seq.length, Duration(beats: Double(originalLength)))
         XCTAssertEqual(seq.tracks[2].length, MusicTimeStamp(originalLength)) // truncated
         XCTAssertEqual(seq.tracks[3].length, MusicTimeStamp(originalLength)) // truncated
     }
@@ -493,7 +493,7 @@ class AppleSequencerTests: XCTestCase {
         seq.addMIDIFileTracks(midiURL, useExistingSequencerLength: false)
 
         // adding longer tracks has increased seq's length
-        XCTAssertEqual(seq.length, AKDuration(beats: Double(longerLength)))
+        XCTAssertEqual(seq.length, Duration(beats: Double(longerLength)))
         XCTAssertEqual(seq.tracks[0].length, MusicTimeStamp(originalLength))
         XCTAssertEqual(seq.tracks[1].length, MusicTimeStamp(originalLength))
         XCTAssertEqual(seq.tracks[2].length, MusicTimeStamp(longerLength))
@@ -577,7 +577,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testGetTimeSignatureAt_willGiveCorrectResultForMultipleEventsAtExactPosition() {
-        seq.setLength(AKDuration(beats: 4))
+        seq.setLength(Duration(beats: 4))
         seq.addTimeSignatureEvent(at: 0.0, timeSignature: sevenEight, clearExistingEvents: false)
         seq.addTimeSignatureEvent(at: 1.0, timeSignature: fourFour, clearExistingEvents: false)
         seq.addTimeSignatureEvent(at: 2.0, timeSignature: sevenEight, clearExistingEvents: false)
@@ -590,7 +590,7 @@ class AppleSequencerTests: XCTestCase {
     }
 
     func testGetTimeSignatureAt_willGiveCorrectResultForMultipleEventsBetweenPositions() {
-        seq.setLength(AKDuration(beats: 4))
+        seq.setLength(Duration(beats: 4))
         seq.addTimeSignatureEvent(at: 0.0, timeSignature: sevenEight, clearExistingEvents: false)
         seq.addTimeSignatureEvent(at: 1.0, timeSignature: fourFour, clearExistingEvents: false)
         seq.addTimeSignatureEvent(at: 2.0, timeSignature: sevenEight, clearExistingEvents: false)
@@ -607,8 +607,8 @@ class AppleSequencerTests: XCTestCase {
         return (0 ..< numBeats).map { AKMIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
                                                      velocity: MIDIVelocity(120),
                                                      channel: MIDIChannel(0),
-                                                     duration: AKDuration(beats: Double(1.0)),
-                                                     position: AKDuration(beats: Double($0)))
+                                                     duration: Duration(beats: Double(1.0)),
+                                                     position: Duration(beats: Double($0)))
         }
     }
 

@@ -74,7 +74,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
     ///
     /// - parameter loopLength: Loop length in beats
     ///
-    public func enableLooping(_ loopLength: AKDuration) {
+    public func enableLooping(_ loopLength: Duration) {
         forEach {
             $0.isLoopingEnabled = true
             $0.loopRange = AVMakeBeatRange(0, loopLength.beats)
@@ -89,10 +89,10 @@ public class AKMIDIPlayer: AVAudioSequencer {
     }
 
     /// Length of longest track in the sequence
-    public var length: AKDuration {
+    public var length: Duration {
         get {
             let l = lazy.map { $0.lengthInBeats }.max() ?? 0
-            return AKDuration(beats: l, tempo: tempo)
+            return Duration(beats: l, tempo: tempo)
         }
         set {
             forEach {
@@ -119,12 +119,12 @@ public class AKMIDIPlayer: AVAudioSequencer {
     }
 
     /// Current Time
-    public var currentPosition: AKDuration {
-        return AKDuration(beats: currentPositionInBeats)
+    public var currentPosition: Duration {
+        return Duration(beats: currentPositionInBeats)
     }
 
     /// Current Time relative to sequencer length
-    public var currentRelativePosition: AKDuration {
+    public var currentRelativePosition: Duration {
         return currentPosition % length //can switch to modTime func when/if % is removed
     }
 
