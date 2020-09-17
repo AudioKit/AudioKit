@@ -40,7 +40,7 @@ class LiveView: View, KeyboardDelegate {
                     return
             }
 
-            AKLog("\n\n\n\n\n\n\(sporth)")
+            Log("\n\n\n\n\n\n\(sporth)")
             generator.sporth = sporth
 
             let sliders: [Slider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
@@ -66,7 +66,7 @@ class LiveView: View, KeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    AKLog("Regular expression failed")
+                    Log("Regular expression failed")
                 }
 
                 let value = regex.stringByReplacingMatches(in: line,
@@ -80,7 +80,7 @@ class LiveView: View, KeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    AKLog("Regular expression failed")
+                    Log("Regular expression failed")
                 }
                 let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                         options: .reportCompletion,

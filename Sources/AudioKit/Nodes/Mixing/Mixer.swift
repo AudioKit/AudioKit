@@ -74,7 +74,7 @@ public class Mixer: Node, Toggleable {
 
     public func addInput(_ node: Node) {
         if connections.contains(where: { $0 === node }) {
-            AKLog("🛑 Error: Node is already connected to Mixer.")
+            Log("🛑 Error: Node is already connected to Mixer.")
             return
         }
         connections.append(node)

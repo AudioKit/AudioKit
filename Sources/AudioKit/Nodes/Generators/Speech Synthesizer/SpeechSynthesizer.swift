@@ -30,7 +30,7 @@ public class SpeechSynthesizer: Node {
     public var rate: Int {
         get {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechRateProperty, &valueAsNSNumber) == OSErr(noErr),
@@ -42,7 +42,7 @@ public class SpeechSynthesizer: Node {
         }
         set(newRate) {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return
             }
             _ = SetSpeechProperty(speechChannel, kSpeechRateProperty, newRate as NSNumber?)
@@ -53,7 +53,7 @@ public class SpeechSynthesizer: Node {
     public var frequency: Int {
         get {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechPitchBaseProperty, &valueAsNSNumber) == OSErr(noErr),
@@ -65,7 +65,7 @@ public class SpeechSynthesizer: Node {
         }
         set(newFrequency) {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return
             }
             _ = SetSpeechProperty(speechChannel, kSpeechPitchBaseProperty, newFrequency as NSNumber?)
@@ -76,7 +76,7 @@ public class SpeechSynthesizer: Node {
     public var modulation: Int {
         get {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechPitchModProperty, &valueAsNSNumber) == OSErr(noErr),
@@ -88,7 +88,7 @@ public class SpeechSynthesizer: Node {
         }
         set(newModulation) {
             guard let speechChannel = channel else {
-                AKLog("Cannot get Speech Channel")
+                Log("Cannot get Speech Channel")
                 return
             }
             _ = SetSpeechProperty(speechChannel, kSpeechPitchModProperty, newModulation as NSNumber?)
@@ -97,11 +97,11 @@ public class SpeechSynthesizer: Node {
 
     public func stop() {
         guard let speechChannel = channel else {
-            AKLog("Cannot get Speech Channel")
+            Log("Cannot get Speech Channel")
             return
         }
-        AKLog("Stopping should work, but its known to be nonfunctional.")
-        AKLog("Instead, send the speech synthesizer through Fader and mute the output.")
+        Log("Stopping should work, but its known to be nonfunctional.")
+        Log("Instead, send the speech synthesizer through Fader and mute the output.")
         StopSpeech(speechChannel)
     }
 
@@ -114,7 +114,7 @@ public class SpeechSynthesizer: Node {
         self.modulation = modulation ?? self.modulation
 
         guard let speechChannel = channel else {
-            AKLog("Cannot get Speech Channel")
+            Log("Cannot get Speech Channel")
             return
         }
         SpeakCFString(speechChannel, text as CFString, nil)

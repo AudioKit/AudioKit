@@ -244,9 +244,9 @@ extension Table {
             for i in indices {
                 self[i] /= absMax
             }
-            AKLog("absMax = \(absMax): NOW NORMALIZED")
+            Log("absMax = \(absMax): NOW NORMALIZED")
         } else {
-            AKLog("absMax = \(absMax): NOT NORMALIZED")
+            Log("absMax = \(absMax): NOT NORMALIZED")
         }
     }
 

@@ -13,7 +13,7 @@
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
                 } catch {
-                    AKLog("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
+                    Log("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
                           log: OSLog.settings,
                           type: .error)
                 }
@@ -28,7 +28,7 @@
                         try AVAudioSession.sharedInstance()
                             .setAllowHapticsAndSystemSoundsDuringRecording(allowHapticsAndSystemSoundsDuringRecording)
                     } catch {
-                        AKLog("Could not set allow haptics to \(allowHapticsAndSystemSoundsDuringRecording)" +
+                        Log("Could not set allow haptics to \(allowHapticsAndSystemSoundsDuringRecording)" +
                             error.localizedDescription, log: OSLog.settings, type: .error)
                     }
                 }
@@ -76,7 +76,7 @@
                     try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
                 } catch {
-                    AKLog("Could not set the preferred IO buffer duration to \(newValue): \(error)",
+                    Log("Could not set the preferred IO buffer duration to \(newValue): \(error)",
                           log: OSLog.settings,
                           type: .error)
                 }
@@ -116,7 +116,7 @@
                     }
                 }
             } catch let error as NSError {
-                AKLog("Cannot set AVAudioSession Category to \(category) " +
+                Log("Cannot set AVAudioSession Category to \(category) " +
                       "with options: \(options) " + error.localizedDescription,
                       log: OSLog.settings,
                       type: .error)
@@ -131,7 +131,7 @@
                     )
                 }
             } catch {
-                AKLog("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
+                Log("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
             }
 
             // Preferred IO Buffer Duration
@@ -140,7 +140,7 @@
                     try session.setPreferredIOBufferDuration(bufferLength.duration)
                 }
             } catch let error as NSError {
-                AKLog("Cannot set Preferred IO Buffer Duration to " +
+                Log("Cannot set Preferred IO Buffer Duration to " +
                     "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples) due to " +
                     error.localizedDescription, log: OSLog.settings, type: .error)
                 throw error
@@ -152,7 +152,7 @@
                     try session.setActive(true)
                 }
             } catch let error as NSError {
-                AKLog("Cannot set AVAudioSession.setActive to true \(error)", log: OSLog.settings, type: .error)
+                Log("Cannot set AVAudioSession.setActive to true \(error)", log: OSLog.settings, type: .error)
                 throw error
             }
         }
@@ -200,7 +200,7 @@
                     } else if !AKSettings.bluetoothOptions.isEmpty ||
                         AKSettings.useBluetooth ||
                         AKSettings.allowAirPlay {
-                        AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
+                        Log("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
                     }
 
                     // Default to Speaker

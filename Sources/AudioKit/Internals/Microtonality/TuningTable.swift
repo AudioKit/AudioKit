@@ -112,7 +112,7 @@ public class TuningTable: TuningTableBase {
     ///
     @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
         if inputMasterSet.isEmpty {
-            AKLog("No input frequencies")
+            Log("No input frequencies")
             return 0
         }
 
@@ -136,7 +136,7 @@ public class TuningTable: TuningTableBase {
         }
 
         if ❗️frequenciesAreValid {
-            AKLog("Invalid input frequencies")
+            Log("Invalid input frequencies")
             return 0
         }
 
@@ -158,7 +158,7 @@ public class TuningTable: TuningTableBase {
     public func tuning12ETDeviation(centsArray: [Cents]) {
         // Cents array count must equal 12
         guard centsArray.count == 12 else {
-            AKLog("user error: centsArray must have 12 elements")
+            Log("user error: centsArray must have 12 elements")
             return
         }
 
@@ -167,7 +167,7 @@ public class TuningTable: TuningTableBase {
 
         // This should never happen
         guard masterSet.count == 12 else {
-            AKLog("internal error: 12 et must have 12 tones")
+            Log("internal error: 12 et must have 12 tones")
             return
         }
 
@@ -231,7 +231,7 @@ public class TuningTable: TuningTableBase {
                 }
             }
         }
-        // AKLog("etnn dictionary:\(etNNDictionary)")
+        // Log("etnn dictionary:\(etNNDictionary)")
     }
 
     /// Renders and returns the masterSet values as an array of cents

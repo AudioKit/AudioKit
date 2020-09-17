@@ -60,7 +60,7 @@ class LiveView: View {
         }
         addView(trackedFrequencySlider)
 
-        addView(AKRollingOutputPlot.createView())
+        addView(RollingOutputPlot.createView())
     }
 }
 

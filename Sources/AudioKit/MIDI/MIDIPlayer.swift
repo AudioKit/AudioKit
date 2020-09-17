@@ -55,7 +55,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
         do {
             try load(from: data, options: [])
         } catch {
-            AKLog("cannot load from data \(error)")
+            Log("cannot load from data \(error)")
             return
         }
     }
@@ -107,7 +107,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
         do {
             try start()
         } catch _ {
-            AKLog("Could not start the sequencer")
+            Log("Could not start the sequencer")
         }
     }
 
@@ -138,7 +138,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
         do {
             try load(from: fileURL, options: [])
         } catch _ {
-            AKLog("failed to load MIDI into sequencer")
+            Log("failed to load MIDI into sequencer")
         }
     }
 

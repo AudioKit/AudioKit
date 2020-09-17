@@ -21,7 +21,7 @@ public class NodeOutputPlot2: AKWaveform {
                 format: nil) { [weak self] (buffer, _) in
 
                     guard let strongSelf = self else {
-                        AKLog("Unable to create strong reference to self")
+                        Log("Unable to create strong reference to self")
                         return
                     }
 
@@ -61,7 +61,7 @@ public class NodeOutputPlot2: AKWaveform {
 
     public func removeTap() {
         guard node.avAudioUnitOrNode.engine != nil else {
-            AKLog("The tapped node isn't attached to the engine")
+            Log("The tapped node isn't attached to the engine")
             return
         }
 

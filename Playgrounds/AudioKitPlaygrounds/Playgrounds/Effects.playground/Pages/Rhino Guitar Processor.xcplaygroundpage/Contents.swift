@@ -16,7 +16,7 @@ do {
     try engine.start()
     player.play()
 } catch let error as NSError {
-    AKLog(error.localizedDescription)
+    Log(error.localizedDescription)
 }
 //: User Interface Set up
 import AudioKitUI

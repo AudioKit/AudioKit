@@ -31,7 +31,7 @@ import UIKit
     public var maximum: AUValue = 1
     internal var originalValue: AUValue = 0.5
     open var callback: (AUValue) -> Void = {val in
-        AKLog("AKStepper callback: \(val)")
+        Log("AKStepper callback: \(val)")
     }
     internal func doPlusAction() {
         currentValue += min(increment, maximum - currentValue)

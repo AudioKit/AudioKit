@@ -24,7 +24,7 @@ public struct Duration: CustomStringConvertible, Comparable {
             if doubleSamples <= Double(Int.max) {
                 return Int(doubleSamples)
             } else {
-                AKLog("Warning: Samples exceeds the maximum number.")
+                Log("Warning: Samples exceeds the maximum number.")
                 return .max
             }
         }

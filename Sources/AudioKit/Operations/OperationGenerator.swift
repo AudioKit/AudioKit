@@ -190,7 +190,7 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
                 return
             }
         }
-        AKLog("Operation initialization failed.")
+        Log("Operation initialization failed.")
         self.init(sporth: "")
     }
     

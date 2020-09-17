@@ -75,12 +75,12 @@ extension AVAudioPCMBuffer {
                                         frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {
         let remainingCapacity = frameCapacity - frameLength
         if remainingCapacity == 0 {
-            AKLog("AVAudioBuffer copy(from) - no capacity!")
+            Log("AVAudioBuffer copy(from) - no capacity!")
             return 0
         }
 
         if format != buffer.format {
-            AKLog("AVAudioBuffer copy(from) - formats must match!")
+            Log("AVAudioBuffer copy(from) - formats must match!")
             return 0
         }
 
@@ -88,7 +88,7 @@ extension AVAudioPCMBuffer {
                                   buffer.frameLength - readOffset))
 
         if totalFrames <= 0 {
-            AKLog("AVAudioBuffer copy(from) - No frames to copy!")
+            Log("AVAudioBuffer copy(from) - No frames to copy!")
             return 0
         }
 
@@ -150,17 +150,17 @@ extension AVAudioPCMBuffer {
         let frameCapacity = endSample - startSample
 
         guard frameCapacity > 0 else {
-            AKLog("startSample must be before endSample", type: .error)
+            Log("startSample must be before endSample", type: .error)
             return nil
         }
 
         guard let editedBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCapacity) else {
-            AKLog("Failed to create edited buffer", type: .error)
+            Log("Failed to create edited buffer", type: .error)
             return nil
         }
 
         guard editedBuffer.copy(from: self, readOffset: startSample, frames: frameCapacity) > 0 else {
-            AKLog("Failed to write to edited buffer", type: .error)
+            Log("Failed to write to edited buffer", type: .error)
             return nil
         }
 

@@ -158,7 +158,7 @@ class MIDIChordGenerator: AKMIDITransformer {
                         let chordTemplate = mode.triad[scaleDegree!]
 
                         for note in chordTemplate {
-                            AKLog("noteOn: chord note is: \(note + Int(event.noteNumber!))")
+                            Log("noteOn: chord note is: \(note + Int(event.noteNumber!))")
                             transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
@@ -173,7 +173,7 @@ class MIDIChordGenerator: AKMIDITransformer {
                         let chordTemplate = mode.triad[scaleDegree!]
 
                         for note in chordTemplate {
-                            AKLog("noteOff: chord note is: \(note + Int(event.noteNumber!))")
+                            Log("noteOff: chord note is: \(note + Int(event.noteNumber!))")
                             transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
@@ -201,7 +201,7 @@ class PlaygroundMIDIListener: AKMIDIListener {
         do {
             try sampler.play(noteNumber: noteNumber)
         } catch {
-            AKLog("Could not play")
+            Log("Could not play")
         }
     }
 }

@@ -28,7 +28,7 @@ public class WaveformDataRequest {
     }
 
     deinit {
-        AKLog("* { WaveformDataRequest }")
+        Log("* { WaveformDataRequest }")
         audioFile = nil
     }
 
@@ -66,7 +66,7 @@ public class WaveformDataRequest {
                 // return the file to frame is was on previously
                 audioFile.framePosition = currentFrame
                 abortGetWaveformData = false
-                AKLog("* Aborting waveform data get *", type: .error)
+                Log("* Aborting waveform data get *", type: .error)
                 return nil
             }
 
@@ -75,7 +75,7 @@ public class WaveformDataRequest {
                 try audioFile.read(into: rmsBuffer, frameCount: framesPerBuffer)
 
             } catch let err as NSError {
-                AKLog("Error: Couldn't read into buffer. \(err)", log: .fileHandling, type: .error)
+                Log("Error: Couldn't read into buffer. \(err)", log: .fileHandling, type: .error)
                 return nil
             }
 

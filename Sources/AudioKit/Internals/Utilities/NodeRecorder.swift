@@ -45,7 +45,7 @@ open class NodeRecorder: NSObject {
             return try AVAudioFile(forReading: url)
 
         } catch let error as NSError {
-            AKLog("Error, Cannot create internal audio file for reading: \(error.localizedDescription)")
+            Log("Error, Cannot create internal audio file for reading: \(error.localizedDescription)")
             return nil
         }
     }
@@ -71,7 +71,7 @@ open class NodeRecorder: NSObject {
         super.init()
 
         guard let file = file else {
-            AKLog("Error, no file to write to")
+            Log("Error, no file to write to")
             return
         }
 
@@ -80,7 +80,7 @@ open class NodeRecorder: NSObject {
             internalAudioFile = try AVAudioFile(forWriting: file.url,
                                                 settings: file.fileFormat.settings)
         } catch let error as NSError {
-            AKLog("Error: cannot write to", file.url)
+            Log("Error: cannot write to", file.url)
             throw error
         }
 
@@ -96,7 +96,7 @@ open class NodeRecorder: NSObject {
         var settings = AKSettings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
-        AKLog("Creating temp file at", url)
+        Log("Creating temp file at", url)
         guard let tmpFile = try? AVAudioFile(forWriting: url,
                                              settings: settings,
                                              commonFormat: AKSettings.audioFormat.commonFormat,
@@ -110,7 +110,7 @@ open class NodeRecorder: NSObject {
     public static func removeTempFiles() {
         for url in NodeRecorder.tmpFiles {
             try? FileManager.default.removeItem(at: url)
-            AKLog("𝗫 Deleted tmp file at", url)
+            Log("𝗫 Deleted tmp file at", url)
         }
         NodeRecorder.tmpFiles.removeAll()
     }
@@ -118,7 +118,7 @@ open class NodeRecorder: NSObject {
     /// Start recording
     public func record() throws {
         if isRecording == true {
-            AKLog("Warning: already recording")
+            Log("Warning: already recording")
             return
         }
 
@@ -134,7 +134,7 @@ open class NodeRecorder: NSObject {
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
-        AKLog("⏺ Recording using format", internalAudioFile?.processingFormat.debugDescription)
+        Log("⏺ Recording using format", internalAudioFile?.processingFormat.debugDescription)
 
         // note, format should be nil as per the documentation for installTap:
         // "If non-nil, attempts to apply this as the format of the specified output bus. This should
@@ -159,14 +159,14 @@ open class NodeRecorder: NSObject {
             }
 
         } catch let error as NSError {
-            AKLog("Write failed: error -> \(error.localizedDescription)")
+            Log("Write failed: error -> \(error.localizedDescription)")
         }
     }
 
     /// Stop recording
     public func stop() {
         if isRecording == false {
-            AKLog("Warning: Cannot stop recording, already stopped")
+            Log("Warning: Cannot stop recording, already stopped")
             return
         }
 
@@ -199,15 +199,15 @@ open class NodeRecorder: NSObject {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete" + (audioFile?.url.lastPathComponent ?? "nil") + error.localizedDescription)
+            Log("Error: Can't delete" + (audioFile?.url.lastPathComponent ?? "nil") + error.localizedDescription)
         }
 
         // Creates a blank new file
         do {
             self.internalAudioFile = try AVAudioFile(forWriting: url, settings: settings)
-            AKLog("File has been cleared")
+            Log("File has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to" + url.lastPathComponent)
+            Log("Error: Can't record to" + url.lastPathComponent)
             throw error
         }
     }

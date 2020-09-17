@@ -18,7 +18,7 @@ var callbacker = AKMIDICallbackInstrument { status, note, _ in
         return
     }
     if midiStatus == .noteOn {
-        AKLog("Start Note \(note) at \(sequencer.currentPosition.seconds)")
+        Log("Start Note \(note) at \(sequencer.currentPosition.seconds)")
     }
 }
 

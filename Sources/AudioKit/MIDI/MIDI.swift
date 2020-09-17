@@ -48,7 +48,7 @@ public class AKMIDI {
 
     /// Initialize the AKMIDI system
     public init() {
-        AKLog("Initializing MIDI", log: OSLog.midi)
+        Log("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)
         MIDINetworkSession.default().isEnabled = true
@@ -78,7 +78,7 @@ public class AKMIDI {
                 }
             }
             if result != noErr {
-                AKLog("Error creating MIDI client: \(result)", log: OSLog.midi, type: .error)
+                Log("Error creating MIDI client: \(result)", log: OSLog.midi, type: .error)
             }
         }
     }
@@ -87,12 +87,12 @@ public class AKMIDI {
 
     internal var isReceivingSysEx: Bool = false
     func startReceivingSysEx(with midiBytes: [MIDIByte]) {
-        AKLog("Starting to receive SysEx", log: OSLog.midi)
+        Log("Starting to receive SysEx", log: OSLog.midi)
         isReceivingSysEx = true
         incomingSysEx = midiBytes
     }
     func stopReceivingSysEx() {
-        AKLog("Done receiving SysEx", log: OSLog.midi)
+        Log("Done receiving SysEx", log: OSLog.midi)
         isReceivingSysEx = false
     }
     var incomingSysEx = [MIDIByte]()

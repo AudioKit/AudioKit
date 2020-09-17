@@ -4,18 +4,18 @@ import AVFoundation
 
 extension AKMusicTrack {
     func loadMIDI(filePath: String) {
-        AKLog("loading file from exists @ \(filePath)")
+        Log("loading file from exists @ \(filePath)")
         let fileURL = URL(fileURLWithPath: filePath)
         var tempSeq: MusicSequence?
         NewMusicSequence(&tempSeq)
         if let newSeq = tempSeq {
             let status: OSStatus = MusicSequenceFileLoad(newSeq, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
-                AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+                Log("error reading midi file url: \(fileURL), read status: \(status)")
             }
             var numTracks = UInt32(0)
             MusicSequenceGetTrackCount(newSeq, &numTracks)
-            AKLog("Sequencer has \(numTracks) tracks")
+            Log("Sequencer has \(numTracks) tracks")
             var tempTrack: MusicTrack?
             MusicSequenceGetIndTrack(newSeq, 0, &tempTrack)
             if let sourceTrack = tempTrack, let destTrack = self.internalMusicTrack {
@@ -34,7 +34,7 @@ extension AKMusicTrack {
                         var eventDataSize: UInt32 = 0
                         MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
                         if let event = AKMusicEventType(rawValue: eventType) {
-                            AKLog("event \(i) at time \(eventTime) type is \(event.description)")
+                            Log("event \(i) at time \(eventTime) type is \(event.description)")
                         }
                         MusicEventIteratorHasCurrentEvent(iterator, &hasEvent)
                         i += 1

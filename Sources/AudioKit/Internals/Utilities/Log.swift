@@ -31,12 +31,12 @@ extension OSLog {
 ///     - line: Line number of the log method, should  not be set explicitly
 ///
 @inline(__always)
-public func AKLog(_ items: Any?...,
-                  log: OSLog = OSLog.general,
-                  type: OSLogType = .info,
-                  file: String = #file,
-                  function: String = #function,
-                  line: Int = #line) {
+public func Log(_ items: Any?...,
+                log: OSLog = OSLog.general,
+                type: OSLogType = .info,
+                file: String = #file,
+                function: String = #function,
+                line: Int = #line) {
     guard AKSettings.enableLogging else { return }
 
     let fileName = (file as NSString).lastPathComponent

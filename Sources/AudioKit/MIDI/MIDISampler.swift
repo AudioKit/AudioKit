@@ -45,7 +45,7 @@ open class MIDISampler: AppleSampler {
                         do {
                             try self.handle(event: event)
                         } catch let exception {
-                            AKLog("Exception handling MIDI event: \(exception)", log: OSLog.midi, type: .error)
+                            Log("Exception handling MIDI event: \(exception)", log: OSLog.midi, type: .error)
                         }
                     }
                 }

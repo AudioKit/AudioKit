@@ -213,7 +213,7 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
                 return
             }
         }
-        AKLog("Initialization failed.")
+        Log("Initialization failed.")
         self.init(input, sporth: "")
     }
 

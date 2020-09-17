@@ -52,7 +52,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 //: the following lines if they don't exist.  The plot does not usually appear
 //: by default because it takes significant power to draw the plots and we don't
 //: want your laptop's fan to fire up and drain your battery unnecessarily
-let plotView = AKOutputWaveformPlot.createView()
+let plotView = OutputWaveformPlot.createView()
 PlaygroundPage.current.liveView = plotView
 
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!)

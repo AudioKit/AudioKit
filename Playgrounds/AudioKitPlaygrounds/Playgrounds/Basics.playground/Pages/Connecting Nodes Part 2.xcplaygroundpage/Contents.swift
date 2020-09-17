@@ -30,7 +30,7 @@ class AudioEngine {
         do {
             file = try AVAudioFile(readFileName: "drumloop.wav")
         } catch {
-            AKLog("File Not Found")
+            Log("File Not Found")
             return
         }
         player = AudioPlayer(audioFile: file)
@@ -53,7 +53,7 @@ class AudioEngine {
         do {
             try engine.start()
         } catch {
-            AKLog("AudioKit did not start!")
+            Log("AudioKit did not start!")
         }
     }
 }

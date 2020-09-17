@@ -641,7 +641,7 @@ extension AppleSequencer {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
-            AKLog("Unable to create iterator")
+            Log("Unable to create iterator")
             return
         }
         var eventTime = MusicTimeStamp(0)

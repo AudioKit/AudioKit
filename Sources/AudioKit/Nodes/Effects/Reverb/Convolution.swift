@@ -75,7 +75,7 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(impulseResponseFileURL, &extRef)
-            if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
+            if err != 0 { Log("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
 
             guard let externalAudioFileRef = extRef else {
                 break Exit
@@ -87,11 +87,11 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
                                           &thePropertySize,
                                           &theFileFormat)
             if err != 0 {
-                AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)")
+                Log("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)")
                 break Exit
             }
             if theFileFormat.mChannelsPerFrame > 2 {
-                AKLog("Unsupported Format, channel count is greater than stereo")
+                Log("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
 
@@ -110,7 +110,7 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
                                           UInt32(MemoryLayout.stride(ofValue: theOutputFormat)),
                                           &theOutputFormat)
             if err != 0 {
-                AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
+                Log("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
                 break Exit
             }
 
@@ -121,7 +121,7 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
                                           &thePropertySize,
                                           &theFileLengthInFrames)
             if err != 0 {
-                AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
+                Log("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
                 break Exit
             }
 
@@ -148,7 +148,7 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
                     // failure
                     theData?.deallocate()
                     theData = nil // make sure to return NULL
-                    AKLog("Error = \(err)"); break Exit
+                    Log("Error = \(err)"); break Exit
                 }
             }
         }

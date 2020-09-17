@@ -89,7 +89,7 @@ public class PitchTap: Toggleable {
 
         // just double check this here
         guard input.avAudioUnitOrNode.engine != nil else {
-            AKLog("The tapped node isn't attached to the engine")
+            Log("The tapped node isn't attached to the engine")
             return
         }
 
@@ -146,7 +146,7 @@ public class PitchTap: Toggleable {
 
     private func removeTap() {
         guard input.avAudioUnitOrNode.engine != nil else {
-            AKLog("The tapped node isn't attached to the engine")
+            Log("The tapped node isn't attached to the engine")
             return
         }
 

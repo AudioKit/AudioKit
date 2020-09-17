@@ -88,7 +88,7 @@ public class AKWaveform: CALayer {
     }
 
     deinit {
-        // AKLog("* { Waveform \(name ?? "") } *")
+        // Log("* { Waveform \(name ?? "") } *")
     }
 
     // MARK: - Private functions
@@ -112,12 +112,12 @@ public class AKWaveform: CALayer {
 
     private func updateReverse() {
         guard !plots.isEmpty else {
-            AKLog("Waveform isn't ready to be reversed yet. No data.", type: .error)
+            Log("Waveform isn't ready to be reversed yet. No data.", type: .error)
             return
         }
         let direction: CGFloat = isReversed ? -1.0 : 1.0
 
-        // AKLog("Current Direction:", reverseDirection, "proposed direction:", direction)
+        // Log("Current Direction:", reverseDirection, "proposed direction:", direction)
 
         guard direction != reverseDirection else { return }
 
@@ -129,7 +129,7 @@ public class AKWaveform: CALayer {
         }
 
         reverseDirection = direction
-        // AKLog("REVERSING:", reverseDirection)
+        // Log("REVERSING:", reverseDirection)
     }
 
     // TODO: account for files that have more than 2 channels
@@ -137,7 +137,7 @@ public class AKWaveform: CALayer {
         // just setting the table data here
         if !plots.isEmpty {
             if let left = data.first {
-                // AKLog("** Updating table data", left.count, "points")
+                // Log("** Updating table data", left.count, "points")
                 plots[0].table = left
                 samplesPerPixel = left.count
             }
@@ -150,7 +150,7 @@ public class AKWaveform: CALayer {
         }
 
         // create the plots
-        // AKLog("** Creating plots... channels:", data.count)
+        // Log("** Creating plots... channels:", data.count)
 
         if let left = data.first {
             let leftPlot = createPlot(data: left, color: waveformColor)
@@ -172,7 +172,7 @@ public class AKWaveform: CALayer {
     }
 
     private func createPlot(data: [Float], color: CGColor) -> AKWaveformLayer {
-        // AKLog(data.count, "plotSize", plotSize)
+        // Log(data.count, "plotSize", plotSize)
 
         let plot = AKWaveformLayer(table: data,
                                    size: plotSize,
@@ -194,7 +194,7 @@ public class AKWaveform: CALayer {
 
     public func updateLayer() {
         guard plots.isNotEmpty else {
-            AKLog("Plots are empty... nothing to layout.", type: .error)
+            Log("Plots are empty... nothing to layout.", type: .error)
             return
         }
         let width = frame.size.width

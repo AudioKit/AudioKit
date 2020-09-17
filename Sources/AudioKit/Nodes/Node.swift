@@ -68,7 +68,7 @@ open class Node {
             for (bus, connection) in connections.enumerated() {
                 if let sourceEngine = connection.avAudioNode.engine {
                     if sourceEngine != avAudioNode.engine {
-                        AKLog("🛑 Error: Attempt to connect nodes from different engines.")
+                        Log("🛑 Error: Attempt to connect nodes from different engines.")
                         return
                     }
                 }
@@ -130,7 +130,7 @@ open class PolyphonicNode: Node, AKPolyphonic {
                    velocity: MIDIVelocity,
                    frequency: AUValue,
                    channel: MIDIChannel = 0) {
-        AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
+        Log("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
             "override in subclass")
     }
 
@@ -153,7 +153,7 @@ open class PolyphonicNode: Node, AKPolyphonic {
     /// - parameter noteNumber: MIDI Note Number
     ///
     open func stop(noteNumber: MIDINoteNumber) {
-        AKLog("Stopping note \(noteNumber), override in subclass")
+        Log("Stopping note \(noteNumber), override in subclass")
     }
 }
 

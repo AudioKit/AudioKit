@@ -47,7 +47,7 @@ open class AKSequencer {
         if let targetNodes = targetNodes {
             tracks = targetNodes.enumerated().map { AKSequencerTrack(targetNode: $0.element) }
         } else {
-            AKLog("no nodes connected to sequencer at init - be sure to connect some via addTrack")
+            Log("no nodes connected to sequencer at init - be sure to connect some via addTrack")
         }
     }
 
@@ -95,11 +95,11 @@ open class AKSequencer {
     public func load(midiFile: AKMIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
-            AKLog("Error: Track count and file track count do not match ",
+            Log("Error: Track count and file track count do not match ",
                   "dropped \(midiTracks.count - tracks.count) tracks")
         }
         if tracks.count > midiTracks.count {
-            AKLog("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")
+            Log("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")
         }
         for index in 0 ..< min(midiTracks.count, tracks.count) {
             let track = midiTracks[index]
@@ -131,7 +131,7 @@ open class AKSequencer {
                     duration: Double,
                     trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
-            AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
+            Log("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
         }
         tracks[trackIndex].sequence.add(noteNumber: noteNumber,
@@ -148,7 +148,7 @@ open class AKSequencer {
     ///   - trackIndex: Which track to add the event
     public func add(event: AKMIDIEvent, position: Double, trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
-            AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
+            Log("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
         }
         tracks[trackIndex].sequence.add(event: event,
