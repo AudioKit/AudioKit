@@ -7,7 +7,7 @@ class SquareTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let square = OperationGenerator { AKOperation.square() }
+        let square = OperationGenerator { Operation.square() }
         engine.output = square
         square.start()
         let audio = engine.startTest(totalDuration: 1.0)

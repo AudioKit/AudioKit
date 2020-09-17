@@ -13,7 +13,7 @@ extension ComputedParameter {
     public func resonantFilter(
         frequency: OperationParameter = 4_000.0,
         bandwidth: OperationParameter = 1_000.0
-        ) -> AKOperation {
-        return AKOperation(module: "reson", inputs: toMono(), frequency, bandwidth)
+        ) -> Operation {
+        return Operation(module: "reson", inputs: toMono(), frequency, bandwidth)
     }
 }

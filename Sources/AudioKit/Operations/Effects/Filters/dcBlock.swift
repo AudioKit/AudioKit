@@ -7,7 +7,7 @@ extension ComputedParameter {
     ///
     /// - parameter input: Input audio signal
     ///
-    public func dcBlock() -> AKOperation {
-        return AKOperation(module: "dcblock", inputs: toMono())
+    public func dcBlock() -> Operation {
+        return Operation(module: "dcblock", inputs: toMono())
     }
 }

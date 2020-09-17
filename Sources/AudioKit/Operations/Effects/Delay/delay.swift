@@ -11,8 +11,8 @@ extension ComputedParameter {
     public func delay(
         time: Double = 1.0,
         feedback: OperationParameter = 0.0
-        ) -> AKOperation {
-        return AKOperation(module: "delay",
+        ) -> Operation {
+        return Operation(module: "delay",
                            inputs: toMono(), feedback, time)
     }
 }

@@ -18,7 +18,7 @@ var lfoAmplitude = 1_000
 var lfoRate = 1.0 / 3.428
 
 let filterSectionEffect = OperationEffect(player) { player in
-    let lfo = AKOperation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
+    let lfo = Operation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
     return player.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
                                    resonance: resonance)
 }

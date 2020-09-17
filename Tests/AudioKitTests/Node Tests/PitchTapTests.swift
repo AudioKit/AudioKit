@@ -9,8 +9,8 @@ class PitchTapTests: XCTestCase {
         let engine = AudioEngine()
 
         let sine = OperationGenerator {
-            let s = AKOperation.sawtooth(frequency: 0.25, amplitude: 1, phase: 0) + 2
-            return AKOperation.sineWave(frequency: 440 * s, amplitude: 1)
+            let s = Operation.sawtooth(frequency: 0.25, amplitude: 1, phase: 0) + 2
+            return Operation.sineWave(frequency: 440 * s, amplitude: 1)
         }
 
         sine.start()

@@ -39,8 +39,8 @@ class SmoothDelayTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         engine.output = OperationEffect(input) { input in
-            let ramp = AKOperation.lineSegment(
-                trigger: AKOperation.metronome(frequency: 1.0),
+            let ramp = Operation.lineSegment(
+                trigger: Operation.metronome(frequency: 1.0),
                 start: 0.0,
                 end: 0.1,
                 duration: 4.0)

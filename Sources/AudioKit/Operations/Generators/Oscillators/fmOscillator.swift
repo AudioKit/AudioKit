@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Classic FM Synthesis audio generation.
     ///
@@ -21,8 +21,8 @@ extension AKOperation {
         modulatingMultiplier: OperationParameter = 1.0,
         modulationIndex: OperationParameter = 1.0,
         amplitude: OperationParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "fm",
+        ) -> Operation {
+        return Operation(module: "fm",
                            inputs: baseFrequency, amplitude,
                            carrierMultiplier, modulatingMultiplier, modulationIndex)
     }

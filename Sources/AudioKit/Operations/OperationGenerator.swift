@@ -175,12 +175,12 @@ public class OperationGenerator: Node, AKToggleable, AKComponent {
     ///
     /// - parameter operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(operation: ([AKOperation]) -> ComputedParameter) {
+    public convenience init(operation: ([Operation]) -> ComputedParameter) {
 
-        let computedParameter = operation(AKOperation.parameters)
+        let computedParameter = operation(Operation.parameters)
 
-        if type(of: computedParameter) == AKOperation.self {
-            if let monoOperation = computedParameter as? AKOperation {
+        if type(of: computedParameter) == Operation.self {
+            if let monoOperation = computedParameter as? Operation {
                 self.init(sporth: monoOperation.sporth + " dup ")
                 return
             }
@@ -204,9 +204,9 @@ public class OperationGenerator: Node, AKToggleable, AKComponent {
     ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(channelCount: Int, operations: ([AKOperation]) -> [AKOperation]) {
+    public convenience init(channelCount: Int, operations: ([Operation]) -> [Operation]) {
 
-        let computedParameters = operations(AKOperation.parameters)
+        let computedParameters = operations(Operation.parameters)
         let left = computedParameters[0]
 
         if channelCount == 2 {

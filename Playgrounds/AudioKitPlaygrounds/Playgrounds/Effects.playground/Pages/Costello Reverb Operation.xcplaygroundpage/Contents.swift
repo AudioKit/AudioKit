@@ -10,7 +10,7 @@ player.looping = true
 
 let effect = OperationEffect(player) { player in
     return player.reverberateWithCostello(
-        feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
+        feedback: Operation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
         cutoffFrequency: 10_000)
 }
 

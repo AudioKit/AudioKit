@@ -178,9 +178,9 @@ public class OperationEffect: Node, AKToggleable, AKComponent {
     ///
     public convenience init(_ input: Node,
                             channelCount: Int,
-                            operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
+                            operations: (AKStereoOperation, [Operation]) -> [Operation]) {
 
-        let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
+        let computedParameters = operations(AKStereoOperation.input, Operation.parameters)
         let left = computedParameters[0]
 
         if channelCount == 2 {
@@ -198,12 +198,12 @@ public class OperationEffect: Node, AKToggleable, AKComponent {
     ///   - operation: Operation to generate, can be mono or stereo
     ///
     public convenience init(_ input: Node,
-                            operation: (AKStereoOperation, [AKOperation]) -> ComputedParameter) {
+                            operation: (AKStereoOperation, [Operation]) -> ComputedParameter) {
 
-        let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
+        let computedParameter = operation(AKStereoOperation.input, Operation.parameters)
 
-        if type(of: computedParameter) == AKOperation.self {
-            if let monoOperation = computedParameter as? AKOperation {
+        if type(of: computedParameter) == Operation.self {
+            if let monoOperation = computedParameter as? Operation {
                 self.init(input, sporth: monoOperation.sporth + " dup ")
                 return
             }

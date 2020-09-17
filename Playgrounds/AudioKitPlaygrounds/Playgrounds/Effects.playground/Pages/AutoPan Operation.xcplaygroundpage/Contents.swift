@@ -26,7 +26,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = OperationEffect(player) { input, parameters in
-    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex], amplitude: parameters[depthIndex])
+    let oscillator = Operation.sineWave(frequency: parameters[speedIndex], amplitude: parameters[depthIndex])
     return input.pan(oscillator)
 }
 

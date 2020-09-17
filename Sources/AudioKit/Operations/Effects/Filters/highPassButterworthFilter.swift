@@ -10,6 +10,6 @@ extension ComputedParameter {
     public func highPassButterworthFilter(
         cutoffFrequency: OperationParameter = 500
         ) -> ComputedParameter {
-        return AKOperation(module: "buthp", inputs: toMono(), cutoffFrequency)
+        return Operation(module: "buthp", inputs: toMono(), cutoffFrequency)
     }
 }

@@ -8,13 +8,13 @@ import AudioKit
 //: First lets set up sound source to track
 let oscillatorNode = OperationGenerator {
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = Operation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And lets make the frequency move around to make sure it doesn't affect the amplitude tracking
-    let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
+    let frequency = Operation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
 
     // So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
-    return AKOperation.sineWave(frequency: frequency, amplitude: volume)
+    return Operation.sineWave(frequency: frequency, amplitude: volume)
 }
 
 let trackedAmplitude = AmplitudeTap(oscillatorNode)

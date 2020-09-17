@@ -9,7 +9,7 @@ extension ComputedParameter {
     ///
     public func lowPassButterworthFilter(
         cutoffFrequency: OperationParameter = 1_000
-        ) -> AKOperation {
-        return AKOperation(module: "butlp", inputs: toMono(), cutoffFrequency)
+        ) -> Operation {
+        return Operation(module: "butlp", inputs: toMono(), cutoffFrequency)
     }
 }

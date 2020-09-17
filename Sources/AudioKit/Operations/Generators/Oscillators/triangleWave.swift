@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// This is a bandlimited triangle oscillator
     /// ported from the "triangle" function from the Faust programming language.
@@ -12,7 +12,7 @@ extension AKOperation {
     public static func triangleWave(
         frequency: OperationParameter = 440,
         amplitude: OperationParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "bltriangle", inputs: frequency, amplitude)
+        ) -> Operation {
+        return Operation(module: "bltriangle", inputs: frequency, amplitude)
     }
 }

@@ -9,8 +9,8 @@ class VariableDelayOperationTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         engine.output = OperationEffect(input) { input in
-            let ramp = AKOperation.lineSegment(
-                trigger: AKOperation.metronome(),
+            let ramp = Operation.lineSegment(
+                trigger: Operation.metronome(),
                 start: 1,
                 end: 0,
                 duration: 1.0)

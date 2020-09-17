@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Loosely based off of the Csound opcode randomh. The design is equivalent to
     /// scaled noise sent through a classic sample and hold module.
@@ -14,8 +14,8 @@ extension AKOperation {
         minimum: OperationParameter = 0,
         maximum: OperationParameter = 1,
         updateFrequency: OperationParameter = 10
-        ) -> AKOperation {
-        return AKOperation(module: "randh",
+        ) -> Operation {
+        return Operation(module: "randh",
                            inputs: minimum, maximum, updateFrequency)
     }
 }

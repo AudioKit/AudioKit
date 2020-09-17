@@ -7,7 +7,7 @@ class SawtoothTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let sawtooth = OperationGenerator { AKOperation.sawtooth() }
+        let sawtooth = OperationGenerator { Operation.sawtooth() }
         engine.output = sawtooth
         sawtooth.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Standard Sine Wave
     ///
@@ -11,7 +11,7 @@ extension AKOperation {
     public static func sineWave(
         frequency: OperationParameter = 440,
         amplitude: OperationParameter = 1
-        ) -> AKOperation {
-        return AKOperation(module: "sine", inputs: frequency, amplitude)
+        ) -> Operation {
+        return Operation(module: "sine", inputs: frequency, amplitude)
     }
 }

@@ -1,19 +1,19 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
     /// Multiplication of parameters
     ///
     /// - parameter parameter: The amount to multiply
     ///
-    public func times(_ parameter: OperationParameter) -> AKOperation {
-        return AKOperation(module: "*", inputs: self, parameter)
+    public func times(_ parameter: OperationParameter) -> Operation {
+        return Operation(module: "*", inputs: self, parameter)
     }
 
     /// Offsetting by way of multiplication
     ///
     /// - parameter parameter: The amount to scale by
     ///
-    public func scaledBy(_ parameter: OperationParameter) -> AKOperation {
+    public func scaledBy(_ parameter: OperationParameter) -> Operation {
         return self.times(parameter)
     }
 }
@@ -24,7 +24,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func * (left: OperationParameter, right: OperationParameter) -> AKOperation {
+public func * (left: OperationParameter, right: OperationParameter) -> Operation {
     return left.toMono().times(right)
 }
 

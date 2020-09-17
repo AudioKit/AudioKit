@@ -9,7 +9,7 @@ extension ComputedParameter {
     ///
     public func lowPassFilter(
         halfPowerPoint: OperationParameter = 1_000
-        ) -> AKOperation {
-        return AKOperation(module: "tone", inputs: toMono(), halfPowerPoint)
+        ) -> Operation {
+        return Operation(module: "tone", inputs: toMono(), halfPowerPoint)
     }
 }

@@ -7,7 +7,7 @@ class PinkNoiseOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let noise = OperationGenerator { AKOperation.pinkNoise() }
+        let noise = OperationGenerator { Operation.pinkNoise() }
         engine.output = noise
         noise.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -18,7 +18,7 @@ class PinkNoiseOperationTests: XCTestCase {
     func testAmplitude() {
         let engine = AudioEngine()
         let noise = OperationGenerator {
-            return AKOperation.pinkNoise(amplitude: 0.456)
+            return Operation.pinkNoise(amplitude: 0.456)
         }
         engine.output = noise
         noise.start()
@@ -30,12 +30,12 @@ class PinkNoiseOperationTests: XCTestCase {
     func testParameterSweep() {
         let engine = AudioEngine()
         let noise = OperationGenerator {
-            let line = AKOperation.lineSegment(
-                trigger: AKOperation.metronome(),
+            let line = Operation.lineSegment(
+                trigger: Operation.metronome(),
                 start: 0,
                 end: 1,
                 duration: 1.0)
-            return AKOperation.pinkNoise(amplitude: line)
+            return Operation.pinkNoise(amplitude: line)
         }
         engine.output = noise
         noise.start()

@@ -11,8 +11,8 @@ extension ComputedParameter {
     public func autoWah(
         wah: OperationParameter = 0,
         amplitude: OperationParameter = 0.1
-        ) -> AKOperation {
-        return AKOperation(module: "100 autowah",
+        ) -> Operation {
+        return Operation(module: "100 autowah",
                            inputs: toMono(), amplitude, wah)
     }
 }

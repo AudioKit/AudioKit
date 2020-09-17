@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// This is a bandlimited square oscillator ported from the "square" function
     /// from the Faust programming language.
@@ -14,8 +14,8 @@ extension AKOperation {
         frequency: OperationParameter = 440,
         amplitude: OperationParameter = 1.0,
         pulseWidth: OperationParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "blsquare",
+        ) -> Operation {
+        return Operation(module: "blsquare",
                            inputs: frequency, amplitude, pulseWidth)
     }
 }

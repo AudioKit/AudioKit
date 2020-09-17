@@ -16,7 +16,7 @@ let effect = OperationEffect(player) { input, parameters in
     let bitDepthVariation = parameters[3]
     let frequency = parameters[4]
 
-    let sinusoid = AKOperation.sineWave(frequency: frequency)
+    let sinusoid = Operation.sineWave(frequency: frequency)
     let sampleRate = baseSampleRate + sinusoid * sampleRateVariation
     let bitDepth = baseBitDepth + sinusoid * bitDepthVariation
 

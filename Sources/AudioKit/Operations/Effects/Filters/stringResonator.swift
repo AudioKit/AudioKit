@@ -15,7 +15,7 @@ extension ComputedParameter {
     public func stringResonator(
         frequency: OperationParameter = 100.0,
         feedback: OperationParameter = 0.95
-        ) -> AKOperation {
-        return AKOperation(module: "streson", inputs: toMono(), frequency, feedback)
+        ) -> Operation {
+        return Operation(module: "streson", inputs: toMono(), frequency, feedback)
     }
 }

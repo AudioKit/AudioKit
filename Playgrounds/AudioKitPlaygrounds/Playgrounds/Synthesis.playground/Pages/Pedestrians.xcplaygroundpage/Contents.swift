@@ -7,10 +7,10 @@ import AudioKit
 let generator = OperationGenerator {
 
     // Generate a sine wave at the right frequency
-    let crossingSignalTone = AKOperation.sineWave(frequency: 2_500)
+    let crossingSignalTone = Operation.sineWave(frequency: 2_500)
 
     // Periodically trigger an envelope around that signal
-    let crossingSignalTrigger = AKOperation.periodicTrigger(period: 0.2)
+    let crossingSignalTrigger = Operation.periodicTrigger(period: 0.2)
     let crossingSignal = crossingSignalTone.triggeredWithEnvelope(
         trigger: crossingSignalTrigger,
         attack: 0.01,

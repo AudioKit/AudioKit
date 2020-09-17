@@ -6,7 +6,7 @@ extension ComputedParameter {
     ///
     /// - Parameter semitones: Amount of shift
     ///
-    public func pitchShift(semitones: OperationParameter = 0) -> AKOperation {
-        return AKOperation(module: "1000 100 pshift", inputs: toMono(), semitones)
+    public func pitchShift(semitones: OperationParameter = 0) -> Operation {
+        return Operation(module: "1000 100 pshift", inputs: toMono(), semitones)
     }
 }

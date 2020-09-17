@@ -9,11 +9,11 @@ open class AKStereoOperation: ComputedParameter {
 
     fileprivate var savedLocation = -1
 
-    fileprivate var dependencies = [AKOperation]()
+    fileprivate var dependencies = [Operation]()
 
-    internal var recursiveDependencies: [AKOperation] {
-        var all = [AKOperation]()
-        var uniq = [AKOperation]()
+    internal var recursiveDependencies: [Operation] {
+        var all = [Operation]()
+        var uniq = [Operation]()
         var added = Set<String>()
         for dep in dependencies {
             all += dep.recursiveDependencies
@@ -42,8 +42,8 @@ open class AKStereoOperation: ComputedParameter {
         }
         var opString = ""
         for input in inputs {
-            if type(of: input) == AKOperation.self {
-                if let operation = input as? AKOperation {
+            if type(of: input) == Operation.self {
+                if let operation = input as? Operation {
                     if operation.savedLocation >= 0 {
                         opString += "\(operation.savedLocation) \"ak\" tget "
                     } else {
@@ -89,18 +89,18 @@ open class AKStereoOperation: ComputedParameter {
     // MARK: - Functions
 
     /// Create a mono signal by dropping the right channel
-    public func toMono() -> AKOperation {
-        return AKOperation(module: "add", inputs: self)
+    public func toMono() -> Operation {
+        return Operation(module: "add", inputs: self)
     }
 
     /// Create a mono signal by dropping the right channel
-    public func left() -> AKOperation {
-        return AKOperation(module: "drop", inputs: self)
+    public func left() -> Operation {
+        return Operation(module: "drop", inputs: self)
     }
 
     /// Create a mono signal by dropping the left channel
-    public func right() -> AKOperation {
-        return AKOperation(module: "swap drop", inputs: self)
+    public func right() -> Operation {
+        return Operation(module: "swap drop", inputs: self)
     }
 
     /// An operation is requiring a parameter to be stereo, which in this case, it is, so just return self
@@ -133,8 +133,8 @@ open class AKStereoOperation: ComputedParameter {
         self.inputs = inputs
 
         for input in inputs {
-            if type(of: input) == AKOperation.self {
-                if let forcedInput = input as? AKOperation {
+            if type(of: input) == Operation.self {
+                if let forcedInput = input as? Operation {
                     dependencies.append(forcedInput)
                 }
             }

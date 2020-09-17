@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Trigger based linear AHD envelope generator
     ///
@@ -15,7 +15,7 @@ extension AKOperation {
         attack: OperationParameter = 0.1,
         hold: OperationParameter = 0.3,
         release: OperationParameter = 0.2
-        ) -> AKOperation {
-        return AKOperation(module: "tenv *", inputs: self, trigger, attack, hold, release)
+        ) -> Operation {
+        return Operation(module: "tenv *", inputs: self, trigger, attack, hold, release)
     }
 }

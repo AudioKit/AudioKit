@@ -8,12 +8,12 @@ class TriangleWaveTests: XCTestCase {
     func testParameterSweep() {
         let engine = AudioEngine()
         let triangle = OperationGenerator {
-            let ramp = AKOperation.lineSegment(
-                trigger: AKOperation.metronome(),
+            let ramp = Operation.lineSegment(
+                trigger: Operation.metronome(),
                 start: 1,
                 end: 0,
                 duration: 1.0)
-            return AKOperation.triangleWave(frequency: ramp * 2_000, amplitude: ramp)
+            return Operation.triangleWave(frequency: ramp * 2_000, amplitude: ramp)
         }
         engine.output = triangle
         triangle.start()

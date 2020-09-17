@@ -6,8 +6,8 @@
 ///   - x: 1st operation
 ///   - y: 2nd operation
 ///
-public func min(_ x: ComputedParameter, _ y: ComputedParameter) -> AKOperation {
-    return AKOperation(module: "min", inputs: x.toMono(), y.toMono())
+public func min(_ x: ComputedParameter, _ y: ComputedParameter) -> Operation {
+    return Operation(module: "min", inputs: x.toMono(), y.toMono())
 }
 
 /// Minimum of an operation and a parameter
@@ -16,8 +16,8 @@ public func min(_ x: ComputedParameter, _ y: ComputedParameter) -> AKOperation {
 ///   - x: parameter
 ///   - y: operation
 ///
-public func min(_ operation: ComputedParameter, _ parameter: OperationParameter) -> AKOperation {
-    return AKOperation(module: "min", inputs: operation.toMono(), parameter)
+public func min(_ operation: ComputedParameter, _ parameter: OperationParameter) -> Operation {
+    return Operation(module: "min", inputs: operation.toMono(), parameter)
 }
 
 /// Minimum of an operation and a parameter
@@ -26,6 +26,6 @@ public func min(_ operation: ComputedParameter, _ parameter: OperationParameter)
 ///   - x: parameter
 ///   - y: operation
 ///
-public func min(_ parameter: OperationParameter, _ operation: ComputedParameter) -> AKOperation {
+public func min(_ parameter: OperationParameter, _ operation: ComputedParameter) -> Operation {
     return min(operation, parameter)
 }

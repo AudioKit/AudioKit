@@ -4,8 +4,8 @@
 /// (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol ComputedParameter: OperationParameter {}
 
-/// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-open class AKOperation: ComputedParameter {
+/// An Operation is a computed parameter that can be passed to other operations in the same operation node
+open class Operation: ComputedParameter {
 
     // MARK: - Dependency Management
 
@@ -13,11 +13,11 @@ open class AKOperation: ComputedParameter {
 
     internal var savedLocation = -1
 
-    fileprivate var dependencies = [AKOperation]()
+    fileprivate var dependencies = [Operation]()
 
-    internal var recursiveDependencies: [AKOperation] {
-        var all = [AKOperation]()
-        var uniq = [AKOperation]()
+    internal var recursiveDependencies: [Operation] {
+        var all = [Operation]()
+        var uniq = [Operation]()
         var added = Set<String>()
         for dep in dependencies {
             all += dep.recursiveDependencies
@@ -46,8 +46,8 @@ open class AKOperation: ComputedParameter {
         }
         var opString = ""
         for input in inputs {
-            if type(of: input) == AKOperation.self {
-                if let operation = input as? AKOperation {
+            if type(of: input) == Operation.self {
+                if let operation = input as? Operation {
                     if operation.savedLocation >= 0 {
                         opString += "\(operation.savedLocation) \"ak\" tget "
                     } else {
@@ -97,71 +97,71 @@ open class AKOperation: ComputedParameter {
     // MARK: - Inputs
 
     /// Left input to any stereo operation
-    public static var leftInput = AKOperation("(14 p) ")
+    public static var leftInput = Operation("(14 p) ")
 
     /// Right input to any stereo operation
-    public static var rightInput = AKOperation("(15 p) ")
+    public static var rightInput = Operation("(15 p) ")
 
     /// Dummy trigger
-    public static var trigger = AKOperation("(14 p) ")
+    public static var trigger = Operation("(14 p) ")
 
     // MARK: - Functions
 
     /// An= array of 14 parameters which may be sent to operations
-    public static var parameters: [AKOperation] =
-        [AKOperation("(0 p) "),
-         AKOperation("(1 p) "),
-         AKOperation("(2 p) "),
-         AKOperation("(3 p) "),
-         AKOperation("(4 p) "),
-         AKOperation("(5 p) "),
-         AKOperation("(6 p) "),
-         AKOperation("(7 p) "),
-         AKOperation("(8 p) "),
-         AKOperation("(9 p) "),
-         AKOperation("(10 p) "),
-         AKOperation("(11 p) "),
-         AKOperation("(12 p) "),
-         AKOperation("(13 p) ")]
+    public static var parameters: [Operation] =
+        [Operation("(0 p) "),
+         Operation("(1 p) "),
+         Operation("(2 p) "),
+         Operation("(3 p) "),
+         Operation("(4 p) "),
+         Operation("(5 p) "),
+         Operation("(6 p) "),
+         Operation("(7 p) "),
+         Operation("(8 p) "),
+         Operation("(9 p) "),
+         Operation("(10 p) "),
+         Operation("(11 p) "),
+         Operation("(12 p) "),
+         Operation("(13 p) ")]
 
     /// Convert the operation to a mono operation
-    public func toMono() -> AKOperation {
+    public func toMono() -> Operation {
         return self
     }
 
     /// Performs absolute value on the operation
-    public func abs() -> AKOperation {
-        return AKOperation(module: "abs", inputs: self)
+    public func abs() -> Operation {
+        return Operation(module: "abs", inputs: self)
     }
 
     /// Performs floor calculation on the operation
-    public func floor() -> AKOperation {
-        return AKOperation(module: "floor", inputs: self)
+    public func floor() -> Operation {
+        return Operation(module: "floor", inputs: self)
     }
 
     /// Returns the fractional part of the operation (as opposed to the integer part)
-    public func fract() -> AKOperation {
-        return AKOperation(module: "frac", inputs: self)
+    public func fract() -> Operation {
+        return Operation(module: "frac", inputs: self)
     }
 
     /// Performs natural logarithm on the operation
-    public func log() -> AKOperation {
-        return AKOperation(module: "log", inputs: self)
+    public func log() -> Operation {
+        return Operation(module: "log", inputs: self)
     }
 
     /// Performs Base 10 logarithm on the operation
-    public func log10() -> AKOperation {
-        return AKOperation(module: "log10", inputs: self)
+    public func log10() -> Operation {
+        return Operation(module: "log10", inputs: self)
     }
 
     /// Rounds the operation to the nearest integer
-    public func round() -> AKOperation {
-        return AKOperation(module: "round", inputs: self)
+    public func round() -> Operation {
+        return Operation(module: "round", inputs: self)
     }
 
     /// Returns a frequency for a given MIDI note number
-    public func midiNoteToFrequency() -> AKOperation {
-        return AKOperation(module: "mtof", inputs: self)
+    public func midiNoteToFrequency() -> Operation {
+        return Operation(module: "mtof", inputs: self)
     }
 
     // MARK: - Initialization
@@ -184,9 +184,9 @@ open class AKOperation: ComputedParameter {
     ///
     public init(_ operationString: String) {
         self.valueText = operationString
-        //self.tableIndex = -1 //AKOperation.nextTableIndex
-        //AKOperation.nextTableIndex += 1
-        //AKOperation.operationArray.append(self)
+        //self.tableIndex = -1 //Operation.nextTableIndex
+        //Operation.nextTableIndex += 1
+        //Operation.operationArray.append(self)
     }
 
     /// Initialize the operation
@@ -201,8 +201,8 @@ open class AKOperation: ComputedParameter {
         self.inputs = inputs
 
         for input in inputs {
-            if type(of: input) == AKOperation.self {
-                if let forcedInput = input as? AKOperation {
+            if type(of: input) == Operation.self {
+                if let forcedInput = input as? Operation {
                     dependencies.append(forcedInput)
                 }
             }
@@ -216,7 +216,7 @@ open class AKOperation: ComputedParameter {
 ///
 /// - parameter parameter: ComputedParameter to operate on
 ///
-public func abs(_ parameter: AKOperation) -> AKOperation {
+public func abs(_ parameter: Operation) -> Operation {
     return parameter.abs()
 }
 
@@ -224,7 +224,7 @@ public func abs(_ parameter: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: ComputedParameter to operate on
 ///
-public func floor(_ operation: AKOperation) -> AKOperation {
+public func floor(_ operation: Operation) -> Operation {
     return operation.floor()
 }
 
@@ -232,7 +232,7 @@ public func floor(_ operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: ComputedParameter to operate on
 ///
-public func fract(_ operation: AKOperation) -> AKOperation {
+public func fract(_ operation: Operation) -> Operation {
     return operation.fract()
 }
 
@@ -240,7 +240,7 @@ public func fract(_ operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: ComputedParameter to operate on
 ///
-public func log(_ operation: AKOperation) -> AKOperation {
+public func log(_ operation: Operation) -> Operation {
     return operation.log()
 }
 
@@ -248,7 +248,7 @@ public func log(_ operation: AKOperation) -> AKOperation {
 ///
 /// - parmeter operation: ComputedParameter to operate on
 ///
-public func log10(_ operation: AKOperation) -> AKOperation {
+public func log10(_ operation: Operation) -> Operation {
     return operation.log10()
 
 }
@@ -257,6 +257,6 @@ public func log10(_ operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: ComputedParameter to operate on
 ///
-public func round(_ operation: AKOperation) -> AKOperation {
+public func round(_ operation: Operation) -> Operation {
     return operation.round()
 }
