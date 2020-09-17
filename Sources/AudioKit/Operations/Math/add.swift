@@ -28,15 +28,15 @@ public func + (left: OperationParameter, right: OperationParameter) -> Operation
     return left.toMono().plus(right)
 }
 
-extension AKStereoOperation {
+extension StereoOperation {
     /// Helper function for addition
     ///
     /// - Parameters:
     ///   - first: 1st parameter
     ///   - second: 2nd parameter
     ///
-    public static func + (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
-        return AKStereoOperation(module: "rot + rot rot +",
+    public static func + (first: StereoOperation, second: StereoOperation) -> StereoOperation {
+        return StereoOperation(module: "rot + rot rot +",
                                  inputs: first.left(), first.right(), second.left(), second.right())
     }
 }

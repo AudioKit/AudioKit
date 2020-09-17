@@ -16,7 +16,7 @@ let fatten = OperationEffect(player) { input, parameters in
 
     let fatten = "\(input) dup \(1 - mix) * swap 0 \(time) 1.0 vdelay \(mix) * +"
 
-    return AKStereoOperation(fatten)
+    return StereoOperation(fatten)
 }
 
 engine.output = fatten

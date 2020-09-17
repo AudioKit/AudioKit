@@ -26,8 +26,8 @@ public func - (left: OperationParameter, right: OperationParameter) -> Operation
 ///   - first: 1st parameter
 ///   - second: 2nd parameter
 ///
-public func - (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "rot swap - rot rot swap -",
+public func - (first: StereoOperation, second: StereoOperation) -> StereoOperation {
+    return StereoOperation(module: "rot swap - rot rot swap -",
                              inputs: first.left(), first.right(), second.left(), second.right())
 }
 
@@ -43,7 +43,7 @@ public prefix func - (x: OperationParameter) -> Operation {
 ///
 /// - parameter parameter: Parameter to negate
 ///
-public prefix func - (x: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
+public prefix func - (x: StereoOperation) -> StereoOperation {
+    return StereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
 
 }

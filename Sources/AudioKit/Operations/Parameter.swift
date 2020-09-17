@@ -9,7 +9,7 @@ public protocol OperationParameter: CustomStringConvertible {
     func toMono() -> Operation
 
     /// Require a function to produce a stereo operation regardless of the mono/stereo nature of the parameter
-    func toStereo() -> AKStereoOperation
+    func toStereo() -> StereoOperation
 }
 
 /// Default Implementation methods
@@ -20,7 +20,7 @@ extension OperationParameter {
     }
 
     /// Most parameters are mono, so the dault is to duplicate the parameter in both stereo channels
-    public func toStereo() -> AKStereoOperation {
-        return AKStereoOperation("\(self) \(self) ")
+    public func toStereo() -> StereoOperation {
+        return StereoOperation("\(self) \(self) ")
     }
 }

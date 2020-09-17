@@ -34,8 +34,8 @@ public func * (left: OperationParameter, right: OperationParameter) -> Operation
 ///   - left: stereo operation
 ///   - right: parameter
 ///
-public func * (left: AKStereoOperation, right: OperationParameter) -> AKStereoOperation {
-    return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
+public func * (left: StereoOperation, right: OperationParameter) -> StereoOperation {
+    return StereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
 }
 
 /// Helper function for Multiplication
@@ -44,6 +44,6 @@ public func * (left: AKStereoOperation, right: OperationParameter) -> AKStereoOp
 ///   - left: parameter
 ///   - right: stereo operation
 ///
-public func * (left: OperationParameter, right: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
+public func * (left: OperationParameter, right: StereoOperation) -> StereoOperation {
+    return StereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
 }
