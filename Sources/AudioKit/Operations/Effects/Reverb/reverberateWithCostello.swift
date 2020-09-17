@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
     /// modeling scattering junction of 8 lossless waveguides of equal
@@ -13,10 +13,10 @@ extension AKComputedParameter {
     ///   - cutoffFrequency: Low-pass cutoff frequency. (Default: 4000, Minimum: 12.0, Maximum: 20000.0)
     ///
     public func reverberateWithCostello(
-        feedback: AKParameter = 0.6,
-        cutoffFrequency: AKParameter = 4_000
-        ) -> AKStereoOperation {
-        return AKStereoOperation(module: "revsc",
+        feedback: OperationParameter = 0.6,
+        cutoffFrequency: OperationParameter = 4_000
+        ) -> StereoOperation {
+        return StereoOperation(module: "revsc",
                                  inputs: self.toStereo(), feedback, cutoffFrequency)
     }
 }

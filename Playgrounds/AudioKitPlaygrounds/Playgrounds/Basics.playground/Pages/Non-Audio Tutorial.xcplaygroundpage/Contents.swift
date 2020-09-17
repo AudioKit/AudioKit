@@ -9,19 +9,18 @@
 //:
 //: You will always see the `import` lines which bring in all of
 //: AudioKit's functionality to the playground.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: If you intend to use some of the user interface elements provided by the optional AudioKitUI
 //: framework, you will also need to import it.
-import AudioKitUI
 
 //: ALERT: This is also the line that most commonly shows an error "No such module"
 //: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
 //: accessing the "Product" menu and choosing "Build".
 
 //: To use a file, copy it into the playground's "Resources" folder and refer to it by name:
-let file = try AKAudioFile(readFileName: "mixloop.wav")
+let file = try AVAudioFile(readFileName: "mixloop.wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
 //: we encourage you to drag your own sound files to the Resources folder.
@@ -37,8 +36,8 @@ let file = try AKAudioFile(readFileName: "mixloop.wav")
 //: on them and looking at the Quick Help Inspector.  Or, you can also option-click
 //: on any class, method, or variable name to show information about that element.
 //: Try it with the lines below:
-let player = AKPlayer(audioFile: file)
-let effect = AKMoogLadder(player)
+let player = AudioPlayer(audioFile: file)
+let effect = MoogLadder(player)
 
 //: The following lines keep a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
@@ -52,7 +51,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 //: the following lines if they don't exist.  The plot does not usually appear
 //: by default because it takes significant power to draw the plots and we don't
 //: want your laptop's fan to fire up and drain your battery unnecessarily
-let plotView = AKOutputWaveformPlot.createView()
+let plotView = OutputWaveformPlot.createView()
 PlaygroundPage.current.liveView = plotView
 
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!)

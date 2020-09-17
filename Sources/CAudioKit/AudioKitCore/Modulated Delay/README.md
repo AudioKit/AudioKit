@@ -1,6 +1,6 @@
 # Modulated Delay
 
-* AKModulatedDelay_Typedefs.h
+* ModulatedDelay_Typedefs.h
 * AdjustableDelayLine.cpp
 * AdjustableDelayLine.hpp
 * ModulatedDelay.cpp

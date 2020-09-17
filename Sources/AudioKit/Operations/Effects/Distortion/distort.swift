@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Distortion using a modified hyperbolic tangent function.
     ///
@@ -14,12 +14,12 @@ extension AKComputedParameter {
     ///                             (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
     ///
     public func distort(
-        pregain: AKParameter = 2.0,
-        postgain: AKParameter = 0.5,
-        positiveShapeParameter: AKParameter = 0.0,
-        negativeShapeParameter: AKParameter = 0.0
-        ) -> AKOperation {
-        return AKOperation(module: "dist",
+        pregain: OperationParameter = 2.0,
+        postgain: OperationParameter = 0.5,
+        positiveShapeParameter: OperationParameter = 0.0,
+        negativeShapeParameter: OperationParameter = 0.0
+        ) -> Operation {
+        return Operation(module: "dist",
                            inputs: toMono(), pregain, postgain, positiveShapeParameter, negativeShapeParameter)
     }
 }

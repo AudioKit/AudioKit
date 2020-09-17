@@ -1,16 +1,16 @@
 //: ## Costello Reverb Operation
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player in
+let effect = OperationEffect(player) { player in
     return player.reverberateWithCostello(
-        feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
+        feedback: Operation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
         cutoffFrequency: 10_000)
 }
 
@@ -19,14 +19,11 @@ try engine.start()
 player.play()
 
 //: User Interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
-        addTitle("Costello Reverb Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-    }
+        addTitle("Costello Reverb Operation")    }
 }
 
 import PlaygroundSupport

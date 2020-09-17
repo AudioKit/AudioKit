@@ -26,7 +26,7 @@ public extension AudioUnit {
         do {
             try addPropertyListener(listener: listener, toProperty: property)
         } catch {
-            AKLog("Error Adding Property Listener")
+            Log("Error Adding Property Listener")
             throw error
         }
     }
@@ -36,7 +36,7 @@ public extension AudioUnit {
         do {
             try removePropertyListener(listener: listener, fromProperty: property)
         } catch {
-            AKLog("Error Removing Property Listener")
+            Log("Error Removing Property Listener")
         }
     }
 }

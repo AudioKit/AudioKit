@@ -6,19 +6,19 @@
 //: All nodes in AudioKit can have multiple destinations, the only
 //: caveat is that all of the destinations do have to eventually be mixed
 //: back together and none of the parallel signal paths can have any time stretching.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: Prepare the source audio player
-let file = try AKAudioFile(readFileName: "drumloop.wav")
+let file = try AVAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 //: The following nodes are both acting on the original player node
-var ringMod = AKRingModulator(player)
+var ringMod = RingModulator(player)
 
-var delay = AKDelay(player)
+var delay = Delay(player)
 delay.time = 0.01
 delay.feedback = 0.8
 delay.dryWetMix = 1
@@ -26,7 +26,7 @@ delay.dryWetMix = 1
 //: Any number of inputs can be equally summed into one output, including the
 //: original player, allowing us to create dry/wet mixes even for effects that
 //: don't have that property by default
-let mixer = AKMixer(player, delay)
+let mixer = Mixer(player, delay)
 
 engine.output = mixer
 try engine.start()

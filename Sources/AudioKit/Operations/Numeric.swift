@@ -4,7 +4,7 @@
 
 /// Very simple protoocol for anything with an instrinsic floating point value.
 /// Allows constants to be passed into an AudioKit operation as well as other operations.
-public protocol Numeric: AKParameter {
+public protocol Numeric: OperationParameter {
     /// Raw value of the numeric parameter
     func value() -> Double
 }

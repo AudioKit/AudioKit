@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator
     /// ported from the "sawtooth" function from the Faust programming language.
@@ -10,9 +10,9 @@ extension AKOperation {
     ///   - amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 1.0)
     ///
     public static func sawtoothWave(
-        frequency: AKParameter = 440,
-        amplitude: AKParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "blsaw", inputs: frequency, amplitude)
+        frequency: OperationParameter = 440,
+        amplitude: OperationParameter = 0.5
+        ) -> Operation {
+        return Operation(module: "blsaw", inputs: frequency, amplitude)
     }
 }

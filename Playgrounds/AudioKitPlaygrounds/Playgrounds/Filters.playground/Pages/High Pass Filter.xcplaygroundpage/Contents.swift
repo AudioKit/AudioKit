@@ -3,15 +3,15 @@
 //: low-frequency components of the audio signal, allowing for the higher frequency
 //: components to "pass through" the filter.
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var filter = AKHighPassFilter(player)
+var filter = HighPassFilter(player)
 filter.cutoffFrequency = 6_900 // Hz
 filter.resonance = 0 // dB
 
@@ -20,21 +20,18 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("High Pass Filter")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop") { button in
+        addView(Button(title: "Stop") { button in
             filter.isStarted ? filter.stop() : filter.play()
             button.title = filter.isStarted ? "Stop" : "Start"
         })
 
-        addView(AKSlider(property: "Cutoff Frequency",
+        addView(Slider(property: "Cutoff Frequency",
                          value: filter.cutoffFrequency,
                          range: 20 ... 22_050,
                          taper: 5,
@@ -43,7 +40,7 @@ class LiveView: AKLiveViewController {
             filter.cutoffFrequency = sliderValue
         })
 
-        addView(AKSlider(property: "Resonance",
+        addView(Slider(property: "Resonance",
                          value: filter.resonance,
                          range: -20 ... 40,
                          format: "%0.1f dB"

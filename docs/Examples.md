@@ -15,7 +15,7 @@
 
 ## Examples for iOS only
 
-* Apple Sampler Demo - example of AudioKit's AKAppleSampler
+* Apple Sampler Demo - example of AudioKit's AppleSampler
 * MIDI File Edit and Sync - demonstrates how to manipulate midifiles on the fly
 
 ### Audiobus Examples for iOS
@@ -44,5 +44,5 @@ When projects get big or complicated enough, we move them to their own repositor
 * [Analog Synth X](https://github.com/AudioKit/AnalogSynthX) - polyphonic synthesizer with a very nice user interface
 * [ROM Player](https://github.com/AudioKit/ROMPlayer) - EXS24, Sound Font, Wave Player
 * [Particles](http://github.com/AudioKit/Particles/) - Metal based audio visualizer (works on devices only, not the simulator)
-* [SamplerDemo](http://github.com/AudioKit/SamplerDemo/) - Demo of the AKSampler for both iOS and macOS
+* [SamplerDemo](http://github.com/AudioKit/SamplerDemo/) - Demo of the Sampler for both iOS and macOS
 * [Song Processor](http://github.com/AudioKit/SongProcessor) - adding effects to songs from the device's iTunes Library

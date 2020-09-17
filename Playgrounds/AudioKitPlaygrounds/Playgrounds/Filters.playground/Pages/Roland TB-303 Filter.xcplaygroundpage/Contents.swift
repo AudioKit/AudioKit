@@ -1,14 +1,14 @@
 //: ## Roland TB-303 Filter
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var filter = AKRolandTB303Filter(player)
+var filter = RolandTB303Filter(player)
 filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 
@@ -20,7 +20,7 @@ var time = 0.0
 let timeStep = 0.02
 let hz = 2.0
 
-AKPlaygroundLoop(every: timeStep) {
+PlaygroundLoop(every: timeStep) {
     filter.cutoffFrequency = (1.0 - cos(2 * 3.14 * hz * time)) * 600 + 700
     time += timeStep
 }

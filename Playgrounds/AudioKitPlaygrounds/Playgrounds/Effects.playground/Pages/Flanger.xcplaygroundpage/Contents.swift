@@ -1,14 +1,13 @@
 //: ## Flanger
-import AudioKitPlaygrounds
+
 import AudioKit
-import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var flanger = AKFlanger(player)
+var flanger = Flanger(player)
 
 engine.output = flanger
 
@@ -16,28 +15,26 @@ try engine.start()
 
 player.play()
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Flanger")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Feedback",
+        addView(Slider(property: "Feedback",
                          value: flanger.feedback,
                          range: -0.95 ... 0.95) { sliderValue in
             flanger.feedback = sliderValue
         })
 
-        addView(AKSlider(property: "Depth", value: flanger.depth) { sliderValue in
+        addView(Slider(property: "Depth", value: flanger.depth) { sliderValue in
             flanger.depth = sliderValue
         })
 
-        addView(AKSlider(property: "Dry Wet Mix", value: flanger.dryWetMix) { sliderValue in
+        addView(Slider(property: "Dry Wet Mix", value: flanger.dryWetMix) { sliderValue in
             flanger.dryWetMix = sliderValue
         })
 
-        addView(AKSlider(property: "Frequency",
+        addView(Slider(property: "Frequency",
                          value: flanger.frequency,
                          range: 0.1 ... 10,
                          format: "%0.1f Hz"

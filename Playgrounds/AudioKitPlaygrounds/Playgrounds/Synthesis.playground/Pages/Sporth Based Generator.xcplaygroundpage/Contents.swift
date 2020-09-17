@@ -1,22 +1,21 @@
 //: ## Sporth Based Generator
 //: AudioKit nodes can be created using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: With this playground you can load up a few demonstration sporth patches to try out.
-import AudioKitPlaygrounds
+
 import AudioKit
 
-var generator = AKOperationGenerator(sporth: "")
+var generator = OperationGenerator(sporth: "")
 engine.output = generator
 try engine.start()
 //: User Interface Set up
-import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
-    var p0Slider: AKSlider!
-    var p1Slider: AKSlider!
-    var p2Slider: AKSlider!
-    var p3Slider: AKSlider!
-    var keyboard: AKKeyboardView!
+    var p0Slider: Slider!
+    var p1Slider: Slider!
+    var p2Slider: Slider!
+    var p3Slider: Slider!
+    var keyboard: KeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
     override func viewDidLoad() {
@@ -32,7 +31,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                            "kLtz",
                            "Scheale",
                            "Simple Keyboard"]
-        addView(AKPresetLoaderView(presets: sporthFiles) { filename in
+        addView(PresetLoaderView(presets: sporthFiles) { filename in
             guard
                 let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
                 let contentData = FileManager.default.contents(atPath: filePath),
@@ -40,10 +39,10 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     return
             }
 
-            AKLog("\n\n\n\n\n\n\(sporth)")
+            Log("\n\n\n\n\n\n\(sporth)")
             generator.sporth = sporth
 
-            let sliders: [AKSlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
+            let sliders: [Slider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
 //            self.keyboard.isHidden = true
@@ -66,7 +65,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    AKLog("Regular expression failed")
+                    Log("Regular expression failed")
                 }
 
                 let value = regex.stringByReplacingMatches(in: line,
@@ -80,7 +79,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    AKLog("Regular expression failed")
+                    Log("Regular expression failed")
                 }
                 let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                         options: .reportCompletion,
@@ -109,28 +108,28 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
         addLabel("Open up the console view to see the Sporth code.")
 
-        p0Slider = AKSlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
+        p0Slider = Slider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
             generator.parameters[0] = sliderValue
         }
 //        p0Slider?.isHidden = true
         addView(p0Slider)
-        p1Slider = AKSlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
+        p1Slider = Slider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
 //        p1Slider?.isHidden = true
         addView(p1Slider)
-        p2Slider = AKSlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
+        p2Slider = Slider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
 //        p2Slider?.isHidden = true
         addView(p2Slider)
-        p3Slider = AKSlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
+        p3Slider = Slider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
 //        p3Slider?.isHidden = true
         addView(p3Slider)
 
-        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard = KeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
 //        keyboard.isHidden = true

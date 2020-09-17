@@ -6,14 +6,14 @@
 //:
 import AudioKit
 
-func instrument(noteNumber: MIDINoteNumber, rate: Double, amplitude: Double) -> AKOperation {
-    let metro = AKOperation.metronome(frequency: 82.0 / (60.0 * rate))
+func instrument(noteNumber: MIDINoteNumber, rate: Double, amplitude: Double) -> Operation {
+    let metro = Operation.metronome(frequency: 82.0 / (60.0 * rate))
     let frequency = noteNumber.midiNoteToFrequency()
-    return AKOperation.fmOscillator(baseFrequency: frequency, amplitude: amplitude)
+    return Operation.fmOscillator(baseFrequency: frequency, amplitude: amplitude)
         .triggeredWithEnvelope(trigger: metro, attack: 0.5, hold: 1, release: 1)
 }
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
     let instrument1 = instrument(noteNumber: 60, rate: 4, amplitude: 0.5)
     let instrument2 = instrument(noteNumber: 62, rate: 5, amplitude: 0.4)
     let instrument3 = instrument(noteNumber: 65, rate: 7, amplitude: 1.3 / 4.0)

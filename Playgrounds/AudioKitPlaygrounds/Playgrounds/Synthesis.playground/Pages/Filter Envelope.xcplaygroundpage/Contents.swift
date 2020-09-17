@@ -1,7 +1,7 @@
 //: ## Filter Envelope
 //:
 //: This is a pretty advanced example.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 enum SynthParameter: Int {
@@ -9,18 +9,18 @@ enum SynthParameter: Int {
 }
 
 struct Synth {
-    static var frequency: AKOperation {
-        return AKOperation.parameters[SynthParameter.frequency.rawValue]
+    static var frequency: Operation {
+        return Operation.parameters[SynthParameter.frequency.rawValue]
     }
-    static var cutoff: AKOperation {
-        return AKOperation.parameters[SynthParameter.cutoff.rawValue]
+    static var cutoff: Operation {
+        return Operation.parameters[SynthParameter.cutoff.rawValue]
     }
-    static var gate: AKOperation {
-        return AKOperation.parameters[SynthParameter.gate.rawValue]
+    static var gate: Operation {
+        return Operation.parameters[SynthParameter.gate.rawValue]
     }
 }
 
-extension AKOperationGenerator {
+extension OperationGenerator {
     var frequency: Double {
         get { return self.parameters[SynthParameter.frequency.rawValue] }
         set(newValue) { self.parameters[SynthParameter.frequency.rawValue] = newValue }
@@ -35,9 +35,9 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator {
+let synth = OperationGenerator {
 
-    let oscillator = AKOperation.fmOscillator(baseFrequency: Synth.frequency,
+    let oscillator = Operation.fmOscillator(baseFrequency: Synth.frequency,
                                               carrierMultiplier: 3,
                                               modulatingMultiplier: 0.7,
                                               modulationIndex: 2,
@@ -61,14 +61,13 @@ synth.start()
 //: Setup the user interface
 let playgroundWidth = 500
 
-import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     override func viewDidLoad() {
         addTitle("Filter Envelope")
 
-        addView(AKSlider(property: "Cutoff Frequency",
+        addView(Slider(property: "Cutoff Frequency",
                          value: synth.cutoff,
                          range: 20 ... 5_000,
                          format: "%0.1f Hz"
@@ -76,7 +75,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             synth.cutoff = frequency
         })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
+        let keyboard = KeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
         addView(keyboard)
     }

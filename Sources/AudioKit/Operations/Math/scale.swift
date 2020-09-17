@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
     ///
@@ -9,10 +9,10 @@ extension AKOperation {
     ///   - maximum: Maximum value to scale to. (Default: 1)
     ///
     public func scale(
-        minimum: AKParameter = 0,
-        maximum: AKParameter = 1
-        ) -> AKOperation {
-        return AKOperation(module: "biscale", inputs: self, minimum, maximum)
+        minimum: OperationParameter = 0,
+        maximum: OperationParameter = 1
+        ) -> Operation {
+        return Operation(module: "biscale", inputs: self, minimum, maximum)
     }
 
 }

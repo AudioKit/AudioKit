@@ -16,7 +16,7 @@ The diagram below shows a typical implementation of an AudioKit based Audio Unit
 
 Both Swift and Objective C are unsuitable to run in the real time render thread, for various reasons not enumerated. Because of this, all code that needs to run on the render thread needs to be written in generic C or C++. These classes are described below.
 
-### `AKDSPBase`
+### `DSPBase`
 
 In order to take advantage of reuse via inheritance, a base class is provided which supports the operations expected of any DSP block by the Audio Unit classes which are written in Objective C and Swift.
 
@@ -24,7 +24,7 @@ In order to take advantage of reuse via inheritance, a base class is provided wh
 
 This C++ class contains the DSP code specific to this particular Audio Unit. It contains a specific processing method which the host calls from the render thread. It also contains functions to interpret any SetParameter or GetParameter calls which provide AUParameter access from sources outside the audio unit itself. Finally, if any direct access is needed to the DSP code which does not need to be exposed outside the AU itself, those access methods will also be found here. 
 
-This class inherits from `AKDSPBase` and can override virtual methods provided by `AKDSPBase`.
+This class inherits from `DSPBase` and can override virtual methods provided by `DSPBase`.
 
 ## Objective C classes
 
@@ -36,19 +36,19 @@ Second, and maybe more important, is that Swift does not support interoperabilit
 
 The objective C classes are described below.
 
-### `AKAudioUnitBase`
+### `AudioUnitBase`
 
 This class provides the functionality needed by any AU, as well as property access to the DSP which is expected from AudioKit Nodes. Importantly, it provides the render block which is called on the render thread.
 
 ### `MyObjcAU`
 
-This class inherits from AKAudioUnitBase, and is not strictly necessary, as it is possible for a Swift object inherit directly from `AKAudioUnitBase`. However, it provides an interoperability layer between the Swift AU object and the underlying C++ DSP. There are all kinds of reasons why this is useful, including providing easy to use access to parameters in the C++ code which are not exposed outside the AU.
+This class inherits from AudioUnitBase, and is not strictly necessary, as it is possible for a Swift object inherit directly from `AudioUnitBase`. However, it provides an interoperability layer between the Swift AU object and the underlying C++ DSP. There are all kinds of reasons why this is useful, including providing easy to use access to parameters in the C++ code which are not exposed outside the AU.
 
 ## Swift classes
 
 ### `MySwiftAU`
 
-Aspects of AU functionality which are inconvenient to implement in the Objective C layer can be implemented in a Swift AU which inherits from either `MyObjcAU` or `AKAudioUnitBase`. An example of this is setting up the `AUParameterTree`, which is much more convenient to do from Swift. 
+Aspects of AU functionality which are inconvenient to implement in the Objective C layer can be implemented in a Swift AU which inherits from either `MyObjcAU` or `AudioUnitBase`. An example of this is setting up the `AUParameterTree`, which is much more convenient to do from Swift. 
 
 ### `MyNode`
 
@@ -56,17 +56,17 @@ TBD
 
 ## Audio Unit Operation
 
-Before an AU can be used, it must be registered. Alternatively, it can be accessed directly as an AKNode, which is what I describe here.
+Before an AU can be used, it must be registered. Alternatively, it can be accessed directly as an Node, which is what I describe here.
 
 ### Instantiation
 
 First `MyNode` is instantiated, which results in an instantiation of `MySwiftAU`. 
 
-`MySwiftAU` will typically calls the constructor of the superclass `MyObjcAU` from its constructor, which will in turn call its superclass `AKAudioUnitBase`.
+`MySwiftAU` will typically calls the constructor of the superclass `MyObjcAU` from its constructor, which will in turn call its superclass `AudioUnitBase`.
 
-Upon instantiation by its constructor `initWithComponentDescription`, `AKAudioUnitBase` will attempt to get a pointer to the underlying C++ by calling its method `initDSPWithSampleRate`. `MyObjAU` (or `MySwiftAU`) is expected to override this method so that it can create and return an instance of the C++ `MyDSP` “DSP Kernel”. 
+Upon instantiation by its constructor `initWithComponentDescription`, `AudioUnitBase` will attempt to get a pointer to the underlying C++ by calling its method `initDSPWithSampleRate`. `MyObjAU` (or `MySwiftAU`) is expected to override this method so that it can create and return an instance of the C++ `MyDSP` “DSP Kernel”. 
 
-The C++ DSP block is stored as a void pointer in `AKAudioUnitBase` because `AKAudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `AKDSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
+The C++ DSP block is stored as a void pointer in `AudioUnitBase` because `AKAudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `DSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
 
 ### `allocateRenderResources` and `internalRenderBlock`
 

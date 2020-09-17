@@ -1,16 +1,16 @@
 //: ## XY Pad
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 import Cocoa
 
-var oscillator = AKFMOscillator()
+var oscillator = FMOscillator()
 oscillator.amplitude = 0.4
-let delay = AKDelay(oscillator)
+let delay = Delay(oscillator)
 delay.feedback = 0.3
 delay.time = 0.1
-let reverb = AKCostelloReverb(delay)
-let mix = AKDryWetMixer(delay, reverb, balance: 0.5)
+let reverb = CostelloReverb(delay)
+let mix = DryWetMixer(delay, reverb, balance: 0.5)
 engine.output = mix
 try engine.start()
 

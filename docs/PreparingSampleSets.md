@@ -1,6 +1,6 @@
-# Preparing sample sets for AKSampler
+# Preparing sample sets for Sampler
 
-Preparing sets of samples for **AKSampler** involves four steps:
+Preparing sets of samples for **Sampler** involves four steps:
 
 1. Preparing (or acquiring) sample files
 2. Compressing sample files
@@ -19,7 +19,7 @@ The demo samples were recorded and prepared by Matthew Fecher from a Yamaha TX81
 Turning a set of rough digital recordings into cleanly-playing, looping samples is a complex process in itself, which is beyond the scope of this document. For a quick introduction, see [The Secrets of Great Sounding Samples](http://tweakheadz.com/sampling-tips/). For in-depth exploration, look into YouTube videos by [John Lemkuhl aka PlugInGuru](https://www.youtube.com/user/thepluginguru), in particular [this one](https://youtu.be/o7rL38xrRSE), [this one](https://youtu.be/qPbf5nNyQYo) and [this one](https://youtu.be/Bx9PC8JJNGg).
 
 ## Sample file compression
-**AKSampler** reads `.wv` files compressed using the open-source [Wavpack](http://www.wavpack.com) software. On the Mac, you must first install the Wavpack command-line tools. Then you can use the following Python 2 script to compress a whole folder-full of `.wav` files:
+**Sampler** reads `.wv` files compressed using the open-source [Wavpack](http://www.wavpack.com) software. On the Mac, you must first install the Wavpack command-line tools. Then you can use the following Python 2 script to compress a whole folder-full of `.wav` files:
 
 ```python
 import os, subprocess
@@ -52,11 +52,11 @@ for aif in os.listdir('.'):
 ```
 
 ## Creating a SFZ metatdata file
-Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **AKSampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)). SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
+Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **Sampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)). SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
 
 In addition to key-mapping, SFZ files can also contain other important metadata such as loop-start and -end points for each sample file.
 
-The full SFZ standard is very rich, but at the time of writing, **AKSampler**'s SFZ import capability is limited to key mapping and loop metadata only.
+The full SFZ standard is very rich, but at the time of writing, **Sampler**'s SFZ import capability is limited to key mapping and loop metadata only.
 
 
 ### How the demo SFZ files were made
@@ -214,4 +214,4 @@ The obvious next step is to combine elements of both scripts, to produce a bette
 Whatever methods you use to create samples and metadata files, it's important to test, test, test, to make sure things are working the way you want.
 
 ## Going further
-The subject of preparing sample sets is deep and complex, and this article has barely scratched the surface. We hope to provide additional online resources as time goes on, especially as **AKSampler**'s implementation expands and changes. Interested users, especially those with practical experience to share, are encouraged to get in touch with the AudioKit team to help with this process.
+The subject of preparing sample sets is deep and complex, and this article has barely scratched the surface. We hope to provide additional online resources as time goes on, especially as **Sampler**'s implementation expands and changes. Interested users, especially those with practical experience to share, are encouraged to get in touch with the AudioKit team to help with this process.

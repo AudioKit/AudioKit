@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// A modal resonance filter used for modal synthesis. Plucked and bell sounds
     /// can be created using  passing an impulse through a combination of modal
@@ -12,9 +12,9 @@ extension AKComputedParameter {
     ///                    (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
     ///
     public func modalResonanceFilter(
-        frequency: AKParameter = 500.0,
-        qualityFactor: AKParameter = 50.0
-        ) -> AKOperation {
-        return AKOperation(module: "mode", inputs: toMono(), frequency, qualityFactor)
+        frequency: OperationParameter = 500.0,
+        qualityFactor: OperationParameter = 50.0
+        ) -> Operation {
+        return Operation(module: "mode", inputs: toMono(), frequency, qualityFactor)
     }
 }

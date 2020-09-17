@@ -5,24 +5,24 @@
 //: rhythmic delay patterns, but they can also be used to create sound
 //: fields of such density that they start to take on some of the qualities
 //: we'd more usually associate with reverb. - Geoff Smith, Sound on Sound
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 //: In AudioKit, you can create a multitap easily through creating a function
 //: that mixes together several delays and gains.
-var delays = [AKVariableDelay]()
+var delays = [VariableDelay]()
 
-func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
-    let mix = AKMixer(input)
+func multitapDelay(_ input: Node, times: [Double], gains: [Double]) -> Mixer {
+    let mix = Mixer(input)
     var counter = 0
     zip(times, gains).forEach { (time, gain) -> Void in
-        delays.append(AKVariableDelay(input, time: time))
-        mix.connect(AKFader(delays[counter], gain: gain))
+        delays.append(VariableDelay(input, time: time))
+        mix.connect(Fader(delays[counter], gain: gain))
         counter += 1
     }
     return mix

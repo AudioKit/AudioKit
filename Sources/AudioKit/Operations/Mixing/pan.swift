@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Panner
     ///
@@ -9,8 +9,8 @@ extension AKComputedParameter {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///          (Default: 0, Minimum: -1, Maximum: 1)
     ///
-    public func pan(_ pan: AKParameter = 0) -> AKStereoOperation {
-        return AKStereoOperation(module: "pan", inputs: toMono(), pan)
+    public func pan(_ pan: OperationParameter = 0) -> StereoOperation {
+        return StereoOperation(module: "pan", inputs: toMono(), pan)
     }
 
     /// Stereo Panner
@@ -20,7 +20,7 @@ extension AKComputedParameter {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///          (Default: 0, Minimum: -1, Maximum: 1)
     ///
-    public func stereoPan(_ pan: AKParameter = 0) -> AKStereoOperation {
-        return AKStereoOperation(module: "panst", inputs: toStereo(), pan)
+    public func stereoPan(_ pan: OperationParameter = 0) -> StereoOperation {
+        return StereoOperation(module: "panst", inputs: toStereo(), pan)
     }
 }

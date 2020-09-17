@@ -12,6 +12,6 @@ var midi = AKMIDI()
 midi.openInput()
 midi.addListener(someClass)
  ```
- ...where someClass conforms to the AKMIDIListener protocol
+ ...where someClass conforms to the MIDIListener protocol
 
-You then implement the methods you need from AKMIDIListener and use the data how you need.
+You then implement the methods you need from MIDIListener and use the data how you need.

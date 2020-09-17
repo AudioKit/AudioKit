@@ -7,17 +7,17 @@
 //: ### This is traditionally done with Low-Frequency Oscillators, LFOs.
 import AudioKit
 
-let generator = AKOperationGenerator {
-    let frequencyLFO = AKOperation.square(frequency: 1)
+let generator = OperationGenerator {
+    let frequencyLFO = Operation.square(frequency: 1)
         .scale(minimum: 440, maximum: 880)
-    let carrierLFO = AKOperation.triangle(frequency: 1)
+    let carrierLFO = Operation.triangle(frequency: 1)
         .scale(minimum: 1, maximum: 2)
-    let modulatingMultiplierLFO = AKOperation.sawtooth(frequency: 1)
+    let modulatingMultiplierLFO = Operation.sawtooth(frequency: 1)
         .scale(minimum: 0.1, maximum: 2)
-    let modulatingIndexLFO = AKOperation.reverseSawtooth(frequency: 1)
+    let modulatingIndexLFO = Operation.reverseSawtooth(frequency: 1)
         .scale(minimum: 0.1, maximum: 20)
 
-    return AKOperation.fmOscillator(
+    return Operation.fmOscillator(
         baseFrequency: frequencyLFO,
         carrierMultiplier: carrierLFO,
         modulatingMultiplier: modulatingMultiplierLFO,

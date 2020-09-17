@@ -12,7 +12,7 @@
 #include "LinearRamper.hpp"
 
 // process samples in "chunks" this size
-#define AKCORESAMPLER_CHUNKSIZE 16 // should probably be set elsewhere - currently only use this for setting up lfo
+#define CORESAMPLER_CHUNKSIZE 16 // should probably be set elsewhere - currently only use this for setting up lfo
 
 namespace AudioKitCore
 {

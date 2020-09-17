@@ -1,15 +1,14 @@
 //: # ADC 2018
-import AudioKitPlaygrounds
 import AudioKit
 //: Components
 let mic = engine.input
-let reverb = AKCostelloReverb()
-var reverbMixer = AKDryWetMixer()
+let reverb = CostelloReverb()
+var reverbMixer = DryWetMixer()
 //: Signal Chain
-let delay = AKVariableDelay(mic)
-let delayMixer = AKDryWetMixer(mic, delay)
-let reverb = AKCostelloReverb(delayMixer)
-reverbMixer = AKDryWetMixer(delayMixer, reverb)
+let delay = VariableDelay(mic)
+let delayMixer = DryWetMixer(mic, delay)
+let reverb = CostelloReverb(delayMixer)
+reverbMixer = DryWetMixer(delayMixer, reverb)
 var output = reverbMixer
 //: Parameters
 delay.time = 0.25
@@ -20,33 +19,32 @@ reverbMixer.balance = 0.2
 reverbMixer.balance = 0.5
 
 // Copies for plotting
-let micCopy1 = AKFader(mic)
-let micCopy2 = AKFader(mic)
-let micCopy3 = AKFader(mic)
+let micCopy1 = Fader(mic)
+let micCopy2 = Fader(mic)
+let micCopy3 = Fader(mic)
 
-engine.output = AKStereoFieldLimiter(reverbMixer)
+engine.output = StereoFieldLimiter(reverbMixer)
 try engine.start()
 
 //: User Interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
-    var trackedAmplitudeSlider: AKSlider!
-    var trackedFrequencySlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
+    var trackedFrequencySlider: Slider!
 
     override func viewDidLoad() {
 
         addTitle("ADC 2018")
 
-        addView(AKSlider(property: "Delay Time", value: delay.time) { sliderValue in
+        addView(Slider(property: "Delay Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         })
-        addView(AKSlider(property: "Delay Feedback", value: delay.feedback) { sliderValue in
+        addView(Slider(property: "Delay Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         })
 
-        let rollingPlot = AKNodeOutputPlot(micCopy2, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
+        let rollingPlot = NodeOutputPlot(micCopy2, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         rollingPlot.plotType = .rolling
         rollingPlot.shouldFill = true
         rollingPlot.shouldMirror = true
@@ -54,7 +52,7 @@ class LiveView: AKLiveViewController {
         rollingPlot.gain = 2
         addView(rollingPlot)
 
-        let plot = AKNodeOutputPlot(micCopy3, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
+        let plot = NodeOutputPlot(micCopy3, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         plot.plotType = .buffer
         plot.shouldFill = true
         plot.shouldMirror = true
@@ -62,7 +60,7 @@ class LiveView: AKLiveViewController {
         plot.gain = 2
         addView(plot)
 
-        let fftPlot = AKNodeFFTPlot(micCopy1, frame: CGRect(x: 0, y: 0, width: 500, height: 200))
+        let fftPlot = NodeFFTPlot(micCopy1, frame: CGRect(x: 0, y: 0, width: 500, height: 200))
         fftPlot.shouldFill = true
         fftPlot.shouldMirror = false
         fftPlot.shouldCenterYAxis = false

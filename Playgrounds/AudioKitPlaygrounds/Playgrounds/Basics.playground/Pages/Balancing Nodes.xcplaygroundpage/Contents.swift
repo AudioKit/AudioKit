@@ -5,21 +5,19 @@
 //: ## Balancing Nodes
 //: Sometimes you want to ensure that an audio signal that you're processing
 //: remains at a volume similar to where it started.
-//: Such an application is perfect for the AKBalancer node.
-import AudioKitPlaygrounds
+//: Such an application is perfect for the Balancer node.
 import AudioKit
-import AudioKitUI
 
 //: This section prepares the players
-let file = try AKAudioFile(readFileName: "drumloop.wav")
-var source = try AKAudioPlayer(file: file)
+let file = try AVAudioFile(readFileName: "drumloop.wav")
+var source = try AudioPlayer(file: file)
 source.looping = true
 
-let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
-let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
+let highPassFiltering = HighPassFilter(source, cutoffFrequency: 900)
+let lowPassFiltering = LowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
-let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
+let rebalancedWithSource = Balancer(lowPassFiltering, comparator: source)
 
 engine.output = rebalancedWithSource
 try engine.start()
@@ -27,14 +25,14 @@ source.play()
 
 //: User Interface Set up
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Balancing Nodes")
 
         addLabel("Listen to the difference in volume:")
 
-        addView(AKButton(title: "Balancing") { button in
+        addView(Button(title: "Balancing") { button in
             let node = rebalancedWithSource
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Balancing" : "Bypassed"

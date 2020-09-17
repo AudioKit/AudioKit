@@ -125,7 +125,7 @@ extension AVAudioPCMBuffer {
         let channelCount = Int(format.channelCount)
 
         guard let peak: AVAudioPCMBuffer.Peak = peak() else {
-            AKLog("Failed getting peak amplitude, returning original buffer")
+            Log("Failed getting peak amplitude, returning original buffer")
             return self
         }
 
@@ -170,10 +170,10 @@ extension AVAudioPCMBuffer {
     /// if you only want one of them
     public func fade(inTime: Double,
                      outTime: Double,
-                     inRampType: AKSettings.RampType = .exponential,
-                     outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+                     inRampType: Settings.RampType = .exponential,
+                     outRampType: Settings.RampType = .exponential) -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
-            AKLog("Error fading buffer, returning original...")
+            Log("Error fading buffer, returning original...")
             return self
         }
 

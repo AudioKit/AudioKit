@@ -1,14 +1,14 @@
 //: ## Simple Reverb
 //: This is an implementation of Apple's simplest reverb which only allows you to set presets
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var reverb = AKReverb(player)
+var reverb = Reverb(player)
 reverb.dryWetMix = 0.5
 
 engine.output = reverb
@@ -17,16 +17,13 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Reverb")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
+        addView(Slider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
             reverb.dryWetMix = sliderValue
         })
 
@@ -34,7 +31,7 @@ class LiveView: AKLiveViewController {
                        "Large Room", "Large Room 2", "Medium Chamber",
                        "Medium Hall", "Medium Hall 2", "Medium Hall 3",
                        "Medium Room", "Plate", "Small Room"]
-        addView(AKPresetLoaderView(presets: presets) { preset in
+        addView(PresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Cathedral":
                 reverb.loadFactoryPreset(.cathedral)

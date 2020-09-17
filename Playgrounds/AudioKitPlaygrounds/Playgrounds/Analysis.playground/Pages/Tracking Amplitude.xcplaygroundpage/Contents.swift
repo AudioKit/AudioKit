@@ -1,49 +1,48 @@
 //: ## Tracking Amplitude
 //: Determing the amplitude of an audio signal by
-//: outputting the value of a generator node into the AKAmplitudeTap.
+//: outputting the value of a generator node into the AmplitudeTap.
 //: This node is great if you want to build an app that does audio monitoring and analysis.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: First lets set up sound source to track
-let oscillatorNode = AKOperationGenerator {
+let oscillatorNode = OperationGenerator {
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = Operation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And lets make the frequency move around to make sure it doesn't affect the amplitude tracking
-    let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
+    let frequency = Operation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
 
     // So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
-    return AKOperation.sineWave(frequency: frequency, amplitude: volume)
+    return Operation.sineWave(frequency: frequency, amplitude: volume)
 }
 
-let trackedAmplitude = AKAmplitudeTap(oscillatorNode)
+let trackedAmplitude = AmplitudeTap(oscillatorNode)
 engine.output = trackedAmplitude
 try engine.start()
 oscillatorNode.start()
 trackedAmplitude.start()
 
 //: User Interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
-    var trackedAmplitudeSlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
 
     override func viewDidLoad() {
 
-        AKPlaygroundLoop(every: 0.1) {
+        PlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = trackedAmplitude.amplitude
         }
 
         addTitle("Tracking Amplitude")
 
-        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
+        trackedAmplitudeSlider = Slider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
         addView(trackedAmplitudeSlider)
 
-        addView(AKRollingOutputPlot.createView())
+        addView(RollingOutputPlot.createView())
     }
 }
 

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// This will digitally degrade a signal.
     ///
@@ -10,10 +10,10 @@ extension AKComputedParameter {
     ///   - sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0.0, Maximum: 20000.0)
     ///
     public func bitCrush(
-        bitDepth: AKParameter = 8,
-        sampleRate: AKParameter = 10_000
-        ) -> AKOperation {
-        return AKOperation(module: "bitcrush",
+        bitDepth: OperationParameter = 8,
+        sampleRate: OperationParameter = 10_000
+        ) -> Operation {
+        return Operation(module: "bitcrush",
                            inputs: toMono(), bitDepth, sampleRate)
     }
 }

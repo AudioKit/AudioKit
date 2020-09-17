@@ -50,7 +50,7 @@ For Hello World, you only need to understand a few lines of code:
 
 | Code                                           | Description                  |
 |------------------------------------------------|------------------------------|
-| `var oscillator = AKOscillator()`              | Create the sound generator   |
+| `var oscillator = Oscillator()`              | Create the sound generator   |
 | `engine.output = oscillator`                | Tell AudioKit what to output |
 | `engine.start()`                            | Start up AudioKit            |
 | `oscillator.start()`                           | Start the oscillator         |

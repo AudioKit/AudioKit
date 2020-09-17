@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// This filter reiterates the input with an echo density determined by loop
     /// time. The attenuation rate is independent and is determined by the
@@ -15,9 +15,9 @@ extension AKComputedParameter {
     ///                   “echo density” of the reverberation. (Default: 0.1, Minimum: 0, Maximum: 1)
     ///
     public func reverberateWithFlatFrequencyResponse(
-        reverbDuration: AKParameter = 0.5,
+        reverbDuration: OperationParameter = 0.5,
         loopDuration: Double = 0.1
-        ) -> AKOperation {
-        return AKOperation(module: "allpass", inputs: toMono(), reverbDuration, loopDuration)
+        ) -> Operation {
+        return Operation(module: "allpass", inputs: toMono(), reverbDuration, loopDuration)
     }
 }

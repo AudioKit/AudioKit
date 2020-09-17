@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// An automatic wah effect, ported from Guitarix via Faust.
     ///
@@ -9,10 +9,10 @@ extension AKComputedParameter {
     ///   - amplitude: Overall level (Default: 0.1, Minimum: 0, Maximum: 1)
     ///
     public func autoWah(
-        wah: AKParameter = 0,
-        amplitude: AKParameter = 0.1
-        ) -> AKOperation {
-        return AKOperation(module: "100 autowah",
+        wah: OperationParameter = 0,
+        amplitude: OperationParameter = 0.1
+        ) -> Operation {
+        return Operation(module: "100 autowah",
                            inputs: toMono(), amplitude, wah)
     }
 }

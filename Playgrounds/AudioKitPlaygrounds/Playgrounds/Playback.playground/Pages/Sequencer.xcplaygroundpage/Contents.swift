@@ -1,28 +1,28 @@
 //: ## Sequencer
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
-var piano = AKMIDISampler()
+var piano = MIDISampler()
 try piano.loadWav("Samples/FM Piano")
 
-var bell = AKMIDISampler()
+var bell = MIDISampler()
 try bell.loadWav("Samples/Bell")
 
-var mixer = AKMixer(piano, bell)
+var mixer = Mixer(piano, bell)
 
-let reverb = AKCostelloReverb(mixer)
+let reverb = CostelloReverb(mixer)
 
-let dryWetMixer = AKDryWetMixer(mixer, reverb, balance: 0.2)
+let dryWetMixer = DryWetMixer(mixer, reverb, balance: 0.2)
 engine.output = dryWetMixer
 
 //: Create the sequencer after AudioKit's output has been set
 //: Load in a midi file, and set the sequencer to the main audiokit engine
-var sequencer = AKAppleSequencer(filename: "4tracks")
+var sequencer = AppleSequencer(filename: "4tracks")
 
 //: Do some basic setup to make the sequence loop correctly
-sequencer.setLength(AKDuration(beats: 4))
+sequencer.setLength(Duration(beats: 4))
 sequencer.enableLooping()
 sequencer.setGlobalMIDIOutput(piano.midiIn)
 
@@ -30,14 +30,13 @@ try engine.start()
 sequencer.play()
 
 //: Set up a basic UI for setting outputs of tracks
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     enum State {
         case bell, piano
     }
-    var buttons: [AKButton] = []
+    var buttons: [Button] = []
     var states: [State] = [.piano, .piano, .piano, .piano]
 
     override func viewDidLoad() {
@@ -45,7 +44,7 @@ class LiveView: AKLiveViewController {
         addTitle("Sequencer")
 
         for i in 0 ..< 4 {
-            let button = AKButton(title: "Track \(i + 1): FM Piano") { _ in
+            let button = Button(title: "Track \(i + 1): FM Piano") { _ in
                 self.states[i] = self.states[i] == .bell ? .piano : .bell
                 self.update()
             }

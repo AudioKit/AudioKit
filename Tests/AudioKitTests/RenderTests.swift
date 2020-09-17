@@ -8,17 +8,17 @@ import XCTest
 class RenderTests: XCTestCase {
 
     func runWith(feedback: Float, silenceThreshold: Float = 0.05) -> Float {
-        let engine = AKEngine()
-        let input = AKOscillator()
-        let automationEvent = AKAutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
-        engine.output = AKCostelloReverb(input, feedback: feedback)
+        let engine = AudioEngine()
+        let input = Oscillator()
+        let automationEvent = AutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
+        engine.output = CostelloReverb(input, feedback: feedback)
         input.$amplitude.automate(events: [automationEvent])
         input.start()
 
         let mgr = FileManager.default
         let url = mgr.temporaryDirectory.appendingPathComponent("test.aiff")
         try? mgr.removeItem(at: url)
-        let file = try! AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings)
+        let file = try! AVAudioFile(forWriting: url, settings: Settings.audioFormat.settings)
 
         try? engine.avEngine.render(to: file,
                                maximumFrameCount: 1_024,
