@@ -4,7 +4,7 @@ import Foundation
 
 #if !os(tvOS)
 
-public protocol AKMIDITempoObserver {
+public protocol MIDITempoObserver {
 
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
     /// This signifies that there is an incoming midi clock detected
@@ -19,7 +19,7 @@ public protocol AKMIDITempoObserver {
     func receivedTempo(bpm: BPMType, label: String)
 }
 
-public extension AKMIDITempoObserver {
+public extension MIDITempoObserver {
 
     func midiClockLeaderMode() {
 
@@ -33,12 +33,12 @@ public extension AKMIDITempoObserver {
 
     }
 
-    func isEqualTo(_ listener: AKMIDITempoObserver) -> Bool {
+    func isEqualTo(_ listener: MIDITempoObserver) -> Bool {
         return self == listener
     }
 }
 
-func == (lhs: AKMIDITempoObserver, rhs: AKMIDITempoObserver) -> Bool {
+func == (lhs: MIDITempoObserver, rhs: MIDITempoObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 
