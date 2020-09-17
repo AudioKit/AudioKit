@@ -11,7 +11,7 @@ import AudioKit
 import AudioKitUI
 
 //: This section prepares the players
-let file = try AKAudioFile(readFileName: "drumloop.wav")
+let file = try AVAudioFile(readFileName: "drumloop.wav")
 var source = try AKAudioPlayer(file: file)
 source.looping = true
 

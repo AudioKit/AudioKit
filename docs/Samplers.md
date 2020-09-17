@@ -5,8 +5,8 @@ The term "sampler" is a bit misleading. Originally, it referred to a hardware de
 AudioKit offers three different sampler modules:
 
 1. **AppleSampler** is a Swift wrapper for *AUSampler*, a powerful sampler Audio Unit built into both the iOS and macOS operating systems. It is most commonly used via the higher-level Swift wrapper class **AKMIDISampler**.
-2. **AKSamplePlayer** is a simpler, monophonic sampler Audio Unit written in Objective-C and wrapped in Swift, which allows loading a single sample from an **AKAudioFile** into memory, with precise control over playback.
-3. **Sampler** is a polyphonic Audio Unit with a platform-agnostic C++ core and a Swift wrapper (with a thin Objective-C layer in between). It reads standard audio files via **AKAudioFile**, as well as a more efficient [Wavpack](http://www.wavpack.com/)-based compressed format.
+2. **AKSamplePlayer** is a simpler, monophonic sampler Audio Unit written in Objective-C and wrapped in Swift, which allows loading a single sample from an **AVAudioFile** into memory, with precise control over playback.
+3. **Sampler** is a polyphonic Audio Unit with a platform-agnostic C++ core and a Swift wrapper (with a thin Objective-C layer in between). It reads standard audio files via **AVAudioFile**, as well as a more efficient [Wavpack](http://www.wavpack.com/)-based compressed format.
 
 ## AppleSampler and AKMIDISampler
 **NOTE:** In earlier versions of AudioKit, **AppleSampler** was called **Sampler**.
@@ -26,7 +26,7 @@ The AudioKit class **AppleSampler** basically just wraps an instance of *AUsampl
 ## AKSamplePlayer
 **AKSamplePlayer** was the AudioKit group's first attempt to address some of the limitations of *AUSampler*/**AppleSampler**, by building a new sample-playback engine in Objective-C.
 
-**SamplerPlayer** loads a single sample into memory (via an **AKAudioFile** which can interpret most common audio-file formats) and allows very precise programmatic control over playback parameters, such as loop start and end points, which in **AppleSampler** must be pre-coded into a metadata file.
+**SamplerPlayer** loads a single sample into memory (via an **AVAudioFile** which can interpret most common audio-file formats) and allows very precise programmatic control over playback parameters, such as loop start and end points, which in **AppleSampler** must be pre-coded into a metadata file.
 
 Although it does allow control of playback speed by means of the `rate` property, **SamplerPlayer** was not designed for MIDI control. It has no built-in means to convert note pitches into `rate` changes. It is therefore primarily useful for atonal samples such as drums or sound-effects, which don't require pitch-shifting.
 

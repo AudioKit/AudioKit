@@ -1,6 +1,6 @@
 //: # Playback Playgrounds
 //:
-//: ## Working with AKAudioFile:
+//: ## Working with AVAudioFile:
 //:
 //: * [Audio Player](Audio%20Player)
 //: * [Sample Player](Sample%20Player)

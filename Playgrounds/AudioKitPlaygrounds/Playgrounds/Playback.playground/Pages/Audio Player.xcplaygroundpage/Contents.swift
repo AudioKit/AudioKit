@@ -7,7 +7,7 @@ import PlaygroundSupport
 
 var player: AKPlayer!
 
-if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
+if let mixloop = try? AVAudioFile(readFileName: "mixloop.wav") {
     player = AKPlayer(audioFile: mixloop)
     player.completionHandler = { AKLog("completion callback has been triggered!") }
     player.isLooping = true

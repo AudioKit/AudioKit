@@ -19,8 +19,8 @@ let reverb = AKReverb(oscMixer)
 reverb.loadFactoryPreset(.largeHall)
 reverb.dryWetMix = 0.5
 
-//: Create an AKAudioFile to record to:
-let tape = try AKAudioFile()
+//: Create an AVAudioFile to record to:
+let tape = try AVAudioFile()
 //: We set a player to playback our "tape"
 let player = try AKAudioPlayer(file: tape)
 

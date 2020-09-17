@@ -23,12 +23,12 @@ class AudioEngine {
     var player: AKPlayer!
     var delay: Delay!
     var reverb: AKReverb!
-    var file: AKAudioFile!
+    var file: AVAudioFile!
 
     init() {
         // Set up a player to the loop the file's playback
         do {
-            file = try AKAudioFile(readFileName: "drumloop.wav")
+            file = try AVAudioFile(readFileName: "drumloop.wav")
         } catch {
             AKLog("File Not Found")
             return
