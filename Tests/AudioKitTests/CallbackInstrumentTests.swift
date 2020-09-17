@@ -41,7 +41,7 @@ class AKCallbackInstrumentTests: XCTestCase {
             }
         }
 
-        let track = AKSequencerTrack(targetNode: instrument)
+        let track = SequencerTrack(targetNode: instrument)
         track.sequence = getTestSequence()
         track.loopEnabled = false
         track.playFromStart()

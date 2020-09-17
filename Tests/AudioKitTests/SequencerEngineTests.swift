@@ -5,7 +5,7 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKSequencerEngineTests: XCTestCase {
+class SequencerEngineTests: XCTestCase {
 
     func observerTest(sequence: AKSequence,
                       frameCount: AUAudioFrameCount = 44100,
@@ -33,7 +33,7 @@ class AKSequencerEngineTests: XCTestCase {
 
         sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
             sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
-                let observer = AKSequencerEngineUpdateSequence(engine,
+                let observer = SequencerEngineUpdateSequence(engine,
                                                                eventsPtr.baseAddress,
                                                                sequence.events.count,
                                                                notesPtr.baseAddress,

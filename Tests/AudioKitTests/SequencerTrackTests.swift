@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFoundation
 
-class AKSequencerTrackTests: XCTestCase {
+class SequencerTrackTests: XCTestCase {
 
     func getTestSequence() -> AKSequence {
         var seq = AKSequence()
@@ -17,7 +17,7 @@ class AKSequencerTrackTests: XCTestCase {
 
     func testEmptyTrack() {
         let flute = Flute()
-        let seq = AKSequencerTrack(targetNode: flute)
+        let seq = SequencerTrack(targetNode: flute)
         XCTAssertFalse(seq.isPlaying)
 
         XCTAssertEqual(seq.length, 4.0) // One measure
@@ -28,7 +28,7 @@ class AKSequencerTrackTests: XCTestCase {
         let engine = AudioEngine()
         let flute = Flute()
 
-        let track = AKSequencerTrack(targetNode: flute)
+        let track = SequencerTrack(targetNode: flute)
         engine.output = flute
 
         track.sequence = getTestSequence()
@@ -45,7 +45,7 @@ class AKSequencerTrackTests: XCTestCase {
         let engine = AudioEngine()
         let flute = Flute()
 
-        let track = AKSequencerTrack(targetNode: flute)
+        let track = SequencerTrack(targetNode: flute)
         engine.output = flute
 
         track.sequence = getTestSequence()
@@ -63,7 +63,7 @@ class AKSequencerTrackTests: XCTestCase {
         let engine = AudioEngine()
         let flute = Flute()
 
-        let track = AKSequencerTrack(targetNode: flute)
+        let track = SequencerTrack(targetNode: flute)
         engine.output = flute
 
         track.sequence = getTestSequence()

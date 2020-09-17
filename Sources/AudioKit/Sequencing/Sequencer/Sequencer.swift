@@ -7,9 +7,9 @@ import Foundation
 /// Open-source AudioKit Sequencer
 ///
 /// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AppleSequencer"
-open class AKSequencer {
+open class Sequencer {
     /// Array of sequencer tracks
-    open var tracks = [AKSequencerTrack]()
+    open var tracks = [SequencerTrack]()
 
     /// Overall playback speed
     open var tempo: BPM {
@@ -45,7 +45,7 @@ open class AKSequencer {
     /// - Parameter targetNodes: Array of nodes to target for each track
     public required init(targetNodes: [Node]? = nil) {
         if let targetNodes = targetNodes {
-            tracks = targetNodes.enumerated().map { AKSequencerTrack(targetNode: $0.element) }
+            tracks = targetNodes.enumerated().map { SequencerTrack(targetNode: $0.element) }
         } else {
             Log("no nodes connected to sequencer at init - be sure to connect some via addTrack")
         }
@@ -176,15 +176,15 @@ open class AKSequencer {
     /// Retrived a track for a given node
     /// - Parameter node: Node you want to access the tack for
     /// - Returns: Track associated with the given node
-    public func getTrackFor(node: Node) -> AKSequencerTrack? {
+    public func getTrackFor(node: Node) -> SequencerTrack? {
         return tracks.first(where: { $0.targetNode === node })
     }
 
     /// Add track associated with a node
     /// - Parameter node: Node to create the track for
     /// - Returns: Track associated with the given node
-    public func addTrack(for node: Node) -> AKSequencerTrack {
-        let track = AKSequencerTrack(targetNode: node)
+    public func addTrack(for node: Node) -> SequencerTrack {
+        let track = SequencerTrack(targetNode: node)
         tracks.append(track)
         return track
     }

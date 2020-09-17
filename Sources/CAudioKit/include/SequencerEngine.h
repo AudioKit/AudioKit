@@ -25,16 +25,16 @@ typedef struct {
     uint numberOfLoops;
 } AKSequenceSettings;
 
-typedef struct AKSequencerEngine* AKSequencerEngineRef;
+typedef struct SequencerEngine* SequencerEngineRef;
 
 /// Creates the audio-thread-only state for the sequencer.
-AK_API AKSequencerEngineRef akSequencerEngineCreate(void);
+AK_API SequencerEngineRef akSequencerEngineCreate(void);
 
 /// Deallocate the sequencer.
-AK_API void akSequencerEngineDestroy(AKSequencerEngineRef engine);
+AK_API void akSequencerEngineDestroy(SequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
-AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
+AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                         const AKSequenceEvent* events,
                                                         size_t eventCount,
                                                         const AKSequenceNote* notes,
@@ -44,14 +44,14 @@ AK_API AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef eng
                                                         AUScheduleMIDIEventBlock block);
 
 /// Returns the sequencer playhead position in beats.
-AK_API double akSequencerEngineGetPosition(AKSequencerEngineRef engine);
+AK_API double akSequencerEngineGetPosition(SequencerEngineRef engine);
 
 /// Move the playhead to a location in beats.
-AK_API void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position);
+AK_API void akSequencerEngineSeekTo(SequencerEngineRef engine, double position);
 
-AK_API void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing);
+AK_API void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing);
 
-AK_API bool akSequencerEngineIsPlaying(AKSequencerEngineRef engine);
+AK_API bool akSequencerEngineIsPlaying(SequencerEngineRef engine);
 
 /// Stop all notes currently playing.
-AK_API void akSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine);
+AK_API void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine);
