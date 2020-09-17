@@ -10,11 +10,11 @@ namespace AudioKitCore
     struct SynthVoice;
 }
 
-class AKCoreSynth
+class CoreSynth
 {
 public:
-    AKCoreSynth();
-    ~AKCoreSynth();
+    CoreSynth();
+    ~CoreSynth();
     
     /// returns system error code, nonzero only if a problem occurs
     int init(double sampleRate);

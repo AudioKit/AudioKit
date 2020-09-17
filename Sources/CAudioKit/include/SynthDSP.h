@@ -42,7 +42,7 @@ AK_API void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
 #include "CoreSynth.h"
 #include "LinearParameterRamp.h"
 
-struct SynthDSP : AKDSPBase, AKCoreSynth
+struct SynthDSP : AKDSPBase, CoreSynth
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
