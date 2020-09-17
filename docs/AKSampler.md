@@ -9,10 +9,6 @@ In earlier versions of AudioKit, the name **Sampler** referred to the module now
 
 **Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AppleSampler** (formerly called Sampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
 
-## Sampler vs AKSamplePlayer
-
-If your app only needs to load and play back samples individually, without a lot of pitch-shifting, you should also consider using **AKSamplePlayer**, which provides more precise and dynamic control of looping.
-
 ## Loading samples
 **Sampler** provides three distinct mechanisms for loading samples:
 
