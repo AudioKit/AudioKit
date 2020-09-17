@@ -9,7 +9,7 @@ class SequencerEngineTests: XCTestCase {
 
     func observerTest(sequence: NoteEventSequence,
                       frameCount: AUAudioFrameCount = 44100,
-                      renderCallCount: Int = 1) -> [AKMIDIEvent] {
+                      renderCallCount: Int = 1) -> [MIDIEvent] {
 
         let engine = akSequencerEngineCreate()
 
@@ -19,7 +19,7 @@ class SequencerEngineTests: XCTestCase {
                                           loopEnabled: true,
                                           numberOfLoops: 0)
 
-        var events = [AKMIDIEvent]()
+        var events = [MIDIEvent]()
 
         let block: AUScheduleMIDIEventBlock = { (sampleTime, cable, length, midiBytes) in
 
@@ -27,7 +27,7 @@ class SequencerEngineTests: XCTestCase {
             for index in 0 ..< length {
                 bytes.append(midiBytes[index])
             }
-            events.append(AKMIDIEvent(data: bytes, offset: MIDITimeStamp(sampleTime - AUEventSampleTimeImmediate)))
+            events.append(MIDIEvent(data: bytes, offset: MIDITimeStamp(sampleTime - AUEventSampleTimeImmediate)))
 
         }
 

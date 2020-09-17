@@ -5,12 +5,12 @@
 import os.log
 
 public protocol AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent]
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent]
 }
 
 /// Default transformer function
 public extension AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
         Log("MIDI Transformer called", log: OSLog.midi)
         return eventList
     }

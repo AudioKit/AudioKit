@@ -30,11 +30,11 @@ class LiveView: View, KeyboardDelegate {
     }
 
     func noteOn(note: MIDINoteNumber) {
-        midi.sendEvent(AKMIDIEvent(noteOn: note, velocity: 80, channel: 1))
+        midi.sendEvent(MIDIEvent(noteOn: note, velocity: 80, channel: 1))
     }
 
     func noteOff(note: MIDINoteNumber) {
-        midi.sendEvent(AKMIDIEvent(noteOff: note, velocity: 0, channel: 1))
+        midi.sendEvent(MIDIEvent(noteOff: note, velocity: 0, channel: 1))
     }
 }
 

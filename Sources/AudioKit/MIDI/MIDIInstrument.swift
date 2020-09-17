@@ -40,13 +40,13 @@ open class AKMIDIInstrument: PolyphonicNode, MIDIListener {
                          name: String = "AudioKit MIDI Instrument") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                let event = AKMIDIEvent(packet: e)
+                let event = MIDIEvent(packet: e)
                 self.handle(event: event)
             }
         })
     }
 
-    private func handle(event: AKMIDIEvent) {
+    private func handle(event: MIDIEvent) {
         guard event.data.count > 2 else {
             return
         }

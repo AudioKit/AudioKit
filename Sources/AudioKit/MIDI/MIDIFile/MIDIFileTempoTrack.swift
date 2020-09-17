@@ -14,7 +14,7 @@ public struct MIDIFileTempoTrack {
         return track.name
     }
 
-    public var events: [AKMIDIEvent] {
+    public var events: [MIDIEvent] {
         return track.events
     }
 

@@ -146,7 +146,7 @@ open class Sequencer {
     ///   - event: Event to add
     ///   - position: Location in time in beats to add the event at
     ///   - trackIndex: Which track to add the event
-    public func add(event: AKMIDIEvent, position: Double, trackIndex: Int = 0) {
+    public func add(event: MIDIEvent, position: Double, trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
             Log("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return

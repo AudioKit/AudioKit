@@ -74,8 +74,8 @@ midi.inputNames
 midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        var transformedList = [AKMIDIEvent]()
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
+        var transformedList = [MIDIEvent]()
 
         for event in eventList {
             guard let type = event.status?.type else {
@@ -95,7 +95,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOn: MIDINoteNumber(newNote),
                                                            velocity: event.data[2],
                                                            channel: event.channel!))
                     }
@@ -112,7 +112,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOff: MIDINoteNumber(newNote),
                                                            velocity: 0,
                                                            channel: event.channel!))
                     }
