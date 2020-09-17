@@ -2,43 +2,42 @@
 //: Tracking frequency is just as easy as tracking amplitude, and even
 //: includes amplitude, but it is more CPU intensive, so if you just need amplitude,
 //: use the amplitude tracker.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: First lets set up sound source to track
-let oscillatorNode = AKOperationGenerator {
+let oscillatorNode = OperationGenerator {
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = Operation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And let's make the frequency also be a sineWave
-    let frequency = AKOperation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2_200)
+    let frequency = Operation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2_200)
 
-    return AKOperation.sineWave(frequency: frequency, amplitude: volume)
+    return Operation.sineWave(frequency: frequency, amplitude: volume)
 }
 
-let tracker = AKPitchTap(oscillatorNode)
-let fader = AKFader(tracker, gain: 0.5)
-let secondaryOscillator = AKOscillator()
+let tracker = PitchTap(oscillatorNode)
+let fader = Fader(tracker, gain: 0.5)
+let secondaryOscillator = Oscillator()
 
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
-engine.output = AKMixer(fader, secondaryOscillator)
+engine.output = Mixer(fader, secondaryOscillator)
 try engine.start()
 
 oscillatorNode.start()
 secondaryOscillator.start()
 
 //: User Interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
-    var trackedAmplitudeSlider: AKSlider!
-    var trackedFrequencySlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
+    var trackedFrequencySlider: Slider!
 
     override func viewDidLoad() {
 
-        AKPlaygroundLoop(every: 0.1) {
+        PlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
             secondaryOscillator.frequency = tracker.frequency
@@ -47,12 +46,12 @@ class LiveView: AKLiveViewController {
 
         addTitle("Tracking Frequency")
 
-        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
+        trackedAmplitudeSlider = Slider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
             // Do nothing, just for display
         }
         addView(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+        trackedFrequencySlider = Slider(property: "Tracked Frequency",
                                           range: 0 ... 2_400,
                                           format: "%0.3f Hz"
         ) { _ in
@@ -60,7 +59,7 @@ class LiveView: AKLiveViewController {
         }
         addView(trackedFrequencySlider)
 
-        addView(AKRollingOutputPlot.createView())
+        addView(RollingOutputPlot.createView())
     }
 }
 

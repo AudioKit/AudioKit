@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Keep track of the number of times a trigger has fired
     ///
@@ -9,7 +9,7 @@ extension AKOperation {
     ///   - looping: If set to true, when the maximum is reaching, the count goes back to zero,
     ///              otherwise it stays at the maximum
     ///
-    public func count(maximum: AKParameter = 1_000_000, looping: Bool = true) -> AKOperation {
-        return AKOperation(module: "count", inputs: toMono(), maximum, looping ? 0 : 1)
+    public func count(maximum: OperationParameter = 1_000_000, looping: Bool = true) -> Operation {
+        return Operation(module: "count", inputs: toMono(), maximum, looping ? 0 : 1)
     }
 }

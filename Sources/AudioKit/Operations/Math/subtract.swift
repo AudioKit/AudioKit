@@ -1,12 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
     /// Subtraction of parameters
     ///
     /// - parameter subtrahend: The amount to subtract
     ///
-    public func minus(_ subtrahend: AKParameter) -> AKOperation {
-        return AKOperation(module: "-", inputs: self, subtrahend)
+    public func minus(_ subtrahend: OperationParameter) -> Operation {
+        return Operation(module: "-", inputs: self, subtrahend)
     }
 }
 
@@ -16,7 +16,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func - (left: AKParameter, right: AKParameter) -> AKOperation {
+public func - (left: OperationParameter, right: OperationParameter) -> Operation {
     return left.toMono().minus(right)
 }
 
@@ -26,8 +26,8 @@ public func - (left: AKParameter, right: AKParameter) -> AKOperation {
 ///   - first: 1st parameter
 ///   - second: 2nd parameter
 ///
-public func - (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "rot swap - rot rot swap -",
+public func - (first: StereoOperation, second: StereoOperation) -> StereoOperation {
+    return StereoOperation(module: "rot swap - rot rot swap -",
                              inputs: first.left(), first.right(), second.left(), second.right())
 }
 
@@ -35,15 +35,15 @@ public func - (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoO
 ///
 /// - parameter parameter: Parameter to negate
 ///
-public prefix func - (x: AKParameter) -> AKOperation {
-    return AKOperation(module: "0 swap -", inputs: x)
+public prefix func - (x: OperationParameter) -> Operation {
+    return Operation(module: "0 swap -", inputs: x)
 }
 
 /// Negation
 ///
 /// - parameter parameter: Parameter to negate
 ///
-public prefix func - (x: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
+public prefix func - (x: StereoOperation) -> StereoOperation {
+    return StereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
 
 }

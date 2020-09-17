@@ -1,15 +1,14 @@
 //: ## Audio Player
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
-import AudioKitUI
 import PlaygroundSupport
 
-var player: AKPlayer!
+var player: AudioPlayer!
 
-if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
-    player = AKPlayer(audioFile: mixloop)
-    player.completionHandler = { AKLog("completion callback has been triggered!") }
+if let mixloop = try? AVAudioFile(readFileName: "mixloop.wav") {
+    player = AudioPlayer(audioFile: mixloop)
+    player.completionHandler = { Log("completion callback has been triggered!") }
     player.isLooping = true
     engine.output = player
     try engine.start()
@@ -18,33 +17,33 @@ if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     // UI Elements we'll need to be able to access
-    var inPositionSlider: AKSlider!
-    var outPositionSlider: AKSlider!
-    var playingPositionSlider: AKSlider!
-    var fadeInSlider: AKSlider!
-    var fadeOutSlider: AKSlider!
+    var inPositionSlider: Slider!
+    var outPositionSlider: Slider!
+    var playingPositionSlider: Slider!
+    var fadeInSlider: Slider!
+    var fadeOutSlider: Slider!
 
     override func viewDidLoad() {
-        AKPlaygroundLoop(every: 1 / 10.0) {
+        PlaygroundLoop(every: 1 / 10.0) {
             if player.duration > 0 {
                 self.playingPositionSlider?.value = player.currentTime
             }
         }
         addTitle("Audio Player")
 
-        addView(AKButton(title: "Play") { button in
+        addView(Button(title: "Play") { button in
             player.play()
         })
 
-        addView(AKButton(title: "Disable Looping") { button in
+        addView(Button(title: "Disable Looping") { button in
             player.isLooping = !player.isLooping
             button.title = player.isLooping ? "Disable Looping" : "Enable Looping"
         })
 
-        addView(AKButton(title: "Normal →") { button in
+        addView(Button(title: "Normal →") { button in
             let wasPlaying = player.isPlaying
             if wasPlaying { player.stop() }
             player.isReversed = !player.isReversed
@@ -52,7 +51,7 @@ class LiveView: AKLiveViewController {
             if wasPlaying { player.play(from: 0) }
         })
 
-        fadeInSlider = AKSlider(property: "Fade In",
+        fadeInSlider = Slider(property: "Fade In",
                                 value: player.fade.inTime,
                                 range: 0 ... 2,
                                 format: "%0.3f s"
@@ -64,7 +63,7 @@ class LiveView: AKLiveViewController {
         }
         addView(fadeInSlider)
 
-        fadeOutSlider = AKSlider(property: "Fade Out",
+        fadeOutSlider = Slider(property: "Fade Out",
                                  value: player.fade.outTime,
                                  range: 0 ... 2,
                                  format: "%0.3f s"
@@ -75,7 +74,7 @@ class LiveView: AKLiveViewController {
         }
         addView(fadeOutSlider)
 
-        inPositionSlider = AKSlider(property: "In Position",
+        inPositionSlider = Slider(property: "In Position",
                                     value: 0,
                                     range: 0 ... 3.429,
                                     format: "%0.3f s"
@@ -87,7 +86,7 @@ class LiveView: AKLiveViewController {
         }
         addView(inPositionSlider)
 
-        outPositionSlider = AKSlider(property: "Out Position",
+        outPositionSlider = Slider(property: "Out Position",
                                      value: 3.429,
                                      range: 0 ... 3.429,
                                      format: "%0.3f s"
@@ -99,7 +98,7 @@ class LiveView: AKLiveViewController {
         }
         addView(outPositionSlider)
 
-        playingPositionSlider = AKSlider(property: "Position",
+        playingPositionSlider = Slider(property: "Position",
                                          value: player.currentTime,
                                          range: 0 ... player.duration,
                                          format: "%0.3f s"

@@ -1,6 +1,6 @@
 //: ## Microtonality
 
-import AudioKitPlaygrounds
+
 import AudioKit
 
 // SEQUENCER PARAMETERS
@@ -9,7 +9,7 @@ var transposition: Int = 0
 var performanceCounter: Int = 0
 
 // OSC
-let osc = AKMorphingOscillatorBank()
+let osc = MorphingOscillatorBank()
 osc.index = 0.8
 osc.attackDuration = 0.001
 osc.decayDuration = 0.25
@@ -17,34 +17,34 @@ osc.sustainLevel = 0.238_186
 osc.releaseDuration = 0.125
 
 // FILTER
-let filter = AKKorgLowPassFilter(osc)
+let filter = KorgLowPassFilter(osc)
 filter.cutoffFrequency = 5_500
 filter.resonance = 0.2
-let generatorFader = AKFader(filter)
+let generatorFader = Fader(filter)
 generatorFader.gain = 0.618
 
 // DELAY
-let delay = AKDelay(generatorFader)
+let delay = Delay(generatorFader)
 delay.time = 1.0 / playRate
 delay.feedback = 0.618
 delay.lowPassCutoff = 12_048
 delay.dryWetMix = 0.75
-let delayFader = AKFader(delay)
+let delayFader = Fader(delay)
 delayFader.gain = 1.550_8
 
 // REVERB
-let reverb = AKCostelloReverb(delayFader)
+let reverb = CostelloReverb(delayFader)
 reverb.feedback = 0.758_816_18
 reverb.cutoffFrequency = 2_222 + 1_000
-let reverbFader = AKFader(reverb)
+let reverbFader = Fader(reverb)
 reverbFader.gain = 0.746_7
 
 // MIX
-let mixer = AKMixer(generatorFader, reverbFader)
+let mixer = Mixer(generatorFader, reverbFader)
 
 // MICROTONAL PRESETS
 var presetDictionary = [String: () -> Void]()
-let tuningTable = AKPolyphonicNode.tuningTable
+let tuningTable = PolyphonicNode.tuningTable
 presetDictionary["Ahir Bhairav"] = { tuningTable.presetPersian17NorthIndian19AhirBhairav() }
 presetDictionary["Basant Mukhari"] = { tuningTable.presetPersian17NorthIndian21BasantMukhari() }
 presetDictionary["Champakali"] = { tuningTable.presetPersian17NorthIndian22Champakali() }
@@ -104,7 +104,7 @@ func nnCalc(_ counter: Int) -> MIDINoteNumber {
 }
 
 // periodic function for arpeggio
-let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
+let sequencerFunction = PeriodicFunction(frequency: playRate) {
 
     // send note off for notes in the past
     let pastNN = nnCalc(performanceCounter - 2)
@@ -112,7 +112,7 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 
     // send note on for notes in the present
     let presentNN = nnCalc(performanceCounter)
-    let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
+    let frequency = PolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
     osc.play(noteNumber: presentNN, velocity: 127, frequency: frequency)
 
     performanceCounter += 1
@@ -123,23 +123,22 @@ engine.output = mixer
 try engine.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")
 
-        addView(AKPresetLoaderView(presets: presetArray) { preset in
+        addView(PresetLoaderView(presets: presetArray) { preset in
             presetDictionary[preset]?()
         })
 
-        addView(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
+        addView(PresetLoaderView(presets: sequencerPatternPresets) { preset in
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })
 
-        addView(AKSlider(property: "MIDI Transposition",
+        addView(Slider(property: "MIDI Transposition",
                          value: Double(transposition),
                          range: -16 ... 16,
                          format: "%.0f"
@@ -148,29 +147,29 @@ class LiveView: AKLiveViewController {
             osc.reset()
         })
 
-        addView(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
+        addView(Slider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Gain", value: generatorFader.gain, range: 0 ... 4) { sliderValue in
+        addView(Slider(property: "OSC Gain", value: generatorFader.gain, range: 0 ... 4) { sliderValue in
             generatorFader.gain = sliderValue
         })
 
-        addView(AKSlider(property: "FILTER Frequency Cutoff",
+        addView(Slider(property: "FILTER Frequency Cutoff",
                          value: filter.cutoffFrequency,
                          range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addView(AKSlider(property: "FILTER Frequency Resonance",
+        addView(Slider(property: "FILTER Frequency Resonance",
                          value: filter.resonance,
                          range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Amp Attack",
+        addView(Slider(property: "OSC Amp Attack",
                          value: osc.attackDuration,
                          range: 0 ... 2,
                          format: "%0.3f s"
@@ -178,7 +177,7 @@ class LiveView: AKLiveViewController {
             osc.attackDuration = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Amp Decay",
+        addView(Slider(property: "OSC Amp Decay",
                          value: osc.decayDuration,
                          range: 0 ... 2,
                          format: "%0.3f s"
@@ -186,7 +185,7 @@ class LiveView: AKLiveViewController {
             osc.decayDuration = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Amp Sustain",
+        addView(Slider(property: "OSC Amp Sustain",
                          value: osc.sustainLevel,
                          range: 0 ... 2,
                          format: "%0.3f s"
@@ -194,7 +193,7 @@ class LiveView: AKLiveViewController {
             osc.sustainLevel = sliderValue
         })
 
-        addView(AKSlider(property: "OSC Amp Release",
+        addView(Slider(property: "OSC Amp Release",
                          value: osc.releaseDuration,
                          range: 0 ... 2,
                          format: "%0.3f s"

@@ -23,7 +23,7 @@ extension AVAudioFile {
             framePosition = 0
             try write(from: buffer)
         } catch let error as NSError {
-            AKLog(error, type: .error)
+            Log(error, type: .error)
             throw error
         }
     }
@@ -36,10 +36,10 @@ extension AVAudioFile {
         do {
             framePosition = 0
             try read(into: buffer)
-            AKLog("Created buffer with format", processingFormat)
+            Log("Created buffer with format", processingFormat)
 
         } catch let error as NSError {
-            AKLog("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
+            Log("Cannot read into buffer " + error.localizedDescription, log: OSLog.fileHandling, type: .error)
         }
 
         return buffer
@@ -59,12 +59,12 @@ extension AVAudioFile {
                                            fadeInTime: TimeInterval = 0,
                                            fadeOutTime: TimeInterval = 0) -> AVAudioFile? {
         guard let inputBuffer = toAVAudioPCMBuffer() else {
-            AKLog("Error reading into input buffer", type: .error)
+            Log("Error reading into input buffer", type: .error)
             return nil
         }
 
         guard var editedBuffer = inputBuffer.extract(from: startTime, to: endTime) else {
-            AKLog("Failed to create edited buffer", type: .error)
+            Log("Failed to create edited buffer", type: .error)
             return nil
         }
 
@@ -79,7 +79,7 @@ extension AVAudioFile {
         }
 
         guard let outputFile = try? AVAudioFile(url: outputURL, fromBuffer: editedBuffer) else {
-            AKLog("Failed to write new file at", outputURL, type: .error)
+            Log("Failed to write new file at", outputURL, type: .error)
             return nil
         }
         return outputFile
@@ -91,15 +91,15 @@ extension AVAudioFile {
                         to endTime: TimeInterval,
                         fadeInTime: TimeInterval = 0,
                         fadeOutTime: TimeInterval = 0,
-                        options: AKConverter.Options? = nil,
-                        completionHandler: AKConverter.AKConverterCallback? = nil) {
+                        options: FormatConverter.Options? = nil,
+                        completionHandler: FormatConverter.FormatConverterCallback? = nil) {
         func createError(message: String, code: Int = 1) -> NSError {
             let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-            return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
+            return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
         }
 
         // if options are nil, create them to match the input file
-        let options = options ?? AKConverter.Options(audioFile: self)
+        let options = options ?? FormatConverter.Options(audioFile: self)
 
         let format = options?.format ?? url.pathExtension
         let directory = url.deletingLastPathComponent()
@@ -123,11 +123,11 @@ extension AVAudioFile {
             return
         }
 
-        let converter = AKConverter(inputURL: tempFile, outputURL: outputURL, options: options)
+        let converter = FormatConverter(inputURL: tempFile, outputURL: outputURL, options: options)
         converter.start { error in
 
             if let error = error {
-                AKLog("Done, error", error, type: .error)
+                Log("Done, error", error, type: .error)
             }
 
             completionHandler?(error)
@@ -136,7 +136,7 @@ extension AVAudioFile {
                 // clean up temp file
                 try FileManager.default.removeItem(at: tempFile)
             } catch {
-                AKLog("Unable to remove temp file at", tempFile, type: .error)
+                Log("Unable to remove temp file at", tempFile, type: .error)
             }
         }
     }

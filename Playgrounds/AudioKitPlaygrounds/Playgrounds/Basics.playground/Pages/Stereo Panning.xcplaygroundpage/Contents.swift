@@ -4,23 +4,23 @@
 //:
 //: ## Stereo Panning
 //: Panning is a basic operation that is essential to mixing and direction
-//: perception and it couldn't be easier with AKPanner.
-import AudioKitPlaygrounds
+//: perception and it couldn't be easier with Panner.
+
 import AudioKit
 
 //: Set up the audio player
-let file = try AKAudioFile(readFileName: "drumloop.wav")
+let file = try AVAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 //: Route the audio player through the panner
-var panner = AKPanner(player)
+var panner = Panner(player)
 
 //: Adjust the pan to smoothly cycle left and right over time
 var time = 0.0
 let timeStep = 0.05
-let timer = AKPeriodicFunction(every: timeStep) {
+let timer = PeriodicFunction(every: timeStep) {
     panner.pan = sin(time)
     time += timeStep
 }

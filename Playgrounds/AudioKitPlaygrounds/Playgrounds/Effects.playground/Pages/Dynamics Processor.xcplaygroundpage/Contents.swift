@@ -1,17 +1,17 @@
 //: ## Dynamics Processor
-//: The AKDynamicsProcessor is both a compressor and an expander based on
+//: The DynamicsProcessor is both a compressor and an expander based on
 //: Apple's Dynamics Processor audio unit. threshold and headRoom (similar to
 //: 'ratio' you might be more familiar with) are specific to the compressor,
 //: expansionRatio and expansionThreshold control the expander.
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var effect = AKDynamicsProcessor(player)
+var effect = DynamicsProcessor(player)
 effect.threshold
 effect.headRoom
 effect.expansionRatio
@@ -25,22 +25,19 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Dynamics Processor")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Dynamics Processor") { button in
+        addView(Button(title: "Stop Dynamics Processor") { button in
             let node = effect
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Dynamics Processor" : "Start Dynamics Processor"
         })
 
-        addView(AKSlider(property: "Threshold",
+        addView(Slider(property: "Threshold",
                          value: effect.threshold,
                          range: -40 ... 20,
                          format: "%0.2f dB"
@@ -48,7 +45,7 @@ class LiveView: AKLiveViewController {
             effect.threshold = sliderValue
         })
 
-        addView(AKSlider(property: "Head Room",
+        addView(Slider(property: "Head Room",
                          value: effect.headRoom,
                          range: 0.1 ... 40,
                          format: "%0.2f dB"
@@ -56,21 +53,21 @@ class LiveView: AKLiveViewController {
             effect.headRoom = sliderValue
         })
 
-        addView(AKSlider(property: "Expansion Ratio",
+        addView(Slider(property: "Expansion Ratio",
                          value: effect.expansionRatio,
                          range: 1 ... 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
 
-        addView(AKSlider(property: "Expansion Threshold",
+        addView(Slider(property: "Expansion Threshold",
                          value: effect.expansionThreshold,
                          range: 1 ... 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
 
-        addView(AKSlider(property: "Attack Duration",
+        addView(Slider(property: "Attack Duration",
                          value: effect.attackDuration,
                          range: 0.000_1 ... 0.2,
                          format: "%0.3f s"
@@ -78,7 +75,7 @@ class LiveView: AKLiveViewController {
             effect.attackDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Release Duration",
+        addView(Slider(property: "Release Duration",
                          value: effect.releaseDuration,
                          range: 0.01 ... 3,
                          format: "%0.3f s"
@@ -86,7 +83,7 @@ class LiveView: AKLiveViewController {
             effect.releaseDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Master Gain",
+        addView(Slider(property: "Master Gain",
                          value: effect.masterGain,
                          range: -40 ... 40,
                          format: "%0.2f dB"

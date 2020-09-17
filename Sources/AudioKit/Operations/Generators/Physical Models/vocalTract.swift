@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Karplus-Strong plucked string instrument.
     ///
@@ -12,13 +12,13 @@ extension AKOperation {
     ///   - nasality: Sets the velum size. Larger values of this creates more nasally sounds.
     ///
     public static func vocalTract(
-        frequency: AKParameter = 160.0,
-        tonguePosition: AKParameter = 0.5,
-        tongueDiameter: AKParameter = 1.0,
-        tenseness: AKParameter = 0.6,
-        nasality: AKParameter = 0.0) -> AKOperation {
+        frequency: OperationParameter = 160.0,
+        tonguePosition: OperationParameter = 0.5,
+        tongueDiameter: OperationParameter = 1.0,
+        tenseness: OperationParameter = 0.6,
+        nasality: OperationParameter = 0.0) -> Operation {
 
-        return AKOperation(module: "voc",
+        return Operation(module: "voc",
                            inputs: frequency, tonguePosition, tongueDiameter, tenseness, nasality)
     }
 }

@@ -1,22 +1,21 @@
 //: ## Bit Crush Operation
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
-import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { input, parameters in
+let effect = OperationEffect(player) { input, parameters in
     let baseSampleRate = parameters[0]
     let sampleRateVariation = parameters[1]
     let baseBitDepth = parameters[2]
     let bitDepthVariation = parameters[3]
     let frequency = parameters[4]
 
-    let sinusoid = AKOperation.sineWave(frequency: frequency)
+    let sinusoid = Operation.sineWave(frequency: frequency)
     let sampleRate = baseSampleRate + sinusoid * sampleRateVariation
     let bitDepth = baseBitDepth + sinusoid * bitDepthVariation
 
@@ -28,40 +27,38 @@ engine.output = effect
 try engine.start()
 player.play()
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Bit Crush Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Base Sample Rate",
+        addView(Slider(property: "Base Sample Rate",
                          value: effect.parameters[0],
                          range: 300 ... 22_050,
                          format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addView(AKSlider(property: "Sample Rate Variation",
+        addView(Slider(property: "Sample Rate Variation",
                          value: effect.parameters[1],
                          range: 0 ... 8_000,
                          format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addView(AKSlider(property: "Base Bit Depth",
+        addView(Slider(property: "Base Bit Depth",
                          value: effect.parameters[2],
                          range: 1 ... 24
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addView(AKSlider(property: "Bit Depth Variation",
+        addView(Slider(property: "Bit Depth Variation",
                          value: effect.parameters[3],
                          range: 0 ... 12,
                          format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[3] = sliderValue
         })
-        addView(AKSlider(property: "Frequency",
+        addView(Slider(property: "Frequency",
                          value: effect.parameters[4],
                          range: 0 ... 5,
                          format: "%0.3f Hz"

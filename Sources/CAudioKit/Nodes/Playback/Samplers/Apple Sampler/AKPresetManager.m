@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "AKPresetManager.h"
+#import "PresetManager.h"
 //#import <AudioKit/AudioKit-Swift.h>
 
 
@@ -40,11 +40,11 @@
 @end
 
 
-@interface AKPresetZone ()
+@interface PresetZone ()
 @property NSNumber *ID;
 @property NSNumber  *waveform;
 @end
-@implementation AKPresetZone
+@implementation PresetZone
 -(NSDictionary *)asDictionary{
     return @{@"enabled":@(self.enabled),
              @"loop enabled":@(self.loopEnabled),
@@ -67,23 +67,23 @@
     }
     return self;
 }
-+(AKPresetZone *)zoneWithFilePath:(NSString *)filePath andKey:(int)key{
-    return [[AKPresetZone alloc]initWithFilePath:filePath andKey:key];
++(PresetZone *)zoneWithFilePath:(NSString *)filePath andKey:(int)key{
+    return [[PresetZone alloc]initWithFilePath:filePath andKey:key];
 }
 @end
 
 
-@implementation AKPresetManager
+@implementation PresetManager
 +(NSDictionary *)presetWithFilePaths:(NSArray <NSString *>*)filePaths oneShot:(BOOL)oneShot{
     NSMutableArray *zones = [[NSMutableArray alloc]initWithCapacity:filePaths.count];
     for (int i = 0; i < filePaths.count; i++) {
         NSString *filePath = filePaths[i];
         NSAssert([[NSFileManager defaultManager]fileExistsAtPath:filePath], @"No file at %@",filePath);
-        [zones addObject:[AKPresetZone zoneWithFilePath:filePath andKey:i]];
+        [zones addObject:[PresetZone zoneWithFilePath:filePath andKey:i]];
     }
-    return [AKPresetManager presetWithZones:zones oneShot:1];
+    return [PresetManager presetWithZones:zones oneShot:1];
 }
-+(NSDictionary *)presetWithZones:(NSArray <AKPresetZone *> *)presetZones oneShot:(BOOL)oneShot{
++(NSDictionary *)presetWithZones:(NSArray <PresetZone *> *)presetZones oneShot:(BOOL)oneShot{
     NSMutableDictionary *preset = mutableSkeleton();
     NSDictionary *waveformIDs = waveformsPathIndexed(presetZones);
     if(!waveformIDs)return NULL;
@@ -93,7 +93,7 @@
         preset.fileReferences[sampleKey] = path;
     }
     int ID = 1;
-    for (AKPresetZone *presetZone in presetZones) {
+    for (PresetZone *presetZone in presetZones) {
         presetZone.ID = @(ID);
         presetZone.waveform = waveformIDs[presetZone.filePath];
         [preset.zones addObject:presetZone.asDictionary];
@@ -124,7 +124,7 @@
     return true;
 }
 
-NSDictionary *waveformsPathIndexed(NSArray <AKPresetZone *> *presetZones) {
+NSDictionary *waveformsPathIndexed(NSArray <PresetZone *> *presetZones) {
     NSSet *filePaths = [NSSet setWithArray:[presetZones valueForKey:@"filePath"]];
     NSMutableDictionary *waveformsPathIndexed = [[NSMutableDictionary alloc]init];
     int nextWaveformID = STARTINGWAVEFORMID;
@@ -486,12 +486,12 @@ NSMutableDictionary *mutableSkeleton() {
 @implementation AVAudioUnitSampler (PresetLoading)
 -(void)setPreset:(NSDictionary *)preset {
     NSError *error = nil;
-    if (![AKPresetManager setPreset:preset forSampler:self.audioUnit error:&error]) {
+    if (![PresetManager setPreset:preset forSampler:self.audioUnit error:&error]) {
         NSLog(@"%@",error);
     }
 }
 - (NSDictionary *)preset {
-    return [AKPresetManager samplerPreset:self.audioUnit];
+    return [PresetManager samplerPreset:self.audioUnit];
 }
 @end
 

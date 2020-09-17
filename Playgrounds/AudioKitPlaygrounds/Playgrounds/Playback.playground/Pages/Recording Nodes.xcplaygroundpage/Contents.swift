@@ -1,55 +1,51 @@
 //: ## Recording Nodes
-//: AKNodeRecorder allows you to record the output of a specific node.
+//: NodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: Set up a source to be recorded
-var oscillator = AKOscillator(waveform: AKTable(.sawtooth))
+var oscillator = Oscillator(waveform: Table(.sawtooth))
 var currentAmplitude = 0.1
 var currentRampDuration = 0.2
 
 //: Pass our Oscillator thru a mixer. It fixes a problem with raw oscillator
-//: nodes that can only be recorded once they passed thru an AKMixer.
+//: nodes that can only be recorded once they passed thru an Mixer.
 
-let oscMixer = AKMixer(oscillator)
+let oscMixer = Mixer(oscillator)
 
 //: Let's add some space to our oscillator
-let reverb = AKReverb(oscMixer)
+let reverb = Reverb(oscMixer)
 reverb.loadFactoryPreset(.largeHall)
 reverb.dryWetMix = 0.5
 
-//: Create an AKAudioFile to record to:
-let tape = try AKAudioFile()
+//: Create an AVAudioFile to record to:
+let tape = try AVAudioFile()
 //: We set a player to playback our "tape"
-let player = try AKAudioPlayer(file: tape)
+let player = try AudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
-let mixer = AKMixer(player, reverb)
+let mixer = Mixer(player, reverb)
 
-//: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
+//: Now we set an NodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: mixer, file: tape)
+let recorder = try NodeRecorder(node: mixer, file: tape)
 
 engine.output = mixer
 
 try engine.start()
 
 //: Build our User interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
-    var recordLabel: AKLabel!
-    var playLabel: AKLabel!
-    var playButton: AKButton!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addView(AKButton(title: "Record", color: AKColor.red) { button in
+        addView(Button(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
@@ -60,13 +56,13 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                 do {
                     try recorder.record()
                 } catch {
-                    AKLog("Couldn't record")
+                    Log("Couldn't record")
                 }
                 button.title = "Stop"
             }
         })
 
-        addView(AKButton(title: "Save") { button in
+        addView(Button(title: "Save") { button in
             recorder.audioFile?.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] _, _ in
@@ -74,19 +70,19 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             button.title = "Saved"
         })
 
-        addView(AKButton(title: "Reset Recording") { button in
+        addView(Button(title: "Reset Recording") { button in
             self.recordLabel.stringValue = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
-                AKLog("Couldn't reset.")
+                Log("Couldn't reset.")
             }
             button.title = "Reset Recording"
         })
 
         playLabel = addLabel("Press Play to playback...")
 
-        playButton = AKButton(title: "Play") { button in
+        playButton = Button(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.stringValue = "Stopped playback!"
                 player.stop()
@@ -95,7 +91,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                 do {
                     try player.reloadFile()
                 } catch {
-                    AKLog("Couldn't reload file.")
+                    Log("Couldn't reload file.")
                 }
                 // If the tape is not empty, we can play it !...
                 if player.audioFile.duration > 0 {
@@ -110,7 +106,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         }
         addView(playButton)
 
-        let keyboard = AKKeyboardView(width: 440, height: 100)
+        let keyboard = KeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         self.addView(keyboard)
     }

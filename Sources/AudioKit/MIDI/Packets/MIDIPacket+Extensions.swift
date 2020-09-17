@@ -6,11 +6,11 @@ import CoreMIDI
 
 extension MIDIPacket {
     var isSysEx: Bool {
-        return data.0 == AKMIDISystemCommand.sysEx.rawValue
+        return data.0 == MIDISystemCommand.sysEx.rawValue
     }
 
-    var status: AKMIDIStatus? {
-        return AKMIDIStatus(byte: data.0)
+    var status: MIDIStatus? {
+        return MIDIStatus(byte: data.0)
     }
 
     var channel: MIDIChannel {
@@ -21,8 +21,8 @@ extension MIDIPacket {
         return data.0 >= 0xf0
     }
 
-    var systemCommand: AKMIDISystemCommand? {
-        return AKMIDISystemCommand(rawValue: data.0)
+    var systemCommand: MIDISystemCommand? {
+        return MIDISystemCommand(rawValue: data.0)
     }
 }
 

@@ -1,11 +1,11 @@
 //: ## Filter Section
 //: This playgrounds was the development area for the filter in the Analog Synth X example project.
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 // Filter Properties
@@ -17,8 +17,8 @@ var filterMix = 0.9
 var lfoAmplitude = 1_000
 var lfoRate = 1.0 / 3.428
 
-let filterSectionEffect = AKOperationEffect(player) { player in
-    let lfo = AKOperation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
+let filterSectionEffect = OperationEffect(player) { player in
+    let lfo = Operation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
     return player.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
                                    resonance: resonance)
 }

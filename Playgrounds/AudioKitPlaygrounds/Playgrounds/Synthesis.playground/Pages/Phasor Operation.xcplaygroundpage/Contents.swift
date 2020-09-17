@@ -1,20 +1,20 @@
 //: ## Phasor Operation
 //: Using the phasor to sweep amplitude and frequencies
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let interval: Double = 2
 let noteCount: Double = 24
 let startingNote: Double = 48 // C
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
 
-    let frequency = (floor(AKOperation.phasor(frequency: 0.5) * noteCount) * interval + startingNote)
+    let frequency = (floor(Operation.phasor(frequency: 0.5) * noteCount) * interval + startingNote)
         .midiNoteToFrequency()
 
-    var amplitude = (AKOperation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
+    var amplitude = (Operation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
 
-    var oscillator = AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
+    var oscillator = Operation.sineWave(frequency: frequency, amplitude: amplitude)
     let reverb = oscillator.reverberateWithChowning()
     return mixer(oscillator, reverb, balance: 0.6)
 }

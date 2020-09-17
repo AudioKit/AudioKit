@@ -15,9 +15,9 @@
 import AudioKit
 import Foundation
 
-let engine = AKEngine()
+let engine = AudioEngine()
 
-let oscillator = AKOscillator()
+let oscillator = Oscillator()
 
 engine.output = oscillator
 try engine.start()

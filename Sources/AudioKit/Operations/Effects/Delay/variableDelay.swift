@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// A delay line with cubic interpolation.
     ///
@@ -11,11 +11,11 @@ extension AKComputedParameter {
     ///   - maximumDelayTime: The maximum delay time, in seconds. (Default: 5.0, Minimum: 0.0, Maximum: 10.0)
     ///
     public func variableDelay(
-        time: AKParameter = 1.0,
-        feedback: AKParameter = 0.0,
+        time: OperationParameter = 1.0,
+        feedback: OperationParameter = 0.0,
         maximumDelayTime: Double = 5.0
-        ) -> AKOperation {
-        return AKOperation(module: "vdelay",
+        ) -> Operation {
+        return Operation(module: "vdelay",
                            inputs: toMono(), feedback, time, maximumDelayTime)
     }
 }

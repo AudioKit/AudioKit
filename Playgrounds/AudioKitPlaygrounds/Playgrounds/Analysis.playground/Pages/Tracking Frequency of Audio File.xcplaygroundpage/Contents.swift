@@ -1,43 +1,42 @@
 //: ## Tracking Frequency of an Audio File
 //: A more real-world example of tracking the pitch of an audio stream
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav")
+let file = try AVAudioFile(readFileName: "leadloop.wav")
 
-var player = AKPlayer(audioFile: file)
+var player = AudioPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
-let tracker = AKPitchTap(player)
+let tracker = PitchTap(player)
 
 engine.output = tracker
 try engine.start()
 player.play()
 
 //: User Interface
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
-    var trackedAmplitudeSlider: AKSlider!
-    var trackedFrequencySlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
+    var trackedFrequencySlider: Slider!
 
     override func viewDidLoad() {
 
-        AKPlaygroundLoop(every: 0.1) {
+        PlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
         }
 
         addTitle("Tracking An Audio File")
 
-        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
+        trackedAmplitudeSlider = Slider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
         addView(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+        trackedFrequencySlider = Slider(property: "Tracked Frequency",
                                           range: 0 ... 1_000,
                                           format: "%0.3f Hz"
         ) { _ in
@@ -45,7 +44,7 @@ class LiveView: AKLiveViewController {
         }
         addView(trackedFrequencySlider)
 
-        addView(AKRollingOutputPlot.createView())
+        addView(RollingOutputPlot.createView())
     }
 }
 

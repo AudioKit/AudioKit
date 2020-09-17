@@ -2,7 +2,7 @@
 
 Platform-independent C++ *AudioKitCore::Sampler* class and its specialized component classes.
 
-## AKSampler_Typedefs.h
+## Sampler_Typedefs.h
 This file defines three C ``struct``s used in the API for **Sampler**, which can be bridged to Swift. Because this is (Objective-)C code, it does not use the *AudioKitCore* namespace, instead using the "AK" name prefix used at the Swift level.
 
 ## Sampler

@@ -17,7 +17,7 @@ import CoreMIDI
  */
 extension MIDIPacket: Sequence {
     /// Generate a MIDI packet
-    public func makeIterator() -> AnyIterator<AKMIDIEvent> {
+    public func makeIterator() -> AnyIterator<MIDIEvent> {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
 
@@ -27,15 +27,15 @@ extension MIDIPacket: Sequence {
             }
 
             func pop() -> MIDIByte {
-                assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysEx.byte))
+                assert((index < self.length) || (index <= self.length && self.data.0 != MIDISystemCommand.sysEx.byte))
                 index += 1
                 // Note: getting rid of the as! but saying 0 as default might not be desired.
                 return generator.next() as? MIDIByte ?? 0
             }
             let status = pop()
             if AKMIDI.sharedInstance.isReceivingSysEx {
-                return AKMIDIEvent.appendIncomingSysEx(packet: self) //will be nil until sysex is done
-            } else if var mstat = AKMIDIStatusType.from(byte: status) {
+                return MIDIEvent.appendIncomingSysEx(packet: self) //will be nil until sysex is done
+            } else if var mstat = MIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
 
@@ -47,32 +47,32 @@ extension MIDIPacket: Sequence {
                         // turn noteOn with velocity 0 to noteOff
                         mstat = .noteOff
                     }
-                    return AKMIDIEvent(data: [status, data1, data2])
+                    return MIDIEvent(data: [status, data1, data2])
 
                 case .programChange, .channelAftertouch:
                     data1 = pop()
-                    return AKMIDIEvent(data: [status, data1])
+                    return MIDIEvent(data: [status, data1])
                 }
-            } else if let command = AKMIDISystemCommand(rawValue: status) {
+            } else if let command = MIDISystemCommand(rawValue: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
                 switch command {
                 case .sysEx:
                     index = self.length
-                    return AKMIDIEvent(packet: self)
+                    return MIDIEvent(packet: self)
                 case .songPosition:
                     //the remaining event generators need to be tested and tweaked to the specific messages
                     data1 = pop()
                     data2 = pop()
-                    return AKMIDIEvent(data: [status, data1, data2])
+                    return MIDIEvent(data: [status, data1, data2])
                 case .timeCodeQuarterFrame:
                     data1 = pop()
-                    return AKMIDIEvent(data: [status, data1])
+                    return MIDIEvent(data: [status, data1])
                 case .songSelect:
                     data1 = pop()
-                    return AKMIDIEvent(data: [status, data1])
+                    return MIDIEvent(data: [status, data1])
                 default:
-                    return AKMIDIEvent(packet: self)
+                    return MIDIEvent(packet: self)
                 }
             } else {
                 return nil

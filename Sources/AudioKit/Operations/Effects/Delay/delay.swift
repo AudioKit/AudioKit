@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Add a delay to an incoming signal with optional feedback.
     ///
@@ -10,9 +10,9 @@ extension AKComputedParameter {
     ///
     public func delay(
         time: Double = 1.0,
-        feedback: AKParameter = 0.0
-        ) -> AKOperation {
-        return AKOperation(module: "delay",
+        feedback: OperationParameter = 0.0
+        ) -> Operation {
+        return Operation(module: "delay",
                            inputs: toMono(), feedback, time)
     }
 }

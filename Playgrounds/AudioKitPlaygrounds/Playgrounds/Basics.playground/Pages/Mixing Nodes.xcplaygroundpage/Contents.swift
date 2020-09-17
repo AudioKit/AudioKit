@@ -5,32 +5,32 @@
 //: ## Mixing Nodes
 //: So, what about connecting multiple sources to the output instead of
 //: feeding operations into each other in sequential order? To do that, you'll need a mixer.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 class Conductor: ObservableObject {
 
-    var drums: AKPlayer
-    var bass: AKPlayer
-    var guitar: AKPlayer
-    var lead: AKPlayer
-    var mixer: AKMixer
-    var fader: AKFader
+    var drums: AudioPlayer
+    var bass: AudioPlayer
+    var guitar: AudioPlayer
+    var lead: AudioPlayer
+    var mixer: Mixer
+    var fader: Fader
 
     init() {
 
-        let drumFile = try! AKAudioFile(readFileName: "drumloop.wav")
-        let bassFile = try! AKAudioFile(readFileName: "bassloop.wav")
-        let guitarFile = try! AKAudioFile(readFileName: "guitarloop.wav")
-        let leadFile = try! AKAudioFile(readFileName: "leadloop.wav")
+        let drumFile = try! AVAudioFile(readFileName: "drumloop.wav")
+        let bassFile = try! AVAudioFile(readFileName: "bassloop.wav")
+        let guitarFile = try! AVAudioFile(readFileName: "guitarloop.wav")
+        let leadFile = try! AVAudioFile(readFileName: "leadloop.wav")
 
-        drums = AKPlayer(audioFile: drumFile)
-        bass = AKPlayer(audioFile: bassFile)
-        guitar = AKPlayer(audioFile: guitarFile)
-        lead = AKPlayer(audioFile: leadFile)
+        drums = AudioPlayer(audioFile: drumFile)
+        bass = AudioPlayer(audioFile: bassFile)
+        guitar = AudioPlayer(audioFile: guitarFile)
+        lead = AudioPlayer(audioFile: leadFile)
 
-        mixer = AKMixer(drums, bass, guitar, lead)
-        fader = AKFader(mixer)
+        mixer = Mixer(drums, bass, guitar, lead)
+        fader = Fader(mixer)
 
         drums.isLooping = true
         drums.buffering = .always

@@ -1,13 +1,13 @@
 //: ## Low Shelf Filter
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-let player = try AKAudioPlayer(file: file)
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var filter = AKLowShelfFilter(player)
+var filter = LowShelfFilter(player)
 filter.cutoffFrequency = 80 // Hz
 filter.gain = 0 // dB
 
@@ -16,21 +16,18 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Low Shelf Filter")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop") { button in
+        addView(Button(title: "Stop") { button in
             filter.isStarted ? filter.stop() : filter.play()
             button.title = filter.isStarted ? "Stop" : "Start"
         })
 
-        addView(AKSlider(property: "Cutoff Frequency",
+        addView(Slider(property: "Cutoff Frequency",
                          value: filter.cutoffFrequency,
                          range: 10 ... 200,
                          format: "%0.1f Hz"
@@ -38,7 +35,7 @@ class LiveView: AKLiveViewController {
             filter.cutoffFrequency = sliderValue
         })
 
-        addView(AKSlider(property: "Gain",
+        addView(Slider(property: "Gain",
                          value: filter.gain,
                          range: -40 ... 40,
                          format: "%0.1f dB"

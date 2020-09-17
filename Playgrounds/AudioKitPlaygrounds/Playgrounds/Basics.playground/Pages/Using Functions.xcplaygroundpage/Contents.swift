@@ -6,13 +6,13 @@
 //: Encapsualating functionality of operations into functions
 import AudioKit
 
-func drone(frequency: Double, rate: Double) -> AKOperation {
-    let metro = AKOperation.metronome(frequency: rate)
-    let tone = AKOperation.sineWave(frequency: frequency, amplitude: 0.2)
+func drone(frequency: Double, rate: Double) -> Operation {
+    let metro = Operation.metronome(frequency: rate)
+    let tone = Operation.sineWave(frequency: frequency, amplitude: 0.2)
     return tone.triggeredWithEnvelope(trigger: metro, attack: 0.01, hold: 0.1, release: 0.1)
 }
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
 
     let drone1 = drone(frequency: 440, rate: 3)
     let drone2 = drone(frequency: 330, rate: 5)

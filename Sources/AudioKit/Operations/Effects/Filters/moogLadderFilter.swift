@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Moog Ladder is an new digital implementation of the Moog ladder filter based
     /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
@@ -15,10 +15,10 @@ extension AKComputedParameter {
     ///                (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
     ///
     public func moogLadderFilter(
-        cutoffFrequency: AKParameter = 1_000,
-        resonance: AKParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "moogladder",
+        cutoffFrequency: OperationParameter = 1_000,
+        resonance: OperationParameter = 0.5
+        ) -> Operation {
+        return Operation(module: "moogladder",
                            inputs: toMono(), cutoffFrequency, resonance)
     }
 }

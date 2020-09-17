@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// This is was built using the JC reverb implentation found in FAUST. According
     /// to the source code, the specifications for this implementation were found on
@@ -10,7 +10,7 @@ extension AKComputedParameter {
     /// three series allpass units, followed by four parallel comb filters, and two
     /// decorrelation delay lines in parallel at the output.
     ///
-    public func reverberateWithChowning() -> AKOperation {
-        return AKOperation(module: "jcrev", inputs: toMono())
+    public func reverberateWithChowning() -> Operation {
+        return Operation(module: "jcrev", inputs: toMono())
     }
 }

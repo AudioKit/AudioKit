@@ -2,17 +2,17 @@
 //: This playground builds on the MIDI Scale Quantizer by adding a second
 //: AKMIDITransformer which takes the quantized scale and generates chords
 //: from it.  You can chain as many AKMIDITransformers as you want, and
-//: each can take an array of AKMIDIEvents to process
-import AudioKitPlaygrounds
+//: each can take an array of MIDIEvents to process
+
 import AudioKit
 
-let sampler = AKAppleSampler()
+let sampler = AppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
-let reverb = AKReverb(sampler)
+let reverb = Reverb(sampler)
 reverb.loadFactoryPreset(.largeRoom)
 
-var mixer = AKMixer(reverb)
+var mixer = Mixer(reverb)
 mixer.volume = 5.0
 
 engine.output = mixer
@@ -88,8 +88,8 @@ midi.inputNames
 midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        var transformedList = [AKMIDIEvent]()
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
+        var transformedList = [MIDIEvent]()
 
         for event in eventList {
             guard let type = event.status?.type else {
@@ -109,7 +109,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOn: MIDINoteNumber(newNote),
                                                            velocity: event.data[2],
                                                            channel: event.channel!))
                     }
@@ -126,7 +126,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOff: MIDINoteNumber(newNote),
                                                            velocity: 0,
                                                            channel: event.channel!))
                     }
@@ -141,8 +141,8 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 }
 
 class MIDIChordGenerator: AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        var transformedList = [AKMIDIEvent]()
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
+        var transformedList = [MIDIEvent]()
 
         for event in eventList {
             guard let type = event.status?.type else {
@@ -158,8 +158,8 @@ class MIDIChordGenerator: AKMIDITransformer {
                         let chordTemplate = mode.triad[scaleDegree!]
 
                         for note in chordTemplate {
-                            AKLog("noteOn: chord note is: \(note + Int(event.noteNumber!))")
-                            transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(note + Int(event.noteNumber!)),
+                            Log("noteOn: chord note is: \(note + Int(event.noteNumber!))")
+                            transformedList.append(MIDIEvent(noteOn: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
                         }
@@ -173,8 +173,8 @@ class MIDIChordGenerator: AKMIDITransformer {
                         let chordTemplate = mode.triad[scaleDegree!]
 
                         for note in chordTemplate {
-                            AKLog("noteOff: chord note is: \(note + Int(event.noteNumber!))")
-                            transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(note + Int(event.noteNumber!)),
+                            Log("noteOff: chord note is: \(note + Int(event.noteNumber!))")
+                            transformedList.append(MIDIEvent(noteOff: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
                         }
@@ -194,14 +194,14 @@ let chordGenerator = MIDIChordGenerator()
 midi.addTransformer(scaleQuantizer)
 midi.addTransformer(chordGenerator)
 
-class PlaygroundMIDIListener: AKMIDIListener {
+class PlaygroundMIDIListener: MIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
         do {
             try sampler.play(noteNumber: noteNumber)
         } catch {
-            AKLog("Could not play")
+            Log("Could not play")
         }
     }
 }
@@ -211,17 +211,16 @@ let listener = PlaygroundMIDIListener()
 //: Add the new class to the list of MIDI listeners
 midi.addListener(listener)
 
-import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
     override func viewDidLoad() {
         addTitle("Scale Quantizer")
 
         let keyPresets = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-        addView(AKPresetLoaderView(presets: keyPresets) { preset in key = Key.fromString(preset)
+        addView(PresetLoaderView(presets: keyPresets) { preset in key = Key.fromString(preset)
         })
         let modePresets = ["major", "minor"]
-        addView(AKPresetLoaderView(presets: modePresets) { preset in
+        addView(PresetLoaderView(presets: modePresets) { preset in
             switch preset {
             case "major":
                 mode = .major

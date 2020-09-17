@@ -1,11 +1,10 @@
 //: ## Interactive Drawbar Organ
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import AudioKitPlaygrounds
-import AudioKit
-import AudioKitUI
 
-var oscillator = AKOscillatorBank()
+import AudioKit
+
+var oscillator = OscillatorBank()
 engine.output = oscillator
 try engine.start()
 
@@ -15,12 +14,12 @@ var offsets = [-12, 7, 0, 12, 19, 24, 28, 31, 36]
 var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote: MIDINoteNumber = 0
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     override func viewDidLoad() {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
-            let slider = AKSlider(
+            let slider = Slider(
                 property: "Amplitude \(names[i])",
                 value: amplitudes[i]
             ) { amp in
@@ -29,7 +28,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             addView(slider)
         }
 
-        let keyboard = AKKeyboardView(width: 440, height: 100)
+        let keyboard = KeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         addView(keyboard)
 

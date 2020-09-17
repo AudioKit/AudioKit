@@ -11,7 +11,7 @@
 //: the AudioKit examples project, but here in this playground we're going to redo
 //: the code from the "Connecting Nodes" playground in a way that is more like how
 //: the code would appear in a project.
-import AudioKitPlaygrounds
+
 //: Here we begin the code how it would appear in a project
 
 import AudioKit
@@ -20,25 +20,25 @@ import AudioKit
 class AudioEngine {
 
     // Declare your nodes as instance variables
-    var player: AKPlayer!
-    var delay: AKDelay!
-    var reverb: AKReverb!
-    var file: AKAudioFile!
+    var player: AudioPlayer!
+    var delay: Delay!
+    var reverb: Reverb!
+    var file: AVAudioFile!
 
     init() {
         // Set up a player to the loop the file's playback
         do {
-            file = try AKAudioFile(readFileName: "drumloop.wav")
+            file = try AVAudioFile(readFileName: "drumloop.wav")
         } catch {
-            AKLog("File Not Found")
+            Log("File Not Found")
             return
         }
-        player = AKPlayer(audioFile: file)
+        player = AudioPlayer(audioFile: file)
         player.isLooping = true
         player.buffering = .always
 
         // Next we'll connect the audio player to a delay effect
-        delay = AKDelay(player)
+        delay = Delay(player)
 
         // Set the parameters of the delay here
         delay.time = 0.1 // seconds
@@ -46,14 +46,14 @@ class AudioEngine {
         delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
         // Continue adding more nodes as you wish, for example, reverb:
-        reverb = AKReverb(delay)
+        reverb = Reverb(delay)
         reverb.loadFactoryPreset(.cathedral)
 
         engine.output = reverb
         do {
             try engine.start()
         } catch {
-            AKLog("AudioKit did not start!")
+            Log("AudioKit did not start!")
         }
     }
 }

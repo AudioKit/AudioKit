@@ -1,22 +1,22 @@
 //: ## MultiDelay Example
 //: This is similar to the MultiDelay implemented in the Analog Synth X example project.
-import AudioKitPlaygrounds
+
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
-var delays = [AKVariableDelay]()
+var delays = [VariableDelay]()
 var counter = 0
 
-func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
-    let mix = AKMixer(input)
+func multitapDelay(_ input: Node, times: [Double], gains: [Double]) -> Mixer {
+    let mix = Mixer(input)
 
     zip(times, gains).forEach { (time, gain) -> Void in
-        delays.append(AKVariableDelay(input, time: time))
-        mix.connect(AKFader(delays[counter], gain: gain))
+        delays.append(VariableDelay(input, time: time))
+        mix.connect(Fader(delays[counter], gain: gain))
         counter += 1
     }
     return mix
@@ -35,10 +35,10 @@ let leftDelay = multitapDelay(input,
 let rightDelay = multitapDelay(input,
                                times: [1.0, 2.0, 3.0].map { t -> Double in t * delayTime },
                                gains: gains)
-let delayPannedLeft = AKPanner(leftDelay, pan: -1)
-let delayPannedRight = AKPanner(rightDelay, pan: 1)
+let delayPannedLeft = Panner(leftDelay, pan: -1)
+let delayPannedRight = Panner(rightDelay, pan: 1)
 
-let mix = AKMixer(delayPannedLeft, delayPannedRight)
+let mix = Mixer(delayPannedLeft, delayPannedRight)
 
 engine.output = mix
 try engine.start()

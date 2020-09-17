@@ -13,8 +13,8 @@ extension XCTestCase {
     }
 
     func audition(_ buffer: AVAudioPCMBuffer) {
-        let auditionEngine = AKEngine()
-        let auditionPlayer = AKPlayer()
+        let auditionEngine = AudioEngine()
+        let auditionPlayer = AudioPlayer()
         auditionEngine.output = auditionPlayer
         try! auditionEngine.start()
         auditionPlayer.scheduleBuffer(buffer, at: nil)

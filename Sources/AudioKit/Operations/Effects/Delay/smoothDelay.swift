@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Smooth variable delay line without varispeed pitch.
     ///
@@ -12,12 +12,12 @@ extension AKComputedParameter {
     ///   - maximumDelayTime: The maximum delay time, in seconds. (Default: 5.0, Minimum: 0.0, Maximum: 10.0)
     ///
     public func smoothDelay(
-        time: AKParameter = 1.0,
-        feedback: AKParameter = 0.0,
+        time: OperationParameter = 1.0,
+        feedback: OperationParameter = 0.0,
         samples: Int = 1_024,
         maximumDelayTime: Double = 5.0
-        ) -> AKOperation {
-        return AKOperation(module: "smoothdelay",
+        ) -> Operation {
+        return Operation(module: "smoothdelay",
                            inputs: toMono(), feedback, time, maximumDelayTime, Double(samples))
     }
 }

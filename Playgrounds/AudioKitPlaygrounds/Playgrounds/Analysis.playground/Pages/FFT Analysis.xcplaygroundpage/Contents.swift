@@ -1,21 +1,20 @@
 //: ## FFT Analysis
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
-import AudioKitUI
 
-let file = try AKAudioFile(readFileName: "leadloop.wav")
+let file = try AVAudioFile(readFileName: "leadloop.wav")
 
-var player = AKPlayer(audioFile: file)
+var player = AudioPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
 engine.output = player
 try engine.start()
 player.play()
-let fft = AKFFTTap(player)
+let fft = FFTTap(player)
 
-AKPlaygroundLoop(every: 0.1) {
+PlaygroundLoop(every: 0.1) {
     if let max = fft.fftData.max() {
         let index = fft.fftData.index(of: max)
     }

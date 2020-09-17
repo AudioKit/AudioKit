@@ -4,15 +4,15 @@
 import AudioKit
 
 //: Set up instruments:
-var kick = AKSynthKick()
-var snare = AKSynthSnare(duration: 0.07)
+var kick = SynthKick()
+var snare = SynthSnare(duration: 0.07)
 
-var mix = AKMixer(kick, snare)
-var reverb = AKReverb(mix)
+var mix = Mixer(kick, snare)
+var reverb = Reverb(mix)
 
 //: Generate a cheap electro beat
 var counter = 0
-let beats = AKPeriodicFunction(frequency: 5) {
+let beats = PeriodicFunction(frequency: 5) {
     let randomVelocity = MIDIVelocity(AUValue.random(in: 0...127))
     let onFirstBeat = counter % 4 == 0
     let everyOtherBeat = counter % 4 == 2
