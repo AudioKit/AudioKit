@@ -6,7 +6,7 @@ import CAudioKit
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKSequencerTrack {
+open class SequencerTrack {
     // MARK: - Properties
 
     public var targetNode: Node?
@@ -49,7 +49,7 @@ open class AKSequencerTrack {
         akSequencerEngineGetPosition(engine)
     }
 
-    private var engine: AKSequencerEngineRef
+    private var engine: SequencerEngineRef
 
     // MARK: - Initialization
 
@@ -133,7 +133,7 @@ open class AKSequencerTrack {
 
         sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
             sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
-                guard let observer = AKSequencerEngineUpdateSequence(engine,
+                guard let observer = SequencerEngineUpdateSequence(engine,
                                                                      eventsPtr.baseAddress,
                                                                      sequence.events.count,
                                                                      notesPtr.baseAddress,

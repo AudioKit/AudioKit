@@ -13,7 +13,7 @@
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
-struct AKSequencerEngine {
+struct SequencerEngine {
     std::vector<AKSequenceNote> playingNotes;
     long positionInSamples = 0;
     UInt64 framesCounted = 0;
@@ -34,7 +34,7 @@ struct AKSequencerEngine {
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
 
-    AKSequencerEngine() {
+    SequencerEngine() {
         // Try to reserve enough notes so allocation on the DSP
         // thread is unlikely. (This is not ideal)
         playingNotes.reserve(256);
@@ -202,16 +202,16 @@ struct AKSequencerEngine {
 };
 
 /// Creates the audio-thread-only state for the sequencer.
-AKSequencerEngineRef akSequencerEngineCreate(void) {
-    return new AKSequencerEngine;
+SequencerEngineRef akSequencerEngineCreate(void) {
+    return new SequencerEngine;
 }
 
-void akSequencerEngineDestroy(AKSequencerEngineRef engine) {
+void akSequencerEngineDestroy(SequencerEngineRef engine) {
     delete engine;
 }
 
 /// Updates the sequence and returns a new render observer.
-AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
+AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  const AKSequenceEvent* eventsPtr,
                                                  size_t eventCount,
                                                  const AKSequenceNote* notesPtr,
@@ -237,24 +237,24 @@ AURenderObserver AKSequencerEngineUpdateSequence(AKSequencerEngineRef engine,
     };
 }
 
-double akSequencerEngineGetPosition(AKSequencerEngineRef engine) {
+double akSequencerEngineGetPosition(SequencerEngineRef engine) {
     return engine->uiPosition;
 }
 
-void akSequencerEngineSeekTo(AKSequencerEngineRef engine, double position) {
+void akSequencerEngineSeekTo(SequencerEngineRef engine, double position) {
     std::unique_lock<std::mutex> lock(engine->updateMutex);
     engine->seekPosition = position;
 }
 
-void akSequencerEngineSetPlaying(AKSequencerEngineRef engine, bool playing) {
+void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing) {
     engine->isStarted = playing;
 }
 
-bool akSequencerEngineIsPlaying(AKSequencerEngineRef engine) {
+bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
     return engine->isStarted;
 }
 
-void akSequencerEngineStopPlayingNotes(AKSequencerEngineRef engine) {
+void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
     std::unique_lock<std::mutex> lock(engine->updateMutex);
     engine->notesOff = true;
 }
