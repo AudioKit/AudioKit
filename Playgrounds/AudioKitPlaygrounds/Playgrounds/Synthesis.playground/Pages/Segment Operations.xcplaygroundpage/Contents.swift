@@ -28,7 +28,7 @@ var delay = Delay(generator)
 //: Add some effects for good fun
 delay.time = 0.125
 delay.feedback = 0.8
-var reverb = AKReverb(delay)
+var reverb = Reverb(delay)
 reverb.loadFactoryPreset(.largeHall)
 
 engine.output = reverb

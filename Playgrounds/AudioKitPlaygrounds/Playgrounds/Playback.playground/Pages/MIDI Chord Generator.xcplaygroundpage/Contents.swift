@@ -9,7 +9,7 @@ import AudioKit
 let sampler = AppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
-let reverb = AKReverb(sampler)
+let reverb = Reverb(sampler)
 reverb.loadFactoryPreset(.largeRoom)
 
 var mixer = Mixer(reverb)

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-public class AKReverb2: AKNode, AKToggleable {
+public class Reverb2: AKNode, AKToggleable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

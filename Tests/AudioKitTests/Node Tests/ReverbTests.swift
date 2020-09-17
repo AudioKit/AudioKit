@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKReverbTests: XCTestCase {
+class ReverbTests: XCTestCase {
 
     func testBypass() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let reverb = AKReverb(input)
+        let reverb = Reverb(input)
         reverb.bypass()
         engine.output = reverb
 
@@ -23,7 +23,7 @@ class AKReverbTests: XCTestCase {
     func testCathedral() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKReverb(input)
+        let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
         input.start()
@@ -35,7 +35,7 @@ class AKReverbTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKReverb(input)
+        engine.output = Reverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -43,7 +43,7 @@ class AKReverbTests: XCTestCase {
     }
 
     func testSmallRoom() {
-        let effect = AKReverb(input)
+        let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
         input.start()

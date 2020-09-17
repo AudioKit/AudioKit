@@ -22,7 +22,7 @@ class AudioEngine {
     // Declare your nodes as instance variables
     var player: AKPlayer!
     var delay: Delay!
-    var reverb: AKReverb!
+    var reverb: Reverb!
     var file: AVAudioFile!
 
     init() {
@@ -46,7 +46,7 @@ class AudioEngine {
         delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
         // Continue adding more nodes as you wish, for example, reverb:
-        reverb = AKReverb(delay)
+        reverb = Reverb(delay)
         reverb.loadFactoryPreset(.cathedral)
 
         engine.output = reverb
