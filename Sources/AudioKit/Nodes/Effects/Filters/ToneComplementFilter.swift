@@ -4,8 +4,8 @@
 import AVFoundation
 import CAudioKit
 
-/// A complement to the AKLowPassFilter.
-public class AKToneComplementFilter: AKNode, AKComponent, AKToggleable {
+/// A complement to the LowPassFilter.
+public class ToneComplementFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
@@ -18,7 +18,7 @@ public class AKToneComplementFilter: AKNode, AKComponent, AKToggleable {
     public static let halfPowerPointDef = AKNodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
-        address: akGetParameterAddress("AKToneComplementFilterParameterHalfPowerPoint"),
+        address: akGetParameterAddress("ToneComplementFilterParameterHalfPowerPoint"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKToneComplementFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKToneComplementFilter.halfPowerPointDef]
+            [ToneComplementFilter.halfPowerPointDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKToneComplementFilterDSP")
+            akCreateDSP("ToneComplementFilterDSP")
         }
     }
 

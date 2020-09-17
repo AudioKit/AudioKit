@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKToneComplementFilterTests: XCTestCase {
+class ToneComplementFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKToneComplementFilter(input)
+        engine.output = ToneComplementFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKToneComplementFilterTests: XCTestCase {
     func testHalfPowerPoint() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKToneComplementFilter(input, halfPowerPoint: 500)
+        engine.output = ToneComplementFilter(input, halfPowerPoint: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

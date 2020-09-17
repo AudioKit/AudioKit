@@ -158,13 +158,13 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterVoiceVibratoFrequency:
             voiceVibratoFrequencyRamp.setTarget(value, immediate);
             break;
-        case AKSamplerParameterFilterCutoff:
+        case SamplerParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
             break;
-        case AKSamplerParameterFilterStrength:
+        case SamplerParameterFilterStrength:
             filterStrengthRamp.setTarget(value, immediate);
             break;
-        case AKSamplerParameterFilterResonance:
+        case SamplerParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
         case AKSamplerParameterGlideRate:
@@ -190,16 +190,16 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             setADSRReleaseDurationSeconds(value);
             break;
 
-        case AKSamplerParameterFilterAttackDuration:
+        case SamplerParameterFilterAttackDuration:
             setFilterAttackDurationSeconds(value);
             break;
-        case AKSamplerParameterFilterDecayDuration:
+        case SamplerParameterFilterDecayDuration:
             setFilterDecayDurationSeconds(value);
             break;
-        case AKSamplerParameterFilterSustainLevel:
+        case SamplerParameterFilterSustainLevel:
             setFilterSustainFraction(value);
             break;
-        case AKSamplerParameterFilterReleaseDuration:
+        case SamplerParameterFilterReleaseDuration:
             setFilterReleaseDurationSeconds(value);
             break;
 
@@ -223,7 +223,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             restartVoiceLFO = value > 0.5f;
             break;
 
-        case AKSamplerParameterFilterEnable:
+        case SamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
             break;
         case AKSamplerParameterLoopThruRelease:
@@ -238,7 +238,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterKeyTrackingFraction:
             keyTracking = value;
             break;
-        case AKSamplerParameterFilterEnvelopeVelocityScaling:
+        case SamplerParameterFilterEnvelopeVelocityScaling:
             filterEnvelopeVelocityScaling = value;
             break;
     }
@@ -262,11 +262,11 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return voiceVibratoDepthRamp.getTarget();
         case AKSamplerParameterVoiceVibratoFrequency:
             return voiceVibratoFrequencyRamp.getTarget();
-        case AKSamplerParameterFilterCutoff:
+        case SamplerParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
-        case AKSamplerParameterFilterStrength:
+        case SamplerParameterFilterStrength:
             return filterStrengthRamp.getTarget();
-        case AKSamplerParameterFilterResonance:
+        case SamplerParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
         case AKSamplerParameterGlideRate:
@@ -285,13 +285,13 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
         case AKSamplerParameterReleaseDuration:
             return getADSRReleaseDurationSeconds();
 
-        case AKSamplerParameterFilterAttackDuration:
+        case SamplerParameterFilterAttackDuration:
             return getFilterAttackDurationSeconds();
-        case AKSamplerParameterFilterDecayDuration:
+        case SamplerParameterFilterDecayDuration:
             return getFilterDecayDurationSeconds();
-        case AKSamplerParameterFilterSustainLevel:
+        case SamplerParameterFilterSustainLevel:
             return getFilterSustainFraction();
-        case AKSamplerParameterFilterReleaseDuration:
+        case SamplerParameterFilterReleaseDuration:
             return getFilterReleaseDurationSeconds();
 
         case AKSamplerParameterPitchAttackDuration:
@@ -307,7 +307,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
         case AKSamplerParameterRestartVoiceLFO:
             return restartVoiceLFO ? 1.0f : 0.0f;
 
-        case AKSamplerParameterFilterEnable:
+        case SamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
         case AKSamplerParameterLoopThruRelease:
             return loopThruRelease ? 1.0f : 0.0f;
@@ -317,7 +317,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return isLegato ? 1.0f : 0.0f;
         case AKSamplerParameterKeyTrackingFraction:
             return keyTracking;
-        case AKSamplerParameterFilterEnvelopeVelocityScaling:
+        case SamplerParameterFilterEnvelopeVelocityScaling:
             return filterEnvelopeVelocityScaling;
     }
     return 0;

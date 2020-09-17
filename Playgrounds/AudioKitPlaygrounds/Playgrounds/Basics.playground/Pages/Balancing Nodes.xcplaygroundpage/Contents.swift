@@ -15,8 +15,8 @@ let file = try AKAudioFile(readFileName: "drumloop.wav")
 var source = try AKAudioPlayer(file: file)
 source.looping = true
 
-let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
-let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
+let highPassFiltering = HighPassFilter(source, cutoffFrequency: 900)
+let lowPassFiltering = LowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
 let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)

@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKAmplitudeEnvelopeTests: XCTestCase {
+class AmplitudeEnvelopeTests: XCTestCase {
 
     func testAttack() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
+        let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4)
         engine.output = envelope
         input.play()
         envelope.start()
@@ -21,7 +21,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
     func testDecay() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let envelope = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
+        let envelope = AmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
         envelope.start()
@@ -34,7 +34,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let envelope = AKAmplitudeEnvelope(input)
+        let envelope = AmplitudeEnvelope(input)
         engine.output = envelope
         input.play()
         envelope.start()
@@ -47,7 +47,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let envelope = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
+        let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
         envelope.start()
@@ -60,7 +60,7 @@ class AKAmplitudeEnvelopeTests: XCTestCase {
     func testSustain() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let envelope = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
+        let envelope = AmplitudeEnvelope(input, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
         envelope.start()

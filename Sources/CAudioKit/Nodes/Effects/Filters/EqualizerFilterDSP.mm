@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKEqualizerFilterParameter : AUParameterAddress {
-    AKEqualizerFilterParameterCenterFrequency,
-    AKEqualizerFilterParameterBandwidth,
-    AKEqualizerFilterParameterGain,
+enum EqualizerFilterParameter : AUParameterAddress {
+    EqualizerFilterParameterCenterFrequency,
+    EqualizerFilterParameterBandwidth,
+    EqualizerFilterParameterGain,
 };
 
-class AKEqualizerFilterDSP : public AKSoundpipeDSPBase {
+class EqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_eqfil *eqfil0;
     sp_eqfil *eqfil1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper gainRamp;
 
 public:
-    AKEqualizerFilterDSP() {
-        parameters[AKEqualizerFilterParameterCenterFrequency] = &centerFrequencyRamp;
-        parameters[AKEqualizerFilterParameterBandwidth] = &bandwidthRamp;
-        parameters[AKEqualizerFilterParameterGain] = &gainRamp;
+    EqualizerFilterDSP() {
+        parameters[EqualizerFilterParameterCenterFrequency] = &centerFrequencyRamp;
+        parameters[EqualizerFilterParameterBandwidth] = &bandwidthRamp;
+        parameters[EqualizerFilterParameterGain] = &gainRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKEqualizerFilterDSP)
-AK_REGISTER_PARAMETER(AKEqualizerFilterParameterCenterFrequency)
-AK_REGISTER_PARAMETER(AKEqualizerFilterParameterBandwidth)
-AK_REGISTER_PARAMETER(AKEqualizerFilterParameterGain)
+AK_REGISTER_DSP(EqualizerFilterDSP)
+AK_REGISTER_PARAMETER(EqualizerFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(EqualizerFilterParameterBandwidth)
+AK_REGISTER_PARAMETER(EqualizerFilterParameterGain)

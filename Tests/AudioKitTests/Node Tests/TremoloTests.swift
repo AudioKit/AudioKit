@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKTremoloTests: XCTestCase {
+class TremoloTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKTremolo(input)
+        engine.output = Tremolo(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKTremoloTests: XCTestCase {
     func testDepth() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKTremolo(input, depth: 0.5)
+        engine.output = Tremolo(input, depth: 0.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKTremoloTests: XCTestCase {
     func testFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKTremolo(input, frequency: 20)
+        engine.output = Tremolo(input, frequency: 20)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKTremoloTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKTremolo(input, frequency: 20, depth: 0.5)
+        engine.output = Tremolo(input, frequency: 20, depth: 0.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

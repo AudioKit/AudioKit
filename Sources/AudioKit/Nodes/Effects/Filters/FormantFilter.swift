@@ -7,7 +7,7 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
+public class FormantFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
@@ -20,7 +20,7 @@ public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: akGetParameterAddress("AKFormantFilterParameterCenterFrequency"),
+        address: akGetParameterAddress("FormantFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
-        address: akGetParameterAddress("AKFormantFilterParameterAttackDuration"),
+        address: akGetParameterAddress("FormantFilterParameterAttackDuration"),
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
     public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
-        address: akGetParameterAddress("AKFormantFilterParameterDecayDuration"),
+        address: akGetParameterAddress("FormantFilterParameterDecayDuration"),
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -55,13 +55,13 @@ public class AKFormantFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKFormantFilter.centerFrequencyDef,
-             AKFormantFilter.attackDurationDef,
-             AKFormantFilter.decayDurationDef]
+            [FormantFilter.centerFrequencyDef,
+             FormantFilter.attackDurationDef,
+             FormantFilter.decayDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKFormantFilterDSP")
+            akCreateDSP("FormantFilterDSP")
         }
     }
 

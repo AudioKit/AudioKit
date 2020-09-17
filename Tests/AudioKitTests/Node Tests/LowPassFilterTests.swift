@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKLowPassFilterTests: XCTestCase {
+class LowPassFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassFilter(input, cutoffFrequency: 500)
+        engine.output = LowPassFilter(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKLowPassFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassFilter(input)
+        engine.output = LowPassFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKLowPassFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassFilter(input, cutoffFrequency: 500, resonance: 1)
+        engine.output = LowPassFilter(input, cutoffFrequency: 500, resonance: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKLowPassFilterTests: XCTestCase {
     func testResonance() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassFilter(input, resonance: 1)
+        engine.output = LowPassFilter(input, resonance: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

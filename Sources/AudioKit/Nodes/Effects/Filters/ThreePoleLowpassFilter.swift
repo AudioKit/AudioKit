@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class AKThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
+public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
@@ -18,7 +18,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     public static let distortionDef = AKNodeParameterDef(
         identifier: "distortion",
         name: "Distortion (%)",
-        address: akGetParameterAddress("AKThreePoleLowpassFilterParameterDistortion"),
+        address: akGetParameterAddress("ThreePoleLowpassFilterParameterDistortion"),
         range: 0.0 ... 2.0,
         unit: .percent,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: akGetParameterAddress("AKThreePoleLowpassFilterParameterCutoffFrequency"),
+        address: akGetParameterAddress("ThreePoleLowpassFilterParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
-        address: akGetParameterAddress("AKThreePoleLowpassFilterParameterResonance"),
+        address: akGetParameterAddress("ThreePoleLowpassFilterParameterResonance"),
         range: 0.0 ... 2.0,
         unit: .percent,
         flags: .default)
@@ -53,13 +53,13 @@ public class AKThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKThreePoleLowpassFilter.distortionDef,
-             AKThreePoleLowpassFilter.cutoffFrequencyDef,
-             AKThreePoleLowpassFilter.resonanceDef]
+            [ThreePoleLowpassFilter.distortionDef,
+             ThreePoleLowpassFilter.cutoffFrequencyDef,
+             ThreePoleLowpassFilter.resonanceDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKThreePoleLowpassFilterDSP")
+            akCreateDSP("ThreePoleLowpassFilterDSP")
         }
     }
 

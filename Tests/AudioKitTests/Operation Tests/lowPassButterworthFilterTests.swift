@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class  LowPassButterworthFilterTests: XCTestCase {
+class  LowPassButterworthFilterOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

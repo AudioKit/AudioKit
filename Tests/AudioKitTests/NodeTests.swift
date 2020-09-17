@@ -265,7 +265,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
         let osc = Oscillator()
         func exampleStart() {
-            let env = AKAmplitudeEnvelope(osc)
+            let env = AmplitudeEnvelope(osc)
             osc.amplitude = 1
             engine.output = env
             osc.start()

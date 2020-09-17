@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKThreePoleLowpassFilterParameter : AUParameterAddress {
-    AKThreePoleLowpassFilterParameterDistortion,
-    AKThreePoleLowpassFilterParameterCutoffFrequency,
-    AKThreePoleLowpassFilterParameterResonance,
+enum ThreePoleLowpassFilterParameter : AUParameterAddress {
+    ThreePoleLowpassFilterParameterDistortion,
+    ThreePoleLowpassFilterParameterCutoffFrequency,
+    ThreePoleLowpassFilterParameterResonance,
 };
 
-class AKThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
+class ThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_lpf18 *lpf180;
     sp_lpf18 *lpf181;
@@ -19,10 +19,10 @@ private:
     ParameterRamper resonanceRamp;
 
 public:
-    AKThreePoleLowpassFilterDSP() {
-        parameters[AKThreePoleLowpassFilterParameterDistortion] = &distortionRamp;
-        parameters[AKThreePoleLowpassFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
-        parameters[AKThreePoleLowpassFilterParameterResonance] = &resonanceRamp;
+    ThreePoleLowpassFilterDSP() {
+        parameters[ThreePoleLowpassFilterParameterDistortion] = &distortionRamp;
+        parameters[ThreePoleLowpassFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
+        parameters[ThreePoleLowpassFilterParameterResonance] = &resonanceRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKThreePoleLowpassFilterDSP)
-AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterDistortion)
-AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterCutoffFrequency)
-AK_REGISTER_PARAMETER(AKThreePoleLowpassFilterParameterResonance)
+AK_REGISTER_DSP(ThreePoleLowpassFilterDSP)
+AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterDistortion)
+AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterResonance)

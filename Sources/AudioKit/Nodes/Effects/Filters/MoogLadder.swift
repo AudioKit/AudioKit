@@ -9,7 +9,7 @@ import CAudioKit
 /// "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
 /// This implementation is probably a more accurate digital representation of the original analogue filter.
 /// 
-public class AKMoogLadder: AKNode, AKComponent, AKToggleable {
+public class MoogLadder: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
@@ -22,7 +22,7 @@ public class AKMoogLadder: AKNode, AKComponent, AKToggleable {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: akGetParameterAddress("AKMoogLadderParameterCutoffFrequency"),
+        address: akGetParameterAddress("MoogLadderParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -33,7 +33,7 @@ public class AKMoogLadder: AKNode, AKComponent, AKToggleable {
     public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
-        address: akGetParameterAddress("AKMoogLadderParameterResonance"),
+        address: akGetParameterAddress("MoogLadderParameterResonance"),
         range: 0.0 ... 2.0,
         unit: .percent,
         flags: .default)
@@ -46,12 +46,12 @@ public class AKMoogLadder: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKMoogLadder.cutoffFrequencyDef,
-             AKMoogLadder.resonanceDef]
+            [MoogLadder.cutoffFrequencyDef,
+             MoogLadder.resonanceDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKMoogLadderDSP")
+            akCreateDSP("MoogLadderDSP")
         }
     }
 

@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKKorgLowPassFilterParameter : AUParameterAddress {
-    AKKorgLowPassFilterParameterCutoffFrequency,
-    AKKorgLowPassFilterParameterResonance,
-    AKKorgLowPassFilterParameterSaturation,
+enum KorgLowPassFilterParameter : AUParameterAddress {
+    KorgLowPassFilterParameterCutoffFrequency,
+    KorgLowPassFilterParameterResonance,
+    KorgLowPassFilterParameterSaturation,
 };
 
-class AKKorgLowPassFilterDSP : public AKSoundpipeDSPBase {
+class KorgLowPassFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_wpkorg35 *wpkorg350;
     sp_wpkorg35 *wpkorg351;
@@ -19,10 +19,10 @@ private:
     ParameterRamper saturationRamp;
 
 public:
-    AKKorgLowPassFilterDSP() {
-        parameters[AKKorgLowPassFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
-        parameters[AKKorgLowPassFilterParameterResonance] = &resonanceRamp;
-        parameters[AKKorgLowPassFilterParameterSaturation] = &saturationRamp;
+    KorgLowPassFilterDSP() {
+        parameters[KorgLowPassFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
+        parameters[KorgLowPassFilterParameterResonance] = &resonanceRamp;
+        parameters[KorgLowPassFilterParameterSaturation] = &saturationRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKKorgLowPassFilterDSP)
-AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterCutoffFrequency)
-AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterResonance)
-AK_REGISTER_PARAMETER(AKKorgLowPassFilterParameterSaturation)
+AK_REGISTER_DSP(KorgLowPassFilterDSP)
+AK_REGISTER_PARAMETER(KorgLowPassFilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(KorgLowPassFilterParameterResonance)
+AK_REGISTER_PARAMETER(KorgLowPassFilterParameterSaturation)

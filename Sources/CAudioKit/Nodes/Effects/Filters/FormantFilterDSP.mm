@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKFormantFilterParameter : AUParameterAddress {
-    AKFormantFilterParameterCenterFrequency,
-    AKFormantFilterParameterAttackDuration,
-    AKFormantFilterParameterDecayDuration,
+enum FormantFilterParameter : AUParameterAddress {
+    FormantFilterParameterCenterFrequency,
+    FormantFilterParameterAttackDuration,
+    FormantFilterParameterDecayDuration,
 };
 
-class AKFormantFilterDSP : public AKSoundpipeDSPBase {
+class FormantFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_fofilt *fofilt0;
     sp_fofilt *fofilt1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper decayDurationRamp;
 
 public:
-    AKFormantFilterDSP() {
-        parameters[AKFormantFilterParameterCenterFrequency] = &centerFrequencyRamp;
-        parameters[AKFormantFilterParameterAttackDuration] = &attackDurationRamp;
-        parameters[AKFormantFilterParameterDecayDuration] = &decayDurationRamp;
+    FormantFilterDSP() {
+        parameters[FormantFilterParameterCenterFrequency] = &centerFrequencyRamp;
+        parameters[FormantFilterParameterAttackDuration] = &attackDurationRamp;
+        parameters[FormantFilterParameterDecayDuration] = &decayDurationRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKFormantFilterDSP)
-AK_REGISTER_PARAMETER(AKFormantFilterParameterCenterFrequency)
-AK_REGISTER_PARAMETER(AKFormantFilterParameterAttackDuration)
-AK_REGISTER_PARAMETER(AKFormantFilterParameterDecayDuration)
+AK_REGISTER_DSP(FormantFilterDSP)
+AK_REGISTER_PARAMETER(FormantFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(FormantFilterParameterAttackDuration)
+AK_REGISTER_PARAMETER(FormantFilterParameterDecayDuration)

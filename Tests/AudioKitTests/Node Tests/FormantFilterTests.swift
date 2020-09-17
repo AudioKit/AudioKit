@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKFormantFilterTests: XCTestCase {
+class FormantFilterTests: XCTestCase {
 
     func testAttack() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFormantFilter(input, attackDuration: 0.023_4)
+        engine.output = FormantFilter(input, attackDuration: 0.023_4)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKFormantFilterTests: XCTestCase {
     func testCenterFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFormantFilter(input, centerFrequency: 500)
+        engine.output = FormantFilter(input, centerFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKFormantFilterTests: XCTestCase {
     func testDecay() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFormantFilter(input, decayDuration: 0.023_4)
+        engine.output = FormantFilter(input, decayDuration: 0.023_4)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKFormantFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFormantFilter(input)
+        engine.output = FormantFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

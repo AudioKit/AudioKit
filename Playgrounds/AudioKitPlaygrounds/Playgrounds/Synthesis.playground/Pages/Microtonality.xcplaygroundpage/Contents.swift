@@ -17,7 +17,7 @@ osc.sustainLevel = 0.238_186
 osc.releaseDuration = 0.125
 
 // FILTER
-let filter = AKKorgLowPassFilter(osc)
+let filter = KorgLowPassFilter(osc)
 filter.cutoffFrequency = 5_500
 filter.resonance = 0.2
 let generatorFader = AKFader(filter)

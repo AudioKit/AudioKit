@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKHighShelfFilterTests: XCTestCase {
+class HighShelfFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKHighShelfFilter(input)
+        engine.output = HighShelfFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKHighShelfFilterTests: XCTestCase {
     func testGain() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKHighShelfFilter(input, gain: 1)
+        engine.output = HighShelfFilter(input, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKHighShelfFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKHighShelfFilter(input, cutOffFrequency: 400, gain: 1)
+        engine.output = HighShelfFilter(input, cutOffFrequency: 400, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

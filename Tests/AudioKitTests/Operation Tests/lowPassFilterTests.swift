@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class LowPassFilterTests: XCTestCase {
+class LowPassFilterOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

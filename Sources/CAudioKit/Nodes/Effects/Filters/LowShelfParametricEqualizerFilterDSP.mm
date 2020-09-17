@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKLowShelfParametricEqualizerFilterParameter : AUParameterAddress {
-    AKLowShelfParametricEqualizerFilterParameterCornerFrequency,
-    AKLowShelfParametricEqualizerFilterParameterGain,
-    AKLowShelfParametricEqualizerFilterParameterQ,
+enum LowShelfParametricEqualizerFilterParameter : AUParameterAddress {
+    LowShelfParametricEqualizerFilterParameterCornerFrequency,
+    LowShelfParametricEqualizerFilterParameterGain,
+    LowShelfParametricEqualizerFilterParameterQ,
 };
 
-class AKLowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
+class LowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
     sp_pareq *pareq1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper qRamp;
 
 public:
-    AKLowShelfParametricEqualizerFilterDSP() {
-        parameters[AKLowShelfParametricEqualizerFilterParameterCornerFrequency] = &cornerFrequencyRamp;
-        parameters[AKLowShelfParametricEqualizerFilterParameterGain] = &gainRamp;
-        parameters[AKLowShelfParametricEqualizerFilterParameterQ] = &qRamp;
+    LowShelfParametricEqualizerFilterDSP() {
+        parameters[LowShelfParametricEqualizerFilterParameterCornerFrequency] = &cornerFrequencyRamp;
+        parameters[LowShelfParametricEqualizerFilterParameterGain] = &gainRamp;
+        parameters[LowShelfParametricEqualizerFilterParameterQ] = &qRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKLowShelfParametricEqualizerFilterDSP)
-AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterCornerFrequency)
-AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterGain)
-AK_REGISTER_PARAMETER(AKLowShelfParametricEqualizerFilterParameterQ)
+AK_REGISTER_DSP(LowShelfParametricEqualizerFilterDSP)
+AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterCornerFrequency)
+AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterGain)
+AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterQ)

@@ -8,8 +8,8 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var toneFilter = AKToneFilter(player)
-var toneComplement = AKToneComplementFilter(toneFilter)
+var toneFilter = ToneFilter(player)
+var toneComplement = ToneComplementFilter(toneFilter)
 
 engine.output = toneComplement
 try engine.start()

@@ -10,7 +10,7 @@ import CAudioKit
 /// with a width dependent on bandwidth. If gain is less than 1, a notch is
 /// formed around the center frequency.
 /// 
-public class AKEqualizerFilter: AKNode, AKComponent, AKToggleable {
+public class EqualizerFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
@@ -23,7 +23,7 @@ public class AKEqualizerFilter: AKNode, AKComponent, AKToggleable {
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: akGetParameterAddress("AKEqualizerFilterParameterCenterFrequency"),
+        address: akGetParameterAddress("EqualizerFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -34,7 +34,7 @@ public class AKEqualizerFilter: AKNode, AKComponent, AKToggleable {
     public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
-        address: akGetParameterAddress("AKEqualizerFilterParameterBandwidth"),
+        address: akGetParameterAddress("EqualizerFilterParameterBandwidth"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -45,7 +45,7 @@ public class AKEqualizerFilter: AKNode, AKComponent, AKToggleable {
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
-        address: akGetParameterAddress("AKEqualizerFilterParameterGain"),
+        address: akGetParameterAddress("EqualizerFilterParameterGain"),
         range: -100.0 ... 100.0,
         unit: .percent,
         flags: .default)
@@ -58,13 +58,13 @@ public class AKEqualizerFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKEqualizerFilter.centerFrequencyDef,
-             AKEqualizerFilter.bandwidthDef,
-             AKEqualizerFilter.gainDef]
+            [EqualizerFilter.centerFrequencyDef,
+             EqualizerFilter.bandwidthDef,
+             EqualizerFilter.gainDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKEqualizerFilterDSP")
+            akCreateDSP("EqualizerFilterDSP")
         }
     }
 

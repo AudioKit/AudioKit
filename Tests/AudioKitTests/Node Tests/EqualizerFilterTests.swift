@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKEqualizerFilterTests: XCTestCase {
+class EqualizerFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKEqualizerFilter(input, bandwidth: 50)
+        engine.output = EqualizerFilter(input, bandwidth: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKEqualizerFilterTests: XCTestCase {
     func testCenterFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKEqualizerFilter(input, centerFrequency: 500)
+        engine.output = EqualizerFilter(input, centerFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKEqualizerFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKEqualizerFilter(input)
+        engine.output = EqualizerFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKEqualizerFilterTests: XCTestCase {
     func testGain() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKEqualizerFilter(input, gain: 5)
+        engine.output = EqualizerFilter(input, gain: 5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -48,7 +48,7 @@ class AKEqualizerFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
+        engine.output = EqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

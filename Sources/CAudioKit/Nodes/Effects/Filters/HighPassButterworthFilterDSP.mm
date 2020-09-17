@@ -4,19 +4,19 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKHighPassButterworthFilterParameter : AUParameterAddress {
-    AKHighPassButterworthFilterParameterCutoffFrequency,
+enum HighPassButterworthFilterParameter : AUParameterAddress {
+    HighPassButterworthFilterParameterCutoffFrequency,
 };
 
-class AKHighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
+class HighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_buthp *buthp0;
     sp_buthp *buthp1;
     ParameterRamper cutoffFrequencyRamp;
 
 public:
-    AKHighPassButterworthFilterDSP() {
-        parameters[AKHighPassButterworthFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
+    HighPassButterworthFilterDSP() {
+        parameters[HighPassButterworthFilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKHighPassButterworthFilterDSP)
-AK_REGISTER_PARAMETER(AKHighPassButterworthFilterParameterCutoffFrequency)
+AK_REGISTER_DSP(HighPassButterworthFilterDSP)
+AK_REGISTER_PARAMETER(HighPassButterworthFilterParameterCutoffFrequency)

@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class ModalResonanceFilterTests: XCTestCase {
+class ModalResonanceFilterOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

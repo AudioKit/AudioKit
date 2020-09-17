@@ -64,13 +64,13 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
         case AKSynthParameterVibratoDepth:
             vibratoDepthRamp.setTarget(value, immediate);
             break;
-        case AKSynthParameterFilterCutoff:
+        case SynthParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
             break;
-        case AKSynthParameterFilterStrength:
+        case SynthParameterFilterStrength:
             filterStrengthRamp.setTarget(value, immediate);
             break;
-        case AKSynthParameterFilterResonance:
+        case SynthParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
@@ -87,16 +87,16 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
             setAmpReleaseDurationSeconds(value);
             break;
 
-        case AKSynthParameterFilterAttackDuration:
+        case SynthParameterFilterAttackDuration:
             setFilterAttackDurationSeconds(value);
             break;
-        case AKSynthParameterFilterDecayDuration:
+        case SynthParameterFilterDecayDuration:
             setFilterDecayDurationSeconds(value);
             break;
-        case AKSynthParameterFilterSustainLevel:
+        case SynthParameterFilterSustainLevel:
             setFilterSustainFraction(value);
             break;
-        case AKSynthParameterFilterReleaseDuration:
+        case SynthParameterFilterReleaseDuration:
             setFilterReleaseDurationSeconds(value);
             break;
     }
@@ -114,11 +114,11 @@ float AKSynthDSP::getParameter(uint64_t address)
             return pitchBendRamp.getTarget();
         case AKSynthParameterVibratoDepth:
             return vibratoDepthRamp.getTarget();
-        case AKSynthParameterFilterCutoff:
+        case SynthParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
-        case AKSynthParameterFilterStrength:
+        case SynthParameterFilterStrength:
             return filterStrengthRamp.getTarget();
-        case AKSynthParameterFilterResonance:
+        case SynthParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
         case AKSynthParameterAttackDuration:
@@ -130,13 +130,13 @@ float AKSynthDSP::getParameter(uint64_t address)
         case AKSynthParameterReleaseDuration:
             return getAmpReleaseDurationSeconds();
 
-        case AKSynthParameterFilterAttackDuration:
+        case SynthParameterFilterAttackDuration:
             return getFilterAttackDurationSeconds();
-        case AKSynthParameterFilterDecayDuration:
+        case SynthParameterFilterDecayDuration:
             return getFilterDecayDurationSeconds();
-        case AKSynthParameterFilterSustainLevel:
+        case SynthParameterFilterSustainLevel:
             return getFilterSustainFraction();
-        case AKSynthParameterFilterReleaseDuration:
+        case SynthParameterFilterReleaseDuration:
             return getFilterReleaseDurationSeconds();
     }
     return 0;

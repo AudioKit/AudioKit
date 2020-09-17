@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKMoogLadderParameter : AUParameterAddress {
-    AKMoogLadderParameterCutoffFrequency,
-    AKMoogLadderParameterResonance,
+enum MoogLadderParameter : AUParameterAddress {
+    MoogLadderParameterCutoffFrequency,
+    MoogLadderParameterResonance,
 };
 
-class AKMoogLadderDSP : public AKSoundpipeDSPBase {
+class MoogLadderDSP : public AKSoundpipeDSPBase {
 private:
     sp_moogladder *moogladder0;
     sp_moogladder *moogladder1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper resonanceRamp;
 
 public:
-    AKMoogLadderDSP() {
-        parameters[AKMoogLadderParameterCutoffFrequency] = &cutoffFrequencyRamp;
-        parameters[AKMoogLadderParameterResonance] = &resonanceRamp;
+    MoogLadderDSP() {
+        parameters[MoogLadderParameterCutoffFrequency] = &cutoffFrequencyRamp;
+        parameters[MoogLadderParameterResonance] = &resonanceRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKMoogLadderDSP)
-AK_REGISTER_PARAMETER(AKMoogLadderParameterCutoffFrequency)
-AK_REGISTER_PARAMETER(AKMoogLadderParameterResonance)
+AK_REGISTER_DSP(MoogLadderDSP)
+AK_REGISTER_PARAMETER(MoogLadderParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(MoogLadderParameterResonance)

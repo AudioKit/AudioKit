@@ -9,7 +9,7 @@ import CAudioKit
 public class AKSynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
-//    var filter: AKMoogLadder
+//    var filter: MoogLadder
 
     /// Create the synth kick voice
     ///
@@ -23,7 +23,7 @@ public class AKSynthKick: AKMIDIInstrument {
         }
 
         // TODO FIXME
-//        filter = AKMoogLadder(generator)
+//        filter = MoogLadder(generator)
 //        filter.cutoffFrequency = 666
 //        filter.resonance = 0.00
 
@@ -49,7 +49,7 @@ public class AKSynthKick: AKMIDIInstrument {
 public class AKSynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
-//    var filter: AKMoogLadder
+//    var filter: MoogLadder
     var duration = 0.143
 
     /// Create the synth snare voice
@@ -66,7 +66,7 @@ public class AKSynthSnare: AKMIDIInstrument {
             return AKOperation.whiteNoise(amplitude: volSlide)
         }
 // TODO FIXME
-//        filter = AKMoogLadder(generator)
+//        filter = MoogLadder(generator)
 //        filter.cutoffFrequency = AUValue(1_666)
 
         super.init()

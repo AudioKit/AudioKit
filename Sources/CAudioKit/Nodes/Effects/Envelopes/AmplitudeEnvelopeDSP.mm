@@ -4,14 +4,14 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKAmplitudeEnvelopeParameter : AUParameterAddress {
-    AKAmplitudeEnvelopeParameterAttackDuration,
-    AKAmplitudeEnvelopeParameterDecayDuration,
-    AKAmplitudeEnvelopeParameterSustainLevel,
-    AKAmplitudeEnvelopeParameterReleaseDuration,
+enum AmplitudeEnvelopeParameter : AUParameterAddress {
+    AmplitudeEnvelopeParameterAttackDuration,
+    AmplitudeEnvelopeParameterDecayDuration,
+    AmplitudeEnvelopeParameterSustainLevel,
+    AmplitudeEnvelopeParameterReleaseDuration,
 };
 
-class AKAmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
+class AmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
 private:
     sp_adsr *adsr;
     float internalGate = 0;
@@ -22,11 +22,11 @@ private:
     ParameterRamper releaseDurationRamp;
 
 public:
-    AKAmplitudeEnvelopeDSP() {
-        parameters[AKAmplitudeEnvelopeParameterAttackDuration] = &attackDurationRamp;
-        parameters[AKAmplitudeEnvelopeParameterDecayDuration] = &decayDurationRamp;
-        parameters[AKAmplitudeEnvelopeParameterSustainLevel] = &sustainLevelRamp;
-        parameters[AKAmplitudeEnvelopeParameterReleaseDuration] = &releaseDurationRamp;
+    AmplitudeEnvelopeDSP() {
+        parameters[AmplitudeEnvelopeParameterAttackDuration] = &attackDurationRamp;
+        parameters[AmplitudeEnvelopeParameterDecayDuration] = &decayDurationRamp;
+        parameters[AmplitudeEnvelopeParameterSustainLevel] = &sustainLevelRamp;
+        parameters[AmplitudeEnvelopeParameterReleaseDuration] = &releaseDurationRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -77,8 +77,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKAmplitudeEnvelopeDSP)
-AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterAttackDuration)
-AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterDecayDuration)
-AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterSustainLevel)
-AK_REGISTER_PARAMETER(AKAmplitudeEnvelopeParameterReleaseDuration)
+AK_REGISTER_DSP(AmplitudeEnvelopeDSP)
+AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterAttackDuration)
+AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterDecayDuration)
+AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterSustainLevel)
+AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterReleaseDuration)

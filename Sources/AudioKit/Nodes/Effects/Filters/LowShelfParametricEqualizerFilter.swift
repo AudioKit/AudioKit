@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
-public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleable {
+public class LowShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
@@ -18,7 +18,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKTogglea
     public static let cornerFrequencyDef = AKNodeParameterDef(
         identifier: "cornerFrequency",
         name: "Corner Frequency (Hz)",
-        address: akGetParameterAddress("AKLowShelfParametricEqualizerFilterParameterCornerFrequency"),
+        address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterCornerFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKTogglea
     public static let gainDef = AKNodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: akGetParameterAddress("AKLowShelfParametricEqualizerFilterParameterGain"),
+        address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterGain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKTogglea
     public static let qDef = AKNodeParameterDef(
         identifier: "q",
         name: "Q",
-        address: akGetParameterAddress("AKLowShelfParametricEqualizerFilterParameterQ"),
+        address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterQ"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -53,13 +53,13 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKComponent, AKTogglea
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKLowShelfParametricEqualizerFilter.cornerFrequencyDef,
-             AKLowShelfParametricEqualizerFilter.gainDef,
-             AKLowShelfParametricEqualizerFilter.qDef]
+            [LowShelfParametricEqualizerFilter.cornerFrequencyDef,
+             LowShelfParametricEqualizerFilter.gainDef,
+             LowShelfParametricEqualizerFilter.qDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKLowShelfParametricEqualizerFilterDSP")
+            akCreateDSP("LowShelfParametricEqualizerFilterDSP")
         }
     }
 

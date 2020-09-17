@@ -4,19 +4,19 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKToneComplementFilterParameter : AUParameterAddress {
-    AKToneComplementFilterParameterHalfPowerPoint,
+enum ToneComplementFilterParameter : AUParameterAddress {
+    ToneComplementFilterParameterHalfPowerPoint,
 };
 
-class AKToneComplementFilterDSP : public AKSoundpipeDSPBase {
+class ToneComplementFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_atone *atone0;
     sp_atone *atone1;
     ParameterRamper halfPowerPointRamp;
 
 public:
-    AKToneComplementFilterDSP() {
-        parameters[AKToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
+    ToneComplementFilterDSP() {
+        parameters[ToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
         bCanProcessInPlace = false;
     }
 
@@ -73,5 +73,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKToneComplementFilterDSP)
-AK_REGISTER_PARAMETER(AKToneComplementFilterParameterHalfPowerPoint)
+AK_REGISTER_DSP(ToneComplementFilterDSP)
+AK_REGISTER_PARAMETER(ToneComplementFilterParameterHalfPowerPoint)

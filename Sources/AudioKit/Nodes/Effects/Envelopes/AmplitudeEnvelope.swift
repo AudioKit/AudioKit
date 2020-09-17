@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
+public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
@@ -18,7 +18,7 @@ public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack time",
-        address: akGetParameterAddress("AKAmplitudeEnvelopeParameterAttackDuration"),
+        address: akGetParameterAddress("AmplitudeEnvelopeParameterAttackDuration"),
         range: 0 ... 99,
         unit: .seconds,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "Decay time",
-        address: akGetParameterAddress("AKAmplitudeEnvelopeParameterDecayDuration"),
+        address: akGetParameterAddress("AmplitudeEnvelopeParameterDecayDuration"),
         range: 0 ... 99,
         unit: .seconds,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     public static let sustainLevelDef = AKNodeParameterDef(
         identifier: "sustainLevel",
         name: "Sustain Level",
-        address: akGetParameterAddress("AKAmplitudeEnvelopeParameterSustainLevel"),
+        address: akGetParameterAddress("AmplitudeEnvelopeParameterSustainLevel"),
         range: 0 ... 99,
         unit: .generic,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release time",
-        address: akGetParameterAddress("AKAmplitudeEnvelopeParameterReleaseDuration"),
+        address: akGetParameterAddress("AmplitudeEnvelopeParameterReleaseDuration"),
         range: 0 ... 99,
         unit: .seconds,
         flags: .default)
@@ -64,14 +64,14 @@ public class AKAmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKAmplitudeEnvelope.attackDurationDef,
-             AKAmplitudeEnvelope.decayDurationDef,
-             AKAmplitudeEnvelope.sustainLevelDef,
-             AKAmplitudeEnvelope.releaseDurationDef]
+            [AmplitudeEnvelope.attackDurationDef,
+             AmplitudeEnvelope.decayDurationDef,
+             AmplitudeEnvelope.sustainLevelDef,
+             AmplitudeEnvelope.releaseDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKAmplitudeEnvelopeDSP")
+            akCreateDSP("AmplitudeEnvelopeDSP")
         }
     }
 

@@ -5,12 +5,12 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKTremoloParameter : AUParameterAddress {
-    AKTremoloParameterFrequency,
-    AKTremoloParameterDepth,
+enum TremoloParameter : AUParameterAddress {
+    TremoloParameterFrequency,
+    TremoloParameterDepth,
 };
 
-class AKTremoloDSP : public AKSoundpipeDSPBase {
+class TremoloDSP : public AKSoundpipeDSPBase {
 private:
     sp_osc *trem;
     sp_ftbl *ftbl;
@@ -19,9 +19,9 @@ private:
     ParameterRamper depthRamp;
 
 public:
-    AKTremoloDSP() {
-        parameters[AKTremoloParameterFrequency] = &frequencyRamp;
-        parameters[AKTremoloParameterDepth] = &depthRamp;
+    TremoloDSP() {
+        parameters[TremoloParameterFrequency] = &frequencyRamp;
+        parameters[TremoloParameterDepth] = &depthRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -72,6 +72,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKTremoloDSP)
-AK_REGISTER_PARAMETER(AKTremoloParameterFrequency)
-AK_REGISTER_PARAMETER(AKTremoloParameterDepth)
+AK_REGISTER_DSP(TremoloDSP)
+AK_REGISTER_PARAMETER(TremoloParameterFrequency)
+AK_REGISTER_PARAMETER(TremoloParameterDepth)

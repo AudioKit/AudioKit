@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// The output for reson appears to be very hot, so take caution when using this module.
-public class AKResonantFilter: AKNode, AKComponent, AKToggleable {
+public class ResonantFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
@@ -18,7 +18,7 @@ public class AKResonantFilter: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Center frequency of the filter, or frequency position of the peak response.",
-        address: akGetParameterAddress("AKResonantFilterParameterFrequency"),
+        address: akGetParameterAddress("ResonantFilterParameterFrequency"),
         range: 100.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKResonantFilter: AKNode, AKComponent, AKToggleable {
     public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth of the filter.",
-        address: akGetParameterAddress("AKResonantFilterParameterBandwidth"),
+        address: akGetParameterAddress("ResonantFilterParameterBandwidth"),
         range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -42,12 +42,12 @@ public class AKResonantFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKResonantFilter.frequencyDef,
-             AKResonantFilter.bandwidthDef]
+            [ResonantFilter.frequencyDef,
+             ResonantFilter.bandwidthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKResonantFilterDSP")
+            akCreateDSP("ResonantFilterDSP")
         }
     }
 
