@@ -164,8 +164,6 @@ create_xcframework()
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}-appletvsimulator/$1.framework" \
 		-framework "${BUILD_DIR}/${CONFIGURATION}/$1.framework" $CATA_ARG
-	# OMFG, we need to manually unfuck the generated swift interface files. WTF!
-	find $1.xcframework -name "*.swiftinterface" -exec sed -i -e "s/$1\.//g" {} \;
 }
 
 # Create individual static platform frameworks (device or simulator) in their own subdirectories
@@ -227,7 +225,7 @@ create_catalyst_framework()
 	rm -rf "${DIR}/${PROJECT_NAME}.framework" "${DIR}/${PROJECT_UI_NAME}.framework"
 	mkdir -p "$DIR"
 	xcodebuild archive -project "$PROJECT" -scheme $PROJECT_UI_NAME ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" SKIP_INSTALL=NO \
-			-configuration ${CONFIGURATION} -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
+			-configuration ${CONFIGURATION} -destination 'platform=macOS,variant=Mac Catalyst' -archivePath "${BUILD_DIR}/Catalyst.xcarchive" \
 			BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" | tee -a build.log | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_NAME}.framework" "${BUILD_DIR}/Catalyst.xcarchive/Products/Library/Frameworks/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
@@ -249,13 +247,13 @@ rm -f build.log
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
-		create_universal_framework iOS iphonesimulator iphoneos
-		#create_framework iOS iphoneos
-		#create_framework iOS iphonesimulator
+		#create_universal_framework iOS iphonesimulator iphoneos
+		create_framework iOS iphoneos
+		create_framework iOS iphonesimulator
 	elif test $os = 'tvOS'; then
-		create_universal_framework tvOS appletvsimulator appletvos
-		#create_framework tvOS appletvos
-		#create_framework tvOS appletvsimulator
+		#create_universal_framework tvOS appletvsimulator appletvos
+		create_framework tvOS appletvos
+		create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
 		create_macos_framework macOS macosx
 		create_catalyst_framework
