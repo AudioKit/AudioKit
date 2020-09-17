@@ -40,7 +40,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Drum Sequencer")
 
-        addView(AKButton(title: "Play") { button in
+        addView(Button(title: "Play") { button in
             if sequencer.isPlaying {
                 sequencer.stop()
                 sequencer.rewind()
@@ -67,7 +67,7 @@ class LiveView: AKLiveViewController {
 
         sequencer.tracks[3].add(noteNumber: 26, velocity: 127, position: Duration(beats: 2), duration: Duration(beats: 1))
 
-        addView(AKButton(title: "Randomize Hi-hats") { _ in
+        addView(Button(title: "Randomize Hi-hats") { _ in
 
             sequencer.tracks[2].clearRange(start: Duration(beats: 0), duration: Duration(beats: 4))
             for i in 0 ... 15 {
@@ -80,7 +80,7 @@ class LiveView: AKLiveViewController {
 
         })
 
-        addView(AKSlider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
+        addView(Slider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
             sliderValue in
             sequencer.setTempo(sliderValue)
         })

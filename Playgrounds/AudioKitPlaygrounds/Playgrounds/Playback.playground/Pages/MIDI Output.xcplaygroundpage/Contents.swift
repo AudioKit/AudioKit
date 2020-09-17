@@ -20,7 +20,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         keyboard.delegate = self
         addView(keyboard)
 
-        addView(AKButton(title: "Go Polyphonic") { button in
+        addView(Button(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
                 button.title = "Go Monophonic"

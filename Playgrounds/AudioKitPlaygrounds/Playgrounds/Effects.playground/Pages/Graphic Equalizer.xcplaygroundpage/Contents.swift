@@ -27,31 +27,29 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Graphic Equalizer")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
         addLabel("Equalizer Gains")
 
-        addView(AKSlider(property: "32Hz", value: filterBand2.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "32Hz", value: filterBand2.gain, range: 0 ... 2) { sliderValue in
             filterBand2.gain = sliderValue
         })
 
-        addView(AKSlider(property: "64Hz", value: filterBand3.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "64Hz", value: filterBand3.gain, range: 0 ... 2) { sliderValue in
             filterBand3.gain = sliderValue
         })
 
-        addView(AKSlider(property: "125Hz", value: filterBand4.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "125Hz", value: filterBand4.gain, range: 0 ... 2) { sliderValue in
             filterBand4.gain = sliderValue
         })
 
-        addView(AKSlider(property: "250Hz", value: filterBand5.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "250Hz", value: filterBand5.gain, range: 0 ... 2) { sliderValue in
             filterBand5.gain = sliderValue
         })
 
-        addView(AKSlider(property: "500Hz", value: filterBand6.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "500Hz", value: filterBand6.gain, range: 0 ... 2) { sliderValue in
             filterBand6.gain = sliderValue
         })
 
-        addView(AKSlider(property: "1000Hz", value: filterBand7.gain, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "1000Hz", value: filterBand7.gain, range: 0 ... 2) { sliderValue in
             filterBand7.gain = sliderValue
         })
     }

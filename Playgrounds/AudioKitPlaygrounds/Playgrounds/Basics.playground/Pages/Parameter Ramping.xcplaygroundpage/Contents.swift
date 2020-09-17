@@ -40,7 +40,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Parameter Ramping")
 
-        addView(AKSlider(property: "Ramp Duration", value: filter.rampDuration, format: "%0.3f s") { sliderValue in
+        addView(Slider(property: "Ramp Duration", value: filter.rampDuration, format: "%0.3f s") { sliderValue in
             filter.rampDuration = sliderValue
         })
     }

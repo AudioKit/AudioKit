@@ -8,7 +8,7 @@ import CAudioKit
 public class PitchTap: AKToggleable {
     private var pitch: [Float] = [0, 0]
     private var amp: [Float] = [0, 0]
-    private var trackers: [AKPitchTrackerRef] = []
+    private var trackers: [PitchTrackerRef] = []
     public private(set) var bufferSize: UInt32
 
     /// Tells whether the node is processing (ie. started, playing, or active)

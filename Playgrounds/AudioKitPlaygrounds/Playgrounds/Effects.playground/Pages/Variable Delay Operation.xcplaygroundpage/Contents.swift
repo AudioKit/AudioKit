@@ -30,22 +30,20 @@ class LiveView: AKLiveViewController {
 
     override func viewDidLoad() {
         addTitle("Variable Delay Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Maximum Delay",
+        addView(Slider(property: "Maximum Delay",
                          value: effect.parameters[0],
                          range: 0 ... 0.3,
                          format: "%0.3f s"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addView(AKSlider(property: "Delay Frequency",
+        addView(Slider(property: "Delay Frequency",
                          value: effect.parameters[1],
                          format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addView(AKSlider(property: "Feedback Frequency",
+        addView(Slider(property: "Feedback Frequency",
                          value: effect.parameters[2],
                          format: "%0.3f Hz"
         ) { sliderValue in

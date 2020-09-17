@@ -33,7 +33,7 @@ class LiveView: AKLiveViewController {
 
         addLabel("Listen to the difference in volume:")
 
-        addView(AKButton(title: "Balancing") { button in
+        addView(Button(title: "Balancing") { button in
             let node = rebalancedWithSource
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Balancing" : "Bypassed"

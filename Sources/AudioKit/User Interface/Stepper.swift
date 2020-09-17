@@ -16,8 +16,8 @@ import UIKit
     var valueLabel: UILabel? //fixme
     var buttons: UIStackView!
     var showsValue: Bool = true
-    var plusButton: AKButton!
-    var minusButton: AKButton!
+    var plusButton: Button!
+    var minusButton: Button!
     public var currentValue: AUValue = 0.5 {
         didSet {
             DispatchQueue.main.async {
@@ -144,7 +144,7 @@ import UIKit
     }
     internal func setupButtons(frame: CGRect) {
         let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
-        plusButton = AKButton(title: "+", frame: buttonFrame, callback: { [weak self] _ in
+        plusButton = Button(title: "+", frame: buttonFrame, callback: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }
@@ -157,7 +157,7 @@ import UIKit
             }
             strongSelf.touchEndedCallback()
         }
-        minusButton = AKButton(title: "-", frame: buttonFrame, callback: { [weak self] _ in
+        minusButton = Button(title: "-", frame: buttonFrame, callback: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }

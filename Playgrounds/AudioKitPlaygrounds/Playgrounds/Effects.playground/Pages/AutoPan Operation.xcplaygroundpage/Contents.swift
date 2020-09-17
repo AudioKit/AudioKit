@@ -42,13 +42,11 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("AutoPan")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
+        addView(Slider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
             effect.speed = sliderValue
         })
 
-        addView(AKSlider(property: "Depth", value: effect.depth) { sliderValue in
+        addView(Slider(property: "Depth", value: effect.depth) { sliderValue in
             effect.depth = sliderValue
         })
     }

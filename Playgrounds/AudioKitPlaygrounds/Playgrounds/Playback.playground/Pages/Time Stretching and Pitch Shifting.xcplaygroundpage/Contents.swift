@@ -27,21 +27,19 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Time/Pitch")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
         addLabel("Time/Pitch Parameters")
 
-        addView(AKButton(title: "Stop Stretching") { button in
+        addView(Button(title: "Stop Stretching") { button in
             let node = timePitch
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Stretching" : "Start Stretching"
         })
 
-        addView(AKSlider(property: "Rate", value: timePitch.rate, range: 0.312_5 ... 5) { sliderValue in
+        addView(Slider(property: "Rate", value: timePitch.rate, range: 0.312_5 ... 5) { sliderValue in
             timePitch.rate = sliderValue
         })
 
-        addView(AKSlider(property: "Pitch",
+        addView(Slider(property: "Pitch",
                          value: timePitch.pitch,
                          range: -2_400 ... 2_400,
                          format: "%0.3f Cents"
@@ -49,7 +47,7 @@ class LiveView: AKLiveViewController {
             timePitch.pitch = sliderValue
         })
 
-        addView(AKSlider(property: "Overlap", value: timePitch.overlap, range: 3 ... 32) { sliderValue in
+        addView(Slider(property: "Overlap", value: timePitch.overlap, range: 3 ... 32) { sliderValue in
             timePitch.overlap = sliderValue
         })
     }

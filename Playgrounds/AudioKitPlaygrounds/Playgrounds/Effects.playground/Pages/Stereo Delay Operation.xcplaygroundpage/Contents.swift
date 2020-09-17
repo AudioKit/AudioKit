@@ -26,26 +26,24 @@ class LiveView: AKLiveViewController {
 
     override func viewDidLoad() {
         addTitle("Stereo Delay Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Left Delay",
+        addView(Slider(property: "Left Delay",
                          value: effect.parameters[0],
                          range: 0 ... 0.3,
                          format: "%0.3f s"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addView(AKSlider(property: "Left Feedback", value: effect.parameters[1]) { sliderValue in
+        addView(Slider(property: "Left Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addView(AKSlider(property: "Right Delay",
+        addView(Slider(property: "Right Delay",
                          value: effect.parameters[2],
                          range: 0 ... 0.3,
                          format: "%0.3f s"
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addView(AKSlider(property: "Right Feedback", value: effect.parameters[3]) { sliderValue in
+        addView(Slider(property: "Right Feedback", value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }

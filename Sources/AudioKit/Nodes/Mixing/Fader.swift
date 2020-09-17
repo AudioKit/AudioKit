@@ -9,11 +9,11 @@ public typealias AKBooster = Fader
 /// Stereo Fader.
 public class Fader: Node, AKToggleable, AKComponent {
 
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
@@ -108,7 +108,7 @@ public class Fader: Node, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
             self.leftGain = gain
             self.rightGain = gain

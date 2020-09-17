@@ -37,7 +37,7 @@ class LiveView: AKLiveViewController {
     enum State {
         case bell, piano
     }
-    var buttons: [AKButton] = []
+    var buttons: [Button] = []
     var states: [State] = [.piano, .piano, .piano, .piano]
 
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class LiveView: AKLiveViewController {
         addTitle("Sequencer")
 
         for i in 0 ..< 4 {
-            let button = AKButton(title: "Track \(i + 1): FM Piano") { _ in
+            let button = Button(title: "Track \(i + 1): FM Piano") { _ in
                 self.states[i] = self.states[i] == .bell ? .piano : .bell
                 self.update()
             }

@@ -6,13 +6,13 @@ import CAudioKit
 /// Sampler
 ///
 public class Sampler: AKPolyphonicNode, AKComponent {
-    public typealias AKAudioUnitType = SamplerAudioUnit
+    public typealias AudioUnitType = SamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
 
     // MARK: - Properties
 
-    public var internalAU: AKAudioUnitType?
+    public var internalAU: AudioUnitType?
 
     /// Master volume (fraction)
     open var masterVolume: AUValue = 1.0 {
@@ -280,7 +280,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
         }
         self.loadAudioFile(from: sampleDescriptor, file: file)
     }
@@ -293,7 +293,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
         }
         self.loadSFZ(url: sfzURL)
     }
@@ -306,7 +306,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
         }
         self.loadSFZ(path: sfzPath, fileName: sfzFileName)
     }

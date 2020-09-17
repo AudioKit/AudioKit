@@ -25,23 +25,21 @@ class LiveView: AKLiveViewController {
 
     override func viewDidLoad() {
         addTitle("Pitch Shift Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Base Shift",
+        addView(Slider(property: "Base Shift",
                          value: effect.parameters[0],
                          range: -12 ... 12,
                          format: "%0.3f semitones"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addView(AKSlider(property: "Range",
+        addView(Slider(property: "Range",
                          value: effect.parameters[1],
                          range: 0 ... 24,
                          format: "%0.3f semitones"
         ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addView(AKSlider(property: "Speed",
+        addView(Slider(property: "Speed",
                          value: effect.parameters[2],
                          range: 0.001 ... 10,
                          format: "%0.3f Hz"

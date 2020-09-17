@@ -27,14 +27,12 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Low Pass Filter")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop") { button in
+        addView(Button(title: "Stop") { button in
             filter.isStarted ? filter.stop() : filter.play()
             button.title = filter.isStarted ? "Stop" : "Start"
         })
 
-        addView(AKSlider(property: "Cutoff Frequency",
+        addView(Slider(property: "Cutoff Frequency",
                          value: filter.cutoffFrequency,
                          range: 20 ... 22_050,
                          taper: 5,
@@ -43,7 +41,7 @@ class LiveView: AKLiveViewController {
             filter.cutoffFrequency = sliderValue
         })
 
-        addView(AKSlider(property: "Resonance",
+        addView(Slider(property: "Resonance",
                          value: filter.resonance,
                          range: -20 ... 40,
                          format: "%0.1f dB"

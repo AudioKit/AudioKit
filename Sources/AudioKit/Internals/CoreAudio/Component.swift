@@ -13,18 +13,17 @@ public protocol AUComponent: AnyObject, Aliased {
 }
 
 public protocol AKComponent: AUComponent {
-    associatedtype AKAudioUnitType: AUAudioUnit // eventually AudioUnitBase
-    var internalAU: AKAudioUnitType? { get }
+    associatedtype AudioUnitType: AUAudioUnit // eventually AudioUnitBase
+    var internalAU: AudioUnitType? { get }
 }
 
 extension AKComponent {
     /// Register the audio unit subclass
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
-        AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
+        AUAudioUnit.registerSubclass(Self.AudioUnitType.self,
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
                                      version: .max)
-
         AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
             guard let au = avAudioUnit else {
                 fatalError("Unable to instantiate AVAudioUnit")

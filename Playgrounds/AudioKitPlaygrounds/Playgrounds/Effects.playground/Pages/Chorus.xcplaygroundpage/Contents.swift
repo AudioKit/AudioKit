@@ -20,23 +20,21 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Chorus")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Feedback",
+        addView(Slider(property: "Feedback",
                          value: chorus.feedback,
                          range: -0.95 ... 0.95) { sliderValue in
                             chorus.feedback = sliderValue
         })
 
-        addView(AKSlider(property: "Depth", value: chorus.depth) { sliderValue in
+        addView(Slider(property: "Depth", value: chorus.depth) { sliderValue in
             chorus.depth = sliderValue
         })
 
-        addView(AKSlider(property: "Dry Wet Mix", value: chorus.dryWetMix) { sliderValue in
+        addView(Slider(property: "Dry Wet Mix", value: chorus.dryWetMix) { sliderValue in
             chorus.dryWetMix = sliderValue
         })
 
-        addView(AKSlider(property: "Frequency",
+        addView(Slider(property: "Frequency",
                          value: chorus.frequency,
                          range: 0.1 ... 10,
                          format: "%0.1f Hz"

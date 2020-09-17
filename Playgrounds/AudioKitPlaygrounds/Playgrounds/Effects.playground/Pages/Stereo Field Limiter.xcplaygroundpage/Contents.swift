@@ -22,15 +22,13 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Stereo Field Limiter")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop") { button in
+        addView(Button(title: "Stop") { button in
             let node = limitedOutput
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop" : "Start"
         })
 
-        addView(AKSlider(property: "Amount", value: limitedOutput.amount) { sliderValue in
+        addView(Slider(property: "Amount", value: limitedOutput.amount) { sliderValue in
             limitedOutput.amount = sliderValue
         })
     }

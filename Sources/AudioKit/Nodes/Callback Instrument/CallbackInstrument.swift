@@ -16,13 +16,13 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
 open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
     // MARK: - Properties
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     public class InternalAU: AudioUnitBase {
 
@@ -45,7 +45,7 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
         }
         if let callback = midiCallback {

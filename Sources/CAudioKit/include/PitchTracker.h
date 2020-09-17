@@ -4,10 +4,10 @@
 
 #include "Interop.h"
 
-typedef struct AKPitchTracker *AKPitchTrackerRef;
+typedef struct PitchTracker *PitchTrackerRef;
 
-AK_API AKPitchTrackerRef akPitchTrackerCreate(unsigned int sampleRate, int hopSize, int peakCount);
-AK_API void akPitchTrackerDestroy(AKPitchTrackerRef);
+AK_API PitchTrackerRef akPitchTrackerCreate(unsigned int sampleRate, int hopSize, int peakCount);
+AK_API void akPitchTrackerDestroy(PitchTrackerRef);
 
-AK_API void akPitchTrackerAnalyze(AKPitchTrackerRef tracker, float* frames, unsigned int count);
-AK_API void akPitchTrackerGetResults(AKPitchTrackerRef tracker, float* trackedAmplitude, float* trackedFrequency);
+AK_API void akPitchTrackerAnalyze(PitchTrackerRef tracker, float* frames, unsigned int count);
+AK_API void akPitchTrackerGetResults(PitchTrackerRef tracker, float* trackedAmplitude, float* trackedFrequency);

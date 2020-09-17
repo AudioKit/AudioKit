@@ -51,13 +51,13 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Callback Instrument")
 
-        addView(AKButton(title: "Play") { _ in
+        addView(Button(title: "Play") { _ in
             sequencer.play()
         })
-        addView(AKButton(title: "Pause") { _ in
+        addView(Button(title: "Pause") { _ in
             sequencer.stop()
         })
-        addView(AKButton(title: "Rewind") { _ in
+        addView(Button(title: "Rewind") { _ in
             sequencer.rewind()
         })
         addLabel("Open the console log to show output.")

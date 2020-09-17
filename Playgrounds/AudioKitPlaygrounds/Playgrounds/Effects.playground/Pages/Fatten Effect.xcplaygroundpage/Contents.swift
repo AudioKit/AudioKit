@@ -34,9 +34,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Analog Synth X Fatten")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Time",
+        addView(Slider(property: "Time",
                          value: fatten.parameters[0],
                          range: 0.03 ... 0.1,
                          format: "%0.3f s"
@@ -44,7 +42,7 @@ class LiveView: AKLiveViewController {
             fatten.parameters[0] = sliderValue
         })
 
-        addView(AKSlider(property: "Mix", value: fatten.parameters[1]) { sliderValue in
+        addView(Slider(property: "Mix", value: fatten.parameters[1]) { sliderValue in
             fatten.parameters[1] = sliderValue
         })
     }

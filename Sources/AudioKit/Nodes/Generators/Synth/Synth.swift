@@ -6,13 +6,13 @@ import CAudioKit
 /// Synth
 ///
 public class Synth: AKPolyphonicNode, AKComponent {
-    public typealias AKAudioUnitType = SynthAudioUnit
+    public typealias AudioUnitType = SynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")
 
     // MARK: - Properties
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     /// Master volume (fraction)
     open var masterVolume: AUValue = 1.0 {
@@ -169,7 +169,7 @@ public class Synth: AKPolyphonicNode, AKComponent {
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
             self.masterVolume = masterVolume
             self.pitchBend = pitchBend

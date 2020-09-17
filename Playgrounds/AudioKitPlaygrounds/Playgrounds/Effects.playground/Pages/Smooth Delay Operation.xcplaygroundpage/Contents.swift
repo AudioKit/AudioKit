@@ -29,13 +29,11 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Smooth Delay Operation")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Time", value: effect.parameters[0]) { sliderValue in
+        addView(Slider(property: "Time", value: effect.parameters[0]) { sliderValue in
             effect.parameters[0] = sliderValue
         })
 
-        addView(AKSlider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
+        addView(Slider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
     }
