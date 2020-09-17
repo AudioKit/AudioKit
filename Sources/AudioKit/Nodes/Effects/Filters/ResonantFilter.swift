@@ -15,7 +15,7 @@ public class ResonantFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Center frequency of the filter, or frequency position of the peak response.",
         address: akGetParameterAddress("ResonantFilterParameterFrequency"),
@@ -26,7 +26,7 @@ public class ResonantFilter: AKNode, AKComponent, AKToggleable {
     /// Center frequency of the filter, or frequency position of the peak response.
     @Parameter public var frequency: AUValue
 
-    public static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth of the filter.",
         address: akGetParameterAddress("ResonantFilterParameterBandwidth"),
@@ -41,7 +41,7 @@ public class ResonantFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [ResonantFilter.frequencyDef,
              ResonantFilter.bandwidthDef]
         }

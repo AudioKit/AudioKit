@@ -15,7 +15,7 @@ public class PitchShifter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let shiftDef = AKNodeParameterDef(
+    public static let shiftDef = NodeParameterDef(
         identifier: "shift",
         name: "Pitch shift (in semitones)",
         address: akGetParameterAddress("PitchShifterParameterShift"),
@@ -26,7 +26,7 @@ public class PitchShifter: AKNode, AKComponent, AKToggleable {
     /// Pitch shift (in semitones)
     @Parameter public var shift: AUValue
 
-    public static let windowSizeDef = AKNodeParameterDef(
+    public static let windowSizeDef = NodeParameterDef(
         identifier: "windowSize",
         name: "Window size (in samples)",
         address: akGetParameterAddress("PitchShifterParameterWindowSize"),
@@ -37,7 +37,7 @@ public class PitchShifter: AKNode, AKComponent, AKToggleable {
     /// Window size (in samples)
     @Parameter public var windowSize: AUValue
 
-    public static let crossfadeDef = AKNodeParameterDef(
+    public static let crossfadeDef = NodeParameterDef(
         identifier: "crossfade",
         name: "Crossfade (in samples)",
         address: akGetParameterAddress("PitchShifterParameterCrossfade"),
@@ -52,7 +52,7 @@ public class PitchShifter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [PitchShifter.shiftDef,
              PitchShifter.windowSizeDef,
              PitchShifter.crossfadeDef]

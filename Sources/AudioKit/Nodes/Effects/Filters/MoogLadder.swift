@@ -19,7 +19,7 @@ public class MoogLadder: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("MoogLadderParameterCutoffFrequency"),
@@ -30,7 +30,7 @@ public class MoogLadder: AKNode, AKComponent, AKToggleable {
     /// Filter cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
-    public static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
         address: akGetParameterAddress("MoogLadderParameterResonance"),
@@ -45,7 +45,7 @@ public class MoogLadder: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [MoogLadder.cutoffFrequencyDef,
              MoogLadder.resonanceDef]
         }

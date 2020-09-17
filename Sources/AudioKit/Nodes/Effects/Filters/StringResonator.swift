@@ -20,7 +20,7 @@ public class StringResonator: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let fundamentalFrequencyDef = AKNodeParameterDef(
+    public static let fundamentalFrequencyDef = NodeParameterDef(
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
         address: akGetParameterAddress("StringResonatorParameterFundamentalFrequency"),
@@ -31,7 +31,7 @@ public class StringResonator: AKNode, AKComponent, AKToggleable {
     /// Fundamental frequency of string.
     @Parameter public var fundamentalFrequency: AUValue
 
-    public static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("StringResonatorParameterFeedback"),
@@ -46,7 +46,7 @@ public class StringResonator: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [StringResonator.fundamentalFrequencyDef,
              StringResonator.feedbackDef]
         }

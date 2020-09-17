@@ -15,7 +15,7 @@ public class BitCrusher: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let bitDepthDef = AKNodeParameterDef(
+    public static let bitDepthDef = NodeParameterDef(
         identifier: "bitDepth",
         name: "Bit Depth",
         address: akGetParameterAddress("BitCrusherParameterBitDepth"),
@@ -26,7 +26,7 @@ public class BitCrusher: AKNode, AKComponent, AKToggleable {
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @Parameter public var bitDepth: AUValue
 
-    public static let sampleRateDef = AKNodeParameterDef(
+    public static let sampleRateDef = NodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
         address: akGetParameterAddress("BitCrusherParameterSampleRate"),
@@ -41,7 +41,7 @@ public class BitCrusher: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [BitCrusher.bitDepthDef,
              BitCrusher.sampleRateDef]
         }

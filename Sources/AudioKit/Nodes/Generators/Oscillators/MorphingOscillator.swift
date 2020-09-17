@@ -19,7 +19,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
 
     fileprivate var waveformArray = [AKTable]()
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (in Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterFrequency"),
@@ -30,7 +30,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
     /// Frequency (in Hz)
     @Parameter public var frequency: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
         address: akGetParameterAddress("MorphingOscillatorParameterAmplitude"),
@@ -41,7 +41,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
     /// Amplitude (typically a value between 0 and 1).
     @Parameter public var amplitude: AUValue
 
-    public static let indexDef = AKNodeParameterDef(
+    public static let indexDef = NodeParameterDef(
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
@@ -52,7 +52,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
     /// Index of the wavetable to use (fractional are okay).
     @Parameter public var index: AUValue
 
-    public static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningOffset"),
@@ -63,7 +63,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    public static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningMultiplier"),
@@ -78,7 +78,7 @@ public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [MorphingOscillator.frequencyDef,
              MorphingOscillator.amplitudeDef,
              MorphingOscillator.indexDef,

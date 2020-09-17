@@ -15,7 +15,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let preGainDef = AKNodeParameterDef(
+    public static let preGainDef = NodeParameterDef(
         identifier: "preGain",
         name: "PreGain",
         address: akGetParameterAddress("RhinoGuitarProcessorPreGain"),
@@ -26,7 +26,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     /// Gain applied before processing.
     @Parameter public var preGain: AUValue
 
-    public static let postGainDef = AKNodeParameterDef(
+    public static let postGainDef = NodeParameterDef(
         identifier: "postGain",
         name: "PostGain",
         address: akGetParameterAddress("RhinoGuitarProcessorPostGain"),
@@ -37,7 +37,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     /// Gain applied after processing.
     @Parameter public var postGain: AUValue
 
-    public static let lowGainDef = AKNodeParameterDef(
+    public static let lowGainDef = NodeParameterDef(
         identifier: "lowGain",
         name: "Low Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorLowGain"),
@@ -48,7 +48,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     /// Amount of Low frequencies.
     @Parameter public var lowGain: AUValue
 
-    public static let midGainDef = AKNodeParameterDef(
+    public static let midGainDef = NodeParameterDef(
         identifier: "midGain",
         name: "Mid Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorMidGain"),
@@ -59,7 +59,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     /// Amount of Middle frequencies.
     @Parameter public var midGain: AUValue
 
-    public static let highGainDef = AKNodeParameterDef(
+    public static let highGainDef = NodeParameterDef(
         identifier: "highGain",
         name: "High Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorHighGain"),
@@ -70,7 +70,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     /// Amount of High frequencies.
     @Parameter public var highGain: AUValue
 
-    public static let distortionDef = AKNodeParameterDef(
+    public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
         address: akGetParameterAddress("RhinoGuitarProcessorDistortion"),
@@ -85,7 +85,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [RhinoGuitarProcessor.preGainDef,
             RhinoGuitarProcessor.postGainDef,
             RhinoGuitarProcessor.lowGainDef,

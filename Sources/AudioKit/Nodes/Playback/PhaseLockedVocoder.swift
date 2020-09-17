@@ -17,7 +17,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let positionDef = AKNodeParameterDef(
+    public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: akGetParameterAddress("AKPhaseLockedVocoderParameterPosition"),
@@ -28,7 +28,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent {
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @Parameter public var position: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
         address: akGetParameterAddress("AKPhaseLockedVocoderParameterAmplitude"),
@@ -39,7 +39,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent {
     /// Amplitude.
     @Parameter public var amplitude: AUValue
 
-    public static let pitchRatioDef = AKNodeParameterDef(
+    public static let pitchRatioDef = NodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
         address: akGetParameterAddress("AKPhaseLockedVocoderParameterPitchRatio"),
@@ -54,7 +54,7 @@ public class AKPhaseLockedVocoder: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AKPhaseLockedVocoder.positionDef,
              AKPhaseLockedVocoder.amplitudeDef,
              AKPhaseLockedVocoder.pitchRatioDef]

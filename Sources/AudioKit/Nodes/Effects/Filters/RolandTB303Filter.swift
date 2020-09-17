@@ -15,7 +15,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("RolandTB303FilterParameterCutoffFrequency"),
@@ -26,7 +26,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
 
-    public static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
         address: akGetParameterAddress("RolandTB303FilterParameterResonance"),
@@ -37,7 +37,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
-    public static let distortionDef = AKNodeParameterDef(
+    public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
         address: akGetParameterAddress("RolandTB303FilterParameterDistortion"),
@@ -48,7 +48,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     @Parameter public var distortion: AUValue
 
-    public static let resonanceAsymmetryDef = AKNodeParameterDef(
+    public static let resonanceAsymmetryDef = NodeParameterDef(
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
         address: akGetParameterAddress("RolandTB303FilterParameterResonanceAsymmetry"),
@@ -63,7 +63,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [RolandTB303Filter.cutoffFrequencyDef,
              RolandTB303Filter.resonanceDef,
              RolandTB303Filter.distortionDef,

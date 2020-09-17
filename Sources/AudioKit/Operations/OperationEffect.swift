@@ -22,98 +22,98 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let parameter1Def = AKNodeParameterDef(
+    public static let parameter1Def = NodeParameterDef(
         identifier: "parameter1",
         name: "Parameter 1",
         address: akGetParameterAddress("AKOperationEffectParameter1"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter2Def = AKNodeParameterDef(
+    public static let parameter2Def = NodeParameterDef(
         identifier: "parameter2",
         name: "Parameter 2",
         address: akGetParameterAddress("AKOperationEffectParameter2"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter3Def = AKNodeParameterDef(
+    public static let parameter3Def = NodeParameterDef(
         identifier: "parameter3",
         name: "Parameter 3",
         address: akGetParameterAddress("AKOperationEffectParameter3"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter4Def = AKNodeParameterDef(
+    public static let parameter4Def = NodeParameterDef(
         identifier: "parameter4",
         name: "Parameter 4",
         address: akGetParameterAddress("AKOperationEffectParameter4"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter5Def = AKNodeParameterDef(
+    public static let parameter5Def = NodeParameterDef(
         identifier: "parameter5",
         name: "Parameter 5",
         address: akGetParameterAddress("AKOperationEffectParameter5"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter6Def = AKNodeParameterDef(
+    public static let parameter6Def = NodeParameterDef(
         identifier: "parameter6",
         name: "Parameter 6",
         address: akGetParameterAddress("AKOperationEffectParameter6"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter7Def = AKNodeParameterDef(
+    public static let parameter7Def = NodeParameterDef(
         identifier: "parameter7",
         name: "Parameter 7",
         address: akGetParameterAddress("AKOperationEffectParameter7"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter8Def = AKNodeParameterDef(
+    public static let parameter8Def = NodeParameterDef(
         identifier: "parameter8",
         name: "Parameter 8",
         address: akGetParameterAddress("AKOperationEffectParameter8"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter9Def = AKNodeParameterDef(
+    public static let parameter9Def = NodeParameterDef(
         identifier: "parameter9",
         name: "Parameter 9",
         address: akGetParameterAddress("AKOperationEffectParameter9"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter10Def = AKNodeParameterDef(
+    public static let parameter10Def = NodeParameterDef(
         identifier: "parameter10",
         name: "Parameter 10",
         address: akGetParameterAddress("AKOperationEffectParameter10"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter11Def = AKNodeParameterDef(
+    public static let parameter11Def = NodeParameterDef(
         identifier: "parameter11",
         name: "Parameter 11",
         address: akGetParameterAddress("AKOperationEffectParameter11"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter12Def = AKNodeParameterDef(
+    public static let parameter12Def = NodeParameterDef(
         identifier: "parameter12",
         name: "Parameter 12",
         address: akGetParameterAddress("AKOperationEffectParameter12"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter13Def = AKNodeParameterDef(
+    public static let parameter13Def = NodeParameterDef(
         identifier: "parameter13",
         name: "Parameter 13",
         address: akGetParameterAddress("AKOperationEffectParameter13"),
         range: floatRange,
         unit: .generic,
         flags: .default)
-    public static let parameter14Def = AKNodeParameterDef(
+    public static let parameter14Def = NodeParameterDef(
         identifier: "parameter14",
         name: "Parameter 14",
         address: akGetParameterAddress("AKOperationEffectParameter14"),
@@ -139,7 +139,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     // MARK: - Audio Unit
 
     public class InternalAU: AudioUnitBase {
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AKOperationEffect.parameter1Def,
              AKOperationEffect.parameter2Def,
              AKOperationEffect.parameter3Def,

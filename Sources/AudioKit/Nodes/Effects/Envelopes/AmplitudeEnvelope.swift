@@ -15,7 +15,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let attackDurationDef = AKNodeParameterDef(
+    public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Attack time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterAttackDuration"),
@@ -26,7 +26,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     /// Attack time
     @Parameter public var attackDuration: AUValue
 
-    public static let decayDurationDef = AKNodeParameterDef(
+    public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Decay time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterDecayDuration"),
@@ -37,7 +37,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     /// Decay time
     @Parameter public var decayDuration: AUValue
 
-    public static let sustainLevelDef = AKNodeParameterDef(
+    public static let sustainLevelDef = NodeParameterDef(
         identifier: "sustainLevel",
         name: "Sustain Level",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterSustainLevel"),
@@ -48,7 +48,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     /// Sustain Level
     @Parameter public var sustainLevel: AUValue
 
-    public static let releaseDurationDef = AKNodeParameterDef(
+    public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterReleaseDuration"),
@@ -63,7 +63,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AmplitudeEnvelope.attackDurationDef,
              AmplitudeEnvelope.decayDurationDef,
              AmplitudeEnvelope.sustainLevelDef,

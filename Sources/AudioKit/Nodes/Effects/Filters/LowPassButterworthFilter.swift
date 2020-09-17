@@ -17,7 +17,7 @@ public class LowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("LowPassButterworthFilterParameterCutoffFrequency"),
@@ -32,7 +32,7 @@ public class LowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [LowPassButterworthFilter.cutoffFrequencyDef]
         }
 

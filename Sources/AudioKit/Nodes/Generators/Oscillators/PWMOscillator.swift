@@ -20,7 +20,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("PWMOscillatorParameterFrequency"),
@@ -31,7 +31,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
     /// In cycles per second, or Hz.
     @Parameter public var frequency: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("PWMOscillatorParameterAmplitude"),
@@ -42,7 +42,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
     /// Output amplitude
     @Parameter public var amplitude: AUValue
 
-    public static let pulseWidthDef = AKNodeParameterDef(
+    public static let pulseWidthDef = NodeParameterDef(
         identifier: "pulseWidth",
         name: "Pulse Width",
         address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
@@ -53,7 +53,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
     /// Duty cycle width (range 0-1).
     @Parameter public var pulseWidth: AUValue
 
-    public static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("PWMOscillatorParameterDetuningOffset"),
@@ -64,7 +64,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    public static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("PWMOscillatorParameterDetuningMultiplier"),
@@ -79,7 +79,7 @@ public class PWMOscillator: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [PWMOscillator.frequencyDef,
              PWMOscillator.amplitudeDef,
              PWMOscillator.pulseWidthDef,

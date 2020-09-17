@@ -15,7 +15,7 @@ public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let ratioDef = AKNodeParameterDef(
+    public static let ratioDef = NodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
         address: akGetParameterAddress("DynamicRangeCompressorParameterRatio"),
@@ -26,7 +26,7 @@ public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     /// Ratio to compress with, a value > 1 will compress
     @Parameter public var ratio: AUValue
 
-    public static let thresholdDef = AKNodeParameterDef(
+    public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
         address: akGetParameterAddress("DynamicRangeCompressorParameterThreshold"),
@@ -37,7 +37,7 @@ public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     /// Threshold (in dB) 0 = max
     @Parameter public var threshold: AUValue
 
-    public static let attackDurationDef = AKNodeParameterDef(
+    public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Attack duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterAttackDuration"),
@@ -48,7 +48,7 @@ public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
     /// Attack duration
     @Parameter public var attackDuration: AUValue
 
-    public static let releaseDurationDef = AKNodeParameterDef(
+    public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterReleaseDuration"),
@@ -63,7 +63,7 @@ public class DynamicRangeCompressor: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [DynamicRangeCompressor.ratioDef,
              DynamicRangeCompressor.thresholdDef,
              DynamicRangeCompressor.attackDurationDef,

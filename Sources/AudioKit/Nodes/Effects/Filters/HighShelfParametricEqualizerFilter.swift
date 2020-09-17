@@ -15,7 +15,7 @@ public class HighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleab
 
     // MARK: - Parameters
 
-    public static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Corner Frequency (Hz)",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterCenterFrequency"),
@@ -26,7 +26,7 @@ public class HighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleab
     /// Corner frequency.
     @Parameter public var centerFrequency: AUValue
 
-    public static let gainDef = AKNodeParameterDef(
+    public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterGain"),
@@ -37,7 +37,7 @@ public class HighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleab
     /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
-    public static let qDef = AKNodeParameterDef(
+    public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterQ"),
@@ -52,7 +52,7 @@ public class HighShelfParametricEqualizerFilter: AKNode, AKComponent, AKToggleab
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [HighShelfParametricEqualizerFilter.centerFrequencyDef,
              HighShelfParametricEqualizerFilter.gainDef,
              HighShelfParametricEqualizerFilter.qDef]

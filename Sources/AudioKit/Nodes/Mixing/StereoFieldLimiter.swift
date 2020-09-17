@@ -15,7 +15,7 @@ public class StereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    public static let amountDef = AKNodeParameterDef(
+    public static let amountDef = NodeParameterDef(
         identifier: "amount",
         name: "Limiting amount",
         address: akGetParameterAddress("StereoFieldLimiterAmount"),
@@ -30,7 +30,7 @@ public class StereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [StereoFieldLimiter.amountDef]
         }
 
