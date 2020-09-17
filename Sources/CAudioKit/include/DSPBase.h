@@ -175,12 +175,12 @@ private:
 
 /// Registers a creation function when initialized.
 template<class T>
-struct AKDSPRegistration {
+struct DSPRegistration {
     static DSPRef construct() {
         return new T();
     }
 
-    AKDSPRegistration(const char* name) {
+    DSPRegistration(const char* name) {
         DSPBase::addCreateFunction(name, construct);
     }
 };
@@ -188,7 +188,7 @@ struct AKDSPRegistration {
 /// Convenience macro for registering a subclass of DSPBase.
 ///
 /// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("AKMyClass")`
-#define AK_REGISTER_DSP(ClassName) AKDSPRegistration<ClassName> __register##ClassName(#ClassName);
+#define AK_REGISTER_DSP(ClassName) DSPRegistration<ClassName> __register##ClassName(#ClassName);
 
 struct ParameterRegistration {
     ParameterRegistration(const char* name, AUParameterAddress address) {

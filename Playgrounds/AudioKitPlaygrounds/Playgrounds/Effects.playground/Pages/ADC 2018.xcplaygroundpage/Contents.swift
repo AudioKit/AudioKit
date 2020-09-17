@@ -27,7 +27,6 @@ engine.output = StereoFieldLimiter(reverbMixer)
 try engine.start()
 
 //: User Interface
-import AudioKitUI
 
 class LiveView: View {
 

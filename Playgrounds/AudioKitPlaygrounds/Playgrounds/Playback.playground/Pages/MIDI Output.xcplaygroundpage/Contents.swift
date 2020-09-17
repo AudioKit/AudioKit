@@ -7,7 +7,6 @@ let midi = AKMIDI()
 
 midi.openOutput()
 
-import AudioKitUI
 
 class LiveView: View, KeyboardDelegate {
 

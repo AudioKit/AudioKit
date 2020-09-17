@@ -2,7 +2,6 @@
 //:
 
 import AudioKit
-import AudioKitUI
 import PlaygroundSupport
 
 var player: AudioPlayer!

@@ -3,7 +3,6 @@
 //: but it could also be for modeling.
 
 import AudioKit
-import AudioKitUI
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 

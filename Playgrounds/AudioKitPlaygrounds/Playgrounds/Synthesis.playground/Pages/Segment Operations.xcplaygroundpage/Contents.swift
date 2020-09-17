@@ -2,7 +2,6 @@
 //: Creating segments that vary parameters in operations linearly or exponentially over a certain duration
 
 import AudioKit
-import AudioKitUI
 
 let generator = OperationGenerator { parameters in
     let updateRate = parameters[0]
