@@ -4,7 +4,7 @@ import CoreGraphics
 import QuartzCore
 
 /// A CAShapeLayer rendering of a mono waveform. Can be updated on any thread.
-public class AKWaveformLayer: CAShapeLayer {
+public class WaveformLayer: CAShapeLayer {
     /// controls whether to use the default CoreAnimation actions or not for property transitions
     public var allowActions: Bool = true
 

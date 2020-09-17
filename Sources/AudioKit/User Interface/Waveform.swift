@@ -3,7 +3,7 @@
 import QuartzCore
 
 /// Container CALayer based class for multiple CAWaveformLayers
-public class AKWaveform: CALayer {
+public class Waveform: CALayer {
     private var halfWidth: Int = 0
     private var reverseDirection: CGFloat = 1
     private var plotSize = CGSize(width: 200, height: 20)
@@ -11,7 +11,7 @@ public class AKWaveform: CALayer {
     /// controls whether to use the default CoreAnimation actions or not for property transitions
     public var allowActions: Bool = true
 
-    public private(set) var plots = [AKWaveformLayer]()
+    public private(set) var plots = [WaveformLayer]()
     public private(set) var samplesPerPixel: Int = 0
     public private(set) var channels: Int = 2
 
@@ -171,10 +171,10 @@ public class AKWaveform: CALayer {
         completionHandler?()
     }
 
-    private func createPlot(data: [Float], color: CGColor) -> AKWaveformLayer {
+    private func createPlot(data: [Float], color: CGColor) -> WaveformLayer {
         // Log(data.count, "plotSize", plotSize)
 
-        let plot = AKWaveformLayer(table: data,
+        let plot = WaveformLayer(table: data,
                                    size: plotSize,
                                    fillColor: color,
                                    strokeColor: nil,
@@ -236,8 +236,8 @@ public class AKWaveform: CALayer {
         }
     }
 
-    public func duplicate() -> AKWaveform? {
-        let waveform = AKWaveform(channels: channels,
+    public func duplicate() -> Waveform? {
+        let waveform = Waveform(channels: channels,
                                   size: plotSize,
                                   waveformColor: waveformColor,
                                   backgroundColor: backgroundColor)
