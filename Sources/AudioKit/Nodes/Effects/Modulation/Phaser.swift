@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
-public class AKPhaser: Node, AudioUnitContainer, Toggleable {
+public class Phaser: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
@@ -18,7 +18,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let notchMinimumFrequencyDef = NodeParameterDef(
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
-        address: akGetParameterAddress("AKPhaserParameterNotchMinimumFrequency"),
+        address: akGetParameterAddress("PhaserParameterNotchMinimumFrequency"),
         range: 20 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let notchMaximumFrequencyDef = NodeParameterDef(
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
-        address: akGetParameterAddress("AKPhaserParameterNotchMaximumFrequency"),
+        address: akGetParameterAddress("PhaserParameterNotchMaximumFrequency"),
         range: 20 ... 10_000,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let notchWidthDef = NodeParameterDef(
         identifier: "notchWidth",
         name: "Between 10 and 5000",
-        address: akGetParameterAddress("AKPhaserParameterNotchWidth"),
+        address: akGetParameterAddress("PhaserParameterNotchWidth"),
         range: 10 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let notchFrequencyDef = NodeParameterDef(
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
-        address: akGetParameterAddress("AKPhaserParameterNotchFrequency"),
+        address: akGetParameterAddress("PhaserParameterNotchFrequency"),
         range: 1.1 ... 4.0,
         unit: .hertz,
         flags: .default)
@@ -62,7 +62,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let vibratoModeDef = NodeParameterDef(
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
-        address: akGetParameterAddress("AKPhaserParameterVibratoMode"),
+        address: akGetParameterAddress("PhaserParameterVibratoMode"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -73,7 +73,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Between 0 and 1",
-        address: akGetParameterAddress("AKPhaserParameterDepth"),
+        address: akGetParameterAddress("PhaserParameterDepth"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -84,7 +84,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Between 0 and 1",
-        address: akGetParameterAddress("AKPhaserParameterFeedback"),
+        address: akGetParameterAddress("PhaserParameterFeedback"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -95,7 +95,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let invertedDef = NodeParameterDef(
         identifier: "inverted",
         name: "1 or 0",
-        address: akGetParameterAddress("AKPhaserParameterInverted"),
+        address: akGetParameterAddress("PhaserParameterInverted"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -106,7 +106,7 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public static let lfoBPMDef = NodeParameterDef(
         identifier: "lfoBPM",
         name: "Between 24 and 360",
-        address: akGetParameterAddress("AKPhaserParameterLfoBPM"),
+        address: akGetParameterAddress("PhaserParameterLfoBPM"),
         range: 24 ... 360,
         unit: .generic,
         flags: .default)
@@ -119,19 +119,19 @@ public class AKPhaser: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
-            [AKPhaser.notchMinimumFrequencyDef,
-             AKPhaser.notchMaximumFrequencyDef,
-             AKPhaser.notchWidthDef,
-             AKPhaser.notchFrequencyDef,
-             AKPhaser.vibratoModeDef,
-             AKPhaser.depthDef,
-             AKPhaser.feedbackDef,
-             AKPhaser.invertedDef,
-             AKPhaser.lfoBPMDef]
+            [Phaser.notchMinimumFrequencyDef,
+             Phaser.notchMaximumFrequencyDef,
+             Phaser.notchWidthDef,
+             Phaser.notchFrequencyDef,
+             Phaser.vibratoModeDef,
+             Phaser.depthDef,
+             Phaser.feedbackDef,
+             Phaser.invertedDef,
+             Phaser.lfoBPMDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPhaserDSP")
+            akCreateDSP("PhaserDSP")
         }
     }
 

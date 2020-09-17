@@ -4,19 +4,19 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPhaserParameter : AUParameterAddress {
-    AKPhaserParameterNotchMinimumFrequency,
-    AKPhaserParameterNotchMaximumFrequency,
-    AKPhaserParameterNotchWidth,
-    AKPhaserParameterNotchFrequency,
-    AKPhaserParameterVibratoMode,
-    AKPhaserParameterDepth,
-    AKPhaserParameterFeedback,
-    AKPhaserParameterInverted,
-    AKPhaserParameterLfoBPM,
+enum PhaserParameter : AUParameterAddress {
+    PhaserParameterNotchMinimumFrequency,
+    PhaserParameterNotchMaximumFrequency,
+    PhaserParameterNotchWidth,
+    PhaserParameterNotchFrequency,
+    PhaserParameterVibratoMode,
+    PhaserParameterDepth,
+    PhaserParameterFeedback,
+    PhaserParameterInverted,
+    PhaserParameterLfoBPM,
 };
 
-class AKPhaserDSP : public SoundpipeDSPBase {
+class PhaserDSP : public SoundpipeDSPBase {
 private:
     sp_phaser *phaser;
     ParameterRamper notchMinimumFrequencyRamp;
@@ -30,16 +30,16 @@ private:
     ParameterRamper lfoBPMRamp;
 
 public:
-    AKPhaserDSP() {
-        parameters[AKPhaserParameterNotchMinimumFrequency] = &notchMinimumFrequencyRamp;
-        parameters[AKPhaserParameterNotchMaximumFrequency] = &notchMaximumFrequencyRamp;
-        parameters[AKPhaserParameterNotchWidth] = &notchWidthRamp;
-        parameters[AKPhaserParameterNotchFrequency] = &notchFrequencyRamp;
-        parameters[AKPhaserParameterVibratoMode] = &vibratoModeRamp;
-        parameters[AKPhaserParameterDepth] = &depthRamp;
-        parameters[AKPhaserParameterFeedback] = &feedbackRamp;
-        parameters[AKPhaserParameterInverted] = &invertedRamp;
-        parameters[AKPhaserParameterLfoBPM] = &lfoBPMRamp;
+    PhaserDSP() {
+        parameters[PhaserParameterNotchMinimumFrequency] = &notchMinimumFrequencyRamp;
+        parameters[PhaserParameterNotchMaximumFrequency] = &notchMaximumFrequencyRamp;
+        parameters[PhaserParameterNotchWidth] = &notchWidthRamp;
+        parameters[PhaserParameterNotchFrequency] = &notchFrequencyRamp;
+        parameters[PhaserParameterVibratoMode] = &vibratoModeRamp;
+        parameters[PhaserParameterDepth] = &depthRamp;
+        parameters[PhaserParameterFeedback] = &feedbackRamp;
+        parameters[PhaserParameterInverted] = &invertedRamp;
+        parameters[PhaserParameterLfoBPM] = &lfoBPMRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -95,13 +95,13 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPhaserDSP)
-AK_REGISTER_PARAMETER(AKPhaserParameterNotchMinimumFrequency)
-AK_REGISTER_PARAMETER(AKPhaserParameterNotchMaximumFrequency)
-AK_REGISTER_PARAMETER(AKPhaserParameterNotchWidth)
-AK_REGISTER_PARAMETER(AKPhaserParameterNotchFrequency)
-AK_REGISTER_PARAMETER(AKPhaserParameterVibratoMode)
-AK_REGISTER_PARAMETER(AKPhaserParameterDepth)
-AK_REGISTER_PARAMETER(AKPhaserParameterFeedback)
-AK_REGISTER_PARAMETER(AKPhaserParameterInverted)
-AK_REGISTER_PARAMETER(AKPhaserParameterLfoBPM)
+AK_REGISTER_DSP(PhaserDSP)
+AK_REGISTER_PARAMETER(PhaserParameterNotchMinimumFrequency)
+AK_REGISTER_PARAMETER(PhaserParameterNotchMaximumFrequency)
+AK_REGISTER_PARAMETER(PhaserParameterNotchWidth)
+AK_REGISTER_PARAMETER(PhaserParameterNotchFrequency)
+AK_REGISTER_PARAMETER(PhaserParameterVibratoMode)
+AK_REGISTER_PARAMETER(PhaserParameterDepth)
+AK_REGISTER_PARAMETER(PhaserParameterFeedback)
+AK_REGISTER_PARAMETER(PhaserParameterInverted)
+AK_REGISTER_PARAMETER(PhaserParameterLfoBPM)

@@ -7,7 +7,7 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class AKPhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
+public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
@@ -20,7 +20,7 @@ public class AKPhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
-        address: akGetParameterAddress("AKPhaseLockedVocoderParameterPosition"),
+        address: akGetParameterAddress("PhaseLockedVocoderParameterPosition"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKPhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
-        address: akGetParameterAddress("AKPhaseLockedVocoderParameterAmplitude"),
+        address: akGetParameterAddress("PhaseLockedVocoderParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKPhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     public static let pitchRatioDef = NodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
-        address: akGetParameterAddress("AKPhaseLockedVocoderParameterPitchRatio"),
+        address: akGetParameterAddress("PhaseLockedVocoderParameterPitchRatio"),
         range: 0 ... 1_000,
         unit: .hertz,
         flags: .default)
@@ -55,13 +55,13 @@ public class AKPhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
-            [AKPhaseLockedVocoder.positionDef,
-             AKPhaseLockedVocoder.amplitudeDef,
-             AKPhaseLockedVocoder.pitchRatioDef]
+            [PhaseLockedVocoder.positionDef,
+             PhaseLockedVocoder.amplitudeDef,
+             PhaseLockedVocoder.pitchRatioDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPhaseLockedVocoderDSP")
+            akCreateDSP("PhaseLockedVocoderDSP")
         }
     }
 

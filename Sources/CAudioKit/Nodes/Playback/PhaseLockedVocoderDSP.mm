@@ -5,13 +5,13 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKPhaseLockedVocoderParameter : AUParameterAddress {
-    AKPhaseLockedVocoderParameterPosition,
-    AKPhaseLockedVocoderParameterAmplitude,
-    AKPhaseLockedVocoderParameterPitchRatio,
+enum PhaseLockedVocoderParameter : AUParameterAddress {
+    PhaseLockedVocoderParameterPosition,
+    PhaseLockedVocoderParameterAmplitude,
+    PhaseLockedVocoderParameterPitchRatio,
 };
 
-class AKPhaseLockedVocoderDSP : public SoundpipeDSPBase {
+class PhaseLockedVocoderDSP : public SoundpipeDSPBase {
 private:
     sp_mincer *mincer;
     sp_ftbl *ftbl;
@@ -22,10 +22,10 @@ private:
     ParameterRamper pitchRatioRamp;
 
 public:
-    AKPhaseLockedVocoderDSP() {
-        parameters[AKPhaseLockedVocoderParameterPosition] = &positionRamp;
-        parameters[AKPhaseLockedVocoderParameterAmplitude] = &amplitudeRamp;
-        parameters[AKPhaseLockedVocoderParameterPitchRatio] = &pitchRatioRamp;
+    PhaseLockedVocoderDSP() {
+        parameters[PhaseLockedVocoderParameterPosition] = &positionRamp;
+        parameters[PhaseLockedVocoderParameterAmplitude] = &amplitudeRamp;
+        parameters[PhaseLockedVocoderParameterPitchRatio] = &pitchRatioRamp;
     }
 
     void setWavetable(const float *table, size_t length, int index) override {
@@ -78,7 +78,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPhaseLockedVocoderDSP)
-AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterPosition)
-AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterAmplitude)
-AK_REGISTER_PARAMETER(AKPhaseLockedVocoderParameterPitchRatio)
+AK_REGISTER_DSP(PhaseLockedVocoderDSP)
+AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterPosition)
+AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterAmplitude)
+AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterPitchRatio)
