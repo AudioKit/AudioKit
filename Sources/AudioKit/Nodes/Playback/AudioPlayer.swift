@@ -30,7 +30,7 @@ public class AudioPlayer: Node, Toggleable {
                              at when: AVAudioTime?,
                              completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
-            AKLog("🛑 Error: AudioPlayer must be attached before scheduling playback.")
+            Log("🛑 Error: AudioPlayer must be attached before scheduling playback.")
             return
         }
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
@@ -41,7 +41,7 @@ public class AudioPlayer: Node, Toggleable {
                                options: AVAudioPlayerNodeBufferOptions = [],
                                completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
-            AKLog("🛑 Error: AudioPlayer must be attached before scheduling playback.")
+            Log("🛑 Error: AudioPlayer must be attached before scheduling playback.")
             return
         }
         playerNode.scheduleBuffer(buffer,

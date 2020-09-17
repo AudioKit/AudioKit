@@ -33,7 +33,7 @@ open class AppleSequencer: NSObject {
     }
 
     deinit {
-        AKLog("deinit:")
+        Log("deinit:")
 
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
@@ -342,7 +342,7 @@ open class AppleSequencer: NSObject {
         }
 
         guard let unwrappedTempoTrack = tempoTrack else {
-            AKLog("Couldn't get tempo track")
+            Log("Couldn't get tempo track")
             return result
         }
 
@@ -357,7 +357,7 @@ open class AppleSequencer: NSObject {
                 let timeSigPointer = eventData.bindMemory(to: TimeSignatureEvent.self, capacity: Int(dataSize))
                 let rawTimeSig = timeSigPointer.pointee
                 guard let bottomValue = AKTimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig.data.1) else {
-                    AKLog("Inavlid time signature bottom value")
+                    Log("Inavlid time signature bottom value")
                     return
                 }
                 let timeSigEvent = AKTimeSignature(topValue: rawTimeSig.data.0,
@@ -409,7 +409,7 @@ open class AppleSequencer: NSObject {
         }
 
         guard let unwrappedTempoTrack = tempoTrack else {
-            AKLog("Couldn't get tempo track")
+            Log("Couldn't get tempo track")
             return
         }
 
@@ -429,7 +429,7 @@ open class AppleSequencer: NSObject {
 
         let result = MusicTrackNewMetaEvent(unwrappedTempoTrack, timeStamp, metaEventPtr)
         if result != 0 {
-            AKLog("Unable to set time signature")
+            Log("Unable to set time signature")
         }
     }
 
@@ -546,14 +546,14 @@ open class AppleSequencer: NSObject {
     open var timeResolution: UInt32 {
         let failedValue: UInt32 = 0
         guard let existingSequence = sequence else {
-            AKLog("Couldn't get sequence for time resolution")
+            Log("Couldn't get sequence for time resolution")
             return failedValue
         }
         var tempoTrack: MusicTrack?
         MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
 
         guard let unwrappedTempoTrack = tempoTrack else {
-            AKLog("No tempo track for time resolution")
+            Log("No tempo track for time resolution")
             return failedValue
         }
 
@@ -574,7 +574,7 @@ open class AppleSequencer: NSObject {
     public func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
-            AKLog("No midi file found")
+            Log("No midi file found")
             return
         }
         let fileURL = URL(fileURLWithPath: file)
@@ -590,7 +590,7 @@ open class AppleSequencer: NSObject {
                                                          .midiType,
                                                          MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
-                AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+                Log("error reading midi file url: \(fileURL), read status: \(status)")
             }
         }
         initTracks()
@@ -605,7 +605,7 @@ open class AppleSequencer: NSObject {
                                                              .midiType,
                                                              MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
-                AKLog("error reading midi data, read status: \(status)")
+                Log("error reading midi data, read status: \(status)")
             }
         }
         initTracks()
@@ -640,7 +640,7 @@ open class AppleSequencer: NSObject {
     /// Creates new AKMusicTrack with copied note event data from another AppleSequencer
     func addMusicTrackNoteData(from tempSequencer: AppleSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
-            AKLog("Can't add tracks during playback")
+            Log("Can't add tracks during playback")
             return
         }
 
@@ -729,17 +729,17 @@ open class AppleSequencer: NSObject {
     /// Not to be used during playback
     public func deleteTrack(trackIndex: Int) {
         guard !isPlaying else {
-            AKLog("Can't delete sequencer track during playback")
+            Log("Can't delete sequencer track during playback")
             return
         }
         guard trackIndex < tracks.count,
             let internalTrack = tracks[trackIndex].internalMusicTrack else {
-            AKLog("Can't get track for index")
+            Log("Can't get track for index")
             return
         }
 
         guard let existingSequence = sequence else {
-            AKLog("Can't get sequence")
+            Log("Can't get sequence")
             return
         }
 
@@ -778,7 +778,7 @@ open class AppleSequencer: NSObject {
             status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
 
             if status != noErr {
-                AKLog("error creating MusicSequence Data")
+                Log("error creating MusicSequence Data")
                 return nil
             }
         }

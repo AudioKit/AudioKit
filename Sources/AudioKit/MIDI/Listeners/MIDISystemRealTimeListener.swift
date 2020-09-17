@@ -87,21 +87,21 @@ extension AKMIDISystemRealTimeListener: AKMIDIListener {
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
                 if data[0] == AKMIDISystemCommand.stop.rawValue {
-            AKLog("Incoming MMC [Stop]", log: OSLog.midi)
+            Log("Incoming MMC [Stop]", log: OSLog.midi)
             let newState = state.event(event: .stop)
             state = newState
 
             sendStopToObservers()
         }
         if data[0] == AKMIDISystemCommand.start.rawValue {
-            AKLog("Incoming MMC [Start]", log: OSLog.midi)
+            Log("Incoming MMC [Start]", log: OSLog.midi)
             let newState = state.event(event: .start)
             state = newState
 
             sendStartToObservers()
         }
         if data[0] == AKMIDISystemCommand.continue.rawValue {
-            AKLog("Incoming MMC [Continue]", log: OSLog.midi)
+            Log("Incoming MMC [Continue]", log: OSLog.midi)
             let newState = state.event(event: .continue)
             state = newState
 

@@ -121,7 +121,7 @@ open class AKSequencerTrack {
 
     private func updateSequence() {
         guard let block = targetNode?.avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock else {
-            AKLog("Failed to get AUScheduleMIDIEventBlock")
+            Log("Failed to get AUScheduleMIDIEventBlock")
             return
         }
 

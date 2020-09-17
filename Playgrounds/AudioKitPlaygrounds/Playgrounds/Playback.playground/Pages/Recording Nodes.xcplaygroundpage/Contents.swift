@@ -60,7 +60,7 @@ class LiveView: View, KeyboardDelegate {
                 do {
                     try recorder.record()
                 } catch {
-                    AKLog("Couldn't record")
+                    Log("Couldn't record")
                 }
                 button.title = "Stop"
             }
@@ -79,7 +79,7 @@ class LiveView: View, KeyboardDelegate {
             do {
                 try recorder.reset()
             } catch {
-                AKLog("Couldn't reset.")
+                Log("Couldn't reset.")
             }
             button.title = "Reset Recording"
         })
@@ -95,7 +95,7 @@ class LiveView: View, KeyboardDelegate {
                 do {
                     try player.reloadFile()
                 } catch {
-                    AKLog("Couldn't reload file.")
+                    Log("Couldn't reload file.")
                 }
                 // If the tape is not empty, we can play it !...
                 if player.audioFile.duration > 0 {

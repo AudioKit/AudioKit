@@ -73,7 +73,7 @@ public class AudioEngine {
 
     public func start() throws {
         if output == nil {
-            AKLog("🛑 Error: Attempt to start engine with no output.")
+            Log("🛑 Error: Attempt to start engine with no output.")
             return
         }
         try avEngine.start()
@@ -93,7 +93,7 @@ public class AudioEngine {
                                                    maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
-            AKLog("🛑 Start Test Error: \(err)")
+            Log("🛑 Start Test Error: \(err)")
         }
 
         return AVAudioPCMBuffer(
@@ -121,7 +121,7 @@ public class AudioEngine {
                 buffer.append(tempBuffer)
             }
         } catch let err {
-            AKLog("🛑 Could not render offline \(err)")
+            Log("🛑 Could not render offline \(err)")
         }
         return buffer
     }

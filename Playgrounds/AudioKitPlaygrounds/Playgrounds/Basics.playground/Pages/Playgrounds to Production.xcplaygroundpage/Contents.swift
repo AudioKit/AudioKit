@@ -30,7 +30,7 @@ class BadAudioEngine {
         do {
             try engine.start()
         } catch {
-            AKLog("AudioKit did not start")
+            Log("AudioKit did not start")
         }
     }
 }
@@ -46,7 +46,7 @@ class AudioEngine {
         do {
             try engine.start()
         } catch {
-            AKLog("AudioKit did not start")
+            Log("AudioKit did not start")
         }
     }
 }

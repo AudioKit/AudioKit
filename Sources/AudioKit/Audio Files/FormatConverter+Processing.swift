@@ -53,7 +53,7 @@ extension FormatConverter {
 
         if FileManager.default.fileExists(atPath: outputURL.path) {
             if options.eraseFile {
-                AKLog("Warning: removing existing file at", outputURL.path)
+                Log("Warning: removing existing file at", outputURL.path)
                 try? FileManager.default.removeItem(at: outputURL)
             } else {
                 let message = "The output file exists already. You need to choose a unique URL or delete the file."
@@ -79,7 +79,7 @@ extension FormatConverter {
             format = .wav
             formatKey = kAudioFormatLinearPCM
         default:
-            AKLog("Unsupported output format: \(outputFormat)")
+            Log("Unsupported output format: \(outputFormat)")
             return
         }
 
@@ -149,7 +149,7 @@ extension FormatConverter {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            AKLog("Failed to start writing. Error:", writer.error?.localizedDescription)
+            Log("Failed to start writing. Error:", writer.error?.localizedDescription)
             completionHandler?(writer.error)
             return
         }
@@ -157,7 +157,7 @@ extension FormatConverter {
         writer.startSession(atSourceTime: CMTime.zero)
 
         if !reader.startReading() {
-            AKLog("Failed to start reading. Error:", reader.error?.localizedDescription)
+            Log("Failed to start reading. Error:", reader.error?.localizedDescription)
             completionHandler?(reader.error)
             return
         }
@@ -178,11 +178,11 @@ extension FormatConverter {
 
                     switch reader.status {
                     case .failed:
-                        AKLog("Conversion failed with error", reader.error)
+                        Log("Conversion failed with error", reader.error)
                         writer.cancelWriting()
                         completionHandler?(reader.error)
                     case .cancelled:
-                        AKLog("Conversion cancelled")
+                        Log("Conversion cancelled")
                         completionHandler?(nil)
                     case .completed:
                         // writer.endSession(atSourceTime: asset.duration)
@@ -191,7 +191,7 @@ extension FormatConverter {
                             case .failed:
                                 completionHandler?(writer.error)
                             default:
-                                // AKLog("Conversion complete")
+                                // Log("Conversion complete")
                                 completionHandler?(nil)
                             }
                         }
@@ -219,7 +219,7 @@ extension FormatConverter {
         let asset = AVURLAsset(url: inputURL)
         guard let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else { return }
 
-        AKLog("Converting to AVAssetExportPresetAppleM4A with default settings.")
+        Log("Converting to AVAssetExportPresetAppleM4A with default settings.")
 
         // session.progress could be sent out via a delegate for this session
         session.outputURL = outputURL
@@ -249,7 +249,7 @@ extension FormatConverter {
         let inputFormat = inputURL.pathExtension.lowercased()
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("convertToPCM() to \(outputURL)")
+        Log("convertToPCM() to \(outputURL)")
 
         var format: AudioFileTypeID
         let formatKey: AudioFormatID = kAudioFormatLinearPCM
@@ -302,13 +302,13 @@ extension FormatConverter {
             outputSampleRate != srcFormat.mSampleRate ||
             outputChannels != srcFormat.mChannelsPerFrame ||
             outputBitRate != srcFormat.mBitsPerChannel else {
-            AKLog("No conversion is needed, formats are the same. Copying to", outputURL)
+            Log("No conversion is needed, formats are the same. Copying to", outputURL)
             // just copy it?
             do {
                 try FileManager.default.copyItem(at: inputURL, to: outputURL)
                 completionHandler?(nil)
             } catch let err as NSError {
-                AKLog(err)
+                Log(err)
             }
             return
         }

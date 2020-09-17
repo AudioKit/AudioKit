@@ -9,7 +9,7 @@ var player: AudioPlayer!
 
 if let mixloop = try? AVAudioFile(readFileName: "mixloop.wav") {
     player = AudioPlayer(audioFile: mixloop)
-    player.completionHandler = { AKLog("completion callback has been triggered!") }
+    player.completionHandler = { Log("completion callback has been triggered!") }
     player.isLooping = true
     engine.output = player
     try engine.start()

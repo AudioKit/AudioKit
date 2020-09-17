@@ -24,7 +24,7 @@ extension AKSettings {
                                           &frames,
                                           &propSize)
         if status != 0 {
-            AKLog("error in get ioBufferDuration status \(status)", log: OSLog.settings, type: .error)
+            Log("error in get ioBufferDuration status \(status)", log: OSLog.settings, type: .error)
         }
         return Double(frames) / sampleRate
     }

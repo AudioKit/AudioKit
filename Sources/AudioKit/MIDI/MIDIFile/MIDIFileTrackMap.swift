@@ -168,7 +168,7 @@ public class AKMIDIFileTrackNoteMap {
                 self.trackNum = trackNum
             }
         } else {
-            AKLog("No Tracks in the MIDI File")
+            Log("No Tracks in the MIDI File")
             self.midiTrack = midiFile.tracks[0]
             self.trackNum = 0
         }

@@ -27,7 +27,7 @@ open class AppleSampler: Node {
             do {
                 try loadAudioFiles(newValue)
             } catch {
-                AKLog("Could not load audio files")
+                Log("Could not load audio files")
             }
         }
     }
@@ -62,7 +62,7 @@ open class AppleSampler: Node {
             do {
                 try loadWav(newFile)
             } catch {
-                AKLog("Could not load \(newFile)")
+                Log("Could not load \(newFile)")
             }
         }
     }
@@ -83,7 +83,7 @@ open class AppleSampler: Node {
     ///
     public func loadWav(_ file: String) throws {
         guard let url = findFileURL(file, withExtension: "wav") else {
-            AKLog("WAV file not found.")
+            Log("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
@@ -92,7 +92,7 @@ open class AppleSampler: Node {
                 self.samplerUnit.reset()
             }
         } catch let error as NSError {
-            AKLog("Error loading wav file at \(url)")
+            Log("Error loading wav file at \(url)")
             throw error
         }
     }
@@ -118,7 +118,7 @@ open class AppleSampler: Node {
                 self.samplerUnit.reset()
             }
         } catch let error as NSError {
-            AKLog("Error loading audio file \"\(file.url.lastPathComponent)\"")
+            Log("Error loading audio file \"\(file.url.lastPathComponent)\"")
             throw error
         }
     }
@@ -139,7 +139,7 @@ open class AppleSampler: Node {
                 self.samplerUnit.reset()
             }
         } catch let error as NSError {
-            AKLog("Error loading audio files \(urls)")
+            Log("Error loading audio files \(urls)")
             throw error
         }
     }
@@ -157,15 +157,15 @@ open class AppleSampler: Node {
                 self.samplerUnit.reset()
             }
         } catch {
-            AKLog("Error Sampler.loadPath loading file at \(filePath)")
+            Log("Error Sampler.loadPath loading file at \(filePath)")
             throw error
         }
     }
 
     internal func loadInstrument(_ file: String, type: String) throws {
-        //AKLog("filename is \(file)")
+        //Log("filename is \(file)")
         guard let url = findFileURL(file, withExtension: type) else {
-            AKLog("File not found: \(file)")
+            Log("File not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
@@ -174,7 +174,7 @@ open class AppleSampler: Node {
                 self.samplerUnit.reset()
             }
         } catch let error as NSError {
-            AKLog("Error loading instrument resource \(file)")
+            Log("Error loading instrument resource \(file)")
             throw error
         }
     }
@@ -237,7 +237,7 @@ open class AppleSampler: Node {
 
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = findFileURL(file, withExtension: "sf2") else {
-            AKLog("Soundfont file not found: \(file)")
+            Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
@@ -248,7 +248,7 @@ open class AppleSampler: Node {
                 bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
             samplerUnit.reset()
         } catch let error as NSError {
-            AKLog("Error loading SoundFont \(file)")
+            Log("Error loading SoundFont \(file)")
             throw error
         }
     }
@@ -262,7 +262,7 @@ open class AppleSampler: Node {
     ///
     public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = findFileURL(file, withExtension: "sf2") else {
-            AKLog("Soundfont file not found: \(file)")
+            Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
@@ -280,7 +280,7 @@ open class AppleSampler: Node {
                 bankLSB: MIDIByte(bLSB))
             samplerUnit.reset()
         } catch let error as NSError {
-            AKLog("Error loading SoundFont \(file)")
+            Log("Error loading SoundFont \(file)")
             throw error
         }
     }

@@ -43,7 +43,7 @@ class LiveView: View {
         }
         addView(trackedAmplitudeSlider)
 
-        addView(AKRollingOutputPlot.createView())
+        addView(RollingOutputPlot.createView())
     }
 }
 

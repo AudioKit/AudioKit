@@ -179,7 +179,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
             let channel = data[0].lowBit
             fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
         } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
-            AKLog("is meta event \(metaType.description)", log: OSLog.midi)
+            Log("is meta event \(metaType.description)", log: OSLog.midi)
         }
     }
 

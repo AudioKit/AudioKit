@@ -120,7 +120,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     }
 
     deinit {
-        AKLog("* { Fader }")
+        Log("* { Fader }")
     }
 
     // MARK: - Automation

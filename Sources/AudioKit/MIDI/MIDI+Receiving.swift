@@ -161,7 +161,7 @@ extension AKMIDI {
                     }
 
                     if result != noErr {
-                        AKLog("Error creating MIDI Input Port: \(result)")
+                        Log("Error creating MIDI Input Port: \(result)")
                     }
 
                     MIDIPortConnectSource(port, src, nil)
@@ -200,10 +200,10 @@ extension AKMIDI {
     ///
     public func closeInput(uid inputUID: MIDIUniqueID) {
         guard let name = inputName(for: inputUID) else {
-            AKLog("Trying to close midi input \(inputUID), but no name was found", log: OSLog.midi)
+            Log("Trying to close midi input \(inputUID), but no name was found", log: OSLog.midi)
             return
         }
-        AKLog("Closing MIDI Input '\(name)'", log: OSLog.midi)
+        Log("Closing MIDI Input '\(name)'", log: OSLog.midi)
         var result = noErr
         for uid in inputPorts.keys {
             if inputUID == 0 || uid == inputUID {
@@ -212,15 +212,15 @@ extension AKMIDI {
                     if result == noErr {
                         endpoints.removeValue(forKey: uid)
                         inputPorts.removeValue(forKey: uid)
-                        AKLog("Disconnected \(name) and removed it from endpoints and input ports", log: OSLog.midi)
+                        Log("Disconnected \(name) and removed it from endpoints and input ports", log: OSLog.midi)
                     } else {
-                        AKLog("Error disconnecting MIDI port: \(result)", log: OSLog.midi, type: .error)
+                        Log("Error disconnecting MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                     result = MIDIPortDispose(port)
                     if result == noErr {
-                        AKLog("Disposed \(name)", log: OSLog.midi)
+                        Log("Disposed \(name)", log: OSLog.midi)
                     } else {
-                        AKLog("Error displosing  MIDI port: \(result)", log: OSLog.midi, type: .error)
+                        Log("Error displosing  MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
             }
@@ -229,7 +229,7 @@ extension AKMIDI {
 
     /// Close all MIDI Input ports
     public func closeAllInputs() {
-        AKLog("Closing All Inputs", log: OSLog.midi)
+        Log("Closing All Inputs", log: OSLog.midi)
         for index in 0 ..< MIDISources().endIndex {
             closeInput(index: index)
         }
@@ -240,7 +240,7 @@ extension AKMIDI {
             let offset = event.offset
             if let type = event.status?.type {
                 guard let eventChannel = event.channel else {
-                    AKLog("No channel detected in handleMIDIMessage", log: OSLog.midi)
+                    Log("No channel detected in handleMIDIMessage", log: OSLog.midi)
                     continue
                 }
                 switch type {
@@ -287,7 +287,7 @@ extension AKMIDI {
             } else if event.command != nil {
                 listener.receivedMIDISystemCommand(event.data, portID: portID, offset: offset )
             } else {
-                AKLog("No usable status detected in handleMIDIMessage", log: OSLog.midi)
+                Log("No usable status detected in handleMIDIMessage", log: OSLog.midi)
             }
         }
     }

@@ -79,7 +79,7 @@ open class FormatConverter: NSObject {
             bitDepth = streamDescription.mBitsPerChannel
             channels = streamDescription.mChannelsPerFrame
 
-            AKLog(streamDescription)
+            Log(streamDescription)
         }
     }
 
@@ -106,7 +106,7 @@ open class FormatConverter: NSObject {
     }
 
     deinit {
-        // AKLog("* { FormatConverter \(inputURL?.lastPathComponent ?? "?") }")
+        // Log("* { FormatConverter \(inputURL?.lastPathComponent ?? "?") }")
         reader = nil
         writer = nil
         inputURL = nil

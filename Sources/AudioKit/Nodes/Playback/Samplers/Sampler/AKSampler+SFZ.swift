@@ -86,7 +86,7 @@ extension Sampler {
                     let noteFrequency = Float(440.0 * pow(2.0, (Double(noteNumber) - 69.0) / 12.0))
 
                     let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
-                    AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
+                    Log("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
                     let sampleDescriptor = SampleDescriptor(noteNumber: Int32(noteNumber),
                                                               noteFrequency: noteFrequency,
@@ -125,7 +125,7 @@ extension Sampler {
                 }
             }
         } catch {
-            AKLog("Could not load SFZ: \(error.localizedDescription)")
+            Log("Could not load SFZ: \(error.localizedDescription)")
         }
 
         buildKeyMap()

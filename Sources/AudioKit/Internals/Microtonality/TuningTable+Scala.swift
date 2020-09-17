@@ -8,7 +8,7 @@ extension TuningTable {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
-            AKLog("can't read filePath: \(filePath)")
+            Log("can't read filePath: \(filePath)")
             return nil
         }
 
@@ -33,7 +33,7 @@ extension TuningTable {
             try regex = NSRegularExpression(pattern: leadingTrailingWhiteSpacesPattern,
                                             options: .caseInsensitive)
         } catch let error as NSError {
-            AKLog("ERROR: create regex: \(error)")
+            Log("ERROR: create regex: \(error)")
             return nil
         }
 
@@ -72,7 +72,7 @@ extension TuningTable {
             regex = try NSRegularExpression(pattern: regexStr,
                                             options: .caseInsensitive)
         } catch let error as NSError {
-            AKLog("ERROR: cannot parse scala file: \(error)")
+            Log("ERROR: cannot parse scala file: \(error)")
             return scalaFrequencies
         }
 
@@ -109,7 +109,7 @@ extension TuningTable {
                     frequencyCount = newFrequencyCount
                     if frequencyCount == 0 || frequencyCount > 127 {
                         // #warning SPEC SAYS 0 notes is okay because 1/1 is implicit
-                        AKLog("ERROR: number of notes in scala file: \(frequencyCount)")
+                        Log("ERROR: number of notes in scala file: \(frequencyCount)")
                         parsedScala = false
                         break
                     } else {
@@ -120,7 +120,7 @@ extension TuningTable {
             }
 
             if actualFrequencyCount > frequencyCount {
-                AKLog("actual frequency cont: \(actualFrequencyCount) > frequency count: \(frequencyCount)")
+                Log("actual frequency cont: \(actualFrequencyCount) > frequency count: \(frequencyCount)")
             }
 
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
@@ -150,7 +150,7 @@ extension TuningTable {
                 } else {
                     if substringForFirstMatch.range(of: "/").length != 0 {
                         if substringForFirstMatch.range(of: "-").length != 0 {
-                            AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
+                            Log("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break
                         }
@@ -161,7 +161,7 @@ extension TuningTable {
                         let denominatorStr = substringForFirstMatch.substring(from: slashPos.location + 1)
                         let denominator = Int(denominatorStr) ?? 0
                         if denominator == 0 {
-                            AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
+                            Log("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break
                         } else {
@@ -179,7 +179,7 @@ extension TuningTable {
                         // a whole number, treated as a rational with a denominator of 1
                         if let whole = Int(substringForFirstMatch as String) {
                             if whole <= 0 {
-                                AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
+                                Log("ERROR: invalid ratio: \(substringForFirstMatch)")
                                 parsedScala = false
                                 break
                             } else if whole == 1 || whole == 2 {
@@ -194,17 +194,17 @@ extension TuningTable {
                     }
                 }
             } else {
-                AKLog("ERROR: error parsing: \(lineStr)")
+                Log("ERROR: error parsing: \(lineStr)")
                 continue
             }
         }
 
         if ❗️parsedScala {
-            AKLog("FATAL ERROR: cannot parse Scala file")
+            Log("FATAL ERROR: cannot parse Scala file")
             return nil
         }
 
-        AKLog("frequencies: \(scalaFrequencies)")
+        Log("frequencies: \(scalaFrequencies)")
         return scalaFrequencies
     }
 }

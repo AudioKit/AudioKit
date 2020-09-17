@@ -46,19 +46,19 @@ extension AKMusicTrack {
                     let note = data?.pointee.note,
                     let velocity = data?.pointee.velocity,
                     let dur = data?.pointee.duration else {
-                    AKLog("Problem with raw midi note message")
+                    Log("Problem with raw midi note message")
                     return
                 }
-                AKLog("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
+                Log("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
             case kMusicEventType_Meta:
                 let data = UnsafePointer<MIDIMetaEvent>(event.data?.assumingMemoryBound(to: MIDIMetaEvent.self))
                 guard let midiData = data?.pointee.data,
                     let length = data?.pointee.dataLength,
                     let type = data?.pointee.metaEventType else {
-                    AKLog("Problem with raw midi meta message")
+                    Log("Problem with raw midi meta message")
                     return
                 }
-                AKLog("MIDI Meta @ \(event.time) - size: \(length) - type: \(type) - data: \(midiData)")
+                Log("MIDI Meta @ \(event.time) - size: \(length) - type: \(type) - data: \(midiData)")
             case kMusicEventType_MIDIChannelMessage:
                 let data = UnsafePointer<MIDIChannelMessage>(
                     event.data?.assumingMemoryBound(to: MIDIChannelMessage.self)
@@ -66,19 +66,19 @@ extension AKMusicTrack {
                 guard let data1 = data?.pointee.data1,
                     let data2 = data?.pointee.data2,
                     let statusData = data?.pointee.status else {
-                    AKLog("Problem with raw midi channel message")
+                    Log("Problem with raw midi channel message")
                     return
                 }
                 if let statusType = AKMIDIStatus(byte: statusData)?.type {
                     switch statusType {
                     case .programChange:
-                        AKLog("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
+                        Log("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
                     default:
-                        AKLog("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusType)")
+                        Log("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusType)")
                     }
                 }
             default:
-                AKLog("MIDI Event @ \(event.time)")
+                Log("MIDI Event @ \(event.time)")
             }
         }
     }
@@ -86,7 +86,7 @@ extension AKMusicTrack {
     private func getRawEventData(ofType type: MusicEventType? = nil) -> [AppleMIDIEvent]? {
         var events: [AppleMIDIEvent]?
         guard let track = internalMusicTrack else {
-            AKLog("debug failed - track doesn't exist")
+            Log("debug failed - track doesn't exist")
             return events
         }
 

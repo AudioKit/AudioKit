@@ -130,7 +130,7 @@ public class AKWaveformLayer: CAShapeLayer {
 
         // good for seeing what the stride is:
         //        if strideWidth > 1 {
-        //            AKLog("table.count", table.count, "strideWidth", strideWidth)
+        //            Log("table.count", table.count, "strideWidth", strideWidth)
         //        }
         // this is a sort of visual normalization - not desired in an accurate dB situation
         let sampleDrawingScale = Double(halfHeight) / absmax * 0.85

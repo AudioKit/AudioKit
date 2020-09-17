@@ -11,7 +11,7 @@ public protocol AKMIDITransformer {
 /// Default transformer function
 public extension AKMIDITransformer {
     func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        AKLog("MIDI Transformer called", log: OSLog.midi)
+        Log("MIDI Transformer called", log: OSLog.midi)
         return eventList
     }
 

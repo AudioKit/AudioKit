@@ -196,7 +196,7 @@ public enum RotaryKnobStyle {
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
         guard let context = UIGraphicsGetCurrentContext() else {
-            AKLog("No current graphics context")
+            Log("No current graphics context")
             return
         }
 

@@ -218,7 +218,7 @@ public enum SliderStyle {
     /// Draw the slider
     public override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else {
-            AKLog("No current graphics context")
+            Log("No current graphics context")
             return
         }
         context.clear(rect)
@@ -233,7 +233,7 @@ public enum SliderStyle {
                         currentValueText: String = "0.0") {
 
         guard let context = UIGraphicsGetCurrentContext() else {
-            AKLog("No current graphics context")
+            Log("No current graphics context")
             return
         }
         let width = frame.width
