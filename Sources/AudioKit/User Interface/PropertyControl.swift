@@ -5,7 +5,7 @@
 import UIKit
 import AVFoundation
 
-@IBDesignable public class AKPropertyControl: UIView {
+@IBDesignable public class PropertyControl: UIView {
 
     var initialValue: AUValue = 0
 
@@ -135,7 +135,7 @@ import AVFoundation
 import Cocoa
 import AVFoundation
 
-@IBDesignable public class AKPropertyControl: NSView {
+@IBDesignable public class PropertyControl: NSView {
     override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }

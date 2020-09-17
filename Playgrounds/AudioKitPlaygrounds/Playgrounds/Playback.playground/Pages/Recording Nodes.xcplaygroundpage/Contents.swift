@@ -38,7 +38,7 @@ try engine.start()
 //: Build our User interface
 import AudioKitUI
 
-class LiveView: View, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     var recordLabel: AKLabel!
     var playLabel: AKLabel!
@@ -110,7 +110,7 @@ class LiveView: View, AKKeyboardDelegate {
         }
         addView(playButton)
 
-        let keyboard = AKKeyboardView(width: 440, height: 100)
+        let keyboard = KeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         self.addView(keyboard)
     }

@@ -9,14 +9,14 @@ midi.openOutput()
 
 import AudioKitUI
 
-class LiveView: View, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
-    var keyboard: AKKeyboardView!
+    var keyboard: KeyboardView!
 
     override func viewDidLoad() {
         addTitle("MIDI Output")
 
-        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard = KeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         addView(keyboard)
 

@@ -25,7 +25,7 @@ public enum SliderStyle {
 }
 
 /// Simple slider interface for AudioKit properties
-@IBDesignable public class Slider: AKPropertyControl {
+@IBDesignable public class Slider: PropertyControl {
     /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
@@ -412,7 +412,7 @@ public enum SliderStyle {
     }
 }
 
-@IBDesignable public class Slider: AKPropertyControl {
+@IBDesignable public class Slider: PropertyControl {
 
     // Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0

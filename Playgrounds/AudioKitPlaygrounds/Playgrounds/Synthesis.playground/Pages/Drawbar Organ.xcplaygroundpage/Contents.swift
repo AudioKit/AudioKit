@@ -15,7 +15,7 @@ var offsets = [-12, 7, 0, 12, 19, 24, 28, 31, 36]
 var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote: MIDINoteNumber = 0
 
-class LiveView: View, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     override func viewDidLoad() {
         addTitle("Drawbar Organ")
@@ -29,7 +29,7 @@ class LiveView: View, AKKeyboardDelegate {
             addView(slider)
         }
 
-        let keyboard = AKKeyboardView(width: 440, height: 100)
+        let keyboard = KeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         addView(keyboard)
 

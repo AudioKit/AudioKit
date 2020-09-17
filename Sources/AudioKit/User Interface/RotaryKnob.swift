@@ -6,7 +6,7 @@ import UIKit
 import AVFoundation
 
 /// Style of knob to use
-public enum AKRotaryKnobStyle {
+public enum RotaryKnobStyle {
     /// Circular knob
     case round
     /// Polygon knob with curvature inwards or outwards to make lots of shapes
@@ -14,7 +14,7 @@ public enum AKRotaryKnobStyle {
 }
 
 /// Round control for a property
-@IBDesignable public class AKRotaryKnob: AKPropertyControl {
+@IBDesignable public class RotaryKnob: PropertyControl {
     // Default margin size
     static var marginSize: CGFloat = 30.0
 
@@ -55,7 +55,7 @@ public enum AKRotaryKnobStyle {
     @IBInspectable open var bubbleTextColor: UIColor?
 
     /// Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
-    open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
+    open var knobStyle: RotaryKnobStyle = RotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
 
     /// Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
@@ -230,9 +230,9 @@ public enum AKRotaryKnobStyle {
                                             withAttributes: nameLabelFontAttributes)
         context.restoreGState()
 
-        let knobDiameter = min(width, height) - AKRotaryKnob.marginSize * 2.0
-        knobCenter = CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0,
-                             y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
+        let knobDiameter = min(width, height) - RotaryKnob.marginSize * 2.0
+        knobCenter = CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0,
+                             y: RotaryKnob.marginSize + knobDiameter / 2.0)
 
         let valuePercent = val
         let angle = Double.pi * (0.75 + Double(valuePercent) * 1.5)
@@ -241,8 +241,8 @@ public enum AKRotaryKnobStyle {
         let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)),
                                    y: (knobDiameter / 2.0) * CGFloat(sin(angle)))
 
-        let knobRect = CGRect(x: AKRotaryKnob.marginSize,
-                              y: AKRotaryKnob.marginSize,
+        let knobRect = CGRect(x: RotaryKnob.marginSize,
+                              y: RotaryKnob.marginSize,
                               width: knobDiameter,
                               height: knobDiameter)
         let knobPath: UIBezierPath = {
@@ -257,8 +257,8 @@ public enum AKRotaryKnobStyle {
                     knobRect,
                     numberOfSides: numberOfSides,
                     curvature: curvature,
-                    startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
+                    startPoint: CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                        y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
                     offsetAngle: angle)
             }
         }()
@@ -270,28 +270,28 @@ public enum AKRotaryKnobStyle {
         knobPath.fill()
 
         let indicatorPath = UIBezierPath()
-        indicatorPath.move(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
-                                       y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
-        indicatorPath.addLine(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                          y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
+        indicatorPath.move(to: CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
+                                       y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
+        indicatorPath.addLine(to: CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                          y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
         indicatorPath.lineWidth = knobBorderWidth / 2.0
         indicatorColorForTheme().setStroke()
         indicatorPath.stroke()
 
-        let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
+        let pointRadius = (knobDiameter / 2.0) + RotaryKnob.marginSize * 0.6
         for index in 0...numberOfIndicatorPoints - 1 {
             let pointPercent = Double(index) / Double(numberOfIndicatorPoints - 1)
             let pointAngle = Double.pi * (0.75 + pointPercent * 1.5)
-            let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(cos(pointAngle)) -
-                AKRotaryKnob.indicatorPointRadius
-            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(sin(pointAngle)) -
-                AKRotaryKnob.indicatorPointRadius
-            let pointRect = CGRect(x: pointX, y: pointY, width: AKRotaryKnob.indicatorPointRadius * 2.0,
-                                   height: AKRotaryKnob.indicatorPointRadius * 2.0)
+            let pointX = RotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(cos(pointAngle)) -
+                RotaryKnob.indicatorPointRadius
+            let pointY = RotaryKnob.marginSize + knobDiameter / 2.0 + pointRadius * CGFloat(sin(pointAngle)) -
+                RotaryKnob.indicatorPointRadius
+            let pointRect = CGRect(x: pointX, y: pointY, width: RotaryKnob.indicatorPointRadius * 2.0,
+                                   height: RotaryKnob.indicatorPointRadius * 2.0)
             let pointPath = UIBezierPath(roundedRect: pointRect,
                                          byRoundingCorners: .allCorners,
-                                         cornerRadii: CGSize(width: AKRotaryKnob.indicatorPointRadius,
-                                                             height: AKRotaryKnob.indicatorPointRadius))
+                                         cornerRadii: CGSize(width: RotaryKnob.indicatorPointRadius,
+                                                             height: RotaryKnob.indicatorPointRadius))
             if valuePercent > 0.0, pointPercent <= Double(valuePercent) {
                 knobColor.setFill()
             } else {
@@ -315,8 +315,8 @@ public enum AKRotaryKnobStyle {
                 options: NSStringDrawingOptions.usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes,
                 context: nil).size
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
-                                    height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + RotaryKnob.bubblePadding.width,
+                                    height: valueLabelTextSize.height + RotaryKnob.bubblePadding.height)
 
             var bubbleOriginX = (lastTouch.x - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
@@ -335,8 +335,8 @@ public enum AKRotaryKnobStyle {
                                     height: bubbleSize.height)
             let bubblePath = UIBezierPath(roundedRect: bubbleRect,
                                           byRoundingCorners: .allCorners,
-                                          cornerRadii: CGSize(width: AKRotaryKnob.bubbleCornerRadius,
-                                                              height: AKRotaryKnob.bubbleCornerRadius))
+                                          cornerRadii: CGSize(width: RotaryKnob.bubbleCornerRadius,
+                                                              height: RotaryKnob.bubbleCornerRadius))
             knobColor.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -347,7 +347,7 @@ public enum AKRotaryKnobStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
+                           y: bubbleOriginY + RotaryKnob.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
@@ -374,11 +374,11 @@ public enum AKRotaryKnobStyle {
                 path.addLine(to: CGPoint(x: nextX, y: nextY))
             } else {
                 var actualCurvature = curvature
-                if curvature > AKRotaryKnob.maximumPolygonCurvature {
-                    actualCurvature = AKRotaryKnob.maximumPolygonCurvature
+                if curvature > RotaryKnob.maximumPolygonCurvature {
+                    actualCurvature = RotaryKnob.maximumPolygonCurvature
                 }
-                if curvature < AKRotaryKnob.maximumPolygonCurvature * -1.0 {
-                    actualCurvature = AKRotaryKnob.maximumPolygonCurvature * -1.0
+                if curvature < RotaryKnob.maximumPolygonCurvature * -1.0 {
+                    actualCurvature = RotaryKnob.maximumPolygonCurvature * -1.0
                 }
                 let arcAngle = 2 * Double.pi * (Double(index) - 0.5) / Double(numberOfSides) + offsetAngle
                 let arcX = rect.midX + (rect.width * CGFloat(1 + actualCurvature * 0.5)) / 2 * CGFloat(cos(arcAngle))
@@ -396,12 +396,12 @@ public enum AKRotaryKnobStyle {
 import Cocoa
 import AVFoundation
 
-public enum AKRotaryKnobStyle {
+public enum RotaryKnobStyle {
     case round
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
-@IBDesignable public class AKRotaryKnob: AKPropertyControl {
+@IBDesignable public class RotaryKnob: PropertyControl {
 
     // Default margin size
     static var marginSize: CGFloat = 30.0
@@ -440,7 +440,7 @@ public enum AKRotaryKnobStyle {
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
     // Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
-    open var knobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
+    open var knobStyle = RotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
 
     // Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
@@ -598,9 +598,9 @@ public enum AKRotaryKnobStyle {
         context.restoreGState()
 
         // Calculate knob size
-        let knobDiameter = min(width, height) - AKRotaryKnob.marginSize * 2.0
-        knobCenter = CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0,
-                             y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
+        let knobDiameter = min(width, height) - RotaryKnob.marginSize * 2.0
+        knobCenter = CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0,
+                             y: RotaryKnob.marginSize + knobDiameter / 2.0)
 
         // Setup indicator
         let valuePercent = val
@@ -611,8 +611,8 @@ public enum AKRotaryKnobStyle {
                                    y: nameLabelTextHeight - (knobDiameter / 2.0) * CGFloat(sin(angle)))
 
         // Draw knob
-        let knobRect = CGRect(x: AKRotaryKnob.marginSize,
-                              y: nameLabelTextHeight + AKRotaryKnob.marginSize,
+        let knobRect = CGRect(x: RotaryKnob.marginSize,
+                              y: nameLabelTextHeight + RotaryKnob.marginSize,
                               width: knobDiameter,
                               height: knobDiameter)
         let knobPath: NSBezierPath = {
@@ -626,8 +626,8 @@ public enum AKRotaryKnobStyle {
                     knobRect,
                     numberOfSides: numberOfSides,
                     curvature: curvature,
-                    startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
+                    startPoint: CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                        y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y),
                     offsetAngle: Double(angle))
             }
         }()
@@ -640,30 +640,30 @@ public enum AKRotaryKnobStyle {
 
         // Draw indicator
         let indicatorPath = NSBezierPath()
-        indicatorPath.move(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
-                                       y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
-        indicatorPath.line(to: NSPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
-                                       y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
+        indicatorPath.move(to: CGPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
+                                       y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
+        indicatorPath.line(to: NSPoint(x: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x,
+                                       y: RotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
         indicatorPath.lineWidth = knobBorderWidth / 2.0
         indicatorColorForTheme().setStroke()
         indicatorPath.stroke()
 
         // Draw points
-        let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
+        let pointRadius = (knobDiameter / 2.0) + RotaryKnob.marginSize * 0.6
         for i in 0...numberOfIndicatorPoints - 1 {
             let pointPercent = Double(i) / Double(numberOfIndicatorPoints - 1)
             let pointAngle = Double.pi * ( 0.75 + pointPercent * 1.5)
-            let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 +
-                (pointRadius) * CGFloat(cos(pointAngle)) - AKRotaryKnob.indicatorPointRadius
-            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 -
-                (pointRadius) * CGFloat(sin(pointAngle)) - AKRotaryKnob.indicatorPointRadius + nameLabelTextHeight
+            let pointX = RotaryKnob.marginSize + knobDiameter / 2.0 +
+                (pointRadius) * CGFloat(cos(pointAngle)) - RotaryKnob.indicatorPointRadius
+            let pointY = RotaryKnob.marginSize + knobDiameter / 2.0 -
+                (pointRadius) * CGFloat(sin(pointAngle)) - RotaryKnob.indicatorPointRadius + nameLabelTextHeight
             let pointRect = CGRect(x: pointX,
                                    y: pointY,
-                                   width: AKRotaryKnob.indicatorPointRadius * 2.0,
-                                   height: AKRotaryKnob.indicatorPointRadius * 2.0)
+                                   width: RotaryKnob.indicatorPointRadius * 2.0,
+                                   height: RotaryKnob.indicatorPointRadius * 2.0)
             let pointPath = NSBezierPath(roundedRect: pointRect,
-                                         xRadius: AKRotaryKnob.indicatorPointRadius,
-                                         yRadius: AKRotaryKnob.indicatorPointRadius)
+                                         xRadius: RotaryKnob.indicatorPointRadius,
+                                         yRadius: RotaryKnob.indicatorPointRadius)
             if valuePercent > 0.0 && pointPercent <= Double(valuePercent) {
                 knobColor.setFill()
             } else {
@@ -689,8 +689,8 @@ public enum AKRotaryKnobStyle {
                 options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
-                                    height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + RotaryKnob.bubblePadding.width,
+                                    height: valueLabelTextSize.height + RotaryKnob.bubblePadding.height)
 
             var bubbleOriginX = (lastTouch.x - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
@@ -712,8 +712,8 @@ public enum AKRotaryKnobStyle {
                                     height: bubbleSize.height)
 
             let bubblePath = NSBezierPath(roundedRect: bubbleRect,
-                                          xRadius: AKRotaryKnob.bubbleCornerRadius,
-                                          yRadius: AKRotaryKnob.bubbleCornerRadius)
+                                          xRadius: RotaryKnob.bubbleCornerRadius,
+                                          yRadius: RotaryKnob.bubbleCornerRadius)
             knobColor.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -724,7 +724,7 @@ public enum AKRotaryKnobStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: bubbleOriginY + AKRotaryKnob.bubblePadding.height / 2.0,
+                           y: bubbleOriginY + RotaryKnob.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
@@ -751,11 +751,11 @@ public enum AKRotaryKnobStyle {
                 path.line(to: NSPoint(x: nextX, y: nextY))
             } else {
                 var actualCurvature = curvature
-                if curvature > AKRotaryKnob.maximumPolygonCurvature {
-                    actualCurvature = AKRotaryKnob.maximumPolygonCurvature
+                if curvature > RotaryKnob.maximumPolygonCurvature {
+                    actualCurvature = RotaryKnob.maximumPolygonCurvature
                 }
-                if curvature < AKRotaryKnob.maximumPolygonCurvature * -1.0 {
-                    actualCurvature = AKRotaryKnob.maximumPolygonCurvature * -1.0
+                if curvature < RotaryKnob.maximumPolygonCurvature * -1.0 {
+                    actualCurvature = RotaryKnob.maximumPolygonCurvature * -1.0
                 }
                 let arcAngle = 2 * Double.pi * (Double(i) - 0.5) / Double(numberOfSides) + offsetAngle
                 let arcX = rect.midX + (rect.width * CGFloat(1 + actualCurvature * 0.25)) / 2 * CGFloat(cos(arcAngle))
