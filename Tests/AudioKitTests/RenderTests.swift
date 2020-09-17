@@ -18,7 +18,7 @@ class RenderTests: XCTestCase {
         let mgr = FileManager.default
         let url = mgr.temporaryDirectory.appendingPathComponent("test.aiff")
         try? mgr.removeItem(at: url)
-        let file = try! AVAudioFile(forWriting: url, settings: AKSettings.audioFormat.settings)
+        let file = try! AVAudioFile(forWriting: url, settings: Settings.audioFormat.settings)
 
         try? engine.avEngine.render(to: file,
                                maximumFrameCount: 1_024,

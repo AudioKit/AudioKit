@@ -5,7 +5,7 @@ import CAudioKit
 import Foundation
 
 /// Global settings for AudioKit
-public class AKSettings: NSObject {
+public class Settings: NSObject {
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
@@ -41,7 +41,7 @@ public class AKSettings: NSObject {
 
         /// The buffer Length expressed as a duration in seconds
         public var duration: Double {
-            return Double(samplesCount) / AKSettings.sampleRate
+            return Double(samplesCount) / Settings.sampleRate
         }
     }
 
@@ -87,11 +87,11 @@ public class AKSettings: NSObject {
     /// Allows AudioKit to send Notifications
     public static var notificationsEnabled: Bool = false
 
-    /// AudioKit buffer length is set using AKSettings.bufferLength
+    /// AudioKit buffer length is set using Settings.bufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     public static var bufferLength: BufferLength = .veryLong
 
-    /// AudioKit recording buffer length is set using AKSettings.BufferLength
+    /// AudioKit recording buffer length is set using Settings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
     /// So setting this value may have no effect (depending on the hardware device ?)

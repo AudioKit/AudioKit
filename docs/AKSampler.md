@@ -110,7 +110,7 @@ Here's an example of creating a sample programmatically in Swift, and loading it
     for i in 0..<1000 {
         myData[i] = sin(2.0 * Float(i)/1000 * Float.pi)
     }
-    let sampleRate = Float(AKSettings.sampleRate)
+    let sampleRate = Float(Settings.sampleRate)
     let desc = SampleDescriptor(noteNumber: 69,
                                       noteHz: sampleRate/1000,
                                     min_note: -1,
@@ -136,7 +136,7 @@ Here's an example of creating a sample programmatically in Swift, and loading it
 A few points to note about this example:
 
 * We get the scary-typed pointer by calling the pointer type's `init(mutating:)` function
-* `AKSettings.sampeRate` provides the current audio sampling rate
+* `Settings.sampeRate` provides the current audio sampling rate
 * Since we have only one note, the `noteNumber` can be anything
 * We can set `min_note` etc. to -1, because we call `buildSimpleKeyMap()` not `buildKeyMap()`
 * `fLoopStart` and `fLoopEnd` are normally sample counts (i.e., we could specify 0.0 and 999.0 to loop over the whole sample), but values between 0 and 1 are interpreted as *fractions* of the full sample length. Hence we can just use 0 to mean "start of the sample" and 1 to mean "end of the sample".

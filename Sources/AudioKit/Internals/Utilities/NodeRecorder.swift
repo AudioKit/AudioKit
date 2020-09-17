@@ -36,7 +36,7 @@ open class NodeRecorder: NSObject {
     private var bus: Int = 0
 
     /// Used for fixing recordings being truncated
-    private var recordBufferDuration: Double = 16_384 / AKSettings.sampleRate
+    private var recordBufferDuration: Double = 16_384 / Settings.sampleRate
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
@@ -56,8 +56,8 @@ open class NodeRecorder: NSObject {
 
     /// Initialize the node recorder
     ///
-    /// Recording buffer size is defaulted to be AKSettings.bufferLength
-    /// You can set a different value by setting an AKSettings.recordingBufferLength
+    /// Recording buffer size is defaulted to be Settings.bufferLength
+    /// You can set a different value by setting an Settings.recordingBufferLength
     ///
     /// - Parameters:
     ///   - node: Node to record from
@@ -89,17 +89,17 @@ open class NodeRecorder: NSObject {
 
     // MARK: - Methods
 
-    // Returns a CAF file in the NSTemporaryDirectory suitable for writing to via AKSettings.audioFormat
+    // Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
     public static func createTempFile() -> AVAudioFile? {
         let filename = UUID().uuidString + ".caf"
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
-        var settings = AKSettings.audioFormat.settings
+        var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
         Log("Creating temp file at", url)
         guard let tmpFile = try? AVAudioFile(forWriting: url,
                                              settings: settings,
-                                             commonFormat: AKSettings.audioFormat.commonFormat,
+                                             commonFormat: Settings.audioFormat.commonFormat,
                                              interleaved: true) else { return nil }
 
         tmpFiles.append(url)
@@ -130,7 +130,7 @@ open class NodeRecorder: NSObject {
             }
         }
 
-        let bufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
+        let bufferLength: AVAudioFrameCount = Settings.recordingBufferLength.samplesCount
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
@@ -150,7 +150,7 @@ open class NodeRecorder: NSObject {
         guard let internalAudioFile = internalAudioFile else { return }
 
         do {
-            recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+            recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
             try internalAudioFile.write(from: buffer)
 
             // allow an optional timed stop
@@ -172,7 +172,7 @@ open class NodeRecorder: NSObject {
 
         isRecording = false
 
-        if AKSettings.fixTruncatedRecordings {
+        if Settings.fixTruncatedRecordings {
             //  delay before stopping so the recording is not truncated.
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)

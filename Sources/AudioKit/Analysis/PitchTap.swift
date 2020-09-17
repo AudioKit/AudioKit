@@ -111,7 +111,7 @@ public class PitchTap: Toggleable {
         DispatchQueue.main.sync {
             // Create trackers as needed.
             while self.trackers.count < channelCount {
-                self.trackers.append(akPitchTrackerCreate(UInt32(AKSettings.audioFormat.sampleRate), 4_096, 20))
+                self.trackers.append(akPitchTrackerCreate(UInt32(Settings.audioFormat.sampleRate), 4_096, 20))
             }
 
             while self.amp.count < channelCount {

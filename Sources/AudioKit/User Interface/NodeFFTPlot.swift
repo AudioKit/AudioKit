@@ -14,7 +14,7 @@ public class NodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         if isNotConnected {
             if fft == nil {
                 fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
-                                 sampleRate: Float(AKSettings.sampleRate),
+                                 sampleRate: Float(Settings.sampleRate),
                                  delegate: self)
             }
 

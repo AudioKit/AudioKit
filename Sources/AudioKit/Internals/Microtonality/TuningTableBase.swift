@@ -25,7 +25,7 @@ open class TuningTableBase: NSObject {
     public typealias Cents = Double
 
     /// Standard Nyquist frequency
-    public static let NYQUIST: Frequency = AKSettings.sampleRate / 2
+    public static let NYQUIST: Frequency = Settings.sampleRate / 2
 
     /// Total number of MIDI Notes available to play
     public static let midiNoteCount = 128

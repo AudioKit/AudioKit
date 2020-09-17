@@ -84,12 +84,12 @@ public class AudioEngine {
     }
 
     public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
-        let samples = Int(duration * AKSettings.sampleRate)
+        let samples = Int(duration * Settings.sampleRate)
 
         do {
             avEngine.reset()
             try avEngine.enableManualRenderingMode(.offline,
-                                                   format: AKSettings.audioFormat,
+                                                   format: Settings.audioFormat,
                                                    maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
@@ -102,7 +102,7 @@ public class AudioEngine {
     }
 
     public func render(duration: Double) -> AVAudioPCMBuffer {
-        let sampleCount = Int(duration * AKSettings.sampleRate)
+        let sampleCount = Int(duration * Settings.sampleRate)
         let startSampleCount = Int(avEngine.manualRenderingSampleTime)
 
         let buffer = AVAudioPCMBuffer(

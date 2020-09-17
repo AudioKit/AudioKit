@@ -139,7 +139,7 @@ open class AKSequencerTrack {
                                                                      notesPtr.baseAddress,
                                                                      sequence.notes.count,
                                                                      settings,
-                                                                     AKSettings.sampleRate,
+                                                                     Settings.sampleRate,
                                                                      block) else { return }
 
                 guard let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit else { return }

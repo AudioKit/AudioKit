@@ -37,7 +37,7 @@ public func Log(_ items: Any?...,
                 file: String = #file,
                 function: String = #function,
                 line: Int = #line) {
-    guard AKSettings.enableLogging else { return }
+    guard Settings.enableLogging else { return }
 
     let fileName = (file as NSString).lastPathComponent
     let content = (items.map {
