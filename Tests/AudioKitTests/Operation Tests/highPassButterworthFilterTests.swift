@@ -8,7 +8,7 @@ class HighPassButterworthFilterOperationTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.highPassButterworthFilter() }
+        engine.output = OperationEffect(input) { $0.highPassButterworthFilter() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

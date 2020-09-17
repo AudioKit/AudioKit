@@ -8,7 +8,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player, parameters in
+let effect = OperationEffect(player) { player, parameters in
     let sinusoid = AKOperation.sineWave(frequency: parameters[2])
     let shift = parameters[0] + sinusoid * parameters[1] / 2.0
     return player.pitchShift(semitones: shift)

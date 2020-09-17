@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class AKOperationGenerator: Node, AKToggleable, AKComponent {
+public class OperationGenerator: Node, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
@@ -23,98 +23,98 @@ public class AKOperationGenerator: Node, AKToggleable, AKComponent {
     public static let parameter1Def = NodeParameterDef(
         identifier: "parameter1",
         name: "Parameter 1",
-        address: akGetParameterAddress("AKOperationGeneratorParameter1"),
+        address: akGetParameterAddress("OperationGeneratorParameter1"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter2Def = NodeParameterDef(
         identifier: "parameter2",
         name: "Parameter 2",
-        address: akGetParameterAddress("AKOperationGeneratorParameter2"),
+        address: akGetParameterAddress("OperationGeneratorParameter2"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter3Def = NodeParameterDef(
         identifier: "parameter3",
         name: "Parameter 3",
-        address: akGetParameterAddress("AKOperationGeneratorParameter3"),
+        address: akGetParameterAddress("OperationGeneratorParameter3"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter4Def = NodeParameterDef(
         identifier: "parameter4",
         name: "Parameter 4",
-        address: akGetParameterAddress("AKOperationGeneratorParameter4"),
+        address: akGetParameterAddress("OperationGeneratorParameter4"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter5Def = NodeParameterDef(
         identifier: "parameter5",
         name: "Parameter 5",
-        address: akGetParameterAddress("AKOperationGeneratorParameter5"),
+        address: akGetParameterAddress("OperationGeneratorParameter5"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter6Def = NodeParameterDef(
         identifier: "parameter6",
         name: "Parameter 6",
-        address: akGetParameterAddress("AKOperationGeneratorParameter6"),
+        address: akGetParameterAddress("OperationGeneratorParameter6"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter7Def = NodeParameterDef(
         identifier: "parameter7",
         name: "Parameter 7",
-        address: akGetParameterAddress("AKOperationGeneratorParameter7"),
+        address: akGetParameterAddress("OperationGeneratorParameter7"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter8Def = NodeParameterDef(
         identifier: "parameter8",
         name: "Parameter 8",
-        address: akGetParameterAddress("AKOperationGeneratorParameter8"),
+        address: akGetParameterAddress("OperationGeneratorParameter8"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter9Def = NodeParameterDef(
         identifier: "parameter9",
         name: "Parameter 9",
-        address: akGetParameterAddress("AKOperationGeneratorParameter9"),
+        address: akGetParameterAddress("OperationGeneratorParameter9"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter10Def = NodeParameterDef(
         identifier: "parameter10",
         name: "Parameter 10",
-        address: akGetParameterAddress("AKOperationGeneratorParameter10"),
+        address: akGetParameterAddress("OperationGeneratorParameter10"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter11Def = NodeParameterDef(
         identifier: "parameter11",
         name: "Parameter 11",
-        address: akGetParameterAddress("AKOperationGeneratorParameter11"),
+        address: akGetParameterAddress("OperationGeneratorParameter11"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter12Def = NodeParameterDef(
         identifier: "parameter12",
         name: "Parameter 12",
-        address: akGetParameterAddress("AKOperationGeneratorParameter12"),
+        address: akGetParameterAddress("OperationGeneratorParameter12"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter13Def = NodeParameterDef(
         identifier: "parameter13",
         name: "Parameter 13",
-        address: akGetParameterAddress("AKOperationGeneratorParameter13"),
+        address: akGetParameterAddress("OperationGeneratorParameter13"),
         range: floatRange,
         unit: .generic,
         flags: .default)
     public static let parameter14Def = NodeParameterDef(
         identifier: "parameter14",
         name: "Parameter 14",
-        address: akGetParameterAddress("AKOperationGeneratorParameter14"),
+        address: akGetParameterAddress("OperationGeneratorParameter14"),
         range: floatRange,
         unit: .generic,
         flags: .default)
@@ -138,24 +138,24 @@ public class AKOperationGenerator: Node, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
         public override func getParameterDefs() -> [NodeParameterDef] {
-            [AKOperationGenerator.parameter1Def,
-             AKOperationGenerator.parameter2Def,
-             AKOperationGenerator.parameter3Def,
-             AKOperationGenerator.parameter4Def,
-             AKOperationGenerator.parameter5Def,
-             AKOperationGenerator.parameter6Def,
-             AKOperationGenerator.parameter7Def,
-             AKOperationGenerator.parameter8Def,
-             AKOperationGenerator.parameter9Def,
-             AKOperationGenerator.parameter10Def,
-             AKOperationGenerator.parameter11Def,
-             AKOperationGenerator.parameter12Def,
-             AKOperationGenerator.parameter13Def,
-             AKOperationGenerator.parameter14Def]
+            [OperationGenerator.parameter1Def,
+             OperationGenerator.parameter2Def,
+             OperationGenerator.parameter3Def,
+             OperationGenerator.parameter4Def,
+             OperationGenerator.parameter5Def,
+             OperationGenerator.parameter6Def,
+             OperationGenerator.parameter7Def,
+             OperationGenerator.parameter8Def,
+             OperationGenerator.parameter9Def,
+             OperationGenerator.parameter10Def,
+             OperationGenerator.parameter11Def,
+             OperationGenerator.parameter12Def,
+             OperationGenerator.parameter13Def,
+             OperationGenerator.parameter14Def]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKOperationGeneratorDSP")
+            akCreateDSP("OperationGeneratorDSP")
         }
 
         public func trigger(_ triggerNumber: Int) {

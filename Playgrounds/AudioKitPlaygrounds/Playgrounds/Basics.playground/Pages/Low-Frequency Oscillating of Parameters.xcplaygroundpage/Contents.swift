@@ -7,7 +7,7 @@
 //: ### This is traditionally done with Low-Frequency Oscillators, LFOs.
 import AudioKit
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
     let frequencyLFO = AKOperation.square(frequency: 1)
         .scale(minimum: 440, maximum: 880)
     let carrierLFO = AKOperation.triangle(frequency: 1)

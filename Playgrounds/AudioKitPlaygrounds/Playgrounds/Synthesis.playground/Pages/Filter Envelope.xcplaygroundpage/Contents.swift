@@ -20,7 +20,7 @@ struct Synth {
     }
 }
 
-extension AKOperationGenerator {
+extension OperationGenerator {
     var frequency: Double {
         get { return self.parameters[SynthParameter.frequency.rawValue] }
         set(newValue) { self.parameters[SynthParameter.frequency.rawValue] = newValue }
@@ -35,7 +35,7 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator {
+let synth = OperationGenerator {
 
     let oscillator = AKOperation.fmOscillator(baseFrequency: Synth.frequency,
                                               carrierMultiplier: 3,

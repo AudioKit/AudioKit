@@ -8,7 +8,7 @@ class FFTTapTests: XCTestCase {
     func testBasic() {
         let engine = AudioEngine()
 
-        let sine = AKOperationGenerator {
+        let sine = OperationGenerator {
             let s = AKOperation.sawtooth(frequency: 0.25, amplitude: 1, phase: 0) + 2
             return AKOperation.sineWave(frequency: 440 * s, amplitude: 1)
         }

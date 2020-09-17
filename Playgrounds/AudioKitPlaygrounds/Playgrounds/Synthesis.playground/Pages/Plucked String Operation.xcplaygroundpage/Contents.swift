@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let pluckNode = AKOperationGenerator { parameters in
+let pluckNode = OperationGenerator { parameters in
     let frequency = (AKOperation.parameters[1] + 40).midiNoteToFrequency()
     return AKOperation.pluckedString(
         trigger: AKOperation.trigger,

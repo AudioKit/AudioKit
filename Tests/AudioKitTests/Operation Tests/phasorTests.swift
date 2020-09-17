@@ -7,7 +7,7 @@ class PhasorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let phasor = AKOperationGenerator { AKOperation.phasor() }
+        let phasor = OperationGenerator { AKOperation.phasor() }
         engine.output = phasor
         phasor.start()
         let audio = engine.startTest(totalDuration: 1.0)

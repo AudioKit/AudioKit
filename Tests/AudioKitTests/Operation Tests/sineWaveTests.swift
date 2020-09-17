@@ -7,7 +7,7 @@ class SineWaveTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let sine = AKOperationGenerator { AKOperation.sineWave() }
+        let sine = OperationGenerator { AKOperation.sineWave() }
         engine.output = sine
         sine.start()
         let audio = engine.startTest(totalDuration: 1.0)

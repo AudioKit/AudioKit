@@ -3,7 +3,7 @@
 
 import AudioKit
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
     let white = AKOperation.whiteNoise()
     let pink = AKOperation.pinkNoise()
 

@@ -4,7 +4,7 @@
 import AudioKit
 import AudioKitUI
 
-let generator = AKOperationGenerator { parameters in
+let generator = OperationGenerator { parameters in
     let updateRate = parameters[0]
 
     // Vary the starting frequency and duration randomly

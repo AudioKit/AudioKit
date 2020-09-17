@@ -8,7 +8,7 @@ import CAudioKit
 /// Kick Drum Synthesizer Instrument
 public class SynthKick: AKMIDIInstrument {
 
-    var generator: AKOperationGenerator
+    var generator: OperationGenerator
 //    var filter: MoogLadder
 
     /// Create the synth kick voice
@@ -16,7 +16,7 @@ public class SynthKick: AKMIDIInstrument {
     /// - Parameter midiInputName: Name of the instrument's MIDI input.
     public override init(midiInputName: String? = nil) {
 
-        generator = AKOperationGenerator {
+        generator = OperationGenerator {
             let frequency = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 120, end: 40, duration: 0.03)
             let volumeSlide = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 1, end: 0, duration: 0.3)
             return AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
@@ -48,7 +48,7 @@ public class SynthKick: AKMIDIInstrument {
 /// Snare Drum Synthesizer Instrument
 public class SynthSnare: AKMIDIInstrument {
 
-    var generator: AKOperationGenerator
+    var generator: OperationGenerator
 //    var filter: MoogLadder
     var duration = 0.143
 
@@ -57,7 +57,7 @@ public class SynthSnare: AKMIDIInstrument {
         self.duration = duration
         self.resonance = resonance
 
-        generator = AKOperationGenerator {
+        generator = OperationGenerator {
             let volSlide = AKOperation.lineSegment(
                 trigger: AKOperation.trigger,
                 start: 1,

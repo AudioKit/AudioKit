@@ -6,7 +6,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let generator = AKOperationGenerator {
+let generator = OperationGenerator {
     let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 100, maximum: 300)
     let jitter = AKOperation.jitter(amplitude: 300, minimumFrequency: 1, maximumFrequency: 3)
     let position = AKOperation.sineWave(frequency: 0.1).scale()

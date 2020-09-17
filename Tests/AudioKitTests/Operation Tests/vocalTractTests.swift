@@ -5,11 +5,11 @@ import XCTest
 
 class VocalTractOperationTests: XCTestCase {
 
-    let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
+    let vocalTract = OperationGenerator { AKOperation.vocalTract() }
 
     func testDefault() {
         let engine = AudioEngine()
-        let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
+        let vocalTract = OperationGenerator { AKOperation.vocalTract() }
         engine.output = vocalTract
         vocalTract.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -19,7 +19,7 @@ class VocalTractOperationTests: XCTestCase {
 
     func testParameterSweep() {
         let engine = AudioEngine()
-        let vocalTract = AKOperationGenerator {
+        let vocalTract = OperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,

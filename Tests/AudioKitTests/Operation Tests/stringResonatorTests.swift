@@ -8,7 +8,7 @@ class StringResonatorOperationTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.stringResonator() }
+        engine.output = OperationEffect(input) { $0.stringResonator() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
