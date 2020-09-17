@@ -15,7 +15,7 @@ public:
     ~RhodesPianoKeyDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         NSError *error = nil;
         NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
@@ -43,7 +43,7 @@ public:
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
         delete rhodesPiano;
         rhodesPiano = nullptr;
     }

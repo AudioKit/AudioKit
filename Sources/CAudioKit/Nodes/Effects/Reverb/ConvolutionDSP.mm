@@ -76,7 +76,7 @@ public:
     }
 };
 
-AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length) {
+AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length) {
     ((AKConvolutionDSP*)dsp)->setPartitionLength(length);
 }
 

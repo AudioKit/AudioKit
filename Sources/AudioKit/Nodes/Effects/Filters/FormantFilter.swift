@@ -60,7 +60,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
              FormantFilter.decayDurationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("FormantFilterDSP")
         }
     }

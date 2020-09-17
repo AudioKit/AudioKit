@@ -5,7 +5,7 @@
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
 
-class AKCallbackInstrumentDSP : public AKDSPBase {
+class AKCallbackInstrumentDSP : public DSPBase {
 public:
     // MARK: Member Functions
 
@@ -90,7 +90,7 @@ public:
     AKCMIDICallback callback = nullptr;
 };
 
-AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback) {
+AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, AKCMIDICallback callback) {
     static_cast<AKCallbackInstrumentDSP*>(dsp)->setCallback(callback);
 }
 

@@ -7,7 +7,7 @@ enum StereoFieldLimiterParameter : AUParameterAddress {
     StereoFieldLimiterParameterAmount,
 };
 
-struct StereoFieldLimiterDSP : AKDSPBase {
+struct StereoFieldLimiterDSP : DSPBase {
 private:
     ParameterRamper amountRamp;
 
@@ -18,7 +18,7 @@ public:
     }
     
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
@@ -49,7 +49,7 @@ public:
     }
 };
 
-AKDSPRef akStereoFieldLimiterCreateDSP() {
+DSPRef akStereoFieldLimiterCreateDSP() {
     return new StereoFieldLimiterDSP();
 }
 AK_REGISTER_DSP(StereoFieldLimiterDSP)

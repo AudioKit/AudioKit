@@ -48,7 +48,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
              PluckedString.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PluckedStringDSP")
         }
     }

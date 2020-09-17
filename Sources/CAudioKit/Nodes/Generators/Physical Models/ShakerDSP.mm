@@ -17,7 +17,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
         shaker = new stk::Shakers();
@@ -28,7 +28,7 @@ public:
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
         delete shaker;
         shaker = nullptr;
     }

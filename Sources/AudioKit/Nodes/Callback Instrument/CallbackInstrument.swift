@@ -26,7 +26,7 @@ open class AKCallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("AKCallbackInstrumentDSP")
         }
         

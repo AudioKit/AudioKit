@@ -36,7 +36,7 @@ public class HighPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
             [HighPassButterworthFilter.cutoffFrequencyDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("HighPassButterworthFilterDSP")
         }
     }

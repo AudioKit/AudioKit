@@ -34,7 +34,7 @@ public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
             [WhiteNoise.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("WhiteNoiseDSP")
         }
     }

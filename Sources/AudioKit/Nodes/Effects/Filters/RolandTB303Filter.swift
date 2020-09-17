@@ -70,7 +70,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
              RolandTB303Filter.resonanceAsymmetryDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("RolandTB303FilterDSP")
         }
     }

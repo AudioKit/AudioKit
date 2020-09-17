@@ -70,7 +70,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
              StereoDelay.pingPongDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("StereoDelayDSP")
         }
     }

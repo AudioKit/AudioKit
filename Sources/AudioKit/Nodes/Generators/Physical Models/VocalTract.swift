@@ -87,7 +87,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
              VocalTract.nasalityDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("VocalTractDSP")
         }
     }

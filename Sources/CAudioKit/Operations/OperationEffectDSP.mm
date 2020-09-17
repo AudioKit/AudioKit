@@ -137,7 +137,7 @@ public:
     }
 };
 
-AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int length) {
+AK_API void akOperationEffectSetSporth(DSPRef dspRef, const char *sporth, int length) {
     auto dsp = dynamic_cast<OperationEffectDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth, length);

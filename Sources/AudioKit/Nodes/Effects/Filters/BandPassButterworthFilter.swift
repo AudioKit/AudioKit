@@ -48,7 +48,7 @@ public class BandPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
              BandPassButterworthFilter.bandwidthDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("BandPassButterworthFilterDSP")
         }
     }

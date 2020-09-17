@@ -6,7 +6,7 @@
 #import "DSPBase.h"
 
 template<typename SoulPatchType>
-class SoulDSP : public AKDSPBase {
+class SoulDSP : public DSPBase {
 
 public:
     SoulPatchType patch;

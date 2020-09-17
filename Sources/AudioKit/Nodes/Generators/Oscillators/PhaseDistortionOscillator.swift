@@ -89,7 +89,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
              PhaseDistortionOscillator.detuningMultiplierDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PhaseDistortionOscillatorDSP")
         }
     }

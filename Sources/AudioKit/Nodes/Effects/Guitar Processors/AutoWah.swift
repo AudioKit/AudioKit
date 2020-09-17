@@ -58,7 +58,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
              AutoWah.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("AutoWahDSP")
         }
     }

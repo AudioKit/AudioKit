@@ -108,7 +108,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
              MetalBar.strikeWidthDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("MetalBarDSP")
         }
     }

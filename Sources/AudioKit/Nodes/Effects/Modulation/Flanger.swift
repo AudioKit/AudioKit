@@ -70,7 +70,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
                     Flanger.dryWetMixDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             return akFlangerCreateDSP()
         }
     }

@@ -58,7 +58,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
              PeakingParametricEqualizerFilter.qDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PeakingParametricEqualizerFilterDSP")
         }
     }

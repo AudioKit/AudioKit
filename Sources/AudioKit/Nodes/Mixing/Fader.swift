@@ -88,7 +88,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
              Fader.mixToMonoDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("FaderDSP")
         }
     }

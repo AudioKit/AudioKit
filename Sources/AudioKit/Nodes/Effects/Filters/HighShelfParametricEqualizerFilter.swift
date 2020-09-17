@@ -58,7 +58,7 @@ public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggl
              HighShelfParametricEqualizerFilter.qDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("HighShelfParametricEqualizerFilterDSP")
         }
     }

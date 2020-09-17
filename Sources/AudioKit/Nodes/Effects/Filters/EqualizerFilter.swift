@@ -63,7 +63,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
              EqualizerFilter.gainDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("EqualizerFilterDSP")
         }
     }

@@ -58,7 +58,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
              KorgLowPassFilter.saturationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("KorgLowPassFilterDSP")
         }
     }

@@ -94,7 +94,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
             RhinoGuitarProcessor.distortionDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("RhinoGuitarProcessorDSP")
         }
     }

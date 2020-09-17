@@ -48,7 +48,7 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
              ModalResonanceFilter.qualityFactorDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ModalResonanceFilterDSP")
         }
     }

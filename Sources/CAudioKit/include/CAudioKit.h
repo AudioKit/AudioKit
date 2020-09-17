@@ -56,16 +56,16 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "Interop.h"
 
 // Custom interop
-AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dsp, float duration);
-AK_API void akConvolutionSetPartitionLength(AKDSPRef dsp, int length);
-AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dsp, float duration);
-AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int length);
-AK_API void akOperationGeneratorSetSporth(AKDSPRef dspRef, const char *sporth, int length);
-AK_API float* akOperationGeneratorTrigger(AKDSPRef dspRef);
-AK_API void akVariableDelaySetMaximumTime(AKDSPRef dsp, float maximumTime);
+AK_API void akCombFilterReverbSetLoopDuration(DSPRef dsp, float duration);
+AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length);
+AK_API void akFlatFrequencyResponseSetLoopDuration(DSPRef dsp, float duration);
+AK_API void akOperationEffectSetSporth(DSPRef dspRef, const char *sporth, int length);
+AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int length);
+AK_API float* akOperationGeneratorTrigger(DSPRef dspRef);
+AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
-AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback);
+AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, AKCMIDICallback callback);
 
 // Custom debug
 #define PhaseDistortionOscillatorDebugPhase 0

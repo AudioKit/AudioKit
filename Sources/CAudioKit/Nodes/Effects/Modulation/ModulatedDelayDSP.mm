@@ -7,12 +7,12 @@
 
 #include "ModulatedDelayDSP.h"
 
-AKDSPRef akChorusCreateDSP()
+DSPRef akChorusCreateDSP()
 {
     return new AKModulatedDelayDSP(kChorus);
 }
 
-AKDSPRef akFlangerCreateDSP()
+DSPRef akFlangerCreateDSP()
 {
     return new AKModulatedDelayDSP(kFlanger);
 }
@@ -59,13 +59,13 @@ AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
 
 void AKModulatedDelayDSP::init(int channels, double sampleRate)
 {
-    AKDSPBase::init(channels, sampleRate);
+    DSPBase::init(channels, sampleRate);
     delay.init(channels, sampleRate);
 }
 
 void AKModulatedDelayDSP::deinit()
 {
-    AKDSPBase::deinit();
+    DSPBase::deinit();
     delay.deinit();
 }
 

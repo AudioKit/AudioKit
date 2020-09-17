@@ -34,7 +34,7 @@ public class BrownianNoise: Node, AudioUnitContainer, Toggleable {
             [BrownianNoise.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("BrownianNoiseDSP")
         }
     }

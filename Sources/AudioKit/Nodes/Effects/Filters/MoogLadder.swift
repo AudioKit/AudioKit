@@ -50,7 +50,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
              MoogLadder.resonanceDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("MoogLadderDSP")
         }
     }

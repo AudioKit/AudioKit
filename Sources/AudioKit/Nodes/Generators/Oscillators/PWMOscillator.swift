@@ -87,7 +87,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
              PWMOscillator.detuningMultiplierDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PWMOscillatorDSP")
         }
     }

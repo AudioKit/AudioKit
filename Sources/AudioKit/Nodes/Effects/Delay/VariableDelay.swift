@@ -46,7 +46,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
              VariableDelay.feedbackDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("VariableDelayDSP")
         }
 

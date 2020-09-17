@@ -34,7 +34,7 @@ public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
             [ToneComplementFilter.halfPowerPointDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ToneComplementFilterDSP")
         }
     }

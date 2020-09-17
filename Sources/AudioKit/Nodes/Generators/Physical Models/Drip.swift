@@ -109,7 +109,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
              Drip.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("DripDSP")
         }
     }

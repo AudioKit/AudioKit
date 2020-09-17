@@ -58,7 +58,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
              LowShelfParametricEqualizerFilter.qDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("LowShelfParametricEqualizerFilterDSP")
         }
     }

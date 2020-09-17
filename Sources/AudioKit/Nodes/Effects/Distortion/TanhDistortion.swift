@@ -70,7 +70,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
              TanhDistortion.negativeShapeParameterDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("TanhDistortionDSP")
         }
     }

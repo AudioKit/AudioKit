@@ -70,7 +70,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
              AmplitudeEnvelope.releaseDurationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("AmplitudeEnvelopeDSP")
         }
     }
