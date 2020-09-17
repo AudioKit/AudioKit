@@ -13,7 +13,7 @@ let filteredNoise = OperationEffect(whiteNoise) { whiteNoise in
 
 //: Music Example
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
-let player = try AKAudioPlayer(file: file)
+let player = try AKPlayer(file: file)
 player.looping = true
 let filteredPlayer = OperationEffect(player) { player in
     let halfPower = Operation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)

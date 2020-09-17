@@ -5,7 +5,7 @@ import AudioKitUI
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
+let player = try AKPlayer(file: file)
 player.looping = true
 
 var flanger = AKFlanger(player)
