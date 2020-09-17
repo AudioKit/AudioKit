@@ -12,7 +12,7 @@ drip.intensity = 100
 
 let reverb = Reverb(drip)
 
-let drips = AKPeriodicFunction(frequency: playRate) {
+let drips = PeriodicFunction(frequency: playRate) {
     drip.trigger()
 }
 

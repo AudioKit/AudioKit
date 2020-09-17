@@ -16,7 +16,7 @@ filter.resonance = 0.94
 
 var counter = 0
 
-let toggling = AKPeriodicFunction(frequency: 2.66) {
+let toggling = PeriodicFunction(frequency: 2.66) {
     let frequencyToggle = counter % 2
     if frequencyToggle > 0 {
         filter.cutoffFrequency = 111

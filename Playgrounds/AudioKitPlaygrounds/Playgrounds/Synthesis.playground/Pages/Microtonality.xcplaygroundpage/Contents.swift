@@ -44,7 +44,7 @@ let mixer = Mixer(generatorFader, reverbFader)
 
 // MICROTONAL PRESETS
 var presetDictionary = [String: () -> Void]()
-let tuningTable = AKPolyphonicNode.tuningTable
+let tuningTable = PolyphonicNode.tuningTable
 presetDictionary["Ahir Bhairav"] = { tuningTable.presetPersian17NorthIndian19AhirBhairav() }
 presetDictionary["Basant Mukhari"] = { tuningTable.presetPersian17NorthIndian21BasantMukhari() }
 presetDictionary["Champakali"] = { tuningTable.presetPersian17NorthIndian22Champakali() }
@@ -104,7 +104,7 @@ func nnCalc(_ counter: Int) -> MIDINoteNumber {
 }
 
 // periodic function for arpeggio
-let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
+let sequencerFunction = PeriodicFunction(frequency: playRate) {
 
     // send note off for notes in the past
     let pastNN = nnCalc(performanceCounter - 2)
@@ -112,7 +112,7 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 
     // send note on for notes in the present
     let presentNN = nnCalc(performanceCounter)
-    let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
+    let frequency = PolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
     osc.play(noteNumber: presentNN, velocity: 127, frequency: frequency)
 
     performanceCounter += 1

@@ -11,7 +11,7 @@ let reverb = Reverb(flute)
 
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
-let performance = AKPeriodicFunction(frequency: playRate) {
+let performance = PeriodicFunction(frequency: playRate) {
     var note = scale.randomElement()!
     let octave = (2..<6).randomElement()! * 12
     if random(in: 0...10) < 1.0 { note += 1 }

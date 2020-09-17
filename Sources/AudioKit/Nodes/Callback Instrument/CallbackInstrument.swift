@@ -14,7 +14,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// New sample-accurate version of AKCallbackInstrument
 /// Old AKCallbackInstrument renamed to AKMIDICallbackInstrument
 /// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
-open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
+open class AKCallbackInstrument: PolyphonicNode, AKComponent {
 
     public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node

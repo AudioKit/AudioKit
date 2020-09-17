@@ -19,7 +19,7 @@ let reverb = Reverb(delay)
 
 let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
-let performance = AKPeriodicFunction(frequency: playRate) {
+let performance = PeriodicFunction(frequency: playRate) {
     var note1: MIDINoteNumber = scale.randomElement()!
     let octave1 = MIDINoteNumber([2, 3, 4, 5].randomElement()! * 12)
     let course1 = [1, 2, 3, 4].randomElement()!

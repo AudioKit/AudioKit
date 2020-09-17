@@ -46,11 +46,11 @@ The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in 
 	    float fLoopStart, fLoopEnd;
 	    float fStart, fEnd;
 	
-	} AKSampleDescriptor;
+	} SampleDescriptor;
 	
 	typedef struct
 	{
-	    AKSampleDescriptor sd;
+	    SampleDescriptor sd;
 	    
 	    float sampleRateHz;
 	    bool bInterleaved;
@@ -58,33 +58,33 @@ The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in 
 	    int nSamples;
 	    float *pData;
 	
-	} AKSampleDataDescriptor;
+	} SampleDataDescriptor;
 	
 	typedef struct
 	{
-	    AKSampleDescriptor sd;
+	    SampleDescriptor sd;
 	    
 	    const char* path;
 	    
-	} AKSampleFileDescriptor;
+	} SampleFileDescriptor;
 
 By the miracle of Swift/Objective-C bridging (see [Using Swift with Cocoa and Objective-C](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithCAPIs.html)), each of these three structures is accessible from Swift as a similarly-named class, which you can create by simply providing values for all the properties, as you'll see in the examples below.
 
-### AKSampleDescriptor and loadAudioFile()
+### SampleDescriptor and loadAudioFile()
 
-*AKSampleDescriptor* is the simplest and most fundamental of the three descriptor classes; the other two encapsulate an instance of this struct and add one or more additional properties. Only the first two properties, *noteNumber* and *noteHz* are required.
+*SampleDescriptor* is the simplest and most fundamental of the three descriptor classes; the other two encapsulate an instance of this struct and add one or more additional properties. Only the first two properties, *noteNumber* and *noteHz* are required.
 
 * *noteNumber* is a MIDI note number, 0-127 where 60 represents middle C on the piano
-* *noteHz* is the corresponding note frequency in Hertz. In an AudioKit program, if all you have is the note number, you can use `AKPolyphonicNode.tuningTable.frequency(forNoteNumber:)` to look up the standard frequency for that note.
+* *noteHz* is the corresponding note frequency in Hertz. In an AudioKit program, if all you have is the note number, you can use `PolyphonicNode.tuningTable.frequency(forNoteNumber:)` to look up the standard frequency for that note.
 
 The *min_note*, *max_note*, *min_vel*, and *max_vel* properties are used by `buildKeyMap()` to populate the sampler's internal lookup tables for selecting samples based on MIDI (note, velocity) pairs. If you don't have data for these members, you can set all four to -1, and call `buildSimpleKeyMap()` instead.
 
-Here's an example of how to load a single sample from a WAV file using `loadAudioFile()`, which requires creating an instance of *AKSampleDescriptor*:
+Here's an example of how to load a single sample from a WAV file using `loadAudioFile()`, which requires creating an instance of *SampleDescriptor*:
 
     let path = "/Users/shane/Desktop/AKWF Samples/AKWF_bw_sawbright/AKWF_bsaw_0005.wav"
     let furl = URL(fileURLWithPath: path)
     let file = try AVAudioFile(forReading: furl)
-    let desc = AKSampleDescriptor(noteNumber: 26,
+    let desc = SampleDescriptor(noteNumber: 26,
                                       noteHz: 44100.0/600,
                                     min_note: 0,
                                     max_note: 127,
@@ -99,9 +99,9 @@ Here's an example of how to load a single sample from a WAV file using `loadAudi
 
 See the following sections for notes about setting the `fLoopStart`, `fLoopEnd`, `fStart` and `fEnd` properties.
 
-### AKSampleDataDescriptor and loadRawSampleData()
+### SampleDataDescriptor and loadRawSampleData()
 
-*AKSampleDataDescriptor*, which is required when calling `loadRawSampleData()`, has an *AKSampleDescriptor* property (as described above) plus several additional properties to provide all the information **Sampler** needs about the sample:
+*SampleDataDescriptor*, which is required when calling `loadRawSampleData()`, has an *SampleDescriptor* property (as described above) plus several additional properties to provide all the information **Sampler** needs about the sample:
 
 * *sampleRateHz* is the sampling rate at which the sample data were acquired. If the sampler needs to play back the sample at a different rate, it will need to scale its playback rate based on the ratio of the two rates.
 * *nChannels* will be 1 if the sample is monophonic, or 2 if stereo. Note the sampler can play back mono samples as stereo; it simply plays the same data to both output channels. (In the reverse case, only the Left channel data will sound.)
@@ -115,7 +115,7 @@ Here's an example of creating a sample programmatically in Swift, and loading it
         myData[i] = sin(2.0 * Float(i)/1000 * Float.pi)
     }
     let sampleRate = Float(AKSettings.sampleRate)
-    let desc = AKSampleDescriptor(noteNumber: 69,
+    let desc = SampleDescriptor(noteNumber: 69,
                                       noteHz: sampleRate/1000,
                                     min_note: -1,
                                     max_note: -1,
@@ -127,7 +127,7 @@ Here's an example of creating a sample programmatically in Swift, and loading it
                                       fStart: 0,
                                         fEnd: 0)
     let ptr = UnsafeMutablePointer<Float>(mutating: myData)
-    let ddesc = AKSampleDataDescriptor(sd: desc,
+    let ddesc = SampleDataDescriptor(sd: desc,
                              sampleRateHz: sampleRate,
                              bInterleaved: false,
                                 nChannels: 1,
@@ -147,8 +147,8 @@ A few points to note about this example:
 * setting `fEnd` to 0 also means "end of the sample"
 * To ensure the sampler keeps looping even after each note is released (very important with such short samples), we call `setLoop(thruRelease: true)`.
 
-## AKSampleFileDescriptor and loadCompressedSampleFile()
-*AKSampleFileDescriptor*, used in calls to `loadCompressedSampleFile()` is very simple. Like *AKSampleDataDescriptor*, it has an *AKSampleDescriptor* property, to which it simply adds a `String` property `path`. Here's an example of using `loadCompressedSampleFile()`, taken from the Sampler demo program:
+## SampleFileDescriptor and loadCompressedSampleFile()
+*SampleFileDescriptor*, used in calls to `loadCompressedSampleFile()` is very simple. Like *SampleDataDescriptor*, it has an *SampleDescriptor* property, to which it simply adds a `String` property `path`. Here's an example of using `loadCompressedSampleFile()`, taken from the Sampler demo program:
 
     private func loadCompressed(baseURL: URL,
                              noteNumber: MIDINoteNumber,
@@ -162,8 +162,8 @@ A few points to note about this example:
         let folderURL = baseURL.appendingPathComponent(folderName)
         let fileName = folderName + fileEnding
         let fileURL = folderURL.appendingPathComponent(fileName)
-        let freq = float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
-        let sd = AKSampleDescriptor(noteNumber: Int32(noteNumber),
+        let freq = float(PolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
+        let sd = SampleDescriptor(noteNumber: Int32(noteNumber),
                                         noteHz: freq,
                                       min_note: min_note,
                                       max_note: max_note,
@@ -174,8 +174,8 @@ A few points to note about this example:
                                       fLoopEnd: 0.3,
                                         fStart: 0.0,
                                           fEnd: 0.0)
-        let fdesc = AKSampleFileDescriptor(sd: sd, path: fileURL.path)
+        let fdesc = SampleFileDescriptor(sd: sd, path: fileURL.path)
         sampler.loadCompressedSampleFile(sfd: fdesc)
     }
 
-Note in the last line of the code above, `sampler` is an **Sampler** instance. See the *Conductor.swift* file in the SamplerDemo macOS example for more context.
+Note in the last line of the code above, `sampler` is a **Sampler** instance. See the *Conductor.swift* file in the SamplerDemo macOS example for more context.

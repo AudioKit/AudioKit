@@ -20,7 +20,7 @@ var panner = Panner(player)
 //: Adjust the pan to smoothly cycle left and right over time
 var time = 0.0
 let timeStep = 0.05
-let timer = AKPeriodicFunction(every: timeStep) {
+let timer = PeriodicFunction(every: timeStep) {
     panner.pan = sin(time)
     time += timeStep
 }

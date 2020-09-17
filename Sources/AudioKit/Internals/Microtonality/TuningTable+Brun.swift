@@ -72,11 +72,11 @@ extension TuningTable {
     // Examples:
     //
     // 12ET:
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.583333, level: 6) -> 12
+    // PolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.583333, level: 6) -> 12
 
     // 9-tone scale
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.238186, level: 5) -> 9
+    // PolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.238186, level: 5) -> 9
 
     // 9-tone scale
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.264100, level: 5) -> 9
+    // PolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.264100, level: 5) -> 9
 }

@@ -358,12 +358,12 @@ public class SamplerAudioUnit: AudioUnitBase {
         akSamplerRestartVoices(dsp)
     }
 
-    public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+    public func loadSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         var copy = sampleDataDescriptor
         akSamplerLoadData(dsp, &copy)
     }
 
-    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+    public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         var copy = sampleFileDescriptor
         akSamplerLoadCompressedFile(dsp, &copy)
     }

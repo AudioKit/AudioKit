@@ -88,7 +88,7 @@ extension Sampler {
                     let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
                     AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
-                    let sampleDescriptor = AKSampleDescriptor(noteNumber: Int32(noteNumber),
+                    let sampleDescriptor = SampleDescriptor(noteNumber: Int32(noteNumber),
                                                               noteFrequency: noteFrequency,
                                                               minimumNoteNumber: Int32(lowNoteNumber),
                                                               maximumNoteNumber: Int32(highNoteNumber),
@@ -102,7 +102,7 @@ extension Sampler {
                     let sampleFileURL = samplesBaseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
                         sampleFileURL.path.withCString { path in
-                            loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                            loadCompressedSampleFile(from: SampleFileDescriptor(sampleDescriptor: sampleDescriptor,
                                                                                   path: path))
                         }
                     } else {
@@ -113,7 +113,7 @@ extension Sampler {
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
                                 compressedFileURL.path.withCString { path in
                                     loadCompressedSampleFile(
-                                        from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                        from: SampleFileDescriptor(sampleDescriptor: sampleDescriptor,
                                                                      path: path))
                                 }
                             } else {

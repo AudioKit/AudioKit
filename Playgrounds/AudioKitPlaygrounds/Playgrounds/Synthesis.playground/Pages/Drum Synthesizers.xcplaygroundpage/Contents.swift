@@ -12,7 +12,7 @@ var reverb = Reverb(mix)
 
 //: Generate a cheap electro beat
 var counter = 0
-let beats = AKPeriodicFunction(frequency: 5) {
+let beats = PeriodicFunction(frequency: 5) {
     let randomVelocity = MIDIVelocity(AUValue.random(in: 0...127))
     let onFirstBeat = counter % 4 == 0
     let everyOtherBeat = counter % 4 == 2

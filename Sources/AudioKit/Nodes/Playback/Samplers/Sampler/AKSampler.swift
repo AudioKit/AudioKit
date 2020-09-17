@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Sampler
 ///
-public class Sampler: AKPolyphonicNode, AKComponent {
+public class Sampler: PolyphonicNode, AKComponent {
     public typealias AudioUnitType = SamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
@@ -274,7 +274,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
 
     /// Initialize this sampler node. There are many parameters, change them after initialization
     ///
-    public init(sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+    public init(sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -311,7 +311,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         self.loadSFZ(path: sfzPath, fileName: sfzFileName)
     }
 
-    internal func loadAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AVAudioFile) {
+    internal func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
         let sampleRate = Float(file.fileFormat.sampleRate)
@@ -320,7 +320,7 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         var flattened = Array(floatChannelData.joined())
 
         flattened.withUnsafeMutableBufferPointer { data in
-            internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+            internalAU?.loadSampleData(from: SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
                                                                     sampleRate: sampleRate,
                                                                     isInterleaved: false,
                                                                     channelCount: channelCount,
@@ -337,11 +337,11 @@ public class Sampler: AKPolyphonicNode, AKComponent {
         internalAU?.restartVoices()
     }
 
-    public func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+    public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
-    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+    public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
