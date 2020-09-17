@@ -12,7 +12,7 @@
 #define MAX_VOICE_COUNT 32      // number of voices
 #define MIDI_NOTENUMBERS 128    // MIDI offers 128 distinct note numbers
 
-struct AKCoreSynth::InternalData
+struct CoreSynth::InternalData
 {
     /// array of voice resources
     AudioKitCore::SynthVoice voice[MAX_VOICE_COUNT];
@@ -30,7 +30,7 @@ struct AKCoreSynth::InternalData
     AudioKitCore::EnvelopeParameters envParameters;
 };
 
-AKCoreSynth::AKCoreSynth()
+CoreSynth::CoreSynth()
 : eventCounter(0)
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
@@ -49,11 +49,11 @@ AKCoreSynth::AKCoreSynth()
     }
 }
 
-AKCoreSynth::~AKCoreSynth()
+CoreSynth::~CoreSynth()
 {
 }
 
-int AKCoreSynth::init(double sampleRate)
+int CoreSynth::init(double sampleRate)
 {
     AudioKitCore::FunctionTable waveform;
     int length = 1 << AudioKitCore::WaveStack::maxBits;
@@ -132,25 +132,25 @@ int AKCoreSynth::init(double sampleRate)
     return 0;   // no error
 }
 
-void AKCoreSynth::deinit()
+void CoreSynth::deinit()
 {
 }
 
-void AKCoreSynth::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
+void CoreSynth::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
 {
     eventCounter++;
     data->pedalLogic.keyDownAction(noteNumber);
     play(noteNumber, velocity, noteFrequency);
 }
 
-void AKCoreSynth::stopNote(unsigned noteNumber, bool immediate)
+void CoreSynth::stopNote(unsigned noteNumber, bool immediate)
 {
     eventCounter++;
     if (immediate || data->pedalLogic.keyUpAction(noteNumber))
         stop(noteNumber, immediate);
 }
 
-void AKCoreSynth::sustainPedal(bool down)
+void CoreSynth::sustainPedal(bool down)
 {
     eventCounter++;
     if (down) data->pedalLogic.pedalDown();
@@ -164,7 +164,7 @@ void AKCoreSynth::sustainPedal(bool down)
     }
 }
 
-AudioKitCore::SynthVoice *AKCoreSynth::voicePlayingNote(unsigned noteNumber)
+AudioKitCore::SynthVoice *CoreSynth::voicePlayingNote(unsigned noteNumber)
 {
     AudioKitCore::SynthVoice *pVoice = data->voice;
     for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
@@ -174,7 +174,7 @@ AudioKitCore::SynthVoice *AKCoreSynth::voicePlayingNote(unsigned noteNumber)
     return 0;
 }
 
-void AKCoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
+void CoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
 {
     // is any voice already playing this note?
     AudioKitCore::SynthVoice *pVoice = voicePlayingNote(noteNumber);
@@ -233,7 +233,7 @@ void AKCoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequen
     }
 }
 
-void AKCoreSynth::stop(unsigned noteNumber, bool immediate)
+void CoreSynth::stop(unsigned noteNumber, bool immediate)
 {
     AudioKitCore::SynthVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice == 0) return;
@@ -248,7 +248,7 @@ void AKCoreSynth::stop(unsigned noteNumber, bool immediate)
     }
 }
 
-void AKCoreSynth::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
+void CoreSynth::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
 {
     float *pOutLeft = outBuffers[0];
     float *pOutRight = outBuffers[1];
@@ -271,77 +271,77 @@ void AKCoreSynth::render(unsigned channelCount, unsigned sampleCount, float *out
     }
 }
 
-void AKCoreSynth::setAmpAttackDurationSeconds(float value)
+void CoreSynth::setAmpAttackDurationSeconds(float value)
 {
     data->ampEGParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
 }
-float AKCoreSynth::getAmpAttackDurationSeconds(void)
+float CoreSynth::getAmpAttackDurationSeconds(void)
 {
     return data->ampEGParameters.getAttackDurationSeconds();
 }
-void  AKCoreSynth::setAmpDecayDurationSeconds(float value)
+void  CoreSynth::setAmpDecayDurationSeconds(float value)
 {
     data->ampEGParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
 }
-float AKCoreSynth::getAmpDecayDurationSeconds(void)
+float CoreSynth::getAmpDecayDurationSeconds(void)
 {
     return data->ampEGParameters.getDecayDurationSeconds();
 }
-void  AKCoreSynth::setAmpSustainFraction(float value)
+void  CoreSynth::setAmpSustainFraction(float value)
 {
     data->ampEGParameters.sustainFraction = value;
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
 }
-float AKCoreSynth::getAmpSustainFraction(void)
+float CoreSynth::getAmpSustainFraction(void)
 {
     return data->ampEGParameters.sustainFraction;
 }
-void  AKCoreSynth::setAmpReleaseDurationSeconds(float value)
+void  CoreSynth::setAmpReleaseDurationSeconds(float value)
 {
     data->ampEGParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSynth::getAmpReleaseDurationSeconds(void)
+float CoreSynth::getAmpReleaseDurationSeconds(void)
 {
     return data->ampEGParameters.getReleaseDurationSeconds();
 }
 
-void  AKCoreSynth::setFilterAttackDurationSeconds(float value)
+void  CoreSynth::setFilterAttackDurationSeconds(float value)
 {
     data->filterEGParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
 }
-float AKCoreSynth::getFilterAttackDurationSeconds(void)
+float CoreSynth::getFilterAttackDurationSeconds(void)
 {
     return data->filterEGParameters.getAttackDurationSeconds();
 }
-void  AKCoreSynth::setFilterDecayDurationSeconds(float value)
+void  CoreSynth::setFilterDecayDurationSeconds(float value)
 {
     data->filterEGParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
 }
-float AKCoreSynth::getFilterDecayDurationSeconds(void)
+float CoreSynth::getFilterDecayDurationSeconds(void)
 {
     return data->filterEGParameters.getDecayDurationSeconds();
 }
-void  AKCoreSynth::setFilterSustainFraction(float value)
+void  CoreSynth::setFilterSustainFraction(float value)
 {
     data->filterEGParameters.sustainFraction = value;
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
 }
-float AKCoreSynth::getFilterSustainFraction(void)
+float CoreSynth::getFilterSustainFraction(void)
 {
     return data->filterEGParameters.sustainFraction;
 }
-void  AKCoreSynth::setFilterReleaseDurationSeconds(float value)
+void  CoreSynth::setFilterReleaseDurationSeconds(float value)
 {
     data->filterEGParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
 }
-float AKCoreSynth::getFilterReleaseDurationSeconds(void)
+float CoreSynth::getFilterReleaseDurationSeconds(void)
 {
     return data->filterEGParameters.getReleaseDurationSeconds();
 }

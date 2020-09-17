@@ -23,7 +23,7 @@ void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
 }
 
 
-SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
+SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), CoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -35,13 +35,13 @@ SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
 void SynthDSP::init(int channelCount, double sampleRate)
 {
     AKDSPBase::init(channelCount, sampleRate);
-    AKCoreSynth::init(sampleRate);
+    CoreSynth::init(sampleRate);
 }
 
 void SynthDSP::deinit()
 {
     AKDSPBase::deinit();
-    AKCoreSynth::deinit();
+    CoreSynth::deinit();
 }
 
 void SynthDSP::setParameter(uint64_t address, float value, bool immediate)
@@ -176,6 +176,6 @@ void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOff
         outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
         unsigned channelCount = outputBufferList->mNumberBuffers;
-        AKCoreSynth::render(channelCount, chunkSize, outBuffers);
+        CoreSynth::render(channelCount, chunkSize, outBuffers);
     }
 }
