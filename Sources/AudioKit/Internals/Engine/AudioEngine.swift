@@ -127,24 +127,24 @@ public class AudioEngine {
     }
 
     /// Enumerate the list of available input devices.
-    public static var inputDevices: [AKDevice]? {
+    public static var inputDevices: [Device]? {
         #if os(macOS)
-        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.inputChannels(id) > 0 {
-                return AKDevice(deviceID: id)
+                return Device(deviceID: id)
             }
             return nil
         }
         #else
-        var returnDevices = [AKDevice]()
+        var returnDevices = [Device]()
         if let devices = AVAudioSession.sharedInstance().availableInputs {
             for device in devices {
                 if device.dataSources == nil || device.dataSources?.isEmpty == true {
-                    returnDevices.append(AKDevice(portDescription: device))
+                    returnDevices.append(Device(portDescription: device))
 
                 } else if let dataSources = device.dataSources {
                     for dataSource in dataSources {
-                        returnDevices.append(AKDevice(name: device.portName,
+                        returnDevices.append(Device(name: device.portName,
                                                       deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
                     }
                 }
@@ -156,20 +156,20 @@ public class AudioEngine {
     }
 
     /// Enumerate the list of available output devices.
-    public static var outputDevices: [AKDevice]? {
+    public static var outputDevices: [Device]? {
         #if os(macOS)
-        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> AKDevice? in
+        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.outputChannels(id) > 0 {
-                return AKDevice(deviceID: id)
+                return Device(deviceID: id)
             }
             return nil
         }
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {
-            var outs = [AKDevice]()
+            var outs = [Device]()
             for dev in devs {
-                outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
+                outs.append(Device(name: dev.portName, deviceID: dev.uid))
             }
             return outs
         }
@@ -179,15 +179,15 @@ public class AudioEngine {
 
     #if os(macOS)
     /// Enumerate the list of available devices.
-    public static var devices: [AKDevice]? {
+    public static var devices: [Device]? {
         return AudioDeviceUtils.devices().map { id in
-            AKDevice(deviceID: id)
+            Device(deviceID: id)
         }
     }
     #endif
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    public static func setInputDevice(_ input: AKDevice) throws {
+    public static func setInputDevice(_ input: Device) throws {
         #if os(macOS)
         try AKTry {
             var address = AudioObjectPropertyAddress(
@@ -217,17 +217,17 @@ public class AudioEngine {
     /// The current input device, if available.
     ///
     /// Note that on macOS, this will always be the same as `outputDevice`
-    public var inputDevice: AKDevice? {
+    public var inputDevice: Device? {
         #if os(macOS)
-        return AKDevice(deviceID: avEngine.getDevice())
+        return Device(deviceID: avEngine.getDevice())
         #else
         if let portDescription = AVAudioSession.sharedInstance().preferredInput {
-            return AKDevice(portDescription: portDescription)
+            return Device(portDescription: portDescription)
         } else {
             let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
             if inputDevices.isNotEmpty {
                 for device in inputDevices {
-                    return AKDevice(portDescription: device)
+                    return Device(portDescription: device)
                 }
             }
         }
@@ -238,20 +238,20 @@ public class AudioEngine {
     /// The current output device, if available.
     ///
     /// Note that on macOS, this will always be the same as `inputDevice`
-    public var outputDevice: AKDevice? {
+    public var outputDevice: Device? {
         #if os(macOS)
-        return AKDevice(deviceID: avEngine.getDevice())
+        return Device(deviceID: avEngine.getDevice())
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {
-            return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+            return Device(name: devs[0].portName, deviceID: devs[0].uid)
         }
         return nil
         #endif
     }
 
     /// Change the preferred output device, giving it one of the names from the list of available output.
-    public func setOutputDevice(_ output: AKDevice) throws {
+    public func setOutputDevice(_ output: Device) throws {
         #if os(macOS)
         avEngine.setDevice(id: output.deviceID)
         #endif

@@ -5,10 +5,10 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKConvolutionParameter : AUParameterAddress {
+enum ConvolutionParameter : AUParameterAddress {
 };
 
-class AKConvolutionDSP : public SoundpipeDSPBase {
+class ConvolutionDSP : public SoundpipeDSPBase {
 private:
     sp_conv *conv0;
     sp_conv *conv1;
@@ -17,7 +17,7 @@ private:
     int partitionLength = 2048;
 
 public:
-    AKConvolutionDSP() {}
+    ConvolutionDSP() {}
 
     void init(int channelCount, double sampleRate) override {
         SoundpipeDSPBase::init(channelCount, sampleRate);
@@ -77,7 +77,7 @@ public:
 };
 
 AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length) {
-    ((AKConvolutionDSP*)dsp)->setPartitionLength(length);
+    ((ConvolutionDSP*)dsp)->setPartitionLength(length);
 }
 
-AK_REGISTER_DSP(AKConvolutionDSP)
+AK_REGISTER_DSP(ConvolutionDSP)

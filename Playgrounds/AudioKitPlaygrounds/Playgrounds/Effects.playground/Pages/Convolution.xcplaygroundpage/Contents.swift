@@ -14,16 +14,16 @@ let bundle = Bundle.main
 
 var dryWetMixer: DryWetMixer!
 var mixer: DryWetMixer!
-var dishConvolution: AKConvolution!
-var stairwellConvolution: AKConvolution!
+var dishConvolution: Convolution!
+var stairwellConvolution: Convolution!
 
 if let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withExtension: "wav"),
     let dish = bundle.url(forResource: "Impulse Responses/dish", withExtension: "wav") {
 
-    stairwellConvolution = AKConvolution(player,
+    stairwellConvolution = Convolution(player,
                                          impulseResponseFileURL: stairwell,
                                          partitionLength: 8_192)
-    dishConvolution = AKConvolution(player,
+    dishConvolution = Convolution(player,
                                     impulseResponseFileURL: dish,
                                     partitionLength: 8_192)
 }
