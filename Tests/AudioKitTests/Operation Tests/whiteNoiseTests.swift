@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class WhiteNoiseTests: XCTestCase {
+class WhiteNoiseOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

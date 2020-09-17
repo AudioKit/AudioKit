@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// White noise generator
-public class AKWhiteNoise: AKNode, AKComponent, AKToggleable {
+public class WhiteNoise: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
 
@@ -18,7 +18,7 @@ public class AKWhiteNoise: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKWhiteNoiseParameterAmplitude"),
+        address: akGetParameterAddress("WhiteNoiseParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKWhiteNoise: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKWhiteNoise.amplitudeDef]
+            [WhiteNoise.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKWhiteNoiseDSP")
+            akCreateDSP("WhiteNoiseDSP")
         }
     }
 

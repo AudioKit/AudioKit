@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKPinkNoiseTests: XCTestCase {
+class PinkNoiseTests: XCTestCase {
 
 
     func testDefault() {
         let engine = AudioEngine()
-        let pink = AKPinkNoise()
+        let pink = PinkNoise()
         engine.output = pink
         pink.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -18,7 +18,7 @@ class AKPinkNoiseTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()
-        let pink = AKPinkNoise()
+        let pink = PinkNoise()
         pink.amplitude = 0.5
         engine.output = pink
         pink.start()

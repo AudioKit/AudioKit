@@ -4,18 +4,18 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKWhiteNoiseParameter : AUParameterAddress {
-    AKWhiteNoiseParameterAmplitude,
+enum WhiteNoiseParameter : AUParameterAddress {
+    WhiteNoiseParameterAmplitude,
 };
 
-class AKWhiteNoiseDSP : public AKSoundpipeDSPBase {
+class WhiteNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_noise *noise;
     ParameterRamper amplitudeRamp;
 
 public:
-    AKWhiteNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKWhiteNoiseParameterAmplitude] = &amplitudeRamp;
+    WhiteNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[WhiteNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
@@ -58,5 +58,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKWhiteNoiseDSP)
-AK_REGISTER_PARAMETER(AKWhiteNoiseParameterAmplitude)
+AK_REGISTER_DSP(WhiteNoiseDSP)
+AK_REGISTER_PARAMETER(WhiteNoiseParameterAmplitude)

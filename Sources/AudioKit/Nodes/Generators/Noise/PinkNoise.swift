@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pink noise generator
-public class AKPinkNoise: AKNode, AKComponent, AKToggleable {
+public class PinkNoise: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
 
@@ -18,7 +18,7 @@ public class AKPinkNoise: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKPinkNoiseParameterAmplitude"),
+        address: akGetParameterAddress("PinkNoiseParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKPinkNoise: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKPinkNoise.amplitudeDef]
+            [PinkNoise.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPinkNoiseDSP")
+            akCreateDSP("PinkNoiseDSP")
         }
     }
 

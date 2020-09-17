@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class PinkNoiseTests: XCTestCase {
+class PinkNoiseOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

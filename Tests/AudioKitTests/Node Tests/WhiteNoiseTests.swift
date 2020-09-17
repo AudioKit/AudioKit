@@ -3,10 +3,10 @@
 import AudioKit
 import XCTest
 
-class AKWhiteNoiseTests: XCTestCase {
+class WhiteNoiseTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
-        let white = AKWhiteNoise()
+        let white = WhiteNoise()
         engine.output = white
         white.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -16,7 +16,7 @@ class AKWhiteNoiseTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()
-        let white = AKWhiteNoise()
+        let white = WhiteNoise()
         white.amplitude = 0.5
         engine.output = white
         white.start()
