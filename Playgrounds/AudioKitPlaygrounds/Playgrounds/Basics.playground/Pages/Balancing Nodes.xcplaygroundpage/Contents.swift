@@ -11,7 +11,7 @@ import AudioKitUI
 
 //: This section prepares the players
 let file = try AVAudioFile(readFileName: "drumloop.wav")
-var source = try AKAudioPlayer(file: file)
+var source = try AKPlayer(file: file)
 source.looping = true
 
 let highPassFiltering = HighPassFilter(source, cutoffFrequency: 900)

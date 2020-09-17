@@ -11,7 +11,7 @@ import AudioKit
 //: Set up the audio player
 let file = try AVAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
+let player = try AKPlayer(file: file)
 player.looping = true
 
 //: Route the audio player through the panner
