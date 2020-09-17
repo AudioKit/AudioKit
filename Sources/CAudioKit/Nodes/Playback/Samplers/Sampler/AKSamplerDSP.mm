@@ -8,11 +8,11 @@ AKDSPRef akSamplerCreateDSP() {
     return new SamplerDSP();
 }
 
-void akSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
+void akSamplerLoadData(AKDSPRef pDSP, SampleDataDescriptor *pSDD) {
     ((SamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-void akSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
+void akSamplerLoadCompressedFile(AKDSPRef pDSP, SampleFileDescriptor *pSFD)
 {
     char errMsg[100];
     WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -22,7 +22,7 @@ void akSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
         return;
     }
 
-    AKSampleDataDescriptor sdd;
+    SampleDataDescriptor sdd;
     sdd.sampleDescriptor = pSFD->sampleDescriptor;
     sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
     sdd.channelCount = WavpackGetReducedChannels(wpc);

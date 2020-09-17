@@ -112,7 +112,7 @@ void AKCoreSampler::unloadAllSamples()
         data->keyMap[i].clear();
 }
 
-void AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
+void AKCoreSampler::loadSampleData(SampleDataDescriptor& sdd)
 {
     AudioKitCore::KeyMappedSampleBuffer *pBuf = new AudioKitCore::KeyMappedSampleBuffer();
     pBuf->minimumNoteNumber = sdd.sampleDescriptor.minimumNoteNumber;

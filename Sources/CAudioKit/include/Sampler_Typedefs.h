@@ -16,11 +16,11 @@ typedef struct
     float loopStartPoint, loopEndPoint;
     float startPoint, endPoint;
 
-} AKSampleDescriptor;
+} SampleDescriptor;
 
 typedef struct
 {
-    AKSampleDescriptor sampleDescriptor;
+    SampleDescriptor sampleDescriptor;
     
     float sampleRate;
     bool isInterleaved;
@@ -28,12 +28,12 @@ typedef struct
     int sampleCount;
     float *data;
 
-} AKSampleDataDescriptor;
+} SampleDataDescriptor;
 
 typedef struct
 {
-    AKSampleDescriptor sampleDescriptor;
+    SampleDescriptor sampleDescriptor;
     
     const char *path;
     
-} AKSampleFileDescriptor;
+} SampleFileDescriptor;

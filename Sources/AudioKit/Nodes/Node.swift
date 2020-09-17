@@ -114,8 +114,8 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-open class AKPolyphonicNode: Node, AKPolyphonic {
-    /// Global tuning table used by AKPolyphonicNode (Node classes adopting AKPolyphonic protocol)
+open class PolyphonicNode: Node, AKPolyphonic {
+    /// Global tuning table used by PolyphonicNode (Node classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = TuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
 
@@ -144,7 +144,7 @@ open class AKPolyphonicNode: Node, AKPolyphonic {
         // Microtonal pitch lookup
 
         // default implementation is 12 ET
-        let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
+        let frequency = PolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
         play(noteNumber: noteNumber, velocity: velocity, frequency: AUValue(frequency), channel: channel)
     }
 

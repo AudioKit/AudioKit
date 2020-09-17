@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: AKPolyphonicNode, AKComponent {
+public class Synth: PolyphonicNode, AKComponent {
     public typealias AudioUnitType = SynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")

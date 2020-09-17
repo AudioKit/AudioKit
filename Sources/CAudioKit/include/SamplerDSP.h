@@ -50,8 +50,8 @@ typedef NS_ENUM(AUParameterAddress, SamplerParameter)
 #include "Sampler_Typedefs.h"
 
 AK_API AKDSPRef akSamplerCreateDSP(void);
-AK_API void akSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
-AK_API void akSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
+AK_API void akSamplerLoadData(AKDSPRef pDSP, SampleDataDescriptor *pSDD);
+AK_API void akSamplerLoadCompressedFile(AKDSPRef pDSP, SampleFileDescriptor *pSFD);
 AK_API void akSamplerUnloadAllSamples(AKDSPRef pDSP);
 AK_API void akSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
 AK_API void akSamplerBuildSimpleKeyMap(AKDSPRef pDSP);

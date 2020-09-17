@@ -16,7 +16,7 @@ open class AKMIDINode: Node, AKMIDIListener {
     /// Name of the instrument
     open var name = "AKMIDINode"
 
-    private var internalNode: AKPolyphonicNode
+    private var internalNode: PolyphonicNode
 
     // MARK: - Initialization
 
@@ -25,7 +25,7 @@ open class AKMIDINode: Node, AKMIDIListener {
     /// - parameter node: A polyphonic node that will be triggered via MIDI
     /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
+    public init(node: PolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = internalNode.avAudioNode

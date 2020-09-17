@@ -35,7 +35,7 @@ public:
     void restartVoices();
     
     /// call to load samples
-    void loadSampleData(AKSampleDataDescriptor& sdd);
+    void loadSampleData(SampleDataDescriptor& sdd);
 
     /// call to unload samples, freeing memory
     void unloadAllSamples();
