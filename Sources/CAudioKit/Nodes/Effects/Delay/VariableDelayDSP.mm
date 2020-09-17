@@ -9,7 +9,7 @@ enum VariableDelayParameter : AUParameterAddress {
     VariableDelayParameterFeedback,
 };
 
-class VariableDelayDSP : public AKSoundpipeDSPBase {
+class VariableDelayDSP : public SoundpipeDSPBase {
 private:
     sp_vdelay *vdelay0;
     sp_vdelay *vdelay1;
@@ -31,7 +31,7 @@ public:
 
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_vdelay_create(&vdelay0);
         sp_vdelay_init(sp, vdelay0, maximumTime);
         sp_vdelay_create(&vdelay1);
@@ -39,13 +39,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_vdelay_destroy(&vdelay0);
         sp_vdelay_destroy(&vdelay1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_vdelay_init(sp, vdelay0, maximumTime);
         sp_vdelay_init(sp, vdelay1, maximumTime);

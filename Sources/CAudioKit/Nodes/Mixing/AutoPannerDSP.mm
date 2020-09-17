@@ -11,7 +11,7 @@ enum AutoPannerParameter : AUParameterAddress {
     AutoPannerParameterDepth,
 };
 
-class AutoPannerDSP : public AKSoundpipeDSPBase {
+class AutoPannerDSP : public SoundpipeDSPBase {
 private:
     sp_osc *trem;
     sp_ftbl *tbl;
@@ -32,7 +32,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &tbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), tbl->tbl);
         sp_osc_create(&trem);
@@ -42,7 +42,7 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
         sp_panst_destroy(&panst);
         sp_ftbl_destroy(&tbl);

@@ -4,7 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class ChowningReverbDSP : public AKSoundpipeDSPBase {
+class ChowningReverbDSP : public SoundpipeDSPBase {
 private:
     sp_jcrev *jcrev0;
     sp_jcrev *jcrev1;
@@ -14,7 +14,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_jcrev_create(&jcrev0);
         sp_jcrev_init(sp, jcrev0);
         sp_jcrev_create(&jcrev1);
@@ -22,13 +22,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_jcrev_destroy(&jcrev0);
         sp_jcrev_destroy(&jcrev1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_jcrev_init(sp, jcrev0);
         sp_jcrev_init(sp, jcrev1);

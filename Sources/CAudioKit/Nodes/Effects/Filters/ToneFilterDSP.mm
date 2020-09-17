@@ -8,7 +8,7 @@ enum ToneFilterParameter : AUParameterAddress {
     ToneFilterParameterHalfPowerPoint,
 };
 
-class ToneFilterDSP : public AKSoundpipeDSPBase {
+class ToneFilterDSP : public SoundpipeDSPBase {
 private:
     sp_tone *tone0;
     sp_tone *tone1;
@@ -20,7 +20,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_tone_create(&tone0);
         sp_tone_init(sp, tone0);
         sp_tone_create(&tone1);
@@ -28,13 +28,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_tone_destroy(&tone0);
         sp_tone_destroy(&tone1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_tone_init(sp, tone0);
         sp_tone_init(sp, tone1);

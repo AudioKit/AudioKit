@@ -4,7 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class DCBlockDSP : public AKSoundpipeDSPBase {
+class DCBlockDSP : public SoundpipeDSPBase {
 private:
     sp_dcblock *dcblock0;
     sp_dcblock *dcblock1;
@@ -14,7 +14,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_dcblock_create(&dcblock0);
         sp_dcblock_init(sp, dcblock0);
         sp_dcblock_create(&dcblock1);
@@ -22,13 +22,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_dcblock_destroy(&dcblock0);
         sp_dcblock_destroy(&dcblock1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_dcblock_init(sp, dcblock0);
         sp_dcblock_init(sp, dcblock1);

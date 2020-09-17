@@ -16,7 +16,7 @@ enum AKPhaserParameter : AUParameterAddress {
     AKPhaserParameterLfoBPM,
 };
 
-class AKPhaserDSP : public AKSoundpipeDSPBase {
+class AKPhaserDSP : public SoundpipeDSPBase {
 private:
     sp_phaser *phaser;
     ParameterRamper notchMinimumFrequencyRamp;
@@ -43,18 +43,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_phaser_create(&phaser);
         sp_phaser_init(sp, phaser);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_phaser_destroy(&phaser);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_phaser_init(sp, phaser);
     }

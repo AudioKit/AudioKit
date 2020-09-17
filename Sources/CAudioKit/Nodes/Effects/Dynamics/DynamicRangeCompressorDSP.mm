@@ -11,7 +11,7 @@ enum DynamicRangeCompressorParameter : AUParameterAddress {
     DynamicRangeCompressorParameterReleaseDuration,
 };
 
-class DynamicRangeCompressorDSP : public AKSoundpipeDSPBase {
+class DynamicRangeCompressorDSP : public SoundpipeDSPBase {
 private:
     sp_compressor *compressor0;
     sp_compressor *compressor1;
@@ -29,7 +29,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_compressor_create(&compressor0);
         sp_compressor_init(sp, compressor0);
         sp_compressor_create(&compressor1);
@@ -37,13 +37,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_compressor_destroy(&compressor0);
         sp_compressor_destroy(&compressor1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_compressor_init(sp, compressor0);
         sp_compressor_init(sp, compressor1);

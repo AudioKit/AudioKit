@@ -9,7 +9,7 @@ enum PluckedStringParameter : AUParameterAddress {
     PluckedStringParameterAmplitude,
 };
 
-class PluckedStringDSP : public AKSoundpipeDSPBase {
+class PluckedStringDSP : public SoundpipeDSPBase {
 private:
     sp_pluck *pluck;
     float internalTrigger = 0;
@@ -17,24 +17,24 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    PluckedStringDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    PluckedStringDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[PluckedStringParameterFrequency] = &frequencyRamp;
         parameters[PluckedStringParameterAmplitude] = &amplitudeRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_pluck_destroy(&pluck);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pluck_init(sp, pluck, 110);
     }

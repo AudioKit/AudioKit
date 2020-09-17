@@ -11,7 +11,7 @@ enum TanhDistortionParameter : AUParameterAddress {
     TanhDistortionParameterNegativeShapeParameter,
 };
 
-class TanhDistortionDSP : public AKSoundpipeDSPBase {
+class TanhDistortionDSP : public SoundpipeDSPBase {
 private:
     sp_dist *dist0;
     sp_dist *dist1;
@@ -29,7 +29,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_dist_create(&dist0);
         sp_dist_init(sp, dist0);
         sp_dist_create(&dist1);
@@ -37,13 +37,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_dist_destroy(&dist0);
         sp_dist_destroy(&dist1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_dist_init(sp, dist0);
         sp_dist_init(sp, dist1);

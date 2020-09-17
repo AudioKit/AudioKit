@@ -14,7 +14,7 @@ enum MetalBarParameter : AUParameterAddress {
     MetalBarParameterStrikeWidth,
 };
 
-class MetalBarDSP : public AKSoundpipeDSPBase {
+class MetalBarDSP : public SoundpipeDSPBase {
 private:
     sp_bar *bar;
     ParameterRamper leftBoundaryConditionRamp;
@@ -26,7 +26,7 @@ private:
     ParameterRamper strikeWidthRamp;
 
 public:
-    MetalBarDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    MetalBarDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[MetalBarParameterLeftBoundaryCondition] = &leftBoundaryConditionRamp;
         parameters[MetalBarParameterRightBoundaryCondition] = &rightBoundaryConditionRamp;
         parameters[MetalBarParameterDecayDuration] = &decayDurationRamp;
@@ -37,18 +37,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_bar_create(&bar);
         sp_bar_init(sp, bar, 3, 0.0001);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_bar_destroy(&bar);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_bar_init(sp, bar, 3, 0.0001);
     }

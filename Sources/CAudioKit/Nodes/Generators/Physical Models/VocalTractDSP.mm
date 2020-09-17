@@ -13,7 +13,7 @@ enum VocalTractParameter : AUParameterAddress {
     VocalTractParameterNasality,
 };
 
-class VocalTractDSP : public AKSoundpipeDSPBase {
+class VocalTractDSP : public SoundpipeDSPBase {
 private:
     sp_vocwrapper *vocwrapper;
     ParameterRamper frequencyRamp;
@@ -23,7 +23,7 @@ private:
     ParameterRamper nasalityRamp;
 
 public:
-    VocalTractDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    VocalTractDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[VocalTractParameterFrequency] = &frequencyRamp;
         parameters[VocalTractParameterTonguePosition] = &tonguePositionRamp;
         parameters[VocalTractParameterTongueDiameter] = &tongueDiameterRamp;
@@ -32,7 +32,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
 
         sp_vocwrapper_create(&vocwrapper);
         sp_vocwrapper_init(sp, vocwrapper);
@@ -46,7 +46,7 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_vocwrapper_destroy(&vocwrapper);
     }
 

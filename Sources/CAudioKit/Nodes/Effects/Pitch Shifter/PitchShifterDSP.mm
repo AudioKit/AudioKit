@@ -10,7 +10,7 @@ enum PitchShifterParameter : AUParameterAddress {
     PitchShifterParameterCrossfade,
 };
 
-class PitchShifterDSP : public AKSoundpipeDSPBase {
+class PitchShifterDSP : public SoundpipeDSPBase {
 private:
     sp_pshift *pshift0;
     sp_pshift *pshift1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_pshift_create(&pshift0);
         sp_pshift_init(sp, pshift0);
         sp_pshift_create(&pshift1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_pshift_destroy(&pshift0);
         sp_pshift_destroy(&pshift1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pshift_init(sp, pshift0);
         sp_pshift_init(sp, pshift1);

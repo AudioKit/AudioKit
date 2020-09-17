@@ -10,7 +10,7 @@ enum AutoWahParameter : AUParameterAddress {
     AutoWahParameterAmplitude,
 };
 
-class AutoWahDSP : public AKSoundpipeDSPBase {
+class AutoWahDSP : public SoundpipeDSPBase {
 private:
     sp_autowah *autowah0;
     sp_autowah *autowah1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_autowah_create(&autowah0);
         sp_autowah_init(sp, autowah0);
         sp_autowah_create(&autowah1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_autowah_destroy(&autowah0);
         sp_autowah_destroy(&autowah1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_autowah_init(sp, autowah0);
         sp_autowah_init(sp, autowah1);

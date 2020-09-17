@@ -10,7 +10,7 @@ enum TremoloParameter : AUParameterAddress {
     TremoloParameterDepth,
 };
 
-class TremoloDSP : public AKSoundpipeDSPBase {
+class TremoloDSP : public SoundpipeDSPBase {
 private:
     sp_osc *trem;
     sp_ftbl *ftbl;
@@ -25,7 +25,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
         sp_osc_create(&trem);
@@ -38,13 +38,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_osc_destroy(&trem);
         sp_ftbl_destroy(&ftbl);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_osc_init(sp, trem, ftbl, 0);
     }

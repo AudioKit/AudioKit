@@ -9,7 +9,7 @@ enum BitCrusherParameter : AUParameterAddress {
     BitCrusherParameterSampleRate,
 };
 
-class BitCrusherDSP : public AKSoundpipeDSPBase {
+class BitCrusherDSP : public SoundpipeDSPBase {
 private:
     sp_bitcrush *bitcrush0;
     sp_bitcrush *bitcrush1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_bitcrush_create(&bitcrush0);
         sp_bitcrush_init(sp, bitcrush0);
         sp_bitcrush_create(&bitcrush1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_bitcrush_destroy(&bitcrush0);
         sp_bitcrush_destroy(&bitcrush1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_bitcrush_init(sp, bitcrush0);
         sp_bitcrush_init(sp, bitcrush1);

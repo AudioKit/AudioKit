@@ -8,30 +8,30 @@ enum PinkNoiseParameter : AUParameterAddress {
     PinkNoiseParameterAmplitude,
 };
 
-class PinkNoiseDSP : public AKSoundpipeDSPBase {
+class PinkNoiseDSP : public SoundpipeDSPBase {
 private:
     sp_pinknoise *pinknoise;
     ParameterRamper amplitudeRamp;
 
 public:
-    PinkNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    PinkNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[PinkNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_pinknoise_destroy(&pinknoise);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pinknoise_init(sp, pinknoise);
     }

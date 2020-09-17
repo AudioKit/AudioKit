@@ -10,7 +10,7 @@ enum EqualizerFilterParameter : AUParameterAddress {
     EqualizerFilterParameterGain,
 };
 
-class EqualizerFilterDSP : public AKSoundpipeDSPBase {
+class EqualizerFilterDSP : public SoundpipeDSPBase {
 private:
     sp_eqfil *eqfil0;
     sp_eqfil *eqfil1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_eqfil_create(&eqfil0);
         sp_eqfil_init(sp, eqfil0);
         sp_eqfil_create(&eqfil1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_eqfil_destroy(&eqfil0);
         sp_eqfil_destroy(&eqfil1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_eqfil_init(sp, eqfil0);
         sp_eqfil_init(sp, eqfil1);

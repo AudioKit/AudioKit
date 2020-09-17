@@ -9,7 +9,7 @@ enum BandRejectButterworthFilterParameter : AUParameterAddress {
     BandRejectButterworthFilterParameterBandwidth,
 };
 
-class BandRejectButterworthFilterDSP : public AKSoundpipeDSPBase {
+class BandRejectButterworthFilterDSP : public SoundpipeDSPBase {
 private:
     sp_butbr *butbr0;
     sp_butbr *butbr1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_butbr_create(&butbr0);
         sp_butbr_init(sp, butbr0);
         sp_butbr_create(&butbr1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_butbr_destroy(&butbr0);
         sp_butbr_destroy(&butbr1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_butbr_init(sp, butbr0);
         sp_butbr_init(sp, butbr1);

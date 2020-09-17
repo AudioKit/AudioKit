@@ -11,7 +11,7 @@ enum AKPhaseLockedVocoderParameter : AUParameterAddress {
     AKPhaseLockedVocoderParameterPitchRatio,
 };
 
-class AKPhaseLockedVocoderDSP : public AKSoundpipeDSPBase {
+class AKPhaseLockedVocoderDSP : public SoundpipeDSPBase {
 private:
     sp_mincer *mincer;
     sp_ftbl *ftbl;
@@ -38,7 +38,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
         sp_mincer_create(&mincer);
@@ -46,13 +46,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_ftbl_destroy(&ftbl);
         sp_mincer_destroy(&mincer);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_mincer_init(sp, mincer, ftbl, 2048);
     }

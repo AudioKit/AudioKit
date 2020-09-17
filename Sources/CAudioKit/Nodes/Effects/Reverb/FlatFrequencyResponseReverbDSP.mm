@@ -8,7 +8,7 @@ enum FlatFrequencyResponseReverbParameter : AUParameterAddress {
     FlatFrequencyResponseReverbParameterReverbDuration,
 };
 
-class FlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
+class FlatFrequencyResponseReverbDSP : public SoundpipeDSPBase {
 private:
     sp_allpass *allpass0;
     sp_allpass *allpass1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_allpass_create(&allpass0);
         sp_allpass_init(sp, allpass0, loopDuration);
         sp_allpass_create(&allpass1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_allpass_destroy(&allpass0);
         sp_allpass_destroy(&allpass1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_allpass_init(sp, allpass0, loopDuration);
         sp_allpass_init(sp, allpass1, loopDuration);

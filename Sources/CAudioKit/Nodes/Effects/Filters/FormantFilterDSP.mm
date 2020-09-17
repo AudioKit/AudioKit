@@ -10,7 +10,7 @@ enum FormantFilterParameter : AUParameterAddress {
     FormantFilterParameterDecayDuration,
 };
 
-class FormantFilterDSP : public AKSoundpipeDSPBase {
+class FormantFilterDSP : public SoundpipeDSPBase {
 private:
     sp_fofilt *fofilt0;
     sp_fofilt *fofilt1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_fofilt_create(&fofilt0);
         sp_fofilt_init(sp, fofilt0);
         sp_fofilt_create(&fofilt1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_fofilt_destroy(&fofilt0);
         sp_fofilt_destroy(&fofilt1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_fofilt_init(sp, fofilt0);
         sp_fofilt_init(sp, fofilt1);

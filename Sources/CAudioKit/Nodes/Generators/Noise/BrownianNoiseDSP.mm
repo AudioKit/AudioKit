@@ -8,30 +8,30 @@ enum BrownianNoiseParameter : AUParameterAddress {
     BrownianNoiseParameterAmplitude,
 };
 
-class BrownianNoiseDSP : public AKSoundpipeDSPBase {
+class BrownianNoiseDSP : public SoundpipeDSPBase {
 private:
     sp_brown *brown;
     ParameterRamper amplitudeRamp;
 
 public:
-    BrownianNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    BrownianNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[BrownianNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_brown_create(&brown);
         sp_brown_init(sp, brown);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_brown_destroy(&brown);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_brown_init(sp, brown);
     }

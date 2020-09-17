@@ -8,7 +8,7 @@ enum ToneComplementFilterParameter : AUParameterAddress {
     ToneComplementFilterParameterHalfPowerPoint,
 };
 
-class ToneComplementFilterDSP : public AKSoundpipeDSPBase {
+class ToneComplementFilterDSP : public SoundpipeDSPBase {
 private:
     sp_atone *atone0;
     sp_atone *atone1;
@@ -21,7 +21,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_atone_create(&atone0);
         sp_atone_init(sp, atone0);
         sp_atone_create(&atone1);
@@ -29,13 +29,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_atone_destroy(&atone0);
         sp_atone_destroy(&atone1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_atone_init(sp, atone0);
         sp_atone_init(sp, atone1);

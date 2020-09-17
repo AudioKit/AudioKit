@@ -11,7 +11,7 @@ enum AmplitudeEnvelopeParameter : AUParameterAddress {
     AmplitudeEnvelopeParameterReleaseDuration,
 };
 
-class AmplitudeEnvelopeDSP : public AKSoundpipeDSPBase {
+class AmplitudeEnvelopeDSP : public SoundpipeDSPBase {
 private:
     sp_adsr *adsr;
     float internalGate = 0;
@@ -30,29 +30,29 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_adsr_create(&adsr);
         sp_adsr_init(sp, adsr);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_adsr_destroy(&adsr);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_adsr_init(sp, adsr);
     }
 
     void start() override {
-        AKSoundpipeDSPBase::start();
+        SoundpipeDSPBase::start();
         internalGate = 1;
     }
 
     void stop() override {
-        AKSoundpipeDSPBase::stop();
+        SoundpipeDSPBase::stop();
         internalGate = 0;
         sp_adsr_compute(sp, adsr, &internalGate, &amp);
     }

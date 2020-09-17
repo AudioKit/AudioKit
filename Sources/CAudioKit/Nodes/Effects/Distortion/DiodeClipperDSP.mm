@@ -8,7 +8,7 @@ enum DiodeClipperParameter {
     DiodeClipperParameterGaindB
 };
 
-using DiodeClipperDSP = AKSoulDSP<Diode>;
+using DiodeClipperDSP = SoulDSP<Diode>;
 AK_REGISTER_DSP(DiodeClipperDSP)
 AK_REGISTER_PARAMETER(DiodeClipperParameterCutoff)
 AK_REGISTER_PARAMETER(DiodeClipperParameterGaindB)

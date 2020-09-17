@@ -9,7 +9,7 @@ enum CostelloReverbParameter : AUParameterAddress {
     CostelloReverbParameterCutoffFrequency,
 };
 
-class CostelloReverbDSP : public AKSoundpipeDSPBase {
+class CostelloReverbDSP : public SoundpipeDSPBase {
 private:
     sp_revsc *revsc;
     ParameterRamper feedbackRamp;
@@ -22,18 +22,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_revsc_create(&revsc);
         sp_revsc_init(sp, revsc);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_revsc_destroy(&revsc);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_revsc_init(sp, revsc);
     }
