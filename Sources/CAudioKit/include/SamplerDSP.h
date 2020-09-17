@@ -49,19 +49,19 @@ typedef NS_ENUM(AUParameterAddress, SamplerParameter)
 
 #include "Sampler_Typedefs.h"
 
-AK_API AKDSPRef akSamplerCreateDSP(void);
-AK_API void akSamplerLoadData(AKDSPRef pDSP, SampleDataDescriptor *pSDD);
-AK_API void akSamplerLoadCompressedFile(AKDSPRef pDSP, SampleFileDescriptor *pSFD);
-AK_API void akSamplerUnloadAllSamples(AKDSPRef pDSP);
-AK_API void akSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
-AK_API void akSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
-AK_API void akSamplerBuildKeyMap(AKDSPRef pDSP);
-AK_API void akSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
-AK_API void akSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
-AK_API void akSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
-AK_API void akSamplerStopAllVoices(AKDSPRef pDSP);
-AK_API void akSamplerRestartVoices(AKDSPRef pDSP);
-AK_API void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
+AK_API DSPRef akSamplerCreateDSP(void);
+AK_API void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD);
+AK_API void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD);
+AK_API void akSamplerUnloadAllSamples(DSPRef pDSP);
+AK_API void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency);
+AK_API void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
+AK_API void akSamplerBuildKeyMap(DSPRef pDSP);
+AK_API void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
+AK_API void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
+AK_API void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
+AK_API void akSamplerStopAllVoices(DSPRef pDSP);
+AK_API void akSamplerRestartVoices(DSPRef pDSP);
+AK_API void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 
@@ -69,7 +69,7 @@ AK_API void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 #include "CoreSampler.h"
 #include "LinearParameterRamp.h"
 
-struct SamplerDSP : AKDSPBase, CoreSampler
+struct SamplerDSP : DSPBase, CoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;

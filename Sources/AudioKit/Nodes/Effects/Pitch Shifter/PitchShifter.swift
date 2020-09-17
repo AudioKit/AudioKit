@@ -58,7 +58,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
              PitchShifter.crossfadeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PitchShifterDSP")
         }
     }

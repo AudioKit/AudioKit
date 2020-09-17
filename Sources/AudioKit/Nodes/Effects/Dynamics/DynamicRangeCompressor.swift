@@ -70,7 +70,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
              DynamicRangeCompressor.releaseDurationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("DynamicRangeCompressorDSP")
         }
     }

@@ -74,7 +74,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
              Oscillator.detuningMultiplierDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("OscillatorDSP")
         }
     }

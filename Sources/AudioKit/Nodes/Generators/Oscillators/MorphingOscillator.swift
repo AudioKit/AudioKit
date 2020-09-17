@@ -86,7 +86,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
              MorphingOscillator.detuningMultiplierDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("MorphingOscillatorDSP")
         }
     }

@@ -78,7 +78,7 @@ public:
     }
 };
 
-AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dspRef, float duration) {
+AK_API void akCombFilterReverbSetLoopDuration(DSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<CombFilterReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);

@@ -31,10 +31,10 @@ typedef NS_ENUM(AUParameterAddress, SynthParameter)
     SynthParameterRampDuration,
 };
 
-AK_API AKDSPRef akSynthCreateDSP(void);
-AK_API void akSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-AK_API void akSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
-AK_API void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
+AK_API DSPRef akSynthCreateDSP(void);
+AK_API void akSynthPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+AK_API void akSynthStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
+AK_API void akSynthSustainPedal(DSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 
@@ -42,7 +42,7 @@ AK_API void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown);
 #include "CoreSynth.h"
 #include "LinearParameterRamp.h"
 
-struct SynthDSP : AKDSPBase, CoreSynth
+struct SynthDSP : DSPBase, CoreSynth
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;

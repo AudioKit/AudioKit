@@ -11,7 +11,7 @@ enum FaderParameter : AUParameterAddress {
 };
 
 
-struct FaderDSP : AKDSPBase {
+struct FaderDSP : DSPBase {
 private:
     ParameterRamper leftGainRamp{1.0};
     ParameterRamper rightGainRamp{1.0};
@@ -36,7 +36,7 @@ public:
                 mixToMono = value > 0.5f;
                 break;
             default:
-                AKDSPBase::setParameter(address, value, immediate);
+                DSPBase::setParameter(address, value, immediate);
         }
     }
 
@@ -48,7 +48,7 @@ public:
             case FaderParameterMixToMono:
                 return mixToMono ? 1.f : 0.f;
             default:
-                return AKDSPBase::getParameter(address);
+                return DSPBase::getParameter(address);
         }
     }
 
@@ -62,7 +62,7 @@ public:
                 mixToMono = event.value > 0.5f;
                 break;
             default:
-                AKDSPBase::startRamp(event);
+                DSPBase::startRamp(event);
         }
     }
 

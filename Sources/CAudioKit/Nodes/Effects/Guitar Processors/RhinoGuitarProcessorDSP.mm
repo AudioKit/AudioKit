@@ -17,7 +17,7 @@ enum RhinoGuitarProcessorParameter : AUParameterAddress {
     RhinoGuitarProcessorParameterDistortion
 };
 
-class RhinoGuitarProcessorDSP : public AKDSPBase {
+class RhinoGuitarProcessorDSP : public DSPBase {
 private:
     std::unique_ptr<RageProcessor> leftRageProcessor;
     std::unique_ptr<RageProcessor> rightRageProcessor;
@@ -50,7 +50,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         leftRageProcessor = std::make_unique<RageProcessor>((int)sampleRate);
         rightRageProcessor = std::make_unique<RageProcessor>((int)sampleRate);
@@ -60,7 +60,7 @@ public:
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
 
         leftRageProcessor = nullptr;
         rightRageProcessor = nullptr;

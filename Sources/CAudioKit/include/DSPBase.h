@@ -8,34 +8,34 @@
 
 #include <stdarg.h>
 
-AK_API AKDSPRef akCreateDSP(const char* name);
+AK_API DSPRef akCreateDSP(const char* name);
 AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
-AK_API AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP);
+AK_API AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP);
 
-AK_API size_t inputBusCountDSP(AKDSPRef pDSP);
-AK_API size_t outputBusCountDSP(AKDSPRef pDSP);
-AK_API bool canProcessInPlaceDSP(AKDSPRef pDSP);
+AK_API size_t inputBusCountDSP(DSPRef pDSP);
+AK_API size_t outputBusCountDSP(DSPRef pDSP);
+AK_API bool canProcessInPlaceDSP(DSPRef pDSP);
 
-AK_API void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
-AK_API void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format);
-AK_API void deallocateRenderResourcesDSP(AKDSPRef pDSP);
-AK_API void resetDSP(AKDSPRef pDSP);
+AK_API void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
+AK_API void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format);
+AK_API void deallocateRenderResourcesDSP(DSPRef pDSP);
+AK_API void resetDSP(DSPRef pDSP);
 
-AK_API void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value);
-AK_API AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address);
+AK_API void setParameterValueDSP(DSPRef pDSP, AUParameterAddress address, AUValue value);
+AK_API AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address);
 
-AK_API void startDSP(AKDSPRef pDSP);
-AK_API void stopDSP(AKDSPRef pDSP);
+AK_API void startDSP(DSPRef pDSP);
+AK_API void stopDSP(DSPRef pDSP);
 
-AK_API void initializeConstantDSP(AKDSPRef pDSP, AUValue value);
+AK_API void initializeConstantDSP(DSPRef pDSP, AUValue value);
 
-AK_API void triggerDSP(AKDSPRef pDSP);
-AK_API void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude);
+AK_API void triggerDSP(DSPRef pDSP);
+AK_API void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude);
 
-AK_API void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index);
+AK_API void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index);
 
-AK_API void deleteDSP(AKDSPRef pDSP);
+AK_API void deleteDSP(DSPRef pDSP);
 
 /// Reset random seed to ensure deterministic results in tests.
 AK_API void akSetSeed(unsigned int);
@@ -50,7 +50,7 @@ AK_API void akSetSeed(unsigned int);
  does not know the type of the subclass at compile time.
  */
 
-class AKDSPBase {
+class DSPBase {
     
     std::vector<const AVAudioPCMBuffer*> internalBuffers;
     
@@ -75,10 +75,10 @@ protected:
 
 public:
     
-    AKDSPBase(int inputBusCount=1);
+    DSPBase(int inputBusCount=1);
     
-    /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
-    virtual ~AKDSPBase() {}
+    /// Virtual destructor allows child classes to be deleted with only DSPBase *pointer
+    virtual ~DSPBase() {}
     
     std::vector<AudioBufferList*> inputBufferLists;
     AudioBufferList* outputBufferList = nullptr;
@@ -144,7 +144,7 @@ public:
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
     /// Pointer to a factory function.
-    using CreateFunction = AKDSPRef (*)();
+    using CreateFunction = DSPRef (*)();
 
     /// Adds a function to create a subclass by name.
     static void addCreateFunction(const char* name, CreateFunction func);
@@ -153,7 +153,7 @@ public:
     static void addParameter(const char* paramName, AUParameterAddress address);
 
     /// Create a subclass by name.
-    static AKDSPRef create(const char* name);
+    static DSPRef create(const char* name);
 
     virtual void startRamp(const AUParameterEvent& event);
 
@@ -176,23 +176,23 @@ private:
 /// Registers a creation function when initialized.
 template<class T>
 struct AKDSPRegistration {
-    static AKDSPRef construct() {
+    static DSPRef construct() {
         return new T();
     }
 
     AKDSPRegistration(const char* name) {
-        AKDSPBase::addCreateFunction(name, construct);
+        DSPBase::addCreateFunction(name, construct);
     }
 };
 
-/// Convenience macro for registering a subclass of AKDSPBase.
+/// Convenience macro for registering a subclass of DSPBase.
 ///
 /// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("AKMyClass")`
 #define AK_REGISTER_DSP(ClassName) AKDSPRegistration<ClassName> __register##ClassName(#ClassName);
 
 struct AKParameterRegistration {
     AKParameterRegistration(const char* name, AUParameterAddress address) {
-        AKDSPBase::addParameter(name, address);
+        DSPBase::addParameter(name, address);
     }
 };
 

@@ -146,13 +146,13 @@ public:
     }
 };
 
-AK_API void akOperationGeneratorSetSporth(AKDSPRef dspRef, const char *sporth, int length) {
+AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int length) {
     auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth, length);
 }
 
-AK_API float* akOperationGeneratorTrigger(AKDSPRef dspRef) {
+AK_API float* akOperationGeneratorTrigger(DSPRef dspRef) {
     auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
     dsp->trigger();

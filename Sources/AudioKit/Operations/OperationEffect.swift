@@ -156,7 +156,7 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
              OperationEffect.parameter14Def]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("OperationEffectDSP")
         }
 

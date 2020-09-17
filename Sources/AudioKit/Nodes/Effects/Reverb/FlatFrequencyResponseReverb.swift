@@ -37,7 +37,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
             [FlatFrequencyResponseReverb.reverbDurationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("FlatFrequencyResponseReverbDSP")
         }
 

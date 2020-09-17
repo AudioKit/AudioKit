@@ -92,7 +92,7 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: Lifecycle
 
-    public private(set) var dsp: AKDSPRef?
+    public private(set) var dsp: DSPRef?
 
     override public init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
@@ -142,7 +142,7 @@ open class AudioUnitBase: AUAudioUnit {
     public private(set) var isStarted: Bool = true
 
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    open func createDSP() -> AKDSPRef? {
+    open func createDSP() -> DSPRef? {
         return nil
     }
 

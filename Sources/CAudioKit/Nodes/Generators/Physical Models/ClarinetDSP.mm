@@ -13,7 +13,7 @@ public:
     ~ClarinetDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
         clarinet = new stk::Clarinet(/*lowestFrequency*/100);
@@ -24,7 +24,7 @@ public:
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
         delete clarinet;
         clarinet = nullptr;
     }

@@ -5,87 +5,87 @@
 #import <map>
 #import <string>
 
-AUInternalRenderBlock internalRenderBlockDSP(AKDSPRef pDSP)
+AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP)
 {
     return pDSP->internalRenderBlock();
 }
 
-size_t inputBusCountDSP(AKDSPRef pDSP)
+size_t inputBusCountDSP(DSPRef pDSP)
 {
     return pDSP->inputBufferLists.size();
 }
 
-size_t outputBusCountDSP(AKDSPRef pDSP)
+size_t outputBusCountDSP(DSPRef pDSP)
 {
     return 1; // We don't currently support multiple output busses.
 }
 
-bool canProcessInPlaceDSP(AKDSPRef pDSP)
+bool canProcessInPlaceDSP(DSPRef pDSP)
 {
     return pDSP->canProcessInPlace();
 }
 
-void setBufferDSP(AKDSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
 {
     pDSP->setBuffer(buffer, busIndex);
 }
 
-void allocateRenderResourcesDSP(AKDSPRef pDSP, AVAudioFormat* format)
+void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format)
 {
     pDSP->init(format.channelCount, format.sampleRate);
 }
 
-void deallocateRenderResourcesDSP(AKDSPRef pDSP)
+void deallocateRenderResourcesDSP(DSPRef pDSP)
 {
     pDSP->deinit();
 }
 
-void resetDSP(AKDSPRef pDSP)
+void resetDSP(DSPRef pDSP)
 {
     pDSP->reset();
 }
 
-void setParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address, AUValue value)
+void setParameterValueDSP(DSPRef pDSP, AUParameterAddress address, AUValue value)
 {
     pDSP->setParameter(address, value, false);
 }
 
-AUValue getParameterValueDSP(AKDSPRef pDSP, AUParameterAddress address)
+AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address)
 {
     return pDSP->getParameter(address);
 }
 
-void startDSP(AKDSPRef pDSP)
+void startDSP(DSPRef pDSP)
 {
     pDSP->start();
 }
 
-void stopDSP(AKDSPRef pDSP)
+void stopDSP(DSPRef pDSP)
 {
     pDSP->stop();
 }
 
-void triggerDSP(AKDSPRef pDSP)
+void triggerDSP(DSPRef pDSP)
 {
     pDSP->trigger();
 }
 
-void triggerFrequencyDSP(AKDSPRef pDSP, AUValue frequency, AUValue amplitude)
+void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude)
 {
     pDSP->triggerFrequencyAmplitude(frequency, amplitude);
 }
 
-void setWavetableDSP(AKDSPRef pDSP, const float* table, size_t length, int index)
+void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index)
 {
     pDSP->setWavetable(table, length, index);
 }
 
-void deleteDSP(AKDSPRef pDSP)
+void deleteDSP(DSPRef pDSP)
 {
     delete pDSP;
 }
 
-AKDSPBase::AKDSPBase(int inputBusCount)
+DSPBase::DSPBase(int inputBusCount)
 : channelCount(2)   // best guess
 , sampleRate(44100) // best guess
 , inputBufferLists(inputBusCount)
@@ -93,13 +93,13 @@ AKDSPBase::AKDSPBase(int inputBusCount)
     std::fill(parameters, parameters+maxParameters, nullptr);
 }
 
-void AKDSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
+void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
 {
     if (internalBuffers.size() <= busIndex) internalBuffers.resize(busIndex + 1);
     internalBuffers[busIndex] = buffer;
 }
 
-AUInternalRenderBlock AKDSPBase::internalRenderBlock()
+AUInternalRenderBlock DSPBase::internalRenderBlock()
 {
     return ^AUAudioUnitStatus(
         AudioUnitRenderActionFlags *actionFlags,
@@ -147,7 +147,7 @@ AUInternalRenderBlock AKDSPBase::internalRenderBlock()
     };
 }
 
-void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
+void DSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
 {
     assert(address < maxParameters);
     if(auto parameter = parameters[address]) {
@@ -160,7 +160,7 @@ void AKDSPBase::setParameter(AUParameterAddress address, float value, bool immed
     }
 }
 
-float AKDSPBase::getParameter(AUParameterAddress address)
+float DSPBase::getParameter(AUParameterAddress address)
 {
     assert(address < maxParameters);
     if(auto parameter = parameters[address]) {
@@ -169,19 +169,19 @@ float AKDSPBase::getParameter(AUParameterAddress address)
     return 0.0f;
 }
 
-void AKDSPBase::init(int channelCount, double sampleRate)
+void DSPBase::init(int channelCount, double sampleRate)
 {
     this->channelCount = channelCount;
     this->sampleRate = sampleRate;
     isInitialized = true;
 }
 
-void AKDSPBase::deinit()
+void DSPBase::deinit()
 {
     isInitialized = false;
 }
 
-void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
+void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {
     now = timestamp->mSampleTime;
@@ -227,7 +227,7 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
 }
 
 /** From Apple Example code */
-void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event)
+void DSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event)
 {
     do {
         handleOneEvent(event);
@@ -238,7 +238,7 @@ void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEven
 }
 
 /** From Apple Example code */
-void AKDSPBase::handleOneEvent(AURenderEvent const *event)
+void DSPBase::handleOneEvent(AURenderEvent const *event)
 {
     switch (event->head.eventType) {
         case AURenderEventParameter:
@@ -254,7 +254,7 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
     }
 }
 
-void AKDSPBase::startRamp(const AUParameterEvent& event)
+void DSPBase::startRamp(const AUParameterEvent& event)
 {
     auto address = event.parameterAddress;
     assert(address < maxParameters);
@@ -263,7 +263,7 @@ void AKDSPBase::startRamp(const AUParameterEvent& event)
     ramper->startRamp(event.value, event.rampDurationSampleFrames);
 }
 
-using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;
+using DSPFactoryMap = std::map<std::string, DSPBase::CreateFunction>;
 
 // A registry of creation functions.
 //
@@ -271,7 +271,7 @@ using DSPFactoryMap = std::map<std::string, AKDSPBase::CreateFunction>;
 // order of initialization code. So we lazily init.
 static DSPFactoryMap* factoryMap = nullptr;
 
-void AKDSPBase::addCreateFunction(const char* name, CreateFunction func) {
+void DSPBase::addCreateFunction(const char* name, CreateFunction func) {
 
     if(factoryMap == nullptr) {
         factoryMap = new DSPFactoryMap;
@@ -280,14 +280,14 @@ void AKDSPBase::addCreateFunction(const char* name, CreateFunction func) {
     (*factoryMap)[std::string(name)] = func;
 }
 
-AKDSPRef AKDSPBase::create(const char* name) {
+DSPRef DSPBase::create(const char* name) {
 
     assert(factoryMap && "Fatal error: node factory not initialized.");
 
     auto iter = factoryMap->find(name);
 
     if(iter == factoryMap->end()) {
-        printf("Unknown AKDSPBase subclass: %s\n", name);
+        printf("Unknown DSPBase subclass: %s\n", name);
         return nullptr;
     }
 
@@ -295,8 +295,8 @@ AKDSPRef AKDSPBase::create(const char* name) {
 
 }
 
-AKDSPRef akCreateDSP(const char* name) {
-    return AKDSPBase::create(name);
+DSPRef akCreateDSP(const char* name) {
+    return DSPBase::create(name);
 }
 
 using DSPParameterMap = std::map< std::string, AUParameterAddress >;
@@ -317,7 +317,7 @@ AUParameterAddress akGetParameterAddress(const char* name) {
     return iter->second;
 }
 
-void AKDSPBase::addParameter(const char* name, AUParameterAddress address) {
+void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
     if(paramMap == nullptr) {
         paramMap = new DSPParameterMap;

@@ -46,7 +46,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
              BitCrusher.sampleRateDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("BitCrusherDSP")
         }
     }

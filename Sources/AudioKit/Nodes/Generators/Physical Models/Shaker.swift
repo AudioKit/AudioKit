@@ -98,7 +98,7 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             return akCreateDSP("ShakerDSP")
         }
 

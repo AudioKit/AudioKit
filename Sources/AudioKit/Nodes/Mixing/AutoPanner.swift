@@ -46,7 +46,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
              AutoPanner.depthDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("AutoPannerDSP")
         }
     }

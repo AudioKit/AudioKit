@@ -16,7 +16,7 @@ The diagram below shows a typical implementation of an AudioKit based Audio Unit
 
 Both Swift and Objective C are unsuitable to run in the real time render thread, for various reasons not enumerated. Because of this, all code that needs to run on the render thread needs to be written in generic C or C++. These classes are described below.
 
-### `AKDSPBase`
+### `DSPBase`
 
 In order to take advantage of reuse via inheritance, a base class is provided which supports the operations expected of any DSP block by the Audio Unit classes which are written in Objective C and Swift.
 
@@ -24,7 +24,7 @@ In order to take advantage of reuse via inheritance, a base class is provided wh
 
 This C++ class contains the DSP code specific to this particular Audio Unit. It contains a specific processing method which the host calls from the render thread. It also contains functions to interpret any SetParameter or GetParameter calls which provide AUParameter access from sources outside the audio unit itself. Finally, if any direct access is needed to the DSP code which does not need to be exposed outside the AU itself, those access methods will also be found here. 
 
-This class inherits from `AKDSPBase` and can override virtual methods provided by `AKDSPBase`.
+This class inherits from `DSPBase` and can override virtual methods provided by `DSPBase`.
 
 ## Objective C classes
 
@@ -66,7 +66,7 @@ First `MyNode` is instantiated, which results in an instantiation of `MySwiftAU`
 
 Upon instantiation by its constructor `initWithComponentDescription`, `AudioUnitBase` will attempt to get a pointer to the underlying C++ by calling its method `initDSPWithSampleRate`. `MyObjAU` (or `MySwiftAU`) is expected to override this method so that it can create and return an instance of the C++ `MyDSP` “DSP Kernel”. 
 
-The C++ DSP block is stored as a void pointer in `AudioUnitBase` because `AKAudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `AKDSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
+The C++ DSP block is stored as a void pointer in `AudioUnitBase` because `AKAudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `DSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
 
 ### `allocateRenderResources` and `internalRenderBlock`
 

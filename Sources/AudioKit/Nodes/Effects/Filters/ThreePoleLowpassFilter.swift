@@ -58,7 +58,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
              ThreePoleLowpassFilter.resonanceDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ThreePoleLowpassFilterDSP")
         }
     }

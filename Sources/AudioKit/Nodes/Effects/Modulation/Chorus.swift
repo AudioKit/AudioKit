@@ -70,7 +70,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
                     Chorus.dryWetMixDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             return akChorusCreateDSP()
         }
     }

@@ -48,7 +48,7 @@ public class CostelloReverb: Node, AudioUnitContainer, Toggleable {
              CostelloReverb.cutoffFrequencyDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("CostelloReverbDSP")
         }
     }

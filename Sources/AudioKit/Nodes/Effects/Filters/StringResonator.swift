@@ -51,7 +51,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
              StringResonator.feedbackDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("StringResonatorDSP")
         }
     }

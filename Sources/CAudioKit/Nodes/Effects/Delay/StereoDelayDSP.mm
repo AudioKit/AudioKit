@@ -11,7 +11,7 @@ enum StereoDelayParameter : AUParameterAddress {
     StereoDelayParameterPingPong,
 };
 
-class StereoDelayDSP : public AKDSPBase {
+class StereoDelayDSP : public DSPBase {
 private:
     AudioKitCore::StereoDelay delay;
     float timeUpperBound = 2.f;
@@ -33,7 +33,7 @@ public:
             delay.setPingPongMode(value > 0.5f);
         }
         else {
-            AKDSPBase::setParameter(address, value, immediate);
+            DSPBase::setParameter(address, value, immediate);
         }
     }
 
@@ -42,23 +42,23 @@ public:
             return delay.getPingPongMode() ? 1.0f : 0.0f;
         }
         else {
-            return AKDSPBase::getParameter(address);
+            return DSPBase::getParameter(address);
         }
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
         // TODO add something to handle 1 vs 2 channels
         delay.init(sampleRate, timeUpperBound * 1000.0);
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
         delay.deinit();
     }
 
     void reset() override {
-        AKDSPBase::reset();
+        DSPBase::reset();
         delay.clear();
     }
 

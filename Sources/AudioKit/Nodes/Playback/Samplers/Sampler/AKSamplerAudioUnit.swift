@@ -270,7 +270,7 @@ public class SamplerAudioUnit: AudioUnitBase {
         unit: .generic,
         flags: nonRampFlags)
 
-    public override func createDSP() -> AKDSPRef {
+    public override func createDSP() -> DSPRef {
         return akSamplerCreateDSP()
     }
 

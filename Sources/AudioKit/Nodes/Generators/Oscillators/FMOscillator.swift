@@ -84,7 +84,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
              FMOscillator.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("FMOscillatorDSP")
         }
     }

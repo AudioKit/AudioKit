@@ -13,7 +13,7 @@ public:
     ~FluteDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         stk::Stk::setSampleRate(sampleRate);
         flute = new stk::Flute(/*lowestFrequency*/100);
@@ -24,7 +24,7 @@ public:
     }
 
     void deinit() override {
-        AKDSPBase::deinit();
+        DSPBase::deinit();
         delete flute;
         flute = nullptr;
     }

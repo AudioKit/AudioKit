@@ -5,7 +5,7 @@ Implementation of the **Sampler** Swift class, which is built on top of the simi
 There are *four distinct layers of code* here, as follows.
 
 ## SamplerDSP
-**SamplerDSP** is a C++ class which inherits from the Core *Sampler* as well as **AKDSPBase**, one of the primary AudioKit base classes for DSP code.
+**SamplerDSP** is a C++ class which inherits from the Core *Sampler* as well as **DSPBase**, one of the primary AudioKit base classes for DSP code.
 
 The implementation resides in a `.mm` file rather than a `.cpp` file, because it also contains several Objective-C accessor functions which facilitate bridging between Swift code above and C++ code below.
 

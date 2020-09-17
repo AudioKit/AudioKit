@@ -34,7 +34,7 @@ public class PinkNoise: Node, AudioUnitContainer, Toggleable {
             [PinkNoise.amplitudeDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PinkNoiseDSP")
         }
     }

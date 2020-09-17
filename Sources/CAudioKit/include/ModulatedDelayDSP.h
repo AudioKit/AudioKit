@@ -43,8 +43,8 @@ extern const float kFlanger_MaxDepth;
 extern const float kFlanger_MinDryWetMix;
 extern const float kFlanger_MaxDryWetMix;
 
-AK_API AKDSPRef akChorusCreateDSP(void);
-AK_API AKDSPRef akFlangerCreateDSP(void);
+AK_API DSPRef akChorusCreateDSP(void);
+AK_API DSPRef akFlangerCreateDSP(void);
 
 #ifdef __cplusplus
 
@@ -52,7 +52,7 @@ AK_API AKDSPRef akFlangerCreateDSP(void);
 #import "ModulatedDelay.h"
 #import "ParameterRamper.h"
 
-struct AKModulatedDelayDSP : AKDSPBase
+struct AKModulatedDelayDSP : DSPBase
 {
 private:
     // ramped parameters

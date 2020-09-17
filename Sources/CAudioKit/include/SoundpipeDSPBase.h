@@ -6,11 +6,11 @@
 
 #ifdef __cplusplus
 
-class SoundpipeDSPBase: public AKDSPBase {
+class SoundpipeDSPBase: public DSPBase {
 protected:
     struct sp_data *sp = nullptr;
 public:
-    SoundpipeDSPBase(int inputBusCount=1) : AKDSPBase(inputBusCount) {
+    SoundpipeDSPBase(int inputBusCount=1) : DSPBase(inputBusCount) {
         bCanProcessInPlace = true;
     }
 

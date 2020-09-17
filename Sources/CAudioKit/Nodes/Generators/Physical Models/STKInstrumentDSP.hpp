@@ -6,7 +6,7 @@
 #include "DSPBase.h"
 
 /// Common base class for STK instruments.
-class AKSTKInstrumentDSP : public AKDSPBase {
+class AKSTKInstrumentDSP : public DSPBase {
 
 public:
 

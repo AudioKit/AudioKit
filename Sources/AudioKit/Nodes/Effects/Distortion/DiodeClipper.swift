@@ -47,7 +47,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
              DiodeClipper.gainDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("DiodeClipperDSP")
         }
     }

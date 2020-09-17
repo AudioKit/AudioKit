@@ -46,7 +46,7 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
              ResonantFilter.bandwidthDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ResonantFilterDSP")
         }
     }

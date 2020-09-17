@@ -4,15 +4,15 @@
 #include "wavpack.h"
 #include <math.h>
 
-AKDSPRef akSamplerCreateDSP() {
+DSPRef akSamplerCreateDSP() {
     return new SamplerDSP();
 }
 
-void akSamplerLoadData(AKDSPRef pDSP, SampleDataDescriptor *pSDD) {
+void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD) {
     ((SamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-void akSamplerLoadCompressedFile(AKDSPRef pDSP, SampleFileDescriptor *pSFD)
+void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD)
 {
     char errMsg[100];
     WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -48,49 +48,49 @@ void akSamplerLoadCompressedFile(AKDSPRef pDSP, SampleFileDescriptor *pSFD)
     delete[] sdd.data;
 }
 
-void akSamplerUnloadAllSamples(AKDSPRef pDSP)
+void akSamplerUnloadAllSamples(DSPRef pDSP)
 {
     ((SamplerDSP*)pDSP)->unloadAllSamples();
 }
 
-void akSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
+void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency)
 {
     ((SamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
 }
 
-void akSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
+void akSamplerBuildSimpleKeyMap(DSPRef pDSP) {
     ((SamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
 
-void akSamplerBuildKeyMap(AKDSPRef pDSP) {
+void akSamplerBuildKeyMap(DSPRef pDSP) {
     ((SamplerDSP*)pDSP)->buildKeyMap();
 }
 
-void akSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
+void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value) {
     ((SamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-void akSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
+void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
 {
     ((SamplerDSP*)pDSP)->playNote(noteNumber, velocity);
 }
 
-void akSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
+void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((SamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-void akSamplerStopAllVoices(AKDSPRef pDSP)
+void akSamplerStopAllVoices(DSPRef pDSP)
 {
     ((SamplerDSP*)pDSP)->stopAllVoices();
 }
 
-void akSamplerRestartVoices(AKDSPRef pDSP)
+void akSamplerRestartVoices(DSPRef pDSP)
 {
     ((SamplerDSP*)pDSP)->restartVoices();
 }
 
-void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown)
+void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown)
 {
     ((SamplerDSP*)pDSP)->sustainPedal(pedalDown);
 }
@@ -113,13 +113,13 @@ SamplerDSP::SamplerDSP() : CoreSampler()
 
 void SamplerDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(channelCount, sampleRate);
+    DSPBase::init(channelCount, sampleRate);
     CoreSampler::init(sampleRate);
 }
 
 void SamplerDSP::deinit()
 {
-    AKDSPBase::deinit();
+    DSPBase::deinit();
     CoreSampler::deinit();
 }
 

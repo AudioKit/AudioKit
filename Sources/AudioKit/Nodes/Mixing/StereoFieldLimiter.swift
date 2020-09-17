@@ -34,7 +34,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
             [StereoFieldLimiter.amountDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("StereoFieldLimiterDSP")
         }
     }

@@ -142,7 +142,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
              ZitaReverb.dryWetMixDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ZitaReverbDSP")
         }
     }

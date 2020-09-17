@@ -6,14 +6,14 @@
 #include "vocwrapper.h"
 
 void SoundpipeDSPBase::init(int channelCount, double sampleRate) {
-    AKDSPBase::init(channelCount, sampleRate);
+    DSPBase::init(channelCount, sampleRate);
     sp_create(&sp);
     sp->sr = sampleRate;
     sp->nchan = channelCount;
 }
 
 void SoundpipeDSPBase::deinit() {
-    AKDSPBase::deinit();
+    DSPBase::deinit();
     sp_destroy(&sp);
 }
 

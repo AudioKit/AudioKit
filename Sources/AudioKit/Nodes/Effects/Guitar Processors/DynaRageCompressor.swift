@@ -95,7 +95,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
              DynaRageCompressor.rageEnabledDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("DynaRageCompressorDSP")
         }
     }

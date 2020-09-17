@@ -15,7 +15,7 @@ enum DynaRageCompressorParameter : AUParameterAddress {
     DynaRageCompressorParameterRageEnabled
 };
 
-class DynaRageCompressorDSP : public AKDSPBase {
+class DynaRageCompressorDSP : public DSPBase {
 private:
     std::unique_ptr<Compressor> left_compressor;
     std::unique_ptr<Compressor> right_compressor;
@@ -41,7 +41,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         float ratio = ratioRamp.get();
         float threshold = thresholdRamp.get();
@@ -77,7 +77,7 @@ public:
             rageIsOn = value > 0.5f;
         }
         else {
-            AKDSPBase::setParameter(address, value, immediate);
+            DSPBase::setParameter(address, value, immediate);
         }
     }
 
@@ -86,7 +86,7 @@ public:
             return rageIsOn ? 1.f : 0.f;
         }
         else {
-            return AKDSPBase::getParameter(address);
+            return DSPBase::getParameter(address);
         }
     }
 

@@ -60,7 +60,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
              PhaseLockedVocoder.pitchRatioDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PhaseLockedVocoderDSP")
         }
     }

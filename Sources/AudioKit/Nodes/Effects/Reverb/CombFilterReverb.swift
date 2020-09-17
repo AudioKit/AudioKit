@@ -39,7 +39,7 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
             [CombFilterReverb.reverbDurationDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("CombFilterReverbDSP")
         }
 

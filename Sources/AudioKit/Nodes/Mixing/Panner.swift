@@ -34,7 +34,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
             [Panner.panDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PannerDSP")
         }
     }

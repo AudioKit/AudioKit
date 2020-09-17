@@ -33,7 +33,7 @@ public class SynthAudioUnit: AudioUnitBase {
 
     var filterReleaseDuration: AUParameter!
 
-    public override func createDSP() -> AKDSPRef {
+    public override func createDSP() -> DSPRef {
         return akSynthCreateDSP()
     }
 

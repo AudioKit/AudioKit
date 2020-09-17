@@ -130,7 +130,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
              Phaser.lfoBPMDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("PhaserDSP")
         }
     }

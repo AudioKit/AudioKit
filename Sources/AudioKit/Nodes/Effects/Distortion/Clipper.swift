@@ -34,7 +34,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
             [Clipper.limitDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("ClipperDSP")
         }
     }

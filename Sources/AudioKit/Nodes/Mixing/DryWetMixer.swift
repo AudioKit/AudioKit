@@ -34,7 +34,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
             [DryWetMixer.balanceDef]
         }
 
-        public override func createDSP() -> AKDSPRef {
+        public override func createDSP() -> DSPRef {
             akCreateDSP("DryWetMixerDSP")
         }
     }

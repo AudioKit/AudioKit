@@ -3,27 +3,27 @@
 #import "SynthDSP.h"
 #include <math.h>
 
-AKDSPRef akSynthCreateDSP() {
+DSPRef akSynthCreateDSP() {
     return new SynthDSP();
 }
 
-void akSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+void akSynthPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((SynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-void akSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
+void akSynthStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((SynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
+void akSynthSustainPedal(DSPRef pDSP, bool pedalDown)
 {
     ((SynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
 
 
-SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), CoreSynth()
+SynthDSP::SynthDSP() : DSPBase(/*inputBusCount*/0), CoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -34,13 +34,13 @@ SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), CoreSynth()
 
 void SynthDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(channelCount, sampleRate);
+    DSPBase::init(channelCount, sampleRate);
     CoreSynth::init(sampleRate);
 }
 
 void SynthDSP::deinit()
 {
-    AKDSPBase::deinit();
+    DSPBase::deinit();
     CoreSynth::deinit();
 }
 
