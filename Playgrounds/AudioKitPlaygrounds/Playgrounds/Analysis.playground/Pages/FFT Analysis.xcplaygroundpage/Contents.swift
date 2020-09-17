@@ -6,7 +6,7 @@ import AudioKitUI
 
 let file = try AVAudioFile(readFileName: "leadloop.wav")
 
-var player = AKPlayer(audioFile: file)
+var player = AudioPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 

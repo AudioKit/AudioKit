@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode.
-public class AKPlayer: Node, Toggleable {
+public class AudioPlayer: Node, Toggleable {
     public var isStarted: Bool {
         playerNode.isPlaying
     }
@@ -30,7 +30,7 @@ public class AKPlayer: Node, Toggleable {
                              at when: AVAudioTime?,
                              completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
-            AKLog("🛑 Error: AKPlayer must be attached before scheduling playback.")
+            AKLog("🛑 Error: AudioPlayer must be attached before scheduling playback.")
             return
         }
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
@@ -41,7 +41,7 @@ public class AKPlayer: Node, Toggleable {
                                options: AVAudioPlayerNodeBufferOptions = [],
                                completionHandler: AVAudioNodeCompletionHandler? = nil) {
         if playerNode.engine == nil {
-            AKLog("🛑 Error: AKPlayer must be attached before scheduling playback.")
+            AKLog("🛑 Error: AudioPlayer must be attached before scheduling playback.")
             return
         }
         playerNode.scheduleBuffer(buffer,

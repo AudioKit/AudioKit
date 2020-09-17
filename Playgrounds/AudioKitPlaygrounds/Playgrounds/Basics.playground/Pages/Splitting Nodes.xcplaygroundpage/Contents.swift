@@ -12,7 +12,7 @@ import AudioKit
 //: Prepare the source audio player
 let file = try AVAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 //: The following nodes are both acting on the original player node

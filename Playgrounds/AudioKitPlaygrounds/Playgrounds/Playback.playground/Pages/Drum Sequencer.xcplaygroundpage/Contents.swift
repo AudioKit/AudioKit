@@ -3,7 +3,7 @@
 
 import AudioKit
 
-let drums = AKMIDISampler()
+let drums = MIDISampler()
 
 engine.output = drums
 try engine.start()

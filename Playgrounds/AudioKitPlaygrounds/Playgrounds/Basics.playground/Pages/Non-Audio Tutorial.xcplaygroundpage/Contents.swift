@@ -37,7 +37,7 @@ let file = try AVAudioFile(readFileName: "mixloop.wav")
 //: on them and looking at the Quick Help Inspector.  Or, you can also option-click
 //: on any class, method, or variable name to show information about that element.
 //: Try it with the lines below:
-let player = AKPlayer(audioFile: file)
+let player = AudioPlayer(audioFile: file)
 let effect = MoogLadder(player)
 
 //: The following lines keep a playground executing even after the last line is

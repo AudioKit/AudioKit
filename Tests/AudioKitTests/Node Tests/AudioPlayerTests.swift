@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AKPlayerTests: XCTestCase {
+class AudioPlayerTests: XCTestCase {
 
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL {
@@ -29,7 +29,7 @@ class AKPlayerTests: XCTestCase {
         let file = try! AVAudioFile(forReading: url)
 
         let engine = AudioEngine()
-        let player = AKPlayer()
+        let player = AudioPlayer()
         engine.output = player
 
         let audio = engine.startTest(totalDuration: 2.0)
@@ -48,7 +48,7 @@ class AKPlayerTests: XCTestCase {
         let buffer = try! AVAudioPCMBuffer(file: file)!
 
         let engine = AudioEngine()
-        let player = AKPlayer()
+        let player = AudioPlayer()
         engine.output = player
 
         let audio = engine.startTest(totalDuration: 2.0)
@@ -69,7 +69,7 @@ class AKPlayerTests: XCTestCase {
 
         let file = try! AVAudioFile(forReading: url)
 
-        let player = AKPlayer()
+        let player = AudioPlayer()
         player.scheduleFile(file, at: nil)
     }
 }
