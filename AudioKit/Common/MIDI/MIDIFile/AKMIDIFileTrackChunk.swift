@@ -9,147 +9,95 @@
 import Foundation
 
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
+    public let rawData: [UInt8]
 
-    var typeData: [UInt8]
-    var lengthData: [UInt8]
-    var data: [UInt8]
-    var timeFormat: MIDITimeFormat
-    var timeDivision: Int
+    let timeFormat: MIDITimeFormat
+    let timeDivision: Int
 
-    init() {
-        typeData = Array(repeating: 0, count: 4)
-        lengthData = Array(repeating: 0, count: 4)
+    public init?(data: [UInt8]) {
+        guard
+            data.count > 8
+            else {
+                return nil
+        }
+        let lengthBytes = Array(data[4..<8])
+        let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0],
+                                                   data1: lengthBytes[1],
+                                                   data2: lengthBytes[2],
+                                                   lsb: lengthBytes[3]))
         timeFormat = .ticksPerBeat
         timeDivision = 480 //arbitrary value
-        data = []
+        rawData = Array(data.prefix(upTo: length + 8)) //the message + 4 byte header type, + 4 byte length
+        if isNotValid || !isTrack {
+            return nil
+        }
     }
 
-    init(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
-        self.typeData = chunk.typeData
-        self.lengthData = chunk.lengthData
-        self.data = chunk.data
+    init?(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
+        guard chunk.type == .track else {
+            return nil
+        }
+        rawData = chunk.rawData
         self.timeFormat = timeFormat
         self.timeDivision = timeDivision
     }
 
     public var chunkEvents: [AKMIDIFileChunkEvent] {
-        //FIXME: Not currently handling channel prefix
         var events = [AKMIDIFileChunkEvent]()
-        var currentTimeByte: Int?
-        var currentTypeByte: MIDIByte?
-        var currentLengthByte: MIDIByte?
-        var currentEventData = [MIDIByte]()
-        var currentAllData = [MIDIByte]()
-        var isParsingMetaEvent = false
-        var isNotParsingMetaEvent: Bool { return !isParsingMetaEvent }
-        var isParsingVariableTime = false
-        var isParsingSysex = false
-        var isNotParsingSysex: Bool { return !isParsingSysex }
-        var runningStatus: MIDIByte?
-        var variableBits = [MIDIByte]()
         var accumulatedDeltaTime = 0
-        for byte in data {
-            if currentTimeByte == nil {
-                if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
-                    isParsingVariableTime = true
-                    variableBits.append(byte)
+        var currentTimeVLQ: MIDIVariableLengthQuantity?
+        var runningStatus: MIDIByte?
+        var processedBytes = 0
+        while processedBytes < data.count {
+            let subData = Array(data.suffix(from: processedBytes))
+            let byte = data[processedBytes]
+            if currentTimeVLQ == nil, let vlqTime = MIDIVariableLengthQuantity(fromBytes: subData) {
+                currentTimeVLQ = vlqTime
+                processedBytes += vlqTime.length
+            } else if let vlqTime = currentTimeVLQ {
+                var event: AKMIDIFileChunkEvent?
+                if let metaEvent = AKMIDIMetaEvent(data: subData) {
+                    let metaData = metaEvent.data
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + metaData,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
+                    processedBytes += metaEvent.data.count
+                    runningStatus = nil
+                } else if let sysExEvent = MIDISysExMessage(bytes: subData) {
+                    let sysExData = sysExEvent.data
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + sysExData,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
+                    processedBytes += sysExEvent.data.count
+                    runningStatus = nil
+                } else if let status = AKMIDIStatus(byte: byte) {
+                    let messageLength = status.length
+                    let chunkData = Array(subData.prefix(messageLength))
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime)
+                    runningStatus = status.byte
+                    processedBytes += messageLength
+                } else if let activeRunningStatus = runningStatus,
+                    let status = AKMIDIStatus(byte: activeRunningStatus) {
+                    let messageLength = status.length - 1 // drop one since running status is used
+                    let chunkData = Array(subData.prefix(messageLength))
+                    event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
+                                                 timeFormat: timeFormat,
+                                                 timeDivision: timeDivision,
+                                                 timeOffset: accumulatedDeltaTime,
+                                                 runningStatus: status)
+                    processedBytes += messageLength
                 } else {
-                    if isParsingVariableTime {
-                        variableBits.append(byte)
-                        var time: UInt16 = 0
-                        for variable in variableBits {
-                            let shifted: UInt16 = UInt16(time << 7)
-                            let masked: MIDIByte = variable & 0x7f
-                            time = shifted + UInt16(masked)
-                        }
-                        currentTimeByte = Int(time)
-                        isParsingVariableTime = false
-                    } else {
-                        currentTimeByte = Int(byte)
-                    }
+                    fatalError("error parsing midi file - byte is \(byte), processed \(processedBytes) of \(data.count)")
                 }
-            } else if currentTypeByte == nil {
-                if byte == 0xFF { //MetaEvent
-                    isParsingMetaEvent = true
-                } else {
-                    if byte < 0x80, !isParsingMetaEvent, !isParsingSysex, let currentRunningStatus = runningStatus,
-                        let status = AKMIDIStatus(byte: currentRunningStatus) { //Running Status Implied
-                        currentTypeByte = currentRunningStatus
-                        runningStatus = currentRunningStatus
-                        let length = MIDIByte(status.length)
-                        currentLengthByte = length
-                        currentEventData.append(currentRunningStatus)
-                    } else if AKMIDIStatusType.from(byte: byte) != nil {
-                        currentTypeByte = byte
-                        runningStatus = byte
-                    } else if let command = AKMIDISystemCommand(rawValue: byte) {
-                        currentTypeByte = byte
-                        if command == .sysex || command == .sysexEnd {
-                            isParsingSysex = true
-                            runningStatus = nil
-                        }
-                    } else if AKMIDIMetaEventType(rawValue: byte) != nil {
-                        currentTypeByte = byte
-                        runningStatus = nil
-                    }
-                }
-                if isNotParsingMetaEvent && isNotParsingSysex {
-                    currentEventData.append(byte)
-                }
-            } else if currentLengthByte == nil {
-                if isParsingMetaEvent {
-                    currentLengthByte = byte
-                } else {
-                    if let type = currentTypeByte {
-                        if let command = AKMIDISystemCommand(rawValue: type) {
-                            currentLengthByte = MIDIByte(command.length ?? Int(byte))
-                        } else if let status = AKMIDIStatusType.from(byte: type) {
-                            currentLengthByte = MIDIByte(status.length)
-                        } else {
-                            AKLog("bad midi data - could not determine length of event", log: OSLog.midi)
-                            return events
-                        }
-                    } else {
-                        AKLog("bad midi data - could not determine type", log: OSLog.midi)
-                        return events
-                    }
-                    if isNotParsingSysex {
-                        currentEventData.append(byte)
-                    }
-                }
-            } else {
-                currentEventData.append(byte)
-            }
-            currentAllData.append(byte)
-            if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
-                UInt8(currentEventData.count) == currentLengthByte {
-                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData, timeFormat: timeFormat,
-                                                      timeDivision: timeDivision, timeOffset: accumulatedDeltaTime)
-                if chunkEvent.typeByte == nil, let running = runningStatus {
-                    chunkEvent.runningStatus = AKMIDIStatus(byte: running)
-                }
-                if time != chunkEvent.deltaTime {
-                    AKLog("MIDI File Parser time mismatch \(time) vs. \(chunkEvent.deltaTime)", log: OSLog.midi)
-                    break
-                }
-                if type != chunkEvent.typeByte {
-                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))", log: OSLog.midi)
-                    break
-                }
-                if length != chunkEvent.length {
-                    AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)", log: OSLog.midi)
-                    break
-                }
-                accumulatedDeltaTime += chunkEvent.deltaTime
-                currentTimeByte = nil
-                currentTypeByte = nil
-                currentLengthByte = nil
-                isParsingMetaEvent = false
-                isParsingSysex = false
-                currentEventData.removeAll()
-                variableBits.removeAll()
-                currentAllData.removeAll()
-                events.append(chunkEvent)
+                guard let currentEvent = event else { break }
+                events.append(currentEvent)
+                accumulatedDeltaTime += Int(vlqTime.quantity)
+                currentTimeVLQ = nil
             }
         }
         return events

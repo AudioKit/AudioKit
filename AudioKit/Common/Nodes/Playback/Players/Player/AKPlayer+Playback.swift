@@ -180,7 +180,7 @@ extension AKPlayer {
                                       at: audioTime,
                                       options: bufferOptions,
                                       completionCallbackType: .dataRendered,
-                                      completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                      completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -216,8 +216,8 @@ extension AKPlayer {
                                        startingFrame: startFrame,
                                        frameCount: frameCount,
                                        at: audioTime,
-                                       completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
+                                       completionCallbackType: .dataRendered,
+                                       completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
@@ -233,9 +233,7 @@ extension AKPlayer {
     // MARK: - Completion Handlers
 
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // only forward the completion if is actually done playing without user intervention.
-
+    internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // reset the loop if user stopped it
@@ -245,16 +243,11 @@ extension AKPlayer {
                 self.pauseTime = nil
                 return
             }
-            do {
-                try AKTry {
-                    // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
-                    // in this case, don't call the completion handler
-                    if self.currentFrame > 0 {
-                        self.handleComplete()
-                    }
-                }
-            } catch {
-                AKLog("Failed to check currentFrame and call completion handler: \(error)... Possible Media Service Reset?")
+
+            // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
+            // in this case, don't call the completion handler
+            if self.currentFrame > 0 {
+                self.handleComplete()
             }
         }
     }
@@ -268,13 +261,14 @@ extension AKPlayer {
             endTime = loop.end
             play()
             loopCompletionHandler?()
+            // don't call the user completion handler
             return
         }
         if pauseTime != nil {
             startTime = 0
             pauseTime = nil
         }
-
+        // user completion handler
         completionHandler?()
     }
 }

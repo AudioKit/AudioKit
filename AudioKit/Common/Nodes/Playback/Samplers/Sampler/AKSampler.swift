@@ -572,14 +572,15 @@
         let sampleRate = Float(file.sampleRate)
         let sampleCount = Int32(file.samplesCount)
         let channelCount = Int32(file.channelCount)
-        let flattened = Array(file.floatChannelData!.joined())
-        let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                sampleRate: sampleRate,
-                                                                isInterleaved: false,
-                                                                channelCount: channelCount,
-                                                                sampleCount: sampleCount,
-                                                                data: data) )
+        var flattened = Array(file.floatChannelData!.joined())
+        flattened.withUnsafeMutableBufferPointer { data in
+            internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                    sampleRate: sampleRate,
+                                                                    isInterleaved: false,
+                                                                    channelCount: channelCount,
+                                                                    sampleCount: sampleCount,
+                                                                    data: data.baseAddress) )
+        }
     }
 
     @objc open func stopAllVoices() {

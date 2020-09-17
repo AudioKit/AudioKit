@@ -47,6 +47,14 @@
     return _kernel.currentPositionInBeats();
 }
 
+- (void)setSeqEnabled:(bool)seqEnabled {
+    _kernel.seqEnabled = seqEnabled;
+}
+
+- (bool)seqEnabled {
+    return _kernel.seqEnabled;
+}
+
 - (void)setLoopEnabled:(bool)loopEnabled {
     _kernel.loopEnabled = loopEnabled;
 }

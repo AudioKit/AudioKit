@@ -104,7 +104,7 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
         let mixToMono = AUParameter(
             identifier: "mixToMono",
-            name: "Mix To Stereo",
+            name: "Mix To Mono",
             address: 6,
             range: 0.0 ... 1.0,
             unit: .boolean,

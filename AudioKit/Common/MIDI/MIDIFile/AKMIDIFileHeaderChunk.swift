@@ -10,20 +10,30 @@ import Foundation
 
 struct MIDIFileHeaderChunk: AKMIDIFileChunk {
 
-    var typeData: [UInt8]
-    var lengthData: [UInt8]
-    var data: [UInt8]
+    var rawData: [UInt8]
 
-    init() {
-        typeData = Array(repeating: 0, count: 4)
-        lengthData = Array(repeating: 0, count: 4)
-        data = []
+    public init?(data: [UInt8]) {
+        guard
+            data.count > 8
+        else {
+            return nil
+        }
+        let lengthBytes = Array(data[4..<8])
+        let length = Int(MIDIHelper.convertTo32Bit(msb: lengthBytes[0],
+                                                   data1: lengthBytes[1],
+                                                   data2: lengthBytes[2],
+                                                   lsb: lengthBytes[3]))
+        rawData = Array(data.prefix(upTo: length + 8)) //the message + 4 byte header type, + 4 byte length
+        if isNotValid || !isHeader {
+            return nil
+        }
     }
 
-    init(chunk: AKMIDIFileChunk) {
-        self.typeData = chunk.typeData
-        self.lengthData = chunk.lengthData
-        self.data = chunk.data
+    init?(chunk: AKMIDIFileChunk) {
+        guard chunk.type == .header else {
+            return nil
+        }
+        rawData = chunk.rawData
     }
 
     var format: Int {

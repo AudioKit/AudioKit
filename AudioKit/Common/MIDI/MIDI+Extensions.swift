@@ -34,6 +34,16 @@ extension MIDIByte {
     }
 }
 
+extension Array where Element == MIDIByte {
+    var hex: String {
+        return self.map({ $0.hex.replacingOccurrences(of: "0x", with: "") }).joined(separator: "")
+    }
+
+    var integerValue: Int? {
+        return Int(hex, radix: 16)
+    }
+}
+
 extension MIDIWord {
     /// Construct a 14 bit integer MIDIWord value
     ///
@@ -51,7 +61,7 @@ extension MIDIWord {
     /// Create a MIDIWord for a command and command version
     /// [command byte][version byte]
     ///
-    /// This is used to construct a word that would be sent in Sysex
+    /// This is used to construct a word that would be sent in SysEx
     ///
     /// - Parameters:
     ///   - command: Command Byte Value

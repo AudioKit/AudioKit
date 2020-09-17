@@ -93,7 +93,6 @@ public enum AKSliderStyle {
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
 
         self.color = color
-
         super.init(property: property,
                    value: value,
                    range: range,
@@ -101,7 +100,6 @@ public enum AKSliderStyle {
                    format: format,
                    frame: frame,
                    callback: callback)
-
         self.backgroundColor = UIColor.clear
     }
 
@@ -134,6 +132,7 @@ public enum AKSliderStyle {
         super.touchesBegan(touches, with: event)
         touchBeganCallback()
     }
+
     open var touchBeganCallback: () -> Void = { }
     /// Handle moved touches
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -176,7 +175,6 @@ public enum AKSliderStyle {
         if let bgColor = bgColor {
             return bgColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -189,7 +187,6 @@ public enum AKSliderStyle {
         if let indicatorBorderColor = indicatorBorderColor {
             return indicatorBorderColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -202,7 +199,6 @@ public enum AKSliderStyle {
         if let sliderBorderColor = sliderBorderColor {
             return sliderBorderColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.2, alpha: 1.0)
@@ -215,7 +211,6 @@ public enum AKSliderStyle {
         if let textColor = textColor {
             return textColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -231,7 +226,6 @@ public enum AKSliderStyle {
             return
         }
         context.clear(rect)
-
         drawFlatSlider(currentValue: CGFloat(val),
             propertyName: property,
             currentValueText: String(format: format, value)
@@ -242,8 +236,6 @@ public enum AKSliderStyle {
                         initialValue: CGFloat = 0,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
-
-        //// General Declarations
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
@@ -251,9 +243,7 @@ public enum AKSliderStyle {
 
         let width = self.frame.width
         let height = self.frame.height
-
         let themeTextColor = textColorForTheme
-
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
@@ -269,7 +259,6 @@ public enum AKSliderStyle {
             context: nil).size.height
         context.saveGState()
 
-        // Calculate slider height and other values based on expected label height
         let sliderTextMargin: CGFloat = 5.0
         let labelOrigin = nameLabelTextHeight + sliderTextMargin
         let sliderOrigin = sliderBorderWidth
@@ -277,7 +266,6 @@ public enum AKSliderStyle {
         let indicatorSize = CGSize(width: indicatorWidth, height: sliderHeight)
         let sliderCornerRadius = indicatorSize.width / sliderStyle.cornerRadiusFactor
 
-        // Draw name label
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
         context.clip(to: nameLabelInset)
         NSString(string: propertyName).draw(
@@ -288,14 +276,12 @@ public enum AKSliderStyle {
             withAttributes: nameLabelFontAttributes)
         context.restoreGState()
 
-        //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
         let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
             (currentValue < 1 ?
                 currentValue * (width - (sliderMargin * 2.0)) + sliderMargin :
                 width - sliderMargin)
 
-        //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
                                     y: sliderOrigin + sliderBorderWidth / 2.0,
                                     width: width - sliderBorderWidth,
@@ -307,7 +293,6 @@ public enum AKSliderStyle {
         sliderAreaPath.fill()
         sliderAreaPath.lineWidth = sliderBorderWidth
 
-        //// valueRectangle Drawing
         let valueWidth = currentWidth < indicatorSize.width ? indicatorSize.width : currentWidth
         let valueCorners = currentWidth < indicatorSize.width ? UIRectCorner.allCorners : [.topLeft, .bottomLeft]
         let valueAreaRect = CGRect(x: sliderBorderWidth / 2.0,
@@ -320,11 +305,9 @@ public enum AKSliderStyle {
         color.withAlphaComponent(0.6).setFill()
         valueAreaPath.fill()
 
-        // sliderArea Border
         sliderBorderColorForTheme.setStroke()
         sliderAreaPath.stroke()
 
-        // Indicator view drawing
         let indicatorRect = CGRect(x: currentWidth - indicatorSize.width / 2.0,
                                    y: sliderOrigin,
                                    width: indicatorSize.width,
@@ -338,7 +321,6 @@ public enum AKSliderStyle {
         indicatorBorderColorForTheme.setStroke()
         indicatorPath.stroke()
 
-        //// valueLabel Drawing
         if showsValueBubble && isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
@@ -347,7 +329,6 @@ public enum AKSliderStyle {
             let valueLabelFontAttributes = [NSAttributedString.Key.font: bubbleFont,
                                             NSAttributedString.Key.foregroundColor: themeTextColor,
                                             NSAttributedString.Key.paragraphStyle: valueLabelStyle]
-
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),

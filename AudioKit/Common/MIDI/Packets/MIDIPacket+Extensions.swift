@@ -9,8 +9,8 @@
 import CoreMIDI
 
 extension MIDIPacket {
-    var isSysex: Bool {
-        return data.0 == AKMIDISystemCommand.sysex.rawValue
+    var isSysEx: Bool {
+        return data.0 == AKMIDISystemCommand.sysEx.rawValue
     }
 
     var status: AKMIDIStatus? {

@@ -12,7 +12,7 @@ import Accelerate
 /// start() will add the tap, and stop() will remove it.
 public class AKAmplitudeTap: AKToggleable {
     private var amp: [Float] = Array(repeating: 0, count: 2)
-    private let bufferSize: UInt32 = 1_024
+    public private(set) var bufferSize: UInt32
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public private(set) var isStarted: Bool = false
@@ -63,7 +63,8 @@ public class AKAmplitudeTap: AKToggleable {
     }
 
     /// - parameter input: Node to analyze
-    @objc public init(_ input: AKNode?) {
+    @objc public init(_ input: AKNode?, bufferSize: UInt32 = 1_024) {
+        self.bufferSize = bufferSize
         self.input = input
     }
 

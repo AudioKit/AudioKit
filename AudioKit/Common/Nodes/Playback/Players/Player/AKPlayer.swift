@@ -112,7 +112,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Will return whether the engine is rendering offline or realtime
     /// Requires iOS 11, macOS 10.13 for offline rendering
-    public override var renderingMode: RenderingMode {
+    override public var renderingMode: RenderingMode {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // AVAudioEngineManualRenderingMode
             if playerNode.engine?.manualRenderingMode == .offline {
@@ -126,12 +126,12 @@ public class AKPlayer: AKAbstractPlayer {
     @objc public private(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    @objc public override var duration: Double {
+    @objc override public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    @objc public override var sampleRate: Double {
+    @objc override public var sampleRate: Double {
         return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
@@ -166,13 +166,15 @@ public class AKPlayer: AKAbstractPlayer {
     /// of frames based on startTime and endTime
     @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
-    /// - Returns: The current frame while playing
+    /// - Returns: The current frame while playing. It will return 0 on error.
     @objc public var currentFrame: AVAudioFramePosition {
-        if let nodeTime = playerNode.lastRenderTime,
-            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return playerTime.sampleTime
+        guard playerNode.engine != nil,
+            let nodeTime = playerNode.lastRenderTime,
+            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) else {
+            AKLog("Error getting currentFrame, player may have been detached", type: .error)
+            return 0
         }
-        return 0
+        return playerTime.sampleTime
     }
 
     /// - Returns: Current time of the player in seconds while playing.
@@ -193,7 +195,7 @@ public class AKPlayer: AKAbstractPlayer {
         }
     }
 
-    /// Returns the audioFile's internal processingFormat
+    ///  - Returns: the audioFile's internal processingFormat
     @objc public var processingFormat: AVAudioFormat? {
         return audioFile?.processingFormat
     }
@@ -237,7 +239,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     // MARK: - Initialization
 
-    public override init() {
+    override public init() {
         let output = AKFader()
         super.init(avAudioNode: output.avAudioUnitOrNode, attach: false)
         faderNode = output
@@ -285,7 +287,7 @@ public class AKPlayer: AKAbstractPlayer {
         initialize(restartIfPlaying: false)
     }
 
-    open override func initialize(restartIfPlaying: Bool = true) {
+    override open func initialize(restartIfPlaying: Bool = true) {
         let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
@@ -352,13 +354,23 @@ public class AKPlayer: AKAbstractPlayer {
 
     // MARK: - Loading
 
-    /// Replace the contents of the player with this url
+    /// Replace the contents of the player with this url. Note that if your processingFormat changes
+    /// you should dispose this AKPlayer and create a new one instead.
     @objc public func load(url: URL) throws {
         let file = try AVAudioFile(forReading: url)
-        load(audioFile: file)
+        try load(audioFile: file)
     }
 
-    @objc public func load(audioFile: AVAudioFile) {
+    /// Load a new audio file into this player. Note that if your processingFormat changes
+    /// you should dispose this AKPlayer and create a new one instead.
+    @objc public func load(audioFile: AVAudioFile) throws {
+        if let format = processingFormat, format != audioFile.processingFormat {
+            AKLog("⚠️ Warning: This file is a different format than the previously loaded one. " +
+                "You should make a new AKPlayer instance and reconnect. " +
+                "load() is only available for files that are the same format.")
+            throw NSError(domain: "Processing format doesn't match", code: 0, userInfo: nil)
+        }
+
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
         // will reset the stored start / end times or update the buffer
@@ -397,7 +409,7 @@ public class AKPlayer: AKAbstractPlayer {
     // MARK: - Play
 
     /// Play entire file right now
-    @objc public override func play() {
+    @objc override public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
@@ -435,7 +447,7 @@ public class AKPlayer: AKAbstractPlayer {
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
-    @objc public override func stop() {
+    @objc override public func stop() {
         stopCompletion()
     }
 
@@ -443,7 +455,7 @@ public class AKPlayer: AKAbstractPlayer {
 
     /// Dispose the audio file, buffer and nodes and release resources.
     /// Only call when you are totally done with this class.
-    @objc public override func detach() {
+    @objc override public func detach() {
         stop()
         super.detach() // get rid of the faderNode
         audioFile = nil

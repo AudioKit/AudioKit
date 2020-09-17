@@ -8,25 +8,15 @@
 
 import Foundation
 
-protocol AKMIDIFileChunk {
-    var typeData: [UInt8] { get set }
-    var lengthData: [UInt8] { get set }
-    var data: [UInt8] { get set }
-    init()
-    init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8])
+public protocol AKMIDIFileChunk {
+    var rawData: [UInt8] { get }    // All data used to init this chunk
+    var typeData: [UInt8] { get }       // The subset of data used to determine type ("MTrk" or "MThd")
+    var lengthData: [UInt8] { get }     // The subset of data used to determine chunk length
+    var data: [UInt8] { get }           // The subset of data that contains events, etc
+    init?(data: [UInt8])
 }
 
-extension AKMIDIFileChunk {
-
-    init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8]) {
-        self.init()
-        self.typeData = typeData
-        self.lengthData = lengthData
-        self.data = data
-        if isNotValid {
-            fatalError("Type and length must be 4 bytes long, length must equal amount of data")
-        }
-    }
+public extension AKMIDIFileChunk {
 
     var isValid: Bool { return isTypeValid && isLengthValid }
     var isNotValid: Bool { return !isValid }
@@ -34,8 +24,22 @@ extension AKMIDIFileChunk {
     var isLengthValid: Bool { return data.count == length }
 
     var length: Int {
-        return Int(MIDIHelper.convertTo32Bit(msb: lengthData[0], data1: lengthData[1],
-                                  data2: lengthData[2], lsb: lengthData[3]))
+        return Int(MIDIHelper.convertTo32Bit(msb: lengthData[0],
+                                             data1: lengthData[1],
+                                             data2: lengthData[2],
+                                             lsb: lengthData[3]))
+    }
+
+    var typeData: [UInt8] {
+        return Array(rawData[0..<4])
+    }
+
+    var lengthData: [UInt8] {
+        return Array(rawData[4..<8])
+    }
+
+    var data: [UInt8] {
+        return Array(rawData.suffix(from: 8))
     }
 
     var type: MIDIFileChunkType? {
@@ -51,7 +55,7 @@ extension AKMIDIFileChunk {
     }
 }
 
-enum MIDIFileChunkType: String {
+public enum MIDIFileChunkType: String {
     case track = "MTrk"
     case header = "MThd"
 
@@ -66,5 +70,9 @@ enum MIDIFileChunkType: String {
 
     var text: String {
         return self.rawValue
+    }
+
+    var midiBytes: [UInt8] {
+        return [UInt8](text.utf8) 
     }
 }

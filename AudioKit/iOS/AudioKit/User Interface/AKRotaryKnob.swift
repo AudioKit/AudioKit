@@ -156,7 +156,6 @@ public enum AKRotaryKnobStyle {
         if let indicatorColor = indicatorColor {
             return indicatorColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -170,7 +169,6 @@ public enum AKRotaryKnobStyle {
         if let knobBorderColor = knobBorderColor {
             return knobBorderColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.2, alpha: 1.0)
@@ -184,7 +182,6 @@ public enum AKRotaryKnobStyle {
         if let textColor = textColor {
             return textColor
         }
-
         switch AKStylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
@@ -212,11 +209,9 @@ public enum AKRotaryKnobStyle {
 
         let width = self.frame.width
         let height = self.frame.height
-
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .center
-
         let textColor = textColorForTheme()
 
         let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize),
@@ -232,7 +227,6 @@ public enum AKRotaryKnobStyle {
 
         let knobHeight = height - nameLabelTextHeight
 
-        // Draw name label
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 0.0, dy: 0)
         context.clip(to: nameLabelInset)
         NSString(string: propertyName).draw(
@@ -243,12 +237,10 @@ public enum AKRotaryKnobStyle {
             withAttributes: nameLabelFontAttributes)
         context.restoreGState()
 
-        // Calculate knob size
         let knobDiameter = min(width, height) - AKRotaryKnob.marginSize * 2.0
         knobCenter = CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0,
                              y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
 
-        // Setup indicator
         let valuePercent = val
         let angle = Double.pi * ( 0.75 + valuePercent * 1.5)
         let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)),
@@ -256,7 +248,6 @@ public enum AKRotaryKnobStyle {
         let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)),
                                    y: (knobDiameter / 2.0) * CGFloat(sin(angle)))
 
-        // Draw knob
         let knobRect = CGRect(x: AKRotaryKnob.marginSize,
                               y: AKRotaryKnob.marginSize,
                               width: knobDiameter,
@@ -285,7 +276,6 @@ public enum AKRotaryKnobStyle {
         knobColor.setFill()
         knobPath.fill()
 
-        // Draw indicator
         let indicatorPath = UIBezierPath()
         indicatorPath.move(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x,
                                        y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
@@ -295,7 +285,6 @@ public enum AKRotaryKnobStyle {
         indicatorColorForTheme().setStroke()
         indicatorPath.stroke()
 
-        // Draw points
         let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
         for index in 0...numberOfIndicatorPoints - 1 {
             let pointPercent = Double(index) / Double(numberOfIndicatorPoints - 1)
@@ -318,7 +307,6 @@ public enum AKRotaryKnobStyle {
             pointPath.fill()
         }
 
-        //// valueLabel Drawing
         if isDragging {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
@@ -334,7 +322,6 @@ public enum AKRotaryKnobStyle {
                 options: NSStringDrawingOptions.usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes,
                 context: nil).size
-
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
                                     height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)
 
@@ -344,7 +331,6 @@ public enum AKRotaryKnobStyle {
             } else if (bubbleOriginX + bubbleSize.width) > bounds.width {
                 bubbleOriginX = bounds.width - bubbleSize.width - valueBubbleBorderWidth
             }
-
             var bubbleOriginY = (lastTouch.y - 3 * bubbleSize.height - valueBubbleBorderWidth)
             if bubbleOriginY < 0.0 {
                 bubbleOriginY = 0.0
