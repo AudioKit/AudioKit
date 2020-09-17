@@ -6,7 +6,7 @@ import AudioKit
 var rhino: RhinoGuitarProcessor!
 
 do {
-    let guitarFile = try AKAudioFile(readFileName: "guitar.wav")
+    let guitarFile = try AVAudioFile(readFileName: "guitar.wav")
 
     let player = try AKAudioPlayer(file: guitarFile)
     player.looping = true

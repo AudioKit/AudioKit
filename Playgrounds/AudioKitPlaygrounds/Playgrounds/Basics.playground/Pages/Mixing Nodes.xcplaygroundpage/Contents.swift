@@ -19,10 +19,10 @@ class Conductor: ObservableObject {
 
     init() {
 
-        let drumFile = try! AKAudioFile(readFileName: "drumloop.wav")
-        let bassFile = try! AKAudioFile(readFileName: "bassloop.wav")
-        let guitarFile = try! AKAudioFile(readFileName: "guitarloop.wav")
-        let leadFile = try! AKAudioFile(readFileName: "leadloop.wav")
+        let drumFile = try! AVAudioFile(readFileName: "drumloop.wav")
+        let bassFile = try! AVAudioFile(readFileName: "bassloop.wav")
+        let guitarFile = try! AVAudioFile(readFileName: "guitarloop.wav")
+        let leadFile = try! AVAudioFile(readFileName: "leadloop.wav")
 
         drums = AKPlayer(audioFile: drumFile)
         bass = AKPlayer(audioFile: bassFile)

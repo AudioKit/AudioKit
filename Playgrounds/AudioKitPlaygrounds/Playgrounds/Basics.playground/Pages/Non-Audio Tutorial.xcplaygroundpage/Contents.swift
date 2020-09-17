@@ -21,7 +21,7 @@ import AudioKitUI
 //: accessing the "Product" menu and choosing "Build".
 
 //: To use a file, copy it into the playground's "Resources" folder and refer to it by name:
-let file = try AKAudioFile(readFileName: "mixloop.wav")
+let file = try AVAudioFile(readFileName: "mixloop.wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
 //: we encourage you to drag your own sound files to the Resources folder.

@@ -17,10 +17,10 @@ If your app only needs to load and play back samples individually, without a lot
 **Sampler** provides three distinct mechanisms for loading samples:
 
 1. `loadRawSampleData()` allows use of sample data already in memory, e.g. data generated programmatically or read using custom file-reading code.
-2. `loadAKAudioFile()` allows reading standard file formats like WAV, CAF, AIFF, etc.  from an instance of **AKAudioFile**. `loadCompressedSampleFile()` allows reading `.wv` files which have been compressed using [Wavpack](http://www.wavpack.com/).
+2. `loadAudioFile()` allows reading standard file formats like WAV, CAF, AIFF, etc.  from an instance of **AVAudioFile**. `loadCompressedSampleFile()` allows reading `.wv` files which have been compressed using [Wavpack](http://www.wavpack.com/).
 3. `loadUsingSfzFile()` loads entire sets of samples by interpreting a simplistic subset of the "SFZ" soundfont file format.
 
-`loadRawSampleData()`, `loadAKAudioFile()`, and `loadCompressedSampleFile()` all take a "descriptor" argument (see next section below), whose many member variables define details like the sample's natural MIDI note-number and pitch (frequency), plus details about loop start and end points, if used. For `loadUsingSfzFile()` allows all this "metadata" to be encoded in a SFZ file, using a simple plain-text format which is easy to understand and edit manually.
+`loadRawSampleData()`, `loadAudioFile()`, and `loadCompressedSampleFile()` all take a "descriptor" argument (see next section below), whose many member variables define details like the sample's natural MIDI note-number and pitch (frequency), plus details about loop start and end points, if used. For `loadUsingSfzFile()` allows all this "metadata" to be encoded in a SFZ file, using a simple plain-text format which is easy to understand and edit manually.
 
 The mapping of MIDI (note number, velocity) pairs to samples is done using some internal lookup tables, which can be populated in one of two ways:
 
@@ -30,7 +30,7 @@ The mapping of MIDI (note number, velocity) pairs to samples is done using some 
 **Important:** Before loading a new group of samples, you must call `unloadAllSamples()`. Otherwise, the new samples will be loaded *in addition* to the already-loaded ones. This wastes memory and worse, newly-loaded samples will usually not sound at all, because the sampler simply plays the first matching sample it finds.
 
 ## Sample descriptors
-When using `loadRawSampleData()`, `loadAKAudioFile()`, and `loadCompressedSampleFile()` to load individual samples, you will need to create instances of one of three Swift structure types as follows.
+When using `loadRawSampleData()`, `loadAudioFile()`, and `loadCompressedSampleFile()` to load individual samples, you will need to create instances of one of three Swift structure types as follows.
 
 The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in the *AudioKit/Core/AudioKitCore/Sampler* folder in the main AudioKit repo). This file is simple enough to reproduce here:
 
@@ -70,7 +70,7 @@ The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in 
 
 By the miracle of Swift/Objective-C bridging (see [Using Swift with Cocoa and Objective-C](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithCAPIs.html)), each of these three structures is accessible from Swift as a similarly-named class, which you can create by simply providing values for all the properties, as you'll see in the examples below.
 
-### AKSampleDescriptor and loadAKAudioFile()
+### AKSampleDescriptor and loadAudioFile()
 
 *AKSampleDescriptor* is the simplest and most fundamental of the three descriptor classes; the other two encapsulate an instance of this struct and add one or more additional properties. Only the first two properties, *noteNumber* and *noteHz* are required.
 
@@ -79,11 +79,11 @@ By the miracle of Swift/Objective-C bridging (see [Using Swift with Cocoa and Ob
 
 The *min_note*, *max_note*, *min_vel*, and *max_vel* properties are used by `buildKeyMap()` to populate the sampler's internal lookup tables for selecting samples based on MIDI (note, velocity) pairs. If you don't have data for these members, you can set all four to -1, and call `buildSimpleKeyMap()` instead.
 
-Here's an example of how to load a single sample from a WAV file using `loadAKAudioFile()`, which requires creating an instance of *AKSampleDescriptor*:
+Here's an example of how to load a single sample from a WAV file using `loadAudioFile()`, which requires creating an instance of *AKSampleDescriptor*:
 
     let path = "/Users/shane/Desktop/AKWF Samples/AKWF_bw_sawbright/AKWF_bsaw_0005.wav"
     let furl = URL(fileURLWithPath: path)
-    let file = try AKAudioFile(forReading: furl)
+    let file = try AVAudioFile(forReading: furl)
     let desc = AKSampleDescriptor(noteNumber: 26,
                                       noteHz: 44100.0/600,
                                     min_note: 0,
@@ -95,7 +95,7 @@ Here's an example of how to load a single sample from a WAV file using `loadAKAu
                                     fLoopEnd: 1.0,
                                       fStart: 0.0,
                                         fEnd: 0.0)
-       sampler.loadAKAudioFile(sd: desc, file: file)
+       sampler.loadAudioFile(sd: desc, file: file)
 
 See the following sections for notes about setting the `fLoopStart`, `fLoopEnd`, `fStart` and `fEnd` properties.
 

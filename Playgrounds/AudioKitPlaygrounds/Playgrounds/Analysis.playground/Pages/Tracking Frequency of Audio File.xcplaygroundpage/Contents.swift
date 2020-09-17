@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav")
+let file = try AVAudioFile(readFileName: "leadloop.wav")
 
 var player = AKPlayer(audioFile: file)
 player.isLooping = true
