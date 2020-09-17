@@ -3,7 +3,7 @@
 import AVFoundation
 import Foundation
 
-extension AKMusicTrack {
+extension MusicTrackManager {
     open var eventData: [AppleMIDIEvent]? {
         return getRawEventData()
     }

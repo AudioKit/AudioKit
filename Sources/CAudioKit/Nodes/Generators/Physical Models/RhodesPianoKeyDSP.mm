@@ -6,7 +6,7 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-class RhodesPianoKeyDSP : public AKSTKInstrumentDSP {
+class RhodesPianoKeyDSP : public STKInstrumentDSP {
 private:
     stk::Rhodey *rhodesPiano = nullptr;
 

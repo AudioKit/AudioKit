@@ -361,11 +361,11 @@ void SamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
     memset(pLeft, 0, frameCount * sizeof(float));
     memset(pRight, 0, frameCount * sizeof(float));
 
-    // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKCORESAMPLER_CHUNKSIZE) {
+    // process in chunks of maximum length CORESAMPLER_CHUNKSIZE
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CORESAMPLER_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
-        if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
+        if (chunkSize > CORESAMPLER_CHUNKSIZE) chunkSize = CORESAMPLER_CHUNKSIZE;
 
         // ramp parameters
         masterVolumeRamp.advanceTo(now + frameOffset);

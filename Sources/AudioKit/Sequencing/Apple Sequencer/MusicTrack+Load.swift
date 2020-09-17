@@ -2,7 +2,7 @@
 
 import AVFoundation
 
-extension AKMusicTrack {
+extension MusicTrackManager {
     func loadMIDI(filePath: String) {
         Log("loading file from exists @ \(filePath)")
         let fileURL = URL(fileURLWithPath: filePath)

@@ -152,10 +152,10 @@ void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOff
     memset(pRight, 0, frameCount * sizeof(float));
     
     // process in chunks of maximum length CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKSYNTH_CHUNKSIZE) {
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += SYNTH_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
-        if (chunkSize > AKSYNTH_CHUNKSIZE) chunkSize = AKSYNTH_CHUNKSIZE;
+        if (chunkSize > SYNTH_CHUNKSIZE) chunkSize = SYNTH_CHUNKSIZE;
 
         // ramp parameters
         masterVolumeRamp.advanceTo(now + frameOffset);

@@ -5,14 +5,14 @@
 
 typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
 
-class AKCallbackInstrumentDSP : public DSPBase {
+class CallbackInstrumentDSP : public DSPBase {
 public:
     // MARK: Member Functions
 
     TPCircularBuffer midiBuffer;
     NSTimer* timer;
 
-    AKCallbackInstrumentDSP() {
+    CallbackInstrumentDSP() {
         TPCircularBufferInit(&midiBuffer, 4096);
         // Hopefully this polling interval is ok.
         timer = [NSTimer scheduledTimerWithTimeInterval:0.01
@@ -22,7 +22,7 @@ public:
                  }];
     }
 
-    ~AKCallbackInstrumentDSP() {
+    ~CallbackInstrumentDSP() {
         TPCircularBufferCleanup(&midiBuffer);
         [timer invalidate];
     }
@@ -91,7 +91,7 @@ public:
 };
 
 AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, AKCMIDICallback callback) {
-    static_cast<AKCallbackInstrumentDSP*>(dsp)->setCallback(callback);
+    static_cast<CallbackInstrumentDSP*>(dsp)->setCallback(callback);
 }
 
-AK_REGISTER_DSP(AKCallbackInstrumentDSP)
+AK_REGISTER_DSP(CallbackInstrumentDSP)

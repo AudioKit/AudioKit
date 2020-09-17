@@ -6,7 +6,7 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-class TubularBellsDSP : public AKSTKInstrumentDSP {
+class TubularBellsDSP : public STKInstrumentDSP {
 private:
     stk::TubeBell *tubularBells = nullptr;
 

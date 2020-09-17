@@ -10,7 +10,7 @@
 #endif
 
 // process samples in "chunks" this size
-#define AKCORESAMPLER_CHUNKSIZE 16
+#define CORESAMPLER_CHUNKSIZE 16
 
 
 namespace AudioKitCore {

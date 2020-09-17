@@ -3,13 +3,13 @@ import AudioKit
 import XCTest
 import AVFoundation
 
-class AKMusicTrackTests: XCTestCase {
-    var musicTrack: AKMusicTrack!
+class MusicTrackManagerTests: XCTestCase {
+    var musicTrack: MusicTrackManager!
 
     override func setUp() {
         super.setUp()
 
-        musicTrack = AKMusicTrack()
+        musicTrack = MusicTrackManager()
         musicTrack.setLength(Duration(beats: 4.0))
     }
 
@@ -231,7 +231,7 @@ class AKMusicTrackTests: XCTestCase {
 
     // MARK: - replaceMIDINoteData
     // helper function
-    func addFourNotesToTrack(_ track: AKMusicTrack) {
+    func addFourNotesToTrack(_ track: MusicTrackManager) {
         for i in 0 ..< 4 {
             track.add(noteNumber: UInt8(60 + i),
                       velocity: 120,
@@ -249,7 +249,7 @@ class AKMusicTrackTests: XCTestCase {
     }
 
     func testReplaceMIDINoteData_canCopyNotesFromOtherTrack() {
-        let otherTrack = AKMusicTrack()
+        let otherTrack = MusicTrackManager()
         addFourNotesToTrack(otherTrack)
 
         musicTrack.replaceMIDINoteData(with: otherTrack.getMIDINoteData())
@@ -299,7 +299,7 @@ class AKMusicTrackTests: XCTestCase {
 
     func testReplaceMIDINoteData_willDecreaseLengthOfTrackIfLengthNOTExplicitlySet() {
         // newTrack's length is not explicitly set
-        let newTrack = AKMusicTrack()
+        let newTrack = MusicTrackManager()
         addFourNotesToTrack(newTrack)
         let originalLength = newTrack.length
         var noteData = newTrack.getMIDINoteData()
@@ -329,9 +329,9 @@ class AKMusicTrackTests: XCTestCase {
     }
 }
 
-// MARK: - For AKMusicTrack Testing
+// MARK: - For MusicTrackManager Testing
 
-extension AKMusicTrack {
+extension MusicTrackManager {
     var noteCount: Int {
         var count = 0
 

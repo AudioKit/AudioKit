@@ -2,15 +2,15 @@
 
 #include "STKInstrumentDSP.hpp"
 
-AKSTKInstrumentDSP::AKSTKInstrumentDSP() : DSPBase(/*inputBusCount*/0) { }
+STKInstrumentDSP::STKInstrumentDSP() : DSPBase(/*inputBusCount*/0) { }
 
-void AKSTKInstrumentDSP::reset() {
+void STKInstrumentDSP::reset() {
     if(auto instr = getInstrument()) {
         instr->clear();
     }
 }
 
-void AKSTKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
+void STKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
 
     uint8_t status = midiEvent.data[0] & 0xF0;
 
@@ -41,7 +41,7 @@ void AKSTKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
 
 }
 
-void AKSTKInstrumentDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void STKInstrumentDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     auto instr = getInstrument();
 

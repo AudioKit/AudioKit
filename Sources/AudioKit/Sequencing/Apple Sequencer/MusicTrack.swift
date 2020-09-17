@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Wrapper for internal Apple MusicTrack
-open class AKMusicTrack {
+open class MusicTrackManager {
     // MARK: - Properties
 
     /// The representation of Apple's underlying music track
@@ -599,7 +599,7 @@ open class AKMusicTrack {
             return []
         }
 
-        AKMusicTrack.iterateMusicTrack(track) { _, eventTime, eventType, eventData, _, _ in
+        MusicTrackManager.iterateMusicTrack(track) { _, eventTime, eventType, eventData, _, _ in
             guard eventType == kMusicEventType_MIDINoteMessage else { return }
             let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
 
@@ -626,7 +626,7 @@ open class AKMusicTrack {
     ///
     /// - parameter musicTrack: Destination track to copy this track to
     ///
-    public func copyAndMergeTo(musicTrack: AKMusicTrack) {
+    public func copyAndMergeTo(musicTrack: MusicTrackManager) {
         guard let track = internalMusicTrack,
             let mergedToTrack = musicTrack.internalMusicTrack else {
             Log("internalMusicTrack does not exist")
@@ -639,8 +639,8 @@ open class AKMusicTrack {
     ///
     /// - returns a copy of this track that can be edited independently
     ///
-    public func copyOf() -> AKMusicTrack? {
-        let copiedTrack = AKMusicTrack()
+    public func copyOf() -> MusicTrackManager? {
+        let copiedTrack = MusicTrackManager()
 
         guard let internalMusicTrack = internalMusicTrack,
             let copiedInternalTrack = copiedTrack.internalMusicTrack else {

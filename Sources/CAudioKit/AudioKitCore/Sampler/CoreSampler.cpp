@@ -87,11 +87,11 @@ CoreSampler::~CoreSampler()
 int CoreSampler::init(double sampleRate)
 {
     currentSampleRate = (float)sampleRate;
-    data->ampEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
-    data->filterEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
-    data->pitchEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
+    data->ampEnvelopeParameters.updateSampleRate((float)(sampleRate/CORESAMPLER_CHUNKSIZE));
+    data->filterEnvelopeParameters.updateSampleRate((float)(sampleRate/CORESAMPLER_CHUNKSIZE));
+    data->pitchEnvelopeParameters.updateSampleRate((float)(sampleRate/CORESAMPLER_CHUNKSIZE));
     data->vibratoLFO.waveTable.sinusoid();
-    data->vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
+    data->vibratoLFO.init(sampleRate/CORESAMPLER_CHUNKSIZE, 5.0f);
     
     for (int i=0; i<MAX_POLYPHONY; i++)
         data->voice[i].init(sampleRate);

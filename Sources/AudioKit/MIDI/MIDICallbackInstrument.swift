@@ -6,9 +6,9 @@ import AVFoundation
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
-/// Another callback instrument, AKCallbackInstrument
+/// Another callback instrument, CallbackInstrument
 /// You will need to enable "Background Modes - Audio" in your project for this to work.
-open class AKMIDICallbackInstrument: AKMIDIInstrument {
+open class MIDICallbackInstrument: MIDIInstrument {
 
     // MARK: - Properties
 

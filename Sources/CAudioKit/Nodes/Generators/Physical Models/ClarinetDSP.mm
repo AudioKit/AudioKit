@@ -4,7 +4,7 @@
 
 #include "Clarinet.h"
 
-class ClarinetDSP : public AKSTKInstrumentDSP {
+class ClarinetDSP : public STKInstrumentDSP {
 private:
     stk::Clarinet *clarinet = nullptr;
 

@@ -11,10 +11,10 @@ import Foundation
 /// Function type for MIDI callbacks
 public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
-/// New sample-accurate version of AKCallbackInstrument
-/// Old AKCallbackInstrument renamed to AKMIDICallbackInstrument
-/// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
-open class AKCallbackInstrument: PolyphonicNode, AudioUnitContainer {
+/// New sample-accurate version of CallbackInstrument
+/// Old CallbackInstrument renamed to MIDICallbackInstrument
+/// If you have used this before, you should be able to simply switch to MIDICallbackInstrument
+open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
     public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
@@ -27,7 +27,7 @@ open class AKCallbackInstrument: PolyphonicNode, AudioUnitContainer {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> DSPRef {
-            akCreateDSP("AKCallbackInstrumentDSP")
+            akCreateDSP("CallbackInstrumentDSP")
         }
         
         public func setCallback(_ callback: AKMIDICallback?) {
