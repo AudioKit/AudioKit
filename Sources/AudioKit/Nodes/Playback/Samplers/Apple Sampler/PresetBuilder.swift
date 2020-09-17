@@ -5,7 +5,7 @@ import CAudioKit
 
 //swiftlint:disable all
 /// Builds presets for Apple sampler to read from
-public class AKAUPresetBuilder {
+public class PresetBuilder {
     fileprivate var presetXML = ""
     fileprivate var layers = [String]()
     fileprivate var connections = [String]()
@@ -33,7 +33,7 @@ public class AKAUPresetBuilder {
          lfos: String = "***LFOS***\n",
          zones: String = "***ZONES***\n",
          filerefs: String = "***FILEREFS***\n") {
-        presetXML = AKAUPresetBuilder.buildInstrument(name: name,
+        presetXML = PresetBuilder.buildInstrument(name: name,
                                                       connections: connections,
                                                       envelopes: envelopes,
                                                       filter: filter,
@@ -117,7 +117,7 @@ public class AKAUPresetBuilder {
                     Log("No filename provided in PresetBuilder")
                     return
                 }
-                let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
+                let idXML = PresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
                 sampleIDXML.append(idXML)
 
                 sampleIteration += 1
@@ -138,7 +138,7 @@ public class AKAUPresetBuilder {
                 return
             }
 
-            let envelopesXML = AKAUPresetBuilder.generateEnvelope(id: 0,
+            let envelopesXML = PresetBuilder.generateEnvelope(id: 0,
                                                                   delay: 0,
                                                                   attack: existingAttack,
                                                                   hold: 0,
@@ -161,14 +161,14 @@ public class AKAUPresetBuilder {
             switch triggerMode {
             case .Hold:
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                    sampleZoneXML = PresetBuilder.generateZone(id: i,
                                                                    rootNote: existingRootNote,
                                                                    startNote: existingStartNote,
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: false)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                    let tempLayerXML = PresetBuilder.generateLayer(
+                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
@@ -179,14 +179,14 @@ public class AKAUPresetBuilder {
 
             case .Loop:
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                    sampleZoneXML = PresetBuilder.generateZone(id: i,
                                                                    rootNote: existingRootNote,
                                                                    startNote: existingStartNote,
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: true)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                    let tempLayerXML = PresetBuilder.generateLayer(
+                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
@@ -199,14 +199,14 @@ public class AKAUPresetBuilder {
                 // .Trigger and .Repeat (repeat needs to be handled in the app that uses this mode,
                 // otherwise is just the same as Trig mode)
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                    sampleZoneXML = PresetBuilder.generateZone(id: i,
                                                                    rootNote: existingRootNote,
                                                                    startNote: existingStartNote,
                                                                    endNote: existingEndNote,
                                                                    wavRef: sampleNum,
                                                                    loopEnabled: false)
-                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                    let tempLayerXML = PresetBuilder.generateLayer(
+                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
@@ -217,7 +217,7 @@ public class AKAUPresetBuilder {
             }
         }
 
-        let str = AKAUPresetBuilder.buildInstrument(name: instrumentName, filerefs: sampleIDXML, layers: layerXML)
+        let str = PresetBuilder.buildInstrument(name: instrumentName, filerefs: sampleIDXML, layers: layerXML)
 
         // write to file
         do {
@@ -783,7 +783,7 @@ public class AKAUPresetBuilder {
         // make sure all arrays are same size
         var str = ""
         for i in 0 ..< connections.count {
-            str.append(AKAUPresetBuilder.generateLayer(connections: connections[i],
+            str.append(PresetBuilder.generateLayer(connections: connections[i],
                                                        envelopes: envelopes[i],
                                                        filter: filters[i],
                                                        lfos: lfos[i],
