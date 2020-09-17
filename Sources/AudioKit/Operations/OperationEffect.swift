@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class OperationEffect: Node, Toggleable, AudioUnitContainer {
+public class OperationEffect: Node, AudioUnitContainer, Toggleable {
     public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
@@ -178,9 +178,9 @@ public class OperationEffect: Node, Toggleable, AudioUnitContainer {
     ///
     public convenience init(_ input: Node,
                             channelCount: Int,
-                            operations: (AKStereoOperation, [Operation]) -> [Operation]) {
+                            operations: (StereoOperation, [Operation]) -> [Operation]) {
 
-        let computedParameters = operations(AKStereoOperation.input, Operation.parameters)
+        let computedParameters = operations(StereoOperation.input, Operation.parameters)
         let left = computedParameters[0]
 
         if channelCount == 2 {
@@ -198,9 +198,9 @@ public class OperationEffect: Node, Toggleable, AudioUnitContainer {
     ///   - operation: Operation to generate, can be mono or stereo
     ///
     public convenience init(_ input: Node,
-                            operation: (AKStereoOperation, [Operation]) -> ComputedParameter) {
+                            operation: (StereoOperation, [Operation]) -> ComputedParameter) {
 
-        let computedParameter = operation(AKStereoOperation.input, Operation.parameters)
+        let computedParameter = operation(StereoOperation.input, Operation.parameters)
 
         if type(of: computedParameter) == Operation.self {
             if let monoOperation = computedParameter as? Operation {
@@ -208,7 +208,7 @@ public class OperationEffect: Node, Toggleable, AudioUnitContainer {
                 return
             }
         } else {
-            if let stereoOperation = computedParameter as? AKStereoOperation {
+            if let stereoOperation = computedParameter as? StereoOperation {
                 self.init(input, sporth: stereoOperation.sporth + " swap ")
                 return
             }
@@ -217,7 +217,7 @@ public class OperationEffect: Node, Toggleable, AudioUnitContainer {
         self.init(input, sporth: "")
     }
 
-    public convenience init(_ input: Node, operation: (AKStereoOperation) -> ComputedParameter) {
+    public convenience init(_ input: Node, operation: (StereoOperation) -> ComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
     }
 

@@ -24,7 +24,7 @@ engine.output = mixer
 try engine.start()
 
 //: This is a loop to send a random note to the sampler
-AKPlaygroundLoop(every: pulse) {
+PlaygroundLoop(every: pulse) {
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()!
     let octave = [3, 4, 5, 6, 7].randomElement()! * 12
