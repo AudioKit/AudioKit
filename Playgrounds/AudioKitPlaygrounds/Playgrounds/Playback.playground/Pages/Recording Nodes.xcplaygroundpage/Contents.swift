@@ -15,7 +15,7 @@ var currentRampDuration = 0.2
 let oscMixer = Mixer(oscillator)
 
 //: Let's add some space to our oscillator
-let reverb = AKReverb(oscMixer)
+let reverb = Reverb(oscMixer)
 reverb.loadFactoryPreset(.largeHall)
 reverb.dryWetMix = 0.5
 

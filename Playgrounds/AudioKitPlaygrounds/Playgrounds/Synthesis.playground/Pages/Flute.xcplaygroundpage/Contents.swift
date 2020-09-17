@@ -7,7 +7,7 @@ let playRate = 2.0
 
 let flute = Flute()
 
-let reverb = AKReverb(flute)
+let reverb = Reverb(flute)
 
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 

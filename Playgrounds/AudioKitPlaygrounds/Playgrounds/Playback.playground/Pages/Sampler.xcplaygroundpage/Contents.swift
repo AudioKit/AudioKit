@@ -14,7 +14,7 @@ delay.time = pulse * 1.5
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
 
-let reverb = AKReverb(delay)
+let reverb = Reverb(delay)
 reverb.loadFactoryPreset(.largeRoom)
 
 var mixer = Mixer(reverb)

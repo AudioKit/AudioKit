@@ -8,7 +8,7 @@ var kick = SynthKick()
 var snare = SynthSnare(duration: 0.07)
 
 var mix = Mixer(kick, snare)
-var reverb = AKReverb(mix)
+var reverb = Reverb(mix)
 
 //: Generate a cheap electro beat
 var counter = 0

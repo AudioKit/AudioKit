@@ -240,7 +240,7 @@ let validatedMD5s: [String: String] = [
     "-[ResonantFilterTests testDefault]": "f176a31fa6107cfdacbeeddd2aa83995",
     "-[ResonantFilterTests testFrequency]": "94056ef1d9234a5bb8252cefe5e73969",
     "-[ResonantFilterTests testParameters]": "8918933c3dcd7b387c190aaca9480797",
-    "-[AKReverbTests testBypass]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
+    "-[ReverbTests testBypass]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[RhodesPianoKeyTests testAmplitude]": "1a7b8e61e80129eed47bc151ca3750ae",
     "-[RhodesPianoKeyTests testRhodesPiano]": "4cb0cad6b74004b685e02ce9eafbc98d",
     "-[RingModulatorTests testDefault]": "5d8cd020b3099d450e28efa0f3f3fa48",

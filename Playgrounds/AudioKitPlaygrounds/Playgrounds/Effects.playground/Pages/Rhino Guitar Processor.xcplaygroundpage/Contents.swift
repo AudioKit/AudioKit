@@ -11,7 +11,7 @@ do {
     let player = try AKAudioPlayer(file: guitarFile)
     player.looping = true
     rhino = RhinoGuitarProcessor(player)
-    let reverb = AKReverb(rhino)
+    let reverb = Reverb(rhino)
     engine.output = Mixer(reverb, rhino)
     try engine.start()
     player.play()

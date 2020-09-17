@@ -7,7 +7,7 @@ let playRate = 2.0
 
 let clarinet = Clarinet()
 
-let reverb = AKReverb(clarinet)
+let reverb = Reverb(clarinet)
 
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
