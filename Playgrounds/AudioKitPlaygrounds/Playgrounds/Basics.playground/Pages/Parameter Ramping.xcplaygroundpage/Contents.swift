@@ -10,7 +10,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-var noise = AKWhiteNoise(amplitude: 1)
+var noise = WhiteNoise(amplitude: 1)
 var filter = MoogLadder(noise)
 
 filter.resonance = 0.94

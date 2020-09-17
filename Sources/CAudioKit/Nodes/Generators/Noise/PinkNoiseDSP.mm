@@ -4,18 +4,18 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPinkNoiseParameter : AUParameterAddress {
-    AKPinkNoiseParameterAmplitude,
+enum PinkNoiseParameter : AUParameterAddress {
+    PinkNoiseParameterAmplitude,
 };
 
-class AKPinkNoiseDSP : public AKSoundpipeDSPBase {
+class PinkNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_pinknoise *pinknoise;
     ParameterRamper amplitudeRamp;
 
 public:
-    AKPinkNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKPinkNoiseParameterAmplitude] = &amplitudeRamp;
+    PinkNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[PinkNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
@@ -58,5 +58,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPinkNoiseDSP)
-AK_REGISTER_PARAMETER(AKPinkNoiseParameterAmplitude)
+AK_REGISTER_DSP(PinkNoiseDSP)
+AK_REGISTER_PARAMETER(PinkNoiseParameterAmplitude)

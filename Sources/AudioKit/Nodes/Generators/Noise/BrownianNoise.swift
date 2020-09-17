@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Brownian noise generator
-public class AKBrownianNoise: AKNode, AKComponent, AKToggleable {
+public class BrownianNoise: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")
 
@@ -18,7 +18,7 @@ public class AKBrownianNoise: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKBrownianNoiseParameterAmplitude"),
+        address: akGetParameterAddress("BrownianNoiseParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKBrownianNoise: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKBrownianNoise.amplitudeDef]
+            [BrownianNoise.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKBrownianNoiseDSP")
+            akCreateDSP("BrownianNoiseDSP")
         }
     }
 

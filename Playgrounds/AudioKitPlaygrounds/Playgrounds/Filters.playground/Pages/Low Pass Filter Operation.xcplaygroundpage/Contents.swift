@@ -5,7 +5,7 @@ import AudioKit
 
 //: Noise Example
 // Bring down the amplitude so that when it is mixed it is not so loud
-let whiteNoise = AKWhiteNoise(amplitude: 0.1)
+let whiteNoise = WhiteNoise(amplitude: 0.1)
 let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise in
     let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return whiteNoise.lowPassFilter(halfPowerPoint: halfPower)

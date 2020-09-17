@@ -4,18 +4,18 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKBrownianNoiseParameter : AUParameterAddress {
-    AKBrownianNoiseParameterAmplitude,
+enum BrownianNoiseParameter : AUParameterAddress {
+    BrownianNoiseParameterAmplitude,
 };
 
-class AKBrownianNoiseDSP : public AKSoundpipeDSPBase {
+class BrownianNoiseDSP : public AKSoundpipeDSPBase {
 private:
     sp_brown *brown;
     ParameterRamper amplitudeRamp;
 
 public:
-    AKBrownianNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKBrownianNoiseParameterAmplitude] = &amplitudeRamp;
+    BrownianNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[BrownianNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
@@ -59,5 +59,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKBrownianNoiseDSP)
-AK_REGISTER_PARAMETER(AKBrownianNoiseParameterAmplitude)
+AK_REGISTER_DSP(BrownianNoiseDSP)
+AK_REGISTER_PARAMETER(BrownianNoiseParameterAmplitude)
