@@ -61,11 +61,11 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     /// System Command
-    public var command: AKMIDISystemCommand? {
+    public var command: MIDISystemCommand? {
         // FIXME: Improve this if statement to catch valid system reset commands (0xFF)
         // but ignore meta events (0xFF, 0x..., 0x..., etc)
-        if let statusByte = data.first, statusByte != AKMIDISystemCommand.sysReset.rawValue {
-            return AKMIDISystemCommand(rawValue: statusByte)
+        if let statusByte = data.first, statusByte != MIDISystemCommand.sysReset.rawValue {
+            return MIDISystemCommand(rawValue: statusByte)
         }
         return nil
     }
@@ -116,7 +116,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
                     AKMIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
-                    if let sysExEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysExEnd.byte) {
+                    if let sysExEndIndex = midiBytes.firstIndex(of: MIDISystemCommand.sysExEnd.byte) {
                         let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
                         AKMIDI.sharedInstance.stopReceivingSysEx()
@@ -161,10 +161,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
         if AKMIDI.sharedInstance.isReceivingSysEx {
-            if let sysExEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysExEnd.rawValue) {
+            if let sysExEndIndex = data.firstIndex(of: MIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
-        } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
+        } else if let command = MIDISystemCommand(rawValue: data[0]) {
             self.data = []
             // is sys command
             if command == .sysEx {
@@ -213,7 +213,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///   - byte1:   First data byte
     ///   - byte2:   Second data byte
     ///
-    init(command: AKMIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
+    init(command: MIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
         var data = [byte1]
         if let byte2 = byte2 {
             data.append(byte2)
@@ -221,7 +221,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         fillData(command: command, bytes: data)
     }
 
-    fileprivate mutating func fillData(command: AKMIDISystemCommand,
+    fileprivate mutating func fillData(command: MIDISystemCommand,
                                        bytes: [MIDIByte]) {
         data.removeAll()
         data.append(command.byte)
@@ -291,7 +291,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AKMIDI.sharedInstance.incomingSysEx += midiBytes
-            if midiBytes.contains(AKMIDISystemCommand.sysExEnd.rawValue) {
+            if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
                 let sysExEvent = AKMIDIEvent(data: AKMIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
                 AKMIDI.sharedInstance.stopReceivingSysEx()
                 return sysExEvent
@@ -334,8 +334,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
                         }
                     }
                     rawEvent.append(byte) //set the status byte
-                    if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysEx.rawValue)
-                        || byte == AKMIDISystemCommand.sysExEnd.rawValue {
+                    if (rawEvent.count == 3 && lastStatus != MIDISystemCommand.sysEx.rawValue)
+                        || byte == MIDISystemCommand.sysExEnd.rawValue {
                         //end of message
                         messageJustFinished = true
                         if rawEvent.isNotEmpty {

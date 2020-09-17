@@ -73,7 +73,7 @@ public struct MIDIFileChunkEvent {
                 return timeLength + 1
             } else if MIDIStatus(byte: data[timeLength]) != nil {
                 return timeLength
-            } else if AKMIDISystemCommand(rawValue: data[timeLength]) != nil {
+            } else if MIDISystemCommand(rawValue: data[timeLength]) != nil {
                 return timeLength
             }
         }
@@ -85,7 +85,7 @@ public struct MIDIFileChunkEvent {
             return metaEvent.length
         } else if let status = event as? MIDIStatus {
             return status.length
-        } else if let command = event as? AKMIDISystemCommand {
+        } else if let command = event as? MIDISystemCommand {
             if let standardLength = command.length {
                 return standardLength
             } else if command == .sysEx {
@@ -105,7 +105,7 @@ public struct MIDIFileChunkEvent {
         } else if let type = typeByte {
             if let status = MIDIStatus(byte: type) {
                 return status
-            } else if let command = AKMIDISystemCommand(rawValue: type) {
+            } else if let command = MIDISystemCommand(rawValue: type) {
                 return command
             }
         }

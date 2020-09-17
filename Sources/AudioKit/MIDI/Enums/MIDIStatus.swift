@@ -12,7 +12,7 @@ public struct MIDIStatus: AKMIDIMessage {
         byte = MIDIByte(type.rawValue) << 4 + channel
     }
 
-    public init(command: AKMIDISystemCommand) {
+    public init(command: MIDISystemCommand) {
         byte = command.rawValue
     }
 
@@ -35,7 +35,7 @@ public struct MIDIStatus: AKMIDIMessage {
     public var description: String {
         if let type = self.type {
             return "\(type.description) channel \(channel)"
-        } else if let command = AKMIDISystemCommand(rawValue: byte) {
+        } else if let command = MIDISystemCommand(rawValue: byte) {
             return "Command: \(command.description)"
         }
         return "Invalid message"
