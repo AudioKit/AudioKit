@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
-public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
+public class ZitaReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
@@ -18,7 +18,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let predelayDef = AKNodeParameterDef(
         identifier: "predelay",
         name: "Delay in ms before reverberation begins.",
-        address: akGetParameterAddress("AKZitaReverbParameterPredelay"),
+        address: akGetParameterAddress("ZitaReverbParameterPredelay"),
         range: 0.0 ... 200.0,
         unit: .generic,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let crossoverFrequencyDef = AKNodeParameterDef(
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
-        address: akGetParameterAddress("AKZitaReverbParameterCrossoverFrequency"),
+        address: akGetParameterAddress("ZitaReverbParameterCrossoverFrequency"),
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let lowReleaseTimeDef = AKNodeParameterDef(
         identifier: "lowReleaseTime",
         name: "Time (in seconds) to decay 60db in low-frequency band.",
-        address: akGetParameterAddress("AKZitaReverbParameterLowReleaseTime"),
+        address: akGetParameterAddress("ZitaReverbParameterLowReleaseTime"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -51,7 +51,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let midReleaseTimeDef = AKNodeParameterDef(
         identifier: "midReleaseTime",
         name: "Time (in seconds) to decay 60db in mid-frequency band.",
-        address: akGetParameterAddress("AKZitaReverbParameterMidReleaseTime"),
+        address: akGetParameterAddress("ZitaReverbParameterMidReleaseTime"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -62,7 +62,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let dampingFrequencyDef = AKNodeParameterDef(
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
-        address: akGetParameterAddress("AKZitaReverbParameterDampingFrequency"),
+        address: akGetParameterAddress("ZitaReverbParameterDampingFrequency"),
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -73,7 +73,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let equalizerFrequency1Def = AKNodeParameterDef(
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
-        address: akGetParameterAddress("AKZitaReverbParameterEqualizerFrequency1"),
+        address: akGetParameterAddress("ZitaReverbParameterEqualizerFrequency1"),
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -84,7 +84,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let equalizerLevel1Def = AKNodeParameterDef(
         identifier: "equalizerLevel1",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
-        address: akGetParameterAddress("AKZitaReverbParameterEqualizerLevel1"),
+        address: akGetParameterAddress("ZitaReverbParameterEqualizerLevel1"),
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -95,7 +95,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let equalizerFrequency2Def = AKNodeParameterDef(
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
-        address: akGetParameterAddress("AKZitaReverbParameterEqualizerFrequency2"),
+        address: akGetParameterAddress("ZitaReverbParameterEqualizerFrequency2"),
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -106,7 +106,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let equalizerLevel2Def = AKNodeParameterDef(
         identifier: "equalizerLevel2",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
-        address: akGetParameterAddress("AKZitaReverbParameterEqualizerLevel2"),
+        address: akGetParameterAddress("ZitaReverbParameterEqualizerLevel2"),
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -117,7 +117,7 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public static let dryWetMixDef = AKNodeParameterDef(
         identifier: "dryWetMix",
         name: "0 = all dry, 1 = all wet",
-        address: akGetParameterAddress("AKZitaReverbParameterDryWetMix"),
+        address: akGetParameterAddress("ZitaReverbParameterDryWetMix"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -130,20 +130,20 @@ public class AKZitaReverb: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKZitaReverb.predelayDef,
-             AKZitaReverb.crossoverFrequencyDef,
-             AKZitaReverb.lowReleaseTimeDef,
-             AKZitaReverb.midReleaseTimeDef,
-             AKZitaReverb.dampingFrequencyDef,
-             AKZitaReverb.equalizerFrequency1Def,
-             AKZitaReverb.equalizerLevel1Def,
-             AKZitaReverb.equalizerFrequency2Def,
-             AKZitaReverb.equalizerLevel2Def,
-             AKZitaReverb.dryWetMixDef]
+            [ZitaReverb.predelayDef,
+             ZitaReverb.crossoverFrequencyDef,
+             ZitaReverb.lowReleaseTimeDef,
+             ZitaReverb.midReleaseTimeDef,
+             ZitaReverb.dampingFrequencyDef,
+             ZitaReverb.equalizerFrequency1Def,
+             ZitaReverb.equalizerLevel1Def,
+             ZitaReverb.equalizerFrequency2Def,
+             ZitaReverb.equalizerLevel2Def,
+             ZitaReverb.dryWetMixDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKZitaReverbDSP")
+            akCreateDSP("ZitaReverbDSP")
         }
     }
 

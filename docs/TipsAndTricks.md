@@ -16,7 +16,7 @@ Go into the 'Build Settings' tab of your Audiokit and/or AudiokitUI projects, an
 Because AudioKit is a static framework, Xcode will strip out the parts of AudioKit that you don't need for your app, keeping the size small. But, sometimes it is bad at deciding what you need and you'll get bizarre 'unrecognized selector sent to instance' at runtime, even though things compile fine.  If this is happening to you.  Add the following to the  "Other Linker Flags" in the "Build Settings" tab for your app: "-all_load".  This will force all of AudioKit to load regardless of what Xcode deems you need. This should be a very rare occurrence, but its a great tip to keep in your arsenal.
 
 
-## 4. Making AKAppleSampler not get corrupted by an audio route change 
+## 4. Making AppleSampler not get corrupted by an audio route change 
 
 When the audio session route changes (the iOS device is plugged into an external sound interface, headphones are connected, you start capturing a video on a mac using Quicktime...) Samplers start producing distorted audio.
 

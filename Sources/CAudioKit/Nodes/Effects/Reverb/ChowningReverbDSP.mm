@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class AKChowningReverbDSP : public AKSoundpipeDSPBase {
+class ChowningReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_jcrev *jcrev0;
     sp_jcrev *jcrev1;
 
 public:
-    AKChowningReverbDSP() {
+    ChowningReverbDSP() {
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -62,4 +62,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKChowningReverbDSP)
+AK_REGISTER_DSP(ChowningReverbDSP)

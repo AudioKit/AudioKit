@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKZitaReverbTests: XCTestCase {
+class ZitaReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKZitaReverb(input)
+        engine.output = ZitaReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKZitaReverbTests: XCTestCase {
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKZitaReverb(input)
+        let effect = ZitaReverb(input)
         effect.predelay = 10
         effect.crossoverFrequency = 200
         effect.lowReleaseTime = 1.5
@@ -39,7 +39,7 @@ class AKZitaReverbTests: XCTestCase {
     func testParametersSetOnInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKZitaReverb(input,
+        engine.output = ZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,
                               lowReleaseTime: 1.5,

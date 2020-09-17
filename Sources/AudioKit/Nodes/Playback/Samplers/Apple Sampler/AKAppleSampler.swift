@@ -5,12 +5,12 @@ import CAudioKit
 
 /// Sampler audio generation.
 ///
-/// 1. init the audio unit like this: var sampler = AKAppleSampler()
+/// 1. init the audio unit like this: var sampler = AppleSampler()
 /// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AKAppleSampler: AKNode {
+open class AppleSampler: AKNode {
 
     // MARK: - Properties
 

@@ -9,7 +9,7 @@ This file contains the code for a horizontal MIDI sequencer view, similar to wha
 in most Digital Audio Workstations.
 To add this view to your app, it's as simple as specifying the size/position of the view you
 would like, giving it a MIDI File URL and track number, adding an AKMIDISampler,
-adding an AKAppleSequencer,
+adding an AppleSequencer,
  and adding the track view to the view controller
 
 For example:
@@ -18,7 +18,7 @@ var trackView1: AKMIDITrackView = AKMIDITrackView(frame: CGRect(x: , y: , width:
 midiFile: AKMIDIFile(url: urltoyourmidifile),
 trackNumber: The MIDI track number you want to display,
  sampler: AKMIDISampler,
- sequencer: AKAppleSequencer)
+ sequencer: AppleSequencer)
 
 //Inside View Controller
 
@@ -26,7 +26,7 @@ self.view.addSubview(self.trackView1)
 
 self.trackView1.play()
 
-If you are using an AKAppleSampler or Sampler, sequencer, etc,
+If you are using an AppleSampler or Sampler, sequencer, etc,
 you will want to play the track directly before you play through the sequencer
 so the sound is synced with the playback.
 
@@ -49,7 +49,7 @@ public class AKMIDITrackView: AKButton {
     var noteGroupPosition: Double = 0.0
     public var midiTrackNoteMap: AKMIDIFileTrackNoteMap!
     public var sampler: AKMIDISampler!
-    public var sequencer: AKAppleSequencer!
+    public var sequencer: AppleSequencer!
     var previousTempo = 0.0
     var trackLength: Double {
         return midiTrackNoteMap.endOfTrack
@@ -62,7 +62,7 @@ public class AKMIDITrackView: AKButton {
     public convenience init(frame: CGRect, midiFile: URL!,
                             trackNumber: Int,
                             sampler: AKMIDISampler,
-                            sequencer: AKAppleSequencer) {
+                            sequencer: AppleSequencer) {
         self.init(frame: frame)
         self.borderWidth = 0.0
         clipsToBounds = true

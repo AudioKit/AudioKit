@@ -10,7 +10,7 @@ import os.log
 ///
 /// Be sure to enableMIDI if you want to receive messages
 ///
-open class AKMIDISampler: AKAppleSampler {
+open class AKMIDISampler: AppleSampler {
     // MARK: - Properties
 
     /// MIDI Input
