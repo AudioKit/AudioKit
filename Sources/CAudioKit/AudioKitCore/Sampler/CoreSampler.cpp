@@ -17,7 +17,7 @@
 // Convert MIDI note to Hz, for 12-tone equal temperament
 #define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
 
-struct AKCoreSampler::InternalData {
+struct CoreSampler::InternalData {
     // list of (pointers to) all loaded samples
     std::list<AudioKitCore::KeyMappedSampleBuffer*> sampleBufferList;
     
@@ -40,7 +40,7 @@ struct AKCoreSampler::InternalData {
     float tuningTable[128];
 };
 
-AKCoreSampler::AKCoreSampler()
+CoreSampler::CoreSampler()
 : currentSampleRate(44100.0f)    // sensible guess
 , isKeyMapValid(false)
 , isFilterEnabled(false)
@@ -79,12 +79,12 @@ AKCoreSampler::AKCoreSampler()
         data->tuningTable[i] = NOTE_HZ(i);
 }
 
-AKCoreSampler::~AKCoreSampler()
+CoreSampler::~CoreSampler()
 {
     unloadAllSamples();
 }
 
-int AKCoreSampler::init(double sampleRate)
+int CoreSampler::init(double sampleRate)
 {
     currentSampleRate = (float)sampleRate;
     data->ampEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
@@ -98,11 +98,11 @@ int AKCoreSampler::init(double sampleRate)
     return 0;   // no error
 }
 
-void AKCoreSampler::deinit()
+void CoreSampler::deinit()
 {
 }
 
-void AKCoreSampler::unloadAllSamples()
+void CoreSampler::unloadAllSamples()
 {
     isKeyMapValid = false;
     for (AudioKitCore::KeyMappedSampleBuffer *pBuf : data->sampleBufferList)
@@ -112,7 +112,7 @@ void AKCoreSampler::unloadAllSamples()
         data->keyMap[i].clear();
 }
 
-void AKCoreSampler::loadSampleData(SampleDataDescriptor& sdd)
+void CoreSampler::loadSampleData(SampleDataDescriptor& sdd)
 {
     AudioKitCore::KeyMappedSampleBuffer *pBuf = new AudioKitCore::KeyMappedSampleBuffer();
     pBuf->minimumNoteNumber = sdd.sampleDescriptor.minimumNoteNumber;
@@ -158,7 +158,7 @@ void AKCoreSampler::loadSampleData(SampleDataDescriptor& sdd)
     }
 }
 
-AudioKitCore::KeyMappedSampleBuffer *AKCoreSampler::lookupSample(unsigned noteNumber, unsigned velocity)
+AudioKitCore::KeyMappedSampleBuffer *CoreSampler::lookupSample(unsigned noteNumber, unsigned velocity)
 {
     // common case: only one sample mapped to this note - return it immediately
     if (data->keyMap[noteNumber].size() == 1)
@@ -178,14 +178,14 @@ AudioKitCore::KeyMappedSampleBuffer *AKCoreSampler::lookupSample(unsigned noteNu
     return 0;
 }
 
-void AKCoreSampler::setNoteFrequency(int noteNumber, float noteFrequency)
+void CoreSampler::setNoteFrequency(int noteNumber, float noteFrequency)
 {
     data->tuningTable[noteNumber] = noteFrequency;
 }
 
 // re-compute keyMap[] so every MIDI note number is automatically mapped to the sample buffer
 // closest in pitch
-void AKCoreSampler::buildSimpleKeyMap()
+void CoreSampler::buildSimpleKeyMap()
 {
     // clear out the old mapping entirely
     isKeyMapValid = false;
@@ -221,7 +221,7 @@ void AKCoreSampler::buildSimpleKeyMap()
 }
 
 // rebuild keyMap based on explicit mapping data in samples
-void AKCoreSampler::buildKeyMap(void)
+void CoreSampler::buildKeyMap(void)
 {
     // clear out the old mapping entirely
     isKeyMapValid = false;
@@ -241,7 +241,7 @@ void AKCoreSampler::buildKeyMap(void)
     isKeyMapValid = true;
 }
 
-AudioKitCore::SamplerVoice *AKCoreSampler::voicePlayingNote(unsigned noteNumber)
+AudioKitCore::SamplerVoice *CoreSampler::voicePlayingNote(unsigned noteNumber)
 {
     for (int i=0; i < MAX_POLYPHONY; i++)
     {
@@ -251,20 +251,20 @@ AudioKitCore::SamplerVoice *AKCoreSampler::voicePlayingNote(unsigned noteNumber)
     return 0;
 }
 
-void AKCoreSampler::playNote(unsigned noteNumber, unsigned velocity)
+void CoreSampler::playNote(unsigned noteNumber, unsigned velocity)
 {
     bool anotherKeyWasDown = data->pedalLogic.isAnyKeyDown();
     data->pedalLogic.keyDownAction(noteNumber);
     play(noteNumber, velocity, anotherKeyWasDown);
 }
 
-void AKCoreSampler::stopNote(unsigned noteNumber, bool immediate)
+void CoreSampler::stopNote(unsigned noteNumber, bool immediate)
 {
     if (immediate || data->pedalLogic.keyUpAction(noteNumber))
         stop(noteNumber, immediate);
 }
 
-void AKCoreSampler::sustainPedal(bool down)
+void CoreSampler::sustainPedal(bool down)
 {
     if (down) data->pedalLogic.pedalDown();
     else {
@@ -277,7 +277,7 @@ void AKCoreSampler::sustainPedal(bool down)
     }
 }
 
-void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKeyWasDown)
+void CoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKeyWasDown)
 {
     if (stoppingAllVoices) return;
 
@@ -351,7 +351,7 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKey
     }
 }
 
-void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
+void CoreSampler::stop(unsigned noteNumber, bool immediate)
 {
     AudioKitCore::SamplerVoice *pVoice = voicePlayingNote(noteNumber);
     if (pVoice == 0) return;
@@ -382,7 +382,7 @@ void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
     }
 }
 
-void AKCoreSampler::stopAllVoices()
+void CoreSampler::stopAllVoices()
 {
     // Lock out starting any new notes, and tell Render() to stop all active notes
     stoppingAllVoices = true;
@@ -397,13 +397,13 @@ void AKCoreSampler::stopAllVoices()
     }
 }
 
-void AKCoreSampler::restartVoices()
+void CoreSampler::restartVoices()
 {
     // Allow starting new notes again
     stoppingAllVoices = false;
 }
 
-void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
+void CoreSampler::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
 {
     float *pOutLeft = outBuffers[0];
     float *pOutRight = outBuffers[1];
@@ -432,157 +432,157 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
     }
 }
 
-void  AKCoreSampler::setADSRAttackDurationSeconds(float value)
+void  CoreSampler::setADSRAttackDurationSeconds(float value)
 {
     data->ampEnvelopeParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRAttackDurationSeconds(void)
+float CoreSampler::getADSRAttackDurationSeconds(void)
 {
     return data->ampEnvelopeParameters.getAttackDurationSeconds();
 }
 
-void  AKCoreSampler::setADSRHoldDurationSeconds(float value)
+void  CoreSampler::setADSRHoldDurationSeconds(float value)
 {
     data->ampEnvelopeParameters.setHoldDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRHoldDurationSeconds(void)
+float CoreSampler::getADSRHoldDurationSeconds(void)
 {
     return data->ampEnvelopeParameters.getHoldDurationSeconds();
 }
 
-void  AKCoreSampler::setADSRDecayDurationSeconds(float value)
+void  CoreSampler::setADSRDecayDurationSeconds(float value)
 {
     data->ampEnvelopeParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRDecayDurationSeconds(void)
+float CoreSampler::getADSRDecayDurationSeconds(void)
 {
     return data->ampEnvelopeParameters.getDecayDurationSeconds();
 }
 
-void  AKCoreSampler::setADSRSustainFraction(float value)
+void  CoreSampler::setADSRSustainFraction(float value)
 {
     data->ampEnvelopeParameters.sustainFraction = value;
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRSustainFraction(void)
+float CoreSampler::getADSRSustainFraction(void)
 {
     return data->ampEnvelopeParameters.sustainFraction;
 }
 
-void  AKCoreSampler::setADSRReleaseHoldDurationSeconds(float value)
+void  CoreSampler::setADSRReleaseHoldDurationSeconds(float value)
 {
     data->ampEnvelopeParameters.setReleaseHoldDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRReleaseHoldDurationSeconds(void)
+float CoreSampler::getADSRReleaseHoldDurationSeconds(void)
 {
     return data->ampEnvelopeParameters.getReleaseHoldDurationSeconds();
 }
 
-void  AKCoreSampler::setADSRReleaseDurationSeconds(float value)
+void  CoreSampler::setADSRReleaseDurationSeconds(float value)
 {
     data->ampEnvelopeParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
 }
 
-float AKCoreSampler::getADSRReleaseDurationSeconds(void)
+float CoreSampler::getADSRReleaseDurationSeconds(void)
 {
     return data->ampEnvelopeParameters.getReleaseDurationSeconds();
 }
 
-void  AKCoreSampler::setFilterAttackDurationSeconds(float value)
+void  CoreSampler::setFilterAttackDurationSeconds(float value)
 {
     data->filterEnvelopeParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateFilterAdsrParameters();
 }
 
-float AKCoreSampler::getFilterAttackDurationSeconds(void)
+float CoreSampler::getFilterAttackDurationSeconds(void)
 {
     return data->filterEnvelopeParameters.getAttackDurationSeconds();
 }
 
-void  AKCoreSampler::setFilterDecayDurationSeconds(float value)
+void  CoreSampler::setFilterDecayDurationSeconds(float value)
 {
     data->filterEnvelopeParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateFilterAdsrParameters();
 }
 
-float AKCoreSampler::getFilterDecayDurationSeconds(void)
+float CoreSampler::getFilterDecayDurationSeconds(void)
 {
     return data->filterEnvelopeParameters.getDecayDurationSeconds();
 }
 
-void  AKCoreSampler::setFilterSustainFraction(float value)
+void  CoreSampler::setFilterSustainFraction(float value)
 {
     data->filterEnvelopeParameters.sustainFraction = value;
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateFilterAdsrParameters();
 }
 
-float AKCoreSampler::getFilterSustainFraction(void)
+float CoreSampler::getFilterSustainFraction(void)
 {
     return data->filterEnvelopeParameters.sustainFraction;
 }
 
-void  AKCoreSampler::setFilterReleaseDurationSeconds(float value)
+void  CoreSampler::setFilterReleaseDurationSeconds(float value)
 {
     data->filterEnvelopeParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateFilterAdsrParameters();
 }
 
-float AKCoreSampler::getFilterReleaseDurationSeconds(void)
+float CoreSampler::getFilterReleaseDurationSeconds(void)
 {
     return data->filterEnvelopeParameters.getReleaseDurationSeconds();
 }
 
 
-void  AKCoreSampler::setPitchAttackDurationSeconds(float value)
+void  CoreSampler::setPitchAttackDurationSeconds(float value)
 {
     data->pitchEnvelopeParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
 }
 
-float AKCoreSampler::getPitchAttackDurationSeconds(void)
+float CoreSampler::getPitchAttackDurationSeconds(void)
 {
     return data->pitchEnvelopeParameters.getAttackDurationSeconds();
 }
 
-void  AKCoreSampler::setPitchDecayDurationSeconds(float value)
+void  CoreSampler::setPitchDecayDurationSeconds(float value)
 {
     data->pitchEnvelopeParameters.setDecayDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
 }
 
-float AKCoreSampler::getPitchDecayDurationSeconds(void)
+float CoreSampler::getPitchDecayDurationSeconds(void)
 {
     return data->pitchEnvelopeParameters.getDecayDurationSeconds();
 }
 
-void  AKCoreSampler::setPitchSustainFraction(float value)
+void  CoreSampler::setPitchSustainFraction(float value)
 {
     data->pitchEnvelopeParameters.sustainFraction = value;
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
 }
 
-float AKCoreSampler::getPitchSustainFraction(void)
+float CoreSampler::getPitchSustainFraction(void)
 {
     return data->pitchEnvelopeParameters.sustainFraction;
 }
 
-void  AKCoreSampler::setPitchReleaseDurationSeconds(float value)
+void  CoreSampler::setPitchReleaseDurationSeconds(float value)
 {
     data->pitchEnvelopeParameters.setReleaseDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updatePitchAdsrParameters();
 }
 
-float AKCoreSampler::getPitchReleaseDurationSeconds(void)
+float CoreSampler::getPitchReleaseDurationSeconds(void)
 {
     return data->pitchEnvelopeParameters.getReleaseDurationSeconds();
 }
