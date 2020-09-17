@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKPannerTests: XCTestCase {
+class PannerTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPanner(input)
+        engine.output = Panner(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKPannerTests: XCTestCase {
     func testBypass() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let pan = AKPanner(input, pan: -1)
+        let pan = Panner(input, pan: -1)
         pan.bypass()
         engine.output = pan
         input.start()
@@ -30,7 +30,7 @@ class AKPannerTests: XCTestCase {
     func testPanLeft() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPanner(input, pan: -1)
+        engine.output = Panner(input, pan: -1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -40,7 +40,7 @@ class AKPannerTests: XCTestCase {
     func testPanRight() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPanner(input, pan: 1)
+        engine.output = Panner(input, pan: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

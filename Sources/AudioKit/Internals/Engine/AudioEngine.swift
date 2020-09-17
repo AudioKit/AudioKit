@@ -34,7 +34,7 @@ public class AudioEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1_024
 
-    public class InputNode: AKMixer {
+    public class InputNode: Mixer {
         var isNotConnected = true
 
         func connect(to engine: AudioEngine) {

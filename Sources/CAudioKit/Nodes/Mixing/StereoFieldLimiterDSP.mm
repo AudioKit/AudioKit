@@ -3,18 +3,18 @@
 #include "DSPBase.h"
 #include "ParameterRamper.h"
 
-enum AKStereoFieldLimiterParameter : AUParameterAddress {
-    AKStereoFieldLimiterParameterAmount,
+enum StereoFieldLimiterParameter : AUParameterAddress {
+    StereoFieldLimiterParameterAmount,
 };
 
-struct AKStereoFieldLimiterDSP : AKDSPBase {
+struct StereoFieldLimiterDSP : AKDSPBase {
 private:
     ParameterRamper amountRamp;
 
 public:
 
-    AKStereoFieldLimiterDSP() {
-        parameters[AKStereoFieldLimiterParameterAmount] = &amountRamp;
+    StereoFieldLimiterDSP() {
+        parameters[StereoFieldLimiterParameterAmount] = &amountRamp;
     }
     
     void init(int channelCount, double sampleRate) override {
@@ -50,7 +50,7 @@ public:
 };
 
 AKDSPRef akStereoFieldLimiterCreateDSP() {
-    return new AKStereoFieldLimiterDSP();
+    return new StereoFieldLimiterDSP();
 }
-AK_REGISTER_DSP(AKStereoFieldLimiterDSP)
-AK_REGISTER_PARAMETER(AKStereoFieldLimiterParameterAmount)
+AK_REGISTER_DSP(StereoFieldLimiterDSP)
+AK_REGISTER_PARAMETER(StereoFieldLimiterParameterAmount)

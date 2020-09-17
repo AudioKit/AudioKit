@@ -3,12 +3,12 @@ import AudioKit
 //: Components
 let mic = engine.input
 let reverb = CostelloReverb()
-var reverbMixer = AKDryWetMixer()
+var reverbMixer = DryWetMixer()
 //: Signal Chain
 let delay = VariableDelay(mic)
-let delayMixer = AKDryWetMixer(mic, delay)
+let delayMixer = DryWetMixer(mic, delay)
 let reverb = CostelloReverb(delayMixer)
-reverbMixer = AKDryWetMixer(delayMixer, reverb)
+reverbMixer = DryWetMixer(delayMixer, reverb)
 var output = reverbMixer
 //: Parameters
 delay.time = 0.25
@@ -19,11 +19,11 @@ reverbMixer.balance = 0.2
 reverbMixer.balance = 0.5
 
 // Copies for plotting
-let micCopy1 = AKFader(mic)
-let micCopy2 = AKFader(mic)
-let micCopy3 = AKFader(mic)
+let micCopy1 = Fader(mic)
+let micCopy2 = Fader(mic)
+let micCopy3 = Fader(mic)
 
-engine.output = AKStereoFieldLimiter(reverbMixer)
+engine.output = StereoFieldLimiter(reverbMixer)
 try engine.start()
 
 //: User Interface

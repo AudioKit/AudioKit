@@ -10,11 +10,11 @@ try piano.loadWav("Samples/FM Piano")
 var bell = AKMIDISampler()
 try bell.loadWav("Samples/Bell")
 
-var mixer = AKMixer(piano, bell)
+var mixer = Mixer(piano, bell)
 
 let reverb = CostelloReverb(mixer)
 
-let dryWetMixer = AKDryWetMixer(mixer, reverb, balance: 0.2)
+let dryWetMixer = DryWetMixer(mixer, reverb, balance: 0.2)
 engine.output = dryWetMixer
 
 //: Create the sequencer after AudioKit's output has been set

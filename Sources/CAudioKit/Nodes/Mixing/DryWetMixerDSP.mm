@@ -3,18 +3,18 @@
 #include "SoundpipeDSPBase.h"
 #include "ParameterRamper.h"
 
-enum AKDryWetMixerParameter : AUParameterAddress {
-    AKDryWetMixerParameterBalance,
+enum DryWetMixerParameter : AUParameterAddress {
+    DryWetMixerParameterBalance,
 };
 
-class AKDryWetMixerDSP : public AKSoundpipeDSPBase {
+class DryWetMixerDSP : public AKSoundpipeDSPBase {
 private:
     ParameterRamper balanceRamp;
 
 public:
-    AKDryWetMixerDSP() {
+    DryWetMixerDSP() {
         inputBufferLists.resize(2);
-        parameters[AKDryWetMixerParameterBalance] = &balanceRamp;
+        parameters[DryWetMixerParameterBalance] = &balanceRamp;
         bCanProcessInPlace = true;
     }
 
@@ -39,5 +39,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKDryWetMixerDSP)
-AK_REGISTER_PARAMETER(AKDryWetMixerParameterBalance)
+AK_REGISTER_DSP(DryWetMixerDSP)
+AK_REGISTER_PARAMETER(DryWetMixerParameterBalance)

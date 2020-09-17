@@ -34,7 +34,7 @@ class AKNodeTests: XCTestCase {
 
     func testRedundantConnection() {
         let osc = Oscillator()
-        let mixer = AKMixer()
+        let mixer = Mixer()
         mixer.addInput(osc)
         mixer.addInput(osc)
         XCTAssertEqual(mixer.connections.count, 1)
@@ -69,7 +69,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer = AKMixer(osc)
+        let mixer = Mixer(osc)
 
         XCTAssertNil(osc.avAudioNode.engine)
 
@@ -98,7 +98,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer = AKMixer(osc)
+        let mixer = Mixer(osc)
 
         engine.output = mixer
         osc.start()
@@ -122,7 +122,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer = AKMixer(osc)
+        let mixer = Mixer(osc)
         engine.output = mixer
 
         osc.start()
@@ -150,7 +150,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer = AKMixer(osc)
+        let mixer = Mixer(osc)
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 2.0)
@@ -171,7 +171,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer = AKMixer(osc)
+        let mixer = Mixer(osc)
         engine.output = mixer
         osc.start()
 
@@ -212,7 +212,7 @@ class AKNodeTests: XCTestCase {
             oscs.append(Oscillator())
         }
 
-        let mixer = AKMixer(oscs)
+        let mixer = Mixer(oscs)
         engine.output = mixer
 
         XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
@@ -236,7 +236,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
         let osc = Oscillator()
         let verb = CostelloReverb(osc)
-        let mixer = AKMixer(osc, verb)
+        let mixer = Mixer(osc, verb)
         engine.output = mixer
 
         XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
@@ -248,8 +248,8 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
 
         let osc = Oscillator()
-        let mixer1 = AKMixer(osc)
-        let mixer2 = AKMixer(mixer1)
+        let mixer1 = Mixer(osc)
+        let mixer2 = Mixer(mixer1)
 
         engine.output = mixer2
 

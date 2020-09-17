@@ -3,13 +3,13 @@
 import AudioKit
 import XCTest
 
-class AKDryWetMixerTests: XCTestCase {
+class DryWetMixerTests: XCTestCase {
     let input1 = Oscillator()
     let input2 = Oscillator(frequency: 1280)
 
     func testDefault() {
         let engine = AudioEngine()
-        let mixer = AKDryWetMixer(dry: input1, wet: input2)
+        let mixer = DryWetMixer(dry: input1, wet: input2)
         engine.output = mixer
 
         input1.start()
@@ -21,7 +21,7 @@ class AKDryWetMixerTests: XCTestCase {
 
     func testBalance0() {
         let engine = AudioEngine()
-        let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 0)
+        let mixer = DryWetMixer(dry: input1, wet: input2, balance: 0)
         engine.output = mixer
 
         input1.start()
@@ -33,7 +33,7 @@ class AKDryWetMixerTests: XCTestCase {
 
     func testBalance1() {
         let engine = AudioEngine()
-        let mixer = AKDryWetMixer(dry: input1, wet: input2, balance: 1)
+        let mixer = DryWetMixer(dry: input1, wet: input2, balance: 1)
         engine.output = mixer
 
         input1.start()

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
+public class StereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
@@ -18,7 +18,7 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     public static let amountDef = AKNodeParameterDef(
         identifier: "amount",
         name: "Limiting amount",
-        address: akGetParameterAddress("AKStereoFieldLimiterAmount"),
+        address: akGetParameterAddress("StereoFieldLimiterAmount"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKStereoFieldLimiter.amountDef]
+            [StereoFieldLimiter.amountDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKStereoFieldLimiterDSP")
+            akCreateDSP("StereoFieldLimiterDSP")
         }
     }
 

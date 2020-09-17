@@ -101,7 +101,7 @@ public class SpeechSynthesizer: AKNode {
             return
         }
         AKLog("Stopping should work, but its known to be nonfunctional.")
-        AKLog("Instead, send the speech synthesizer through AKFader and mute the output.")
+        AKLog("Instead, send the speech synthesizer through Fader and mute the output.")
         StopSpeech(speechChannel)
     }
 

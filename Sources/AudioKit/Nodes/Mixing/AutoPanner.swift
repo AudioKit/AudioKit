@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup panning with linear interpolation
 ///
-public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
+public class AutoPanner: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
@@ -18,7 +18,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKAutoPannerParameterFrequency"),
+        address: akGetParameterAddress("AutoPannerParameterFrequency"),
         range: 0.0...100.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
     public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth",
-        address: akGetParameterAddress("AKAutoPannerParameterDepth"),
+        address: akGetParameterAddress("AutoPannerParameterDepth"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -42,12 +42,12 @@ public class AKAutoPanner: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKAutoPanner.frequencyDef,
-             AKAutoPanner.depthDef]
+            [AutoPanner.frequencyDef,
+             AutoPanner.depthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKAutoPannerDSP")
+            akCreateDSP("AutoPannerDSP")
         }
     }
 

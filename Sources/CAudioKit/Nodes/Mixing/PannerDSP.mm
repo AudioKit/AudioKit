@@ -4,18 +4,18 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPannerParameter : AUParameterAddress {
-    AKPannerParameterPan,
+enum PannerParameter : AUParameterAddress {
+    PannerParameterPan,
 };
 
-class AKPannerDSP : public AKSoundpipeDSPBase {
+class PannerDSP : public AKSoundpipeDSPBase {
 private:
     sp_panst *panst;
     ParameterRamper panRamp;
 
 public:
-    AKPannerDSP() {
-        parameters[AKPannerParameterPan] = &panRamp;
+    PannerDSP() {
+        parameters[PannerParameterPan] = &panRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -63,5 +63,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPannerDSP)
-AK_REGISTER_PARAMETER(AKPannerParameterPan)
+AK_REGISTER_DSP(PannerDSP)
+AK_REGISTER_PARAMETER(PannerParameterPan)

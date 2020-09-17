@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class AKBalancerDSP : public AKSoundpipeDSPBase {
+class BalancerDSP : public AKSoundpipeDSPBase {
 private:
     sp_bal *bal;
 
 public:
-    AKBalancerDSP() {
+    BalancerDSP() {
         inputBufferLists.resize(2);
     }
 
@@ -49,4 +49,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKBalancerDSP)
+AK_REGISTER_DSP(BalancerDSP)

@@ -20,7 +20,7 @@ osc.releaseDuration = 0.125
 let filter = KorgLowPassFilter(osc)
 filter.cutoffFrequency = 5_500
 filter.resonance = 0.2
-let generatorFader = AKFader(filter)
+let generatorFader = Fader(filter)
 generatorFader.gain = 0.618
 
 // DELAY
@@ -29,18 +29,18 @@ delay.time = 1.0 / playRate
 delay.feedback = 0.618
 delay.lowPassCutoff = 12_048
 delay.dryWetMix = 0.75
-let delayFader = AKFader(delay)
+let delayFader = Fader(delay)
 delayFader.gain = 1.550_8
 
 // REVERB
 let reverb = CostelloReverb(delayFader)
 reverb.feedback = 0.758_816_18
 reverb.cutoffFrequency = 2_222 + 1_000
-let reverbFader = AKFader(reverb)
+let reverbFader = Fader(reverb)
 reverbFader.gain = 0.746_7
 
 // MIX
-let mixer = AKMixer(generatorFader, reverbFader)
+let mixer = Mixer(generatorFader, reverbFader)
 
 // MICROTONAL PRESETS
 var presetDictionary = [String: () -> Void]()
