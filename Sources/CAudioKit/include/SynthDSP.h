@@ -45,12 +45,12 @@ AK_API void akSynthSustainPedal(DSPRef pDSP, bool pedalDown);
 struct SynthDSP : DSPBase, CoreSynth
 {
     // ramped parameters
-    AKLinearParameterRamp masterVolumeRamp;
-    AKLinearParameterRamp pitchBendRamp;
-    AKLinearParameterRamp vibratoDepthRamp;
-    AKLinearParameterRamp filterCutoffRamp;
-    AKLinearParameterRamp filterStrengthRamp;
-    AKLinearParameterRamp filterResonanceRamp;
+    LinearParameterRamp masterVolumeRamp;
+    LinearParameterRamp pitchBendRamp;
+    LinearParameterRamp vibratoDepthRamp;
+    LinearParameterRamp filterCutoffRamp;
+    LinearParameterRamp filterStrengthRamp;
+    LinearParameterRamp filterResonanceRamp;
     
     SynthDSP();
     void init(int channelCount, double sampleRate) override;

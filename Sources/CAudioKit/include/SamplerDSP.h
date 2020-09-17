@@ -72,17 +72,17 @@ AK_API void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
 struct SamplerDSP : DSPBase, CoreSampler
 {
     // ramped parameters
-    AKLinearParameterRamp masterVolumeRamp;
-    AKLinearParameterRamp pitchBendRamp;
-    AKLinearParameterRamp vibratoDepthRamp;
-    AKLinearParameterRamp vibratoFrequencyRamp;
-    AKLinearParameterRamp voiceVibratoDepthRamp;
-    AKLinearParameterRamp voiceVibratoFrequencyRamp;
-    AKLinearParameterRamp filterCutoffRamp;
-    AKLinearParameterRamp filterStrengthRamp;
-    AKLinearParameterRamp filterResonanceRamp;
-    AKLinearParameterRamp pitchADSRSemitonesRamp;
-    AKLinearParameterRamp glideRateRamp;
+    LinearParameterRamp masterVolumeRamp;
+    LinearParameterRamp pitchBendRamp;
+    LinearParameterRamp vibratoDepthRamp;
+    LinearParameterRamp vibratoFrequencyRamp;
+    LinearParameterRamp voiceVibratoDepthRamp;
+    LinearParameterRamp voiceVibratoFrequencyRamp;
+    LinearParameterRamp filterCutoffRamp;
+    LinearParameterRamp filterStrengthRamp;
+    LinearParameterRamp filterResonanceRamp;
+    LinearParameterRamp pitchADSRSemitonesRamp;
+    LinearParameterRamp glideRateRamp;
     
     SamplerDSP();
     void init(int channelCount, double sampleRate) override;
