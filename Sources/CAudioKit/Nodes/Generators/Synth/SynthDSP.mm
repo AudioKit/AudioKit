@@ -3,27 +3,27 @@
 #import "SynthDSP.h"
 #include <math.h>
 
-AKDSPRef akAKSynthCreateDSP() {
-    return new AKSynthDSP();
+AKDSPRef akSynthCreateDSP() {
+    return new SynthDSP();
 }
 
 void akSynthPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
-    ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
+    ((SynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
 void akSynthStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
-    ((AKSynthDSP*)pDSP)->stopNote(noteNumber, immediate);
+    ((SynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
 void akSynthSustainPedal(AKDSPRef pDSP, bool pedalDown)
 {
-    ((AKSynthDSP*)pDSP)->sustainPedal(pedalDown);
+    ((SynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
 
 
-AKSynthDSP::AKSynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
+SynthDSP::SynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -32,22 +32,22 @@ AKSynthDSP::AKSynthDSP() : AKDSPBase(/*inputBusCount*/0), AKCoreSynth()
     filterResonanceRamp.setTarget(1.0, true);
 }
 
-void AKSynthDSP::init(int channelCount, double sampleRate)
+void SynthDSP::init(int channelCount, double sampleRate)
 {
     AKDSPBase::init(channelCount, sampleRate);
     AKCoreSynth::init(sampleRate);
 }
 
-void AKSynthDSP::deinit()
+void SynthDSP::deinit()
 {
     AKDSPBase::deinit();
     AKCoreSynth::deinit();
 }
 
-void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
+void SynthDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
-        case AKSynthParameterRampDuration:
+        case SynthParameterRampDuration:
             masterVolumeRamp.setRampDuration(value, sampleRate);
             pitchBendRamp.setRampDuration(value, sampleRate);
             vibratoDepthRamp.setRampDuration(value, sampleRate);
@@ -55,13 +55,13 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setRampDuration(value, sampleRate);
             break;
 
-        case AKSynthParameterMasterVolume:
+        case SynthParameterMasterVolume:
             masterVolumeRamp.setTarget(value, immediate);
             break;
-        case AKSynthParameterPitchBend:
+        case SynthParameterPitchBend:
             pitchBendRamp.setTarget(value, immediate);
             break;
-        case AKSynthParameterVibratoDepth:
+        case SynthParameterVibratoDepth:
             vibratoDepthRamp.setTarget(value, immediate);
             break;
         case SynthParameterFilterCutoff:
@@ -74,16 +74,16 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
-        case AKSynthParameterAttackDuration:
+        case SynthParameterAttackDuration:
             setAmpAttackDurationSeconds(value);
             break;
-        case AKSynthParameterDecayDuration:
+        case SynthParameterDecayDuration:
             setAmpDecayDurationSeconds(value);
             break;
-        case AKSynthParameterSustainLevel:
+        case SynthParameterSustainLevel:
             setAmpSustainFraction(value);
             break;
-        case AKSynthParameterReleaseDuration:
+        case SynthParameterReleaseDuration:
             setAmpReleaseDurationSeconds(value);
             break;
 
@@ -102,17 +102,17 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
     }
 }
 
-float AKSynthDSP::getParameter(uint64_t address)
+float SynthDSP::getParameter(uint64_t address)
 {
     switch (address) {
-        case AKSynthParameterRampDuration:
+        case SynthParameterRampDuration:
             return pitchBendRamp.getRampDuration(sampleRate);
 
-        case AKSynthParameterMasterVolume:
+        case SynthParameterMasterVolume:
             return masterVolumeRamp.getTarget();
-        case AKSynthParameterPitchBend:
+        case SynthParameterPitchBend:
             return pitchBendRamp.getTarget();
-        case AKSynthParameterVibratoDepth:
+        case SynthParameterVibratoDepth:
             return vibratoDepthRamp.getTarget();
         case SynthParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
@@ -121,13 +121,13 @@ float AKSynthDSP::getParameter(uint64_t address)
         case SynthParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
-        case AKSynthParameterAttackDuration:
+        case SynthParameterAttackDuration:
             return getAmpAttackDurationSeconds();
-        case AKSynthParameterDecayDuration:
+        case SynthParameterDecayDuration:
             return getAmpDecayDurationSeconds();
-        case AKSynthParameterSustainLevel:
+        case SynthParameterSustainLevel:
             return getAmpSustainFraction();
-        case AKSynthParameterReleaseDuration:
+        case SynthParameterReleaseDuration:
             return getAmpReleaseDurationSeconds();
 
         case SynthParameterFilterAttackDuration:
@@ -142,7 +142,7 @@ float AKSynthDSP::getParameter(uint64_t address)
     return 0;
 }
 
-void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
+void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
 
     float *pLeft = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;

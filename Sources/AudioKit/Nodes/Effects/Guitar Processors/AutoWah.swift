@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
-public class AKAutoWah: AKNode, AKComponent, AKToggleable {
+public class AutoWah: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
@@ -18,7 +18,7 @@ public class AKAutoWah: AKNode, AKComponent, AKToggleable {
     public static let wahDef = AKNodeParameterDef(
         identifier: "wah",
         name: "Wah Amount",
-        address: akGetParameterAddress("AKAutoWahParameterWah"),
+        address: akGetParameterAddress("AutoWahParameterWah"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKAutoWah: AKNode, AKComponent, AKToggleable {
     public static let mixDef = AKNodeParameterDef(
         identifier: "mix",
         name: "Dry/Wet Mix",
-        address: akGetParameterAddress("AKAutoWahParameterMix"),
+        address: akGetParameterAddress("AutoWahParameterMix"),
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKAutoWah: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Overall level",
-        address: akGetParameterAddress("AKAutoWahParameterAmplitude"),
+        address: akGetParameterAddress("AutoWahParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -53,13 +53,13 @@ public class AKAutoWah: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKAutoWah.wahDef,
-             AKAutoWah.mixDef,
-             AKAutoWah.amplitudeDef]
+            [AutoWah.wahDef,
+             AutoWah.mixDef,
+             AutoWah.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKAutoWahDSP")
+            akCreateDSP("AutoWahDSP")
         }
     }
 

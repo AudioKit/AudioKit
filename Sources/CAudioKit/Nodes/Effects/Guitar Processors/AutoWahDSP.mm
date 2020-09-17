@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKAutoWahParameter : AUParameterAddress {
-    AKAutoWahParameterWah,
-    AKAutoWahParameterMix,
-    AKAutoWahParameterAmplitude,
+enum AutoWahParameter : AUParameterAddress {
+    AutoWahParameterWah,
+    AutoWahParameterMix,
+    AutoWahParameterAmplitude,
 };
 
-class AKAutoWahDSP : public AKSoundpipeDSPBase {
+class AutoWahDSP : public AKSoundpipeDSPBase {
 private:
     sp_autowah *autowah0;
     sp_autowah *autowah1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKAutoWahDSP() {
-        parameters[AKAutoWahParameterWah] = &wahRamp;
-        parameters[AKAutoWahParameterMix] = &mixRamp;
-        parameters[AKAutoWahParameterAmplitude] = &amplitudeRamp;
+    AutoWahDSP() {
+        parameters[AutoWahParameterWah] = &wahRamp;
+        parameters[AutoWahParameterMix] = &mixRamp;
+        parameters[AutoWahParameterAmplitude] = &amplitudeRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKAutoWahDSP)
-AK_REGISTER_PARAMETER(AKAutoWahParameterWah)
-AK_REGISTER_PARAMETER(AKAutoWahParameterMix)
-AK_REGISTER_PARAMETER(AKAutoWahParameterAmplitude)
+AK_REGISTER_DSP(AutoWahDSP)
+AK_REGISTER_PARAMETER(AutoWahParameterWah)
+AK_REGISTER_PARAMETER(AutoWahParameterMix)
+AK_REGISTER_PARAMETER(AutoWahParameterAmplitude)

@@ -6,16 +6,16 @@
 #include "RageProcessor.h"
 #include "ParameterRamper.h"
 
-enum AKDynaRageCompressorParameter : AUParameterAddress {
-    AKDynaRageCompressorParameterRatio,
-    AKDynaRageCompressorParameterThreshold,
-    AKDynaRageCompressorParameterAttackDuration,
-    AKDynaRageCompressorParameterReleaseDuration,
-    AKDynaRageCompressorParameterRage,
-    AKDynaRageCompressorParameterRageEnabled
+enum DynaRageCompressorParameter : AUParameterAddress {
+    DynaRageCompressorParameterRatio,
+    DynaRageCompressorParameterThreshold,
+    DynaRageCompressorParameterAttackDuration,
+    DynaRageCompressorParameterReleaseDuration,
+    DynaRageCompressorParameterRage,
+    DynaRageCompressorParameterRageEnabled
 };
 
-class AKDynaRageCompressorDSP : public AKDSPBase {
+class DynaRageCompressorDSP : public AKDSPBase {
 private:
     std::unique_ptr<Compressor> left_compressor;
     std::unique_ptr<Compressor> right_compressor;
@@ -32,12 +32,12 @@ private:
     bool rageIsOn = true;
 
 public:
-    AKDynaRageCompressorDSP() {
-        parameters[AKDynaRageCompressorParameterRatio] = &ratioRamp;
-        parameters[AKDynaRageCompressorParameterThreshold] = &thresholdRamp;
-        parameters[AKDynaRageCompressorParameterAttackDuration] = &attackDurationRamp;
-        parameters[AKDynaRageCompressorParameterReleaseDuration] = &releaseDurationRamp;
-        parameters[AKDynaRageCompressorParameterRage] = &rageRamp;
+    DynaRageCompressorDSP() {
+        parameters[DynaRageCompressorParameterRatio] = &ratioRamp;
+        parameters[DynaRageCompressorParameterThreshold] = &thresholdRamp;
+        parameters[DynaRageCompressorParameterAttackDuration] = &attackDurationRamp;
+        parameters[DynaRageCompressorParameterReleaseDuration] = &releaseDurationRamp;
+        parameters[DynaRageCompressorParameterRage] = &rageRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -73,7 +73,7 @@ public:
     }
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        if (address == AKDynaRageCompressorParameterRageEnabled) {
+        if (address == DynaRageCompressorParameterRageEnabled) {
             rageIsOn = value > 0.5f;
         }
         else {
@@ -82,7 +82,7 @@ public:
     }
 
     float getParameter(AUParameterAddress address) override {
-        if (address == AKDynaRageCompressorParameterRageEnabled) {
+        if (address == DynaRageCompressorParameterRageEnabled) {
             return rageIsOn ? 1.f : 0.f;
         }
         else {
@@ -126,10 +126,10 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKDynaRageCompressorDSP)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRatio)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterThreshold)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterAttackDuration)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterReleaseDuration)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRage)
-AK_REGISTER_PARAMETER(AKDynaRageCompressorParameterRageEnabled)
+AK_REGISTER_DSP(DynaRageCompressorDSP)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterRatio)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterThreshold)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterAttackDuration)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterReleaseDuration)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterRage)
+AK_REGISTER_PARAMETER(DynaRageCompressorParameterRageEnabled)

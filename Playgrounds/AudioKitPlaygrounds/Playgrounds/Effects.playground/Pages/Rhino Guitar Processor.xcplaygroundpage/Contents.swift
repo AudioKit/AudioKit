@@ -3,14 +3,14 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-var rhino: AKRhinoGuitarProcessor!
+var rhino: RhinoGuitarProcessor!
 
 do {
     let guitarFile = try AKAudioFile(readFileName: "guitar.wav")
 
     let player = try AKAudioPlayer(file: guitarFile)
     player.looping = true
-    rhino = AKRhinoGuitarProcessor(player)
+    rhino = RhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     engine.output = AKMixer(reverb, rhino)
     try engine.start()

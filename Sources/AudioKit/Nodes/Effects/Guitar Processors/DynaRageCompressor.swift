@@ -6,7 +6,7 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
+public class DynaRageCompressor: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 
@@ -19,7 +19,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let ratioDef = AKNodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
-        address: akGetParameterAddress("AKDynaRageCompressorRatio"),
+        address: akGetParameterAddress("DynaRageCompressorRatio"),
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -30,7 +30,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let thresholdDef = AKNodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
-        address: akGetParameterAddress("AKDynaRageCompressorParameterThreshold"),
+        address: akGetParameterAddress("DynaRageCompressorParameterThreshold"),
         range: -100.0 ... 0.0,
         unit: .decibels,
         flags: .default)
@@ -41,7 +41,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let attackDurationDef = AKNodeParameterDef(
         identifier: "attackDuration",
         name: "Attack Duration",
-        address: akGetParameterAddress("AKDynaRageCompressorParameterAttackDuration"),
+        address: akGetParameterAddress("DynaRageCompressorParameterAttackDuration"),
         range: 0.1 ... 500.0,
         unit: .seconds,
         flags: .default)
@@ -52,7 +52,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let releaseDurationDef = AKNodeParameterDef(
         identifier: "releaseDuration",
         name: "Release Duration",
-        address: akGetParameterAddress("AKDynaRageCompressorParameterReleaseDuration"),
+        address: akGetParameterAddress("DynaRageCompressorParameterReleaseDuration"),
         range: 1.0 ... 20.0,
         unit: .seconds,
         flags: .default)
@@ -63,7 +63,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let rageDef = AKNodeParameterDef(
         identifier: "rage",
         name: "Rage",
-        address: akGetParameterAddress("AKDynaRageCompressorParameterRage"),
+        address: akGetParameterAddress("DynaRageCompressorParameterRage"),
         range: 0.1 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -74,7 +74,7 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public static let rageEnabledDef = AKNodeParameterDef(
         identifier: "rageEnabled",
         name: "Rage Enabled",
-        address: akGetParameterAddress("AKDynaRageCompressorParameterRageEnabled"),
+        address: akGetParameterAddress("DynaRageCompressorParameterRageEnabled"),
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -87,16 +87,16 @@ public class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKDynaRageCompressor.ratioDef,
-             AKDynaRageCompressor.thresholdDef,
-             AKDynaRageCompressor.attackDurationDef,
-             AKDynaRageCompressor.releaseDurationDef,
-             AKDynaRageCompressor.rageDef,
-             AKDynaRageCompressor.rageEnabledDef]
+            [DynaRageCompressor.ratioDef,
+             DynaRageCompressor.thresholdDef,
+             DynaRageCompressor.attackDurationDef,
+             DynaRageCompressor.releaseDurationDef,
+             DynaRageCompressor.rageDef,
+             DynaRageCompressor.rageEnabledDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKDynaRageCompressorDSP")
+            akCreateDSP("DynaRageCompressorDSP")
         }
     }
 

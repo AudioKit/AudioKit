@@ -1,20 +1,20 @@
-# AKSampler
-**AKSampler** is a new, polyphonic sample-playback engine built from scratch in C++. Because the base C++ code is platform-independent, it is also available as an Audio Unit v2 plug-in (which can be loaded into e.g. *Logic Pro X*), and even on Windows as a *VST2* plug-in, for use in Windows DAWs such as Steinberg's *Cubase*. ("VST" is a registered trade mark of [Steinberg Media Technologies GmbH](https://www.steinberg.net/en/company/developers.html).) You'll find these projects under the *Developer* folder in the main AudioKit repo.
+# Sampler
+**Sampler** is a new, polyphonic sample-playback engine built from scratch in C++. Because the base C++ code is platform-independent, it is also available as an Audio Unit v2 plug-in (which can be loaded into e.g. *Logic Pro X*), and even on Windows as a *VST2* plug-in, for use in Windows DAWs such as Steinberg's *Cubase*. ("VST" is a registered trade mark of [Steinberg Media Technologies GmbH](https://www.steinberg.net/en/company/developers.html).) You'll find these projects under the *Developer* folder in the main AudioKit repo.
 
-## AKSampler vs AKAppleSampler
+## Sampler vs AKAppleSampler
 
-In earlier versions of AudioKit, the name **AKSampler** referred to the module now called **AKAppleSampler**.
+In earlier versions of AudioKit, the name **Sampler** referred to the module now called **AKAppleSampler**.
 
-**AKAppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **AKSampler** is an attempt to provide an open-source alternative.
+**AKAppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **Sampler** is an attempt to provide an open-source alternative.
 
-**AKSampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AKAppleSampler** (formerly called AKSampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
+**Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AKAppleSampler** (formerly called Sampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
 
-## AKSampler vs AKSamplePlayer
+## Sampler vs AKSamplePlayer
 
 If your app only needs to load and play back samples individually, without a lot of pitch-shifting, you should also consider using **AKSamplePlayer**, which provides more precise and dynamic control of looping.
 
 ## Loading samples
-**AKSampler** provides three distinct mechanisms for loading samples:
+**Sampler** provides three distinct mechanisms for loading samples:
 
 1. `loadRawSampleData()` allows use of sample data already in memory, e.g. data generated programmatically or read using custom file-reading code.
 2. `loadAKAudioFile()` allows reading standard file formats like WAV, CAF, AIFF, etc.  from an instance of **AKAudioFile**. `loadCompressedSampleFile()` allows reading `.wv` files which have been compressed using [Wavpack](http://www.wavpack.com/).
@@ -32,7 +32,7 @@ The mapping of MIDI (note number, velocity) pairs to samples is done using some 
 ## Sample descriptors
 When using `loadRawSampleData()`, `loadAKAudioFile()`, and `loadCompressedSampleFile()` to load individual samples, you will need to create instances of one of three Swift structure types as follows.
 
-The structures are defined as C structs in *AKSampler_Typedefs.h* (which lives in the *AudioKit/Core/AudioKitCore/Sampler* folder in the main AudioKit repo). This file is simple enough to reproduce here:
+The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in the *AudioKit/Core/AudioKitCore/Sampler* folder in the main AudioKit repo). This file is simple enough to reproduce here:
 
 	typedef struct
 	{
@@ -101,7 +101,7 @@ See the following sections for notes about setting the `fLoopStart`, `fLoopEnd`,
 
 ### AKSampleDataDescriptor and loadRawSampleData()
 
-*AKSampleDataDescriptor*, which is required when calling `loadRawSampleData()`, has an *AKSampleDescriptor* property (as described above) plus several additional properties to provide all the information **AKSampler** needs about the sample:
+*AKSampleDataDescriptor*, which is required when calling `loadRawSampleData()`, has an *AKSampleDescriptor* property (as described above) plus several additional properties to provide all the information **Sampler** needs about the sample:
 
 * *sampleRateHz* is the sampling rate at which the sample data were acquired. If the sampler needs to play back the sample at a different rate, it will need to scale its playback rate based on the ratio of the two rates.
 * *nChannels* will be 1 if the sample is monophonic, or 2 if stereo. Note the sampler can play back mono samples as stereo; it simply plays the same data to both output channels. (In the reverse case, only the Left channel data will sound.)
@@ -148,7 +148,7 @@ A few points to note about this example:
 * To ensure the sampler keeps looping even after each note is released (very important with such short samples), we call `setLoop(thruRelease: true)`.
 
 ## AKSampleFileDescriptor and loadCompressedSampleFile()
-*AKSampleFileDescriptor*, used in calls to `loadCompressedSampleFile()` is very simple. Like *AKSampleDataDescriptor*, it has an *AKSampleDescriptor* property, to which it simply adds a `String` property `path`. Here's an example of using `loadCompressedSampleFile()`, taken from the AKSampler demo program:
+*AKSampleFileDescriptor*, used in calls to `loadCompressedSampleFile()` is very simple. Like *AKSampleDataDescriptor*, it has an *AKSampleDescriptor* property, to which it simply adds a `String` property `path`. Here's an example of using `loadCompressedSampleFile()`, taken from the Sampler demo program:
 
     private func loadCompressed(baseURL: URL,
                              noteNumber: MIDINoteNumber,
@@ -178,4 +178,4 @@ A few points to note about this example:
         sampler.loadCompressedSampleFile(sfd: fdesc)
     }
 
-Note in the last line of the code above, `sampler` is an **AKSampler** instance. See the *Conductor.swift* file in the AKSamplerDemo macOS example for more context.
+Note in the last line of the code above, `sampler` is an **Sampler** instance. See the *Conductor.swift* file in the SamplerDemo macOS example for more context.

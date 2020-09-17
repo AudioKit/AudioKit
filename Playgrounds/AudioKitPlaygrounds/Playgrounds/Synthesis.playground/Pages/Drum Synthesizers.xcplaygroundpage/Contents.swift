@@ -4,8 +4,8 @@
 import AudioKit
 
 //: Set up instruments:
-var kick = AKSynthKick()
-var snare = AKSynthSnare(duration: 0.07)
+var kick = SynthKick()
+var snare = SynthSnare(duration: 0.07)
 
 var mix = AKMixer(kick, snare)
 var reverb = AKReverb(mix)

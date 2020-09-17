@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 import AVFoundation
 
-public class AKSamplerAudioUnit: AudioUnitBase {
+public class SamplerAudioUnit: AudioUnitBase {
     private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
     private static var _parameterAddress: AUParameterAddress = 0
@@ -271,7 +271,7 @@ public class AKSamplerAudioUnit: AudioUnitBase {
         flags: nonRampFlags)
 
     public override func createDSP() -> AKDSPRef {
-        return akAKSamplerCreateDSP()
+        return akSamplerCreateDSP()
     }
 
     override init(componentDescription: AudioComponentDescription,

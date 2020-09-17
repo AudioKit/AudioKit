@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class ThreePoleLowPassFilterTests: XCTestCase {
+class ThreePoleLowPassFilterOperationTests: XCTestCase {
 
     func testParameterSweep() {
         let engine = AudioEngine()

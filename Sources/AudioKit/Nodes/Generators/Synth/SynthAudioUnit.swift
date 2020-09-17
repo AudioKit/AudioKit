@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-public class AKSynthAudioUnit: AudioUnitBase {
+public class SynthAudioUnit: AudioUnitBase {
 
     var masterVolume: AUParameter!
 
@@ -34,7 +34,7 @@ public class AKSynthAudioUnit: AudioUnitBase {
     var filterReleaseDuration: AUParameter!
 
     public override func createDSP() -> AKDSPRef {
-        return akAKSynthCreateDSP()
+        return akSynthCreateDSP()
     }
 
     override init(componentDescription: AudioComponentDescription,
