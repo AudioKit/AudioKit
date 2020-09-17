@@ -22,7 +22,7 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Peak Limiter")

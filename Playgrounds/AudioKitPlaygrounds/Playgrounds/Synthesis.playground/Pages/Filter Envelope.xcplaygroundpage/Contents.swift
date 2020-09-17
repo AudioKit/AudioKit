@@ -63,7 +63,7 @@ let playgroundWidth = 500
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, AKKeyboardDelegate {
 
     override func viewDidLoad() {
         addTitle("Filter Envelope")

@@ -35,7 +35,7 @@ sequencer.setTempo(150)
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Drum Sequencer")

@@ -22,7 +22,7 @@ player.play()
 //: User Interface
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Stereo Delay Operation")

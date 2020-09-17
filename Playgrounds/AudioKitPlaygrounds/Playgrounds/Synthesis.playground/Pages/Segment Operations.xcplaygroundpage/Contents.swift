@@ -37,7 +37,7 @@ try engine.start()
 generator.parameters = [2.0]
 generator.start()
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Segment Operations")

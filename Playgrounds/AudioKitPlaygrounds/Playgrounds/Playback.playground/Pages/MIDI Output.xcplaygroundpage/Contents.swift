@@ -9,7 +9,7 @@ midi.openOutput()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController, AKKeyboardDelegate {
+class LiveView: View, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 

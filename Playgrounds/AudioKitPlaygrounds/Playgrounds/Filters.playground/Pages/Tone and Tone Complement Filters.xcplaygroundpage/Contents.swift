@@ -18,7 +18,7 @@ player.play()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Tone Filters")

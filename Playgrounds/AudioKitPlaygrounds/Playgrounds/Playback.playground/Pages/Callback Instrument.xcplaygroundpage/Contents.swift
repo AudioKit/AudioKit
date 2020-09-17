@@ -47,7 +47,7 @@ try engine.start()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
     override func viewDidLoad() {
         addTitle("Callback Instrument")
 

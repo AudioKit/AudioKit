@@ -16,7 +16,7 @@ try engine.start()
 
 player.play()
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Expander")

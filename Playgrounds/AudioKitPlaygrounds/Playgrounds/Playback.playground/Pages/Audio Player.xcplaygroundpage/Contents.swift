@@ -18,7 +18,7 @@ if let mixloop = try? AVAudioFile(readFileName: "mixloop.wav") {
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     // UI Elements we'll need to be able to access
     var inPositionSlider: Slider!

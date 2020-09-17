@@ -125,7 +125,7 @@ sequencerFunction.start()
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")

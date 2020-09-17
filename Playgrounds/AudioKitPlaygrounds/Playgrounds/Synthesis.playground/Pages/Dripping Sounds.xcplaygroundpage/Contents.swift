@@ -20,7 +20,7 @@ engine.output = Fader(reverb, gain: 0.4)
 try engine.start(withPeriodicFunctions: drips)
 drips.start()
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     override func viewDidLoad() {
 

@@ -27,7 +27,7 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
 
     var delaySlider: Slider!
     var decaySlider: Slider!

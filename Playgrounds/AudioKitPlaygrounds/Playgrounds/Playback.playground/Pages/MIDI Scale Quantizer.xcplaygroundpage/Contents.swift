@@ -143,7 +143,7 @@ midi.addListener(listener)
 
 import AudioKitUI
 
-class LiveView: AKLiveViewController {
+class LiveView: View {
     override func viewDidLoad() {
         addTitle("Scale Quantizer")
 
