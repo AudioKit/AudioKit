@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A complement to the LowPassFilter.
-public class ToneComplementFilter: AKNode, AKComponent, AKToggleable {
+public class ToneComplementFilter: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
@@ -48,7 +48,7 @@ public class ToneComplementFilter: AKNode, AKComponent, AKToggleable {
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         halfPowerPoint: AUValue = 1_000.0
         ) {
         super.init(avAudioNode: AVAudioNode())

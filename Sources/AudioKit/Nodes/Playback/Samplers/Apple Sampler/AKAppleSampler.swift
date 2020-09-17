@@ -10,7 +10,7 @@ import CAudioKit
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: AKNode {
+open class AppleSampler: Node {
 
     // MARK: - Properties
 

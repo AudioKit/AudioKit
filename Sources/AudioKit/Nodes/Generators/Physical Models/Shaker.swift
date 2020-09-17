@@ -80,7 +80,7 @@ public enum ShakerType: UInt8 {
 
 /// STK Shaker
 ///
-public class Shaker: AKNode, AKToggleable, AKComponent {
+public class Shaker: Node, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
     public typealias AKAudioUnitType = InternalAU

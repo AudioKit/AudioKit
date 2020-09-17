@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-public class Clipper: AKNode, AKComponent, AKToggleable {
+public class Clipper: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
@@ -48,7 +48,7 @@ public class Clipper: AKNode, AKComponent, AKToggleable {
     ///   - limit: Threshold / limiting value.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         limit: AUValue = 1.0
         ) {
         super.init(avAudioNode: AVAudioNode())

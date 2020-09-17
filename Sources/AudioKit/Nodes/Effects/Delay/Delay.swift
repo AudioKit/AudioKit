@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: AKNode, AKToggleable {
+public class Delay: Node, AKToggleable {
     let delayAU = AVAudioUnitDelay()
 
     @Parameter public var dryWetMix: AUValue
@@ -19,14 +19,14 @@ public class Delay: AKNode, AKToggleable {
     /// Initialize the delay node
     ///
     /// - Parameters:
-    ///   - input: Input audio AKNode to process
+    ///   - input: Input audio Node to process
     ///   - time: Delay time in seconds (Default: 1)
     ///   - feedback: Amount of feedback, ranges from 0 to 100 (Default: 50)
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 100 (Default: 50.0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         time: AUValue = 1,
         feedback: AUValue = 50,
         lowPassCutoff: AUValue = 15_000,

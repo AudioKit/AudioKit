@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
-public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
+public class RolandTB303Filter: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
@@ -87,7 +87,7 @@ public class RolandTB303Filter: AKNode, AKComponent, AKToggleable {
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         cutoffFrequency: AUValue = 500,
         resonance: AUValue = 0.5,
         distortion: AUValue = 2.0,

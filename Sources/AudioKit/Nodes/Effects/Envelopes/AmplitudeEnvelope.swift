@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
+public class AmplitudeEnvelope: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
@@ -87,7 +87,7 @@ public class AmplitudeEnvelope: AKNode, AKComponent, AKToggleable {
     ///   - releaseDuration: Release time
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         attackDuration: AUValue = 0.1,
         decayDuration: AUValue = 0.1,
         sustainLevel: AUValue = 1.0,

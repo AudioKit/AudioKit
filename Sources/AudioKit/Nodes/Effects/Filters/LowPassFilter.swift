@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class LowPassFilter: AKNode, AKToggleable {
+open class LowPassFilter: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -27,7 +27,7 @@ open class LowPassFilter: AKNode, AKToggleable {
     /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         cutoffFrequency: AUValue = 6900,
         resonance: AUValue = 0) {
         super.init(avAudioNode: effectAU)

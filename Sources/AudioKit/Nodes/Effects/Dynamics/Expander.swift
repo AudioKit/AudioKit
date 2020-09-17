@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Expansion Components
 ///
-open class Expander: AKNode, AKToggleable {
+open class Expander: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -54,7 +54,7 @@ open class Expander: AKNode, AKToggleable {
     /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         expansionRatio: AUValue = 2,
         expansionThreshold: AUValue = 2,
         attackTime: AUValue = 0.001,

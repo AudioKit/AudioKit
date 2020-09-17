@@ -8,7 +8,7 @@ import CAudioKit
 /// When triggered, it will produce a droplet of water.
 /// TODO This node needs to have tests.
 /// 
-public class Drip: AKNode, AKComponent, AKToggleable {
+public class Drip: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 

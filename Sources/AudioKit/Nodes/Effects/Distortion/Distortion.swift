@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class Distortion: AKNode, AKToggleable {
+open class Distortion: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -83,7 +83,7 @@ open class Distortion: AKNode, AKToggleable {
     /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         delay: AUValue = 0.1,
         decay: AUValue = 1.0,
         delayMix: AUValue = 50,

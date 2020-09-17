@@ -7,7 +7,7 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 /// 
-public class Oscillator: AKNode, AKComponent, AKToggleable {
+public class Oscillator: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 

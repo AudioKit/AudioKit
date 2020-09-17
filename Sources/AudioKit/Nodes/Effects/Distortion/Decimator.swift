@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-open class Decimator: AKNode, AKToggleable {
+open class Decimator: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -31,7 +31,7 @@ open class Decimator: AKNode, AKToggleable {
     /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         decimation: AUValue = 50,
         rounding: AUValue = 0,
         finalMix: AUValue = 50) {

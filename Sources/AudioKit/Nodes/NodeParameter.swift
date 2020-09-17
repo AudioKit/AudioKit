@@ -144,7 +144,7 @@ public class NodeParameter {
 
     // MARK: Lifecycle
 
-    /// This function should be called from AKNode subclasses as soon as a valid AU is obtained
+    /// This function should be called from Node subclasses as soon as a valid AU is obtained
     public func associate(with avAudioUnit: AVAudioUnit, identifier: String) {
         self.avAudioUnit = avAudioUnit
         parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
@@ -207,7 +207,7 @@ protocol ParameterBase {
 /// Use the $ operator to access the underlying NodeParameter. For example:
 /// `osc.$frequency.maxValue`
 ///
-/// When writing an AKNode, use:
+/// When writing an Node, use:
 /// ```
 /// @Parameter var myParameterName: AUValue
 /// ```

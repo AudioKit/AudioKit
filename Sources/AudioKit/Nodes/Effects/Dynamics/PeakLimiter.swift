@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class PeakLimiter: AKNode, AKToggleable {
+open class PeakLimiter: Node, AKToggleable {
 
         fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -31,7 +31,7 @@ open class PeakLimiter: AKNode, AKToggleable {
     /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         attackTime: AUValue = 0.012,
         decayTime: AUValue = 0.024,
         preGain: AUValue = 0) {

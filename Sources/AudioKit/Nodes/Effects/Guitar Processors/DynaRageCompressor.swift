@@ -6,7 +6,7 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class DynaRageCompressor: AKNode, AKToggleable, AKComponent {
+public class DynaRageCompressor: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dldr")
 
@@ -112,7 +112,7 @@ public class DynaRageCompressor: AKNode, AKToggleable, AKComponent {
     ///   - releaseDuration: Release duration in seconds
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         ratio: AUValue = 1,
         threshold: AUValue = 0.0,
         attackDuration: AUValue = 0.1,

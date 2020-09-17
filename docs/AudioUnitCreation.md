@@ -56,7 +56,7 @@ TBD
 
 ## Audio Unit Operation
 
-Before an AU can be used, it must be registered. Alternatively, it can be accessed directly as an AKNode, which is what I describe here.
+Before an AU can be used, it must be registered. Alternatively, it can be accessed directly as an Node, which is what I describe here.
 
 ### Instantiation
 

@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Compression Parts
 ///
-open class Compressor: AKNode, AKToggleable {
+open class Compressor: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -54,7 +54,7 @@ open class Compressor: AKNode, AKToggleable {
     /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         threshold: AUValue = -20,
         headRoom: AUValue = 5,
         attackTime: AUValue = 0.001,

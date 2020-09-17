@@ -1,5 +1,5 @@
 //: ## Recording Nodes
-//: AKNodeRecorder allows you to record the output of a specific node.
+//: NodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
 
 import AudioKit
@@ -27,9 +27,9 @@ let player = try AKAudioPlayer(file: tape)
 //: Mix our reverberated oscillator with our player, so we can listen to both.
 let mixer = Mixer(player, reverb)
 
-//: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
+//: Now we set an NodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: mixer, file: tape)
+let recorder = try NodeRecorder(node: mixer, file: tape)
 
 engine.output = mixer
 

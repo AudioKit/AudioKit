@@ -7,7 +7,7 @@ import CAudioKit
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal characteristic impedance.
 /// 
-public class CostelloReverb: AKNode, AKComponent, AKToggleable {
+public class CostelloReverb: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
@@ -63,7 +63,7 @@ public class CostelloReverb: AKNode, AKComponent, AKToggleable {
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         feedback: AUValue = 0.6,
         cutoffFrequency: AUValue = 4_000.0
         ) {

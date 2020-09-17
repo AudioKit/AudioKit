@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-open class HighShelfFilter: AKNode, AKToggleable {
+open class HighShelfFilter: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -27,7 +27,7 @@ open class HighShelfFilter: AKNode, AKToggleable {
     /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         cutOffFrequency: AUValue = 10000,
         gain: AUValue = 0) {
         super.init(avAudioNode: effectAU)

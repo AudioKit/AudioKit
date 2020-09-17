@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A delay line with cubic interpolation.
-public class VariableDelay: AKNode, AKComponent, AKToggleable {
+public class VariableDelay: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
@@ -66,7 +66,7 @@ public class VariableDelay: AKNode, AKComponent, AKToggleable {
     ///   - maximumTime: The maximum delay time, in seconds.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         time: AUValue = 0,
         feedback: AUValue = 0,
         maximumTime: AUValue = 5

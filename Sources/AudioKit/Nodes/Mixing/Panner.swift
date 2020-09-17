@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: AKNode, AKComponent, AKToggleable {
+public class Panner: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
@@ -48,7 +48,7 @@ public class Panner: AKNode, AKComponent, AKToggleable {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         pan: AUValue = 0
         ) {
         super.init(avAudioNode: AVAudioNode())

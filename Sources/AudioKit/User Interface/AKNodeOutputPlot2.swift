@@ -8,12 +8,12 @@ import CoreGraphics
 /// Plot the output from any node in an signal processing graph
 ///
 /// By default this plots the output of engine.output
-public class AKNodeOutputPlot2: AKWaveform {
+public class NodeOutputPlot2: AKWaveform {
 
     public var isConnected = false
     public var isNotConnected: Bool { return !isConnected }
 
-    public func setupNode(_ input: AKNode) {
+    public func setupNode(_ input: Node) {
         if isNotConnected {
             input.avAudioUnitOrNode.installTap(
                 onBus: 0,
@@ -46,7 +46,7 @@ public class AKNodeOutputPlot2: AKWaveform {
 
     internal var bufferSize: UInt32 = 1_024
 
-    open var node: AKNode {
+    open var node: Node {
         willSet {
             pause()
         }
@@ -79,11 +79,11 @@ public class AKNodeOutputPlot2: AKWaveform {
     /// Initialize the plot with the output from a given node and optional plot size
     ///
     /// - Parameters:
-    ///   - input: AKNode from which to get the plot data
+    ///   - input: Node from which to get the plot data
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
+    public init(_ input: Node, frame: CGRect = CGRect.zero, bufferSize: Int = 1_024) {
         self.node = input
         super.init()
 //        super.init(channels: 1, size: frame.size, waveformColor: UIColor.red.cgColor, backgroundColor: UIColor.black.cgColor)

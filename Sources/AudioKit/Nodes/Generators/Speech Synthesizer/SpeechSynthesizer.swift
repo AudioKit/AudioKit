@@ -8,7 +8,7 @@ import CAudioKit
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
 ///
 
-public class SpeechSynthesizer: AKNode {
+public class SpeechSynthesizer: Node {
     public static let ComponentDescription = AudioComponentDescription(
         componentType: kAudioUnitType_Generator,
         componentSubType: kAudioUnitSubType_SpeechSynthesis,

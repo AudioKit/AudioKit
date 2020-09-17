@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-public class StereoDelay: AKNode, AKToggleable, AKComponent {
+public class StereoDelay: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
@@ -88,7 +88,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
     ///   - pingPong: true for ping-pong mode, false for stereo mode.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         maximumDelayTime: AUValue = 2.0,
         time: AUValue = 0,
         feedback: AUValue = 0,

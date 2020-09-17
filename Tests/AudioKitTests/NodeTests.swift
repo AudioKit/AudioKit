@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
-class AKNodeTests: XCTestCase {
+class NodeTests: XCTestCase {
 
     let osc = Oscillator()
 

@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
+public class AKOperationEffect: Node, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
@@ -172,11 +172,11 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - input: AKNode to use for processing
+    ///   - input: Node to use for processing
     ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode,
+    public convenience init(_ input: Node,
                             channelCount: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
 
@@ -194,10 +194,10 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - input:     AKNode to use for processing
+    ///   - input:     Node to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode,
+    public convenience init(_ input: Node,
                             operation: (AKStereoOperation, [AKOperation]) -> ComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
@@ -217,17 +217,17 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
         self.init(input, sporth: "")
     }
 
-    public convenience init(_ input: AKNode, operation: (AKStereoOperation) -> ComputedParameter) {
+    public convenience init(_ input: Node, operation: (AKStereoOperation) -> ComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
     }
 
     /// Initialize the effect with an input and a valid Sporth string
     ///
     /// - Parameters:
-    ///   - input: AKNode to use for processing
+    ///   - input: Node to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode, sporth: String) {
+    public init(_ input: Node, sporth: String) {
 
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in

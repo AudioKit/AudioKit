@@ -17,7 +17,7 @@ player.looping = true
 //: that mixes together several delays and gains.
 var delays = [VariableDelay]()
 
-func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> Mixer {
+func multitapDelay(_ input: Node, times: [Double], gains: [Double]) -> Mixer {
     let mix = Mixer(input)
     var counter = 0
     zip(times, gains).forEach { (time, gain) -> Void in

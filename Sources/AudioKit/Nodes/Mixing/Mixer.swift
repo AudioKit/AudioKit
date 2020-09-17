@@ -3,8 +3,8 @@
 import AVFoundation
 import CAudioKit
 
-/// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
-public class Mixer: AKNode, AKToggleable {
+/// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of Nodes.
+public class Mixer: Node, AKToggleable {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 
@@ -40,9 +40,9 @@ public class Mixer: AKNode, AKToggleable {
 
     /// Initialize the mixer node with multiple inputs
     ///
-    /// - parameter inputs: A variadic list of AKNodes
+    /// - parameter inputs: A variadic list of Nodes
     ///
-    public convenience init(_ inputs: AKNode...) {
+    public convenience init(_ inputs: Node...) {
         self.init(inputs.compactMap { $0 })
     }
 
@@ -50,9 +50,9 @@ public class Mixer: AKNode, AKToggleable {
 
     /// Initialize the mixer node with multiple inputs
     ///
-    /// - parameter inputs: An array of AKNodes
+    /// - parameter inputs: An array of Nodes
     ///
-    public convenience init(_ inputs: [AKNode]) {
+    public convenience init(_ inputs: [Node]) {
         self.init()
         connections = inputs
     }
@@ -72,7 +72,7 @@ public class Mixer: AKNode, AKToggleable {
         }
     }
 
-    public func addInput(_ node: AKNode) {
+    public func addInput(_ node: Node) {
         if connections.contains(where: { $0 === node }) {
             AKLog("🛑 Error: Node is already connected to Mixer.")
             return
@@ -81,7 +81,7 @@ public class Mixer: AKNode, AKToggleable {
         makeAVConnections()
     }
 
-    public func removeInput(_ node: AKNode) {
+    public func removeInput(_ node: Node) {
         connections.removeAll(where: { $0 === node })
         avAudioNode.disconnect(input: node.avAudioNode)
     }
