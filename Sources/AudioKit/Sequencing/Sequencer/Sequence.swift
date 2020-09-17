@@ -5,14 +5,14 @@ import Foundation
 
 #if !os(tvOS)
 
-extension AKSequenceNote: Equatable {
+extension SequenceNote: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.noteOn == rhs.noteOn
             && lhs.noteOff == rhs.noteOff
     }
 }
 
-extension AKSequenceEvent: Equatable {
+extension SequenceEvent: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.status == rhs.status
             && lhs.data1 == rhs.data1
@@ -22,14 +22,14 @@ extension AKSequenceEvent: Equatable {
 }
 
 /// A value type for sequences.
-public struct AKSequence: Equatable {
-    public var notes: [AKSequenceNote]
-    public var events: [AKSequenceEvent]
+public struct NoteEventSequence: Equatable {
+    public var notes: [SequenceNote]
+    public var events: [SequenceEvent]
 
     public static let noteOn: UInt8 = 0x90
     public static let noteOff: UInt8 = 0x80
 
-    public init(notes: [AKSequenceNote] = [], events: [AKSequenceEvent] = []) {
+    public init(notes: [SequenceNote] = [], events: [SequenceEvent] = []) {
         self.notes = notes
         self.events = events
     }
@@ -39,14 +39,14 @@ public struct AKSequence: Equatable {
                              channel: MIDIChannel = 0,
                              position: Double,
                              duration: Double) {
-        var newNote = AKSequenceNote()
+        var newNote = SequenceNote()
 
-        newNote.noteOn.status = AKSequence.noteOn
+        newNote.noteOn.status = NoteEventSequence.noteOn
         newNote.noteOn.data1 = noteNumber
         newNote.noteOn.data2 = velocity
         newNote.noteOn.beat = position
 
-        newNote.noteOff.status = AKSequence.noteOff
+        newNote.noteOff.status = NoteEventSequence.noteOff
         newNote.noteOff.data1 = noteNumber
         newNote.noteOff.data2 = velocity
         newNote.noteOff.beat = position + duration
@@ -68,7 +68,7 @@ public struct AKSequence: Equatable {
 
     /// Add MIDI data to the track as an event
     public mutating func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
-        events.append(AKSequenceEvent(status: status.byte, data1: data1, data2: data2, beat: position))
+        events.append(SequenceEvent(status: status.byte, data1: data1, data2: data2, beat: position))
     }
 
     /// Add a MIDI event to the track at a specific position

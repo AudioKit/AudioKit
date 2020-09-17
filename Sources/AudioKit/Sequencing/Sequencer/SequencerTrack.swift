@@ -101,7 +101,7 @@ open class SequencerTrack {
         akSequencerEngineSeekTo(engine, position)
     }
 
-    public var sequence = AKSequence() {
+    public var sequence = NoteEventSequence() {
         didSet {
             updateSequence()
         }
@@ -109,7 +109,7 @@ open class SequencerTrack {
 
     /// Remove the notes in the track
     public func clear() {
-        sequence = AKSequence()
+        sequence = NoteEventSequence()
     }
 
     /// Stop playing all the notes current in the "now playing" array.
@@ -125,14 +125,14 @@ open class SequencerTrack {
             return
         }
 
-        let settings = AKSequenceSettings(maximumPlayCount: Int32(maximumPlayCount),
+        let settings = SequenceSettings(maximumPlayCount: Int32(maximumPlayCount),
                                           length: length,
                                           tempo: tempo,
                                           loopEnabled: loopEnabled,
                                           numberOfLoops: 0)
 
-        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
-            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
+        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
+            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
                 guard let observer = SequencerEngineUpdateSequence(engine,
                                                                      eventsPtr.baseAddress,
                                                                      sequence.events.count,

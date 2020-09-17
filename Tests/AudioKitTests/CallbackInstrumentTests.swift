@@ -8,9 +8,9 @@ class AKCallbackInstrumentTests: XCTestCase {
 
     var instrument = AKCallbackInstrument()
 
-    func getTestSequence() -> AKSequence {
+    func getTestSequence() -> NoteEventSequence {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.5)
         seq.add(noteNumber: 62, position: 1, duration: 0.5)
         seq.add(noteNumber: 63, position: 2, duration: 0.5)
