@@ -140,7 +140,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         }
     }
 
-    init?(fileEvent event: AKMIDIFileChunkEvent) {
+    init?(fileEvent event: MIDIFileChunkEvent) {
         guard
             event.computedData.isNotEmpty,
             event.computedData[0] != 0xFF //would be a meta event, not realtime system reset message

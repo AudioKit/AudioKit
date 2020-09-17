@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct AKMIDIFileChunkEvent {
+public struct MIDIFileChunkEvent {
     let data: [MIDIByte] // all data passed in
     let timeFormat: MIDITimeFormat
     let timeDivision: Int

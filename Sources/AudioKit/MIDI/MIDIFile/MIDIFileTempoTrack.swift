@@ -2,9 +2,9 @@
 
 #if !os(tvOS)
 
-public struct AKMIDIFileTempoTrack {
+public struct MIDIFileTempoTrack {
 
-    public let track: AKMIDIFileTrack
+    public let track: MIDIFileTrack
 
     public var length: Double {
         return track.length
@@ -23,7 +23,7 @@ public struct AKMIDIFileTempoTrack {
     }
 
     init?(trackChunk: MIDIFileTrackChunk) {
-        let tempoTrack = AKMIDIFileTrack(chunk: trackChunk)
+        let tempoTrack = MIDIFileTrack(chunk: trackChunk)
         guard let tempoData = tempoTrack.metaEvents.first(where: { $0.type == .setTempo })?.data else {
             return nil
         }

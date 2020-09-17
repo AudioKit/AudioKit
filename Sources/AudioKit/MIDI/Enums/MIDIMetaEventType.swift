@@ -107,7 +107,7 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
         }
     }
 
-    init?(fileEvent event: AKMIDIFileChunkEvent) {
+    init?(fileEvent event: MIDIFileChunkEvent) {
         guard
             let metaEvent = AKMIDIMetaEvent(data: event.computedData)
         else {
