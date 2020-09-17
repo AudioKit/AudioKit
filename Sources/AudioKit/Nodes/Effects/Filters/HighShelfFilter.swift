@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-open class HighShelfFilter: Node, AKToggleable {
+open class HighShelfFilter: Node, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

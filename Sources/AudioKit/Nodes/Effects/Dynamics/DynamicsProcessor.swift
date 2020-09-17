@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-open class DynamicsProcessor: Node, AKToggleable {
+open class DynamicsProcessor: Node, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A complement to the LowPassFilter.
-public class ToneComplementFilter: Node, AKComponent, AKToggleable {
+public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 

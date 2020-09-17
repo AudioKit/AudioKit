@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: Node, AKToggleable, AKComponent {
+public class OperationGenerator: Node, Toggleable, AudioUnitContainer {
     public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")

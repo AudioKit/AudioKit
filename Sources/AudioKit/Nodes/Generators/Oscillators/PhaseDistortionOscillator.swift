@@ -10,7 +10,7 @@ import CAudioKit
 /// at different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PhaseDistortionOscillator: Node, AKComponent, AKToggleable {
+public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 

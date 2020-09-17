@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode.
-public class AKPlayer: Node, AKToggleable {
+public class AKPlayer: Node, Toggleable {
     public var isStarted: Bool {
         playerNode.isPlaying
     }

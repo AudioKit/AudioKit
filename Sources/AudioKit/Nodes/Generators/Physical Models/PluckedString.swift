@@ -7,7 +7,7 @@ import CAudioKit
 /// Karplus-Strong plucked string instrument.
 /// TODO This node needs tests
 /// 
-public class PluckedString: Node, AKComponent, AKToggleable {
+public class PluckedString: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 

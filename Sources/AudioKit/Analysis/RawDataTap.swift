@@ -5,7 +5,7 @@ import Accelerate
 import CAudioKit
 
 /// FFT Calculation for any node
-open class RawDataTap: AKToggleable {
+open class RawDataTap: Toggleable {
 
     public private(set) var bufferSize: UInt32
 

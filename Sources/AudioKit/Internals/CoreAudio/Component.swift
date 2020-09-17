@@ -8,16 +8,16 @@ public protocol Aliased {
 }
 
 /// Helpful in reducing repetitive code in AudioKit
-public protocol AUComponent: AnyObject, Aliased {
+public protocol ComponentDescribing: AnyObject, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
-public protocol AKComponent: AUComponent {
+public protocol AudioUnitContainer: ComponentDescribing {
     associatedtype AudioUnitType: AUAudioUnit // eventually AudioUnitBase
     var internalAU: AudioUnitType? { get }
 }
 
-extension AKComponent {
+extension AudioUnitContainer {
     /// Register the audio unit subclass
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AudioUnitType.self,

@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class LowPassFilter: Node, AKToggleable {
+open class LowPassFilter: Node, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
