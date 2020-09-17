@@ -43,13 +43,11 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Convolution")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
+        addView(Slider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
             dryWetMixer.balance = sliderValue
         })
 
-        addView(AKSlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
+        addView(Slider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
             mixer.balance = sliderValue
         })
     }

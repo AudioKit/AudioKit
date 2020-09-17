@@ -6,7 +6,7 @@ import UIKit
 import AVFoundation
 
 /// Different looks the slider can have
-public enum AKSliderStyle {
+public enum SliderStyle {
     /// Uses a circle for the touch point
     case roundIndicator
 
@@ -25,7 +25,7 @@ public enum AKSliderStyle {
 }
 
 /// Simple slider interface for AudioKit properties
-@IBDesignable public class AKSlider: AKPropertyControl {
+@IBDesignable public class Slider: AKPropertyControl {
     /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
@@ -65,7 +65,7 @@ public enum AKSliderStyle {
     @IBInspectable open var onlyIntegers: Bool = false
 
     /// Slider style
-    open var sliderStyle: AKSliderStyle = AKSliderStyle.tabIndicator
+    open var sliderStyle: SliderStyle = SliderStyle.tabIndicator
 
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
@@ -163,7 +163,7 @@ public enum AKSliderStyle {
         case .roundIndicator:
             return sliderHeight
         case .tabIndicator:
-            return AKSlider.tabIndicatorWidth
+            return Slider.tabIndicatorWidth
         }
     }
 
@@ -331,8 +331,8 @@ public enum AKSliderStyle {
                 attributes: valueLabelFontAttributes,
                 context: nil).size
 
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKSlider.bubblePadding.width,
-                                    height: valueLabelTextSize.height + AKSlider.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + Slider.bubblePadding.width,
+                                    height: valueLabelTextSize.height + Slider.bubblePadding.height)
             var bubbleOriginX = (currentWidth - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
                 bubbleOriginX = valueBubbleBorderWidth
@@ -340,13 +340,13 @@ public enum AKSliderStyle {
                 bubbleOriginX = bounds.width - bubbleSize.width - valueBubbleBorderWidth
             }
             let bubbleRect = CGRect(x: bubbleOriginX,
-                                    y: sliderOrigin - valueLabelTextSize.height - AKSlider.bubbleMargin,
+                                    y: sliderOrigin - valueLabelTextSize.height - Slider.bubbleMargin,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
             let bubblePath = UIBezierPath(roundedRect: bubbleRect,
                                           byRoundingCorners: .allCorners,
-                                          cornerRadii: CGSize(width: AKSlider.bubbleCornerRadius,
-                                                              height: AKSlider.bubbleCornerRadius))
+                                          cornerRadii: CGSize(width: Slider.bubbleCornerRadius,
+                                                              height: Slider.bubbleCornerRadius))
             color.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -357,8 +357,8 @@ public enum AKSliderStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: sliderOrigin - valueLabelTextSize.height - AKSlider.bubbleMargin +
-                               AKSlider.bubblePadding.height / 2.0,
+                           y: sliderOrigin - valueLabelTextSize.height - Slider.bubbleMargin +
+                               Slider.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
@@ -397,7 +397,7 @@ public enum AKSliderStyle {
 import AVFoundation
 import Cocoa
 
-public enum AKSliderStyle {
+public enum SliderStyle {
     case roundIndicator
     case tabIndicator
 
@@ -412,7 +412,7 @@ public enum AKSliderStyle {
     }
 }
 
-@IBDesignable public class AKSlider: AKPropertyControl {
+@IBDesignable public class Slider: AKPropertyControl {
 
     // Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
@@ -445,7 +445,7 @@ public enum AKSliderStyle {
     @IBInspectable public var bubbleFontSize: CGFloat = 12
 
     // Slider style
-    open var sliderStyle: AKSliderStyle = .tabIndicator
+    open var sliderStyle: SliderStyle = .tabIndicator
 
     // Border width
     @IBInspectable public var sliderBorderWidth: CGFloat = 3.0
@@ -502,7 +502,7 @@ public enum AKSliderStyle {
         case .roundIndicator:
             return sliderHeight
         case .tabIndicator:
-            return AKSlider.tabIndicatorWidth
+            return Slider.tabIndicatorWidth
         }
     }
 
@@ -679,8 +679,8 @@ public enum AKSliderStyle {
                 options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKSlider.bubblePadding.width,
-                                    height: valueLabelTextSize.height + AKSlider.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + Slider.bubblePadding.width,
+                                    height: valueLabelTextSize.height + Slider.bubblePadding.height)
             var bubbleOriginX = (currentWidth - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
                 bubbleOriginX = valueBubbleBorderWidth
@@ -688,11 +688,11 @@ public enum AKSliderStyle {
                 bubbleOriginX = bounds.width - bubbleSize.width - valueBubbleBorderWidth
             }
             let bubbleRect = NSRect(x: bubbleOriginX,
-                                    y: sliderHeight + valueLabelTextSize.height - AKSlider.bubbleMargin + sliderOrigin,
+                                    y: sliderHeight + valueLabelTextSize.height - Slider.bubbleMargin + sliderOrigin,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
-            let bubblePath = NSBezierPath(roundedRect: bubbleRect, xRadius: AKSlider.bubbleCornerRadius,
-                                          yRadius: AKSlider.bubbleCornerRadius)
+            let bubblePath = NSBezierPath(roundedRect: bubbleRect, xRadius: Slider.bubbleCornerRadius,
+                                          yRadius: Slider.bubbleCornerRadius)
             color.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -703,8 +703,8 @@ public enum AKSliderStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: sliderHeight + valueLabelTextSize.height - AKSlider.bubbleMargin +
-                            AKSlider.bubblePadding.height / 2.0 + sliderOrigin,
+                           y: sliderHeight + valueLabelTextSize.height - Slider.bubbleMargin +
+                            Slider.bubblePadding.height / 2.0 + sliderOrigin,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)

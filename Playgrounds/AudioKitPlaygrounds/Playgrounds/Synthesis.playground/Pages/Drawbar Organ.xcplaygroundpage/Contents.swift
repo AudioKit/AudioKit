@@ -20,7 +20,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     override func viewDidLoad() {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
-            let slider = AKSlider(
+            let slider = Slider(
                 property: "Amplitude \(names[i])",
                 value: amplitudes[i]
             ) { amp in

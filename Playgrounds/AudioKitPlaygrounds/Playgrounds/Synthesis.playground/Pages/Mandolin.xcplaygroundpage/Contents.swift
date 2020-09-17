@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let mandolin = AKMandolin()
+let mandolin = MandolinString()
 mandolin.detune = 1
 mandolin.bodySize = 1
 var pluckPosition = 0.2
@@ -48,13 +48,13 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var detuneSlider: AKSlider!
-    var bodySizeSlider: AKSlider!
+    var detuneSlider: Slider!
+    var bodySizeSlider: Slider!
 
     override func viewDidLoad() {
         addTitle("Mandolin")
 
-        detuneSlider = AKSlider(property: "Detune",
+        detuneSlider = Slider(property: "Detune",
                                 value: mandolin.detune,
                                 range: 0.5 ... 2,
                                 format: "%0.2f"
@@ -63,7 +63,7 @@ class LiveView: AKLiveViewController {
         }
         addView(detuneSlider)
 
-        bodySizeSlider = AKSlider(property: "Body Size",
+        bodySizeSlider = Slider(property: "Body Size",
                                   value: mandolin.bodySize,
                                   range: 0.2 ... 3,
                                   format: "%0.2f"
@@ -72,7 +72,7 @@ class LiveView: AKLiveViewController {
         }
         addView(bodySizeSlider)
 
-        addView(AKSlider(property: "Pluck Position", value: pluckPosition, format: "%0.2f") { position in
+        addView(Slider(property: "Pluck Position", value: pluckPosition, format: "%0.2f") { position in
             pluckPosition = position
         })
 

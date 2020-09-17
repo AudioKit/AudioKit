@@ -21,11 +21,11 @@ if let mixloop = try? AVAudioFile(readFileName: "mixloop.wav") {
 class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var inPositionSlider: AKSlider!
-    var outPositionSlider: AKSlider!
-    var playingPositionSlider: AKSlider!
-    var fadeInSlider: AKSlider!
-    var fadeOutSlider: AKSlider!
+    var inPositionSlider: Slider!
+    var outPositionSlider: Slider!
+    var playingPositionSlider: Slider!
+    var fadeInSlider: Slider!
+    var fadeOutSlider: Slider!
 
     override func viewDidLoad() {
         AKPlaygroundLoop(every: 1 / 10.0) {
@@ -35,16 +35,16 @@ class LiveView: AKLiveViewController {
         }
         addTitle("Audio Player")
 
-        addView(AKButton(title: "Play") { button in
+        addView(Button(title: "Play") { button in
             player.play()
         })
 
-        addView(AKButton(title: "Disable Looping") { button in
+        addView(Button(title: "Disable Looping") { button in
             player.isLooping = !player.isLooping
             button.title = player.isLooping ? "Disable Looping" : "Enable Looping"
         })
 
-        addView(AKButton(title: "Normal →") { button in
+        addView(Button(title: "Normal →") { button in
             let wasPlaying = player.isPlaying
             if wasPlaying { player.stop() }
             player.isReversed = !player.isReversed
@@ -52,7 +52,7 @@ class LiveView: AKLiveViewController {
             if wasPlaying { player.play(from: 0) }
         })
 
-        fadeInSlider = AKSlider(property: "Fade In",
+        fadeInSlider = Slider(property: "Fade In",
                                 value: player.fade.inTime,
                                 range: 0 ... 2,
                                 format: "%0.3f s"
@@ -64,7 +64,7 @@ class LiveView: AKLiveViewController {
         }
         addView(fadeInSlider)
 
-        fadeOutSlider = AKSlider(property: "Fade Out",
+        fadeOutSlider = Slider(property: "Fade Out",
                                  value: player.fade.outTime,
                                  range: 0 ... 2,
                                  format: "%0.3f s"
@@ -75,7 +75,7 @@ class LiveView: AKLiveViewController {
         }
         addView(fadeOutSlider)
 
-        inPositionSlider = AKSlider(property: "In Position",
+        inPositionSlider = Slider(property: "In Position",
                                     value: 0,
                                     range: 0 ... 3.429,
                                     format: "%0.3f s"
@@ -87,7 +87,7 @@ class LiveView: AKLiveViewController {
         }
         addView(inPositionSlider)
 
-        outPositionSlider = AKSlider(property: "Out Position",
+        outPositionSlider = Slider(property: "Out Position",
                                      value: 3.429,
                                      range: 0 ... 3.429,
                                      format: "%0.3f s"
@@ -99,7 +99,7 @@ class LiveView: AKLiveViewController {
         }
         addView(outPositionSlider)
 
-        playingPositionSlider = AKSlider(property: "Position",
+        playingPositionSlider = Slider(property: "Position",
                                          value: player.currentTime,
                                          range: 0 ... player.duration,
                                          format: "%0.3f s"

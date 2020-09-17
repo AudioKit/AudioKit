@@ -24,9 +24,7 @@ import AudioKitUI
 class LiveView: AKLiveViewController {
 
     override func viewDidLoad() {
-        addTitle("Costello Reverb Operation")
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-    }
+        addTitle("Costello Reverb Operation")    }
 }
 
 import PlaygroundSupport

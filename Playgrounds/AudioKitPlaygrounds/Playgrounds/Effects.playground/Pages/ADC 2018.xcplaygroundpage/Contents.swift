@@ -31,17 +31,17 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider!
-    var trackedFrequencySlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
+    var trackedFrequencySlider: Slider!
 
     override func viewDidLoad() {
 
         addTitle("ADC 2018")
 
-        addView(AKSlider(property: "Delay Time", value: delay.time) { sliderValue in
+        addView(Slider(property: "Delay Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         })
-        addView(AKSlider(property: "Delay Feedback", value: delay.feedback) { sliderValue in
+        addView(Slider(property: "Delay Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         })
 

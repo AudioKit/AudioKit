@@ -10,9 +10,9 @@ public class DiodeClipper: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
@@ -72,7 +72,7 @@ public class DiodeClipper: Node, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
             self.cutoffFrequency = cutoffFrequency
             self.gain = gain

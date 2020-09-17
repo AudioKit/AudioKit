@@ -24,9 +24,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Reverb")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
+        addView(Slider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
             reverb.dryWetMix = sliderValue
         })
 

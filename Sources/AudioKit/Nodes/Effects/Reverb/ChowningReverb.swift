@@ -17,9 +17,9 @@ public class ChowningReverb: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
@@ -48,7 +48,7 @@ public class ChowningReverb: Node, AKComponent, AKToggleable {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AKAudioUnitType else {
+            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit

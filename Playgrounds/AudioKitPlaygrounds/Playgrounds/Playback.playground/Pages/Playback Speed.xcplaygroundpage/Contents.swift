@@ -24,15 +24,13 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Playback Speed")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Effect") { button in
+        addView(Button(title: "Stop Effect") { button in
             let node = variSpeed
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Effect" : "Start Effect"
         })
 
-        addView(AKSlider(property: "Rate", value: variSpeed.rate, range: 0.312_5 ... 5) { sliderValue in
+        addView(Slider(property: "Rate", value: variSpeed.rate, range: 0.312_5 ... 5) { sliderValue in
             variSpeed.rate = sliderValue
         })
     }

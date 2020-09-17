@@ -5,13 +5,13 @@ import CAudioKit
 
 /// Operation-based generator
 public class OperationGenerator: Node, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
@@ -228,7 +228,7 @@ public class OperationGenerator: Node, AKToggleable, AKComponent {
 
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
             self.internalAU?.setSporth(sporth)
         }
     }

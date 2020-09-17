@@ -22,15 +22,13 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("DynaRage Tube Compressor")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Compressor") { button in
+        addView(Button(title: "Stop Compressor") { button in
             let node = effect
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Compressor" : "Start Compressor"
         })
 
-        addView(AKSlider(property: "Threshold",
+        addView(Slider(property: "Threshold",
                          value: effect.threshold,
                          range: -100.0 ... 0.0,
                          format: "%0.2f dB"
@@ -38,7 +36,7 @@ class LiveView: AKLiveViewController {
             effect.threshold = sliderValue
         })
 
-        addView(AKSlider(property: "Ratio",
+        addView(Slider(property: "Ratio",
                          value: effect.ratio,
                          range: 1.0 ... 20.0,
                          format: "%0.0f:1"
@@ -46,7 +44,7 @@ class LiveView: AKLiveViewController {
             effect.ratio = sliderValue
         })
 
-        addView(AKSlider(property: "Attack Duration",
+        addView(Slider(property: "Attack Duration",
                          value: effect.attackDuration,
                          range: 0.1 ... 500.0,
                          format: "%0.2f ms"
@@ -54,7 +52,7 @@ class LiveView: AKLiveViewController {
             effect.attackDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Release Duration",
+        addView(Slider(property: "Release Duration",
                          value: effect.releaseDuration,
                          range: 0.01 ... 500.0,
                          format: "%0.2f ms"
@@ -62,7 +60,7 @@ class LiveView: AKLiveViewController {
             effect.releaseDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Rage Amount",
+        addView(Slider(property: "Rage Amount",
                          value: effect.rage,
                          range: 1 ... 20,
                          format: "%0.2f"
@@ -70,7 +68,7 @@ class LiveView: AKLiveViewController {
             effect.rage = sliderValue
         })
 
-        addView(AKButton(title: "Rage Off") { button in
+        addView(Button(title: "Rage Off") { button in
             effect.rageIsOn = !effect.rageIsOn
             if effect.rageIsOn {
                 button.title = "Rage Off"

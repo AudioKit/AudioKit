@@ -33,8 +33,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider!
-    var trackedFrequencySlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
+    var trackedFrequencySlider: Slider!
 
     override func viewDidLoad() {
 
@@ -47,12 +47,12 @@ class LiveView: AKLiveViewController {
 
         addTitle("Tracking Frequency")
 
-        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
+        trackedAmplitudeSlider = Slider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
             // Do nothing, just for display
         }
         addView(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+        trackedFrequencySlider = Slider(property: "Tracked Frequency",
                                           range: 0 ... 2_400,
                                           format: "%0.3f Hz"
         ) { _ in

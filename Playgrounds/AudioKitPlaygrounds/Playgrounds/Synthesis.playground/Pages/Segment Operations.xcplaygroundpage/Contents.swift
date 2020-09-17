@@ -42,7 +42,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Segment Operations")
 
-        addView(AKSlider(property: "Update Rate",
+        addView(Slider(property: "Update Rate",
                          value: generator.parameters[0],
                          range: 0.1 ... 10,
                          format: "%0.3f Hz"

@@ -12,10 +12,10 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    var p0Slider: AKSlider!
-    var p1Slider: AKSlider!
-    var p2Slider: AKSlider!
-    var p3Slider: AKSlider!
+    var p0Slider: Slider!
+    var p1Slider: Slider!
+    var p2Slider: Slider!
+    var p3Slider: Slider!
     var keyboard: AKKeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
@@ -43,7 +43,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             AKLog("\n\n\n\n\n\n\(sporth)")
             generator.sporth = sporth
 
-            let sliders: [AKSlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
+            let sliders: [Slider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
 //            self.keyboard.isHidden = true
@@ -109,22 +109,22 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
         addLabel("Open up the console view to see the Sporth code.")
 
-        p0Slider = AKSlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
+        p0Slider = Slider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
             generator.parameters[0] = sliderValue
         }
 //        p0Slider?.isHidden = true
         addView(p0Slider)
-        p1Slider = AKSlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
+        p1Slider = Slider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
 //        p1Slider?.isHidden = true
         addView(p1Slider)
-        p2Slider = AKSlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
+        p2Slider = Slider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
 //        p2Slider?.isHidden = true
         addView(p2Slider)
-        p3Slider = AKSlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
+        p3Slider = Slider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
 //        p3Slider?.isHidden = true

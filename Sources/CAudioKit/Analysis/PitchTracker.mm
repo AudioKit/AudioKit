@@ -4,12 +4,12 @@
 
 #include "soundpipe.h"
 
-struct AKPitchTracker {
+struct PitchTracker {
 
     sp_data *sp = nullptr;
     sp_ptrack *ptrack = nullptr;
 
-    AKPitchTracker(size_t sampleRate, int hopSize, int peakCount) {
+    PitchTracker(size_t sampleRate, int hopSize, int peakCount) {
         sp_create(&sp);
         sp->sr = (int)sampleRate;
         sp->nchan = 1;
@@ -18,7 +18,7 @@ struct AKPitchTracker {
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
     }
 
-    ~AKPitchTracker() {
+    ~PitchTracker() {
         sp_ptrack_destroy(&ptrack);
         sp_destroy(&sp);
     }
@@ -37,19 +37,19 @@ struct AKPitchTracker {
     float trackedFrequency = 0.0;
 };
 
-AK_API AKPitchTrackerRef akPitchTrackerCreate(unsigned int sampleRate, int hopSize, int peakCount) {
-    return new AKPitchTracker(sampleRate, hopSize, peakCount);
+AK_API PitchTrackerRef akPitchTrackerCreate(unsigned int sampleRate, int hopSize, int peakCount) {
+    return new PitchTracker(sampleRate, hopSize, peakCount);
 }
 
-AK_API void akPitchTrackerDestroy(AKPitchTrackerRef tracker) {
+AK_API void akPitchTrackerDestroy(PitchTrackerRef tracker) {
     delete tracker;
 }
 
-AK_API void akPitchTrackerAnalyze(AKPitchTrackerRef tracker, float* frames, unsigned int count) {
+AK_API void akPitchTrackerAnalyze(PitchTrackerRef tracker, float* frames, unsigned int count) {
     tracker->analyze(frames, count);
 }
 
-AK_API void akPitchTrackerGetResults(AKPitchTrackerRef tracker, float* trackedAmplitude, float* trackedFrequency) {
+AK_API void akPitchTrackerGetResults(PitchTrackerRef tracker, float* trackedAmplitude, float* trackedFrequency) {
     *trackedAmplitude = tracker->trackedAmplitude;
     *trackedFrequency = tracker->trackedFrequency;
 }

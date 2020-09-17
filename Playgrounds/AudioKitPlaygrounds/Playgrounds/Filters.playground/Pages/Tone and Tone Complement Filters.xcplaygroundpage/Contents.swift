@@ -23,14 +23,12 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Tone Filters")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Tone Filter") { button in
+        addView(Button(title: "Stop Tone Filter") { button in
             toneFilter.isStarted ? toneFilter.stop() : toneFilter.play()
             button.title = toneFilter.isStarted ? "Stop Tone Filter" : "Start Tone Filter"
         })
 
-        addView(AKSlider(property: "Half Power Point",
+        addView(Slider(property: "Half Power Point",
                          value: toneFilter.halfPowerPoint,
                          range: 0 ... 10_000,
                          taper: 5
@@ -38,12 +36,12 @@ class LiveView: AKLiveViewController {
             toneFilter.halfPowerPoint = sliderValue
         })
 
-        addView(AKButton(title: "Stop Tone Complement") { button in
+        addView(Button(title: "Stop Tone Complement") { button in
             toneComplement.isStarted ? toneComplement.stop() : toneComplement.play()
             button.title = toneComplement.isStarted ? "Stop Tone Complement" : "Start Tone Complement"
         })
 
-        addView(AKSlider(property: "Half Power Point",
+        addView(Slider(property: "Half Power Point",
                          value: toneComplement.halfPowerPoint,
                          range: 0 ... 10_000,
                          taper: 5

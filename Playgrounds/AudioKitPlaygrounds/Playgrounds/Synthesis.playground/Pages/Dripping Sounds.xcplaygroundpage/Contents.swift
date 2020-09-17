@@ -26,31 +26,31 @@ class LiveView: AKLiveViewController {
 
         addTitle("Dripping Sounds")
 
-        addView(AKSlider(property: "Intensity", value: drip.intensity, range: 0 ... 300) { sliderValue in
+        addView(Slider(property: "Intensity", value: drip.intensity, range: 0 ... 300) { sliderValue in
             drip.intensity = sliderValue
         })
 
-        addView(AKSlider(property: "Damping Factor", value: drip.dampingFactor, range: 0 ... 2) { sliderValue in
+        addView(Slider(property: "Damping Factor", value: drip.dampingFactor, range: 0 ... 2) { sliderValue in
             drip.dampingFactor = sliderValue
         })
-        addView(AKSlider(property: "Energy Return", value: drip.energyReturn range: 0 ... 5) { sliderValue in
+        addView(Slider(property: "Energy Return", value: drip.energyReturn range: 0 ... 5) { sliderValue in
             drip.energyReturn = sliderValue
         })
-        addView(AKSlider(property: "Main Resonant Frequency",
+        addView(Slider(property: "Main Resonant Frequency",
                          value: drip.mainResonantFrequency,
                          range: 0 ... 800,
                          format: "%0.1f Hz"
         ) { sliderValue in
             drip.mainResonantFrequency = sliderValue
         })
-        addView(AKSlider(property: "1st Resonant Frequency",
+        addView(Slider(property: "1st Resonant Frequency",
                          value: drip.firstResonantFrequency,
                          range: 0 ... 800,
                          format: "%0.1f Hz"
         ) { sliderValue in
             drip.firstResonantFrequency = sliderValue
         })
-        addView(AKSlider(property: "2nd Resonant Frequency",
+        addView(Slider(property: "2nd Resonant Frequency",
                          value: drip.secondResonantFrequency,
                          range: 0 ... 800,
                          format: "%0.1f Hz"

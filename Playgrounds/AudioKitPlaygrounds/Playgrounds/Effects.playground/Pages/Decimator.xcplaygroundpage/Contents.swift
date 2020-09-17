@@ -28,17 +28,15 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Decimator")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKSlider(property: "Decimation", value: decimator.decimation) { sliderValue in
+        addView(Slider(property: "Decimation", value: decimator.decimation) { sliderValue in
             decimator.decimation = sliderValue
         })
 
-        addView(AKSlider(property: "Rounding", value: decimator.rounding) { sliderValue in
+        addView(Slider(property: "Rounding", value: decimator.rounding) { sliderValue in
             decimator.rounding = sliderValue
         })
 
-        addView(AKSlider(property: "Mix", value: decimator.mix) { sliderValue in
+        addView(Slider(property: "Mix", value: decimator.mix) { sliderValue in
             decimator.mix = sliderValue
         })
 

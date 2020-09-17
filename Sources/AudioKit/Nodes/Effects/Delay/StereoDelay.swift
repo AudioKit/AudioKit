@@ -9,9 +9,9 @@ public class StereoDelay: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
-    public typealias AKAudioUnitType = InternalAU
+    public typealias AudioUnitType = InternalAU
 
-    public private(set) var internalAU: AKAudioUnitType?
+    public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
@@ -101,7 +101,7 @@ public class StereoDelay: Node, AKToggleable, AKComponent {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
             self.time = time
             self.feedback = feedback

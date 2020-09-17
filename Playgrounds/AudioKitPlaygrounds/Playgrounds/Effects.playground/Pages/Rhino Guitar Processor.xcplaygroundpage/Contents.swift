@@ -26,12 +26,12 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Rhino Guitar Processor")
 
-        addView(AKButton(title: "Stop Rhino") { button in
+        addView(Button(title: "Stop Rhino") { button in
             rhino.isStarted ? rhino.stop() : rhino.play()
             button.title = rhino.isStarted ? "Stop Rhino" : "Start Rhino"
         })
 
-        addView(AKSlider(property: "Pre Gain",
+        addView(Slider(property: "Pre Gain",
                          value: rhino.preGain,
                          range: 0.0 ... 10.0,
                          format: "%0.2f"
@@ -39,7 +39,7 @@ class LiveView: AKLiveViewController {
             rhino.preGain = sliderValue
         })
 
-        addView(AKSlider(property: "Dist. Amount",
+        addView(Slider(property: "Dist. Amount",
                          value: rhino.distortion,
                          range: 1.0 ... 20.0,
                          format: "%0.1f"
@@ -47,7 +47,7 @@ class LiveView: AKLiveViewController {
             rhino.distortion = sliderValue
         })
 
-        addView(AKSlider(property: "Lows",
+        addView(Slider(property: "Lows",
                          value: rhino.lowGain,
                          range: -1.0 ... 1.0,
                          format: "%0.1f"
@@ -55,7 +55,7 @@ class LiveView: AKLiveViewController {
             rhino.lowGain = sliderValue
         })
 
-        addView(AKSlider(property: "Mids",
+        addView(Slider(property: "Mids",
                          value: rhino.midGain,
                          range: -1.0 ... 1.0,
                          format: "%0.1f"
@@ -63,7 +63,7 @@ class LiveView: AKLiveViewController {
             rhino.midGain = sliderValue
         })
 
-        addView(AKSlider(property: "Highs",
+        addView(Slider(property: "Highs",
                          value: rhino.highGain,
                          range: -1.0 ... 1.0,
                          format: "%0.1f"
@@ -71,7 +71,7 @@ class LiveView: AKLiveViewController {
             rhino.highGain = sliderValue
         })
 
-        addView(AKSlider(property: "Output Gain",
+        addView(Slider(property: "Output Gain",
                          value: rhino.postGain,
                          range: 0.0 ... 1.0,
                          format: "%0.1f"

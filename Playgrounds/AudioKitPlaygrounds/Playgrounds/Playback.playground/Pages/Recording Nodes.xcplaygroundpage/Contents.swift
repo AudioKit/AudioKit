@@ -42,14 +42,14 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var recordLabel: AKLabel!
     var playLabel: AKLabel!
-    var playButton: AKButton!
+    var playButton: Button!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addView(AKButton(title: "Record", color: AKColor.red) { button in
+        addView(Button(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
@@ -66,7 +66,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             }
         })
 
-        addView(AKButton(title: "Save") { button in
+        addView(Button(title: "Save") { button in
             recorder.audioFile?.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] _, _ in
@@ -74,7 +74,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             button.title = "Saved"
         })
 
-        addView(AKButton(title: "Reset Recording") { button in
+        addView(Button(title: "Reset Recording") { button in
             self.recordLabel.stringValue = "Tape Cleared!"
             do {
                 try recorder.reset()
@@ -86,7 +86,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
         playLabel = addLabel("Press Play to playback...")
 
-        playButton = AKButton(title: "Play") { button in
+        playButton = Button(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.stringValue = "Stopped playback!"
                 player.stop()

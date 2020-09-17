@@ -29,28 +29,26 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var delaySlider: AKSlider!
-    var decaySlider: AKSlider!
-    var delayMixSlider: AKSlider!
-    var linearTermSlider: AKSlider!
-    var squaredTermSlider: AKSlider!
-    var cubicTermSlider: AKSlider!
-    var polynomialMixSlider: AKSlider!
-    var softClipGainSlider: AKSlider!
-    var finalMixSlider: AKSlider!
+    var delaySlider: Slider!
+    var decaySlider: Slider!
+    var delayMixSlider: Slider!
+    var linearTermSlider: Slider!
+    var squaredTermSlider: Slider!
+    var cubicTermSlider: Slider!
+    var polynomialMixSlider: Slider!
+    var softClipGainSlider: Slider!
+    var finalMixSlider: Slider!
 
     override func viewDidLoad() {
         addTitle("Distortion")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Distortion") { button in
+        addView(Button(title: "Stop Distortion") { button in
             let node = distortion
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Distortion" : "Start Distortion"
         })
 
-        delaySlider = AKSlider(property: "Delay",
+        delaySlider = Slider(property: "Delay",
                                value: distortion.delay,
                                range: 0.1 ... 500,
                                format: "%0.3f ms"
@@ -59,7 +57,7 @@ class LiveView: AKLiveViewController {
         }
         addView(delaySlider)
 
-        decaySlider = AKSlider(property: "Decay Rate",
+        decaySlider = Slider(property: "Decay Rate",
                                value: distortion.decay,
                                range: 0.1 ... 50
         ) { sliderValue in
@@ -67,27 +65,27 @@ class LiveView: AKLiveViewController {
         }
         addView(decaySlider)
 
-        addView(AKSlider(property: "Delay Mix", value: distortion.delayMix) { sliderValue in
+        addView(Slider(property: "Delay Mix", value: distortion.delayMix) { sliderValue in
             distortion.delayMix = sliderValue
         })
 
-        addView(AKSlider(property: "Linear Term", value: distortion.linearTerm) { sliderValue in
+        addView(Slider(property: "Linear Term", value: distortion.linearTerm) { sliderValue in
             distortion.linearTerm = sliderValue
         })
 
-        addView(AKSlider(property: "Squared Term", value: distortion.squaredTerm) { sliderValue in
+        addView(Slider(property: "Squared Term", value: distortion.squaredTerm) { sliderValue in
             distortion.squaredTerm = sliderValue
         })
 
-        addView(AKSlider(property: "Cubic Term", value: distortion.cubicTerm) { sliderValue in
+        addView(Slider(property: "Cubic Term", value: distortion.cubicTerm) { sliderValue in
             distortion.cubicTerm = sliderValue
         })
 
-        addView(AKSlider(property: "Polynomial Mix", value: distortion.polynomialMix) { sliderValue in
+        addView(Slider(property: "Polynomial Mix", value: distortion.polynomialMix) { sliderValue in
             distortion.polynomialMix = sliderValue
         })
 
-        softClipGainSlider = AKSlider(property: "Soft Clip Gain",
+        softClipGainSlider = Slider(property: "Soft Clip Gain",
                                       value: distortion.softClipGain,
                                       range: -80 ... 20,
                                       format: "%0.3f dB"
@@ -96,7 +94,7 @@ class LiveView: AKLiveViewController {
         }
         addView(softClipGainSlider)
 
-        addView(AKSlider(property: "Final Mix", value: distortion.finalMix) { sliderValue in
+        addView(Slider(property: "Final Mix", value: distortion.finalMix) { sliderValue in
             distortion.finalMix = sliderValue
         })
     }

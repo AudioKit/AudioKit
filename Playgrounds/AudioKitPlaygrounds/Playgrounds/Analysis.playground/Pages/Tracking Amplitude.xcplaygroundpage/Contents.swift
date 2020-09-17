@@ -28,7 +28,7 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider!
+    var trackedAmplitudeSlider: Slider!
 
     override func viewDidLoad() {
 
@@ -38,7 +38,7 @@ class LiveView: AKLiveViewController {
 
         addTitle("Tracking Amplitude")
 
-        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
+        trackedAmplitudeSlider = Slider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
         addView(trackedAmplitudeSlider)

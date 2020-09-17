@@ -6,7 +6,7 @@
 import UIKit
 
 /// Different looks the button can have
-public enum AKButtonStyle {
+public enum ButtonStyle {
     /// Rectangular button
     case standard
     /// Button with rounded ends
@@ -14,12 +14,12 @@ public enum AKButtonStyle {
 }
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
-@IBDesignable public class AKButton: UIView {
+@IBDesignable public class Button: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    public var callback: (AKButton) -> Void = { _ in }
-    public var releaseCallback: (AKButton) -> Void = { _ in }
+    public var callback: (Button) -> Void = { _ in }
+    public var releaseCallback: (Button) -> Void = { _ in }
 
     var isPressed: Bool {
         return isHighlighted
@@ -76,7 +76,7 @@ public enum AKButtonStyle {
     }
 
     /// Button style
-    open var style: AKButtonStyle = .standard {
+    open var style: ButtonStyle = .standard {
         didSet {
             setNeedsDisplay()
         }
@@ -100,7 +100,7 @@ public enum AKButtonStyle {
     public convenience init(title: String,
                             color: AKColor = AKStylist.sharedInstance.nextColor,
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                            callback: @escaping (AKButton) -> Void) {
+                            callback: @escaping (Button) -> Void) {
         self.init(frame: frame)
         self.title = title
         self.color = color
@@ -185,7 +185,7 @@ public enum AKButtonStyle {
         let cornerRadius: CGFloat = {
             switch self.style {
             case .standard:
-                return AKButton.standardCornerRadius
+                return Button.standardCornerRadius
             case .round:
                 return rect.height / 2.0
             }
@@ -239,16 +239,16 @@ public enum AKButtonStyle {
 
 import Cocoa
 
-public enum AKButtonStyle {
+public enum ButtonStyle {
     case standard
     case round
 }
 
-@IBDesignable public class AKButton: AKView {
+@IBDesignable public class Button: AKView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    public var callback: (AKButton) -> Void = { _ in }
+    public var callback: (Button) -> Void = { _ in }
 
     private var isHighlighted = false {
         didSet {
@@ -301,7 +301,7 @@ public enum AKButtonStyle {
         }
     }
 
-    open var style: AKButtonStyle = .standard {
+    open var style: ButtonStyle = .standard {
         didSet {
             needsDisplay = true
         }
@@ -339,7 +339,7 @@ public enum AKButtonStyle {
     public init(title: String,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(width: 440, height: 60),
-                callback: @escaping (AKButton) -> Void) {
+                callback: @escaping (Button) -> Void) {
         self.title = title
         self.callback = callback
         self.color = color
@@ -410,7 +410,7 @@ public enum AKButtonStyle {
         let cornerRadius: CGFloat = {
             switch self.style {
             case .standard:
-                return AKButton.standardCornerRadius
+                return Button.standardCornerRadius
             case .round:
                 return rect.height / 2.0
             }

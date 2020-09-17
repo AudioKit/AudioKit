@@ -68,7 +68,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     override func viewDidLoad() {
         addTitle("Filter Envelope")
 
-        addView(AKSlider(property: "Cutoff Frequency",
+        addView(Slider(property: "Cutoff Frequency",
                          value: synth.cutoff,
                          range: 20 ... 5_000,
                          format: "%0.1f Hz"

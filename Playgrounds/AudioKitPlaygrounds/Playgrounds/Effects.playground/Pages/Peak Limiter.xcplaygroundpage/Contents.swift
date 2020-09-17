@@ -27,15 +27,13 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Peak Limiter")
 
-        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addView(AKButton(title: "Stop Limiter") { button in
+        addView(Button(title: "Stop Limiter") { button in
             let node = peakLimiter
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Limiter" : "Start Limiter"
         })
 
-        addView(AKSlider(property: "Attack Duration",
+        addView(Slider(property: "Attack Duration",
                          value: peakLimiter.attackDuration,
                          range: 0.001 ... 0.03,
                          format: "%0.3f s"
@@ -43,7 +41,7 @@ class LiveView: AKLiveViewController {
             peakLimiter.attackDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Decay Duration",
+        addView(Slider(property: "Decay Duration",
                          value: peakLimiter.decayDuration,
                          range: 0.001 ... 0.03,
                          format: "%0.3f s"
@@ -51,7 +49,7 @@ class LiveView: AKLiveViewController {
             peakLimiter.decayDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Pre-gain",
+        addView(Slider(property: "Pre-gain",
                          value: peakLimiter.preGain,
                          range: -40 ... 40,
                          format: "%0.1f dB"
