@@ -125,7 +125,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Automation
 
-    public func automateGain(events: [AKAutomationEvent], startTime: AVAudioTime? = nil) {
+    public func automateGain(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
         $leftGain.automate(events: events, startTime: startTime)
         $rightGain.automate(events: events, startTime: startTime)
     }

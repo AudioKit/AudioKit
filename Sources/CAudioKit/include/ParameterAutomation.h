@@ -14,7 +14,7 @@ struct ParameterAutomationPoint {
 };
 
 /// Linear automation segment.
-struct AKAutomationEvent {
+struct AutomationEvent {
     AUValue targetValue;
     float startTime;
     float rampDuration;
@@ -27,7 +27,7 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         float sampleRate,
                                                         float startSampleTime,
-                                                        const struct AKAutomationEvent* events,
+                                                        const struct AutomationEvent* events,
                                                         size_t count);
 
 #endif

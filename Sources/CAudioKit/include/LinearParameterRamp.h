@@ -8,7 +8,7 @@
 
 // Currently Unused
 
-struct AKLinearParameterRamp : AKParameterRampBase {
+struct AKLinearParameterRamp : ParameterRampBase {
 
     float computeValueAt(int64_t atSample) override {
         float fract = (float)(atSample - _startSample) / _duration;

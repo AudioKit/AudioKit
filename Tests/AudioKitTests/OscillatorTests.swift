@@ -90,7 +90,7 @@ class OscillatorTests: XCTestCase {
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -105,7 +105,7 @@ class OscillatorTests: XCTestCase {
 
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$amplitude.automate(events: [AKAutomationEvent(targetValue: 1.0,
+        input.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -120,10 +120,10 @@ class OscillatorTests: XCTestCase {
 
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
-        input.$amplitude.automate(events: [AKAutomationEvent(targetValue: 1.0,
+        input.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -141,7 +141,7 @@ class OscillatorTests: XCTestCase {
         // Delay a second.
         let startTime = AVAudioTime(sampleTime: 44100, atRate: 41000)
 
-        input.$frequency.automate(events: [AKAutomationEvent(targetValue: 880,
+        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)],
                                   startTime: startTime)

@@ -12,7 +12,7 @@ enum PWMOscillatorParameter : AUParameterAddress {
     PWMOscillatorParameterDetuningMultiplier,
 };
 
-class PWMOscillatorDSP : public AKSoundpipeDSPBase {
+class PWMOscillatorDSP : public SoundpipeDSPBase {
 private:
     sp_blsquare *blsquare;
     ParameterRamper frequencyRamp;
@@ -22,7 +22,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    PWMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    PWMOscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[PWMOscillatorParameterFrequency] = &frequencyRamp;
         parameters[PWMOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[PWMOscillatorParameterPulseWidth] = &pulseWidthRamp;
@@ -33,19 +33,19 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         isStarted = false;
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_blsquare_destroy(&blsquare);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         isStarted = false;
         sp_blsquare_init(sp, blsquare);

@@ -13,7 +13,7 @@ enum PhaseDistortionOscillatorParameter : AUParameterAddress {
     PhaseDistortionOscillatorParameterDetuningMultiplier,
 };
 
-class PhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
+class PhaseDistortionOscillatorDSP : public SoundpipeDSPBase {
 private:
     sp_pdhalf *pdhalf;
     sp_tabread *tabread;
@@ -27,7 +27,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    PhaseDistortionOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    PhaseDistortionOscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[PhaseDistortionOscillatorParameterFrequency] = &frequencyRamp;
         parameters[PhaseDistortionOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[PhaseDistortionOscillatorParameterPhaseDistortion] = &phaseDistortionRamp;
@@ -43,7 +43,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, waveform.size());
         std::copy(waveform.cbegin(), waveform.cend(), ftbl->tbl);
         sp_pdhalf_create(&pdhalf);
@@ -55,7 +55,7 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_phasor_destroy(&phasor);
         sp_pdhalf_destroy(&pdhalf);
         sp_tabread_destroy(&tabread);
@@ -63,7 +63,7 @@ public:
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pdhalf_init(sp, pdhalf);
     }

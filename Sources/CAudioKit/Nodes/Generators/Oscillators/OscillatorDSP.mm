@@ -12,7 +12,7 @@ enum OscillatorParameter : AUParameterAddress {
     OscillatorParameterDetuningMultiplier,
 };
 
-class OscillatorDSP : public AKSoundpipeDSPBase {
+class OscillatorDSP : public SoundpipeDSPBase {
 private:
     sp_osc *osc = nullptr;
     sp_ftbl *ftbl = nullptr;
@@ -23,7 +23,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    OscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    OscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[OscillatorParameterFrequency] = &frequencyRamp;
         parameters[OscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[OscillatorParameterDetuningOffset] = &detuningOffsetRamp;
@@ -37,7 +37,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, waveform.size());
         std::copy(waveform.cbegin(), waveform.cend(), ftbl->tbl);
         sp_osc_create(&osc);
@@ -45,13 +45,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_osc_destroy(&osc);
         sp_ftbl_destroy(&ftbl);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_osc_init(sp, osc, ftbl, 0);
     }

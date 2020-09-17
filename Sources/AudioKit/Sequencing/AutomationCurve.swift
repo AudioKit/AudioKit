@@ -44,9 +44,9 @@ public struct AutomationCurve {
     ///
     /// - Returns: A new array of piecewise linear automation points
     public func evaluate(initialValue: AUValue,
-                         resolution: Float) -> [AKAutomationEvent] {
+                         resolution: Float) -> [AutomationEvent] {
 
-        var result = [AKAutomationEvent]()
+        var result = [AutomationEvent]()
 
         // The last evaluated value
         var value = initialValue
@@ -56,7 +56,7 @@ public struct AutomationCurve {
 
             if point.isLinear() {
 
-                result.append(AKAutomationEvent(targetValue: point.targetValue,
+                result.append(AutomationEvent(targetValue: point.targetValue,
                                                 startTime: point.startTime,
                                                 rampDuration: point.rampDuration))
                 value = point.targetValue
@@ -81,7 +81,7 @@ public struct AutomationCurve {
                                                        time: t + resolution,
                                                        endTime: point.startTime + point.rampDuration)
 
-                    result.append(AKAutomationEvent(targetValue: value,
+                    result.append(AutomationEvent(targetValue: value,
                                                     startTime: t,
                                                     rampDuration: resolution))
 

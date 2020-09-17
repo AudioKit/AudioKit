@@ -22,7 +22,7 @@ enum AKOperationEffectParameter : AUParameterAddress {
     AKOperationEffectParameter14,
 };
 
-class AKOperationEffectDSP : public AKSoundpipeDSPBase {
+class AKOperationEffectDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
@@ -72,7 +72,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         plumber_register(&pd);
         plumber_init(&pd);
 
@@ -84,12 +84,12 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         plumber_clean(&pd);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         plumber_init(&pd);
 

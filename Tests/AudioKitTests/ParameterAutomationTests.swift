@@ -5,9 +5,9 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 
-class AKParameterAutomationTests: XCTestCase {
+class ParameterAutomationTests: XCTestCase {
 
-    func observerTest(events: [AKAutomationEvent],
+    func observerTest(events: [AutomationEvent],
                       sampleTime: Float64,
                       startTime: Float = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
 
@@ -27,7 +27,7 @@ class AKParameterAutomationTests: XCTestCase {
             AKParameterAutomationGetRenderObserver(address,
                                                    scheduleParameterBlock,
                                                    44100,
-                                                   startTime, // start time
+                                                   startTime,
                                                    automationPtr.baseAddress!,
                                                    events.count)
         }
@@ -42,7 +42,7 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testSimpleAutomation() throws {
 
-        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
+        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
@@ -53,7 +53,7 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testPastAutomation() {
 
-        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
+        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
@@ -64,8 +64,8 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testPastAutomationTwo() {
 
-        let events = [ AKAutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
-                       AKAutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
+        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
+                       AutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
@@ -77,7 +77,7 @@ class AKParameterAutomationTests: XCTestCase {
 
     func testFutureAutomation() {
 
-        let events = [ AKAutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
+        let events = [ AutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
@@ -90,7 +90,7 @@ class AKParameterAutomationTests: XCTestCase {
 
         // Start automating in the middle of a segment.
 
-        let events = [AKAutomationEvent(targetValue: 1, startTime: 0, rampDuration: 1.0)]
+        let events = [AutomationEvent(targetValue: 1, startTime: 0, rampDuration: 1.0)]
 
         let (addresses, values, durations) = observerTest(events: events, sampleTime: 128)
 
