@@ -30,12 +30,12 @@ extension MIDIOMNIListener: MIDIListener {
     }
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-        if controller == AKMIDIControl.omniModeOff.rawValue {
+        if controller == MIDIControl.omniModeOff.rawValue {
             guard omniMode == true else { return }
             omniMode = false
             omniStateChange()
         }
-        if controller == AKMIDIControl.omniModeOn.rawValue {
+        if controller == MIDIControl.omniModeOn.rawValue {
             guard omniMode == false else { return }
             omniMode = true
             omniStateChange()

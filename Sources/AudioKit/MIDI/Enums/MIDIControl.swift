@@ -22,7 +22,7 @@
 /// - AllNotesOff: MIDI Panic
 /// - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
 ///
-public enum AKMIDIControl: MIDIByte {
+public enum MIDIControl: MIDIByte {
 
     /// Modulation Control
     case modulationWheel = 1

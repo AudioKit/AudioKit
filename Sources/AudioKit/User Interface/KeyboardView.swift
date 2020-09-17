@@ -394,7 +394,7 @@ public protocol KeyboardDelegate: AnyObject {
     }
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-        if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
+        if controller == MIDIByte(MIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
                 delegate?.noteOff(note: note)
             }
@@ -690,7 +690,7 @@ public class KeyboardView: NSView, MIDIListener {
     }
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-        if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
+        if controller == MIDIByte(MIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
                 delegate?.noteOff(note: note)
             }

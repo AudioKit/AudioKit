@@ -99,7 +99,7 @@ public struct MIDIFileChunkEvent {
         return 0
     }
 
-    var event: AKMIDIMessage? {
+    var event: MIDIMessage? {
         if let meta = AKMIDIMetaEvent(data: rawEventData) {
             return meta
         } else if let type = typeByte {

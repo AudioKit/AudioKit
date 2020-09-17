@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-public struct MIDIStatus: AKMIDIMessage {
+public struct MIDIStatus: MIDIMessage {
 
     public var data: [UInt8] {
         return [byte]
