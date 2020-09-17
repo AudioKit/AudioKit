@@ -17,7 +17,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
 
     // MARK: - Parameters
 
-    fileprivate var waveformArray = [AKTable]()
+    fileprivate var waveformArray = [Table]()
 
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
@@ -104,7 +104,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveformArray: [AKTable] = [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)],
+        waveformArray: [Table] = [Table(.triangle), Table(.square), Table(.sine), Table(.sawtooth)],
         frequency: AUValue = 440,
         amplitude: AUValue = 0.5,
         index: AUValue = 0.0,

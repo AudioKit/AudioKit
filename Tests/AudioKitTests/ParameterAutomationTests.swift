@@ -103,7 +103,7 @@ class ParameterAutomationTests: XCTestCase {
 
         let engine = AudioEngine()
 
-        let osc = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let osc = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
         engine.output = osc
 
         try! engine.start()

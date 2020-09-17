@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKChorusTests: XCTestCase {
+class ChorusTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input,
+        engine.output = Chorus(input,
                           frequency: 1.1,
                           depth: 0.8,
                           feedback: 0.7,
@@ -22,7 +22,7 @@ class AKChorusTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input)
+        engine.output = Chorus(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -32,7 +32,7 @@ class AKChorusTests: XCTestCase {
     func testDepth() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input, depth: 0.88)
+        engine.output = Chorus(input, depth: 0.88)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -42,7 +42,7 @@ class AKChorusTests: XCTestCase {
     func testDryWetMix() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input, dryWetMix: 0.55)
+        engine.output = Chorus(input, dryWetMix: 0.55)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -52,7 +52,7 @@ class AKChorusTests: XCTestCase {
     func testFeedback() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input, feedback: 0.77)
+        engine.output = Chorus(input, feedback: 0.77)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -62,7 +62,7 @@ class AKChorusTests: XCTestCase {
     func testFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKChorus(input, frequency: 1.11)
+        engine.output = Chorus(input, frequency: 1.11)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

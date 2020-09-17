@@ -20,7 +20,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
 
     // MARK: - Parameters
 
-    fileprivate var waveform: AKTable?
+    fileprivate var waveform: Table?
 
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
@@ -107,7 +107,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.sine),
+        waveform: Table = Table(.sine),
         frequency: AUValue = 440,
         amplitude: AUValue = 1,
         phaseDistortion: AUValue = 0,

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class AKFlanger: Node, AudioUnitContainer, Toggleable {
+public class Flanger: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
@@ -19,7 +19,7 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
-        range: kAKFlanger_MinFrequency ... kAKFlanger_MaxFrequency,
+        range: kFlanger_MinFrequency ... kFlanger_MaxFrequency,
         unit: .hertz,
         flags: .default)
 
@@ -30,7 +30,7 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
-        range: kAKFlanger_MinDepth ... kAKFlanger_MaxDepth,
+        range: kFlanger_MinDepth ... kFlanger_MaxDepth,
         unit: .generic,
         flags: .default)
 
@@ -41,7 +41,7 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
-        range: kAKFlanger_MinFeedback ... kAKFlanger_MaxFeedback,
+        range: kFlanger_MinFeedback ... kFlanger_MaxFeedback,
         unit: .generic,
         flags: .default)
 
@@ -52,7 +52,7 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,
-        range: kAKFlanger_MinDryWetMix ... kAKFlanger_MaxDryWetMix,
+        range: kFlanger_MinDryWetMix ... kFlanger_MaxDryWetMix,
         unit: .generic,
         flags: .default)
 
@@ -64,10 +64,10 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
-            return [AKFlanger.frequencyDef,
-                    AKFlanger.depthDef,
-                    AKFlanger.feedbackDef,
-                    AKFlanger.dryWetMixDef]
+            return [Flanger.frequencyDef,
+                    Flanger.depthDef,
+                    Flanger.feedbackDef,
+                    Flanger.dryWetMixDef]
         }
 
         public override func createDSP() -> AKDSPRef {
@@ -88,10 +88,10 @@ public class AKFlanger: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = kAKFlanger_DefaultFrequency,
-        depth: AUValue = kAKFlanger_DefaultDepth,
-        feedback: AUValue = kAKFlanger_DefaultFeedback,
-        dryWetMix: AUValue = kAKFlanger_DefaultDryWetMix
+        frequency: AUValue = kFlanger_DefaultFrequency,
+        depth: AUValue = kFlanger_DefaultDepth,
+        feedback: AUValue = kFlanger_DefaultFeedback,
+        dryWetMix: AUValue = kFlanger_DefaultDryWetMix
     ) {
         super.init(avAudioNode: AVAudioNode())
 

@@ -8,7 +8,7 @@ import AVFoundation
 class OscillatorTests: XCTestCase {
     func testAmpitude() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), amplitude: 0.5)
+        let input = Oscillator(waveform: Table(.square), amplitude: 0.5)
         engine.output = input
         XCTAssertEqual(input.amplitude, 0.5)
         input.start()
@@ -29,7 +29,7 @@ class OscillatorTests: XCTestCase {
 
     func testDetuningMultiplier() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
+        let input = Oscillator(waveform: Table(.square), detuningMultiplier: 0.9)
         engine.output = input
         XCTAssertEqual(input.detuningMultiplier, 0.9)
         input.start()
@@ -40,7 +40,7 @@ class OscillatorTests: XCTestCase {
 
     func testDetuningOffset() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), detuningOffset: 11)
+        let input = Oscillator(waveform: Table(.square), detuningOffset: 11)
         engine.output = input
         XCTAssertEqual(input.detuningOffset, 11)
         input.start()
@@ -51,7 +51,7 @@ class OscillatorTests: XCTestCase {
 
     func testFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), frequency: 400)
+        let input = Oscillator(waveform: Table(.square), frequency: 400)
         engine.output = input
         XCTAssertEqual(input.frequency, 400)
         input.start()
@@ -62,7 +62,7 @@ class OscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square))
+        let input = Oscillator(waveform: Table(.square))
         input.frequency = 400
         input.amplitude = 0.5
         XCTAssertEqual(input.frequency, 400)
@@ -76,7 +76,7 @@ class OscillatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -86,7 +86,7 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -99,7 +99,7 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationAmplitude() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
 
         engine.output = input
 
@@ -114,7 +114,7 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationMultiple() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.0)
+        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
 
         engine.output = input
 
@@ -132,7 +132,7 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationDelayed() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.sine), frequency: 400, amplitude: 0.5)
+        let input = Oscillator(waveform: Table(.sine), frequency: 400, amplitude: 0.5)
         engine.output = input
 
         input.start()

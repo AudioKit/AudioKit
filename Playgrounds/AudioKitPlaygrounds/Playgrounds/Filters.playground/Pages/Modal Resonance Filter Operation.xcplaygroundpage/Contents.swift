@@ -5,7 +5,7 @@ import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 let frequency = Operation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1_200)

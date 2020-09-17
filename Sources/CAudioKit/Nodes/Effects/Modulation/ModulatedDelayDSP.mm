@@ -18,33 +18,33 @@ AKDSPRef akFlangerCreateDSP()
 }
 
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
-const float kAKChorus_DefaultFrequency = kChorusDefaultModFreqHz;
-const float kAKChorus_DefaultDepth = kChorusDefaultDepth;
-const float kAKChorus_DefaultFeedback = kChorusDefaultFeedback;
-const float kAKChorus_DefaultDryWetMix = kChorusDefaultMix;
+const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
+const float kChorus_DefaultDepth = kChorusDefaultDepth;
+const float kChorus_DefaultFeedback = kChorusDefaultFeedback;
+const float kChorus_DefaultDryWetMix = kChorusDefaultMix;
 
-const float kAKChorus_MinFrequency = kChorusMinModFreqHz;
-const float kAKChorus_MaxFrequency = kChorusMaxModFreqHz;
-const float kAKChorus_MinFeedback  = kChorusMinFeedback;
-const float kAKChorus_MaxFeedback  = kChorusMaxFeedback;
-const float kAKChorus_MinDepth     = kChorusMinDepth;
-const float kAKChorus_MaxDepth     = kChorusMaxDepth;
-const float kAKChorus_MinDryWetMix = kChorusMinDryWetMix;
-const float kAKChorus_MaxDryWetMix = kChorusMaxDryWetMix;
+const float kChorus_MinFrequency = kChorusMinModFreqHz;
+const float kChorus_MaxFrequency = kChorusMaxModFreqHz;
+const float kChorus_MinFeedback  = kChorusMinFeedback;
+const float kChorus_MaxFeedback  = kChorusMaxFeedback;
+const float kChorus_MinDepth     = kChorusMinDepth;
+const float kChorus_MaxDepth     = kChorusMaxDepth;
+const float kChorus_MinDryWetMix = kChorusMinDryWetMix;
+const float kChorus_MaxDryWetMix = kChorusMaxDryWetMix;
 
-const float kAKFlanger_DefaultFrequency = kFlangerDefaultModFreqHz;
-const float kAKFlanger_DefaultDepth = kFlangerDefaultDepth;
-const float kAKFlanger_DefaultFeedback = kFlangerDefaultFeedback;
-const float kAKFlanger_DefaultDryWetMix = kFlangerDefaultMix;
+const float kFlanger_DefaultFrequency = kFlangerDefaultModFreqHz;
+const float kFlanger_DefaultDepth = kFlangerDefaultDepth;
+const float kFlanger_DefaultFeedback = kFlangerDefaultFeedback;
+const float kFlanger_DefaultDryWetMix = kFlangerDefaultMix;
 
-const float kAKFlanger_MinFrequency = kFlangerMinModFreqHz;
-const float kAKFlanger_MaxFrequency = kFlangerMaxModFreqHz;
-const float kAKFlanger_MinFeedback  = kFlangerMinFeedback;
-const float kAKFlanger_MaxFeedback  = kFlangerMaxFeedback;
-const float kAKFlanger_MinDepth     = kFlangerMinDepth;
-const float kAKFlanger_MaxDepth     = kFlangerMaxDepth;
-const float kAKFlanger_MinDryWetMix = kFlangerMinDryWetMix;
-const float kAKFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
+const float kFlanger_MinFrequency = kFlangerMinModFreqHz;
+const float kFlanger_MaxFrequency = kFlangerMaxModFreqHz;
+const float kFlanger_MinFeedback  = kFlangerMinFeedback;
+const float kFlanger_MaxFeedback  = kFlangerMaxFeedback;
+const float kFlanger_MinDepth     = kFlangerMinDepth;
+const float kFlanger_MaxDepth     = kFlangerMaxDepth;
+const float kFlanger_MinDryWetMix = kFlangerMinDryWetMix;
+const float kFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
     : delay(type)

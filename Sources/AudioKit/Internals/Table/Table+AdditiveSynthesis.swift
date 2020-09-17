@@ -2,7 +2,7 @@
 
 import Foundation
 
-extension AKTable {
+extension Table {
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.
     /// This method outputs an array where each entry is a tuple of frequency and the maximum number of harmonics.
     /// This method is "pitch"-based, which is not the only way to distribute harmonics.
@@ -268,7 +268,7 @@ extension AKTable {
     }
 
     /// compare self with t, return mean-squared distance.
-    public func msd(t: AKTable) -> Element {
+    public func msd(t: Table) -> Element {
         var msd: Element = 0
         for i in indices {
             var d: Element = self[i] - t[i]

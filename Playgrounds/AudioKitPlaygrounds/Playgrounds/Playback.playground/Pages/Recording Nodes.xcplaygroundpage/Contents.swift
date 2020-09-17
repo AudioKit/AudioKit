@@ -5,7 +5,7 @@
 import AudioKit
 
 //: Set up a source to be recorded
-var oscillator = Oscillator(waveform: AKTable(.sawtooth))
+var oscillator = Oscillator(waveform: Table(.sawtooth))
 var currentAmplitude = 0.1
 var currentRampDuration = 0.2
 

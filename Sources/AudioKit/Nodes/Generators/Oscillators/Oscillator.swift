@@ -17,7 +17,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
 
     // MARK: - Parameters
 
-    fileprivate var waveform: AKTable?
+    fileprivate var waveform: Table?
 
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
@@ -91,7 +91,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.sine),
+        waveform: Table = Table(.sine),
         frequency: AUValue = 440.0,
         amplitude: AUValue = 1.0,
         detuningOffset: AUValue = 0.0,
