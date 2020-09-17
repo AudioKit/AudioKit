@@ -5,7 +5,7 @@ extension AKOperation {
     ///
     /// - parameter parameter: The amount to multiply
     ///
-    public func times(_ parameter: AKParameter) -> AKOperation {
+    public func times(_ parameter: OperationParameter) -> AKOperation {
         return AKOperation(module: "*", inputs: self, parameter)
     }
 
@@ -13,7 +13,7 @@ extension AKOperation {
     ///
     /// - parameter parameter: The amount to scale by
     ///
-    public func scaledBy(_ parameter: AKParameter) -> AKOperation {
+    public func scaledBy(_ parameter: OperationParameter) -> AKOperation {
         return self.times(parameter)
     }
 }
@@ -24,7 +24,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func * (left: AKParameter, right: AKParameter) -> AKOperation {
+public func * (left: OperationParameter, right: OperationParameter) -> AKOperation {
     return left.toMono().times(right)
 }
 
@@ -34,7 +34,7 @@ public func * (left: AKParameter, right: AKParameter) -> AKOperation {
 ///   - left: stereo operation
 ///   - right: parameter
 ///
-public func * (left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
+public func * (left: AKStereoOperation, right: OperationParameter) -> AKStereoOperation {
     return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
 }
 
@@ -44,6 +44,6 @@ public func * (left: AKStereoOperation, right: AKParameter) -> AKStereoOperation
 ///   - left: parameter
 ///   - right: stereo operation
 ///
-public func * (left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
+public func * (left: OperationParameter, right: AKStereoOperation) -> AKStereoOperation {
     return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
 }

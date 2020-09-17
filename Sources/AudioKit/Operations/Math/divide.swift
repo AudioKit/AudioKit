@@ -5,7 +5,7 @@ extension AKOperation {
     ///
     /// - parameter denominator: The amount to divide
     ///
-    public func dividedBy(_ denominator: AKParameter) -> AKOperation {
+    public func dividedBy(_ denominator: OperationParameter) -> AKOperation {
         return AKOperation(module: "/", inputs: self, denominator)
     }
 }
@@ -16,7 +16,7 @@ extension AKOperation {
 ///   - numerator: Mono parameter
 ///   - denominator: The amount to divide
 ///
-public func / (numerator: AKParameter, denominator: AKParameter) -> AKOperation {
+public func / (numerator: OperationParameter, denominator: OperationParameter) -> AKOperation {
     return numerator.toMono().dividedBy(denominator)
 }
 
@@ -26,6 +26,6 @@ public func / (numerator: AKParameter, denominator: AKParameter) -> AKOperation 
 ///   - numerator: Stereo operation
 ///   - denominator: The amount to divide
 ///
-public func / (numerator: AKStereoOperation, denominator: AKParameter) -> AKStereoOperation {
+public func / (numerator: AKStereoOperation, denominator: OperationParameter) -> AKStereoOperation {
     return AKStereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
 }

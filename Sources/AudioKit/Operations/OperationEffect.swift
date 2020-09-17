@@ -198,7 +198,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - operation: Operation to generate, can be mono or stereo
     ///
     public convenience init(_ input: AKNode,
-                            operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
+                            operation: (AKStereoOperation, [AKOperation]) -> ComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
 
@@ -217,7 +217,7 @@ public class AKOperationEffect: AKNode, AKToggleable, AKComponent {
         self.init(input, sporth: "")
     }
 
-    public convenience init(_ input: AKNode, operation: (AKStereoOperation) -> AKComputedParameter) {
+    public convenience init(_ input: AKNode, operation: (AKStereoOperation) -> ComputedParameter) {
         self.init(input, operation: { node, _ in operation(node) })
     }
 

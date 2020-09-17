@@ -11,9 +11,9 @@ extension AKOperation {
     ///   - pulseWidth: Duty cycle width. (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
     public static func squareWave(
-        frequency: AKParameter = 440,
-        amplitude: AKParameter = 1.0,
-        pulseWidth: AKParameter = 0.5
+        frequency: OperationParameter = 440,
+        amplitude: OperationParameter = 1.0,
+        pulseWidth: OperationParameter = 0.5
         ) -> AKOperation {
         return AKOperation(module: "blsquare",
                            inputs: frequency, amplitude, pulseWidth)

@@ -10,8 +10,8 @@ extension AKOperation {
     ///   - amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 1.0)
     ///
     public static func triangleWave(
-        frequency: AKParameter = 440,
-        amplitude: AKParameter = 0.5
+        frequency: OperationParameter = 440,
+        amplitude: OperationParameter = 0.5
         ) -> AKOperation {
         return AKOperation(module: "bltriangle", inputs: frequency, amplitude)
     }

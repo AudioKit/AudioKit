@@ -9,7 +9,7 @@ extension AKOperation {
     ///   - looping: If set to true, when the maximum is reaching, the count goes back to zero,
     ///              otherwise it stays at the maximum
     ///
-    public func count(maximum: AKParameter = 1_000_000, looping: Bool = true) -> AKOperation {
+    public func count(maximum: OperationParameter = 1_000_000, looping: Bool = true) -> AKOperation {
         return AKOperation(module: "count", inputs: toMono(), maximum, looping ? 0 : 1)
     }
 }

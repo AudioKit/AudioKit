@@ -10,9 +10,9 @@ extension AKOperation {
     ///   - updateFrequency: Frequency to change values. (Default: 3)
     ///
     public static func randomVertexPulse(
-        minimum: AKParameter = 0,
-        maximum: AKParameter = 1,
-        updateFrequency: AKParameter = 3
+        minimum: OperationParameter = 0,
+        maximum: OperationParameter = 1,
+        updateFrequency: OperationParameter = 3
         ) -> AKOperation {
         return AKOperation(module: "randi",
                            inputs: minimum, maximum, updateFrequency)

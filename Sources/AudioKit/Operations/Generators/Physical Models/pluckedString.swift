@@ -14,8 +14,8 @@ extension AKOperation {
     ///
     public static func pluckedString(
         trigger: AKOperation,
-        frequency: AKParameter = 110,
-        amplitude: AKParameter = 0.5,
+        frequency: OperationParameter = 110,
+        amplitude: OperationParameter = 0.5,
         lowestFrequency: Double = 110
         ) -> AKOperation {
         return AKOperation(module: "pluck",

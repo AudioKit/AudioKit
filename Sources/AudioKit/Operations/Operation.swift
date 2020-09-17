@@ -2,14 +2,14 @@
 
 /// A computed parameter differs from a regular parameter in that it only exists within an operation
 /// (unlike float, doubles, and ints which have a value outside of an operation)
-public protocol AKComputedParameter: AKParameter {}
+public protocol ComputedParameter: OperationParameter {}
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-open class AKOperation: AKComputedParameter {
+open class AKOperation: ComputedParameter {
 
     // MARK: - Dependency Management
 
-    fileprivate var inputs = [AKParameter]()
+    fileprivate var inputs = [OperationParameter]()
 
     internal var savedLocation = -1
 
@@ -195,7 +195,7 @@ open class AKOperation: AKComputedParameter {
     /// - parameter setup:  Any setup Sporth code that this operation may require
     /// - parameter inputs: All the parameters of the operation
     ///
-    public init(module: String, setup: String = "", inputs: AKParameter...) {
+    public init(module: String, setup: String = "", inputs: OperationParameter...) {
         self.module = module
         self.setupSporth = setup
         self.inputs = inputs
@@ -214,7 +214,7 @@ open class AKOperation: AKComputedParameter {
 
 /// Performs absolute value on the operation
 ///
-/// - parameter parameter: AKComputedParameter to operate on
+/// - parameter parameter: ComputedParameter to operate on
 ///
 public func abs(_ parameter: AKOperation) -> AKOperation {
     return parameter.abs()
@@ -222,7 +222,7 @@ public func abs(_ parameter: AKOperation) -> AKOperation {
 
 /// Performs floor calculation on the operation
 ///
-/// - parameter operation: AKComputedParameter to operate on
+/// - parameter operation: ComputedParameter to operate on
 ///
 public func floor(_ operation: AKOperation) -> AKOperation {
     return operation.floor()
@@ -230,7 +230,7 @@ public func floor(_ operation: AKOperation) -> AKOperation {
 
 /// Returns the fractional part of the operation (as opposed to the integer part)
 ///
-/// - parameter operation: AKComputedParameter to operate on
+/// - parameter operation: ComputedParameter to operate on
 ///
 public func fract(_ operation: AKOperation) -> AKOperation {
     return operation.fract()
@@ -238,7 +238,7 @@ public func fract(_ operation: AKOperation) -> AKOperation {
 
 /// Performs natural logarithm on the operation
 ///
-/// - parameter operation: AKComputedParameter to operate on
+/// - parameter operation: ComputedParameter to operate on
 ///
 public func log(_ operation: AKOperation) -> AKOperation {
     return operation.log()
@@ -246,7 +246,7 @@ public func log(_ operation: AKOperation) -> AKOperation {
 
 /// Performs Base 10 logarithm on the operation
 ///
-/// - parmeter operation: AKComputedParameter to operate on
+/// - parmeter operation: ComputedParameter to operate on
 ///
 public func log10(_ operation: AKOperation) -> AKOperation {
     return operation.log10()
@@ -255,7 +255,7 @@ public func log10(_ operation: AKOperation) -> AKOperation {
 
 /// Rounds the operation to the nearest integer
 ///
-/// - parameter operation: AKComputedParameter to operate on
+/// - parameter operation: ComputedParameter to operate on
 ///
 public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()

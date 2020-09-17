@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// A complement to the LowPassFilter.
     ///
@@ -8,7 +8,7 @@ extension AKComputedParameter {
     ///                             (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
     ///
     public func highPassFilter(
-        halfPowerPoint: AKParameter = 1_000
+        halfPowerPoint: OperationParameter = 1_000
         ) -> AKOperation {
         return AKOperation(module: "atone", inputs: toMono(), halfPowerPoint)
     }

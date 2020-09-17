@@ -175,7 +175,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(operation: ([AKOperation]) -> AKComputedParameter) {
+    public convenience init(operation: ([AKOperation]) -> ComputedParameter) {
 
         let computedParameter = operation(AKOperation.parameters)
 
@@ -194,7 +194,7 @@ public class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         self.init(sporth: "")
     }
     
-    public convenience init(operation: () -> AKComputedParameter) {
+    public convenience init(operation: () -> ComputedParameter) {
         self.init(operation: { _ in operation() })
     }
 

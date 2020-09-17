@@ -9,8 +9,8 @@ extension AKOperation {
     ///   - amplitude: Amplitude of the output (Default: 1)
     ///
     public static func sineWave(
-        frequency: AKParameter = 440,
-        amplitude: AKParameter = 1
+        frequency: OperationParameter = 440,
+        amplitude: OperationParameter = 1
         ) -> AKOperation {
         return AKOperation(module: "sine", inputs: frequency, amplitude)
     }

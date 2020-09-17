@@ -16,11 +16,11 @@ extension AKOperation {
     ///   - amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
     ///
     public static func fmOscillator(
-        baseFrequency: AKParameter = 440,
-        carrierMultiplier: AKParameter = 1.0,
-        modulatingMultiplier: AKParameter = 1.0,
-        modulationIndex: AKParameter = 1.0,
-        amplitude: AKParameter = 0.5
+        baseFrequency: OperationParameter = 440,
+        carrierMultiplier: OperationParameter = 1.0,
+        modulatingMultiplier: OperationParameter = 1.0,
+        modulationIndex: OperationParameter = 1.0,
+        amplitude: OperationParameter = 0.5
         ) -> AKOperation {
         return AKOperation(module: "fm",
                            inputs: baseFrequency, amplitude,
