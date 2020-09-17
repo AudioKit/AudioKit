@@ -7,7 +7,7 @@ import CAudioKit
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
 /// using  passing an impulse through a combination of modal filters.
 /// 
-public class ModalResonanceFilter: Node, AKComponent, AKToggleable {
+public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 

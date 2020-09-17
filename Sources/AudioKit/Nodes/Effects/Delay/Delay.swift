@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: Node, AKToggleable {
+public class Delay: Node, Toggleable {
     let delayAU = AVAudioUnitDelay()
 
     @Parameter public var dryWetMix: AUValue

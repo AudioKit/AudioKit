@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-open class Decimator: Node, AKToggleable {
+open class Decimator: Node, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

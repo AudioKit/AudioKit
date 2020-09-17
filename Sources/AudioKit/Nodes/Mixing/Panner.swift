@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: Node, AKComponent, AKToggleable {
+public class Panner: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 

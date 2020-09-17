@@ -7,7 +7,7 @@ import CAudioKit
 public typealias AKBooster = Fader
 
 /// Stereo Fader.
-public class Fader: Node, AKToggleable, AKComponent {
+public class Fader: Node, Toggleable, AudioUnitContainer {
 
     public typealias AudioUnitType = InternalAU
 

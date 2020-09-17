@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Dynamic range compressor from Faust
-public class DynamicRangeCompressor: Node, AKComponent, AKToggleable {
+public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 

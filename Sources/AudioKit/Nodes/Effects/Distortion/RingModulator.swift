@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-open class RingModulator: Node, AKToggleable {
+open class RingModulator: Node, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
