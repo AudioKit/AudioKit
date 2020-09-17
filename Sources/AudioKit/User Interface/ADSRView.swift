@@ -6,7 +6,7 @@ import AVFoundation
 import UIKit
 
 /// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
-@IBDesignable public class AKADSRView: UIView {
+@IBDesignable public class ADSRView: UIView {
     /// Type of function to call when values of the ADSR have changed
     public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
@@ -374,7 +374,7 @@ import Cocoa
 
 public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
-public class AKADSRView: NSView {
+public class ADSRView: NSView {
     public var attackDuration: AUValue = 0.1
     public var decayDuration: AUValue = 0.1
     public var sustainLevel: AUValue = 0.1
