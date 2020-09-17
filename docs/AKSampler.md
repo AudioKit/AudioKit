@@ -5,9 +5,9 @@
 
 In earlier versions of AudioKit, the name **Sampler** referred to the module now called **AppleSampler**.
 
-**AppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **Sampler** is an attempt to provide an open-source alternative.
+**AppleSampler** and its companion class **MIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **Sampler** is an attempt to provide an open-source alternative.
 
-**Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AppleSampler** (formerly called Sampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
+**Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AppleSampler** (formerly called Sampler) or the **MIDISampler** wrapper class, you should continue to use it.
 
 ## Loading samples
 **Sampler** provides three distinct mechanisms for loading samples:

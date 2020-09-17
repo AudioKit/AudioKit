@@ -5,7 +5,7 @@ import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKPlayer(file: file)
+let player = try AudioPlayer(file: file)
 player.looping = true
 
 let filterBand2 = EqualizerFilter(player, centerFrequency: 32, bandwidth: 44.7, gain: 1.0)

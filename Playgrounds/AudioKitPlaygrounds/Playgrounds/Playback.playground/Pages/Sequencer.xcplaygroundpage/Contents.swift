@@ -4,10 +4,10 @@
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
-var piano = AKMIDISampler()
+var piano = MIDISampler()
 try piano.loadWav("Samples/FM Piano")
 
-var bell = AKMIDISampler()
+var bell = MIDISampler()
 try bell.loadWav("Samples/Bell")
 
 var mixer = Mixer(piano, bell)

@@ -8,7 +8,7 @@ import UIKit
 This file contains the code for a horizontal MIDI sequencer view, similar to what you see
 in most Digital Audio Workstations.
 To add this view to your app, it's as simple as specifying the size/position of the view you
-would like, giving it a MIDI File URL and track number, adding an AKMIDISampler,
+would like, giving it a MIDI File URL and track number, adding an MIDISampler,
 adding an AppleSequencer,
  and adding the track view to the view controller
 
@@ -17,7 +17,7 @@ For example:
 var trackView1: AKMIDITrackView = AKMIDITrackView(frame: CGRect(x: , y: , width: , height: ),
 midiFile: AKMIDIFile(url: urltoyourmidifile),
 trackNumber: The MIDI track number you want to display,
- sampler: AKMIDISampler,
+ sampler: MIDISampler,
  sequencer: AppleSequencer)
 
 //Inside View Controller
@@ -48,7 +48,7 @@ public class AKMIDITrackView: Button {
     var playbackCursorPosition: Double = 0.0
     var noteGroupPosition: Double = 0.0
     public var midiTrackNoteMap: AKMIDIFileTrackNoteMap!
-    public var sampler: AKMIDISampler!
+    public var sampler: MIDISampler!
     public var sequencer: AppleSequencer!
     var previousTempo = 0.0
     var trackLength: Double {
@@ -61,7 +61,7 @@ public class AKMIDITrackView: Button {
     /// Initialize the Track View
     public convenience init(frame: CGRect, midiFile: URL!,
                             trackNumber: Int,
-                            sampler: AKMIDISampler,
+                            sampler: MIDISampler,
                             sequencer: AppleSequencer) {
         self.init(frame: frame)
         self.borderWidth = 0.0

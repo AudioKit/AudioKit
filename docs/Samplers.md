@@ -4,10 +4,10 @@ The term "sampler" is a bit misleading. Originally, it referred to a hardware de
 
 AudioKit offers three different sampler modules:
 
-1. **AppleSampler** is a Swift wrapper for *AUSampler*, a powerful sampler Audio Unit built into both the iOS and macOS operating systems. It is most commonly used via the higher-level Swift wrapper class **AKMIDISampler**.
+1. **AppleSampler** is a Swift wrapper for *AUSampler*, a powerful sampler Audio Unit built into both the iOS and macOS operating systems. It is most commonly used via the higher-level Swift wrapper class **MIDISampler**.
 2. **Sampler** is a polyphonic Audio Unit with a platform-agnostic C++ core and a Swift wrapper (with a thin Objective-C layer in between). It reads standard audio files via **AVAudioFile**, as well as a more efficient [Wavpack](http://www.wavpack.com/)-based compressed format.
 
-## AppleSampler and AKMIDISampler
+## AppleSampler and MIDISampler
 **NOTE:** In earlier versions of AudioKit, **AppleSampler** was called **Sampler**.
 
 Apple's *AUSampler* Audio Unit, despite a few unfortunate flaws, is exceptionally powerful, and has served as the basis for countless sample-based iOS music apps. It has five huge advantages over the other two sampler modules:
@@ -20,7 +20,7 @@ Apple's *AUSampler* Audio Unit, despite a few unfortunate flaws, is exceptionall
 
 Unfortunately, *AUSampler* has some fatal flaws, and indeed appears to be an unfinished project. Using it as a plug-in on the Mac, to develop sample-based instruments (sample sets + metadata) tends to be an exercise in frustration. It can crash the DAW. Using AUSamplers plug-in in a DAW gives a GUI which is supposed to be able to read [SoundFont](https://www.lifewire.com/sfz-file-2622282), DLS and EXS24 metadata files, but in practice rarely does so perfectly. Its native `.aupreset` metadata format, which is a [Property List](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html), is undocumented and confusing. The  `.aupreset` can be edited within Xcode Property List editor. After converting a EXS24 or before deploying to iOS usually the paths need to be manually fixed. See [Apple Technical Note TN2283](https://developer.apple.com/library/content/technotes/tn2283/_index.html). The  `.aupreset` can also be programmatically edited using **AKPresetManager** and **AKAUPresetBuilder**. [External example in StackOverflow](https://stackoverflow.com/questions/47359088/playing-multi-sampled-instruments-using-audiokit-controlling-adsr-envelope/47370008#47370008).
 
-The AudioKit class **AppleSampler** basically just wraps an instance of *AUsampler* and makes its Objective-C based API accessible from Swift. Most music apps use the higher-level **AKMIDISampler** class, whose `enableMIDI()` function connects it directly to the stream of incoming MIDI data.
+The AudioKit class **AppleSampler** basically just wraps an instance of *AUsampler* and makes its Objective-C based API accessible from Swift. Most music apps use the higher-level **MIDISampler** class, whose `enableMIDI()` function connects it directly to the stream of incoming MIDI data.
 
 ## Sampler
 **Sampler** is a second attempt to address the limitations of *AUSampler*. Like *AUSampler*/**AppleSampler**, it is 64-voice polyphonic and features a per-voice, stereo low-pass filter with resonance and ADSR envelopes for both amplitude and filter cutoff. Samples must be loaded into memory and remain resident there; it does not do streaming.

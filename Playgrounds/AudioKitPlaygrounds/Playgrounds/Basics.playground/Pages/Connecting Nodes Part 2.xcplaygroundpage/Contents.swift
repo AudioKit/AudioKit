@@ -20,7 +20,7 @@ import AudioKit
 class AudioEngine {
 
     // Declare your nodes as instance variables
-    var player: AKPlayer!
+    var player: AudioPlayer!
     var delay: Delay!
     var reverb: Reverb!
     var file: AVAudioFile!
@@ -33,7 +33,7 @@ class AudioEngine {
             AKLog("File Not Found")
             return
         }
-        player = AKPlayer(audioFile: file)
+        player = AudioPlayer(audioFile: file)
         player.isLooping = true
         player.buffering = .always
 

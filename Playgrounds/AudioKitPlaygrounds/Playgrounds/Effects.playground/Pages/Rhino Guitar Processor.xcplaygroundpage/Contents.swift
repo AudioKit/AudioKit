@@ -8,7 +8,7 @@ var rhino: RhinoGuitarProcessor!
 do {
     let guitarFile = try AVAudioFile(readFileName: "guitar.wav")
 
-    let player = try AKPlayer(file: guitarFile)
+    let player = try AudioPlayer(file: guitarFile)
     player.looping = true
     rhino = RhinoGuitarProcessor(player)
     let reverb = Reverb(rhino)

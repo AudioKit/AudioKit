@@ -10,10 +10,10 @@ import AudioKit
 
 class Conductor: ObservableObject {
 
-    var drums: AKPlayer
-    var bass: AKPlayer
-    var guitar: AKPlayer
-    var lead: AKPlayer
+    var drums: AudioPlayer
+    var bass: AudioPlayer
+    var guitar: AudioPlayer
+    var lead: AudioPlayer
     var mixer: Mixer
     var fader: Fader
 
@@ -24,10 +24,10 @@ class Conductor: ObservableObject {
         let guitarFile = try! AVAudioFile(readFileName: "guitarloop.wav")
         let leadFile = try! AVAudioFile(readFileName: "leadloop.wav")
 
-        drums = AKPlayer(audioFile: drumFile)
-        bass = AKPlayer(audioFile: bassFile)
-        guitar = AKPlayer(audioFile: guitarFile)
-        lead = AKPlayer(audioFile: leadFile)
+        drums = AudioPlayer(audioFile: drumFile)
+        bass = AudioPlayer(audioFile: bassFile)
+        guitar = AudioPlayer(audioFile: guitarFile)
+        lead = AudioPlayer(audioFile: leadFile)
 
         mixer = Mixer(drums, bass, guitar, lead)
         fader = Fader(mixer)

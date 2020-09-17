@@ -17,7 +17,7 @@ let engine = AudioEngine()
 let file = try! AVAudioFile(forReading: Bundle.main.url(forResource: "drumloop", withExtension: "wav")!)
 
 //: Set up a player to the loop the file's playback
-var player = AKPlayer(audioFile: file)
+var player = AudioPlayer(audioFile: file)
 //player.isLooping = true
 //player.buffering = .always
 
