@@ -105,7 +105,7 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
         public func trigger(type: AUValue, amplitude: AUValue) {
 
             if let midiBlock = scheduleMIDIEventBlock {
-                let event = AKMIDIEvent(noteOn: UInt8(type),
+                let event = MIDIEvent(noteOn: UInt8(type),
                                         velocity: UInt8(amplitude * 127.0),
                                         channel: 0)
                 event.data.withUnsafeBufferPointer { ptr in

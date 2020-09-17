@@ -72,7 +72,7 @@ public struct NoteEventSequence: Equatable {
     }
 
     /// Add a MIDI event to the track at a specific position
-    public mutating func add(event: AKMIDIEvent, position: Double) {
+    public mutating func add(event: MIDIEvent, position: Double) {
         if let status = event.status, event.data.count > 2 {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }

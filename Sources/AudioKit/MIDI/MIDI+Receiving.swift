@@ -149,7 +149,7 @@ extension AKMIDI {
                         for packet in packetList.pointee {
                             // a CoreMIDI packet may contain multiple MIDI events -
                             // treat it like an array of events that can be transformed
-                            let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
+                            let events = [MIDIEvent](packet) //uses MIDIPacketeList makeIterator
                             let transformedMIDIEventList = self.transformMIDIEventList(events)
                             // Note: incomplete SysEx packets will not have a status
                             for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
@@ -235,7 +235,7 @@ extension AKMIDI {
         }
     }
 
-    internal func handleMIDIMessage(_ event: AKMIDIEvent, fromInput portID: MIDIUniqueID) {
+    internal func handleMIDIMessage(_ event: MIDIEvent, fromInput portID: MIDIUniqueID) {
         for listener in listeners {
             let offset = event.offset
             if let type = event.status?.type {
@@ -292,7 +292,7 @@ extension AKMIDI {
         }
     }
 
-    internal func transformMIDIEventList(_ eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
+    internal func transformMIDIEventList(_ eventList: [MIDIEvent]) -> [MIDIEvent] {
         var eventsToProcess = eventList
         var processedEvents = eventList
 

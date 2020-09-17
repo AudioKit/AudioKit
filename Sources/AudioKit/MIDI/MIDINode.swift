@@ -43,7 +43,7 @@ open class AKMIDINode: Node, MIDIListener {
                            name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                let event = AKMIDIEvent(packet: e)
+                let event = MIDIEvent(packet: e)
                 guard event.data.count > 2 else {
                     return
                 }

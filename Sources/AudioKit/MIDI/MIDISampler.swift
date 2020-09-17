@@ -53,7 +53,7 @@ open class MIDISampler: AppleSampler {
         })
     }
 
-    private func handle(event: AKMIDIEvent) throws {
+    private func handle(event: MIDIEvent) throws {
         try self.handleMIDI(data1: event.data[0],
                             data2: event.data[1],
                             data3: event.data[2])

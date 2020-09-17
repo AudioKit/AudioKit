@@ -2,7 +2,7 @@
 //: This playground builds on the MIDI Scale Quantizer by adding a second
 //: AKMIDITransformer which takes the quantized scale and generates chords
 //: from it.  You can chain as many AKMIDITransformers as you want, and
-//: each can take an array of AKMIDIEvents to process
+//: each can take an array of MIDIEvents to process
 
 import AudioKit
 
@@ -88,8 +88,8 @@ midi.inputNames
 midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        var transformedList = [AKMIDIEvent]()
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
+        var transformedList = [MIDIEvent]()
 
         for event in eventList {
             guard let type = event.status?.type else {
@@ -109,7 +109,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOn: MIDINoteNumber(newNote),
                                                            velocity: event.data[2],
                                                            channel: event.channel!))
                     }
@@ -126,7 +126,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
                     if inScaleNote != nil {
                         let newNote = octave * 12 + inScaleNote! + key.hashValue
-                        transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote),
+                        transformedList.append(MIDIEvent(noteOff: MIDINoteNumber(newNote),
                                                            velocity: 0,
                                                            channel: event.channel!))
                     }
@@ -141,8 +141,8 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 }
 
 class MIDIChordGenerator: AKMIDITransformer {
-    func transform(eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
-        var transformedList = [AKMIDIEvent]()
+    func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
+        var transformedList = [MIDIEvent]()
 
         for event in eventList {
             guard let type = event.status?.type else {
@@ -159,7 +159,7 @@ class MIDIChordGenerator: AKMIDITransformer {
 
                         for note in chordTemplate {
                             Log("noteOn: chord note is: \(note + Int(event.noteNumber!))")
-                            transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(note + Int(event.noteNumber!)),
+                            transformedList.append(MIDIEvent(noteOn: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
                         }
@@ -174,7 +174,7 @@ class MIDIChordGenerator: AKMIDITransformer {
 
                         for note in chordTemplate {
                             Log("noteOff: chord note is: \(note + Int(event.noteNumber!))")
-                            transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(note + Int(event.noteNumber!)),
+                            transformedList.append(MIDIEvent(noteOff: MIDINoteNumber(note + Int(event.noteNumber!)),
                                                                velocity: event.data[2],
                                                                channel: event.channel!))
                         }

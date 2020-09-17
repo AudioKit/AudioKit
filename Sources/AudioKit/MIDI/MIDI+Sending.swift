@@ -294,7 +294,7 @@ extension AKMIDI {
     }
 
     /// Send Messsage from MIDI event data
-    public func sendEvent(_ event: AKMIDIEvent) {
+    public func sendEvent(_ event: MIDIEvent) {
         sendMessage(event.data)
     }
 

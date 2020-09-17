@@ -8,12 +8,12 @@ public struct MIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk
 
-    public var channelEvents: [AKMIDIEvent] {
-        return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) }).filter({ $0.status?.data != nil })
+    public var channelEvents: [MIDIEvent] {
+        return chunk.chunkEvents.compactMap({ MIDIEvent(fileEvent: $0) }).filter({ $0.status?.data != nil })
     }
 
-    public var events: [AKMIDIEvent] {
-        return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) })
+    public var events: [MIDIEvent] {
+        return chunk.chunkEvents.compactMap({ MIDIEvent(fileEvent: $0) })
     }
 
     public var metaEvents: [AKMIDIMetaEvent] {

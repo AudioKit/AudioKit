@@ -5,7 +5,7 @@ import CoreMIDI
 import os.log
 
 /// A container for the values that define a MIDI event
-public struct AKMIDIEvent: AKMIDIMessage {
+public struct MIDIEvent: AKMIDIMessage {
     // MARK: - Properties
 
     /// Internal data
@@ -112,7 +112,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 data = [] // reset internal data
 
                 // voodoo to convert packet 256 element tuple to byte arrays
-                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                if let midiBytes = MIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
                     AKMIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
@@ -147,7 +147,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         else {
             return nil
         }
-        self = AKMIDIEvent(data: event.computedData)
+        self = MIDIEvent(data: event.computedData)
         if event.timeFormat == .ticksPerBeat {
             positionInBeats = event.position
         }
@@ -284,15 +284,15 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     /// Array of MIDI events from a MIDI packet list poionter
-    public static func midiEventsFrom(packetListPointer: UnsafePointer<MIDIPacketList>) -> [AKMIDIEvent] {
-        return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
+    public static func midiEventsFrom(packetListPointer: UnsafePointer<MIDIPacketList>) -> [MIDIEvent] {
+        return packetListPointer.pointee.map { MIDIEvent(packet: $0) }
     }
 
-    static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
-        if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+    static func appendIncomingSysEx(packet: MIDIPacket) -> MIDIEvent? {
+        if let midiBytes = MIDIEvent.decode(packet: packet) {
             AKMIDI.sharedInstance.incomingSysEx += midiBytes
             if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = AKMIDIEvent(data: AKMIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
+                let sysExEvent = MIDIEvent(data: AKMIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
                 AKMIDI.sharedInstance.stopReceivingSysEx()
                 return sysExEvent
             }
@@ -301,13 +301,13 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     /// Generate array of MIDI events from Bluetooth data
-    public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
+    public static func generateFrom(bluetoothData: [MIDIByte]) -> [MIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysEx
         //3nd < 128 running message - timestamp
         //status byte determines length of message
 
-        var midiEvents: [AKMIDIEvent] = []
+        var midiEvents: [MIDIEvent] = []
         if bluetoothData.count > 1 {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
@@ -346,7 +346,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 }
             }
             for event in rawEvents {
-                midiEvents.append(AKMIDIEvent(data: event))
+                midiEvents.append(MIDIEvent(data: event))
             }
         } // end bluetoothData.count > 0
         return midiEvents
