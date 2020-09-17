@@ -20,7 +20,6 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
 class LiveView: View {
 

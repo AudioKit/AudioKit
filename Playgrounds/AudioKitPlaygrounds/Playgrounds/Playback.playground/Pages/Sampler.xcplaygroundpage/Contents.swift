@@ -2,7 +2,6 @@
 //: Loading a sampler with a reference wav file
 
 import AudioKit
-import AudioKitUI
 
 let pulse = 0.23 // seconds
 
