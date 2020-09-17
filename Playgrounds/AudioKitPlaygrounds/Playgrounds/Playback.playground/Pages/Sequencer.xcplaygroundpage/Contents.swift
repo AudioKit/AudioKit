@@ -22,7 +22,7 @@ engine.output = dryWetMixer
 var sequencer = AppleSequencer(filename: "4tracks")
 
 //: Do some basic setup to make the sequence loop correctly
-sequencer.setLength(AKDuration(beats: 4))
+sequencer.setLength(Duration(beats: 4))
 sequencer.enableLooping()
 sequencer.setGlobalMIDIOutput(piano.midiIn)
 

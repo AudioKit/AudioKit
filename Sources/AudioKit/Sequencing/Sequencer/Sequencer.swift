@@ -195,22 +195,22 @@ open class AKSequencer {
 /* functions from AppleSequencer  to implement
 
  public convenience init(fromURL fileURL: URL) {
- open func enableLooping(_ loopLength: AKDuration) {
- open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
- open func setLength(_ length: AKDuration) {
- open var length: AKDuration {
+ open func enableLooping(_ loopLength: Duration) {
+ open func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
+ open func setLength(_ length: Duration) {
+ open var length: Duration {
  open func setRate(_ rate: Double) {
  open func setTempo(_ bpm: Double) {
- open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
+ open func addTempoEventAt(tempo bpm: Double, position: Duration) {
  open var tempo: Double {
  open func getTempo(at position: MusicTimeStamp) -> Double {
  func clearTempoEvents(_ track: MusicTrack) {
- open func duration(seconds: Double) -> AKDuration {
- open func seconds(duration: AKDuration) -> Double {
+ open func duration(seconds: Double) -> Duration {
+ open func seconds(duration: Duration) -> Double {
  open func rewind() {
  open var isPlaying: Bool {
- open var currentPosition: AKDuration {
- open var currentRelativePosition: AKDuration {
+ open var currentPosition: Duration {
+ open var currentRelativePosition: Duration {
  open var trackCount: Int {
  open func loadMIDIFile(_ filename: String) {
  open func loadMIDIFile(fromURL fileURL: URL) {
@@ -218,14 +218,14 @@ open class AKSequencer {
  open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
  open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
  open func deleteTrack(trackIndex: Int) {
- open func clearRange(start: AKDuration, duration: AKDuration) {
+ open func clearRange(start: Duration, duration: Duration) {
  open func setTime(_ time: MusicTimeStamp) {
  open func genData() -> Data? {
  open func debug() {
  open func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
- open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
- open func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
- open func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
- func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
+ open func nearestQuantizedPosition(quantizationInBeats: Double) -> Duration {
+ open func previousQuantizedPosition(quantizationInBeats: Double) -> Duration {
+ open func nextQuantizedPosition(quantizationInBeats: Double) -> Duration {
+ func getQuantizationPositions(quantizationInBeats: Double) -> [Duration] {
 
  */

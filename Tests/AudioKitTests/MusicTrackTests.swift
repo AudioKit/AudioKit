@@ -10,7 +10,7 @@ class AKMusicTrackTests: XCTestCase {
         super.setUp()
 
         musicTrack = AKMusicTrack()
-        musicTrack.setLength(AKDuration(beats: 4.0))
+        musicTrack.setLength(Duration(beats: 4.0))
     }
 
     // MARK: - add()
@@ -38,8 +38,8 @@ class AKMusicTrackTests: XCTestCase {
         musicTrack.addNote(withNumber: 61, atPosition: 2.0)
 
         musicTrack.clearRange(
-            start: AKDuration(beats: 2.0),
-            duration: AKDuration(beats: 1.0)
+            start: Duration(beats: 2.0),
+            duration: Duration(beats: 1.0)
         )
 
         XCTAssertTrue(musicTrack.hasNote(atPosition: 1.99, withNoteNumber: 60))
@@ -50,8 +50,8 @@ class AKMusicTrackTests: XCTestCase {
         musicTrack.addNote(withNumber: 60, atPosition: 2.0)
 
         musicTrack.clearRange(
-            start: AKDuration(beats: 2.0),
-            duration: AKDuration(beats: 0.1)
+            start: Duration(beats: 2.0),
+            duration: Duration(beats: 0.1)
         )
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 60))
@@ -61,8 +61,8 @@ class AKMusicTrackTests: XCTestCase {
         musicTrack.addNote(withNumber: 60, atPosition: 2.99)
 
         musicTrack.clearRange(
-            start: AKDuration(beats: 2.0),
-            duration: AKDuration(beats: 1.0)
+            start: Duration(beats: 2.0),
+            duration: Duration(beats: 1.0)
         )
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.99, withNoteNumber: 60))
@@ -73,8 +73,8 @@ class AKMusicTrackTests: XCTestCase {
         musicTrack.addNote(withNumber: 61, atPosition: 3.0)
 
         musicTrack.clearRange(
-            start: AKDuration(beats: 2.0),
-            duration: AKDuration(beats: 1.0)
+            start: Duration(beats: 2.0),
+            duration: Duration(beats: 1.0)
         )
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 60))
@@ -137,7 +137,7 @@ class AKMusicTrackTests: XCTestCase {
     // MARK: - clearSysExEvents
     func testClearSysExEvents_clearsAllSysExEvents() {
         for i in 0 ..< 4 {
-            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: Duration(beats: Double(i)))
         }
 
         XCTAssertEqual(musicTrack.sysExEventCount, 4)
@@ -190,19 +190,19 @@ class AKMusicTrackTests: XCTestCase {
     func testGetMIDINoteData_notesInSamePositionDoNotOverwrite() {
         musicTrack.add(noteNumber: 60,
                        velocity: 120,
-                       position: AKDuration(beats: 0),
-                       duration: AKDuration(beats: 0.5))
+                       position: Duration(beats: 0),
+                       duration: Duration(beats: 0.5))
 
         musicTrack.add(noteNumber: 72,
                        velocity: 120,
-                       position: AKDuration(beats: 0),
-                       duration: AKDuration(beats: 0.5))
+                       position: Duration(beats: 0),
+                       duration: Duration(beats: 0.5))
 
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 2)
     }
 
     func testGetMIDINoteData_willNoteCopyMetaEvents() {
-        musicTrack.addPitchBend(0, position: AKDuration(beats: 0), channel: 0)
+        musicTrack.addPitchBend(0, position: Duration(beats: 0), channel: 0)
 
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
     }
@@ -210,9 +210,9 @@ class AKMusicTrackTests: XCTestCase {
     func testGetMIDINoteData_MIDINoteDataElementCorrespondsToNote() {
         let pitch = MIDINoteNumber(60)
         let vel = MIDIVelocity(120)
-        let dur = AKDuration(beats: 0.75)
+        let dur = Duration(beats: 0.75)
         let channel = MIDIChannel(3)
-        let position = AKDuration(beats: 1.5)
+        let position = Duration(beats: 1.5)
 
         musicTrack.add(noteNumber: pitch,
                        velocity: vel,
@@ -235,8 +235,8 @@ class AKMusicTrackTests: XCTestCase {
         for i in 0 ..< 4 {
             track.add(noteNumber: UInt8(60 + i),
                       velocity: 120,
-                      position: AKDuration(beats: Double(i)),
-                      duration: AKDuration(beats: 0.5))
+                      position: Duration(beats: Double(i)),
+                      duration: Duration(beats: 0.5))
         }
     }
 
@@ -279,7 +279,7 @@ class AKMusicTrackTests: XCTestCase {
         var noteData = musicTrack.getMIDINoteData()
 
         // increase duration of last note
-        noteData[3].duration = AKDuration(beats: 4)
+        noteData[3].duration = Duration(beats: 4)
         musicTrack.replaceMIDINoteData(with: noteData)
 
         XCTAssertTrue(musicTrack.length > originalLength)
@@ -323,7 +323,7 @@ class AKMusicTrackTests: XCTestCase {
 
         for i in 0 ..< 4 {
             MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
-            musicTrack.addSysEx([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addSysEx([0], position: Duration(beats: Double(i)))
             musicTrack.addNote(withNumber: 60, atPosition: MusicTimeStamp(i))
         }
     }
@@ -395,8 +395,8 @@ extension AKMusicTrack {
         self.add(
             noteNumber: noteNumber,
             velocity: 127,
-            position: AKDuration(beats: position),
-            duration: AKDuration(beats: 1.0)
+            position: Duration(beats: position),
+            duration: Duration(beats: 1.0)
         )
     }
 

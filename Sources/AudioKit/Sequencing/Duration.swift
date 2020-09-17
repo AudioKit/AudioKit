@@ -5,7 +5,7 @@ public typealias BPM = Double
 import AVFoundation
 
 /// Container for the notion of time in sequencing
-public struct AKDuration: CustomStringConvertible, Comparable {
+public struct Duration: CustomStringConvertible, Comparable {
     static let secondsPerMinute = 60
 
     /// Duration in beats
@@ -20,7 +20,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
         get {
-            let doubleSamples = beats / tempo * Double(AKDuration.secondsPerMinute) * sampleRate
+            let doubleSamples = beats / tempo * Double(Duration.secondsPerMinute) * sampleRate
             if doubleSamples <= Double(Int.max) {
                 return Int(doubleSamples)
             } else {
@@ -29,7 +29,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
             }
         }
         set {
-            beats = (Double(newValue) / Double(sampleRate)) / Double(AKDuration.secondsPerMinute) * tempo
+            beats = (Double(newValue) / Double(sampleRate)) / Double(Duration.secondsPerMinute) * tempo
         }
     }
 
@@ -60,7 +60,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     ///   - sampleRate: Sample rate in samples per second
     ///
     public init(samples: Int, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
-        self.beats = tempo * (Double(samples) / sampleRate) / Double(AKDuration.secondsPerMinute)
+        self.beats = tempo * (Double(samples) / sampleRate) / Double(Duration.secondsPerMinute)
         self.sampleRate = sampleRate
         self.tempo = tempo
     }
@@ -69,7 +69,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     ///
     /// - Parameters:
     ///   - beats: Duration in beats
-    ///   - tempo: AKDurations per minute
+    ///   - tempo: Durations per minute
     ///
     public init(beats: Double, tempo: BPM = 60) {
         self.beats = beats
@@ -85,7 +85,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public init(seconds: Double, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
-        self.beats = tempo * (seconds / Double(AKDuration.secondsPerMinute))
+        self.beats = tempo * (seconds / Double(Duration.secondsPerMinute))
     }
 
     /// Add to a duration
@@ -93,7 +93,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: Starting duration
     /// - parameter rhs: Amount to add
     ///
-    public static func += (lhs: inout AKDuration, rhs: AKDuration) {
+    public static func += (lhs: inout Duration, rhs: Duration) {
         lhs.beats += rhs.beats
     }
 
@@ -102,7 +102,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: Starting duration
     /// - parameter rhs: Amount to subtract
     ///
-    public static func -= (lhs: inout AKDuration, rhs: AKDuration) {
+    public static func -= (lhs: inout Duration, rhs: Duration) {
         lhs.beats -= rhs.beats
     }
 
@@ -111,7 +111,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
+    public static func == (lhs: Duration, rhs: Duration) -> Bool {
         return lhs.beats == rhs.beats
     }
 
@@ -120,7 +120,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
+    public static func < (lhs: Duration, rhs: Duration) -> Bool {
         return lhs.beats < rhs.beats
     }
 
@@ -129,7 +129,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func + (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    public static func + (lhs: Duration, rhs: Duration) -> Duration {
         var newDuration = lhs
         newDuration.beats += rhs.beats
         return newDuration
@@ -140,7 +140,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func - (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    public static func - (lhs: Duration, rhs: Duration) -> Duration {
         var newDuration = lhs
         newDuration.beats -= rhs.beats
         return newDuration
@@ -151,7 +151,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     /// - parameter lhs: One duration
     /// - parameter rhs: Another duration
     ///
-    public static func % (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    public static func % (lhs: Duration, rhs: Duration) -> Duration {
         var copy = lhs
         copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
         return copy
@@ -160,9 +160,9 @@ public struct AKDuration: CustomStringConvertible, Comparable {
 
 /// Upper bound of a duration, in beats
 ///
-/// - parameter duration: AKDuration
+/// - parameter duration: Duration
 ///
-public func ceil(_ duration: AKDuration) -> AKDuration {
+public func ceil(_ duration: Duration) -> Duration {
     var copy = duration
     copy.beats = ceil(copy.beats)
     return copy
