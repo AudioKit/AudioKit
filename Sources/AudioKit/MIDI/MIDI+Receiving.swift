@@ -32,14 +32,14 @@ internal struct MIDISources: Collection {
     }
 }
 
-// MARK: - AKMIDIListeners
+// MARK: - MIDIListeners
 extension AKMIDI {
     /// Add a listener to the listeners
-    public func addListener(_ listener: AKMIDIListener) {
+    public func addListener(_ listener: MIDIListener) {
         listeners.append(listener)
     }
 
-    public func removeListener(_ listener: AKMIDIListener) {
+    public func removeListener(_ listener: MIDIListener) {
         listeners.removeAll { (item) -> Bool in
             return item == listener
         }

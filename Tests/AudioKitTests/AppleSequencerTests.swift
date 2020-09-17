@@ -603,8 +603,8 @@ class AppleSequencerTests: XCTestCase {
     }
 
     // MARK: - helper functions
-    func generateMIDINoteDataArray(numBeats: Int, noteNumber: Int = 60) -> [AKMIDINoteData] {
-        return (0 ..< numBeats).map { AKMIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
+    func generateMIDINoteDataArray(numBeats: Int, noteNumber: Int = 60) -> [MIDINoteData] {
+        return (0 ..< numBeats).map { MIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
                                                      velocity: MIDIVelocity(120),
                                                      channel: MIDIChannel(0),
                                                      duration: Duration(beats: Double(1.0)),

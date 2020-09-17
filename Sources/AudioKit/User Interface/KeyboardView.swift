@@ -13,7 +13,7 @@ public protocol KeyboardDelegate: AnyObject {
 }
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
-@IBDesignable public class KeyboardView: UIView, AKMIDIListener {
+@IBDesignable public class KeyboardView: UIView, MIDIListener {
     //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
@@ -445,7 +445,7 @@ public protocol KeyboardDelegate: class {
     func noteOff(note: MIDINoteNumber)
 }
 
-public class KeyboardView: NSView, AKMIDIListener {
+public class KeyboardView: NSView, MIDIListener {
 
     override public var isFlipped: Bool {
         return true

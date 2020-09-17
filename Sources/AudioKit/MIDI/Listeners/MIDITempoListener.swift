@@ -22,7 +22,7 @@ public typealias BPMType = TimeInterval
 ///
 /// Usage:
 ///
-///     let tempoListener = AKMIDITempoListener()
+///     let tempoListener = MIDITempoListener()
 ///     AKMIDI().addListener(tempoListener)
 ///
 /// Make your class a AKMIDITempoObserver and you will recieve callbacks when the BPM
@@ -40,11 +40,11 @@ public typealias BPMType = TimeInterval
 /// midiClockLeaderEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock leader.
 ///
-public class AKMIDITempoListener: NSObject {
+public class MIDITempoListener: NSObject {
 
-    public var clockListener: AKMIDIClockListener?
+    public var clockListener: MIDIClockListener?
 
-    public var srtListener = AKMIDISystemRealTimeListener()
+    public var srtListener = MIDISystemRealTimeListener()
 
     var tempoObservers: [AKMIDITempoObserver] = []
 
@@ -66,8 +66,8 @@ public class AKMIDITempoListener: NSObject {
 
     /// Create a BPM Listener
     ///
-    /// This object creates a clockListener: AKMIDIClockListener
-    /// The AKMIDIClockListener is informed every time there is a clock and it in turn informs its
+    /// This object creates a clockListener: MIDIClockListener
+    /// The MIDIClockListener is informed every time there is a clock and it in turn informs its
     /// AKMIDIBeatObserver's whenever beat events happen.
     ///
     /// - Parameters:
@@ -84,7 +84,7 @@ public class AKMIDITempoListener: NSObject {
 
         super.init()
 
-        clockListener = AKMIDIClockListener(srtListener: srtListener, tempoListener: self)
+        clockListener = MIDIClockListener(srtListener: srtListener, tempoListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
@@ -107,7 +107,7 @@ public class AKMIDITempoListener: NSObject {
 
 // MARK: - BPM Analysis
 
-public extension AKMIDITempoListener {
+public extension MIDITempoListener {
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
@@ -173,9 +173,9 @@ public extension AKMIDITempoListener {
     }
 }
 
-// MARK: - AKMIDITempoListener should be used as an AKMIDIListener
+// MARK: - MIDITempoListener should be used as an MIDIListener
 
-extension AKMIDITempoListener: AKMIDIListener {
+extension MIDITempoListener: MIDIListener {
 
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         // Do nothing
@@ -242,7 +242,7 @@ extension AKMIDITempoListener: AKMIDIListener {
 
 // MARK: - Management and Communications for BPM Observers
 
-extension AKMIDITempoListener {
+extension MIDITempoListener {
     public func addObserver(_ observer: AKMIDITempoObserver) {
         tempoObservers.append(observer)
     }

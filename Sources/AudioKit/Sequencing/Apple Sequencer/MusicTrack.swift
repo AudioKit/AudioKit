@@ -435,11 +435,11 @@ open class AKMusicTrack {
         MusicTrackNewMIDINoteEvent(track, position.musicTimeStamp, &noteMessage)
     }
 
-    /// Add Note to sequence with AKMIDINoteData
+    /// Add Note to sequence with MIDINoteData
     ///
-    /// - parameter midiNoteData: AKMIDINoteData containing relevant note details
+    /// - parameter midiNoteData: MIDINoteData containing relevant note details
     ///
-    public func add(midiNoteData: AKMIDINoteData) {
+    public func add(midiNoteData: MIDINoteData) {
         add(noteNumber: midiNoteData.noteNumber,
             velocity: midiNoteData.velocity,
             position: midiNoteData.position,
@@ -447,12 +447,12 @@ open class AKMusicTrack {
             channel: midiNoteData.channel)
     }
 
-    /// Erases current note events and recreates track from note data in AKMIDINoteData array
+    /// Erases current note events and recreates track from note data in MIDINoteData array
     /// Order of structs in array is irrelevant
     ///
-    /// - parameter midiNoteData: AKMIDINoteData array containing relevant note details
+    /// - parameter midiNoteData: MIDINoteData array containing relevant note details
     ///
-    public func replaceMIDINoteData(with trackMIDINoteData: [AKMIDINoteData]) {
+    public func replaceMIDINoteData(with trackMIDINoteData: [MIDINoteData]) {
         clearRange(start: Duration(beats: 0), duration: Duration(beats: length))
         trackMIDINoteData.forEach { add(midiNoteData: $0) }
     }
@@ -591,8 +591,8 @@ open class AKMusicTrack {
     ///
     /// NB: The data is generated sequentially, but maintaining the order in not important
     ///
-    public func getMIDINoteData() -> [AKMIDINoteData] {
-        var noteData = [AKMIDINoteData]()
+    public func getMIDINoteData() -> [MIDINoteData] {
+        var noteData = [MIDINoteData]()
 
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
@@ -610,7 +610,7 @@ open class AKMusicTrack {
                 Log("Problem with raw midi note message")
                 return
             }
-            let noteDetails = AKMIDINoteData(noteNumber: note,
+            let noteDetails = MIDINoteData(noteNumber: note,
                                              velocity: velocity,
                                              channel: channel,
                                              duration: Duration(beats: Double(dur)),

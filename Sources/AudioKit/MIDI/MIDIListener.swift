@@ -2,7 +2,7 @@
 
 /// Protocol that must be adhered to if you want your class to respond to MIDI
 ///
-/// Implement the AKMIDIListener protocol on any classes that need to respond
+/// Implement the MIDIListener protocol on any classes that need to respond
 /// to incoming MIDI events.  Every method in the protocol is optional to allow
 /// the classes complete freedom to respond to only the particular MIDI messages
 /// of interest.
@@ -13,9 +13,9 @@
 import os.log
 import AVFoundation
 
-let AKMIDIListenerLogging = false
+let MIDIListenerLogging = false
 
-public protocol AKMIDIListener {
+public protocol MIDIListener {
 
     /// Receive the MIDI note on event
     ///
@@ -137,14 +137,14 @@ public protocol AKMIDIListener {
 }
 
 /// Default listener functions
-public extension AKMIDIListener {
+public extension MIDIListener {
 
-    func isEqualTo(_ listener: AKMIDIListener) -> Bool {
+    func isEqualTo(_ listener: MIDIListener) -> Bool {
         return self == listener
     }
 }
 
-func == (lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
+func == (lhs: MIDIListener, rhs: MIDIListener) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 

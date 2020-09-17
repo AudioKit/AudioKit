@@ -10,7 +10,7 @@ import os.log
 ///
 /// If you wish to observer its events, then add your own AKMIDIBeatObserver
 ///
-public class AKMIDIClockListener: NSObject {
+public class MIDIClockListener: NSObject {
     // Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: UInt8
     // Count of 24 quantums per quarter note
@@ -26,14 +26,14 @@ public class AKMIDIClockListener: NSObject {
 
     private var sendStart = false
     private var sendContinue = false
-    private let srtListener: AKMIDISystemRealTimeListener
-    private let tempoListener: AKMIDITempoListener
+    private let srtListener: MIDISystemRealTimeListener
+    private let tempoListener: MIDITempoListener
     private var observers: [AKMIDIBeatObserver] = []
 
-    /// AKMIDIClockListener requires to be an observer of both SRT and BPM events
-    init(srtListener srt: AKMIDISystemRealTimeListener,
+    /// MIDIClockListener requires to be an observer of both SRT and BPM events
+    init(srtListener srt: MIDISystemRealTimeListener,
          quantumsPerQuarterNote count: UInt8 = 24,
-         tempoListener tempo: AKMIDITempoListener) {
+         tempoListener tempo: MIDITempoListener) {
         quantumsPerQuarterNote = count
         srtListener = srt
         tempoListener = tempo
@@ -109,16 +109,16 @@ public class AKMIDIClockListener: NSObject {
 
 // MARK: - Observers
 
-extension AKMIDIClockListener {
+extension MIDIClockListener {
 
     public func addObserver(_ observer: AKMIDIBeatObserver) {
         observers.append(observer)
-        Log("[AKMIDIClockListener:addObserver] (\(observers.count) observers)", log: OSLog.midi)
+        Log("[MIDIClockListener:addObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
     public func removeObserver(_ observer: AKMIDIBeatObserver) {
         observers.removeAll { $0 == observer }
-        Log("[AKMIDIClockListener:removeObserver] (\(observers.count) observers)", log: OSLog.midi)
+        Log("[MIDIClockListener:removeObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
     public func removeAllObservers() {
@@ -128,7 +128,7 @@ extension AKMIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension AKMIDIClockListener: AKMIDIBeatObserver {
+extension MIDIClockListener: AKMIDIBeatObserver {
     internal func sendMIDIBeatUpdateToObservers() {
         observers.forEach { (observer) in
             observer.receivedBeatEvent(beat: sppMIDIBeatCounter)
@@ -172,7 +172,7 @@ extension AKMIDIClockListener: AKMIDIBeatObserver {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIClockListener: AKMIDITempoObserver {
+extension MIDIClockListener: AKMIDITempoObserver {
 
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)
@@ -185,13 +185,13 @@ extension AKMIDIClockListener: AKMIDITempoObserver {
     }
 }
 
-extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
-    public func stopSRT(listener: AKMIDISystemRealTimeListener) {
+extension MIDIClockListener: AKMIDISystemRealTimeObserver {
+    public func stopSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Stop]", log: OSLog.midi)
         sendStopToObservers()
     }
 
-    public func startSRT(listener: AKMIDISystemRealTimeListener) {
+    public func startSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Start]", log: OSLog.midi)
         sppMIDIBeatCounter = 0
         quarterNoteQuantumCounter = 0
@@ -200,7 +200,7 @@ extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
         sendPreparePlayToObservers(continue: false)
     }
 
-    public func continueSRT(listener: AKMIDISystemRealTimeListener) {
+    public func continueSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Continue]", log: OSLog.midi)
         sendContinue = true
         sendPreparePlayToObservers(continue: true)
