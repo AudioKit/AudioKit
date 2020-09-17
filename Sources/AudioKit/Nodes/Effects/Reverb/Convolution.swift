@@ -6,7 +6,7 @@ import CAudioKit
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
 ///
-public class AKConvolution: Node, AudioUnitContainer, Toggleable {
+public class Convolution: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
@@ -24,7 +24,7 @@ public class AKConvolution: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> DSPRef {
-            akCreateDSP("AKConvolutionDSP")
+            akCreateDSP("ConvolutionDSP")
         }
 
         public func setPartitionLength(_ length: Int) {
