@@ -89,7 +89,7 @@ open class Node {
 }
 
 /// Protocol for responding to play and stop of MIDI notes
-public protocol AKPolyphonic {
+public protocol Polyphonic {
     /// Play a sound corresponding to a MIDI note
     ///
     /// - Parameters:
@@ -113,9 +113,9 @@ public protocol AKPolyphonic {
     func stop(noteNumber: MIDINoteNumber)
 }
 
-/// Bare bones implementation of AKPolyphonic protocol
-open class PolyphonicNode: Node, AKPolyphonic {
-    /// Global tuning table used by PolyphonicNode (Node classes adopting AKPolyphonic protocol)
+/// Bare bones implementation of Polyphonic protocol
+open class PolyphonicNode: Node, Polyphonic {
+    /// Global tuning table used by PolyphonicNode (Node classes adopting Polyphonic protocol)
     @objc public static var tuningTable = TuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
 
