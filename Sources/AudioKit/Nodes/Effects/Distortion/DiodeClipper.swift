@@ -6,7 +6,7 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class DiodeClipper: AKNode, AKToggleable, AKComponent {
+public class DiodeClipper: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
@@ -62,7 +62,7 @@ public class DiodeClipper: AKNode, AKToggleable, AKComponent {
     ///   - gain: Gain in dB
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         cutoffFrequency: AUValue = 10000.0,
         gain: AUValue = 20.0
         ) {

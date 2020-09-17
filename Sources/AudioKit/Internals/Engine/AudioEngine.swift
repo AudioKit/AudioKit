@@ -57,7 +57,7 @@ public class AudioEngine {
 
     public init() {}
 
-    public var output: AKNode? {
+    public var output: Node? {
         didSet {
             if let node = oldValue {
                 avEngine.mainMixerNode.disconnect(input: node.avAudioNode)

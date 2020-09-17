@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
-public class AKPhaser: AKNode, AKComponent, AKToggleable {
+public class AKPhaser: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
@@ -152,7 +152,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     ///   - lfoBPM: Between 24 and 360
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         notchMinimumFrequency: AUValue = 100,
         notchMaximumFrequency: AUValue = 800,
         notchWidth: AUValue = 1_000,

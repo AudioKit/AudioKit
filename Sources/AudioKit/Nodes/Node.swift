@@ -3,9 +3,9 @@
 import AVFoundation
 import CAudioKit
 
-open class AKNode {
+open class Node {
     /// Nodes providing input to this node.
-    var connections: [AKNode] = []
+    var connections: [Node] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
@@ -114,8 +114,8 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-open class AKPolyphonicNode: AKNode, AKPolyphonic {
-    /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
+open class AKPolyphonicNode: Node, AKPolyphonic {
+    /// Global tuning table used by AKPolyphonicNode (Node classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = TuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
 

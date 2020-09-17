@@ -8,7 +8,7 @@ import CAudioKit
 /// independent and is determined by the reverberation time (defined as the time in seconds for a signal to
 /// decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 /// 
-public class FlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
+public class FlatFrequencyResponseReverb: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
@@ -56,7 +56,7 @@ public class FlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
     ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.  
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         reverbDuration: AUValue = 0.5,
         loopDuration: AUValue = 0.1
         ) {

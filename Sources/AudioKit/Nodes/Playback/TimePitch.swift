@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class AKTimePitch: AKNode, AKToggleable {
+public class AKTimePitch: Node, AKToggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
@@ -47,7 +47,7 @@ public class AKTimePitch: AKNode, AKToggleable {
     ///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         rate: AUValue = 1.0,
         pitch: AUValue = 0.0,
         overlap: AUValue = 8.0) {

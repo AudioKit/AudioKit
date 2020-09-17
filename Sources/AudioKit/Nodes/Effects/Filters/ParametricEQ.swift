@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class ParametricEQ: AKNode, AKToggleable {
+open class ParametricEQ: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -31,7 +31,7 @@ open class ParametricEQ: AKNode, AKToggleable {
     /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         centerFreq: AUValue = 2000,
         q: AUValue = 1.0,
         gain: AUValue = 0) {

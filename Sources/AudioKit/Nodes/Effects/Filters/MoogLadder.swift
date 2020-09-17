@@ -9,7 +9,7 @@ import CAudioKit
 /// "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
 /// This implementation is probably a more accurate digital representation of the original analogue filter.
 /// 
-public class MoogLadder: AKNode, AKComponent, AKToggleable {
+public class MoogLadder: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
@@ -65,7 +65,7 @@ public class MoogLadder: AKNode, AKComponent, AKToggleable {
     ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         cutoffFrequency: AUValue = 1_000,
         resonance: AUValue = 0.5
         ) {

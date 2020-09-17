@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
-public class TanhDistortion: AKNode, AKComponent, AKToggleable {
+public class TanhDistortion: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
@@ -87,7 +87,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         pregain: AUValue = 2.0,
         postgain: AUValue = 0.5,
         positiveShapeParameter: AUValue = 0.0,

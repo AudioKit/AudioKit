@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
+public class ThreePoleLowpassFilter: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
@@ -74,7 +74,7 @@ public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         distortion: AUValue = 0.5,
         cutoffFrequency: AUValue = 1_500,
         resonance: AUValue = 0.5

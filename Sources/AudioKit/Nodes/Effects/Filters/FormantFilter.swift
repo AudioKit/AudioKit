@@ -7,7 +7,7 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class FormantFilter: AKNode, AKComponent, AKToggleable {
+public class FormantFilter: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
@@ -76,7 +76,7 @@ public class FormantFilter: AKNode, AKComponent, AKToggleable {
     ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         centerFrequency: AUValue = 1_000,
         attackDuration: AUValue = 0.007,
         decayDuration: AUValue = 0.04

@@ -10,7 +10,7 @@ import CAudioKit
 /// or 60dB down from its original amplitude). Output from a comb filter will appear
 /// only after loopDuration seconds.
 /// 
-public class CombFilterReverb: AKNode, AKComponent, AKToggleable {
+public class CombFilterReverb: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
@@ -58,7 +58,7 @@ public class CombFilterReverb: AKNode, AKComponent, AKToggleable {
     ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         reverbDuration: AUValue = 1.0,
         loopDuration: AUValue = 0.1
         ) {

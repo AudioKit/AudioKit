@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class BandPassFilter: AKNode, AKToggleable {
+open class BandPassFilter: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -27,7 +27,7 @@ open class BandPassFilter: AKNode, AKToggleable {
     /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         centerFrequency: AUValue = 5000,
         bandwidth: AUValue = 600) {
         super.init(avAudioNode: effectAU)

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
+public class RhinoGuitarProcessor: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
@@ -112,7 +112,7 @@ public class RhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     ///   - distortion: Distortion Amount
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         preGain: AUValue = 5.0,
         postGain: AUValue = 0.7,
         lowGain: AUValue = 0.0,

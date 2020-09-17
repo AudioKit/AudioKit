@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class StereoFieldLimiter: AKNode, AKToggleable, AKComponent {
+public class StereoFieldLimiter: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
@@ -44,10 +44,10 @@ public class StereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     /// Initialize this stereo field limiter node
     ///
     /// - Parameters:
-    ///   - input: AKNode whose output will be amplified
+    ///   - input: Node whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode, amount: AUValue = 1) {
+    public init(_ input: Node, amount: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

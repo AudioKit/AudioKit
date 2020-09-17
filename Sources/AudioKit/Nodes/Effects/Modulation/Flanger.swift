@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class AKFlanger: AKNode, AKToggleable, AKComponent {
+public class AKFlanger: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
@@ -80,14 +80,14 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
     /// Initialize this flanger node
     ///
     /// - Parameters:
-    ///   - input: AKNode whose output will be processed
+    ///   - input: Node whose output will be processed
     ///   - frequency: modulation frequency Hz
     ///   - depth: depth of modulation (fraction)
     ///   - feedback: feedback fraction
     ///   - dryWetMix: fraction of wet signal in mix  - traditionally 50%, avoid changing this value
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         frequency: AUValue = kAKFlanger_DefaultFrequency,
         depth: AUValue = kAKFlanger_DefaultDepth,
         feedback: AUValue = kAKFlanger_DefaultFeedback,

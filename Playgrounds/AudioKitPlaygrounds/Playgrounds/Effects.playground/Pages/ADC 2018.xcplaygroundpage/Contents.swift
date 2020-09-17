@@ -45,7 +45,7 @@ class LiveView: AKLiveViewController {
             delay.feedback = sliderValue
         })
 
-        let rollingPlot = AKNodeOutputPlot(micCopy2, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
+        let rollingPlot = NodeOutputPlot(micCopy2, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         rollingPlot.plotType = .rolling
         rollingPlot.shouldFill = true
         rollingPlot.shouldMirror = true
@@ -53,7 +53,7 @@ class LiveView: AKLiveViewController {
         rollingPlot.gain = 2
         addView(rollingPlot)
 
-        let plot = AKNodeOutputPlot(micCopy3, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
+        let plot = NodeOutputPlot(micCopy3, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         plot.plotType = .buffer
         plot.shouldFill = true
         plot.shouldMirror = true
@@ -61,7 +61,7 @@ class LiveView: AKLiveViewController {
         plot.gain = 2
         addView(plot)
 
-        let fftPlot = AKNodeFFTPlot(micCopy1, frame: CGRect(x: 0, y: 0, width: 500, height: 200))
+        let fftPlot = NodeFFTPlot(micCopy1, frame: CGRect(x: 0, y: 0, width: 500, height: 200))
         fftPlot.shouldFill = true
         fftPlot.shouldMirror = false
         fftPlot.shouldCenterYAxis = false

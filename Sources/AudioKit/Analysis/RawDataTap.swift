@@ -25,8 +25,8 @@ open class RawDataTap: AKToggleable {
         }
     }
 
-    private var _input: AKNode
-    public var input: AKNode {
+    private var _input: Node
+    public var input: Node {
         get {
             return _input
         }
@@ -53,7 +53,7 @@ open class RawDataTap: AKToggleable {
     private var handler: Handler = { _ in }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
+    public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self._input = input
         self.handler = handler

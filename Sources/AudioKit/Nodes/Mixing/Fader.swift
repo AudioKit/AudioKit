@@ -7,7 +7,7 @@ import CAudioKit
 public typealias AKBooster = Fader
 
 /// Stereo Fader.
-public class Fader: AKNode, AKToggleable, AKComponent {
+public class Fader: Node, AKToggleable, AKComponent {
 
     public typealias AKAudioUnitType = InternalAU
 
@@ -97,10 +97,10 @@ public class Fader: AKNode, AKToggleable, AKComponent {
     /// Initialize this fader node
     ///
     /// - Parameters:
-    ///   - input: AKNode whose output will be amplified
+    ///   - input: Node whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode,
+    public init(_ input: Node,
                 gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
 

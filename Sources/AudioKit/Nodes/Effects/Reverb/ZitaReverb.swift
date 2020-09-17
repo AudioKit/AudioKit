@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
-public class ZitaReverb: AKNode, AKComponent, AKToggleable {
+public class ZitaReverb: Node, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
@@ -165,7 +165,7 @@ public class ZitaReverb: AKNode, AKComponent, AKToggleable {
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         predelay: AUValue = 60.0,
         crossoverFrequency: AUValue = 200.0,
         lowReleaseTime: AUValue = 3.0,

@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class DryWetMixer: AKNode, AKToggleable, AKComponent {
+public class DryWetMixer: Node, AKToggleable, AKComponent {
 
    public static let ComponentDescription = AudioComponentDescription(effect: "dwmx")
 
@@ -46,7 +46,7 @@ public class DryWetMixer: AKNode, AKToggleable, AKComponent {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    public init(_ input1: AKNode, _ input2: AKNode, balance: AUValue = 0.5) {
+    public init(_ input1: Node, _ input2: Node, balance: AUValue = 0.5) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -62,7 +62,7 @@ public class DryWetMixer: AKNode, AKToggleable, AKComponent {
         connections.append(input2)
     }
 
-    public convenience init(dry: AKNode, wet: AKNode, balance: AUValue = 0.5) {
+    public convenience init(dry: Node, wet: Node, balance: AUValue = 0.5) {
         self.init(dry, wet, balance: balance)
     }
 

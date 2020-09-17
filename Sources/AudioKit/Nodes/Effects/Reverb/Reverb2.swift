@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-public class Reverb2: AKNode, AKToggleable {
+public class Reverb2: Node, AKToggleable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -161,7 +161,7 @@ public class Reverb2: AKNode, AKToggleable {
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         dryWetMix: AUValue = 0.5,
         gain: AUValue = 0,
         minDelayTime: AUValue = 0.008,

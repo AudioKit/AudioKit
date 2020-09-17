@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Clarinet
 ///
-public class Clarinet: AKNode, AKToggleable, AKComponent {
+public class Clarinet: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "clar")
 

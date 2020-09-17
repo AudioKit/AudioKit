@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-open class RingModulator: AKNode, AKToggleable {
+open class RingModulator: Node, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
@@ -35,7 +35,7 @@ open class RingModulator: AKNode, AKToggleable {
     /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         ringModFreq1: AUValue = 100,
         ringModFreq2: AUValue = 100,
         ringModBalance: AUValue = 50,

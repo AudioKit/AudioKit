@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup panning with linear interpolation
 ///
-public class AutoPanner: AKNode, AKToggleable, AKComponent {
+public class AutoPanner: Node, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
@@ -62,7 +62,7 @@ public class AutoPanner: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the panner (default to sine)
     ///
     public init(
-        _ input: AKNode,
+        _ input: Node,
         frequency: AUValue = 10,
         depth: AUValue = 1.0,
         waveform: AKTable = AKTable(.positiveSine)

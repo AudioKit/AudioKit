@@ -3,11 +3,11 @@
 import AVFoundation
 
 /// Simple audio recorder class
-open class AKNodeRecorder: NSObject {
+open class NodeRecorder: NSObject {
     // MARK: - Properties
 
     // The node we record from
-    public private(set) var node: AKNode
+    public private(set) var node: Node
 
     /// True if we are recording.
     public private(set) var isRecording = false
@@ -64,8 +64,8 @@ open class AKNodeRecorder: NSObject {
     ///   - file: Audio file to record to
     ///   - bus: Integer index of the bus to use
     ///
-    public init(node: AKNode,
-                file: AVAudioFile? = AKNodeRecorder.createTempFile(),
+    public init(node: Node,
+                file: AVAudioFile? = NodeRecorder.createTempFile(),
                 bus: Int = 0) throws {
         self.node = node
         super.init()
@@ -108,11 +108,11 @@ open class AKNodeRecorder: NSObject {
 
     // When done with this class, remove any temp files that were created with createTempFile()
     public static func removeTempFiles() {
-        for url in AKNodeRecorder.tmpFiles {
+        for url in NodeRecorder.tmpFiles {
             try? FileManager.default.removeItem(at: url)
             AKLog("𝗫 Deleted tmp file at", url)
         }
-        AKNodeRecorder.tmpFiles.removeAll()
+        NodeRecorder.tmpFiles.removeAll()
     }
 
     /// Start recording
@@ -124,7 +124,7 @@ open class AKNodeRecorder: NSObject {
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
             // record to new tmp file
-            if let tmpFile = AKNodeRecorder.createTempFile() {
+            if let tmpFile = NodeRecorder.createTempFile() {
                 internalAudioFile = try AVAudioFile(forWriting: tmpFile.url,
                                                     settings: tmpFile.fileFormat.settings)
             }
