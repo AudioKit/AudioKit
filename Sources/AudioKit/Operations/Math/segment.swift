@@ -11,9 +11,9 @@ extension AKOperation {
     ///
     public static func lineSegment(
         trigger: AKOperation,
-        start: AKParameter,
-        end: AKParameter,
-        duration: AKParameter
+        start: OperationParameter,
+        end: OperationParameter,
+        duration: OperationParameter
         ) -> AKOperation {
         return AKOperation(module: "line", inputs: trigger, start, duration, end)
     }
@@ -30,9 +30,9 @@ extension AKOperation {
     ///
     public static func exponentialSegment(
         trigger: AKOperation,
-        start: AKParameter,
-        end: AKParameter,
-        duration: AKParameter
+        start: OperationParameter,
+        end: OperationParameter,
+        duration: OperationParameter
         ) -> AKOperation {
         return AKOperation(module: "expon", inputs: trigger, start, duration, end)
     }

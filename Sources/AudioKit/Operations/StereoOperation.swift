@@ -1,11 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// Stereo version of AKComputedParameter
-open class AKStereoOperation: AKComputedParameter {
+/// Stereo version of ComputedParameter
+open class AKStereoOperation: ComputedParameter {
 
     // MARK: - Dependency Management
 
-    fileprivate var inputs = [AKParameter]()
+    fileprivate var inputs = [OperationParameter]()
 
     fileprivate var savedLocation = -1
 
@@ -127,7 +127,7 @@ open class AKStereoOperation: AKComputedParameter {
     /// - parameter setup:  Any setup Sporth code that this operation may require
     /// - parameter inputs: All the parameters of the operation
     ///
-    public init(module: String, setup: String = "", inputs: AKParameter...) {
+    public init(module: String, setup: String = "", inputs: OperationParameter...) {
         self.module = module
         self.setupSporth = setup
         self.inputs = inputs

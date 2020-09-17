@@ -10,10 +10,10 @@ extension AKOperation {
     ///   - minimum: Increment amount (Default: 1)
     ///   - maximum: Increment amount (Default: 1)
     ///
-    public func increment(on trigger: AKParameter,
-                          by step: AKParameter = 1.0,
-                          minimum: AKParameter = 0.0,
-                          maximum: AKParameter = 1_000_000) -> AKOperation {
+    public func increment(on trigger: OperationParameter,
+                          by step: OperationParameter = 1.0,
+                          minimum: OperationParameter = 0.0,
+                          maximum: OperationParameter = 1_000_000) -> AKOperation {
         return AKOperation(module: "incr", inputs: trigger, step, minimum, maximum, toMono())
     }
 }

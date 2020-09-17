@@ -6,7 +6,7 @@
 ///   - x: 1st operation
 ///   - y: 2nd operation
 ///
-public func max(_ x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation {
+public func max(_ x: ComputedParameter, _ y: ComputedParameter) -> AKOperation {
     return AKOperation(module: "max", inputs: x, y)
 }
 
@@ -16,7 +16,7 @@ public func max(_ x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperati
 ///   - operation: operation
 ///   - parameter: parameter
 ///
-public func max(_ operation: AKComputedParameter, _ parameter: AKParameter) -> AKOperation {
+public func max(_ operation: ComputedParameter, _ parameter: OperationParameter) -> AKOperation {
     return AKOperation(module: "max", inputs: operation.toMono(), parameter)
 }
 
@@ -26,6 +26,6 @@ public func max(_ operation: AKComputedParameter, _ parameter: AKParameter) -> A
 ///   - parameter: parameter
 ///   - operation: operation
 ///
-public func max(_ parameter: AKParameter, _ operation: AKComputedParameter) -> AKOperation {
+public func max(_ parameter: OperationParameter, _ operation: ComputedParameter) -> AKOperation {
     return max(operation.toMono(), parameter)
 }

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// This is was built using the JC reverb implentation found in FAUST. According
     /// to the source code, the specifications for this implementation were found on

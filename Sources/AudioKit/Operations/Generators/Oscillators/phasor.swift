@@ -10,7 +10,7 @@ extension AKOperation {
     ///   - phase: Initial phase (Default: 0)
     ///
     public static func phasor(
-        frequency: AKParameter = 1,
+        frequency: OperationParameter = 1,
         phase: Double = 0
         ) -> AKOperation {
         return AKOperation(module: "phasor", inputs: frequency, phase)

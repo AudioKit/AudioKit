@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// A second-order resonant filter.
     ///
@@ -11,8 +11,8 @@ extension AKComputedParameter {
     ///                (defaults to 1000 Hz).
     ///
     public func resonantFilter(
-        frequency: AKParameter = 4_000.0,
-        bandwidth: AKParameter = 1_000.0
+        frequency: OperationParameter = 4_000.0,
+        bandwidth: OperationParameter = 1_000.0
         ) -> AKOperation {
         return AKOperation(module: "reson", inputs: toMono(), frequency, bandwidth)
     }

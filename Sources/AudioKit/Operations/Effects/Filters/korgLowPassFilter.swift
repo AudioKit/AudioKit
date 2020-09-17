@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKComputedParameter {
+extension ComputedParameter {
 
     /// Analogue model of the Korg 35 Lowpass Filter
     ///
@@ -11,9 +11,9 @@ extension AKComputedParameter {
     /// - parameter saturation: Filter saturation. (Default: 0.0, Minimum: 0.0, Maximum: 10.0)
     ///
     public func korgLowPassFilter(
-        cutoffFrequency: AKParameter = 1_000.0,
-        resonance: AKParameter = 1.0,
-        saturation: AKParameter = 0.0
+        cutoffFrequency: OperationParameter = 1_000.0,
+        resonance: OperationParameter = 1.0,
+        saturation: OperationParameter = 0.0
         ) -> AKOperation {
         return AKOperation(module: "wpkorg35",
                            inputs: toMono(), cutoffFrequency, resonance, saturation)

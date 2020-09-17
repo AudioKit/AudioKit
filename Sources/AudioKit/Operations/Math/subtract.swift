@@ -5,7 +5,7 @@ extension AKOperation {
     ///
     /// - parameter subtrahend: The amount to subtract
     ///
-    public func minus(_ subtrahend: AKParameter) -> AKOperation {
+    public func minus(_ subtrahend: OperationParameter) -> AKOperation {
         return AKOperation(module: "-", inputs: self, subtrahend)
     }
 }
@@ -16,7 +16,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func - (left: AKParameter, right: AKParameter) -> AKOperation {
+public func - (left: OperationParameter, right: OperationParameter) -> AKOperation {
     return left.toMono().minus(right)
 }
 
@@ -35,7 +35,7 @@ public func - (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoO
 ///
 /// - parameter parameter: Parameter to negate
 ///
-public prefix func - (x: AKParameter) -> AKOperation {
+public prefix func - (x: OperationParameter) -> AKOperation {
     return AKOperation(module: "0 swap -", inputs: x)
 }
 
