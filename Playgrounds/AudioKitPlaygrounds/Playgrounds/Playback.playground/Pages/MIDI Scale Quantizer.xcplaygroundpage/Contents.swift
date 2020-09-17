@@ -129,7 +129,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 let scaleQuantizer = MIDIScaleQuantizer()
 midi.addTransformer(scaleQuantizer)
 
-class PlaygroundMIDIListener: AKMIDIListener {
+class PlaygroundMIDIListener: MIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {

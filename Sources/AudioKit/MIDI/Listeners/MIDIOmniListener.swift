@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-//  AKMIDIOMNIListener: AKMIDIListener
+//  MIDIOMNIListener: MIDIListener
 //
 //  This class probably needs to support observers as well
 //  so that a client may be able to be notified of state changes
@@ -9,7 +9,7 @@
 import Foundation
 import CoreMIDI
 
-public class AKMIDIOMNIListener: NSObject {
+public class MIDIOMNIListener: NSObject {
 
     var omniMode: Bool
 
@@ -18,9 +18,9 @@ public class AKMIDIOMNIListener: NSObject {
     }
 }
 
-// MARK: - AKMIDIOMNIListener should be used as an AKMIDIListener
+// MARK: - MIDIOMNIListener should be used as an MIDIListener
 
-extension AKMIDIOMNIListener: AKMIDIListener {
+extension MIDIOMNIListener: MIDIListener {
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         // Do nothing
     }

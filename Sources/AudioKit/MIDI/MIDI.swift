@@ -40,7 +40,7 @@ public class AKMIDI {
     public var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
 
     /// Array of all listeners
-    public var listeners = [AKMIDIListener]()
+    public var listeners = [MIDIListener]()
 
     public var transformers = [AKMIDITransformer]()
 

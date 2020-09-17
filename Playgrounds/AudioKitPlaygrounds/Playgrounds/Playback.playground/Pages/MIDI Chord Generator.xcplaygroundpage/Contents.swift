@@ -194,7 +194,7 @@ let chordGenerator = MIDIChordGenerator()
 midi.addTransformer(scaleQuantizer)
 midi.addTransformer(chordGenerator)
 
-class PlaygroundMIDIListener: AKMIDIListener {
+class PlaygroundMIDIListener: MIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {

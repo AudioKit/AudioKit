@@ -8,33 +8,33 @@ public protocol AKMIDISystemRealTimeObserver {
 
     /// Called when a midi start system message is received
     ///
-    /// - Parameter srtListener: AKMIDISRTListener
-    func startSRT(listener: AKMIDISystemRealTimeListener)
+    /// - Parameter srtListener: MIDISRTListener
+    func startSRT(listener: MIDISystemRealTimeListener)
 
     /// Called when a midi stop system message is received
     /// Stop should pause
     ///
-    /// - Parameter srtListener: AKMIDISRTListener
-    func stopSRT(listener: AKMIDISystemRealTimeListener)
+    /// - Parameter srtListener: MIDISRTListener
+    func stopSRT(listener: MIDISystemRealTimeListener)
 
     /// Called when a midi continue system message is received
     ///
-    /// - Parameter srtListener: AKMIDISRTListener
-    func continueSRT(listener: AKMIDISystemRealTimeListener)
+    /// - Parameter srtListener: MIDISRTListener
+    func continueSRT(listener: MIDISystemRealTimeListener)
 }
 
 // MARK: - Default handler methods for AKMIDIMMCEvents
 extension AKMIDISystemRealTimeObserver {
 
-    func startSRT(listener: AKMIDISystemRealTimeListener) {
+    func startSRT(listener: MIDISystemRealTimeListener) {
 
     }
 
-    func stopSRT(listener: AKMIDISystemRealTimeListener) {
+    func stopSRT(listener: MIDISystemRealTimeListener) {
 
     }
 
-    func continueSRT(listener: AKMIDISystemRealTimeListener) {
+    func continueSRT(listener: MIDISystemRealTimeListener) {
 
     }
 

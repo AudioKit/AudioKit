@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-//  AKMIDIMonoPolyListener: AKMIDIListener
+//  MIDIMonoPolyListener: MIDIListener
 //
 //  This class probably needs to support observers as well
 //  so that a client may be able to be notified of state changes
@@ -15,7 +15,7 @@
 import Foundation
 import CoreMIDI
 
-public class AKMIDIMonoPolyListener: NSObject {
+public class MIDIMonoPolyListener: NSObject {
 
     var monoMode: Bool
 
@@ -24,9 +24,9 @@ public class AKMIDIMonoPolyListener: NSObject {
     }
 }
 
-// MARK: - AKMIDIMonoPolyListener should be used as an AKMIDIListener
+// MARK: - MIDIMonoPolyListener should be used as an MIDIListener
 
-extension AKMIDIMonoPolyListener: AKMIDIListener {
+extension MIDIMonoPolyListener: MIDIListener {
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         // Do nothing
     }

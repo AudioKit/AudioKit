@@ -5,9 +5,9 @@ import Foundation
 import CoreMIDI
 import os.log
 
-/// This AKMIDIListener looks for midi system real time (SRT)
+/// This MIDIListener looks for midi system real time (SRT)
 /// midi system messages.
-open class AKMIDISystemRealTimeListener: NSObject {
+open class MIDISystemRealTimeListener: NSObject {
     enum SRTEvent: MIDIByte {
         case stop = 0xFC
         case start = 0xFA
@@ -56,7 +56,7 @@ open class AKMIDISystemRealTimeListener: NSObject {
     var observers: [AKMIDISystemRealTimeObserver] = []
 }
 
-extension AKMIDISystemRealTimeListener: AKMIDIListener {
+extension MIDISystemRealTimeListener: MIDIListener {
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
         // Do nothing
     }
@@ -122,7 +122,7 @@ extension AKMIDISystemRealTimeListener: AKMIDIListener {
     }
 }
 
-extension AKMIDISystemRealTimeListener {
+extension MIDISystemRealTimeListener {
     public func addObserver(_ observer: AKMIDISystemRealTimeObserver) {
         observers.append(observer)
     }

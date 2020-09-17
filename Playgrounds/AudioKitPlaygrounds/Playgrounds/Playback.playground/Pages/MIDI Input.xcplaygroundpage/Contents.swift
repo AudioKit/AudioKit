@@ -13,7 +13,7 @@ midi.openInput()
 
 //: By defining a class that is a MIDI Listener, but with no functions overridden,
 //: we just get the default behavior which is to print to the console.
-class PlaygroundMIDIReceiver: AKMIDIListener {
+class PlaygroundMIDIReceiver: MIDIListener {
 }
 
 let receiver = PlaygroundMIDIReceiver()
