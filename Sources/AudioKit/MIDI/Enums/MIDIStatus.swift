@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-public struct AKMIDIStatus: AKMIDIMessage {
+public struct MIDIStatus: AKMIDIMessage {
 
     public var data: [UInt8] {
         return [byte]
@@ -8,7 +8,7 @@ public struct AKMIDIStatus: AKMIDIMessage {
 
     public var byte: MIDIByte
 
-    public init(type: AKMIDIStatusType, channel: MIDIChannel) {
+    public init(type: MIDIStatusType, channel: MIDIChannel) {
         byte = MIDIByte(type.rawValue) << 4 + channel
     }
 
@@ -17,15 +17,15 @@ public struct AKMIDIStatus: AKMIDIMessage {
     }
 
     public init?(byte: MIDIByte) {
-        if AKMIDIStatusType.from(byte: byte) != nil {
+        if MIDIStatusType.from(byte: byte) != nil {
             self.byte = byte
         } else {
             return nil
         }
     }
 
-    public var type: AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte.highBit))
+    public var type: MIDIStatusType? {
+        return MIDIStatusType(rawValue: Int(byte.highBit))
     }
 
     public var channel: MIDIChannel {
@@ -64,7 +64,7 @@ public struct AKMIDIStatus: AKMIDIMessage {
 /// - PitchWheel:
 ///    common keyboard control that allow for a pitch to be bent up or down a given number of semitones
 ///
-public enum AKMIDIStatusType: Int {
+public enum MIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -84,8 +84,8 @@ public enum AKMIDIStatusType: Int {
     /// bent up or down a given number of semitones
     case pitchWheel = 14
 
-    public static func from(byte: MIDIByte) -> AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte.highBit))
+    public static func from(byte: MIDIByte) -> MIDIStatusType? {
+        return MIDIStatusType(rawValue: Int(byte.highBit))
     }
 
     public var length: Int {

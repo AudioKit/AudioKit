@@ -53,9 +53,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     /// Status
-    public var status: AKMIDIStatus? {
+    public var status: MIDIStatus? {
         if let statusByte = data.first {
-            return AKMIDIStatus(byte: statusByte)
+            return MIDIStatus(byte: statusByte)
         }
         return nil
     }
@@ -174,7 +174,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
             } else {
                 fillData(command: command, bytes: Array(data.suffix(from: 1)))
             }
-        } else if let status = AKMIDIStatusType.from(byte: data[0]) {
+        } else if let status = MIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
             let channel = data[0].lowBit
             fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
@@ -191,16 +191,16 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///   - byte1:   First data byte
     ///   - byte2:   Second data byte
     ///
-    init(status: AKMIDIStatusType, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
+    init(status: MIDIStatusType, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
         let data = [byte1, byte2]
         fillData(status: status, channel: channel, bytes: data)
     }
 
-    fileprivate mutating func fillData(status: AKMIDIStatusType,
+    fileprivate mutating func fillData(status: MIDIStatusType,
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
         data = []
-        data.append(AKMIDIStatus(type: status, channel: channel).byte)
+        data.append(MIDIStatus(type: status, channel: channel).byte)
         for byte in bytes {
             data.append(byte.lower7bits())
         }
@@ -243,7 +243,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public init(noteOn noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
+        self.init(data: [MIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
     }
 
     /// Create note off event
@@ -256,7 +256,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public init(noteOff noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
+        self.init(data: [MIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
     }
 
     /// Create program change event
@@ -267,7 +267,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     public init(programChange data: MIDIByte,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(type: .programChange, channel: channel).byte, data])
+        self.init(data: [MIDIStatus(type: .programChange, channel: channel).byte, data])
     }
 
     /// Create controller event
@@ -280,7 +280,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public init(controllerChange controller: MIDIByte,
                 value: MIDIByte,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
+        self.init(data: [MIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
     }
 
     /// Array of MIDI events from a MIDI packet list poionter

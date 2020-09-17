@@ -23,7 +23,7 @@ extension AKMusicTrack {
                     let statusData: MIDIByte = data?.pointee.status else {
                     break
                 }
-                let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
+                let statusType = MIDIStatusType(rawValue: Int(statusData.highBit))
                 let channel = statusData.lowBit
                 if statusType == .programChange {
                     let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
@@ -69,7 +69,7 @@ extension AKMusicTrack {
                     Log("Problem with raw midi channel message")
                     return
                 }
-                if let statusType = AKMIDIStatus(byte: statusData)?.type {
+                if let statusType = MIDIStatus(byte: statusData)?.type {
                     switch statusType {
                     case .programChange:
                         Log("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")

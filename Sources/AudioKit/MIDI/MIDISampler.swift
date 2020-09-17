@@ -63,7 +63,7 @@ open class MIDISampler: AppleSampler {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
-        if let status = AKMIDIStatus(byte: data1) {
+        if let status = MIDIStatus(byte: data1) {
             let channel = status.channel
             if status.type == .noteOn && data3 > 0 {
                 try play(noteNumber: data2,

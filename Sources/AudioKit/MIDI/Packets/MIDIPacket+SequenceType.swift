@@ -35,7 +35,7 @@ extension MIDIPacket: Sequence {
             let status = pop()
             if AKMIDI.sharedInstance.isReceivingSysEx {
                 return AKMIDIEvent.appendIncomingSysEx(packet: self) //will be nil until sysex is done
-            } else if var mstat = AKMIDIStatusType.from(byte: status) {
+            } else if var mstat = MIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
 
