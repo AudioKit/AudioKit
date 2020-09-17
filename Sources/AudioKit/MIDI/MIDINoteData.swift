@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// Struct holding revelant data for AKMusicTrack note events
+/// Struct holding revelant data for MusicTrackManager note events
 public struct MIDINoteData: CustomStringConvertible, Equatable {
     public var noteNumber: MIDINoteNumber
     public var velocity: MIDIVelocity

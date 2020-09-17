@@ -216,7 +216,7 @@ open class Sequencer {
  open func loadMIDIFile(fromURL fileURL: URL) {
  open func addMIDIFileTracks(_ filename: String, useExistingSequencerLength: Bool = true) {
  open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
- open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
+ open func newTrack(_ name: String = "Unnamed") -> MusicTrackManager? {
  open func deleteTrack(trackIndex: Int) {
  open func clearRange(start: Duration, duration: Duration) {
  open func setTime(_ time: MusicTimeStamp) {

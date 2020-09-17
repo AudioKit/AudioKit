@@ -3,7 +3,7 @@
 #import "STKInstrumentDSP.hpp"
 #include "Shakers.h"
 
-class ShakerDSP : public AKSTKInstrumentDSP {
+class ShakerDSP : public STKInstrumentDSP {
 private:
     stk::Shakers *shaker = nullptr;
 

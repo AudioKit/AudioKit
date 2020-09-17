@@ -11,7 +11,7 @@ open class AppleSequencer: NSObject {
     open var sequencePointer: UnsafeMutablePointer<MusicSequence>?
 
     /// Array of AudioKit Music Tracks
-    open var tracks = [AKMusicTrack]()
+    open var tracks = [MusicTrackManager]()
 
     /// Music Player
     var musicPlayer: MusicPlayer?
@@ -278,7 +278,7 @@ open class AppleSequencer: NSObject {
         var tempos = [(MusicTimeStamp, Double)]()
 
         if let tempoTrack = tempoTrack {
-            AKMusicTrack.iterateMusicTrack(tempoTrack) { _, eventTime, eventType, eventData, _, _ in
+            MusicTrackManager.iterateMusicTrack(tempoTrack) { _, eventTime, eventType, eventData, _, _ in
                 if eventType == kMusicEventType_ExtendedTempo {
                     if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
                         let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
@@ -312,7 +312,7 @@ open class AppleSequencer: NSObject {
 
     // Remove existing tempo events
     func clearTempoEvents(_ track: MusicTrack) {
-        AKMusicTrack.iterateMusicTrack(track) { iterator, _, eventType, _, _, isReadyForNextEvent in
+        MusicTrackManager.iterateMusicTrack(track) { iterator, _, eventType, _, _, isReadyForNextEvent in
             isReadyForNextEvent = true
             if eventType == kMusicEventType_ExtendedTempo {
                 MusicEventIteratorDeleteEvent(iterator)
@@ -323,8 +323,8 @@ open class AppleSequencer: NSObject {
 
     // MARK: - Time Signature
 
-    /// Return and array of (MusicTimeStamp, AKTimeSignature) tuples
-    open var allTimeSignatureEvents: [(MusicTimeStamp, AKTimeSignature)] {
+    /// Return and array of (MusicTimeStamp, TimeSignature) tuples
+    open var allTimeSignatureEvents: [(MusicTimeStamp, TimeSignature)] {
         struct TimeSignatureEvent {
             var metaEventType: UInt8 = 0
             var unused1: UInt8 = 0
@@ -335,7 +335,7 @@ open class AppleSequencer: NSObject {
         }
 
         var tempoTrack: MusicTrack?
-        var result = [(MusicTimeStamp, AKTimeSignature)]()
+        var result = [(MusicTimeStamp, TimeSignature)]()
 
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
@@ -347,7 +347,7 @@ open class AppleSequencer: NSObject {
         }
 
         let timeSignatureMetaEventByte: UInt8 = 0x58
-        AKMusicTrack.iterateMusicTrack(unwrappedTempoTrack) { _, eventTime, eventType, eventData, dataSize, _ in
+        MusicTrackManager.iterateMusicTrack(unwrappedTempoTrack) { _, eventTime, eventType, eventData, dataSize, _ in
             guard let eventData = eventData else { return }
             guard eventType == kMusicEventType_Meta else { return }
 
@@ -356,11 +356,11 @@ open class AppleSequencer: NSObject {
             if metaEvent.metaEventType == timeSignatureMetaEventByte {
                 let timeSigPointer = eventData.bindMemory(to: TimeSignatureEvent.self, capacity: Int(dataSize))
                 let rawTimeSig = timeSigPointer.pointee
-                guard let bottomValue = AKTimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig.data.1) else {
+                guard let bottomValue = TimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig.data.1) else {
                     Log("Inavlid time signature bottom value")
                     return
                 }
-                let timeSigEvent = AKTimeSignature(topValue: rawTimeSig.data.0,
+                let timeSigEvent = TimeSignature(topValue: rawTimeSig.data.0,
                                                    bottomValue: bottomValue)
                 result.append((eventTime, timeSigEvent))
             }
@@ -375,8 +375,8 @@ open class AppleSequencer: NSObject {
     /// If there is more than one event precisely at the requested position
     /// it will return the most recently added.
     /// Will return 4/4 if there is no Time Signature event at or before position
-    public func getTimeSignature(at position: MusicTimeStamp) -> AKTimeSignature {
-        var outTimeSignature = AKTimeSignature() // 4/4, by default
+    public func getTimeSignature(at position: MusicTimeStamp) -> TimeSignature {
+        var outTimeSignature = TimeSignature() // 4/4, by default
         for event in allTimeSignatureEvents {
             if event.0 <= position {
                 outTimeSignature = event.1
@@ -399,7 +399,7 @@ open class AppleSequencer: NSObject {
     ///   - clearExistingEvents: Flag that will clear other Time Signature Events from tempo track
     ///
     public func addTimeSignatureEvent(at timeStamp: MusicTimeStamp = 0.0,
-                                      timeSignature: AKTimeSignature,
+                                      timeSignature: TimeSignature,
                                       ticksPerMetronomeClick: UInt8 = 24,
                                       thirtySecondNotesPerQuarter: UInt8 = 8,
                                       clearExistingEvents: Bool = true) {
@@ -438,7 +438,7 @@ open class AppleSequencer: NSObject {
         let timeSignatureMetaEventByte: UInt8 = 0x58
         let metaEventType = kMusicEventType_Meta
 
-        AKMusicTrack.iterateMusicTrack(track) { iterator, _, eventType, eventData, _, isReadyForNextEvent in
+        MusicTrackManager.iterateMusicTrack(track) { iterator, _, eventType, eventData, _, isReadyForNextEvent in
             isReadyForNextEvent = true
             guard eventType == metaEventType else { return }
 
@@ -637,7 +637,7 @@ open class AppleSequencer: NSObject {
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
-    /// Creates new AKMusicTrack with copied note event data from another AppleSequencer
+    /// Creates new MusicTrackManager with copied note event data from another AppleSequencer
     func addMusicTrackNoteData(from tempSequencer: AppleSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
             Log("Can't add tracks during playback")
@@ -679,7 +679,7 @@ open class AppleSequencer: NSObject {
                 MusicSequenceGetIndTrack(existingSequence, UInt32(i), &musicTrack)
             }
             if let existingMusicTrack = musicTrack {
-                tracks.append(AKMusicTrack(musicTrack: existingMusicTrack, name: "InitializedTrack"))
+                tracks.append(MusicTrackManager(musicTrack: existingMusicTrack, name: "InitializedTrack"))
             }
         }
 
@@ -709,7 +709,7 @@ open class AppleSequencer: NSObject {
     }
 
     /// Get a new track
-    public func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
+    public func newTrack(_ name: String = "Unnamed") -> MusicTrackManager? {
         var newMusicTrack: MusicTrack?
         var count: UInt32 = 0
         if let existingSequence = sequence {
@@ -717,7 +717,7 @@ open class AppleSequencer: NSObject {
             MusicSequenceGetTrackCount(existingSequence, &count)
         }
         if let existingNewMusicTrack = newMusicTrack {
-            tracks.append(AKMusicTrack(musicTrack: existingNewMusicTrack, name: name))
+            tracks.append(MusicTrackManager(musicTrack: existingNewMusicTrack, name: name))
         }
 
         return tracks.last

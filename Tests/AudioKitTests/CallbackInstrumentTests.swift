@@ -4,9 +4,9 @@ import XCTest
 import AudioKit
 import XCTest
 
-class AKCallbackInstrumentTests: XCTestCase {
+class CallbackInstrumentTests: XCTestCase {
 
-    var instrument = AKCallbackInstrument()
+    var instrument = CallbackInstrument()
 
     func getTestSequence() -> NoteEventSequence {
 
@@ -31,7 +31,7 @@ class AKCallbackInstrumentTests: XCTestCase {
 
         var data: [UInt8] = []
 
-        instrument = AKCallbackInstrument() { status, data1, data2 in
+        instrument = CallbackInstrument() { status, data1, data2 in
             data.append(status)
             data.append(data1)
             data.append(data2)

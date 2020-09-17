@@ -65,11 +65,11 @@ int CoreSynth::init(double sampleRate)
     waveform.triangle(0.5f);
     data->waveform3.initStack(waveform.pWaveTable);
     
-    data->ampEGParameters.updateSampleRate((float)(sampleRate/AKSYNTH_CHUNKSIZE));
-    data->filterEGParameters.updateSampleRate((float)(sampleRate/AKSYNTH_CHUNKSIZE));
+    data->ampEGParameters.updateSampleRate((float)(sampleRate/SYNTH_CHUNKSIZE));
+    data->filterEGParameters.updateSampleRate((float)(sampleRate/SYNTH_CHUNKSIZE));
     
     data->vibratoLFO.waveTable.sinusoid();
-    data->vibratoLFO.init(sampleRate/AKSYNTH_CHUNKSIZE, 5.0f);
+    data->vibratoLFO.init(sampleRate/SYNTH_CHUNKSIZE, 5.0f);
     
     data->voiceParameters.osc1.phases = 4;
     data->voiceParameters.osc1.frequencySpread = 25.0f;
@@ -122,7 +122,7 @@ int CoreSynth::init(double sampleRate)
     data->segParameters[5].finalLevel = 0.0f;     // down to 0
     data->segParameters[5].seconds = 0.5f;        // in 0.5 sec
     
-    data->envParameters.init((float)(sampleRate/AKSYNTH_CHUNKSIZE), 6, data->segParameters, 3, 0, 5);
+    data->envParameters.init((float)(sampleRate/SYNTH_CHUNKSIZE), 6, data->segParameters, 3, 0, 5);
     
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {

@@ -16,7 +16,7 @@ namespace AudioKitCore
         filterEnvelope.init();
         pitchEnvelope.init();
         vibratoLFO.waveTable.sinusoid();
-        vibratoLFO.init(sampleRate/AKCORESAMPLER_CHUNKSIZE, 5.0f);
+        vibratoLFO.init(sampleRate/CORESAMPLER_CHUNKSIZE, 5.0f);
         restartVoiceLFO = false;
         volumeRamper.init(0.0f);
         tempGain = 0.0f;

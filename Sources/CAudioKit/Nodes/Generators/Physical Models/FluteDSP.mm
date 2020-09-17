@@ -4,7 +4,7 @@
 
 #include "Flute.h"
 
-class FluteDSP : public AKSTKInstrumentDSP {
+class FluteDSP : public STKInstrumentDSP {
 private:
     stk::Flute *flute = nullptr;
 

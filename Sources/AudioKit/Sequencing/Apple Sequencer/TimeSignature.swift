@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct AKTimeSignature: CustomStringConvertible, Equatable {
+public struct TimeSignature: CustomStringConvertible, Equatable {
     public enum TimeSignatureBottomValue: UInt8 {
         // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
         case two = 1

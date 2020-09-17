@@ -5,7 +5,7 @@
 #include "Mandolin.h"
 #include "mand_raw.h"
 
-class MandolinStringDSP : public AKSTKInstrumentDSP {
+class MandolinStringDSP : public STKInstrumentDSP {
 private:
     stk::Mandolin *mandolin = nullptr;
 

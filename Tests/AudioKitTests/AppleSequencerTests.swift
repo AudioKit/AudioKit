@@ -120,8 +120,8 @@ class AppleSequencerTests: XCTestCase {
     func testSetLength_willNotTruncateTimeSignatureEventsOutsideOfRange() {
         _ = seq.newTrack()
         seq.addTimeSignatureEvent(at: 8.0,
-                                  timeSignature: AKTimeSignature(topValue: 7,
-                                                                 bottomValue: AKTimeSignature.TimeSignatureBottomValue.eight))
+                                  timeSignature: TimeSignature(topValue: 7,
+                                                               bottomValue: TimeSignature.TimeSignatureBottomValue.eight))
 
         XCTAssertEqual(seq.allTimeSignatureEvents.count, 1)
         seq.setLength(Duration(beats: 4.0))
@@ -622,10 +622,10 @@ class AppleSequencerTests: XCTestCase {
         return newSeq
     }
 
-    let fourFour = AKTimeSignature(topValue: 4,
-                                   bottomValue: AKTimeSignature.TimeSignatureBottomValue.four)
-    let sevenEight = AKTimeSignature(topValue: 7,
-                                     bottomValue: AKTimeSignature.TimeSignatureBottomValue.eight)
+    let fourFour = TimeSignature(topValue: 4,
+                                 bottomValue: TimeSignature.TimeSignatureBottomValue.four)
+    let sevenEight = TimeSignature(topValue: 7,
+                                   bottomValue: TimeSignature.TimeSignatureBottomValue.eight)
 }
 
 extension AppleSequencer {

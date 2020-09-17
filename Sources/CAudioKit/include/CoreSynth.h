@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 #import <memory>
 
-#define AKSYNTH_CHUNKSIZE 16            // process samples in "chunks" this size
+#define SYNTH_CHUNKSIZE 16            // process samples in "chunks" this size
 
 namespace AudioKitCore
 {

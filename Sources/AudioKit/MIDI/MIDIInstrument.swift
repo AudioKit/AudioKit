@@ -7,7 +7,7 @@ import CoreAudio
 
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class AKMIDIInstrument: PolyphonicNode, MIDIListener {
+open class MIDIInstrument: PolyphonicNode, MIDIListener {
 
     // MARK: - Properties
 

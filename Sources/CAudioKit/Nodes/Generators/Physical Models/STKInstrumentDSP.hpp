@@ -6,11 +6,11 @@
 #include "DSPBase.h"
 
 /// Common base class for STK instruments.
-class AKSTKInstrumentDSP : public DSPBase {
+class STKInstrumentDSP : public DSPBase {
 
 public:
 
-    AKSTKInstrumentDSP();
+    STKInstrumentDSP();
 
     virtual stk::Instrmnt* getInstrument() = 0;
 
