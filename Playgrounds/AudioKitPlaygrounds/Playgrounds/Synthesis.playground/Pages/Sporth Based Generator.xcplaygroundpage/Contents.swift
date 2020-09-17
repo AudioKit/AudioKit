@@ -10,13 +10,13 @@ try engine.start()
 //: User Interface Set up
 import AudioKitUI
 
-class LiveView: View, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     var p0Slider: Slider!
     var p1Slider: Slider!
     var p2Slider: Slider!
     var p3Slider: Slider!
-    var keyboard: AKKeyboardView!
+    var keyboard: KeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
     override func viewDidLoad() {
@@ -130,7 +130,7 @@ class LiveView: View, AKKeyboardDelegate {
 //        p3Slider?.isHidden = true
         addView(p3Slider)
 
-        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard = KeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
 //        keyboard.isHidden = true

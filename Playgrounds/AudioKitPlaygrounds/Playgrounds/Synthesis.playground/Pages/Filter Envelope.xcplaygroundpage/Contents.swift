@@ -63,7 +63,7 @@ let playgroundWidth = 500
 
 import AudioKitUI
 
-class LiveView: View, AKKeyboardDelegate {
+class LiveView: View, KeyboardDelegate {
 
     override func viewDidLoad() {
         addTitle("Filter Envelope")
@@ -76,7 +76,7 @@ class LiveView: View, AKKeyboardDelegate {
             synth.cutoff = frequency
         })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
+        let keyboard = KeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
         addView(keyboard)
     }

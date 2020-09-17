@@ -5,7 +5,7 @@ import UIKit
 import CoreMIDI
 
 /// Delegate for keyboard events
-public protocol AKKeyboardDelegate: AnyObject {
+public protocol KeyboardDelegate: AnyObject {
     /// Note on events
     func noteOn(note: MIDINoteNumber)
     /// Note off events
@@ -13,7 +13,7 @@ public protocol AKKeyboardDelegate: AnyObject {
 }
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
-@IBDesignable public class AKKeyboardView: UIView, AKMIDIListener {
+@IBDesignable public class KeyboardView: UIView, AKMIDIListener {
     //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
@@ -37,7 +37,7 @@ public protocol AKKeyboardDelegate: AnyObject {
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     /// Class to handle user actions
-    open weak var delegate: AKKeyboardDelegate?
+    open weak var delegate: KeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
@@ -440,12 +440,12 @@ public protocol AKKeyboardDelegate: AnyObject {
 import Cocoa
 import CoreMIDI
 
-public protocol AKKeyboardDelegate: class {
+public protocol KeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
     func noteOff(note: MIDINoteNumber)
 }
 
-public class AKKeyboardView: NSView, AKMIDIListener {
+public class KeyboardView: NSView, AKMIDIListener {
 
     override public var isFlipped: Bool {
         return true
@@ -464,7 +464,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     @IBInspectable open var  keyOnColor: NSColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  topWhiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
-    open weak var delegate: AKKeyboardDelegate?
+    open weak var delegate: KeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
