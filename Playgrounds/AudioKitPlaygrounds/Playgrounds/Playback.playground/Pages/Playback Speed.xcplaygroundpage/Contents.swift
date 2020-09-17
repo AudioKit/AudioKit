@@ -1,5 +1,5 @@
 //: ## Playback Speed
-//: This playground uses the AKVariSpeed node to change the playback speed of a file
+//: This playground uses the VariSpeed node to change the playback speed of a file
 //: (which also affects the pitch)
 //:
 
@@ -9,7 +9,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AudioPlayer(file: file)
 player.looping = true
 
-var variSpeed = AKVariSpeed(player)
+var variSpeed = VariSpeed(player)
 variSpeed.rate = 2.0
 
 engine.output = variSpeed
