@@ -27,7 +27,7 @@ extension MIDIPacket: Sequence {
             }
 
             func pop() -> MIDIByte {
-                assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysEx.byte))
+                assert((index < self.length) || (index <= self.length && self.data.0 != MIDISystemCommand.sysEx.byte))
                 index += 1
                 // Note: getting rid of the as! but saying 0 as default might not be desired.
                 return generator.next() as? MIDIByte ?? 0
@@ -53,7 +53,7 @@ extension MIDIPacket: Sequence {
                     data1 = pop()
                     return AKMIDIEvent(data: [status, data1])
                 }
-            } else if let command = AKMIDISystemCommand(rawValue: status) {
+            } else if let command = MIDISystemCommand(rawValue: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
                 switch command {

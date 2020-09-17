@@ -15,7 +15,7 @@
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
+public enum MIDISystemCommand: MIDIByte, AKMIDIMessage {
 
     /// System Exclusive (SysEx)
     case sysEx = 0xF0
@@ -42,7 +42,7 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
     /// System Reset (System Realtime)
     case sysReset = 0xFF
 
-    var type: AKMIDISystemCommandType {
+    var type: MIDISystemCommandType {
         switch self {
         case .sysEx, .sysExEnd:
             return .systemExclusive
@@ -104,7 +104,7 @@ public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
     }
 }
 
-public enum AKMIDISystemCommandType {
+public enum MIDISystemCommandType {
     case systemRealtime
     case systemCommon
     case systemExclusive

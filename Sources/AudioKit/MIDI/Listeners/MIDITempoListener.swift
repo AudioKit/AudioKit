@@ -206,7 +206,7 @@ extension MIDITempoListener: MIDIListener {
     }
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-                if data[0] == AKMIDISystemCommand.clock.rawValue {
+                if data[0] == MIDISystemCommand.clock.rawValue {
             clockTimeout?.succeed()
             clockTimeout?.perform {
                 if self.incomingClockActive == false {
@@ -218,10 +218,10 @@ extension MIDITempoListener: MIDIListener {
                 clockListener?.midiClockBeat(time: offset)
             }
         }
-        if data[0] == AKMIDISystemCommand.stop.rawValue {
+        if data[0] == MIDISystemCommand.stop.rawValue {
             resetClockEventsLeavingNone()
         }
-        if data[0] == AKMIDISystemCommand.start.rawValue {
+        if data[0] == MIDISystemCommand.start.rawValue {
             resetClockEventsLeavingOne()
         }
         srtListener.receivedMIDISystemCommand(data, portID: portID, offset: offset)
