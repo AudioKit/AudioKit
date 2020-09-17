@@ -7,7 +7,7 @@ import AudioKit
 // Bring down the amplitude so that when it is mixed it is not so loud
 let whiteNoise = WhiteNoise(amplitude: 0.1)
 let filteredNoise = OperationEffect(whiteNoise) { whiteNoise in
-    let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
+    let halfPower = Operation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return whiteNoise.lowPassFilter(halfPowerPoint: halfPower)
 }
 
@@ -17,7 +17,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 let filteredPlayer = OperationEffect(player) { player in
-    let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
+    let halfPower = Operation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return player.lowPassFilter(halfPowerPoint: halfPower)
 }
 

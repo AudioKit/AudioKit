@@ -9,9 +9,9 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = OperationEffect(player) { player, parameters in
-    let time = AKOperation.sineWave(frequency: parameters[1])
+    let time = Operation.sineWave(frequency: parameters[1])
         .scale(minimum: 0.001, maximum: parameters[0])
-    let feedback = AKOperation.sineWave(frequency: parameters[2])
+    let feedback = Operation.sineWave(frequency: parameters[2])
         .scale(minimum: 0.5, maximum: 0.9)
     return player.variableDelay(time: time,
                                 feedback: feedback,

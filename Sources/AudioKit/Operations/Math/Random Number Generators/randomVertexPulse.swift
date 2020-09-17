@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Line segments with vertices at random points
     ///
@@ -13,8 +13,8 @@ extension AKOperation {
         minimum: OperationParameter = 0,
         maximum: OperationParameter = 1,
         updateFrequency: OperationParameter = 3
-        ) -> AKOperation {
-        return AKOperation(module: "randi",
+        ) -> Operation {
+        return Operation(module: "randi",
                            inputs: minimum, maximum, updateFrequency)
     }
 }

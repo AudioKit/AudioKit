@@ -9,12 +9,12 @@ let startingNote: Double = 48 // C
 
 let generator = OperationGenerator {
 
-    let frequency = (floor(AKOperation.phasor(frequency: 0.5) * noteCount) * interval + startingNote)
+    let frequency = (floor(Operation.phasor(frequency: 0.5) * noteCount) * interval + startingNote)
         .midiNoteToFrequency()
 
-    var amplitude = (AKOperation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
+    var amplitude = (Operation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
 
-    var oscillator = AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
+    var oscillator = Operation.sineWave(frequency: frequency, amplitude: amplitude)
     let reverb = oscillator.reverberateWithChowning()
     return mixer(oscillator, reverb, balance: 0.6)
 }

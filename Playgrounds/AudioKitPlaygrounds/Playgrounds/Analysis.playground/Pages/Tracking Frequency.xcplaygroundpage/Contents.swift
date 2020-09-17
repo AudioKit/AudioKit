@@ -8,12 +8,12 @@ import AudioKit
 //: First lets set up sound source to track
 let oscillatorNode = OperationGenerator {
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = Operation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And let's make the frequency also be a sineWave
-    let frequency = AKOperation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2_200)
+    let frequency = Operation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2_200)
 
-    return AKOperation.sineWave(frequency: frequency, amplitude: volume)
+    return Operation.sineWave(frequency: frequency, amplitude: volume)
 }
 
 let tracker = PitchTap(oscillatorNode)

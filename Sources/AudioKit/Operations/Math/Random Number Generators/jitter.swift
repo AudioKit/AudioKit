@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// A signal with random fluctuations
     /// This is useful for emulating jitter found in analogue equipment.
@@ -14,8 +14,8 @@ extension AKOperation {
         amplitude: OperationParameter = 0.5,
         minimumFrequency: OperationParameter = 0.5,
         maximumFrequency: OperationParameter = 4
-        ) -> AKOperation {
-        return AKOperation(module: "jitter",
+        ) -> Operation {
+        return Operation(module: "jitter",
                            inputs: amplitude, minimumFrequency, maximumFrequency)
     }
 }

@@ -6,7 +6,7 @@ extension ComputedParameter {
     ///
     /// - parameter input: Input audio signal
     ///
-    public func trackedAmplitude(_ trackedAmplitude: OperationParameter = 0) -> AKOperation {
-        return AKOperation(module: "rms", inputs: toMono())
+    public func trackedAmplitude(_ trackedAmplitude: OperationParameter = 0) -> Operation {
+        return Operation(module: "rms", inputs: toMono())
     }
 }

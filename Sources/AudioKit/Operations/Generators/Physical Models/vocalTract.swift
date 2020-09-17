@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Karplus-Strong plucked string instrument.
     ///
@@ -16,9 +16,9 @@ extension AKOperation {
         tonguePosition: OperationParameter = 0.5,
         tongueDiameter: OperationParameter = 1.0,
         tenseness: OperationParameter = 0.6,
-        nasality: OperationParameter = 0.0) -> AKOperation {
+        nasality: OperationParameter = 0.0) -> Operation {
 
-        return AKOperation(module: "voc",
+        return Operation(module: "voc",
                            inputs: frequency, tonguePosition, tongueDiameter, tenseness, nasality)
     }
 }

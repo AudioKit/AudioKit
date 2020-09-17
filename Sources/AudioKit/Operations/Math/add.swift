@@ -1,19 +1,19 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
     /// Addition/Summation of operations
     ///
     /// - parameter parameter: The amount to add
     ///
-    public func plus(_ parameter: OperationParameter) -> AKOperation {
-        return AKOperation(module: "+", inputs: self, parameter)
+    public func plus(_ parameter: OperationParameter) -> Operation {
+        return Operation(module: "+", inputs: self, parameter)
     }
 
     /// Offsetting by way of addition
     ///
     /// - parameter parameter: The amount to offset by
     ///
-    public func offsetBy(_ parameter: OperationParameter) -> AKOperation {
+    public func offsetBy(_ parameter: OperationParameter) -> Operation {
         return self.plus(parameter)
     }
 }
@@ -24,7 +24,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func + (left: OperationParameter, right: OperationParameter) -> AKOperation {
+public func + (left: OperationParameter, right: OperationParameter) -> Operation {
     return left.toMono().plus(right)
 }
 

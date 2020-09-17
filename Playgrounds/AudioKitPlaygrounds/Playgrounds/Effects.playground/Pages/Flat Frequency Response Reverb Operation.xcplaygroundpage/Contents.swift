@@ -9,7 +9,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = OperationEffect(player) { player in
-    let duration = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
+    let duration = Operation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
 
     return player.reverberateWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
 }

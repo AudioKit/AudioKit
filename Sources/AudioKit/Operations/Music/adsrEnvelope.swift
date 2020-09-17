@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Gate based linear AHD envelope generator
     ///
@@ -16,7 +16,7 @@ extension AKOperation {
         decay: OperationParameter = 0.0,
         sustain: OperationParameter = 1,
         release: OperationParameter = 0.2
-        ) -> AKOperation {
-        return AKOperation(module: "adsr *", inputs: toMono(), gate, attack, decay, sustain, release)
+        ) -> Operation {
+        return Operation(module: "adsr *", inputs: toMono(), gate, attack, decay, sustain, release)
     }
 }

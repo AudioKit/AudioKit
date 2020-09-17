@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Produces a normalized sawtooth wave between the values of 0 and 1. Phasors
     /// are often used when building table-lookup oscillators.
@@ -12,7 +12,7 @@ extension AKOperation {
     public static func phasor(
         frequency: OperationParameter = 1,
         phase: Double = 0
-        ) -> AKOperation {
-        return AKOperation(module: "phasor", inputs: frequency, phase)
+        ) -> Operation {
+        return Operation(module: "phasor", inputs: frequency, phase)
     }
 }

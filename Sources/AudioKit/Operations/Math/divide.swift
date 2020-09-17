@@ -1,12 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
     /// Division of parameters
     ///
     /// - parameter denominator: The amount to divide
     ///
-    public func dividedBy(_ denominator: OperationParameter) -> AKOperation {
-        return AKOperation(module: "/", inputs: self, denominator)
+    public func dividedBy(_ denominator: OperationParameter) -> Operation {
+        return Operation(module: "/", inputs: self, denominator)
     }
 }
 
@@ -16,7 +16,7 @@ extension AKOperation {
 ///   - numerator: Mono parameter
 ///   - denominator: The amount to divide
 ///
-public func / (numerator: OperationParameter, denominator: OperationParameter) -> AKOperation {
+public func / (numerator: OperationParameter, denominator: OperationParameter) -> Operation {
     return numerator.toMono().dividedBy(denominator)
 }
 

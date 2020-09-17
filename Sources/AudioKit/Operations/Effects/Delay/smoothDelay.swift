@@ -16,8 +16,8 @@ extension ComputedParameter {
         feedback: OperationParameter = 0.0,
         samples: Int = 1_024,
         maximumDelayTime: Double = 5.0
-        ) -> AKOperation {
-        return AKOperation(module: "smoothdelay",
+        ) -> Operation {
+        return Operation(module: "smoothdelay",
                            inputs: toMono(), feedback, time, maximumDelayTime, Double(samples))
     }
 }

@@ -8,19 +8,19 @@ let generator = OperationGenerator { parameters in
     let updateRate = parameters[0]
 
     // Vary the starting frequency and duration randomly
-    let start = AKOperation.randomNumberPulse() * 2_000 + 300
-    let duration = AKOperation.randomNumberPulse()
-    let frequency = AKOperation.lineSegment(trigger: AKOperation.metronome(frequency: updateRate),
+    let start = Operation.randomNumberPulse() * 2_000 + 300
+    let duration = Operation.randomNumberPulse()
+    let frequency = Operation.lineSegment(trigger: Operation.metronome(frequency: updateRate),
                                             start: start,
                                             end: 0,
                                             duration: duration)
 
     // Decrease the amplitude exponentially
-    let amplitude = AKOperation.exponentialSegment(trigger: AKOperation.metronome(frequency: updateRate),
+    let amplitude = Operation.exponentialSegment(trigger: Operation.metronome(frequency: updateRate),
                                                    start: 0.3,
                                                    end: 0.01,
                                                    duration: 1.0 / updateRate)
-    return AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
+    return Operation.sineWave(frequency: frequency, amplitude: amplitude)
 }
 
 var delay = Delay(generator)

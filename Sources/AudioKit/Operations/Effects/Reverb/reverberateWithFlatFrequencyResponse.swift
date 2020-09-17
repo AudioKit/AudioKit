@@ -17,7 +17,7 @@ extension ComputedParameter {
     public func reverberateWithFlatFrequencyResponse(
         reverbDuration: OperationParameter = 0.5,
         loopDuration: Double = 0.1
-        ) -> AKOperation {
-        return AKOperation(module: "allpass", inputs: toMono(), reverbDuration, loopDuration)
+        ) -> Operation {
+        return Operation(module: "allpass", inputs: toMono(), reverbDuration, loopDuration)
     }
 }

@@ -12,8 +12,8 @@ extension ComputedParameter {
     public func bitCrush(
         bitDepth: OperationParameter = 8,
         sampleRate: OperationParameter = 10_000
-        ) -> AKOperation {
-        return AKOperation(module: "bitcrush",
+        ) -> Operation {
+        return Operation(module: "bitcrush",
                            inputs: toMono(), bitDepth, sampleRate)
     }
 }

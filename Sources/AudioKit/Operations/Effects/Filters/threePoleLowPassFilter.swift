@@ -20,7 +20,7 @@ extension ComputedParameter {
         distortion: OperationParameter = 0.5,
         cutoffFrequency: OperationParameter = 1_500,
         resonance: OperationParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "lpf18", inputs: toMono(), distortion, cutoffFrequency, resonance)
+        ) -> Operation {
+        return Operation(module: "lpf18", inputs: toMono(), distortion, cutoffFrequency, resonance)
     }
 }

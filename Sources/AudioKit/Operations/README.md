@@ -8,8 +8,8 @@ The canonical example is creating a siren sound by connecting to sine generators
 
 ```
     let generator = OperationGenerator {
-        let sine = AKOperation.sineWave(frequency: 1)
-        let siren = AKOperation.sineWave(frequency: sine * 100 + 400)
+        let sine = Operation.sineWave(frequency: 1)
+        let siren = Operation.sineWave(frequency: sine * 100 + 400)
         return siren
     }
 ```

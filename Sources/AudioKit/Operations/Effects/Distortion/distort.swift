@@ -18,8 +18,8 @@ extension ComputedParameter {
         postgain: OperationParameter = 0.5,
         positiveShapeParameter: OperationParameter = 0.0,
         negativeShapeParameter: OperationParameter = 0.0
-        ) -> AKOperation {
-        return AKOperation(module: "dist",
+        ) -> Operation {
+        return Operation(module: "dist",
                            inputs: toMono(), pregain, postgain, positiveShapeParameter, negativeShapeParameter)
     }
 }

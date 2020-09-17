@@ -9,14 +9,14 @@ enum SynthParameter: Int {
 }
 
 struct Synth {
-    static var frequency: AKOperation {
-        return AKOperation.parameters[SynthParameter.frequency.rawValue]
+    static var frequency: Operation {
+        return Operation.parameters[SynthParameter.frequency.rawValue]
     }
-    static var cutoff: AKOperation {
-        return AKOperation.parameters[SynthParameter.cutoff.rawValue]
+    static var cutoff: Operation {
+        return Operation.parameters[SynthParameter.cutoff.rawValue]
     }
-    static var gate: AKOperation {
-        return AKOperation.parameters[SynthParameter.gate.rawValue]
+    static var gate: Operation {
+        return Operation.parameters[SynthParameter.gate.rawValue]
     }
 }
 
@@ -37,7 +37,7 @@ extension OperationGenerator {
 
 let synth = OperationGenerator {
 
-    let oscillator = AKOperation.fmOscillator(baseFrequency: Synth.frequency,
+    let oscillator = Operation.fmOscillator(baseFrequency: Synth.frequency,
                                               carrierMultiplier: 3,
                                               modulatingMultiplier: 0.7,
                                               modulationIndex: 2,

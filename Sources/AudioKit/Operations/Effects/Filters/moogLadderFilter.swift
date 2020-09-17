@@ -17,8 +17,8 @@ extension ComputedParameter {
     public func moogLadderFilter(
         cutoffFrequency: OperationParameter = 1_000,
         resonance: OperationParameter = 0.5
-        ) -> AKOperation {
-        return AKOperation(module: "moogladder",
+        ) -> Operation {
+        return Operation(module: "moogladder",
                            inputs: toMono(), cutoffFrequency, resonance)
     }
 }

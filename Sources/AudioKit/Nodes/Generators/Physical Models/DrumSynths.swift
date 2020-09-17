@@ -17,9 +17,9 @@ public class SynthKick: AKMIDIInstrument {
     public override init(midiInputName: String? = nil) {
 
         generator = OperationGenerator {
-            let frequency = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 120, end: 40, duration: 0.03)
-            let volumeSlide = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 1, end: 0, duration: 0.3)
-            return AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
+            let frequency = Operation.lineSegment(trigger: Operation.trigger, start: 120, end: 40, duration: 0.03)
+            let volumeSlide = Operation.lineSegment(trigger: Operation.trigger, start: 1, end: 0, duration: 0.3)
+            return Operation.sineWave(frequency: frequency, amplitude: volumeSlide)
         }
 
         // TODO FIXME
@@ -58,12 +58,12 @@ public class SynthSnare: AKMIDIInstrument {
         self.resonance = resonance
 
         generator = OperationGenerator {
-            let volSlide = AKOperation.lineSegment(
-                trigger: AKOperation.trigger,
+            let volSlide = Operation.lineSegment(
+                trigger: Operation.trigger,
                 start: 1,
                 end: 0,
                 duration: duration)
-            return AKOperation.whiteNoise(amplitude: volSlide)
+            return Operation.whiteNoise(amplitude: volSlide)
         }
 // TODO FIXME
 //        filter = MoogLadder(generator)

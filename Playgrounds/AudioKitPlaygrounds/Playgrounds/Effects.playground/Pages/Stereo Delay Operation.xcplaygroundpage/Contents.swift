@@ -9,8 +9,8 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = OperationEffect(player, channelCount: 2) { _, parameters in
-    let leftDelay = AKOperation.leftInput.variableDelay(time: parameters[0], feedback: parameters[1])
-    let rightDelay = AKOperation.rightInput.variableDelay(time: parameters[2], feedback: parameters[3])
+    let leftDelay = Operation.leftInput.variableDelay(time: parameters[0], feedback: parameters[1])
+    let rightDelay = Operation.rightInput.variableDelay(time: parameters[2], feedback: parameters[3])
     return [leftDelay, rightDelay]
 }
 effect.parameters = [0.2, 0.5, 0.01, 0.9]

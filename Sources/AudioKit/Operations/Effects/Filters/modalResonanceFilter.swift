@@ -14,7 +14,7 @@ extension ComputedParameter {
     public func modalResonanceFilter(
         frequency: OperationParameter = 500.0,
         qualityFactor: OperationParameter = 50.0
-        ) -> AKOperation {
-        return AKOperation(module: "mode", inputs: toMono(), frequency, qualityFactor)
+        ) -> Operation {
+        return Operation(module: "mode", inputs: toMono(), frequency, qualityFactor)
     }
 }

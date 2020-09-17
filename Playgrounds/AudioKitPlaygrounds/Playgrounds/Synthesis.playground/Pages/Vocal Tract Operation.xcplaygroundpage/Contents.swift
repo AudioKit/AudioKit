@@ -7,13 +7,13 @@ import AudioKit
 let playRate = 2.0
 
 let generator = OperationGenerator {
-    let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 100, maximum: 300)
-    let jitter = AKOperation.jitter(amplitude: 300, minimumFrequency: 1, maximumFrequency: 3)
-    let position = AKOperation.sineWave(frequency: 0.1).scale()
-    let diameter = AKOperation.sineWave(frequency: 0.2).scale()
-    let tenseness = AKOperation.sineWave(frequency: 0.3).scale()
-    let nasality = AKOperation.sineWave(frequency: 0.35).scale()
-    return AKOperation.vocalTract(frequency: frequency + jitter,
+    let frequency = Operation.sineWave(frequency: 1).scale(minimum: 100, maximum: 300)
+    let jitter = Operation.jitter(amplitude: 300, minimumFrequency: 1, maximumFrequency: 3)
+    let position = Operation.sineWave(frequency: 0.1).scale()
+    let diameter = Operation.sineWave(frequency: 0.2).scale()
+    let tenseness = Operation.sineWave(frequency: 0.3).scale()
+    let nasality = Operation.sineWave(frequency: 0.35).scale()
+    return Operation.vocalTract(frequency: frequency + jitter,
                                   tonguePosition: position,
                                   tongueDiameter: diameter,
                                   tenseness: tenseness,

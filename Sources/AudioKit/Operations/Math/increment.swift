@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Increment a signal by a default value of 1
     ///
@@ -13,7 +13,7 @@ extension AKOperation {
     public func increment(on trigger: OperationParameter,
                           by step: OperationParameter = 1.0,
                           minimum: OperationParameter = 0.0,
-                          maximum: OperationParameter = 1_000_000) -> AKOperation {
-        return AKOperation(module: "incr", inputs: trigger, step, minimum, maximum, toMono())
+                          maximum: OperationParameter = 1_000_000) -> Operation {
+        return Operation(module: "incr", inputs: trigger, step, minimum, maximum, toMono())
     }
 }

@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-extension AKOperation {
+extension Operation {
 
     /// Simple triangle oscillator, not-band limited, can be used for LFO or wave,
     /// but triangleWave is probably better for audio.
@@ -13,8 +13,8 @@ extension AKOperation {
         frequency: OperationParameter = 440,
         amplitude: OperationParameter = 0.5,
         phase: OperationParameter = 0
-        ) -> AKOperation {
-        return AKOperation(module: "\"triangle\" osc",
+        ) -> Operation {
+        return Operation(module: "\"triangle\" osc",
                            setup: "\"triangle\" 4096 \"0 -1 2048 1 4096 -1\" gen_line",
                            inputs: frequency, amplitude, phase)
     }

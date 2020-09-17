@@ -20,7 +20,7 @@ extension ComputedParameter {
     public func reverberateWithCombFilter(
         reverbDuration: OperationParameter = 1.0,
         loopDuration: OperationParameter = 0.1
-        ) -> AKOperation {
-        return AKOperation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
+        ) -> Operation {
+        return Operation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
     }
 }

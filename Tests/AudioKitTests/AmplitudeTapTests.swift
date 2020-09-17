@@ -12,8 +12,8 @@ class AmplitudeTapTests: XCTestCase {
         var amplitudes: [Float] = []
 
         let sine = OperationGenerator {
-            let amplitude = AKOperation.sineWave(frequency: 0.25, amplitude: 1)
-            return AKOperation.sineWave() * amplitude }
+            let amplitude = Operation.sineWave(frequency: 0.25, amplitude: 1)
+            return Operation.sineWave() * amplitude }
 
         engine.output = sine
         sine.start()
