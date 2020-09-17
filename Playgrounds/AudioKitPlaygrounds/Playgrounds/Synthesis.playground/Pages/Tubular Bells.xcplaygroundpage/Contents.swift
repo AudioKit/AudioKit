@@ -4,7 +4,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let tubularBells = AKTubularBells()
+let tubularBells = TubularBells()
 
 var delay = Delay(tubularBells)
 delay.time = 1.5 / playRate

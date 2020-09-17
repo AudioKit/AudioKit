@@ -7,7 +7,7 @@ import CAudioKit
 /// Physical model approximating the sound of a struck metal bar
 /// TODO This node needs to have tests
 /// 
-public class AKMetalBar: AKNode, AKComponent, AKToggleable {
+public class MetalBar: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
@@ -20,7 +20,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let leftBoundaryConditionDef = AKNodeParameterDef(
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
-        address: akGetParameterAddress("AKMetalBarParameterLeftBoundaryCondition"),
+        address: akGetParameterAddress("MetalBarParameterLeftBoundaryCondition"),
         range: 1 ... 3,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let rightBoundaryConditionDef = AKNodeParameterDef(
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
-        address: akGetParameterAddress("AKMetalBarParameterRightBoundaryCondition"),
+        address: akGetParameterAddress("MetalBarParameterRightBoundaryCondition"),
         range: 1 ... 3,
         unit: .hertz,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let decayDurationDef = AKNodeParameterDef(
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
-        address: akGetParameterAddress("AKMetalBarParameterDecayDuration"),
+        address: akGetParameterAddress("MetalBarParameterDecayDuration"),
         range: 0 ... 10,
         unit: .hertz,
         flags: .default)
@@ -53,7 +53,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let scanSpeedDef = AKNodeParameterDef(
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
-        address: akGetParameterAddress("AKMetalBarParameterScanSpeed"),
+        address: akGetParameterAddress("MetalBarParameterScanSpeed"),
         range: 0 ... 100,
         unit: .hertz,
         flags: .default)
@@ -64,7 +64,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let positionDef = AKNodeParameterDef(
         identifier: "position",
         name: "Position along bar that strike occurs.",
-        address: akGetParameterAddress("AKMetalBarParameterPosition"),
+        address: akGetParameterAddress("MetalBarParameterPosition"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -75,7 +75,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let strikeVelocityDef = AKNodeParameterDef(
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
-        address: akGetParameterAddress("AKMetalBarParameterStrikeVelocity"),
+        address: akGetParameterAddress("MetalBarParameterStrikeVelocity"),
         range: 0 ... 1_000,
         unit: .generic,
         flags: .default)
@@ -86,7 +86,7 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public static let strikeWidthDef = AKNodeParameterDef(
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
-        address: akGetParameterAddress("AKMetalBarParameterStrikeWidth"),
+        address: akGetParameterAddress("MetalBarParameterStrikeWidth"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -99,17 +99,17 @@ public class AKMetalBar: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKMetalBar.leftBoundaryConditionDef,
-             AKMetalBar.rightBoundaryConditionDef,
-             AKMetalBar.decayDurationDef,
-             AKMetalBar.scanSpeedDef,
-             AKMetalBar.positionDef,
-             AKMetalBar.strikeVelocityDef,
-             AKMetalBar.strikeWidthDef]
+            [MetalBar.leftBoundaryConditionDef,
+             MetalBar.rightBoundaryConditionDef,
+             MetalBar.decayDurationDef,
+             MetalBar.scanSpeedDef,
+             MetalBar.positionDef,
+             MetalBar.strikeVelocityDef,
+             MetalBar.strikeWidthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKMetalBarDSP")
+            akCreateDSP("MetalBarDSP")
         }
     }
 

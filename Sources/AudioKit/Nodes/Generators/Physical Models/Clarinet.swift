@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Clarinet
 ///
-public class AKClarinet: AKNode, AKToggleable, AKComponent {
+public class Clarinet: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "clar")
 
@@ -18,7 +18,7 @@ public class AKClarinet: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKClarinetDSP")
+            return akCreateDSP("ClarinetDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {

@@ -1,7 +1,7 @@
 //: ## FM Oscillator Operation
 //:
 
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let generator = AKOperationGenerator {

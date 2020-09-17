@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Flute
 ///
-public class AKFlute: AKNode, AKToggleable, AKComponent {
+public class Flute: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "flut")
 
@@ -18,7 +18,7 @@ public class AKFlute: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKFluteDSP")
+            return akCreateDSP("FluteDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {

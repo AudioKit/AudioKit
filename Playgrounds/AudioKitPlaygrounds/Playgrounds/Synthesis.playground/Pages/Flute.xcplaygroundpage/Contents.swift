@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let flute = AKFlute()
+let flute = Flute()
 
 let reverb = AKReverb(flute)
 

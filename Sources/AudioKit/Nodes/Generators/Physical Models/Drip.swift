@@ -8,7 +8,7 @@ import CAudioKit
 /// When triggered, it will produce a droplet of water.
 /// TODO This node needs to have tests.
 /// 
-public class AKDrip: AKNode, AKComponent, AKToggleable {
+public class Drip: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
@@ -21,7 +21,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let intensityDef = AKNodeParameterDef(
         identifier: "intensity",
         name: "The intensity of the dripping sounds.",
-        address: akGetParameterAddress("AKDripParameterIntensity"),
+        address: akGetParameterAddress("DripParameterIntensity"),
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -32,7 +32,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let dampingFactorDef = AKNodeParameterDef(
         identifier: "dampingFactor",
         name: "The damping factor. Maximum value is 2.0.",
-        address: akGetParameterAddress("AKDripParameterDampingFactor"),
+        address: akGetParameterAddress("DripParameterDampingFactor"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -43,7 +43,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let energyReturnDef = AKNodeParameterDef(
         identifier: "energyReturn",
         name: "The amount of energy to add back into the system.",
-        address: akGetParameterAddress("AKDripParameterEnergyReturn"),
+        address: akGetParameterAddress("DripParameterEnergyReturn"),
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -54,7 +54,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let mainResonantFrequencyDef = AKNodeParameterDef(
         identifier: "mainResonantFrequency",
         name: "Main resonant frequency.",
-        address: akGetParameterAddress("AKDripParameterMainResonantFrequency"),
+        address: akGetParameterAddress("DripParameterMainResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -65,7 +65,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let firstResonantFrequencyDef = AKNodeParameterDef(
         identifier: "firstResonantFrequency",
         name: "The first resonant frequency.",
-        address: akGetParameterAddress("AKDripParameterFirstResonantFrequency"),
+        address: akGetParameterAddress("DripParameterFirstResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -76,7 +76,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let secondResonantFrequencyDef = AKNodeParameterDef(
         identifier: "secondResonantFrequency",
         name: "The second resonant frequency.",
-        address: akGetParameterAddress("AKDripParameterSecondResonantFrequency"),
+        address: akGetParameterAddress("DripParameterSecondResonantFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -87,7 +87,7 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
-        address: akGetParameterAddress("AKDripParameterAmplitude"),
+        address: akGetParameterAddress("DripParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -100,17 +100,17 @@ public class AKDrip: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKDrip.intensityDef,
-             AKDrip.dampingFactorDef,
-             AKDrip.energyReturnDef,
-             AKDrip.mainResonantFrequencyDef,
-             AKDrip.firstResonantFrequencyDef,
-             AKDrip.secondResonantFrequencyDef,
-             AKDrip.amplitudeDef]
+            [Drip.intensityDef,
+             Drip.dampingFactorDef,
+             Drip.energyReturnDef,
+             Drip.mainResonantFrequencyDef,
+             Drip.firstResonantFrequencyDef,
+             Drip.secondResonantFrequencyDef,
+             Drip.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKDripDSP")
+            akCreateDSP("DripDSP")
         }
     }
 

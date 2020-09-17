@@ -4,12 +4,12 @@ import XCTest
 import AudioKit
 import CAudioKit
 
-class AKClarinetTest: XCTestCase {
+class ClarinetTest: XCTestCase {
 
     func testClarinet() {
         akSetSeed(0)
         let engine = AudioEngine()
-        let clarinet = AKClarinet()
+        let clarinet = Clarinet()
         clarinet.trigger(note: 69)
         engine.output = clarinet
         let audio = engine.startTest(totalDuration: 1.0)
@@ -20,7 +20,7 @@ class AKClarinetTest: XCTestCase {
     func testVelocity() {
         akSetSeed(0)
         let engine = AudioEngine()
-        let clarinet = AKClarinet()
+        let clarinet = Clarinet()
         clarinet.trigger(note: 69, velocity: 64)
         engine.output = clarinet
         let audio = engine.startTest(totalDuration: 1.0)

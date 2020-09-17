@@ -6,7 +6,7 @@ import CAudioKit
 #if !os(tvOS)
 
 /// Type of shaker to use
-public enum AKShakerType: UInt8 {
+public enum ShakerType: UInt8 {
 
     /// Maraca
     case maraca = 0
@@ -80,7 +80,7 @@ public enum AKShakerType: UInt8 {
 
 /// STK Shaker
 ///
-public class AKShaker: AKNode, AKToggleable, AKComponent {
+public class Shaker: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
     public typealias AKAudioUnitType = InternalAU
@@ -99,7 +99,7 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKShakerDSP")
+            return akCreateDSP("ShakerDSP")
         }
 
         public func trigger(type: AUValue, amplitude: AUValue) {
@@ -135,7 +135,7 @@ public class AKShaker: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - type: various shaker types are supported
     ///   - amplitude: how hard to shake
-    public func trigger(type: AKShakerType, amplitude: Double = 0.5) {
+    public func trigger(type: ShakerType, amplitude: Double = 0.5) {
         internalAU?.start()
         internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
     }

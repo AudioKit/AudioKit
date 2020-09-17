@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class VocalTractTests: XCTestCase {
+class VocalTractOperationTests: XCTestCase {
 
     let vocalTract = AKOperationGenerator { AKOperation.vocalTract() }
 

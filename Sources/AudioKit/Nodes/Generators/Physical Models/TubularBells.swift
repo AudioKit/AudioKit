@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK TubularBells
 ///
-public class AKTubularBells: AKNode, AKToggleable, AKComponent {
+public class TubularBells: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")
 
@@ -18,7 +18,7 @@ public class AKTubularBells: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKTubularBellsDSP")
+            return akCreateDSP("TubularBellsDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {

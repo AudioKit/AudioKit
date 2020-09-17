@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class PluckedStringTests: XCTestCase {
+class PluckedStringOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

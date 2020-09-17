@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPluckedStringParameter : AUParameterAddress {
-    AKPluckedStringParameterFrequency,
-    AKPluckedStringParameterAmplitude,
+enum PluckedStringParameter : AUParameterAddress {
+    PluckedStringParameterFrequency,
+    PluckedStringParameterAmplitude,
 };
 
-class AKPluckedStringDSP : public AKSoundpipeDSPBase {
+class PluckedStringDSP : public AKSoundpipeDSPBase {
 private:
     sp_pluck *pluck;
     float internalTrigger = 0;
@@ -17,9 +17,9 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKPluckedStringDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKPluckedStringParameterFrequency] = &frequencyRamp;
-        parameters[AKPluckedStringParameterAmplitude] = &amplitudeRamp;
+    PluckedStringDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[PluckedStringParameterFrequency] = &frequencyRamp;
+        parameters[PluckedStringParameterAmplitude] = &amplitudeRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -68,6 +68,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPluckedStringDSP)
-AK_REGISTER_PARAMETER(AKPluckedStringParameterFrequency)
-AK_REGISTER_PARAMETER(AKPluckedStringParameterAmplitude)
+AK_REGISTER_DSP(PluckedStringDSP)
+AK_REGISTER_PARAMETER(PluckedStringParameterFrequency)
+AK_REGISTER_PARAMETER(PluckedStringParameterAmplitude)

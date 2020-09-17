@@ -4,13 +4,13 @@
 
 #include "Flute.h"
 
-class AKFluteDSP : public AKSTKInstrumentDSP {
+class FluteDSP : public AKSTKInstrumentDSP {
 private:
     stk::Flute *flute = nullptr;
 
 public:
-    AKFluteDSP() {}
-    ~AKFluteDSP() = default;
+    FluteDSP() {}
+    ~FluteDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
@@ -31,4 +31,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKFluteDSP);
+AK_REGISTER_DSP(FluteDSP);

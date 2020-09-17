@@ -4,17 +4,17 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKMetalBarParameter : AUParameterAddress {
-    AKMetalBarParameterLeftBoundaryCondition,
-    AKMetalBarParameterRightBoundaryCondition,
-    AKMetalBarParameterDecayDuration,
-    AKMetalBarParameterScanSpeed,
-    AKMetalBarParameterPosition,
-    AKMetalBarParameterStrikeVelocity,
-    AKMetalBarParameterStrikeWidth,
+enum MetalBarParameter : AUParameterAddress {
+    MetalBarParameterLeftBoundaryCondition,
+    MetalBarParameterRightBoundaryCondition,
+    MetalBarParameterDecayDuration,
+    MetalBarParameterScanSpeed,
+    MetalBarParameterPosition,
+    MetalBarParameterStrikeVelocity,
+    MetalBarParameterStrikeWidth,
 };
 
-class AKMetalBarDSP : public AKSoundpipeDSPBase {
+class MetalBarDSP : public AKSoundpipeDSPBase {
 private:
     sp_bar *bar;
     ParameterRamper leftBoundaryConditionRamp;
@@ -26,14 +26,14 @@ private:
     ParameterRamper strikeWidthRamp;
 
 public:
-    AKMetalBarDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKMetalBarParameterLeftBoundaryCondition] = &leftBoundaryConditionRamp;
-        parameters[AKMetalBarParameterRightBoundaryCondition] = &rightBoundaryConditionRamp;
-        parameters[AKMetalBarParameterDecayDuration] = &decayDurationRamp;
-        parameters[AKMetalBarParameterScanSpeed] = &scanSpeedRamp;
-        parameters[AKMetalBarParameterPosition] = &positionRamp;
-        parameters[AKMetalBarParameterStrikeVelocity] = &strikeVelocityRamp;
-        parameters[AKMetalBarParameterStrikeWidth] = &strikeWidthRamp;
+    MetalBarDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[MetalBarParameterLeftBoundaryCondition] = &leftBoundaryConditionRamp;
+        parameters[MetalBarParameterRightBoundaryCondition] = &rightBoundaryConditionRamp;
+        parameters[MetalBarParameterDecayDuration] = &decayDurationRamp;
+        parameters[MetalBarParameterScanSpeed] = &scanSpeedRamp;
+        parameters[MetalBarParameterPosition] = &positionRamp;
+        parameters[MetalBarParameterStrikeVelocity] = &strikeVelocityRamp;
+        parameters[MetalBarParameterStrikeWidth] = &strikeWidthRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -81,11 +81,11 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKMetalBarDSP)
-AK_REGISTER_PARAMETER(AKMetalBarParameterLeftBoundaryCondition)
-AK_REGISTER_PARAMETER(AKMetalBarParameterRightBoundaryCondition)
-AK_REGISTER_PARAMETER(AKMetalBarParameterDecayDuration)
-AK_REGISTER_PARAMETER(AKMetalBarParameterScanSpeed)
-AK_REGISTER_PARAMETER(AKMetalBarParameterPosition)
-AK_REGISTER_PARAMETER(AKMetalBarParameterStrikeVelocity)
-AK_REGISTER_PARAMETER(AKMetalBarParameterStrikeWidth)
+AK_REGISTER_DSP(MetalBarDSP)
+AK_REGISTER_PARAMETER(MetalBarParameterLeftBoundaryCondition)
+AK_REGISTER_PARAMETER(MetalBarParameterRightBoundaryCondition)
+AK_REGISTER_PARAMETER(MetalBarParameterDecayDuration)
+AK_REGISTER_PARAMETER(MetalBarParameterScanSpeed)
+AK_REGISTER_PARAMETER(MetalBarParameterPosition)
+AK_REGISTER_PARAMETER(MetalBarParameterStrikeVelocity)
+AK_REGISTER_PARAMETER(MetalBarParameterStrikeWidth)

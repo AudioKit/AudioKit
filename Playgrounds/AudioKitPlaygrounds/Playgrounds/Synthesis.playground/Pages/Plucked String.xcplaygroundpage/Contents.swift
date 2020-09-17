@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let pluckedString = AKPluckedString()
+let pluckedString = PluckedString()
 
 var delay = Delay(pluckedString)
 delay.time = 1.5 / playRate

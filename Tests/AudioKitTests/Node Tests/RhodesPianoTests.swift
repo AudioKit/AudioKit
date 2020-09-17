@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKRhodesPianoKeyTests: XCTestCase {
+class RhodesPianoKeyTests: XCTestCase {
 
     func testRhodesPiano() {
         let engine = AudioEngine()
-        let rhodesPiano = AKRhodesPianoKey()
+        let rhodesPiano = RhodesPianoKey()
         rhodesPiano.trigger(note: 69)
         engine.output = rhodesPiano
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKRhodesPianoKeyTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()
-        let rhodesPiano = AKRhodesPianoKey()
+        let rhodesPiano = RhodesPianoKey()
         rhodesPiano.trigger(note: 69, velocity: 64)
         engine.output = rhodesPiano
         let audio = engine.startTest(totalDuration: 1.0)

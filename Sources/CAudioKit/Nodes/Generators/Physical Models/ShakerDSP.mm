@@ -3,13 +3,13 @@
 #import "STKInstrumentDSP.hpp"
 #include "Shakers.h"
 
-class AKShakerDSP : public AKSTKInstrumentDSP {
+class ShakerDSP : public AKSTKInstrumentDSP {
 private:
     stk::Shakers *shaker = nullptr;
 
 public:
-    AKShakerDSP() {}
-    ~AKShakerDSP() = default;
+    ShakerDSP() {}
+    ~ShakerDSP() = default;
 
     /// Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override {
@@ -35,5 +35,5 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKShakerDSP)
+AK_REGISTER_DSP(ShakerDSP)
 
