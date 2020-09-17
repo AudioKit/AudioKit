@@ -10,7 +10,7 @@ enum ThreePoleLowpassFilterParameter : AUParameterAddress {
     ThreePoleLowpassFilterParameterResonance,
 };
 
-class ThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
+class ThreePoleLowpassFilterDSP : public SoundpipeDSPBase {
 private:
     sp_lpf18 *lpf180;
     sp_lpf18 *lpf181;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_lpf18_create(&lpf180);
         sp_lpf18_init(sp, lpf180);
         sp_lpf18_create(&lpf181);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_lpf18_destroy(&lpf180);
         sp_lpf18_destroy(&lpf181);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_lpf18_init(sp, lpf180);
         sp_lpf18_init(sp, lpf181);

@@ -8,7 +8,7 @@ enum CombFilterReverbParameter : AUParameterAddress {
     CombFilterReverbParameterReverbDuration,
 };
 
-class CombFilterReverbDSP : public AKSoundpipeDSPBase {
+class CombFilterReverbDSP : public SoundpipeDSPBase {
 private:
     sp_comb *comb0;
     sp_comb *comb1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_comb_create(&comb0);
         sp_comb_init(sp, comb0, loopDuration);
         sp_comb_create(&comb1);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_comb_destroy(&comb0);
         sp_comb_destroy(&comb1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_comb_init(sp, comb0, loopDuration);
         sp_comb_init(sp, comb1, loopDuration);

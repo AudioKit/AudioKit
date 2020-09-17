@@ -11,7 +11,7 @@ enum RolandTB303FilterParameter : AUParameterAddress {
     RolandTB303FilterParameterResonanceAsymmetry,
 };
 
-class RolandTB303FilterDSP : public AKSoundpipeDSPBase {
+class RolandTB303FilterDSP : public SoundpipeDSPBase {
 private:
     sp_tbvcf *tbvcf0;
     sp_tbvcf *tbvcf1;
@@ -29,7 +29,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_tbvcf_create(&tbvcf0);
         sp_tbvcf_init(sp, tbvcf0);
         sp_tbvcf_create(&tbvcf1);
@@ -37,13 +37,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_tbvcf_destroy(&tbvcf0);
         sp_tbvcf_destroy(&tbvcf1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_tbvcf_init(sp, tbvcf0);
         sp_tbvcf_init(sp, tbvcf1);

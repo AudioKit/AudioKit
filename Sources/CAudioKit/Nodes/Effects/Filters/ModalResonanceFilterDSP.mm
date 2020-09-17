@@ -9,7 +9,7 @@ enum ModalResonanceFilterParameter : AUParameterAddress {
     ModalResonanceFilterParameterQualityFactor,
 };
 
-class ModalResonanceFilterDSP : public AKSoundpipeDSPBase {
+class ModalResonanceFilterDSP : public SoundpipeDSPBase {
 private:
     sp_mode *mode0;
     sp_mode *mode1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_mode_create(&mode0);
         sp_mode_init(sp, mode0);
         sp_mode_create(&mode1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_mode_destroy(&mode0);
         sp_mode_destroy(&mode1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_mode_init(sp, mode0);
         sp_mode_init(sp, mode1);

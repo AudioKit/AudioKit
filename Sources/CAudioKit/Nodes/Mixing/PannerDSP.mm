@@ -8,7 +8,7 @@ enum PannerParameter : AUParameterAddress {
     PannerParameterPan,
 };
 
-class PannerDSP : public AKSoundpipeDSPBase {
+class PannerDSP : public SoundpipeDSPBase {
 private:
     sp_panst *panst;
     ParameterRamper panRamp;
@@ -19,18 +19,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_panst_destroy(&panst);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_panst_init(sp, panst);
     }

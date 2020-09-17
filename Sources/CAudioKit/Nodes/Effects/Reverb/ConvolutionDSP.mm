@@ -8,7 +8,7 @@
 enum AKConvolutionParameter : AUParameterAddress {
 };
 
-class AKConvolutionDSP : public AKSoundpipeDSPBase {
+class AKConvolutionDSP : public SoundpipeDSPBase {
 private:
     sp_conv *conv0;
     sp_conv *conv1;
@@ -20,7 +20,7 @@ public:
     AKConvolutionDSP() {}
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
         std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
         sp_conv_create(&conv0);
@@ -35,13 +35,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_conv_destroy(&conv0);
         sp_conv_destroy(&conv1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_conv_init(sp, conv0, ftbl, (float)partitionLength);
         sp_conv_init(sp, conv1, ftbl, (float)partitionLength);

@@ -5,23 +5,23 @@
 #include "soundpipe.h"
 #include "vocwrapper.h"
 
-void AKSoundpipeDSPBase::init(int channelCount, double sampleRate) {
+void SoundpipeDSPBase::init(int channelCount, double sampleRate) {
     AKDSPBase::init(channelCount, sampleRate);
     sp_create(&sp);
     sp->sr = sampleRate;
     sp->nchan = channelCount;
 }
 
-void AKSoundpipeDSPBase::deinit() {
+void SoundpipeDSPBase::deinit() {
     AKDSPBase::deinit();
     sp_destroy(&sp);
 }
 
-void AKSoundpipeDSPBase::processSample(int channel, float *in, float *out) {
+void SoundpipeDSPBase::processSample(int channel, float *in, float *out) {
     *out = *in;
 }
 
-void AKSoundpipeDSPBase::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void SoundpipeDSPBase::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
         for (int channel = 0; channel <  channelCount; ++channel) {

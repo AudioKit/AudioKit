@@ -9,7 +9,7 @@ enum ResonantFilterParameter : AUParameterAddress {
     ResonantFilterParameterBandwidth,
 };
 
-class ResonantFilterDSP : public AKSoundpipeDSPBase {
+class ResonantFilterDSP : public SoundpipeDSPBase {
 private:
     sp_reson *reson0;
     sp_reson *reson1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_reson_create(&reson0);
         sp_reson_init(sp, reson0);
         sp_reson_create(&reson1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_reson_destroy(&reson0);
         sp_reson_destroy(&reson1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_reson_init(sp, reson0);
         sp_reson_init(sp, reson1);

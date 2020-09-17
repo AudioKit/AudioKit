@@ -7,7 +7,7 @@ enum DryWetMixerParameter : AUParameterAddress {
     DryWetMixerParameterBalance,
 };
 
-class DryWetMixerDSP : public AKSoundpipeDSPBase {
+class DryWetMixerDSP : public SoundpipeDSPBase {
 private:
     ParameterRamper balanceRamp;
 

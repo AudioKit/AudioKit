@@ -14,7 +14,7 @@ enum DripParameter : AUParameterAddress {
     DripParameterAmplitude,
 };
 
-class DripDSP : public AKSoundpipeDSPBase {
+class DripDSP : public SoundpipeDSPBase {
 private:
     sp_drip *drip;
     ParameterRamper intensityRamp;
@@ -37,18 +37,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_drip_create(&drip);
         sp_drip_init(sp, drip, 0.9);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_drip_destroy(&drip);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_drip_init(sp, drip, 0.9);
     }

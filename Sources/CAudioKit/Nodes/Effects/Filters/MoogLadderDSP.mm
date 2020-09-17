@@ -9,7 +9,7 @@ enum MoogLadderParameter : AUParameterAddress {
     MoogLadderParameterResonance,
 };
 
-class MoogLadderDSP : public AKSoundpipeDSPBase {
+class MoogLadderDSP : public SoundpipeDSPBase {
 private:
     sp_moogladder *moogladder0;
     sp_moogladder *moogladder1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_moogladder_create(&moogladder0);
         sp_moogladder_init(sp, moogladder0);
         sp_moogladder_create(&moogladder1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_moogladder_destroy(&moogladder0);
         sp_moogladder_destroy(&moogladder1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_moogladder_init(sp, moogladder0);
         sp_moogladder_init(sp, moogladder1);

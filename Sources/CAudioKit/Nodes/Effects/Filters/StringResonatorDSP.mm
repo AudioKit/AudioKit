@@ -9,7 +9,7 @@ enum StringResonatorParameter : AUParameterAddress {
     StringResonatorParameterFeedback,
 };
 
-class StringResonatorDSP : public AKSoundpipeDSPBase {
+class StringResonatorDSP : public SoundpipeDSPBase {
 private:
     sp_streson *streson0;
     sp_streson *streson1;
@@ -23,7 +23,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_streson_create(&streson0);
         sp_streson_init(sp, streson0);
         sp_streson_create(&streson1);
@@ -31,13 +31,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_streson_destroy(&streson0);
         sp_streson_destroy(&streson1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_streson_init(sp, streson0);
         sp_streson_init(sp, streson1);

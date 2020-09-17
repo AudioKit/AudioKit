@@ -8,30 +8,30 @@ enum WhiteNoiseParameter : AUParameterAddress {
     WhiteNoiseParameterAmplitude,
 };
 
-class WhiteNoiseDSP : public AKSoundpipeDSPBase {
+class WhiteNoiseDSP : public SoundpipeDSPBase {
 private:
     sp_noise *noise;
     ParameterRamper amplitudeRamp;
 
 public:
-    WhiteNoiseDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    WhiteNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[WhiteNoiseParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_noise_create(&noise);
         sp_noise_init(sp, noise);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_noise_destroy(&noise);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_noise_init(sp, noise);
     }

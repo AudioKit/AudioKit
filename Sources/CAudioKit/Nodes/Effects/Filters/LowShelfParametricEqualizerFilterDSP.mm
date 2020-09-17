@@ -10,7 +10,7 @@ enum LowShelfParametricEqualizerFilterParameter : AUParameterAddress {
     LowShelfParametricEqualizerFilterParameterQ,
 };
 
-class LowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
+class LowShelfParametricEqualizerFilterDSP : public SoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
     sp_pareq *pareq1;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_pareq_create(&pareq0);
         sp_pareq_init(sp, pareq0);
         sp_pareq_create(&pareq1);
@@ -36,13 +36,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_pareq_destroy(&pareq0);
         sp_pareq_destroy(&pareq1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pareq_init(sp, pareq0);
         sp_pareq_init(sp, pareq1);

@@ -8,7 +8,7 @@ enum ClipperParameter : AUParameterAddress {
     ClipperParameterLimit,
 };
 
-class ClipperDSP : public AKSoundpipeDSPBase {
+class ClipperDSP : public SoundpipeDSPBase {
 private:
     sp_clip *clip0;
     sp_clip *clip1;
@@ -20,7 +20,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_clip_create(&clip0);
         sp_clip_init(sp, clip0);
         sp_clip_create(&clip1);
@@ -28,13 +28,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_clip_destroy(&clip0);
         sp_clip_destroy(&clip1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_clip_init(sp, clip0);
         sp_clip_init(sp, clip1);

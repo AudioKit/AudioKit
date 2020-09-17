@@ -17,7 +17,7 @@ enum ZitaReverbParameter : AUParameterAddress {
     ZitaReverbParameterDryWetMix,
 };
 
-class ZitaReverbDSP : public AKSoundpipeDSPBase {
+class ZitaReverbDSP : public SoundpipeDSPBase {
 private:
     sp_zitarev *zitarev;
     ParameterRamper predelayRamp;
@@ -46,18 +46,18 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_zitarev_create(&zitarev);
         sp_zitarev_init(sp, zitarev);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_zitarev_destroy(&zitarev);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_zitarev_init(sp, zitarev);
     }

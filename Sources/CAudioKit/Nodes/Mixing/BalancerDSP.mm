@@ -4,7 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class BalancerDSP : public AKSoundpipeDSPBase {
+class BalancerDSP : public SoundpipeDSPBase {
 private:
     sp_bal *bal;
 
@@ -14,19 +14,19 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
 
         sp_bal_create(&bal);
         sp_bal_init(sp, bal);
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_bal_destroy(&bal);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (isInitialized) sp_bal_init(sp, bal);
     }
 

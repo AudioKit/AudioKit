@@ -8,7 +8,7 @@ enum HighPassButterworthFilterParameter : AUParameterAddress {
     HighPassButterworthFilterParameterCutoffFrequency,
 };
 
-class HighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
+class HighPassButterworthFilterDSP : public SoundpipeDSPBase {
 private:
     sp_buthp *buthp0;
     sp_buthp *buthp1;
@@ -20,7 +20,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_buthp_create(&buthp0);
         sp_buthp_init(sp, buthp0);
         sp_buthp_create(&buthp1);
@@ -28,13 +28,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_buthp_destroy(&buthp0);
         sp_buthp_destroy(&buthp1);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_buthp_init(sp, buthp0);
         sp_buthp_init(sp, buthp1);

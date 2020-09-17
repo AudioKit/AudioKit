@@ -10,7 +10,7 @@ enum KorgLowPassFilterParameter : AUParameterAddress {
     KorgLowPassFilterParameterSaturation,
 };
 
-class KorgLowPassFilterDSP : public AKSoundpipeDSPBase {
+class KorgLowPassFilterDSP : public SoundpipeDSPBase {
 private:
     sp_wpkorg35 *wpkorg350;
     sp_wpkorg35 *wpkorg351;
@@ -26,7 +26,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_wpkorg35_create(&wpkorg350);
         sp_wpkorg35_init(sp, wpkorg350);
         sp_wpkorg35_create(&wpkorg351);
@@ -34,13 +34,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_wpkorg35_destroy(&wpkorg350);
         sp_wpkorg35_destroy(&wpkorg351);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_wpkorg35_init(sp, wpkorg350);
         sp_wpkorg35_init(sp, wpkorg351);
