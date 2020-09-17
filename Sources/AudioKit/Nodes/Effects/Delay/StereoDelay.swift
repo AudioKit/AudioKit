@@ -15,7 +15,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let timeDef = AKNodeParameterDef(
+    public static let timeDef = NodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
         address: akGetParameterAddress("StereoDelayParameterTime"),
@@ -26,7 +26,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
-    public static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("StereoDelayParameterFeedback"),
@@ -37,7 +37,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
     /// Feedback amount. Should be a value between 0-1.
     @Parameter public var feedback: AUValue
 
-    public static let dryWetMixDef = AKNodeParameterDef(
+    public static let dryWetMixDef = NodeParameterDef(
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
        address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
@@ -48,7 +48,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter public var dryWetMix: AUValue
 
-    public static let pingPongDef = AKNodeParameterDef(
+    public static let pingPongDef = NodeParameterDef(
        identifier: "pingPong",
        name: "Ping-Pong Mode",
        address: akGetParameterAddress("StereoDelayParameterPingPong"),
@@ -63,7 +63,7 @@ public class StereoDelay: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [StereoDelay.timeDef,
              StereoDelay.feedbackDef,
              StereoDelay.dryWetMixDef,

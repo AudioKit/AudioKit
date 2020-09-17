@@ -17,7 +17,7 @@ public class BandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("BandRejectButterworthFilterParameterCenterFrequency"),
@@ -28,7 +28,7 @@ public class BandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
-    public static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: akGetParameterAddress("BandRejectButterworthFilterParameterBandwidth"),
@@ -43,7 +43,7 @@ public class BandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [BandRejectButterworthFilter.centerFrequencyDef,
              BandRejectButterworthFilter.bandwidthDef]
         }

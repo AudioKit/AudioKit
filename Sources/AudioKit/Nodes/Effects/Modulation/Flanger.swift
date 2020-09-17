@@ -15,7 +15,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
@@ -26,7 +26,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    public static let depthDef = AKNodeParameterDef(
+    public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
@@ -37,7 +37,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
-    public static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
@@ -48,7 +48,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
-    public static let dryWetMixDef = AKNodeParameterDef(
+    public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,
@@ -63,7 +63,7 @@ public class AKFlanger: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             return [AKFlanger.frequencyDef,
                     AKFlanger.depthDef,
                     AKFlanger.feedbackDef,

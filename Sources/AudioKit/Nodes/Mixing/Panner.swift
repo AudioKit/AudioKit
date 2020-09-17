@@ -15,7 +15,7 @@ public class Panner: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let panDef = AKNodeParameterDef(
+    public static let panDef = NodeParameterDef(
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
         address: akGetParameterAddress("PannerParameterPan"),
@@ -30,7 +30,7 @@ public class Panner: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Panner.panDef]
         }
 

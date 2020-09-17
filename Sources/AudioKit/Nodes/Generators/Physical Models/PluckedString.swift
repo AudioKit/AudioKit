@@ -17,7 +17,7 @@ public class PluckedString: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
         address: akGetParameterAddress("PluckedStringParameterFrequency"),
@@ -28,7 +28,7 @@ public class PluckedString: AKNode, AKComponent, AKToggleable {
     /// Variable frequency. Values less than the initial frequency are doubled until greater than that.
     @Parameter public var frequency: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("PluckedStringParameterAmplitude"),
@@ -43,7 +43,7 @@ public class PluckedString: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [PluckedString.frequencyDef,
              PluckedString.amplitudeDef]
         }

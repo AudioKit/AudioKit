@@ -15,7 +15,7 @@ public class AutoPanner: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("AutoPannerParameterFrequency"),
@@ -26,7 +26,7 @@ public class AutoPanner: AKNode, AKToggleable, AKComponent {
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    public static let depthDef = AKNodeParameterDef(
+    public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth",
         address: akGetParameterAddress("AutoPannerParameterDepth"),
@@ -41,7 +41,7 @@ public class AutoPanner: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AutoPanner.frequencyDef,
              AutoPanner.depthDef]
         }

@@ -17,7 +17,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
 
     fileprivate var waveform: AKTable?
 
-    public static let baseFrequencyDef = AKNodeParameterDef(
+    public static let baseFrequencyDef = NodeParameterDef(
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
         address: akGetParameterAddress("FMOscillatorParameterBaseFrequency"),
@@ -28,7 +28,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
     @Parameter public var baseFrequency: AUValue
 
-    public static let carrierMultiplierDef = AKNodeParameterDef(
+    public static let carrierMultiplierDef = NodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
         address: akGetParameterAddress("FMOscillatorParameterCarrierMultiplier"),
@@ -39,7 +39,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter public var carrierMultiplier: AUValue
 
-    public static let modulatingMultiplierDef = AKNodeParameterDef(
+    public static let modulatingMultiplierDef = NodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
         address: akGetParameterAddress("FMOscillatorParameterModulatingMultiplier"),
@@ -50,7 +50,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter public var modulatingMultiplier: AUValue
 
-    public static let modulationIndexDef = AKNodeParameterDef(
+    public static let modulationIndexDef = NodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
         address: akGetParameterAddress("FMOscillatorParameterModulationIndex"),
@@ -61,7 +61,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter public var modulationIndex: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("FMOscillatorParameterAmplitude"),
@@ -76,7 +76,7 @@ public class FMOscillator: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [FMOscillator.baseFrequencyDef,
              FMOscillator.carrierMultiplierDef,
              FMOscillator.modulatingMultiplierDef,

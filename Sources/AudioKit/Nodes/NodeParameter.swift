@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-public struct AKNodeParameterDef {
+public struct NodeParameterDef {
     public var identifier: String
     public var name: String
     public var address: AUParameterAddress
@@ -25,9 +25,9 @@ public struct AKNodeParameterDef {
     }
 }
 
-/// AKNodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
+/// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
-public class AKNodeParameter {
+public class NodeParameter {
     private var avAudioUnit: AVAudioUnit!
 
     public private(set) var parameter: AUParameter!
@@ -174,12 +174,12 @@ public class AKNodeParameter {
 }
 
 /// Base protocol for any type supported by @Parameter
-public protocol AKNodeParameterType {
+public protocol NodeParameterType {
     func toAUValue() -> AUValue
     init(_ value: AUValue)
 }
 
-extension Bool: AKNodeParameterType {
+extension Bool: NodeParameterType {
     public func toAUValue() -> AUValue {
         self ? 1.0 : 0.0
     }
@@ -189,7 +189,7 @@ extension Bool: AKNodeParameterType {
     }
 }
 
-extension AUValue: AKNodeParameterType {
+extension AUValue: NodeParameterType {
     public func toAUValue() -> AUValue {
         self
     }
@@ -197,14 +197,14 @@ extension AUValue: AKNodeParameterType {
 
 /// Used internally so we can iterate over parameters using reflection.
 protocol ParameterBase {
-    var projectedValue: AKNodeParameter { get }
+    var projectedValue: NodeParameter { get }
 }
 
-/// Wraps AKNodeParameter so we can easily assign values to it.
+/// Wraps NodeParameter so we can easily assign values to it.
 ///
 /// Instead of`osc.frequency.value = 440`, we have `osc.frequency = 440`
 ///
-/// Use the $ operator to access the underlying AKNodeParameter. For example:
+/// Use the $ operator to access the underlying NodeParameter. For example:
 /// `osc.$frequency.maxValue`
 ///
 /// When writing an AKNode, use:
@@ -216,8 +216,8 @@ protocol ParameterBase {
 /// Note that we don't allow initialization of Parameters to values
 /// because we don't yet have an underlying AUParameter.
 @propertyWrapper
-public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
-    var param = AKNodeParameter()
+public struct Parameter<Value: NodeParameterType>: ParameterBase {
+    var param = NodeParameter()
 
     public init() {}
 
@@ -226,7 +226,7 @@ public struct Parameter<Value: AKNodeParameterType>: ParameterBase {
         set { param.value = newValue.toAUValue() }
     }
 
-    public var projectedValue: AKNodeParameter {
+    public var projectedValue: NodeParameter {
         get { param }
         set { param = newValue }
     }

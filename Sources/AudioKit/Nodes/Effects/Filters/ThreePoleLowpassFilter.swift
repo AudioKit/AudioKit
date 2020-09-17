@@ -15,7 +15,7 @@ public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let distortionDef = AKNodeParameterDef(
+    public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion (%)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterDistortion"),
@@ -26,7 +26,7 @@ public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @Parameter public var distortion: AUValue
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterCutoffFrequency"),
@@ -37,7 +37,7 @@ public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
     /// Filter cutoff frequency in Hertz.
     @Parameter public var cutoffFrequency: AUValue
 
-    public static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterResonance"),
@@ -52,7 +52,7 @@ public class ThreePoleLowpassFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [ThreePoleLowpassFilter.distortionDef,
              ThreePoleLowpassFilter.cutoffFrequencyDef,
              ThreePoleLowpassFilter.resonanceDef]

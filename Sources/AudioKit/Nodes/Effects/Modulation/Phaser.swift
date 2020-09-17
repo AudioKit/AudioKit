@@ -15,7 +15,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let notchMinimumFrequencyDef = AKNodeParameterDef(
+    public static let notchMinimumFrequencyDef = NodeParameterDef(
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
         address: akGetParameterAddress("AKPhaserParameterNotchMinimumFrequency"),
@@ -26,7 +26,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Notch Minimum Frequency
     @Parameter public var notchMinimumFrequency: AUValue
 
-    public static let notchMaximumFrequencyDef = AKNodeParameterDef(
+    public static let notchMaximumFrequencyDef = NodeParameterDef(
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
         address: akGetParameterAddress("AKPhaserParameterNotchMaximumFrequency"),
@@ -37,7 +37,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Notch Maximum Frequency
     @Parameter public var notchMaximumFrequency: AUValue
 
-    public static let notchWidthDef = AKNodeParameterDef(
+    public static let notchWidthDef = NodeParameterDef(
         identifier: "notchWidth",
         name: "Between 10 and 5000",
         address: akGetParameterAddress("AKPhaserParameterNotchWidth"),
@@ -48,7 +48,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Between 10 and 5000
     @Parameter public var notchWidth: AUValue
 
-    public static let notchFrequencyDef = AKNodeParameterDef(
+    public static let notchFrequencyDef = NodeParameterDef(
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
         address: akGetParameterAddress("AKPhaserParameterNotchFrequency"),
@@ -59,7 +59,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Between 1.1 and 4
     @Parameter public var notchFrequency: AUValue
 
-    public static let vibratoModeDef = AKNodeParameterDef(
+    public static let vibratoModeDef = NodeParameterDef(
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
         address: akGetParameterAddress("AKPhaserParameterVibratoMode"),
@@ -70,7 +70,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Direct or Vibrato (default)
     @Parameter public var vibratoMode: AUValue
 
-    public static let depthDef = AKNodeParameterDef(
+    public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Between 0 and 1",
         address: akGetParameterAddress("AKPhaserParameterDepth"),
@@ -81,7 +81,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Between 0 and 1
     @Parameter public var depth: AUValue
 
-    public static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Between 0 and 1",
         address: akGetParameterAddress("AKPhaserParameterFeedback"),
@@ -92,7 +92,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// Between 0 and 1
     @Parameter public var feedback: AUValue
 
-    public static let invertedDef = AKNodeParameterDef(
+    public static let invertedDef = NodeParameterDef(
         identifier: "inverted",
         name: "1 or 0",
         address: akGetParameterAddress("AKPhaserParameterInverted"),
@@ -103,7 +103,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
     /// 1 or 0
     @Parameter public var inverted: AUValue
 
-    public static let lfoBPMDef = AKNodeParameterDef(
+    public static let lfoBPMDef = NodeParameterDef(
         identifier: "lfoBPM",
         name: "Between 24 and 360",
         address: akGetParameterAddress("AKPhaserParameterLfoBPM"),
@@ -118,7 +118,7 @@ public class AKPhaser: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AKPhaser.notchMinimumFrequencyDef,
              AKPhaser.notchMaximumFrequencyDef,
              AKPhaser.notchWidthDef,

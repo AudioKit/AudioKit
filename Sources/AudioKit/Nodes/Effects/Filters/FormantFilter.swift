@@ -17,7 +17,7 @@ public class FormantFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("FormantFilterParameterCenterFrequency"),
@@ -28,7 +28,7 @@ public class FormantFilter: AKNode, AKComponent, AKToggleable {
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
 
-    public static let attackDurationDef = AKNodeParameterDef(
+    public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterAttackDuration"),
@@ -39,7 +39,7 @@ public class FormantFilter: AKNode, AKComponent, AKToggleable {
     /// Impulse response attack time (in seconds).
     @Parameter public var attackDuration: AUValue
 
-    public static let decayDurationDef = AKNodeParameterDef(
+    public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterDecayDuration"),
@@ -54,7 +54,7 @@ public class FormantFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [FormantFilter.centerFrequencyDef,
              FormantFilter.attackDurationDef,
              FormantFilter.decayDurationDef]

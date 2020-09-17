@@ -18,7 +18,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let intensityDef = AKNodeParameterDef(
+    public static let intensityDef = NodeParameterDef(
         identifier: "intensity",
         name: "The intensity of the dripping sounds.",
         address: akGetParameterAddress("DripParameterIntensity"),
@@ -29,7 +29,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// The intensity of the dripping sound.
     @Parameter public var intensity: AUValue
 
-    public static let dampingFactorDef = AKNodeParameterDef(
+    public static let dampingFactorDef = NodeParameterDef(
         identifier: "dampingFactor",
         name: "The damping factor. Maximum value is 2.0.",
         address: akGetParameterAddress("DripParameterDampingFactor"),
@@ -40,7 +40,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// The damping factor. Maximum value is 2.0.
     @Parameter public var dampingFactor: AUValue
 
-    public static let energyReturnDef = AKNodeParameterDef(
+    public static let energyReturnDef = NodeParameterDef(
         identifier: "energyReturn",
         name: "The amount of energy to add back into the system.",
         address: akGetParameterAddress("DripParameterEnergyReturn"),
@@ -51,7 +51,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// The amount of energy to add back into the system.
     @Parameter public var energyReturn: AUValue
 
-    public static let mainResonantFrequencyDef = AKNodeParameterDef(
+    public static let mainResonantFrequencyDef = NodeParameterDef(
         identifier: "mainResonantFrequency",
         name: "Main resonant frequency.",
         address: akGetParameterAddress("DripParameterMainResonantFrequency"),
@@ -62,7 +62,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// Main resonant frequency.
     @Parameter public var mainResonantFrequency: AUValue
 
-    public static let firstResonantFrequencyDef = AKNodeParameterDef(
+    public static let firstResonantFrequencyDef = NodeParameterDef(
         identifier: "firstResonantFrequency",
         name: "The first resonant frequency.",
         address: akGetParameterAddress("DripParameterFirstResonantFrequency"),
@@ -73,7 +73,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// The first resonant frequency.
     @Parameter public var firstResonantFrequency: AUValue
 
-    public static let secondResonantFrequencyDef = AKNodeParameterDef(
+    public static let secondResonantFrequencyDef = NodeParameterDef(
         identifier: "secondResonantFrequency",
         name: "The second resonant frequency.",
         address: akGetParameterAddress("DripParameterSecondResonantFrequency"),
@@ -84,7 +84,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
     /// The second resonant frequency.
     @Parameter public var secondResonantFrequency: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
         address: akGetParameterAddress("DripParameterAmplitude"),
@@ -99,7 +99,7 @@ public class Drip: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Drip.intensityDef,
              Drip.dampingFactorDef,
              Drip.energyReturnDef,

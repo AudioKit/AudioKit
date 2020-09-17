@@ -15,7 +15,7 @@ public class ToneComplementFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let halfPowerPointDef = AKNodeParameterDef(
+    public static let halfPowerPointDef = NodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
         address: akGetParameterAddress("ToneComplementFilterParameterHalfPowerPoint"),
@@ -30,7 +30,7 @@ public class ToneComplementFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [ToneComplementFilter.halfPowerPointDef]
         }
 

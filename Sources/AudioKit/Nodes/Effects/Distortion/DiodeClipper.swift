@@ -16,7 +16,7 @@ public class DiodeClipper: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Parameters
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("DiodeClipperParameterCutoff"),
@@ -27,7 +27,7 @@ public class DiodeClipper: AKNode, AKToggleable, AKComponent {
     /// Filter cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
-    public static let gainDef = AKNodeParameterDef(
+    public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("DiodeClipperParameterGaindB"),
@@ -42,7 +42,7 @@ public class DiodeClipper: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [DiodeClipper.cutoffFrequencyDef,
              DiodeClipper.gainDef]
         }

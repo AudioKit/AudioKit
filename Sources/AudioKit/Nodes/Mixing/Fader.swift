@@ -27,7 +27,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
 
     public static let gainRange: ClosedRange<AUValue> = 0.0 ... 4.0
 
-    public static let leftGainDef = AKNodeParameterDef(
+    public static let leftGainDef = NodeParameterDef(
         identifier: "leftGain",
         name: "Left Gain",
         address: akGetParameterAddress("FaderParameterLeftGain"),
@@ -38,7 +38,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
     /// Left Channel Amplification Factor
     @Parameter public var leftGain: AUValue
 
-    public static let rightGainDef = AKNodeParameterDef(
+    public static let rightGainDef = NodeParameterDef(
         identifier: "rightGain",
         name: "Right Gain",
         address: akGetParameterAddress("FaderParameterRightGain"),
@@ -55,7 +55,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
         get { return 20.0 * log10(gain) }
     }
 
-    public static let flipStereoDef = AKNodeParameterDef(
+    public static let flipStereoDef = NodeParameterDef(
         identifier: "flipStereo",
         name: "Flip Stereo",
         address: akGetParameterAddress("FaderParameterFlipStereo"),
@@ -66,7 +66,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
     /// Flip left and right signal
     @Parameter public var flipStereo: Bool
 
-    public static let mixToMonoDef = AKNodeParameterDef(
+    public static let mixToMonoDef = NodeParameterDef(
         identifier: "mixToMono",
         name: "Mix To Mono",
         address: akGetParameterAddress("FaderParameterMixToMono"),
@@ -81,7 +81,7 @@ public class Fader: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Fader.leftGainDef,
              Fader.rightGainDef,
              Fader.flipStereoDef,

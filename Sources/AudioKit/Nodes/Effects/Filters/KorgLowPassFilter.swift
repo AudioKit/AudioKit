@@ -15,7 +15,7 @@ public class KorgLowPassFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let cutoffFrequencyDef = AKNodeParameterDef(
+    public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
         address: akGetParameterAddress("KorgLowPassFilterParameterCutoffFrequency"),
@@ -26,7 +26,7 @@ public class KorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     /// Filter cutoff
     @Parameter public var cutoffFrequency: AUValue
 
-    public static let resonanceDef = AKNodeParameterDef(
+    public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
         address: akGetParameterAddress("KorgLowPassFilterParameterResonance"),
@@ -37,7 +37,7 @@ public class KorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     /// Filter resonance (should be between 0-2)
     @Parameter public var resonance: AUValue
 
-    public static let saturationDef = AKNodeParameterDef(
+    public static let saturationDef = NodeParameterDef(
         identifier: "saturation",
         name: "Filter saturation.",
         address: akGetParameterAddress("KorgLowPassFilterParameterSaturation"),
@@ -52,7 +52,7 @@ public class KorgLowPassFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [KorgLowPassFilter.cutoffFrequencyDef,
              KorgLowPassFilter.resonanceDef,
              KorgLowPassFilter.saturationDef]

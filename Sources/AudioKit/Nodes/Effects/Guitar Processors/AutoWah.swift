@@ -15,7 +15,7 @@ public class AutoWah: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let wahDef = AKNodeParameterDef(
+    public static let wahDef = NodeParameterDef(
         identifier: "wah",
         name: "Wah Amount",
         address: akGetParameterAddress("AutoWahParameterWah"),
@@ -26,7 +26,7 @@ public class AutoWah: AKNode, AKComponent, AKToggleable {
     /// Wah Amount
     @Parameter public var wah: AUValue
 
-    public static let mixDef = AKNodeParameterDef(
+    public static let mixDef = NodeParameterDef(
         identifier: "mix",
         name: "Dry/Wet Mix",
         address: akGetParameterAddress("AutoWahParameterMix"),
@@ -37,7 +37,7 @@ public class AutoWah: AKNode, AKComponent, AKToggleable {
     /// Dry/Wet Mix
     @Parameter public var mix: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Overall level",
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
@@ -52,7 +52,7 @@ public class AutoWah: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [AutoWah.wahDef,
              AutoWah.mixDef,
              AutoWah.amplitudeDef]

@@ -15,7 +15,7 @@ public class DryWetMixer: AKNode, AKToggleable, AKComponent {
 
    // MARK: - Parameters
 
-    public static let balanceDef = AKNodeParameterDef(
+    public static let balanceDef = NodeParameterDef(
         identifier: "balance",
         name: "Balance",
         address: akGetParameterAddress("DryWetMixerParameterBalance"),
@@ -30,7 +30,7 @@ public class DryWetMixer: AKNode, AKToggleable, AKComponent {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [DryWetMixer.balanceDef]
         }
 

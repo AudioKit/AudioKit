@@ -15,7 +15,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let pregainDef = AKNodeParameterDef(
+    public static let pregainDef = NodeParameterDef(
         identifier: "pregain",
         name: "Pregain",
         address: akGetParameterAddress("TanhDistortionParameterPregain"),
@@ -26,7 +26,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter public var pregain: AUValue
 
-    public static let postgainDef = AKNodeParameterDef(
+    public static let postgainDef = NodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
         address: akGetParameterAddress("TanhDistortionParameterPostgain"),
@@ -37,7 +37,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
     /// Gain applied after waveshaping
     @Parameter public var postgain: AUValue
 
-    public static let positiveShapeParameterDef = AKNodeParameterDef(
+    public static let positiveShapeParameterDef = NodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterPositiveShapeParameter"),
@@ -48,7 +48,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @Parameter public var positiveShapeParameter: AUValue
 
-    public static let negativeShapeParameterDef = AKNodeParameterDef(
+    public static let negativeShapeParameterDef = NodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterNegativeShapeParameter"),
@@ -63,7 +63,7 @@ public class TanhDistortion: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [TanhDistortion.pregainDef,
              TanhDistortion.postgainDef,
              TanhDistortion.positiveShapeParameterDef,

@@ -147,7 +147,7 @@ open class AudioUnitBase: AUAudioUnit {
     }
 
     /// Override this to provide a list of definitions from which the `AUParameterTree` is built.
-    open func getParameterDefs() -> [AKNodeParameterDef]? {
+    open func getParameterDefs() -> [NodeParameterDef]? {
         return nil
     }
 

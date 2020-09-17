@@ -15,7 +15,7 @@ public class Clipper: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let limitDef = AKNodeParameterDef(
+    public static let limitDef = NodeParameterDef(
         identifier: "limit",
         name: "Threshold",
         address: akGetParameterAddress("ClipperParameterLimit"),
@@ -30,7 +30,7 @@ public class Clipper: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Clipper.limitDef]
         }
 

@@ -17,7 +17,7 @@ public class ModalResonanceFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
         address: akGetParameterAddress("ModalResonanceFilterParameterFrequency"),
@@ -28,7 +28,7 @@ public class ModalResonanceFilter: AKNode, AKComponent, AKToggleable {
     /// Resonant frequency of the filter.
     @Parameter public var frequency: AUValue
 
-    public static let qualityFactorDef = AKNodeParameterDef(
+    public static let qualityFactorDef = NodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
         address: akGetParameterAddress("ModalResonanceFilterParameterQualityFactor"),
@@ -43,7 +43,7 @@ public class ModalResonanceFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [ModalResonanceFilter.frequencyDef,
              ModalResonanceFilter.qualityFactorDef]
         }

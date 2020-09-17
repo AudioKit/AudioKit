@@ -15,7 +15,7 @@ public class Tremolo: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("TremoloParameterFrequency"),
@@ -26,7 +26,7 @@ public class Tremolo: AKNode, AKComponent, AKToggleable {
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
-    public static let depthDef = AKNodeParameterDef(
+    public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth",
         address: akGetParameterAddress("TremoloParameterDepth"),
@@ -41,7 +41,7 @@ public class Tremolo: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Tremolo.frequencyDef,
              Tremolo.depthDef]
         }

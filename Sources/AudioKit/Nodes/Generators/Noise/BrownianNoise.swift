@@ -15,7 +15,7 @@ public class BrownianNoise: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("BrownianNoiseParameterAmplitude"),
@@ -30,7 +30,7 @@ public class BrownianNoise: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [BrownianNoise.amplitudeDef]
         }
 

@@ -19,7 +19,7 @@ public class Oscillator: AKNode, AKComponent, AKToggleable {
 
     fileprivate var waveform: AKTable?
 
-    public static let frequencyDef = AKNodeParameterDef(
+    public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("OscillatorParameterFrequency"),
@@ -30,7 +30,7 @@ public class Oscillator: AKNode, AKComponent, AKToggleable {
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 
-    public static let amplitudeDef = AKNodeParameterDef(
+    public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("OscillatorParameterAmplitude"),
@@ -41,7 +41,7 @@ public class Oscillator: AKNode, AKComponent, AKToggleable {
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
-    public static let detuningOffsetDef = AKNodeParameterDef(
+    public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("OscillatorParameterDetuningOffset"),
@@ -52,7 +52,7 @@ public class Oscillator: AKNode, AKComponent, AKToggleable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
-    public static let detuningMultiplierDef = AKNodeParameterDef(
+    public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("OscillatorParameterDetuningMultiplier"),
@@ -67,7 +67,7 @@ public class Oscillator: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [Oscillator.frequencyDef,
              Oscillator.amplitudeDef,
              Oscillator.detuningOffsetDef,

@@ -20,7 +20,7 @@ public class EqualizerFilter: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("EqualizerFilterParameterCenterFrequency"),
@@ -31,7 +31,7 @@ public class EqualizerFilter: AKNode, AKComponent, AKToggleable {
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
-    public static let bandwidthDef = AKNodeParameterDef(
+    public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: akGetParameterAddress("EqualizerFilterParameterBandwidth"),
@@ -42,7 +42,7 @@ public class EqualizerFilter: AKNode, AKComponent, AKToggleable {
     /// The peak/notch bandwidth in Hertz
     @Parameter public var bandwidth: AUValue
 
-    public static let gainDef = AKNodeParameterDef(
+    public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
         address: akGetParameterAddress("EqualizerFilterParameterGain"),
@@ -57,7 +57,7 @@ public class EqualizerFilter: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [EqualizerFilter.centerFrequencyDef,
              EqualizerFilter.bandwidthDef,
              EqualizerFilter.gainDef]

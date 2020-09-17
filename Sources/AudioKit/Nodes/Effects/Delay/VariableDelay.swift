@@ -15,7 +15,7 @@ public class VariableDelay: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let timeDef = AKNodeParameterDef(
+    public static let timeDef = NodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
         address: akGetParameterAddress("VariableDelayParameterTime"),
@@ -26,7 +26,7 @@ public class VariableDelay: AKNode, AKComponent, AKToggleable {
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
-    public static let feedbackDef = AKNodeParameterDef(
+    public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("VariableDelayParameterFeedback"),
@@ -41,7 +41,7 @@ public class VariableDelay: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [VariableDelay.timeDef,
              VariableDelay.feedbackDef]
         }

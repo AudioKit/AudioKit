@@ -15,7 +15,7 @@ public class PeakingParametricEqualizerFilter: AKNode, AKComponent, AKToggleable
 
     // MARK: - Parameters
 
-    public static let centerFrequencyDef = AKNodeParameterDef(
+    public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterCenterFrequency"),
@@ -26,7 +26,7 @@ public class PeakingParametricEqualizerFilter: AKNode, AKComponent, AKToggleable
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
 
-    public static let gainDef = AKNodeParameterDef(
+    public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterGain"),
@@ -37,7 +37,7 @@ public class PeakingParametricEqualizerFilter: AKNode, AKComponent, AKToggleable
     /// Amount at which the center frequency value shall be changed. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
-    public static let qDef = AKNodeParameterDef(
+    public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterQ"),
@@ -52,7 +52,7 @@ public class PeakingParametricEqualizerFilter: AKNode, AKComponent, AKToggleable
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [PeakingParametricEqualizerFilter.centerFrequencyDef,
              PeakingParametricEqualizerFilter.gainDef,
              PeakingParametricEqualizerFilter.qDef]

@@ -18,7 +18,7 @@ public class FlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
 
     // MARK: - Parameters
 
-    public static let reverbDurationDef = AKNodeParameterDef(
+    public static let reverbDurationDef = NodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: akGetParameterAddress("FlatFrequencyResponseReverbParameterReverbDuration"),
@@ -33,7 +33,7 @@ public class FlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
 
     public class InternalAU: AudioUnitBase {
 
-        public override func getParameterDefs() -> [AKNodeParameterDef] {
+        public override func getParameterDefs() -> [NodeParameterDef] {
             [FlatFrequencyResponseReverb.reverbDurationDef]
         }
 
