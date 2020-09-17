@@ -20,7 +20,6 @@ for i in custom.indices {
     custom[i] += Float(random(in: -0.3...0.3) + Double(i) / 2_048.0)
 }
 
-import AudioKitUI
 
 class LiveView: View {
 

@@ -13,8 +13,8 @@ var sequencer = AppleSequencer()
 var tempo = 120.0
 var division = 1
 
-var callbacker = AKMIDICallbackInstrument { status, note, _ in
-    guard let midiStatus = AKMIDIStatusType.from(byte: status) else {
+var callbacker = MIDICallbackInstrument { status, note, _ in
+    guard let midiStatus = MIDIStatusType.from(byte: status) else {
         return
     }
     if midiStatus == .noteOn {
@@ -45,7 +45,6 @@ try engine.start()
 //: Also note that when deploying this approach to an app, make sure to
 //: enable "Background Modes - Audio" otherwise it won't work.
 
-import AudioKitUI
 
 class LiveView: View {
     override func viewDidLoad() {

@@ -29,7 +29,6 @@ oscillatorNode.start()
 secondaryOscillator.start()
 
 //: User Interface
-import AudioKitUI
 
 class LiveView: View {
 

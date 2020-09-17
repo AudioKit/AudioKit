@@ -123,18 +123,17 @@ engine.output = mixer
 try engine.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
-import AudioKitUI
 
 class LiveView: View {
 
     override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")
 
-        addView(AKPresetLoaderView(presets: presetArray) { preset in
+        addView(PresetLoaderView(presets: presetArray) { preset in
             presetDictionary[preset]?()
         })
 
-        addView(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
+        addView(PresetLoaderView(presets: sequencerPatternPresets) { preset in
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })

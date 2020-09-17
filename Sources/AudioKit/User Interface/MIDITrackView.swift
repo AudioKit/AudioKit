@@ -14,7 +14,7 @@ adding an AppleSequencer,
 
 For example:
 
-var trackView1: AKMIDITrackView = AKMIDITrackView(frame: CGRect(x: , y: , width: , height: ),
+var trackView1: MIDITrackView = MIDITrackView(frame: CGRect(x: , y: , width: , height: ),
 midiFile: AKMIDIFile(url: urltoyourmidifile),
 trackNumber: The MIDI track number you want to display,
  sampler: MIDISampler,
@@ -36,7 +36,7 @@ I have recently set up the playback to be synced with automated tempos which cha
 
 //Display a MIDI Sequence in a track
 
-public class AKMIDITrackView: Button {
+public class MIDITrackView: Button {
  //Quarter note at 120 bpm is 20.8333... pixels - standard
     var length: Double!
     var playbackCursorRect: CGRect!

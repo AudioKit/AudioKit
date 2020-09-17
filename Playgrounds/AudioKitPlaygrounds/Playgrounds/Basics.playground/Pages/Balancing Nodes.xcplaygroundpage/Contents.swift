@@ -7,7 +7,6 @@
 //: remains at a volume similar to where it started.
 //: Such an application is perfect for the Balancer node.
 import AudioKit
-import AudioKitUI
 
 //: This section prepares the players
 let file = try AVAudioFile(readFileName: "drumloop.wav")

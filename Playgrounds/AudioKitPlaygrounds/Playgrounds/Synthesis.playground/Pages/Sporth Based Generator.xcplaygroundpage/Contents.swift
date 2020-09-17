@@ -8,7 +8,6 @@ var generator = OperationGenerator(sporth: "")
 engine.output = generator
 try engine.start()
 //: User Interface Set up
-import AudioKitUI
 
 class LiveView: View, KeyboardDelegate {
 
@@ -32,7 +31,7 @@ class LiveView: View, KeyboardDelegate {
                            "kLtz",
                            "Scheale",
                            "Simple Keyboard"]
-        addView(AKPresetLoaderView(presets: sporthFiles) { filename in
+        addView(PresetLoaderView(presets: sporthFiles) { filename in
             guard
                 let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
                 let contentData = FileManager.default.contents(atPath: filePath),

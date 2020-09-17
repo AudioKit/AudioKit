@@ -44,7 +44,6 @@ engine.output = reverb
 try engine.start(withPeriodicFunctions: performance)
 performance.start()
 
-import AudioKitUI
 
 class LiveView: View {
 
@@ -77,7 +76,7 @@ class LiveView: View {
         })
 
         let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
-        addView(AKPresetLoaderView(presets: presets) { preset in
+        addView(PresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Large, Resonant":
                 mandolin.presetLargeResonantMandolin()

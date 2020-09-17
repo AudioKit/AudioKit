@@ -24,7 +24,6 @@ oscillatorNode.start()
 trackedAmplitude.start()
 
 //: User Interface
-import AudioKitUI
 
 class LiveView: View {
 

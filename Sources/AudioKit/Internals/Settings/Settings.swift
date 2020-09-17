@@ -45,7 +45,7 @@ public class Settings: NSObject {
         }
     }
 
-    /// Constants for ramps used in AKParameterRamp.hpp, Fader, and others
+    /// Constants for ramps used in ParameterRamp, Fader, and others
     public enum RampType: Int {
         case linear = 0
         case exponential = 1

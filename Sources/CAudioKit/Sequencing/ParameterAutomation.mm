@@ -11,12 +11,12 @@
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
 extern "C"
-AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress address,
-                                                        AUScheduleParameterBlock scheduleParameterBlock,
-                                                        float sampleRate,
-                                                        float startSampleTime,
-                                                        const struct AutomationEvent* eventsArray,
-                                                        size_t count) {
+AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address,
+                                                      AUScheduleParameterBlock scheduleParameterBlock,
+                                                      float sampleRate,
+                                                      float startSampleTime,
+                                                      const struct AutomationEvent* eventsArray,
+                                                      size_t count) {
 
     std::vector<AutomationEvent> events{eventsArray, eventsArray+count};
 

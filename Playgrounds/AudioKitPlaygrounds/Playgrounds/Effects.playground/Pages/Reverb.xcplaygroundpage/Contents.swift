@@ -17,7 +17,6 @@ try engine.start()
 player.play()
 
 //: User Interface Set up
-import AudioKitUI
 
 class LiveView: View {
 
@@ -32,7 +31,7 @@ class LiveView: View {
                        "Large Room", "Large Room 2", "Medium Chamber",
                        "Medium Hall", "Medium Hall 2", "Medium Hall 3",
                        "Medium Room", "Plate", "Small Room"]
-        addView(AKPresetLoaderView(presets: presets) { preset in
+        addView(PresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Cathedral":
                 reverb.loadFactoryPreset(.cathedral)

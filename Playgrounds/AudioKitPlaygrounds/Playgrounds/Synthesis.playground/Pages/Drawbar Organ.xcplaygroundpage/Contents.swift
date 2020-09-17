@@ -3,7 +3,6 @@
 //:
 
 import AudioKit
-import AudioKitUI
 
 var oscillator = OscillatorBank()
 engine.output = oscillator
