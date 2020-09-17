@@ -8,7 +8,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AudioPlayer(file: file)
 player.looping = true
 
-var chorus = AKChorus(player)
+var chorus = Chorus(player)
 
 engine.output = chorus
 try engine.start()

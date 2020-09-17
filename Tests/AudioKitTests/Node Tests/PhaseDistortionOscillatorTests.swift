@@ -18,7 +18,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square),
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square),
                                                      frequency: 1_234,
                                                      amplitude: 0.5,
                                                      phaseDistortion: 0.234,
@@ -38,7 +38,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testFrequency() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square), frequency: 1_234)
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square), frequency: 1_234)
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -48,7 +48,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square), amplitude: 0.5)
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square), amplitude: 0.5)
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -58,7 +58,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testPhaseDistortion() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square), phaseDistortion: 1.234)
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square), phaseDistortion: 1.234)
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -68,7 +68,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testDetuningOffset() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square), detuningOffset: 1.234)
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square), detuningOffset: 1.234)
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -78,7 +78,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testDetuningMultiplier() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square), detuningMultiplier: 1.1)
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square), detuningMultiplier: 1.1)
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -88,7 +88,7 @@ class PhaseDistortionOscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let oscillator = PhaseDistortionOscillator(waveform: AKTable(.square))
+        let oscillator = PhaseDistortionOscillator(waveform: Table(.square))
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.phaseDistortion = 1.234

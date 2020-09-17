@@ -13,35 +13,35 @@ typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
 };
 
 // constants
-extern const float kAKChorus_DefaultFrequency;
-extern const float kAKChorus_DefaultDepth;
-extern const float kAKChorus_DefaultFeedback;
-extern const float kAKChorus_DefaultDryWetMix;
+extern const float kChorus_DefaultFrequency;
+extern const float kChorus_DefaultDepth;
+extern const float kChorus_DefaultFeedback;
+extern const float kChorus_DefaultDryWetMix;
 
-extern const float kAKChorus_MinFrequency;
-extern const float kAKChorus_MaxFrequency;
-extern const float kAKChorus_MinFeedback;
-extern const float kAKChorus_MaxFeedback;
-extern const float kAKChorus_MinDepth;
-extern const float kAKChorus_MaxDepth;
-extern const float kAKChorus_MinDryWetMix;
-extern const float kAKChorus_MaxDryWetMix;
+extern const float kChorus_MinFrequency;
+extern const float kChorus_MaxFrequency;
+extern const float kChorus_MinFeedback;
+extern const float kChorus_MaxFeedback;
+extern const float kChorus_MinDepth;
+extern const float kChorus_MaxDepth;
+extern const float kChorus_MinDryWetMix;
+extern const float kChorus_MaxDryWetMix;
 
-extern const float kAKFlanger_DefaultFrequency;
-extern const float kAKFlanger_MinFrequency;
-extern const float kAKFlanger_MaxFrequency;
-extern const float kAKFlanger_DefaultDepth;
-extern const float kAKFlanger_DefaultFeedback;
-extern const float kAKFlanger_DefaultDryWetMix;
+extern const float kFlanger_DefaultFrequency;
+extern const float kFlanger_MinFrequency;
+extern const float kFlanger_MaxFrequency;
+extern const float kFlanger_DefaultDepth;
+extern const float kFlanger_DefaultFeedback;
+extern const float kFlanger_DefaultDryWetMix;
 
-extern const float kAKFlanger_MinFrequency;
-extern const float kAKFlanger_MaxFrequency;
-extern const float kAKFlanger_MinFeedback;
-extern const float kAKFlanger_MaxFeedback;
-extern const float kAKFlanger_MinDepth;
-extern const float kAKFlanger_MaxDepth;
-extern const float kAKFlanger_MinDryWetMix;
-extern const float kAKFlanger_MaxDryWetMix;
+extern const float kFlanger_MinFrequency;
+extern const float kFlanger_MaxFrequency;
+extern const float kFlanger_MinFeedback;
+extern const float kFlanger_MaxFeedback;
+extern const float kFlanger_MinDepth;
+extern const float kFlanger_MaxDepth;
+extern const float kFlanger_MinDryWetMix;
+extern const float kFlanger_MaxDryWetMix;
 
 AK_API AKDSPRef akChorusCreateDSP(void);
 AK_API AKDSPRef akFlangerCreateDSP(void);

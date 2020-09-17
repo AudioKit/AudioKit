@@ -5,13 +5,13 @@
 import UIKit
 
 /// Displays the values in the table into a nice graph
-public class AKTableView: UIView {
+public class TableView: UIView {
 
-    var table: AKTable
+    var table: Table
     var absmax: Double = 1.0
 
     /// Initialize the table view
-    public init(_ table: AKTable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
+    public init(_ table: Table, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
         self.table = table
         super.init(frame: frame)
         let max = Double(table.max() ?? 1.0)
@@ -70,9 +70,9 @@ public class AKTableView: UIView {
 
 import Cocoa
 
-public class AKTableView: NSView {
+public class TableView: NSView {
 
-    public var table: AKTable {
+    public var table: Table {
         didSet {
             let max = Double(table.max() ?? 1.0)
             let min = Double(table.min() ?? -1.0)
@@ -83,7 +83,7 @@ public class AKTableView: NSView {
 
     public var absmax: Double = 1.0
 
-    public init(_ table: AKTable, frame: CGRect = CGRect(width: 440, height: 150)) {
+    public init(_ table: Table, frame: CGRect = CGRect(width: 440, height: 150)) {
         self.table = table
         super.init(frame: frame)
         let max = Double(table.max() ?? 1.0)

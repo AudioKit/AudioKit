@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class AKChorus: Node, AudioUnitContainer, Toggleable {
+public class Chorus: Node, AudioUnitContainer, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
@@ -19,7 +19,7 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: AKModulatedDelayParameter.frequency.rawValue,
-        range: kAKChorus_MinFrequency ... kAKChorus_MaxFrequency,
+        range: kChorus_MinFrequency ... kChorus_MaxFrequency,
         unit: .hertz,
         flags: .default)
 
@@ -30,7 +30,7 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
         identifier: "depth",
         name: "Depth 0-1",
         address: AKModulatedDelayParameter.depth.rawValue,
-        range: kAKChorus_MinDepth ... kAKChorus_MaxDepth,
+        range: kChorus_MinDepth ... kChorus_MaxDepth,
         unit: .generic,
         flags: .default)
 
@@ -41,7 +41,7 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback 0-1",
         address: AKModulatedDelayParameter.feedback.rawValue,
-        range: kAKChorus_MinFeedback ... kAKChorus_MaxFeedback,
+        range: kChorus_MinFeedback ... kChorus_MaxFeedback,
         unit: .generic,
         flags: .default)
 
@@ -52,7 +52,7 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: AKModulatedDelayParameter.dryWetMix.rawValue,
-        range: kAKChorus_MinDryWetMix ... kAKChorus_MaxDryWetMix,
+        range: kChorus_MinDryWetMix ... kChorus_MaxDryWetMix,
         unit: .generic,
         flags: .default)
 
@@ -64,10 +64,10 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
-            return [AKChorus.frequencyDef,
-                    AKChorus.depthDef,
-                    AKChorus.feedbackDef,
-                    AKChorus.dryWetMixDef]
+            return [Chorus.frequencyDef,
+                    Chorus.depthDef,
+                    Chorus.feedbackDef,
+                    Chorus.dryWetMixDef]
         }
 
         public override func createDSP() -> AKDSPRef {
@@ -88,10 +88,10 @@ public class AKChorus: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = kAKChorus_DefaultFrequency,
-        depth: AUValue = kAKChorus_DefaultDepth,
-        feedback: AUValue = kAKChorus_DefaultFeedback,
-        dryWetMix: AUValue = kAKChorus_DefaultDryWetMix
+        frequency: AUValue = kChorus_DefaultFrequency,
+        depth: AUValue = kChorus_DefaultDepth,
+        feedback: AUValue = kChorus_DefaultFeedback,
+        dryWetMix: AUValue = kChorus_DefaultDryWetMix
     ) {
         super.init(avAudioNode: AVAudioNode())
 

@@ -17,7 +17,7 @@ class FMOscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let oscillator = FMOscillator(waveform: AKTable(.square))
+        let oscillator = FMOscillator(waveform: Table(.square))
         oscillator.baseFrequency = 1_234
         oscillator.carrierMultiplier = 1.234
         oscillator.modulatingMultiplier = 1.234
@@ -32,7 +32,7 @@ class FMOscillatorTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AudioEngine()
-        let oscillator = FMOscillator(waveform: AKTable(.square),
+        let oscillator = FMOscillator(waveform: Table(.square),
                                         baseFrequency: 1_234,
                                         carrierMultiplier: 1.234,
                                         modulatingMultiplier: 1.234,

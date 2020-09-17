@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Supported default table types
-public enum AKTableType: Int, Codable, CaseIterable {
+public enum TableType: Int, Codable, CaseIterable {
     /// Standard sine waveform
     case sine
 
@@ -42,7 +42,7 @@ public enum AKTableType: Int, Codable, CaseIterable {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public class AKTable: NSObject, MutableCollection, Codable {
+public class Table: NSObject, MutableCollection, Codable {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = Float
@@ -90,18 +90,18 @@ public class AKTable: NSObject, MutableCollection, Codable {
     }
 
     /// Type of table
-    var type: AKTableType
+    var type: TableType
 
     // MARK: - Initialization
 
     /// Initialize and set up the default table
     ///
     /// - Parameters:
-    ///   - type: AKTableType of the new table
+    ///   - type: TableType of the new table
     ///   - phase: Phase offset
     ///   - count: Size of the table (multiple of 2)
     ///
-    public init(_ type: AKTableType = .sine,
+    public init(_ type: TableType = .sine,
                 phase: Float = 0,
                 count: IndexDistance = 4_096) {
         self.type = type
@@ -157,7 +157,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
         }
     }
 
-    /// Create an AKTable with the contents of a pcmFormatFloat32 file.
+    /// Create an Table with the contents of a pcmFormatFloat32 file.
     /// This method is intended for wavetables (i.e., 2048 or 4096 samples), not large audio files.
     /// Parameters:
     ///   - url: URL to the file
@@ -277,7 +277,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     }
 }
 
-extension AKTable: RandomAccessCollection {
+extension Table: RandomAccessCollection {
     public typealias Indices = Array<Element>.Indices
 
     @inline(__always)

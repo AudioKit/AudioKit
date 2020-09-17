@@ -5,7 +5,7 @@ import XCTest
 
 class MorphingOscillatorTests: XCTestCase {
 
-    let waveforms = [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)]
+    let waveforms = [Table(.sine), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     func testDefault() {
         let engine = AudioEngine()

@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKTableTests: XCTestCase {
+class TableTests: XCTestCase {
 
     func testReverseSawtooth() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.reverseSawtooth))
+        let input = Oscillator(waveform: Table(.reverseSawtooth))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class AKTableTests: XCTestCase {
 
     func testSawtooth() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.sawtooth))
+        let input = Oscillator(waveform: Table(.sawtooth))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class AKTableTests: XCTestCase {
 
     func testSine() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.sine))
+        let input = Oscillator(waveform: Table(.sine))
         engine.output = input
         // This is just the usual tested sine wave
         input.start()
@@ -38,7 +38,7 @@ class AKTableTests: XCTestCase {
 
     func testTriangle() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: AKTable(.triangle))
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

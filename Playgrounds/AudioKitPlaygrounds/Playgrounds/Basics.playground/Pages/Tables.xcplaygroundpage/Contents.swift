@@ -8,14 +8,14 @@
 
 import AudioKit
 
-let square = AKTable(.square, count: 128)
-let triangle = AKTable(.triangle, count: 128)
-let sine = AKTable(.sine, count: 256)
+let square = Table(.square, count: 128)
+let triangle = Table(.triangle, count: 128)
+let sine = Table(.sine, count: 256)
 
 let file = try AVAudioFile(readFileName: "drumloop.wav")
-let fileTable = AKTable(file: file)
+let fileTable = Table(file: file)
 
-var custom = AKTable(.sine, count: 256)
+var custom = Table(.sine, count: 256)
 for i in custom.indices {
     custom[i] += Float(random(in: -0.3...0.3) + Double(i) / 2_048.0)
 }
@@ -29,19 +29,19 @@ class LiveView: View {
         addTitle("Tables")
 
         addLabel("Square")
-        addView(AKTableView(square))
+        addView(TableView(square))
 
         addLabel("Triangle")
-        addView(AKTableView(triangle))
+        addView(TableView(triangle))
 
         addLabel("Sine")
-        addView(AKTableView(sine))
+        addView(TableView(sine))
 
         addLabel("File")
-        addView(AKTableView(fileTable))
+        addView(TableView(fileTable))
 
         addLabel("Custom")
-        addView(AKTableView(custom))
+        addView(TableView(custom))
     }
 }
 

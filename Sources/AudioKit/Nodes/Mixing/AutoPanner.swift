@@ -65,7 +65,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         _ input: Node,
         frequency: AUValue = 10,
         depth: AUValue = 1.0,
-        waveform: AKTable = AKTable(.positiveSine)
+        waveform: Table = Table(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())
         self.frequency = frequency

@@ -15,7 +15,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
 
     // MARK: - Parameters
 
-    fileprivate var waveform: AKTable?
+    fileprivate var waveform: Table?
 
     public static let baseFrequencyDef = NodeParameterDef(
         identifier: "baseFrequency",
@@ -102,7 +102,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
     ///   - amplitude: Output Amplitude.
     ///
     public init(
-        waveform: AKTable = AKTable(.sine),
+        waveform: Table = Table(.sine),
         baseFrequency: AUValue = 440.0,
         carrierMultiplier: AUValue = 1.0,
         modulatingMultiplier: AUValue = 1.0,
