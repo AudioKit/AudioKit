@@ -6,7 +6,7 @@ import XCTest
 // TODO: Test was left out of old test suite.
 #if false
 
-class AKDynaRangeCompressorTests: XCTestCase {
+class DynaRangeCompressorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
