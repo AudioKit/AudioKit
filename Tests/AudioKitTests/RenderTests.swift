@@ -10,7 +10,7 @@ class RenderTests: XCTestCase {
     func runWith(feedback: Float, silenceThreshold: Float = 0.05) -> Float {
         let engine = AudioEngine()
         let input = Oscillator()
-        let automationEvent = AKAutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
+        let automationEvent = AutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
         engine.output = CostelloReverb(input, feedback: feedback)
         input.$amplitude.automate(events: [automationEvent])
         input.start()

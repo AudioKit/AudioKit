@@ -7,7 +7,7 @@
 
 #ifdef __cplusplus
 
-class AKParameterRampBase {
+class ParameterRampBase {
 protected:
     float _paramValue = 0;  // set by UI thread
     float _target = 0;

@@ -13,7 +13,7 @@ enum MorphingOscillatorParameter : AUParameterAddress {
     MorphingOscillatorParameterDetuningMultiplier,
 };
 
-class MorphingOscillatorDSP : public AKSoundpipeDSPBase {
+class MorphingOscillatorDSP : public SoundpipeDSPBase {
 private:
     sp_oscmorph *oscmorph;
     sp_ftbl *ft_array[4];
@@ -25,7 +25,7 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    MorphingOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    MorphingOscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[MorphingOscillatorParameterFrequency] = &frequencyRamp;
         parameters[MorphingOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[MorphingOscillatorParameterIndex] = &indexRamp;
@@ -41,7 +41,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         for (uint32_t i = 0; i < 4; i++) {
             sp_ftbl_create(sp, &ft_array[i], waveforms[i].size());
             std::copy(waveforms[i].cbegin(), waveforms[i].cend(), ft_array[i]->tbl);
@@ -51,7 +51,7 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_oscmorph_destroy(&oscmorph);
         for (uint32_t i = 0; i < 4; i++) {
             sp_ftbl_destroy(&ft_array[i]);
@@ -59,7 +59,7 @@ public:
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }

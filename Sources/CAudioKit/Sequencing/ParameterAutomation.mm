@@ -15,10 +15,10 @@ AURenderObserver AKParameterAutomationGetRenderObserver(AUParameterAddress addre
                                                         AUScheduleParameterBlock scheduleParameterBlock,
                                                         float sampleRate,
                                                         float startSampleTime,
-                                                        const struct AKAutomationEvent* eventsArray,
+                                                        const struct AutomationEvent* eventsArray,
                                                         size_t count) {
 
-    std::vector<AKAutomationEvent> events{eventsArray, eventsArray+count};
+    std::vector<AutomationEvent> events{eventsArray, eventsArray+count};
 
     // Sort events by start time.
     std::sort(events.begin(), events.end(), [](auto a, auto b) {

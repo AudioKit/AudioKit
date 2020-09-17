@@ -66,7 +66,7 @@ public class NodeParameter {
     ///
     /// - Parameter events: automation curve
     /// - Parameter startTime: optional time to start automation
-    public func automate(events: [AKAutomationEvent], startTime: AVAudioTime? = nil) {
+    public func automate(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
         var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {

@@ -13,7 +13,7 @@ enum FMOscillatorParameter : AUParameterAddress {
     FMOscillatorParameterAmplitude,
 };
 
-class FMOscillatorDSP : public AKSoundpipeDSPBase {
+class FMOscillatorDSP : public SoundpipeDSPBase {
 private:
     sp_fosc *fosc;
     sp_ftbl *ftbl;
@@ -25,7 +25,7 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    FMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    FMOscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[FMOscillatorParameterBaseFrequency] = &baseFrequencyRamp;
         parameters[FMOscillatorParameterCarrierMultiplier] = &carrierMultiplierRamp;
         parameters[FMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;
@@ -40,7 +40,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, waveform.size());
         std::copy(waveform.cbegin(), waveform.cend(), ftbl->tbl);
         sp_fosc_create(&fosc);
@@ -48,13 +48,13 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         sp_fosc_destroy(&fosc);
         sp_ftbl_destroy(&ftbl);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_fosc_init(sp, fosc, ftbl);
     }

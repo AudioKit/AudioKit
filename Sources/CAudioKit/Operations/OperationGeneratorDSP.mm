@@ -22,7 +22,7 @@ enum AKOperationGeneratorParameter : AUParameterAddress {
     AKOperationGeneratorParameter14,
 };
 
-class AKOperationGeneratorDSP : public AKSoundpipeDSPBase {
+class AKOperationGeneratorDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
@@ -43,7 +43,7 @@ private:
     int internalTrigger = 0;
 
 public:
-    AKOperationGeneratorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+    AKOperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[AKOperationGeneratorParameter1] = &parameter1Ramp;
         parameters[AKOperationGeneratorParameter2] = &parameter2Ramp;
         parameters[AKOperationGeneratorParameter3] = &parameter3Ramp;
@@ -77,7 +77,7 @@ public:
     }
 
     void init(int channelCount, double sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        SoundpipeDSPBase::init(channelCount, sampleRate);
         plumber_register(&pd);
         plumber_init(&pd);
 
@@ -89,12 +89,12 @@ public:
     }
 
     void deinit() override {
-        AKSoundpipeDSPBase::deinit();
+        SoundpipeDSPBase::deinit();
         plumber_clean(&pd);
     }
 
     void reset() override {
-        AKSoundpipeDSPBase::reset();
+        SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         plumber_init(&pd);
 
