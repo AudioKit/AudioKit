@@ -4,7 +4,7 @@
 
 #if !os(tvOS)
 
-public class AKMIDINoteDuration {
+public class MIDINoteDuration {
     public var noteBeginningTime = 0.0
     public var noteEndTime = 0.0
     public var noteDuration = 0.0
@@ -66,9 +66,9 @@ public class MIDIFileTrackNoteMap {
     }
 
     //A list of all the note events in the MIDI file for tracking purposes
-    public var noteList: [AKMIDINoteDuration] {
+    public var noteList: [MIDINoteDuration] {
 
-        var finalNoteList = [AKMIDINoteDuration]()
+        var finalNoteList = [MIDINoteDuration]()
         var eventPosition = 0.0
         var noteNum = 0
         var noteOn = 0
@@ -104,11 +104,11 @@ public class MIDIFileTrackNoteMap {
                     noteNum = Int(data[1])
                     if let prevPosValue = notesInProgress[noteNum]?.0 {
                         notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                        var noteTracker: AKMIDINoteDuration = AKMIDINoteDuration(
+                        var noteTracker: MIDINoteDuration = MIDINoteDuration(
                             noteOnPosition: 0.0,
                             noteOffPosition: 0.0, noteNum: 0)
                         if let note = notesInProgress[noteNum] {
-                            noteTracker = AKMIDINoteDuration(
+                            noteTracker = MIDINoteDuration(
                                 noteOnPosition:
                                     note.0,
                                 noteOffPosition:
@@ -130,11 +130,11 @@ public class MIDIFileTrackNoteMap {
                 noteNum = Int(data[1])
                 if let prevPosValue = notesInProgress[noteNum]?.0 {
                     notesInProgress[noteNum] = (prevPosValue, eventPosition)
-                    var noteTracker: AKMIDINoteDuration = AKMIDINoteDuration(
+                    var noteTracker: MIDINoteDuration = MIDINoteDuration(
                         noteOnPosition: 0.0,
                         noteOffPosition: 0.0, noteNum: 0)
                     if let note = notesInProgress[noteNum] {
-                        noteTracker = AKMIDINoteDuration(
+                        noteTracker = MIDINoteDuration(
                             noteOnPosition:
                                 note.0,
                             noteOffPosition:

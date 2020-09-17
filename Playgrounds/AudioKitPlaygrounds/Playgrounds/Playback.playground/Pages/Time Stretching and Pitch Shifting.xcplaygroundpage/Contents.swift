@@ -1,5 +1,5 @@
 //: ## Time Stretching and Pitch Shifting
-//: With AKTimePitch you can easily change the pitch and speed of a
+//: With TimePitch you can easily change the pitch and speed of a
 //: player-generated sound.  It does not work on live input or generated signals.
 //:
 
@@ -10,7 +10,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AudioPlayer(file: file)
 player.looping = true
 
-var timePitch = AKTimePitch(player)
+var timePitch = TimePitch(player)
 timePitch.rate = 2.0
 timePitch.pitch = -400.0
 timePitch.overlap = 8.0

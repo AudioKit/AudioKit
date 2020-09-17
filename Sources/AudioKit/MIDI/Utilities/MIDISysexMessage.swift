@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct MIDISysExMessage: AKMIDIMessage {
+public struct MIDISysExMessage: MIDIMessage {
     public let data: [UInt8]
     public let length: Int
     public var description: String {

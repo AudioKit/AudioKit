@@ -89,7 +89,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     }
 }
 
-public struct AKMIDIMetaEvent: AKMIDIMessage {
+public struct AKMIDIMetaEvent: MIDIMessage {
 
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?

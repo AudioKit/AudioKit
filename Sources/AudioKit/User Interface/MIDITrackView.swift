@@ -125,7 +125,7 @@ public class MIDITrackView: Button {
 
         let noteDescriptor = midiTrackNoteMap
         var noteRange = 0
-        var noteList: [AKMIDINoteDuration] = [AKMIDINoteDuration]()
+        var noteList: [MIDINoteDuration] = [MIDINoteDuration]()
         if let noteR = noteDescriptor?.noteRange {
             noteRange = noteR
         }

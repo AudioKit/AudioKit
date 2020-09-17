@@ -36,12 +36,12 @@ extension MIDIMonoPolyListener: MIDIListener {
     }
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
-                if controller == AKMIDIControl.monoOperation.rawValue {
+                if controller == MIDIControl.monoOperation.rawValue {
             guard monoMode == false else { return }
             monoMode = true
             monoPolyChange()
         }
-        if controller == AKMIDIControl.polyOperation.rawValue {
+        if controller == MIDIControl.polyOperation.rawValue {
             guard monoMode == true else { return }
             monoMode = false
             monoPolyChange()

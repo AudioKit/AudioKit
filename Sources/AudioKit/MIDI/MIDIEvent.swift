@@ -5,7 +5,7 @@ import CoreMIDI
 import os.log
 
 /// A container for the values that define a MIDI event
-public struct MIDIEvent: AKMIDIMessage {
+public struct MIDIEvent: MIDIMessage {
     // MARK: - Properties
 
     /// Internal data

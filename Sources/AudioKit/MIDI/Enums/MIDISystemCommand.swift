@@ -15,7 +15,7 @@
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum MIDISystemCommand: MIDIByte, AKMIDIMessage {
+public enum MIDISystemCommand: MIDIByte, MIDIMessage {
 
     /// System Exclusive (SysEx)
     case sysEx = 0xF0
