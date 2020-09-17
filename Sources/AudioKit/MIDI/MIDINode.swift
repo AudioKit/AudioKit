@@ -59,7 +59,7 @@ open class AKMIDINode: Node, AKMIDIListener {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        let status = AKMIDIStatus(byte: data1)
+        let status = MIDIStatus(byte: data1)
         let channel = status?.channel
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)

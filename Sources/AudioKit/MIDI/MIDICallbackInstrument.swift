@@ -31,7 +31,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
 
     // MARK: - Triggering
 
-    fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
+    fileprivate func triggerCallbacks(_ status: MIDIStatus,
                                       data1: MIDIByte,
                                       data2: MIDIByte) {
         _ = callback.map { $0(status.byte, data1, data2) }
@@ -48,7 +48,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
                              offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .noteOn, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .noteOn, channel: channel),
                          data1: noteNumber,
                          data2: velocity)
     }
@@ -62,7 +62,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     open override func stop(noteNumber: MIDINoteNumber,
                             channel: MIDIChannel,
                             offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .noteOff, channel: channel),
                          data1: noteNumber,
                          data2: 0)
     }
@@ -74,7 +74,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .controllerChange, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .controllerChange, channel: channel),
                          data1: controller,
                          data2: value)
     }
@@ -84,7 +84,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .polyphonicAftertouch, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .polyphonicAftertouch, channel: channel),
                          data1: noteNumber,
                          data2: pressure)
     }
@@ -93,7 +93,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .channelAftertouch, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .channelAftertouch, channel: channel),
                          data1: pressure,
                          data2: 0)
     }
@@ -102,7 +102,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
-        triggerCallbacks(AKMIDIStatus(type: .pitchWheel, channel: channel),
+        triggerCallbacks(MIDIStatus(type: .pitchWheel, channel: channel),
                          data1: pitchWheelValue.msb,
                          data2: pitchWheelValue.lsb)
     }

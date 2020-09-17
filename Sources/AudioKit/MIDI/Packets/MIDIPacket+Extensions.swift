@@ -9,8 +9,8 @@ extension MIDIPacket {
         return data.0 == AKMIDISystemCommand.sysEx.rawValue
     }
 
-    var status: AKMIDIStatus? {
-        return AKMIDIStatus(byte: data.0)
+    var status: MIDIStatus? {
+        return MIDIStatus(byte: data.0)
     }
 
     var channel: MIDIChannel {

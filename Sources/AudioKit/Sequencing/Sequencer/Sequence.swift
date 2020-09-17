@@ -67,7 +67,7 @@ public struct NoteEventSequence: Equatable {
     }
 
     /// Add MIDI data to the track as an event
-    public mutating func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
+    public mutating func add(status: MIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
         events.append(SequenceEvent(status: status.byte, data1: data1, data2: data2, beat: position))
     }
 

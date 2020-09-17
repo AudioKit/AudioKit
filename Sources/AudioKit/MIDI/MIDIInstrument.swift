@@ -218,7 +218,7 @@ open class AKMIDIInstrument: PolyphonicNode, AKMIDIListener {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        if let status = AKMIDIStatus(byte: data1), let statusType = status.type {
+        if let status = MIDIStatus(byte: data1), let statusType = status.type {
 
             let channel = status.channel
 

@@ -66,7 +66,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                                                  timeOffset: accumulatedDeltaTime)
                     processedBytes += sysExEvent.data.count
                     runningStatus = nil
-                } else if let status = AKMIDIStatus(byte: byte) {
+                } else if let status = MIDIStatus(byte: byte) {
                     let messageLength = status.length
                     let chunkData = Array(subData.prefix(messageLength))
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
@@ -76,7 +76,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     runningStatus = status.byte
                     processedBytes += messageLength
                 } else if let activeRunningStatus = runningStatus,
-                    let status = AKMIDIStatus(byte: activeRunningStatus) {
+                    let status = MIDIStatus(byte: activeRunningStatus) {
                     let messageLength = status.length - 1 // drop one since running status is used
                     let chunkData = Array(subData.prefix(messageLength))
                     event = AKMIDIFileChunkEvent(data: vlqTime.data + chunkData,
