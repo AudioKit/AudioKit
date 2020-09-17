@@ -26,6 +26,6 @@ public func / (numerator: OperationParameter, denominator: OperationParameter) -
 ///   - numerator: Stereo operation
 ///   - denominator: The amount to divide
 ///
-public func / (numerator: AKStereoOperation, denominator: OperationParameter) -> AKStereoOperation {
-    return AKStereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
+public func / (numerator: StereoOperation, denominator: OperationParameter) -> StereoOperation {
+    return StereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
 }

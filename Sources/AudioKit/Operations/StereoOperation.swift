@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 /// Stereo version of ComputedParameter
-open class AKStereoOperation: ComputedParameter {
+open class StereoOperation: ComputedParameter {
 
     // MARK: - Dependency Management
 
@@ -104,14 +104,14 @@ open class AKStereoOperation: ComputedParameter {
     }
 
     /// An operation is requiring a parameter to be stereo, which in this case, it is, so just return self
-    public func toStereo() -> AKStereoOperation {
+    public func toStereo() -> StereoOperation {
         return self
     }
 
     // MARK: - Initialization
 
     /// Default stereo input to any operation stack
-    public static var input = AKStereoOperation("((14 p) (15 p))")
+    public static var input = StereoOperation("((14 p) (15 p))")
 
     /// Initialize the stereo operation with a Sporth string
     ///

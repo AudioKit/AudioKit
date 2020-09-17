@@ -9,7 +9,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKPlayer(file: file)
 player.looping = true
 
-let input = AKStereoOperation.input
+let input = StereoOperation.input
 let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
 
 let effect = OperationEffect(player, sporth: sporth)

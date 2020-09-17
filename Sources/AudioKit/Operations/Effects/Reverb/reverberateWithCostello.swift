@@ -15,8 +15,8 @@ extension ComputedParameter {
     public func reverberateWithCostello(
         feedback: OperationParameter = 0.6,
         cutoffFrequency: OperationParameter = 4_000
-        ) -> AKStereoOperation {
-        return AKStereoOperation(module: "revsc",
+        ) -> StereoOperation {
+        return StereoOperation(module: "revsc",
                                  inputs: self.toStereo(), feedback, cutoffFrequency)
     }
 }
