@@ -7,7 +7,7 @@ class MorphingOscillatorOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let oscillator = AKOperationGenerator { AKOperation.morphingOscillator() }
+        let oscillator = OperationGenerator { AKOperation.morphingOscillator() }
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -9,7 +9,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let fatten = AKOperationEffect(player) { input, parameters in
+let fatten = OperationEffect(player) { input, parameters in
 
     let time = parameters[0]
     let mix = parameters[1]

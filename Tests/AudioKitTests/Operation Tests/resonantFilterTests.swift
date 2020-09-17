@@ -9,7 +9,7 @@ class ResonantFilterOperationTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         input.start()
-        engine.output = AKOperationEffect(input) { $0.resonantFilter() }
+        engine.output = OperationEffect(input) { $0.resonantFilter() }
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -19,7 +19,7 @@ class ResonantFilterOperationTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         input.start()
-        engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 40) }
+        engine.output = OperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 40) }
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -29,7 +29,7 @@ class ResonantFilterOperationTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         input.start()
-        engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 60) }
+        engine.output = OperationEffect(input) { $0.resonantFilter(frequency: 200, bandwidth: 60) }
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -38,7 +38,7 @@ class ResonantFilterOperationTests: XCTestCase {
     func testParameters3() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.resonantFilter(frequency: 220, bandwidth: 40) }
+        engine.output = OperationEffect(input) { $0.resonantFilter(frequency: 220, bandwidth: 40) }
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)

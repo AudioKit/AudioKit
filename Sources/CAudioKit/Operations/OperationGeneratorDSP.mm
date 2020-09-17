@@ -5,24 +5,24 @@
 #include "soundpipe.h"
 #include "plumber.h"
 
-enum AKOperationGeneratorParameter : AUParameterAddress {
-    AKOperationGeneratorParameter1,
-    AKOperationGeneratorParameter2,
-    AKOperationGeneratorParameter3,
-    AKOperationGeneratorParameter4,
-    AKOperationGeneratorParameter5,
-    AKOperationGeneratorParameter6,
-    AKOperationGeneratorParameter7,
-    AKOperationGeneratorParameter8,
-    AKOperationGeneratorParameter9,
-    AKOperationGeneratorParameter10,
-    AKOperationGeneratorParameter11,
-    AKOperationGeneratorParameter12,
-    AKOperationGeneratorParameter13,
-    AKOperationGeneratorParameter14,
+enum OperationGeneratorParameter : AUParameterAddress {
+    OperationGeneratorParameter1,
+    OperationGeneratorParameter2,
+    OperationGeneratorParameter3,
+    OperationGeneratorParameter4,
+    OperationGeneratorParameter5,
+    OperationGeneratorParameter6,
+    OperationGeneratorParameter7,
+    OperationGeneratorParameter8,
+    OperationGeneratorParameter9,
+    OperationGeneratorParameter10,
+    OperationGeneratorParameter11,
+    OperationGeneratorParameter12,
+    OperationGeneratorParameter13,
+    OperationGeneratorParameter14,
 };
 
-class AKOperationGeneratorDSP : public SoundpipeDSPBase {
+class OperationGeneratorDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
@@ -43,21 +43,21 @@ private:
     int internalTrigger = 0;
 
 public:
-    AKOperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKOperationGeneratorParameter1] = &parameter1Ramp;
-        parameters[AKOperationGeneratorParameter2] = &parameter2Ramp;
-        parameters[AKOperationGeneratorParameter3] = &parameter3Ramp;
-        parameters[AKOperationGeneratorParameter4] = &parameter4Ramp;
-        parameters[AKOperationGeneratorParameter5] = &parameter5Ramp;
-        parameters[AKOperationGeneratorParameter6] = &parameter6Ramp;
-        parameters[AKOperationGeneratorParameter7] = &parameter7Ramp;
-        parameters[AKOperationGeneratorParameter8] = &parameter8Ramp;
-        parameters[AKOperationGeneratorParameter9] = &parameter9Ramp;
-        parameters[AKOperationGeneratorParameter10] = &parameter10Ramp;
-        parameters[AKOperationGeneratorParameter11] = &parameter11Ramp;
-        parameters[AKOperationGeneratorParameter12] = &parameter12Ramp;
-        parameters[AKOperationGeneratorParameter13] = &parameter13Ramp;
-        parameters[AKOperationGeneratorParameter14] = &parameter14Ramp;
+    OperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[OperationGeneratorParameter1] = &parameter1Ramp;
+        parameters[OperationGeneratorParameter2] = &parameter2Ramp;
+        parameters[OperationGeneratorParameter3] = &parameter3Ramp;
+        parameters[OperationGeneratorParameter4] = &parameter4Ramp;
+        parameters[OperationGeneratorParameter5] = &parameter5Ramp;
+        parameters[OperationGeneratorParameter6] = &parameter6Ramp;
+        parameters[OperationGeneratorParameter7] = &parameter7Ramp;
+        parameters[OperationGeneratorParameter8] = &parameter8Ramp;
+        parameters[OperationGeneratorParameter9] = &parameter9Ramp;
+        parameters[OperationGeneratorParameter10] = &parameter10Ramp;
+        parameters[OperationGeneratorParameter11] = &parameter11Ramp;
+        parameters[OperationGeneratorParameter12] = &parameter12Ramp;
+        parameters[OperationGeneratorParameter13] = &parameter13Ramp;
+        parameters[OperationGeneratorParameter14] = &parameter14Ramp;
         isStarted = false;
     }
 
@@ -147,29 +147,29 @@ public:
 };
 
 AK_API void akOperationGeneratorSetSporth(AKDSPRef dspRef, const char *sporth, int length) {
-    auto dsp = dynamic_cast<AKOperationGeneratorDSP *>(dspRef);
+    auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth, length);
 }
 
 AK_API float* akOperationGeneratorTrigger(AKDSPRef dspRef) {
-    auto dsp = dynamic_cast<AKOperationGeneratorDSP *>(dspRef);
+    auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
     dsp->trigger();
 }
 
-AK_REGISTER_DSP(AKOperationGeneratorDSP)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter1)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter2)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter3)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter4)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter5)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter6)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter7)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter8)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter9)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter10)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter11)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter12)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter13)
-AK_REGISTER_PARAMETER(AKOperationGeneratorParameter14)
+AK_REGISTER_DSP(OperationGeneratorDSP)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter1)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter2)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter3)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter4)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter5)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter6)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter7)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter8)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter9)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter10)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter11)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter12)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter13)
+AK_REGISTER_PARAMETER(OperationGeneratorParameter14)

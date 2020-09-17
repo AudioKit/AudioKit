@@ -8,7 +8,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player, parameters in
+let effect = OperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(
         time: parameters[0],
         feedback: parameters[1],

@@ -6,7 +6,7 @@
 //: This is an example of building a stereo sound generator.
 import AudioKit
 
-let generator = AKOperationGenerator(channelCount: 2) { _ in
+let generator = OperationGenerator(channelCount: 2) { _ in
 
     let slowSine = round(AKOperation.sineWave(frequency: 1) * 12) / 12
     let vibrato = slowSine.scale(minimum: -1_200, maximum: 1_200)

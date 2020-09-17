@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKOperationGeneratorParametersTests: XCTestCase {
+class OperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters() {
         let engine = AudioEngine()
-        let gen = AKOperationGenerator { parameters in
+        let gen = OperationGenerator { parameters in
             AKOperation.sineWave(frequency: parameters[0], amplitude: parameters[1])
         }
         gen.parameter1 = 333
@@ -22,7 +22,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
     func testSetParameters2() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKOperationEffect(input) { player, parameters in
+        let effect = OperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])
             let feedback = AKOperation.sineWave(frequency: parameters[2])
@@ -44,7 +44,7 @@ class AKOperationGeneratorParametersTests: XCTestCase {
     func testSetParameters3() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKOperationEffect(input) { player, parameters in
+        let effect = OperationEffect(input) { player, parameters in
             let time = AKOperation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])
             let feedback = AKOperation.sineWave(frequency: parameters[2])

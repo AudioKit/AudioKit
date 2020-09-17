@@ -8,7 +8,7 @@ import AudioKit
 let speedIndex = 0
 let depthIndex = 1
 
-extension AKOperationEffect {
+extension OperationEffect {
     var speed: Double {
         get { return self.parameters[speedIndex] }
         set(newValue) { self.parameters[speedIndex] = newValue }
@@ -25,7 +25,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { input, parameters in
+let effect = OperationEffect(player) { input, parameters in
     let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex], amplitude: parameters[depthIndex])
     return input.pan(oscillator)
 }

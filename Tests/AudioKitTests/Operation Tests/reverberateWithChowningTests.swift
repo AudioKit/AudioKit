@@ -8,7 +8,7 @@ class ReverberateWithChowningTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { input in
+        engine.output = OperationEffect(input) { input in
             return input.reverberateWithChowning()
         }
         input.start()

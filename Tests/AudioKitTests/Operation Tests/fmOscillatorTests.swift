@@ -7,7 +7,7 @@ class FMOscillatorOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let oscillator = AKOperationGenerator { AKOperation.fmOscillator() }
+        let oscillator = OperationGenerator { AKOperation.fmOscillator() }
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class FMOscillatorOperationTests: XCTestCase {
 
     func testFMOscillatorOperation() {
         let engine = AudioEngine()
-        let oscillator = AKOperationGenerator {
+        let oscillator = OperationGenerator {
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
                 start: 0.001,

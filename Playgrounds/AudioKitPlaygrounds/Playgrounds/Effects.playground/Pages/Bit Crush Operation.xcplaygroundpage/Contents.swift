@@ -9,7 +9,7 @@ let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { input, parameters in
+let effect = OperationEffect(player) { input, parameters in
     let baseSampleRate = parameters[0]
     let sampleRateVariation = parameters[1]
     let baseBitDepth = parameters[2]

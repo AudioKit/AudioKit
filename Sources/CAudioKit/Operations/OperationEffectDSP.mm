@@ -5,24 +5,24 @@
 #include "soundpipe.h"
 #include "plumber.h"
 
-enum AKOperationEffectParameter : AUParameterAddress {
-    AKOperationEffectParameter1,
-    AKOperationEffectParameter2,
-    AKOperationEffectParameter3,
-    AKOperationEffectParameter4,
-    AKOperationEffectParameter5,
-    AKOperationEffectParameter6,
-    AKOperationEffectParameter7,
-    AKOperationEffectParameter8,
-    AKOperationEffectParameter9,
-    AKOperationEffectParameter10,
-    AKOperationEffectParameter11,
-    AKOperationEffectParameter12,
-    AKOperationEffectParameter13,
-    AKOperationEffectParameter14,
+enum OperationEffectParameter : AUParameterAddress {
+    OperationEffectParameter1,
+    OperationEffectParameter2,
+    OperationEffectParameter3,
+    OperationEffectParameter4,
+    OperationEffectParameter5,
+    OperationEffectParameter6,
+    OperationEffectParameter7,
+    OperationEffectParameter8,
+    OperationEffectParameter9,
+    OperationEffectParameter10,
+    OperationEffectParameter11,
+    OperationEffectParameter12,
+    OperationEffectParameter13,
+    OperationEffectParameter14,
 };
 
-class AKOperationEffectDSP : public SoundpipeDSPBase {
+class OperationEffectDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
@@ -42,21 +42,21 @@ private:
     ParameterRamper parameter14Ramp;
 
 public:
-    AKOperationEffectDSP() {
-        parameters[AKOperationEffectParameter1] = &parameter1Ramp;
-        parameters[AKOperationEffectParameter2] = &parameter2Ramp;
-        parameters[AKOperationEffectParameter3] = &parameter3Ramp;
-        parameters[AKOperationEffectParameter4] = &parameter4Ramp;
-        parameters[AKOperationEffectParameter5] = &parameter5Ramp;
-        parameters[AKOperationEffectParameter6] = &parameter6Ramp;
-        parameters[AKOperationEffectParameter7] = &parameter7Ramp;
-        parameters[AKOperationEffectParameter8] = &parameter8Ramp;
-        parameters[AKOperationEffectParameter9] = &parameter9Ramp;
-        parameters[AKOperationEffectParameter10] = &parameter10Ramp;
-        parameters[AKOperationEffectParameter11] = &parameter11Ramp;
-        parameters[AKOperationEffectParameter12] = &parameter12Ramp;
-        parameters[AKOperationEffectParameter13] = &parameter13Ramp;
-        parameters[AKOperationEffectParameter14] = &parameter14Ramp;
+    OperationEffectDSP() {
+        parameters[OperationEffectParameter1] = &parameter1Ramp;
+        parameters[OperationEffectParameter2] = &parameter2Ramp;
+        parameters[OperationEffectParameter3] = &parameter3Ramp;
+        parameters[OperationEffectParameter4] = &parameter4Ramp;
+        parameters[OperationEffectParameter5] = &parameter5Ramp;
+        parameters[OperationEffectParameter6] = &parameter6Ramp;
+        parameters[OperationEffectParameter7] = &parameter7Ramp;
+        parameters[OperationEffectParameter8] = &parameter8Ramp;
+        parameters[OperationEffectParameter9] = &parameter9Ramp;
+        parameters[OperationEffectParameter10] = &parameter10Ramp;
+        parameters[OperationEffectParameter11] = &parameter11Ramp;
+        parameters[OperationEffectParameter12] = &parameter12Ramp;
+        parameters[OperationEffectParameter13] = &parameter13Ramp;
+        parameters[OperationEffectParameter14] = &parameter14Ramp;
         bCanProcessInPlace = false;
     }
 
@@ -138,23 +138,23 @@ public:
 };
 
 AK_API void akOperationEffectSetSporth(AKDSPRef dspRef, const char *sporth, int length) {
-    auto dsp = dynamic_cast<AKOperationEffectDSP *>(dspRef);
+    auto dsp = dynamic_cast<OperationEffectDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth, length);
 }
 
-AK_REGISTER_DSP(AKOperationEffectDSP)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter1)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter2)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter3)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter4)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter5)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter6)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter7)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter8)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter9)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter10)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter11)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter12)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter13)
-AK_REGISTER_PARAMETER(AKOperationEffectParameter14)
+AK_REGISTER_DSP(OperationEffectDSP)
+AK_REGISTER_PARAMETER(OperationEffectParameter1)
+AK_REGISTER_PARAMETER(OperationEffectParameter2)
+AK_REGISTER_PARAMETER(OperationEffectParameter3)
+AK_REGISTER_PARAMETER(OperationEffectParameter4)
+AK_REGISTER_PARAMETER(OperationEffectParameter5)
+AK_REGISTER_PARAMETER(OperationEffectParameter6)
+AK_REGISTER_PARAMETER(OperationEffectParameter7)
+AK_REGISTER_PARAMETER(OperationEffectParameter8)
+AK_REGISTER_PARAMETER(OperationEffectParameter9)
+AK_REGISTER_PARAMETER(OperationEffectParameter10)
+AK_REGISTER_PARAMETER(OperationEffectParameter11)
+AK_REGISTER_PARAMETER(OperationEffectParameter12)
+AK_REGISTER_PARAMETER(OperationEffectParameter13)
+AK_REGISTER_PARAMETER(OperationEffectParameter14)

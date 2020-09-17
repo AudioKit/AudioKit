@@ -8,7 +8,7 @@ class DelayOperationTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.delay() }
+        engine.output = OperationEffect(input) { $0.delay() }
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -18,7 +18,7 @@ class DelayOperationTests: XCTestCase {
     func testFeedback() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.delay(feedback: 0.99) }
+        engine.output = OperationEffect(input) { $0.delay(feedback: 0.99) }
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -28,7 +28,7 @@ class DelayOperationTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
+        engine.output = OperationEffect(input) { $0.delay(time: 0.01, feedback: 0.99) }
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
@@ -38,7 +38,7 @@ class DelayOperationTests: XCTestCase {
     func testTime() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKOperationEffect(input) { $0.delay(time: 0.01) }
+        engine.output = OperationEffect(input) { $0.delay(time: 0.01) }
         input.start()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
