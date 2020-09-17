@@ -11,7 +11,7 @@ class RenderTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator()
         let automationEvent = AKAutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
-        engine.output = AKCostelloReverb(input, feedback: feedback)
+        engine.output = CostelloReverb(input, feedback: feedback)
         input.$amplitude.automate(events: [automationEvent])
         input.start()
 

@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-extension AKAppleSampler {
+extension AppleSampler {
     static func getAUPresetXML() -> String {
         var templateStr: String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"

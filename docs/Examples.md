@@ -15,7 +15,7 @@
 
 ## Examples for iOS only
 
-* Apple Sampler Demo - example of AudioKit's AKAppleSampler
+* Apple Sampler Demo - example of AudioKit's AppleSampler
 * MIDI File Edit and Sync - demonstrates how to manipulate midifiles on the fly
 
 ### Audiobus Examples for iOS

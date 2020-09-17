@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
-open class AKAppleSequencer: NSObject {
+open class AppleSequencer: NSObject {
     /// Music sequence
     open var sequence: MusicSequence?
 
@@ -621,7 +621,7 @@ open class AKAppleSequencer: NSObject {
     ///
     ///  Will copy only MIDINoteMessage events
     public func addMIDIFileTracks(_ filename: String, useExistingSequencerLength: Bool = true) {
-        let tempSequencer = AKAppleSequencer(filename: filename)
+        let tempSequencer = AppleSequencer(filename: filename)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
@@ -633,12 +633,12 @@ open class AKAppleSequencer: NSObject {
     ///
     ///  Will copy only MIDINoteMessage events
     public func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
-        let tempSequencer = AKAppleSequencer(fromURL: url)
+        let tempSequencer = AppleSequencer(fromURL: url)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
-    /// Creates new AKMusicTrack with copied note event data from another AKAppleSequencer
-    func addMusicTrackNoteData(from tempSequencer: AKAppleSequencer, useExistingSequencerLength: Bool) {
+    /// Creates new AKMusicTrack with copied note event data from another AppleSequencer
+    func addMusicTrackNoteData(from tempSequencer: AppleSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
             AKLog("Can't add tracks during playback")
             return

@@ -9,7 +9,7 @@ oscillator.amplitude = 0.4
 let delay = Delay(oscillator)
 delay.feedback = 0.3
 delay.time = 0.1
-let reverb = AKCostelloReverb(delay)
+let reverb = CostelloReverb(delay)
 let mix = AKDryWetMixer(delay, reverb, balance: 0.5)
 engine.output = mix
 try engine.start()

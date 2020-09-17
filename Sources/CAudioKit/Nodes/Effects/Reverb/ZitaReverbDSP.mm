@@ -4,20 +4,20 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKZitaReverbParameter : AUParameterAddress {
-    AKZitaReverbParameterPredelay,
-    AKZitaReverbParameterCrossoverFrequency,
-    AKZitaReverbParameterLowReleaseTime,
-    AKZitaReverbParameterMidReleaseTime,
-    AKZitaReverbParameterDampingFrequency,
-    AKZitaReverbParameterEqualizerFrequency1,
-    AKZitaReverbParameterEqualizerLevel1,
-    AKZitaReverbParameterEqualizerFrequency2,
-    AKZitaReverbParameterEqualizerLevel2,
-    AKZitaReverbParameterDryWetMix,
+enum ZitaReverbParameter : AUParameterAddress {
+    ZitaReverbParameterPredelay,
+    ZitaReverbParameterCrossoverFrequency,
+    ZitaReverbParameterLowReleaseTime,
+    ZitaReverbParameterMidReleaseTime,
+    ZitaReverbParameterDampingFrequency,
+    ZitaReverbParameterEqualizerFrequency1,
+    ZitaReverbParameterEqualizerLevel1,
+    ZitaReverbParameterEqualizerFrequency2,
+    ZitaReverbParameterEqualizerLevel2,
+    ZitaReverbParameterDryWetMix,
 };
 
-class AKZitaReverbDSP : public AKSoundpipeDSPBase {
+class ZitaReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_zitarev *zitarev;
     ParameterRamper predelayRamp;
@@ -32,17 +32,17 @@ private:
     ParameterRamper dryWetMixRamp;
 
 public:
-    AKZitaReverbDSP() {
-        parameters[AKZitaReverbParameterPredelay] = &predelayRamp;
-        parameters[AKZitaReverbParameterCrossoverFrequency] = &crossoverFrequencyRamp;
-        parameters[AKZitaReverbParameterLowReleaseTime] = &lowReleaseTimeRamp;
-        parameters[AKZitaReverbParameterMidReleaseTime] = &midReleaseTimeRamp;
-        parameters[AKZitaReverbParameterDampingFrequency] = &dampingFrequencyRamp;
-        parameters[AKZitaReverbParameterEqualizerFrequency1] = &equalizerFrequency1Ramp;
-        parameters[AKZitaReverbParameterEqualizerLevel1] = &equalizerLevel1Ramp;
-        parameters[AKZitaReverbParameterEqualizerFrequency2] = &equalizerFrequency2Ramp;
-        parameters[AKZitaReverbParameterEqualizerLevel2] = &equalizerLevel2Ramp;
-        parameters[AKZitaReverbParameterDryWetMix] = &dryWetMixRamp;
+    ZitaReverbDSP() {
+        parameters[ZitaReverbParameterPredelay] = &predelayRamp;
+        parameters[ZitaReverbParameterCrossoverFrequency] = &crossoverFrequencyRamp;
+        parameters[ZitaReverbParameterLowReleaseTime] = &lowReleaseTimeRamp;
+        parameters[ZitaReverbParameterMidReleaseTime] = &midReleaseTimeRamp;
+        parameters[ZitaReverbParameterDampingFrequency] = &dampingFrequencyRamp;
+        parameters[ZitaReverbParameterEqualizerFrequency1] = &equalizerFrequency1Ramp;
+        parameters[ZitaReverbParameterEqualizerLevel1] = &equalizerLevel1Ramp;
+        parameters[ZitaReverbParameterEqualizerFrequency2] = &equalizerFrequency2Ramp;
+        parameters[ZitaReverbParameterEqualizerLevel2] = &equalizerLevel2Ramp;
+        parameters[ZitaReverbParameterDryWetMix] = &dryWetMixRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -99,14 +99,14 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKZitaReverbDSP)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterPredelay)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterCrossoverFrequency)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterLowReleaseTime)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterMidReleaseTime)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterDampingFrequency)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerFrequency1)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerLevel1)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerFrequency2)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterEqualizerLevel2)
-AK_REGISTER_PARAMETER(AKZitaReverbParameterDryWetMix)
+AK_REGISTER_DSP(ZitaReverbDSP)
+AK_REGISTER_PARAMETER(ZitaReverbParameterPredelay)
+AK_REGISTER_PARAMETER(ZitaReverbParameterCrossoverFrequency)
+AK_REGISTER_PARAMETER(ZitaReverbParameterLowReleaseTime)
+AK_REGISTER_PARAMETER(ZitaReverbParameterMidReleaseTime)
+AK_REGISTER_PARAMETER(ZitaReverbParameterDampingFrequency)
+AK_REGISTER_PARAMETER(ZitaReverbParameterEqualizerFrequency1)
+AK_REGISTER_PARAMETER(ZitaReverbParameterEqualizerLevel1)
+AK_REGISTER_PARAMETER(ZitaReverbParameterEqualizerFrequency2)
+AK_REGISTER_PARAMETER(ZitaReverbParameterEqualizerLevel2)
+AK_REGISTER_PARAMETER(ZitaReverbParameterDryWetMix)

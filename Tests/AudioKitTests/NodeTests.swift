@@ -25,7 +25,7 @@ class AKNodeTests: XCTestCase {
         let engine = AudioEngine()
         let osc = Oscillator()
         osc.start()
-        let verb = AKCostelloReverb(osc)
+        let verb = CostelloReverb(osc)
         engine.output = verb
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
@@ -108,7 +108,7 @@ class AKNodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         let osc2 = Oscillator(frequency: 880)
-        let verb = AKCostelloReverb(osc2)
+        let verb = CostelloReverb(osc2)
         osc2.start()
         mixer.addInput(verb)
 
@@ -194,7 +194,7 @@ class AKNodeTests: XCTestCase {
         engine2.output = osc
         osc.start()
 
-        let verb = AKCostelloReverb(osc)
+        let verb = CostelloReverb(osc)
         engine.output = verb
 
         let audio = engine.startTest(totalDuration: 0.1)
@@ -235,7 +235,7 @@ class AKNodeTests: XCTestCase {
 
         let engine = AudioEngine()
         let osc = Oscillator()
-        let verb = AKCostelloReverb(osc)
+        let verb = CostelloReverb(osc)
         let mixer = AKMixer(osc, verb)
         engine.output = mixer
 

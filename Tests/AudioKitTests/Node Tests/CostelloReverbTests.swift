@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKCostelloReverbTests: XCTestCase {
+class CostelloReverbTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCostelloReverb(input, cutoffFrequency: 1_234)
+        engine.output = CostelloReverb(input, cutoffFrequency: 1_234)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKCostelloReverbTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCostelloReverb(input)
+        engine.output = CostelloReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKCostelloReverbTests: XCTestCase {
     func testFeedback() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCostelloReverb(input, feedback: 0.95)
+        engine.output = CostelloReverb(input, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKCostelloReverbTests: XCTestCase {
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        let effect = AKCostelloReverb(input)
+        let effect = CostelloReverb(input)
         effect.cutoffFrequency = 1_234
         effect.feedback = 0.95
         engine.output = effect
@@ -51,7 +51,7 @@ class AKCostelloReverbTests: XCTestCase {
     func testParametersSetOnInit() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKCostelloReverb(input,
+        engine.output = CostelloReverb(input,
                                   feedback: 0.95,
                                   cutoffFrequency: 1_234)
         input.start()

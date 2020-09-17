@@ -6,7 +6,7 @@ import Foundation
 
 /// Open-source AudioKit Sequencer
 ///
-/// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AKAppleSequencer"
+/// Up until AudioKit 4.8, this was a different class. The old class is now renamed "AppleSequencer"
 open class AKSequencer {
     /// Array of sequencer tracks
     open var tracks = [AKSequencerTrack]()
@@ -192,7 +192,7 @@ open class AKSequencer {
 
 #endif
 
-/* functions from AKAppleSequencer  to implement
+/* functions from AppleSequencer  to implement
 
  public convenience init(fromURL fileURL: URL) {
  open func enableLooping(_ loopLength: AKDuration) {

@@ -4,11 +4,11 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKFlatFrequencyResponseReverbParameter : AUParameterAddress {
-    AKFlatFrequencyResponseReverbParameterReverbDuration,
+enum FlatFrequencyResponseReverbParameter : AUParameterAddress {
+    FlatFrequencyResponseReverbParameterReverbDuration,
 };
 
-class AKFlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
+class FlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_allpass *allpass0;
     sp_allpass *allpass1;
@@ -16,8 +16,8 @@ private:
     ParameterRamper reverbDurationRamp;
 
 public:
-    AKFlatFrequencyResponseReverbDSP() {
-        parameters[AKFlatFrequencyResponseReverbParameterReverbDuration] = &reverbDurationRamp;
+    FlatFrequencyResponseReverbDSP() {
+        parameters[FlatFrequencyResponseReverbParameterReverbDuration] = &reverbDurationRamp;
     }
 
     void setLoopDuration(float duration) {
@@ -79,10 +79,10 @@ public:
 };
 
 AK_API void akFlatFrequencyResponseSetLoopDuration(AKDSPRef dspRef, float duration) {
-    auto dsp = dynamic_cast<AKFlatFrequencyResponseReverbDSP *>(dspRef);
+    auto dsp = dynamic_cast<FlatFrequencyResponseReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
 }
 
-AK_REGISTER_DSP(AKFlatFrequencyResponseReverbDSP)
-AK_REGISTER_PARAMETER(AKFlatFrequencyResponseReverbParameterReverbDuration)
+AK_REGISTER_DSP(FlatFrequencyResponseReverbDSP)
+AK_REGISTER_PARAMETER(FlatFrequencyResponseReverbParameterReverbDuration)

@@ -3,12 +3,12 @@ import AudioKitPlaygrounds
 import AudioKit
 //: Components
 let mic = engine.input
-let reverb = AKCostelloReverb()
+let reverb = CostelloReverb()
 var reverbMixer = AKDryWetMixer()
 //: Signal Chain
 let delay = VariableDelay(mic)
 let delayMixer = AKDryWetMixer(mic, delay)
-let reverb = AKCostelloReverb(delayMixer)
+let reverb = CostelloReverb(delayMixer)
 reverbMixer = AKDryWetMixer(delayMixer, reverb)
 var output = reverbMixer
 //: Parameters

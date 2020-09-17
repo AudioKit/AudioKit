@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPitchShifterParameter : AUParameterAddress {
-    AKPitchShifterParameterShift,
-    AKPitchShifterParameterWindowSize,
-    AKPitchShifterParameterCrossfade,
+enum PitchShifterParameter : AUParameterAddress {
+    PitchShifterParameterShift,
+    PitchShifterParameterWindowSize,
+    PitchShifterParameterCrossfade,
 };
 
-class AKPitchShifterDSP : public AKSoundpipeDSPBase {
+class PitchShifterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pshift *pshift0;
     sp_pshift *pshift1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper crossfadeRamp;
 
 public:
-    AKPitchShifterDSP() {
-        parameters[AKPitchShifterParameterShift] = &shiftRamp;
-        parameters[AKPitchShifterParameterWindowSize] = &windowSizeRamp;
-        parameters[AKPitchShifterParameterCrossfade] = &crossfadeRamp;
+    PitchShifterDSP() {
+        parameters[PitchShifterParameterShift] = &shiftRamp;
+        parameters[PitchShifterParameterWindowSize] = &windowSizeRamp;
+        parameters[PitchShifterParameterCrossfade] = &crossfadeRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -85,7 +85,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPitchShifterDSP)
-AK_REGISTER_PARAMETER(AKPitchShifterParameterShift)
-AK_REGISTER_PARAMETER(AKPitchShifterParameterWindowSize)
-AK_REGISTER_PARAMETER(AKPitchShifterParameterCrossfade)
+AK_REGISTER_DSP(PitchShifterDSP)
+AK_REGISTER_PARAMETER(PitchShifterParameterShift)
+AK_REGISTER_PARAMETER(PitchShifterParameterWindowSize)
+AK_REGISTER_PARAMETER(PitchShifterParameterCrossfade)

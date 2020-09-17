@@ -33,7 +33,7 @@ let delayFader = AKFader(delay)
 delayFader.gain = 1.550_8
 
 // REVERB
-let reverb = AKCostelloReverb(delayFader)
+let reverb = CostelloReverb(delayFader)
 reverb.feedback = 0.758_816_18
 reverb.cutoffFrequency = 2_222 + 1_000
 let reverbFader = AKFader(reverb)

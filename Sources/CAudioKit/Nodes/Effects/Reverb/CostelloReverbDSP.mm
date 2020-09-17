@@ -4,21 +4,21 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKCostelloReverbParameter : AUParameterAddress {
-    AKCostelloReverbParameterFeedback,
-    AKCostelloReverbParameterCutoffFrequency,
+enum CostelloReverbParameter : AUParameterAddress {
+    CostelloReverbParameterFeedback,
+    CostelloReverbParameterCutoffFrequency,
 };
 
-class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
+class CostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_revsc *revsc;
     ParameterRamper feedbackRamp;
     ParameterRamper cutoffFrequencyRamp;
 
 public:
-    AKCostelloReverbDSP() {
-        parameters[AKCostelloReverbParameterFeedback] = &feedbackRamp;
-        parameters[AKCostelloReverbParameterCutoffFrequency] = &cutoffFrequencyRamp;
+    CostelloReverbDSP() {
+        parameters[CostelloReverbParameterFeedback] = &feedbackRamp;
+        parameters[CostelloReverbParameterCutoffFrequency] = &cutoffFrequencyRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -68,6 +68,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKCostelloReverbDSP)
-AK_REGISTER_PARAMETER(AKCostelloReverbParameterFeedback)
-AK_REGISTER_PARAMETER(AKCostelloReverbParameterCutoffFrequency)
+AK_REGISTER_DSP(CostelloReverbDSP)
+AK_REGISTER_PARAMETER(CostelloReverbParameterFeedback)
+AK_REGISTER_PARAMETER(CostelloReverbParameterCutoffFrequency)

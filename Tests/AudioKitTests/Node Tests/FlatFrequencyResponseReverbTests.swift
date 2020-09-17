@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKFlatFrequencyResponseReverbTests: XCTestCase {
+class FlatFrequencyResponseReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFlatFrequencyResponseReverb(input)
+        engine.output = FlatFrequencyResponseReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKFlatFrequencyResponseReverbTests: XCTestCase {
     func testLoopDuration() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
+        engine.output = FlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKFlatFrequencyResponseReverbTests: XCTestCase {
     func testReverbDuration() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1)
+        engine.output = FlatFrequencyResponseReverb(input, reverbDuration: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

@@ -13,7 +13,7 @@ import CAudioKit
 /// allpass units, followed by four parallel comb filters, and two decorrelation delay lines in
 /// parallel at the output.
 /// 
-public class AKChowningReverb: AKNode, AKComponent, AKToggleable {
+public class ChowningReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
@@ -28,7 +28,7 @@ public class AKChowningReverb: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKChowningReverbDSP")
+            akCreateDSP("ChowningReverbDSP")
         }
     }
 

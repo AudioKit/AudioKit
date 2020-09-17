@@ -1,13 +1,13 @@
 # Sampler
 **Sampler** is a new, polyphonic sample-playback engine built from scratch in C++. Because the base C++ code is platform-independent, it is also available as an Audio Unit v2 plug-in (which can be loaded into e.g. *Logic Pro X*), and even on Windows as a *VST2* plug-in, for use in Windows DAWs such as Steinberg's *Cubase*. ("VST" is a registered trade mark of [Steinberg Media Technologies GmbH](https://www.steinberg.net/en/company/developers.html).) You'll find these projects under the *Developer* folder in the main AudioKit repo.
 
-## Sampler vs AKAppleSampler
+## Sampler vs AppleSampler
 
-In earlier versions of AudioKit, the name **Sampler** referred to the module now called **AKAppleSampler**.
+In earlier versions of AudioKit, the name **Sampler** referred to the module now called **AppleSampler**.
 
-**AKAppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **Sampler** is an attempt to provide an open-source alternative.
+**AppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **Sampler** is an attempt to provide an open-source alternative.
 
-**Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AKAppleSampler** (formerly called Sampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
+**Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AppleSampler** (formerly called Sampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
 
 ## Sampler vs AKSamplePlayer
 

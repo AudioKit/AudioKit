@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKPitchShifterTests: XCTestCase {
+class PitchShifterTests: XCTestCase {
 
     func testCrossfade() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPitchShifter(input, shift: 7, crossfade: 1_024)
+        engine.output = PitchShifter(input, shift: 7, crossfade: 1_024)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKPitchShifterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPitchShifter(input)
+        engine.output = PitchShifter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKPitchShifterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
+        engine.output = PitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKPitchShifterTests: XCTestCase {
     func testShift() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPitchShifter(input, shift: 7)
+        engine.output = PitchShifter(input, shift: 7)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -48,7 +48,7 @@ class AKPitchShifterTests: XCTestCase {
     func testWindowSize() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKPitchShifter(input, shift: 7, windowSize: 2_048)
+        engine.output = PitchShifter(input, shift: 7, windowSize: 2_048)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

@@ -7,7 +7,7 @@ import CAudioKit
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal characteristic impedance.
 /// 
-public class AKCostelloReverb: AKNode, AKComponent, AKToggleable {
+public class CostelloReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
@@ -20,7 +20,7 @@ public class AKCostelloReverb: AKNode, AKComponent, AKToggleable {
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback",
-        address: akGetParameterAddress("AKCostelloReverbParameterFeedback"),
+        address: akGetParameterAddress("CostelloReverbParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKCostelloReverb: AKNode, AKComponent, AKToggleable {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: akGetParameterAddress("AKCostelloReverbParameterCutoffFrequency"),
+        address: akGetParameterAddress("CostelloReverbParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -44,12 +44,12 @@ public class AKCostelloReverb: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKCostelloReverb.feedbackDef,
-             AKCostelloReverb.cutoffFrequencyDef]
+            [CostelloReverb.feedbackDef,
+             CostelloReverb.cutoffFrequencyDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKCostelloReverbDSP")
+            akCreateDSP("CostelloReverbDSP")
         }
     }
 

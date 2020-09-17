@@ -8,7 +8,7 @@ import CAudioKit
 /// independent and is determined by the reverberation time (defined as the time in seconds for a signal to
 /// decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 /// 
-public class AKFlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
+public class FlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
@@ -21,7 +21,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
     public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
-        address: akGetParameterAddress("AKFlatFrequencyResponseReverbParameterReverbDuration"),
+        address: akGetParameterAddress("FlatFrequencyResponseReverbParameterReverbDuration"),
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -34,11 +34,11 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKFlatFrequencyResponseReverb.reverbDurationDef]
+            [FlatFrequencyResponseReverb.reverbDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKFlatFrequencyResponseReverbDSP")
+            akCreateDSP("FlatFrequencyResponseReverbDSP")
         }
 
         public func setLoopDuration(_ duration: AUValue) {
