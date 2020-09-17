@@ -68,7 +68,7 @@ typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
 AK_API void akCallbackInstrumentSetCallback(AKDSPRef dsp, AKCMIDICallback callback);
 
 // Custom debug
-#define AKPhaseDistortionOscillatorDebugPhase 0
+#define PhaseDistortionOscillatorDebugPhase 0
 #define AKOscillatorDebugPhase 0
 
 // EZAudio

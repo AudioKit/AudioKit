@@ -5,15 +5,15 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKPhaseDistortionOscillatorParameter : AUParameterAddress {
-    AKPhaseDistortionOscillatorParameterFrequency,
-    AKPhaseDistortionOscillatorParameterAmplitude,
-    AKPhaseDistortionOscillatorParameterPhaseDistortion,
-    AKPhaseDistortionOscillatorParameterDetuningOffset,
-    AKPhaseDistortionOscillatorParameterDetuningMultiplier,
+enum PhaseDistortionOscillatorParameter : AUParameterAddress {
+    PhaseDistortionOscillatorParameterFrequency,
+    PhaseDistortionOscillatorParameterAmplitude,
+    PhaseDistortionOscillatorParameterPhaseDistortion,
+    PhaseDistortionOscillatorParameterDetuningOffset,
+    PhaseDistortionOscillatorParameterDetuningMultiplier,
 };
 
-class AKPhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
+class PhaseDistortionOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_pdhalf *pdhalf;
     sp_tabread *tabread;
@@ -27,12 +27,12 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKPhaseDistortionOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKPhaseDistortionOscillatorParameterFrequency] = &frequencyRamp;
-        parameters[AKPhaseDistortionOscillatorParameterAmplitude] = &amplitudeRamp;
-        parameters[AKPhaseDistortionOscillatorParameterPhaseDistortion] = &phaseDistortionRamp;
-        parameters[AKPhaseDistortionOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
-        parameters[AKPhaseDistortionOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+    PhaseDistortionOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[PhaseDistortionOscillatorParameterFrequency] = &frequencyRamp;
+        parameters[PhaseDistortionOscillatorParameterAmplitude] = &amplitudeRamp;
+        parameters[PhaseDistortionOscillatorParameterPhaseDistortion] = &phaseDistortionRamp;
+        parameters[PhaseDistortionOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
+        parameters[PhaseDistortionOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         
         isStarted = false;
     }
@@ -90,7 +90,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
-//                        AKDebugDSP(AKPhaseDistortionOscillatorDebugPhase, ph);
+//                        AKDebugDSP(PhaseDistortionOscillatorDebugPhase, ph);
                         sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
                         tabread->index = pd;
                         sp_tabread_compute(sp, tabread, NULL, &temp);
@@ -105,9 +105,9 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPhaseDistortionOscillatorDSP)
-AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterFrequency)
-AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterAmplitude)
-AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterPhaseDistortion)
-AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterDetuningOffset)
-AK_REGISTER_PARAMETER(AKPhaseDistortionOscillatorParameterDetuningMultiplier)
+AK_REGISTER_DSP(PhaseDistortionOscillatorDSP)
+AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterPhaseDistortion)
+AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterDetuningMultiplier)

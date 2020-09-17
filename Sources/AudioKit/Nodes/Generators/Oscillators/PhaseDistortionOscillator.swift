@@ -10,7 +10,7 @@ import CAudioKit
 /// at different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
+public class PhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 
@@ -25,7 +25,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKPhaseDistortionOscillatorParameterFrequency"),
+        address: akGetParameterAddress("PhaseDistortionOscillatorParameterFrequency"),
         range: 0 ... 20_000,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKPhaseDistortionOscillatorParameterAmplitude"),
+        address: akGetParameterAddress("PhaseDistortionOscillatorParameterAmplitude"),
         range: 0 ... 10,
         unit: .generic,
         flags: .default)
@@ -47,7 +47,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public static let phaseDistortionDef = AKNodeParameterDef(
         identifier: "phaseDistortion",
         name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
-        address: akGetParameterAddress("AKPhaseDistortionOscillatorParameterPhaseDistortion"),
+        address: akGetParameterAddress("PhaseDistortionOscillatorParameterPhaseDistortion"),
         range: -1 ... 1,
         unit: .generic,
         flags: .default)
@@ -58,7 +58,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: akGetParameterAddress("AKPhaseDistortionOscillatorParameterDetuningOffset"),
+        address: akGetParameterAddress("PhaseDistortionOscillatorParameterDetuningOffset"),
         range: -1_000 ... 1_000,
         unit: .hertz,
         flags: .default)
@@ -69,7 +69,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: akGetParameterAddress("AKPhaseDistortionOscillatorParameterDetuningMultiplier"),
+        address: akGetParameterAddress("PhaseDistortionOscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -82,15 +82,15 @@ public class AKPhaseDistortionOscillator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKPhaseDistortionOscillator.frequencyDef,
-             AKPhaseDistortionOscillator.amplitudeDef,
-             AKPhaseDistortionOscillator.phaseDistortionDef,
-             AKPhaseDistortionOscillator.detuningOffsetDef,
-             AKPhaseDistortionOscillator.detuningMultiplierDef]
+            [PhaseDistortionOscillator.frequencyDef,
+             PhaseDistortionOscillator.amplitudeDef,
+             PhaseDistortionOscillator.phaseDistortionDef,
+             PhaseDistortionOscillator.detuningOffsetDef,
+             PhaseDistortionOscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPhaseDistortionOscillatorDSP")
+            akCreateDSP("PhaseDistortionOscillatorDSP")
         }
     }
 

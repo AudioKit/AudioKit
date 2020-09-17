@@ -3,13 +3,13 @@
 import AudioKit
 import XCTest
 
-class AKMorphingOscillatorTests: XCTestCase {
+class MorphingOscillatorTests: XCTestCase {
 
     let waveforms = [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)]
 
     func testDefault() {
         let engine = AudioEngine()
-        let oscillator = AKMorphingOscillator()
+        let oscillator = MorphingOscillator()
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -19,7 +19,7 @@ class AKMorphingOscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let oscillator = AKMorphingOscillator(waveformArray: waveforms)
+        let oscillator = MorphingOscillator(waveformArray: waveforms)
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.index = 1.234
@@ -34,7 +34,7 @@ class AKMorphingOscillatorTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AudioEngine()
-        let oscillator = AKMorphingOscillator(waveformArray: waveforms,
+        let oscillator = MorphingOscillator(waveformArray: waveforms,
                                               frequency: 1_234,
                                               amplitude: 0.5,
                                               index: 1.234,

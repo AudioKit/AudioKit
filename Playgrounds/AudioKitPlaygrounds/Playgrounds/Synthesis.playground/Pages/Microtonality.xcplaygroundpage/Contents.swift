@@ -9,7 +9,7 @@ var transposition: Int = 0
 var performanceCounter: Int = 0
 
 // OSC
-let osc = AKMorphingOscillatorBank()
+let osc = MorphingOscillatorBank()
 osc.index = 0.8
 osc.attackDuration = 0.001
 osc.decayDuration = 0.25

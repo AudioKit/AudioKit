@@ -7,7 +7,7 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 /// 
-public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
+public class MorphingOscillator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
@@ -22,7 +22,7 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (in Hz)",
-        address: akGetParameterAddress("AKMorphingOscillatorParameterFrequency"),
+        address: akGetParameterAddress("MorphingOscillatorParameterFrequency"),
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -33,7 +33,7 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
-        address: akGetParameterAddress("AKMorphingOscillatorParameterAmplitude"),
+        address: akGetParameterAddress("MorphingOscillatorParameterAmplitude"),
         range: 0.0 ... 1.0,
         unit: .hertz,
         flags: .default)
@@ -44,7 +44,7 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public static let indexDef = AKNodeParameterDef(
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
-        address: akGetParameterAddress("AKMorphingOscillatorParameterIndex"),
+        address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
         range: 0.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -55,7 +55,7 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: akGetParameterAddress("AKMorphingOscillatorParameterDetuningOffset"),
+        address: akGetParameterAddress("MorphingOscillatorParameterDetuningOffset"),
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -66,7 +66,7 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: akGetParameterAddress("AKMorphingOscillatorParameterDetuningMultiplier"),
+        address: akGetParameterAddress("MorphingOscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -79,15 +79,15 @@ public class AKMorphingOscillator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKMorphingOscillator.frequencyDef,
-             AKMorphingOscillator.amplitudeDef,
-             AKMorphingOscillator.indexDef,
-             AKMorphingOscillator.detuningOffsetDef,
-             AKMorphingOscillator.detuningMultiplierDef]
+            [MorphingOscillator.frequencyDef,
+             MorphingOscillator.amplitudeDef,
+             MorphingOscillator.indexDef,
+             MorphingOscillator.detuningOffsetDef,
+             MorphingOscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKMorphingOscillatorDSP")
+            akCreateDSP("MorphingOscillatorDSP")
         }
     }
 

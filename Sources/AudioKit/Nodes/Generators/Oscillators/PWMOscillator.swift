@@ -10,7 +10,7 @@ import CAudioKit
 /// different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
+public class PWMOscillator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
 
@@ -23,7 +23,7 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKPWMOscillatorParameterFrequency"),
+        address: akGetParameterAddress("PWMOscillatorParameterFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -34,7 +34,7 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKPWMOscillatorParameterAmplitude"),
+        address: akGetParameterAddress("PWMOscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .hertz,
         flags: .default)
@@ -45,7 +45,7 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public static let pulseWidthDef = AKNodeParameterDef(
         identifier: "pulseWidth",
         name: "Pulse Width",
-        address: akGetParameterAddress("AKPWMOscillatorParameterPulseWidth"),
+        address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -56,7 +56,7 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningOffsetDef = AKNodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
-        address: akGetParameterAddress("AKPWMOscillatorParameterDetuningOffset"),
+        address: akGetParameterAddress("PWMOscillatorParameterDetuningOffset"),
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -67,7 +67,7 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public static let detuningMultiplierDef = AKNodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
-        address: akGetParameterAddress("AKPWMOscillatorParameterDetuningMultiplier"),
+        address: akGetParameterAddress("PWMOscillatorParameterDetuningMultiplier"),
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -80,15 +80,15 @@ public class AKPWMOscillator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKPWMOscillator.frequencyDef,
-             AKPWMOscillator.amplitudeDef,
-             AKPWMOscillator.pulseWidthDef,
-             AKPWMOscillator.detuningOffsetDef,
-             AKPWMOscillator.detuningMultiplierDef]
+            [PWMOscillator.frequencyDef,
+             PWMOscillator.amplitudeDef,
+             PWMOscillator.pulseWidthDef,
+             PWMOscillator.detuningOffsetDef,
+             PWMOscillator.detuningMultiplierDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPWMOscillatorDSP")
+            akCreateDSP("PWMOscillatorDSP")
         }
     }
 

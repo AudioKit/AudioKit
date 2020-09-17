@@ -1,5 +1,4 @@
 //: # ADC 2018
-import AudioKitPlaygrounds
 import AudioKit
 //: Components
 let mic = engine.input

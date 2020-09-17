@@ -5,15 +5,15 @@
 #include "soundpipe.h"
 #include <vector>
 
-enum AKFMOscillatorParameter : AUParameterAddress {
-    AKFMOscillatorParameterBaseFrequency,
-    AKFMOscillatorParameterCarrierMultiplier,
-    AKFMOscillatorParameterModulatingMultiplier,
-    AKFMOscillatorParameterModulationIndex,
-    AKFMOscillatorParameterAmplitude,
+enum FMOscillatorParameter : AUParameterAddress {
+    FMOscillatorParameterBaseFrequency,
+    FMOscillatorParameterCarrierMultiplier,
+    FMOscillatorParameterModulatingMultiplier,
+    FMOscillatorParameterModulationIndex,
+    FMOscillatorParameterAmplitude,
 };
 
-class AKFMOscillatorDSP : public AKSoundpipeDSPBase {
+class FMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_fosc *fosc;
     sp_ftbl *ftbl;
@@ -25,12 +25,12 @@ private:
     ParameterRamper amplitudeRamp;
 
 public:
-    AKFMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKFMOscillatorParameterBaseFrequency] = &baseFrequencyRamp;
-        parameters[AKFMOscillatorParameterCarrierMultiplier] = &carrierMultiplierRamp;
-        parameters[AKFMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;
-        parameters[AKFMOscillatorParameterModulationIndex] = &modulationIndexRamp;
-        parameters[AKFMOscillatorParameterAmplitude] = &amplitudeRamp;
+    FMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[FMOscillatorParameterBaseFrequency] = &baseFrequencyRamp;
+        parameters[FMOscillatorParameterCarrierMultiplier] = &carrierMultiplierRamp;
+        parameters[FMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;
+        parameters[FMOscillatorParameterModulationIndex] = &modulationIndexRamp;
+        parameters[FMOscillatorParameterAmplitude] = &amplitudeRamp;
         isStarted = false;
     }
 
@@ -85,9 +85,9 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKFMOscillatorDSP)
-AK_REGISTER_PARAMETER(AKFMOscillatorParameterBaseFrequency)
-AK_REGISTER_PARAMETER(AKFMOscillatorParameterCarrierMultiplier)
-AK_REGISTER_PARAMETER(AKFMOscillatorParameterModulatingMultiplier)
-AK_REGISTER_PARAMETER(AKFMOscillatorParameterModulationIndex)
-AK_REGISTER_PARAMETER(AKFMOscillatorParameterAmplitude)
+AK_REGISTER_DSP(FMOscillatorDSP)
+AK_REGISTER_PARAMETER(FMOscillatorParameterBaseFrequency)
+AK_REGISTER_PARAMETER(FMOscillatorParameterCarrierMultiplier)
+AK_REGISTER_PARAMETER(FMOscillatorParameterModulatingMultiplier)
+AK_REGISTER_PARAMETER(FMOscillatorParameterModulationIndex)
+AK_REGISTER_PARAMETER(FMOscillatorParameterAmplitude)

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
+public class FMOscillator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
@@ -20,7 +20,7 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public static let baseFrequencyDef = AKNodeParameterDef(
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
-        address: akGetParameterAddress("AKFMOscillatorParameterBaseFrequency"),
+        address: akGetParameterAddress("FMOscillatorParameterBaseFrequency"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public static let carrierMultiplierDef = AKNodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
-        address: akGetParameterAddress("AKFMOscillatorParameterCarrierMultiplier"),
+        address: akGetParameterAddress("FMOscillatorParameterCarrierMultiplier"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -42,7 +42,7 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public static let modulatingMultiplierDef = AKNodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
-        address: akGetParameterAddress("AKFMOscillatorParameterModulatingMultiplier"),
+        address: akGetParameterAddress("FMOscillatorParameterModulatingMultiplier"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -53,7 +53,7 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public static let modulationIndexDef = AKNodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
-        address: akGetParameterAddress("AKFMOscillatorParameterModulationIndex"),
+        address: akGetParameterAddress("FMOscillatorParameterModulationIndex"),
         range: 0.0 ... 1_000.0,
         unit: .generic,
         flags: .default)
@@ -64,7 +64,7 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKFMOscillatorParameterAmplitude"),
+        address: akGetParameterAddress("FMOscillatorParameterAmplitude"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -77,15 +77,15 @@ public class AKFMOscillator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKFMOscillator.baseFrequencyDef,
-             AKFMOscillator.carrierMultiplierDef,
-             AKFMOscillator.modulatingMultiplierDef,
-             AKFMOscillator.modulationIndexDef,
-             AKFMOscillator.amplitudeDef]
+            [FMOscillator.baseFrequencyDef,
+             FMOscillator.carrierMultiplierDef,
+             FMOscillator.modulatingMultiplierDef,
+             FMOscillator.modulationIndexDef,
+             FMOscillator.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKFMOscillatorDSP")
+            akCreateDSP("FMOscillatorDSP")
         }
     }
 

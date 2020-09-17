@@ -4,15 +4,15 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPWMOscillatorParameter : AUParameterAddress {
-    AKPWMOscillatorParameterFrequency,
-    AKPWMOscillatorParameterAmplitude,
-    AKPWMOscillatorParameterPulseWidth,
-    AKPWMOscillatorParameterDetuningOffset,
-    AKPWMOscillatorParameterDetuningMultiplier,
+enum PWMOscillatorParameter : AUParameterAddress {
+    PWMOscillatorParameterFrequency,
+    PWMOscillatorParameterAmplitude,
+    PWMOscillatorParameterPulseWidth,
+    PWMOscillatorParameterDetuningOffset,
+    PWMOscillatorParameterDetuningMultiplier,
 };
 
-class AKPWMOscillatorDSP : public AKSoundpipeDSPBase {
+class PWMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_blsquare *blsquare;
     ParameterRamper frequencyRamp;
@@ -22,12 +22,12 @@ private:
     ParameterRamper detuningMultiplierRamp;
 
 public:
-    AKPWMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKPWMOscillatorParameterFrequency] = &frequencyRamp;
-        parameters[AKPWMOscillatorParameterAmplitude] = &amplitudeRamp;
-        parameters[AKPWMOscillatorParameterPulseWidth] = &pulseWidthRamp;
-        parameters[AKPWMOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
-        parameters[AKPWMOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
+    PWMOscillatorDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[PWMOscillatorParameterFrequency] = &frequencyRamp;
+        parameters[PWMOscillatorParameterAmplitude] = &amplitudeRamp;
+        parameters[PWMOscillatorParameterPulseWidth] = &pulseWidthRamp;
+        parameters[PWMOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
+        parameters[PWMOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
 
         isStarted = false;
     }
@@ -82,9 +82,9 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPWMOscillatorDSP)
-AK_REGISTER_PARAMETER(AKPWMOscillatorParameterFrequency)
-AK_REGISTER_PARAMETER(AKPWMOscillatorParameterAmplitude)
-AK_REGISTER_PARAMETER(AKPWMOscillatorParameterPulseWidth)
-AK_REGISTER_PARAMETER(AKPWMOscillatorParameterDetuningOffset)
-AK_REGISTER_PARAMETER(AKPWMOscillatorParameterDetuningMultiplier)
+AK_REGISTER_DSP(PWMOscillatorDSP)
+AK_REGISTER_PARAMETER(PWMOscillatorParameterFrequency)
+AK_REGISTER_PARAMETER(PWMOscillatorParameterAmplitude)
+AK_REGISTER_PARAMETER(PWMOscillatorParameterPulseWidth)
+AK_REGISTER_PARAMETER(PWMOscillatorParameterDetuningOffset)
+AK_REGISTER_PARAMETER(PWMOscillatorParameterDetuningMultiplier)
