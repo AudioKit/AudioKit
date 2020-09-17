@@ -4,31 +4,31 @@ import XCTest
 import AudioKit
 import CAudioKit
 
-class AKSequenceTests: XCTestCase {
+class NoteEventSequenceTests: XCTestCase {
 
     func testAdd() {
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
 
         seq.add(noteNumber: 60, position: 1.0, duration: 1.0)
 
-        var newNote = AKSequenceNote()
+        var newNote = SequenceNote()
 
-        newNote.noteOn.status = AKSequence.noteOn
+        newNote.noteOn.status = NoteEventSequence.noteOn
         newNote.noteOn.data1 = 60
         newNote.noteOn.data2 = 127
         newNote.noteOn.beat = 1.0
 
-        newNote.noteOff.status = AKSequence.noteOff
+        newNote.noteOff.status = NoteEventSequence.noteOff
         newNote.noteOff.data1 = 60
         newNote.noteOff.data2 = 127
         newNote.noteOff.beat = 2.0
         
-        XCTAssertEqual(seq, AKSequence(notes: [newNote], events: []))
+        XCTAssertEqual(seq, NoteEventSequence(notes: [newNote], events: []))
     }
 
     func testRemoveNote() {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
         seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
@@ -39,7 +39,7 @@ class AKSequenceTests: XCTestCase {
 
     func testRemoveInstances() {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
         seq.add(noteNumber: 60, position: 0, duration: 0.1)
         seq.add(noteNumber: 62, position: 0.1, duration: 0.1)
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)

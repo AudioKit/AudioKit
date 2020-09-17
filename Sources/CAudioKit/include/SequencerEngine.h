@@ -10,12 +10,12 @@ typedef struct {
     uint8_t data1;
     uint8_t data2;
     double beat;
-} AKSequenceEvent;
+} SequenceEvent;
 
 typedef struct {
-    AKSequenceEvent noteOn;
-    AKSequenceEvent noteOff;
-} AKSequenceNote;
+    SequenceEvent noteOn;
+    SequenceEvent noteOff;
+} SequenceNote;
 
 typedef struct {
     int maximumPlayCount;
@@ -23,7 +23,7 @@ typedef struct {
     double tempo;
     bool loopEnabled;
     uint numberOfLoops;
-} AKSequenceSettings;
+} SequenceSettings;
 
 typedef struct SequencerEngine* SequencerEngineRef;
 
@@ -35,11 +35,11 @@ AK_API void akSequencerEngineDestroy(SequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
 AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
-                                                        const AKSequenceEvent* events,
+                                                        const SequenceEvent* events,
                                                         size_t eventCount,
-                                                        const AKSequenceNote* notes,
+                                                        const SequenceNote* notes,
                                                         size_t noteCount,
-                                                        AKSequenceSettings settings,
+                                                        SequenceSettings settings,
                                                         double sampleRate,
                                                         AUScheduleMIDIEventBlock block);
 

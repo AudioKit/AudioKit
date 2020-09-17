@@ -7,13 +7,13 @@ import AVFoundation
 
 class SequencerEngineTests: XCTestCase {
 
-    func observerTest(sequence: AKSequence,
+    func observerTest(sequence: NoteEventSequence,
                       frameCount: AUAudioFrameCount = 44100,
                       renderCallCount: Int = 1) -> [AKMIDIEvent] {
 
         let engine = akSequencerEngineCreate()
 
-        let settings = AKSequenceSettings(maximumPlayCount: 1,
+        let settings = SequenceSettings(maximumPlayCount: 1,
                                           length: 4,
                                           tempo: 120,
                                           loopEnabled: true,
@@ -31,8 +31,8 @@ class SequencerEngineTests: XCTestCase {
 
         }
 
-        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<AKSequenceEvent>) -> Void in
-            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<AKSequenceNote>) -> Void in
+        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
+            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
                 let observer = SequencerEngineUpdateSequence(engine,
                                                                eventsPtr.baseAddress,
                                                                sequence.events.count,
@@ -65,7 +65,7 @@ class SequencerEngineTests: XCTestCase {
 
     func testBasicSequence() {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
 
         seq.add(noteNumber: 60, position: 0.5, duration: 0.1)
 
@@ -82,13 +82,13 @@ class SequencerEngineTests: XCTestCase {
 
     func testEmpty() {
 
-        let events = observerTest(sequence: AKSequence())
+        let events = observerTest(sequence: NoteEventSequence())
         XCTAssertEqual(events.count, 0)
     }
 
     func testChord() {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
 
         seq.add(noteNumber: 60, position: 0.0, duration: 1.0)
         seq.add(noteNumber: 63, position: 0.0, duration: 1.0)
@@ -102,7 +102,7 @@ class SequencerEngineTests: XCTestCase {
     }
 
     func testLoop() {
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
 
         seq.add(noteNumber: 60, position: 0.0, duration: 0.1)
         seq.add(noteNumber: 63, position: 1.0, duration: 0.1)
@@ -119,7 +119,7 @@ class SequencerEngineTests: XCTestCase {
 
     func testOverlap() {
 
-        var seq = AKSequence()
+        var seq = NoteEventSequence()
 
         seq.add(noteNumber: 60, position: 0.0, duration: 1.0)
         seq.add(noteNumber: 63, position: 0.1, duration: 0.1)

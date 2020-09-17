@@ -104,7 +104,7 @@ open class Sequencer {
         for index in 0 ..< min(midiTracks.count, tracks.count) {
             let track = midiTracks[index]
             tracks[index].clear()
-            var sequence = AKSequence()
+            var sequence = NoteEventSequence()
             for event in track.channelEvents {
                 if let pos = event.positionInBeats {
                     sequence.add(event: event, position: pos)

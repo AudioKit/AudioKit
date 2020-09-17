@@ -97,7 +97,7 @@ open class AKMusicTrack {
         initSequence()
     }
 
-    /// Initialize with a music track and the AKSequence
+    /// Initialize with a music track and the NoteEventSequence
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
