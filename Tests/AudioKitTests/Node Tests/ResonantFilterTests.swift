@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKResonantFilterTests: XCTestCase {
+class ResonantFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKResonantFilter(input, bandwidth: 500)
+        engine.output = ResonantFilter(input, bandwidth: 500)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKResonantFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKResonantFilter(input)
+        engine.output = ResonantFilter(input)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKResonantFilterTests: XCTestCase {
     func testFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKResonantFilter(input, frequency: 1_000)
+        engine.output = ResonantFilter(input, frequency: 1_000)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKResonantFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKResonantFilter(input, frequency: 1_000, bandwidth: 500)
+        engine.output = ResonantFilter(input, frequency: 1_000, bandwidth: 500)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

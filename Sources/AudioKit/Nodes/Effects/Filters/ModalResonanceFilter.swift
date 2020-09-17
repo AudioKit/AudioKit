@@ -7,7 +7,7 @@ import CAudioKit
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
 /// using  passing an impulse through a combination of modal filters.
 /// 
-public class AKModalResonanceFilter: AKNode, AKComponent, AKToggleable {
+public class ModalResonanceFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
@@ -20,7 +20,7 @@ public class AKModalResonanceFilter: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
-        address: akGetParameterAddress("AKModalResonanceFilterParameterFrequency"),
+        address: akGetParameterAddress("ModalResonanceFilterParameterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKModalResonanceFilter: AKNode, AKComponent, AKToggleable {
     public static let qualityFactorDef = AKNodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
-        address: akGetParameterAddress("AKModalResonanceFilterParameterQualityFactor"),
+        address: akGetParameterAddress("ModalResonanceFilterParameterQualityFactor"),
         range: 0.0 ... 100.0,
         unit: .generic,
         flags: .default)
@@ -44,12 +44,12 @@ public class AKModalResonanceFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKModalResonanceFilter.frequencyDef,
-             AKModalResonanceFilter.qualityFactorDef]
+            [ModalResonanceFilter.frequencyDef,
+             ModalResonanceFilter.qualityFactorDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKModalResonanceFilterDSP")
+            akCreateDSP("ModalResonanceFilterDSP")
         }
     }
 

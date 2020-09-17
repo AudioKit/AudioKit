@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
-public class AKToneFilter: AKNode, AKComponent, AKToggleable {
+public class ToneFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
@@ -18,7 +18,7 @@ public class AKToneFilter: AKNode, AKComponent, AKToggleable {
     public static let halfPowerPointDef = AKNodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
-        address: akGetParameterAddress("AKToneFilterParameterHalfPowerPoint"),
+        address: akGetParameterAddress("ToneFilterParameterHalfPowerPoint"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,11 +31,11 @@ public class AKToneFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKToneFilter.halfPowerPointDef]
+            [ToneFilter.halfPowerPointDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKToneFilterDSP")
+            akCreateDSP("ToneFilterDSP")
         }
     }
 

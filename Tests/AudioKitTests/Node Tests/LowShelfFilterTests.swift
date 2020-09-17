@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKLowShelfFilterTests: XCTestCase {
+class LowShelfFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
+        engine.output = LowShelfFilter(input, cutoffFrequency: 100, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKLowShelfFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowShelfFilter(input)
+        engine.output = LowShelfFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKLowShelfFilterTests: XCTestCase {
     func testGain() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowShelfFilter(input, gain: 1)
+        engine.output = LowShelfFilter(input, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

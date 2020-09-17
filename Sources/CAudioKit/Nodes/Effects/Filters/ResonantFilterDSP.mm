@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKResonantFilterParameter : AUParameterAddress {
-    AKResonantFilterParameterFrequency,
-    AKResonantFilterParameterBandwidth,
+enum ResonantFilterParameter : AUParameterAddress {
+    ResonantFilterParameterFrequency,
+    ResonantFilterParameterBandwidth,
 };
 
-class AKResonantFilterDSP : public AKSoundpipeDSPBase {
+class ResonantFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_reson *reson0;
     sp_reson *reson1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper bandwidthRamp;
 
 public:
-    AKResonantFilterDSP() {
-        parameters[AKResonantFilterParameterFrequency] = &frequencyRamp;
-        parameters[AKResonantFilterParameterBandwidth] = &bandwidthRamp;
+    ResonantFilterDSP() {
+        parameters[ResonantFilterParameterFrequency] = &frequencyRamp;
+        parameters[ResonantFilterParameterBandwidth] = &bandwidthRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKResonantFilterDSP)
-AK_REGISTER_PARAMETER(AKResonantFilterParameterFrequency)
-AK_REGISTER_PARAMETER(AKResonantFilterParameterBandwidth)
+AK_REGISTER_DSP(ResonantFilterDSP)
+AK_REGISTER_PARAMETER(ResonantFilterParameterFrequency)
+AK_REGISTER_PARAMETER(ResonantFilterParameterBandwidth)

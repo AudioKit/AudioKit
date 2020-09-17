@@ -4,13 +4,13 @@
 import AVFoundation
 import CAudioKit
 
-/// AKStringResonator passes the input through a network composed of comb, 
+/// StringResonator passes the input through a network composed of comb,
 /// low-pass and all-pass filters, similar to the one used in some versions of the 
 /// Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency 
 /// of the “string” is controlled by the fundamentalFrequency.  
 /// This operation can be used to simulate sympathetic resonances to an input signal.
 /// 
-public class AKStringResonator: AKNode, AKComponent, AKToggleable {
+public class StringResonator: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
@@ -23,7 +23,7 @@ public class AKStringResonator: AKNode, AKComponent, AKToggleable {
     public static let fundamentalFrequencyDef = AKNodeParameterDef(
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
-        address: akGetParameterAddress("AKStringResonatorParameterFundamentalFrequency"),
+        address: akGetParameterAddress("StringResonatorParameterFundamentalFrequency"),
         range: 12.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -34,7 +34,7 @@ public class AKStringResonator: AKNode, AKComponent, AKToggleable {
     public static let feedbackDef = AKNodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: akGetParameterAddress("AKStringResonatorParameterFeedback"),
+        address: akGetParameterAddress("StringResonatorParameterFeedback"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -47,12 +47,12 @@ public class AKStringResonator: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKStringResonator.fundamentalFrequencyDef,
-             AKStringResonator.feedbackDef]
+            [StringResonator.fundamentalFrequencyDef,
+             StringResonator.feedbackDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKStringResonatorDSP")
+            akCreateDSP("StringResonatorDSP")
         }
     }
 

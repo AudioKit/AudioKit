@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-class AKDCBlockDSP : public AKSoundpipeDSPBase {
+class DCBlockDSP : public AKSoundpipeDSPBase {
 private:
     sp_dcblock *dcblock0;
     sp_dcblock *dcblock1;
 
 public:
-    AKDCBlockDSP() {
+    DCBlockDSP() {
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -62,4 +62,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKDCBlockDSP)
+AK_REGISTER_DSP(DCBlockDSP)

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
-public class AKKorgLowPassFilter: AKNode, AKComponent, AKToggleable {
+public class KorgLowPassFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
@@ -18,7 +18,7 @@ public class AKKorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
-        address: akGetParameterAddress("AKKorgLowPassFilterParameterCutoffFrequency"),
+        address: akGetParameterAddress("KorgLowPassFilterParameterCutoffFrequency"),
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKKorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     public static let resonanceDef = AKNodeParameterDef(
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
-        address: akGetParameterAddress("AKKorgLowPassFilterParameterResonance"),
+        address: akGetParameterAddress("KorgLowPassFilterParameterResonance"),
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class AKKorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     public static let saturationDef = AKNodeParameterDef(
         identifier: "saturation",
         name: "Filter saturation.",
-        address: akGetParameterAddress("AKKorgLowPassFilterParameterSaturation"),
+        address: akGetParameterAddress("KorgLowPassFilterParameterSaturation"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -53,13 +53,13 @@ public class AKKorgLowPassFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKKorgLowPassFilter.cutoffFrequencyDef,
-             AKKorgLowPassFilter.resonanceDef,
-             AKKorgLowPassFilter.saturationDef]
+            [KorgLowPassFilter.cutoffFrequencyDef,
+             KorgLowPassFilter.resonanceDef,
+             KorgLowPassFilter.saturationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKKorgLowPassFilterDSP")
+            akCreateDSP("KorgLowPassFilterDSP")
         }
     }
 

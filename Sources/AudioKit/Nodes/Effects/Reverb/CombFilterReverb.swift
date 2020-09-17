@@ -10,7 +10,7 @@ import CAudioKit
 /// or 60dB down from its original amplitude). Output from a comb filter will appear
 /// only after loopDuration seconds.
 /// 
-public class AKCombFilterReverb: AKNode, AKComponent, AKToggleable {
+public class CombFilterReverb: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
@@ -23,7 +23,7 @@ public class AKCombFilterReverb: AKNode, AKComponent, AKToggleable {
     public static let reverbDurationDef = AKNodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
-        address: akGetParameterAddress("AKCombFilterReverbParameterReverbDuration"),
+        address: akGetParameterAddress("CombFilterReverbParameterReverbDuration"),
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -36,11 +36,11 @@ public class AKCombFilterReverb: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKCombFilterReverb.reverbDurationDef]
+            [CombFilterReverb.reverbDurationDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKCombFilterReverbDSP")
+            akCreateDSP("CombFilterReverbDSP")
         }
 
         public func setLoopDuration(_ duration: AUValue) {

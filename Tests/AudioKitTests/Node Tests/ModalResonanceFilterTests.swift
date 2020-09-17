@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKModalResonanceFilterTests: XCTestCase {
+class ModalResonanceFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKModalResonanceFilter(input)
+        engine.output = ModalResonanceFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     func testFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKModalResonanceFilter(input, frequency: 400)
+        engine.output = ModalResonanceFilter(input, frequency: 400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKModalResonanceFilter(input, frequency: 400, qualityFactor: 66)
+        engine.output = ModalResonanceFilter(input, frequency: 400, qualityFactor: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKModalResonanceFilterTests: XCTestCase {
     func testQualityFactor() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKModalResonanceFilter(input, qualityFactor: 66)
+        engine.output = ModalResonanceFilter(input, qualityFactor: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

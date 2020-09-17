@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class DCBlockTests: XCTestCase {
+class DCBlockOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

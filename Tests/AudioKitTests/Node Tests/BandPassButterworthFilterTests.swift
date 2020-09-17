@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKBandPassButterworthFilterTests: XCTestCase {
+class BandPassButterworthFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKBandPassButterworthFilter(input, bandwidth: 200)
+        engine.output = BandPassButterworthFilter(input, bandwidth: 200)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
     func testCenterFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500)
+        engine.output = BandPassButterworthFilter(input, centerFrequency: 1_500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKBandPassButterworthFilter(input)
+        engine.output = BandPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKBandPassButterworthFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKBandPassButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
+        engine.output = BandPassButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

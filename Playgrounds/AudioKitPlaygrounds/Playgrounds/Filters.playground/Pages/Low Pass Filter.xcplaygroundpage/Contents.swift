@@ -11,7 +11,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var filter = AKLowPassFilter(player)
+var filter = LowPassFilter(player)
 filter.cutoffFrequency = 6_900 // Hz
 filter.resonance = 0 // dB
 

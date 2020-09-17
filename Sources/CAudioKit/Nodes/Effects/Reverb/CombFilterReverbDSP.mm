@@ -4,11 +4,11 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKCombFilterReverbParameter : AUParameterAddress {
-    AKCombFilterReverbParameterReverbDuration,
+enum CombFilterReverbParameter : AUParameterAddress {
+    CombFilterReverbParameterReverbDuration,
 };
 
-class AKCombFilterReverbDSP : public AKSoundpipeDSPBase {
+class CombFilterReverbDSP : public AKSoundpipeDSPBase {
 private:
     sp_comb *comb0;
     sp_comb *comb1;
@@ -16,8 +16,8 @@ private:
     ParameterRamper reverbDurationRamp;
 
 public:
-    AKCombFilterReverbDSP() {
-        parameters[AKCombFilterReverbParameterReverbDuration] = &reverbDurationRamp;
+    CombFilterReverbDSP() {
+        parameters[CombFilterReverbParameterReverbDuration] = &reverbDurationRamp;
     }
 
     void setLoopDuration(float duration) {
@@ -79,11 +79,11 @@ public:
 };
 
 AK_API void akCombFilterReverbSetLoopDuration(AKDSPRef dspRef, float duration) {
-    auto dsp = dynamic_cast<AKCombFilterReverbDSP *>(dspRef);
+    auto dsp = dynamic_cast<CombFilterReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
     
 }
 
-AK_REGISTER_DSP(AKCombFilterReverbDSP)
-AK_REGISTER_PARAMETER(AKCombFilterReverbParameterReverbDuration)
+AK_REGISTER_DSP(CombFilterReverbDSP)
+AK_REGISTER_PARAMETER(CombFilterReverbParameterReverbDuration)

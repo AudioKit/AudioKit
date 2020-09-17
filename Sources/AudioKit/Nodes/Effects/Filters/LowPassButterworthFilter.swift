@@ -7,7 +7,7 @@ import CAudioKit
 /// These filters are Butterworth second-order IIR filters. They offer an almost flat
 /// passband and very good precision and stopband attenuation.
 /// 
-public class AKLowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
+public class LowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btlp")
 
@@ -20,7 +20,7 @@ public class AKLowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
     public static let cutoffFrequencyDef = AKNodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
-        address: akGetParameterAddress("AKLowPassButterworthFilterParameterCutoffFrequency"),
+        address: akGetParameterAddress("LowPassButterworthFilterParameterCutoffFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -33,11 +33,11 @@ public class AKLowPassButterworthFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKLowPassButterworthFilter.cutoffFrequencyDef]
+            [LowPassButterworthFilter.cutoffFrequencyDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKLowPassButterworthFilterDSP")
+            akCreateDSP("LowPassButterworthFilterDSP")
         }
     }
 

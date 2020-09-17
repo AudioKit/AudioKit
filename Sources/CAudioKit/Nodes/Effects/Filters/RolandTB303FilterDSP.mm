@@ -4,14 +4,14 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKRolandTB303FilterParameter : AUParameterAddress {
-    AKRolandTB303FilterParameterCutoffFrequency,
-    AKRolandTB303FilterParameterResonance,
-    AKRolandTB303FilterParameterDistortion,
-    AKRolandTB303FilterParameterResonanceAsymmetry,
+enum RolandTB303FilterParameter : AUParameterAddress {
+    RolandTB303FilterParameterCutoffFrequency,
+    RolandTB303FilterParameterResonance,
+    RolandTB303FilterParameterDistortion,
+    RolandTB303FilterParameterResonanceAsymmetry,
 };
 
-class AKRolandTB303FilterDSP : public AKSoundpipeDSPBase {
+class RolandTB303FilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_tbvcf *tbvcf0;
     sp_tbvcf *tbvcf1;
@@ -21,11 +21,11 @@ private:
     ParameterRamper resonanceAsymmetryRamp;
 
 public:
-    AKRolandTB303FilterDSP() {
-        parameters[AKRolandTB303FilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
-        parameters[AKRolandTB303FilterParameterResonance] = &resonanceRamp;
-        parameters[AKRolandTB303FilterParameterDistortion] = &distortionRamp;
-        parameters[AKRolandTB303FilterParameterResonanceAsymmetry] = &resonanceAsymmetryRamp;
+    RolandTB303FilterDSP() {
+        parameters[RolandTB303FilterParameterCutoffFrequency] = &cutoffFrequencyRamp;
+        parameters[RolandTB303FilterParameterResonance] = &resonanceRamp;
+        parameters[RolandTB303FilterParameterDistortion] = &distortionRamp;
+        parameters[RolandTB303FilterParameterResonanceAsymmetry] = &resonanceAsymmetryRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -93,8 +93,8 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKRolandTB303FilterDSP)
-AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterCutoffFrequency)
-AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterResonance)
-AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterDistortion)
-AK_REGISTER_PARAMETER(AKRolandTB303FilterParameterResonanceAsymmetry)
+AK_REGISTER_DSP(RolandTB303FilterDSP)
+AK_REGISTER_PARAMETER(RolandTB303FilterParameterCutoffFrequency)
+AK_REGISTER_PARAMETER(RolandTB303FilterParameterResonance)
+AK_REGISTER_PARAMETER(RolandTB303FilterParameterDistortion)
+AK_REGISTER_PARAMETER(RolandTB303FilterParameterResonanceAsymmetry)

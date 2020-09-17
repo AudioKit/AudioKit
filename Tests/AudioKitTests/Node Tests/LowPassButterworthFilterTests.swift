@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKLowPassButterworthFilterTests: XCTestCase {
+class LowPassButterworthFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassButterworthFilter(input, cutoffFrequency: 500)
+        engine.output = LowPassButterworthFilter(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKLowPassButterworthFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKLowPassButterworthFilter(input)
+        engine.output = LowPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

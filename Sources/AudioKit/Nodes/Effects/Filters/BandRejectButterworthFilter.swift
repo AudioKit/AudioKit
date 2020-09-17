@@ -7,7 +7,7 @@ import CAudioKit
 /// These filters are Butterworth second-order IIR filters. 
 /// They offer an almost flat passband and very good precision and stopband attenuation.
 /// 
-public class AKBandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
+public class BandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
@@ -20,7 +20,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
     public static let centerFrequencyDef = AKNodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
-        address: akGetParameterAddress("AKBandRejectButterworthFilterParameterCenterFrequency"),
+        address: akGetParameterAddress("BandRejectButterworthFilterParameterCenterFrequency"),
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
     public static let bandwidthDef = AKNodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
-        address: akGetParameterAddress("AKBandRejectButterworthFilterParameterBandwidth"),
+        address: akGetParameterAddress("BandRejectButterworthFilterParameterBandwidth"),
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -44,12 +44,12 @@ public class AKBandRejectButterworthFilter: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKBandRejectButterworthFilter.centerFrequencyDef,
-             AKBandRejectButterworthFilter.bandwidthDef]
+            [BandRejectButterworthFilter.centerFrequencyDef,
+             BandRejectButterworthFilter.bandwidthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKBandRejectButterworthFilterDSP")
+            akCreateDSP("BandRejectButterworthFilterDSP")
         }
     }
 

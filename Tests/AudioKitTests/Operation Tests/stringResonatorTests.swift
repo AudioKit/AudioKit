@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class StringResonatorTests: XCTestCase {
+class StringResonatorOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

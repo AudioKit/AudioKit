@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
-public class AKTremolo: AKNode, AKComponent, AKToggleable {
+public class Tremolo: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
@@ -18,7 +18,7 @@ public class AKTremolo: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: akGetParameterAddress("AKTremoloParameterFrequency"),
+        address: akGetParameterAddress("TremoloParameterFrequency"),
         range: 0.0 ... 100.0,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class AKTremolo: AKNode, AKComponent, AKToggleable {
     public static let depthDef = AKNodeParameterDef(
         identifier: "depth",
         name: "Depth",
-        address: akGetParameterAddress("AKTremoloParameterDepth"),
+        address: akGetParameterAddress("TremoloParameterDepth"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -42,12 +42,12 @@ public class AKTremolo: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKTremolo.frequencyDef,
-             AKTremolo.depthDef]
+            [Tremolo.frequencyDef,
+             Tremolo.depthDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKTremoloDSP")
+            akCreateDSP("TremoloDSP")
         }
     }
 

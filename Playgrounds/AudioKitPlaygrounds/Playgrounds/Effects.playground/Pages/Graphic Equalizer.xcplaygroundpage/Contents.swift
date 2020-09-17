@@ -8,12 +8,12 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let filterBand2 = AKEqualizerFilter(player, centerFrequency: 32, bandwidth: 44.7, gain: 1.0)
-let filterBand3 = AKEqualizerFilter(filterBand2, centerFrequency: 64, bandwidth: 70.8, gain: 1.0)
-let filterBand4 = AKEqualizerFilter(filterBand3, centerFrequency: 125, bandwidth: 141, gain: 1.0)
-let filterBand5 = AKEqualizerFilter(filterBand4, centerFrequency: 250, bandwidth: 282, gain: 1.0)
-let filterBand6 = AKEqualizerFilter(filterBand5, centerFrequency: 500, bandwidth: 562, gain: 1.0)
-let filterBand7 = AKEqualizerFilter(filterBand6, centerFrequency: 1_000, bandwidth: 1_112, gain: 1.0)
+let filterBand2 = EqualizerFilter(player, centerFrequency: 32, bandwidth: 44.7, gain: 1.0)
+let filterBand3 = EqualizerFilter(filterBand2, centerFrequency: 64, bandwidth: 70.8, gain: 1.0)
+let filterBand4 = EqualizerFilter(filterBand3, centerFrequency: 125, bandwidth: 141, gain: 1.0)
+let filterBand5 = EqualizerFilter(filterBand4, centerFrequency: 250, bandwidth: 282, gain: 1.0)
+let filterBand6 = EqualizerFilter(filterBand5, centerFrequency: 500, bandwidth: 562, gain: 1.0)
+let filterBand7 = EqualizerFilter(filterBand6, centerFrequency: 1_000, bandwidth: 1_112, gain: 1.0)
 
 engine.output = filterBand7
 try engine.start()

@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKStringResonatorParameter : AUParameterAddress {
-    AKStringResonatorParameterFundamentalFrequency,
-    AKStringResonatorParameterFeedback,
+enum StringResonatorParameter : AUParameterAddress {
+    StringResonatorParameterFundamentalFrequency,
+    StringResonatorParameterFeedback,
 };
 
-class AKStringResonatorDSP : public AKSoundpipeDSPBase {
+class StringResonatorDSP : public AKSoundpipeDSPBase {
 private:
     sp_streson *streson0;
     sp_streson *streson1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper feedbackRamp;
 
 public:
-    AKStringResonatorDSP() {
-        parameters[AKStringResonatorParameterFundamentalFrequency] = &fundamentalFrequencyRamp;
-        parameters[AKStringResonatorParameterFeedback] = &feedbackRamp;
+    StringResonatorDSP() {
+        parameters[StringResonatorParameterFundamentalFrequency] = &fundamentalFrequencyRamp;
+        parameters[StringResonatorParameterFeedback] = &feedbackRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKStringResonatorDSP)
-AK_REGISTER_PARAMETER(AKStringResonatorParameterFundamentalFrequency)
-AK_REGISTER_PARAMETER(AKStringResonatorParameterFeedback)
+AK_REGISTER_DSP(StringResonatorDSP)
+AK_REGISTER_PARAMETER(StringResonatorParameterFundamentalFrequency)
+AK_REGISTER_PARAMETER(StringResonatorParameterFeedback)

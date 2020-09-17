@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable {
+open class HighPassFilter: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

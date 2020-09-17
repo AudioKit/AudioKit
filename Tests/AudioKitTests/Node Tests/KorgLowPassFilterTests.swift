@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKKorgLowPassFilterTests: XCTestCase {
+class KorgLowPassFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKKorgLowPassFilter(input, cutoffFrequency: 500)
+        engine.output = KorgLowPassFilter(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKKorgLowPassFilterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKKorgLowPassFilter(input)
+        engine.output = KorgLowPassFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKKorgLowPassFilterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKKorgLowPassFilter(input, cutoffFrequency: 500, resonance: 0.5, saturation: 1)
+        engine.output = KorgLowPassFilter(input, cutoffFrequency: 500, resonance: 0.5, saturation: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKKorgLowPassFilterTests: XCTestCase {
     func testResonance() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKKorgLowPassFilter(input, resonance: 0.5)
+        engine.output = KorgLowPassFilter(input, resonance: 0.5)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -48,7 +48,7 @@ class AKKorgLowPassFilterTests: XCTestCase {
     func testSaturation() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKKorgLowPassFilter(input, saturation: 1)
+        engine.output = KorgLowPassFilter(input, saturation: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

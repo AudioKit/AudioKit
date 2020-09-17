@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKBandRejectButterworthFilterParameter : AUParameterAddress {
-    AKBandRejectButterworthFilterParameterCenterFrequency,
-    AKBandRejectButterworthFilterParameterBandwidth,
+enum BandRejectButterworthFilterParameter : AUParameterAddress {
+    BandRejectButterworthFilterParameterCenterFrequency,
+    BandRejectButterworthFilterParameterBandwidth,
 };
 
-class AKBandRejectButterworthFilterDSP : public AKSoundpipeDSPBase {
+class BandRejectButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_butbr *butbr0;
     sp_butbr *butbr1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper bandwidthRamp;
 
 public:
-    AKBandRejectButterworthFilterDSP() {
-        parameters[AKBandRejectButterworthFilterParameterCenterFrequency] = &centerFrequencyRamp;
-        parameters[AKBandRejectButterworthFilterParameterBandwidth] = &bandwidthRamp;
+    BandRejectButterworthFilterDSP() {
+        parameters[BandRejectButterworthFilterParameterCenterFrequency] = &centerFrequencyRamp;
+        parameters[BandRejectButterworthFilterParameterBandwidth] = &bandwidthRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKBandRejectButterworthFilterDSP)
-AK_REGISTER_PARAMETER(AKBandRejectButterworthFilterParameterCenterFrequency)
-AK_REGISTER_PARAMETER(AKBandRejectButterworthFilterParameterBandwidth)
+AK_REGISTER_DSP(BandRejectButterworthFilterDSP)
+AK_REGISTER_PARAMETER(BandRejectButterworthFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(BandRejectButterworthFilterParameterBandwidth)

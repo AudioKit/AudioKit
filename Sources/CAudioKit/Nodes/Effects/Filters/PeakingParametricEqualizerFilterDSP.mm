@@ -4,13 +4,13 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKPeakingParametricEqualizerFilterParameter : AUParameterAddress {
-    AKPeakingParametricEqualizerFilterParameterCenterFrequency,
-    AKPeakingParametricEqualizerFilterParameterGain,
-    AKPeakingParametricEqualizerFilterParameterQ,
+enum PeakingParametricEqualizerFilterParameter : AUParameterAddress {
+    PeakingParametricEqualizerFilterParameterCenterFrequency,
+    PeakingParametricEqualizerFilterParameterGain,
+    PeakingParametricEqualizerFilterParameterQ,
 };
 
-class AKPeakingParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
+class PeakingParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_pareq *pareq0;
     sp_pareq *pareq1;
@@ -19,10 +19,10 @@ private:
     ParameterRamper qRamp;
 
 public:
-    AKPeakingParametricEqualizerFilterDSP() {
-        parameters[AKPeakingParametricEqualizerFilterParameterCenterFrequency] = &centerFrequencyRamp;
-        parameters[AKPeakingParametricEqualizerFilterParameterGain] = &gainRamp;
-        parameters[AKPeakingParametricEqualizerFilterParameterQ] = &qRamp;
+    PeakingParametricEqualizerFilterDSP() {
+        parameters[PeakingParametricEqualizerFilterParameterCenterFrequency] = &centerFrequencyRamp;
+        parameters[PeakingParametricEqualizerFilterParameterGain] = &gainRamp;
+        parameters[PeakingParametricEqualizerFilterParameterQ] = &qRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKPeakingParametricEqualizerFilterDSP)
-AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterCenterFrequency)
-AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterGain)
-AK_REGISTER_PARAMETER(AKPeakingParametricEqualizerFilterParameterQ)
+AK_REGISTER_DSP(PeakingParametricEqualizerFilterDSP)
+AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterCenterFrequency)
+AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterGain)
+AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterQ)

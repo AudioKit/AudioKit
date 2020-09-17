@@ -4,12 +4,12 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKModalResonanceFilterParameter : AUParameterAddress {
-    AKModalResonanceFilterParameterFrequency,
-    AKModalResonanceFilterParameterQualityFactor,
+enum ModalResonanceFilterParameter : AUParameterAddress {
+    ModalResonanceFilterParameterFrequency,
+    ModalResonanceFilterParameterQualityFactor,
 };
 
-class AKModalResonanceFilterDSP : public AKSoundpipeDSPBase {
+class ModalResonanceFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_mode *mode0;
     sp_mode *mode1;
@@ -17,9 +17,9 @@ private:
     ParameterRamper qualityFactorRamp;
 
 public:
-    AKModalResonanceFilterDSP() {
-        parameters[AKModalResonanceFilterParameterFrequency] = &frequencyRamp;
-        parameters[AKModalResonanceFilterParameterQualityFactor] = &qualityFactorRamp;
+    ModalResonanceFilterDSP() {
+        parameters[ModalResonanceFilterParameterFrequency] = &frequencyRamp;
+        parameters[ModalResonanceFilterParameterQualityFactor] = &qualityFactorRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKModalResonanceFilterDSP)
-AK_REGISTER_PARAMETER(AKModalResonanceFilterParameterFrequency)
-AK_REGISTER_PARAMETER(AKModalResonanceFilterParameterQualityFactor)
+AK_REGISTER_DSP(ModalResonanceFilterDSP)
+AK_REGISTER_PARAMETER(ModalResonanceFilterParameterFrequency)
+AK_REGISTER_PARAMETER(ModalResonanceFilterParameterQualityFactor)

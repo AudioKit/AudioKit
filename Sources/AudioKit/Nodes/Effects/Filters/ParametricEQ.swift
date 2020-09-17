@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class AKParametricEQ: AKNode, AKToggleable {
+open class ParametricEQ: AKNode, AKToggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

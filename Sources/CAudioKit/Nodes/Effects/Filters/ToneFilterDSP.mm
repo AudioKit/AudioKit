@@ -4,19 +4,19 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-enum AKToneFilterParameter : AUParameterAddress {
-    AKToneFilterParameterHalfPowerPoint,
+enum ToneFilterParameter : AUParameterAddress {
+    ToneFilterParameterHalfPowerPoint,
 };
 
-class AKToneFilterDSP : public AKSoundpipeDSPBase {
+class ToneFilterDSP : public AKSoundpipeDSPBase {
 private:
     sp_tone *tone0;
     sp_tone *tone1;
     ParameterRamper halfPowerPointRamp;
 
 public:
-    AKToneFilterDSP() {
-        parameters[AKToneFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
+    ToneFilterDSP() {
+        parameters[ToneFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKToneFilterDSP)
-AK_REGISTER_PARAMETER(AKToneFilterParameterHalfPowerPoint)
+AK_REGISTER_DSP(ToneFilterDSP)
+AK_REGISTER_PARAMETER(ToneFilterParameterHalfPowerPoint)

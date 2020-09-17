@@ -8,7 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var filter = AKRolandTB303Filter(player)
+var filter = RolandTB303Filter(player)
 filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 

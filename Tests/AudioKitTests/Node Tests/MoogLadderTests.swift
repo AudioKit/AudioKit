@@ -3,12 +3,12 @@
 import AudioKit
 import XCTest
 
-class AKMoogLadderTests: XCTestCase {
+class MoogLadderTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKMoogLadder(input, cutoffFrequency: 500)
+        engine.output = MoogLadder(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -18,7 +18,7 @@ class AKMoogLadderTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKMoogLadder(input)
+        engine.output = MoogLadder(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -28,7 +28,7 @@ class AKMoogLadderTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKMoogLadder(input, cutoffFrequency: 500, resonance: 0.9)
+        engine.output = MoogLadder(input, cutoffFrequency: 500, resonance: 0.9)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -38,7 +38,7 @@ class AKMoogLadderTests: XCTestCase {
     func testResonance() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKMoogLadder(input, resonance: 0.9)
+        engine.output = MoogLadder(input, resonance: 0.9)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
