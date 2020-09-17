@@ -5,15 +5,15 @@
 #include "soundpipe.h"
 #include "vocwrapper.h"
 
-enum AKVocalTractParameter : AUParameterAddress {
-    AKVocalTractParameterFrequency,
-    AKVocalTractParameterTonguePosition,
-    AKVocalTractParameterTongueDiameter,
-    AKVocalTractParameterTenseness,
-    AKVocalTractParameterNasality,
+enum VocalTractParameter : AUParameterAddress {
+    VocalTractParameterFrequency,
+    VocalTractParameterTonguePosition,
+    VocalTractParameterTongueDiameter,
+    VocalTractParameterTenseness,
+    VocalTractParameterNasality,
 };
 
-class AKVocalTractDSP : public AKSoundpipeDSPBase {
+class VocalTractDSP : public AKSoundpipeDSPBase {
 private:
     sp_vocwrapper *vocwrapper;
     ParameterRamper frequencyRamp;
@@ -23,12 +23,12 @@ private:
     ParameterRamper nasalityRamp;
 
 public:
-    AKVocalTractDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[AKVocalTractParameterFrequency] = &frequencyRamp;
-        parameters[AKVocalTractParameterTonguePosition] = &tonguePositionRamp;
-        parameters[AKVocalTractParameterTongueDiameter] = &tongueDiameterRamp;
-        parameters[AKVocalTractParameterTenseness] = &tensenessRamp;
-        parameters[AKVocalTractParameterNasality] = &nasalityRamp;
+    VocalTractDSP() : AKSoundpipeDSPBase(/*inputBusCount*/0) {
+        parameters[VocalTractParameterFrequency] = &frequencyRamp;
+        parameters[VocalTractParameterTonguePosition] = &tonguePositionRamp;
+        parameters[VocalTractParameterTongueDiameter] = &tongueDiameterRamp;
+        parameters[VocalTractParameterTenseness] = &tensenessRamp;
+        parameters[VocalTractParameterNasality] = &nasalityRamp;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -83,9 +83,9 @@ public:
     }
 };
 
-AK_REGISTER_DSP(AKVocalTractDSP)
-AK_REGISTER_PARAMETER(AKVocalTractParameterFrequency)
-AK_REGISTER_PARAMETER(AKVocalTractParameterTonguePosition)
-AK_REGISTER_PARAMETER(AKVocalTractParameterTongueDiameter)
-AK_REGISTER_PARAMETER(AKVocalTractParameterTenseness)
-AK_REGISTER_PARAMETER(AKVocalTractParameterNasality)
+AK_REGISTER_DSP(VocalTractDSP)
+AK_REGISTER_PARAMETER(VocalTractParameterFrequency)
+AK_REGISTER_PARAMETER(VocalTractParameterTonguePosition)
+AK_REGISTER_PARAMETER(VocalTractParameterTongueDiameter)
+AK_REGISTER_PARAMETER(VocalTractParameterTenseness)
+AK_REGISTER_PARAMETER(VocalTractParameterNasality)

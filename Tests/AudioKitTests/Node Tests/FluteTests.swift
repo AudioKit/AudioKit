@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKFluteTests: XCTestCase {
+class FluteTests: XCTestCase {
 
     func testFlute() {
         let engine = AudioEngine()
-        let flute = AKFlute()
+        let flute = Flute()
         flute.trigger(note: 69)
         engine.output = flute
 
@@ -19,7 +19,7 @@ class AKFluteTests: XCTestCase {
 
     func testVelocity() {
         let engine = AudioEngine()
-        let flute = AKFlute()
+        let flute = Flute()
         flute.trigger(note: 69, velocity: 64)
         engine.output = flute
         let audio = engine.startTest(totalDuration: 1.0)

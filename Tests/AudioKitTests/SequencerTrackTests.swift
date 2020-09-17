@@ -16,7 +16,7 @@ class AKSequencerTrackTests: XCTestCase {
     }
 
     func testEmptyTrack() {
-        let flute = AKFlute()
+        let flute = Flute()
         let seq = AKSequencerTrack(targetNode: flute)
         XCTAssertFalse(seq.isPlaying)
 
@@ -26,7 +26,7 @@ class AKSequencerTrackTests: XCTestCase {
 
     func testLoop() {
         let engine = AudioEngine()
-        let flute = AKFlute()
+        let flute = Flute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute
@@ -43,7 +43,7 @@ class AKSequencerTrackTests: XCTestCase {
     func testOneShot() {
 
         let engine = AudioEngine()
-        let flute = AKFlute()
+        let flute = Flute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute
@@ -61,7 +61,7 @@ class AKSequencerTrackTests: XCTestCase {
     func testTempo() {
 
         let engine = AudioEngine()
-        let flute = AKFlute()
+        let flute = Flute()
 
         let track = AKSequencerTrack(targetNode: flute)
         engine.output = flute

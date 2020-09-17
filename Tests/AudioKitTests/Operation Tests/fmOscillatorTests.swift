@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class FMOscillatorTests: XCTestCase {
+class FMOscillatorOperationTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()

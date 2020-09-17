@@ -7,7 +7,7 @@ import CAudioKit
 /// Karplus-Strong plucked string instrument.
 /// TODO This node needs tests
 /// 
-public class AKPluckedString: AKNode, AKComponent, AKToggleable {
+public class PluckedString: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
@@ -20,7 +20,7 @@ public class AKPluckedString: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
-        address: akGetParameterAddress("AKPluckedStringParameterFrequency"),
+        address: akGetParameterAddress("PluckedStringParameterFrequency"),
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -31,7 +31,7 @@ public class AKPluckedString: AKNode, AKComponent, AKToggleable {
     public static let amplitudeDef = AKNodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
-        address: akGetParameterAddress("AKPluckedStringParameterAmplitude"),
+        address: akGetParameterAddress("PluckedStringParameterAmplitude"),
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -44,12 +44,12 @@ public class AKPluckedString: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKPluckedString.frequencyDef,
-             AKPluckedString.amplitudeDef]
+            [PluckedString.frequencyDef,
+             PluckedString.amplitudeDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKPluckedStringDSP")
+            akCreateDSP("PluckedStringDSP")
         }
     }
 

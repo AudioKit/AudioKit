@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK RhodesPiano
 ///
-public class AKRhodesPianoKey: AKNode, AKToggleable, AKComponent {
+public class RhodesPianoKey: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
 
@@ -18,7 +18,7 @@ public class AKRhodesPianoKey: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKRhodesPianoKeyDSP")
+            return akCreateDSP("RhodesPianoKeyDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {

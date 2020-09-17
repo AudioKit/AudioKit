@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Mandolin
 ///
-public class AKMandolinString: AKNode, AKToggleable, AKComponent {
+public class MandolinString: AKNode, AKToggleable, AKComponent {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "mand")
 
@@ -18,7 +18,7 @@ public class AKMandolinString: AKNode, AKToggleable, AKComponent {
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> AKDSPRef {
-            return akCreateDSP("AKMandolinStringDSP")
+            return akCreateDSP("MandolinStringDSP")
         }
 
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {

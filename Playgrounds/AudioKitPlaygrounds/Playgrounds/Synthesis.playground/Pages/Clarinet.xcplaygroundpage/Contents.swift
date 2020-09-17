@@ -1,12 +1,11 @@
 //: ## Clarinet
 //: Physical model of a Clarinet
-import AudioKitPlaygrounds
 import AudioKit
 import PlaygroundSupport
 
 let playRate = 2.0
 
-let clarinet = AKClarinet()
+let clarinet = Clarinet()
 
 let reverb = AKReverb(clarinet)
 

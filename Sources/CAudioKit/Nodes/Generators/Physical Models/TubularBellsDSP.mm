@@ -6,13 +6,13 @@
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
-class AKTubularBellsDSP : public AKSTKInstrumentDSP {
+class TubularBellsDSP : public AKSTKInstrumentDSP {
 private:
     stk::TubeBell *tubularBells = nullptr;
 
 public:
-    AKTubularBellsDSP() {}
-    ~AKTubularBellsDSP() = default;
+    TubularBellsDSP() {}
+    ~TubularBellsDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
@@ -50,4 +50,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKTubularBellsDSP);
+AK_REGISTER_DSP(TubularBellsDSP);

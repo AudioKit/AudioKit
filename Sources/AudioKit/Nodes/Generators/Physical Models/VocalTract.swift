@@ -10,7 +10,7 @@ import CAudioKit
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
 /// 
-public class AKVocalTract: AKNode, AKComponent, AKToggleable {
+public class VocalTract: AKNode, AKComponent, AKToggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
@@ -23,7 +23,7 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public static let frequencyDef = AKNodeParameterDef(
         identifier: "frequency",
         name: "Glottal frequency.",
-        address: akGetParameterAddress("AKVocalTractParameterFrequency"),
+        address: akGetParameterAddress("VocalTractParameterFrequency"),
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -34,7 +34,7 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public static let tonguePositionDef = AKNodeParameterDef(
         identifier: "tonguePosition",
         name: "Tongue position (0-1)",
-        address: akGetParameterAddress("AKVocalTractParameterTonguePosition"),
+        address: akGetParameterAddress("VocalTractParameterTonguePosition"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -45,7 +45,7 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public static let tongueDiameterDef = AKNodeParameterDef(
         identifier: "tongueDiameter",
         name: "Tongue diameter (0-1)",
-        address: akGetParameterAddress("AKVocalTractParameterTongueDiameter"),
+        address: akGetParameterAddress("VocalTractParameterTongueDiameter"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -56,7 +56,7 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public static let tensenessDef = AKNodeParameterDef(
         identifier: "tenseness",
         name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
-        address: akGetParameterAddress("AKVocalTractParameterTenseness"),
+        address: akGetParameterAddress("VocalTractParameterTenseness"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -67,7 +67,7 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public static let nasalityDef = AKNodeParameterDef(
         identifier: "nasality",
         name: "Sets the velum size. Larger values of this creates more nasally sounds.",
-        address: akGetParameterAddress("AKVocalTractParameterNasality"),
+        address: akGetParameterAddress("VocalTractParameterNasality"),
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -80,15 +80,15 @@ public class AKVocalTract: AKNode, AKComponent, AKToggleable {
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [AKNodeParameterDef] {
-            [AKVocalTract.frequencyDef,
-             AKVocalTract.tonguePositionDef,
-             AKVocalTract.tongueDiameterDef,
-             AKVocalTract.tensenessDef,
-             AKVocalTract.nasalityDef]
+            [VocalTract.frequencyDef,
+             VocalTract.tonguePositionDef,
+             VocalTract.tongueDiameterDef,
+             VocalTract.tensenessDef,
+             VocalTract.nasalityDef]
         }
 
         public override func createDSP() -> AKDSPRef {
-            akCreateDSP("AKVocalTractDSP")
+            akCreateDSP("VocalTractDSP")
         }
     }
 

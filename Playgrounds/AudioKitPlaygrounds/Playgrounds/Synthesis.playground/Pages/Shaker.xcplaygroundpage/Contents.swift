@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let shaker = AKShaker()
+let shaker = Shaker()
 
 var delay = Delay(shaker)
 delay.time = 1.5 / playRate
@@ -15,7 +15,7 @@ delay.feedback = 0.2
 let reverb = AKReverb(delay)
 
 let performance = AKPeriodicFunction(frequency: playRate) {
-    shaker.type = AKShakerType(rawValue: UInt8(random(in: 0...22))) ?? .cabasa
+    shaker.type = ShakerType(rawValue: UInt8(random(in: 0...22))) ?? .cabasa
     shaker.trigger(amplitude: random(in: 0...1))
 }
 

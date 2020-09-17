@@ -4,14 +4,14 @@ import XCTest
 import AudioKit
 import CAudioKit
 
-class AKShakerTests: XCTestCase {
+class ShakerTests: XCTestCase {
 
     func testShaker() {
         let engine = AudioEngine()
 
         akSetSeed(0)
 
-        let shaker = AKShaker()
+        let shaker = Shaker()
         shaker.trigger(type: .maraca)
         engine.output = shaker
 
@@ -25,7 +25,7 @@ class AKShakerTests: XCTestCase {
 
         akSetSeed(0)
 
-        let shaker = AKShaker()
+        let shaker = Shaker()
         shaker.trigger(type: .tunedBambooChimes)
         engine.output = shaker
 
@@ -39,7 +39,7 @@ class AKShakerTests: XCTestCase {
 
         akSetSeed(0)
 
-        let shaker = AKShaker()
+        let shaker = Shaker()
         shaker.trigger(type: .tunedBambooChimes, amplitude: 1.0)
         engine.output = shaker
 

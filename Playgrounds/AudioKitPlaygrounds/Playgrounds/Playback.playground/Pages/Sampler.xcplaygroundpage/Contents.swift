@@ -1,6 +1,6 @@
 //: ## Sampler
 //: Loading a sampler with a reference wav file
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

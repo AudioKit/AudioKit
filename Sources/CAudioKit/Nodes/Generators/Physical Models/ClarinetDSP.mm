@@ -4,13 +4,13 @@
 
 #include "Clarinet.h"
 
-class AKClarinetDSP : public AKSTKInstrumentDSP {
+class ClarinetDSP : public AKSTKInstrumentDSP {
 private:
     stk::Clarinet *clarinet = nullptr;
 
 public:
-    AKClarinetDSP() {}
-    ~AKClarinetDSP() = default;
+    ClarinetDSP() {}
+    ~ClarinetDSP() = default;
 
     void init(int channelCount, double sampleRate) override {
         AKDSPBase::init(channelCount, sampleRate);
@@ -31,4 +31,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKClarinetDSP);
+AK_REGISTER_DSP(ClarinetDSP);

@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKMandolinStringTests: XCTestCase {
+class MandolinStringTests: XCTestCase {
 
     func testMandolin() {
         let engine = AudioEngine()
-        let mandolin = AKMandolinString()
+        let mandolin = MandolinString()
         mandolin.trigger(note: 69)
         engine.output = mandolin
         let audio = engine.startTest(totalDuration: 1.0)
@@ -18,7 +18,7 @@ class AKMandolinStringTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()
-        let mandolin = AKMandolinString()
+        let mandolin = MandolinString()
         mandolin.trigger(note: 69, velocity: 64)
         engine.output = mandolin
         let audio = engine.startTest(totalDuration: 1.0)

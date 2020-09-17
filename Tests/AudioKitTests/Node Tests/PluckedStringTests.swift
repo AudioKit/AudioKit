@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class AKPluckedStringTests: XCTestCase {
+class PluckedStringTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let pluck = AKPluckedString()
+        let pluck = PluckedString()
         pluck.start()
         pluck.trigger()
         engine.output = pluck

@@ -7,7 +7,7 @@ import AudioKitUI
 
 var playRate = 2.0
 
-let drip = AKDrip(intensity: 1)
+let drip = Drip(intensity: 1)
 drip.intensity = 100
 
 let reverb = AKReverb(drip)
