@@ -170,8 +170,8 @@ extension AVAudioPCMBuffer {
     /// if you only want one of them
     public func fade(inTime: Double,
                      outTime: Double,
-                     inRampType: AKSettings.RampType = .exponential,
-                     outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+                     inRampType: Settings.RampType = .exponential,
+                     outRampType: Settings.RampType = .exponential) -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
             Log("Error fading buffer, returning original...")
             return self

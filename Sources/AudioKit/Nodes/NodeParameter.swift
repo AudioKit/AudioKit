@@ -67,10 +67,10 @@ public class NodeParameter {
     /// - Parameter events: automation curve
     /// - Parameter startTime: optional time to start automation
     public func automate(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
-        var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+        var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {
-            lastRenderTime = AVAudioTime(sampleTime: 0, atRate: AKSettings.sampleRate)
+            lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
         }
 
         var lastTime = startTime ?? lastRenderTime
@@ -92,7 +92,7 @@ public class NodeParameter {
 
             guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
                                                                         avAudioUnit.auAudioUnit.scheduleParameterBlock,
-                                                                        Float(AKSettings.sampleRate),
+                                                                        Float(Settings.sampleRate),
                                                                         Float(lastTime.sampleTime),
                                                                         automationBaseAddress,
                                                                         events.count) else { return }
@@ -105,7 +105,7 @@ public class NodeParameter {
     public func ramp(to value: AUValue, duration: Float) {
         let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate,
-                   AUAudioFrameCount(duration * Float(AKSettings.sampleRate)),
+                   AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
                    range.clamp(value))
     }

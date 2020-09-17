@@ -15,7 +15,7 @@ open class AudioUnitBase: AUAudioUnit {
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
-        let format = AKSettings.audioFormat
+        let format = Settings.audioFormat
 
         try inputBusArray.forEach { if $0.format != format { try $0.setFormat(format) } }
         try outputBusArray.forEach { if $0.format != format { try $0.setFormat(format) } }
@@ -103,7 +103,7 @@ open class AudioUnitBase: AUAudioUnit {
         if dsp == nil { throw AKError.InvalidDSPObject }
 
         // create audio bus connection points
-        let format = AKSettings.audioFormat
+        let format = Settings.audioFormat
         for _ in 0..<inputBusCountDSP(dsp) {
             inputBusArray.append(try AUAudioUnitBus(format: format))
         }

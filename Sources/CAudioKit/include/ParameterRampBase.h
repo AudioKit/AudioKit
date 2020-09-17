@@ -15,7 +15,7 @@ protected:
     float _startValue = 0;
     int64_t _duration = 0;  // in samples
     int64_t _startSample = 0;
-    int _rampType = 0; // see AKSettings.RampType
+    int _rampType = 0; // see Settings.RampType
 
     void updateTarget(int64_t atSample)
     {

@@ -129,7 +129,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
                 break Exit
             }
 
-            theOutputFormat.mSampleRate = AKSettings.sampleRate
+            theOutputFormat.mSampleRate = Settings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8

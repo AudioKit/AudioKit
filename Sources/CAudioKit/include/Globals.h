@@ -2,7 +2,7 @@
 
 #pragma once
 
-// Avoid needing to expose AKSettings to ObjC.
+// Avoid needing to expose Settings to ObjC.
 // Note that eventually we shouldn't have these globals.
 
 #ifdef __cplusplus

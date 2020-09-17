@@ -6,7 +6,7 @@
     import Foundation
     import os.log
 
-    extension AKSettings {
+    extension Settings {
         /// Global audio format AudioKit will default to for new objects and connections
         public static var audioFormat = defaultAudioFormat {
             didSet {
@@ -105,7 +105,7 @@
         /// Set the audio session type
         public static func setSession(category: SessionCategory,
                                       with options: AVAudioSession.CategoryOptions = []) throws {
-            guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+            guard Settings.disableAVAudioSessionCategoryManagement == false else { return }
 
             do {
                 try AKTry {
@@ -158,9 +158,9 @@
         }
 
         public static func computedSessionCategory() -> SessionCategory {
-            if AKSettings.audioInputEnabled {
+            if Settings.audioInputEnabled {
                 return .playAndRecord
-            } else if AKSettings.playbackWhileMuted {
+            } else if Settings.playbackWhileMuted {
                 return .playback
             } else {
                 return .ambient
@@ -170,11 +170,11 @@
         public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
             var options: AVAudioSession.CategoryOptions = []
 
-            if AKSettings.mixWithOthers {
+            if Settings.mixWithOthers {
                 options = options.union(.mixWithOthers)
             }
 
-            if AKSettings.audioInputEnabled {
+            if Settings.audioInputEnabled {
                 #if !os(tvOS)
                     if #available(iOS 10.0, *) {
                         // Blueooth Options
@@ -184,9 +184,9 @@
                         // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
                         // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
                         // priority for routing.
-                        if !AKSettings.bluetoothOptions.isEmpty {
-                            options = options.union(AKSettings.bluetoothOptions)
-                        } else if AKSettings.useBluetooth {
+                        if !Settings.bluetoothOptions.isEmpty {
+                            options = options.union(Settings.bluetoothOptions)
+                        } else if Settings.useBluetooth {
                             // If bluetoothOptions aren't specified
                             // but useBluetooth is then we will use these defaults
                             options = options.union([.allowBluetooth,
@@ -194,17 +194,17 @@
                         }
 
                         // AirPlay
-                        if AKSettings.allowAirPlay {
+                        if Settings.allowAirPlay {
                             options = options.union(.allowAirPlay)
                         }
-                    } else if !AKSettings.bluetoothOptions.isEmpty ||
-                        AKSettings.useBluetooth ||
-                        AKSettings.allowAirPlay {
-                        Log("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
+                    } else if !Settings.bluetoothOptions.isEmpty ||
+                        Settings.useBluetooth ||
+                        Settings.allowAirPlay {
+                        Log("Some of the specified Settings are not supported by iOS 9 and were ignored.")
                     }
 
                     // Default to Speaker
-                    if AKSettings.defaultToSpeaker {
+                    if Settings.defaultToSpeaker {
                         options = options.union(.defaultToSpeaker)
                     }
 

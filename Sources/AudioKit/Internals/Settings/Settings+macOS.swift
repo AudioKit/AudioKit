@@ -5,7 +5,7 @@
 import AVFoundation
 import os.log
 
-extension AKSettings {
+extension Settings {
     /// Global audio format AudioKit will default to for new objects and connections
     public static var audioFormat = defaultAudioFormat
 

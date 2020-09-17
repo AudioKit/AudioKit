@@ -6,7 +6,7 @@ import CAudioKit
 
 /// FFT Calculation for any node
 open class FFTTap: Toggleable {
-//    public let fftSize: AKSettings.BufferLength
+//    public let fftSize: Settings.BufferLength
 //    internal var bufferSize: UInt32 { fftSize.samplesCount }
 
     public private(set) var bufferSize: UInt32
