@@ -1,6 +1,6 @@
 //: ## Plucked String
 //: Experimenting with a physical model of a string
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0

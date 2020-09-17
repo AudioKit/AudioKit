@@ -1,6 +1,6 @@
 //: ## Microtonality
 
-import AudioKitPlaygrounds
+
 import AudioKit
 
 // SEQUENCER PARAMETERS

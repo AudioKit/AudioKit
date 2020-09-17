@@ -1,5 +1,5 @@
 //: ## Tubular Bells
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0

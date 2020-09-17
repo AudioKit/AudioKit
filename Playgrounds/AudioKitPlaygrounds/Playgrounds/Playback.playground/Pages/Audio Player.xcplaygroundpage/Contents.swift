@@ -1,6 +1,6 @@
 //: ## Audio Player
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 import PlaygroundSupport

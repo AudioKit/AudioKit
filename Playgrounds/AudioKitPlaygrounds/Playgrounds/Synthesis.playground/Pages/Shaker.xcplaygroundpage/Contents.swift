@@ -1,6 +1,6 @@
 //: ## Shaker
 //: Experimenting with a physical model of shakers
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0

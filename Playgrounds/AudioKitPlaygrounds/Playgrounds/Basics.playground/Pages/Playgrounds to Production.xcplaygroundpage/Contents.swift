@@ -11,7 +11,7 @@
 //: important ways playground code differs from production code.
 //:
 //: In production, you would only import AudioKit, not AudioKitPlaygrounds
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: ### Memory management

@@ -1,6 +1,6 @@
 //: ## Bit Crush Operation
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

@@ -1,6 +1,6 @@
 //: ## Sawtooth Wave Oscillator Operation
 //: Maybe the most annoying sound ever. Sorry.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: Set up the operations that will be used to make a generator node

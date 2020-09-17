@@ -1,6 +1,6 @@
 //: ## Noise Operations
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let generator = AKOperationGenerator {

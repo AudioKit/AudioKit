@@ -1,7 +1,7 @@
 //: ## Filter Envelope
 //:
 //: This is a pretty advanced example.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 enum SynthParameter: Int {

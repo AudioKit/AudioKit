@@ -1,7 +1,7 @@
 //: ## Sample Player
 //: An alternative to AppleSampler or AKAudioPlayer, AKSamplePlayer is a player that
 //: doesn't rely on an as much Apple AV foundation/engine code as the others.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let file = try AVAudioFile(readFileName: "alphabet.mp3")

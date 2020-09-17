@@ -1,7 +1,7 @@
 //: ## Vocal Tract Operation
 //:
 //: Sometimes as audio developers, we just like to have some fun.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0

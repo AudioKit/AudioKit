@@ -1,6 +1,6 @@
 //: ## Phasor Operation
 //: Using the phasor to sweep amplitude and frequencies
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let interval: Double = 2

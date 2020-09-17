@@ -3,7 +3,7 @@
 //: AKMIDITransformer which takes the quantized scale and generates chords
 //: from it.  You can chain as many AKMIDITransformers as you want, and
 //: each can take an array of AKMIDIEvents to process
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let sampler = AppleSampler()

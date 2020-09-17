@@ -1,7 +1,7 @@
 //: ## Sporth Based Generator
 //: AudioKit nodes can be created using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: With this playground you can load up a few demonstration sporth patches to try out.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")

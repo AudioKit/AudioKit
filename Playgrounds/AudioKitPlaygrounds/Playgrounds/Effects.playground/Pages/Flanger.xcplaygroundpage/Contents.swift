@@ -1,5 +1,5 @@
 //: ## Flanger
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

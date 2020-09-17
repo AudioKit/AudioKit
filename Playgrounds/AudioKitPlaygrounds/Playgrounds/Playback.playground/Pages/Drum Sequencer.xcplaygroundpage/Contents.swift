@@ -1,6 +1,6 @@
 //: ## Drum Sequencer
 
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let drums = AKMIDISampler()

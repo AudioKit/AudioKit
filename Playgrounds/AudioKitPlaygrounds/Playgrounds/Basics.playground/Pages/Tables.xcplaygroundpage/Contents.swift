@@ -5,7 +5,7 @@
 //:
 //: Tables are simply arrays of floats that can hold anything, but
 //: usually waveforms.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let square = AKTable(.square, count: 128)

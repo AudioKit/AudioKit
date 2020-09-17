@@ -1,6 +1,6 @@
 //: ## Mandolin
 //: Physical model of a mandolin
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0
