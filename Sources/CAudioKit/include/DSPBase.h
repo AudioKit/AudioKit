@@ -190,12 +190,12 @@ struct AKDSPRegistration {
 /// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("AKMyClass")`
 #define AK_REGISTER_DSP(ClassName) AKDSPRegistration<ClassName> __register##ClassName(#ClassName);
 
-struct AKParameterRegistration {
-    AKParameterRegistration(const char* name, AUParameterAddress address) {
+struct ParameterRegistration {
+    ParameterRegistration(const char* name, AUParameterAddress address) {
         DSPBase::addParameter(name, address);
     }
 };
 
-#define AK_REGISTER_PARAMETER(ParamAddress) AKParameterRegistration __register_param_##ParamAddress(#ParamAddress, ParamAddress);
+#define AK_REGISTER_PARAMETER(ParamAddress) ParameterRegistration __register_param_##ParamAddress(#ParamAddress, ParamAddress);
 
 #endif

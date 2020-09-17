@@ -19,7 +19,6 @@ engine.output = effect
 try engine.start()
 player.play()
 
-import AudioKitUI
 
 class LiveView: View {
 

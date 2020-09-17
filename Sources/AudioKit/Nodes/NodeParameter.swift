@@ -90,12 +90,12 @@ public class NodeParameter {
 
             guard let automationBaseAddress = automationPtr.baseAddress else { return }
 
-            guard let observer = AKParameterAutomationGetRenderObserver(parameter.address,
-                                                                        avAudioUnit.auAudioUnit.scheduleParameterBlock,
-                                                                        Float(Settings.sampleRate),
-                                                                        Float(lastTime.sampleTime),
-                                                                        automationBaseAddress,
-                                                                        events.count) else { return }
+            guard let observer = ParameterAutomationGetRenderObserver(parameter.address,
+                                                                      avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                      Float(Settings.sampleRate),
+                                                                      Float(lastTime.sampleTime),
+                                                                      automationBaseAddress,
+                                                                      events.count) else { return }
 
             renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
         }
@@ -158,7 +158,7 @@ public class NodeParameter {
     }
 
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
-    /// enabled in AKParameterAutomation.
+    /// enabled in ParameterAutomation.
     /// A value may be passed as the initial automation value. The current value is used if none is passed.
     public func beginTouch(value: AUValue? = nil) {
         guard let value = value ?? parameter?.value else { return }

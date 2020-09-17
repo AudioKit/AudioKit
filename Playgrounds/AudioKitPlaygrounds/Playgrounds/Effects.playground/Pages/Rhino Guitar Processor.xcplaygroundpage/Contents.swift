@@ -19,7 +19,6 @@ do {
     Log(error.localizedDescription)
 }
 //: User Interface Set up
-import AudioKitUI
 
 class LiveView: View {
 

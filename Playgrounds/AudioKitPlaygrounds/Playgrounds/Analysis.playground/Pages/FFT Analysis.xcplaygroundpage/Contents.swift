@@ -2,7 +2,6 @@
 //:
 
 import AudioKit
-import AudioKitUI
 
 let file = try AVAudioFile(readFileName: "leadloop.wav")
 

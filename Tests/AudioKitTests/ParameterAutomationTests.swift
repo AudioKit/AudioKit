@@ -24,12 +24,12 @@ class ParameterAutomationTests: XCTestCase {
         }
 
         let observer: AURenderObserver = events.withUnsafeBufferPointer { automationPtr in
-            AKParameterAutomationGetRenderObserver(address,
-                                                   scheduleParameterBlock,
-                                                   44100,
-                                                   startTime,
-                                                   automationPtr.baseAddress!,
-                                                   events.count)
+            ParameterAutomationGetRenderObserver(address,
+                                                 scheduleParameterBlock,
+                                                 44100,
+                                                 startTime,
+                                                 automationPtr.baseAddress!,
+                                                 events.count)
         }
 
         var timeStamp = AudioTimeStamp()

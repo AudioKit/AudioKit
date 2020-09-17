@@ -33,7 +33,6 @@ sequencer.setGlobalMIDIOutput(drums.midiIn)
 sequencer.enableLooping(Duration(beats: 4))
 sequencer.setTempo(150)
 
-import AudioKitUI
 
 class LiveView: View {
 

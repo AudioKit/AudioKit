@@ -61,7 +61,6 @@ synth.start()
 //: Setup the user interface
 let playgroundWidth = 500
 
-import AudioKitUI
 
 class LiveView: View, KeyboardDelegate {
 

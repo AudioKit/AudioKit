@@ -36,13 +36,9 @@ engine.output = mixer
 try engine.start()
 
 //: Build our User interface
-import AudioKitUI
 
 class LiveView: View, KeyboardDelegate {
 
-    var recordLabel: AKLabel!
-    var playLabel: AKLabel!
-    var playButton: Button!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
