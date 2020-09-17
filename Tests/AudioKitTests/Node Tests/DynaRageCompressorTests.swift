@@ -19,7 +19,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testAttackTime() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input, ratio: 10, attackDuration: 21)
+        engine.output = DynaRageCompressor(input, ratio: 10, attackDuration: 21)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -29,7 +29,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input)
+        engine.output = DynaRageCompressor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -39,7 +39,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input,
+        engine.output = DynaRageCompressor(input,
                                       ratio: 10,
                                       threshold: -1,
                                       attackDuration: 21,
@@ -53,7 +53,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testRage() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input, ratio: 10, rage: 10)
+        engine.output = DynaRageCompressor(input, ratio: 10, rage: 10)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -63,7 +63,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testRatio() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input, ratio: 10)
+        engine.output = DynaRageCompressor(input, ratio: 10)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -73,7 +73,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testReleaseTime() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input, ratio: 10, releaseDuration: 22)
+        engine.output = DynaRageCompressor(input, ratio: 10, releaseDuration: 22)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -83,7 +83,7 @@ class AKDynaRangeCompressorTests: XCTestCase {
     func testThreshold() {
         let engine = AudioEngine()
         let input = Oscillator()
-        engine.output = AKDynaRageCompressor(input, ratio: 10, threshold: -1)
+        engine.output = DynaRageCompressor(input, ratio: 10, threshold: -1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

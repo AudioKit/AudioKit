@@ -8,7 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var effect = AKDynaRageCompressor(player)
+var effect = DynaRageCompressor(player)
 
 engine.output = effect
 try engine.start()

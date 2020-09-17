@@ -6,7 +6,7 @@ import CAudioKit
 #if !os(tvOS)
 
 /// Kick Drum Synthesizer Instrument
-public class AKSynthKick: AKMIDIInstrument {
+public class SynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
 //    var filter: MoogLadder
@@ -46,7 +46,7 @@ public class AKSynthKick: AKMIDIInstrument {
 }
 
 /// Snare Drum Synthesizer Instrument
-public class AKSynthSnare: AKMIDIInstrument {
+public class SynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
 //    var filter: MoogLadder

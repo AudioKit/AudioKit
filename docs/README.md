@@ -31,5 +31,5 @@ There are many sample projects included in AudioKit's `Examples` folder. The exa
 ## Sampler Overviews
 
 * [Survey of AudioKit's Sampler Options](Samplers.md)
-* [AKSampler in-depth](AKSampler.md)
+* [Sampler in-depth](Sampler.md)
 * [Preparing Sample Sets](PreparingSampleSets.md)

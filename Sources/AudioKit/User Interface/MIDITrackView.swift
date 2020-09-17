@@ -26,7 +26,7 @@ self.view.addSubview(self.trackView1)
 
 self.trackView1.play()
 
-If you are using an AKAppleSampler or AKSampler, sequencer, etc,
+If you are using an AKAppleSampler or Sampler, sequencer, etc,
 you will want to play the track directly before you play through the sequencer
 so the sound is synced with the playback.
 

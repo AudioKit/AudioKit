@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class AutoWahTests: XCTestCase {
+class AutoWahOperationTests: XCTestCase {
 
     func testAmplitude() {
         let engine = AudioEngine()

@@ -5,51 +5,51 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Interop.h"
 
-typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
+typedef NS_ENUM(AUParameterAddress, SamplerParameter)
 {
     // ramped parameters
-    AKSamplerParameterMasterVolume,
-    AKSamplerParameterPitchBend,
-    AKSamplerParameterVibratoDepth,
-    AKSamplerParameterVibratoFrequency,
-    AKSamplerParameterVoiceVibratoDepth,
-    AKSamplerParameterVoiceVibratoFrequency,
-    AKSamplerParameterFilterCutoff,
-    AKSamplerParameterFilterStrength,
-    AKSamplerParameterFilterResonance,
-    AKSamplerParameterGlideRate,
+    SamplerParameterMasterVolume,
+    SamplerParameterPitchBend,
+    SamplerParameterVibratoDepth,
+    SamplerParameterVibratoFrequency,
+    SamplerParameterVoiceVibratoDepth,
+    SamplerParameterVoiceVibratoFrequency,
+    SamplerParameterFilterCutoff,
+    SamplerParameterFilterStrength,
+    SamplerParameterFilterResonance,
+    SamplerParameterGlideRate,
 
     // simple parameters
-    AKSamplerParameterAttackDuration,
-    AKSamplerParameterHoldDuration,
-    AKSamplerParameterDecayDuration,
-    AKSamplerParameterSustainLevel,
-    AKSamplerParameterReleaseHoldDuration,
-    AKSamplerParameterReleaseDuration,
-    AKSamplerParameterFilterAttackDuration,
-    AKSamplerParameterFilterDecayDuration,
-    AKSamplerParameterFilterSustainLevel,
-    AKSamplerParameterFilterReleaseDuration,
-    AKSamplerParameterFilterEnable,
-    AKSamplerParameterRestartVoiceLFO,
-    AKSamplerParameterPitchAttackDuration,
-    AKSamplerParameterPitchDecayDuration,
-    AKSamplerParameterPitchSustainLevel,
-    AKSamplerParameterPitchReleaseDuration,
-    AKSamplerParameterPitchADSRSemitones,
-    AKSamplerParameterLoopThruRelease,
-    AKSamplerParameterMonophonic,
-    AKSamplerParameterLegato,
-    AKSamplerParameterKeyTrackingFraction,
-    AKSamplerParameterFilterEnvelopeVelocityScaling,
+    SamplerParameterAttackDuration,
+    SamplerParameterHoldDuration,
+    SamplerParameterDecayDuration,
+    SamplerParameterSustainLevel,
+    SamplerParameterReleaseHoldDuration,
+    SamplerParameterReleaseDuration,
+    SamplerParameterFilterAttackDuration,
+    SamplerParameterFilterDecayDuration,
+    SamplerParameterFilterSustainLevel,
+    SamplerParameterFilterReleaseDuration,
+    SamplerParameterFilterEnable,
+    SamplerParameterRestartVoiceLFO,
+    SamplerParameterPitchAttackDuration,
+    SamplerParameterPitchDecayDuration,
+    SamplerParameterPitchSustainLevel,
+    SamplerParameterPitchReleaseDuration,
+    SamplerParameterPitchADSRSemitones,
+    SamplerParameterLoopThruRelease,
+    SamplerParameterMonophonic,
+    SamplerParameterLegato,
+    SamplerParameterKeyTrackingFraction,
+    SamplerParameterFilterEnvelopeVelocityScaling,
     
     // ensure this is always last in the list, to simplify parameter addressing
-    AKSamplerParameterRampDuration,
+    SamplerParameterRampDuration,
 };
 
 #include "Sampler_Typedefs.h"
 
-AK_API AKDSPRef akAKSamplerCreateDSP(void);
+AK_API AKDSPRef akSamplerCreateDSP(void);
 AK_API void akSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
 AK_API void akSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
 AK_API void akSamplerUnloadAllSamples(AKDSPRef pDSP);
@@ -69,7 +69,7 @@ AK_API void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 #include "CoreSampler.h"
 #include "LinearParameterRamp.h"
 
-struct AKSamplerDSP : AKDSPBase, AKCoreSampler
+struct SamplerDSP : AKDSPBase, AKCoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
@@ -84,7 +84,7 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp pitchADSRSemitonesRamp;
     AKLinearParameterRamp glideRateRamp;
     
-    AKSamplerDSP();
+    SamplerDSP();
     void init(int channelCount, double sampleRate) override;
     void deinit() override;
 

@@ -157,7 +157,7 @@ open class AKAppleSampler: AKNode {
                 self.samplerUnit.reset()
             }
         } catch {
-            AKLog("Error AKSampler.loadPath loading file at \(filePath)")
+            AKLog("Error Sampler.loadPath loading file at \(filePath)")
             throw error
         }
     }

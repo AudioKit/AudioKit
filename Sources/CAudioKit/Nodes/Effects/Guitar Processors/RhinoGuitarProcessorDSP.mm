@@ -8,16 +8,16 @@
 #include <math.h>
 #include <memory>
 
-enum AKRhinoGuitarProcessorParameter : AUParameterAddress {
-    AKRhinoGuitarProcessorParameterPreGain,
-    AKRhinoGuitarProcessorParameterPostGain,
-    AKRhinoGuitarProcessorParameterLowGain,
-    AKRhinoGuitarProcessorParameterMidGain,
-    AKRhinoGuitarProcessorParameterHighGain,
-    AKRhinoGuitarProcessorParameterDistortion
+enum RhinoGuitarProcessorParameter : AUParameterAddress {
+    RhinoGuitarProcessorParameterPreGain,
+    RhinoGuitarProcessorParameterPostGain,
+    RhinoGuitarProcessorParameterLowGain,
+    RhinoGuitarProcessorParameterMidGain,
+    RhinoGuitarProcessorParameterHighGain,
+    RhinoGuitarProcessorParameterDistortion
 };
 
-class AKRhinoGuitarProcessorDSP : public AKDSPBase {
+class RhinoGuitarProcessorDSP : public AKDSPBase {
 private:
     std::unique_ptr<RageProcessor> leftRageProcessor;
     std::unique_ptr<RageProcessor> rightRageProcessor;
@@ -40,13 +40,13 @@ private:
     ParameterRamper distortionRamper;
 
 public:
-    AKRhinoGuitarProcessorDSP() {
-        parameters[AKRhinoGuitarProcessorParameterPreGain] = &preGainRamper;
-        parameters[AKRhinoGuitarProcessorParameterPostGain] = &postGainRamper;
-        parameters[AKRhinoGuitarProcessorParameterLowGain] = &lowGainRamper;
-        parameters[AKRhinoGuitarProcessorParameterMidGain] = &midGainRamper;
-        parameters[AKRhinoGuitarProcessorParameterHighGain] = &highGainRamper;
-        parameters[AKRhinoGuitarProcessorParameterDistortion] = &distortionRamper;
+    RhinoGuitarProcessorDSP() {
+        parameters[RhinoGuitarProcessorParameterPreGain] = &preGainRamper;
+        parameters[RhinoGuitarProcessorParameterPostGain] = &postGainRamper;
+        parameters[RhinoGuitarProcessorParameterLowGain] = &lowGainRamper;
+        parameters[RhinoGuitarProcessorParameterMidGain] = &midGainRamper;
+        parameters[RhinoGuitarProcessorParameterHighGain] = &highGainRamper;
+        parameters[RhinoGuitarProcessorParameterDistortion] = &distortionRamper;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -112,10 +112,10 @@ public:
 
 };
 
-AK_REGISTER_DSP(AKRhinoGuitarProcessorDSP)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterPreGain)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterPostGain)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterLowGain)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterMidGain)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterHighGain)
-AK_REGISTER_PARAMETER(AKRhinoGuitarProcessorParameterDistortion)
+AK_REGISTER_DSP(RhinoGuitarProcessorDSP)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterPreGain)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterPostGain)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterLowGain)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterMidGain)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterHighGain)
+AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterDistortion)
