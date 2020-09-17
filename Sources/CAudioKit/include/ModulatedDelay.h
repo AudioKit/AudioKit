@@ -7,11 +7,11 @@
 
 #import <memory>
 
-class AKModulatedDelay
+class ModulatedDelay
 {
 public:
-    AKModulatedDelay(AKModulatedDelayType type);
-    ~AKModulatedDelay();
+    ModulatedDelay(ModulatedDelayType type);
+    ~ModulatedDelay();
     
     void init(int channelCount, double sampleRate);
     void deinit();
@@ -32,7 +32,7 @@ public:
 protected:
     float minDelayMs, maxDelayMs, midDelayMs, delayRangeMs;
     float modFreqHz, modDepthFraction, dryWetMix;
-    AKModulatedDelayType effectType;
+    ModulatedDelayType effectType;
 
     struct InternalData;
     std::unique_ptr<InternalData> data;

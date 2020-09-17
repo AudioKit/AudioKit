@@ -6,25 +6,25 @@
 #include "AdjustableDelayLine.hpp"
 #include "FunctionTable.hpp"
 
-struct AKModulatedDelay::InternalData
+struct ModulatedDelay::InternalData
 {
     AudioKitCore::AdjustableDelayLine leftDelayLine, rightDelayLine;
     AudioKitCore::FunctionTableOscillator modOscillator;
 };
 
-AKModulatedDelay::AKModulatedDelay(AKModulatedDelayType type)
+ModulatedDelay::ModulatedDelay(ModulatedDelayType type)
 : modFreqHz(1.0f)
 , modDepthFraction(0.0f)
 , effectType(type), data(new InternalData)
 {
 }
 
-AKModulatedDelay::~AKModulatedDelay()
+ModulatedDelay::~ModulatedDelay()
 {
     deinit();
 }
 
-void AKModulatedDelay::init(int channelCount, double sampleRate)
+void ModulatedDelay::init(int channelCount, double sampleRate)
 {
     minDelayMs = kChorusMinDelayMs;
     maxDelayMs = kChorusMaxDelayMs;
@@ -48,29 +48,29 @@ void AKModulatedDelay::init(int channelCount, double sampleRate)
     data->rightDelayLine.setDelayMs(minDelayMs);
 }
 
-void AKModulatedDelay::deinit()
+void ModulatedDelay::deinit()
 {
     data->leftDelayLine.deinit();
     data->rightDelayLine.deinit();
     data->modOscillator.deinit();
 }
 
-void AKModulatedDelay::setModFrequencyHz(float freq)
+void ModulatedDelay::setModFrequencyHz(float freq)
 {
     data->modOscillator.setFrequency(freq);
 }
 
-void AKModulatedDelay::setLeftFeedback(float feedback)
+void ModulatedDelay::setLeftFeedback(float feedback)
 {
     data->leftDelayLine.setFeedback(feedback);
 }
 
-void AKModulatedDelay::setRightFeedback(float feedback)
+void ModulatedDelay::setRightFeedback(float feedback)
 {
     data->rightDelayLine.setFeedback(feedback);
 }
 
-void AKModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
+void ModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
                               float *inBuffers[], float *outBuffers[])
 {
     float *pInLeft   = inBuffers[0];

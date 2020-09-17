@@ -32,7 +32,7 @@ public class TableView: UIView {
         let padding = 0.9
 
         let border = UIBezierPath(rect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
-        let bgcolor = AKStylist.sharedInstance.nextColor
+        let bgcolor = Stylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()
         UIColor.black.setStroke()
@@ -105,7 +105,7 @@ public class TableView: NSView {
         let padding = 0.9
 
         let border = NSBezierPath(rect: NSRect(size: frame.size))
-        let bgcolor = AKStylist.sharedInstance.nextColor
+        let bgcolor = Stylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()
         NSColor.black.setStroke()

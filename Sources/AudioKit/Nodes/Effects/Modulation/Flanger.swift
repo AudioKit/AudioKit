@@ -18,7 +18,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
-        address: AKModulatedDelayParameter.frequency.rawValue,
+        address: ModulatedDelayParameter.frequency.rawValue,
         range: kFlanger_MinFrequency ... kFlanger_MaxFrequency,
         unit: .hertz,
         flags: .default)
@@ -29,7 +29,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
-        address: AKModulatedDelayParameter.depth.rawValue,
+        address: ModulatedDelayParameter.depth.rawValue,
         range: kFlanger_MinDepth ... kFlanger_MaxDepth,
         unit: .generic,
         flags: .default)
@@ -40,7 +40,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
-        address: AKModulatedDelayParameter.feedback.rawValue,
+        address: ModulatedDelayParameter.feedback.rawValue,
         range: kFlanger_MinFeedback ... kFlanger_MaxFeedback,
         unit: .generic,
         flags: .default)
@@ -51,7 +51,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
-        address: AKModulatedDelayParameter.dryWetMix.rawValue,
+        address: ModulatedDelayParameter.dryWetMix.rawValue,
         range: kFlanger_MinDryWetMix ... kFlanger_MaxDryWetMix,
         unit: .generic,
         flags: .default)

@@ -98,7 +98,7 @@ public enum ButtonStyle {
 
     /// Initialize the button
     public convenience init(title: String,
-                            color: AKColor = AKStylist.sharedInstance.nextColor,
+                            color: AKColor = Stylist.sharedInstance.nextColor,
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                             callback: @escaping (Button) -> Void) {
         self.init(frame: frame)
@@ -113,8 +113,8 @@ public enum ButtonStyle {
     /// Initialization with no details
     override public init(frame: CGRect) {
         self.title = ""
-        self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
+        self.color = Stylist.sharedInstance.nextColor
+        self.highlightedColor = color.darker(by: 11) ?? Stylist.sharedInstance.nextColor
         super.init(frame: frame)
 
         self.backgroundColor = AKColor.clear
@@ -124,8 +124,8 @@ public enum ButtonStyle {
     /// Initialization within Interface Builder
     public required init?(coder: NSCoder) {
         self.title = ""
-        self.color = AKStylist.sharedInstance.nextColor
-        self.highlightedColor = color.darker(by: 11) ?? AKStylist.sharedInstance.nextColor
+        self.color = Stylist.sharedInstance.nextColor
+        self.highlightedColor = color.darker(by: 11) ?? Stylist.sharedInstance.nextColor
         super.init(coder: coder)
 
         self.clipsToBounds = true
@@ -151,7 +151,7 @@ public enum ButtonStyle {
             return borderColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -165,7 +165,7 @@ public enum ButtonStyle {
             return textColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -337,7 +337,7 @@ public enum ButtonStyle {
 
     /// Initialize the button
     public init(title: String,
-                color: AKColor = AKStylist.sharedInstance.nextColor,
+                color: AKColor = Stylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (Button) -> Void) {
         self.title = title
@@ -351,7 +351,7 @@ public enum ButtonStyle {
     /// Initialization with no details
     override public init(frame: CGRect) {
         self.title = "Title"
-        self.color = AKStylist.sharedInstance.nextColor
+        self.color = Stylist.sharedInstance.nextColor
         super.init(frame: frame)
 
         self.wantsLayer = true
@@ -360,7 +360,7 @@ public enum ButtonStyle {
     /// Initialization within Interface Builder
     public required init?(coder: NSCoder) {
         self.title = "Title"
-        self.color = AKStylist.sharedInstance.nextColor
+        self.color = Stylist.sharedInstance.nextColor
         super.init(coder: coder)
 
         self.wantsLayer = true
@@ -379,7 +379,7 @@ public enum ButtonStyle {
             return borderColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -393,7 +393,7 @@ public enum ButtonStyle {
             return textColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:

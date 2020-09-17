@@ -7,4 +7,4 @@
 typedef enum {
     kChorus,
     kFlanger
-} AKModulatedDelayType;
+} ModulatedDelayType;

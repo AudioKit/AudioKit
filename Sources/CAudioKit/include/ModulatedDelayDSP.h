@@ -5,11 +5,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Interop.h"
 
-typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
-    AKModulatedDelayParameterFrequency,
-    AKModulatedDelayParameterDepth,
-    AKModulatedDelayParameterFeedback,
-    AKModulatedDelayParameterDryWetMix,
+typedef NS_ENUM(AUParameterAddress, ModulatedDelayParameter) {
+    ModulatedDelayParameterFrequency,
+    ModulatedDelayParameterDepth,
+    ModulatedDelayParameterFeedback,
+    ModulatedDelayParameterDryWetMix,
 };
 
 // constants
@@ -52,7 +52,7 @@ AK_API DSPRef akFlangerCreateDSP(void);
 #import "ModulatedDelay.h"
 #import "ParameterRamper.h"
 
-struct AKModulatedDelayDSP : DSPBase
+struct ModulatedDelayDSP : DSPBase
 {
 private:
     // ramped parameters
@@ -60,10 +60,10 @@ private:
     ParameterRamper depthRamp;
     ParameterRamper feedbackRamp;
     ParameterRamper dryWetMixRamp;
-    AKModulatedDelay delay;
+    ModulatedDelay delay;
 
 public:
-    AKModulatedDelayDSP(AKModulatedDelayType type);
+    ModulatedDelayDSP(ModulatedDelayType type);
 
     void init(int channelCount, double sampleRate) override;
 
