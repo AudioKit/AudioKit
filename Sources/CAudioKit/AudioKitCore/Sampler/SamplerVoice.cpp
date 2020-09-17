@@ -147,7 +147,7 @@ namespace AudioKitCore
             tempGain = masterVolume * tempNoteVolume;
             volumeRamper.reinit(ampEnvelope.getSample(), sampleCount);
             // This can execute as part of the voice-stealing mechanism, and will be executed rarely.
-            // To test, set MAX_POLYPHONY in AKCoreSampler.cpp to something small like 2 or 3.
+            // To test, set MAX_POLYPHONY in CoreSampler.cpp to something small like 2 or 3.
             if (!ampEnvelope.isPreStarting())
             {
                 tempGain = masterVolume * noteVolume;

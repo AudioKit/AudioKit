@@ -18,11 +18,11 @@ namespace AudioKitCore {
     struct KeyMappedSampleBuffer;
 }
 
-class AKCoreSampler
+class CoreSampler
 {
 public:
-    AKCoreSampler();
-    ~AKCoreSampler();
+    CoreSampler();
+    ~CoreSampler();
     
     /// returns system error code, nonzero only if a problem occurs
     int init(double sampleRate);

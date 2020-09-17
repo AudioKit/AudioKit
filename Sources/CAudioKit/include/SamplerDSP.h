@@ -69,7 +69,7 @@ AK_API void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 #include "CoreSampler.h"
 #include "LinearParameterRamp.h"
 
-struct SamplerDSP : AKDSPBase, AKCoreSampler
+struct SamplerDSP : AKDSPBase, CoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;

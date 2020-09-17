@@ -96,7 +96,7 @@ void akSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown)
 }
 
 
-SamplerDSP::SamplerDSP() : AKCoreSampler()
+SamplerDSP::SamplerDSP() : CoreSampler()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -114,13 +114,13 @@ SamplerDSP::SamplerDSP() : AKCoreSampler()
 void SamplerDSP::init(int channelCount, double sampleRate)
 {
     AKDSPBase::init(channelCount, sampleRate);
-    AKCoreSampler::init(sampleRate);
+    CoreSampler::init(sampleRate);
 }
 
 void SamplerDSP::deinit()
 {
     AKDSPBase::deinit();
-    AKCoreSampler::deinit();
+    CoreSampler::deinit();
 }
 
 void SamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -398,6 +398,6 @@ void SamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
         unsigned channelCount = outputBufferList->mNumberBuffers;
-        AKCoreSampler::render(channelCount, chunkSize, outBuffers);
+        CoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }
