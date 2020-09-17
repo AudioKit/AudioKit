@@ -25,7 +25,7 @@ class LiveView: View {
 
     override func viewDidLoad() {
 
-        AKPlaygroundLoop(every: 0.1) {
+        PlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
         }

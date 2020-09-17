@@ -28,7 +28,7 @@ class LiveView: View {
     var fadeOutSlider: Slider!
 
     override func viewDidLoad() {
-        AKPlaygroundLoop(every: 1 / 10.0) {
+        PlaygroundLoop(every: 1 / 10.0) {
             if player.duration > 0 {
                 self.playingPositionSlider?.value = player.currentTime
             }

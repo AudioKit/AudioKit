@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: Node, Toggleable, AudioUnitContainer {
+public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
     public typealias AudioUnitType = InternalAU
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
@@ -185,7 +185,7 @@ public class OperationGenerator: Node, Toggleable, AudioUnitContainer {
                 return
             }
         } else {
-            if let stereoOperation = computedParameter as? AKStereoOperation {
+            if let stereoOperation = computedParameter as? StereoOperation {
                 self.init(sporth: stereoOperation.sporth + " swap ")
                 return
             }
