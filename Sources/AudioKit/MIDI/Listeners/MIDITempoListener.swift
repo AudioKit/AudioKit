@@ -25,10 +25,10 @@ public typealias BPMType = TimeInterval
 ///     let tempoListener = MIDITempoListener()
 ///     AKMIDI().addListener(tempoListener)
 ///
-/// Make your class a AKMIDITempoObserver and you will recieve callbacks when the BPM
+/// Make your class a MIDITempoObserver and you will recieve callbacks when the BPM
 /// changes.
 ///
-///     class YOURCLASS: AKMIDITempoObserver {
+///     class YOURCLASS: MIDITempoObserver {
 ///         func receivedTempoUpdate(bpm: BPMType, label: String) {  ... }
 ///         func midiClockFollowerMode() { ... }
 ///         func midiClockLeaderEnabled() { ... }
@@ -46,7 +46,7 @@ public class MIDITempoListener: NSObject {
 
     public var srtListener = MIDISystemRealTimeListener()
 
-    var tempoObservers: [AKMIDITempoObserver] = []
+    var tempoObservers: [MIDITempoObserver] = []
 
     public var tempoString: String = ""
     public var tempo: BPMType = 0
@@ -68,7 +68,7 @@ public class MIDITempoListener: NSObject {
     ///
     /// This object creates a clockListener: MIDIClockListener
     /// The MIDIClockListener is informed every time there is a clock and it in turn informs its
-    /// AKMIDIBeatObserver's whenever beat events happen.
+    /// MIDIBeatObserver's whenever beat events happen.
     ///
     /// - Parameters:
     ///   - smoothing: [0 - 1] this value controls the tick smoothing and bpm smoothing (currently both are disabled)
@@ -243,11 +243,11 @@ extension MIDITempoListener: MIDIListener {
 // MARK: - Management and Communications for BPM Observers
 
 extension MIDITempoListener {
-    public func addObserver(_ observer: AKMIDITempoObserver) {
+    public func addObserver(_ observer: MIDITempoObserver) {
         tempoObservers.append(observer)
     }
 
-    public func removeObserver(_ observer: AKMIDITempoObserver) {
+    public func removeObserver(_ observer: MIDITempoObserver) {
         tempoObservers.removeAll { $0 == observer }
     }
 

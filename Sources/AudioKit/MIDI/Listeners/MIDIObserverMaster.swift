@@ -16,7 +16,7 @@ func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 
-class AKMIDIObserverMaster<P> where P: ObserverProtocol {
+class MIDIObserverMaster<P> where P: ObserverProtocol {
 
     var observers: [P] = []
 

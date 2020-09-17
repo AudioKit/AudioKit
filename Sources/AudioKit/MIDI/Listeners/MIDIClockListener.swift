@@ -8,7 +8,7 @@ import os.log
 /// This class is used to count midi clock events and inform observers
 /// every 24 pulses (1 quarter note)
 ///
-/// If you wish to observer its events, then add your own AKMIDIBeatObserver
+/// If you wish to observer its events, then add your own MIDIBeatObserver
 ///
 public class MIDIClockListener: NSObject {
     // Definition of 24 quantums per quarter note
@@ -28,7 +28,7 @@ public class MIDIClockListener: NSObject {
     private var sendContinue = false
     private let srtListener: MIDISystemRealTimeListener
     private let tempoListener: MIDITempoListener
-    private var observers: [AKMIDIBeatObserver] = []
+    private var observers: [MIDIBeatObserver] = []
 
     /// MIDIClockListener requires to be an observer of both SRT and BPM events
     init(srtListener srt: MIDISystemRealTimeListener,
@@ -111,12 +111,12 @@ public class MIDIClockListener: NSObject {
 
 extension MIDIClockListener {
 
-    public func addObserver(_ observer: AKMIDIBeatObserver) {
+    public func addObserver(_ observer: MIDIBeatObserver) {
         observers.append(observer)
         Log("[MIDIClockListener:addObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
-    public func removeObserver(_ observer: AKMIDIBeatObserver) {
+    public func removeObserver(_ observer: MIDIBeatObserver) {
         observers.removeAll { $0 == observer }
         Log("[MIDIClockListener:removeObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
@@ -128,7 +128,7 @@ extension MIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension MIDIClockListener: AKMIDIBeatObserver {
+extension MIDIClockListener: MIDIBeatObserver {
     internal func sendMIDIBeatUpdateToObservers() {
         observers.forEach { (observer) in
             observer.receivedBeatEvent(beat: sppMIDIBeatCounter)
@@ -172,7 +172,7 @@ extension MIDIClockListener: AKMIDIBeatObserver {
 
 // MARK: - MMC Observations interface
 
-extension MIDIClockListener: AKMIDITempoObserver {
+extension MIDIClockListener: MIDITempoObserver {
 
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)
@@ -185,7 +185,7 @@ extension MIDIClockListener: AKMIDITempoObserver {
     }
 }
 
-extension MIDIClockListener: AKMIDISystemRealTimeObserver {
+extension MIDIClockListener: MIDISystemRealTimeObserver {
     public func stopSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Stop]", log: OSLog.midi)
         sendStopToObservers()

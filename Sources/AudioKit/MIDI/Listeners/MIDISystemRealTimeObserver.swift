@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol AKMIDISystemRealTimeObserver {
+public protocol MIDISystemRealTimeObserver {
 
     /// Called when a midi start system message is received
     ///
@@ -24,7 +24,7 @@ public protocol AKMIDISystemRealTimeObserver {
 }
 
 // MARK: - Default handler methods for AKMIDIMMCEvents
-extension AKMIDISystemRealTimeObserver {
+extension MIDISystemRealTimeObserver {
 
     func startSRT(listener: MIDISystemRealTimeListener) {
 
@@ -38,12 +38,12 @@ extension AKMIDISystemRealTimeObserver {
 
     }
 
-    public func isEqualTo(_ listener: AKMIDISystemRealTimeObserver) -> Bool {
+    public func isEqualTo(_ listener: MIDISystemRealTimeObserver) -> Bool {
         return self == listener
     }
 }
 
-func == (lhs: AKMIDISystemRealTimeObserver, rhs: AKMIDISystemRealTimeObserver) -> Bool {
+func == (lhs: MIDISystemRealTimeObserver, rhs: MIDISystemRealTimeObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 

@@ -53,7 +53,7 @@ open class MIDISystemRealTimeListener: NSObject {
     }
 
     var state: SRTState = .stopped
-    var observers: [AKMIDISystemRealTimeObserver] = []
+    var observers: [MIDISystemRealTimeObserver] = []
 }
 
 extension MIDISystemRealTimeListener: MIDIListener {
@@ -123,15 +123,15 @@ extension MIDISystemRealTimeListener: MIDIListener {
 }
 
 extension MIDISystemRealTimeListener {
-    public func addObserver(_ observer: AKMIDISystemRealTimeObserver) {
+    public func addObserver(_ observer: MIDISystemRealTimeObserver) {
         observers.append(observer)
     }
 
-    public func removeObserver(_ observer: AKMIDISystemRealTimeObserver) {
+    public func removeObserver(_ observer: MIDISystemRealTimeObserver) {
         observers.removeAll { $0 == observer }
     }
 
-    public func removeAllObserver(_ observer: AKMIDISystemRealTimeObserver) {
+    public func removeAllObserver(_ observer: MIDISystemRealTimeObserver) {
         observers.removeAll()
     }
 

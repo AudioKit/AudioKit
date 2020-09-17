@@ -5,7 +5,7 @@ import Foundation
 import AVFoundation
 
 /// Protocol so that clients may observe beat events
-public protocol AKMIDIBeatObserver {
+public protocol MIDIBeatObserver {
 
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
@@ -29,7 +29,7 @@ public protocol AKMIDIBeatObserver {
 }
 
 /// Default listener methods
-public extension AKMIDIBeatObserver {
+public extension MIDIBeatObserver {
 
     func preparePlay(continue: Bool) {
 
@@ -55,12 +55,12 @@ public extension AKMIDIBeatObserver {
 
     }
 
-    func isEqualTo(_ listener: AKMIDIBeatObserver) -> Bool {
+    func isEqualTo(_ listener: MIDIBeatObserver) -> Bool {
         return self == listener
     }
 }
 
-func == (lhs: AKMIDIBeatObserver, rhs: AKMIDIBeatObserver) -> Bool {
+func == (lhs: MIDIBeatObserver, rhs: MIDIBeatObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 #endif
