@@ -48,7 +48,7 @@ public enum SliderStyle {
     @IBInspectable open var indicatorBorderColor: UIColor?
 
     /// Slider overlay color
-    @IBInspectable open var color: UIColor = AKStylist.sharedInstance.nextColor
+    @IBInspectable open var color: UIColor = Stylist.sharedInstance.nextColor
 
     /// Text color
     @IBInspectable open var textColor: UIColor?
@@ -85,7 +85,7 @@ public enum SliderStyle {
                 range: ClosedRange<AUValue> = 0 ... 1,
                 taper: AUValue = 1,
                 format: String = "%0.3f",
-                color: AKColor = AKStylist.sharedInstance.nextColor,
+                color: AKColor = Stylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
         self.color = color
@@ -171,7 +171,7 @@ public enum SliderStyle {
         if let bgColor = bgColor {
             return bgColor
         }
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -183,7 +183,7 @@ public enum SliderStyle {
         if let indicatorBorderColor = indicatorBorderColor {
             return indicatorBorderColor
         }
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -195,7 +195,7 @@ public enum SliderStyle {
         if let sliderBorderColor = sliderBorderColor {
             return sliderBorderColor
         }
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.2, alpha: 1.0)
         case .midnight:
@@ -207,7 +207,7 @@ public enum SliderStyle {
         if let textColor = textColor {
             return textColor
         }
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -436,7 +436,7 @@ public enum SliderStyle {
     @IBInspectable public var indicatorBorderColor: NSColor?
 
     /// Slider overlay color
-    @IBInspectable public var color: NSColor = AKStylist.sharedInstance.nextColor
+    @IBInspectable public var color: NSColor = Stylist.sharedInstance.nextColor
 
     /// Text color
     @IBInspectable public var textColor: NSColor?
@@ -464,7 +464,7 @@ public enum SliderStyle {
                 range: ClosedRange<AUValue> = 0 ... 1,
                 taper: AUValue = 1,
                 format: String = "%0.3f",
-                color: AKColor = AKStylist.sharedInstance.nextColor,
+                color: AKColor = Stylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (_ x: AUValue) -> Void = { _ in }) {
 
@@ -511,7 +511,7 @@ public enum SliderStyle {
             return bgColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -524,7 +524,7 @@ public enum SliderStyle {
             return indicatorBorderColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:
@@ -537,7 +537,7 @@ public enum SliderStyle {
             return sliderBorderColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.2, alpha: 1.0)
         case .midnight:
@@ -550,7 +550,7 @@ public enum SliderStyle {
             return textColor
         }
 
-        switch AKStylist.sharedInstance.theme {
+        switch Stylist.sharedInstance.theme {
         case .basic:
             return AKColor(white: 0.3, alpha: 1.0)
         case .midnight:

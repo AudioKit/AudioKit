@@ -85,7 +85,7 @@ import UIKit
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
 
     /// Background color
-    @IBInspectable open var bgColor: UIColor = AKStylist.sharedInstance.bgColor
+    @IBInspectable open var bgColor: UIColor = Stylist.sharedInstance.bgColor
 
     /// Width of the envelope curve
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
@@ -464,7 +464,7 @@ public class AKADSRView: NSView {
         let decayColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0, alpha: 1)
         let sustainColor = #colorLiteral(red: 0.32, green: 0.8, blue: 0.616, alpha: 1)
         let releaseColor = #colorLiteral(red: 0.72, green: 0.519, blue: 0.888, alpha: 1)
-        let backgroundColor = AKStylist.sharedInstance.bgColor
+        let backgroundColor = Stylist.sharedInstance.bgColor
 
         wantsLayer = true
         layer?.backgroundColor = backgroundColor.cgColor

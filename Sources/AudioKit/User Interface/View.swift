@@ -17,8 +17,8 @@ public enum AKTheme {
     case midnight
 }
 
-public class AKStylist {
-    public static let sharedInstance = AKStylist()
+public class Stylist {
+    public static let sharedInstance = Stylist()
 
     public var bgColor: AKColor {
         return bgColors[theme]!

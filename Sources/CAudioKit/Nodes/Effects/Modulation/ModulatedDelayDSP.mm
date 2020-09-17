@@ -9,12 +9,12 @@
 
 DSPRef akChorusCreateDSP()
 {
-    return new AKModulatedDelayDSP(kChorus);
+    return new ModulatedDelayDSP(kChorus);
 }
 
 DSPRef akFlangerCreateDSP()
 {
-    return new AKModulatedDelayDSP(kFlanger);
+    return new ModulatedDelayDSP(kFlanger);
 }
 
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
@@ -46,24 +46,24 @@ const float kFlanger_MaxDepth     = kFlangerMaxDepth;
 const float kFlanger_MinDryWetMix = kFlangerMinDryWetMix;
 const float kFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
-AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
+ModulatedDelayDSP::ModulatedDelayDSP(ModulatedDelayType type)
     : delay(type)
 {
-    parameters[AKModulatedDelayParameterFrequency] = &frequencyRamp;
-    parameters[AKModulatedDelayParameterDepth] = &depthRamp;
-    parameters[AKModulatedDelayParameterFeedback] = &feedbackRamp;
-    parameters[AKModulatedDelayParameterDryWetMix] = &dryWetMixRamp;
+    parameters[ModulatedDelayParameterFrequency] = &frequencyRamp;
+    parameters[ModulatedDelayParameterDepth] = &depthRamp;
+    parameters[ModulatedDelayParameterFeedback] = &feedbackRamp;
+    parameters[ModulatedDelayParameterDryWetMix] = &dryWetMixRamp;
     
     bCanProcessInPlace = true;
 }
 
-void AKModulatedDelayDSP::init(int channels, double sampleRate)
+void ModulatedDelayDSP::init(int channels, double sampleRate)
 {
     DSPBase::init(channels, sampleRate);
     delay.init(channels, sampleRate);
 }
 
-void AKModulatedDelayDSP::deinit()
+void ModulatedDelayDSP::deinit()
 {
     DSPBase::deinit();
     delay.deinit();
@@ -71,7 +71,7 @@ void AKModulatedDelayDSP::deinit()
 
 #define CHUNKSIZE 8     // defines ramp interval
 
-void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
+void ModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     float *inBuffers[2], *outBuffers[2];
     inBuffers[0]  = (float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
