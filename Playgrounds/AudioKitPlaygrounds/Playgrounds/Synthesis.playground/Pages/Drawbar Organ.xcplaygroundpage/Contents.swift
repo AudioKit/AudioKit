@@ -1,7 +1,7 @@
 //: ## Interactive Drawbar Organ
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

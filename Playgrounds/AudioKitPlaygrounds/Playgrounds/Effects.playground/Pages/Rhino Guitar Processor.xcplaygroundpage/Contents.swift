@@ -1,6 +1,6 @@
 //: ## Rhino Guitar Processor
 
-import AudioKitPlaygrounds
+
 import AudioKit
 
 var rhino: RhinoGuitarProcessor!

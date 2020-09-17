@@ -1,6 +1,6 @@
 //: ## Expander
 //: ##
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

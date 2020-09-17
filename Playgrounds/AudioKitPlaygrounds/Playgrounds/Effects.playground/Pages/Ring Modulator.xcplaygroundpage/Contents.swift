@@ -1,6 +1,6 @@
 //: ## Ring Modulator
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])

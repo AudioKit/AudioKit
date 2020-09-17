@@ -1,7 +1,7 @@
 //: ## MIDI Input
 //: This playground is kind of a basic MIDI Monitor. Make sure you've got the console view open,
 //: and then start pounding on the MIDI devices you have hooked up to your computer and you should see output.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let midi = AKMIDI()

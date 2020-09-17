@@ -2,7 +2,7 @@
 //: A peak limiter will set a hard limit on the amplitude of an audio signal.
 //: They're espeically useful for any type of live input processing, when you
 //: may not be in total control of the audio signal you're recording or processing.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])

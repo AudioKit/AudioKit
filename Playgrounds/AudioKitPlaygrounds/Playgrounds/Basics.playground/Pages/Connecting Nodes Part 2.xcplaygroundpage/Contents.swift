@@ -11,7 +11,7 @@
 //: the AudioKit examples project, but here in this playground we're going to redo
 //: the code from the "Connecting Nodes" playground in a way that is more like how
 //: the code would appear in a project.
-import AudioKitPlaygrounds
+
 //: Here we begin the code how it would appear in a project
 
 import AudioKit

@@ -1,6 +1,6 @@
 //: ## MIDI Output
 //: This playground is demonstrates using AudioKit to output MIDI to an external synth
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let midi = AKMIDI()

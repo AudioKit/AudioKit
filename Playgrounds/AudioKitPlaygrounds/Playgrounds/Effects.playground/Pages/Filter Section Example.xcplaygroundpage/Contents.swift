@@ -1,6 +1,6 @@
 //: ## Filter Section
 //: This playgrounds was the development area for the filter in the Analog Synth X example project.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])

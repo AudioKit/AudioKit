@@ -1,6 +1,6 @@
 //: ## Korg Low Pass Filter Operation
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: Noise Example

@@ -1,6 +1,6 @@
 //: ## Compressor
 //: ##
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 

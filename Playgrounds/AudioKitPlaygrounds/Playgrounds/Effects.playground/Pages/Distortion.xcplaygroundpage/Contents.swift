@@ -1,7 +1,7 @@
 //: ## Distortion
 //: This thing is a beast.
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let file = try AVAudioFile(readFileName: playgroundAudioFiles[0])

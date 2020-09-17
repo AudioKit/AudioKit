@@ -9,7 +9,7 @@
 //:
 //: You will always see the `import` lines which bring in all of
 //: AudioKit's functionality to the playground.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 //: If you intend to use some of the user interface elements provided by the optional AudioKitUI

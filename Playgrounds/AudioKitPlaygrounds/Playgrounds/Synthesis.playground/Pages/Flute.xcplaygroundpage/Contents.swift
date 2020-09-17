@@ -1,6 +1,6 @@
 //: ## Flute
 //: Physical model of a Flute
-import AudioKitPlaygrounds
+
 import AudioKit
 
 let playRate = 2.0

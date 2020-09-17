@@ -5,7 +5,7 @@
 //: ## Mixing Nodes
 //: So, what about connecting multiple sources to the output instead of
 //: feeding operations into each other in sequential order? To do that, you'll need a mixer.
-import AudioKitPlaygrounds
+
 import AudioKit
 
 class Conductor: ObservableObject {

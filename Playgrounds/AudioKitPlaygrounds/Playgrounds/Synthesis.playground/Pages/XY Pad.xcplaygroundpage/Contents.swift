@@ -1,6 +1,6 @@
 //: ## XY Pad
 //:
-import AudioKitPlaygrounds
+
 import AudioKit
 import Cocoa
 

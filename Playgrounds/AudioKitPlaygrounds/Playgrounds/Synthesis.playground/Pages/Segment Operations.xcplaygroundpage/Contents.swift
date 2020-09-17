@@ -1,6 +1,6 @@
 //: ## Segment Operations
 //: Creating segments that vary parameters in operations linearly or exponentially over a certain duration
-import AudioKitPlaygrounds
+
 import AudioKit
 import AudioKitUI
 
