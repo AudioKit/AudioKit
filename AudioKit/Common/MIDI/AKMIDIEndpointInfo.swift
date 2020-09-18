@@ -39,7 +39,7 @@ public struct EndpointInfo:Hashable, Codable {
 
     
     /// Equatable
-    public func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
+    public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     /// Hashable
