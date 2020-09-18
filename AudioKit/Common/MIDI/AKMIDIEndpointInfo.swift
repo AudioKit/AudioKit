@@ -32,7 +32,6 @@ public struct EndpointInfo:Hashable, Codable {
     public var midiUniqueID: MIDIUniqueID
 
     /// MIDIEndpointRef
-
     public var midiEndpointRef: MIDIEndpointRef
 
     /// MIDIPortRef (this will be set|unset when input|output open|close)
