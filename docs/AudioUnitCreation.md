@@ -50,10 +50,6 @@ This class inherits from AudioUnitBase, and is not strictly necessary, as it is 
 
 Aspects of AU functionality which are inconvenient to implement in the Objective C layer can be implemented in a Swift AU which inherits from either `MyObjcAU` or `AudioUnitBase`. An example of this is setting up the `AUParameterTree`, which is much more convenient to do from Swift. 
 
-### `MyNode`
-
-TBD
-
 ## Audio Unit Operation
 
 Before an AU can be used, it must be registered. Alternatively, it can be accessed directly as an Node, which is what I describe here.

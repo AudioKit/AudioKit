@@ -30,6 +30,6 @@ There are many sample projects included in AudioKit's `Examples` folder. The exa
 
 ## Sampler Overviews
 
-* [Survey of AudioKit's Sampler Options](Samplers.md)
-* [Sampler in-depth](Sampler.md)
-* [Preparing Sample Sets](PreparingSampleSets.md)
+* [Survey of AudioKit's Sampler Options](../Sources/AudioKit/Nodes/Playback/Samplers/Samplers.md)
+* [Sampler in-depth](../Sources/AudioKit/Nodes/Playback/Samplers/Sampler/Sampler.md)
+* [Preparing Sample Sets](../Sources/AudioKit/Nodes/Playback/Samplers/PreparingSampleSets.md)
