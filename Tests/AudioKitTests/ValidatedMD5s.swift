@@ -1,3 +1,14 @@
+import AVFoundation
+import XCTest
+
+extension XCTestCase {
+    func testMD5(_ buffer: AVAudioPCMBuffer) {
+        let localMD5 = buffer.md5
+        let name = self.description
+        XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
+    }
+}
+
 let validatedMD5s: [String: String] = [
     "-[AmplitudeEnvelopeTests testAttack]": "76551c82f0555bb5f679c3ca346410e1",
     "-[AmplitudeEnvelopeTests testDecay]": "e111bd7b2b35935591c650588867a950",
@@ -369,4 +380,6 @@ let validatedMD5s: [String: String] = [
     "-[WhiteNoiseOperationTests testDefault]": "ec5171195b3832867a9617b972c9eb1b",
     "-[WhiteNoiseOperationTests testParameterSweep]": "a6f20d4cd538ed168709165888aa4afc"
 ]
+
+
 
