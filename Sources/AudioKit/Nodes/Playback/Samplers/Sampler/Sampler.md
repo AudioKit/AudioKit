@@ -81,16 +81,16 @@ Here's an example of how to load a single sample from a WAV file using `loadAudi
     let furl = URL(fileURLWithPath: path)
     let file = try AVAudioFile(forReading: furl)
     let desc = SampleDescriptor(noteNumber: 26,
-                                      noteHz: 44100.0/600,
-                                    min_note: 0,
-                                    max_note: 127,
-                                     min_vel: 0,
-                                     max_vel: 127,
-                                       bLoop: true,
-                                  fLoopStart: 0.0,
-                                    fLoopEnd: 1.0,
-                                      fStart: 0.0,
-                                        fEnd: 0.0)
+                                    noteHz: 44100.0 / 600,
+                                  min_note: 0,
+                                  max_note: 127,
+                                   min_vel: 0,
+                                   max_vel: 127,
+                                     bLoop: true,
+                                fLoopStart: 0.0,
+                                  fLoopEnd: 1.0,
+                                    fStart: 0.0,
+                                      fEnd: 0.0)
        sampler.loadAudioFile(sd: desc, file: file)
 
 See the following sections for notes about setting the `fLoopStart`, `fLoopEnd`, `fStart` and `fEnd` properties.

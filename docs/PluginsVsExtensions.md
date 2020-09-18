@@ -11,6 +11,6 @@ None of this works on iOS, where (a) the file system is hidden from the user, an
 
 The AUv3 standard includes a number of technical improvements over AUv2, but the end result is (roughly) the same: a host app can get a list of installed plugins, ask the operating system to "instantiate" one by loading a copy of the code into memory, then connect to it as (roughly) an old-fashioned, in-memory Audio Unit.
 
-On iOS, the "container" app provides a handy way to deliver the .appex via the App Store, and usually serves as a stand-alone host for a single instance. AUv3 app extensions also work on the Mac, and Apple has been telling us since 2014 that we should stop building AUv2 plugins and switch to AUv3, but there has been little progress so far, partly because AUv2 is already "good enough", but mostly because they've done an astonishingly poor job of telling developers what to do. This is why the AudioKit team is still struggling to make AUv3 plugins.
+On iOS, the "container" app provides a handy way to deliver the .appex via the App Store, and usually serves as a stand-alone host for a single instance. AUv3 app extensions also work on the Mac, and Apple has been telling us since 2014 that we should stop building AUv2 plugins and switch to AUv3, but there has been little progress so far, partly because AUv2 is already "good enough", but mostly because they've done an astonishingly poor job of telling developers what to do. 
 
 [Written by Shane Dunne]

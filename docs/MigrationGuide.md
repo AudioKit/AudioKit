@@ -1,6 +1,8 @@
 # AudioKit 5 Migration Guide
 
-1. The AudioKit singleton no longer exists so instead of writing
+1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapods, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
+
+2. The AudioKit singleton no longer exists so instead of writing
 
 ```
 AudioKit.output = something
@@ -14,4 +16,21 @@ engine.output = something
 engine.start()
 engine.stop()
 ```
+3. AudioKit 5 drops the AK prefix from many class names.
 
+If you get errors like `AKOscillator not found in current context` try `Oscillator` instead. If you already have defined an `Oscillator` class in your project, you can access AudioKit's oscillator with `AudioKit.Oscillator`.
+
+4. Ramp duration is no longer a property of AudioKit or even on AudioKit nodes. Instead, ramping parameters is much more flexible.  What used to be:
+```
+oscillator.rampDuration = 0.2
+oscillator.amplitude = 0.9 // ramp to 0.9 over 0.2 seconds
+oscillator.frequency = 880 // ramp to 880 over 0.2 seconds
+```
+is much more flexible:
+```
+oscillator.$amplitude.ramp(to: 0.9, duration: 1.2)
+oscillator.$frequency.ramp(to: 880, duration: 1.7)
+```
+Notice how ramping duration is independent for each paramter. And notice the parameter is a property wrapper in this case, so it is prefixed by the dollar sign. Setting parameters like in the first code still works, but the changes are immediate, not ramped.
+
+5. In addition to all parameters on AudioKit noes (except for the ones based off of Apple DSP) being rampable, they are also automatable.  By generating piece-wise linear curves, you can approximate all kinds of ramp curves or other time varying changes to the parameters.
