@@ -31,7 +31,7 @@ If you, your team or your company is using AudioKit, please consider [sponsoring
 
 ### Swift Package Manager
 
-**AudioKit is available as a Swift Package! (requires Xcode 11.x)**. To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
+**AudioKit is available as a Swift Package! (requires Xcode 11+)**. To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
 
 ### CocoaPods
 
@@ -57,39 +57,11 @@ For Hello World, you only need to understand a few lines of code:
 | `oscillator.frequency = random(in: 220...880)` | Set oscillator parameters    |
 | `oscillator.stop()`                            | Stop the oscillator          |
 
-## Playgrounds
-
-<table>
-<tr>
-<td>
-Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over 100 playgrounds which cover basic tutorials, synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
-
-We provide all playgrounds as a macOS project that is ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn AudioKit's API in a fun way!
-
-We have videos of most of the playgrounds in action, so you don't need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
-</td>
-<td width=320 align=right>
-
-[![Playgrounds](http://audiokit.io/examples/playgrounds.jpg)](http://audiokit.io/playgrounds/)
-
-</td>
-</tr>
-</table>
-
-## Ray Wenderlich's AudioKit Tutorial
-
-
-Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
-
 ## Getting help
-
-Here are three methods for getting support which are roughly listed in order of what you should try first:
 
 1. Post your problem to [StackOverflow with the #AudioKit hashtag](https://stackoverflow.com/questions/tagged/audiokit).
 
-2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
-
-3. If you are pretty sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
+2. If you are pretty sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
 
 
 ## Contributing Code
