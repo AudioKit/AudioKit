@@ -244,7 +244,7 @@ public enum ButtonStyle {
     case round
 }
 
-@IBDesignable public class Button: AKView {
+@IBDesignable public class Button: CrossPlatformView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 

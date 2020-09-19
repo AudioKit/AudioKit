@@ -81,7 +81,7 @@ extension MIDIPacket: Sequence {
     }
 }
 
-typealias AKRawMIDIPacket = (
+typealias RawMIDIPacket = (
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte,
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte,
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte,
@@ -116,7 +116,7 @@ typealias AKRawMIDIPacket = (
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte)
 
 /// The returned generator will enumerate each value of the provided tuple.
-func generatorForTuple(_ tuple: AKRawMIDIPacket) -> AnyIterator<Any> {
+func generatorForTuple(_ tuple: RawMIDIPacket) -> AnyIterator<Any> {
     let children = Mirror(reflecting: tuple).children
     return AnyIterator(children.makeIterator().lazy.map { $0.value }.makeIterator())
 }
