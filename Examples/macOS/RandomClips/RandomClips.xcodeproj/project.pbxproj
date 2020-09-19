@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,14 +14,13 @@
 		55C731D01F62D9A100611001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CF1F62D9A100611001 /* ViewController.swift */; };
 		55C731D21F62D9A100611001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D11F62D9A100611001 /* Assets.xcassets */; };
 		55C731D51F62D9A100611001 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D31F62D9A100611001 /* Main.storyboard */; };
-		C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C472CD121F6533D100C5FF8E /* AudioKit.framework */; };
-		EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
+		EAF7EF4E251624A600B5D490 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF7EF4C251624A600B5D490 /* AudioKit.xcframework */; };
+		EAF7EF50251624A600B5D490 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF7EF4D251624A600B5D490 /* AudioKitUI.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		55A3AD541F62DD77001C22E3 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
 		55A3AD561F62DD8D001C22E3 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
-		55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		55B603D61F6342CC00404701 /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Playback.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
 		55C731CA1F62D9A100611001 /* RandomClips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomClips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C731CD1F62D9A100611001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,7 +29,8 @@
 		55C731D41F62D9A100611001 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55C731D61F62D9A100611001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55C731D71F62D9A100611001 /* RandomClips.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RandomClips.entitlements; sourceTree = "<group>"; };
-		C472CD121F6533D100C5FF8E /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EAF7EF4C251624A600B5D490 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
+		EAF7EF4D251624A600B5D490 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */,
-				EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */,
+				EAF7EF4E251624A600B5D490 /* AudioKit.xcframework in Frameworks */,
+				EAF7EF50251624A600B5D490 /* AudioKitUI.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,8 +82,8 @@
 		EA2FA542215AFC88001C210A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
-				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
+				EAF7EF4C251624A600B5D490 /* AudioKit.xcframework */,
+				EAF7EF4D251624A600B5D490 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					55C731C91F62D9A100611001 = {
@@ -207,6 +207,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -267,6 +268,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -300,6 +302,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -321,6 +324,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
