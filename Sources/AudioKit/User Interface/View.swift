@@ -2,11 +2,11 @@
 
 #if os(macOS)
     import Cocoa
-    public typealias AKView = NSView
+    public typealias CrossPlatformView = NSView
     public typealias CrossPlatformColor = NSColor
 #else
     import UIKit
-    public typealias AKView = UIView
+    public typealias CrossPlatformView = UIView
     public typealias CrossPlatformColor = UIColor
 #endif
 

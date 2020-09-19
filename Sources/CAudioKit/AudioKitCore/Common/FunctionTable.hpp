@@ -16,7 +16,7 @@ namespace AudioKitCore
     ///
     /// Bounded addressing is useful for wave-shaping and fast function-approximation using
     /// tabulated functions. In such applications, the table contains function values over
-    /// some bounded domain. See class AKWaveShaper.
+    /// some bounded domain. See class WaveShaper.
     struct FunctionTable
     {
         float *pWaveTable;
@@ -50,7 +50,7 @@ namespace AudioKitCore
             return (float)((1.0 - f) * si + f * sj);
         }
         
-        // functions for use by class AKWaveShaper (see comments in .cpp file)
+        // functions for use by class WaveShaper (see comments in .cpp file)
         void linearCurve(float gain = 1.0f);
         void exponentialCurve(float left, float right);
         void powerCurve(float exponent);

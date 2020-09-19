@@ -3,7 +3,7 @@
 #if os(iOS)
 import CoreAudioKit
 
-class AKBTMIDICentralViewController: CABTMIDICentralViewController {
+class BTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
     public override func viewDidLayoutSubviews() {
@@ -19,7 +19,7 @@ class AKBTMIDICentralViewController: CABTMIDICentralViewController {
 }
 
 /// A button that will pull up a Bluetooth MIDI menu
-public class AKBluetoothMIDIButton: UIButton {
+public class BluetoothMIDIButton: UIButton {
 
     private var realSuperView: UIView?
 
@@ -33,7 +33,7 @@ public class AKBluetoothMIDIButton: UIButton {
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
-        let bluetoothMIDIViewController = AKBTMIDICentralViewController()
+        let bluetoothMIDIViewController = BTMIDICentralViewController()
         let navController = UINavigationController(rootViewController: bluetoothMIDIViewController)
 
         navController.modalPresentationStyle = .popover

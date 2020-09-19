@@ -77,7 +77,7 @@ The *min_note*, *max_note*, *min_vel*, and *max_vel* properties are used by `bui
 
 Here's an example of how to load a single sample from a WAV file using `loadAudioFile()`, which requires creating an instance of *SampleDescriptor*:
 
-    let path = "/Users/shane/Desktop/AKWF Samples/AKWF_bw_sawbright/AKWF_bsaw_0005.wav"
+    let path = "/Users/shane/Desktop/WF Samples/WF_bw_sawbright/WF_bsaw_0005.wav"
     let furl = URL(fileURLWithPath: path)
     let file = try AVAudioFile(forReading: furl)
     let desc = SampleDescriptor(noteNumber: 26,
