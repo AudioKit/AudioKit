@@ -108,7 +108,7 @@
             guard Settings.disableAVAudioSessionCategoryManagement == false else { return }
 
             do {
-                try AKTry {
+                try ExceptionCatcher {
                     if #available(iOS 10.0, *) {
                         try session.setCategory(category.avCategory, mode: .default, options: options)
                     } else {
@@ -136,7 +136,7 @@
 
             // Preferred IO Buffer Duration
             do {
-                try AKTry {
+                try ExceptionCatcher {
                     try session.setPreferredIOBufferDuration(bufferLength.duration)
                 }
             } catch let error as NSError {
@@ -148,7 +148,7 @@
 
             // Activate session
             do {
-                try AKTry {
+                try ExceptionCatcher {
                     try session.setActive(true)
                 }
             } catch let error as NSError {

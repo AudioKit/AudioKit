@@ -120,14 +120,14 @@ open class MIDISampler: AppleSampler {
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) throws {
-        try AKTry {
+        try ExceptionCatcher {
             self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
         }
     }
 
     /// Stop a note
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) throws {
-        try AKTry {
+        try ExceptionCatcher {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
     }

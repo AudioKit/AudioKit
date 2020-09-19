@@ -189,7 +189,7 @@ public class AudioEngine {
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     public static func setInputDevice(_ input: Device) throws {
         #if os(macOS)
-        try AKTry {
+        try ExceptionCatcher {
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
                 mScope: kAudioObjectPropertyScopeGlobal,
