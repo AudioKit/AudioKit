@@ -12,11 +12,11 @@ public class TapNode: Node, AudioUnitContainer, Toggleable {
 
     public private(set) var internalAU: AudioUnitType?
 
-    public var leftBuffer: TPCircularBuffer? {
-        internalAU?.leftBuffer
+    public var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+        akTapNodeGetLeftBuffer(internalAU?.dsp)
     }
-    public var rightBuffer: TPCircularBuffer? {
-        internalAU?.rightBuffer
+    public var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+        akTapNodeGetRightBuffer(internalAU?.dsp)
     }
 
     // MARK: - Audio Unit
@@ -24,13 +24,6 @@ public class TapNode: Node, AudioUnitContainer, Toggleable {
     public class InternalAU: AudioUnitBase {
         public override func createDSP() -> DSPRef {
             akCreateDSP("TapNodeDSP")
-        }
-
-        var leftBuffer: TPCircularBuffer {
-            akTapNodeGetLeftBuffer(dsp)
-        }
-        var rightBuffer: TPCircularBuffer {
-            akTapNodeGetRightBuffer(dsp)
         }
     }
     // MARK: - Initialization
