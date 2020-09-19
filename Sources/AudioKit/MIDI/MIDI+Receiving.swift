@@ -51,14 +51,14 @@ extension AKMIDI {
     }
 }
 
-// MARK: - AKMIDITransformers
+// MARK: - MIDITransformers
 extension AKMIDI {
     /// Add a transformer to the transformers list
-    public func addTransformer(_ transformer: AKMIDITransformer) {
+    public func addTransformer(_ transformer: MIDITransformer) {
         transformers.append(transformer)
     }
 
-    public func removeTransformer(_ transformer: AKMIDITransformer) {
+    public func removeTransformer(_ transformer: MIDITransformer) {
         transformers.removeAll { $0 == transformer }
     }
 

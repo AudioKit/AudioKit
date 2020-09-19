@@ -42,7 +42,7 @@ public class AKMIDI {
     /// Array of all listeners
     public var listeners = [MIDIListener]()
 
-    public var transformers = [AKMIDITransformer]()
+    public var transformers = [MIDITransformer]()
 
     // MARK: - Initialization
 

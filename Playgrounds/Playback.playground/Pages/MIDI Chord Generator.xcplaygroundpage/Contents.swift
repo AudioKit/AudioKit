@@ -1,7 +1,7 @@
 //: ## MIDI Chord Generator
 //: This playground builds on the MIDI Scale Quantizer by adding a second
-//: AKMIDITransformer which takes the quantized scale and generates chords
-//: from it.  You can chain as many AKMIDITransformers as you want, and
+//: MIDITransformer which takes the quantized scale and generates chords
+//: from it.  You can chain as many MIDITransformers as you want, and
 //: each can take an array of MIDIEvents to process
 
 import AudioKit
@@ -87,7 +87,7 @@ let midi = AKMIDI()
 midi.inputNames
 midi.openInput()
 
-class MIDIScaleQuantizer: AKMIDITransformer {
+class MIDIScaleQuantizer: MIDITransformer {
     func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
         var transformedList = [MIDIEvent]()
 
@@ -140,7 +140,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
     }
 }
 
-class MIDIChordGenerator: AKMIDITransformer {
+class MIDIChordGenerator: MIDITransformer {
     func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
         var transformedList = [MIDIEvent]()
 
