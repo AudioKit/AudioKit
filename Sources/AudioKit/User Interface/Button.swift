@@ -41,21 +41,21 @@ public enum ButtonStyle {
     }
 
     /// Background color of the button
-    open var color: AKColor {
+    open var color: CrossPlatformColor {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Button border color
-    open var borderColor: AKColor? {
+    open var borderColor: CrossPlatformColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Color when the button is highlighted
-    open var highlightedColor: AKColor {
+    open var highlightedColor: CrossPlatformColor {
         didSet {
             setNeedsDisplay()
         }
@@ -69,7 +69,7 @@ public enum ButtonStyle {
     }
 
     /// Text color
-    open var textColor: AKColor? {
+    open var textColor: CrossPlatformColor? {
         didSet {
             setNeedsDisplay()
         }
@@ -98,7 +98,7 @@ public enum ButtonStyle {
 
     /// Initialize the button
     public convenience init(title: String,
-                            color: AKColor = Stylist.sharedInstance.nextColor,
+                            color: CrossPlatformColor = Stylist.sharedInstance.nextColor,
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                             callback: @escaping (Button) -> Void) {
         self.init(frame: frame)
@@ -117,7 +117,7 @@ public enum ButtonStyle {
         self.highlightedColor = color.darker(by: 11) ?? Stylist.sharedInstance.nextColor
         super.init(frame: frame)
 
-        self.backgroundColor = AKColor.clear
+        self.backgroundColor = CrossPlatformColor.clear
         contentMode = .redraw
     }
 
@@ -129,7 +129,7 @@ public enum ButtonStyle {
         super.init(coder: coder)
 
         self.clipsToBounds = true
-        self.backgroundColor = AKColor.clear
+        self.backgroundColor = CrossPlatformColor.clear
         contentMode = .redraw
     }
 
@@ -146,30 +146,30 @@ public enum ButtonStyle {
     }
 
     // Default border color per theme
-    var borderColorForTheme: AKColor {
+    var borderColorForTheme: CrossPlatformColor {
         if let borderColor = borderColor {
             return borderColor
         }
 
         switch Stylist.sharedInstance.theme {
         case .basic:
-            return AKColor(white: 0.3, alpha: 1.0)
+            return CrossPlatformColor(white: 0.3, alpha: 1.0)
         case .midnight:
-            return AKColor.white
+            return CrossPlatformColor.white
         }
     }
 
     // Default text color per theme
-    var textColorForTheme: AKColor {
+    var textColorForTheme: CrossPlatformColor {
         if let textColor = textColor {
             return textColor
         }
 
         switch Stylist.sharedInstance.theme {
         case .basic:
-            return AKColor(white: 0.3, alpha: 1.0)
+            return CrossPlatformColor(white: 0.3, alpha: 1.0)
         case .midnight:
-            return AKColor.white
+            return CrossPlatformColor.white
         }
     }
 
@@ -337,7 +337,7 @@ public enum ButtonStyle {
 
     /// Initialize the button
     public init(title: String,
-                color: AKColor = Stylist.sharedInstance.nextColor,
+                color: CrossPlatformColor = Stylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (Button) -> Void) {
         self.title = title
@@ -374,30 +374,30 @@ public enum ButtonStyle {
     }
 
     // Default border color per theme
-    var borderColorForTheme: AKColor {
+    var borderColorForTheme: CrossPlatformColor {
         if let borderColor = borderColor {
             return borderColor
         }
 
         switch Stylist.sharedInstance.theme {
         case .basic:
-            return AKColor(white: 0.3, alpha: 1.0)
+            return CrossPlatformColor(white: 0.3, alpha: 1.0)
         case .midnight:
-            return AKColor.white
+            return CrossPlatformColor.white
         }
     }
 
     // Default text color per theme
-    var textColorForTheme: AKColor {
+    var textColorForTheme: CrossPlatformColor {
         if let textColor = textColor {
             return textColor
         }
 
         switch Stylist.sharedInstance.theme {
         case .basic:
-            return AKColor(white: 0.3, alpha: 1.0)
+            return CrossPlatformColor(white: 0.3, alpha: 1.0)
         case .midnight:
-            return AKColor.white
+            return CrossPlatformColor.white
         }
     }
 

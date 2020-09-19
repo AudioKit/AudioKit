@@ -45,7 +45,7 @@ class LiveView: View, KeyboardDelegate {
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addView(Button(title: "Record", color: AKColor.red) { button in
+        addView(Button(title: "Record", color: CrossPlatformColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
