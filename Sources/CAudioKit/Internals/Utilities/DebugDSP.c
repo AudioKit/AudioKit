@@ -13,7 +13,7 @@
 static md5_state_t state[MAX_SLOTS];
 static bool active = false;
 
-void AKDebugDSPSetActive(bool activate) {
+void DebugDSPSetActive(bool activate) {
     active = activate;
     if(active) {
         for(int i=0;i<MAX_SLOTS;++i) {
@@ -22,14 +22,14 @@ void AKDebugDSPSetActive(bool activate) {
     }
 }
 
-void AKDebugDSP(int slot, float value) {
+void DebugDSP(int slot, float value) {
     if(active) {
         assert(slot < MAX_SLOTS);
         md5_append(state+slot, (md5_byte_t*)&value, sizeof(float));
     }
 }
 
-bool AKDebugDSPCheck(int slot, const char* expected) {
+bool DebugDSPCheck(int slot, const char* expected) {
     assert(slot < MAX_SLOTS);
 
     md5_byte_t digest[16];
