@@ -4,23 +4,23 @@
 
 import os.log
 
-public protocol AKMIDITransformer {
+public protocol MIDITransformer {
     func transform(eventList: [MIDIEvent]) -> [MIDIEvent]
 }
 
 /// Default transformer function
-public extension AKMIDITransformer {
+public extension MIDITransformer {
     func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
         Log("MIDI Transformer called", log: OSLog.midi)
         return eventList
     }
 
-    func isEqualTo(_ transformer: AKMIDITransformer) -> Bool {
+    func isEqualTo(_ transformer: MIDITransformer) -> Bool {
         return self == transformer
     }
 }
 
-func == (lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
+func == (lhs: MIDITransformer, rhs: MIDITransformer) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 

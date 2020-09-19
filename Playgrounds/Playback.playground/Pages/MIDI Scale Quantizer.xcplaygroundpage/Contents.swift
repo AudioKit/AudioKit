@@ -1,5 +1,5 @@
 //: ## MIDI Scale Quantizer
-//: This playground demonstrates how to use an AKMIDITransformer to force
+//: This playground demonstrates how to use an MIDITransformer to force
 //: MIDI input to stay in a particular key
 
 import AudioKit
@@ -73,7 +73,7 @@ let midi = AKMIDI()
 midi.inputNames
 midi.openInput()
 
-class MIDIScaleQuantizer: AKMIDITransformer {
+class MIDIScaleQuantizer: MIDITransformer {
     func transform(eventList: [MIDIEvent]) -> [MIDIEvent] {
         var transformedList = [MIDIEvent]()
 
