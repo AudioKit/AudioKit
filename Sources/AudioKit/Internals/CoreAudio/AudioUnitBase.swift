@@ -100,7 +100,7 @@ open class AudioUnitBase: AUAudioUnit {
 
         // Create pointer to the underlying C++ DSP code
         dsp = createDSP()
-        if dsp == nil { throw AKError.InvalidDSPObject }
+        if dsp == nil { throw CommonError.InvalidDSPObject }
 
         // create audio bus connection points
         let format = Settings.audioFormat
