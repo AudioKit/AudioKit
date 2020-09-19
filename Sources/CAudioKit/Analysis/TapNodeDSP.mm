@@ -6,13 +6,12 @@
 
 struct TapNodeDSP : DSPBase {
 
-public:
     TPCircularBuffer leftBuffer;
     TPCircularBuffer rightBuffer;
 
     TapNodeDSP() {
-        TPCircularBufferInit(&leftBuffer, 4096);
-        TPCircularBufferInit(&rightBuffer, 4096);
+        TPCircularBufferInit(&leftBuffer, 4096 * sizeof(float));
+        TPCircularBufferInit(&rightBuffer, 4096 * sizeof(float));
         bCanProcessInPlace = true;
     }
 
@@ -31,8 +30,8 @@ public:
                 *out = *in;
             }
         }
-        TPCircularBufferProduceBytes(&leftBuffer,  inputBufferLists[0]->mBuffers[0].mData, frameCount);
-        TPCircularBufferProduceBytes(&rightBuffer, inputBufferLists[0]->mBuffers[1].mData, frameCount);
+        TPCircularBufferProduceBytes(&leftBuffer,  inputBufferLists[0]->mBuffers[0].mData, frameCount * sizeof(float));
+        TPCircularBufferProduceBytes(&rightBuffer, inputBufferLists[0]->mBuffers[1].mData, frameCount * sizeof(float));
     }
 };
 
