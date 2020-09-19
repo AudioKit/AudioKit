@@ -75,7 +75,7 @@ public class AKDynamicPlayer: AKPlayer {
     override open func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = self.timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
-                AudioKit.engine.attach(timePitchNode.avAudioNode)
+                AKManager.engine.attach(timePitchNode.avAudioNode)
             } else {
                 timePitchNode.disconnectOutput()
             }
@@ -96,20 +96,20 @@ public class AKDynamicPlayer: AKPlayer {
         // this is used only for dynamic sample rate conversion to
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
-            AudioKit.connect(playerNode, to: mixerNode, format: processingFormat)
+            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
             connectionFormat = AKSettings.audioFormat
             playerOutput = mixerNode
         }
 
         if let faderNode = faderNode, let timePitchNode = timePitchNode {
             AKLog("👉 Player → Time Pitch → Fader using", connectionFormat)
-            AudioKit.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
-            AudioKit.connect(timePitchNode.avAudioUnitOrNode, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+            AKManager.connect(playerOutput, to: timePitchNode.avAudioNode, format: connectionFormat)
+            AKManager.connect(timePitchNode.avAudioUnitOrNode, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
             timePitchNode.bypass()
 
         } else if let faderNode = super.faderNode {
             AKLog("👉 Player → Fader using", connectionFormat)
-            AudioKit.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
     }
 

@@ -27,7 +27,7 @@ public class AKMIDIFileTrackNoteMap {
     public let midiFile: AKMIDIFile!
     public let trackNum: Int!
     //AudioKit midi object reference for later implementation with the AKMIDITempoListener
-    let midi = AudioKit.midi
+    let midi = AKManager.midi
     public let tempoListener = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
     public var loNote: Int {
         if noteList.count >= 2 {

@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 #endif
 
-extension AudioKit {
+extension AKManager {
     // MARK: - Start/Stop
 
     /// Start up the audio engine with periodic functions
@@ -108,7 +108,7 @@ extension AudioKit {
 }
 
 #if !os(macOS)
-extension AudioKit {
+extension AKManager {
     @objc internal static func updateSessionCategoryAndOptions() throws {
         guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
 

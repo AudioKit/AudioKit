@@ -113,9 +113,9 @@ open class AKClipPlayer: AKNode {
     // swiftlint:enable force_cast
 
     public override init() {
-        AudioKit.engine.attach(playerNode)
-        AudioKit.engine.attach(mixer)
-        AudioKit.engine.connect(playerNode, to: mixer)
+        AKManager.engine.attach(playerNode)
+        AKManager.engine.attach(mixer)
+        AKManager.engine.connect(playerNode, to: mixer)
         super.init(avAudioNode: mixer, attach: false)
     }
 

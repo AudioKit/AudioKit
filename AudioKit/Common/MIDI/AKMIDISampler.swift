@@ -39,7 +39,7 @@ open class AKMIDISampler: AKAppleSampler {
     ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AKManager.midi.client,
                          name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

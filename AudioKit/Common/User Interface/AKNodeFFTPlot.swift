@@ -92,7 +92,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(AudioKit.output)
+        setupNode(AKManager.output)
         setupReconnection()
     }
 

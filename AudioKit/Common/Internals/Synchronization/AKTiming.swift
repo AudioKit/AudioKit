@@ -63,7 +63,7 @@ extension AKTiming {
         }
 
         let bufferDuration = AKSettings.ioBufferDuration
-        let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+        let referenceTime = AKManager.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
         let startTime = referenceTime + bufferDuration
         for node in nodes {
             node.start(at: startTime)
@@ -87,7 +87,7 @@ extension AKTiming {
         var startTime = audioTime
         if startTime == nil {
             let bufferDuration = AKSettings.ioBufferDuration
-            let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+            let referenceTime = AKManager.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
             startTime = referenceTime + bufferDuration
         }
 

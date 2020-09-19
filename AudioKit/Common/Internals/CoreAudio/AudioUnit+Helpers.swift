@@ -96,7 +96,7 @@ public extension AudioUnit {
     /// Get property
     func getProperty<T>(propertyID: AudioUnitPropertyID, dataSize: UInt32) throws -> T {
         var dataSize = dataSize
-        var data = UnsafeMutablePointer<T>.allocate(capacity: Int(dataSize))
+        let data = UnsafeMutablePointer<T>.allocate(capacity: Int(dataSize))
         defer {
             data.deallocate()
         }
