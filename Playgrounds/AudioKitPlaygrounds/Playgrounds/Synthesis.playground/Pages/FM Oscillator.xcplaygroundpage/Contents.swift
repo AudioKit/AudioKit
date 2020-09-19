@@ -9,8 +9,8 @@ import AudioKitUI
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1
 oscillator.rampDuration = 0.1
-AudioKit.output = oscillator
-try AudioKit.start()
+AKManager.output = oscillator
+try AKManager.start()
 
 class LiveView: AKLiveViewController {
 

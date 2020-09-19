@@ -11,8 +11,8 @@ player.looping = true
 
 var compressor = AKCompressor(player)
 
-AudioKit.output = compressor
-try AudioKit.start()
+AKManager.output = compressor
+try AKManager.start()
 
 player.play()
 

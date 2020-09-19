@@ -12,8 +12,8 @@ var reverb = AKCostelloReverb(player)
 reverb.cutoffFrequency = 9_900 // Hz
 reverb.feedback = 0.92
 
-AudioKit.output = reverb
-try AudioKit.start()
+AKManager.output = reverb
+try AKManager.start()
 
 player.play()
 

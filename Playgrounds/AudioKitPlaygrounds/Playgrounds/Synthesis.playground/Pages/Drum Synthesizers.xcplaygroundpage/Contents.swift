@@ -32,8 +32,8 @@ let beats = AKPeriodicFunction(frequency: 5) {
     counter += 1
 }
 
-AudioKit.output = reverb
-try AudioKit.start(withPeriodicFunctions: beats)
+AKManager.output = reverb
+try AKManager.start(withPeriodicFunctions: beats)
 reverb.loadFactoryPreset(.mediumRoom)
 beats.start()
 

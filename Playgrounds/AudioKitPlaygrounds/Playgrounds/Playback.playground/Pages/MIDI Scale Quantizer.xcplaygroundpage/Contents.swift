@@ -13,8 +13,8 @@ reverb.loadFactoryPreset(.largeRoom)
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
-AudioKit.output = mixer
-try AudioKit.start()
+AKManager.output = mixer
+try AKManager.start()
 
 enum Key {
     case C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
@@ -68,7 +68,7 @@ enum Mode {
 var key = Key.C
 var mode = Mode.major
 
-let midi = AudioKit.midi
+let midi = AKManager.midi
 
 midi.inputNames
 midi.openInput()

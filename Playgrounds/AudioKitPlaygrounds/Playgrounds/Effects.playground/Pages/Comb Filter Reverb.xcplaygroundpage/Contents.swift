@@ -11,8 +11,8 @@ player.looping = true
 var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 filter.reverbDuration = 1
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

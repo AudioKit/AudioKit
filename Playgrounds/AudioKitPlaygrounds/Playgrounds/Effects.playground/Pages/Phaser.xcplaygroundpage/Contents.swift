@@ -10,8 +10,8 @@ player.looping = true
 
 var phaser = AKPhaser(player)
 
-AudioKit.output = phaser
-try AudioKit.start()
+AKManager.output = phaser
+try AKManager.start()
 
 player.play()
 

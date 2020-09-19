@@ -11,8 +11,8 @@ var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.1
 var currentRampDuration = 0.0
 
-AudioKit.output = oscillator
-try AudioKit.start()
+AKManager.output = oscillator
+try AKManager.start()
 
 let playgroundWidth = 500
 

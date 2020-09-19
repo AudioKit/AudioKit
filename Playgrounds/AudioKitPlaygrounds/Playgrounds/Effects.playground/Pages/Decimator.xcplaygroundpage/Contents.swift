@@ -16,8 +16,8 @@ decimator.decimation = 0.5 // Normalized Value 0 - 1
 decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
 
-AudioKit.output = decimator
-try AudioKit.start()
+AKManager.output = decimator
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

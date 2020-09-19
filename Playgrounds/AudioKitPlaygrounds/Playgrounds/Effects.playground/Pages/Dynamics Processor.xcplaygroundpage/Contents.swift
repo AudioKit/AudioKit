@@ -20,8 +20,8 @@ effect.attackDuration
 effect.releaseDuration
 effect.masterGain
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

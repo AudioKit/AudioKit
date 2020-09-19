@@ -26,8 +26,8 @@ let micCopy1 = AKBooster(mic)
 let micCopy2 = AKBooster(mic)
 let micCopy3 = AKBooster(mic)
 
-AudioKit.output = AKStereoFieldLimiter(reverbMixer)
-try AudioKit.start()
+AKManager.output = AKStereoFieldLimiter(reverbMixer)
+try AKManager.start()
 
 //: User Interface
 import AudioKitUI

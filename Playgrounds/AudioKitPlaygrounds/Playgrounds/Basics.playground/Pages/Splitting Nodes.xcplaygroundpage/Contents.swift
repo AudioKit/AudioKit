@@ -28,8 +28,8 @@ delay.dryWetMix = 1
 //: don't have that property by default
 let mixer = AKMixer(player, delay)
 
-AudioKit.output = mixer
-try AudioKit.start()
+AKManager.output = mixer
+try AKManager.start()
 player.play()
 
 import PlaygroundSupport

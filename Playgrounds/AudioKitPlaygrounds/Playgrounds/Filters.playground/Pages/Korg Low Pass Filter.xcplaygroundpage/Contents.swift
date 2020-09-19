@@ -13,8 +13,8 @@ player.looping = true
 
 var filter = AKKorgLowPassFilter(player)
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

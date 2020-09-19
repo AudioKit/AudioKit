@@ -49,9 +49,9 @@ class AudioEngine {
         reverb = AKReverb(delay)
         reverb.loadFactoryPreset(.cathedral)
 
-        AudioKit.output = reverb
+        AKManager.output = reverb
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

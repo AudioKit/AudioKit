@@ -8,8 +8,8 @@ osc.pulseWidth = 0.1
 
 var filter = AKFormantFilter(osc)
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 osc.play()
 
 //: User Interface Set up

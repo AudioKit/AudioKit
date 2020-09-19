@@ -19,16 +19,16 @@ import AudioKit
 //: In a playground, you don't have to worry about whether a node is retained, so you can
 //: just write:
 let oscillator = AKOscillator()
-AudioKit.output = oscillator
-try AudioKit.start()
+AKManager.output = oscillator
+try AKManager.start()
 
 //: But if you did the same type of thing in a project:
 class BadAudioEngine {
     init() {
         let oscillator = AKOscillator()
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start")
         }
@@ -42,9 +42,9 @@ class AudioEngine {
 
     init() {
         oscillator = AKOscillator()
-        AudioKit.output = oscillator
+        AKManager.output = oscillator
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start")
         }
@@ -55,12 +55,12 @@ class AudioEngine {
 //:
 //: In AudioKit playgrounds, failable initializers are just one line:
 let file = try AKAudioFile()
-try AudioKit.start()
+try AKManager.start()
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
     let file = try AKAudioFile(readFileName: "drumloop.wav")
-    try AudioKit.start()
+    try AKManager.start()
 } catch {
     AKLog("File Not Found or AudioKit did not start")
 }

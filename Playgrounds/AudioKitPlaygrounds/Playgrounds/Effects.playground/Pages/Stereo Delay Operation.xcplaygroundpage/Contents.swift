@@ -15,8 +15,8 @@ let effect = AKOperationEffect(player, channelCount: 2) { _, parameters in
 }
 effect.parameters = [0.2, 0.5, 0.01, 0.9]
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 //: User Interface

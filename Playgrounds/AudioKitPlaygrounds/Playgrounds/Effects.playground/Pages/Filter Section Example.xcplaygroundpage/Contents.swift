@@ -22,8 +22,8 @@ let filterSectionEffect = AKOperationEffect(player) { player, _ in
     return player.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
                                    resonance: resonance)
 }
-AudioKit.output = filterSectionEffect
-try AudioKit.start()
+AKManager.output = filterSectionEffect
+try AKManager.start()
 
 player.play()
 
