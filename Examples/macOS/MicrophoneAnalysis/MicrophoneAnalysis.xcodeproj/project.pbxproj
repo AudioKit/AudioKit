@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,8 +11,8 @@
 		78D63E301D0FCDA300C53875 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D63E2F1D0FCDA300C53875 /* ViewController.swift */; };
 		78D63E321D0FCDA300C53875 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E311D0FCDA300C53875 /* Assets.xcassets */; };
 		78D63E351D0FCDA300C53875 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E331D0FCDA300C53875 /* Main.storyboard */; };
-		C446B40B1D45576C000AEFCA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B4091D455764000AEFCA /* AudioKit.framework */; };
-		EA2FA541215AFB9C001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5AB1F5028F300B01FF7 /* AudioKitUI.framework */; };
+		EAF7EF442516244800B5D490 /* AudioKitUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF7EF422516244800B5D490 /* AudioKitUI.xcframework */; };
+		EAF7EF462516244800B5D490 /* AudioKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF7EF432516244800B5D490 /* AudioKit.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +22,8 @@
 		78D63E311D0FCDA300C53875 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78D63E341D0FCDA300C53875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78D63E361D0FCDA300C53875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C446B4091D455764000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
-		EAC9C5AB1F5028F300B01FF7 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		EAF7EF422516244800B5D490 /* AudioKitUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKitUI.xcframework; path = ../../../Frameworks/AudioKitUI.xcframework; sourceTree = "<group>"; };
+		EAF7EF432516244800B5D490 /* AudioKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AudioKit.xcframework; path = ../../../Frameworks/AudioKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C446B40B1D45576C000AEFCA /* AudioKit.framework in Frameworks */,
-				EA2FA541215AFB9C001C210A /* AudioKitUI.framework in Frameworks */,
+				EAF7EF442516244800B5D490 /* AudioKitUI.xcframework in Frameworks */,
+				EAF7EF462516244800B5D490 /* AudioKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +71,8 @@
 		78D63E471D0FCF6700C53875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C446B4091D455764000AEFCA /* AudioKit.framework */,
-				EAC9C5AB1F5028F300B01FF7 /* AudioKitUI.framework */,
+				EAF7EF432516244800B5D490 /* AudioKit.xcframework */,
+				EAF7EF422516244800B5D490 /* AudioKitUI.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,7 +104,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					78D63E291D0FCDA300C53875 = {
@@ -191,6 +191,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -248,6 +249,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
