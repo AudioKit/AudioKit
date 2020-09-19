@@ -3,11 +3,11 @@
 #if os(macOS)
     import Cocoa
     public typealias AKView = NSView
-    public typealias AKColor = NSColor
+    public typealias CrossPlatformColor = NSColor
 #else
     import UIKit
     public typealias AKView = UIView
-    public typealias AKColor = UIColor
+    public typealias CrossPlatformColor = UIColor
 #endif
 
 /// Class to handle colors, fonts, etc.
@@ -20,45 +20,45 @@ public enum AKTheme {
 public class Stylist {
     public static let sharedInstance = Stylist()
 
-    public var bgColor: AKColor {
+    public var bgColor: CrossPlatformColor {
         return bgColors[theme]!
     }
 
-    public var fontColor: AKColor {
+    public var fontColor: CrossPlatformColor {
         return fontColors[theme]!
     }
 
     public var theme = AKTheme.midnight
-    private var bgColors: [AKTheme: AKColor]
-    private var fontColors: [AKTheme: AKColor]
+    private var bgColors: [AKTheme: CrossPlatformColor]
+    private var fontColors: [AKTheme: CrossPlatformColor]
 
-    private var colorCycle: [AKTheme: [AKColor]]
+    private var colorCycle: [AKTheme: [CrossPlatformColor]]
 
     var counter = 0
 
     init() {
         fontColors = Dictionary()
-        fontColors[.basic] = AKColor.black
-        fontColors[.midnight] = AKColor.white
+        fontColors[.basic] = CrossPlatformColor.black
+        fontColors[.midnight] = CrossPlatformColor.white
 
         bgColors = Dictionary()
-        bgColors[.basic] = AKColor.white
+        bgColors[.basic] = CrossPlatformColor.white
         bgColors[.midnight] = #colorLiteral(red: 0.1019607843, green: 0.1019607843, blue: 0.1019607843, alpha: 1)
 
         colorCycle = Dictionary()
-        colorCycle[.basic] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
-                              AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
-                              AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
-                              AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
-                              AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
-        colorCycle[.midnight] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
+        colorCycle[.basic] = [CrossPlatformColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
+                              CrossPlatformColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
+                              CrossPlatformColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
+                              CrossPlatformColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
+                              CrossPlatformColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
+        colorCycle[.midnight] = [CrossPlatformColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
+                                 CrossPlatformColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
+                                 CrossPlatformColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
+                                 CrossPlatformColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
+                                 CrossPlatformColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
     }
 
-    public var nextColor: AKColor {
+    public var nextColor: CrossPlatformColor {
         counter += 1
         if let currentColorCycle = colorCycle[theme] {
             if counter >= currentColorCycle.count {
@@ -70,21 +70,21 @@ public class Stylist {
         }
     }
 
-    public var colorForTrueValue: AKColor {
+    public var colorForTrueValue: CrossPlatformColor {
         switch theme {
         case .basic:
-            return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+            return CrossPlatformColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
         case .midnight:
-            return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+            return CrossPlatformColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
         }
     }
 
-    public var colorForFalseValue: AKColor {
+    public var colorForFalseValue: CrossPlatformColor {
         switch theme {
         case .basic:
-            return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
+            return CrossPlatformColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
         case .midnight:
-            return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
+            return CrossPlatformColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
         }
     }
 }

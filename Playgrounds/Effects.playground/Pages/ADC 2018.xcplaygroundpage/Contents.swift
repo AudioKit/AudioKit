@@ -48,7 +48,7 @@ class LiveView: View {
         rollingPlot.plotType = .rolling
         rollingPlot.shouldFill = true
         rollingPlot.shouldMirror = true
-        rollingPlot.color = AKColor.red
+        rollingPlot.color = CrossPlatformColor.red
         rollingPlot.gain = 2
         addView(rollingPlot)
 
@@ -56,7 +56,7 @@ class LiveView: View {
         plot.plotType = .buffer
         plot.shouldFill = true
         plot.shouldMirror = true
-        plot.color = AKColor.blue
+        plot.color = CrossPlatformColor.blue
         plot.gain = 2
         addView(plot)
 
@@ -64,7 +64,7 @@ class LiveView: View {
         fftPlot.shouldFill = true
         fftPlot.shouldMirror = false
         fftPlot.shouldCenterYAxis = false
-        fftPlot.color = AKColor.purple
+        fftPlot.color = CrossPlatformColor.purple
         fftPlot.gain = 100
         addView(fftPlot)
 
