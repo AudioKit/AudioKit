@@ -24,12 +24,8 @@ struct PitchTracker {
     }
 
     void analyze(float* frames, size_t count) {
-        for(int i=0;i<count;++i) {
-            sp_ptrack_compute(sp,
-                              ptrack,
-                              frames+i,
-                              &trackedFrequency,
-                              &trackedAmplitude);
+        for(int i = 0; i < count; ++i) {
+            sp_ptrack_compute(sp, ptrack, frames + i, &trackedFrequency, &trackedAmplitude);
         }
     }
 
