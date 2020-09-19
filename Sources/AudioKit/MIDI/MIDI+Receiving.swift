@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-// AKMIDI+Receiving Goals
+// MIDI+Receiving Goals
 //      * Simplicty in discovery and presentation of available source inputs
 //      * Simplicty in inserting multiple midi transformations between a source and listeners
 //      * Simplicty in removing an individual midi transformation
@@ -33,7 +33,7 @@ internal struct MIDISources: Collection {
 }
 
 // MARK: - MIDIListeners
-extension AKMIDI {
+extension MIDI {
     /// Add a listener to the listeners
     public func addListener(_ listener: MIDIListener) {
         listeners.append(listener)
@@ -52,7 +52,7 @@ extension AKMIDI {
 }
 
 // MARK: - MIDITransformers
-extension AKMIDI {
+extension MIDI {
     /// Add a transformer to the transformers list
     public func addTransformer(_ transformer: MIDITransformer) {
         transformers.append(transformer)
@@ -68,7 +68,7 @@ extension AKMIDI {
     }
 }
 
-extension AKMIDI {
+extension MIDI {
 
     /// Array of input source unique ids
     public var inputUIDs: [MIDIUniqueID] {

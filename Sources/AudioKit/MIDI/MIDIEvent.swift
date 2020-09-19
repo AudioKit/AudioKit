@@ -114,12 +114,12 @@ public struct MIDIEvent: MIDIMessage {
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = MIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
-                    AKMIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
+                    MIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
                     if let sysExEndIndex = midiBytes.firstIndex(of: MIDISystemCommand.sysExEnd.byte) {
                         let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
-                        AKMIDI.sharedInstance.stopReceivingSysEx()
+                        MIDI.sharedInstance.stopReceivingSysEx()
                     } else {
                         data.removeAll()
                     }
@@ -160,7 +160,7 @@ public struct MIDIEvent: MIDIMessage {
     ///
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
-        if AKMIDI.sharedInstance.isReceivingSysEx {
+        if MIDI.sharedInstance.isReceivingSysEx {
             if let sysExEndIndex = data.firstIndex(of: MIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
@@ -290,10 +290,10 @@ public struct MIDIEvent: MIDIMessage {
 
     static func appendIncomingSysEx(packet: MIDIPacket) -> MIDIEvent? {
         if let midiBytes = MIDIEvent.decode(packet: packet) {
-            AKMIDI.sharedInstance.incomingSysEx += midiBytes
+            MIDI.sharedInstance.incomingSysEx += midiBytes
             if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = MIDIEvent(data: AKMIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
-                AKMIDI.sharedInstance.stopReceivingSysEx()
+                let sysExEvent = MIDIEvent(data: MIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
+                MIDI.sharedInstance.stopReceivingSysEx()
                 return sysExEvent
             }
         }

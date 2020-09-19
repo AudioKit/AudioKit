@@ -88,7 +88,7 @@ internal func getMIDIObjectIntegerProperty(ref: MIDIObjectRef, property: CFStrin
     return result
 }
 
-extension AKMIDI {
+extension MIDI {
 
     /// Array of destination unique ids
     public var destinationUIDs: [MIDIUniqueID] {

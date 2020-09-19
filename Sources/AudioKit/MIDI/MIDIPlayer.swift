@@ -31,7 +31,7 @@ extension AVAudioSequencer: Collection {
 }
 
 /// Simple MIDI Player based on Apple's AVAudioSequencer which has limited capabilities
-public class AKMIDIPlayer: AVAudioSequencer {
+public class MIDIPlayer: AVAudioSequencer {
 
     public var tempo: Double = 120.0
 
