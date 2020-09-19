@@ -294,14 +294,14 @@ public class AKPlayer: AKAbstractPlayer {
         }
 
         if playerNode.engine == nil {
-            AudioKit.engine.attach(playerNode)
+            AKManager.engine.attach(playerNode)
         } else {
             playerNode.disconnectOutput()
         }
 
         if let strongMixer = mixerNode {
             if strongMixer.engine == nil {
-                AudioKit.engine.attach(strongMixer)
+                AKManager.engine.attach(strongMixer)
             } else {
                 // intermediate nodes get disconnected and re-connected
                 strongMixer.disconnectOutput()
@@ -310,7 +310,7 @@ public class AKPlayer: AKAbstractPlayer {
 
         if let faderNode = super.faderNode {
             if faderNode.avAudioUnitOrNode.engine == nil {
-                AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
+                AKManager.engine.attach(faderNode.avAudioUnitOrNode)
             }
             // but, don't disconnect the main output!
             // faderNode stays plugged in
@@ -340,13 +340,13 @@ public class AKPlayer: AKAbstractPlayer {
         // this is used only for dynamic sample rate conversion to
         // AKSettings.audioFormat if needed
         if let mixerNode = mixerNode {
-            AudioKit.connect(playerNode, to: mixerNode, format: processingFormat)
+            AKManager.connect(playerNode, to: mixerNode, format: processingFormat)
             connectionFormat = AKSettings.audioFormat
             playerOutput = mixerNode
         }
 
         if let faderNode = faderNode {
-            AudioKit.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
+            AKManager.connect(playerOutput, to: faderNode.avAudioUnitOrNode, format: connectionFormat)
         }
 
         faderNode?.bypass()
@@ -460,10 +460,10 @@ public class AKPlayer: AKAbstractPlayer {
         super.detach() // get rid of the faderNode
         audioFile = nil
         buffer = nil
-        AudioKit.detach(nodes: [playerNode])
+        AKManager.detach(nodes: [playerNode])
 
         if let mixerNode = self.mixerNode {
-            AudioKit.detach(nodes: [mixerNode])
+            AKManager.detach(nodes: [mixerNode])
             self.mixerNode = nil
         }
     }

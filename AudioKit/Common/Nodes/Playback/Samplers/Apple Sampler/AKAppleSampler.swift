@@ -63,7 +63,7 @@ open class AKAppleSampler: AKNode {
         avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AudioKit.engine.attach(avAudioUnitOrNode)
+        AKManager.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
 
@@ -217,7 +217,7 @@ open class AKAppleSampler: AKNode {
                          velocity: MIDIVelocity = 127,
                          channel: MIDIChannel = 0) throws {
         try AKTry {
-            if AudioKit.engine.isRunning == false {
+            if AKManager.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")
                 throw AKError.AudioKitNotRunning
             } else {

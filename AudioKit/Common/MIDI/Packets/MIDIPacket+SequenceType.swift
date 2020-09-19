@@ -36,7 +36,7 @@ extension MIDIPacket: Sequence {
                 return generator.next() as! MIDIByte
             }
             let status = pop()
-            if AudioKit.midi.isReceivingSysEx {
+            if AKManager.midi.isReceivingSysEx {
                 return AKMIDIEvent.appendIncomingSysEx(packet: self) //will be nil until SysEx is done
             } else if var mstat = AKMIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0

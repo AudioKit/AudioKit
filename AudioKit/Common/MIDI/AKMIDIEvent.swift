@@ -118,12 +118,12 @@ public struct AKMIDIEvent: AKMIDIMessage {
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysEx packet has started so it can gather bytes until the end
-                    AudioKit.midi.startReceivingSysEx(with: midiBytes)
+                    AKManager.midi.startReceivingSysEx(with: midiBytes)
                     data += midiBytes
                     if let sysExEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysExEnd.byte) {
                         let length = sysExEndIndex + 1
                         data = Array(data.prefix(length))
-                        AudioKit.midi.stopReceivingSysEx()
+                        AKManager.midi.stopReceivingSysEx()
                     } else {
                         data.removeAll()
                     }
@@ -164,7 +164,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///
     public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
         self.offset = offset
-        if AudioKit.midi.isReceivingSysEx {
+        if AKManager.midi.isReceivingSysEx {
             if let sysExEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
@@ -294,10 +294,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     static func appendIncomingSysEx(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-            AudioKit.midi.incomingSysEx += midiBytes
+            AKManager.midi.incomingSysEx += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysEx, offset: packet.timeStamp)
-                AudioKit.midi.stopReceivingSysEx()
+                let sysExEvent = AKMIDIEvent(data: AKManager.midi.incomingSysEx, offset: packet.timeStamp)
+                AKManager.midi.stopReceivingSysEx()
                 return sysExEvent
             }
         }

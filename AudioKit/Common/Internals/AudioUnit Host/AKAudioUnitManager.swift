@@ -329,8 +329,8 @@ open class AKAudioUnitManager: NSObject {
             AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
             if au.engine != nil {
-                AudioKit.engine.disconnectNodeInput(au)
-                AudioKit.engine.detach(au)
+                AKManager.engine.disconnectNodeInput(au)
+                AKManager.engine.detach(au)
             }
         }
         _effectsChain[index] = nil
@@ -395,8 +395,8 @@ open class AKAudioUnitManager: NSObject {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
                 if au.engine != nil {
-                    AudioKit.engine.disconnectNodeInput(au)
-                    AudioKit.engine.detach(au)
+                    AKManager.engine.disconnectNodeInput(au)
+                    AKManager.engine.detach(au)
                 }
                 _effectsChain[i] = nil
             }
@@ -434,23 +434,23 @@ open class AKAudioUnitManager: NSObject {
         AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
-            AudioKit.connect(inputAV, to: outputAV, format: processingFormat)
+            AKManager.connect(inputAV, to: outputAV, format: processingFormat)
             return
         }
         var au = effects[0]
 
-        AudioKit.connect(inputAV, to: au, format: processingFormat)
+        AKManager.connect(inputAV, to: au, format: processingFormat)
 
         if effects.count > 1 {
             for i in 1 ..< effects.count {
                 au = effects[i]
                 let prevAU = effects[i - 1]
 
-                AudioKit.connect(prevAU, to: au, format: processingFormat)
+                AKManager.connect(prevAU, to: au, format: processingFormat)
             }
         }
 
-        AudioKit.connect(au, to: outputAV, format: processingFormat)
+        AKManager.connect(au, to: outputAV, format: processingFormat)
     }
 
     /// Clear all linked units previous processing state. IE, Panic button.
