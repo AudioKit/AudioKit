@@ -3,9 +3,6 @@
 import AVFoundation
 import CAudioKit
 
-@available(*, deprecated, message: "@deprecated Use Fader instead.")
-public typealias AKBooster = Fader
-
 /// Stereo Fader.
 public class Fader: Node, AudioUnitContainer, Toggleable {
 

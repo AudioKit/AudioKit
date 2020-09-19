@@ -8,7 +8,7 @@ import CAudioKit
 public class Sampler: PolyphonicNode, AudioUnitContainer {
     public typealias AudioUnitType = SamplerAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
 
     // MARK: - Properties
 
