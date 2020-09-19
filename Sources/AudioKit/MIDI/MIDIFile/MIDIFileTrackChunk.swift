@@ -50,7 +50,7 @@ public struct MIDIFileTrackChunk: MIDIFileChunk {
                 processedBytes += vlqTime.length
             } else if let vlqTime = currentTimeVLQ {
                 var event: MIDIFileChunkEvent?
-                if let metaEvent = AKMIDIMetaEvent(data: subData) {
+                if let metaEvent = MIDICustomMetaEvent(data: subData) {
                     let metaData = metaEvent.data
                     event = MIDIFileChunkEvent(data: vlqTime.data + metaData,
                                                  timeFormat: timeFormat,
