@@ -278,6 +278,7 @@ let validatedMD5s: [String: String] = [
     "-[TableTests testSawtooth]": "58bef5283c01c8407057b2834691379c",
     "-[TableTests testSine]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[TableTests testTriangle]": "ec11eec142dfa128319239884b1e4d76",
+    "-[TapNodeTests testPassesAudioThrough]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[TanhDistortionTests testDefault]": "6b755ddceda4bb77eb7d21315bb68056",
     "-[TanhDistortionTests testNegativeShapeParameter]": "3cf839da656bc08f96e9f09950b762a0",
     "-[TanhDistortionTests testParameters]": "4fd94dd37aa697f4130f55d55036da13",
