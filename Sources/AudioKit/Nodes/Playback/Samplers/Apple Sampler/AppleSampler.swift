@@ -87,7 +87,7 @@ open class AppleSampler: Node {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
-            try AKTry {
+            try ExceptionCatcher {
                 try self.samplerUnit.loadAudioFiles(at: [url])
                 self.samplerUnit.reset()
             }
@@ -113,7 +113,7 @@ open class AppleSampler: Node {
         _audioFiles = [file]
 
         do {
-            try AKTry {
+            try ExceptionCatcher {
                 try self.samplerUnit.loadAudioFiles(at: [file.url])
                 self.samplerUnit.reset()
             }
@@ -134,7 +134,7 @@ open class AppleSampler: Node {
         _audioFiles = files
         let urls = files.map { $0.url }
         do {
-            try AKTry {
+            try ExceptionCatcher {
                 try self.samplerUnit.loadAudioFiles(at: urls)
                 self.samplerUnit.reset()
             }
@@ -152,7 +152,7 @@ open class AppleSampler: Node {
     ///
     public func loadPath(_ filePath: String) throws {
         do {
-            try AKTry {
+            try ExceptionCatcher {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
                 self.samplerUnit.reset()
             }
@@ -169,7 +169,7 @@ open class AppleSampler: Node {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
-            try AKTry {
+            try ExceptionCatcher {
                 try self.samplerUnit.loadInstrument(at: url)
                 self.samplerUnit.reset()
             }
@@ -225,7 +225,7 @@ open class AppleSampler: Node {
     ///   - channel: MIDI Channnel
     ///
     public func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
-        try AKTry {
+        try ExceptionCatcher {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
     }

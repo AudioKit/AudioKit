@@ -2,8 +2,8 @@
 
 #import "ExceptionCatcher.h"
 
-void AKTryOperation(void (^ _Nonnull tryBlock)(void),
-                    void (^ _Nullable catchBlock)(NSException * _Nonnull))
+void ExceptionCatcherOperation(void (^ _Nonnull tryBlock)(void),
+                               void (^ _Nullable catchBlock)(NSException * _Nonnull))
 {
     @try {
         tryBlock();

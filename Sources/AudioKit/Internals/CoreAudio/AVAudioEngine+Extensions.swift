@@ -28,7 +28,7 @@ extension AVAudioEngine {
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
 
-        try AKTry {
+        try ExceptionCatcher {
             // Engine can't be running when switching to offline render mode.
             if self.isRunning { self.stop() }
             try self.enableManualRenderingMode(.offline,
@@ -105,7 +105,7 @@ extension AVAudioEngine {
             }
         }
 
-        try AKTry {
+        try ExceptionCatcher {
             self.stop()
             self.disableManualRenderingMode()
         }

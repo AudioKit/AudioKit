@@ -3,7 +3,7 @@
 import CAudioKit
 import Foundation
 
-public func AKTry(_ operation: @escaping (() throws -> Void)) throws {
+public func ExceptionCatcher(_ operation: @escaping (() throws -> Void)) throws {
     var error: Error?
 
     let theTry = {
@@ -25,7 +25,7 @@ public func AKTry(_ operation: @escaping (() throws -> Void)) throws {
                         userInfo: userInfo)
     }
 
-    AKTryOperation(theTry, theCatch)
+    ExceptionCatcherOperation(theTry, theCatch)
 
     if let error = error { // Caught an exception
         throw error
