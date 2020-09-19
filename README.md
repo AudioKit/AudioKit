@@ -66,8 +66,6 @@ For Hello World, you only need to understand a few lines of code:
 
 ## Contributing Code
 
-AudioKit is always being improved by our core team and our users.   [This is a rough outline of what we're working on currently.](https://github.com/audiokit/AudioKit/projects)
-
 When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 ## About Us
