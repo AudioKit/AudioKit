@@ -62,7 +62,7 @@ First `MyNode` is instantiated, which results in an instantiation of `MySwiftAU`
 
 Upon instantiation by its constructor `initWithComponentDescription`, `AudioUnitBase` will attempt to get a pointer to the underlying C++ by calling its method `initDSPWithSampleRate`. `MyObjAU` (or `MySwiftAU`) is expected to override this method so that it can create and return an instance of the C++ `MyDSP` “DSP Kernel”. 
 
-The C++ DSP block is stored as a void pointer in `AudioUnitBase` because `AKAudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `DSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
+The C++ DSP block is stored as a void pointer in `AudioUnitBase` because `AudionUnitBase` cannot know anything about the specifics of `MyDSP` or any other specialized C++ DSP code. We could use a pointer to `DSPBase` instead, but that would make it impossible for Swift to furnish this pointer.
 
 ### `allocateRenderResources` and `internalRenderBlock`
 

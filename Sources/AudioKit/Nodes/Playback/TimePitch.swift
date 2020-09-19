@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class AKTimePitch: Node, Toggleable {
+public class TimePitch: Node, Toggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 

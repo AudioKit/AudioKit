@@ -16,10 +16,10 @@ public typealias SampleIndex = UInt32
 public typealias FloatChannelData = [[Float]]
 
 /// Callback function that can be called from C
-public typealias AKCCallback = @convention(block) () -> Void
+public typealias CVoidCallback = @convention(block) () -> Void
 
 /// Callback function that can be called from C
-public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
+public typealias CMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
 
 extension AudioUnitParameterOptions {
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
