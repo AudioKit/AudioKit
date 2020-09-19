@@ -46,7 +46,7 @@ class Audiobus {
     var controller: ABAudiobusController
 
     var audioUnit: AudioUnit {
-        return AudioKit.engine.outputNode.audioUnit!
+        return AKManager.engine.outputNode.audioUnit!
     }
 
     init(apiKey: String) {

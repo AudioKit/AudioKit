@@ -60,9 +60,9 @@ class Conductor {
 
         [verb, bassDrum, snareDrum, snareGhost, snareVerb] >>> mixer
 
-        AudioKit.output = pumper
+        AKManager.output = pumper
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

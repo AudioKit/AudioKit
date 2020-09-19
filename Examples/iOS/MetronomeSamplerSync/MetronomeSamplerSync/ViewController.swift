@@ -32,9 +32,9 @@ class ViewController: UIViewController {
 
         metronome1 >>> mixer
         metronome2 >>> mixer
-        AudioKit.output = mixer
+        AKManager.output = mixer
         do {
-            try AudioKit.start()
+            try AKManager.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -92,16 +92,16 @@ class ViewController: UIViewController {
         let muter = AKMixer()
         muter.volume = 0
 
-        mic! >>> muter >>> mixer
+        mic >>> muter >>> mixer
         metronome >>> mixer
         player >>> mixer
-        AudioKit.output = mixer
+        AKManager.output = mixer
 
         // Set up recorders
-        loopBackRecorder = AKClipRecorder(node: mic!)
+        loopBackRecorder = AKClipRecorder(node: mic)
         directRecorder = AKClipRecorder(node: metronome)
 
-        do { try AudioKit.start() } catch {
+        do { try AKManager.start() } catch {
             fatalError(error.localizedDescription)
         }
 
