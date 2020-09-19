@@ -33,7 +33,7 @@ extension MusicTrackManager {
                         var eventData: UnsafeRawPointer?
                         var eventDataSize: UInt32 = 0
                         MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-                        if let event = AKMusicEventType(rawValue: eventType) {
+                        if let event = MusicTrackManagerEventType(rawValue: eventType) {
                             Log("event \(i) at time \(eventTime) type is \(event.description)")
                         }
                         MusicEventIteratorHasCurrentEvent(iterator, &hasEvent)
@@ -46,7 +46,7 @@ extension MusicTrackManager {
     }
 }
 
-enum AKMusicEventType: UInt32 {
+enum MusicTrackManagerEventType: UInt32 {
     case kMusicEventType_NULL = 0
     case kMusicEventType_ExtendedNote = 1
     case undefined2 = 2

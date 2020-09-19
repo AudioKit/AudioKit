@@ -13,15 +13,15 @@
 /* EXAMPLE
 
  Define enum in ObjC/C/C++:
- typedef AK_ENUM(AKDirection){
-     AKDirectionUp,
-     AKDirectionRight,
-     AKDirectionDown,
-     AKDirectionLeft,
+ typedef AK_ENUM(Direction){
+     DirectionUp,
+     DirectionRight,
+     DirectionDown,
+     DirectionLeft,
  }AKDirection;
 
  Then use in Swift:
- let direction: AKDirection = .up
+ let direction: Direction = .up
 */
 
 /// Pointer to an instance of an DSPBase subclass

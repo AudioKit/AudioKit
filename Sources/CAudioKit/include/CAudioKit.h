@@ -65,12 +65,12 @@ AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int
 AK_API float* akOperationGeneratorTrigger(DSPRef dspRef);
 AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 
-typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
-AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, AKCMIDICallback callback);
+typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);
+AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 
 // Custom debug
 #define PhaseDistortionOscillatorDebugPhase 0
-#define AKOscillatorDebugPhase 0
+#define OscillatorDebugPhase 0
 
 // EZAudio
 #import "EZAudio.h"

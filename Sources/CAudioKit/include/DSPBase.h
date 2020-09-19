@@ -187,7 +187,7 @@ struct DSPRegistration {
 
 /// Convenience macro for registering a subclass of DSPBase.
 ///
-/// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("AKMyClass")`
+/// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("MyClass")`
 #define AK_REGISTER_DSP(ClassName) DSPRegistration<ClassName> __register##ClassName(#ClassName);
 
 struct ParameterRegistration {

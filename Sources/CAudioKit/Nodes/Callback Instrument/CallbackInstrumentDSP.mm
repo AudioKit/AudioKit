@@ -3,7 +3,7 @@
 #include "DSPBase.h"
 #import "TPCircularBuffer.h"
 
-typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
+typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);
 
 class CallbackInstrumentDSP : public DSPBase {
 public:
@@ -75,7 +75,7 @@ public:
         }
     }
     
-    void setCallback(AKCMIDICallback func) {
+    void setCallback(CMIDICallback func) {
         callback = func;
     }
     
@@ -87,10 +87,10 @@ private:
 public:
     bool started = false;
     bool resetted = false;
-    AKCMIDICallback callback = nullptr;
+    CMIDICallback callback = nullptr;
 };
 
-AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, AKCMIDICallback callback) {
+AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback) {
     static_cast<CallbackInstrumentDSP*>(dsp)->setCallback(callback);
 }
 
