@@ -3,8 +3,6 @@
 import AVFoundation
 import CAudioKit
 
-public typealias AKCallback = () -> Void
-
 #if !os(tvOS)
 import Foundation
 

@@ -480,7 +480,7 @@ public class KeyboardView: NSView, MIDIListener {
         }
     }
 
-    let midi = AKMIDI.sharedInstance
+    let midi = MIDI.sharedInstance
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]

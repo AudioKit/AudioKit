@@ -5,7 +5,7 @@ import CoreAudio
 
 #if !os(tvOS)
 
-/// A version of AKInstrument specifically targeted to instruments that
+/// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class MIDIInstrument: PolyphonicNode, MIDIListener {
 
@@ -36,7 +36,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener {
     ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI.sharedInstance.client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
                          name: String = "AudioKit MIDI Instrument") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

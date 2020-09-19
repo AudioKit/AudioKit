@@ -3,7 +3,7 @@
 
 import AudioKit
 
-let midi = AKMIDI()
+let midi = MIDI()
 
 midi.openOutput()
 

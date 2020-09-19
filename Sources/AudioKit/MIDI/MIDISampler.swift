@@ -36,7 +36,7 @@ open class MIDISampler: AppleSampler {
     ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    public func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI.sharedInstance.client,
+    public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
                            name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

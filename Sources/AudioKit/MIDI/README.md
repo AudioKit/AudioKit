@@ -8,7 +8,7 @@ We are planning to renovate this and release it as a separate module that AudioK
 
 You add MIDI listeners like this:
  ```
-var midi = AKMIDI()
+var midi = MIDI()
 midi.openInput()
 midi.addListener(someClass)
  ```

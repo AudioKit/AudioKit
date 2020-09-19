@@ -4,7 +4,7 @@
 import CoreMIDI
 import os.log
 
-extension AKMIDI {
+extension MIDI {
 
     // MARK: - Virtual MIDI
     //

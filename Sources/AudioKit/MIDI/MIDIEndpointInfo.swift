@@ -95,7 +95,7 @@ extension Collection where Iterator.Element == MIDIEndpointRef {
     }
 }
 
-extension AKMIDI {
+extension MIDI {
     /// Destinations
     public var destinationInfos: [EndpointInfo] {
         return MIDIDestinations().endpointInfos

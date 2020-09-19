@@ -6,9 +6,9 @@ import os.log
 
 /// MIDI input and output handler
 ///
-public class AKMIDI {
+public class MIDI {
 
-    public static var sharedInstance = AKMIDI()
+    public static var sharedInstance = MIDI()
 
     // MARK: - Properties
 
@@ -46,7 +46,7 @@ public class AKMIDI {
 
     // MARK: - Initialization
 
-    /// Initialize the AKMIDI system
+    /// Initialize the MIDI system
     public init() {
         Log("Initializing MIDI", log: OSLog.midi)
 
