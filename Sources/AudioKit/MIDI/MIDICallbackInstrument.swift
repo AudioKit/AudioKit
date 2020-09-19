@@ -13,7 +13,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     // MARK: - Properties
 
     /// All callbacks that will get triggered by MIDI events
-    open var callback: AKMIDICallback?
+    open var callback: MIDICallback?
 
     // MARK: - Initialization
 
@@ -22,7 +22,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     /// - parameter midiInputName: Name of the instrument's MIDI input
     /// - parameter callback: Initial callback
     ///
-    public init(midiInputName: String = "AudioKit Callback Instrument", callback: AKMIDICallback? = nil) {
+    public init(midiInputName: String = "AudioKit Callback Instrument", callback: MIDICallback? = nil) {
         super.init(midiInputName: midiInputName)
         self.name = midiInputName
         self.callback = callback

@@ -6,7 +6,7 @@ import CoreAudio
 
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class AKMIDINode: Node, MIDIListener {
+open class MIDINode: Node, MIDIListener {
 
     // MARK: - Properties
 
@@ -14,7 +14,7 @@ open class AKMIDINode: Node, MIDIListener {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "AKMIDINode"
+    open var name = "MIDINode"
 
     private var internalNode: PolyphonicNode
 

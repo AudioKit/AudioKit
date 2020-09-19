@@ -9,7 +9,7 @@ public typealias AKCallback = () -> Void
 import Foundation
 
 /// Function type for MIDI callbacks
-public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
+public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// New sample-accurate version of CallbackInstrument
 /// Old CallbackInstrument renamed to MIDICallbackInstrument
@@ -30,14 +30,14 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
             akCreateDSP("CallbackInstrumentDSP")
         }
         
-        public func setCallback(_ callback: AKMIDICallback?) {
+        public func setCallback(_ callback: MIDICallback?) {
             akCallbackInstrumentSetCallback(dsp, callback)
         }
     }
 
     // MARK: - Initialization
 
-    public init(midiCallback: AKMIDICallback? = nil) {
+    public init(midiCallback: MIDICallback? = nil) {
 
         super.init(avAudioNode: AVAudioNode())
 
