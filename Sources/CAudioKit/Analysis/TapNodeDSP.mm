@@ -37,9 +37,10 @@ public:
 };
 
 AK_REGISTER_DSP(TapNodeDSP)
-AK_API TPCircularBuffer akTapNodeGetLeftBuffer(DSPRef dsp) {
-//    return static_cast<TapNodeDSP*>(dsp)->leftBuffer;
+
+AK_API TPCircularBuffer* akTapNodeGetLeftBuffer(DSPRef dsp) {
+    return &static_cast<TapNodeDSP*>(dsp)->leftBuffer;
 }
-AK_API TPCircularBuffer akTapNodeGetRightBuffer(DSPRef dsp) {
-//    return static_cast<TapNodeDSP*>(dsp)->rightBuffer;
+AK_API TPCircularBuffer* akTapNodeGetRightBuffer(DSPRef dsp) {
+    return &static_cast<TapNodeDSP*>(dsp)->rightBuffer;
 }
