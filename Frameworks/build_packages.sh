@@ -50,11 +50,10 @@ create_package()
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$1"
-	cd $DIR
-	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
+	tar cf - $(find . -name AudioKit\*.xcframework) | tar xf - -C "Carthage/$1/"
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
-	cp -a ../../Examples/$1*/* ../../Examples/Common Examples/
+	cp -a ../Examples/$1*/* ../Examples/Common Examples/
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor Examples/Drums
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
@@ -75,37 +74,32 @@ create_playgrounds()
 	rm -rf AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
-	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	cp -a ../AudioKit.xcframework ../AudioKitUI.xcframework AudioKitPlaygrounds/
+	gsed -i "s/\.\.\/Frameworks/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find . -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
-        zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
+    zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 }
 
-rm -rf Carthage
-mkdir -p Carthage
+# rm -rf Carthage
+# mkdir -p Carthage
 
-for os in $PLATFORMS;
-do
-	create_package $os
-done
+# for os in $PLATFORMS;
+# do
+# 	create_package $os
+# done
 
 # Only package Playgrounds if they are part of this repo
 test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && test -d ../Playgrounds && create_playgrounds
 
 # Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 
-echo "Packaging AudioKit frameworks version $VERSION for CocoaPods and Carthage ..."
-rm -f ${SUBDIR}/AudioKit.framework.zip
-cd Carthage
-cp ../../LICENSE ../../README.md .
-zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
-cd ..
-
 if test -d AudioKit.xcframework && test -d AudioKitUI.xcframework; then
 	echo "Packaging the XCFrameworks ..."
 	rm -f ${SUBDIR}/AudioKit.xcframework.zip
-	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework
+	cp ../LICENSE .
+	zip -9yr ${SUBDIR}/AudioKit.xcframework.zip AudioKit.xcframework AudioKitUI.xcframework LICENSE
+	rm LICENSE
 fi
