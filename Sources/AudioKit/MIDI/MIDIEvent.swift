@@ -25,7 +25,7 @@ public struct MIDIEvent: MIDIMessage {
         if let command = self.command {
             return "\(command.description) - \(data)"
         }
-        if let meta = AKMIDIMetaEvent(data: data) {
+        if let meta = MIDICustomMetaEvent(data: data) {
             return "\(meta.description) - \(data)"
         }
         return "Unhandled event \(data)"
@@ -178,7 +178,7 @@ public struct MIDIEvent: MIDIMessage {
             // is regular MIDI status
             let channel = data[0].lowBit
             fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
-        } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
+        } else if let metaType = MIDICustomMetaEventType(rawValue: data[0]) {
             Log("is meta event \(metaType.description)", log: OSLog.midi)
         }
     }

@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum AKMIDIMetaEventType: MIDIByte {
+public enum MIDICustomMetaEventType: MIDIByte {
     case sequenceNumber = 0x00
     case textEvent = 0x01
     case copyright = 0x02
@@ -89,7 +89,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     }
 }
 
-public struct AKMIDIMetaEvent: MIDIMessage {
+public struct MIDICustomMetaEvent: MIDIMessage {
 
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
@@ -97,7 +97,7 @@ public struct AKMIDIMetaEvent: MIDIMessage {
     public init?(data: [MIDIByte]) {
         if data.count > 2,
             data[0] == 0xFF,
-            let type = AKMIDIMetaEventType(rawValue: data[1]),
+            let type = MIDICustomMetaEventType(rawValue: data[1]),
             let vlqLength = MIDIVariableLengthQuantity(fromBytes: Array(data.suffix(from: 2))) {
             self.length = Int(vlqLength.quantity)
             self.data = Array(data.prefix(3 + length)) //drop excess data
@@ -109,7 +109,7 @@ public struct AKMIDIMetaEvent: MIDIMessage {
 
     init?(fileEvent event: MIDIFileChunkEvent) {
         guard
-            let metaEvent = AKMIDIMetaEvent(data: event.computedData)
+            let metaEvent = MIDICustomMetaEvent(data: event.computedData)
         else {
             return nil
         }
@@ -120,7 +120,7 @@ public struct AKMIDIMetaEvent: MIDIMessage {
     }
 
     public let data: [MIDIByte]
-    public let type: AKMIDIMetaEventType
+    public let type: MIDICustomMetaEventType
     public let length: Int
     public var description: String {
         var nameStr: String = ""

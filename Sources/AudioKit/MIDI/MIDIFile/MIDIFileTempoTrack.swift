@@ -18,7 +18,7 @@ public struct MIDIFileTempoTrack {
         return track.events
     }
 
-    public var metaEvents: [AKMIDIMetaEvent] {
+    public var metaEvents: [MIDICustomMetaEvent] {
         return track.metaEvents
     }
 

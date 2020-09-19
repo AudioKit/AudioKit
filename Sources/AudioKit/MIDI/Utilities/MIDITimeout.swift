@@ -7,7 +7,7 @@ import Foundation
 /// Since the external caller is responsible for what constitues succes,
 /// they are expected to call succeed() which will prevent timeout from
 /// happening.
-@objc open class AKMIDITimeout: NSObject {
+@objc open class MIDITimeout: NSObject {
     private var onSuccess: ActionClosureType?
     private var onTimeout: ActionClosureType?
     let timeoutInterval: TimeInterval

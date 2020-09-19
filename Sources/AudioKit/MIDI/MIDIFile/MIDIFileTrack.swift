@@ -16,8 +16,8 @@ public struct MIDIFileTrack {
         return chunk.chunkEvents.compactMap({ MIDIEvent(fileEvent: $0) })
     }
 
-    public var metaEvents: [AKMIDIMetaEvent] {
-        return chunk.chunkEvents.compactMap({ AKMIDIMetaEvent(fileEvent: $0) })
+    public var metaEvents: [MIDICustomMetaEvent] {
+        return chunk.chunkEvents.compactMap({ MIDICustomMetaEvent(fileEvent: $0) })
     }
 
     public var length: Double {
@@ -25,8 +25,8 @@ public struct MIDIFileTrack {
     }
 
     public var name: String? {
-        if let nameChunk = chunk.chunkEvents.first(where: { $0.typeByte == AKMIDIMetaEventType.trackName.rawValue }),
-            let meta = AKMIDIMetaEvent(data: nameChunk.computedData) {
+        if let nameChunk = chunk.chunkEvents.first(where: { $0.typeByte == MIDICustomMetaEventType.trackName.rawValue }),
+            let meta = MIDICustomMetaEvent(data: nameChunk.computedData) {
             return meta.name
         }
         return nil

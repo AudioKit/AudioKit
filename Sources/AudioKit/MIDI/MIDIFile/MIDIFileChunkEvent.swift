@@ -81,7 +81,7 @@ public struct MIDIFileChunkEvent {
     }
 
     var length: Int {
-        if let metaEvent = event as? AKMIDIMetaEvent {
+        if let metaEvent = event as? MIDICustomMetaEvent {
             return metaEvent.length
         } else if let status = event as? MIDIStatus {
             return status.length
@@ -100,7 +100,7 @@ public struct MIDIFileChunkEvent {
     }
 
     var event: MIDIMessage? {
-        if let meta = AKMIDIMetaEvent(data: rawEventData) {
+        if let meta = MIDICustomMetaEvent(data: rawEventData) {
             return meta
         } else if let type = typeByte {
             if let status = MIDIStatus(byte: type) {

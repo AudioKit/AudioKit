@@ -58,7 +58,7 @@ public class MIDITempoListener: NSObject {
     var tickSmoothing: ValueSmoothing
     var bpmSmoothing: ValueSmoothing
 
-    var clockTimeout: AKMIDITimeout?
+    var clockTimeout: MIDITimeout?
     public var incomingClockActive = false
 
     let BEAT_TICKS = 24
@@ -90,7 +90,7 @@ public class MIDITempoListener: NSObject {
             _ = mach_timebase_info(&timebaseInfo)
         }
 
-        clockTimeout = AKMIDITimeout(timeoutInterval: 1.6, onMainThread: true, success: {}, timeout: {
+        clockTimeout = MIDITimeout(timeoutInterval: 1.6, onMainThread: true, success: {}, timeout: {
             if self.incomingClockActive == true {
                 self.midiClockActivityStopped()
             }
