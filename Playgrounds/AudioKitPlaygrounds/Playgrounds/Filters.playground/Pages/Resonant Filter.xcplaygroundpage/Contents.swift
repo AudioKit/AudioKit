@@ -12,8 +12,8 @@ var filter = AKResonantFilter(player)
 filter.frequency = 5_000 // Hz
 filter.bandwidth = 600  // Cents
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

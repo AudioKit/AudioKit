@@ -13,8 +13,8 @@ let effect = AKOperationEffect(player) { player, _ in
     return player.autoWah(wah: wahAmount, amplitude: 0.6)
 }
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 import PlaygroundSupport

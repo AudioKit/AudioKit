@@ -119,8 +119,8 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 }
 
 // Start Audio
-AudioKit.output = mixer
-try AudioKit.start(withPeriodicFunctions: sequencerFunction)
+AKManager.output = mixer
+try AKManager.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
 import AudioKitUI

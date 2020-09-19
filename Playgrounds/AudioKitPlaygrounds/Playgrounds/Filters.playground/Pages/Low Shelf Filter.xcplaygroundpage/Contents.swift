@@ -11,8 +11,8 @@ var filter = AKLowShelfFilter(player)
 filter.cutoffFrequency = 80 // Hz
 filter.gain = 0 // dB
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

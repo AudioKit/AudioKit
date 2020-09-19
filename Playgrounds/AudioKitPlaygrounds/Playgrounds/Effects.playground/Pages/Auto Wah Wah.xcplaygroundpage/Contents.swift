@@ -13,8 +13,8 @@ var wah = AKAutoWah(player)
 wah.wah = 1
 wah.amplitude = 1
 
-AudioKit.output = wah
-try AudioKit.start()
+AKManager.output = wah
+try AKManager.start()
 
 player.play()
 

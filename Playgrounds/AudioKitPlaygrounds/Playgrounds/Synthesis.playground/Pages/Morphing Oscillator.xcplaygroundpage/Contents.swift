@@ -12,8 +12,8 @@ morph.frequency = 400
 morph.amplitude = 0.1
 morph.index = 0.8
 
-AudioKit.output = morph
-try AudioKit.start()
+AKManager.output = morph
+try AKManager.start()
 morph.start()
 
 class LiveView: AKLiveViewController {

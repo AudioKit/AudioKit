@@ -14,8 +14,8 @@ distortion.postgain = 1.0
 distortion.positiveShapeParameter = 1.0
 distortion.negativeShapeParameter = 1.0
 
-AudioKit.output = distortion
-try AudioKit.start()
+AKManager.output = distortion
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

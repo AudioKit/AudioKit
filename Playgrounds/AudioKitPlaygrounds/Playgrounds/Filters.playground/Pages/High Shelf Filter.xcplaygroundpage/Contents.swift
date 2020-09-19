@@ -12,8 +12,8 @@ var filter = AKHighShelfFilter(player)
 filter.cutoffFrequency = 10_000 // Hz
 filter.gain = 0 // dB
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

@@ -5,8 +5,8 @@ import AudioKitPlaygrounds
 import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 //: User Interface Set up
 import AudioKitUI
 

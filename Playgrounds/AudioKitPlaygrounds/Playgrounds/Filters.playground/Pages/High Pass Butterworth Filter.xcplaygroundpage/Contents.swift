@@ -14,8 +14,8 @@ player.looping = true
 var filter = AKHighPassButterworthFilter(player)
 filter.cutoffFrequency = 6_900 // Hz
 
-AudioKit.output = filter
-try AudioKit.start()
+AKManager.output = filter
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

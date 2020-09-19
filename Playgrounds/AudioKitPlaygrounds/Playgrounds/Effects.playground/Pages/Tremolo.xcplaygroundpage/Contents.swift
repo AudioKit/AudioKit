@@ -12,8 +12,8 @@ var tremolo = AKTremolo(player, waveform: AKTable(.positiveSine))
 tremolo.depth = 0.5
 tremolo.frequency = 8
 
-AudioKit.output = tremolo
-try AudioKit.start()
+AKManager.output = tremolo
+try AKManager.start()
 
 player.play()
 

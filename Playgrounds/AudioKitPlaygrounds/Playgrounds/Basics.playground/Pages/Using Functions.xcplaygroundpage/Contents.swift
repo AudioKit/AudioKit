@@ -22,8 +22,8 @@ let generator = AKOperationGenerator { _ in
     return (drone1 + drone2 + drone3) / 3
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 
 generator.start()
 

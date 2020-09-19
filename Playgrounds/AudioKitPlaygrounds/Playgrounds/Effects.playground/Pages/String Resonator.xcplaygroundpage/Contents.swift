@@ -13,8 +13,8 @@ stringResonator.feedback = 0.9
 stringResonator.fundamentalFrequency = 1_000
 stringResonator.rampDuration = 0.1
 
-AudioKit.output = stringResonator
-try AudioKit.start()
+AKManager.output = stringResonator
+try AKManager.start()
 
 player.play()
 

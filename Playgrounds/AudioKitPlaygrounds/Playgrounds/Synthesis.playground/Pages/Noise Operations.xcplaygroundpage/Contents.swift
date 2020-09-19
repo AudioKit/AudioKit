@@ -13,8 +13,8 @@ let generator = AKOperationGenerator { _ in
     return noise.pan(lfo)
 }
 
-AudioKit.output = generator
-try AudioKit.start()
+AKManager.output = generator
+try AKManager.start()
 
 generator.start()
 

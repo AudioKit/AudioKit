@@ -9,8 +9,8 @@ player.looping = true
 
 let panner = AK3DPanner(player)
 
-AudioKit.output = panner
-try AudioKit.start()
+AKManager.output = panner
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

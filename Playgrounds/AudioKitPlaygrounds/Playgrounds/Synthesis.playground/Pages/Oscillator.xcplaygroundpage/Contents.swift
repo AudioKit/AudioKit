@@ -13,8 +13,8 @@ let sawtooth = AKTable(.sawtooth, count: 256)
 //: Try changing the table to triangle, square, sine, or sawtooth.
 //: This will change the shape of the oscillator's waveform.
 var oscillator = AKOscillator(waveform: square)
-AudioKit.output = oscillator
-try AudioKit.start()
+AKManager.output = oscillator
+try AKManager.start()
 
 var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.2

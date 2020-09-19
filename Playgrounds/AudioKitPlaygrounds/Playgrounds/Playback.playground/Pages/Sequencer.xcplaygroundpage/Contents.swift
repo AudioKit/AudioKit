@@ -15,7 +15,7 @@ var mixer = AKMixer(piano, bell)
 let reverb = AKCostelloReverb(mixer)
 
 let dryWetMixer = AKDryWetMixer(mixer, reverb, balance: 0.2)
-AudioKit.output = dryWetMixer
+AKManager.output = dryWetMixer
 
 //: Create the sequencer after AudioKit's output has been set
 //: Load in a midi file, and set the sequencer to the main audiokit engine
@@ -26,7 +26,7 @@ sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
 sequencer.setGlobalMIDIOutput(piano.midiIn)
 
-try AudioKit.start()
+try AKManager.start()
 sequencer.play()
 
 //: Set up a basic UI for setting outputs of tracks

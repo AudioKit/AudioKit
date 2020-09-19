@@ -24,8 +24,8 @@ metronome.callback = {
     }
 }
 
-AudioKit.output = metronome
-try AudioKit.start()
+AKManager.output = metronome
+try AKManager.start()
 metronome.start()
 
 import AudioKitUI

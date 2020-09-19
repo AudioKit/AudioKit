@@ -10,8 +10,8 @@ player.looping = true
 
 var effect = AKDynaRageCompressor(player)
 
-AudioKit.output = effect
-try AudioKit.start()
+AKManager.output = effect
+try AKManager.start()
 player.play()
 
 //: User Interface Set up

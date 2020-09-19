@@ -20,8 +20,8 @@ reverb.loadFactoryPreset(.largeRoom)
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
-AudioKit.output = mixer
-try AudioKit.start()
+AKManager.output = mixer
+try AKManager.start()
 
 //: This is a loop to send a random note to the sampler
 AKPlaygroundLoop(every: pulse) {

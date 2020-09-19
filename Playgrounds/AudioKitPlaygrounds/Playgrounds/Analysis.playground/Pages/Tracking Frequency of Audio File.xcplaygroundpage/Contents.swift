@@ -11,8 +11,8 @@ player.buffering = .always
 
 let tracker = AKFrequencyTracker(player)
 
-AudioKit.output = tracker
-try AudioKit.start()
+AKManager.output = tracker
+try AKManager.start()
 player.play()
 
 //: User Interface

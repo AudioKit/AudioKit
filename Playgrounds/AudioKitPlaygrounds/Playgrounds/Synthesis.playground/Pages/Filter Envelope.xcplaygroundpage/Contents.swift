@@ -53,8 +53,8 @@ let synth = AKOperationGenerator { _ in
         resonance: 0.9)
 }
 
-AudioKit.output = synth
-try AudioKit.start()
+AKManager.output = synth
+try AKManager.start()
 synth.parameters = [0, 1_000, 0] // Initialize the array
 synth.start()
 
