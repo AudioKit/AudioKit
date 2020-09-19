@@ -23,7 +23,7 @@ public protocol MIDISystemRealTimeObserver {
     func continueSRT(listener: MIDISystemRealTimeListener)
 }
 
-// MARK: - Default handler methods for AKMIDIMMCEvents
+// MARK: - Default handler methods for MIDI MMC Events
 extension MIDISystemRealTimeObserver {
 
     func startSRT(listener: MIDISystemRealTimeListener) {

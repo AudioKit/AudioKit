@@ -12,7 +12,7 @@
 
 /// Class to handle colors, fonts, etc.
 
-public enum AKTheme {
+public enum Theme {
     case basic
     case midnight
 }
@@ -28,11 +28,11 @@ public class Stylist {
         return fontColors[theme]!
     }
 
-    public var theme = AKTheme.midnight
-    private var bgColors: [AKTheme: CrossPlatformColor]
-    private var fontColors: [AKTheme: CrossPlatformColor]
+    public var theme = Theme.midnight
+    private var bgColors: [Theme: CrossPlatformColor]
+    private var fontColors: [Theme: CrossPlatformColor]
 
-    private var colorCycle: [AKTheme: [CrossPlatformColor]]
+    private var colorCycle: [Theme: [CrossPlatformColor]]
 
     var counter = 0
 
