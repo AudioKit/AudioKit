@@ -26,6 +26,7 @@ let validatedMD5s: [String: String] = [
     "-[AutoWahTests testMix]": "c799c6dc30c4e0eb5b3da22b92a8fe96",
     "-[AutoWahTests testParamters]": "0c8cf00e2c1a9ed5570e4ae72eeeb5a3",
     "-[AutoWahTests testWah]": "0f7434196a166c0f3ab3be6bd40b14e9",
+    "-[BalancerTests testDefault]": "d46e2cbeddc89873d8dea8d7765226c3",
     "-[BandPassButterworthFilterTests testBandwidth]": "f507f26aa5046b81f675fd07a4869c79",
     "-[BandPassButterworthFilterTests testCenterFrequency]": "9765ca971a19852c2e0f9c25cdd796a5",
     "-[BandPassButterworthFilterTests testDefault]": "b6100c04621d4d4542e77bd15fda6303",
