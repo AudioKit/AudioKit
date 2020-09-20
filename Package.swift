@@ -24,7 +24,7 @@ let package = Package(
         .target(name: "STK", publicHeadersPath: "include"),
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
-                cxxSettings: [
+                cSettings: [
                     .define("NO_LIBSNDFILE"),
                     .headerSearchPath("lib/kissfft"),
                     .headerSearchPath("lib/inih"),
