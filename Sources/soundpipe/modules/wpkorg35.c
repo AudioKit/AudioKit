@@ -87,8 +87,6 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
 
 int sp_wpkorg35_compute(sp_data *sp, sp_wpkorg35 *p, SPFLOAT *in, SPFLOAT *out)
 {
-    /* TODO: add previous values */
-
     if(p->pcutoff != p->cutoff || p->pres != p->res) update(sp, p);
 
     /* initialize variables */

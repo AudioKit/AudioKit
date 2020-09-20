@@ -31,7 +31,6 @@ static int search_for_ft(plumber_data *pd, sporth_oscmorph *om)
     return PLUMBER_OK;
 }
 
-/*TODO: remove */
 static void free_strings(sporth_oscmorph *om)
 {
     int n;

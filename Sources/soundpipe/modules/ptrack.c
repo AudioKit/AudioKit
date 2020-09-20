@@ -71,8 +71,6 @@ static const SPFLOAT partialonset[] =
     192.0,
 };
 
-/*TODO: rename these structs */
-
 typedef struct histopeak
 {
   SPFLOAT hpitch;
@@ -118,7 +116,6 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
     SPFLOAT *tmpb;
 
 
-    /* TODO: fix this warning */
     if (winsize < MINWINSIZ || winsize > MAXWINSIZ) {
       fprintf(stderr, "Woops\n");
       return SP_NOT_OK;
@@ -137,7 +134,6 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
     /* powtwo needs to be powtwo - 1 for fft_init */
     sp_fft_init(&p->fft, powtwo - 1) ;
 
-    /* TODO: make this error better */
     if (winsize != (1 << powtwo)) {
         fprintf(stderr, "Woops\n");
         return SP_NOT_OK;

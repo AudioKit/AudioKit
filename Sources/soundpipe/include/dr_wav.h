@@ -1797,7 +1797,6 @@ drwav_bool32 drwav_seek_to_sample(drwav* pWav, drwav_uint64 sample)
     // For compressed formats we just use a slow generic seek. If we are seeking forward we just seek forward. If we are going backwards we need
     // to seek back to the start.
     if (drwav__is_compressed_format_tag(pWav->translatedFormatTag)) {
-        // TODO: This can be optimized.
         if (sample > pWav->compressed.iCurrentSample) {
             // Seeking forward - just move from the current position.
             drwav_uint64 offset = sample - pWav->compressed.iCurrentSample;
@@ -2039,8 +2038,6 @@ drwav_uint64 drwav_read_s16__msadpcm(drwav* pWav, drwav_uint64 samplesToRead, dr
     drwav_assert(samplesToRead > 0);
     drwav_assert(pBufferOut != NULL);
 
-    // TODO: Lots of room for optimization here.
-
     drwav_uint64 totalSamplesRead = 0;
 
     while (samplesToRead > 0 && pWav->compressed.iCurrentSample < pWav->totalSampleCount) {
@@ -2114,7 +2111,6 @@ drwav_uint64 drwav_read_s16__msadpcm(drwav* pWav, drwav_uint64 samplesToRead, dr
                 }
                 pWav->msadpcm.bytesRemainingInBlock -= 1;
 
-                // TODO: Optimize away these if statements.
                 drwav_int32 nibble0 = ((nibbles & 0xF0) >> 4); if ((nibbles & 0x80)) { nibble0 |= 0xFFFFFFF0UL; }
                 drwav_int32 nibble1 = ((nibbles & 0x0F) >> 0); if ((nibbles & 0x08)) { nibble1 |= 0xFFFFFFF0UL; }
 
@@ -2206,8 +2202,6 @@ drwav_uint64 drwav_read_s16__ima(drwav* pWav, drwav_uint64 samplesToRead, drwav_
     drwav_assert(pWav != NULL);
     drwav_assert(samplesToRead > 0);
     drwav_assert(pBufferOut != NULL);
-
-    // TODO: Lots of room for optimization here.
 
     drwav_uint64 totalSamplesRead = 0;
 

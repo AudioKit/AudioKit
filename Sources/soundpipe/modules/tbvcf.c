@@ -55,7 +55,6 @@ int sp_tbvcf_init(sp_data *sp, sp_tbvcf *p)
     return SP_OK;
 }
 
-/* TODO: clean up code here. */
 int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out)
 {
     SPFLOAT x;

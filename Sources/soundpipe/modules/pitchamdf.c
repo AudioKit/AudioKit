@@ -44,7 +44,6 @@ int sp_pitchamdf_init(sp_data *sp, sp_pitchamdf *p, SPFLOAT imincps, SPFLOAT ima
     p->imincps = imincps;
     p->imaxcps = imaxcps;
 
-    /* TODO: should we expose these variables? */
     p->icps = 0;
     p->imedi = 1;
     p->idowns = 1;
