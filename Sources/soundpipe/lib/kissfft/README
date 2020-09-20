@@ -123,7 +123,7 @@ LICENSE:
     A commercial license is available which removes the requirement for attribution.  Contact me for details.
 
   
-TODO:
+FUTURE:
     *) Add real optimization for odd length FFTs 
     *) Document/revisit the input/output fft scaling
     *) Make doc describing the overlap (tail) scrap fast convolution filtering in kiss_fastfir.c

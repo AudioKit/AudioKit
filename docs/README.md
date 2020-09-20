@@ -13,7 +13,7 @@ Inline comments are also parsed by the "jazzy" documentation generator which pro
 
 We try to include a README folder in every directory of AudioKit to describe folders' contents and to provide some basic quickstart information.
 
-README files can contain *TODO* sections which contain things that could or should improve the material in that folder.
+README files can contain *TO DO* sections which contain things that could or should improve the material in that folder.
 
 ## Playgrounds
 

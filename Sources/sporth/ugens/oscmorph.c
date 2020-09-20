@@ -130,7 +130,6 @@ int sporth_oscmorph4(sporth_stack *stack, void *ud)
     return PLUMBER_OK;
 }
 
-/*TODO: remove malloc from here */
 int sporth_oscmorph2(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
