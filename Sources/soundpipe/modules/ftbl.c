@@ -51,7 +51,6 @@ int sp_ftbl_destroy(sp_ftbl **ft)
     return SP_OK;
 }
 
-/* TODO: handle spaces at beginning of string */
 static char * tokenize(char **next, int *size)
 {
     if(*size <= 0) return NULL;
@@ -109,7 +108,6 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
 }
 
 #ifndef NO_LIBSNDFILE
-/*TODO: add error checking, make tests */
 int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
 {
     SF_INFO info;

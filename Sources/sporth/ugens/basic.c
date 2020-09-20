@@ -32,7 +32,6 @@ static SPFLOAT sproundf(SPFLOAT x)
 	if (u.i >> 31)
 		x = -x;
 	if (e < 0x7f-1) {
-        /* TODO: I don't understand this */
 		/* FORCE_EVAL(x + toint); */
 		return 0*u.f;
 	}

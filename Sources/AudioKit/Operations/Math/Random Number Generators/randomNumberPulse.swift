@@ -2,8 +2,7 @@
 
 extension Operation {
 
-    /// Loosely based off of the Csound opcode randomh. The design is equivalent to
-    /// scaled noise sent through a classic sample and hold module.
+    /// Scaled noise sent through a classic sample and hold module.
     ///
     /// - Parameters:
     ///   - minimum: Minimum value to use. (Default: 0)

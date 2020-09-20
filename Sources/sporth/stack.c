@@ -55,7 +55,7 @@ int sporth_stack_push_string(sporth_stack *stack, char **str)
     if(stack->pos < SPORTH_STACK_SIZE) {
         stack->pos++;
         pstack = &stack->stack[stack->pos - 1];
-        /* TODO: can const strings work here? */
+
         pstack->sval = (char *)*str;
         pstack->type = SPORTH_STRING;
         return SPORTH_OK;
@@ -93,7 +93,6 @@ float sporth_stack_pop_float(sporth_stack *stack)
     return pstack->fval;
 }
 
-/*TODO use this function inside sporth stack functions*/
 sporth_stack_val * sporth_stack_get_last(sporth_stack *stack)
 {
     return &stack->stack[stack->pos - 1];

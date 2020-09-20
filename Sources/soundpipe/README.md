@@ -33,7 +33,6 @@ More information on specific Soundpipe modules can be found in the
 
 Features
 ---------
-- High quality modules ported from Csound and FAUST
 - Sample accurate timing
 - Small codebase
 - Static library
@@ -54,7 +53,3 @@ are set.
 3. Compute: the module takes in inputs (if applicable), and generates a
 single sample of output.
 4. Destroy: All memory allocated is freed.
-
-## TODO
-
-- Expand this README to include more AudioKit-specific Soundpipe information.
