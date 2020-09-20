@@ -68,8 +68,6 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         waveform: Table = Table(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.frequency = frequency
-        self.depth = depth
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
@@ -78,10 +76,10 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
             self.internalAU?.setWavetable(waveform.content)
+            self.frequency = frequency
+            self.depth = depth
         }
 
         connections.append(input)
     }
-
-    // TODO this node needs tests
 }
