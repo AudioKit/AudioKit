@@ -46,6 +46,4 @@ public class Balancer: Node, AudioUnitContainer, Toggleable {
         connections.append(input)
         connections.append(comparator)
     }
-
-    // TODO This node needs to have tests
 }
