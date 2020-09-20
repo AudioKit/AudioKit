@@ -132,7 +132,6 @@ public class Waveform: CALayer {
         // Log("REVERSING:", reverseDirection)
     }
 
-    // TODO: account for files that have more than 2 channels
     private func fillPlots(with data: FloatChannelData, completionHandler: (() -> Void)? = nil) {
         // just setting the table data here
         if !plots.isEmpty {
@@ -165,8 +164,6 @@ public class Waveform: CALayer {
             plots.insert(rightPlot, at: 1)
             addSublayer(rightPlot)
         }
-
-        // TODO: multi channel, more than 2 channels...
 
         completionHandler?()
     }

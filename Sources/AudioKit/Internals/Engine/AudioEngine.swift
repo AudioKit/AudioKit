@@ -28,7 +28,6 @@ extension AVAudioNode {
 }
 
 public class AudioEngine {
-    // TODO: make this internal
     public let avEngine = AVAudioEngine()
 
     // maximum number of frames the engine will be asked to render in any single render call
