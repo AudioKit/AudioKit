@@ -9,7 +9,6 @@ import CAudioKit
 public class SynthKick: MIDIInstrument {
 
     var generator: OperationGenerator
-//    var filter: MoogLadder
 
     /// Create the synth kick voice
     ///
@@ -20,22 +19,18 @@ public class SynthKick: MIDIInstrument {
             let frequency = Operation.lineSegment(trigger: Operation.trigger, start: 120, end: 40, duration: 0.03)
             let volumeSlide = Operation.lineSegment(trigger: Operation.trigger, start: 1, end: 0, duration: 0.3)
             return Operation.sineWave(frequency: frequency, amplitude: volumeSlide)
+                .moogLadderFilter(cutoffFrequency: Operation.parameters[0],
+                                  resonance: Operation.parameters[1])
         }
 
-        // TODO FIXME
-//        filter = MoogLadder(generator)
-//        filter.cutoffFrequency = 666
-//        filter.resonance = 0.00
-
         super.init(midiInputName: midiInputName)
-//        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-//        filter.cutoffFrequency = (AUValue(velocity) / 127.0 * 366.0) + 300.0
-//        filter.resonance = 1.0 - AUValue(velocity) / 127.0
+        generator.parameter1 = (AUValue(velocity) / 127.0 * 366.0) + 300.0
+        generator.parameter2 = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
     }
 
@@ -49,11 +44,10 @@ public class SynthKick: MIDIInstrument {
 public class SynthSnare: MIDIInstrument {
 
     var generator: OperationGenerator
-//    var filter: MoogLadder
     var duration = 0.143
 
     /// Create the synth snare voice
-    public init(duration: Double = 0.143, resonance: Double = 0.9) {
+    public init(duration: Double = 0.143, resonance: AUValue = 0.9) {
         self.duration = duration
         self.resonance = resonance
 
@@ -64,30 +58,28 @@ public class SynthSnare: MIDIInstrument {
                 end: 0,
                 duration: duration)
             return Operation.whiteNoise(amplitude: volSlide)
+                .moogLadderFilter(cutoffFrequency: Operation.parameters[0],
+                                  resonance: Operation.parameters[1])
         }
-// TODO FIXME
-//        filter = MoogLadder(generator)
-//        filter.cutoffFrequency = AUValue(1_666)
 
         super.init()
-//        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 
-    internal var cutoff: Double = 1_666 {
+    internal var cutoff: AUValue = 1_666 {
         didSet {
-//            filter.cutoffFrequency = AUValue(cutoff)
+            generator.parameter1 = cutoff
         }
     }
-    internal var resonance: Double = 0.3 {
+    internal var resonance: AUValue = 0.3 {
         didSet {
-//            filter.resonance = AUValue(resonance)
+            generator.parameter2 = resonance
         }
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        cutoff = (Double(velocity) / 127.0 * 1_600.0) + 300.0
+        generator.parameter1 = (AUValue(velocity) / 127.0 * 1_600.0) + 300.0
         generator.trigger()
     }
 
