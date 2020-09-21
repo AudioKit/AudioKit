@@ -120,6 +120,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             self.frequency = frequency
             self.tonguePosition = tonguePosition

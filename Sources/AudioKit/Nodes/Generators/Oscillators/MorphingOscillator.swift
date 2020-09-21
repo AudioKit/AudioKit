@@ -121,6 +121,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setWavetable(waveform.content, index: i)

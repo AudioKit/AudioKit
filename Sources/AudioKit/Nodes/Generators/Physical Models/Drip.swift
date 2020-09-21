@@ -145,6 +145,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             self.intensity = intensity
             self.dampingFactor = dampingFactor
