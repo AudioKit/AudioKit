@@ -185,8 +185,6 @@ public class Synth: PolyphonicNode, AudioUnitContainer {
             self.filterDecayDuration = filterDecayDuration
             self.filterSustainLevel = filterSustainLevel
             self.filterReleaseDuration = filterReleaseDuration
-
-            self.stop()
         }
     }
 
