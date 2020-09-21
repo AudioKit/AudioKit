@@ -3,13 +3,13 @@ name: CI
 
 on: [push, pull_request]
 env:
-  XCODE_VER: 12_beta
+  XCODE_VER: 12
 
 jobs:
   test:
     strategy:
       matrix:
-        xcode_version: ['11.6', '12_beta']
+        xcode_version: ['11.7', '12']
     runs-on: macos-latest
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
