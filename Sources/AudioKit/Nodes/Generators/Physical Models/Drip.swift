@@ -6,7 +6,6 @@ import CAudioKit
 
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
-/// TODO This node needs to have tests.
 /// 
 public class Drip: Node, AudioUnitContainer, Toggleable {
 
