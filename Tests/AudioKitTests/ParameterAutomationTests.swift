@@ -132,4 +132,23 @@ class ParameterAutomationTests: XCTestCase {
         XCTAssertEqual(values, [800])
     }
 
+    func testDelayedAutomation() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        engine.output = osc
+        osc.amplitude = 0.2
+        osc.start()
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
+        let events = [AutomationEvent(targetValue: 1320, startTime: 0, rampDuration: 0.1),
+                      AutomationEvent(targetValue: 660, startTime: 0.1, rampDuration: 0.1),
+                      AutomationEvent(targetValue: 1100, startTime: 0.2, rampDuration: 0.1),
+                      AutomationEvent(targetValue: 770, startTime: 0.3, rampDuration: 0.1),
+                      AutomationEvent(targetValue: 880, startTime: 0.4, rampDuration: 0.1)]
+        osc.$frequency.automate(events: events)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
 }
