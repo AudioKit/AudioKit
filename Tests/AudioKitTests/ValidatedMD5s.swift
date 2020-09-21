@@ -226,6 +226,7 @@ let validatedMD5s: [String: String] = [
     "-[PannerTests testDefault]": "2af4524279fbdcc1b177b15bd7fe4f39",
     "-[PannerTests testPanLeft]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[PannerTests testPanRight]": "b5e8480523d930f62aeff8c916d64b77",
+    "-[ParameterAutomationTests testDelayedAutomation]": "38b367f91ff734a7d58d081dd13bf8f7",
     "-[PeakLimiterTests testAttackTime]": "e844144c250a4d4f98b8acda3c9c4077",
     "-[PeakLimiterTests testDecayTime]": "7bd2e85d00138f9ba1a39b1c3e600176",
     "-[PeakLimiterTests testDefault]": "7bd2e85d00138f9ba1a39b1c3e600176",

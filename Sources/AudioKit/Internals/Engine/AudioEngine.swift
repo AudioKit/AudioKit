@@ -95,6 +95,9 @@ public class AudioEngine {
             Log("🛑 Start Test Error: \(err)")
         }
 
+        // Work around AVAudioEngine bug.
+        output?.initLastRenderTime()
+
         return AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
             frameCapacity: AVAudioFrameCount(samples))!
