@@ -59,6 +59,7 @@ public class BrownianNoise: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             self.amplitude = amplitude
         }

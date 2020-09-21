@@ -43,13 +43,11 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "CoreSynth.h"
 #import "SamplerDSP.h"
 
-// Utilities
-#import "ParameterRamper.h"
-
 // Sequencing / MIDI
 #import "SequencerEngine.h"
 
 // Automation
+#import "ParameterRamper.h"
 #import "ParameterAutomation.h"
 #import "LinearParameterRamp.h"
 

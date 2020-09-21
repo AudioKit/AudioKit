@@ -76,6 +76,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             self.frequency = frequency
             self.amplitude = amplitude

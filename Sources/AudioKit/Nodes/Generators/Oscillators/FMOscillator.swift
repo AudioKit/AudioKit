@@ -119,6 +119,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             audioUnit.setWavetable(waveform.content)
 

@@ -124,6 +124,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             audioUnit.setWavetable(waveform.content)
 

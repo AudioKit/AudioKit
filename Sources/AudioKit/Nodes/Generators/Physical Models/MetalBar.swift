@@ -149,6 +149,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
                 fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
+            self.stop()
 
             self.leftBoundaryCondition = leftBoundaryCondition
             self.rightBoundaryCondition = rightBoundaryCondition
