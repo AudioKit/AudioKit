@@ -75,5 +75,9 @@ AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 #import "EZAudioPlot.h"
 #import "EZAudioFFT.h"
 
+// TPCircularBuffer
+#import "TPCircularBuffer+Unit.h"
+#import "TPCircularBuffer+AudioBufferList.h"
+
 // Misc
 #import "BufferedAudioBus.h"

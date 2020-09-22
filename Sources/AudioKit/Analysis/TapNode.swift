@@ -2,7 +2,6 @@
 
 import AVFoundation
 import CAudioKit
-import TPCircularBuffer
 
 public class TapNode: Node, AudioUnitContainer, Toggleable {
 
