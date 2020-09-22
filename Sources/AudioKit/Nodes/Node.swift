@@ -86,6 +86,17 @@ open class Node {
             }
         }
     }
+
+    /// Work-around for an AVAudioEngine bug.
+    func initLastRenderTime() {
+
+        // We don't have a valid lastRenderTime until we query it.
+        _ = avAudioNode.lastRenderTime
+
+        for connection in connections {
+            connection.initLastRenderTime()
+        }
+    }
 }
 
 /// Protocol for responding to play and stop of MIDI notes
