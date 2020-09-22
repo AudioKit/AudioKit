@@ -40,8 +40,9 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener {
                          name: String = "AudioKit MIDI Instrument") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                let event = MIDIEvent(packet: e)
-                self.handle(event: event)
+                e.forEach { (event) in
+                    self.handle(event: event)
+                }
             }
         })
     }
