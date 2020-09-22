@@ -20,7 +20,6 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        .target(name: "TPCircularBuffer", publicHeadersPath: "include"),
         .target(name: "STK", publicHeadersPath: "include"),
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
@@ -39,7 +38,7 @@ let package = Package(
             cSettings: [.define("NO_LIBSNDFILE")]),
         .target(
             name: "CAudioKit",
-            dependencies: ["TPCircularBuffer", "STK", "soundpipe", "sporth"],
+            dependencies: ["STK", "soundpipe", "sporth"],
             publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),

@@ -25,6 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #elif TARGET_OS_MAC
 #endif
+#import "TPCircularBuffer.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures
@@ -34,10 +35,8 @@
  A data structure that holds information about audio data over time. It contains a circular buffer to incrementally write the audio data to and a scratch buffer to hold a window of audio data relative to the whole circular buffer. In use, this will provide a way to continuously append data while having an adjustable viewable window described by the bufferSize.
  */
 struct _EZPlotHistoryInfo;
-struct _TPCircularBuffer;
 
 typedef struct _EZPlotHistoryInfo EZPlotHistoryInfo;
-typedef struct _TPCircularBuffer TPCircularBuffer;
 
 //------------------------------------------------------------------------------
 
