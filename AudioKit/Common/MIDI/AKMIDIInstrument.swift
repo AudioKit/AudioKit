@@ -44,8 +44,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                          name: String = "AudioKit MIDI Instrument") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                let event = AKMIDIEvent(packet: e)
-                self.handle(event: event)
+                e.forEach { (event) in
+                    self.handle(event: event)
+                }
             }
         })
     }
