@@ -48,7 +48,6 @@ public class TubularBells: Node, AudioUnitContainer, Toggleable {
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-            self.stop()
         }
     }
 

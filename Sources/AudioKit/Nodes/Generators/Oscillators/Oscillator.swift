@@ -117,6 +117,5 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
             self.detuningOffset = detuningOffset
             self.detuningMultiplier = detuningMultiplier
         }
-
     }
 }
