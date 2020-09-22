@@ -40,7 +40,8 @@ jobs:
           cd Frameworks
           ./build_frameworks.sh
           ./build_xcframework.sh
-          zip -9r AudioKit.xcframeworks.zip *.xcframework
+          cp ../LICENSE .
+          zip -9r AudioKit.xcframeworks.zip *.xcframework LICENSE
           aws s3 cp AudioKit.xcframeworks.zip s3://files.audiokit.io/staging/v$(<../VERSION).b$(<BETA)/
           aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths '/staging/*'
         env:
@@ -68,7 +69,8 @@ jobs:
           cd Frameworks
           ./build_frameworks.sh
           ./build_xcframework.sh
-          zip -9r AudioKit.xcframeworks.zip *.xcframework
+          cp ../LICENSE .
+          zip -9r AudioKit.xcframeworks.zip *.xcframework LICENSE
       - name: Upload files to release draft
         uses: marvinpinto/action-automatic-releases@latest
         with:
