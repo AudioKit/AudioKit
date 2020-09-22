@@ -1,9 +1,8 @@
 # AudioKit 5 Migration Guide
 
-1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapods, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
+1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapod versions, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
 
 2. The AudioKit singleton no longer exists so instead of writing
-
 ```
 AudioKit.output = something
 AudioKit.start()
@@ -16,7 +15,7 @@ engine.output = something
 engine.start()
 engine.stop()
 ```
-3. AudioKit 5 drops the AK prefix from many class names.
+3. AudioKit 5 drops the `AK` prefix from class names.
 
 If you get errors like `Cannot find AKOscillator in scope` try `Oscillator` instead. If you already have defined an `Oscillator` class in your project, you can access AudioKit's oscillator with `AudioKit.Oscillator`.
 
@@ -24,7 +23,7 @@ If you get errors like `Cannot find AKOscillator in scope` try `Oscillator` inst
 
 In AudfioKit 4 you could write `AKReverb()` but now you will have to write `Reverb(nodeYouWantToReverberate)`. One of the main reasons for this is that our audio engine is keeping track of the connections and now tightly enforces that you're not making any mistakes with dangling nodes not properly connected.  
 
-A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To dynamically change your signal chain, use a `Mixer` and its `addInput` method to add something to the chain at the appropriate location. This is the safest way to signal chain modification and works quite well.
+A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To dynamically change your signal chain, use a `Mixer` and its `addInput` and `removeInput` methods. This is the safest way to signal chain modification and works quite well.
 
 5. Ramp duration is no longer a property of AudioKit or even on AudioKit nodes. Instead, ramping parameters is much more flexible.  What used to be:
 ```
@@ -59,6 +58,7 @@ mic = engine.input
 
 11. The oscillator banks such as `AKOscillatorBank` and `AKMorphingOscillatorBank` have all been removed. They were coded in a way that we have since outgrown. The only polyphonic node left is `Synth` but we intend on bringing back polyphonic instruments in a well-coded way as soon as possible.
 
-12. The mixer now supports dynamic connections with `addInput(node)` and `removeInputNode`.
+12. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories. 
+
 
 
