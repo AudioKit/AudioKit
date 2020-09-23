@@ -22,7 +22,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         }
     }
 
-    public static let gainRange: ClosedRange<AUValue> = 0.0 ... 4.0
+    public static let gainRange: ClosedRange<AUValue> = 0.0 ... Float.greatestFiniteMagnitude
 
     public static let leftGainDef = NodeParameterDef(
         identifier: "leftGain",
