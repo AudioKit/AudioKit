@@ -11,5 +11,3 @@ If you need any of those, you can follow the code models or ask for help from th
 
 * Add Vibes physical model from STK
 
-* Make the plucked string physical model polyphonic like mandolin
-

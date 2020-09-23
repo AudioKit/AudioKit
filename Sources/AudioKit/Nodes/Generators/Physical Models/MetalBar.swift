@@ -5,7 +5,6 @@ import AVFoundation
 import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
-/// TODO This node needs to have tests
 /// 
 public class MetalBar: Node, AudioUnitContainer, Toggleable {
 
@@ -160,4 +159,14 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         }
 
     }
+
+    // MARK: - Control
+
+    /// Trigger the sound with current parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
+
 }
