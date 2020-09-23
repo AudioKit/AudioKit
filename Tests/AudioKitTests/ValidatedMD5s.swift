@@ -180,6 +180,7 @@ let validatedMD5s: [String: String] = [
     "-[LowShelfParametricEqualizerFilterTests testQ]": "0d8513d134486e4436529a40f4176e17",
     "-[MandolinStringTests testAmplitude]": "39288a5eb38a90f68b4b68a9c1d88367",
     "-[MandolinStringTests testMandolin]": "80d3cd3c8c3dd3c48399788bf3c4a3a2",
+    "-[MetalBarTests testDefault]": "9bc973f69cf62f1caffbbb45ed9613e5",
     "-[ModalResonanceFilterTests testDefault]": "c9ca89e0116c048903ddf93b634125b0",
     "-[ModalResonanceFilterTests testFrequency]": "acd9d1a2fb9dbf5f60aed3efd61e42db",
     "-[ModalResonanceFilterTests testParameters]": "541aeca25b4e85d319a671d5a55d94e4",
