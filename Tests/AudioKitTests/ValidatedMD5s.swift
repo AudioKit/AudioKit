@@ -125,6 +125,7 @@ let validatedMD5s: [String: String] = [
     "-[FaderTests testFlipStereo]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[FaderTests testFlipStereoThrice]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[FaderTests testFlipStereoTwice]": "b5e8480523d930f62aeff8c916d64b77",
+    "-[FaderTests testGain]": "b479c2a2d000e0865ea96070afbb4aca",
     "-[FaderTests testMany]": "d71d8e7da371dbf1d6b4b4024d7a3d64",
     "-[FaderTests testMixToMono]": "af951af5d8482fca914aacc2e6cd091c",
     "-[FaderTests testParameters]": "423eeeefeaad3bb3e129d6bc9613ac7d",

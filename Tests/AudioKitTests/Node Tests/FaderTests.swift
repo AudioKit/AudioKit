@@ -15,6 +15,16 @@ class FaderTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testGain() {
+        let engine = AudioEngine()
+        let input = Oscillator()
+        engine.output = Fader(input, gain: 0.5)
+        input.play()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
     func testBypass() {
         let engine = AudioEngine()
         let input = Oscillator()
