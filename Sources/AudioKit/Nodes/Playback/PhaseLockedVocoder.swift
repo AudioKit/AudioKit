@@ -178,7 +178,6 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
-//                    internalAU?.start()
                 } else {
                     // failure
                     theData?.deallocate()
@@ -198,6 +197,4 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     @objc open func stop() {
         internalAU?.stop()
     }
-
-    // TODO This needs to be tested
 }
