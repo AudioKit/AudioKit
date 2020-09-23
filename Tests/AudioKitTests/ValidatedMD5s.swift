@@ -216,6 +216,8 @@ let validatedMD5s: [String: String] = [
     "-[OscillatorTests testNewAutomationMultiple]": "01ae3358db6de136e735659cc40e0e70",
     "-[OscillatorTests testParameters]": "066c49468aa6e9acd59e0a42ccd2ccf7",
     "-[OscillatorTests testParametersSetAfterInit]": "066c49468aa6e9acd59e0a42ccd2ccf7",
+    "-[OscillatorTests testRamping]": "3435fb896fc657e7d2c907dd34dbf9d3",
+    "-[PhaseLockedVocoderTests testDefault]": "f6be6dbebe0ee3566b162ef8dc03cab0",
     "-[PWMOscillatorTests testAmplitude]": "9df204fbc98bb8965081cb30a89715fc",
     "-[PWMOscillatorTests testDefault]": "9df204fbc98bb8965081cb30a89715fc",
     "-[PWMOscillatorTests testDetuningMultiplier]": "9df204fbc98bb8965081cb30a89715fc",

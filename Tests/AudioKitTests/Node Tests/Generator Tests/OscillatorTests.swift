@@ -8,10 +8,10 @@ import AVFoundation
 class OscillatorTests: XCTestCase {
     func testAmpitude() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), amplitude: 0.5)
-        engine.output = input
-        XCTAssertEqual(input.amplitude, 0.5)
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), amplitude: 0.5)
+        engine.output = oscillator
+        XCTAssertEqual(oscillator.amplitude, 0.5)
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -19,9 +19,9 @@ class OscillatorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
-        engine.output = input
-        input.start()
+        let oscillator = Oscillator()
+        engine.output = oscillator
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -29,10 +29,10 @@ class OscillatorTests: XCTestCase {
 
     func testDetuningMultiplier() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), detuningMultiplier: 0.9)
-        engine.output = input
-        XCTAssertEqual(input.detuningMultiplier, 0.9)
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), detuningMultiplier: 0.9)
+        engine.output = oscillator
+        XCTAssertEqual(oscillator.detuningMultiplier, 0.9)
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -40,10 +40,10 @@ class OscillatorTests: XCTestCase {
 
     func testDetuningOffset() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), detuningOffset: 11)
-        engine.output = input
-        XCTAssertEqual(input.detuningOffset, 11)
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), detuningOffset: 11)
+        engine.output = oscillator
+        XCTAssertEqual(oscillator.detuningOffset, 11)
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -51,10 +51,10 @@ class OscillatorTests: XCTestCase {
 
     func testFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), frequency: 400)
-        engine.output = input
-        XCTAssertEqual(input.frequency, 400)
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), frequency: 400)
+        engine.output = oscillator
+        XCTAssertEqual(oscillator.frequency, 400)
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -62,13 +62,13 @@ class OscillatorTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square))
-        input.frequency = 400
-        input.amplitude = 0.5
-        XCTAssertEqual(input.frequency, 400)
-        XCTAssertEqual(input.amplitude, 0.5)
-        engine.output = input
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square))
+        oscillator.frequency = 400
+        oscillator.amplitude = 0.5
+        XCTAssertEqual(oscillator.frequency, 400)
+        XCTAssertEqual(oscillator.amplitude, 0.5)
+        engine.output = oscillator
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -76,21 +76,34 @@ class OscillatorTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
-        engine.output = input
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
+        engine.output = oscillator
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
+    func testRamping() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator()
+        engine.output = oscillator
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 2.0)
+        oscillator.$frequency.ramp(to: 880, duration: 0.5)
+        audio.append(engine.render(duration: 1.0))
+        oscillator.$frequency.ramp(to: 440, duration: 0.5)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testNewAutomationFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
-        engine.output = input
-        input.start()
+        let oscillator = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.5)
+        engine.output = oscillator
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
+        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -99,13 +112,13 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationAmplitude() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
+        let oscillator = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
 
-        engine.output = input
+        engine.output = oscillator
 
-        input.start()
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
+        oscillator.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -114,16 +127,16 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationMultiple() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
+        let oscillator = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
 
-        engine.output = input
+        engine.output = oscillator
 
-        input.start()
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
+        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
-        input.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
+        oscillator.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
                                                              startTime: 0,
                                                              rampDuration: 1.0)])
         audio.append(engine.render(duration: 1.0))
@@ -132,16 +145,16 @@ class OscillatorTests: XCTestCase {
 
     func testNewAutomationDelayed() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.sine), frequency: 400, amplitude: 0.5)
-        engine.output = input
+        let oscillator = Oscillator(waveform: Table(.sine), frequency: 400, amplitude: 0.5)
+        engine.output = oscillator
 
-        input.start()
+        oscillator.start()
         let audio = engine.startTest(totalDuration: 2.0)
 
         // Delay a second.
         let startTime = AVAudioTime(sampleTime: 44100, atRate: 41000)
 
-        input.$frequency.automate(events: [AutomationEvent(targetValue: 880,
+        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
                                                              startTime: 0,
                                                              rampDuration: 1.0)],
                                   startTime: startTime)
