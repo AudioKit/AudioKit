@@ -272,8 +272,11 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
 
     // MARK: - Initialization
 
-    /// Initialize this sampler node. There are many parameters, change them after initialization
+    /// Initialize this sampler node for one file. There are many parameters, change them after initialization
     ///
+    /// - Parameters:
+    ///   - sampleDescriptor: File describing how the audio file should be used
+    ///   - file: Audio file to use for sample
     public init(sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         super.init(avAudioNode: AVAudioNode())
 
@@ -285,8 +288,30 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         self.loadAudioFile(from: sampleDescriptor, file: file)
     }
 
-    /// Initialize this sampler node. There are many parameters, change them after initialization
+    public typealias FileWithSampleDescriptor = (sampleDescriptor: SampleDescriptor, file: AVAudioFile)
+
+    /// Initialize this sampler node with many files. There are many parameters, change them after initialization
     ///
+    /// - Parameters:
+    ///   - sampleDescriptors: An array of sample descriptors, must match the order of the files
+    ///   - files: An array of audio files, matched by order to the sample descriptors
+    public init(filesWithSampleDescriptors: FileWithSampleDescriptor...) {
+        super.init(avAudioNode: AVAudioNode())
+
+        instantiateAudioUnit { avAudioUnit in
+            self.avAudioUnit = avAudioUnit
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
+        }
+
+        for fileWithSampleDescriptor in filesWithSampleDescriptors {
+            self.loadAudioFile(from: fileWithSampleDescriptor.sampleDescriptor, file: fileWithSampleDescriptor.file)
+        }
+    }
+
+    /// Initialize this sampler node with an SFZ style file. There are many parameters, change them after initialization
+    ///
+    /// - Parameter sfzURL: URL of the SFZ sound font file
     public init(sfzURL: URL) {
         super.init(avAudioNode: AVAudioNode())
 
@@ -298,8 +323,11 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         self.loadSFZ(url: sfzURL)
     }
 
-    /// Initialize this sampler node. There are many parameters, change them after initialization
+    /// Initialize this sampler node with SFZ path and file name. There are many parameters, change them after initialization
     ///
+    /// - Parameters:
+    ///   - sfzPath: Path to SFZ file
+    ///   - sfzFileName: Name of SFZ file
     public init(sfzPath: String, sfzFileName: String) {
         super.init(avAudioNode: AVAudioNode())
 
