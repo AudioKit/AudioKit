@@ -83,9 +83,6 @@ public:
                 }
             }
         }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
     }
 };
 
