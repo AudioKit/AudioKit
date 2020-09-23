@@ -1,5 +1,21 @@
 # AudioKit 5 Migration Guide
 
+AudioKit 5 is still in development, and in order to ensure high quality, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. So, first we'll start out with a list of things that are just not in AudioKit 5 in any form:
+
+1. AudioKit's 4's other two players `AKDiskStreamer` and `AKWaveTable` have been removed. These classes should reappear in updates to Verison 5.
+
+2. The oscillator banks such as `AKOscillatorBank` and `AKMorphingOscillatorBank` have all been removed. They were coded in a way that we have since outgrown. The only polyphonic node left is `Synth` but we intend on bringing back polyphonic instruments in a well-coded way as soon as possible.
+
+3. Inter-App Audio support has been removed. Apple has deprecated it and Audiobus now supports Apple's AUv3 format, which should work even better than Inter-App Audio.
+
+The following items have been very significantly changed, even if their names are similar:
+
+1. AudioKit 4's file managing class `AKAudioFile` has been removed. We have found Apple's `AVAudioFile` sufficient for this purpose now. Format conversion is now handled by AudioKit 5's `FormatConverter`.
+
+2. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
+
+Next we have things that are different but rather trivial to reimplement (and very worthwhile to do so).
+
 1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapod versions, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
 
 2. The AudioKit singleton no longer exists so instead of writing
@@ -50,15 +66,7 @@ init() {
 }
 ```
 
-8. AudioKit 4's file managing class `AKAudioFile` has been removed. We have found Apple's `AVAudioFile` sufficient for this purpose now. Format conversion is now handled by AudioKit 5's `FormatConverter`.
-
-9. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
-
-10. AudioKit's 4's other two players `AKDiskStreamer` and `AKWaveTable` have been removed. These classes should reappear in updates to Verison 5.
-
-11. The oscillator banks such as `AKOscillatorBank` and `AKMorphingOscillatorBank` have all been removed. They were coded in a way that we have since outgrown. The only polyphonic node left is `Synth` but we intend on bringing back polyphonic instruments in a well-coded way as soon as possible.
-
-12. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories. 
+8. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories. 
 
 
 
