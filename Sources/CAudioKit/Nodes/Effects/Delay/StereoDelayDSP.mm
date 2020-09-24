@@ -48,7 +48,6 @@ public:
 
     void init(int channelCount, double sampleRate) override {
         DSPBase::init(channelCount, sampleRate);
-        // TODO add something to handle 1 vs 2 channels
         delay.init(sampleRate, timeUpperBound * 1000.0);
     }
 
