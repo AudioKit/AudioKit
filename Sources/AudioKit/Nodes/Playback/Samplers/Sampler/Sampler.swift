@@ -293,9 +293,8 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
     /// Initialize this sampler node with many files. There are many parameters, change them after initialization
     ///
     /// - Parameters:
-    ///   - sampleDescriptors: An array of sample descriptors, must match the order of the files
-    ///   - files: An array of audio files, matched by order to the sample descriptors
-    public init(filesWithSampleDescriptors: FileWithSampleDescriptor...) {
+    ///   - filesWSampleDescriptors: An array of sample descriptors and files
+    public init(filesWithSampleDescriptors: [FileWithSampleDescriptor]) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
