@@ -105,16 +105,16 @@ custom_categories:
 
   - name: Utilities
     children:
-    - Aliased
     - audition(_:)
     - CheckError(_:)
-    - ComponentDescribing
     - CVoidCallback
     - ExceptionCatcher(_:)
     - FormatConverter
     - fourCC(_:)
     - Log(_:log:type:file:function:line:)
     - Occupiable
+    - OSLog
+    - OSStatus
     - SampleIndex
 
 

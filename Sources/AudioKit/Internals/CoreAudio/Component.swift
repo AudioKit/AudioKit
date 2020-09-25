@@ -2,18 +2,9 @@
 
 import AVFoundation
 
-/// Helpful in reducing repetitive code in AudioKit
-public protocol Aliased {
-    associatedtype _Self = Self
-}
-
-/// Helpful in reducing repetitive code in AudioKit
-public protocol ComponentDescribing: AnyObject, Aliased {
-    static var ComponentDescription: AudioComponentDescription { get }
-}
-
-public protocol AudioUnitContainer: ComponentDescribing {
+public protocol AudioUnitContainer {
     associatedtype AudioUnitType: AUAudioUnit // eventually AudioUnitBase
+    static var ComponentDescription: AudioComponentDescription { get }
     var internalAU: AudioUnitType? { get }
 }
 
