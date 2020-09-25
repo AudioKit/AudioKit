@@ -13,6 +13,7 @@ custom_categories:
     - AudioEngine
     - AudioUnitBase
     - AudioUnitContainer
+    - AudioUnitPropertyListener
     - AutomationCurve
     - CallbackInstrument
     - Device
@@ -28,6 +29,7 @@ custom_categories:
 
   - name: MIDI
     children:
+    - AppleMIDIEvent
     - BluetoothMIDIButton
     - CMIDICallback
     - EndpointInfo
@@ -81,6 +83,7 @@ custom_categories:
     - MIDIVariableLengthQuantity
     - MIDIVelocity
     - MIDIWord
+    - ObserverProtocol
 
   - name: Sequencing
     children:
@@ -102,13 +105,16 @@ custom_categories:
 
   - name: Utilities
     children:
+    - Aliased
     - audition(_:)
     - CheckError(_:)
+    - ComponentDescribing
     - CVoidCallback
     - ExceptionCatcher(_:)
     - FormatConverter
     - fourCC(_:)
     - Log(_:log:type:file:function:line:)
+    - Occupiable
     - SampleIndex
 
 
@@ -319,7 +325,7 @@ custom_categories:
     - TableView
     - Theme
 
-  - name: Math: Approximation
+  - name: Math Approximation
     children:
     - ~!=(_:_:)
     - ~<(_:_:)
@@ -335,6 +341,7 @@ custom_categories:
     - AUValue
     - AudioComponentDescription
     - AudioUnit
+    - AudioUnitParameterOptions
     - AVAudioEngine
     - AVAudioFile
     - AVAudioNode
@@ -343,7 +350,30 @@ custom_categories:
     - AVAudioSession
     - AVAudioTime
 
-    
+  - name: Music Notation
+    children:
+    - BPM
+    - BPMType
+    - TimeSignature
+
+  - name: Type Extensions
+    children:
+    - Array
+    - Bool
+    - CGRect
+    - ClosedRange
+    - Dictionary
+    - Double
+    - Int
+    - Notification
+    - RangeReplaceableCollection
+    - Set
+    - String
+    - UInt8
+
+
+
+
 
 
 
