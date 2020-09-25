@@ -53,11 +53,18 @@ extension AVAudioPCMBuffer {
         precondition(frameLength + frameCount <= frameCapacity,
                      "Insufficient space in buffer")
 
-        let dst = floatChannelData!
-        let src = buffer.floatChannelData!
+        let dst1 = floatChannelData![0]
+        let src1 = buffer.floatChannelData![0]
+        
+        memcpy(dst1.advanced(by: stride * Int(frameLength)),
+               src1.advanced(by: stride * Int(startingFrame)),
+               Int(frameCount) * stride * MemoryLayout<Float>.size)
 
-        memcpy(dst.pointee.advanced(by: stride * Int(frameLength)),
-               src.pointee.advanced(by: stride * Int(startingFrame)),
+        let dst2 = floatChannelData![1]
+        let src2 = buffer.floatChannelData![1]
+
+        memcpy(dst2.advanced(by: stride * Int(frameLength)),
+               src2.advanced(by: stride * Int(startingFrame)),
                Int(frameCount) * stride * MemoryLayout<Float>.size)
 
         frameLength += frameCount
