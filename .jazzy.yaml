@@ -8,15 +8,20 @@ readme: ../README.md
 
 
 custom_categories:
-  - name: AudioKit Core
+  - name: Internals
     children:
     - AudioEngine
     - AudioUnitBase
     - AudioUnitContainer
+    - AutomationCurve
     - CallbackInstrument
     - Device
+    - DeviceID
     - NodeParameter
+    - NodeParameterDef
+    - NodeParameterType
     - NodeRecorder
+    - ParameterAutomationPoint
     - Settings
     - Table
     - TableType
@@ -24,47 +29,68 @@ custom_categories:
   - name: MIDI
     children:
     - BluetoothMIDIButton
+    - CMIDICallback
+    - EndpointInfo
     - MIDI
+    - MIDIBeatObserver
+    - MIDIByte
     - MIDICallback
     - MIDICallbackInstrument
+    - MIDIChannel
     - MIDIClockListener
     - MIDIControl
+    - MIDICustomMetaEvent
+    - MIDICustomMetaEventType
     - MIDIEvent
     - MIDIFile
+    - MIDIFileChunk
     - MIDIFileChunkEvent
+    - MIDIFileChunkType
+    - MIDIFileTempoTrack
     - MIDIFileTrack
+    - MIDIFileTrackChunk
     - MIDIFileTrackNoteMap
     - MIDIHelper
     - MIDIInstrument
     - MIDIListener
+    - MIDIMessage
     - MIDIMonoPolyListener
     - MIDINode
     - MIDINoteData
     - MIDINoteDuration
+    - MIDINoteNumber
     - MIDIOMNIListener
+    - MIDIPacket
+    - MIDIPacketList
     - MIDIPlayer
+    - MIDIProgramChangeEvent
     - MIDISampler
     - MIDIStatus
     - MIDIStatusType
+    - MIDISysExMessage
     - MIDISystemCommand
     - MIDISystemCommandType
     - MIDISystemRealTimeListener
+    - MIDISystemRealTimeObserver
     - MIDITempoListener
+    - MIDITempoObserver
     - MIDITransformer
-    - MIDIFileTrackChunk
-    - MIDIPacket
-    - MIDIPacketList
-    - MIDIProgramChangeEvent
     - MIDITimeFormat
     - MIDITimeout
     - MIDITrackView
+    - MIDIVariableLengthQuantity
+    - MIDIVelocity
+    - MIDIWord
 
   - name: Sequencing
     children:
     - AppleSequencer
     - Duration
     - MusicTrackManager
+    - NoteEventSequence
     - Sequencer
+    - SequenceEvent
+    - SequenceNote
     - SequencerTrack
 
   - name: Tuning
@@ -76,11 +102,15 @@ custom_categories:
 
   - name: Utilities
     children:
+    - audition(_:)
     - CheckError(_:)
+    - CVoidCallback
     - ExceptionCatcher(_:)
     - FormatConverter
     - fourCC(_:)
-    - Log
+    - Log(_:log:type:file:function:line:)
+    - SampleIndex
+
 
   - name: Nodes
     children:
@@ -223,19 +253,21 @@ custom_categories:
     - PresetBuilder
     - Sampler
     - SamplerAudioUnit
+    - SampleTriggerMode
     - SpeechSynthesizer
     - TimePitch
     - VariSpeed
 
   - name: Operations
     children:
-    - Parameter
     - ComputedParameter
-    - Operation
-    - StereoOperation
     - Numeric
+    - Operation
+    - OperationParameter
+    - Parameter
+    - StereoOperation
 
-  - name: Math
+  - name: Operation Math
     children:
     - abs(_:)
     - ceil(_:)
@@ -253,14 +285,14 @@ custom_categories:
     - "-(_:)"
     - "/(_:_:)"
 
-  - name: Random Number Generators
-    children:
-    - random(_:)
-
   - name: Plotting Tools
     children:
+    - FloatChannelData
     - NodeFFTPlot
     - NodeOutputPlot
+    - Waveform
+    - WaveformDataRequest
+    - WaveformLayer
 
   - name: Taps
     children:
@@ -272,23 +304,46 @@ custom_categories:
 
   - name: UI Elements
     children:
+    - ADSRCallback
     - ADSRView
-    - CrossPlatformButton
+    - Button
+    - ButtonStyle
+    - CrossPlatformColor
+    - CrossPlatformView
     - KeyboardView
     - KeyboardDelegate
     - MultitouchGestureRecognizer
+    - MultitouchGestureRecognizerDelegate
+    - PlaygroundLoop
     - Stylist
     - TableView
-    - Waveform
-    - WaveformDataRequest
-    - WaveformLayer
+    - Theme
 
-  - name: Apple Extensions
+  - name: Math: Approximation
     children:
+    - ~!=(_:_:)
+    - ~<(_:_:)
+    - ~<=(_:_:)
+    - ~==(_:_:)
+    - ~>(_:_:)
+    - ~>=(_:_:)
+
+  - name: Apple Audio Extensions
+    children:
+    - AUParameter
+    - AUParameterTree
+    - AUValue
+    - AudioComponentDescription
+    - AudioUnit
     - AVAudioEngine
     - AVAudioFile
     - AVAudioNode
     - AVAudioPCMBuffer
+    - AVAudioSequencer
+    - AVAudioSession
     - AVAudioTime
-    - AudioComponentDescription
-    - AudioUnit
+
+    
+
+
+
