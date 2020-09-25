@@ -1,6 +1,10 @@
 # AudioKit 5 Migration Guide
 
-AudioKit 5 is still in development, and in order to ensure high quality, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. So, first we'll start out with a list of things that are just not in AudioKit 5 in any form:
+AudioKit 5 is still in development, and in order to ensure high quality, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. 
+
+## Removed
+
+So, first we'll start out with a list of things that are just not in AudioKit 5 in any form:
 
 1. AudioKit 5 has an `AudioPlayer` but doesn't include the AudioKit's 4's other players `AKDiskStreamer` , `AKWaveTable`, or  `AKClipPlayer`. Some of these classes had utility and could/should be brought back to AudioKit 5.
 
@@ -12,6 +16,8 @@ AudioKit 5 is still in development, and in order to ensure high quality, some pa
 
 5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the examples project.
 
+## Significantly Changed
+
 The following items have been very significantly changed, even if their names are similar:
 
 1. AudioKit 4's file managing class `AKAudioFile` has been removed. We have found Apple's `AVAudioFile` sufficient for this purpose now. Format conversion is now handled by AudioKit 5's `FormatConverter`.
@@ -19,6 +25,8 @@ The following items have been very significantly changed, even if their names ar
 2. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
 
 3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`.  We have added `PitchTap`, `RawDataTap` and `TapNode`.
+
+## Lesser Differences
 
 Next we have things that are different but rather trivial to reimplement (and very worthwhile to do so).
 
@@ -47,7 +55,7 @@ If you get errors like `Cannot find AKOscillator in scope` try `Oscillator` inst
 
 In AudioKit 4 you could write `AKReverb()` but now you will have to write `Reverb(nodeYouWantToReverberate)`. One of the main reasons for this is that our audio engine is keeping track of the connections and now tightly enforces that you're not making any mistakes with dangling nodes not properly connected.  
 
-A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To dynamically change your signal chain, use a `Mixer` and its `addInput` and `removeInput` methods. This is the safest way to perform signal chain modification and works quite well.
+A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To change your signal chain, even while the engine is running, use a `Mixer` and its `addInput` and `removeInput` methods.
 
 6. Ramp duration is no longer a property of AudioKit or even on AudioKit nodes. Instead, ramping parameters is much more flexible.  What used to be:
 ```
