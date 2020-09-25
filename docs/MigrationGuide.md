@@ -32,7 +32,7 @@ AudioKit.output = something
 AudioKit.start()
 AudioKit.stop()
 ```
-you'll need to create an instead of an AudioKit Engine:
+you'll need to create an instance of an AudioKit Engine:
 ```
 let engine = AudioEngine()
 engine.output = something
@@ -45,9 +45,9 @@ If you get errors like `Cannot find AKOscillator in scope` try `Oscillator` inst
 
 5. AudioKit 5 effects no longer take optional nodes on initialization. 
 
-In AudfioKit 4 you could write `AKReverb()` but now you will have to write `Reverb(nodeYouWantToReverberate)`. One of the main reasons for this is that our audio engine is keeping track of the connections and now tightly enforces that you're not making any mistakes with dangling nodes not properly connected.  
+In AudioKit 4 you could write `AKReverb()` but now you will have to write `Reverb(nodeYouWantToReverberate)`. One of the main reasons for this is that our audio engine is keeping track of the connections and now tightly enforces that you're not making any mistakes with dangling nodes not properly connected.  
 
-A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To dynamically change your signal chain, use a `Mixer` and its `addInput` and `removeInput` methods. This is the safest way to signal chain modification and works quite well.
+A side effect of this change is that the syntactical sugar of setting up your chain after initialization with the syntax `oscillator >>> reverb` is gone. To dynamically change your signal chain, use a `Mixer` and its `addInput` and `removeInput` methods. This is the safest way to perform signal chain modification and works quite well.
 
 6. Ramp duration is no longer a property of AudioKit or even on AudioKit nodes. Instead, ramping parameters is much more flexible.  What used to be:
 ```
