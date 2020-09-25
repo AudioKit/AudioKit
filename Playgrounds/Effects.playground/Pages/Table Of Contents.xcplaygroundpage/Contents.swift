@@ -57,18 +57,12 @@
 //: ### Other
 //:
 //: * [Graphic Equalizer](Graphic%20Equalizer)
-//: * [3D Panner](3D%20Panner)
-
+//:
 //: ## Operations
 //:
 //: Many of the types of things you can do in nodes are also possible with operations,
 //: but with great flexibility in how the parameters are changed over time.
 //:
-//: * [AutoPan Operation](AutoPan%20Operation)
-//: * [AutoWah Operation](AutoWah%20Operation)
-//: * [Bit Crush](Bit%20Crush%20Operation)
-//: * [Costello Reverb Operation](Costello%20Reverb%20Operation)
-//: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
 //: * [Variable Delay](Variable%20Delay%20Operation)
 //:
 //: ### Sporth

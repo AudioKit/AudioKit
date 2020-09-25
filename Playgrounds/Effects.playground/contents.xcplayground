@@ -2,15 +2,11 @@
 <playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
-        <page name='AutoPan Operation'/>
-        <page name='AutoWah Operation'/>
-        <page name='Bit Crush Operation'/>
         <page name='Chorus'/>
         <page name='Clipper'/>
         <page name='Comb Filter Reverb'/>
         <page name='Compressor'/>
         <page name='Convolution'/>
-        <page name='Costello Reverb Operation'/>
         <page name='Decimator'/>
         <page name='Distortion'/>
         <page name='Dynamics Processor'/>
@@ -20,7 +16,6 @@
         <page name='Filter Section Example'/>
         <page name='Flanger'/>
         <page name='Flat Frequency Response Reverb'/>
-        <page name='Flat Frequency Response Reverb Operation'/>
         <page name='Graphic Equalizer'/>
         <page name='Multi-tap Delay'/>
         <page name='MultiDelay Example'/>
