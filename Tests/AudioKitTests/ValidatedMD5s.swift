@@ -126,7 +126,7 @@ let validatedMD5s: [String: String] = [
     "-[DynamicRangeCompressorTests testRatio]": "b54b39c39cdee9d763a70d8d320790b2",
     "-[DynamicRangeCompressorTests testReleaseDuration]": "69cfe49af5f722eeaf9a6a451a96f1af",
     "-[DynamicRangeCompressorTests testThreshold]": "93f389a2cba5bf504ecd10a72e4ca2f6",
-    "-[DynamicsProcessorTests testDefault]": "a09bbd1457f112513351d8531161955d",
+    "-[DynamicsProcessorTests testDefault]": "70fa0fb4d94ccb4a36fdd55be270d0e8",
     "-[EqualizerFilterTests testBandwidth]": "c684947449ae4a781fcfa7e401905a6f",
     "-[EqualizerFilterTests testCenterFrequency]": "02dd8c4d5a7bff2fd39c810a2b1180c6",
     "-[EqualizerFilterTests testDefault]": "7a23164d0c0193b6465c4759dcd5bb0f",
