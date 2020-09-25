@@ -60,7 +60,7 @@ is much more flexible:
 oscillator.$amplitude.ramp(to: 0.9, duration: 1.2)
 oscillator.$frequency.ramp(to: 880, duration: 1.7)
 ```
-Notice how ramping duration is independent for each paramter. And notice the parameter is a property wrapper in this case, so it is prefixed by the dollar sign. Setting parameters like in the first code still works, but the changes are immediate, not ramped.
+Notice how ramping duration is independent for each paramter. And notice the parameter is a [property wrapper](https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID617) in this case, so it is prefixed by the dollar sign. Setting parameters like in the first code still works, but the changes are immediate, not ramped.
 
 7. In addition to all parameters on AudioKit nodes (except for the ones based off of Apple DSP) being rampable, they are also automatable.  By generating piece-wise linear curves, you can approximate all kinds of ramp curves or other time varying changes to the parameters.
 
