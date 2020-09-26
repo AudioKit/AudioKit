@@ -59,11 +59,11 @@ public class WaveformLayer: CAShapeLayer {
         self.backgroundColor = backgroundColor
         self.strokeColor = strokeColor
         lineWidth = 0.5 // default if stroke is used, otherwise this does nothing
-        self.fillColor = fillColor ?? CrossPlatformColor.black.cgColor
+        self.fillColor = fillColor ?? CGColor(gray: 0, alpha: 1)
         masksToBounds = false
         isOpaque = false
         drawsAsynchronously = true
-        shadowColor = CrossPlatformColor.black.cgColor
+        shadowColor = CGColor(gray: 0, alpha: 1)
         shadowOpacity = 0.4
         shadowOffset = CGSize(width: 1, height: -1)
         shadowRadius = 2.0
