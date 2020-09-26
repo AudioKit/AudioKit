@@ -43,6 +43,8 @@ class ReverbTests: XCTestCase {
     }
 
     func testSmallRoom() {
+        let engine = AudioEngine()
+        let input = Oscillator()
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
