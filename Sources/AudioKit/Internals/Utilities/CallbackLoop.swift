@@ -2,7 +2,7 @@
 import Foundation
 
 /// Class to handle updating via CADisplayLink
-public class PlaygroundLoop: NSObject {
+public class CallbackLoop: NSObject {
     private var internalHandler: () -> Void = {}
     private var duration = 1.0
 
