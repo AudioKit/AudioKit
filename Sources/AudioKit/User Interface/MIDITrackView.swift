@@ -36,7 +36,7 @@ I have recently set up the playback to be synced with automated tempos which cha
 
 //Display a MIDI Sequence in a track
 
-public class MIDITrackView: Button {
+public class MIDITrackView: UIView {
  //Quarter note at 120 bpm is 20.8333... pixels - standard
     var length: Double!
     var playbackCursorRect: CGRect!
