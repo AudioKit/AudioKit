@@ -312,10 +312,7 @@ custom_categories:
     children:
     - ADSRCallback
     - ADSRView
-    - Button
-    - ButtonStyle
     - CrossPlatformColor
-    - CrossPlatformView
     - KeyboardView
     - KeyboardDelegate
     - MultitouchGestureRecognizer
