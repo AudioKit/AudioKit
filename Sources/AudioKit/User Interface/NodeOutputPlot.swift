@@ -92,7 +92,7 @@ public class NodeOutputPlot: EZAudioPlot {
         self.node = input
         super.init(frame: frame)
         self.plotType = .buffer
-        self.backgroundColor = CrossPlatformColor.white
+        self.backgroundColor = .white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
     }

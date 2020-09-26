@@ -64,7 +64,6 @@ public class MIDITrackView: UIView {
                             sampler: MIDISampler,
                             sequencer: AppleSequencer) {
         self.init(frame: frame)
-        self.borderWidth = 0.0
         clipsToBounds = true
         self.sampler = sampler
         self.sequencer = sequencer
@@ -75,14 +74,12 @@ public class MIDITrackView: UIView {
     /// Default init from superclass
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.borderWidth = 0.0
         clipsToBounds = true
     }
 
     /// Initialization within Interface Builder
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.borderWidth = 0.0
         clipsToBounds = true
     }
 
@@ -157,7 +154,7 @@ public class MIDITrackView: UIView {
             let noteLevel = (maxHeight - (Double(noteNum) * noteHeight))
             let singleNoteRect = CGRect(x: notePosition, y: noteLevel, width: noteLength, height: noteHeight)
             let singleNoteView = UIView(frame: singleNoteRect)
-            singleNoteView.backgroundColor = self.highlightedColor
+            singleNoteView.backgroundColor = UIColor.white
             collectiveNoteView.addSubview(singleNoteView)
         }
 
