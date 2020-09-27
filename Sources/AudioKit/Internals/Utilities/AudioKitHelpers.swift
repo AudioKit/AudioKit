@@ -52,15 +52,6 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Random AUValue(float) in range
-/// - parameter in: Range of randomization
-public func random(in range: ClosedRange<AUValue>) -> AUValue {
-    let precision = 1_000_000
-    let width = range.upperBound - range.lowerBound
-
-    return AUValue(arc4random_uniform(UInt32(precision))) / AUValue(precision) * width + range.lowerBound
-}
-
 // MARK: - Normalization Helpers
 
 /// Extension to calculate scaling factors, useful for UI controls
