@@ -10,6 +10,9 @@ CLANG_ENABLE_MODULES = YES
 APPLY_RULES_IN_COPY_HEADERS = YES
 BUILD_LIBRARY_FOR_DISTRIBUTION = YES
 
+CLANG_ENABLE_MODULE_DEBUGGING[config=Release] = NO
+OTHER_SWIFT_FLAGS[config=Release] = $(inherited) -Xfrontend -no-clang-module-breadcrumbs
+
 // Why aren't these picked up automatically in the generated project?
 COCOA_IS_CATALYST_YES = -framework UIKit
 COCOA_IS_CATALYST_NO = -framework Cocoa
