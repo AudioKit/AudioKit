@@ -38,7 +38,7 @@ public class Waveform: CALayer {
         }
     }
 
-    public var waveformColor: CGColor = CGColor(gray: 0, alpha: 1) {
+    public var waveformColor: CGColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1) {
         didSet {
             for plot in plots {
                 plot.fillColor = waveformColor
@@ -81,7 +81,7 @@ public class Waveform: CALayer {
         }
         // make a default size
         frame = CGRect(origin: CGPoint(), size: plotSize)
-        self.waveformColor = waveformColor ?? CGColor(gray: 0, alpha: 1)
+        self.waveformColor = waveformColor ?? CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
         self.backgroundColor = backgroundColor
         isOpaque = false
         initPlots()
