@@ -71,8 +71,8 @@ class LiveView: View {
             sequencer.tracks[2].clearRange(start: Duration(beats: 0), duration: Duration(beats: 4))
             for i in 0 ... 15 {
                 sequencer.tracks[2].add(
-                    noteNumber: MIDINoteNumber(30 + Int(random(in: 0 ... 1.99))),
-                    velocity: MIDIVelocity(random(in: 80 ... 127)),
+                    noteNumber: MIDINoteNumber(30 + Int(AUValue.random(in: 0 ... 1.99))),
+                    velocity: MIDIVelocity(AUValue.random(in: 80 ... 127)),
                     position: Duration(beats: i / 4.0),
                     duration: Duration(beats: 0.5))
             }
