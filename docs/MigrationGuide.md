@@ -8,7 +8,7 @@ So, first we'll start out with a list of things that are just not in AudioKit 5 
 
 1. AudioKit 5 has an `AudioPlayer` but doesn't include the AudioKit's 4's other players `AKDiskStreamer` , `AKWaveTable`, or  `AKClipPlayer`. Some of these classes had utility and could/should be brought back to AudioKit 5.
 
-2. The oscillator banks such as `AKOscillatorBank` and `AKMorphingOscillatorBank` have all been removed. They were coded in a way that we have since outgrown. The only polyphonic node left is `Synth` but we intend on bringing back polyphonic instruments in a well-coded way as soon as possible.
+2. The oscillator banks such as `AKOscillatorBank` have all been removed. They were coded in a way that we have since outgrown. The only polyphonic node left is `Synth` but we intend on bringing back polyphonic instruments in a well-coded way as soon as possible.
 
 3. Inter-App Audio support has been removed. Apple has deprecated it and Audiobus now supports Apple's AUv3 format, which should work even better than Inter-App Audio.
 
@@ -68,7 +68,7 @@ is much more flexible:
 oscillator.$amplitude.ramp(to: 0.9, duration: 1.2)
 oscillator.$frequency.ramp(to: 880, duration: 1.7)
 ```
-Notice how ramping duration is independent for each paramter. And notice the parameter is a [property wrapper](https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID617) in this case, so it is prefixed by the dollar sign. Setting parameters like in the first code still works, but the changes are immediate, not ramped.
+Notice how ramping duration is independent for each parameter. And notice the parameter is a [property wrapper](https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID617) in this case, so it is prefixed by the dollar sign. Setting parameters like in the first code still works, but the changes are immediate, not ramped.
 
 7. In addition to all parameters on AudioKit nodes (except for the ones based off of Apple DSP) being rampable, they are also automatable.  By generating [piecewise linear](https://en.wikipedia.org/wiki/Piecewise_linear_function) curves, you can approximate all kinds of ramp curves or other time varying changes to the parameters.
 
@@ -98,7 +98,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKAmplitudeTracker | - | Use AmplitudeTap instead. |
 | AKAppleSampler | AppleSampler |  |
 | AKAppleSequencer | AppleSequencer |  |
-| AKAudioFile | - | Everything has been updated to use Apple's AVAudioFile |
+| AKAudioFile | - | Everything has been updated to use Apple's AVAudioFile. Use FormatConverter to change the format of an AVAudioFile. |
 | AKAudioPlayer | AudioPlayer |  |
 | AKAutoPanner | AutoPanner |  |
 | AKAutoWah | AutoWah | All effects need an input. ie. no more empty initialzers with connections defined later. |
@@ -117,9 +117,9 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKClarinet | Clarinet |  |
 | AKClip | - |  |
 | AKClipMerger | - |  |
-| AKClipper | Clipper |  |
-| AKClipPlayer | ClipPlayer |  |
-| AKClipRecorder | ClipRecorder |  |
+| AKClipper | Clipper | All effects need an input. ie. no more empty initialzers with connections defined later. |
+| AKClipPlayer | - |  |
+| AKClipRecorder | - |  |
 | AKCombFilterReverb | CombFilterReverb | All effects need an input. ie. no more empty initialzers with connections defined later. |
 | AKComponent | AudioUnitContainer |  |
 | AKCompressor | Compressor | All effects need an input. ie. no more empty initialzers with connections defined later. |
@@ -162,6 +162,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKKeyboardDelegate | KeyboardDelegate |  |
 | AKKeyboardView | KeyboardView |  |
 | AKKorgLowPassFilter | KorgLowPassFilter | All effects need an input. ie. no more empty initialzers with connections defined later. |
+| AKLazyTap | - |  |
 | AKLog(fullname:file:line:_:) | Log(fullname:file:line:_:) |  |
 | AKLowPassButterworthFilter | LowPassButterworthFilter | All effects need an input. ie. no more empty initialzers with connections defined later. |
 | AKLowPassFilter | LowPassFilter | All effects need an input. ie. no more empty initialzers with connections defined later. |
@@ -243,6 +244,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKPWMOscillatorFilterSynth | - | This used a lot of AudioKit internals that were removed. You can use Synth for polyphonic sounds, and we hope to reintroduce polyphonic banks into AK5 soon. |
 | AKRawMIDIPacket | RawMIDIPacket |  |
 | AKRecordingResult | - |  |
+| AKRenderTap | - |  |
 | AKResonantFilter | ResonantFilter | All effects need an input. ie. no more empty initialzers with connections defined later. |
 | AKResourcesAudioFileLoaderView | - | We have removed most of UI elements that were not specific to audio. |
 | AKReverb | Reverb | All effects need an input. ie. no more empty initialzers with connections defined later. |
@@ -274,6 +276,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKTelephoneView | - | We have removed most of UI elements that were not specific to audio. |
 | AKTester | - | AudioEngine now has the testing functionality |
 | AKThreePoleLowpassFilter | ThreePoleLowpassFilter |  |
+| AKTimelineTap | - |  |
 | AKTimePitch | TimePitch | All effects need an input. ie. no more empty initialzers with connections defined later. |
 | AKTiming | - |  |
 | AKToggleable | Toggleable |  |
@@ -293,6 +296,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKWhiteNoise | WhiteNoise |  |
 | AKZitaReverb | ZitaReverb | All effects need an input. ie. no more empty initialzers with connections defined later. |
 | AudioKit | - | This was a global singleton, instead create an instance of AudioEngine. |
+| AudioKitUI | - | No longer need to import AudioKitUI. Whatever user interface elements we provide will be in AudioKit. |
 | ClipMergeDelegate | - |  |
 | ClipMergerError | - |  |
 | ClipRecordingError | - |  |
