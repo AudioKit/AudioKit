@@ -231,10 +231,10 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         }
         performAllSimultaneousEvents(now, event);
     }
-
-    TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
-    TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
-    
+    if (tapSampleCount > 0) {
+        TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
+        TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
+    }
 }
 
 /** From Apple Example code */
@@ -340,10 +340,54 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 }
 
+void DSPBase::enableTapping(int sampleCount) {
+    tapSampleCount = sampleCount;
+}
+
+void DSPBase::disableTapping() {
+    tapSampleCount = 0;
+}
+
+float* DSPBase::getTapData() {
+    // Consume bytes and return arrays
+
+    float leftData[tapSampleCount] = {};
+    int availableBytes = 0;
+    float bufferData = TPCircularBufferTail(&leftBuffer, &availableBytes);
+    int n = availableBytes / sizeof(float)
+    if (n < tapSampleCount) {
+        return {};
+    }
+    for(int i = 0; i<tapSampleCount; i++) {
+        leftData[i] = bufferData[i];
+    }
+    TPCircularBufferConsume(&leftBuffer, tapSampleCount * sizeof(float));
+
+    // Do same thing for right
+    return tapData;
+}
+
 void akSetSeed(unsigned int seed) {
     srand(seed);
 }
 
+AK_API void akEnableTapping(DSPRef dspRef, int sampleCount) {
+    auto dsp = dynamic_cast<DSPBase *>(dspRef);
+    assert(dsp);
+    dsp->enableTapping(sampleCount);
+}
+AK_API void akDisableTapping(DSPRef dspRef) {
+    auto dsp = dynamic_cast<DSPBase *>(dspRef);
+    assert(dsp);
+    dsp->disableTapping();
+}
+AK_API float* akGetTapData(DSPRef dspRef) {
+    auto dsp = dynamic_cast<DSPBase *>(dspRef);
+    assert(dsp);
+    dsp->getTapData();
+}
+
+// old interface
 AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp) {
     return &static_cast<DSPBase*>(dsp)->leftBuffer;
 }

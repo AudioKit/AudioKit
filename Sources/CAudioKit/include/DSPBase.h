@@ -41,6 +41,11 @@ AK_API void deleteDSP(DSPRef pDSP);
 /// Reset random seed to ensure deterministic results in tests.
 AK_API void akSetSeed(unsigned int);
 
+AK_API void akEnableTapping(DSPRef dsp, int sampleCount);
+AK_API void akDisableTapping(DSPRef dsp);
+AK_API float* akGetTapData(DSPRef dsp);
+
+// old interface
 AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp);
 AK_API TPCircularBuffer* akGetRightBuffer(DSPRef dsp);
 
@@ -65,6 +70,9 @@ protected:
     
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
+
+    /// Tappable data
+    int tapSampleCount = 0;
     
     // To support AKAudioUnit functions
     bool isInitialized = false;
@@ -161,6 +169,10 @@ public:
 
     virtual void startRamp(const AUParameterEvent& event);
 
+    virtual void enableTapping(int sampleCount);
+    virtual void disableTapping();
+    virtual float* getTapData();
+
     TPCircularBuffer leftBuffer;
     TPCircularBuffer rightBuffer;
     
@@ -177,6 +189,7 @@ private:
     void handleOneEvent(AURenderEvent const *event);
     
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
+
     
 };
 
