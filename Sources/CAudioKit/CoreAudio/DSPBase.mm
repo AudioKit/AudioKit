@@ -340,7 +340,7 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 }
 
-void DSPBase::enableTapping(int sampleCount) {
+void DSPBase::enableTapping(size_t sampleCount) {
     tapSampleCount = sampleCount;
 }
 
@@ -348,30 +348,37 @@ void DSPBase::disableTapping() {
     tapSampleCount = 0;
 }
 
-float* DSPBase::getTapData() {
+TapData DSPBase::getTapData() {
     // Consume bytes and return arrays
 
-    float leftData[tapSampleCount] = {};
+    float* leftData = new float[tapSampleCount];
     int availableBytes = 0;
-    float bufferData = TPCircularBufferTail(&leftBuffer, &availableBytes);
-    int n = availableBytes / sizeof(float)
-    if (n < tapSampleCount) {
-        return {};
-    }
-    for(int i = 0; i<tapSampleCount; i++) {
-        leftData[i] = bufferData[i];
+    float *data = (float*) TPCircularBufferTail(&leftBuffer, &availableBytes);
+    int n = availableBytes / sizeof(float);
+    if (n < tapSampleCount) { return {nullptr, nullptr, 0}; }
+    for(int i = 0; i < tapSampleCount; i++) {
+        leftData[i] = data[i];
     }
     TPCircularBufferConsume(&leftBuffer, tapSampleCount * sizeof(float));
 
-    // Do same thing for right
-    return tapData;
+    float* rightData = new float[tapSampleCount];
+
+    data = (float*) TPCircularBufferTail(&rightBuffer, &availableBytes);
+    n = availableBytes / sizeof(float);
+    if (n < tapSampleCount) { return {nullptr, nullptr, 0}; }
+    for(int i = 0; i < tapSampleCount; i++) {
+        rightData[i] = data[i];
+    }
+    TPCircularBufferConsume(&rightBuffer, tapSampleCount * sizeof(float));
+
+    return { leftData, rightData, (size_t) tapSampleCount };
 }
 
 void akSetSeed(unsigned int seed) {
     srand(seed);
 }
 
-AK_API void akEnableTapping(DSPRef dspRef, int sampleCount) {
+AK_API void akEnableTapping(DSPRef dspRef, size_t sampleCount) {
     auto dsp = dynamic_cast<DSPBase *>(dspRef);
     assert(dsp);
     dsp->enableTapping(sampleCount);
@@ -381,10 +388,10 @@ AK_API void akDisableTapping(DSPRef dspRef) {
     assert(dsp);
     dsp->disableTapping();
 }
-AK_API float* akGetTapData(DSPRef dspRef) {
+AK_API TapData akGetTapData(DSPRef dspRef) {
     auto dsp = dynamic_cast<DSPBase *>(dspRef);
     assert(dsp);
-    dsp->getTapData();
+    return dsp->getTapData();
 }
 
 // old interface
