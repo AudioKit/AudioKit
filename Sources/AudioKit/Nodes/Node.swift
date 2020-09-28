@@ -183,13 +183,26 @@ public protocol Tappable {
 extension Tappable where Self: AudioUnitContainer {
     // new interface
     public func enableTapping(sampleCount: Int) {
-        akEnableTapping(internalAU?.dsp, Int32(sampleCount))
+        akEnableTapping(internalAU?.dsp, sampleCount)
     }
     public func disableTapping() {
         akDisableTapping(internalAU?.dsp)
     }
-    public var data: [[Float]] {
-        akGetTapData(internalAU?.dsp)
+    public var data: FloatChannelData {
+        let tapData = akGetTapData(internalAU?.dsp)
+        guard tapData.leftChannel != nil,  tapData.rightChannel != nil else { return [[]] }
+        var leftData = [Float](repeating: 0, count: tapData.frames)
+        var rightData = [Float](repeating: 0, count: tapData.frames)
+
+        for i in 0..<tapData.frames {
+            leftData[i] = tapData.leftChannel[i]
+            rightData[i] = tapData.rightChannel[i]
+        }
+
+        tapData.leftChannel.deallocate()
+        tapData.rightChannel.deallocate()
+
+        return [leftData, rightData]
     }
 
     // old interface
