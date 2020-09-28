@@ -123,10 +123,11 @@ open class FFTTap: Toggleable {
 
                 // Transforming the [Float] buffer into a UnsafePointer<Float> object for the vDSP_ctoz method
                 // And then pack the input into the complex buffer (output)
-                let temp = UnsafePointer<Float>(transferBuffer)
-                temp.withMemoryRebound(to: DSPComplex.self,
-                                       capacity: transferBuffer.count) {
-                    vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
+                transferBuffer.withUnsafeBufferPointer { pointer in
+                    pointer.baseAddress!.withMemoryRebound(to: DSPComplex.self,
+                                                         capacity: transferBuffer.count) {
+                        vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
+                    }
                 }
 
                 // Perform the FFT
