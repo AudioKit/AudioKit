@@ -170,17 +170,30 @@ open class PolyphonicNode: Node, Polyphonic {
 
 /// Protocol to allow nodes to be tapped using AudioKit's tapping system (not AVAudioEngine's installTap)
 public protocol Tappable {
-    var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
-    var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
+    func installTap()
+    func removeTap()
+    func getTapData(sampleCount: Int) -> FloatChannelData
 }
 
 /// Default functions for nodes that conform to Tappable
 extension Tappable where Self: AudioUnitContainer {
-    public var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> {
-        akGetLeftBuffer(internalAU?.dsp)
+    public func installTap() {
+        akInstallTap(internalAU?.dsp)
     }
-    public var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> {
-        akGetRightBuffer(internalAU?.dsp)
+    public func removeTap() {
+        akRemoveTap(internalAU?.dsp)
+    }
+    public func getTapData(sampleCount: Int) -> FloatChannelData {
+        var leftData = [Float](repeating: 0, count: sampleCount)
+        var rightData = [Float](repeating: 0, count: sampleCount)
+        var success = false
+        leftData.withUnsafeMutableBufferPointer { leftPtr in
+            rightData.withUnsafeMutableBufferPointer { rightPtr in
+                success = akGetTapData(internalAU?.dsp, sampleCount, leftPtr.baseAddress!, rightPtr.baseAddress!)
+            }
+        }
+        if !success { return [] }
+        return [leftData, rightData]
     }
 }
 
