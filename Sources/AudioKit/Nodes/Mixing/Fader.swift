@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: Node, AudioUnitContainer, Toggleable {
+public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public typealias AudioUnitType = InternalAU
 

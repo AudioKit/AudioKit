@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 ///
-public class StereoDelay: Node, AudioUnitContainer, Toggleable {
+public class StereoDelay: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 

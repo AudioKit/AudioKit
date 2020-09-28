@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
+public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 

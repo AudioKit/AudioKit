@@ -24,7 +24,7 @@ The following items have been very significantly changed, even if their names ar
 
 2. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
 
-3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`.  We have added `PitchTap`, `RawDataTap` and `TapNode`.
+3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, many of our nodes are `Tappable` and we also have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
 
 ## Lesser Differences
 

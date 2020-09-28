@@ -10,7 +10,7 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class Balancer: Node, AudioUnitContainer, Toggleable {
+public class Balancer: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 

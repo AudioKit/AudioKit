@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class Flanger: Node, AudioUnitContainer, Toggleable {
+public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 

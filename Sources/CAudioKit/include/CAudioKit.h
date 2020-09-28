@@ -26,7 +26,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Analysis
 #import "PitchTracker.h"
-#import "TapNode.h"
 
 // Effects / Modulation
 #import "ModulatedDelay_Typedefs.h"

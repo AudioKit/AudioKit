@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Mandolin
 ///
-public class MandolinString: Node, AudioUnitContainer, Toggleable {
+public class MandolinString: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(instrument: "mand")
 

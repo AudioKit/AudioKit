@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class FMOscillator: Node, AudioUnitContainer, Toggleable {
+public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
