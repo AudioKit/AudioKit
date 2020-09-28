@@ -171,9 +171,9 @@ open class PolyphonicNode: Node, Polyphonic {
 /// Protocol to allow nodes to be tapped using AudioKit's tapping system (not AVAudioEngine's installTap)
 public protocol Tappable {
     // new interface
-    func enableTapping(sampleCount: Int)
+    func enableTapping()
     func disableTapping()
-    var data: [[Float]] { get }
+    func getTapData(sampleCount: Int) -> FloatChannelData
     // old interface
     var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
     var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
@@ -182,26 +182,22 @@ public protocol Tappable {
 /// Default functions for nodes that conform to Tappable
 extension Tappable where Self: AudioUnitContainer {
     // new interface
-    public func enableTapping(sampleCount: Int) {
-        akEnableTapping(internalAU?.dsp, sampleCount)
+    public func enableTapping() {
+        akEnableTapping(internalAU?.dsp)
     }
     public func disableTapping() {
         akDisableTapping(internalAU?.dsp)
     }
-    public var data: FloatChannelData {
-        let tapData = akGetTapData(internalAU?.dsp)
-        guard tapData.leftChannel != nil,  tapData.rightChannel != nil else { return [[]] }
-        var leftData = [Float](repeating: 0, count: tapData.frames)
-        var rightData = [Float](repeating: 0, count: tapData.frames)
-
-        for i in 0..<tapData.frames {
-            leftData[i] = tapData.leftChannel[i]
-            rightData[i] = tapData.rightChannel[i]
+    public func getTapData(sampleCount: Int) -> FloatChannelData {
+        var leftData = [Float](repeating: 0, count: sampleCount)
+        var rightData = [Float](repeating: 0, count: sampleCount)
+        var success = false
+        leftData.withUnsafeMutableBufferPointer { leftPtr in
+            rightData.withUnsafeMutableBufferPointer { rightPtr in
+                success = akGetTapData(internalAU?.dsp, sampleCount, leftPtr.baseAddress!, rightPtr.baseAddress!)
+            }
         }
-
-        tapData.leftChannel.deallocate()
-        tapData.rightChannel.deallocate()
-
+        if !success { return [] }
         return [leftData, rightData]
     }
 

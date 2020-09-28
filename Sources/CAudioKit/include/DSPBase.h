@@ -44,12 +44,11 @@ AK_API void akSetSeed(unsigned int);
 typedef struct {
     float* leftChannel;
     float* rightChannel;
-    size_t frames;
 } TapData;
 
-AK_API void akEnableTapping(DSPRef dsp, size_t sampleCount);
+AK_API void akEnableTapping(DSPRef dsp);
 AK_API void akDisableTapping(DSPRef dsp);
-AK_API TapData akGetTapData(DSPRef dsp);
+AK_API bool akGetTapData(DSPRef dsp, size_t frames, float* leftData, float* rightData);
 
 // old interface
 AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp);
@@ -77,8 +76,8 @@ protected:
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
 
-    /// Tappable data
-    size_t tapSampleCount = 0;
+    /// Are we tapping?
+    bool isTapping = false;
     
     // To support AKAudioUnit functions
     bool isInitialized = false;
@@ -175,9 +174,9 @@ public:
 
     virtual void startRamp(const AUParameterEvent& event);
 
-    virtual void enableTapping(size_t sampleCount);
+    virtual void enableTapping();
     virtual void disableTapping();
-    virtual TapData getTapData();
+    virtual bool getTapData(size_t frames, float* leftData, float* rightData);
 
     TPCircularBuffer leftBuffer;
     TPCircularBuffer rightBuffer;

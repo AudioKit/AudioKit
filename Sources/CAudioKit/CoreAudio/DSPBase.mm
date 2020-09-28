@@ -231,7 +231,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         }
         performAllSimultaneousEvents(now, event);
     }
-    if (tapSampleCount > 0) {
+    if (isTapping) {
         TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
         TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
     }
@@ -340,58 +340,55 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 }
 
-void DSPBase::enableTapping(size_t sampleCount) {
-    tapSampleCount = sampleCount;
+void DSPBase::enableTapping() {
+    isTapping = true;
 }
 
 void DSPBase::disableTapping() {
-    tapSampleCount = 0;
+    isTapping = false;
 }
 
-TapData DSPBase::getTapData() {
+bool DSPBase::getTapData(size_t frames, float* leftData, float* rightData) {
     // Consume bytes and return arrays
 
-    float* leftData = new float[tapSampleCount];
     int availableBytes = 0;
     float *data = (float*) TPCircularBufferTail(&leftBuffer, &availableBytes);
     int n = availableBytes / sizeof(float);
-    if (n < tapSampleCount) { return {nullptr, nullptr, 0}; }
-    for(int i = 0; i < tapSampleCount; i++) {
+    if (n < frames) { return false; }
+    for(int i = 0; i < frames; i++) {
         leftData[i] = data[i];
     }
-    TPCircularBufferConsume(&leftBuffer, tapSampleCount * sizeof(float));
-
-    float* rightData = new float[tapSampleCount];
+    TPCircularBufferConsume(&leftBuffer, frames * sizeof(float));
 
     data = (float*) TPCircularBufferTail(&rightBuffer, &availableBytes);
     n = availableBytes / sizeof(float);
-    if (n < tapSampleCount) { return {nullptr, nullptr, 0}; }
-    for(int i = 0; i < tapSampleCount; i++) {
+    if (n < frames) { return false; }
+    for(int i = 0; i < frames; i++) {
         rightData[i] = data[i];
     }
-    TPCircularBufferConsume(&rightBuffer, tapSampleCount * sizeof(float));
+    TPCircularBufferConsume(&rightBuffer, frames * sizeof(float));
 
-    return { leftData, rightData, (size_t) tapSampleCount };
+    return true;
 }
 
 void akSetSeed(unsigned int seed) {
     srand(seed);
 }
 
-AK_API void akEnableTapping(DSPRef dspRef, size_t sampleCount) {
+AK_API void akEnableTapping(DSPRef dspRef) {
     auto dsp = dynamic_cast<DSPBase *>(dspRef);
     assert(dsp);
-    dsp->enableTapping(sampleCount);
+    dsp->enableTapping();
 }
 AK_API void akDisableTapping(DSPRef dspRef) {
     auto dsp = dynamic_cast<DSPBase *>(dspRef);
     assert(dsp);
     dsp->disableTapping();
 }
-AK_API TapData akGetTapData(DSPRef dspRef) {
+AK_API bool akGetTapData(DSPRef dspRef, size_t frames, float* leftData, float* rightData) {
     auto dsp = dynamic_cast<DSPBase *>(dspRef);
     assert(dsp);
-    return dsp->getTapData();
+    return dsp->getTapData(frames, leftData, rightData);
 }
 
 // old interface
