@@ -10,7 +10,7 @@ import CAudioKit
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
 /// 
-public class VocalTract: Node, AudioUnitContainer, Toggleable {
+public class VocalTract: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 

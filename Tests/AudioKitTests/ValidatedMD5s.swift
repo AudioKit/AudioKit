@@ -350,7 +350,6 @@ let validatedMD5s: [String: String] = [
     "-[TanhDistortionTests testPositiveShapeParameter]": "0b912d30b6dc459cab4c5ca0c32665bf",
     "-[TanhDistortionTests testPostgain]": "d4c9b247a6e709a5297fd65a49e804b7",
     "-[TanhDistortionTests testPregain]": "028c59ba5375ccb47aab560188ee36ca",
-    "-[TapNodeTests testPassesAudioThrough]": "f4cc261bdf98ae17320f9561941c8664",
     "-[ThreePoleLowPassFilterOperationTests testParameterSweep]": "621779ffd353388fc0c07964d9cc7ade",
     "-[ThreePoleLowpassFilterTests testCutoffFrequency]": "0ed7e39384a86f4fd60557c6f7356eba",
     "-[ThreePoleLowpassFilterTests testDefault]": "db4bf81e36e5acf48858f47fa7bc3cdd",

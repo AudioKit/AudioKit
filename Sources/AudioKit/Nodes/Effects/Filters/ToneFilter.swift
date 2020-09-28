@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
-public class ToneFilter: Node, AudioUnitContainer, Toggleable {
+public class ToneFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
