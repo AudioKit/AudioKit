@@ -45,10 +45,6 @@ AK_API void akInstallTap(DSPRef dsp);
 AK_API void akRemoveTap(DSPRef dsp);
 AK_API bool akGetTapData(DSPRef dsp, size_t frames, float* leftData, float* rightData);
 
-// old interface
-AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp);
-AK_API TPCircularBuffer* akGetRightBuffer(DSPRef dsp);
-
 #ifdef __cplusplus
 
 #import <Foundation/Foundation.h>
