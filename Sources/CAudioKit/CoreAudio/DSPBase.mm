@@ -396,11 +396,3 @@ AK_API bool akGetTapData(DSPRef dspRef, size_t frames, float* leftData, float* r
     assert(dsp);
     return dsp->getTapData(frames, leftData, rightData);
 }
-
-// old interface
-AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp) {
-    return &static_cast<DSPBase*>(dsp)->leftBuffer;
-}
-AK_API TPCircularBuffer* akGetRightBuffer(DSPRef dsp) {
-    return &static_cast<DSPBase*>(dsp)->rightBuffer;
-}
