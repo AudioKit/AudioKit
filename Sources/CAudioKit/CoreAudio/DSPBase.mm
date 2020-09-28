@@ -91,6 +91,9 @@ DSPBase::DSPBase(int inputBusCount)
 , inputBufferLists(inputBusCount)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
+
+    TPCircularBufferInit(&leftBuffer, 4096 * sizeof(float));
+    TPCircularBufferInit(&rightBuffer, 4096 * sizeof(float));
 }
 
 void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
@@ -180,6 +183,11 @@ void DSPBase::deinit()
 {
     isInitialized = false;
 }
+DSPBase::~DSPBase()
+{
+    TPCircularBufferCleanup(&leftBuffer);
+    TPCircularBufferCleanup(&rightBuffer);
+}
 
 void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
@@ -203,7 +211,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         if (event == nullptr) {
             AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
             process(framesRemaining, bufferOffset);
-            return;
+            break;
         }
 
         // start late events late.
@@ -223,6 +231,9 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         }
         performAllSimultaneousEvents(now, event);
     }
+
+    TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
+    TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
     
 }
 
@@ -331,4 +342,11 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 void akSetSeed(unsigned int seed) {
     srand(seed);
+}
+
+AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp) {
+    return &static_cast<DSPBase*>(dsp)->leftBuffer;
+}
+AK_API TPCircularBuffer* akGetRightBuffer(DSPRef dsp) {
+    return &static_cast<DSPBase*>(dsp)->rightBuffer;
 }

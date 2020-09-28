@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-public class TapNode: Node, AudioUnitContainer, Toggleable {
+public class TapNode: Node, AudioUnitContainer, Toggleable, Tappable {
 
     public typealias AudioUnitType = InternalAU
 
@@ -11,12 +11,12 @@ public class TapNode: Node, AudioUnitContainer, Toggleable {
 
     public private(set) var internalAU: AudioUnitType?
 
-    public var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> {
-        akTapNodeGetLeftBuffer(internalAU?.dsp)
-    }
-    public var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> {
-        akTapNodeGetRightBuffer(internalAU?.dsp)
-    }
+//    public var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+//        akGetLeftBuffer(internalAU?.dsp)
+//    }
+//    public var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+//        akGetRightBuffer(internalAU?.dsp)
+//    }
 
     // MARK: - Audio Unit
 

@@ -1,14 +1,16 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import CAudioKit
 
 public protocol AudioUnitContainer {
-    associatedtype AudioUnitType: AUAudioUnit // eventually AudioUnitBase
+    associatedtype AudioUnitType: AudioUnitBase
     static var ComponentDescription: AudioComponentDescription { get }
     var internalAU: AudioUnitType? { get }
 }
 
 extension AudioUnitContainer {
+
     /// Register the audio unit subclass
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AudioUnitType.self,
