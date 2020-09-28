@@ -168,6 +168,22 @@ open class PolyphonicNode: Node, Polyphonic {
     }
 }
 
+/// Protocol to allow nodes to be tapped using AudioKit's tapping system (not AVAudioEngine's installTap)
+public protocol Tappable {
+    var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
+    var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> { get }
+}
+
+/// Default functions for nodes that conform to Tappable
+extension Tappable where Self: AudioUnitContainer {
+    public var leftBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+        akGetLeftBuffer(internalAU?.dsp)
+    }
+    public var rightBuffer: UnsafeMutablePointer<TPCircularBuffer> {
+        akGetRightBuffer(internalAU?.dsp)
+    }
+}
+
 /// Protocol for dictating that a node can be in a started or stopped state
 public protocol Toggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -210,14 +226,14 @@ public extension Toggleable {
 
 public extension Toggleable where Self: AudioUnitContainer {
     var isStarted: Bool {
-        return (internalAU as? AudioUnitBase)?.isStarted ?? false
+        return internalAU?.isStarted ?? false
     }
 
     func start() {
-        (internalAU as? AudioUnitBase)?.start()
+        internalAU?.start()
     }
 
     func stop() {
-        (internalAU as? AudioUnitBase)?.stop()
+        internalAU?.stop()
     }
 }

@@ -5,6 +5,7 @@
 #import "Interop.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import <TPCircularBuffer.h>
 
 #include <stdarg.h>
 
@@ -39,6 +40,9 @@ AK_API void deleteDSP(DSPRef pDSP);
 
 /// Reset random seed to ensure deterministic results in tests.
 AK_API void akSetSeed(unsigned int);
+
+AK_API TPCircularBuffer* akGetLeftBuffer(DSPRef dsp);
+AK_API TPCircularBuffer* akGetRightBuffer(DSPRef dsp);
 
 #ifdef __cplusplus
 
@@ -78,7 +82,7 @@ public:
     DSPBase(int inputBusCount=1);
     
     /// Virtual destructor allows child classes to be deleted with only DSPBase *pointer
-    virtual ~DSPBase() {}
+    virtual ~DSPBase();
     
     std::vector<AudioBufferList*> inputBufferLists;
     AudioBufferList* outputBufferList = nullptr;
@@ -157,6 +161,9 @@ public:
 
     virtual void startRamp(const AUParameterEvent& event);
 
+    TPCircularBuffer leftBuffer;
+    TPCircularBuffer rightBuffer;
+    
 private:
 
     /**

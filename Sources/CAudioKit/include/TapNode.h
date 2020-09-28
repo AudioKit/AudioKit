@@ -7,5 +7,4 @@
 
 typedef struct TapNodeDSP *TapNodeDSPRef;
 
-AK_API TPCircularBuffer* akTapNodeGetLeftBuffer(DSPRef dsp);
-AK_API TPCircularBuffer* akTapNodeGetRightBuffer(DSPRef dsp);
+
