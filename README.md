@@ -54,7 +54,7 @@ For Hello World, you only need to understand a few lines of code:
 | `engine.output = oscillator`                | Tell AudioKit what to output |
 | `engine.start()`                            | Start up AudioKit            |
 | `oscillator.start()`                           | Start the oscillator         |
-| `oscillator.frequency = AUValue.AUValue.random(in: 220...880)` | Set oscillator parameters    |
+| `oscillator.frequency = AUValue.random(in: 220...880)` | Set oscillator parameters    |
 | `oscillator.stop()`                            | Stop the oscillator          |
 
 ## Getting help
