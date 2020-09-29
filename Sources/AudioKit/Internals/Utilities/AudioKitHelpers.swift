@@ -4,6 +4,8 @@ import AudioToolbox
 import AVFoundation
 import CoreAudio
 
+public typealias AUValue = Float
+
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16
 public typealias MIDINoteNumber = UInt8
