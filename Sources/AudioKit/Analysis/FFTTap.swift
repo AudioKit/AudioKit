@@ -6,9 +6,8 @@ import CAudioKit
 
 /// FFT Calculation for any node
 open class FFTTap: Toggleable {
-//    public let fftSize: Settings.BufferLength
-//    internal var bufferSize: UInt32 { fftSize.samplesCount }
 
+    /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32
 
     /// Array of FFT data
@@ -28,6 +27,8 @@ open class FFTTap: Toggleable {
     }
 
     private var _input: Node
+
+    /// Input node to analyze
     public var input: Node {
         get {
             return _input
@@ -50,11 +51,16 @@ open class FFTTap: Toggleable {
         }
     }
 
+    /// Type of callback
     public typealias Handler = ([Float]) -> Void
 
     private var handler: Handler = { _ in }
 
+    /// Initialize the FFT Tap
+    /// 
     /// - parameter input: Node to analyze
+    /// - parameter bufferSize: Size of buffer to analyze
+    /// - parameter handler: Callback to call when FFT is calculated
     public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self._input = input

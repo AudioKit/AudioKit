@@ -14,8 +14,9 @@ public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// If you have used this before, you should be able to simply switch to MIDICallbackInstrument
 open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
+    /// Internal audio unit type
     public typealias AudioUnitType = InternalAU
-    /// Four letter unique description of the node
+    /// Four letter unique description "clbk"
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
     // MARK: - Properties

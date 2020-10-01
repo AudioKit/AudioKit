@@ -7,6 +7,7 @@ import CAudioKit
 /// FFT Calculation for any node
 open class RawDataTap: Toggleable {
 
+    /// Size of buffer to
     public private(set) var bufferSize: UInt32
 
     /// Array of Raw data
@@ -26,6 +27,8 @@ open class RawDataTap: Toggleable {
     }
 
     private var _input: Node
+
+    /// Input node to analyze
     public var input: Node {
         get {
             return _input
@@ -48,11 +51,16 @@ open class RawDataTap: Toggleable {
         }
     }
 
+    /// Callback type
     public typealias Handler = ([Float]) -> Void
 
     private var handler: Handler = { _ in }
 
+    /// Initialize the raw data tap
+    /// 
     /// - parameter input: Node to analyze
+    /// - parameter bufferSize: Size of buffer to analyze
+    /// - parameter handler: Callback to call when results are available
     public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self._input = input

@@ -4,6 +4,7 @@ import AVFoundation
 import CAudioKit
 import AVFoundation
 
+/// Sampler's Audio Unit - not yet converted to an internal AU
 public class SamplerAudioUnit: AudioUnitBase {
     private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
@@ -270,6 +271,8 @@ public class SamplerAudioUnit: AudioUnitBase {
         unit: .generic,
         flags: nonRampFlags)
 
+    /// Create Sampler DSP
+    /// - Returns: Reference to Sampler DSP Object
     public override func createDSP() -> DSPRef {
         return akSamplerCreateDSP()
     }
@@ -348,54 +351,79 @@ public class SamplerAudioUnit: AudioUnitBase {
         filterEnvelopeVelocityScaling.value = 0.0
     }
 
+    /// This unit can process in place
     public override var canProcessInPlace: Bool { return true }
 
+    /// Stop all voices
     public func stopAllVoices() {
         akSamplerStopAllVoices(dsp)
     }
 
+    /// Restart voices
     public func restartVoices() {
         akSamplerRestartVoices(dsp)
     }
 
+    /// Load sample data from sample descriptor
+    /// - Parameter sampleDataDescriptor: Sample descriptor
     public func loadSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         var copy = sampleDataDescriptor
         akSamplerLoadData(dsp, &copy)
     }
 
+    /// Load data from compressed file
+    /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         var copy = sampleFileDescriptor
         akSamplerLoadCompressedFile(dsp, &copy)
     }
 
+    /// Unload all the samples from memory
     public func unloadAllSamples() {
         akSamplerUnloadAllSamples(dsp)
     }
 
+    /// Assign a note number to a particular frequency
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: Int32, noteFrequency: Float) {
         akSamplerSetNoteFrequency(dsp, noteNumber, noteFrequency)
     }
 
+    /// Create a simple key map
     public func buildSimpleKeyMap() {
         akSamplerBuildSimpleKeyMap(dsp)
     }
 
+    /// Build key map
     public func buildKeyMap() {
         akSamplerBuildKeyMap(dsp)
     }
 
+    /// Set Loop
+    /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
         akSamplerSetLoopThruRelease(dsp, thruRelease)
     }
 
+    /// Play the sampler
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: Velocity of the note
+    ///   - channel: MIDI Channel
     public func playNote(noteNumber: UInt8, velocity: UInt8) {
         akSamplerPlayNote(dsp, noteNumber, velocity)
     }
 
+    /// Stop the sampler playback of a specific note
+    /// - Parameter noteNumber: MIDI Note number
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
         akSamplerStopNote(dsp, noteNumber, immediate)
     }
 
+    /// Activate the sustain pedal
+    /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(down: Bool) {
         akSamplerSustainPedal(dsp, down)
     }

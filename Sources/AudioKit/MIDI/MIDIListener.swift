@@ -111,10 +111,10 @@ public protocol MIDIListener {
     ///   - portID:   MIDI Unique Port ID
     ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
-  func receivedMIDIProgramChange(_ program: MIDIByte,
-                                 channel: MIDIChannel,
-                                 portID: MIDIUniqueID?,
-                                 offset: MIDITimeStamp)
+    func receivedMIDIProgramChange(_ program: MIDIByte,
+                                   channel: MIDIChannel,
+                                   portID: MIDIUniqueID?,
+                                   offset: MIDITimeStamp)
 
     /// Receive a MIDI system command (such as clock, SysEx, etc)
     ///

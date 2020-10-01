@@ -372,33 +372,34 @@ import UIKit
 import AVFoundation
 import Cocoa
 
+/// Call back for values for attack, decay, sustain, and release parameters
 public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
 public class ADSRView: NSView {
+
+    /// Attack Duration
     public var attackDuration: AUValue = 0.1
+    /// Decay Duration
     public var decayDuration: AUValue = 0.1
+    /// Sustain Level
     public var sustainLevel: AUValue = 0.1
+    /// Release Duration
     public var releaseDuration: AUValue = 0.1
 
     var decaySustainTouchAreaPath = NSBezierPath()
     var attackTouchAreaPath = NSBezierPath()
     var releaseTouchAreaPath = NSBezierPath()
 
+    /// Background Color
     public var backgroundColor = NSColor.black
 
+    /// Callback to call as parameters change
     public var callback: ADSRCallback
     var currentDragArea = ""
 
     var lastPoint = CGPoint.zero
 
-    override public var isFlipped: Bool {
-        return true
-    }
-
-    override public var wantsDefaultClipping: Bool {
-        return false
-    }
-
+    /// React to mouse down
     override public func mouseDown(with theEvent: NSEvent) {
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if decaySustainTouchAreaPath.contains(touchLocation) {
@@ -414,6 +415,7 @@ public class ADSRView: NSView {
         needsDisplay = true
     }
 
+    /// React to mouse dragging
     override public func mouseDragged(with theEvent: NSEvent) {
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
 
@@ -442,12 +444,18 @@ public class ADSRView: NSView {
         needsDisplay = true
     }
 
+    /// Initialize with size and callback
+    /// - Parameters:
+    ///   - frame: View size
+    ///   - callback: Callback to call as values change
     public init(frame: CGRect = CGRect(width: 440, height: 150),
                 callback: @escaping ADSRCallback) {
         self.callback = callback
         super.init(frame: frame)
     }
 
+    /// Required,  but unimplemented initializer
+    /// - Parameter aDecoder: Decoder
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -7,14 +7,18 @@ import CAudioKit
 ///
 public class AutoPanner: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Four letter unique description "apan"
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
@@ -26,6 +30,7 @@ public class AutoPanner: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Frequency (Hz)
     @Parameter public var frequency: AUValue
 
+    /// Specification details for depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth",
@@ -39,6 +44,7 @@ public class AutoPanner: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for AutoPanner
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

@@ -4,6 +4,7 @@ import AVFoundation
 import CAudioKit
 
 extension AVAudioNode {
+    /// Disconnect and manage engine connections
     public func disconnect(input: AVAudioNode) {
         if let engine = engine {
             for bus in 0 ..< numberOfInputs {
@@ -27,12 +28,16 @@ extension AVAudioNode {
     }
 }
 
+/// AudioKit's wrapper for AVAudioEngine
 public class AudioEngine {
+
+    /// Internal AVAudioEngine
     public let avEngine = AVAudioEngine()
 
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1_024
 
+    /// Input node mixer
     public class InputNode: Mixer {
         var isNotConnected = true
 
@@ -43,6 +48,9 @@ public class AudioEngine {
     }
 
     let _input = InputNode()
+
+
+    /// Input for microphone or other device is created when this is accessed
     public var input: InputNode {
         guard let _ = Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String else {
             fatalError("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist")
@@ -54,8 +62,10 @@ public class AudioEngine {
         return _input
     }
 
+    /// Empty initializer
     public init() {}
 
+    /// Output node
     public var output: Node? {
         didSet {
             if let node = oldValue {
@@ -70,6 +80,7 @@ public class AudioEngine {
         }
     }
 
+    /// Start the engine
     public func start() throws {
         if output == nil {
             Log("🛑 Error: Attempt to start engine with no output.")
@@ -78,10 +89,14 @@ public class AudioEngine {
         try avEngine.start()
     }
 
+    /// Stop the engine
     public func stop() {
         avEngine.stop()
     }
 
+    /// Start testing for a specified total duration
+    /// - Parameter duration: Total duration of the entire test
+    /// - Returns: A buffer which you can append to
     public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
         let samples = Int(duration * Settings.sampleRate)
 
@@ -103,6 +118,9 @@ public class AudioEngine {
             frameCapacity: AVAudioFrameCount(samples))!
     }
 
+    /// Render audio for a specific duration
+    /// - Parameter duration: Length of time to render for
+    /// - Returns: Buffer of rendered audio
     public func render(duration: Double) -> AVAudioPCMBuffer {
         let sampleCount = Int(duration * Settings.sampleRate)
         let startSampleCount = Int(avEngine.manualRenderingSampleTime)
@@ -253,6 +271,8 @@ public class AudioEngine {
     }
 
     /// Change the preferred output device, giving it one of the names from the list of available output.
+    /// - Parameter output: Output device
+    /// - Throws: Error if the device cannot be set
     public func setOutputDevice(_ output: Device) throws {
         #if os(macOS)
         avEngine.setDevice(id: output.deviceID)
@@ -264,12 +284,12 @@ public class AudioEngine {
     /// NOTE: This will NOT render sequencer content;
     /// MIDI content will need to be recorded in real time
     ///
-    ///     - Parameters:
-    ///         - audioFile: A file initialized for writing
-    ///         - duration: Duration to render, in seconds
-    ///         - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
-    ///         - progress: Closure called while rendering, use this to fetch render progress
-    ///
+    /// - Parameters:
+    ///   - audioFile: A file initialized for writing
+    ///   - duration: Duration to render, in seconds
+    ///   - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
+    ///   - progress: Closure called while rendering, use this to fetch render progress
+    /// - Throws: Error if render failed
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     public func renderToFile(_ audioFile: AVAudioFile,
                              maximumFrameCount: AVAudioFrameCount = 4_096,
