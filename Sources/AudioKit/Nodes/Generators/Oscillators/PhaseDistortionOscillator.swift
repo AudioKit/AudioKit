@@ -12,16 +12,20 @@ import CAudioKit
 /// 
 public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "pdho"
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     fileprivate var waveform: Table?
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
@@ -33,6 +37,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
@@ -44,6 +49,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
+    /// Specification details for phaseDistortion
     public static let phaseDistortionDef = NodeParameterDef(
         identifier: "phaseDistortion",
         name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
@@ -55,6 +61,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
     @Parameter public var phaseDistortion: AUValue
 
+    /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
@@ -66,6 +73,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
@@ -79,6 +87,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for PhaseDistortionOscillator
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
@@ -135,6 +144,5 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
             self.detuningOffset = detuningOffset
             self.detuningMultiplier = detuningMultiplier
         }
-
     }
 }

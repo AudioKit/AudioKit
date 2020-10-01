@@ -7,16 +7,20 @@ import CAudioKit
 /// Classic FM Synthesis audio generation.
 public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "fosc"
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     fileprivate var waveform: Table?
 
+    /// Specification details for baseFrequency
     public static let baseFrequencyDef = NodeParameterDef(
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
@@ -28,6 +32,7 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
     @Parameter public var baseFrequency: AUValue
 
+    /// Specification details for carrierMultiplier
     public static let carrierMultiplierDef = NodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
@@ -39,6 +44,7 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter public var carrierMultiplier: AUValue
 
+    /// Specification details for modulatingMultiplier
     public static let modulatingMultiplierDef = NodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
@@ -50,6 +56,7 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter public var modulatingMultiplier: AUValue
 
+    /// Specification details for modulationIndex
     public static let modulationIndexDef = NodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
@@ -61,6 +68,7 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter public var modulationIndex: AUValue
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
@@ -74,6 +82,7 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for FMOscillator
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
@@ -130,6 +139,5 @@ public class FMOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
             self.modulationIndex = modulationIndex
             self.amplitude = amplitude
         }
-
     }
 }
