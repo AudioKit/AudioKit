@@ -9,16 +9,20 @@ import CAudioKit
 /// 
 public class DCBlock: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "dcbk"
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for DCBlock
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> DSPRef {

@@ -7,14 +7,18 @@ import CAudioKit
 /// Triggerable classic ADSR envelope
 public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "adsr"
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Attack time",
@@ -26,6 +30,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Attack time
     @Parameter public var attackDuration: AUValue
 
+    /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Decay time",
@@ -37,6 +42,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Decay time
     @Parameter public var decayDuration: AUValue
 
+    /// Specification details for sustainLevel
     public static let sustainLevelDef = NodeParameterDef(
         identifier: "sustainLevel",
         name: "Sustain Level",
@@ -48,6 +54,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Sustain Level
     @Parameter public var sustainLevel: AUValue
 
+    /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release time",
@@ -61,6 +68,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for AmplitudeEnvelope
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

@@ -9,14 +9,18 @@ import CAudioKit
 /// 
 public class BandRejectButterworthFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "btbr"
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
@@ -28,6 +32,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Tappable, To
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
+    /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
@@ -41,6 +46,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Tappable, To
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for BandRejectButterworthFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

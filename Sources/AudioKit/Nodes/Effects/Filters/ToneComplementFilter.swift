@@ -4,17 +4,21 @@
 import AVFoundation
 import CAudioKit
 
-/// A complement to the LowPassFilter.
+/// A complement to the AKLowPassFilter.
 public class ToneComplementFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "aton"
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for halfPowerPoint
     public static let halfPowerPointDef = NodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
@@ -28,6 +32,7 @@ public class ToneComplementFilter: Node, AudioUnitContainer, Tappable, Toggleabl
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ToneComplementFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

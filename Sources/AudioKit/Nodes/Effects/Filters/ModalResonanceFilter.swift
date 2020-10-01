@@ -9,14 +9,18 @@ import CAudioKit
 /// 
 public class ModalResonanceFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "modf"
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
@@ -28,6 +32,7 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Resonant frequency of the filter.
     @Parameter public var frequency: AUValue
 
+    /// Specification details for qualityFactor
     public static let qualityFactorDef = NodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
@@ -41,6 +46,7 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Tappable, Toggleabl
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ModalResonanceFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

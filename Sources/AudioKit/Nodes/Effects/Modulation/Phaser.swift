@@ -7,14 +7,18 @@ import CAudioKit
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
 public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "phas"
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for notchMinimumFrequency
     public static let notchMinimumFrequencyDef = NodeParameterDef(
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
@@ -26,6 +30,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Notch Minimum Frequency
     @Parameter public var notchMinimumFrequency: AUValue
 
+    /// Specification details for notchMaximumFrequency
     public static let notchMaximumFrequencyDef = NodeParameterDef(
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
@@ -37,6 +42,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Notch Maximum Frequency
     @Parameter public var notchMaximumFrequency: AUValue
 
+    /// Specification details for notchWidth
     public static let notchWidthDef = NodeParameterDef(
         identifier: "notchWidth",
         name: "Between 10 and 5000",
@@ -48,6 +54,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Between 10 and 5000
     @Parameter public var notchWidth: AUValue
 
+    /// Specification details for notchFrequency
     public static let notchFrequencyDef = NodeParameterDef(
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
@@ -59,6 +66,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Between 1.1 and 4
     @Parameter public var notchFrequency: AUValue
 
+    /// Specification details for vibratoMode
     public static let vibratoModeDef = NodeParameterDef(
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
@@ -70,6 +78,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Direct or Vibrato (default)
     @Parameter public var vibratoMode: AUValue
 
+    /// Specification details for depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Between 0 and 1",
@@ -81,6 +90,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Between 0 and 1
     @Parameter public var depth: AUValue
 
+    /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Between 0 and 1",
@@ -92,6 +102,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Between 0 and 1
     @Parameter public var feedback: AUValue
 
+    /// Specification details for inverted
     public static let invertedDef = NodeParameterDef(
         identifier: "inverted",
         name: "1 or 0",
@@ -103,6 +114,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
     /// 1 or 0
     @Parameter public var inverted: AUValue
 
+    /// Specification details for lfoBPM
     public static let lfoBPMDef = NodeParameterDef(
         identifier: "lfoBPM",
         name: "Between 24 and 360",
@@ -116,6 +128,7 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for Phaser
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

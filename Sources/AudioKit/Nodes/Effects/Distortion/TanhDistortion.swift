@@ -7,14 +7,18 @@ import CAudioKit
 /// Distortion using a modified hyperbolic tangent function.
 public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "dist"
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for pregain
     public static let pregainDef = NodeParameterDef(
         identifier: "pregain",
         name: "Pregain",
@@ -26,6 +30,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter public var pregain: AUValue
 
+    /// Specification details for postgain
     public static let postgainDef = NodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
@@ -37,6 +42,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Gain applied after waveshaping
     @Parameter public var postgain: AUValue
 
+    /// Specification details for positiveShapeParameter
     public static let positiveShapeParameterDef = NodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
@@ -48,6 +54,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @Parameter public var positiveShapeParameter: AUValue
 
+    /// Specification details for negativeShapeParameter
     public static let negativeShapeParameterDef = NodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
@@ -61,6 +68,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for TanhDistortion
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

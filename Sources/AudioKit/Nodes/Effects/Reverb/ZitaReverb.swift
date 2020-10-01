@@ -7,14 +7,18 @@ import CAudioKit
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
 public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "zita"
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for predelay
     public static let predelayDef = NodeParameterDef(
         identifier: "predelay",
         name: "Delay in ms before reverberation begins.",
@@ -26,6 +30,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Delay in ms before reverberation begins.
     @Parameter public var predelay: AUValue
 
+    /// Specification details for crossoverFrequency
     public static let crossoverFrequencyDef = NodeParameterDef(
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
@@ -37,6 +42,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Crossover frequency separating low and middle frequencies (Hz).
     @Parameter public var crossoverFrequency: AUValue
 
+    /// Specification details for lowReleaseTime
     public static let lowReleaseTimeDef = NodeParameterDef(
         identifier: "lowReleaseTime",
         name: "Time (in seconds) to decay 60db in low-frequency band.",
@@ -48,6 +54,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Time (in seconds) to decay 60db in low-frequency band.
     @Parameter public var lowReleaseTime: AUValue
 
+    /// Specification details for midReleaseTime
     public static let midReleaseTimeDef = NodeParameterDef(
         identifier: "midReleaseTime",
         name: "Time (in seconds) to decay 60db in mid-frequency band.",
@@ -59,6 +66,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Time (in seconds) to decay 60db in mid-frequency band.
     @Parameter public var midReleaseTime: AUValue
 
+    /// Specification details for dampingFrequency
     public static let dampingFrequencyDef = NodeParameterDef(
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
@@ -70,6 +78,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
     @Parameter public var dampingFrequency: AUValue
 
+    /// Specification details for equalizerFrequency1
     public static let equalizerFrequency1Def = NodeParameterDef(
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
@@ -81,6 +90,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
     @Parameter public var equalizerFrequency1: AUValue
 
+    /// Specification details for equalizerLevel1
     public static let equalizerLevel1Def = NodeParameterDef(
         identifier: "equalizerLevel1",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
@@ -92,6 +102,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
     @Parameter public var equalizerLevel1: AUValue
 
+    /// Specification details for equalizerFrequency2
     public static let equalizerFrequency2Def = NodeParameterDef(
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
@@ -103,6 +114,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
     @Parameter public var equalizerFrequency2: AUValue
 
+    /// Specification details for equalizerLevel2
     public static let equalizerLevel2Def = NodeParameterDef(
         identifier: "equalizerLevel2",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
@@ -114,12 +126,13 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
     @Parameter public var equalizerLevel2: AUValue
 
+    /// Specification details for dryWetMix
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "0 = all dry, 1 = all wet",
         address: akGetParameterAddress("ZitaReverbParameterDryWetMix"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// 0 = all dry, 1 = all wet
@@ -127,6 +140,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ZitaReverb
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

@@ -7,25 +7,30 @@ import CAudioKit
 /// An automatic wah effect, ported from Guitarix via Faust.
 public class AutoWah: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "awah"
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for wah
     public static let wahDef = NodeParameterDef(
         identifier: "wah",
         name: "Wah Amount",
         address: akGetParameterAddress("AutoWahParameterWah"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// Wah Amount
     @Parameter public var wah: AUValue
 
+    /// Specification details for mix
     public static let mixDef = NodeParameterDef(
         identifier: "mix",
         name: "Dry/Wet Mix",
@@ -37,12 +42,13 @@ public class AutoWah: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Dry/Wet Mix
     @Parameter public var mix: AUValue
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Overall level",
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// Overall level
@@ -50,6 +56,7 @@ public class AutoWah: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for AutoWah
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

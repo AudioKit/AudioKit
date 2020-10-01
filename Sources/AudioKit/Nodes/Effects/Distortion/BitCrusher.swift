@@ -7,14 +7,18 @@ import CAudioKit
 /// This will digitally degrade a signal.
 public class BitCrusher: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "btcr"
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for bitDepth
     public static let bitDepthDef = NodeParameterDef(
         identifier: "bitDepth",
         name: "Bit Depth",
@@ -26,6 +30,7 @@ public class BitCrusher: Node, AudioUnitContainer, Tappable, Toggleable {
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @Parameter public var bitDepth: AUValue
 
+    /// Specification details for sampleRate
     public static let sampleRateDef = NodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
@@ -39,6 +44,7 @@ public class BitCrusher: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for BitCrusher
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

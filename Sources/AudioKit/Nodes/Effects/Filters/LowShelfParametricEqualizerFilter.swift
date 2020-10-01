@@ -7,14 +7,18 @@ import CAudioKit
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "peq1"
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for cornerFrequency
     public static let cornerFrequencyDef = NodeParameterDef(
         identifier: "cornerFrequency",
         name: "Corner Frequency (Hz)",
@@ -26,6 +30,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappab
     /// Corner frequency.
     @Parameter public var cornerFrequency: AUValue
 
+    /// Specification details for gain
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
@@ -37,6 +42,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappab
     /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
     @Parameter public var gain: AUValue
 
+    /// Specification details for q
     public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
@@ -50,6 +56,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappab
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for LowShelfParametricEqualizerFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

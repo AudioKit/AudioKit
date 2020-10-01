@@ -9,14 +9,18 @@ import CAudioKit
 /// 
 public class FormantFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "fofi"
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
@@ -28,6 +32,7 @@ public class FormantFilter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Center frequency.
     @Parameter public var centerFrequency: AUValue
 
+    /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
@@ -39,6 +44,7 @@ public class FormantFilter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Impulse response attack time (in seconds).
     @Parameter public var attackDuration: AUValue
 
+    /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
@@ -52,6 +58,7 @@ public class FormantFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for FormantFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

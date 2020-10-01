@@ -9,25 +9,30 @@ import CAudioKit
 /// 
 public class CostelloReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "rvsc"
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback",
         address: akGetParameterAddress("CostelloReverbParameterFeedback"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @Parameter public var feedback: AUValue
 
+    /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
@@ -41,6 +46,7 @@ public class CostelloReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for CostelloReverb
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

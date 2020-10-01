@@ -9,14 +9,18 @@ import CAudioKit
 /// 
 public class HighPassButterworthFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "bthp"
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
@@ -30,6 +34,7 @@ public class HighPassButterworthFilter: Node, AudioUnitContainer, Tappable, Togg
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for HighPassButterworthFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

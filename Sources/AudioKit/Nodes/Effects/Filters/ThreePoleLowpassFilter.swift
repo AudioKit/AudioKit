@@ -7,14 +7,18 @@ import CAudioKit
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "lp18"
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion (%)",
@@ -26,6 +30,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Tappable, Togglea
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @Parameter public var distortion: AUValue
 
+    /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
@@ -37,6 +42,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Tappable, Togglea
     /// Filter cutoff frequency in Hertz.
     @Parameter public var cutoffFrequency: AUValue
 
+    /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
@@ -50,6 +56,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Tappable, Togglea
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ThreePoleLowpassFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
