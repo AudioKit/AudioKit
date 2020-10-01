@@ -9,16 +9,20 @@ import CAudioKit
 /// 
 public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "oscl"
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     fileprivate var waveform: Table?
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
@@ -30,6 +34,7 @@ public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Frequency in cycles per second
     @Parameter public var frequency: AUValue
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
@@ -41,6 +46,7 @@ public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Output Amplitude.
     @Parameter public var amplitude: AUValue
 
+    /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
@@ -52,6 +58,7 @@ public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
