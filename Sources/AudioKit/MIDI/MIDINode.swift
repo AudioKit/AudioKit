@@ -73,7 +73,20 @@ open class MIDINode: Node, MIDIListener {
         }
     }
 
-    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive the MIDI note on event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number of activated note
+    ///   - velocity:   MIDI Velocity (0-127)
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel,
+                                   portID: MIDIUniqueID?,
+                                   offset: MIDITimeStamp) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
@@ -81,44 +94,132 @@ open class MIDINode: Node, MIDIListener {
         }
     }
 
-    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+
+    /// Receive the MIDI note off event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number of released note
+    ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
+                                    velocity: MIDIVelocity,
+                                    channel: MIDIChannel,
+                                    portID: MIDIUniqueID?,
+                                    offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive a generic controller value
+    ///
+    /// - Parameters:
+    ///   - controller: MIDI Controller Number
+    ///   - value:      Value of this controller
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIController(_ controller: MIDIByte,
+                                       value: MIDIByte, channel: MIDIChannel,
+                                       portID: MIDIUniqueID?,
+                                       offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber, pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive single note based aftertouch event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note number of touched note
+    ///   - pressure:   Pressure applied to the note (0-127)
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                       pressure: MIDIByte,
+                                       channel: MIDIChannel,
+                                       portID: MIDIUniqueID?,
+                                       offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive global aftertouch
+    ///
+    /// - Parameters:
+    ///   - pressure: Pressure applied (0-127)
+    ///   - channel:  MIDI Channel (1-16)
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIAftertouch(_ pressure: MIDIByte,
+                                       channel: MIDIChannel,
+                                       portID: MIDIUniqueID?,
+                                       offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive pitch wheel value
+    ///
+    /// - Parameters:
+    ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
+    ///   - channel:         MIDI Channel (1-16)
+    ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
+                                       channel: MIDIChannel,
+                                       portID: MIDIUniqueID?,
+                                       offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive program change
+    ///
+    /// - Parameters:
+    ///   - program:  MIDI Program Value (0-127)
+    ///   - channel:  MIDI Channel (1-16)
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIProgramChange(_ program: MIDIByte,
+                                          channel: MIDIChannel,
+                                          portID: MIDIUniqueID?,
+                                          offset: MIDITimeStamp) {
         // Do nothing
     }
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive a MIDI system command (such as clock, SysEx, etc)
+    ///
+    /// - data:       Array of integers
+    /// - portID:     MIDI Unique Port ID
+    /// - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDISystemCommand(_ data: [MIDIByte],
+                                          portID: MIDIUniqueID?,
+                                          offset: MIDITimeStamp) {
         // Do nothing
     }
 
+    /// MIDI Setup has changed
     public func receivedMIDISetupChange() {
         // Do nothing
     }
 
+    /// MIDI Object Property has changed
     public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
         // Do nothing
     }
 
+    /// Generic MIDI Notification
     public func receivedMIDINotification(notification: MIDINotification) {
         // Do nothing
+    }
+
+    /// OMNI State Change - override in subclass
+    public func omniStateChange() {
+        // override in subclass?
     }
 }
 

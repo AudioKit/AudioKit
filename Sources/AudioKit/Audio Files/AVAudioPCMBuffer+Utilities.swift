@@ -5,7 +5,7 @@ import CAudioKit
 import soundpipe
 
 extension AVAudioPCMBuffer {
-    // Hash useful for testing
+    /// Hash useful for testing
     public var md5: String {
         let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
         md5_init(md5state)
@@ -39,10 +39,18 @@ extension AVAudioPCMBuffer {
         return digestHex
     }
 
+    /// Add to an existing buffer
+    ///
+    /// - Parameter buffer: Buffer to append
     public func append(_ buffer: AVAudioPCMBuffer) {
         self.append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
     }
 
+    /// Add to an existing buffer with specific starting frame and size
+    /// - Parameters:
+    ///   - buffer: Buffer to append
+    ///   - startingFrame: Starting frame location
+    ///   - frameCount: Number of frames to append
     public func append(_ buffer: AVAudioPCMBuffer,
                        startingFrame: AVAudioFramePosition,
                        frameCount: AVAudioFrameCount) {
@@ -122,6 +130,8 @@ extension AVAudioPCMBuffer {
         return AVAudioFrameCount(totalFrames)
     }
 
+    /// Copy from a certain point tp the end of the buffer
+    /// - Parameter startSample: Point to start copy from
     /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
@@ -132,6 +142,8 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 
+    /// Copy from the beginner of a buffer to a certain number of frames
+    /// - Parameter count: Length of frames to copy
     /// - Returns: an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
     public func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
@@ -141,8 +153,10 @@ extension AVAudioPCMBuffer {
         return framesCopied > 0 ? buffer : nil
     }
 
-    /// - Parameter from: The time of the in point of the extraction
-    /// - Parameter to: The time of the out point
+    /// Extract a portion of the buffer
+    /// 
+    /// - Parameter startTime: The time of the in point of the extraction
+    /// - Parameter endTime: The time of the out point
     /// - Returns: A new edited AVAudioPCMBuffer
     public func extract(from startTime: TimeInterval,
                         to endTime: TimeInterval) -> AVAudioPCMBuffer? {

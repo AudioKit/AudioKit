@@ -12,6 +12,7 @@ open class AudioUnitBase: AUAudioUnit {
 
     private var pcmBufferArray: [AVAudioPCMBuffer?] = []
 
+    /// Allocate the render resources
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
@@ -32,12 +33,14 @@ open class AudioUnitBase: AUAudioUnit {
         allocateRenderResourcesDSP(dsp, format)
     }
 
+    /// Delllocate Render Resources
     override public func deallocateRenderResources() {
         super.deallocateRenderResources()
         deallocateRenderResourcesDSP(dsp)
         pcmBufferArray.removeAll()
     }
 
+    /// Reset the DSP
     override public func reset() {
         resetDSP(dsp)
     }
@@ -46,6 +49,7 @@ open class AudioUnitBase: AUAudioUnit {
         AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: inputBusArray)
     }()
 
+    /// Input busses
     override public var inputBusses: AUAudioUnitBusArray {
         return auInputBusArray
     }
@@ -54,15 +58,19 @@ open class AudioUnitBase: AUAudioUnit {
         AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: outputBusArray)
     }()
 
+    /// Output bus array
     override public var outputBusses: AUAudioUnitBusArray {
         return auOutputBusArray
     }
 
+    /// Internal render block
     override public var internalRenderBlock: AUInternalRenderBlock {
         internalRenderBlockDSP(dsp)
     }
 
     private var _parameterTree: AUParameterTree?
+    
+    /// Parameter tree
     override public var parameterTree: AUParameterTree? {
         get { return _parameterTree }
         set {
@@ -86,6 +94,7 @@ open class AudioUnitBase: AUAudioUnit {
         }
     }
 
+    /// Whether the unit can process in place
     override public var canProcessInPlace: Bool {
         return canProcessInPlaceDSP(dsp)
     }
@@ -94,6 +103,11 @@ open class AudioUnitBase: AUAudioUnit {
 
     public private(set) var dsp: DSPRef?
 
+    /// Initialize with component description and options
+    /// - Parameters:
+    ///   - componentDescription: Audio Component Description
+    ///   - options: Audio Component Instantiation Options
+    /// - Throws: <#description#>
     override public init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
@@ -139,6 +153,7 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: AudioKit
 
+    /// Whether the audio unit is running
     public private(set) var isStarted: Bool = true
 
     /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
@@ -151,30 +166,46 @@ open class AudioUnitBase: AUAudioUnit {
         return nil
     }
 
+    /// Start the audio unit
     public func start() {
         shouldBypassEffect = false
         isStarted = true
         startDSP(dsp)
     }
 
+    /// Stop the audio unit
     public func stop() {
         shouldBypassEffect = true
         isStarted = false
         stopDSP(dsp)
     }
 
+    /// Trigger something within the audio unit
     public func trigger() {
         triggerDSP(dsp)
     }
 
+    /// Common case of triggering something with a frequency and amplitude
+    /// - Parameters:
+    ///   - frequency: Frequency in Hertz
+    ///   - amplitude: Linear amplitude
     public func triggerFrequency(_ frequency: AUValue, amplitude: AUValue) {
         triggerFrequencyDSP(dsp, frequency, amplitude)
     }
 
+    /// Create an array of values to use as waveforms or other things inside an audio unit
+    /// - Parameters:
+    ///   - wavetable: Array of float values
+    ///   - index: Optional index at which to set the table (useful for multiple waveform audio units)
     public func setWavetable(_ wavetable: [AUValue], index: Int = 0) {
         setWavetableDSP(dsp, wavetable, wavetable.count, Int32(index))
     }
 
+    /// Set wave table
+    /// - Parameters:
+    ///   - data: A pointer to the data
+    ///   - size: Size of the table
+    ///   - index: Index at which to set the value
     public func setWavetable(data: UnsafePointer<AUValue>?, size: Int, index: Int = 0) {
         setWavetableDSP(dsp, data, size, Int32(index))
     }

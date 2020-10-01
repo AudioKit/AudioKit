@@ -5,12 +5,16 @@ import CAudioKit
 
 /// Operation-based generator
 public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable {
+
+    /// Internal audio unit type
     public typealias AudioUnitType = InternalAU
-    /// Four letter unique description of the node
+
+    /// Four letter unique description "cstg"
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -20,122 +24,76 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
 
     // MARK: - Parameters
 
-    public static let parameter1Def = NodeParameterDef(
-        identifier: "parameter1",
-        name: "Parameter 1",
-        address: akGetParameterAddress("OperationGeneratorParameter1"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter2Def = NodeParameterDef(
-        identifier: "parameter2",
-        name: "Parameter 2",
-        address: akGetParameterAddress("OperationGeneratorParameter2"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter3Def = NodeParameterDef(
-        identifier: "parameter3",
-        name: "Parameter 3",
-        address: akGetParameterAddress("OperationGeneratorParameter3"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter4Def = NodeParameterDef(
-        identifier: "parameter4",
-        name: "Parameter 4",
-        address: akGetParameterAddress("OperationGeneratorParameter4"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter5Def = NodeParameterDef(
-        identifier: "parameter5",
-        name: "Parameter 5",
-        address: akGetParameterAddress("OperationGeneratorParameter5"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter6Def = NodeParameterDef(
-        identifier: "parameter6",
-        name: "Parameter 6",
-        address: akGetParameterAddress("OperationGeneratorParameter6"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter7Def = NodeParameterDef(
-        identifier: "parameter7",
-        name: "Parameter 7",
-        address: akGetParameterAddress("OperationGeneratorParameter7"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter8Def = NodeParameterDef(
-        identifier: "parameter8",
-        name: "Parameter 8",
-        address: akGetParameterAddress("OperationGeneratorParameter8"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter9Def = NodeParameterDef(
-        identifier: "parameter9",
-        name: "Parameter 9",
-        address: akGetParameterAddress("OperationGeneratorParameter9"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter10Def = NodeParameterDef(
-        identifier: "parameter10",
-        name: "Parameter 10",
-        address: akGetParameterAddress("OperationGeneratorParameter10"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter11Def = NodeParameterDef(
-        identifier: "parameter11",
-        name: "Parameter 11",
-        address: akGetParameterAddress("OperationGeneratorParameter11"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter12Def = NodeParameterDef(
-        identifier: "parameter12",
-        name: "Parameter 12",
-        address: akGetParameterAddress("OperationGeneratorParameter12"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter13Def = NodeParameterDef(
-        identifier: "parameter13",
-        name: "Parameter 13",
-        address: akGetParameterAddress("OperationGeneratorParameter13"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
-    public static let parameter14Def = NodeParameterDef(
-        identifier: "parameter14",
-        name: "Parameter 14",
-        address: akGetParameterAddress("OperationGeneratorParameter14"),
-        range: floatRange,
-        unit: .generic,
-        flags: .default)
+    internal static func makeParam(_ number: Int) -> NodeParameterDef {
+        return NodeParameterDef(
+            identifier: "parameter\(number)",
+            name: "Parameter \(number)",
+            address: akGetParameterAddress("OperationGeneratorParameter\(number)"),
+            range: floatRange,
+            unit: .generic,
+            flags: .default)
+    }
+    /// Specification for Parameter 1
+    public static let parameter1Def = OperationGenerator.makeParam(1)
+    /// Specification for Parameter 2
+    public static let parameter2Def = OperationGenerator.makeParam(2)
+    /// Specification for Parameter 3
+    public static let parameter3Def = OperationGenerator.makeParam(3)
+    /// Specification for Parameter 4
+    public static let parameter4Def = OperationGenerator.makeParam(4)
+    /// Specification for Parameter 5
+    public static let parameter5Def = OperationGenerator.makeParam(5)
+    /// Specification for Parameter 6
+    public static let parameter6Def = OperationGenerator.makeParam(6)
+    /// Specification for Parameter 7
+    public static let parameter7Def = OperationGenerator.makeParam(7)
+    /// Specification for Parameter 8
+    public static let parameter8Def = OperationGenerator.makeParam(8)
+    /// Specification for Parameter 9
+    public static let parameter9Def = OperationGenerator.makeParam(9)
+    /// Specification for Parameter 10
+    public static let parameter10Def = OperationGenerator.makeParam(10)
+    /// Specification for Parameter 11
+    public static let parameter11Def = OperationGenerator.makeParam(11)
+    /// Specification for Parameter 12
+    public static let parameter12Def = OperationGenerator.makeParam(12)
+    /// Specification for Parameter 13
+    public static let parameter13Def = OperationGenerator.makeParam(13)
+    /// Specification for Parameter 14
+    public static let parameter14Def = OperationGenerator.makeParam(14)
 
+    /// Operation parameter 1
     @Parameter public var parameter1: AUValue
+    /// Operation parameter 2
     @Parameter public var parameter2: AUValue
+    /// Operation parameter 3
     @Parameter public var parameter3: AUValue
+    /// Operation parameter 4
     @Parameter public var parameter4: AUValue
+    /// Operation parameter 5
     @Parameter public var parameter5: AUValue
+    /// Operation parameter 6
     @Parameter public var parameter6: AUValue
+    /// Operation parameter 7
     @Parameter public var parameter7: AUValue
+    /// Operation parameter 8
     @Parameter public var parameter8: AUValue
+    /// Operation parameter 9
     @Parameter public var parameter9: AUValue
+    /// Operation parameter 10
     @Parameter public var parameter10: AUValue
+    /// Operation parameter 11
     @Parameter public var parameter11: AUValue
+    /// Operation parameter 12
     @Parameter public var parameter12: AUValue
+    /// Operation parameter 13
     @Parameter public var parameter13: AUValue
+    /// Operation parameter 14
     @Parameter public var parameter14: AUValue
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for Operation Generator
     public class InternalAU: AudioUnitBase {
         public override func getParameterDefs() -> [NodeParameterDef] {
             [OperationGenerator.parameter1Def,
@@ -158,7 +116,7 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
             akCreateDSP("OperationGeneratorDSP")
         }
 
-        public func trigger(_ triggerNumber: Int) {
+        public override func trigger() {
             akOperationGeneratorTrigger(dsp)
         }
 
@@ -193,7 +151,11 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
         Log("Operation initialization failed.")
         self.init(sporth: "")
     }
-    
+
+    /// Initialize with a operation that takes no arguments
+    ///
+    /// - parameter operation: Operation to generate
+    ///
     public convenience init(operation: () -> ComputedParameter) {
         self.init(operation: { _ in operation() })
     }
@@ -234,8 +196,7 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
     }
 
     /// Trigger the sound with current parameters
-    ///
-    open func trigger(_ triggerNumber: Int = 0) {
-        internalAU?.trigger(triggerNumber)
+    open func trigger() {
+        internalAU?.trigger()
     }
 }

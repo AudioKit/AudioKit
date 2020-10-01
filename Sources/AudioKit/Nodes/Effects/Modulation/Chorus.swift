@@ -7,14 +7,18 @@ import CAudioKit
 ///
 public class Chorus: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "chrs"
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
@@ -26,6 +30,7 @@ public class Chorus: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
 
+    /// Specification details for depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
@@ -37,6 +42,7 @@ public class Chorus: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
+    /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
@@ -48,6 +54,7 @@ public class Chorus: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
+    /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
@@ -61,6 +68,7 @@ public class Chorus: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for Chorus
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

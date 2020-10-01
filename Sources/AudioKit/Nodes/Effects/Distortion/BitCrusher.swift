@@ -13,7 +13,7 @@ public class BitCrusher: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
-    /// Internal audio unit 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters

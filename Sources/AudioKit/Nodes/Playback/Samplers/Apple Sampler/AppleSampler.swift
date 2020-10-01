@@ -19,6 +19,7 @@ open class AppleSampler: Node {
 
     private var _audioFiles: [AVAudioFile] = []
 
+    /// Audio files to use in the sampler
     public var audioFiles: [AVAudioFile] {
         get {
             return _audioFiles

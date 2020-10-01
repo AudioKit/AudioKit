@@ -9,6 +9,8 @@ public class PitchTap: Toggleable {
     private var pitch: [Float] = [0, 0]
     private var amp: [Float] = [0, 0]
     private var trackers: [PitchTrackerRef] = []
+
+    /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -25,6 +27,8 @@ public class PitchTap: Toggleable {
     }
 
     private var _input: Node
+
+    /// Input node to analyze
     public var input: Node {
         get {
             return _input
@@ -47,23 +51,31 @@ public class PitchTap: Toggleable {
         }
     }
 
+    /// Detected amplitude (average of left and right channels)
     public var amplitude: Float {
         return amp.reduce(0, +) / 2
     }
 
+    /// Detected frequency of left channel
     public var leftPitch: Float {
         return pitch[0]
     }
 
+    /// Detected frequency of right channel
     public var rightPitch: Float {
         return pitch[1]
     }
 
+    /// Callback type
     public typealias Handler = ([Float], [Float]) -> Void
 
     private var handler: Handler = { _, _ in }
 
+    /// Initialize the pitch tap
+    /// 
     /// - parameter input: Node to analyze
+    /// - parameter bufferSize: Size of buffer to analyze
+    /// - parameter handler: Callback to call on each analysis pass
     public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.bufferSize = bufferSize
         self._input = input

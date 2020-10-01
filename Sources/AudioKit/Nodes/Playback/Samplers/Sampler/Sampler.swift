@@ -4,14 +4,16 @@ import AVFoundation
 import CAudioKit
 
 /// Sampler
-///
 public class Sampler: PolyphonicNode, AudioUnitContainer {
-    public typealias AudioUnitType = SamplerAudioUnit
-    /// Four letter unique description of the node
+    /// Unique four-letter identifier "samp"
     public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
+
+    /// Internal type of audio unit for this node
+    public typealias AudioUnitType = SamplerAudioUnit
 
     // MARK: - Properties
 
+    /// Internal audio unit
     public var internalAU: AudioUnitType?
 
     /// Master volume (fraction)
@@ -288,6 +290,7 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         self.loadAudioFile(from: sampleDescriptor, file: file)
     }
 
+    /// A type to hold file with its sample descriptor
     public typealias FileWithSampleDescriptor = (sampleDescriptor: SampleDescriptor, file: AVAudioFile)
 
     /// Initialize this sampler node with many files. There are many parameters, change them after initialization
@@ -356,56 +359,82 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         }
     }
 
+    /// Stop all voices
     public func stopAllVoices() {
         internalAU?.stopAllVoices()
     }
 
+    /// Restart voices
     public func restartVoices() {
         internalAU?.restartVoices()
     }
 
+    /// Load data from sample descriptor
+    /// - Parameter sampleDataDescriptor: Sample descriptor information
     public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
+    /// Load data from compressed file
+    /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
+    /// Unload all the samples from memory
     public func unloadAllSamples() {
         internalAU?.unloadAllSamples()
     }
 
+    /// Assign a note number to a particular frequency
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
         internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
     }
 
+    /// Create a simple key map
     public func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
 
+    /// Build key map
     public func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
 
+    /// Set Loop
+    /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
         internalAU?.setLoop(thruRelease: thruRelease)
     }
 
+    /// Play the sampler
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: Velocity of the note
+    ///   - channel: MIDI Channel
     public override func play(noteNumber: MIDINoteNumber,
                               velocity: MIDIVelocity,
                               channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
+    /// Stop the sampler playback of a specific note
+    /// - Parameter noteNumber: MIDI Note number
     public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
+    /// Stop and immediately silence a note
+    /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
+    /// Activate the sustain pedal
+    /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }

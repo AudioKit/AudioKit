@@ -7,6 +7,8 @@ import AVFoundation
 /// start() will add the tap, and stop() will remove it.
 public class AmplitudeTap: Toggleable {
     private var amp: [Float] = Array(repeating: 0, count: 2)
+
+    /// Buffer size
     public private(set) var bufferSize: UInt32
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -23,6 +25,8 @@ public class AmplitudeTap: Toggleable {
     }
 
     private var _input: Node?
+
+    /// Node to analyze
     public var input: Node? {
         get {
             return _input
@@ -45,21 +49,28 @@ public class AmplitudeTap: Toggleable {
         }
     }
 
+    /// Detected amplitude (average of left and right channels
     public var amplitude: Float {
         return amp.reduce(0, +) / 2
     }
 
+    /// Detected left channel amplitude
     public var leftAmplitude: Float {
         return amp[0]
     }
 
+    /// Detected right channel amplitude
     public var rightAmplitude: Float {
         return amp[1]
     }
 
     private var handler: (Float) -> Void = { _ in }
 
+    /// Initialize the amplitude
+    ///
     /// - parameter input: Node to analyze
+    /// - parameter bufferSize: Size of buffer to analyze
+    /// - parameter handler: Code to call with new amplitudes
     public init(_ input: Node, bufferSize: UInt32 = 1_024, handler: @escaping (Float) -> Void = { _ in }) {
         self.bufferSize = bufferSize
         self.input = input
@@ -129,7 +140,7 @@ public class AmplitudeTap: Toggleable {
         input?.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
-    /// remove the tap and nil out the input reference
+    /// Remove the tap and nil out the input reference
     /// this is important in regard to retain cycles on your input node
     public func dispose() {
         if isStarted {
