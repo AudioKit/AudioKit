@@ -17,7 +17,7 @@ let fileTable = Table(file: file)
 
 var custom = Table(.sine, count: 256)
 for i in custom.indices {
-    custom[i] += Float.random(in: -0.3...0.3) + Float(i) / 2_048.0)
+    custom[i] += Float.random(in: -0.3...0.3) + Float(i) / 2_048.0
 }
 
 

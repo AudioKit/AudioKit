@@ -5,17 +5,22 @@ import AVFoundation
 import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
+/// TODO This node needs to have tests
 /// 
 public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "mbar"
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
@@ -27,6 +32,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter public var leftBoundaryCondition: AUValue
 
+    /// Specification details for rightBoundaryCondition
     public static let rightBoundaryConditionDef = NodeParameterDef(
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
@@ -38,6 +44,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter public var rightBoundaryCondition: AUValue
 
+    /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
@@ -49,6 +56,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// 30db decay time (in seconds).
     @Parameter public var decayDuration: AUValue
 
+    /// Specification details for scanSpeed
     public static let scanSpeedDef = NodeParameterDef(
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
@@ -60,6 +68,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Speed of scanning the output location.
     @Parameter public var scanSpeed: AUValue
 
+    /// Specification details for position
     public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position along bar that strike occurs.",
@@ -71,6 +80,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Position along bar that strike occurs.
     @Parameter public var position: AUValue
 
+    /// Specification details for strikeVelocity
     public static let strikeVelocityDef = NodeParameterDef(
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
@@ -82,6 +92,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Normalized strike velocity
     @Parameter public var strikeVelocity: AUValue
 
+    /// Specification details for strikeWidth
     public static let strikeWidthDef = NodeParameterDef(
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
@@ -95,6 +106,7 @@ public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for MetalBar
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

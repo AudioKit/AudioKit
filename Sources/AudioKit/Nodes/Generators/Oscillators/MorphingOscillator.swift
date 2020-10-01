@@ -9,16 +9,20 @@ import CAudioKit
 /// 
 public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "morf"
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     fileprivate var waveformArray = [Table]()
 
+    /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (in Hz)",
@@ -30,6 +34,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable 
     /// Frequency (in Hz)
     @Parameter public var frequency: AUValue
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
@@ -41,17 +46,19 @@ public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable 
     /// Amplitude (typically a value between 0 and 1).
     @Parameter public var amplitude: AUValue
 
+    /// Specification details for index
     public static let indexDef = NodeParameterDef(
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
-        range: 0.0 ... 1_000.0,
+        range: 0.0 ... 3.0,
         unit: .hertz,
         flags: .default)
 
     /// Index of the wavetable to use (fractional are okay).
     @Parameter public var index: AUValue
 
+    /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
@@ -63,6 +70,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable 
     /// Frequency offset in Hz.
     @Parameter public var detuningOffset: AUValue
 
+    /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
@@ -76,6 +84,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable 
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for MorphingOscillator
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
@@ -133,6 +142,5 @@ public class MorphingOscillator: Node, AudioUnitContainer, Tappable, Toggleable 
             self.detuningOffset = detuningOffset
             self.detuningMultiplier = detuningMultiplier
         }
-
     }
 }

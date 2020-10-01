@@ -7,14 +7,18 @@ import CAudioKit
 /// Faust-based pink noise generator
 public class PinkNoise: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "pink"
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
@@ -28,6 +32,7 @@ public class PinkNoise: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for PinkNoise
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
@@ -63,6 +68,5 @@ public class PinkNoise: Node, AudioUnitContainer, Tappable, Toggleable {
 
             self.amplitude = amplitude
         }
-
     }
 }
