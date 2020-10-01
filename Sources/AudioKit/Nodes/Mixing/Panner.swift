@@ -7,14 +7,18 @@ import CAudioKit
 /// Stereo Panner
 public class Panner: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "pan2"
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for pan
     public static let panDef = NodeParameterDef(
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
@@ -28,6 +32,7 @@ public class Panner: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for Panner
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

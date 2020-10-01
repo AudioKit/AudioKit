@@ -7,14 +7,18 @@ import CAudioKit
 /// Emulation of the Roland TB-303 filter
 public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "tb3f"
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
@@ -26,6 +30,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Cutoff frequency. (in Hertz)
     @Parameter public var cutoffFrequency: AUValue
 
+    /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
@@ -37,6 +42,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter public var resonance: AUValue
 
+    /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
@@ -48,12 +54,13 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     @Parameter public var distortion: AUValue
 
+    /// Specification details for resonanceAsymmetry
     public static let resonanceAsymmetryDef = NodeParameterDef(
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
         address: akGetParameterAddress("RolandTB303FilterParameterResonanceAsymmetry"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// Asymmetry of resonance. Value is between 0-1
@@ -61,6 +68,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for RolandTB303Filter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

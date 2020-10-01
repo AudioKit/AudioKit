@@ -12,14 +12,18 @@ import CAudioKit
 /// 
 public class EqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "eqfl"
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
@@ -31,6 +35,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Center frequency. (in Hertz)
     @Parameter public var centerFrequency: AUValue
 
+    /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
@@ -42,6 +47,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// The peak/notch bandwidth in Hertz
     @Parameter public var bandwidth: AUValue
 
+    /// Specification details for gain
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
@@ -55,6 +61,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for EqualizerFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

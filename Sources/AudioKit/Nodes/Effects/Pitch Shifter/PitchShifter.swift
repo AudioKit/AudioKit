@@ -7,14 +7,18 @@ import CAudioKit
 /// Faust-based pitch shfiter
 public class PitchShifter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "pshf"
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for shift
     public static let shiftDef = NodeParameterDef(
         identifier: "shift",
         name: "Pitch shift (in semitones)",
@@ -26,6 +30,7 @@ public class PitchShifter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Pitch shift (in semitones)
     @Parameter public var shift: AUValue
 
+    /// Specification details for windowSize
     public static let windowSizeDef = NodeParameterDef(
         identifier: "windowSize",
         name: "Window size (in samples)",
@@ -37,6 +42,7 @@ public class PitchShifter: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Window size (in samples)
     @Parameter public var windowSize: AUValue
 
+    /// Specification details for crossfade
     public static let crossfadeDef = NodeParameterDef(
         identifier: "crossfade",
         name: "Crossfade (in samples)",
@@ -50,6 +56,7 @@ public class PitchShifter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for PitchShifter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

@@ -10,14 +10,18 @@ import CAudioKit
 /// 
 public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "alps"
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for reverbDuration
     public static let reverbDurationDef = NodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
@@ -31,6 +35,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Tappable, To
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for FlatFrequencyResponseReverb
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

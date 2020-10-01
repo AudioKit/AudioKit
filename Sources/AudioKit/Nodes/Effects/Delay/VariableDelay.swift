@@ -7,14 +7,18 @@ import CAudioKit
 /// A delay line with cubic interpolation.
 public class VariableDelay: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "vdla"
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for time
     public static let timeDef = NodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
@@ -26,6 +30,7 @@ public class VariableDelay: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter public var time: AUValue
 
+    /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
@@ -39,6 +44,7 @@ public class VariableDelay: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for VariableDelay
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

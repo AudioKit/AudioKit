@@ -7,14 +7,18 @@ import CAudioKit
 /// A first-order recursive low-pass filter with variable frequency response.
 public class ToneFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "tone"
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for halfPowerPoint
     public static let halfPowerPointDef = NodeParameterDef(
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
@@ -28,6 +32,7 @@ public class ToneFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ToneFilter
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

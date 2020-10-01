@@ -7,14 +7,18 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
 public class Clipper: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "clip"
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for limit
     public static let limitDef = NodeParameterDef(
         identifier: "limit",
         name: "Threshold",
@@ -28,6 +32,7 @@ public class Clipper: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for Clipper
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

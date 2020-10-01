@@ -12,14 +12,18 @@ import CAudioKit
 /// 
 public class CombFilterReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "comb"
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for reverbDuration
     public static let reverbDurationDef = NodeParameterDef(
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
@@ -33,6 +37,7 @@ public class CombFilterReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for CombFilterReverb
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

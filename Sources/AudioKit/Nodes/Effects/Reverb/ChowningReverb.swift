@@ -15,16 +15,20 @@ import CAudioKit
 /// 
 public class ChowningReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "jcrv"
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for ChowningReverb
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> DSPRef {

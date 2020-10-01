@@ -11,14 +11,18 @@ import CAudioKit
 /// 
 public class MoogLadder: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "mgld"
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
@@ -30,6 +34,7 @@ public class MoogLadder: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Filter cutoff frequency.
     @Parameter public var cutoffFrequency: AUValue
 
+    /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
@@ -43,6 +48,7 @@ public class MoogLadder: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal Audio Unit for MoogLadder
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {
