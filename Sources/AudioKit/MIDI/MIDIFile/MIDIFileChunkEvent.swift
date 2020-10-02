@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// MIDI File Chunk Event
 public struct MIDIFileChunkEvent {
     let data: [MIDIByte] // all data passed in
     let timeFormat: MIDITimeFormat

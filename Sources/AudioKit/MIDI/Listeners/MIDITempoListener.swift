@@ -116,6 +116,7 @@ public class MIDITempoListener: NSObject {
 // MARK: - BPM Analysis
 
 public extension MIDITempoListener {
+    /// Analyze tempo
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
@@ -165,16 +166,19 @@ public extension MIDITempoListener {
         }
     }
 
+    /// Reset all clock events except the last one
     func resetClockEventsLeavingOne() {
         guard clockEvents.count > 1 else { return }
         clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
     }
 
+    /// Reset all clock events leaving half remaining
     func resetClockEventsLeavingHalf() {
         guard clockEvents.count > 1 else { return }
         clockEvents = clockEvents.dropFirst(clockEvents.count / 2).map { $0 }
     }
 
+    /// Reset all clock events leaving none
     func resetClockEventsLeavingNone() {
         guard clockEvents.count > 1 else { return }
         clockEvents = []

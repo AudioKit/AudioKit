@@ -4,6 +4,7 @@ import AudioToolbox
 import AVFoundation
 import CAudioKit
 
+/// Base class for many AudioKit nodes
 open class AudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 

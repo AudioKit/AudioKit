@@ -59,6 +59,8 @@ public class VariableDelay: Node, AudioUnitContainer, Tappable, Toggleable {
             akCreateDSP("VariableDelayDSP")
         }
 
+        /// Set the longest delay time
+        /// - Parameter maximumTime: Delay time in seconds
         public func setMaximumTime(_ maximumTime: AUValue) {
             akVariableDelaySetMaximumTime(dsp, maximumTime)
         }

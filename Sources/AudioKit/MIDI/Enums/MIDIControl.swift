@@ -88,7 +88,6 @@ public enum MIDIControl: MIDIByte {
     /// Roland Tone Level 4
     /// GP Button 4
     case gpButton4 = 83
-
     /// Reverb Level
     case reverbLevel = 91
     /// Tremolo Level
@@ -100,9 +99,9 @@ public enum MIDIControl: MIDIByte {
     case celesteLevel = 94
     /// phaser Level
     case phaserLevel = 95
-
     /// Data Entry Addition
     case dataEntryPlus = 96
+
     /// Data Entry Subtraction
     case dataEntryMinus = 97
 
@@ -116,8 +115,10 @@ public enum MIDIControl: MIDIByte {
     /// Registered Parameter Number MSB
     case RpnMsb = 101
 
+    /// All sounds off
     case allSoundsOff = 120
 
+    /// All controllers off
     case allControllersOff = 121
 
     /// Enable local control

@@ -33,6 +33,8 @@ public class Convolution: Node, AudioUnitContainer, Tappable, Toggleable {
             akCreateDSP("ConvolutionDSP")
         }
 
+        /// Set Partition Length
+        /// - Parameter length: Length of partition
         public func setPartitionLength(_ length: Int) {
             akConvolutionSetPartitionLength(dsp, Int32(length))
         }

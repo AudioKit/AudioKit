@@ -51,6 +51,8 @@ public class CombFilterReverb: Node, AudioUnitContainer, Tappable, Toggleable {
             akCreateDSP("CombFilterReverbDSP")
         }
 
+        /// Set loop duration
+        /// - Parameter duration: Duration in seconds
         public func setLoopDuration(_ duration: AUValue) {
             akCombFilterReverbSetLoopDuration(dsp, duration)
         }

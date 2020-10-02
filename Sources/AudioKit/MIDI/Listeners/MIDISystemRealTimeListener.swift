@@ -16,8 +16,11 @@ open class MIDISystemRealTimeListener: NSObject {
 
     /// System real-tiem state
     public enum SRTState {
+        /// Stopped
         case stopped
+        /// Playing
         case playing
+        /// Paused
         case paused
 
         func event(event: SRTEvent) -> SRTState {

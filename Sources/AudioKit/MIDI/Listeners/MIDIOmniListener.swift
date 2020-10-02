@@ -1,14 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-//  MIDIOMNIListener: MIDIListener
-//
-//  This class probably needs to support observers as well
-//  so that a client may be able to be notified of state changes
-
 #if !os(tvOS)
 import Foundation
 import CoreMIDI
 
+///  This class probably needs to support observers as well
+///  so that a client may be able to be notified of state changes
 public class MIDIOMNIListener: NSObject {
 
     var omniMode: Bool

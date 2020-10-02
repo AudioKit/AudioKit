@@ -21,6 +21,7 @@ private let secondsToTicks: Double = {
 extension AVAudioTime {
     /// AVAudioTime.extrapolateTime fails for host time valid times, use
     /// extrapolateTimeShimmed instead. https://bugreport.apple.com/web/?problemID=34249528
+    /// - Parameter anchorTime: AVAudioTIme
     public func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
         guard ((isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid) &&
             !(isSampleTimeValid && isHostTimeValid) &&
@@ -95,18 +96,34 @@ extension AVAudioTime {
     }
 }
 
+/// Addition
+/// - Parameters:
+///   - left: Left Hand Side
+///   - right: RIght Hand Side
 public func + (left: AVAudioTime, right: Double) -> AVAudioTime {
     return left.offset(seconds: right)
 }
 
+/// Addition
+/// - Parameters:
+///   - left: Left Hand Side
+///   - right: RIght Hand Side
 public func + (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(right))
 }
 
+/// Subtraction
+/// - Parameters:
+///   - left: Left Hand Side
+///   - right: RIght Hand Side
 public func - (left: AVAudioTime, right: Double) -> AVAudioTime {
     return left.offset(seconds: -right)
 }
 
+/// Subtraction
+/// - Parameters:
+///   - left: Left Hand Side
+///   - right: RIght Hand Side
 public func - (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(-right))
 }

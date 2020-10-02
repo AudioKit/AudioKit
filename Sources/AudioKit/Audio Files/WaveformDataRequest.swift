@@ -3,13 +3,16 @@
 import Accelerate
 import AVFoundation
 
+/// Request to get data out of an audio file
 public class WaveformDataRequest {
+    /// Audio file get data from
     public private(set) var audioFile: AVAudioFile?
 
     private let abortWaveformDataQueue = DispatchQueue(label: "WaveformDataRequest.abortWaveformDataQueue",
                                                        attributes: .concurrent)
 
     private var _abortGetWaveformData: Bool = false
+    /// Should we abort the wave formadata
     public var abortGetWaveformData: Bool {
         get { _abortGetWaveformData }
         set {

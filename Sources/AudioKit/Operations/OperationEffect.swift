@@ -114,6 +114,8 @@ public class OperationEffect: Node, AudioUnitContainer, Tappable, Toggleable {
             akCreateDSP("OperationEffectDSP")
         }
 
+        /// Set sporth string
+        /// - Parameter sporth: Sporth string
         public func setSporth(_ sporth: String) {
             sporth.withCString { str -> Void in
                 akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))

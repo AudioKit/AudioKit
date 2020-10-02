@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// MIDI Varialbe Length Quantity
 public struct MIDIVariableLengthQuantity {
     /// Data in bytes
     public let data: [MIDIByte]

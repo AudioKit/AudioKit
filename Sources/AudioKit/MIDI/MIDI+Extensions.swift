@@ -90,7 +90,9 @@ extension MIDIWord {
 
 /// MIDI Time Format
 public enum MIDITimeFormat: Int {
+    /// Ticks Per Beat
     case ticksPerBeat = 0
+    /// Frames per second
     case framesPerSecond = 1
 
     var description: String {

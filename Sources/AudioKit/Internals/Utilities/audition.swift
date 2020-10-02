@@ -2,6 +2,8 @@
 
 import AVFoundation
 
+/// Audition a buffer, especially useful in AudioKit testing
+/// - Parameter buffer: Buffer to play
 public func audition(_ buffer: AVAudioPCMBuffer) {
     let auditionEngine = AudioEngine()
     let auditionPlayer = AudioPlayer()

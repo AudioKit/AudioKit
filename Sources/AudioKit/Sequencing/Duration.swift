@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+/// Type alias for Tempo to make it clear when we're working with tempo in beats per minute
 public typealias BPM = Double
 
 import AVFoundation

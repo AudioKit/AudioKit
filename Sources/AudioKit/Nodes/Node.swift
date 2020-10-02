@@ -3,6 +3,7 @@
 import AVFoundation
 import CAudioKit
 
+/// AudioKIt connection point
 open class Node {
     /// Nodes providing input to this node.
     var connections: [Node] = []
@@ -35,12 +36,14 @@ open class Node {
     }
 
     /// Initialize the node from an AVAudioUnit
+    /// - Parameter avAudioUnit: AVAudioUnit to initialize with
     public init(avAudioUnit: AVAudioUnit) {
         self.avAudioUnit = avAudioUnit
         self.avAudioNode = avAudioUnit
     }
 
     /// Initialize the node from an AVAudioNode
+    /// - Parameter avAudioNode: AVAudioNode to initialize with
     public init(avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
     }
@@ -128,6 +131,7 @@ public protocol Polyphonic {
 open class PolyphonicNode: Node, Polyphonic {
     /// Global tuning table used by PolyphonicNode (Node classes adopting Polyphonic protocol)
     @objc public static var tuningTable = TuningTable()
+    /// MIDI Instrument
     open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency

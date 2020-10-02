@@ -109,8 +109,11 @@ public enum MIDISystemCommand: MIDIByte, MIDIMessage {
 
 /// MIDI System Command Type
 public enum MIDISystemCommandType {
+    /// Real-Time
     case systemRealtime
+    /// Common
     case systemCommon
+    /// Sysex
     case systemExclusive
 
     var description: String {

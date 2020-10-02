@@ -17,6 +17,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener {
     /// Name of the instrument
     open var name = "AudioKit MIDI Instrument"
 
+    /// Active MPE notes
     open var mpeActiveNotes: [(note: MIDINoteNumber, channel: MIDIChannel)] = []
 
     /// Initialize the MIDI Instrument

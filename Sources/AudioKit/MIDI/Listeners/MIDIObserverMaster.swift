@@ -2,11 +2,16 @@
 
 import Foundation
 
+/// Observer protocol
 public protocol ObserverProtocol {
+    /// Equality test
+    /// - Parameter listener: Another listener
     func isEqualTo(_ listener: ObserverProtocol) -> Bool
 }
 
 extension ObserverProtocol {
+    /// Equality test
+    /// - Parameter listener: Another listener
     func isEqualTo(_ listener: ObserverProtocol) -> Bool {
         return self == listener
     }

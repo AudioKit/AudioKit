@@ -5,6 +5,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <AVFoundation/AVFoundation.h>
 
+/// One point in a parameter automation curve
 struct ParameterAutomationPoint {
     AUValue targetValue;
     float startTime;

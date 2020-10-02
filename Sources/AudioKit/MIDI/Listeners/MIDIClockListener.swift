@@ -11,17 +11,17 @@ import os.log
 /// If you wish to observer its events, then add your own MIDIBeatObserver
 ///
 public class MIDIClockListener: NSObject {
-    // Definition of 24 quantums per quarter note
+    /// Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: MIDIByte
-    // Count of 24 quantums per quarter note
+    /// Count of 24 quantums per quarter note
     public var quarterNoteQuantumCounter: MIDIByte = 0
-    // number of all time quantum F8 MIDI Clock messages seen
+    /// number of all time quantum F8 MIDI Clock messages seen
     public var quantumCounter: UInt64 = 0
-    // 6 F8 MIDI Clock messages = 1 SPP MIDI Beat
+    /// 6 F8 MIDI Clock messages = 1 SPP MIDI Beat
     public var sppMIDIBeatCounter: UInt64 = 0
-    // 6 F8 MIDI Clock quantum messages = 1 SPP MIDI Beat
+    /// 6 F8 MIDI Clock quantum messages = 1 SPP MIDI Beat
     public var sppMIDIBeatQuantumCounter: MIDIByte = 0
-    // 1, 2, 3, 4 , 1, 2, 3, 4 - quarter note counter
+    /// 1, 2, 3, 4 , 1, 2, 3, 4 - quarter note counter
     public var fourCount: MIDIByte = 0
 
     private var sendStart = false
@@ -31,6 +31,10 @@ public class MIDIClockListener: NSObject {
     private var observers: [MIDIBeatObserver] = []
 
     /// MIDIClockListener requires to be an observer of both SRT and BPM events
+    /// - Parameters:
+    ///   - srt: MIDI System real-time listener
+    ///   - count: Quantums per quarter note
+    ///   - tempo: Tempo listener
     init(srtListener srt: MIDISystemRealTimeListener,
          quantumsPerQuarterNote count: MIDIByte = 24,
          tempoListener tempo: MIDITempoListener) {

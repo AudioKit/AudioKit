@@ -4,14 +4,22 @@ import AudioToolbox
 import AVFoundation
 import CoreAudio
 
+/// Normally set in AVFoundation or AudioToolbox,
+/// we create it here so users don't have to import those frameworks
 public typealias AUValue = Float
 
+/// MIDI Type Alias making it clear that you're working with MIDI
 public typealias MIDIByte = UInt8
+/// MIDI Type Alias making it clear that you're working with MIDI
 public typealias MIDIWord = UInt16
+/// MIDI Type Alias making it clear that you're working with MIDI
 public typealias MIDINoteNumber = UInt8
+/// MIDI Type Alias making it clear that you're working with MIDI
 public typealias MIDIVelocity = UInt8
+/// MIDI Type Alias making it clear that you're working with MIDI
 public typealias MIDIChannel = UInt8
 
+/// Sample type alias making it clear when you're workin with samples
 public typealias SampleIndex = UInt32
 
 /// Note on shortcut
@@ -29,6 +37,7 @@ public typealias CVoidCallback = @convention(block) () -> Void
 public typealias CMIDICallback = @convention(block) (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 extension AudioUnitParameterOptions {
+    /// Default options
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
 }
 
@@ -213,6 +222,14 @@ extension AVAudioNode {
 }
 
 public extension AUParameter {
+    /// Initialize with all specification
+    /// - Parameters:
+    ///   - identifier: ID String
+    ///   - name: Unique name
+    ///   - address: Parameter address
+    ///   - range: Range of valid values
+    ///   - unit: Physical units
+    ///   - flags: Parameter options
     @nonobjc
     convenience init(identifier: String,
                      name: String,
@@ -230,14 +247,17 @@ public extension AUParameter {
     }
 }
 
-// Anything that can hold a value (strings, arrays, etc)
+/// Anything that can hold a value (strings, arrays, etc)
 public protocol Occupiable {
+    /// Contains elements
     var isEmpty: Bool { get }
+    /// Contains no elements
     var isNotEmpty: Bool { get }
 }
 
 // Give a default implementation of isNotEmpty, so conformance only requires one implementation
 extension Occupiable {
+    /// Contains no elements
     public var isNotEmpty: Bool {
         return ❗️isEmpty
     }

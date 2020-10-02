@@ -19,6 +19,7 @@ open class MusicTrackManager {
 
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>?
+    /// Pointer to the initial music track
     open var initTrackPointer: UnsafeMutablePointer<MusicTrack>?
 
     /// Nicer function for not empty
