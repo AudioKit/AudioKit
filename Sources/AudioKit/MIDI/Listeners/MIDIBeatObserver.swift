@@ -9,10 +9,12 @@ public protocol MIDIBeatObserver {
 
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
+    /// - Parameter continue: Whether or not to continue
     func preparePlay(continue: Bool)
 
     /// First beat of playback after an system real time start or continue message.
     /// This is called on the first clock tick after a start or continue command
+    /// - Parameter continue: Whether or not to continue
     func startFirstBeat(continue: Bool)
 
     /// system real time stop message
@@ -22,10 +24,16 @@ public protocol MIDIBeatObserver {
     func receivedBeatEvent(beat: UInt64)
 
     /// Called each midi clock pulse (quantum = 24 quantums per quarter note)
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: UInt8, beat: UInt64, quantum: UInt64)
+    /// - Parameters:
+    ///   - time: MIDI Time Stamp
+    ///   - quarterNote: MIDI Byte
+    ///   - beat: Beat as a UInt64
+    ///   - quantum: 24 quantums per quarter note
+    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64)
 
     /// Called each 24 midi clock pulses
-    func receivedQuarterNoteBeat(quarterNote: UInt8)
+    /// - Parameter quarterNote: MIDI Byte
+    func receivedQuarterNoteBeat(quarterNote: MIDIByte)
 }
 
 /// Default listener methods
@@ -47,11 +55,11 @@ public extension MIDIBeatObserver {
 
     }
 
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
 
     }
 
-    func receivedQuarterNoteBeat(quarterNote: UInt8) {
+    func receivedQuarterNoteBeat(quarterNote: MIDIByte) {
 
     }
 

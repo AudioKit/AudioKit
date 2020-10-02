@@ -6,7 +6,7 @@ import CAudioKit
 #if !os(tvOS)
 
 /// Type of shaker to use
-public enum ShakerType: UInt8 {
+public enum ShakerType: MIDIByte {
 
     /// Maraca
     case maraca = 0
@@ -115,8 +115,8 @@ public class Shaker: Node, AudioUnitContainer, Tappable, Toggleable {
         public func trigger(type: AUValue, amplitude: AUValue) {
 
             if let midiBlock = scheduleMIDIEventBlock {
-                let event = MIDIEvent(noteOn: UInt8(type),
-                                        velocity: UInt8(amplitude * 127.0),
+                let event = MIDIEvent(noteOn: MIDINoteNumber(type),
+                                        velocity: MIDIVelocity(amplitude * 127.0),
                                         channel: 0)
                 event.data.withUnsafeBufferPointer { ptr in
                     guard let ptr = ptr.baseAddress else { return }

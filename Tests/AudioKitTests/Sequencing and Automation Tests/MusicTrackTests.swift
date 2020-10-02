@@ -233,7 +233,7 @@ class MusicTrackManagerTests: XCTestCase {
     // helper function
     func addFourNotesToTrack(_ track: MusicTrackManager) {
         for i in 0 ..< 4 {
-            track.add(noteNumber: UInt8(60 + i),
+            track.add(noteNumber: MIDIByte(60 + i),
                       velocity: 120,
                       position: Duration(beats: Double(i)),
                       duration: Duration(beats: 0.5))

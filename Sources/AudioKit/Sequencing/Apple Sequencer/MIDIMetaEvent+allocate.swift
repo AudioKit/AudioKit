@@ -10,7 +10,7 @@ extension MIDIMetaEvent {
     ///   - metaEventType: type of event
     ///   - data: event data
     /// - Returns: pointer to allocated event.
-    static func allocate(metaEventType: UInt8, data: [UInt8]) -> UnsafeMutablePointer<MIDIMetaEvent> {
+    static func allocate(metaEventType: MIDIByte, data: [MIDIByte]) -> UnsafeMutablePointer<MIDIMetaEvent> {
         let size = MemoryLayout<MIDIMetaEvent>.size + data.count
         let mem = UnsafeMutableRawPointer.allocate(byteCount: size,
                                                    alignment: MemoryLayout<Int8>.alignment)

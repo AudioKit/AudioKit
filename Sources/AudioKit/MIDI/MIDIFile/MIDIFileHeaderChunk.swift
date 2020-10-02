@@ -4,9 +4,11 @@ import Foundation
 
 struct MIDIFileHeaderChunk: MIDIFileChunk {
 
-    var rawData: [UInt8]
+    var rawData: [MIDIByte]
 
-    public init?(data: [UInt8]) {
+    /// Initialize with data
+    /// - Parameter data: MIDI Bytes
+    public init?(data: [MIDIByte]) {
         guard
             data.count > 8
         else {

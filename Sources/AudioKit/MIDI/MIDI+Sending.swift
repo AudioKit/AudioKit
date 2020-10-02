@@ -240,6 +240,9 @@ extension MIDI {
     }
 
     /// Send Message with data
+    /// - Parameters:
+    ///   - data: Array of MIDI Bytes
+    ///   - offset: Timestamp offset
     public func sendMessage(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
 
         // Create a buffer that is big enough to hold the data to be sent and
@@ -294,11 +297,16 @@ extension MIDI {
     }
 
     /// Send Messsage from MIDI event data
+    /// - Parameter event: Event so send
     public func sendEvent(_ event: MIDIEvent) {
         sendMessage(event.data)
     }
 
     /// Send a Note On Message
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel (default: 0)
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
                                   channel: MIDIChannel = 0) {
@@ -308,6 +316,10 @@ extension MIDI {
     }
 
     /// Send a Note Off Message
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel (default: 0)
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel = 0) {
@@ -317,6 +329,10 @@ extension MIDI {
     }
 
     /// Send a Continuous Controller message
+    /// - Parameters:
+    ///   - control: MIDI Control number
+    ///   - value: Value to assign
+    ///   - channel: MIDI Channel (default: 0)
     public func sendControllerMessage(_ control: MIDIByte, value: MIDIByte, channel: MIDIChannel = 0) {
         let controlCommand: MIDIByte = MIDIByte(0xB0) + channel
         let message: [MIDIByte] = [controlCommand, control, value]
@@ -339,28 +355,41 @@ extension MIDI {
 
     // MARK: - Expand api to include MIDITimeStamp
 
-    // MARK: - Send a message with MIDITimeStamp
+    /// Send a message with MIDITimeStamp
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel (default: 0)
+    ///   - time: MIDI Timestamp (default: 0)
     public func sendNoteOnMessageWithTime(noteNumber: MIDINoteNumber,
                                           velocity: MIDIVelocity,
                                           channel: MIDIChannel = 0,
                                           time: MIDITimeStamp = 0) {
-        let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
+        let noteCommand: MIDIByte = MIDIByte(0x90) + channel
+        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time)
     }
 
-    /// Send a Note Off Message
+    /// Send a Note Off Message with timestamp
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel (default: 0)
+    ///   - time: MIDI Timestamp (default: 0)
     public func sendNoteOffMessageWithTime(noteNumber: MIDINoteNumber,
                                            velocity: MIDIVelocity,
                                            channel: MIDIChannel = 0,
                                            time: MIDITimeStamp = 0) {
-        let noteCommand: UInt8 = UInt8(0x80) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
+        let noteCommand: MIDIByte = MIDIByte(0x80) + channel
+        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time)
     }
 
-    /// Send Message with data
-    public func sendMessageWithTime(_ data: [UInt8], time: MIDITimeStamp) {
+    /// Send Message with data with timestamp
+    /// - Parameters:
+    ///   - data: Array of MIDI Bytes
+    ///   - time: MIDI Timestamp
+    public func sendMessageWithTime(_ data: [MIDIByte], time: MIDITimeStamp) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)

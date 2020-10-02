@@ -21,7 +21,7 @@ public typealias FloatChannelData = [[Float]]
 public typealias CVoidCallback = @convention(block) () -> Void
 
 /// Callback function that can be called from C
-public typealias CMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
+public typealias CMIDICallback = @convention(block) (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 extension AudioUnitParameterOptions {
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
@@ -101,7 +101,7 @@ extension Int {
 }
 
 /// Extension to Int to calculate frequency from a MIDI Note Number
-extension UInt8 {
+extension MIDIByte {
     /// Calculate frequency from a MIDI Note Number
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     public func midiNoteToFrequency(_ aRef: AUValue = 440.0) -> AUValue {

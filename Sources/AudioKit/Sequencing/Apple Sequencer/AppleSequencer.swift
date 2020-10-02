@@ -326,12 +326,12 @@ open class AppleSequencer: NSObject {
     /// Return and array of (MusicTimeStamp, TimeSignature) tuples
     open var allTimeSignatureEvents: [(MusicTimeStamp, TimeSignature)] {
         struct TimeSignatureEvent {
-            var metaEventType: UInt8 = 0
-            var unused1: UInt8 = 0
-            var unused2: UInt8 = 0
-            var unused3: UInt8 = 0
+            var metaEventType: MIDIByte = 0
+            var unused1: MIDIByte = 0
+            var unused2: MIDIByte = 0
+            var unused3: MIDIByte = 0
             var dataLength: UInt32 = 0
-            var data: (UInt8, UInt8, UInt8, UInt8) = (0, 0, 0, 0)
+            var data: (MIDIByte, MIDIByte, MIDIByte, MIDIByte) = (0, 0, 0, 0)
         }
 
         var tempoTrack: MusicTrack?
@@ -346,7 +346,7 @@ open class AppleSequencer: NSObject {
             return result
         }
 
-        let timeSignatureMetaEventByte: UInt8 = 0x58
+        let timeSignatureMetaEventByte: MIDIByte = 0x58
         MusicTrackManager.iterateMusicTrack(unwrappedTempoTrack) { _, eventTime, eventType, eventData, dataSize, _ in
             guard let eventData = eventData else { return }
             guard eventType == kMusicEventType_Meta else { return }
@@ -400,8 +400,8 @@ open class AppleSequencer: NSObject {
     ///
     public func addTimeSignatureEvent(at timeStamp: MusicTimeStamp = 0.0,
                                       timeSignature: TimeSignature,
-                                      ticksPerMetronomeClick: UInt8 = 24,
-                                      thirtySecondNotesPerQuarter: UInt8 = 8,
+                                      ticksPerMetronomeClick: MIDIByte = 24,
+                                      thirtySecondNotesPerQuarter: MIDIByte = 8,
                                       clearExistingEvents: Bool = true) {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
@@ -435,7 +435,7 @@ open class AppleSequencer: NSObject {
 
     /// Remove existing time signature events from tempo track
     func clearTimeSignatureEvents(_ track: MusicTrack) {
-        let timeSignatureMetaEventByte: UInt8 = 0x58
+        let timeSignatureMetaEventByte: MIDIByte = 0x58
         let metaEventType = kMusicEventType_Meta
 
         MusicTrackManager.iterateMusicTrack(track) { iterator, _, eventType, eventData, _, isReadyForNextEvent in

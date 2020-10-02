@@ -3,9 +3,10 @@
 import Foundation
 
 // A basic container for a MIDI message, so that they can be used in different contexts
-// by accessing .data: [UInt8] directly
+// by accessing .data: [MIDIByte] directly
 
+/// MIDI Message Protocol
 public protocol MIDIMessage {
-    var data: [UInt8] { get }
+    var data: [MIDIByte] { get }
     var description: String { get }
 }
