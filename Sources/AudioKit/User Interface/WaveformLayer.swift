@@ -8,6 +8,7 @@ public class WaveformLayer: CAShapeLayer {
     /// controls whether to use the default CoreAnimation actions or not for property transitions
     public var allowActions: Bool = true
 
+    /// Mirrored is the traditional DAW display
     public var isMirrored: Bool = true {
         didSet {
             updateLayer()
@@ -34,6 +35,7 @@ public class WaveformLayer: CAShapeLayer {
         }
     }
 
+    /// Does this contain any information
     public var isEmpty: Bool {
         if let table = table, table.isNotEmpty {
             return false
@@ -43,6 +45,15 @@ public class WaveformLayer: CAShapeLayer {
 
     private var absmax: Double = 1.0
 
+    /// Initialize with all parameters
+    /// - Parameters:
+    ///   - table: Array of floats
+    ///   - size: Layer size
+    ///   - fillColor: Fill Color
+    ///   - strokeColor: Stroke color
+    ///   - backgroundColor: Backround color
+    ///   - opacity: Opacity
+    ///   - isMirrored: Whether or not to display mirrored
     public convenience init(table: [Float],
                             size: CGSize? = nil,
                             fillColor: CGColor? = nil,
@@ -76,10 +87,13 @@ public class WaveformLayer: CAShapeLayer {
         return allowActions ? super.action(forKey: event) : nil
     }
 
+    /// Update layer
     public func updateLayer() {
         updateLayer(with: frame.size)
     }
 
+    /// Update layer with size
+    /// - Parameter size: Size of layer
     public func updateLayer(with size: CGSize) {
         guard size != CGSize.zero else {
             return
@@ -88,6 +102,7 @@ public class WaveformLayer: CAShapeLayer {
         updateLayerWithPath(with: size)
     }
 
+    /// Remove all data
     public func dispose() {
         table?.removeAll()
         table = nil

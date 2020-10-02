@@ -7,7 +7,10 @@ import Foundation
 /// Plot the FFT output from any node in an signal processing graph
 public class NodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
+    /// Is the FFT Plot connected to a node
     public var isConnected = false
+
+    /// Is the FFT Plot not connected to a node
     public var isNotConnected: Bool { return !isConnected }
 
     internal func setupNode(_ input: Node) {

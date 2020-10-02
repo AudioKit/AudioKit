@@ -170,19 +170,29 @@ open class PolyphonicNode: Node, Polyphonic {
 
 /// Protocol to allow nodes to be tapped using AudioKit's tapping system (not AVAudioEngine's installTap)
 public protocol Tappable {
+    /// Install tap on this node
     func installTap()
+    /// Remove tap on this node
     func removeTap()
+    /// Get the latest data for this node
+    /// - Parameter sampleCount: Number of samples to retrieve
+    /// - Returns: Float channel data for two channels
     func getTapData(sampleCount: Int) -> FloatChannelData
 }
 
 /// Default functions for nodes that conform to Tappable
 extension Tappable where Self: AudioUnitContainer {
+    /// Install tap on this node
     public func installTap() {
         akInstallTap(internalAU?.dsp)
     }
+    /// Remove tap on this node
     public func removeTap() {
         akRemoveTap(internalAU?.dsp)
     }
+    /// Get the latest data for this node
+    /// - Parameter sampleCount: Number of samples to retrieve
+    /// - Returns: Float channel data for two channels
     public func getTapData(sampleCount: Int) -> FloatChannelData {
         var leftData = [Float](repeating: 0, count: sampleCount)
         var rightData = [Float](repeating: 0, count: sampleCount)

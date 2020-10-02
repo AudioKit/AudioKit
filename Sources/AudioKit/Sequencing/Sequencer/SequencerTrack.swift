@@ -7,8 +7,8 @@ import Foundation
 
 /// Audio player that loads a sample into memory
 open class SequencerTrack {
-    // MARK: - Properties
 
+    /// Node sequencer sends data to
     public var targetNode: Node?
 
     /// Length of the track in beats
@@ -101,6 +101,7 @@ open class SequencerTrack {
         akSequencerEngineSeekTo(engine, position)
     }
 
+    /// Sequence
     public var sequence = NoteEventSequence() {
         didSet {
             updateSequence()

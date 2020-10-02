@@ -125,10 +125,14 @@ public enum MIDIControl: MIDIByte {
     /// MIDI Panic
     case allNotesOff = 123
 
+    /// Omni Mode Off
     case omniModeOff = 124
+    /// Omni Mode On
     case omniModeOn = 125
 
+    /// Mono Operation
     case monoOperation = 126
+    /// Poly Operation
     case polyOperation = 127
 
     // Unnamed CC values: (Must be a better way)
