@@ -118,6 +118,7 @@ public class MIDITrackView: UIView {
         sequencer.stop()
     }
 
+    /// Populate view notes
     public func populateViewNotes() {
 
         let noteDescriptor = midiTrackNoteMap

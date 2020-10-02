@@ -38,6 +38,10 @@ public struct NoteEventSequence: Equatable {
     /// Array of sequenc events
     public var events: [SequenceEvent]
 
+    /// Initialize with notes and events
+    /// - Parameters:
+    ///   - notes: Array of sequence notes
+    ///   - events: Array of sequence events
     public init(notes: [SequenceNote] = [], events: [SequenceEvent] = []) {
         self.notes = notes
         self.events = events

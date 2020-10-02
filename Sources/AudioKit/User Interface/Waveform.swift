@@ -11,12 +11,17 @@ public class Waveform: CALayer {
     /// controls whether to use the default CoreAnimation actions or not for property transitions
     public var allowActions: Bool = true
 
+    /// Array of waveform layers
     public private(set) var plots = [WaveformLayer]()
+    /// Number of samples per pixel
     public private(set) var samplesPerPixel: Int = 0
+    /// Number of channels
     public private(set) var channels: Int = 2
 
+    /// Minimum height when in stereo
     public var minimumStereoHeight: CGFloat = 50
 
+    /// Whether or not to display as stereo
     public var showStereo: Bool = true {
         didSet { updateLayer() }
     }
@@ -30,6 +35,7 @@ public class Waveform: CALayer {
         }
     }
 
+    /// Opacity
     public var waveformOpacity: Float = 1 {
         didSet {
             for plot in plots {
@@ -38,6 +44,7 @@ public class Waveform: CALayer {
         }
     }
 
+    /// Color
     public var waveformColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1) {
         didSet {
             for plot in plots {
@@ -53,13 +60,14 @@ public class Waveform: CALayer {
         }
     }
 
-    // display channels backwards, so Right first
+    /// display channels backwards, so Right first
     public var flipStereo: Bool = false {
         didSet {
             updateLayer()
         }
     }
 
+    /// Whether or not to mix down to a mono view
     public var mixToMono: Bool = false {
         didSet {
             updateLayer()
@@ -68,6 +76,12 @@ public class Waveform: CALayer {
 
     // MARK: - Initialization
 
+    /// Initialize with parameters
+    /// - Parameters:
+    ///   - channels: Channel count
+    ///   - size: Rectangular size
+    ///   - waveformColor: Foreground color
+    ///   - backgroundColor: Background color
     public convenience init(channels: Int = 2,
                             size: CGSize? = nil,
                             waveformColor: CGColor? = nil,
@@ -189,6 +203,7 @@ public class Waveform: CALayer {
         return allowActions ? super.action(forKey: event) : nil
     }
 
+    /// Upodate layers
     public func updateLayer() {
         guard plots.isNotEmpty else {
             Log("Plots are empty... nothing to layout.", type: .error)
@@ -221,7 +236,8 @@ public class Waveform: CALayer {
         }
     }
 
-    /// can be called from any thread
+    /// Fill with new data, can be called from any thread
+    /// - Parameter data: Float channel data
     public func fill(with data: FloatChannelData) {
         fillPlots(with: data) {
             DispatchQueue.main.async {
@@ -233,6 +249,8 @@ public class Waveform: CALayer {
         }
     }
 
+    /// Create a copy
+    /// - Returns: New waveform
     public func duplicate() -> Waveform? {
         let waveform = Waveform(channels: channels,
                                   size: plotSize,
@@ -251,6 +269,7 @@ public class Waveform: CALayer {
         return waveform
     }
 
+    /// Remove all plots from view
     public func dispose() {
         for plot in plots {
             plot.removeFromSuperlayer()
