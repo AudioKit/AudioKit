@@ -7,10 +7,13 @@ import CAudioKit
 ///
 public class StereoFieldLimiter: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "sflm"
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Properties

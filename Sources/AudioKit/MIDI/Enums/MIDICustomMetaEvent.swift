@@ -43,6 +43,7 @@ public enum MIDICustomMetaEventType: MIDIByte {
         }
     }
 
+    /// Custom event pretty name
     public var description: String {
         switch self {
         case .sequenceNumber:
@@ -94,6 +95,8 @@ public struct MIDICustomMetaEvent: MIDIMessage {
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
+    /// Initialize with data
+    /// - Parameter data: Array of MIDI bytes
     public init?(data: [MIDIByte]) {
         if data.count > 2,
             data[0] == 0xFF,
@@ -119,9 +122,13 @@ public struct MIDICustomMetaEvent: MIDIMessage {
         }
     }
 
+    /// Event data
     public let data: [MIDIByte]
+    /// Event type
     public let type: MIDICustomMetaEventType
+    /// Event length
     public let length: Int
+    /// Printable string
     public var description: String {
         var nameStr: String = ""
 
@@ -138,6 +145,7 @@ public struct MIDICustomMetaEvent: MIDIMessage {
         return type.description + " \(length) bytes long \(nameStr)"
     }
 
+    /// Event name as retrieve from the data suffix
     public var name: String? {
         return String(bytes: data.suffix(length), encoding: .utf8)
     }

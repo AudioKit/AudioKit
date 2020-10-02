@@ -19,10 +19,15 @@ public class WaveformDataRequest {
         }
     }
 
+    /// Initialize with audio file
+    /// - Parameter audioFile: AVAudioFile to start with
     public init(audioFile: AVAudioFile) {
         self.audioFile = audioFile
     }
 
+    /// Initialize with URL
+    /// - Parameter url: URL of audio file
+    /// - Throws: Error if URL doesn't point to an audio file
     public init(url: URL) throws {
         self.audioFile = try AVAudioFile(forReading: url)
     }
@@ -41,6 +46,9 @@ public class WaveformDataRequest {
         }
     }
 
+    /// Get waveform data
+    /// - Parameter samplesPerPixel: Number of samples you want per point
+    /// - Returns: An array of arry of floats, one for each channel
     public func getData(with samplesPerPixel: Int) -> FloatChannelData? {
         guard let audioFile = audioFile else { return nil }
 
@@ -101,6 +109,7 @@ public class WaveformDataRequest {
         return data
     }
 
+    /// Abort getting the waveform data
     public func cancel() {
         abortGetWaveformData = true
     }

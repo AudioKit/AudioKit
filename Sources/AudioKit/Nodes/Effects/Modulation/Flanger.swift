@@ -7,10 +7,13 @@ import CAudioKit
 ///
 public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "flgr"
     public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters

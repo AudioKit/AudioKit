@@ -9,18 +9,29 @@ import CAudioKit
 ///
 public class Clarinet: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "clar"
     public static let ComponentDescription = AudioComponentDescription(instrument: "clar")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+
+    /// INternal audio unti for clarinet
     public class InternalAU: AudioUnitBase {
 
+        /// Create the clarinet DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("ClarinetDSP")
         }
 
+        /// Trigger a clarinet note
+        /// - Parameters:
+        ///   - note: MIDI Note Number
+        ///   - velocity: MIDI Velocity
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
 
             if let midiBlock = scheduleMIDIEventBlock {

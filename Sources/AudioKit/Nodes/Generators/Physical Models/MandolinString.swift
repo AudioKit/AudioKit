@@ -9,20 +9,29 @@ import CAudioKit
 ///
 public class MandolinString: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "mand"
     public static let ComponentDescription = AudioComponentDescription(instrument: "mand")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    /// Internal audio unit for mandolin string
     public class InternalAU: AudioUnitBase {
 
+        /// Create mandolin string DSP
+        /// - Returns: DSP reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("MandolinStringDSP")
         }
 
+        /// Trigger a mandolin string note
+        /// - Parameters:
+        ///   - note: MIDI Note Number
+        ///   - velocity: MIDI Velocity
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
-
             if let midiBlock = scheduleMIDIEventBlock {
                 let event = MIDIEvent(noteOn: note, velocity: velocity, channel: 0)
                 event.data.withUnsafeBufferPointer { ptr in

@@ -50,6 +50,7 @@ public class Table: NSObject, MutableCollection, Codable {
 
     // MARK: - Properties    /// Values stored in the table
 
+    /// Array of elements
     public internal(set) var content = [Element]()
 
     /// Phase of the table
@@ -59,18 +60,22 @@ public class Table: NSObject, MutableCollection, Codable {
         }
     }
 
+    /// Start point
     public var startIndex: Index {
         return content.startIndex
     }
 
+    /// End point
     public var endIndex: Index {
         return content.endIndex
     }
 
+    /// Number of elements
     public var count: IndexDistance {
         return content.count
     }
 
+    /// Grab an element by index
     public subscript(index: Index) -> Element {
         get {
             return content[index]
@@ -80,6 +85,7 @@ public class Table: NSObject, MutableCollection, Codable {
         }
     }
 
+    /// Grab elements by range
     public subscript(bounds: Range<Index>) -> SubSequence {
         get {
             return content[bounds]
@@ -139,6 +145,9 @@ public class Table: NSObject, MutableCollection, Codable {
     }
 
     /// Create table from an array of Element
+    /// - Parameters:
+    ///   - content: Array of elemnts
+    ///   - phase: Offset
     public init(_ content: [Element], phase: Float = 0) {
         self.type = .custom
         self.phase = phase
@@ -146,6 +155,7 @@ public class Table: NSObject, MutableCollection, Codable {
     }
 
     /// Create table from first channel of audio file
+    /// - Parameter file: audio file to use as source data
     public convenience init?(file: AVAudioFile) {
         let size = Int(file.length)
         self.init(count: size)

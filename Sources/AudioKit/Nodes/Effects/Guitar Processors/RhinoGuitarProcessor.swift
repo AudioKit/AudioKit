@@ -7,14 +7,18 @@ import CAudioKit
 ///
 public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleable {
 
-    public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
+    /// Unique four-letter identifier "rhgp"
+    public static let ComponentDescription = AudioComponentDescription(effect: "rhgp")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
 
+    /// Specification details for pre gain
     public static let preGainDef = NodeParameterDef(
         identifier: "preGain",
         name: "PreGain",
@@ -26,6 +30,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Gain applied before processing.
     @Parameter public var preGain: AUValue
 
+    /// Specification details for post gain
     public static let postGainDef = NodeParameterDef(
         identifier: "postGain",
         name: "PostGain",
@@ -37,6 +42,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Gain applied after processing.
     @Parameter public var postGain: AUValue
 
+    /// Specification details for low gain
     public static let lowGainDef = NodeParameterDef(
         identifier: "lowGain",
         name: "Low Frequency Gain",
@@ -48,6 +54,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Amount of Low frequencies.
     @Parameter public var lowGain: AUValue
 
+    /// Specification details for mid gain
     public static let midGainDef = NodeParameterDef(
         identifier: "midGain",
         name: "Mid Frequency Gain",
@@ -59,6 +66,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Amount of Middle frequencies.
     @Parameter public var midGain: AUValue
 
+    /// Specification details for high gain
     public static let highGainDef = NodeParameterDef(
         identifier: "highGain",
         name: "High Frequency Gain",
@@ -70,6 +78,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     /// Amount of High frequencies.
     @Parameter public var highGain: AUValue
 
+    /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
@@ -83,6 +92,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for Rhino Guitar Processor
     public class InternalAU: AudioUnitBase {
 
         public override func getParameterDefs() -> [NodeParameterDef] {

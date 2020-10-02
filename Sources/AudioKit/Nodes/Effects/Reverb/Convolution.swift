@@ -8,10 +8,13 @@ import CAudioKit
 ///
 public class Convolution: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "conv"
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
@@ -21,6 +24,7 @@ public class Convolution: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for convolution
     public class InternalAU: AudioUnitBase {
 
         public override func createDSP() -> DSPRef {

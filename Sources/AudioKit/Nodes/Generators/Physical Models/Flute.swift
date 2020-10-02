@@ -9,18 +9,28 @@ import CAudioKit
 ///
 public class Flute: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "flut"
     public static let ComponentDescription = AudioComponentDescription(instrument: "flut")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    /// Internal audio unit for flute
     public class InternalAU: AudioUnitBase {
 
+        /// Create flute DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("FluteDSP")
         }
 
+        /// Trigger a flute note
+        /// - Parameters:
+        ///   - note: MIDI Note Number
+        ///   - velocity: MIDI Velocity
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
 
             if let midiBlock = scheduleMIDIEventBlock {

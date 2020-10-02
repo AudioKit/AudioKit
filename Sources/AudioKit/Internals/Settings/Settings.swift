@@ -53,6 +53,7 @@ public class Settings: NSObject {
         case sCurve = 3
     }
 
+    /// Defaul t audio format
     public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
                                                          channels: 2) ?? AVAudioFormat()
 
