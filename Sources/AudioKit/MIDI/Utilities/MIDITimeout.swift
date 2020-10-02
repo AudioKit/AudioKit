@@ -13,6 +13,7 @@ import Foundation
     let timeoutInterval: TimeInterval
     let mainThread: Bool
 
+    /// Void to void block
     public typealias ActionClosureType = () -> Void
 
     /// Control whether success and fail are sent.
@@ -21,6 +22,12 @@ import Foundation
     var disableSuccess = false
     var disableFailure = false
 
+    /// Initialize timeout
+    /// - Parameters:
+    ///   - time: Time Interval
+    ///   - onMainThread: Whether ot perfom on main thread
+    ///   - success: Closure to run on success
+    ///   - timeout: Closure to run on timeout
     public init(timeoutInterval time: TimeInterval,
                 onMainThread: Bool = true,
                 success: @escaping ActionClosureType,
@@ -36,6 +43,8 @@ import Foundation
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
     }
 
+    /// Perform timeout
+    /// - Parameter block: Closure to call
     public func perform(_ block: () -> Void) {
         DispatchQueue.main.async {
             self.perform(#selector(self.messageTimeout), with: nil, afterDelay: self.timeoutInterval)
@@ -43,6 +52,7 @@ import Foundation
         block()
     }
 
+    /// Shorter name for calling success on main thread
     public func succeed() {
         mainthreadSuccessCall()
     }

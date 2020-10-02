@@ -23,6 +23,7 @@ public class Balancer: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for the balancer
     public class InternalAU: AudioUnitBase {
         /// Create the DSP Refence for this node
         /// - Returns: DSP Reference

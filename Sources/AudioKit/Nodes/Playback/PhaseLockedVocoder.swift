@@ -20,6 +20,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable 
 
     // MARK: - Parameters
 
+    /// Specification for position
     public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
@@ -31,6 +32,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @Parameter public var position: AUValue
 
+    /// Specification for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
@@ -42,6 +44,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable 
     /// Amplitude.
     @Parameter public var amplitude: AUValue
 
+    /// Specification for pitch ratio
     public static let pitchRatioDef = NodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
@@ -55,6 +58,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable 
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for phase locked vocoder
     public class InternalAU: AudioUnitBase {
         /// Get an array of the parameter definitions
         /// - Returns: Array of parameter definitions

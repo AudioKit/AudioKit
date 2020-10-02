@@ -34,6 +34,7 @@ extension MusicTrackManager {
         return pgmEvents
     }
 
+    /// Get debug information
     public func debug() {
         guard let events = eventData else {
             return

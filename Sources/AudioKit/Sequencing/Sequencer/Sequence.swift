@@ -6,6 +6,11 @@ import Foundation
 #if !os(tvOS)
 
 extension SequenceNote: Equatable {
+    /// Equality check
+    /// - Parameters:
+    ///   - lhs: Left hand side
+    ///   - rhs: Right hand side
+    /// - Returns: True if equal
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.noteOn == rhs.noteOn
             && lhs.noteOff == rhs.noteOff
@@ -13,6 +18,11 @@ extension SequenceNote: Equatable {
 }
 
 extension SequenceEvent: Equatable {
+    /// Equality check
+    /// - Parameters:
+    ///   - lhs: Left hand side
+    ///   - rhs: Right hand side
+    /// - Returns: True if equal
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.status == rhs.status
             && lhs.data1 == rhs.data1
@@ -23,11 +33,10 @@ extension SequenceEvent: Equatable {
 
 /// A value type for sequences.
 public struct NoteEventSequence: Equatable {
+    /// Array of sequence notes
     public var notes: [SequenceNote]
+    /// Array of sequenc events
     public var events: [SequenceEvent]
-
-    public static let noteOn: MIDIByte = 0x90
-    public static let noteOff: MIDIByte = 0x80
 
     public init(notes: [SequenceNote] = [], events: [SequenceEvent] = []) {
         self.notes = notes
@@ -48,12 +57,12 @@ public struct NoteEventSequence: Equatable {
                              duration: Double) {
         var newNote = SequenceNote()
 
-        newNote.noteOn.status = NoteEventSequence.noteOn
+        newNote.noteOn.status = noteOnByte
         newNote.noteOn.data1 = noteNumber
         newNote.noteOn.data2 = velocity
         newNote.noteOn.beat = position
 
-        newNote.noteOff.status = NoteEventSequence.noteOff
+        newNote.noteOff.status = noteOffByte
         newNote.noteOff.data1 = noteNumber
         newNote.noteOff.data2 = velocity
         newNote.noteOff.beat = position + duration

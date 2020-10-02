@@ -14,15 +14,18 @@ public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// If you have used this before, you should be able to simply switch to MIDICallbackInstrument
 open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
-    /// Internal audio unit type
-    public typealias AudioUnitType = InternalAU
     /// Four letter unique description "clbk"
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
-    // MARK: - Properties
+    /// Internal audio unit type
+    public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    // MARK: - Internal Audio Unit
+
+    /// Internal audio unit for callback instrument
     public class InternalAU: AudioUnitBase {
 
         /// Create the DSP Refence for this node
@@ -30,7 +33,9 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
         public override func createDSP() -> DSPRef {
             akCreateDSP("CallbackInstrumentDSP")
         }
-        
+
+        /// Set callback for the instrument
+        /// - Parameter callback: MIDI Callback
         public func setCallback(_ callback: MIDICallback?) {
             akCallbackInstrumentSetCallback(dsp, callback)
         }
@@ -38,6 +43,8 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
     // MARK: - Initialization
 
+    /// Initialize the callback instrument
+    /// - Parameter midiCallback: Optional MIDI Callback
     public init(midiCallback: MIDICallback? = nil) {
 
         super.init(avAudioNode: AVAudioNode())

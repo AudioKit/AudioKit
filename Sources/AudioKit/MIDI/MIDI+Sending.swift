@@ -310,7 +310,7 @@ extension MIDI {
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
                                   channel: MIDIChannel = 0) {
-        let noteCommand: MIDIByte = MIDIByte(0x90) + channel
+        let noteCommand: MIDIByte = noteOnByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }
@@ -323,7 +323,7 @@ extension MIDI {
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel = 0) {
-        let noteCommand: MIDIByte = MIDIByte(0x80) + channel
+        let noteCommand: MIDIByte = noteOffByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }

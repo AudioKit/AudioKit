@@ -14,6 +14,11 @@ public typealias MIDIChannel = UInt8
 
 public typealias SampleIndex = UInt32
 
+/// Note on shortcut
+public let noteOnByte: MIDIByte = 0x90
+/// Note off shortcut
+public let noteOffByte: MIDIByte = 0x80
+
 /// 2D array of stereo audio data
 public typealias FloatChannelData = [[Float]]
 

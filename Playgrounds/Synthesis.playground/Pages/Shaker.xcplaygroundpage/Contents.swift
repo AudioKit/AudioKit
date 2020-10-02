@@ -15,7 +15,7 @@ delay.feedback = 0.2
 let reverb = Reverb(delay)
 
 let performance = PeriodicFunction(frequency: playRate) {
-    shaker.type = ShakerType(rawValue: UInt8(AUValue.random(in: 0...22))) ?? .cabasa
+    shaker.type = ShakerType(rawValue: MIDIByte(AUValue.random(in: 0...22))) ?? .cabasa
     shaker.trigger(amplitude: AUValue.random(in: 0...1))
 }
 
