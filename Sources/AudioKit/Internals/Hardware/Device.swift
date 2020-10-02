@@ -76,6 +76,7 @@ public struct Device: Equatable, Hashable {
 }
 
 extension Device: CustomDebugStringConvertible {
+    /// Printout for debug
     public var debugDescription: String {
         return "<Device: \(name) (\(deviceID))>"
     }

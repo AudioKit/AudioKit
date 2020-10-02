@@ -41,8 +41,8 @@ open class MIDICallbackInstrument: MIDIInstrument {
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number being started
-    ///   - velocity:   MIDI Velocity (0-127)
-    ///   - channel:    MIDI Channel
+    ///   - velocity: MIDI Velocity (0-127)
+    ///   - channel: MIDI Channel
     ///
     open override func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
@@ -57,7 +57,8 @@ open class MIDICallbackInstrument: MIDIInstrument {
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number being stopped
-    ///   - channel:    MIDI Channel
+    ///   - channel: MIDI Channel
+    ///   - offset: MIDI Timetamp
     ///
     open override func stop(noteNumber: MIDINoteNumber,
                             channel: MIDIChannel,
@@ -69,6 +70,15 @@ open class MIDICallbackInstrument: MIDIInstrument {
 
     // MARK: - MIDI
 
+    /// Receive a generic controller value
+    ///
+    /// - Parameters:
+    ///   - controller: MIDI Controller Number
+    ///   - value:      Value of this controller
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
     open override func receivedMIDIController(_ controller: MIDIByte,
                                               value: MIDIByte,
                                               channel: MIDIChannel,
@@ -79,6 +89,15 @@ open class MIDICallbackInstrument: MIDIInstrument {
                          data2: value)
     }
 
+    /// Receive single note based aftertouch event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note number of touched note
+    ///   - pressure:   Pressure applied to the note (0-127)
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
     open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                               pressure: MIDIByte,
                                               channel: MIDIChannel,
@@ -89,6 +108,14 @@ open class MIDICallbackInstrument: MIDIInstrument {
                          data2: pressure)
     }
 
+    /// Receive global aftertouch
+    ///
+    /// - Parameters:
+    ///   - pressure: Pressure applied (0-127)
+    ///   - channel:  MIDI Channel (1-16)
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
+    ///
     open override func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
@@ -98,6 +125,14 @@ open class MIDICallbackInstrument: MIDIInstrument {
                          data2: 0)
     }
 
+    /// Receive pitch wheel value
+    ///
+    /// - Parameters:
+    ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
+    ///   - channel:         MIDI Channel (1-16)
+    ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
+    ///
     open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
@@ -106,6 +141,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
                          data1: pitchWheelValue.msb,
                          data2: pitchWheelValue.lsb)
     }
+    
 }
 
 #endif

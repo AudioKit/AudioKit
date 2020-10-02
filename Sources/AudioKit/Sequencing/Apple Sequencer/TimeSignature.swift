@@ -6,13 +6,13 @@ import Foundation
 public struct TimeSignature: CustomStringConvertible, Equatable {
     /// Denominator of the time signature
     public enum TimeSignatureBottomValue: UInt8 {
-        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        /// According to MIDI spec, second byte is log base 2 of time signature 'denominator'
         case two = 1
-        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        /// According to MIDI spec, second byte is log base 2 of time signature 'denominator'
         case four = 2
-        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        /// According to MIDI spec, second byte is log base 2 of time signature 'denominator'
         case eight = 3
-        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        /// According to MIDI spec, second byte is log base 2 of time signature 'denominator'
         case sixteen = 4
     }
 

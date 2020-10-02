@@ -12,6 +12,8 @@ enum CommonError: Error, LocalizedError {
     case DeviceNotFound
     case InvalidDSPObject
     case Unexplained
+
+    /// Pretty printout
     public var errorDescription: String? {
         switch self {
         case .AudioKitNotRunning:

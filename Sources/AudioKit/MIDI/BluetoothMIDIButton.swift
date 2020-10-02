@@ -3,6 +3,7 @@
 #if os(iOS)
 import CoreAudioKit
 
+/// Bluetooth MIDI Central View Controller
 class BTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
@@ -14,6 +15,7 @@ class BTMIDICentralViewController: CABTMIDICentralViewController {
                                                             action: #selector(doneAction))
     }
 
+    /// Dismiss view cotnroller when done
     @objc public func doneAction() {
         uiViewController?.dismiss(animated: true, completion: nil)
     }

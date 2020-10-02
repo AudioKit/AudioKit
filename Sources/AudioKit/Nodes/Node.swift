@@ -252,14 +252,17 @@ public extension Toggleable {
 }
 
 public extension Toggleable where Self: AudioUnitContainer {
+    /// Is node started?
     var isStarted: Bool {
         return internalAU?.isStarted ?? false
     }
 
+    /// Start node
     func start() {
         internalAU?.start()
     }
 
+    /// Stop node
     func stop() {
         internalAU?.stop()
     }
