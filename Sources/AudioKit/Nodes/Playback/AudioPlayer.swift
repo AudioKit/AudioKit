@@ -15,6 +15,7 @@ public class AudioPlayer: Node, Toggleable {
     /// If sample rate conversion is needed
     public var mixerNode = AVAudioMixerNode()
 
+    /// Initialize audio player
     public init() {
         super.init(avAudioNode: mixerNode)
     }
@@ -26,6 +27,11 @@ public class AudioPlayer: Node, Toggleable {
         }
     }
 
+    /// Schedule a file
+    /// - Parameters:
+    ///   - file: AVAudioFile to schedule
+    ///   - when: What time to schedule for
+    ///   - completionHandler: Callback on completion
     public func scheduleFile(_ file: AVAudioFile,
                              at when: AVAudioTime?,
                              completionHandler: AVAudioNodeCompletionHandler? = nil) {
@@ -36,6 +42,12 @@ public class AudioPlayer: Node, Toggleable {
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
     }
 
+    /// Schedule a buffer
+    /// - Parameters:
+    ///   - buffer: PCM Buffer
+    ///   - when: What time to schedule for
+    ///   - options: Options for looping
+    ///   - completionHandler: Callbackk on completion
     public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
                                at when: AVAudioTime?,
                                options: AVAudioPlayerNodeBufferOptions = [],
@@ -50,18 +62,22 @@ public class AudioPlayer: Node, Toggleable {
                                   completionHandler: completionHandler)
     }
 
+    /// Play audio player
     public func play() {
         playerNode.play()
     }
 
+    /// Start audio player
     public func start() {
         playerNode.play()
     }
 
+    /// Stop audio player
     public func stop() {
         playerNode.stop()
     }
 
+    /// Pause audio player
     public func pause() {
         playerNode.pause()
     }

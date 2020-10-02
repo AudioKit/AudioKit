@@ -18,6 +18,7 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Parameters
 
+    /// Specification for the frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
@@ -29,6 +30,7 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Modulation Frequency (Hz)
     @Parameter public var frequency: AUValue
 
+    /// Specification for the depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
@@ -40,6 +42,7 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Modulation Depth (fraction)
     @Parameter public var depth: AUValue
 
+    /// Specification for the feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
@@ -51,6 +54,7 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Feedback (fraction)
     @Parameter public var feedback: AUValue
 
+    /// Specification for the dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
@@ -64,8 +68,12 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Audio Unit
 
+    /// Internal audio unit for flanger
     public class InternalAU: AudioUnitBase {
 
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             return [Flanger.frequencyDef,
                     Flanger.depthDef,
@@ -73,6 +81,9 @@ public class Flanger: Node, AudioUnitContainer, Tappable, Toggleable {
                     Flanger.dryWetMixDef]
         }
 
+
+        /// Create flanger DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akFlangerCreateDSP()
         }

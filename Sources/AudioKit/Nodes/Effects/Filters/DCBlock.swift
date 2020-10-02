@@ -25,6 +25,8 @@ public class DCBlock: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Internal Audio Unit for DCBlock
     public class InternalAU: AudioUnitBase {
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("DCBlockDSP")
         }

@@ -46,12 +46,15 @@ public class Tremolo: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for Tremolo
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [Tremolo.frequencyDef,
              Tremolo.depthDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("TremoloDSP")
         }

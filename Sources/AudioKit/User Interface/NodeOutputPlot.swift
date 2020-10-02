@@ -14,9 +14,14 @@ extension Notification.Name {
 /// By default this plots the output of engine.output
 public class NodeOutputPlot: EZAudioPlot {
 
+    /// Keep track of connection
     public var isConnected = false
+
+    /// Avoiding bangs
     public var isNotConnected: Bool { return !isConnected }
 
+    /// Set up node
+    /// - Parameter input: Input node
     public func setupNode(_ input: Node) {
         if isNotConnected {
             input.avAudioUnitOrNode.installTap(
@@ -38,6 +43,7 @@ public class NodeOutputPlot: EZAudioPlot {
         isConnected = true
     }
 
+    /// Pause plot
     public func pause() {
         if isConnected {
             node.avAudioUnitOrNode.removeTap(onBus: 0)
@@ -45,12 +51,14 @@ public class NodeOutputPlot: EZAudioPlot {
         }
     }
 
+    /// Resume plot
     public func resume() {
         setupNode(node)
     }
 
     internal var bufferSize: UInt32 = 1_024
 
+    /// Node to plot
     open var node: Node {
         willSet {
             pause()
@@ -64,6 +72,7 @@ public class NodeOutputPlot: EZAudioPlot {
         removeTap()
     }
 
+    /// Remove the tap
     public func removeTap() {
         guard node.avAudioUnitOrNode.engine != nil else {
             Log("The tapped node isn't attached to the engine")
@@ -97,6 +106,7 @@ public class NodeOutputPlot: EZAudioPlot {
         self.bufferSize = UInt32(bufferSize)
     }
 
+    /// Start the plot
     public func start() {
         setupNode(node)
     }

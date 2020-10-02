@@ -24,9 +24,6 @@ public protocol KeyboardDelegate: AnyObject {
     /// Relative measure of the height of the black keys
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
 
-    /// Color of the polyphonic toggle button
-    @IBInspectable open var polyphonicButton: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-
     /// White key color
     @IBInspectable open var  whiteKeyOff: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
@@ -553,36 +550,42 @@ public protocol KeyboardDelegate: AnyObject {
 import Cocoa
 import CoreMIDI
 
+/// Delegate protocol
 public protocol KeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
     func noteOff(note: MIDINoteNumber)
 }
 
+/// View that displays a piano keyboard
 public class KeyboardView: NSView, MIDIListener {
-
-    override public var isFlipped: Bool {
-        return true
-    }
 
     var size = CGSize.zero
 
+    /// Number of octaves on the keyboard
     @IBInspectable open var octaveCount: Int = 2
+    /// Octave number for left-most keys
     @IBInspectable open var firstOctave: Int = 4
 
+    /// How large should the black keys be
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
-    @IBInspectable open var polyphonicButton: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
+    /// Color of unpressed natural key (in C)
     @IBInspectable open var  whiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    /// Color of unpressed accidental key (in C)
     @IBInspectable open var  blackKeyOff: NSColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    /// Color of activated key
     @IBInspectable open var  keyOnColor: NSColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    /// Color
     @IBInspectable open var  topWhiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
+    /// Optional Keyboard delegate
     open weak var delegate: KeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
 
+    /// Polyphonic mode
     public var polyphonicMode = false {
         didSet {
             for note in onKeys {
@@ -600,6 +603,8 @@ public class KeyboardView: NSView, MIDIListener {
     let topKeyNotes = [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 11]
     let whiteKeyNotes = [0, 2, 4, 5, 7, 9, 11]
 
+    /// Draw keyboard
+    /// - Parameter dirtyRect: Rectangle to draw into
     override public func draw(_ dirtyRect: NSRect) {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(octaveNumber: i)
@@ -688,6 +693,13 @@ public class KeyboardView: NSView, MIDIListener {
         }
     }
 
+    /// Initialize with all parameters
+    /// - Parameters:
+    ///   - width: Horizontal size
+    ///   - height: Vertical size
+    ///   - firstOctave: Octave of left-most keys
+    ///   - octaveCount: Number of octaves to display
+    ///   - polyphonic: Should more than one key light up at a time?
     public init(width: Int,
                 height: Int,
                 firstOctave: Int = 4,
@@ -701,12 +713,15 @@ public class KeyboardView: NSView, MIDIListener {
         needsDisplay = true
     }
 
+    /// Initialize from Storyboard
+    /// - Parameter aDecoder: Decoder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     // MARK: - Storyboard Rendering
 
+    /// Story board rendering
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
@@ -716,10 +731,14 @@ public class KeyboardView: NSView, MIDIListener {
                                height: Double(height))
     }
 
+    /// Intrinsic content size
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
 
+    /// Get note name or spelling
+    /// - Parameter note: MIDI Note Number as an Integer
+    /// - Returns: Spelling
     public func getNoteName(note: Int) -> String {
         let keyInOctave = note % 12
         return notesWithSharps[keyInOctave]
@@ -744,6 +763,8 @@ public class KeyboardView: NSView, MIDIListener {
         return MIDINoteNumber(note)
     }
 
+    /// React to mouse down
+    /// - Parameter event: Click event
     override public func mouseDown(with event: NSEvent) {
         let note = noteFromEvent(event: event)
         if polyphonicMode && onKeys.contains(note) {
@@ -756,6 +777,8 @@ public class KeyboardView: NSView, MIDIListener {
         needsDisplay = true
     }
 
+    /// React to mouse up
+    /// - Parameter event: Click event
     override public func mouseUp(with event: NSEvent) {
         if !polyphonicMode {
             let note = noteFromEvent(event: event)
@@ -765,6 +788,8 @@ public class KeyboardView: NSView, MIDIListener {
         needsDisplay = true
     }
 
+    /// React to mouse dragging
+    /// - Parameter event: Drage event
     override public func mouseDragged(with event: NSEvent) {
 
         if polyphonicMode {

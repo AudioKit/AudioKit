@@ -47,16 +47,17 @@ extension MIDIMonoPolyListener: MIDIListener {
                 if controller == MIDIControl.monoOperation.rawValue {
             guard monoMode == false else { return }
             monoMode = true
-            monoPolyChange()
+            monoPolyChanged()
         }
         if controller == MIDIControl.polyOperation.rawValue {
             guard monoMode == true else { return }
             monoMode = false
-            monoPolyChange()
+            monoPolyChanged()
         }
     }
 
-    public func monoPolyChange() {
+    /// Function called when mono poly mode has changed
+    public func monoPolyChanged() {
         // override in subclass?
     }
 

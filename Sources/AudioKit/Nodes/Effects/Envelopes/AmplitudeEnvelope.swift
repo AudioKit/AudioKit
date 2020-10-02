@@ -70,7 +70,8 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for AmplitudeEnvelope
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [AmplitudeEnvelope.attackDurationDef,
              AmplitudeEnvelope.decayDurationDef,
@@ -78,6 +79,8 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Tappable, Toggleable {
              AmplitudeEnvelope.releaseDurationDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("AmplitudeEnvelopeDSP")
         }

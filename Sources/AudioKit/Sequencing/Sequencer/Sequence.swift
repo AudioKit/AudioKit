@@ -34,6 +34,13 @@ public struct NoteEventSequence: Equatable {
         self.events = events
     }
 
+    /// Add a note
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel
+    ///   - position: Position or time to start
+    ///   - duration: Length of time until note is stopped
     public mutating func add(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity = 127,
                              channel: MIDIChannel = 0,
@@ -54,14 +61,20 @@ public struct NoteEventSequence: Equatable {
         notes.append(newNote)
     }
 
+    /// Remove event that occurs at a specific time
+    /// - Parameter position: Time of event
     public mutating func removeEvent(at position: Double) {
         events.removeAll { $0.beat == position }
     }
 
+    /// Remove note that occurs at a specific time
+    /// - Parameter position: Time of the note
     public mutating func removeNote(at position: Double) {
         notes.removeAll { $0.noteOn.beat == position }
     }
 
+    /// Remove all occurences of a certain MIDI Note nUmber
+    /// - Parameter noteNumber: Note to remove
     public mutating func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
         notes.removeAll { $0.noteOn.data1 == noteNumber }
     }

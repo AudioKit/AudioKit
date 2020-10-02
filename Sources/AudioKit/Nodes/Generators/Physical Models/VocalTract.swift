@@ -87,7 +87,8 @@ public class VocalTract: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for VocalTract
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [VocalTract.frequencyDef,
              VocalTract.tonguePositionDef,
@@ -96,6 +97,8 @@ public class VocalTract: Node, AudioUnitContainer, Tappable, Toggleable {
              VocalTract.nasalityDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("VocalTractDSP")
         }

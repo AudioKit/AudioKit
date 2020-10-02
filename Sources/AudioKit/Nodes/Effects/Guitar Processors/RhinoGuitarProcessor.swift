@@ -94,7 +94,8 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
 
     /// Internal audio unit for Rhino Guitar Processor
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [RhinoGuitarProcessor.preGainDef,
             RhinoGuitarProcessor.postGainDef,
@@ -104,6 +105,8 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
             RhinoGuitarProcessor.distortionDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("RhinoGuitarProcessorDSP")
         }

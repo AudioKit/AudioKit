@@ -39,11 +39,14 @@ public class CombFilterReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for CombFilterReverb
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [CombFilterReverb.reverbDurationDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("CombFilterReverbDSP")
         }

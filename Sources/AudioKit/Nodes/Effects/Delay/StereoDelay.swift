@@ -69,7 +69,8 @@ public class StereoDelay: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal audio unit for Stereo Delay
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [StereoDelay.timeDef,
              StereoDelay.feedbackDef,
@@ -77,6 +78,8 @@ public class StereoDelay: Node, AudioUnitContainer, Tappable, Toggleable {
              StereoDelay.pingPongDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("StereoDelayDSP")
         }

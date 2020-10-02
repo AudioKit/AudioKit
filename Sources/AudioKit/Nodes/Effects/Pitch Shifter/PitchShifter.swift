@@ -58,13 +58,16 @@ public class PitchShifter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for PitchShifter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [PitchShifter.shiftDef,
              PitchShifter.windowSizeDef,
              PitchShifter.crossfadeDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("PitchShifterDSP")
         }

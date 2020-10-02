@@ -36,6 +36,7 @@ public class NodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     }
 
 
+    /// Pause plot
     public func pause() {
         if isConnected {
             node.avAudioUnitOrNode.removeTap(onBus: 0)
@@ -43,13 +44,14 @@ public class NodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         }
     }
 
+    /// Resume plot
     public func resume() {
         setupNode(node)
     }
 
     internal var bufferSize: UInt32 = 1_024
 
-    /// EZAudioFFT container
+    // EZAudioFFT container
     fileprivate var fft: EZAudioFFT?
 
     /// The node whose output to graph
@@ -105,6 +107,7 @@ public class NodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         }
     }
 
+    /// Start the plot
     public func start() {
         setupNode(node)
     }

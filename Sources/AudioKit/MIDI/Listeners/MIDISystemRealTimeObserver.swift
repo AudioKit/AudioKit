@@ -38,6 +38,9 @@ extension MIDISystemRealTimeObserver {
 
     }
 
+    /// Equality check
+    /// - Parameter listener: MIDI System Real-Time Observer
+    /// - Returns: Equality boolean
     public func isEqualTo(_ listener: MIDISystemRealTimeObserver) -> Bool {
         return self == listener
     }

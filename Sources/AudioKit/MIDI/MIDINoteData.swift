@@ -2,12 +2,28 @@
 
 /// Struct holding revelant data for MusicTrackManager note events
 public struct MIDINoteData: CustomStringConvertible, Equatable {
+    /// MIDI Note Number
     public var noteNumber: MIDINoteNumber
+
+    /// MIDI Velocity
     public var velocity: MIDIVelocity
+
+    /// MIDI Channel
     public var channel: MIDIChannel
+
+    /// Note duration
     public var duration: Duration
+
+    /// Note position as a duration from the start
     public var position: Duration
 
+    /// Initialize the MIDI Note Data
+    /// - Parameters:
+    ///   - noteNumber: MID Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channel
+    ///   - duration: Note duration
+    ///   - position: Note position as a duration from the start
     public init(noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel,
@@ -20,6 +36,7 @@ public struct MIDINoteData: CustomStringConvertible, Equatable {
         self.position = position
     }
 
+    /// Pretty printout
     public var description: String {
         return """
         note: \(noteNumber)

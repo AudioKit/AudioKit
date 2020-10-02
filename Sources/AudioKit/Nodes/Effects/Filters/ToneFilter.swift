@@ -34,11 +34,14 @@ public class ToneFilter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for ToneFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [ToneFilter.halfPowerPointDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("ToneFilterDSP")
         }

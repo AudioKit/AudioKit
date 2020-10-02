@@ -108,7 +108,8 @@ public class Drip: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for Drip
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [Drip.intensityDef,
              Drip.dampingFactorDef,
@@ -119,6 +120,8 @@ public class Drip: Node, AudioUnitContainer, Tappable, Toggleable {
              Drip.amplitudeDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("DripDSP")
         }

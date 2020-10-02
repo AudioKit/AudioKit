@@ -24,6 +24,8 @@ public class Balancer: Node, AudioUnitContainer, Tappable, Toggleable {
     // MARK: - Audio Unit
 
     public class InternalAU: AudioUnitBase {
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("BalancerDSP")
         }

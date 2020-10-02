@@ -85,7 +85,8 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal audio unit for fader
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [Fader.leftGainDef,
              Fader.rightGainDef,
@@ -93,6 +94,8 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
              Fader.mixToMonoDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("FaderDSP")
         }

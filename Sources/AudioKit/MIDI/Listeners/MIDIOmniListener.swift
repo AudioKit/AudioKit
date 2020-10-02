@@ -13,6 +13,8 @@ public class MIDIOMNIListener: NSObject {
 
     var omniMode: Bool
 
+    /// Initialize with omni mode
+    /// - Parameter omni: Omni mode activate
     public init(omni: Bool = true) {
         omniMode = omni
     }

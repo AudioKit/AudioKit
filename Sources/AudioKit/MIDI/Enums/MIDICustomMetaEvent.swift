@@ -2,26 +2,47 @@
 
 import Foundation
 
+/// MIDI Custom Meta Event Type
 public enum MIDICustomMetaEventType: MIDIByte {
+    /// Sequence Number
     case sequenceNumber = 0x00
+    /// Text Event
     case textEvent = 0x01
+    /// Copyright
     case copyright = 0x02
+    /// Track Name
     case trackName = 0x03
+    /// Instrument Name
     case instrumentName = 0x04
+    /// Lyric
     case lyric = 0x05
+    /// Marker
     case marker = 0x06
+    /// Cue Point
     case cuePoint = 0x07
+    /// Program Name
     case programName = 0x08
+    /// Device Port Name
     case devicePortName = 0x09
+    /// Meta Event 10
     case metaEvent10 = 0x0A
+    /// Meta Event 12
     case metaEvent12 = 0x0C
+    /// Channel Prefix
     case channelPrefix = 0x20
+    /// MIDI Port
     case midiPort = 0x21
+    /// End of Track
     case endOfTrack = 0x2F
+    /// Set Tempo
     case setTempo = 0x51
+    /// SMTPE Offset
     case smtpeOffset = 0x54
+    /// Time Signature
     case timeSignature = 0x58
+    /// Key Signature
     case keySignature = 0x59
+    /// Sequencer Specific Meta Event
     case sequencerSpecificMetaEvent = 0x7F
 
     var length: Int? { //length can be variable for certain metaevents, so returns nil for the type length
@@ -90,6 +111,7 @@ public enum MIDICustomMetaEventType: MIDIByte {
     }
 }
 
+/// MIDI Custom Meta Event
 public struct MIDICustomMetaEvent: MIDIMessage {
 
     /// Position data - used for events parsed from a MIDI file
@@ -110,6 +132,8 @@ public struct MIDICustomMetaEvent: MIDIMessage {
         }
     }
 
+    /// Initialize ith MIDI File Chunk Event
+    /// - Parameter event: MIDI File Chunk Event
     init?(fileEvent event: MIDIFileChunkEvent) {
         guard
             let metaEvent = MIDICustomMetaEvent(data: event.computedData)
