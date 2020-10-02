@@ -58,13 +58,16 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappab
 
     /// Internal Audio Unit for LowShelfParametricEqualizerFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [LowShelfParametricEqualizerFilter.cornerFrequencyDef,
              LowShelfParametricEqualizerFilter.gainDef,
              LowShelfParametricEqualizerFilter.qDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("LowShelfParametricEqualizerFilterDSP")
         }

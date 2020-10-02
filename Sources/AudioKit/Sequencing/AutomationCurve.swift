@@ -10,10 +10,15 @@ import Foundation
 /// used by DSP code.
 public struct AutomationCurve {
 
+    /// Shorter name
     public typealias Point = ParameterAutomationPoint
 
+    /// Array of points that make up the curve
     public var points: [Point]
 
+
+    /// Initialize with points
+    /// - Parameter points: Array of points
     public init(points: [Point]) {
         self.points = points
     }

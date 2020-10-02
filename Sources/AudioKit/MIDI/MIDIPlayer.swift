@@ -5,21 +5,30 @@
 import AVFoundation
 
 extension AVAudioSequencer: Collection {
+    /// This is a collection of AVMusicTracls, so we define element as such
     public typealias Element = AVMusicTrack
+
+    /// Index by an integer
     public typealias Index = Int
 
+    /// Start Index
     public var startIndex: Index {
         return 0
     }
 
+    /// Ending index
     public var endIndex: Index {
         return count
     }
 
+    /// Look up by subscript
     public subscript(index: Index) -> Element {
         return tracks[index]
     }
 
+    /// Next index
+    /// - Parameter index: Current Index
+    /// - Returns: Next index
     public func index(after index: Index) -> Index {
         return index + 1
     }
@@ -33,6 +42,7 @@ extension AVAudioSequencer: Collection {
 /// Simple MIDI Player based on Apple's AVAudioSequencer which has limited capabilities
 public class MIDIPlayer: AVAudioSequencer {
 
+    /// Tempo in beats per minute
     public var tempo: Double = 120.0
 
     /// Loop control
@@ -41,6 +51,7 @@ public class MIDIPlayer: AVAudioSequencer {
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter filename: Location of the MIDI File
+    /// - parameter audioEngine: AVAudioEngine to associate with
     ///
     public init(audioEngine: AVAudioEngine, filename: String) {
         super.init(audioEngine: audioEngine)
@@ -129,6 +140,7 @@ public class MIDIPlayer: AVAudioSequencer {
     }
 
     /// Load a MIDI file
+    /// - Parameter filename: MIDI FIle name
     public func loadMIDIFile(_ filename: String) {
         guard let file = Bundle.main.path(forResource: filename, ofType: "mid") else {
             return
@@ -143,6 +155,7 @@ public class MIDIPlayer: AVAudioSequencer {
     }
 
     /// Set the midi output for all tracks
+    /// - Parameter midiEndpoint: MIDI Endpoint
     public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
         forEach {
             $0.destinationMIDIEndpoint = midiEndpoint

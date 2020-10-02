@@ -95,7 +95,8 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
 
     /// Internal audio unit for DynaRageCompressor
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [DynaRageCompressor.ratioDef,
              DynaRageCompressor.thresholdDef,
@@ -105,6 +106,8 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
              DynaRageCompressor.rageEnabledDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("DynaRageCompressorDSP")
         }

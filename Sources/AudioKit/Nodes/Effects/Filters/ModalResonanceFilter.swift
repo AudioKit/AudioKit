@@ -48,12 +48,15 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Tappable, Toggleabl
 
     /// Internal Audio Unit for ModalResonanceFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [ModalResonanceFilter.frequencyDef,
              ModalResonanceFilter.qualityFactorDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("ModalResonanceFilterDSP")
         }

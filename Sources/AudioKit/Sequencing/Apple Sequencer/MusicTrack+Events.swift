@@ -123,6 +123,7 @@ public struct AppleMIDIEvent {
     public var dataSize: UInt32
 }
 
+/// MIDI Program Change Event
 public struct MIDIProgramChangeEvent {
     public var time: MusicTimeStamp
     public var channel: MIDIChannel

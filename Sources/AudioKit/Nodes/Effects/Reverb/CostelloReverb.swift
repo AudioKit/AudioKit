@@ -48,12 +48,15 @@ public class CostelloReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for CostelloReverb
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [CostelloReverb.feedbackDef,
              CostelloReverb.cutoffFrequencyDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("CostelloReverbDSP")
         }

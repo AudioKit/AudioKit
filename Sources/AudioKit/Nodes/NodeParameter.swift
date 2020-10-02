@@ -3,13 +3,30 @@
 import AVFoundation
 import CAudioKit
 
+/// Definition or specification of a node parameter
 public struct NodeParameterDef {
+    /// Unique ID
     public var identifier: String
+    /// Name
     public var name: String
+    /// Address
     public var address: AUParameterAddress
+    /// Value Range
     public var range: ClosedRange<AUValue>
+    /// Physical Units
     public var unit: AudioUnitParameterUnit
+    /// Options
     public var flags: AudioUnitParameterOptions
+
+
+    /// Initialize node parameter definition with all data
+    /// - Parameters:
+    ///   - identifier: Unique ID
+    ///   - name: Name
+    ///   - address: Address
+    ///   - range: Value range
+    ///   - unit: Physical units
+    ///   - flags: <#flags description#>Options
     public init(identifier: String,
                 name: String,
                 address: AUParameterAddress,
@@ -30,28 +47,34 @@ public struct NodeParameterDef {
 public class NodeParameter {
     private var avAudioUnit: AVAudioUnit!
 
+    /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
 
     // MARK: Parameter properties
 
+    /// Value of the parameter
     public var value: AUValue {
         get { parameter.value }
         set { parameter.value = range.clamp(newValue) }
     }
 
+    /// Boolean values for parameters
     public var boolValue: Bool {
         get { value > 0.5 }
         set { value = newValue ? 1.0 : 0.0 }
     }
 
+    /// Minimum value
     public var minValue: AUValue {
         parameter.minValue
     }
 
+    /// Maximum value
     public var maxValue: AUValue {
         parameter.maxValue
     }
 
+    /// Value range
     public var range: ClosedRange<AUValue> {
         (parameter.minValue ... parameter.maxValue)
     }
@@ -110,6 +133,7 @@ public class NodeParameter {
                    range.clamp(value))
     }
 
+    /// Stop automation
     public func stopAutomation() {
         if let token = renderObserverToken {
             avAudioUnit.auAudioUnit.removeRenderObserver(token)
@@ -151,6 +175,10 @@ public class NodeParameter {
         assert(parameter != nil)
     }
 
+    /// Helper function to attach the parameter to the appropriate tree
+    /// - Parameters:
+    ///   - avAudioUnit: AVAudioUnit to associate with
+    ///   - index: Position of the parameter
     public func associate(with avAudioUnit: AVAudioUnit, index: Int) {
         self.avAudioUnit = avAudioUnit
         parameter = avAudioUnit.auAudioUnit.parameterTree!.allParameters[index]
@@ -160,6 +188,7 @@ public class NodeParameter {
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
     /// enabled in ParameterAutomation.
     /// A value may be passed as the initial automation value. The current value is used if none is passed.
+    /// - Parameter value: Initial value
     public func beginTouch(value: AUValue? = nil) {
         guard let value = value ?? parameter?.value else { return }
         parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .touch)
@@ -167,6 +196,7 @@ public class NodeParameter {
 
     /// Sends a .release event to the parameter observation observer, ending any automation recording.
     /// A value may be passed as the final automation value. The current value is used if none is passed.
+    /// - Parameter value: Final value
     public func endTouch(value: AUValue? = nil) {
         guard let value = value ?? parameter?.value else { return }
         parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .release)
@@ -180,16 +210,22 @@ public protocol NodeParameterType {
 }
 
 extension Bool: NodeParameterType {
+    /// Convert a Boolean to a floating point number
+    /// - Returns: An AUValue
     public func toAUValue() -> AUValue {
         self ? 1.0 : 0.0
     }
 
+    /// Initialize with a value
+    /// - Parameter value: Initial value
     public init(_ value: AUValue) {
         self = value > 0.5
     }
 }
 
 extension AUValue: NodeParameterType {
+    /// Conver to AUValue
+    /// - Returns: Value of type AUValue
     public func toAUValue() -> AUValue {
         self
     }
@@ -219,13 +255,16 @@ protocol ParameterBase {
 public struct Parameter<Value: NodeParameterType>: ParameterBase {
     var param = NodeParameter()
 
+    /// Empty initializer
     public init() {}
 
+    /// Get the wrapped value
     public var wrappedValue: Value {
         get { Value(param.value) }
         set { param.value = newValue.toAUValue() }
     }
 
+    /// Get the projected value
     public var projectedValue: NodeParameter {
         get { param }
         set { param = newValue }

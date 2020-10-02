@@ -58,13 +58,16 @@ public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Tappa
 
     /// Internal Audio Unit for HighShelfParametricEqualizerFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [HighShelfParametricEqualizerFilter.centerFrequencyDef,
              HighShelfParametricEqualizerFilter.gainDef,
              HighShelfParametricEqualizerFilter.qDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("HighShelfParametricEqualizerFilterDSP")
         }

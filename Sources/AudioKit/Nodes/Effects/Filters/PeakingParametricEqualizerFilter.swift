@@ -58,13 +58,16 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Tappabl
 
     /// Internal Audio Unit for PeakingParametricEqualizerFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [PeakingParametricEqualizerFilter.centerFrequencyDef,
              PeakingParametricEqualizerFilter.gainDef,
              PeakingParametricEqualizerFilter.qDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("PeakingParametricEqualizerFilterDSP")
         }

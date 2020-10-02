@@ -46,12 +46,15 @@ public class AutoPanner: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal audio unit for AutoPanner
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [AutoPanner.frequencyDef,
              AutoPanner.depthDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("AutoPannerDSP")
         }

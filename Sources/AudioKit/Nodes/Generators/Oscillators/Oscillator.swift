@@ -74,7 +74,8 @@ public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for Oscillator
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [Oscillator.frequencyDef,
              Oscillator.amplitudeDef,
@@ -82,6 +83,8 @@ public class Oscillator: Node, AudioUnitContainer, Tappable, Toggleable {
              Oscillator.detuningMultiplierDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("OscillatorDSP")
         }

@@ -34,11 +34,14 @@ internal struct MIDISources: Collection {
 
 // MARK: - MIDIListeners
 extension MIDI {
-    /// Add a listener to the listeners
+    /// Add a listener
+    /// - Parameter listener: MIDI Listener
     public func addListener(_ listener: MIDIListener) {
         listeners.append(listener)
     }
 
+    /// REmove a listener
+    /// - Parameter listener: MIDI Listener
     public func removeListener(_ listener: MIDIListener) {
         listeners.removeAll { (item) -> Bool in
             return item == listener
@@ -54,10 +57,13 @@ extension MIDI {
 // MARK: - MIDITransformers
 extension MIDI {
     /// Add a transformer to the transformers list
+    /// - Parameter transformer: MIDI Transformer
     public func addTransformer(_ transformer: MIDITransformer) {
         transformers.append(transformer)
     }
 
+    /// Remove a transformer from the transformers list
+    /// - Parameter transformer: MIDI Transformer
     public func removeTransformer(_ transformer: MIDITransformer) {
         transformers.removeAll { $0 == transformer }
     }
@@ -182,6 +188,7 @@ extension MIDI {
         closeInput(uid: uid)
     }
 
+    /// Close input
     public func closeInput() {
         closeInput(uid: 0)
     }

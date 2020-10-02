@@ -36,11 +36,14 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Tappable, Toggl
 
     /// Internal Audio Unit for LowPassButterworthFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [LowPassButterworthFilter.cutoffFrequencyDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("LowPassButterworthFilterDSP")
         }

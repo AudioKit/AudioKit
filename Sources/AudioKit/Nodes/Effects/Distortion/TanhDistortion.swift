@@ -70,7 +70,8 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for TanhDistortion
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [TanhDistortion.pregainDef,
              TanhDistortion.postgainDef,
@@ -78,6 +79,8 @@ public class TanhDistortion: Node, AudioUnitContainer, Tappable, Toggleable {
              TanhDistortion.negativeShapeParameterDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("TanhDistortionDSP")
         }

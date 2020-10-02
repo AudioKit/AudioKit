@@ -130,7 +130,8 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for Phaser
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [Phaser.notchMinimumFrequencyDef,
              Phaser.notchMaximumFrequencyDef,
@@ -143,6 +144,8 @@ public class Phaser: Node, AudioUnitContainer, Tappable, Toggleable {
              Phaser.lfoBPMDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("PhaserDSP")
         }

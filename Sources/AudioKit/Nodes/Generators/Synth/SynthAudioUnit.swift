@@ -33,6 +33,8 @@ public class SynthAudioUnit: AudioUnitBase {
 
     var filterReleaseDuration: AUParameter!
 
+    /// Create the synth DSP
+    /// - Returns: DSP Reference
     public override func createDSP() -> DSPRef {
         return akSynthCreateDSP()
     }
@@ -215,16 +217,27 @@ public class SynthAudioUnit: AudioUnitBase {
         filterReleaseDuration.value = 0.0
     }
 
-    public func playNote(noteNumber: UInt8,
-                         velocity: UInt8,
-                         noteFrequency: Float) {
-        akSynthPlayNote(dsp, noteNumber, velocity, noteFrequency)
+    /// Play a note
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - frequency: Frequency
+    public func playNote(noteNumber: MIDINoteNumber,
+                         velocity: MIDIVelocity,
+                         frequency: Float) {
+        akSynthPlayNote(dsp, noteNumber, velocity, frequency)
     }
 
-    public func stopNote(noteNumber: UInt8, immediate: Bool) {
+    /// Stop a note
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - immediate: Stop and allow to release or stop immediately
+    public func stopNote(noteNumber: MIDINoteNumber, immediate: Bool) {
         akSynthStopNote(dsp, noteNumber, immediate)
     }
 
+    /// Set the sustain pedal position
+    /// - Parameter down: True for pedal activation
     public func sustainPedal(down: Bool) {
         akSynthSustainPedal(dsp, down)
     }

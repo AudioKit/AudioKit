@@ -27,6 +27,8 @@ public class Convolution: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Internal audio unit for convolution
     public class InternalAU: AudioUnitBase {
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("ConvolutionDSP")
         }

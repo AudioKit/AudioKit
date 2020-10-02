@@ -95,6 +95,8 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
 
     /// Internal audio unit for Operation Generator
     public class InternalAU: AudioUnitBase {
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [OperationGenerator.parameter1Def,
              OperationGenerator.parameter2Def,
@@ -112,14 +114,19 @@ public class OperationGenerator: Node, AudioUnitContainer, Tappable, Toggleable 
              OperationGenerator.parameter14Def]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("OperationGeneratorDSP")
         }
 
+        /// Trigger the operation generator
         public override func trigger() {
             akOperationGeneratorTrigger(dsp)
         }
 
+        /// Set sporth string
+        /// - Parameter sporth: Sporth string
         public func setSporth(_ sporth: String) {
             sporth.withCString { str -> Void in
                 akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))

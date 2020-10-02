@@ -142,7 +142,8 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for ZitaReverb
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [ZitaReverb.predelayDef,
              ZitaReverb.crossoverFrequencyDef,
@@ -156,6 +157,8 @@ public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
              ZitaReverb.dryWetMixDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("ZitaReverbDSP")
         }

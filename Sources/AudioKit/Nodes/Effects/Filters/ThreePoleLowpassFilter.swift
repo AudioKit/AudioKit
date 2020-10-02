@@ -58,13 +58,16 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Tappable, Togglea
 
     /// Internal Audio Unit for ThreePoleLowpassFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [ThreePoleLowpassFilter.distortionDef,
              ThreePoleLowpassFilter.cutoffFrequencyDef,
              ThreePoleLowpassFilter.resonanceDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("ThreePoleLowpassFilterDSP")
         }

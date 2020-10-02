@@ -70,7 +70,8 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Internal Audio Unit for RolandTB303Filter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [RolandTB303Filter.cutoffFrequencyDef,
              RolandTB303Filter.resonanceDef,
@@ -78,6 +79,8 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
              RolandTB303Filter.resonanceAsymmetryDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("RolandTB303FilterDSP")
         }

@@ -14,6 +14,7 @@ open class MIDISystemRealTimeListener: NSObject {
         case `continue` = 0xFB
     }
 
+    /// System real-tiem state
     public enum SRTState {
         case stopped
         case playing
@@ -217,18 +218,23 @@ extension MIDISystemRealTimeListener: MIDIListener {
 }
 
 extension MIDISystemRealTimeListener {
+    /// Add MIDI System real-time observer
+    /// - Parameter observer: MIDI System real-time observer
     public func addObserver(_ observer: MIDISystemRealTimeObserver) {
         observers.append(observer)
     }
 
+    /// Remove MIDI System real-time observer
+    /// - Parameter observer: MIDI System real-time observer
     public func removeObserver(_ observer: MIDISystemRealTimeObserver) {
         observers.removeAll { $0 == observer }
     }
 
-    public func removeAllObserver(_ observer: MIDISystemRealTimeObserver) {
+    /// Remove all observers
+    public func removeAllObservers() {
         observers.removeAll()
     }
-
+    /// Send stop command to all observers
     func sendStopToObservers() {
         observers.forEach { (observer) in
             observer.stopSRT(listener: self)

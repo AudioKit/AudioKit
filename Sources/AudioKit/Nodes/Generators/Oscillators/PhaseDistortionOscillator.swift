@@ -89,7 +89,8 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
 
     /// Internal Audio Unit for PhaseDistortionOscillator
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [PhaseDistortionOscillator.frequencyDef,
              PhaseDistortionOscillator.amplitudeDef,
@@ -98,6 +99,8 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Tappable, Togg
              PhaseDistortionOscillator.detuningMultiplierDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("PhaseDistortionOscillatorDSP")
         }

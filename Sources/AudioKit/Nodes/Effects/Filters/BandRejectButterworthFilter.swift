@@ -48,12 +48,15 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Tappable, To
 
     /// Internal Audio Unit for BandRejectButterworthFilter
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [BandRejectButterworthFilter.centerFrequencyDef,
              BandRejectButterworthFilter.bandwidthDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("BandRejectButterworthFilterDSP")
         }

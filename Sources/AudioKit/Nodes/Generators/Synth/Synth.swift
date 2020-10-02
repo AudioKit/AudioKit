@@ -6,13 +6,16 @@ import CAudioKit
 /// Synth
 ///
 public class Synth: PolyphonicNode, AudioUnitContainer {
-    public typealias AudioUnitType = SynthAudioUnit
-    /// Four letter unique description of the node
+    /// Four letter unique description "snth""
     public static let ComponentDescription = AudioComponentDescription(instrument: "snth")
 
-    // MARK: - Properties
+    /// Type of audio unit for this node
+    public typealias AudioUnitType = SynthAudioUnit
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
+
+    // MARK: - Parameters
 
     /// Master volume (fraction)
     open var masterVolume: AUValue = 1.0 {
@@ -188,21 +191,34 @@ public class Synth: PolyphonicNode, AudioUnitContainer {
         }
     }
 
+    /// Play a note on the synth
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: MIDI Velocity
+    ///   - frequency: Frequency in Hertz
+    ///   - channel: MIDI Channel
     public override func play(noteNumber: MIDINoteNumber,
                               velocity: MIDIVelocity,
                               frequency: AUValue,
                               channel: MIDIChannel = 0) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: frequency)
+        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
     }
 
+    /// Stop a note
+    /// - Parameter noteNumber: MIDI Note Number
     public override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
+    /// Stop and immediately silence a note (regardless of release duration)
+    /// - Parameter noteNumber: MIDI Note Number
     public func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
+
+    /// Set the sustain pedal position
+    /// - Parameter pedalDown: Is the pedal down?
     public func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }

@@ -70,7 +70,8 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Tappable, Togglea
 
     /// Internal Audio Unit for DynamicRangeCompressor
     public class InternalAU: AudioUnitBase {
-
+        /// Get an array of the parameter definitions
+        /// - Returns: Array of parameter definitions
         public override func getParameterDefs() -> [NodeParameterDef] {
             [DynamicRangeCompressor.ratioDef,
              DynamicRangeCompressor.thresholdDef,
@@ -78,6 +79,8 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Tappable, Togglea
              DynamicRangeCompressor.releaseDurationDef]
         }
 
+        /// Create the DSP Refence for this node
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             akCreateDSP("DynamicRangeCompressorDSP")
         }
