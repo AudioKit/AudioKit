@@ -7,6 +7,8 @@ import Foundation
 
 /// MIDI Message Protocol
 public protocol MIDIMessage {
+    /// Array of MIDI Bytes
     var data: [MIDIByte] { get }
+    /// Pretty printout
     var description: String { get }
 }

@@ -4,6 +4,7 @@ import Foundation
 
 #if !os(tvOS)
 
+/// MIDI File Track
 public struct MIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk

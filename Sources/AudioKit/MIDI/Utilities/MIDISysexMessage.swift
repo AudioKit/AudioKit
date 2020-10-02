@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// MIDI System Exclusive Message
 public struct MIDISysExMessage: MIDIMessage {
     /// Data in bytes
     public let data: [MIDIByte]

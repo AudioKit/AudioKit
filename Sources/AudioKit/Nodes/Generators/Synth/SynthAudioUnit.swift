@@ -3,6 +3,7 @@
 import AVFoundation
 import CAudioKit
 
+/// Synth Audio Unit - should be converted to an InternalAU
 public class SynthAudioUnit: AudioUnitBase {
 
     var masterVolume: AUParameter!

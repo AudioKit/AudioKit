@@ -205,7 +205,10 @@ public class NodeParameter {
 
 /// Base protocol for any type supported by @Parameter
 public protocol NodeParameterType {
+    /// Get the float value
     func toAUValue() -> AUValue
+    /// Initialize with a floating point number
+    /// - Parameter value: initial value
     init(_ value: AUValue)
 }
 

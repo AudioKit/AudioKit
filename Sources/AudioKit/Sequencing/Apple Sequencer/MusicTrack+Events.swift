@@ -4,14 +4,17 @@ import AVFoundation
 import Foundation
 
 extension MusicTrackManager {
+    /// Array of Apple MIDI Events
     open var eventData: [AppleMIDIEvent]? {
         return getRawEventData()
     }
 
+    /// Array of Apple MIDI Events
     open var noteData: [AppleMIDIEvent]? {
         return getRawEventData(ofType: kMusicEventType_MIDINoteMessage)
     }
 
+    /// Array of MIDI Program Change Events
     open var programChangeEvents: [MIDIProgramChangeEvent] {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {

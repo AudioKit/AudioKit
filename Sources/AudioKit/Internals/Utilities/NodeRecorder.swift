@@ -6,7 +6,7 @@ import AVFoundation
 open class NodeRecorder: NSObject {
     // MARK: - Properties
 
-    // The node we record from
+    /// The node we record from
     public private(set) var node: Node
 
     /// True if we are recording.
@@ -89,7 +89,7 @@ open class NodeRecorder: NSObject {
 
     // MARK: - Methods
 
-    // Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
+    /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
     public static func createTempFile() -> AVAudioFile? {
         let filename = UUID().uuidString + ".caf"
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
@@ -106,7 +106,7 @@ open class NodeRecorder: NSObject {
         return tmpFile
     }
 
-    // When done with this class, remove any temp files that were created with createTempFile()
+    /// When done with this class, remove any temp files that were created with createTempFile()
     public static func removeTempFiles() {
         for url in NodeRecorder.tmpFiles {
             try? FileManager.default.removeItem(at: url)

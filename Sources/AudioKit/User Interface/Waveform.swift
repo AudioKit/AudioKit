@@ -53,7 +53,7 @@ public class Waveform: CALayer {
         }
     }
 
-    // Reverse the waveform
+    /// Reverse the waveform
     public var isReversed: Bool = false {
         didSet {
             updateReverse()

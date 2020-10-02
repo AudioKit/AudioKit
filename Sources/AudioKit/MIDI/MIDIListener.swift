@@ -15,6 +15,7 @@ import AVFoundation
 
 let MIDIListenerLogging = false
 
+/// MIDI Listener protocol
 public protocol MIDIListener {
 
     /// Receive the MIDI note on event
@@ -139,6 +140,8 @@ public protocol MIDIListener {
 /// Default listener functions
 public extension MIDIListener {
 
+    /// Equality test
+    /// - Parameter listener: Another listener
     func isEqualTo(_ listener: MIDIListener) -> Bool {
         return self == listener
     }

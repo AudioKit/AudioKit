@@ -40,29 +40,31 @@ public protocol MIDIBeatObserver {
 public extension MIDIBeatObserver {
 
     func preparePlay(continue: Bool) {
-
+        // Do nothing
     }
 
     func startFirstBeat(continue: Bool) {
-
+        // Do nothing
     }
 
     func stopSRT() {
-
+        // Do nothing
     }
 
     func receivedBeatEvent(beat: UInt64) {
-
+        // Do nothing
     }
 
     func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
-
+        // Do nothing
     }
 
     func receivedQuarterNoteBeat(quarterNote: MIDIByte) {
-
+        // Do nothing
     }
 
+    /// Equality test
+    /// - Parameter listener: Another listener
     func isEqualTo(_ listener: MIDIBeatObserver) -> Bool {
         return self == listener
     }

@@ -8,9 +8,13 @@ import CAudioKit
 public class Delay: Node, Toggleable {
     let delayAU = AVAudioUnitDelay()
 
+    /// Dry wet mix
     @Parameter public var dryWetMix: AUValue
+    /// Delay time
     @Parameter public var time: AUValue
+    /// Feedback
     @Parameter public var feedback: AUValue
+    /// Low-pass cutoff frequency
     @Parameter public var lowPassCutoff: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)

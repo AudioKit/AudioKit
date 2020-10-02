@@ -4,6 +4,7 @@
 
 #if !os(tvOS)
 
+/// MIDI Note Duration
 public class MIDINoteDuration {
     /// Note Start time
     public var noteStartTime = 0.0
@@ -30,7 +31,8 @@ public class MIDINoteDuration {
         self.noteNumber = noteNumber
     }
 }
-//Get the MIDI events which occur inside a MIDI track in a MIDI file
+
+/// Get the MIDI events which occur inside a MIDI track in a MIDI file
 public class MIDIFileTrackNoteMap {
     /// MIDI File Track
     public let midiTrack: MIDIFileTrack!

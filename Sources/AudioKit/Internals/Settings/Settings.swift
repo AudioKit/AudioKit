@@ -47,9 +47,13 @@ public class Settings: NSObject {
 
     /// Constants for ramps used in ParameterRamp, Fader, and others
     public enum RampType: Int {
+        /// Linear
         case linear = 0
+        /// Exponential
         case exponential = 1
+        /// Logarithmic
         case logarithmic = 2
+        /// S-Curve
         case sCurve = 3
     }
 

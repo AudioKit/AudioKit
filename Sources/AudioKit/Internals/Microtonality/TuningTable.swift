@@ -4,8 +4,14 @@ import Foundation
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 public class TuningTableETNN: NSObject {
+    /// MIDI Note Nubmer
     public var nn: MIDINoteNumber = 60
+    /// Pitch Bend
     public var pitchBend: Int = 16_384 / 2
+    /// Initial tuning table with note number and pitch Bend
+    /// - Parameters:
+    ///   - nn: Note Number
+    ///   - pb: Pitch Bend
     public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
         self.nn = nn
         self.pitchBend = pb
@@ -14,8 +20,16 @@ public class TuningTableETNN: NSObject {
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 public class TuningTableDelta12ET: NSObject {
+    /// MIDI note number
     public var nn: MIDINoteNumber = 60
+
+    /// Detuning in cents
     public var cents: Double = 0
+
+    /// Initialize tuning table
+    /// - Parameters:
+    ///   - nn: Note number
+    ///   - cents: Detuning cents
     public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
         self.nn = nn
         self.cents = cents
@@ -23,10 +37,8 @@ public class TuningTableDelta12ET: NSObject {
 }
 
 /// TuningTable provides high-level methods to create musically useful tuning tables
-
-// Definitions:
-// masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
 public class TuningTable: TuningTableBase {
+    /// an octave-based array of linear frequencies, processed to spread across all midi note numbers
     public private(set) var masterSet = [Frequency]()
 
     /// Note number for standard reference note
@@ -212,20 +224,20 @@ public class TuningTable: TuningTableBase {
             // UPDATE etNNPitchBend
             if f <= 0 { continue } // defensive, in case clamp above is removed
             let freqAs12ETNN = Double(middleCNoteNumber) + 12 * log2(f / middleCFrequency)
-            if freqAs12ETNN >= 0 && freqAs12ETNN < Double(TuningTable.midiNoteCount) {
+            if freqAs12ETNN >= 0, freqAs12ETNN < Double(TuningTable.midiNoteCount) {
                 let etnnt = modf(freqAs12ETNN)
                 var nnAs12ETNN = MIDINoteNumber(etnnt.0) // integer part "12ET note number"
                 var etnnpbf = 100 * etnnt.1 // convert fractional part to Cents
 
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
-                if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(TuningTable.midiNoteCount - 1) {
+                if etnnpbf >= 50, nnAs12ETNN < MIDINoteNumber(TuningTable.midiNoteCount - 1) {
                     nnAs12ETNN += 1
                     etnnpbf -= 100
                 }
                 let delta12ETpbf = etnnpbf // defensive, in case you further modify etnnpbf
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)
-                if netnnpbf >= -0.5 && netnnpbf <= 0.5 {
-                    let netnnpb = Int( (netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow )
+                if netnnpbf >= -0.5, netnnpbf <= 0.5 {
+                    let netnnpb = Int((netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow)
                     etNNDictionary[MIDINoteNumber(i)] = TuningTableETNN(nnAs12ETNN, netnnpb)
                     delta12ETDictionary[MIDINoteNumber(i)] = TuningTableDelta12ET(nnAs12ETNN, delta12ETpbf)
                 }

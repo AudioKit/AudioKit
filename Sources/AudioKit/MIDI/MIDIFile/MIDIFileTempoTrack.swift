@@ -2,6 +2,7 @@
 
 #if !os(tvOS)
 
+/// MIDI File Tempo Track
 public struct MIDIFileTempoTrack {
 
     /// Associated MIDI File Track

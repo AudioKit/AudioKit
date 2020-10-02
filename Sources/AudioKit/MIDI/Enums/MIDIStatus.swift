@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+/// MIDI Status Message
 public struct MIDIStatus: MIDIMessage {
 
     /// Status message data

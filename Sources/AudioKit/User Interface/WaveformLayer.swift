@@ -16,6 +16,7 @@ public class WaveformLayer: CAShapeLayer {
     }
 
     private var _table: [Float]?
+    /// Array of float values
     public var table: [Float]? {
         get {
             return _table

@@ -375,6 +375,7 @@ import Cocoa
 /// Call back for values for attack, decay, sustain, and release parameters
 public typealias ADSRCallback = (AUValue, AUValue, AUValue, AUValue) -> Void
 
+/// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
 public class ADSRView: NSView {
 
     /// Attack Duration
@@ -644,6 +645,8 @@ public class ADSRView: NSView {
         NSGraphicsContext.restoreGraphicsState()
     }
 
+    /// Draw the ADSR View
+    /// - Parameter rect: Rectangle to draw in
     override public func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size,
                         attackDurationMS: CGFloat(attackDuration * 1_000),

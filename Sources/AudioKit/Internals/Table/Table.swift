@@ -43,9 +43,13 @@ public enum TableType: Int, Codable, CaseIterable {
 
 /// A table of values accessible as a waveform or lookup mechanism
 public class Table: NSObject, MutableCollection, Codable {
+    /// Index by an integer
     public typealias Index = Int
+    /// Index distance, or count
     public typealias IndexDistance = Int
+    /// This is a collection of floats
     public typealias Element = Float
+    /// Subsequencable into slices
     public typealias SubSequence = ArraySlice<Element>
 
     // MARK: - Properties    /// Values stored in the table

@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// MIDI File Track Chunk
 public struct MIDIFileTrackChunk: MIDIFileChunk {
     /// Raw data as array of MIDI Bytes
     public let rawData: [MIDIByte]

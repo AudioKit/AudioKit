@@ -5,6 +5,7 @@
 
 import AVFoundation
 
+/// Information about a MIDI Endpoint
 public struct EndpointInfo: Hashable, Codable {
 
     /// Unique name
@@ -37,7 +38,9 @@ public struct EndpointInfo: Hashable, Codable {
     public static func == (lhs: EndpointInfo, rhs: EndpointInfo) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
-    /// Hashable
+
+    /// Conform to hashable
+    /// - Parameter hasher: Hasher to use
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(displayName)
@@ -49,7 +52,17 @@ public struct EndpointInfo: Hashable, Codable {
         hasher.combine(midiPortRef)
     }
 
-    /// init
+    /// Initialize this endpoint
+    /// - Parameters:
+    ///   - name: Unique name
+    ///   - displayName: Display Name
+    ///   - model: Model description
+    ///   - manufacturer: Manufacturer description
+    ///   - image: Image
+    ///   - driverOwner: Driver owner descriptions
+    ///   - midiUniqueID: MIDI Unique ID
+    ///   - midiEndpointRef: MIDI Endpoint reference
+    ///   - midiPortRef: MIDI Port Reference
     public init(name: String,
                 displayName: String,
                 model: String,

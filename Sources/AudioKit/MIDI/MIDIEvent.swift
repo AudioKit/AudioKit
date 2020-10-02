@@ -6,7 +6,6 @@ import os.log
 
 /// A container for the values that define a MIDI event
 public struct MIDIEvent: MIDIMessage {
-    // MARK: - Properties
 
     /// Internal data
     public var data = [MIDIByte]()
@@ -14,10 +13,10 @@ public struct MIDIEvent: MIDIMessage {
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
-    // Offset - offset within a packet. Used mostly in receiving packets live
+    /// Offset within a packet. Used mostly in receiving packets live
     public var offset: MIDITimeStamp = 0
 
-    /// Description
+    /// Pretty printout
     public var description: String {
         if let status = self.status {
             return "\(status.description) - \(data)"

@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// MIDI File
 public struct MIDIFile {
 
     /// File name

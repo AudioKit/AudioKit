@@ -52,8 +52,8 @@ extension AVAudioPCMBuffer {
 }
 
 extension AVAudioPCMBuffer {
+    /// Local maximum containing the time, frame position and  amplitude
     public struct Peak {
-
         /// Initialize the peak, to be able to use outside of AudioKit
         public init() {}
         internal static let min: Float = -10_000.0
@@ -65,6 +65,7 @@ extension AVAudioPCMBuffer {
         public var amplitude: Float = 1
     }
 
+    /// Find peak in the buffer
     /// - Returns: A Peak struct containing the time, frame position and peak amplitude
     public func peak() -> Peak? {
         guard frameLength > 0 else { return nil }

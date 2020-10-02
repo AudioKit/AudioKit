@@ -3,6 +3,9 @@
 import CAudioKit
 import Foundation
 
+/// Exception catcher
+/// - Parameter operation: Throwin code
+/// - Throws: Error if an excpetion occurred
 public func ExceptionCatcher(_ operation: @escaping (() throws -> Void)) throws {
     var error: Error?
 

@@ -5,6 +5,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Interop.h"
 
+/// Sequence Event
 typedef struct {
     uint8_t status;
     uint8_t data1;
@@ -12,11 +13,13 @@ typedef struct {
     double beat;
 } SequenceEvent;
 
+/// Sequence Note
 typedef struct {
     SequenceEvent noteOn;
     SequenceEvent noteOff;
 } SequenceNote;
 
+/// Sequence Settings
 typedef struct {
     int maximumPlayCount;
     double length;

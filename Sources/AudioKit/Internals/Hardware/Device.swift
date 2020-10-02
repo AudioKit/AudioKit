@@ -1,8 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if os(macOS)
+/// DeviceID isan AudioDeviceID on macOS
 public typealias DeviceID = AudioDeviceID
 #else
+/// DeviceID is a string on iOS
 public typealias DeviceID = String
 #endif
 
@@ -12,7 +14,9 @@ import AVFoundation
 public struct Device: Equatable, Hashable {
     /// The human-readable name for the device.
     public private(set) var name: String
+    /// Number of input channels
     public private(set) var nInputChannels: Int?
+    /// Number of output channels
     public private(set) var nOutputChannels: Int?
 
     /// The device identifier.
@@ -23,6 +27,7 @@ public struct Device: Equatable, Hashable {
     /// - Parameters:
     ///   - name: The human-readable name for the device.
     ///   - deviceID: The device identifier.
+    ///   - dataSource: String describing data source
     ///
     public init(name: String, deviceID: DeviceID, dataSource: String = "") {
         self.name = name
@@ -35,6 +40,8 @@ public struct Device: Equatable, Hashable {
     }
 
     #if os(macOS)
+    /// Initialize the device
+    /// - Parameter deviceID: DeviceID
     public init(deviceID: DeviceID) {
         self.init(name: AudioDeviceUtils.name(deviceID), deviceID: deviceID)
         nInputChannels = AudioDeviceUtils.inputChannels(deviceID)

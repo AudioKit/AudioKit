@@ -1,9 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if targetEnvironment(macCatalyst) || os(iOS)
-import UIKit
-import CoreMIDI
-
 /// Delegate for keyboard events
 public protocol KeyboardDelegate: AnyObject {
     /// Note on events
@@ -12,8 +8,13 @@ public protocol KeyboardDelegate: AnyObject {
     func noteOff(note: MIDINoteNumber)
 }
 
+
+#if targetEnvironment(macCatalyst) || os(iOS)
+import UIKit
+import CoreMIDI
+
 /// Clickable keyboard mainly used for AudioKit playgrounds
-@IBDesignable public class KeyboardView: UIView, MIDIListener {
+@IBDesignable public class KeyboardView: UIView {
     //swiftlint:disable
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
@@ -371,178 +372,6 @@ public protocol KeyboardDelegate: AnyObject {
         return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
     }
-
-    // MARK: - MIDI
-
-    /// Receive the MIDI note on event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number of activated note
-    ///   - velocity:   MIDI Velocity (0-127)
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            channel: MIDIChannel,
-                            portID: MIDIUniqueID?,
-                            offset: MIDITimeStamp) {
-        DispatchQueue.main.async(execute: {
-            self.onKeys.insert(noteNumber)
-            self.delegate?.noteOn(note: noteNumber)
-            self.setNeedsDisplay()
-        })
-    }
-
-    /// Receive the MIDI note off event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number of released note
-    ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                             velocity: MIDIVelocity,
-                             channel: MIDIChannel,
-                             portID: MIDIUniqueID?,
-                             offset: MIDITimeStamp) {
-        DispatchQueue.main.async(execute: {
-            self.onKeys.remove(noteNumber)
-            self.delegate?.noteOff(note: noteNumber)
-            self.setNeedsDisplay()
-        })
-    }
-
-    /// Receive a generic controller value
-    ///
-    /// - Parameters:
-    ///   - controller: MIDI Controller Number
-    ///   - value:      Value of this controller
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    func receivedMIDIController(_ controller: MIDIByte,
-                                value: MIDIByte,
-                                channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
-        if controller == MIDIByte(MIDIControl.damperOnOff.rawValue) && value == 0 {
-            for note in onKeys {
-                delegate?.noteOff(note: note)
-            }
-        }
-    }
-
-    /// Receive single note based aftertouch event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: Note number of touched note
-    ///   - pressure:   Pressure applied to the note (0-127)
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                pressure: MIDIByte,
-                                channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// Receive single note based aftertouch event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: Note number of touched note
-    ///   - pressure:   Pressure applied to the note (0-127)
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                       pressure: MIDIByte,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// Receive global aftertouch
-    ///
-    /// - Parameters:
-    ///   - pressure: Pressure applied (0-127)
-    ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:   MIDI Unique Port ID
-    ///   - offset:   the offset in samples that this event occurs in the buffer
-    ///
-    public func receivedMIDIAftertouch(_ pressure: MIDIByte,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// Receive pitch wheel value
-    ///
-    /// - Parameters:
-    ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
-    ///   - channel:         MIDI Channel (1-16)
-    ///   - portID:          MIDI Unique Port ID
-    ///   - offset:          the offset in samples that this event occurs in the buffer
-    ///
-    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// Receive program change
-    ///
-    /// - Parameters:
-    ///   - program:  MIDI Program Value (0-127)
-    ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:   MIDI Unique Port ID
-    ///   - offset:   the offset in samples that this event occurs in the buffer
-    ///
-    public func receivedMIDIProgramChange(_ program: MIDIByte,
-                                          channel: MIDIChannel,
-                                          portID: MIDIUniqueID?,
-                                          offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// Receive a MIDI system command (such as clock, SysEx, etc)
-    ///
-    /// - data:       Array of integers
-    /// - portID:     MIDI Unique Port ID
-    /// - offset:     the offset in samples that this event occurs in the buffer
-    ///
-    public func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                          portID: MIDIUniqueID?,
-                                          offset: MIDITimeStamp) {
-        // Do nothing
-    }
-
-    /// MIDI Setup has changed
-    public func receivedMIDISetupChange() {
-        // Do nothing
-    }
-
-    /// MIDI Object Property has changed
-    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
-        // Do nothing
-    }
-
-    /// Generic MIDI Notification
-    public func receivedMIDINotification(notification: MIDINotification) {
-        // Do nothing
-    }
-
 }
 
 #elseif os(macOS)
@@ -550,14 +379,8 @@ public protocol KeyboardDelegate: AnyObject {
 import Cocoa
 import CoreMIDI
 
-/// Delegate protocol
-public protocol KeyboardDelegate: class {
-    func noteOn(note: MIDINoteNumber)
-    func noteOff(note: MIDINoteNumber)
-}
-
 /// View that displays a piano keyboard
-public class KeyboardView: NSView, MIDIListener {
+public class KeyboardView: NSView {
 
     var size = CGSize.zero
 
@@ -808,7 +631,11 @@ public class KeyboardView: NSView, MIDIListener {
             needsDisplay = true
         }
     }
+}
 
+#endif
+
+extension KeyboardView: MIDIListener {
     // MARK: - MIDI
 
     /// Receive the MIDI note on event
@@ -828,7 +655,6 @@ public class KeyboardView: NSView, MIDIListener {
         DispatchQueue.main.async(execute: {
             self.onKeys.insert(noteNumber)
             self.delegate?.noteOn(note: noteNumber)
-            self.needsDisplay = true
         })
     }
 
@@ -849,7 +675,6 @@ public class KeyboardView: NSView, MIDIListener {
         DispatchQueue.main.async(execute: {
             self.onKeys.remove(noteNumber)
             self.delegate?.noteOff(note: noteNumber)
-            self.needsDisplay = true
         })
     }
 
@@ -863,7 +688,8 @@ public class KeyboardView: NSView, MIDIListener {
     ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     public func receivedMIDIController(_ controller: MIDIByte,
-                                       value: MIDIByte, channel: MIDIChannel,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
                                        offset: MIDITimeStamp) {
         if controller == MIDIByte(MIDIControl.damperOnOff.rawValue) && value == 0 {
@@ -961,11 +787,4 @@ public class KeyboardView: NSView, MIDIListener {
     public func receivedMIDINotification(notification: MIDINotification) {
         // Do nothing
     }
-
-    /// OMNI State Change - override in subclass
-    public func omniStateChange() {
-        // override in subclass?
-    }
 }
-
-#endif

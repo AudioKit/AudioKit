@@ -4,6 +4,7 @@ import Foundation
 
 #if !os(tvOS)
 
+/// MIDI Tempo Observer
 public protocol MIDITempoObserver {
 
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
@@ -33,6 +34,8 @@ public extension MIDITempoObserver {
 
     }
 
+    /// Equality test
+    /// - Parameter listener: Another listener
     func isEqualTo(_ listener: MIDITempoObserver) -> Bool {
         return self == listener
     }

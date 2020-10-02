@@ -49,6 +49,8 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Tappable, To
             akCreateDSP("FlatFrequencyResponseReverbDSP")
         }
 
+        /// Set loop duration
+        /// - Parameter duration: Duration in seconds
         public func setLoopDuration(_ duration: AUValue) {
             akFlatFrequencyResponseSetLoopDuration(dsp, duration)
         }

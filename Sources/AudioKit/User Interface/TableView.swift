@@ -70,6 +70,7 @@ public class TableView: UIView {
 
 import Cocoa
 
+/// Displays the values in the table into a nice graph
 public class TableView: NSView {
 
     /// Table to view
