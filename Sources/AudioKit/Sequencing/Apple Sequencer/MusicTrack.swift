@@ -567,9 +567,9 @@ open class MusicTrackManager {
         // Find least and most significant bytes, remembering they are 7 bit numbers.
         let lsb = value & 0x7f
         let msb = (value >> 7) & 0x7f
-        var pitchBendMessage = MIDIChannelMessage(status: UInt8(14 << 4) | UInt8(channel & 0xf),
-                                                  data1: UInt8(lsb),
-                                                  data2: UInt8(msb),
+        var pitchBendMessage = MIDIChannelMessage(status: MIDIByte(14 << 4) | MIDIByte(channel & 0xf),
+                                                  data1: MIDIByte(lsb),
+                                                  data2: MIDIByte(msb),
                                                   reserved: 0)
         MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &pitchBendMessage)
     }

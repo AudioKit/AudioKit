@@ -102,7 +102,7 @@ public enum MIDISystemCommand: MIDIByte, MIDIMessage {
     }
 
     /// System command data
-    public var data: [UInt8] {
+    public var data: [MIDIByte] {
         return [byte]
     }
 }

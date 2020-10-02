@@ -3,12 +3,12 @@
 import Foundation
 
 public struct MIDIFileTrackChunk: MIDIFileChunk {
-    public let rawData: [UInt8]
+    public let rawData: [MIDIByte]
 
     let timeFormat: MIDITimeFormat
     let timeDivision: Int
 
-    public init?(data: [UInt8]) {
+    public init?(data: [MIDIByte]) {
         guard
             data.count > 8
             else {

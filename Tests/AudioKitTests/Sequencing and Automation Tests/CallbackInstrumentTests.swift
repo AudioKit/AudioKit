@@ -22,14 +22,14 @@ class CallbackInstrumentTests: XCTestCase {
         let engine = AudioEngine()
 
         let expect = XCTestExpectation(description: "wait for callback")
-        let expectedData: [UInt8] = [144, 60, 127,
-                                     128, 60, 127,
-                                     144, 62, 127,
-                                     128, 62, 127,
-                                     144, 63, 127,
-                                     128, 63, 127]
+        let expectedData: [MIDIByte] = [144, 60, 127,
+                                        128, 60, 127,
+                                        144, 62, 127,
+                                        128, 62, 127,
+                                        144, 63, 127,
+                                        128, 63, 127]
 
-        var data: [UInt8] = []
+        var data: [MIDIByte] = []
 
         instrument = CallbackInstrument() { status, data1, data2 in
             data.append(status)

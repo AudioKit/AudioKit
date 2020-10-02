@@ -412,13 +412,13 @@ public class SamplerAudioUnit: AudioUnitBase {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: Velocity of the note
     ///   - channel: MIDI Channel
-    public func playNote(noteNumber: UInt8, velocity: UInt8) {
+    public func playNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         akSamplerPlayNote(dsp, noteNumber, velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
-    public func stopNote(noteNumber: UInt8, immediate: Bool) {
+    public func stopNote(noteNumber: MIDINoteNumber, immediate: Bool) {
         akSamplerStopNote(dsp, noteNumber, immediate)
     }
 

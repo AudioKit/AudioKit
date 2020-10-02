@@ -4,6 +4,7 @@
 
 public struct MIDIFileTempoTrack {
 
+    /// Associated MIDI File Track
     public let track: MIDIFileTrack
 
     /// Length of MIDI File tempo track
@@ -38,7 +39,7 @@ public struct MIDIFileTempoTrack {
     }
 
     /// Array of tempo byts
-    public var tempoData = [UInt8]()
+    public var tempoData = [MIDIByte]()
 
     /// Current tempo
     public var tempo: Float {

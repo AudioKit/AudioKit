@@ -26,8 +26,8 @@ public struct NoteEventSequence: Equatable {
     public var notes: [SequenceNote]
     public var events: [SequenceEvent]
 
-    public static let noteOn: UInt8 = 0x90
-    public static let noteOff: UInt8 = 0x80
+    public static let noteOn: MIDIByte = 0x90
+    public static let noteOff: MIDIByte = 0x80
 
     public init(notes: [SequenceNote] = [], events: [SequenceEvent] = []) {
         self.notes = notes
@@ -80,7 +80,7 @@ public struct NoteEventSequence: Equatable {
     }
 
     /// Add MIDI data to the track as an event
-    public mutating func add(status: MIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
+    public mutating func add(status: MIDIStatus, data1: MIDIByte, data2: MIDIByte, position: Double) {
         events.append(SequenceEvent(status: status.byte, data1: data1, data2: data2, beat: position))
     }
 

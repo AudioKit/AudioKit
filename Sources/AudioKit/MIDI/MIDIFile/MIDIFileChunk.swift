@@ -5,17 +5,17 @@ import Foundation
 /// MIDI File Chunk Protocol
 public protocol MIDIFileChunk {
     /// All data used to init this chunk
-    var rawData: [UInt8] { get }
+    var rawData: [MIDIByte] { get }
     /// The subset of data used to determine type ("MTrk" or "MThd")
-    var typeData: [UInt8] { get }
+    var typeData: [MIDIByte] { get }
     /// The subset of data used to determine chunk length
-    var lengthData: [UInt8] { get }
+    var lengthData: [MIDIByte] { get }
     /// The subset of data that contains events, etc
-    var data: [UInt8] { get }
+    var data: [MIDIByte] { get }
 
     /// Initialize with data
     /// - Parameter data: MIDI Byte array
-    init?(data: [UInt8])
+    init?(data: [MIDIByte])
 }
 
 /// Default behavior for MIDI FIle Chunks
@@ -39,17 +39,17 @@ public extension MIDIFileChunk {
     }
 
     /// Type data
-    var typeData: [UInt8] {
+    var typeData: [MIDIByte] {
         return Array(rawData[0..<4])
     }
 
     /// Length data
-    var lengthData: [UInt8] {
+    var lengthData: [MIDIByte] {
         return Array(rawData[4..<8])
     }
 
     /// Raw data
-    var data: [UInt8] {
+    var data: [MIDIByte] {
         return Array(rawData.suffix(from: 8))
     }
 
@@ -78,7 +78,7 @@ public enum MIDIFileChunkType: String {
 
     /// Initialize with data
     /// - Parameter data: MIDI Byte Array
-    init?(data: [UInt8]) {
+    init?(data: [MIDIByte]) {
         let text = String(data.map({ Character(UnicodeScalar($0)) }))
         self.init(text: text)
     }
@@ -95,7 +95,7 @@ public enum MIDIFileChunkType: String {
     }
 
     /// Data
-    var midiBytes: [UInt8] {
-        return [UInt8](text.utf8)
+    var midiBytes: [MIDIByte] {
+        return [MIDIByte](text.utf8)
     }
 }

@@ -71,7 +71,7 @@ extension MIDIWord {
     /// byte in the MIDIWord
     ///
     /// - Parameter ioBitmap: Full 8bits of ioMapping for one output
-    init(ioBitmap: UInt8) {
+    init(ioBitmap: MIDIByte) {
         let high = (ioBitmap & 0xF0) >> 4
         let low = ioBitmap & 0x0F
         self = UInt16(high << 8) | UInt16(low)
