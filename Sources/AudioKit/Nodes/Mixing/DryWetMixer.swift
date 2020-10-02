@@ -70,6 +70,11 @@ public class DryWetMixer: Node, AudioUnitContainer, Tappable, Toggleable {
         connections.append(input2)
     }
 
+    /// Initializer with dry wet labels
+    /// - Parameters:
+    ///   - dry: Input 1
+    ///   - wet: Input 2
+    ///   - balance: Balance between inputs
     public convenience init(dry: Node, wet: Node, balance: AUValue = 0.5) {
         self.init(dry, wet, balance: balance)
     }

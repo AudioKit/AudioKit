@@ -3,11 +3,14 @@
 import Foundation
 
 public struct MIDIFileTrackChunk: MIDIFileChunk {
+    /// Raw data as array of MIDI Bytes
     public let rawData: [MIDIByte]
 
     let timeFormat: MIDITimeFormat
     let timeDivision: Int
 
+    /// Initialize from a raw data array
+    /// - Parameter data: Array of MIDI Bytes
     public init?(data: [MIDIByte]) {
         guard
             data.count > 8
@@ -36,6 +39,7 @@ public struct MIDIFileTrackChunk: MIDIFileChunk {
         self.timeDivision = timeDivision
     }
 
+    /// Array of chunk events
     public var chunkEvents: [MIDIFileChunkEvent] {
         var events = [MIDIFileChunkEvent]()
         var accumulatedDeltaTime = 0

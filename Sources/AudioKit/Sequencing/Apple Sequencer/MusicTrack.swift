@@ -48,6 +48,8 @@ open class MusicTrackManager {
 
     // MARK: - Initialization
 
+    /// Initialize with a name
+    /// - Parameter name: Name of the track
     public init(name: String = "Unnamed") {
         self.name = name
         guard let seq = sequencer.sequence else { fatalError() }
@@ -650,6 +652,7 @@ open class MusicTrackManager {
         return copiedTrack
     }
 
+    /// Reset to initial values
     public func resetToInit() {
         var initLengthCopy: Double = initLength
         clear()

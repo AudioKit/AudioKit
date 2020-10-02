@@ -5,9 +5,9 @@ import CoreMIDI
 import os.log
 
 /// MIDI input and output handler
-///
 public class MIDI {
 
+    /// Shared singleton
     public static var sharedInstance = MIDI()
 
     // MARK: - Properties
@@ -42,6 +42,7 @@ public class MIDI {
     /// Array of all listeners
     public var listeners = [MIDIListener]()
 
+    /// Array of all transformers
     public var transformers = [MIDITransformer]()
 
     // MARK: - Initialization

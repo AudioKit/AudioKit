@@ -4,12 +4,16 @@
 import CoreMIDI
 
 extension MIDIPacketList: Sequence {
+    /// The element is a packet list sequence is a MIDI Packet
     public typealias Element = MIDIPacket
 
+    /// Number of packets
     public var count: UInt32 {
         return self.numPackets
     }
 
+    /// Create the sequence
+    /// - Returns: Iterator of elements
     public func makeIterator() -> AnyIterator<Element> {
         var p: MIDIPacket = packet
         var idx: UInt32 = 0

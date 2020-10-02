@@ -67,7 +67,7 @@ public class MIDITrackView: UIView {
         clipsToBounds = true
         self.sampler = sampler
         self.sequencer = sequencer
-        self.midiTrackNoteMap = MIDIFileTrackNoteMap(midiFile: MIDIFile(url: midiFile), trackNum: trackNumber)
+        self.midiTrackNoteMap = MIDIFileTrackNoteMap(midiFile: MIDIFile(url: midiFile), trackNumber: trackNumber)
         populateViewNotes()
     }
 
@@ -146,12 +146,12 @@ public class MIDITrackView: UIView {
         noteGroupPosition = Double(collectiveNoteViewRect.origin.x)
         self.addSubview(collectiveNoteView)
         for note in noteList {
-            let noteNum = note.noteNum - loNote
-            let noteStart = Double(note.noteBeginningTime)
+            let noteNumber = note.noteNumber - loNote
+            let noteStart = Double(note.noteStartTime)
             let noteDuration = Double(note.noteDuration)
             let noteLength = Double(noteDuration * zoomConstant)
             let notePosition = Double(noteStart * zoomConstant)
-            let noteLevel = (maxHeight - (Double(noteNum) * noteHeight))
+            let noteLevel = (maxHeight - (Double(noteNumber) * noteHeight))
             let singleNoteRect = CGRect(x: notePosition, y: noteLevel, width: noteLength, height: noteHeight)
             let singleNoteView = UIView(frame: singleNoteRect)
             singleNoteView.backgroundColor = UIColor.white

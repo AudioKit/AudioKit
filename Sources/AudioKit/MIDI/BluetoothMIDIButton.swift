@@ -6,6 +6,7 @@ import CoreAudioKit
 class BTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
+    /// Called when subview area layed out
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,

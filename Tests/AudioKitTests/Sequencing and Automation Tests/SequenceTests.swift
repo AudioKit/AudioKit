@@ -13,12 +13,12 @@ class NoteEventSequenceTests: XCTestCase {
 
         var newNote = SequenceNote()
 
-        newNote.noteOn.status = NoteEventSequence.noteOn
+        newNote.noteOn.status = noteOnByte
         newNote.noteOn.data1 = 60
         newNote.noteOn.data2 = 127
         newNote.noteOn.beat = 1.0
 
-        newNote.noteOff.status = NoteEventSequence.noteOff
+        newNote.noteOff.status = noteOffByte
         newNote.noteOff.data1 = 60
         newNote.noteOff.data2 = 127
         newNote.noteOff.beat = 2.0
