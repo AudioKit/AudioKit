@@ -292,28 +292,43 @@ public class Table: NSObject, MutableCollection, Codable {
 }
 
 extension Table: RandomAccessCollection {
+    /// Indices for our elements
     public typealias Indices = Array<Element>.Indices
 
+    /// Index before
+    /// - Parameter i: current index
     @inline(__always)
     public func index(before i: Index) -> Index {
         return i - 1
     }
 
+    /// Index after
+    /// - Parameter i: current index
     @inline(__always)
     public func index(after i: Index) -> Index {
         return i + 1
     }
 
+    /// Index offset from current index
+    /// - Parameters:
+    ///   - i: current index
+    ///   - n: offset idstance
     @inline(__always)
     public func index(_ i: Index, offsetBy n: IndexDistance) -> Index {
         return i + n
     }
 
+    /// Form index after current index
+    /// - Parameter i: current index
     @inline(__always)
     public func formIndex(after i: inout Index) {
         i += 1
     }
 
+    /// Calculate distance from start to end indices
+    /// - Parameters:
+    ///   - start: start index
+    ///   - end: end index
     @inline(__always)
     public func distance(from start: Index, to end: Index) -> IndexDistance {
         return end - start

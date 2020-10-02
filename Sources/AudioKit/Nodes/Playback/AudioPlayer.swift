@@ -5,6 +5,7 @@ import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode.
 public class AudioPlayer: Node, Toggleable {
+    /// Is player playing?
     public var isStarted: Bool {
         playerNode.isPlaying
     }

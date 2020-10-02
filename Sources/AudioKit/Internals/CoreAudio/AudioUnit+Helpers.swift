@@ -45,6 +45,7 @@ public extension AudioUnit {
 
 /// Listener to properties in an audio unit
 public struct AudioUnitPropertyListener {
+    /// Property listener callback type
     public typealias AudioUnitPropertyListenerCallback = (
         _ audioUnit: AudioUnit,
         _ property: AudioUnitPropertyID
@@ -102,11 +103,21 @@ public extension AudioUnit {
         try AudioFileSetProperty(self, propertyID, dataSize, &data).check()
     }
 
+    /// Add property listener
+    /// - Parameters:
+    ///   - listener: Listener to add
+    ///   - propertyID: Property to listen to
+    /// - Throws: Error if could not add property listener
     internal func addPropertyListener(listener: AudioUnitPropertyListener,
                                       toProperty propertyID: AudioUnitPropertyID) throws {
         try AudioUnitAddPropertyListener(self, propertyID, listener.proc, listener.procInput).check()
     }
 
+    /// Remove property listener
+    /// - Parameters:
+    ///   - listener: Listener to remove
+    ///   - propertyID: Property to listen to
+    /// - Throws: Error if could not remove property listener
     internal func removePropertyListener(listener: AudioUnitPropertyListener,
                                          fromProperty propertyID: AudioUnitPropertyID) throws {
         try AudioUnitRemovePropertyListenerWithUserData(self, propertyID, listener.proc, listener.procInput).check()

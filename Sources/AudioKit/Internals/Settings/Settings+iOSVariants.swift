@@ -157,6 +157,7 @@
             }
         }
 
+        /// Computed Session Category
         public static func computedSessionCategory() -> SessionCategory {
             if Settings.audioInputEnabled {
                 return .playAndRecord
@@ -167,6 +168,7 @@
             }
         }
 
+        /// Computed Session Options
         public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
             var options: AVAudioSession.CategoryOptions = []
 
@@ -238,12 +240,13 @@
             /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
             case playAndRecord
             #if !os(tvOS)
-                /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
+            /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
             case audioProcessing
             #endif
             /// Use to multi-route audio. May be used on input, output, or both.
             case multiRoute
 
+            /// Printout string
             public var description: String {
                 switch self {
                 case .ambient:
@@ -265,6 +268,7 @@
                 }
             }
 
+            /// AV Audio Session Category
             public var avCategory: AVAudioSession.Category {
                 switch self {
                 case .ambient:

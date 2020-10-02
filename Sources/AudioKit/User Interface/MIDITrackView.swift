@@ -34,8 +34,7 @@ This file is still in development. I have tried loading some forms of MIDI files
 I have recently set up the playback to be synced with automated tempos which change over time.
 */
 
-//Display a MIDI Sequence in a track
-
+/// Display a MIDI Sequence in a track
 public class MIDITrackView: UIView {
  //Quarter note at 120 bpm is 20.8333... pixels - standard
     var length: Double!
@@ -47,15 +46,18 @@ public class MIDITrackView: UIView {
     var readyToPlay: Bool = false
     var playbackCursorPosition: Double = 0.0
     var noteGroupPosition: Double = 0.0
+    /// MIDI Track Note Map
     public var midiTrackNoteMap: MIDIFileTrackNoteMap!
+    /// Sampler
     public var sampler: MIDISampler!
+    /// Sequencer
     public var sequencer: AppleSequencer!
     var previousTempo = 0.0
     var trackLength: Double {
         return midiTrackNoteMap.endOfTrack
     }
 
-    //How far the view is zoomed in
+    /// How far the view is zoomed in
     public var noteZoomConstant: Double = 10_000.0
 
     /// Initialize the Track View
@@ -83,7 +85,7 @@ public class MIDITrackView: UIView {
         clipsToBounds = true
     }
 
-    //Cursor which displays for the first few seconds of the midi clip until it goes out of bounds
+    /// Cursor which displays for the first few seconds of the midi clip until it goes out of bounds
     public func play() {
         playbackCursorRect = CGRect(x: 0, y: 0, width: 3, height: Double(self.frame.height))
         playbackCursorView = UIView(frame: playbackCursorRect)
@@ -108,6 +110,8 @@ public class MIDITrackView: UIView {
             repeats: true)
         }
     }
+
+    /// Stop
     public func stop() {
         if let ctimer = cursorTimer {
             ctimer.invalidate()
@@ -162,7 +166,7 @@ public class MIDITrackView: UIView {
         readyToPlay = true
     }
 
-    //Move the playback cursor across the screen
+    /// Move the playback cursor across the screen
     @objc func updateCursor() {
         if previousTempo != sequencer.tempo {
             previousTempo = sequencer.tempo
@@ -194,7 +198,7 @@ public class MIDITrackView: UIView {
         }
     }
 
- //Move the note view across the screen
+ /// Move the note view across the screen
     @objc func scrollNotes() {
         if previousTempo != sequencer.tempo {
             previousTempo = sequencer.tempo

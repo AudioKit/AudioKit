@@ -198,7 +198,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable 
         }
     }
 
-
+    /// Start the node
     @objc open func start() {
         internalAU?.start()
     }
