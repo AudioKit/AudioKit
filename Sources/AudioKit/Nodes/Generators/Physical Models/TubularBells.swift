@@ -9,18 +9,28 @@ import CAudioKit
 ///
 public class TubularBells: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "tbel"
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit type
     public private(set) var internalAU: AudioUnitType?
 
+    /// Internal audio unit type for tubular bells
     public class InternalAU: AudioUnitBase {
 
+        /// Create the tubular bells DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("TubularBellsDSP")
         }
 
+        /// Trigger a tubular bells note
+        /// - Parameters:
+        ///   - note: MIDI Note Number
+        ///   - velocity: MIDI Velocity
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
 
             if let midiBlock = scheduleMIDIEventBlock {

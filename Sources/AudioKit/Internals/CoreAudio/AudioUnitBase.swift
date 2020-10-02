@@ -101,6 +101,7 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: Lifecycle
 
+    /// DSP Reference
     public private(set) var dsp: DSPRef?
 
     /// Initialize with component description and options

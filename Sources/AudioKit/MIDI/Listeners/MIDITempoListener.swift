@@ -16,6 +16,7 @@
 import Foundation
 import CoreMIDI
 
+/// Type to store tempo in BeatsPerMinute
 public typealias BPMType = TimeInterval
 
 /// A AudioKit midi listener that looks at midi clock messages and calculates a BPM
@@ -42,13 +43,18 @@ public typealias BPMType = TimeInterval
 ///
 public class MIDITempoListener: NSObject {
 
+    /// Clock listener
     public var clockListener: MIDIClockListener?
 
+    /// System Real-time Listener
     public var srtListener = MIDISystemRealTimeListener()
 
     var tempoObservers: [MIDITempoObserver] = []
 
+    /// Tempo string
     public var tempoString: String = ""
+
+    /// Tempo in "BPM Type"
     public var tempo: BPMType = 0
     var clockEvents: [UInt64] = []
     let clockEventLimit = 2
@@ -59,7 +65,9 @@ public class MIDITempoListener: NSObject {
     var bpmSmoothing: ValueSmoothing
 
     var clockTimeout: MIDITimeout?
-    public var incomingClockActive = false
+
+    /// Is the Incoming Clock active?
+    public var isIncomingClockActive = false
 
     let BEAT_TICKS = 24
     let oneThousand = UInt64(1_000)
@@ -91,10 +99,10 @@ public class MIDITempoListener: NSObject {
         }
 
         clockTimeout = MIDITimeout(timeoutInterval: 1.6, onMainThread: true, success: {}, timeout: {
-            if self.incomingClockActive == true {
+            if self.isIncomingClockActive == true {
                 self.midiClockActivityStopped()
             }
-            self.incomingClockActive = false
+            self.isIncomingClockActive = false
         })
         midiClockActivityStopped()
     }
@@ -186,9 +194,9 @@ extension MIDITempoListener: MIDIListener {
         if data[0] == MIDISystemCommand.clock.rawValue {
             clockTimeout?.succeed()
             clockTimeout?.perform {
-                if self.incomingClockActive == false {
+                if self.isIncomingClockActive == false {
                     midiClockActivityStarted()
-                    self.incomingClockActive = true
+                    self.isIncomingClockActive = true
                 }
                 clockEvents.append(offset)
                 analyze()
@@ -336,15 +344,21 @@ extension MIDITempoListener: MIDIListener {
 // MARK: - Management and Communications for BPM Observers
 
 extension MIDITempoListener {
+
+    /// Add a MIDI Tempo Observer
+    /// - Parameter observer: Tempo observer to add
     public func addObserver(_ observer: MIDITempoObserver) {
         tempoObservers.append(observer)
     }
 
+    /// Remove a tempo observer
+    /// - Parameter observer: Tempo observer to remove
     public func removeObserver(_ observer: MIDITempoObserver) {
         tempoObservers.removeAll { $0 == observer }
     }
 
-    public func removeAllObserver() {
+    /// Remove all tempo observers
+    public func removeAllObservers() {
         tempoObservers.removeAll()
     }
 

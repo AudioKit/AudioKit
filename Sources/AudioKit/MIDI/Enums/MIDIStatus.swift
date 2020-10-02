@@ -2,20 +2,30 @@
 
 public struct MIDIStatus: MIDIMessage {
 
-    public var data: [UInt8] {
+    /// Status message data
+    public var data: [MIDIByte] {
         return [byte]
     }
 
+    /// Status byte
     public var byte: MIDIByte
 
+    /// Initialize as a type on a channel
+    /// - Parameters:
+    ///   - type: MIDI Status Type
+    ///   - channel: MIDI Channel
     public init(type: MIDIStatusType, channel: MIDIChannel) {
         byte = MIDIByte(type.rawValue) << 4 + channel
     }
 
+    /// Initialize as a system command
+    /// - Parameter command: MIDI System Command
     public init(command: MIDISystemCommand) {
         byte = command.rawValue
     }
 
+    /// Initialize with a status byte
+    /// - Parameter byte: MIDI Status byte
     public init?(byte: MIDIByte) {
         if MIDIStatusType.from(byte: byte) != nil {
             self.byte = byte
@@ -24,14 +34,17 @@ public struct MIDIStatus: MIDIMessage {
         }
     }
 
+    /// Status type
     public var type: MIDIStatusType? {
         return MIDIStatusType(rawValue: Int(byte.highBit))
     }
 
+    /// MIDI Channel
     public var channel: MIDIChannel {
         return byte.lowBit
     }
 
+    /// Printable string
     public var description: String {
         if let type = self.type {
             return "\(type.description) channel \(channel)"
@@ -41,6 +54,7 @@ public struct MIDIStatus: MIDIMessage {
         return "Invalid message"
     }
 
+    /// Length of the message in bytes
     public var length: Int {
         return type?.length ?? 0
     }
@@ -84,10 +98,14 @@ public enum MIDIStatusType: Int {
     /// bent up or down a given number of semitones
     case pitchWheel = 14
 
+    /// Status type from a byte
+    /// - Parameter byte: MIDI Status byte
+    /// - Returns: MIDI Status Type
     public static func from(byte: MIDIByte) -> MIDIStatusType? {
         return MIDIStatusType(rawValue: Int(byte.highBit))
     }
 
+    /// Length of status in bytes
     public var length: Int {
         switch self {
         case .programChange, .channelAftertouch:
@@ -97,6 +115,7 @@ public enum MIDIStatusType: Int {
         }
     }
 
+    /// Printable string
     public var description: String {
         switch self {
         case .noteOff:

@@ -8,10 +8,13 @@ import CAudioKit
 ///
 public class DiodeClipper: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "dclp"
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters

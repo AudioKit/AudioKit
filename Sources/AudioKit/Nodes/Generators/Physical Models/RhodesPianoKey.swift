@@ -9,18 +9,28 @@ import CAudioKit
 ///
 public class RhodesPianoKey: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "rhds"
     public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    /// Internal audio unit for Rhodes piano key
     public class InternalAU: AudioUnitBase {
 
+        /// Create Rhodes Piano Key DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("RhodesPianoKeyDSP")
         }
 
+        /// Trigger a rhoes piano key note
+        /// - Parameters:
+        ///   - note: MIDI Note Number
+        ///   - velocity: MIDI Velocity
         public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
 
             if let midiBlock = scheduleMIDIEventBlock {

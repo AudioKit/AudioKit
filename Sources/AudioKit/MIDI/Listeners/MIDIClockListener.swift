@@ -111,16 +111,21 @@ public class MIDIClockListener: NSObject {
 
 extension MIDIClockListener {
 
+    /// Add MIDI beat observer
+    /// - Parameter observer: MIDI Beat observer to add
     public func addObserver(_ observer: MIDIBeatObserver) {
         observers.append(observer)
         Log("[MIDIClockListener:addObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
+    /// Remove MIDI beat observer
+    /// - Parameter observer: MIDI Beat observer to remove
     public func removeObserver(_ observer: MIDIBeatObserver) {
         observers.removeAll { $0 == observer }
         Log("[MIDIClockListener:removeObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
+    /// Remove all MIDI Beat observers
     public func removeAllObservers() {
         observers.removeAll()
     }
@@ -174,11 +179,13 @@ extension MIDIClockListener: MIDIBeatObserver {
 
 extension MIDIClockListener: MIDITempoObserver {
 
+    /// Resets the quantumc ounter
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)
         quarterNoteQuantumCounter = 0
     }
 
+    /// Resets the quantum counter
     public func midiClockLeaderEnabled() {
         Log("MIDI Clock Leader Enabled", log: OSLog.midi)
         quarterNoteQuantumCounter = 0
@@ -186,11 +193,15 @@ extension MIDIClockListener: MIDITempoObserver {
 }
 
 extension MIDIClockListener: MIDISystemRealTimeObserver {
+    /// Stop MIDI System Real-time listener
+    /// - Parameter listener: MIDI System Real-time Listener
     public func stopSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Stop]", log: OSLog.midi)
         sendStopToObservers()
     }
 
+    /// Start MIDI System Real-time listener
+    /// - Parameter listener: MIDI System Real-time Listener
     public func startSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Start]", log: OSLog.midi)
         sppMIDIBeatCounter = 0
@@ -200,6 +211,8 @@ extension MIDIClockListener: MIDISystemRealTimeObserver {
         sendPreparePlayToObservers(continue: false)
     }
 
+    /// Continue MIDI System Real-time listener
+    /// - Parameter listener: MIDI System Real-time Listener
     public func continueSRT(listener: MIDISystemRealTimeListener) {
         Log("Beat: [Continue]", log: OSLog.midi)
         sendContinue = true

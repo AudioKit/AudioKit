@@ -81,13 +81,16 @@ public enum ShakerType: UInt8 {
 /// STK Shaker
 ///
 public class Shaker: Node, AudioUnitContainer, Tappable, Toggleable {
-    /// Four letter unique description of the node
+    /// Four letter unique description "shak"
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
+
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
-    // MARK: - Properties
-
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
+
+    // MARK: - Parameters
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -96,12 +99,19 @@ public class Shaker: Node, AudioUnitContainer, Tappable, Toggleable {
 
     // MARK: - Internal Audio Unit
 
+    /// Internal audio unti for shaker
     public class InternalAU: AudioUnitBase {
 
+        /// Create shaker DSP
+        /// - Returns: DSP Reference
         public override func createDSP() -> DSPRef {
             return akCreateDSP("ShakerDSP")
         }
 
+        /// Trigger the shaker
+        /// - Parameters:
+        ///   - type: Type of shaker to create
+        ///   - amplitude: How hard to shake or velocity
         public func trigger(type: AUValue, amplitude: AUValue) {
 
             if let midiBlock = scheduleMIDIEventBlock {

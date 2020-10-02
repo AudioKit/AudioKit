@@ -24,6 +24,11 @@ extension Table {
     /// (4410.0, 5),
     /// (11025.0, 2), (22050.0, 1)]
 
+    /// Harmonic Pitch Range for given root frequency and octave step size
+    /// - Parameters:
+    ///   - rootFrequency: Root frequency in Hertz
+    ///   - octaveStepSize: Octave step size as a multiplier, default 1.
+    /// - Returns: Array of frequencies and the associated maximum harmonic value
     public class func harmonicPitchRange(rootFrequency: Double = 8.175_798_915_643_75,
                                          octaveStepSize: Double = 1) -> [(Double, Int)] {
         let nyquist = 22_050.0

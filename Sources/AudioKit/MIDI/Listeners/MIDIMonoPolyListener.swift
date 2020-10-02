@@ -19,6 +19,8 @@ public class MIDIMonoPolyListener: NSObject {
 
     var monoMode: Bool
 
+    /// Initialize in mono or poly
+    /// - Parameter mono: Mono mode, for poly set to false
     public init(mono: Bool = true) {
         monoMode = mono
     }
@@ -28,8 +30,20 @@ public class MIDIMonoPolyListener: NSObject {
 
 extension MIDIMonoPolyListener: MIDIListener {
 
-
-    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    /// Receive a generic controller value
+    ///
+    /// - Parameters:
+    ///   - controller: MIDI Controller Number
+    ///   - value:      Value of this controller
+    ///   - channel:    MIDI Channel (1-16)
+    ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///
+    public func receivedMIDIController(_ controller: MIDIByte,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel,
+                                       portID: MIDIUniqueID?,
+                                       offset: MIDITimeStamp) {
                 if controller == MIDIControl.monoOperation.rawValue {
             guard monoMode == false else { return }
             monoMode = true

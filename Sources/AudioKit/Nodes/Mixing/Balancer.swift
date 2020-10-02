@@ -12,10 +12,13 @@ import CAudioKit
 ///
 public class Balancer: Node, AudioUnitContainer, Tappable, Toggleable {
 
+    /// Unique four-letter identifier "blnc"
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
+    /// Internal type of audio unit for this node
     public typealias AudioUnitType = InternalAU
 
+    /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Audio Unit
