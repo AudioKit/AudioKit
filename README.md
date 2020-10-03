@@ -18,10 +18,6 @@ a Version 4 branch will be maintained because of its large user base, and also b
 
 Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md)
 
-## Sponsor AudioKit!
-
-If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
-
 ## Installation via Swift Package Manager
 
 To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
@@ -48,9 +44,11 @@ For Hello World, you only need to understand a few lines of code:
 
 2. Once you are sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
 
+3. If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
+
 ### Contributing Code
 
-When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
+When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
 <a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
