@@ -369,8 +369,8 @@ bool DSPBase::getTapData(size_t frames, float* leftData, float* rightData) {
     filledTapCount++;
 
     if (filledTapCount >= tapCount) {
-        TPCircularBufferConsume(&leftBuffer, frames * sizeof(float));
-        TPCircularBufferConsume(&rightBuffer, frames * sizeof(float));
+        TPCircularBufferConsume(&leftBuffer, (int32_t)(frames * sizeof(float)));
+        TPCircularBufferConsume(&rightBuffer, (int32_t)(frames * sizeof(float)));
         filledTapCount = 0;
     }
 

@@ -2,6 +2,14 @@
 
 import QuartzCore
 
+#if os(macOS)
+    import AppKit
+    public typealias CrossPlatformColor = NSColor
+#else
+    import UIKit
+    public typealias CrossPlatformColor = UIColor
+#endif
+
 /// Container CALayer based class for multiple CAWaveformLayers
 public class Waveform: CALayer {
     private var halfWidth: Int = 0
@@ -45,23 +53,13 @@ public class Waveform: CALayer {
     }
 
     /// Color
-    #if targetEnvironment(macCatalyst)
-    public var waveformColor: CGColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1) {
+    public var waveformColor: CGColor = CrossPlatformColor.black.cgColor {
         didSet {
             for plot in plots {
                 plot.fillColor = waveformColor
             }
         }
     }
-    #else
-    public var waveformColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1) {
-        didSet {
-            for plot in plots {
-                plot.fillColor = waveformColor
-            }
-        }
-    }
-    #endif
 
     /// Reverse the waveform
     public var isReversed: Bool = false {
@@ -105,11 +103,7 @@ public class Waveform: CALayer {
         }
         // make a default size
         frame = CGRect(origin: CGPoint(), size: plotSize)
-        #if targetEnvironment(macCatalyst)
-        self.waveformColor = waveformColor ?? CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        #else
-        self.waveformColor = waveformColor ?? CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        #endif
+        self.waveformColor = waveformColor ?? CrossPlatformColor.black.cgColor
         self.backgroundColor = backgroundColor
         isOpaque = false
         initPlots()
