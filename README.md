@@ -54,8 +54,6 @@ For Hello World, you only need to understand a few lines of code:
 
 When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
-<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 ## About Us
 
@@ -68,11 +66,11 @@ But, there are many other important people in our family:
 
 | Group                                                                    | Description                                                                      |
 | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| [Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors) | A list of all people who have submitted code to AudioKit.                        |
 | [Core Team](https://github.com/orgs/AudioKit/people)                     | The biggest contributors to AudioKit!                                            |
-| [Google Group](https://groups.google.com/forum/#!forum/audiokit)         | App Announcements and mailing list for all users.                                |
 | [Slack](https://audiokit.slack.com)                                      | Pro-level developer chat group, contact a core team member for an in invitation. |
+| [Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors) | A list of all people who have submitted code to AudioKit.                        |
 
+<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 
 
