@@ -53,7 +53,7 @@ For more examples, clone the [AudioKit Cookbook](https://github.com/AudioKit/Coo
 
 3. If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
 
-### Contributing Code
+## Contributing Code
 
 When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), 
 make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).

@@ -1,7 +1,7 @@
-# AudioKit Tips and Tricks
+# Apple Sampler Notes
 
 
-## 1. Making AppleSampler not get corrupted by an audio route change 
+## Making AppleSampler not get corrupted by an audio route change 
 
 When the audio session route changes (the iOS device is plugged into an external sound interface, headphones are connected, you start capturing a video on a mac using Quicktime...) Samplers start producing distorted audio.
 
