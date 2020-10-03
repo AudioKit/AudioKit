@@ -45,6 +45,15 @@ public class Waveform: CALayer {
     }
 
     /// Color
+    #if targetEnvironment(macCatalyst)
+    public var waveformColor: CGColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1) {
+        didSet {
+            for plot in plots {
+                plot.fillColor = waveformColor
+            }
+        }
+    }
+    #else
     public var waveformColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1) {
         didSet {
             for plot in plots {
@@ -52,6 +61,7 @@ public class Waveform: CALayer {
             }
         }
     }
+    #endif
 
     /// Reverse the waveform
     public var isReversed: Bool = false {
@@ -95,7 +105,11 @@ public class Waveform: CALayer {
         }
         // make a default size
         frame = CGRect(origin: CGPoint(), size: plotSize)
-        self.waveformColor = waveformColor ?? CGColor(red: 0, green: 0, blue: 0, alpha: 1) 
+        #if targetEnvironment(macCatalyst)
+        self.waveformColor = waveformColor ?? CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        #else
+        self.waveformColor = waveformColor ?? CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        #endif
         self.backgroundColor = backgroundColor
         isOpaque = false
         initPlots()
