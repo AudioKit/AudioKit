@@ -1,4 +1,4 @@
-AudioKit V5.0
+AudioKit V5.0 Beta / Developer's Release
 ===
 
 [![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
@@ -10,80 +10,69 @@ AudioKit V5.0
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS. 
 
-| [AudioKitPro.com](http://audiokitpro.com/)|[AudioKit.io](http://audiokit.io/)|
-|:--:|:--:|
-| Features, News, Blog, and Highlighted Apps | Developer Documentation |
-| [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
+## Important notes for AudioKit Version 4 Users
+
+If you are using AudioKit in production, you may want to stick to our latest stable release of Version 4 because there are a number of things were are still working out. 
+But, since Version 5 is well on its way, we don't think new users should use Version 4 anymore. When AudioKit 5 is ready, we will make a 5.0 release, but even then
+a Version 4 branch will be maintained because of its large user base, and also because there are things in AudioKit 4 that are not yet available in version 5.
+
+Most importantly, you must read the [Migration Guide](/AudioKit/AudioKit/docs/MigrationGuide.md)
 
 ## Sponsor AudioKit!
 
 If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
 
-## Key Concepts
+## Installation via Swift Package Manager
 
-| Nodes | Operations | Taps |
-|-------|------------|------|
-| Nodes are interconnectable signal processing components.  Each node has an output and usually some parameters.  If the nodes processes another signal, the nodes will also have an `input`. | Operations are similar to nodes, except that they are signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes. This allows a tap to be moved from node to node more freely and to be added after the audio signal path has started.
+To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
 
-## Installation
-
-### Swift Package Manager
-
-**AudioKit is available as a Swift Package! (requires Xcode 11+)**. To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
-
-### CocoaPods
-
-AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
-
-```
-    pod 'AudioKit', '~> 5.0'
-```
-
-You can also use [Carthage](https://github.com/Carthage/Carthage) (v0.30 or higher) to install our precompiled static frameworks in your project.
+Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced when AudioKit 5 is officially released.
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
 
 For Hello World, you only need to understand a few lines of code:
 
-| Code                                           | Description                  |
-|------------------------------------------------|------------------------------|
-| `var oscillator = Oscillator()`              | Create the sound generator   |
-| `engine.output = oscillator`                | Tell AudioKit what to output |
-| `engine.start()`                            | Start up AudioKit            |
-| `oscillator.start()`                           | Start the oscillator         |
-| `oscillator.frequency = AUValue.random(in: 220...880)` | Set oscillator parameters    |
-| `oscillator.stop()`                            | Stop the oscillator          |
+| Code                                                   | Description                       |
+| ------------------------------------------------------ | --------------------------------- |
+| `engine = AudioEngine`                                 | Create an instance of AudioEngine |
+| `var oscillator = Oscillator()`                        | Create the sound generator        |
+| `engine.output = oscillator`                           | Tell audio engine what to output  |
+| `engine.start()`                                       | Start up AudioKit                 |
+| `oscillator.frequency = AUValue.random(in: 220...880)` | Set oscillator parameters         |
+| `oscillator.start()`                                   | Start the oscillator              |
+| `oscillator.stop()`                                    | Stop the oscillator               |
 
 ## Getting help
 
 1. Post your problem to [StackOverflow with the #AudioKit hashtag](https://stackoverflow.com/questions/tagged/audiokit).
 
-2. If you are pretty sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
+2. Once you are sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
 
-
-## Contributing Code
+### Contributing Code
 
 When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
+This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
+<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
+
 ## About Us
 
-AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/analogcode) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
+AudioKit was created by 
+[Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  
+[Matthew Fecher](https://github.com/analogcode) manages all of AudioKit's web sites and 
+[Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
 
 But, there are many other important people in our family:
 
-| Group | Description |
-|-------|-------------|
-|[Core Team](https://github.com/orgs/AudioKit/people)                    | The biggest contributors to AudioKit! |
-|[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
-|[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
-|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
+| Group                                                                    | Description                                                                      |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| [Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors) | A list of all people who have submitted code to AudioKit.                        |
+| [Core Team](https://github.com/orgs/AudioKit/people)                     | The biggest contributors to AudioKit!                                            |
+| [Google Group](https://groups.google.com/forum/#!forum/audiokit)         | App Announcements and mailing list for all users.                                |
+| [Slack](https://audiokit.slack.com)                                      | Pro-level developer chat group, contact a core team member for an in invitation. |
 
-### Contributors
 
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
-<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 
