@@ -27,7 +27,7 @@ Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be 
 
 ## Documentation
 
-In addition to the [Migration Guide](docs/MigrationGuide.md), our documentation is now automatically generated on the [Github wiki](wiki).
+In addition to the [Migration Guide](docs/MigrationGuide.md), our documentation is now automatically generated on the [Github wiki](https://github.com/AudioKit/AudioKit/wiki).
 
 ## Examples
 

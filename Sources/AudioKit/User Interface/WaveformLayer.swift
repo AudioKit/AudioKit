@@ -71,19 +71,11 @@ public class WaveformLayer: CAShapeLayer {
         self.backgroundColor = backgroundColor
         self.strokeColor = strokeColor
         lineWidth = 0.5 // default if stroke is used, otherwise this does nothing
-        #if targetEnvironment(macCatalyst)
-        self.fillColor = fillColor ?? CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        #else
-        self.fillColor = fillColor ?? CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        #endif
+        self.fillColor = fillColor ?? CrossPlatformColor.black.cgColor
         masksToBounds = false
         isOpaque = false
         drawsAsynchronously = true
-        #if targetEnvironment(macCatalyst)
-        shadowColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        #else
-        shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        #endif
+        shadowColor = CrossPlatformColor.black.cgColor
         shadowOpacity = 0.4
         shadowOffset = CGSize(width: 1, height: -1)
         shadowRadius = 2.0
