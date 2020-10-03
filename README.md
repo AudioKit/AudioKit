@@ -29,21 +29,9 @@ Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be 
 
 In addition to the [Migration Guide](docs/MigrationGuide.md), our documentation is now automatically generated on the [Github wiki](wiki).
 
-## Example Code
+## Examples
 
-For Hello World, you only need to understand a few lines of code:
-
-| Code                                                   | Description                       |
-| ------------------------------------------------------ | --------------------------------- |
-| `engine = AudioEngine`                                 | Create an instance of AudioEngine |
-| `var oscillator = Oscillator()`                        | Create the sound generator        |
-| `engine.output = oscillator`                           | Tell audio engine what to output  |
-| `engine.start()`                                       | Start up AudioKit                 |
-| `oscillator.frequency = AUValue.random(in: 220...880)` | Set oscillator parameters         |
-| `oscillator.start()`                                   | Start the oscillator              |
-| `oscillator.stop()`                                    | Stop the oscillator               |
-
-For more examples, clone the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) which contains many recipes for simple uses for AudioKit components.
+The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many recipes for simple uses for AudioKit components. More examples are [here](docs/Examples.md).
 
 ## Getting help
 
