@@ -3,6 +3,7 @@
 import QuartzCore
 
 #if os(macOS)
+    import AppKit
     public typealias CrossPlatformColor = NSColor
 #else
     import UIKit
