@@ -57,9 +57,8 @@ When you want to modify AudioKit, check out the [v5-develop](https://github.com/
 
 ## About Us
 
-AudioKit was created by 
-[Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  
-[Matthew Fecher](https://github.com/analogcode) manages all of AudioKit's web sites and 
+AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  
+[Matthew Fecher](https://github.com/analogcode), [Jeff Cooper](https://github.com/eljeff), and Aure create [AudioKitPro](http://audiokitpro.com/) apps together, and
 [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
 
 But, there are many other important people in our family:
