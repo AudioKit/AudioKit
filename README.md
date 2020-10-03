@@ -16,13 +16,17 @@ If you are using AudioKit in production, you may want to stick to our latest sta
 But, since Version 5 is well on its way, we don't think new users should use Version 4 anymore. When AudioKit 5 is ready, we will make a 5.0 release, but even then
 a Version 4 branch will be maintained because of its large user base, and also because there are things in AudioKit 4 that are not yet available in version 5.
 
-Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md)
+Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md). You will also want to check the progress of the [AudioKit 5 Release Push Project](https://github.com/AudioKit/AudioKit/projects/5).
 
 ## Installation via Swift Package Manager
 
 To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.
 
 Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced when AudioKit 5 is officially released.
+
+## Documentation
+
+In addition to the [Migration Guide](docs/MigrationGuide.md), our documentation is now automatically generated on the [Github wiki](wiki).
 
 ## Example Code
 
