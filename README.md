@@ -16,7 +16,8 @@ If you are using AudioKit in production, you may want to stick to our latest sta
 But, since Version 5 is well on its way, we don't think new users should use Version 4 anymore. When AudioKit 5 is ready, we will make a 5.0 release, but even then
 a Version 4 branch will be maintained because of its large user base, and also because there are things in AudioKit 4 that are not yet available in version 5.
 
-Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md). You will also want to check the progress of the [AudioKit 5 Release Push Project](https://github.com/AudioKit/AudioKit/projects/5).
+Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md). 
+You will also want to check the progress of the [AudioKit 5 Release Push Project](https://github.com/AudioKit/AudioKit/projects/5).
 
 ## Installation via Swift Package Manager
 
@@ -28,19 +29,9 @@ Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be 
 
 In addition to the [Migration Guide](docs/MigrationGuide.md), our documentation is now automatically generated on the [Github wiki](wiki).
 
-## Example Code
+## Examples
 
-For Hello World, you only need to understand a few lines of code:
-
-| Code                                                   | Description                       |
-| ------------------------------------------------------ | --------------------------------- |
-| `engine = AudioEngine`                                 | Create an instance of AudioEngine |
-| `var oscillator = Oscillator()`                        | Create the sound generator        |
-| `engine.output = oscillator`                           | Tell audio engine what to output  |
-| `engine.start()`                                       | Start up AudioKit                 |
-| `oscillator.frequency = AUValue.random(in: 220...880)` | Set oscillator parameters         |
-| `oscillator.start()`                                   | Start the oscillator              |
-| `oscillator.stop()`                                    | Stop the oscillator               |
+The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many recipes for simple uses for AudioKit components. More examples are [here](docs/Examples.md).
 
 ## Getting help
 
@@ -50,16 +41,20 @@ For Hello World, you only need to understand a few lines of code:
 
 3. If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
 
-### Contributing Code
+## Contributing Code
 
-When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
+When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), 
+make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 
 ## About Us
 
-AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  
-[Matthew Fecher](https://github.com/analogcode), [Jeff Cooper](https://github.com/eljeff), and Aure create [AudioKitPro](http://audiokitpro.com/) apps together, and
-[Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases. [Taylor Holliday](https://github.com/wtholliday) has been instrumental in AudioKit 5 improvements.
+AudioKit was created by 
+[Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  
+[Matthew Fecher](https://github.com/analogcode), 
+[Jeff Cooper](https://github.com/eljeff), and Aure create [AudioKitPro](http://audiokitpro.com/) apps together, and
+[Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases. 
+[Taylor Holliday](https://github.com/wtholliday) has been instrumental in AudioKit 5 improvements.
 
 But, there are many other important people in our family:
 
