@@ -633,8 +633,6 @@ public class KeyboardView: NSView {
     }
 }
 
-#endif
-
 extension KeyboardView: MIDIListener {
     // MARK: - MIDI
 
@@ -788,3 +786,5 @@ extension KeyboardView: MIDIListener {
         // Do nothing
     }
 }
+
+#endif
