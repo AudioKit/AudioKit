@@ -1,49 +1,22 @@
 # AudioKit Examples
 
-## Examples for iOS and macOS
+The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
 
-* Audio Unit Manager - host audio units inside your application
-* File Converter - converts various file types
-* Microphone Analysis - frequency and amplitude information from the incoming audio stream
-* MIDI Utility - Basic MIDI implementation including MIDI monitoring
-* Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
-* Recorder - Simple audio recorder
+Larger examples have been moved to their own repositories:
 
-## Examples for iOS only
+* [Analog Synth X](https://github.com/AudioKit/AnalogSynthX)
+* [AudioKit Synth One](https://github.com/AudioKit/AudioKitSynthOne)
+* [Audio Unit Manager](https://github.com/AudioKit/AudioUnitManager)
+* [File Converter](https://github.com/AudioKit/FileConverter) - Updated for AudioKit 5
+* [Flanger and Chorus](https://github.com/AudioKit/FlangerAndChorus) - Updated for AudioKit 5
+* [MIDI Sequencer](https://github.com/AudioKit/MIDISequencer)
+* [MIDI Track View](https://github.com/AudioKit/MIDITrackView)
+* [Nodality](https://github.com/AudioKit/Nodality)
+* [Output Splitter](https://github.com/AudioKit/OutputSplitter)
+* [Particles](http://github.com/AudioKit/Particles/)
+* [Player Demo](https://github.com/AudioKit/PlayerDemo)
+* [ROM Player](https://github.com/AudioKit/ROMPlayer)
+* [SamplerDemo](http://github.com/AudioKit/SamplerDemo/)
+* [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
+* [Song Processor](http://github.com/AudioKit/SongProcessor)
 
-* MIDI File Edit and Sync - demonstrates how to manipulate midifiles on the fly
-
-### Audiobus Examples for iOS
-
-* Audiobus MIDI Sender - demonstrates how to use MIDI with Audiobus and AudioKit
-* Filter Effects - Audiobus enabled effects processor
-* Sender Synth - Audiobus enabled synthesizer
-
-## Examples for macOS
-
-* Audio Unit Manager - host audio units inside your application
-* Flanger and Chorus - Effect processor examples
-* Hello OSC - Starter project for OSC communication
-* Hello World - Starter application that just plays an oscillator and displays a waveform
-* Microphone Analysis - frequency and amplitude information from the incoming audio stream
-* MIDI Utility - Basic MIDI implementation including MIDI monitoring
-* Output Splitter - crude example of how to split Audio and pipe it to two different output devices
-* Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
-* Recorder - Simple audio recorder
-* Speech Synthesizeer - simple speech synthesizer
-
-## Example for tvOS
-
-* Hello World
-
-...but we'd love to have more, if you'd like to contribute!
-
-## External Examples
-
-When projects get big or complicated enough, we move them to their own repositories:
-
-* [Analog Synth X](https://github.com/AudioKit/AnalogSynthX) - polyphonic synthesizer with a very nice user interface
-* [ROM Player](https://github.com/AudioKit/ROMPlayer) - EXS24, Sound Font, Wave Player
-* [Particles](http://github.com/AudioKit/Particles/) - Metal based audio visualizer (works on devices only, not the simulator)
-* [SamplerDemo](http://github.com/AudioKit/SamplerDemo/) - Demo of the Sampler for both iOS and macOS
-* [Song Processor](http://github.com/AudioKit/SongProcessor) - adding effects to songs from the device's iTunes Library
