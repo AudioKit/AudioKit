@@ -5,7 +5,7 @@
 #import "Interop.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import <TPCircularBuffer.h>
+#import "TPCircularBuffer.h"
 
 #include <stdarg.h>
 
