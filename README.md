@@ -18,7 +18,7 @@ If you are using AudioKit in production, you may want to stick to our latest sta
 But, since Version 5 is well on its way, we don't think new users should use Version 4 anymore. When AudioKit 5 is ready, we will make a 5.0 release, but even then
 a Version 4 branch will be maintained because of its large user base, and also because there are things in AudioKit 4 that are not yet available in version 5.
 
-Most importantly, you must read the [Migration Guide](/AudioKit/AudioKit/docs/MigrationGuide.md)
+Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md)
 
 ## Sponsor AudioKit!
 
