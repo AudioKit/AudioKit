@@ -21,6 +21,7 @@ let generator = OperationGenerator {
     return crossingSignal * 0.2
 }
 
+let engine = AudioEngine()
 engine.output = generator
 try engine.start()
 //: Activate the signal
