@@ -3,9 +3,6 @@
 //: ## Working with AVAudioFile:
 //:
 //: * [Audio Player](Audio%20Player)
-//: * [Sample Player](Sample%20Player)
-//: * [Editing Audio Files](Editing%20Audio%20Files)
-//: * [Exporting Files](Exporting%20Files)
 //:
 //: ## MIDI
 //:
@@ -16,16 +13,10 @@
 //:
 //: ## Playback pitch and speed
 //:
-//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //: * [Playback Speed](Playback%20Speed)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
-//: ## Recording
+//: ## Sampling and Sequencing
 //:
-//: * [Recording Nodes](Recording%20Nodes)
-//:
-//: ## Drums and Sequencing
-//:
-//: * [Drum Sequencer](Drum%20Sequencer)
 //: * [Sampler](Sampler)
 //: * [Sequencer](Sequencer)
