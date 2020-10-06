@@ -83,7 +83,6 @@ class AmplitudeEnvelopeTests: XCTestCase {
         envelope.stop()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-        audition(audio)
     }
 
     func testDoubleStop() {
@@ -101,7 +100,6 @@ class AmplitudeEnvelopeTests: XCTestCase {
         envelope.stop()
         audio.append(engine.render(duration: 0.5))
         testMD5(audio)
-        audition(audio)
     }
 
 }
