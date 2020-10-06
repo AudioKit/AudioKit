@@ -15,6 +15,8 @@ class AmplitudeEnvelopeDSP : public SoundpipeDSPBase {
 private:
     sp_adsr *adsr;
     float internalGate = 0;
+    float pendingGate = 0;
+    bool gateProcessedOnce = true;
     float amp = 0;
     ParameterRamper attackDurationRamp;
     ParameterRamper decayDurationRamp;
@@ -48,13 +50,17 @@ public:
 
     void start() override {
         SoundpipeDSPBase::start();
-        internalGate = 1;
+        if (gateProcessedOnce) {
+            internalGate = 1;
+        }
+        pendingGate = 1;
     }
 
     void stop() override {
         SoundpipeDSPBase::stop();
         internalGate = 0;
-        sp_adsr_compute(sp, adsr, &internalGate, &amp);
+        pendingGate = 0;
+        gateProcessedOnce = false;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
@@ -67,6 +73,10 @@ public:
             adsr->rel = releaseDurationRamp.getAndStep();
 
             sp_adsr_compute(sp, adsr, &internalGate, &amp);
+            if (gateProcessedOnce == false) {
+                internalGate = pendingGate;
+                gateProcessedOnce = true;
+            }
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;

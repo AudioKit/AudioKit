@@ -15,6 +15,8 @@ let validatedMD5s: [String: String] = [
     "-[AmplitudeEnvelopeTests testDefault]": "914c64fe6304ad257fc2b0ae158808f7",
     "-[AmplitudeEnvelopeTests testParameters]": "5d1d7d1cee074ceb4b74a9ef7ceb601b",
     "-[AmplitudeEnvelopeTests testSustain]": "9b23334cea8bb4c6965c820c750594cc",
+    "-[AmplitudeEnvelopeTests testRelease]": "c65afa7279eef3df9b512b22ffde4d3e",
+    "-[AmplitudeEnvelopeTests testDoubleStop]": "c65afa7279eef3df9b512b22ffde4d3e",
     "-[AmplitudeTapTests testDefault]": "b90b7df4d69e57898ee39d89891f8f91",
     "-[AudioPlayerTests testBasic]": "c7e1a8f2293beba52bbbb1967f2586ab",
     "-[AudioPlayerTests testLoop]": "f0a73fe1aca7479cba6a777373ff90a3",

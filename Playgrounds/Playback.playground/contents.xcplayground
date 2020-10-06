@@ -4,7 +4,6 @@
         <page name='Table Of Contents'/>
         <page name='Audio Player'/>
         <page name='Callback Instrument'/>
-        <page name='Drum Sequencer'/>
         <page name='MIDI Chord Generator'/>
         <page name='MIDI Input'/>
         <page name='MIDI Output'/>

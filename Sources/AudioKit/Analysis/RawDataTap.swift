@@ -4,7 +4,7 @@ import AVFoundation
 import Accelerate
 import CAudioKit
 
-/// FFT Calculation for any node
+/// Get the raw data for any node
 open class RawDataTap: Toggleable {
 
     /// Size of buffer to
