@@ -70,6 +70,38 @@ class AmplitudeEnvelopeTests: XCTestCase {
         testMD5(audio)
     }
 
-    // Release is not tested at this time since there is no sample accurate way to define release point
+    func testRelease() {
+        let engine = AudioEngine()
+        let input = Oscillator()
+        let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
+        engine.output = envelope
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 1.0))
+        envelope.stop()
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+        audition(audio)
+    }
+
+    func testDoubleStop() {
+        let engine = AudioEngine()
+        let input = Oscillator()
+        let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
+        engine.output = envelope
+        input.play()
+        envelope.start()
+
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 1.0))
+        envelope.stop()
+        audio.append(engine.render(duration: 0.5))
+        envelope.stop()
+        audio.append(engine.render(duration: 0.5))
+        testMD5(audio)
+        audition(audio)
+    }
 
 }
