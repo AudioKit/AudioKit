@@ -20,39 +20,24 @@
 //: Hopefully we'll add more practicals over time.  If you're interested in
 //: making more, submit a pull-request to the git repository and we'll be sure to include them.
 //:
-//: Microtonal Functionality:
-//:
-//: * [Microtonality](Microtonality)
-//:
 //: Oscillators are the basis of many synths which also usually have envelopes:
 //:
 //: * [Filter Envelope](Filter%20Envelope)
 //:
 //: ### Physical Models
 //:
-//: These playgrounds highlight sound synthesis in which the intent is to
-//: to model a real-life sound, instrument, or object.
-//:
-//: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
 //: * [Drum Synthesizers](Drum%20Synthesizers)
 //: * [Flute](Flute)
 //: * [Mandolin](Mandolin)
-//: * [Plucked String](Plucked%20String)
-//: * [Tubular Bells](Tubular%20Bells)
-//: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:
 //: ## Operations
 //:
 //: Many of the types of things you can do in nodes are also possible with operations,
 //: but with great flexibility in how the parameters are changed over time.
 //:
-//: * [FM Oscillator](FM%20Oscillator%20Operation)
 //: * [Segment Operations](Segment%20Operations)
-//: * [Noise](Noise%20Operations)
 //: * [Phasor](Phasor%20Operation)
-//: * [Plucked String](Plucked%20String%20Operation)
-//: * [Sawtooth Wave Oscillator](Sawtooth%20Wave%20Oscillator%20Operation)
 //:
 //: ### Sporth
 //:
