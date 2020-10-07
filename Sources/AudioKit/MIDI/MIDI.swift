@@ -97,5 +97,9 @@ public class MIDI {
         isReceivingSysEx = false
     }
     var incomingSysEx = [MIDIByte]()
+    
+    // I don't want to break logic of existing code for receiving SysEx messages,
+    // So I use separate var for processUMPSysExMessage method
+    internal var incomigUMPSysExMessage = [UInt8]()
 }
 #endif
