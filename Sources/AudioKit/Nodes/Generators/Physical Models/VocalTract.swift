@@ -9,7 +9,9 @@ import CAudioKit
 /// classic Kelly-Lochbaum
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
-/// 
+///
+/// NOTE:  This node is CPU intensitve and will drop packet if your buffer size is
+/// too short. It requires at least 64 samples on an iPhone X, for example.
 public class VocalTract: Node, AudioUnitContainer, Tappable, Toggleable {
 
     /// Unique four-letter identifier "vocw"
