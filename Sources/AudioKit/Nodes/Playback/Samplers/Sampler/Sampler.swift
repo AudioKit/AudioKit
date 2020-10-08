@@ -351,11 +351,11 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
 
         flattened.withUnsafeMutableBufferPointer { data in
             internalAU?.loadSampleData(from: SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                    sampleRate: sampleRate,
-                                                                    isInterleaved: false,
-                                                                    channelCount: channelCount,
-                                                                    sampleCount: sampleCount,
-                                                                    data: data.baseAddress) )
+                                                                  sampleRate: sampleRate,
+                                                                  isInterleaved: false,
+                                                                  channelCount: channelCount,
+                                                                  sampleCount: sampleCount,
+                                                                  data: data.baseAddress) )
         }
     }
 
