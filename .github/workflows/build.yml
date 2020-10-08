@@ -9,7 +9,7 @@ jobs:
   test:
     strategy:
       matrix:
-        xcode_version: ['11.7', '12']
+        xcode_version: ['12']
     runs-on: macos-latest
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
@@ -99,3 +99,4 @@ jobs:
           path: "Documentation"
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
