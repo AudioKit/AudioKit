@@ -39,10 +39,6 @@
 //: * [Expander](Expander)
 //: * [Peak Limiter](Peak%20Limiter)
 //:
-//: ### Pitch Shifting
-//:
-//: * [Pitch Shifter Operation](Pitch%20Shifter%20Operation)
-//:
 //: ### Reverb
 //:
 //: These are the more traditional reverb efffects.
@@ -58,12 +54,6 @@
 //:
 //: * [Graphic Equalizer](Graphic%20Equalizer)
 //:
-//: ## Operations
-//:
-//: Many of the types of things you can do in nodes are also possible with operations,
-//: but with great flexibility in how the parameters are changed over time.
-//:
-//: * [Variable Delay](Variable%20Delay%20Operation)
 //:
 //: ### Sporth
 //:
