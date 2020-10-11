@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw' buildActiveScheme='true' last-migration='0900'>
-    <pages>
-        <page name='Table Of Contents'/>
-        <page name='Filter Envelope'/>
-        <page name='Sporth Based Generator'/>
-        <page name='XY Pad'/>
-    </pages>
-</playground>
