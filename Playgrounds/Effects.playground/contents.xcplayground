@@ -13,16 +13,12 @@
         <page name='Expander'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Graphic Equalizer'/>
-        <page name='Multi-tap Delay'/>
-        <page name='MultiDelay Example'/>
         <page name='Peak Limiter'/>
         <page name='Phaser'/>
         <page name='Pitch Shifter'/>
         <page name='Reverb'/>
         <page name='Rhino Guitar Processor'/>
         <page name='Ring Modulator'/>
-        <page name='Smooth Delay Operation'/>
-        <page name='Sporth Based Effect'/>
         <page name='Sporth Custom Effect'/>
         <page name='Stereo Delay Operation'/>
         <page name='Stereo Field Limiter'/>
