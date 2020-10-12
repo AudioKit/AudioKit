@@ -126,7 +126,7 @@ public:
             pd.p[13] = parameter14Ramp.getAndStep();
 
             if (internalTrigger == 1) {
-                pd.p[15] = 1.0;
+                pd.p[14] = 1.0;
             }
 
             if (isStarted)
@@ -142,6 +142,7 @@ public:
             }
 
             internalTrigger = 0;
+            pd.p[14] = 0.0;
         }
     }
 };
