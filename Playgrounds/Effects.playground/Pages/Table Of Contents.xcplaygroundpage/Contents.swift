@@ -54,11 +54,4 @@
 //:
 //: * [Graphic Equalizer](Graphic%20Equalizer)
 //:
-//:
-//: ### Sporth
-//:
-//: Sporth is a simple but super-powerful stack-based audio processing language
-//: that you can run directly in AudioKit.
-//:
-//: * [Sporth Based Effect](Sporth%20Based%20Effect)
-//:
+
