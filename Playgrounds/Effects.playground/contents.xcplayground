@@ -2,7 +2,6 @@
 <playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
-        <page name='Chorus'/>
         <page name='Clipper'/>
         <page name='Comb Filter Reverb'/>
         <page name='Compressor'/>
@@ -12,9 +11,6 @@
         <page name='Dynamics Processor'/>
         <page name='DynaRage Tube Compressor'/>
         <page name='Expander'/>
-        <page name='Fatten Effect'/>
-        <page name='Filter Section Example'/>
-        <page name='Flanger'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Graphic Equalizer'/>
         <page name='Multi-tap Delay'/>
@@ -22,7 +18,6 @@
         <page name='Peak Limiter'/>
         <page name='Phaser'/>
         <page name='Pitch Shifter'/>
-        <page name='Pitch Shift Operation'/>
         <page name='Reverb'/>
         <page name='Rhino Guitar Processor'/>
         <page name='Ring Modulator'/>
@@ -35,6 +30,5 @@
         <page name='Tanh Distortion'/>
         <page name='Tremolo'/>
         <page name='Variable Delay'/>
-        <page name='Variable Delay Operation'/>
     </pages>
 </playground>
