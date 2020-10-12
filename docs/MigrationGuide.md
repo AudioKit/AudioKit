@@ -75,7 +75,7 @@ Notice how ramping duration is independent for each parameter. And notice the pa
 8. Microphone access has changed. There is no more `AKMicrophone` and instead you create a microphone as an `AudioEngine.InputNode` and instantiate on an engine you create:
 ```
 let engine = AudioEngine()
-let mic: AudioEngine.Input Node
+let mic: AudioEngine.InputNode
 
 init() {
     mic = engine.input
