@@ -19,6 +19,15 @@ private:
 public:
     ConvolutionDSP() {}
 
+    void setWavetable(const float *table, size_t length, int index) override {
+        wavetable = std::vector<float>(table, table + length);
+        if (!isInitialized) return;
+        sp_ftbl_destroy(&ftbl);
+        sp_ftbl_create(sp, &ftbl, wavetable.size());
+        std::copy(wavetable.cbegin(), wavetable.cend(), ftbl->tbl);
+        reset();
+    }
+
     void init(int channelCount, double sampleRate) override {
         SoundpipeDSPBase::init(channelCount, sampleRate);
         sp_ftbl_create(sp, &ftbl, wavetable.size());
