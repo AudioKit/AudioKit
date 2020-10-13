@@ -60,7 +60,7 @@ public class TableView: UIView {
 
         bezierPath.addLine(to: CGPoint(x: Double(frame.width), y: (1.0 - Double(table[0]) / absmax * padding) * height))
 
-        UIColor.black.setStroke()
+        UIColor.red.setStroke()
         bezierPath.lineWidth = 2
         bezierPath.stroke()
     }
