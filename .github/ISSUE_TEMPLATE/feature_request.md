@@ -16,5 +16,8 @@ A clear and concise description of what you want to happen.
 **Describe alternatives you've considered**
 A clear and concise description of any alternative solutions or features you've considered.
 
+**Assign yourself to this task**
+AudioKit maintainers are not here to do your work for you, so if you can assign yourself to the feature request, that would be ideal.
+
 **Additional context**
 Add any other context or screenshots about the feature request here.
