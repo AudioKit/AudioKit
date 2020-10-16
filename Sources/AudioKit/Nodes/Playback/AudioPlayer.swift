@@ -65,7 +65,11 @@ public class AudioPlayer: Node, Toggleable {
 
         do {
             let file = try AVAudioFile(forReading: url)
-            let buffer = try AVAudioPCMBuffer(file: file)
+            guard let buffer = try AVAudioPCMBuffer(file: file) else {
+                Log("🛑 Error: AVAudioPCMBuffer could not be initialized from file.")
+                return
+            }
+
             playerNode.scheduleBuffer(buffer, at: when, options: options)
         } catch {
             fatalError("Failed to schedule file at \(url): \(error)")
