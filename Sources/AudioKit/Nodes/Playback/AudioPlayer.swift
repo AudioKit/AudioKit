@@ -10,6 +10,11 @@ public class AudioPlayer: Node, Toggleable {
         playerNode.isPlaying
     }
 
+    public var volume: AUValue {
+        get { playerNode.volume }
+        set { playerNode.volume = newValue }
+    }
+
     /// The underlying player node
     public var playerNode = AVAudioPlayerNode()
 
