@@ -50,13 +50,15 @@ public:
             pluck->freq = frequencyRamp.getAndStep();
             pluck->amp = amplitudeRamp.getAndStep();
 
+            float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_pluck_compute(sp, pluck, &internalTrigger, out);
+                        sp_pluck_compute(sp, pluck, &internalTrigger, &temp);
                     }
+                    *out = temp;
                 } else {
                     *out = 0.0;
                 }
