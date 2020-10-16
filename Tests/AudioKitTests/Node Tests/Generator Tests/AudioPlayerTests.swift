@@ -73,6 +73,27 @@ class AudioPlayerTests: XCTestCase {
         player.scheduleFile(file, at: nil)
     }
 
+    func testScheduleFile() {
+        let url = generateTestFile()
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        player.volume = 0.1
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 2.0)
+        var output = ""
+        player.scheduleFile(url, at: nil, options: .loops) {
+            output = "success"
+        }
+        player.play()
+        audio.append(engine.render(duration: 2.0))
+        engine.stop()
+
+        testMD5(audio)
+        XCTAssertEqual(output, "success")
+    }
+
     func testVolume() {
         let url = generateTestFile()
 
