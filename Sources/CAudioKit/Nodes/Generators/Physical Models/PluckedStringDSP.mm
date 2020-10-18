@@ -43,6 +43,10 @@ public:
         internalTrigger = 1;
     }
 
+    void triggerFrequencyAmplitude(float frequency, float amplitude) override {
+        internalTrigger = 1;
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -50,13 +54,15 @@ public:
             pluck->freq = frequencyRamp.getAndStep();
             pluck->amp = amplitudeRamp.getAndStep();
 
+            float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_pluck_compute(sp, pluck, &internalTrigger, out);
+                        sp_pluck_compute(sp, pluck, &internalTrigger, &temp);
                     }
+                    *out = temp;
                 } else {
                     *out = 0.0;
                 }

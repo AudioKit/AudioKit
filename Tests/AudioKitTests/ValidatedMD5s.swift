@@ -292,7 +292,7 @@ let validatedMD5s: [String: String] = [
     "-[PitchShifterTests testWindowSize]": "a62fda45b9d393270e953f40f1eb8183",
     "-[PitchTapTests testBasic]": "10e7831ee61299f51dd0ef03fa50bb25",
     "-[PluckedStringOperationTests testDefault]": "bdef4981144f808c1a375a277f4da66f",
-    "-[PluckedStringTests testDefault]": "12b39e61c43241178be0407dc0e3dd66",
+    "-[PluckedStringTests testDefault]": "9e2d3aa3b50fa53a43b798901f0cb0e5",
     "-[ResonantFilterOperationTests testDefault]": "8d0749af7e7172cff2123c7bd8499f61",
     "-[ResonantFilterOperationTests testParameters1]": "5a4e6ac549b9c3710916d6eba86d42b0",
     "-[ResonantFilterOperationTests testParameters2]": "224bcf0c1da8d00d959f50d849b2dc4d",
