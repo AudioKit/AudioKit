@@ -9,15 +9,6 @@ import Foundation
 import AVFoundation
 
 open class BaseTap: Toggleable {
-    private var unfairLock = os_unfair_lock_s()
-    func lock() {
-        os_unfair_lock_lock(&unfairLock)
-    }
-
-    func unlock() {
-        os_unfair_lock_unlock(&unfairLock)
-    }
-    
     /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32
 
@@ -62,7 +53,7 @@ open class BaseTap: Toggleable {
 
     /// - parameter bufferSize: Size of buffer to analyze
     /// - parameter handler: Callback to call 
-    public init(_ input: Node, bufferSize: UInt32 = 4_096) {
+    public init(_ input: Node, bufferSize: UInt32) {
         self.bufferSize = bufferSize
         self._input = input
     }
@@ -140,5 +131,14 @@ open class BaseTap: Toggleable {
         if isStarted {
             stop()
         }
+    }
+    
+    private var unfairLock = os_unfair_lock_s()
+    func lock() {
+        os_unfair_lock_lock(&unfairLock)
+    }
+
+    func unlock() {
+        os_unfair_lock_unlock(&unfairLock)
     }
 }
