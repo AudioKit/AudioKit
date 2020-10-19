@@ -7,9 +7,7 @@ import AVFoundation
 /// start() will add the tap, and stop() will remove it.
 public class AmplitudeTap: BaseTap {
     private var amp: [Float] = Array(repeating: 0, count: 2)
-
-
-
+    
     /// Detected amplitude (average of left and right channels
     public var amplitude: Float {
         return amp.reduce(0, +) / 2
