@@ -26,7 +26,7 @@ open class FFTTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         fftData = FFTTap.performFFT(buffer: buffer)

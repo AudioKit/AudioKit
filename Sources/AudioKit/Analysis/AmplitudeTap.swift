@@ -36,7 +36,7 @@ public class AmplitudeTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
         let channelCount = Int(buffer.format.channelCount)
