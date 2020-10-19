@@ -23,7 +23,7 @@ open class RawDataTap: BaseTap {
         super.init(input, bufferSize: bufferSize)
     }
     // AVAudioNodeTapBlock - time is unused in this case
-    override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
 
         guard buffer.floatChannelData != nil else { return }
 
