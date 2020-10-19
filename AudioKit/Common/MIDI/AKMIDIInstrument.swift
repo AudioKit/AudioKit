@@ -69,9 +69,10 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - velocity:   MIDI velocity
     ///   - channel:    MIDI channel
     ///
-    open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
+    open func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel,
+                                 portID: MIDIUniqueID? = nil,
                                  offset: MIDITimeStamp = 0) {
         mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
