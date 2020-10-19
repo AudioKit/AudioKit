@@ -103,7 +103,6 @@ open class BaseTap: Toggleable {
     }
     
     // overide this method to handle Tap in derived class
-
     func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         
     }
