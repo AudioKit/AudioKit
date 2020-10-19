@@ -49,8 +49,7 @@ open class BaseTap: Toggleable {
             }
         }
     }
-
-
+    
     /// - parameter bufferSize: Size of buffer to analyze
     /// - parameter handler: Callback to call 
     public init(_ input: Node, bufferSize: UInt32) {
@@ -84,7 +83,6 @@ open class BaseTap: Toggleable {
                                            format: nil,
                                            block: handleTapBlock(buffer:at:))
     }
-
     
     // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
@@ -97,7 +95,7 @@ open class BaseTap: Toggleable {
                 self.unlock()
                 return
             }
-            self.doHandleTapBlock(buffer:buffer, at:time)
+            self.doHandleTapBlock(buffer:buffer, at: time)
             self.unlock()
         }
     }
@@ -120,7 +118,6 @@ open class BaseTap: Toggleable {
             Log("The tapped node isn't attached to the engine")
             return
         }
-
         input.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
