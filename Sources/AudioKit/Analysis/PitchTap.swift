@@ -39,7 +39,6 @@ public class PitchTap: BaseTap {
         super.init(input, bufferSize: bufferSize)
     }
 
-
     deinit {
         for tracker in trackers {
             akPitchTrackerDestroy(tracker)
