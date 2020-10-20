@@ -2,9 +2,8 @@ AudioKit V5.0 Beta / Developer's Release
 ===
 
 [![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
-[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/master/LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
-<img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
+[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/v5-main/LICENSE)
+[![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/wiki)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](http://twitter.com/AudioKitPro)
 
