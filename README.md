@@ -21,7 +21,7 @@ You will also want to check the progress of the [AudioKit 5 Release Push Project
 
 ## Installation via Swift Package Manager
 
-To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `v5-master` or `v5-develop`.
+To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `v5-main` or `v5-develop`.
 
 Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced when AudioKit 5 is officially released.
 
@@ -43,7 +43,7 @@ The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many reci
 
 ## Contributing Code
 
-When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-master), 
+When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-main), 
 make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 
