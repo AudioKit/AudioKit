@@ -5,11 +5,17 @@ import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode.
 public class AudioPlayer: Node, Toggleable {
-    /// Is player playing?
+    /// Is player started?
     public var isStarted: Bool {
-        playerNode.isPlaying
+        isPlaying
     }
 
+    /// Is player playing?
+    public var isPlaying: Bool {
+        pplayerNode.isPlaying
+    }
+
+    // Loudness
     public var volume: AUValue {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
