@@ -233,8 +233,6 @@ public class AudioEngine {
     }
 
     /// The current input device, if available.
-    ///
-    /// Note that on macOS, this will always be the same as `outputDevice`
     public var inputDevice: Device? {
         if let portDescription = AVAudioSession.sharedInstance().preferredInput {
             return Device(portDescription: portDescription)
@@ -250,8 +248,6 @@ public class AudioEngine {
     }
 
     /// The current output device, if available.
-    ///
-    /// Note that on macOS, this will always be the same as `inputDevice`
     public var outputDevice: Device? {
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {
