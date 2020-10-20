@@ -24,6 +24,7 @@ public class PitchTap: BaseTap {
     public var rightPitch: Float {
         return pitch[1]
     }
+
     /// Callback type
     public typealias Handler = ([Float], [Float]) -> Void
 
@@ -44,6 +45,7 @@ public class PitchTap: BaseTap {
             akPitchTrackerDestroy(tracker)
         }
     }
+
     override public func stop() {
         super.stop()
         for i in 0 ..< pitch.count {
@@ -52,7 +54,7 @@ public class PitchTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
         let channelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)

@@ -1,12 +1,12 @@
 //
 //  BaseTap.swift
-//  
+//
 //
 //  Created by Gil Hadas on 19/10/2020.
 //
 
-import Foundation
 import AVFoundation
+import Foundation
 
 open class BaseTap: Toggleable {
     /// Size of buffer to analyze
@@ -49,9 +49,9 @@ open class BaseTap: Toggleable {
             }
         }
     }
-    
+
     /// - parameter bufferSize: Size of buffer to analyze
-    /// - parameter handler: Callback to call 
+    /// - parameter handler: Callback to call
     public init(_ input: Node, bufferSize: UInt32) {
         self.bufferSize = bufferSize
         self._input = input
@@ -75,7 +75,7 @@ open class BaseTap: Toggleable {
         // just double check this here
         guard input.avAudioUnitOrNode.engine != nil else {
             Log("The tapped node isn't attached to the engine")
-           return
+            return
         }
 
         input.avAudioUnitOrNode.installTap(onBus: bus,
@@ -83,7 +83,7 @@ open class BaseTap: Toggleable {
                                            format: nil,
                                            block: handleTapBlock(buffer:at:))
     }
-    
+
     // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         // Call on the main thread so the client doesn't have to worry
@@ -95,15 +95,13 @@ open class BaseTap: Toggleable {
                 self.unlock()
                 return
             }
-            self.doHandleTapBlock(buffer:buffer, at: time)
+            self.doHandleTapBlock(buffer: buffer, at: time)
             self.unlock()
         }
     }
-    
+
     // overide this method to handle Tap in derived class
-    func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        
-    }
+    func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
 
     /// Remove the tap on the input
     public func stop() {
@@ -128,7 +126,7 @@ open class BaseTap: Toggleable {
             stop()
         }
     }
-    
+
     private var unfairLock = os_unfair_lock_s()
     func lock() {
         os_unfair_lock_lock(&unfairLock)

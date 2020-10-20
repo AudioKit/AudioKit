@@ -7,7 +7,7 @@ import AVFoundation
 /// start() will add the tap, and stop() will remove it.
 public class AmplitudeTap: BaseTap {
     private var amp: [Float] = Array(repeating: 0, count: 2)
-    
+
     /// Detected amplitude (average of left and right channels
     public var amplitude: Float {
         return amp.reduce(0, +) / 2
@@ -36,7 +36,7 @@ public class AmplitudeTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
         let channelCount = Int(buffer.format.channelCount)
@@ -48,14 +48,14 @@ public class AmplitudeTap: BaseTap {
 
             var rms: Float = 0
             vDSP_rmsqv(data, 1, &rms, UInt(length))
-            self.amp[n] = rms
+            amp[n] = rms
         }
 
-        self.handler(self.amplitude)
+        handler(amplitude)
     }
 
     /// Remove the tap on the input
-    public override func stop() {
+    override public func stop() {
         super.stop()
         amp[0] = 0
         amp[1] = 0
