@@ -49,7 +49,6 @@ public class AudioEngine {
 
     let _input = InputNode()
 
-
     /// Input for microphone or other device is created when this is accessed
     public var input: InputNode {
         guard let _ = Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String else {
@@ -204,22 +203,22 @@ public class AudioEngine {
             Device(deviceID: id)
         }
     }
-    #endif
 
+    public var device: Device {
+        Device(deviceID: avEngine.getDevice())
+    }
+
+    /// Change the preferred output device, giving it one of the names from the list of available output.
+    /// - Parameter output: Output device
+    /// - Throws: Error if the device cannot be set
+    public func setDevice(_ output: Device) throws {
+        avEngine.setDevice(id: output.deviceID)
+    }
+
+
+    #else
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     public static func setInputDevice(_ input: Device) throws {
-        #if os(macOS)
-        try ExceptionCatcher {
-            var address = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultInputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster)
-            var devid = input.deviceID
-            AudioObjectSetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
-        }
-        #else
         // Set the port description first eg iPhone Microphone / Headset Microphone etc
         guard let portDescription = input.portDescription else {
             throw CommonError.DeviceNotFound
@@ -231,16 +230,10 @@ public class AudioEngine {
             return
         }
         try AVAudioSession.sharedInstance().setInputDataSource(dataSourceDescription)
-        #endif
     }
 
     /// The current input device, if available.
-    ///
-    /// Note that on macOS, this will always be the same as `outputDevice`
     public var inputDevice: Device? {
-        #if os(macOS)
-        return Device(deviceID: avEngine.getDevice())
-        #else
         if let portDescription = AVAudioSession.sharedInstance().preferredInput {
             return Device(portDescription: portDescription)
         } else {
@@ -252,32 +245,17 @@ public class AudioEngine {
             }
         }
         return nil
-        #endif
     }
 
     /// The current output device, if available.
-    ///
-    /// Note that on macOS, this will always be the same as `inputDevice`
     public var outputDevice: Device? {
-        #if os(macOS)
-        return Device(deviceID: avEngine.getDevice())
-        #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
         if devs.isNotEmpty {
             return Device(name: devs[0].portName, deviceID: devs[0].uid)
         }
         return nil
-        #endif
     }
-
-    /// Change the preferred output device, giving it one of the names from the list of available output.
-    /// - Parameter output: Output device
-    /// - Throws: Error if the device cannot be set
-    public func setOutputDevice(_ output: Device) throws {
-        #if os(macOS)
-        avEngine.setDevice(id: output.deviceID)
-        #endif
-    }
+    #endif
 
     /// Render output to an AVAudioFile for a duration.
     ///
