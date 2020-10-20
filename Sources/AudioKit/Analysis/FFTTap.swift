@@ -6,7 +6,6 @@ import CAudioKit
 
 /// FFT Calculation for any node
 open class FFTTap: BaseTap {
-
     /// Array of FFT data
     open var fftData: [Float]
     /// Type of callback
@@ -15,7 +14,7 @@ open class FFTTap: BaseTap {
     private var handler: Handler = { _ in }
 
     /// Initialize the FFT Tap
-    /// 
+    ///
     /// - parameter input: Node to analyze
     /// - parameter bufferSize: Size of buffer to analyze
     /// - parameter handler: Callback to call when FFT is calculated
@@ -26,7 +25,7 @@ open class FFTTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    internal override func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         fftData = FFTTap.performFFT(buffer: buffer)
@@ -61,7 +60,7 @@ open class FFTTap: BaseTap {
                 // And then pack the input into the complex buffer (output)
                 transferBuffer.withUnsafeBufferPointer { pointer in
                     pointer.baseAddress!.withMemoryRebound(to: DSPComplex.self,
-                                                         capacity: transferBuffer.count) {
+                                                           capacity: transferBuffer.count) {
                         vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
                     }
                 }
@@ -93,4 +92,3 @@ open class FFTTap: BaseTap {
         for i in 0 ..< fftData.count { fftData[i] = 0.0 }
     }
 }
-
