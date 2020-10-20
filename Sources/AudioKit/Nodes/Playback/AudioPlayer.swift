@@ -10,6 +10,11 @@ public class AudioPlayer: Node, Toggleable {
         playerNode.isPlaying
     }
 
+    public var volume: AUValue {
+        get { playerNode.volume }
+        set { playerNode.volume = newValue }
+    }
+
     /// The underlying player node
     public var playerNode = AVAudioPlayerNode()
 
@@ -41,6 +46,37 @@ public class AudioPlayer: Node, Toggleable {
             return
         }
         playerNode.scheduleFile(file, at: when, completionHandler: completionHandler)
+    }
+
+    /// Schedule a file from a URL
+    /// - Parameters:
+    ///   - url: URL for a file to schedule
+    ///   - when: What time to schedule for
+    ///   - options: Options for looping
+    ///   - completionHandler: Callback on completion
+    public func scheduleFile(_ url: URL,
+                             at when: AVAudioTime?,
+                             options: AVAudioPlayerNodeBufferOptions = [],
+                             completionHandler: AVAudioNodeCompletionHandler? = nil) {
+        if playerNode.engine == nil {
+            Log("🛑 Error: AudioPlayer must be attached before scheduling playback.")
+            return
+        }
+
+        do {
+            let file = try AVAudioFile(forReading: url)
+            guard let buffer = try AVAudioPCMBuffer(file: file) else {
+                Log("🛑 Error: AVAudioPCMBuffer could not be initialized from file.")
+                return
+            }
+
+            playerNode.scheduleBuffer(buffer,
+                                      at: when,
+                                      options: options,
+                                      completionHandler: completionHandler)
+        } catch {
+            fatalError("Failed to schedule file at \(url): \(error)")
+        }
     }
 
     /// Schedule a buffer
