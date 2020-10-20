@@ -249,7 +249,7 @@ extension MIDI {
     }
 
     /// Parsing UMP Messages
-    #if os(iOS)
+    #if os(iOS) && !targetEnvironment(macCatalyst)
     @available(iOS 14.0, *)
     private func processUMPMessages(_ midiEventPacket: MIDIEventList.UnsafeSequence.Element) -> [MIDIEvent] {
         // Collection of UInt32 words
@@ -341,7 +341,7 @@ extension MIDI {
                     
                     // Using MIDIInputPortCreateWithProtocol on iOS 14+
                     if #available(iOS 14.0, *) {
-                        #if os(iOS)
+                        #if os(iOS) && !targetEnvironment(macCatalyst)
                         // MARK: TODO: Hardcoded MIDI protocol version 1.0 here, consider to have an option somewhere
                         inputPortCreationResult = MIDIInputPortCreateWithProtocol(client, inputPortName, ._1_0, &port) { eventPacketList, _ in
                             
