@@ -70,7 +70,10 @@ public class AudioPlayer: Node, Toggleable {
                 return
             }
 
-            playerNode.scheduleBuffer(buffer, at: when, options: options)
+            playerNode.scheduleBuffer(buffer,
+                                      at: when,
+                                      options: options,
+                                      completionHandler: completionHandler)
         } catch {
             fatalError("Failed to schedule file at \(url): \(error)")
         }
