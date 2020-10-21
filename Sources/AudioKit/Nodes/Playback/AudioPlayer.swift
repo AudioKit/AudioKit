@@ -12,7 +12,7 @@ public class AudioPlayer: Node, Toggleable {
 
     /// Is player playing?
     public var isPlaying: Bool {
-        pplayerNode.isPlaying
+        playerNode.isPlaying
     }
 
     // Loudness
