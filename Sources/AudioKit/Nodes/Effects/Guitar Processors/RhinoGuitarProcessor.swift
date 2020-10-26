@@ -22,7 +22,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let preGainDef = NodeParameterDef(
         identifier: "preGain",
         name: "PreGain",
-        address: akGetParameterAddress("RhinoGuitarProcessorPreGain"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterPreGain"),
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -34,7 +34,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let postGainDef = NodeParameterDef(
         identifier: "postGain",
         name: "PostGain",
-        address: akGetParameterAddress("RhinoGuitarProcessorPostGain"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterPostGain"),
         range: 0.0 ... 1.0,
         unit: .linearGain,
         flags: .default)
@@ -46,7 +46,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let lowGainDef = NodeParameterDef(
         identifier: "lowGain",
         name: "Low Frequency Gain",
-        address: akGetParameterAddress("RhinoGuitarProcessorLowGain"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterLowGain"),
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -58,7 +58,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let midGainDef = NodeParameterDef(
         identifier: "midGain",
         name: "Mid Frequency Gain",
-        address: akGetParameterAddress("RhinoGuitarProcessorMidGain"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterMidGain"),
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -70,7 +70,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let highGainDef = NodeParameterDef(
         identifier: "highGain",
         name: "High Frequency Gain",
-        address: akGetParameterAddress("RhinoGuitarProcessorHighGain"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterHighGain"),
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -82,7 +82,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
     public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
-        address: akGetParameterAddress("RhinoGuitarProcessorDistortion"),
+        address: akGetParameterAddress("RhinoGuitarProcessorParameterDistortion"),
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)

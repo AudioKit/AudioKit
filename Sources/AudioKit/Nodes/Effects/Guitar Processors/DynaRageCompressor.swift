@@ -23,7 +23,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
     public static let ratioDef = NodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
-        address: akGetParameterAddress("DynaRageCompressorRatio"),
+        address: akGetParameterAddress("DynaRageCompressorParameterRatio"),
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
