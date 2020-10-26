@@ -134,17 +134,19 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleabl
         distortion: AUValue = 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.preGain = preGain
-        self.postGain = postGain
-        self.lowGain = lowGain
-        self.midGain = midGain
-        self.highGain = highGain
-        self.distortion = distortion
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
+
+            self.preGain = preGain
+            self.postGain = postGain
+            self.lowGain = lowGain
+            self.midGain = midGain
+            self.highGain = highGain
+            self.distortion = distortion
+
         }
 
         connections.append(input)

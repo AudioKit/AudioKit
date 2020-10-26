@@ -4,17 +4,8 @@ import AudioKit
 import XCTest
 
 // TODO: Test was left out of old test suite.
-#if false
 
 class DynaRangeCompressorTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        // Need to have a longer test duration to allow for envelope to progress
-        duration = 1.0
-        input.rampDuration = 0.0
-        input.amplitude = 0.1
-    }
 
     func testAttackTime() {
         let engine = AudioEngine()
@@ -91,5 +82,3 @@ class DynaRangeCompressorTests: XCTestCase {
     }
 
 }
-
-#endif

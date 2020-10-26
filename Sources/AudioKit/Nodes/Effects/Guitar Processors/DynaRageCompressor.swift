@@ -134,18 +134,20 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
         rageEnabled: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.ratio = ratio
-        self.threshold = threshold
-        self.attackDuration = attackDuration
-        self.releaseDuration = releaseDuration
-        self.rage = rage
-        self.rageEnabled = rageEnabled
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
+
+            self.ratio = ratio
+            self.threshold = threshold
+            self.attackDuration = attackDuration
+            self.releaseDuration = releaseDuration
+            self.rage = rage
+            self.rageEnabled = rageEnabled
+
         }
 
         connections.append(input)

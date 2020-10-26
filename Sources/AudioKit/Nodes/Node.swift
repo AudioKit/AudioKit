@@ -6,7 +6,7 @@ import CAudioKit
 /// AudioKIt connection point
 open class Node {
     /// Nodes providing input to this node.
-    var connections: [Node] = []
+    open var connections: [Node] = []
 
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
