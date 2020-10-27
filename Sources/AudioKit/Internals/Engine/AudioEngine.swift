@@ -204,6 +204,7 @@ public class AudioEngine {
         }
     }
 
+    /// One device for both input and output. Use aggregate devices to choose different inputs and outputs
     public var device: Device {
         Device(deviceID: avEngine.getDevice())
     }

@@ -15,7 +15,7 @@ public class AudioPlayer: Node, Toggleable {
         playerNode.isPlaying
     }
 
-    // Loudness
+    /// Loudness
     public var volume: AUValue {
         get { playerNode.volume }
         set { playerNode.volume = newValue }

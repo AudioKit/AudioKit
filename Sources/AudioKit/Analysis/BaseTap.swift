@@ -1,13 +1,7 @@
-//
-//  BaseTap.swift
-//
-//
-//  Created by Gil Hadas on 19/10/2020.
-//
-
 import AVFoundation
 import Foundation
 
+/// Base class for AudioKit taps using AVAudioEngine installTap
 open class BaseTap: Toggleable {
     /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32

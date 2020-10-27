@@ -4,7 +4,11 @@ import Foundation
 /// Class to handle updating via CADisplayLink
 public class CallbackLoop: NSObject {
     private var internalHandler: () -> Void = {}
+
+    /// Period of loop in seconds
     public var duration = 1.0
+
+    /// Frequency of callbacks in Hertz
     public var frequency: Double {
         get {
             1.0 / duration
@@ -39,11 +43,13 @@ public class CallbackLoop: NSObject {
         update()
     }
 
+    /// Start the loop
     public func start() {
         isRunning = true
         update()
     }
 
+    /// Stop the loop
     public func stop() {
         isRunning = false
     }
