@@ -56,7 +56,7 @@ open class Node {
         }
     }
 
-    public func detach() {
+    open func detach() {
         if let engine = avAudioNode.engine {
             engine.detach(avAudioNode)
         }
