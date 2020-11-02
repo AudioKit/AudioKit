@@ -65,7 +65,7 @@ open class Node {
         }
     }
 
-    func makeAVConnections() {
+    public func makeAVConnections() {
         // Are we attached?
         if let engine = avAudioNode.engine {
             for (bus, connection) in connections.enumerated() {
