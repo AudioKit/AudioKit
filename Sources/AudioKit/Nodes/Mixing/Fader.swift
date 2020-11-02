@@ -106,7 +106,7 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
 	/// Initialize this fader node
 	///
 	/// - Parameters:
-	///   - input: Node whose output will be amplified, Optional on init
+	///   - input: Node whose output will be amplified
 	///   - gain: Amplification factor (Default: 1, Minimum: 0)
 	///
 	public init(_ input: Node? = nil, gain: AUValue = 1) {
