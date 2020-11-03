@@ -285,5 +285,58 @@ class NodeTests: XCTestCase {
         exampleStop()
     }
 
+    // This provides a baseline for measuring the overhead
+    // of mixers in testMixerPerformance.
+    func testChainPerformance() {
+
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let rev = CostelloReverb(osc)
+
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = rev
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+
+    }
+
+    // Measure the overhead of mixers.
+    func testMixerPerformance() {
+
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let mix1 = Mixer(osc)
+        let rev = CostelloReverb(mix1)
+        let mix2 = Mixer(rev)
+
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = mix2
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+
+    }
+
 }
 
