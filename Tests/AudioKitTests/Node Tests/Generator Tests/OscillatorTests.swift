@@ -14,6 +14,8 @@ class OscillatorTests: XCTestCase {
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
+
+		//audition(audio)
         testMD5(audio)
     }
 
