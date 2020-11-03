@@ -83,9 +83,8 @@ public class AudioEngine {
 	/// Output node
 	public var output: Node? {
 		didSet {
-			if avEngine.isRunning {
-				stop()
-			}
+			let wasRunning = avEngine.isRunning
+			if wasRunning { stop() }
 
 			// remove the exisiting node if it is present
 			if let node = oldValue {
@@ -110,7 +109,7 @@ public class AudioEngine {
 					avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
 
 				} else {
-					// otherwise simulate the mainMixerNode, but create it ourselves to ensure the correct sample rate
+					// otherwise simulate the mainMixerNode, but create it ourselves to ensure the correct sample rate on connect
 					let mixer = Mixer()
 					avEngine.attach(mixer.avAudioNode)
 					avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
@@ -118,10 +117,10 @@ public class AudioEngine {
 					mixer.addInput(node)
 					mixer.makeAVConnections()
 					mainMixerNode = mixer
-
-					// avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: Settings.audioFormat)
 				}
 			}
+
+			if wasRunning { try? start() }
 		}
 	}
 

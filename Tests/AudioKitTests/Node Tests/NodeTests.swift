@@ -209,6 +209,17 @@ class NodeTests: XCTestCase {
 		engine.output = mixer
 
 		XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
+		XCTAssertEqual(mixer.connections.count, 16)
+
+		// test remove first one
+		if let firstOsc = oscs.first {
+			mixer.removeInput(firstOsc)
+			XCTAssertEqual(mixer.connections.count, 15)
+		}
+
+		// remove all of them
+		mixer.removeAllInputs()
+		XCTAssertEqual(mixer.connections.count, 0)
 	}
 
 	func connectionCount(node: AVAudioNode) -> Int {
