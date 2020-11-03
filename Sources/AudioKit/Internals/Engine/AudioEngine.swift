@@ -23,7 +23,7 @@ extension AVAudioNode {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: { $0.node === self }) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: bus))
-            engine.connect(input, to: points, fromBus: 0, format: nil)
+			engine.connect(input, to: points, fromBus: 0, format: Settings.audioFormat)
         }
     }
 }
@@ -74,7 +74,7 @@ public class AudioEngine {
             if let node = output {
                 avEngine.attach(node.avAudioNode)
                 node.makeAVConnections()
-                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
+                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: Settings.audioFormat)
             }
         }
     }
