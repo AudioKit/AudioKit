@@ -149,6 +149,7 @@ class ParameterAutomationTests: XCTestCase {
         osc.$frequency.automate(events: events)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+		//audition(audio)
     }
 
 }

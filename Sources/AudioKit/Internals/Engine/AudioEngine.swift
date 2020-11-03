@@ -141,13 +141,14 @@ public class AudioEngine {
 	/// Start testing for a specified total duration
 	/// - Parameter duration: Total duration of the entire test
 	/// - Returns: A buffer which you can append to
-	public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
-		let samples = Int(duration * Settings.sampleRate)
+	public func startTest(totalDuration duration: Double, format: AVAudioFormat? = nil) -> AVAudioPCMBuffer {
+		let format = format ?? Settings.defaultAudioFormat
+		let samples = Int(duration * format.sampleRate)
 
 		do {
 			avEngine.reset()
 			try avEngine.enableManualRenderingMode(.offline,
-												   format: Settings.audioFormat,
+												   format: format,
 												   maximumFrameCount: maximumFrameCount)
 			try start()
 		} catch let err {
@@ -165,16 +166,25 @@ public class AudioEngine {
 	/// Render audio for a specific duration
 	/// - Parameter duration: Length of time to render for
 	/// - Returns: Buffer of rendered audio
-	public func render(duration: Double) -> AVAudioPCMBuffer {
-		let sampleCount = Int(duration * Settings.sampleRate)
+	public func render(duration: Double, format: AVAudioFormat? = nil) -> AVAudioPCMBuffer {
+		let format = format ?? Settings.defaultAudioFormat
+
+		let sampleCount = Int(duration * format.sampleRate)
 		let startSampleCount = Int(avEngine.manualRenderingSampleTime)
 
 		let buffer = AVAudioPCMBuffer(
-			pcmFormat: avEngine.manualRenderingFormat,
+			pcmFormat: format,
 			frameCapacity: AVAudioFrameCount(sampleCount))!
 
+		Log(avEngine.manualRenderingFormat)
+
+//		guard avEngine.manualRenderingFormat.sampleRate == 44100 else {
+//			Log("WRONG FORMAT", type: .error)
+//			return buffer
+//		}
+
 		let tempBuffer = AVAudioPCMBuffer(
-			pcmFormat: avEngine.manualRenderingFormat,
+			pcmFormat: format,
 			frameCapacity: AVAudioFrameCount(maximumFrameCount))!
 
 		do {
