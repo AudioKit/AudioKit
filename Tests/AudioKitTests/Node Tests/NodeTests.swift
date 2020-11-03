@@ -5,316 +5,338 @@ import CAudioKit
 import XCTest
 
 class NodeTests: XCTestCase {
-	let osc = Oscillator()
 
-	func testNodeBasic() {
-		let engine = AudioEngine()
-		let osc = Oscillator()
-		XCTAssertNotNil(osc.avAudioUnit)
-		XCTAssertNil(osc.avAudioNode.engine)
-		osc.start()
-		engine.output = osc
-		XCTAssertNotNil(osc.avAudioNode.engine)
-		let audio = engine.startTest(totalDuration: 0.1)
-		audio.append(engine.render(duration: 0.1))
-		testMD5(audio)
-	}
+    let osc = Oscillator()
 
-	func testNodeConnection() {
-		let engine = AudioEngine()
-		let osc = Oscillator()
-		osc.start()
-		let verb = CostelloReverb(osc)
-		engine.output = verb
-		let audio = engine.startTest(totalDuration: 0.1)
-		audio.append(engine.render(duration: 0.1))
-		testMD5(audio)
-	}
+    func testNodeBasic() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = osc
+        XCTAssertNotNil(osc.avAudioNode.engine)
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
+    }
 
-	func testRedundantConnection() {
-		let osc = Oscillator()
-		let mixer = Mixer()
-		mixer.addInput(osc)
-		mixer.addInput(osc)
-		XCTAssertEqual(mixer.connections.count, 1)
-	}
+    func testNodeConnection() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        osc.start()
+        let verb = CostelloReverb(osc)
+        engine.output = verb
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
+    }
 
-	func testDynamicOutput() {
-		let engine = AudioEngine()
+    func testRedundantConnection() {
+        let osc = Oscillator()
+        let mixer = Mixer()
+        mixer.addInput(osc)
+        mixer.addInput(osc)
+        XCTAssertEqual(mixer.connections.count, 1)
+    }
 
-		let osc1 = Oscillator()
-		osc1.start()
-		engine.output = osc1
+    func testDynamicOutput() {
 
-		let audio = engine.startTest(totalDuration: 2.0)
+        let engine = AudioEngine()
 
-		let newAudio = engine.render(duration: 1.0)
-		audio.append(newAudio)
+        let osc1 = Oscillator()
+        osc1.start()
+        engine.output = osc1
 
-		let osc2 = Oscillator(frequency: 880)
-		osc2.start()
-		engine.output = osc2
+        let audio = engine.startTest(totalDuration: 2.0)
 
-		let newAudio2 = engine.render(duration: 1.0)
-		audio.append(newAudio2)
+        let newAudio = engine.render(duration: 1.0)
+        audio.append(newAudio)
 
-		testMD5(audio)
-		// audition(audio)
-	}
+        let osc2 = Oscillator(frequency: 880)
+        osc2.start()
+        engine.output = osc2
 
-	func testDynamicConnection() {
-		let engine = AudioEngine()
+        let newAudio2 = engine.render(duration: 1.0)
+        audio.append(newAudio2)
 
-		let osc = Oscillator()
-		let mixer = Mixer(osc)
+        testMD5(audio)
+        // audition(audio)
+    }
 
-		XCTAssertNil(osc.avAudioNode.engine)
+    func testDynamicConnection() {
 
-		engine.output = mixer
+        let engine = AudioEngine()
 
-		// Osc should be attached.
-		XCTAssertNotNil(osc.avAudioNode.engine)
+        let osc = Oscillator()
+        let mixer = Mixer(osc)
 
-		let audio = engine.startTest(totalDuration: 2.0)
+        XCTAssertNil(osc.avAudioNode.engine)
 
-		osc.start()
+        engine.output = mixer
 
-		audio.append(engine.render(duration: 1.0))
+        // Osc should be attached.
+        XCTAssertNotNil(osc.avAudioNode.engine)
 
-		let osc2 = Oscillator(frequency: 880)
-		osc2.start()
-		mixer.addInput(osc2)
+        let audio = engine.startTest(totalDuration: 2.0)
 
-		audio.append(engine.render(duration: 1.0))
+        osc.start()
 
-		testMD5(audio)
-	}
+        audio.append(engine.render(duration: 1.0))
 
-	func testDynamicConnection2() {
-		let engine = AudioEngine()
+        let osc2 = Oscillator(frequency: 880)
+        osc2.start()
+        mixer.addInput(osc2)
 
-		let osc = Oscillator()
-		let mixer = Mixer(osc)
+        audio.append(engine.render(duration: 1.0))
 
-		engine.output = mixer
-		osc.start()
+        testMD5(audio)
+    }
 
-		let audio = engine.startTest(totalDuration: 2.0)
+    func testDynamicConnection2() {
 
-		audio.append(engine.render(duration: 1.0))
+        let engine = AudioEngine()
 
-		let osc2 = Oscillator(frequency: 880)
-		let verb = CostelloReverb(osc2)
-		osc2.start()
-		mixer.addInput(verb)
+        let osc = Oscillator()
+        let mixer = Mixer(osc)
 
-		audio.append(engine.render(duration: 1.0))
+        engine.output = mixer
+        osc.start()
 
-		testMD5(audio)
-		// audition(audio)
-	}
+        let audio = engine.startTest(totalDuration: 2.0)
 
-	func testDynamicConnection3() {
-		let engine = AudioEngine()
+        audio.append(engine.render(duration: 1.0))
 
-		let osc = Oscillator()
-		let mixer = Mixer(osc)
-		engine.output = mixer
+        let osc2 = Oscillator(frequency: 880)
+        let verb = CostelloReverb(osc2)
+        osc2.start()
+        mixer.addInput(verb)
 
-		osc.start()
+        audio.append(engine.render(duration: 1.0))
 
-		let audio = engine.startTest(totalDuration: 3.0)
+        testMD5(audio)
+        // audition(audio)
+    }
 
-		audio.append(engine.render(duration: 1.0))
+    func testDynamicConnection3() {
+        let engine = AudioEngine()
 
-		let osc2 = Oscillator(frequency: 880)
-		osc2.start()
-		mixer.addInput(osc2)
+        let osc = Oscillator()
+        let mixer = Mixer(osc)
+        engine.output = mixer
 
-		audio.append(engine.render(duration: 1.0))
+        osc.start()
 
-		mixer.removeInput(osc2)
+        let audio = engine.startTest(totalDuration: 3.0)
 
-		audio.append(engine.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
 
-		testMD5(audio)
-		// audition(audio)
-	}
+        let osc2 = Oscillator(frequency: 880)
+        osc2.start()
+        mixer.addInput(osc2)
 
-	func testDisconnect() {
-		let engine = AudioEngine()
+        audio.append(engine.render(duration: 1.0))
 
-		let osc = Oscillator()
-		let mixer = Mixer(osc)
-		engine.output = mixer
+        mixer.removeInput(osc2)
 
-		let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 1.0))
 
-		osc.start()
+        testMD5(audio)
+        // audition(audio)
+    }
 
-		audio.append(engine.render(duration: 1.0))
+    func testDisconnect() {
 
-		mixer.removeInput(osc)
+        let engine = AudioEngine()
 
-		audio.append(engine.render(duration: 1.0))
+        let osc = Oscillator()
+        let mixer = Mixer(osc)
+        engine.output = mixer
 
-		testMD5(audio)
-		// audition(audio)
-	}
+        let audio = engine.startTest(totalDuration: 2.0)
 
-	func testNodeDetach() {
-		let engine = AudioEngine()
+        osc.start()
 
-		let osc = Oscillator()
-		let mixer = Mixer(osc)
-		engine.output = mixer
-		osc.start()
+        audio.append(engine.render(duration: 1.0))
 
-		let audio = engine.startTest(totalDuration: 2.0)
+        mixer.removeInput(osc)
 
-		audio.append(engine.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
 
-		osc.detach()
+        testMD5(audio)
+        // audition(audio)
+    }
 
-		audio.append(engine.render(duration: 1.0))
+    func testNodeDetach() {
+        let engine = AudioEngine()
 
-		testMD5(audio)
-	}
+        let osc = Oscillator()
+        let mixer = Mixer(osc)
+        engine.output = mixer
+        osc.start()
 
-	func testTwoEngines() {
-		let engine = AudioEngine()
-		let engine2 = AudioEngine()
+        let audio = engine.startTest(totalDuration: 2.0)
 
-		let osc = Oscillator()
-		engine2.output = osc
-		osc.start()
+        audio.append(engine.render(duration: 1.0))
 
-		let verb = CostelloReverb(osc)
-		engine.output = verb
+        osc.detach()
 
-		let audio = engine.startTest(totalDuration: 0.1)
-		audio.append(engine.render(duration: 0.1))
-		testMD5(audio)
-	}
+        audio.append(engine.render(duration: 1.0))
 
-	func testManyMixerConnections() {
-		let engine = AudioEngine()
+        testMD5(audio)
+    }
 
-		var oscs: [Oscillator] = []
-		for _ in 0 ..< 16 {
-			oscs.append(Oscillator())
-		}
+    func testTwoEngines() {
+        let engine = AudioEngine()
+        let engine2 = AudioEngine()
 
-		let mixer = Mixer(oscs)
-		engine.output = mixer
+        let osc = Oscillator()
+        engine2.output = osc
+        osc.start()
 
-		XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
-		XCTAssertEqual(mixer.connections.count, 16)
+        let verb = CostelloReverb(osc)
+        engine.output = verb
 
-		// test remove first one
-		if let firstOsc = oscs.first {
-			mixer.removeInput(firstOsc)
-			XCTAssertEqual(mixer.connections.count, 15)
-		}
+        let audio = engine.startTest(totalDuration: 0.1)
+        audio.append(engine.render(duration: 0.1))
+        testMD5(audio)
 
-		// remove all of them
-		mixer.removeAllInputs()
-		XCTAssertEqual(mixer.connections.count, 0)
-	}
+    }
 
-	func connectionCount(node: AVAudioNode) -> Int {
-		var count = 0
-		for bus in 0 ..< node.numberOfInputs {
-			if let inputConnection = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
-				if inputConnection.node != nil {
-					count += 1
-				}
-			}
-		}
-		return count
-	}
+    func testManyMixerConnections() {
 
-	func testFanout() {
-		let engine = AudioEngine()
-		let osc = Oscillator()
-		let verb = CostelloReverb(osc)
-		let mixer = Mixer(osc, verb)
-		engine.output = mixer
+        let engine = AudioEngine()
 
-		XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
-		XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
-	}
+        var oscs: [Oscillator] = []
+        for _ in 0..<16 {
+            oscs.append(Oscillator())
+        }
 
-	func testMixerRedundantUpstreamConnection() {
-		let engine = AudioEngine()
+        let mixer = Mixer(oscs)
+        engine.output = mixer
 
-		let osc = Oscillator()
-		let mixer1 = Mixer(osc)
-		let mixer2 = Mixer(mixer1)
+        XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
 
-		engine.output = mixer2
+    }
 
-		XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
+    func connectionCount(node: AVAudioNode) -> Int {
+        var count = 0
+        for bus in 0 ..< node.numberOfInputs {
+            if let inputConnection = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
+                if inputConnection.node != nil {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
 
-		mixer2.addInput(osc)
+    func testFanout() {
 
-		XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-	}
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let verb = CostelloReverb(osc)
+        let mixer = Mixer(osc, verb)
+        engine.output = mixer
 
-	func testTransientNodes() {
-		let engine = AudioEngine()
-		let osc = Oscillator()
-		func exampleStart() {
-			let env = AmplitudeEnvelope(osc)
-			osc.amplitude = 1
-			engine.output = env
-			osc.start()
-			try! engine.start()
-			sleep(1)
-		}
-		func exampleStop() {
-			osc.stop()
-			engine.stop()
-			sleep(1)
-		}
-		exampleStart()
-		exampleStop()
-		exampleStart()
-		exampleStop()
-		exampleStart()
-		exampleStop()
-	}
+        XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
+        XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
+    }
 
-	/*
-	 // This is a valid test however setting Settings.audioFormat will change
-	 // subsequent node connections from 44_100 which the MD5's were created with
-	 func testNodeSampleRateIsSet() {
-	 	let chosenRate: Double = 48_000
-	 	guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: chosenRate, channels: 2) else {
-	 		Log("Failed to create format")
-	 		return
-	 	}
-	 	Settings.audioFormat = audioFormat
+    func testMixerRedundantUpstreamConnection() {
 
-	 	let engine = AudioEngine()
-	 	let mixer = Mixer()
-	 	let oscillator = Oscillator()
-	 	mixer.addInput(oscillator)
-	 	engine.output = mixer
+        let engine = AudioEngine()
 
-	 	let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-	 	let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
-	 	let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let osc = Oscillator()
+        let mixer1 = Mixer(osc)
+        let mixer2 = Mixer(mixer1)
 
-	 	Log("Mixer sample rate after creation is", mixerSampleRate)
-	 	Log("Engine output sample rate is", engineSampleRate)
-	 	Log("Engine mixer sample rate is", engineMixerSampleRate)
+        engine.output = mixer2
 
-	 	XCTAssertEqual(mixerSampleRate == chosenRate, true)
-	 	XCTAssertEqual(mixerSampleRate == engineSampleRate, true)
-	 	XCTAssertEqual(mixerSampleRate == engineMixerSampleRate, true)
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
-	 	Log(engine.avEngine.description)
-	 }
-	 */
+        mixer2.addInput(osc)
+
+        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
+
+    }
+
+    func testTransientNodes() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        func exampleStart() {
+            let env = AmplitudeEnvelope(osc)
+            osc.amplitude = 1
+            engine.output = env
+            osc.start()
+            try! engine.start()
+            sleep(1)
+        }
+        func exampleStop() {
+            osc.stop()
+            engine.stop()
+            sleep(1)
+        }
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+    }
+
+    // This provides a baseline for measuring the overhead
+    // of mixers in testMixerPerformance.
+    func testChainPerformance() {
+
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let rev = CostelloReverb(osc)
+
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = rev
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+
+    }
+
+    // Measure the overhead of mixers.
+    func testMixerPerformance() {
+
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let mix1 = Mixer(osc)
+        let rev = CostelloReverb(mix1)
+        let mix2 = Mixer(rev)
+
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = mix2
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+
+    }
+
 }
+
