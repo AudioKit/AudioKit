@@ -6,25 +6,37 @@ import CAudioKit
 extension AVAudioNode {
 	/// Disconnect and manage engine connections
 	public func disconnect(input: AVAudioNode) {
-		if let engine = engine {
-			for bus in 0 ..< numberOfInputs {
-				if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
-					if cp.node === input {
-						engine.disconnectNodeInput(self, bus: bus)
-					}
+		guard let engine = engine else { return }
+
+		for bus in 0 ..< numberOfInputs {
+			if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+				if cp.node === input {
+					engine.disconnectNodeInput(self, bus: bus)
 				}
+			}
+		}
+	}
+
+	public func disconnectAllInputs() {
+		guard let engine = engine else { return }
+
+		for bus in 0 ..< numberOfInputs {
+			if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+				guard let node = cp.node else { continue }
+				engine.disconnectNodeInput(node, bus: bus)
 			}
 		}
 	}
 
 	/// Make a connection without breaking other connections.
 	public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
-		if let engine = engine {
-			var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-			if points.contains(where: { $0.node === self }) { return }
-			points.append(AVAudioConnectionPoint(node: self, bus: bus))
-			engine.connect(input, to: points, fromBus: 0, format: format)
-		}
+		guard let engine = engine else { return }
+
+		var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+		if points.contains(where: { $0.node === self }) { return }
+
+		points.append(AVAudioConnectionPoint(node: self, bus: bus))
+		engine.connect(input, to: points, fromBus: 0, format: format)
 	}
 }
 
@@ -35,6 +47,8 @@ public class AudioEngine {
 
 	// maximum number of frames the engine will be asked to render in any single render call
 	let maximumFrameCount: AVAudioFrameCount = 1_024
+
+	private var mainMixerNode: Mixer?
 
 	/// Input node mixer
 	public class InputNode: Mixer {
@@ -69,14 +83,44 @@ public class AudioEngine {
 	/// Output node
 	public var output: Node? {
 		didSet {
-			if let node = oldValue {
-				avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
-				node.detach()
+			if avEngine.isRunning {
+				stop()
 			}
+
+			// remove the exisiting node if it is present
+			if let node = oldValue {
+				if let mixer = mainMixerNode {
+					avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+					mixer.removeAllInputs()
+					mixer.detach()
+					mainMixerNode = nil
+				}
+				node.detach()
+				avEngine.outputNode.disconnect(input: node.avAudioNode)
+			}
+
+			// if non nil, set the main output now
 			if let node = output {
 				avEngine.attach(node.avAudioNode)
-				node.makeAVConnections()
-				avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: Settings.audioFormat)
+
+				// if it's a mixer, connect it directly
+				if let mixer = node as? Mixer {
+					mainMixerNode = mixer
+					mixer.makeAVConnections()
+					avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+
+				} else {
+					// otherwise simulate the mainMixerNode, but create it ourselves to ensure the correct sample rate
+					let mixer = Mixer()
+					avEngine.attach(mixer.avAudioNode)
+					avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+
+					mixer.addInput(node)
+					mixer.makeAVConnections()
+					mainMixerNode = mixer
+
+					// avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: Settings.audioFormat)
+				}
 			}
 		}
 	}
