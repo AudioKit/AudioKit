@@ -284,19 +284,21 @@ class NodeTests: XCTestCase {
 
 		let engine = AudioEngine()
 		let mixer = Mixer()
+		let oscillator = Oscillator()
+		mixer.addInput(oscillator)
 		engine.output = mixer
 
 		let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
 		let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
-		// let engineMixerSampleRate = engine.avEngine.mainMixerNode.outputFormat(forBus: 0).sampleRate
+		let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
 
 		Log("Mixer sample rate after creation is", mixerSampleRate)
 		Log("Engine output sample rate is", engineSampleRate)
-		//Log("Engine mixer sample rate is", engineMixerSampleRate)
+		Log("Engine mixer sample rate is", engineMixerSampleRate)
 
 		XCTAssertEqual(mixerSampleRate == chosenRate, true)
 		XCTAssertEqual(mixerSampleRate == engineSampleRate, true)
-		// XCTAssertEqual(mixerSampleRate == engineMixerSampleRate, true)
+		XCTAssertEqual(mixerSampleRate == engineMixerSampleRate, true)
 
 		Log(engine.avEngine.description)
 	}
