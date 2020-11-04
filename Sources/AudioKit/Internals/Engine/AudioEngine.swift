@@ -176,13 +176,6 @@ public class AudioEngine {
             pcmFormat: format,
             frameCapacity: AVAudioFrameCount(sampleCount))!
 
-        Log(avEngine.manualRenderingFormat)
-
-        //		guard avEngine.manualRenderingFormat.sampleRate == 44100 else {
-        //			Log("WRONG FORMAT", type: .error)
-        //			return buffer
-        //		}
-
         let tempBuffer = AVAudioPCMBuffer(
             pcmFormat: format,
             frameCapacity: AVAudioFrameCount(maximumFrameCount))!
