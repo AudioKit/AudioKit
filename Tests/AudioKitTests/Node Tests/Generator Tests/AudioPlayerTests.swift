@@ -3,10 +3,8 @@ import AVFoundation
 import XCTest
 
 class AudioPlayerTests: XCTestCase {
-
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL {
-
         let osc = Oscillator()
         let engine = AudioEngine()
         engine.output = osc
@@ -64,7 +62,6 @@ class AudioPlayerTests: XCTestCase {
     }
 
     func testScheduleEarly() {
-
         let url = generateTestFile()
 
         let file = try! AVAudioFile(forReading: url)

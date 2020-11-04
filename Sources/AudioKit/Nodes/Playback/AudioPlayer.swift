@@ -32,7 +32,7 @@ public class AudioPlayer: Node, Toggleable {
         super.init(avAudioNode: mixerNode)
     }
 
-	public override func makeAVConnections() {
+    override public func makeAVConnections() {
         if let engine = mixerNode.engine {
             engine.attach(playerNode)
             engine.connect(playerNode, to: mixerNode, format: nil)
@@ -124,5 +124,4 @@ public class AudioPlayer: Node, Toggleable {
     public func pause() {
         playerNode.pause()
     }
-
 }
