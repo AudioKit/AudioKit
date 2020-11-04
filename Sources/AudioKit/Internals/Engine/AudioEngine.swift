@@ -64,7 +64,7 @@ public class AudioEngine {
 
     /// Input for microphone or other device is created when this is accessed
     public var input: InputNode? {
-        if #available(macOS 10.14, iOS 7, *) {
+        if #available(macOS 10.14, *) {
             guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
                 Log("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist", type: .error)
                 return nil
