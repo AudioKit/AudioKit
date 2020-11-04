@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class FaderTests: XCTestCase {
-
     func testDefault() {
         let engine = AudioEngine()
         let input = Oscillator()
