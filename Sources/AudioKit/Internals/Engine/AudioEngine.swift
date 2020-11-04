@@ -72,7 +72,8 @@ public class AudioEngine {
     public var output: Node? {
         didSet {
             // AVAudioEngine doesn't allow the outputNode to be changed while the engine is running
-            if avEngine.isRunning { stop() }
+            let wasRunning = avEngine.isRunning
+            if wasRunning { stop() }
 
             // remove the exisiting node if it is present
             if let node = oldValue {
@@ -105,7 +106,7 @@ public class AudioEngine {
                 }
             }
 
-            if !avEngine.isRunning { try? start() }
+            if wasRunning { try? start() }
         }
     }
 

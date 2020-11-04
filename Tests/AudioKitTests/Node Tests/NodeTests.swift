@@ -374,24 +374,23 @@ class NodeTests: XCTestCase {
 
         do {
             try engine.start()
-
-            XCTAssertTrue(engine.avEngine.isRunning)
-            oscillator.start()
-            //sleep(1)
-
-            // change the output - will stop the engine
-            engine.output = oscillator2
-
-            // is it started again
-            XCTAssertTrue(engine.avEngine.isRunning)
-
-            oscillator2.start()
-            //sleep(1)
-            engine.stop()
-
         } catch let error as NSError {
             Log(error, type: .error)
-            XCTFail()
+            XCTFail("Failed to start engine")
         }
+
+        XCTAssertTrue(engine.avEngine.isRunning)
+        oscillator.start()
+        // sleep(1)
+
+        // change the output - will stop the engine
+        engine.output = oscillator2
+
+        // is it started again
+        XCTAssertTrue(engine.avEngine.isRunning)
+
+        oscillator2.start()
+        // sleep(1)
+        engine.stop()
     }
 }
