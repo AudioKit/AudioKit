@@ -344,25 +344,31 @@ class NodeTests: XCTestCase {
             Log("Failed to create format")
             return
         }
+
+        if audioFormat != Settings.audioFormat {
+            Log("Changing audioFormat to", audioFormat)
+        }
         Settings.audioFormat = audioFormat
 
         let engine = AudioEngine()
         let mixer = Mixer()
         let oscillator = Oscillator()
-        mixer.addInput(oscillator)
+
+        // assign input and engine references
         engine.output = mixer
+
+        // add the oscillator after the engine is setup
+        mixer.addInput(oscillator)
 
         let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
         let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-
-        Log("Mixer sample rate after creation is", mixerSampleRate)
-        Log("Engine output sample rate is", engineSampleRate)
-        Log("Engine mixer sample rate is", engineMixerSampleRate)
+        let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
 
         XCTAssertEqual(mixerSampleRate == chosenRate, true)
-        XCTAssertEqual(mixerSampleRate == engineSampleRate, true)
-        XCTAssertEqual(mixerSampleRate == engineMixerSampleRate, true)
+        XCTAssertEqual(oscSampleRate == chosenRate, true)
+        XCTAssertEqual(engineMixerSampleRate == chosenRate, true)
+        XCTAssertEqual(engineSampleRate == chosenRate, true)
 
         Log(engine.avEngine.description)
 
