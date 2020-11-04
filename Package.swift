@@ -46,8 +46,7 @@ let package = Package(
                 .headerSearchPath("Devoloop/include"),
                 .headerSearchPath("include"),
                 .headerSearchPath(".")
-            ]
-        ),
+            ]),
         .target(
             name: "AudioKit",
             dependencies: ["CAudioKit"]),
@@ -58,5 +57,4 @@ let package = Package(
             name: "CAudioKitTests",
             dependencies: ["CAudioKit"])
     ],
-    cxxLanguageStandard: .cxx14
-)
+    cxxLanguageStandard: .cxx14)

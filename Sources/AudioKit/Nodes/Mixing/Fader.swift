@@ -109,7 +109,7 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
     ///   - input: Node whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: Node? = nil, gain: AUValue = 1) {
+    public init(_ input: Node, gain: AUValue = 1) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -124,9 +124,7 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
             self.mixToMono = false
         }
 
-        if let input = input {
-            connections.append(input)
-        }
+        connections.append(input)
     }
 
     deinit {
