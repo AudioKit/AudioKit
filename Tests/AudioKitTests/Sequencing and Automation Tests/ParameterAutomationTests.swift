@@ -1,23 +1,21 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import XCTest
 import AudioKit
-import CAudioKit
 import AVFoundation
+import CAudioKit
+import XCTest
 
 class ParameterAutomationTests: XCTestCase {
-
     func observerTest(events: [AutomationEvent],
                       sampleTime: Float64,
                       startTime: Float = 0) -> ([AUParameterAddress], [AUValue], [AUAudioFrameCount]) {
-
         let address = AUParameterAddress(42)
 
         var addresses: [AUParameterAddress] = []
         var values: [AUValue] = []
         var durations: [AUAudioFrameCount] = []
 
-        let scheduleParameterBlock: AUScheduleParameterBlock = { (sampleTime, rampDuration, address, value) in
+        let scheduleParameterBlock: AUScheduleParameterBlock = { sampleTime, rampDuration, address, value in
             addresses.append(address)
             values.append(value)
             durations.append(rampDuration)
@@ -41,8 +39,7 @@ class ParameterAutomationTests: XCTestCase {
     }
 
     func testSimpleAutomation() throws {
-
-        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0) ]
+        let events = [AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0)]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
@@ -52,8 +49,7 @@ class ParameterAutomationTests: XCTestCase {
     }
 
     func testPastAutomation() {
-
-        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1) ]
+        let events = [AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1)]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
@@ -63,21 +59,18 @@ class ParameterAutomationTests: XCTestCase {
     }
 
     func testPastAutomationTwo() {
-
-        let events = [ AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
-                       AutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1) ]
+        let events = [AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 0.1),
+                      AutomationEvent(targetValue: 440, startTime: 0.1, rampDuration: 0.1)]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 44100)
 
         // If the automation is in the past, the value should be set to the final value.
         XCTAssertEqual(addresses, [42])
         XCTAssertEqual(values, [440.0])
-
     }
 
     func testFutureAutomation() {
-
-        let events = [ AutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1) ]
+        let events = [AutomationEvent(targetValue: 880, startTime: 1, rampDuration: 0.1)]
 
         let (addresses, values, _) = observerTest(events: events, sampleTime: 0)
 
@@ -87,7 +80,6 @@ class ParameterAutomationTests: XCTestCase {
     }
 
     func testAutomationMiddle() {
-
         // Start automating in the middle of a segment.
 
         let events = [AutomationEvent(targetValue: 1, startTime: 0, rampDuration: 1.0)]
@@ -96,11 +88,10 @@ class ParameterAutomationTests: XCTestCase {
 
         XCTAssertEqual(addresses, [42])
         XCTAssertEqual(values, [1.0])
-        XCTAssertEqual(durations, [UInt32(44100-128)])
+        XCTAssertEqual(durations, [UInt32(44100 - 128)])
     }
 
     func testRecord() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
@@ -109,9 +100,9 @@ class ParameterAutomationTests: XCTestCase {
         try! engine.start()
         osc.start()
 
-        var values:[AUValue] = []
+        var values: [AUValue] = []
 
-        osc.$frequency.recordAutomation { (event) in
+        osc.$frequency.recordAutomation { event in
             values.append(event.value)
         }
 
@@ -149,7 +140,6 @@ class ParameterAutomationTests: XCTestCase {
         osc.$frequency.automate(events: events)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-		//audition(audio)
+        // audition(audio)
     }
-
 }
