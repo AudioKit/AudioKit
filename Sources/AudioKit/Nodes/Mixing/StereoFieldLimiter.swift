@@ -22,7 +22,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Tappable, Toggleable 
     public static let amountDef = NodeParameterDef(
         identifier: "amount",
         name: "Limiting amount",
-        address: akGetParameterAddress("StereoFieldLimiterAmount"),
+        address: akGetParameterAddress("StereoFieldLimiterParameterAmount"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
