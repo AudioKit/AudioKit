@@ -340,28 +340,58 @@ class NodeTests: XCTestCase {
         Settings.audioFormat = audioFormat
 
         let engine = AudioEngine()
-        let mixer = Mixer()
         let oscillator = Oscillator()
+        let mixer = Mixer(oscillator)
 
         // assign input and engine references
         engine.output = mixer
-
-        // add the oscillator after the engine is setup
-        mixer.addInput(oscillator)
 
         let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
         let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
 
-        XCTAssertEqual(mixerSampleRate == chosenRate, true)
-        XCTAssertEqual(oscSampleRate == chosenRate, true)
-        XCTAssertEqual(engineMixerSampleRate == chosenRate, true)
-        XCTAssertEqual(engineSampleRate == chosenRate, true)
+        XCTAssertTrue(mixerSampleRate == chosenRate)
+        XCTAssertTrue(oscSampleRate == chosenRate)
+        XCTAssertTrue(engineMixerSampleRate == chosenRate)
+        XCTAssertTrue(engineSampleRate == chosenRate)
 
         Log(engine.avEngine.description)
 
         // restore
         Settings.audioFormat = previousFormat
+    }
+
+    func testChangeEngineOutputWhileRunning() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator()
+        oscillator.frequency = 220
+        oscillator.amplitude = 0
+        let oscillator2 = Oscillator()
+        oscillator2.frequency = 440
+        oscillator2.amplitude = 0
+        engine.output = oscillator
+
+        do {
+            try engine.start()
+
+            XCTAssertTrue(engine.avEngine.isRunning)
+            oscillator.start()
+            //sleep(1)
+
+            // change the output - will stop the engine
+            engine.output = oscillator2
+
+            // is it started again
+            XCTAssertTrue(engine.avEngine.isRunning)
+
+            oscillator2.start()
+            //sleep(1)
+            engine.stop()
+
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail()
+        }
     }
 }

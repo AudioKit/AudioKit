@@ -69,34 +69,14 @@ public class AudioEngine {
     public init() {}
 
     /// Output node
-//    public var output: Node? {
-//        didSet {
-//            if let node = oldValue {
-//                avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
-//                node.detach()
-//            }
-//            if let node = output {
-//                avEngine.attach(node.avAudioNode)
-//                node.makeAVConnections()
-//                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
-//            }
-//        }
-//    }
-
-    /// Output node
     public var output: Node? {
         didSet {
-            let wasRunning = avEngine.isRunning
-            if wasRunning { stop() }
+            // AVAudioEngine doesn't allow the outputNode to be changed while the engine is running
+            if avEngine.isRunning { stop() }
 
             // remove the exisiting node if it is present
             if let node = oldValue {
-                if let mixer = mainMixerNode {
-                    avEngine.outputNode.disconnect(input: mixer.avAudioNode)
-                    mixer.removeAllInputs()
-                    mixer.detach()
-                    mainMixerNode = nil
-                }
+                mainMixerNode?.removeInput(node)
                 node.detach()
                 avEngine.outputNode.disconnect(input: node.avAudioNode)
             }
@@ -107,23 +87,45 @@ public class AudioEngine {
 
                 // if it's a mixer, connect it directly
                 if let mixer = node as? Mixer {
+                    removeEngineMixer()
                     mainMixerNode = mixer
                     mixer.makeAVConnections()
                     avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
 
                 } else {
-                    // otherwise simulate the mainMixerNode, but create it ourselves to ensure the correct sample rate on connect
-                    let mixer = Mixer()
-                    avEngine.attach(mixer.avAudioNode)
-                    avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+                    if let mixer = mainMixerNode,
+                        mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate != Settings.sampleRate {
+                        removeEngineMixer()
+                    }
 
-                    mixer.addInput(node)
-                    mixer.makeAVConnections()
-                    mainMixerNode = mixer
+                    createEngineMixer()
+
+                    mainMixerNode?.addInput(node)
+                    mainMixerNode?.makeAVConnections()
                 }
             }
 
-            if wasRunning { try? start() }
+            if !avEngine.isRunning { try? start() }
+        }
+    }
+
+    // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
+    // correct sample rate is used from Settings.audioFormat
+    private func createEngineMixer() {
+        guard mainMixerNode == nil else { return }
+
+        let mixer = Mixer()
+        avEngine.attach(mixer.avAudioNode)
+        avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+        mainMixerNode = mixer
+    }
+
+    private func removeEngineMixer() {
+        if let mixer = mainMixerNode {
+            avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+            mixer.removeAllInputs()
+            mixer.detach()
+            mainMixerNode = nil
         }
     }
 
