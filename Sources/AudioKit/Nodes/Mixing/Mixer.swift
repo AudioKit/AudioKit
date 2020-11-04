@@ -89,4 +89,15 @@ public class Mixer: Node, Toggleable {
         connections.removeAll(where: { $0 === node })
         avAudioNode.disconnect(input: node.avAudioNode)
     }
+
+    /// Remove all inputs from the mixer
+    public func removeAllInputs() {
+        guard connections.isNotEmpty else { return }
+
+        let nodes = connections.map { $0.avAudioNode }
+        for input in nodes {
+            avAudioNode.disconnect(input: input)
+        }
+        connections.removeAll()
+    }
 }

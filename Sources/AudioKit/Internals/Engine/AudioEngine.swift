@@ -18,24 +18,25 @@ extension AVAudioNode {
     }
 
     /// Make a connection without breaking other connections.
-    public func connect(input: AVAudioNode, bus: Int) {
+    public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: { $0.node === self }) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: bus))
-            engine.connect(input, to: points, fromBus: 0, format: nil)
+            engine.connect(input, to: points, fromBus: 0, format: format)
         }
     }
 }
 
 /// AudioKit's wrapper for AVAudioEngine
 public class AudioEngine {
-
     /// Internal AVAudioEngine
     public let avEngine = AVAudioEngine()
 
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1_024
+
+    public private(set) var mainMixerNode: Mixer?
 
     /// Input node mixer
     public class InputNode: Mixer {
@@ -50,9 +51,12 @@ public class AudioEngine {
     let _input = InputNode()
 
     /// Input for microphone or other device is created when this is accessed
-    public var input: InputNode {
-        guard let _ = Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") as? String else {
-            fatalError("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist")
+    public var input: InputNode? {
+        if #available(macOS 10.14, *) {
+            guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
+                Log("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist", type: .error)
+                return nil
+            }
         }
         if _input.isNotConnected {
             _input.connect(to: self)
@@ -65,17 +69,61 @@ public class AudioEngine {
     public init() {}
 
     /// Output node
+//    public var output: Node? {
+//        didSet {
+//            if let node = oldValue {
+//                avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
+//                node.detach()
+//            }
+//            if let node = output {
+//                avEngine.attach(node.avAudioNode)
+//                node.makeAVConnections()
+//                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
+//            }
+//        }
+//    }
+
+    /// Output node
     public var output: Node? {
         didSet {
+            let wasRunning = avEngine.isRunning
+            if wasRunning { stop() }
+
+            // remove the exisiting node if it is present
             if let node = oldValue {
-                avEngine.mainMixerNode.disconnect(input: node.avAudioNode)
+                if let mixer = mainMixerNode {
+                    avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+                    mixer.removeAllInputs()
+                    mixer.detach()
+                    mainMixerNode = nil
+                }
                 node.detach()
+                avEngine.outputNode.disconnect(input: node.avAudioNode)
             }
+
+            // if non nil, set the main output now
             if let node = output {
                 avEngine.attach(node.avAudioNode)
-                node.makeAVConnections()
-                avEngine.connect(node.avAudioNode, to: avEngine.mainMixerNode, format: nil)
+
+                // if it's a mixer, connect it directly
+                if let mixer = node as? Mixer {
+                    mainMixerNode = mixer
+                    mixer.makeAVConnections()
+                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+
+                } else {
+                    // otherwise simulate the mainMixerNode, but create it ourselves to ensure the correct sample rate on connect
+                    let mixer = Mixer()
+                    avEngine.attach(mixer.avAudioNode)
+                    avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
+
+                    mixer.addInput(node)
+                    mixer.makeAVConnections()
+                    mainMixerNode = mixer
+                }
             }
+
+            if wasRunning { try? start() }
         }
     }
 
@@ -164,7 +212,7 @@ public class AudioEngine {
                 } else if let dataSources = device.dataSources {
                     for dataSource in dataSources {
                         returnDevices.append(Device(name: device.portName,
-                                                      deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                                                    deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
                     }
                 }
             }
@@ -215,7 +263,6 @@ public class AudioEngine {
     public func setDevice(_ output: Device) throws {
         avEngine.setDevice(id: output.deviceID)
     }
-
 
     #else
     /// Change the preferred input device, giving it one of the names from the list of available inputs.

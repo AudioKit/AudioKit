@@ -5,7 +5,6 @@ import CAudioKit
 import XCTest
 
 class NodeTests: XCTestCase {
-
     let osc = Oscillator()
 
     func testNodeBasic() {
@@ -41,7 +40,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDynamicOutput() {
-
         let engine = AudioEngine()
 
         let osc1 = Oscillator()
@@ -65,7 +63,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDynamicConnection() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -94,7 +91,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDynamicConnection2() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -146,7 +142,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDisconnect() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -200,15 +195,13 @@ class NodeTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
-
     }
 
     func testManyMixerConnections() {
-
         let engine = AudioEngine()
 
         var oscs: [Oscillator] = []
-        for _ in 0..<16 {
+        for _ in 0 ..< 16 {
             oscs.append(Oscillator())
         }
 
@@ -216,7 +209,6 @@ class NodeTests: XCTestCase {
         engine.output = mixer
 
         XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
-
     }
 
     func connectionCount(node: AVAudioNode) -> Int {
@@ -232,7 +224,6 @@ class NodeTests: XCTestCase {
     }
 
     func testFanout() {
-
         let engine = AudioEngine()
         let osc = Oscillator()
         let verb = CostelloReverb(osc)
@@ -244,7 +235,6 @@ class NodeTests: XCTestCase {
     }
 
     func testMixerRedundantUpstreamConnection() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -258,7 +248,6 @@ class NodeTests: XCTestCase {
         mixer2.addInput(osc)
 
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-
     }
 
     func testTransientNodes() {
@@ -288,7 +277,6 @@ class NodeTests: XCTestCase {
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
-
         let engine = AudioEngine()
         let osc = Oscillator()
         let rev = CostelloReverb(osc)
@@ -308,12 +296,10 @@ class NodeTests: XCTestCase {
 
             audio.append(buf)
         }
-
     }
 
     // Measure the overhead of mixers.
     func testMixerPerformance() {
-
         let engine = AudioEngine()
         let osc = Oscillator()
         let mix1 = Mixer(osc)
@@ -335,8 +321,47 @@ class NodeTests: XCTestCase {
 
             audio.append(buf)
         }
-
     }
 
-}
+    // Setting Settings.audioFormat will change subsequent node connections
+    // from 44_100 which the MD5's were created with
+    func testNodeSampleRateIsSet() {
+        let previousFormat = Settings.audioFormat
 
+        let chosenRate: Double = 48_000
+        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: chosenRate, channels: 2) else {
+            Log("Failed to create format")
+            return
+        }
+
+        if audioFormat != Settings.audioFormat {
+            Log("Changing audioFormat to", audioFormat)
+        }
+        Settings.audioFormat = audioFormat
+
+        let engine = AudioEngine()
+        let mixer = Mixer()
+        let oscillator = Oscillator()
+
+        // assign input and engine references
+        engine.output = mixer
+
+        // add the oscillator after the engine is setup
+        mixer.addInput(oscillator)
+
+        let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
+        let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+
+        XCTAssertEqual(mixerSampleRate == chosenRate, true)
+        XCTAssertEqual(oscSampleRate == chosenRate, true)
+        XCTAssertEqual(engineMixerSampleRate == chosenRate, true)
+        XCTAssertEqual(engineSampleRate == chosenRate, true)
+
+        Log(engine.avEngine.description)
+
+        // restore
+        Settings.audioFormat = previousFormat
+    }
+}
