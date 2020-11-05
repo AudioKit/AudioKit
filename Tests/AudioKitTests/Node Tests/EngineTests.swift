@@ -108,7 +108,7 @@ class EngineTests: XCTestCase {
         XCTAssertTrue(isConnected, "Oscillator isn't in the mainMixerNode's inputs")
     }
 
-    func testChangeEngineOutputWhileRunning() {
+    func testEngineSwitchOutputWhileRunning() {
         let engine = AudioEngine()
         let oscillator = Oscillator()
         oscillator.frequency = 220
@@ -133,7 +133,7 @@ class EngineTests: XCTestCase {
         // change the output - will stop the engine
         engine.output = oscillator2
 
-        // is it started again
+        // is it started again?
         XCTAssertTrue(engine.avEngine.isRunning)
 
         oscillator2.start()
