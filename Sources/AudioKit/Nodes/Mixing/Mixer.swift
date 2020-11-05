@@ -75,12 +75,18 @@ public class Mixer: Node, Toggleable {
     /// Add input to the mixer
     /// - Parameter node: Node to add
     public func addInput(_ node: Node) {
-        if connections.contains(where: { $0 === node }) {
+        guard !hasInput(node) else {
             Log("🛑 Error: Node is already connected to Mixer.")
             return
         }
         connections.append(node)
         makeAVConnections()
+    }
+
+    /// Is this node already connected?
+    /// - Parameter node: Node to check
+    public func hasInput(_ node: Node) -> Bool {
+        connections.contains(where: { $0 === node })
     }
 
     /// Remove input from the mixer
