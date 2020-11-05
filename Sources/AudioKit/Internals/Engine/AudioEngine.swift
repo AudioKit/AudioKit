@@ -86,24 +86,17 @@ public class AudioEngine {
             if let node = output {
                 avEngine.attach(node.avAudioNode)
 
-                // if it's a mixer, connect it directly
-                if let mixer = node as? Mixer {
+                // has the sample rate changed?
+                if let currentSampleRate = mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate,
+                    currentSampleRate != Settings.sampleRate {
+                    Log("Sample Rate has changed, creating new mainMixerNode at", Settings.sampleRate)
                     removeEngineMixer()
-                    mainMixerNode = mixer
-                    mixer.makeAVConnections()
-                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
-
-                } else {
-                    if let mixer = mainMixerNode,
-                        mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate != Settings.sampleRate {
-                        removeEngineMixer()
-                    }
-
-                    createEngineMixer()
-
-                    mainMixerNode?.addInput(node)
-                    mainMixerNode?.makeAVConnections()
                 }
+
+                // create the on demand mixer if needed
+                createEngineMixer()
+                mainMixerNode?.addInput(node)
+                mainMixerNode?.makeAVConnections()
             }
 
             if wasRunning { try? start() }
@@ -122,12 +115,11 @@ public class AudioEngine {
     }
 
     private func removeEngineMixer() {
-        if let mixer = mainMixerNode {
-            avEngine.outputNode.disconnect(input: mixer.avAudioNode)
-            mixer.removeAllInputs()
-            mixer.detach()
-            mainMixerNode = nil
-        }
+        guard let mixer = mainMixerNode else { return }
+        avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+        mixer.removeAllInputs()
+        mixer.detach()
+        mainMixerNode = nil
     }
 
     /// Start the engine
