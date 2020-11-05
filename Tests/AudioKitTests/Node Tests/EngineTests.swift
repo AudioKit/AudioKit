@@ -29,24 +29,17 @@ class EngineTests: XCTestCase {
         engine.output = mixer
 
         let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-        let engineDynamicMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let mainMixerNodeSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-
-//        let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
 
         XCTAssertTrue(mixerSampleRate == chosenRate,
                       "mixerSampleRate is \(mixerSampleRate), requested rate was \(chosenRate)")
 
-        // the mixer should be the mainMixerNode in this test
-        XCTAssertTrue(engineDynamicMixerSampleRate == chosenRate && mixer === engine.mainMixerNode,
+        XCTAssertTrue(mainMixerNodeSampleRate == chosenRate,
                       "engineDynamicMixerSampleRate is \(mixerSampleRate), requested rate was \(chosenRate)")
 
         XCTAssertTrue(oscSampleRate == chosenRate,
                       "oscSampleRate is \(oscSampleRate), requested rate was \(chosenRate)")
-
-        // this is correct locally, but not on CI:
-//        XCTAssertTrue(engineSampleRate == chosenRate,
-//                      "engineSampleRate \(engineSampleRate), requested rate \(chosenRate)")
 
         Log(engine.avEngine.description)
 
@@ -54,19 +47,18 @@ class EngineTests: XCTestCase {
         Settings.audioFormat = previousFormat
     }
 
-    func testEngineMainMixerOverride() {
-        let engine = AudioEngine()
-        let oscillator = Oscillator()
-        let mixer = Mixer(oscillator)
-        engine.output = mixer
-        XCTAssertTrue(engine.mainMixerNode === mixer, "created mixer should be adopted as the engine's main mixer")
-    }
-
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()
         let oscillator = Oscillator()
         engine.output = oscillator
-        XCTAssertNotNil(engine.mainMixerNode, "created mixer is nil")
+
+        guard let mainMixerNode = engine.mainMixerNode else {
+            XCTFail("mainMixerNode wasn't created")
+            return
+        }
+        let isConnected = mainMixerNode.hasInput(oscillator)
+
+        XCTAssertTrue(isConnected, "Oscillator isn't in the mainMixerNode's inputs")
     }
 
     func testChangeEngineOutputWhileRunning() {
