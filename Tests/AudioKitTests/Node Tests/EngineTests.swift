@@ -5,8 +5,9 @@ import CAudioKit
 import XCTest
 
 class EngineTests: XCTestCase {
-    // Setting Settings.audioFormat will change subsequent node connections
-    // from 44_100 which the MD5's were created with
+    // Changing Settings.audioFormat will change subsequent node connections
+    // from 44_100 which the MD5's were created with so be sure to change it back at the end of a test
+
     func testEngineSampleRateGraphConsistency() {
         let previousFormat = Settings.audioFormat
 
