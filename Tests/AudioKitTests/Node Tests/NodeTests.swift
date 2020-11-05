@@ -348,13 +348,20 @@ class NodeTests: XCTestCase {
 
         let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let engineSampleRate = engine.avEngine.outputNode.outputFormat(forBus: 0).sampleRate
-        let engineMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let engineDynamicMixerSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
         let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
 
-        XCTAssertTrue(mixerSampleRate == chosenRate)
-        XCTAssertTrue(oscSampleRate == chosenRate)
-        XCTAssertTrue(engineMixerSampleRate == chosenRate)
-        XCTAssertTrue(engineSampleRate == chosenRate)
+        XCTAssertTrue(mixerSampleRate == chosenRate,
+                      "mixerSampleRate \(mixerSampleRate), actual rate \(chosenRate)")
+
+        // the mixer should be the mainMixerNode in this test
+        XCTAssertTrue(engineDynamicMixerSampleRate == chosenRate && mixer === engine.mainMixerNode,
+                      "engineDynamicMixerSampleRate \(mixerSampleRate), actual rate \(chosenRate)")
+
+        XCTAssertTrue(oscSampleRate == chosenRate,
+                      "oscSampleRate \(oscSampleRate), actual rate \(chosenRate)")
+        XCTAssertTrue(engineSampleRate == chosenRate,
+                      "engineSampleRate \(engineSampleRate), actual rate \(chosenRate)")
 
         Log(engine.avEngine.description)
 
@@ -362,14 +369,29 @@ class NodeTests: XCTestCase {
         Settings.audioFormat = previousFormat
     }
 
+    func testEngineMainMixerOverride() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator()
+        let mixer = Mixer(oscillator)
+        engine.output = mixer
+        XCTAssertTrue(engine.mainMixerNode === mixer, "created mixer should be adopted as the engine's main mixer")
+    }
+
+    func testEngineMainMixerCreated() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator()
+        engine.output = oscillator
+        XCTAssertNotNil(engine.mainMixerNode, "created mixer is nil")
+    }
+
     func testChangeEngineOutputWhileRunning() {
         let engine = AudioEngine()
         let oscillator = Oscillator()
         oscillator.frequency = 220
-        oscillator.amplitude = 0
+        oscillator.amplitude = 0.1
         let oscillator2 = Oscillator()
         oscillator2.frequency = 440
-        oscillator2.amplitude = 0
+        oscillator2.amplitude = 0.1
         engine.output = oscillator
 
         do {
@@ -379,9 +401,10 @@ class NodeTests: XCTestCase {
             XCTFail("Failed to start engine")
         }
 
-        XCTAssertTrue(engine.avEngine.isRunning)
+        XCTAssertTrue(engine.avEngine.isRunning, "engine isn't running")
         oscillator.start()
-        // sleep(1)
+
+        // sleep(1) // for simple realtime check
 
         // change the output - will stop the engine
         engine.output = oscillator2
@@ -390,7 +413,9 @@ class NodeTests: XCTestCase {
         XCTAssertTrue(engine.avEngine.isRunning)
 
         oscillator2.start()
-        // sleep(1)
+
+        // sleep(1) // for simple realtime check
+
         engine.stop()
     }
 }
