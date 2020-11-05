@@ -14,7 +14,8 @@ class EngineTests: XCTestCase {
         let previousFormat = Settings.audioFormat
 
         let newRate: Double = 48_000
-        guard let newAudioFormat = AVAudioFormat(standardFormatWithSampleRate: newRate, channels: 2) else {
+        guard let newAudioFormat = AVAudioFormat(standardFormatWithSampleRate: newRate,
+                                                 channels: 2) else {
             XCTFail("Failed to create format at \(newRate)")
             return
         }
@@ -53,7 +54,7 @@ class EngineTests: XCTestCase {
     func testEngineSampleRateChanged() {
         let previousFormat = Settings.audioFormat
 
-        guard let audioFormat44_1k = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2) else {
+        guard let audioFormat441k = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2) else {
             XCTFail("Failed to create format at 44.1k")
             return
         }
@@ -62,7 +63,7 @@ class EngineTests: XCTestCase {
             return
         }
 
-        Settings.audioFormat = audioFormat44_1k
+        Settings.audioFormat = audioFormat441k
         let engine = AudioEngine()
         let node1 = Mixer()
         engine.output = node1
@@ -72,8 +73,8 @@ class EngineTests: XCTestCase {
             return
         }
         let mainMixerNodeSampleRate1 = mainMixerNode1.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-        XCTAssertTrue(mainMixerNodeSampleRate1 == audioFormat44_1k.sampleRate,
-                      "mainMixerNodeSampleRate is \(mainMixerNodeSampleRate1), requested rate was \(audioFormat44_1k.sampleRate)")
+        XCTAssertTrue(mainMixerNodeSampleRate1 == audioFormat441k.sampleRate,
+                      "mainMixerNodeSampleRate is \(mainMixerNodeSampleRate1), requested rate was \(audioFormat441k.sampleRate)")
 
         Log("44100", engine.avEngine.description)
 
