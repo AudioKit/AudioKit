@@ -53,9 +53,10 @@ public class AudioPlayer2: Node {
     public var file: AVAudioFile? {
         didSet {
             scheduleTime = nil
-            isBuffered = false
             let wasPlaying = isPlaying
             if wasPlaying { stop() }
+
+            isBuffered = false
 
             if wasPlaying {
                 play()
@@ -91,6 +92,8 @@ public class AudioPlayer2: Node {
 
     var bufferDuration: TimeInterval?
 
+    var engine: AVAudioEngine? { mixerNode.engine }
+
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
@@ -100,11 +103,9 @@ public class AudioPlayer2: Node {
         completionHandler?()
         isPlaying = false
 
-        if !isBuffered, isLooping {
-            // DispatchQueue.main.async {
+        if !isBuffered, isLooping, engine?.isRunning == true {
             Log("Playing loop...")
             play()
-            // }
             return
         }
     }
@@ -181,7 +182,7 @@ public class AudioPlayer2: Node {
     ///   - when: What time to schedule for. A value of nil means now or will
     ///   use a pre-existing scheduled time.
     public func play(at when: AVAudioTime? = nil) {
-        guard !isPlaying else { return }
+        guard !isPlaying || isPaused else { return }
 
         guard playerNode.engine != nil else {
             Log("🛑 Error: AudioPlayer must be attached before playback.")
@@ -201,7 +202,7 @@ public class AudioPlayer2: Node {
 
     /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
-        guard isPlaying else { return }
+        guard isPlaying, !isPaused else { return }
 
         playerNode.pause()
         isPaused = true
