@@ -44,9 +44,9 @@ public class AudioPlayer2: Node {
         bufferDuration ?? file?.duration ?? 0
     }
 
-    /// Completion handler to be called when file or buffer is done
-    /// This also will be called when looping from files,
-    /// but no completion is called when looping with a buffer
+    /// Completion handler to be called when file or buffer is done playing.
+    /// This also will be called when looping from disk,
+    /// but no completion is called when looping seamlessly with a buffer
     public var completionHandler: AVAudioNodeCompletionHandler?
 
     /// The file to use with the player. This can be set while the player is playing.
@@ -237,14 +237,15 @@ public class AudioPlayer2: Node {
 }
 
 extension AudioPlayer2: Toggleable {
+    /// Synonym for isPlaying
     public var isStarted: Bool { isPlaying }
 
-    /// Start audio player
+    /// Synonym for play()
     public func start() {
         play()
     }
 
-    /// Stop audio player
+    /// Stop audio player. This won't generate a callback event
     public func stop() {
         guard isPlaying else { return }
         isPlaying = false
