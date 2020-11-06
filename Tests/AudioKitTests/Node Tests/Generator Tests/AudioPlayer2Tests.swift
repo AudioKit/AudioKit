@@ -53,7 +53,11 @@ class AudioPlayer2Tests: XCTestCase {
         return url
     }
 
-    func testPause() {
+    func testRealtime() {
+        pauseRealtime()
+    }
+
+    func pauseRealtime() {
         let frequencies = chromaticScale
 
         guard let url = generateTestFile(ofDuration: 12,
@@ -64,11 +68,16 @@ class AudioPlayer2Tests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let player = AudioPlayer()
+
+        guard let player = AudioPlayer2(file: file) else {
+
+            return
+        }
+
         engine.output = player
         try? engine.start()
 
-        player.scheduleFile(url: url, at: nil) {
+        player.schedule(at: nil) {
             Log("🏁 Completion Handler")
         }
         player.volume = 0.2
@@ -101,15 +110,18 @@ class AudioPlayer2Tests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let player = AudioPlayer()
+        guard let player = AudioPlayer2(file: file) else {
+
+            return
+        }
         player.volume = 0.1
         engine.output = player
         try? engine.start()
 
         // let audio = engine.startTest(totalDuration: 2.0)
-        player.scheduleFile(file, at: AVAudioTime.now().offset(seconds: 4)) {
-            Log("COMPLETE...")
-        }
+//        player.scheduleFile(file, at: AVAudioTime.now().offset(seconds: 4)) {
+//            Log("COMPLETE...")
+//        }
 
         player.play()
 
