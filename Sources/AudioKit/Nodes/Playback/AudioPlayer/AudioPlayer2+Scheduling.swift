@@ -3,7 +3,8 @@
 import AVFoundation
 
 extension AudioPlayer2 {
-    /// Schedule a file or buffer
+    /// Schedule a file or buffer. You can call this to schedule playback in the future
+    /// or the player will call it when play() is called to load the audio data
     /// - Parameters:
     ///   - when: What time to schedule for
     public func schedule(at when: AVAudioTime? = nil) {
