@@ -19,28 +19,57 @@ public class AudioPlayer2: Node {
     /// The output of the AudioPlayer and provides sample rate conversion if needed
     public private(set) var mixerNode = AVAudioMixerNode()
 
-    public var buffered: Bool = false
+    public var duration: TimeInterval {
+        bufferDuration ?? file?.duration ?? 0
+    }
 
-    public internal(set) var duration: TimeInterval = 0
+    /// Completion handler to be called when file or buffer is done
+    public var completionHandler: AVAudioNodeCompletionHandler?
 
-    public var file: AVAudioFile? {
+    var scheduleTime: AVAudioTime?
+
+    var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
+
+    public var isLooping: Bool = false {
         didSet {
-            duration = file?.duration ?? 0
+            bufferOptions = isLooping ? .loops : .interrupts
         }
     }
 
+    public var isScheduled: Bool {
+        scheduleTime != nil
+    }
+
+    public var file: AVAudioFile? {
+        didSet {
+            scheduleTime = nil
+            isBuffered = false
+            let wasPlaying = isPlaying
+            if wasPlaying { stop() }
+
+            if wasPlaying {
+                play()
+            }
+        }
+    }
+
+    var bufferDuration: TimeInterval?
+
+    public internal(set) var isBuffered: Bool = false
+
     public var buffer: AVAudioPCMBuffer? {
         didSet {
+            isBuffered = buffer != nil
+            scheduleTime = nil
+
             let wasPlaying = isPlaying
             if wasPlaying { stop() }
 
             guard let strongBuffer = buffer else { return }
 
-            // load buffer
-            duration = TimeInterval(strongBuffer.frameLength) / strongBuffer.format.sampleRate
+            bufferDuration = TimeInterval(strongBuffer.frameLength) / strongBuffer.format.sampleRate
 
             if wasPlaying {
-                playerNode.scheduleBuffer(strongBuffer, at: nil, options: .interrupts)
                 play()
             }
         }
@@ -71,7 +100,7 @@ public class AudioPlayer2: Node {
         }
     }
 
-    convenience init?(url: URL, buffered: Bool = false) {
+    public convenience init?(url: URL, buffered: Bool = false) {
         self.init()
         do {
             try load(url: url, buffered: buffered)
@@ -79,6 +108,11 @@ public class AudioPlayer2: Node {
             Log(error, type: .error)
             return nil
         }
+    }
+
+    public convenience init?(buffer: AVAudioPCMBuffer) {
+        self.init()
+        load(buffer: buffer)
     }
 
     // MARK: - Loading
@@ -89,11 +123,10 @@ public class AudioPlayer2: Node {
     }
 
     public func load(file: AVAudioFile, buffered: Bool = false) throws {
-        self.file = file
-        self.buffered = buffered
-
         if buffered, let buffer = try? AVAudioPCMBuffer(file: file) {
             load(buffer: buffer)
+        } else {
+            self.file = file
         }
     }
 
@@ -104,10 +137,18 @@ public class AudioPlayer2: Node {
     // MARK: - Playback
 
     /// Play audio player
-    public func play() {
+    public func play(at when: AVAudioTime? = nil) {
+        guard !isPlaying else { return }
+
         guard playerNode.engine != nil else {
             Log("🛑 Error: AudioPlayer must be attached before playback.")
             return
+        }
+
+        if when != nil { scheduleTime = nil }
+
+        if !isScheduled {
+            schedule(at: when)
         }
 
         playerNode.play()
@@ -115,11 +156,24 @@ public class AudioPlayer2: Node {
         isPaused = false
     }
 
-    /// Pause audio player
+    /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
-        // pauseTime = currentTime
+        guard isPlaying else { return }
+
         playerNode.pause()
         isPaused = true
+    }
+
+    func internalCompletionHandler() {
+        scheduleTime = nil
+        isPlaying = false
+        completionHandler?()
+
+        if !isBuffered, isLooping {
+            DispatchQueue.main.async {
+                self.play()
+            }
+        }
     }
 }
 
@@ -133,7 +187,9 @@ extension AudioPlayer2: Toggleable {
 
     /// Stop audio player
     public func stop() {
+        guard isPlaying else { return }
         playerNode.stop()
         isPlaying = false
+        scheduleTime = nil
     }
 }

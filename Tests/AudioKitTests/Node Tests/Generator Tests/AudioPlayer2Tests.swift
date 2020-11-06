@@ -9,9 +9,20 @@ class AudioPlayer2Tests: XCTestCase {
                                      349.23, 369.99, 392, 415.3, 440,
                                      466.16, 493.88] // , 523.25
 
-    func generateTestFile(ofDuration duration: TimeInterval, frequencies: [AUValue]? = nil) -> URL? {
-        let frequencies = frequencies ?? chromaticScale
+    private static var tempFiles = [URL]()
 
+    func wait(for interval: TimeInterval) {
+        let delayExpectation = XCTestExpectation(description: "delayExpectation")
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+            delayExpectation.fulfill()
+        }
+        wait(for: [delayExpectation], timeout: interval + 1)
+    }
+
+    func generateTestFile(named name: String = "_io_audiokit_AudioPlayer2Tests_temp",
+                          ofDuration duration: TimeInterval = 2,
+                          frequencies: [AUValue]? = nil) -> URL? {
+        let frequencies = frequencies ?? chromaticScale
         guard frequencies.count > 0 else { return nil }
 
         let pitchDuration = AUValue(duration) / AUValue(frequencies.count)
@@ -22,7 +33,7 @@ class AudioPlayer2Tests: XCTestCase {
         let engine = AudioEngine()
         engine.output = osc
 
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("_io_audiokit_AudioPlayerRealtimeTests_temp.aiff")
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("\(name)-\(AudioPlayer2Tests.tempFiles.count).aiff")
         try? FileManager.default.removeItem(at: url)
 
         guard let file = try? AVAudioFile(forWriting: url,
@@ -41,48 +52,122 @@ class AudioPlayer2Tests: XCTestCase {
         let fadeIn = [AutomationEvent(targetValue: 1, startTime: 0, rampDuration: pitchDuration)]
         let fadeOut = [AutomationEvent(targetValue: 0, startTime: AUValue(duration) - pitchDuration, rampDuration: pitchDuration)]
 
-        Log(notes.map { $0.startTime })
+        Log(name, "duration", duration, "notes will play at", notes.map { $0.startTime })
 
         try? engine.avEngine.render(to: file, duration: duration, prerender: {
             osc.start()
             osc.$amplitude.automate(events: zero + fadeIn + fadeOut)
             osc.$frequency.automate(events: notes)
         })
-        print("rendered test file to \(url)")
+        Log("rendered test file to \(url)")
 
+        AudioPlayer2Tests.tempFiles.append(url)
         return url
     }
 
-    func testRealtime() {
-        pauseRealtime()
+    func createPlayer(duration: TimeInterval) -> AudioPlayer2? {
+        guard let url = generateTestFile(ofDuration: duration,
+                                         frequencies: chromaticScale) else {
+            Log("Failed to open file")
+            return nil
+        }
+
+        guard let player = AudioPlayer2(url: url) else {
+            return nil
+        }
+        player.volume = 0.1
+        return player
     }
 
-    func pauseRealtime() {
-        let frequencies = chromaticScale
+    func cleanup() {
+        for url in AudioPlayer2Tests.tempFiles {
+            Log("removeItem", url)
 
-        guard let url = generateTestFile(ofDuration: 12,
-                                         frequencies: frequencies),
-            let file = try? AVAudioFile(forReading: url) else {
-            Log("Failed to open file")
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
+}
+
+// Actual Tests
+
+extension AudioPlayer2Tests {
+    func testLoadOptions() {
+        guard let url = generateTestFile(ofDuration: 5,
+                                         frequencies: chromaticScale) else {
+            XCTFail("Failed to create file")
             return
         }
+        let engine = AudioEngine()
+        let player = AudioPlayer2()
+        engine.output = player
+
+        do {
+            try player.load(url: url)
+            XCTAssertNotNil(player.file, "File is nil")
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail("Failed loading URL")
+        }
+
+        do {
+            let file = try AVAudioFile(forReading: url)
+            try player.load(file: file)
+            XCTAssertNotNil(player.file, "File is nil")
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail("Failed loading AVAudioFile")
+        }
+
+        do {
+            try player.load(url: url, buffered: true)
+            XCTAssertNotNil(player.buffer, "Buffer is nil")
+
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail("Failed loading AVAudioFile")
+        }
+    }
+
+    func testPlayerIsAttached() {
+        guard let player = createPlayer(duration: 1) else {
+            XCTFail("Failed to create AudioPlayer2")
+            return
+        }
+        player.play()
+
+        XCTAssertFalse(player.isPlaying, "isPlaying should be false")
 
         let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+        player.play()
+        XCTAssertTrue(player.isPlaying, "isPlaying should be true")
+        player.stop()
+    }
+}
 
-        guard let player = AudioPlayer2(file: file) else {
+// Real time functions, for local testing only
+extension AudioPlayer2Tests {
+    func testPause() {
+        realtimeTestPause()
+    }
 
+    func testScheduled() {
+        realtimeScheduleFile()
+    }
+
+    func realtimeTestPause() {
+        guard let player = createPlayer(duration: 6) else {
+            XCTFail("Failed to create AudioPlayer2")
             return
         }
-
+        let engine = AudioEngine()
         engine.output = player
         try? engine.start()
 
-        player.schedule(at: nil) {
-            Log("🏁 Completion Handler")
-        }
-        player.volume = 0.2
+        player.completionHandler = { Log("🏁 Completion Handler") }
 
-        var duration = file.duration
+        var duration = player.duration
 
         Log("▶️")
         player.play()
@@ -96,43 +181,64 @@ class AudioPlayer2Tests: XCTestCase {
 
         Log("▶️")
         player.play()
-
         wait(for: duration)
         Log("⏹")
     }
 
-    func testScheduleFile() {
-        guard let url = generateTestFile(ofDuration: 2,
-                                         frequencies: chromaticScale),
-            let file = try? AVAudioFile(forReading: url) else {
-            Log("Failed to open file")
+    func realtimeScheduleFile() {
+        guard let player = createPlayer(duration: 2) else {
+            XCTFail("Failed to create AudioPlayer2")
             return
         }
-
         let engine = AudioEngine()
-        guard let player = AudioPlayer2(file: file) else {
-
-            return
-        }
-        player.volume = 0.1
         engine.output = player
         try? engine.start()
 
-        // let audio = engine.startTest(totalDuration: 2.0)
-//        player.scheduleFile(file, at: AVAudioTime.now().offset(seconds: 4)) {
-//            Log("COMPLETE...")
-//        }
+        var completionCounter = 0
+        player.completionHandler = {
+            completionCounter += 1
+            Log("🏁 Completion Handler", completionCounter)
+        }
 
+        // test schedule with play
+        player.play(at: AVAudioTime.now().offset(seconds: 3))
+
+        wait(for: player.duration + 3)
+
+        // test schedule separated from play
+        player.schedule(at: AVAudioTime.now().offset(seconds: 3))
         player.play()
 
-        wait(for: player.duration + 4)
+        wait(for: player.duration + 3)
+
+        XCTAssertEqual(completionCounter, 2, "Completion handler wasn't called on both completions")
     }
 
-    func wait(for interval: TimeInterval) {
-        let delayExpectation = XCTestExpectation(description: "delayExpectation")
-        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
-            delayExpectation.fulfill()
+    func testFileLoop() {
+        guard let player = createPlayer(duration: 2) else {
+            XCTFail("Failed to create AudioPlayer2")
+            return
         }
-        wait(for: [delayExpectation], timeout: interval + 1)
+        let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+
+        var completionCounter = 0
+        player.completionHandler = {
+            completionCounter += 1
+            Log("🏁 Completion Handler", completionCounter)
+        }
+
+        player.isLooping = true
+        player.play()
+
+        wait(for: 6)
+        player.stop()
+    }
+}
+
+extension AudioPlayer2Tests {
+    func testZZZRemoveTempFiles() {
+        cleanup()
     }
 }
