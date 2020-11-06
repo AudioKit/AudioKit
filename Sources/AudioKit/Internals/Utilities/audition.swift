@@ -11,6 +11,6 @@ public func audition(_ buffer: AVAudioPCMBuffer) {
     try! auditionEngine.start()
     auditionPlayer.scheduleBuffer(buffer, at: nil)
     auditionPlayer.play()
-    sleep(buffer.frameCapacity / 44100)
+    sleep(buffer.frameCapacity / UInt32(buffer.format.sampleRate))
     auditionEngine.stop()
 }
