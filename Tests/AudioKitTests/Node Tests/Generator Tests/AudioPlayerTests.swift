@@ -3,10 +3,8 @@ import AVFoundation
 import XCTest
 
 class AudioPlayerTests: XCTestCase {
-
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL {
-
         let osc = Oscillator()
         let engine = AudioEngine()
         engine.output = osc
@@ -15,7 +13,9 @@ class AudioPlayerTests: XCTestCase {
         let mgr = FileManager.default
         let url = mgr.temporaryDirectory.appendingPathComponent("test.aiff")
         try? mgr.removeItem(at: url)
-        let file = try! AVAudioFile(forWriting: url, settings: Settings.audioFormat.settings)
+        var audioFormatSettings = Settings.audioFormat.settings
+        audioFormatSettings["AVLinearPCMIsNonInterleaved"] = false
+        let file = try! AVAudioFile(forWriting: url, settings: audioFormatSettings)
 
         try! engine.renderToFile(file, duration: 1)
         print("rendered test file to \(url)")
@@ -64,7 +64,6 @@ class AudioPlayerTests: XCTestCase {
     }
 
     func testScheduleEarly() {
-
         let url = generateTestFile()
 
         let file = try! AVAudioFile(forReading: url)
