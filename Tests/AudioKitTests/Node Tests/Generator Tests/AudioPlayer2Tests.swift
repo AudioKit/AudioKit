@@ -94,7 +94,7 @@ class AudioPlayer2Tests: XCTestCase {
     }
 }
 
-// Actual Tests
+// Offline Tests - see +Realtime for the main tests
 
 extension AudioPlayer2Tests {
     func testLoadOptions() {
@@ -127,7 +127,6 @@ extension AudioPlayer2Tests {
         do {
             try player.load(url: url, buffered: true)
             XCTAssertNotNil(player.buffer, "Buffer is nil")
-
         } catch let error as NSError {
             Log(error, type: .error)
             XCTFail("Failed loading AVAudioFile")
@@ -140,7 +139,6 @@ extension AudioPlayer2Tests {
             return
         }
         player.play()
-
         XCTAssertFalse(player.isPlaying, "isPlaying should be false")
 
         let engine = AudioEngine()
@@ -149,6 +147,26 @@ extension AudioPlayer2Tests {
         player.play()
         XCTAssertTrue(player.isPlaying, "isPlaying should be true")
         player.stop()
+    }
+
+    func testBufferCreated() {
+        let engine = AudioEngine()
+        let player = AudioPlayer2()
+        engine.output = player
+        try? engine.start()
+        // load a buffer
+        guard let url = generateTestFile(ofDuration: 1,
+                                         frequencies: [220, 440]),
+            let file = try? AVAudioFile(forReading: url),
+            let buffer = try? AVAudioPCMBuffer(url: url) else {
+            XCTFail("Failed to create file or buffer")
+            return
+        }
+
+        // will set isBuffered to true
+        player.buffer = buffer
+        XCTAssertTrue(player.isBuffered, "isBuffered isn't true")
+        XCTAssertTrue(player.duration == file.duration, "Duration is wrong")
     }
 }
 

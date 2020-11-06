@@ -9,25 +9,25 @@ import XCTest
 
 // Thse are organized like this so they're easy to comment out
 extension AudioPlayer2Tests {
-    func testPause() {
-        realtimeTestPause()
-    }
-
-    func testScheduled() {
-        realtimeScheduleFile()
-    }
-
-    func testFileLooping() {
-        realtimeLoop(buffered: false, duration: 2)
-    }
-
-    func testBufferLooping() {
-        realtimeLoop(buffered: true, duration: 1)
-    }
-
-    func testInterupts() {
-        realtimeInterrupts()
-    }
+//    func testPause() {
+//        realtimeTestPause()
+//    }
+//
+//    func testScheduled() {
+//        realtimeScheduleFile()
+//    }
+//
+//    func testFileLooping() {
+//        realtimeLoop(buffered: false, duration: 2)
+//    }
+//
+//    func testBufferLooping() {
+//        realtimeLoop(buffered: true, duration: 1)
+//    }
+//
+//    func testInterupts() {
+//        realtimeInterrupts()
+//    }
 }
 
 extension AudioPlayer2Tests {
