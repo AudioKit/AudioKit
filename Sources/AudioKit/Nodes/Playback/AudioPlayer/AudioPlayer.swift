@@ -164,7 +164,7 @@ public class AudioPlayer: Node {
     }
 
     public func load(file: AVAudioFile, buffered: Bool = false) throws {
-        if buffered, let buffer = try? AVAudioPCMBuffer(file: file) {
+        if buffered, let buffer = try AVAudioPCMBuffer(file: file) {
             load(buffer: buffer)
         } else {
             self.file = file
@@ -207,7 +207,28 @@ public class AudioPlayer: Node {
         playerNode.pause()
         isPaused = true
     }
+}
 
+extension AudioPlayer: Toggleable {
+    /// Synonym for isPlaying
+    public var isStarted: Bool { isPlaying }
+
+    /// Synonym for play()
+    public func start() {
+        play()
+    }
+
+    /// Stop audio player. This won't generate a callback event
+    public func stop() {
+        guard isPlaying else { return }
+        isPlaying = false
+        playerNode.stop()
+        scheduleTime = nil
+    }
+}
+
+// Just to provide compability with previous AudioPlayer
+extension AudioPlayer {
     /// Schedule a file or buffer. You can call this to schedule playback in the future
     /// or the player will call it when play() is called to load the audio data
     /// - Parameters:
@@ -235,28 +256,8 @@ public class AudioPlayer: Node {
             scheduleTime = nil
         }
     }
-}
 
-extension AudioPlayer: Toggleable {
-    /// Synonym for isPlaying
-    public var isStarted: Bool { isPlaying }
-
-    /// Synonym for play()
-    public func start() {
-        play()
-    }
-
-    /// Stop audio player. This won't generate a callback event
-    public func stop() {
-        guard isPlaying else { return }
-        isPlaying = false
-        playerNode.stop()
-        scheduleTime = nil
-    }
-}
-
-// Just to provide compability with previous AudioPlayer
-extension AudioPlayer {
+    @available(*, renamed: "schedule(at:)")
     public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
                                at when: AVAudioTime?,
                                options: AVAudioPlayerNodeBufferOptions = []) {
@@ -265,6 +266,7 @@ extension AudioPlayer {
         schedule(at: when)
     }
 
+    @available(*, renamed: "schedule(at:)")
     public func scheduleBuffer(url: URL,
                                at when: AVAudioTime?,
                                options: AVAudioPlayerNodeBufferOptions = []) {
@@ -275,6 +277,7 @@ extension AudioPlayer {
         scheduleBuffer(buffer, at: when, options: options)
     }
 
+    @available(*, renamed: "schedule(at:)")
     public func scheduleFile(_ file: AVAudioFile,
                              at when: AVAudioTime?) {
         self.file = file

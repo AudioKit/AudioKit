@@ -40,13 +40,14 @@ class AudioPlayerTests: XCTestCase {
         engine.output = player
 
         let audio = engine.startTest(totalDuration: 2.0)
-        player.scheduleFile(file, at: nil)
+        player.file = file
+
         player.play()
         audio.append(engine.render(duration: 2.0))
         engine.stop()
 
         testMD5(audio)
-        // audition(audio)
+        audition(audio)
     }
 
     func testLoop() {
@@ -59,10 +60,10 @@ class AudioPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
+        player.isLooping = true
+        player.buffer = buffer
 
         let audio = engine.startTest(totalDuration: 2.0)
-
-        player.scheduleBuffer(buffer, at: nil, options: .loops)
         player.play()
 
         audio.append(engine.render(duration: 2.0))
@@ -82,9 +83,16 @@ class AudioPlayerTests: XCTestCase {
         let player = AudioPlayer()
         player.volume = 0.1
         engine.output = player
+        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 2.0)
-        player.scheduleBuffer(url: url, at: nil, options: .loops)
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
         player.play()
         audio.append(engine.render(duration: 2.0))
         engine.stop()
@@ -103,9 +111,9 @@ class AudioPlayerTests: XCTestCase {
         let player = AudioPlayer()
         player.volume = 0.1
         engine.output = player
+        player.file = file
 
         let audio = engine.startTest(totalDuration: 2.0)
-        player.scheduleFile(file, at: nil)
         player.play()
         audio.append(engine.render(duration: 2.0))
         engine.stop()
