@@ -51,9 +51,15 @@ class AudioPlayer2Tests: XCTestCase {
             startTime += pitchDuration
         }
 
-        let zero = [AutomationEvent(targetValue: 0, startTime: 0, rampDuration: 0)]
-        let fadeIn = [AutomationEvent(targetValue: 1, startTime: 0, rampDuration: pitchDuration)]
-        let fadeOut = [AutomationEvent(targetValue: 0, startTime: AUValue(duration) - pitchDuration, rampDuration: pitchDuration)]
+        let zero = [AutomationEvent(targetValue: 0,
+                                    startTime: 0,
+                                    rampDuration: 0)]
+        let fadeIn = [AutomationEvent(targetValue: 1,
+                                      startTime: 0,
+                                      rampDuration: pitchDuration)]
+        let fadeOut = [AutomationEvent(targetValue: 0,
+                                       startTime: AUValue(duration) - pitchDuration,
+                                       rampDuration: pitchDuration)]
 
         Log(name, "duration", duration, "notes will play at", notes.map { $0.startTime })
 
@@ -70,7 +76,7 @@ class AudioPlayer2Tests: XCTestCase {
 
     func createPlayer(duration: TimeInterval,
                       frequencies: [AUValue]? = nil,
-                      buffered: Bool = false) -> AudioPlayer2? {
+                      buffered: Bool = false) -> AudioPlayer? {
         let frequencies = frequencies ?? chromaticScale
         guard let url = generateTestFile(ofDuration: duration,
                                          frequencies: frequencies) else {
@@ -78,7 +84,7 @@ class AudioPlayer2Tests: XCTestCase {
             return nil
         }
 
-        guard let player = AudioPlayer2(url: url, buffered: buffered) else {
+        guard let player = AudioPlayer(url: url, buffered: buffered) else {
             return nil
         }
         player.volume = 0.1
@@ -104,7 +110,7 @@ extension AudioPlayer2Tests {
             return
         }
         let engine = AudioEngine()
-        let player = AudioPlayer2()
+        let player = AudioPlayer()
         engine.output = player
 
         do {
@@ -135,7 +141,7 @@ extension AudioPlayer2Tests {
 
     func testPlayerIsAttached() {
         guard let player = createPlayer(duration: 1) else {
-            XCTFail("Failed to create AudioPlayer2")
+            XCTFail("Failed to create AudioPlayer")
             return
         }
         player.play()
@@ -151,7 +157,7 @@ extension AudioPlayer2Tests {
 
     func testBufferCreated() {
         let engine = AudioEngine()
-        let player = AudioPlayer2()
+        let player = AudioPlayer()
         engine.output = player
         try? engine.start()
         // load a buffer

@@ -33,7 +33,7 @@ extension AudioPlayer2Tests {
 extension AudioPlayer2Tests {
     func realtimeTestPause() {
         guard let player = createPlayer(duration: 6) else {
-            XCTFail("Failed to create AudioPlayer2")
+            XCTFail("Failed to create AudioPlayer")
             return
         }
         let engine = AudioEngine()
@@ -61,7 +61,7 @@ extension AudioPlayer2Tests {
 
     func realtimeScheduleFile() {
         guard let player = createPlayer(duration: 2) else {
-            XCTFail("Failed to create AudioPlayer2")
+            XCTFail("Failed to create AudioPlayer")
             return
         }
         let engine = AudioEngine()
@@ -92,7 +92,7 @@ extension AudioPlayer2Tests {
         guard let player = createPlayer(duration: duration,
                                         frequencies: [220, 440, 444, 440],
                                         buffered: buffered) else {
-            XCTFail("Failed to create AudioPlayer2")
+            XCTFail("Failed to create AudioPlayer")
             return
         }
         let engine = AudioEngine()
@@ -118,7 +118,7 @@ extension AudioPlayer2Tests {
 
     func realtimeInterrupts() {
         guard let player = createPlayer(duration: 4, buffered: false) else {
-            XCTFail("Failed to create AudioPlayer2")
+            XCTFail("Failed to create AudioPlayer")
             return
         }
         let engine = AudioEngine()
