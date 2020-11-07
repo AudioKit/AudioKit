@@ -5,12 +5,17 @@ import AVFoundation
 /// Audition a buffer, especially useful in AudioKit testing
 /// - Parameter buffer: Buffer to play
 public func audition(_ buffer: AVAudioPCMBuffer) {
-    let auditionEngine = AudioEngine()
-    let auditionPlayer = AudioPlayer()
-    auditionEngine.output = auditionPlayer
-    try! auditionEngine.start()
-    auditionPlayer.scheduleBuffer(buffer, at: nil)
-    auditionPlayer.play()
+    let engine = AudioEngine()
+    let player = AudioPlayer()
+    engine.output = player
+    do {
+        try engine.start()
+    } catch let error as NSError {
+        Log(error, type: .error)
+        return
+    }
+    player.buffer = buffer
+    player.play()
     sleep(buffer.frameCapacity / UInt32(buffer.format.sampleRate))
-    auditionEngine.stop()
+    engine.stop()
 }

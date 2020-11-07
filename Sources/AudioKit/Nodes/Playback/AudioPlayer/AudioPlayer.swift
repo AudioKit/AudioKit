@@ -257,7 +257,7 @@ extension AudioPlayer {
         }
     }
 
-    @available(*, renamed: "schedule(at:)")
+    @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
                                at when: AVAudioTime?,
                                options: AVAudioPlayerNodeBufferOptions = []) {
@@ -266,7 +266,7 @@ extension AudioPlayer {
         schedule(at: when)
     }
 
-    @available(*, renamed: "schedule(at:)")
+    @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(url: URL,
                                at when: AVAudioTime?,
                                options: AVAudioPlayerNodeBufferOptions = []) {
@@ -277,7 +277,7 @@ extension AudioPlayer {
         scheduleBuffer(buffer, at: when, options: options)
     }
 
-    @available(*, renamed: "schedule(at:)")
+    @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleFile(_ file: AVAudioFile,
                              at when: AVAudioTime?) {
         self.file = file
