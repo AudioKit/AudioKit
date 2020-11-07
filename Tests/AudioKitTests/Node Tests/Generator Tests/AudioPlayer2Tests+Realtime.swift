@@ -7,7 +7,7 @@ import XCTest
 // These simulate a user interacting with the player via an UI
 // Real time functions, for local testing only
 
-// Thse are organized like this so they're easy to comment out
+// Thse are organized like this so they're easy to comment out for the moment for CI tests
 extension AudioPlayer2Tests {
 //    func testPause() {
 //        realtimeTestPause()
