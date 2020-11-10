@@ -173,11 +173,10 @@ extension AVAudioPCMBuffer {
     }
 
     /// - Returns: A new buffer from this one that has fades applied to it. Pass 0 for either parameter
-    /// if you only want one of them
+    /// if you only want one of them. The ramp is exponential by default.
     public func fade(inTime: Double,
                      outTime: Double,
-                     inRampType: Settings.RampType = .exponential,
-                     outRampType: Settings.RampType = .exponential) -> AVAudioPCMBuffer? {
+                     linearRamp: Bool = false) -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
             Log("Error fading buffer, returning original...")
             return self
@@ -198,18 +197,18 @@ extension AVAudioPCMBuffer {
         var fadeInPower: Double = 1
         var fadeOutPower: Double = 1
 
-        if inRampType == .linear {
+        if linearRamp {
             gain = inTime > 0 ? 0 : 1
             fadeInPower = sampleTime / inTime
 
-        } else if inRampType == .exponential {
+        } else {
             fadeInPower = exp(log(10) * sampleTime / inTime)
         }
 
-        if outRampType == .linear {
+        if linearRamp {
             fadeOutPower = sampleTime / outTime
 
-        } else if outRampType == .exponential {
+        } else {
             fadeOutPower = exp(-log(25) * sampleTime / outTime)
         }
 
@@ -223,17 +222,17 @@ extension AVAudioPCMBuffer {
             // n is the channel
             for n in 0 ..< channelCount {
                 if i < fadeInSamples, inTime > 0 {
-                    if inRampType == .exponential {
+                    if linearRamp {
                         gain *= fadeInPower
-                    } else if inRampType == .linear {
+                    } else {
                         gain += fadeInPower
                     }
 
                 } else if i > fadeOutSamples, outTime > 0 {
-                    if outRampType == .exponential {
-                        gain *= fadeOutPower
-                    } else if outRampType == .linear {
+                    if linearRamp {
                         gain -= fadeOutPower
+                    } else {
+                        gain *= fadeOutPower
                     }
                 } else {
                     gain = 1.0
