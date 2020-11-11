@@ -5,7 +5,6 @@ import AVFoundation
 import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
-/// TODO This node needs tests
 /// 
 public class PluckedString: Node, AudioUnitContainer, Tappable, Toggleable {
 
