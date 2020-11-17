@@ -131,7 +131,7 @@ extension TuningTable {
                 options: .anchored,
                 range: NSRange(location: 0, length: lineStr.count))
 
-            if NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) != true {
+            if NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) == false {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch) as NSString? ?? ""
                 if substringForFirstMatch.range(of: ".").length != 0 {
