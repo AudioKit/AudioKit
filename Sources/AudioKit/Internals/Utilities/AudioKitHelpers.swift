@@ -259,7 +259,7 @@ public protocol Occupiable {
 extension Occupiable {
     /// Contains no elements
     public var isNotEmpty: Bool {
-        return ❗️isEmpty
+        return !isEmpty
     }
 }
 
@@ -274,9 +274,9 @@ extension Set: Occupiable {}
 extension AVAudioSession.CategoryOptions: Occupiable {}
 #endif
 
-prefix operator ❗️
-
-/// Negative logic can be confusing, so we draw special attention to those cases
-public prefix func ❗️(a: Bool) -> Bool {
-    return !a
+extension Sequence where Self.Element: Equatable {
+    @inline(__always)
+    public func doesNotContain(_ member: Element) -> Bool {
+        return !contains(member)
+    }
 }

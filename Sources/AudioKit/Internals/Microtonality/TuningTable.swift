@@ -147,7 +147,7 @@ public class TuningTable: TuningTableBase {
             return l2
         }
 
-        if ❗️frequenciesAreValid {
+        if !frequenciesAreValid {
             Log("Invalid input frequencies")
             return 0
         }

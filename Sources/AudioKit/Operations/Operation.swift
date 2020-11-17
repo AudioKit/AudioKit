@@ -25,7 +25,7 @@ open class Operation: ComputedParameter {
         }
 
         for elem in all {
-            if ❗️added.contains(elem.inlineSporth) {
+            if !added.contains(elem.inlineSporth) {
                 uniq.append(elem)
                 added.insert(elem.inlineSporth)
             }

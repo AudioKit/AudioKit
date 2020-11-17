@@ -247,7 +247,7 @@ import CoreMIDI
                 // verify that there isn't still a touch remaining on same key from another finger
                 if var otherTouches = event?.allTouches {
                     otherTouches.remove(touch)
-                    if ❗️notesFromTouches(otherTouches).contains(note) {
+                    if notesFromTouches(otherTouches).doesNotContain(note) {
                         pressRemoved(note, touches: event?.allTouches)
                     }
                 }
@@ -277,13 +277,13 @@ import CoreMIDI
     // MARK: - Executing Key Presses
 
     private func pressAdded(_ newNote: MIDINoteNumber) {
-        if ❗️polyphonicMode {
+        if !polyphonicMode {
             for key in onKeys where key != newNote {
                 pressRemoved(key)
             }
         }
 
-        if ❗️onKeys.contains(newNote) {
+        if onKeys.doesNotContain(newNote) {
             onKeys.insert(newNote)
             delegate?.noteOn(note: newNote)
         }
@@ -316,7 +316,7 @@ import CoreMIDI
         }
         onKeys.remove(note)
         delegate?.noteOff(note: note)
-        if ❗️polyphonicMode {
+        if !polyphonicMode {
             // in mono mode, replace with note from highest remaining touch, if it exists
             var remainingNotes = notesFromTouches(touches ?? Set<UITouch>())
             remainingNotes = remainingNotes.filter { $0 != note }
@@ -332,7 +332,7 @@ import CoreMIDI
         let disjunct = onKeys.subtracting(notes)
         if disjunct.isNotEmpty {
             for note in disjunct {
-                if ❗️programmaticOnKeys.contains(note) {
+                if programmaticOnKeys.doesNotContain(note) {
                     pressRemoved(note)
                 }
             }
