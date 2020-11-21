@@ -23,7 +23,7 @@ open class MIDISampler: AppleSampler {
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
     ///
-    public init(name midiOutputName: String) {
+    public init(name midiOutputName: String = "MIDI Sampler") {
         super.init()
         enableMIDI(name: midiOutputName)
         hideVirtualMIDIPort()
