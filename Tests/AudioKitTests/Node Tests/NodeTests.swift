@@ -57,7 +57,7 @@ class NodeTests: XCTestCase {
         audio.append(newAudio2)
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDynamicConnection() {
@@ -109,7 +109,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDynamicConnection3() {
@@ -136,7 +136,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDisconnect() {
@@ -157,7 +157,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testNodeDetach() {
