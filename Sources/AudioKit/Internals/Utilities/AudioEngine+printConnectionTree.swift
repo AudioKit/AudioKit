@@ -3,7 +3,7 @@
 import Foundation
 
 extension AudioEngine {
-    
+
     public func printConnectionTree() {
         if let startNode = mainMixerNode {
             startNode.printConnectionTree()
@@ -11,5 +11,5 @@ extension AudioEngine {
             print("AudioKit | mainMixerNode is nil")
         }
     }
-    
+
 }
