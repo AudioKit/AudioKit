@@ -7,7 +7,7 @@ import CoreAudio
 
 /// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class MIDIInstrument: PolyphonicNode, MIDIListener {
+open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
 
     // MARK: - Properties
 
@@ -27,7 +27,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener {
     public init(midiInputName: String? = nil) {
         super.init(avAudioNode: AVAudioNode())
         name = midiInputName ?? name
-        enableMIDI(name: midiInputName ?? name)
+        enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
 
