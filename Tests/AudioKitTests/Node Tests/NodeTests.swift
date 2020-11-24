@@ -339,4 +339,19 @@ class NodeTests: XCTestCase {
         \(Node.connectionTreeLinePrefix)  ↳Oscillator
         """)
     }
+
+    func testConnectionTreeDescriptionForNamedNode() {
+        let nameString = "Customized Name"
+        let sampler = MIDISampler(name: nameString)
+        let compressor = Compressor(sampler)
+        let mixer = Mixer(compressor)
+
+        XCTAssertEqual(mixer.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Compressor
+        \(Node.connectionTreeLinePrefix)  ↳MIDISampler(\"\(nameString)\")
+        """)
+    }
+
 }
