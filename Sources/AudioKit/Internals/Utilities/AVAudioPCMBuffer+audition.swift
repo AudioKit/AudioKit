@@ -3,7 +3,7 @@
 import AVFoundation
 
 extension AVAudioPCMBuffer {
-    
+
     /// Audition the buffer. Especially useful in AudioKit testing
     public func audition() {
         let engine = AudioEngine()

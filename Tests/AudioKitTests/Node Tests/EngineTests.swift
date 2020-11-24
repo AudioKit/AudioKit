@@ -145,4 +145,21 @@ class EngineTests: XCTestCase {
 
         engine.stop()
     }
+
+    func testConnectionTreeDescriptionForNilMainMixerNode() {
+        let engine = AudioEngine()
+        XCTAssertEqual(engine.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)mainMixerNode is nil")
+    }
+
+    func testConnectionTreeDescriptionForSingleNodeAdded() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator()
+        engine.output = oscillator
+        XCTAssertEqual(engine.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Oscillator
+        """)
+    }
+
 }
