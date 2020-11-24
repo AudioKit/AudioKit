@@ -320,4 +320,23 @@ class NodeTests: XCTestCase {
             audio.append(buf)
         }
     }
+
+    func testConnectionTreeDescriptionForStandaloneNode() {
+        let osc = Oscillator()
+        XCTAssertEqual(osc.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)↳Oscillator")
+    }
+
+    func testConnectionTreeDescriptionForConnectedNode() {
+        let osc = Oscillator()
+        let verb = CostelloReverb(osc)
+        let mixer = Mixer(osc, verb)
+
+        XCTAssertEqual(mixer.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Oscillator
+        \(Node.connectionTreeLinePrefix) ↳CostelloReverb
+        \(Node.connectionTreeLinePrefix)  ↳Oscillator
+        """)
+    }
 }
