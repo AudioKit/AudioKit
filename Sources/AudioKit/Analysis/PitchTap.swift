@@ -46,6 +46,7 @@ public class PitchTap: BaseTap {
         }
     }
 
+    /// Stop detecting pitch
     override public func stop() {
         super.stop()
         for i in 0 ..< pitch.count {

@@ -191,7 +191,7 @@ open class NodeRecorder: NSObject {
 
         // Delete the physical recording file
         let fileManager = FileManager.default
-        let settings = internalAudioFile.processingFormat.settings
+        let settings = internalAudioFile.fileFormat.settings
         let url = internalAudioFile.url
 
         do {

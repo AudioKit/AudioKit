@@ -111,7 +111,7 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
         NSInteger                   outputBusNumber,
         AudioBufferList            *outputData,
         const AURenderEvent        *realtimeEventListHead,
-        AURenderPullInputBlock      pullInputBlock)
+        AURenderPullInputBlock __unsafe_unretained pullInputBlock)
     {
 
         assert( (outputBusNumber == 0) && "We don't yet support multiple output busses" );

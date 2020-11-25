@@ -6,7 +6,7 @@ import CoreAudio
 
 /// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class MIDINode: Node, MIDIListener {
+open class MIDINode: Node, MIDIListener, NamedNode {
 
     // MARK: - Properties
 
@@ -28,9 +28,10 @@ open class MIDINode: Node, MIDIListener {
     public init(node: PolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init(avAudioNode: AVAudioNode())
+        name = midiOutputName ?? name
         avAudioNode = internalNode.avAudioNode
         avAudioUnit = internalNode.avAudioUnit
-      enableMIDI(name: midiOutputName ?? "Unnamed")
+        enableMIDI(name: midiOutputName ?? name)
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -40,7 +41,7 @@ open class MIDINode: Node, MIDIListener {
     ///   - name: Name to connect with
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                           name: String = "Unnamed") {
+                           name: String = "MIDINode") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = MIDIEvent(packet: e)

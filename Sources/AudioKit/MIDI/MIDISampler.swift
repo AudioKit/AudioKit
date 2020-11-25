@@ -10,7 +10,7 @@ import os.log
 ///
 /// Be sure to enableMIDI if you want to receive messages
 ///
-open class MIDISampler: AppleSampler {
+open class MIDISampler: AppleSampler, NamedNode {
     // MARK: - Properties
 
     /// MIDI Input
@@ -23,9 +23,10 @@ open class MIDISampler: AppleSampler {
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
     ///
-    public init(name midiOutputName: String) {
+    public init(name midiOutputName: String? = nil) {
         super.init()
-        enableMIDI(name: midiOutputName)
+        name = midiOutputName ?? name
+        enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
 

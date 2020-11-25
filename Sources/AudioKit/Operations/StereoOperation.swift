@@ -21,7 +21,7 @@ open class StereoOperation: ComputedParameter {
         }
 
         for elem in all {
-            if ❗️added.contains(elem.inlineSporth) {
+            if added.doesNotContain(elem.inlineSporth) {
                 uniq.append(elem)
                 added.insert(elem.inlineSporth)
             }

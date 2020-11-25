@@ -52,7 +52,6 @@ class SequencerTrackTests: XCTestCase {
         track.loopEnabled = false
         track.playFromStart()
         XCTAssertTrue(track.isPlaying)
-        //auditionTest()
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
         testMD5(audio)

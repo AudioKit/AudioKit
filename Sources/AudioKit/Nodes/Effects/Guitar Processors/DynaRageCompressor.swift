@@ -23,7 +23,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
     public static let ratioDef = NodeParameterDef(
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
-        address: akGetParameterAddress("DynaRageCompressorRatio"),
+        address: akGetParameterAddress("DynaRageCompressorParameterRatio"),
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -134,18 +134,20 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable 
         rageEnabled: Bool = true
     ) {
         super.init(avAudioNode: AVAudioNode())
-        self.ratio = ratio
-        self.threshold = threshold
-        self.attackDuration = attackDuration
-        self.releaseDuration = releaseDuration
-        self.rage = rage
-        self.rageEnabled = rageEnabled
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
+
+            self.ratio = ratio
+            self.threshold = threshold
+            self.attackDuration = attackDuration
+            self.releaseDuration = releaseDuration
+            self.rage = rage
+            self.rageEnabled = rageEnabled
+
         }
 
         connections.append(input)

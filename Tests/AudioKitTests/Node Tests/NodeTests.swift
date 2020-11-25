@@ -5,9 +5,6 @@ import CAudioKit
 import XCTest
 
 class NodeTests: XCTestCase {
-
-    let osc = Oscillator()
-
     func testNodeBasic() {
         let engine = AudioEngine()
         let osc = Oscillator()
@@ -41,7 +38,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDynamicOutput() {
-
         let engine = AudioEngine()
 
         let osc1 = Oscillator()
@@ -61,11 +57,10 @@ class NodeTests: XCTestCase {
         audio.append(newAudio2)
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDynamicConnection() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -94,7 +89,6 @@ class NodeTests: XCTestCase {
     }
 
     func testDynamicConnection2() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -115,7 +109,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDynamicConnection3() {
@@ -142,11 +136,10 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testDisconnect() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -164,7 +157,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audition(audio)
+        //audio.audition()
     }
 
     func testNodeDetach() {
@@ -200,15 +193,13 @@ class NodeTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
-
     }
 
     func testManyMixerConnections() {
-
         let engine = AudioEngine()
 
         var oscs: [Oscillator] = []
-        for _ in 0..<16 {
+        for _ in 0 ..< 16 {
             oscs.append(Oscillator())
         }
 
@@ -216,7 +207,6 @@ class NodeTests: XCTestCase {
         engine.output = mixer
 
         XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
-
     }
 
     func connectionCount(node: AVAudioNode) -> Int {
@@ -232,7 +222,6 @@ class NodeTests: XCTestCase {
     }
 
     func testFanout() {
-
         let engine = AudioEngine()
         let osc = Oscillator()
         let verb = CostelloReverb(osc)
@@ -244,7 +233,6 @@ class NodeTests: XCTestCase {
     }
 
     func testMixerRedundantUpstreamConnection() {
-
         let engine = AudioEngine()
 
         let osc = Oscillator()
@@ -258,7 +246,6 @@ class NodeTests: XCTestCase {
         mixer2.addInput(osc)
 
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-
     }
 
     func testTransientNodes() {
@@ -285,5 +272,86 @@ class NodeTests: XCTestCase {
         exampleStop()
     }
 
-}
+    // This provides a baseline for measuring the overhead
+    // of mixers in testMixerPerformance.
+    func testChainPerformance() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let rev = CostelloReverb(osc)
 
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = rev
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+    }
+
+    // Measure the overhead of mixers.
+    func testMixerPerformance() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let mix1 = Mixer(osc)
+        let rev = CostelloReverb(mix1)
+        let mix2 = Mixer(rev)
+
+        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNil(osc.avAudioNode.engine)
+        osc.start()
+        engine.output = mix2
+        XCTAssertNotNil(osc.avAudioNode.engine)
+
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            let audio = engine.startTest(totalDuration: 10.0)
+
+            startMeasuring()
+            let buf = engine.render(duration: 10.0)
+            stopMeasuring()
+
+            audio.append(buf)
+        }
+    }
+
+    func testConnectionTreeDescriptionForStandaloneNode() {
+        let osc = Oscillator()
+        XCTAssertEqual(osc.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)↳Oscillator")
+    }
+
+    func testConnectionTreeDescriptionForConnectedNode() {
+        let osc = Oscillator()
+        let verb = CostelloReverb(osc)
+        let mixer = Mixer(osc, verb)
+
+        XCTAssertEqual(mixer.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Oscillator
+        \(Node.connectionTreeLinePrefix) ↳CostelloReverb
+        \(Node.connectionTreeLinePrefix)  ↳Oscillator
+        """)
+    }
+
+    func testConnectionTreeDescriptionForNamedNode() {
+        let nameString = "Customized Name"
+        let sampler = MIDISampler(name: nameString)
+        let compressor = Compressor(sampler)
+        let mixer = Mixer(compressor)
+
+        XCTAssertEqual(mixer.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Compressor
+        \(Node.connectionTreeLinePrefix)  ↳MIDISampler(\"\(nameString)\")
+        """)
+    }
+
+}

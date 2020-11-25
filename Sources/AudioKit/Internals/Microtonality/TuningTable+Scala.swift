@@ -82,7 +82,7 @@ extension TuningTable {
             if lineStr.isEmpty { continue }
 
             if lineStr.hasPrefix("!") {
-                if ❗️parsedFirstCommentLine {
+                if !parsedFirstCommentLine {
                     parsedFirstCommentLine = true
                     #if false
                         // currently not using the scala file name embedded in the file
@@ -95,7 +95,7 @@ extension TuningTable {
                 continue
             }
 
-            if ❗️parsedFirstNonCommentLine {
+            if !parsedFirstNonCommentLine {
                 parsedFirstNonCommentLine = true
                 #if false
                     // currently not using the scala short description embedded in the file
@@ -131,7 +131,7 @@ extension TuningTable {
                 options: .anchored,
                 range: NSRange(location: 0, length: lineStr.count))
 
-            if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
+            if NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) == false {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch) as NSString? ?? ""
                 if substringForFirstMatch.range(of: ".").length != 0 {
@@ -199,7 +199,7 @@ extension TuningTable {
             }
         }
 
-        if ❗️parsedScala {
+        if !parsedScala {
             Log("FATAL ERROR: cannot parse Scala file")
             return nil
         }

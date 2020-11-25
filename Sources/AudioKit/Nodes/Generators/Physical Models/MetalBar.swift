@@ -5,7 +5,6 @@ import AVFoundation
 import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
-/// TODO This node needs to have tests
 /// 
 public class MetalBar: Node, AudioUnitContainer, Tappable, Toggleable {
 
