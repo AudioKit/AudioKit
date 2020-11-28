@@ -172,11 +172,10 @@ class NodeTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 1.0)
         
         let osc = Oscillator()
-        osc.frequency = 880
-        let mixer1 = Mixer()
-        mixer1.addInput(osc)
+        let mixer = Mixer()
+        mixer.addInput(osc)
 
-        outputMixer.addInput(mixer1)
+        outputMixer.addInput(mixer)
 
         osc.start()
         audio.append(engine.render(duration: 1.0))
