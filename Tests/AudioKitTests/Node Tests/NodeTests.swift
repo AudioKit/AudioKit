@@ -176,9 +176,7 @@ class NodeTests: XCTestCase {
         let mixer1 = Mixer()
         mixer1.addInput(osc)
 
-        let mixer2 = Mixer()
-        mixer2.addInput(mixer1)
-        outputMixer.addInput(mixer2)
+        outputMixer.addInput(mixer1)
 
         osc.start()
         audio.append(engine.render(duration: 1.0))
