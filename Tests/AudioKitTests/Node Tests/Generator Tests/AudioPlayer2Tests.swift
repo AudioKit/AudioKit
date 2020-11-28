@@ -175,6 +175,42 @@ extension AudioPlayer2Tests {
         XCTAssertTrue(player.duration == file.duration, "Duration is wrong")
     }
 
+    func testAVDynamicConnection() {
+
+        guard let url = generateTestFile(ofDuration: 2,
+                                         frequencies: [220, 440]),
+            let buffer = try? AVAudioPCMBuffer(url: url) else {
+            XCTFail("Failed to create buffer")
+            return
+        }
+
+        let engine = AVAudioEngine()
+        let outputMixer = AVAudioMixerNode()
+
+        engine.attach(outputMixer)
+        engine.connect(outputMixer, to: engine.mainMixerNode, format: nil)
+
+        // Start the engine here and this breaks.
+        // try! engine.start()
+
+        let player = AVAudioPlayerNode()
+        let mixer = AVAudioMixerNode()
+
+        engine.attach(mixer)
+        engine.connect(mixer, to: outputMixer, format: nil)
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: nil)
+
+        player.scheduleBuffer(buffer, completionHandler: nil)
+
+        // Start here and test passes.
+        try! engine.start()
+
+        player.play()
+
+        sleep(6)
+    }
+
     func testPlayerConnectionWithMixer() {
         let engine = AudioEngine()
         let outputMixer = Mixer()
@@ -199,6 +235,7 @@ extension AudioPlayer2Tests {
         localMixer.addInput(player2)
         outputMixer.addInput(localMixer)
 
+        player2.play()
         audio.append(engine.render(duration: 1.0))
 
 //        testMD5(audio)
