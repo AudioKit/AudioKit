@@ -165,6 +165,30 @@ class NodeTests: XCTestCase {
         audio.audition()
     }
 
+    func testDynamicConnection5() {
+        let engine = AudioEngine()
+        let outputMixer = Mixer()
+        engine.output = outputMixer
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
+
+        let osc2 = Oscillator()
+        osc2.frequency = 880
+        let osc2Mixer = Mixer()
+        osc2Mixer.addInput(osc2)
+
+        let localMixer = Mixer()
+        localMixer.addInput(osc2Mixer)
+        outputMixer.addInput(localMixer)
+
+        osc2.start()
+        audio.append(engine.render(duration: 1.0))
+
+//        testMD5(audio)
+        audio.audition()
+    }
+
     func testDisconnect() {
         let engine = AudioEngine()
 
