@@ -175,7 +175,7 @@ class NodeTests: XCTestCase {
         let mixer = Mixer()
         mixer.addInput(osc)
 
-        outputMixer.addInput(mixer)
+        outputMixer.addInput(mixer) // change mixer to osc and this will play
 
         osc.start()
         audio.append(engine.render(duration: 1.0))
