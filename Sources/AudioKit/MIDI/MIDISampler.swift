@@ -17,7 +17,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "MIDI Sampler"
+    open var name: String? = "MIDI Sampler"
 
     /// Initialize the MIDI Sampler
     ///
@@ -38,8 +38,8 @@ open class MIDISampler: AppleSampler, NamedNode {
     ///   - name: Name to connect with
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                           name: String = "MIDI Sampler") {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
+                           name: String? = "MIDI Sampler") {
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, name! as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 e.forEach { (event) in
                     if event.length == 3 {

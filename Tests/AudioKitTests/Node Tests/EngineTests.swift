@@ -162,4 +162,15 @@ class EngineTests: XCTestCase {
         """)
     }
 
+    func testConnectionTreeDescriptionForMixerWithName() {
+        let engine = AudioEngine()
+        let mixer = Mixer(name: "Some Mixer")
+        engine.output = mixer
+        XCTAssertEqual(engine.connectionTreeDescription,
+        """
+        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix) ↳Mixer("Some Mixer")
+        """)
+    }
+
 }

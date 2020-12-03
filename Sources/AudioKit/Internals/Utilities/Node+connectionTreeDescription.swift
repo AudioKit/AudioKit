@@ -13,8 +13,8 @@ extension Node {
     private func createConnectionTreeDescription(paddedWith indentation: String = "") -> String {
         var nodeDescription = String(describing: self).components(separatedBy: ".").last ?? "Unknown"
 
-        if let namedSelf = self as? NamedNode {
-            nodeDescription += "(\"\(namedSelf.name)\")"
+        if let namedSelf = self as? NamedNode, let name = namedSelf.name {
+            nodeDescription += "(\"\(name)\")"
         }
 
         var connectionTreeDescription = "\(Node.connectionTreeLinePrefix)\(indentation)↳\(nodeDescription)\n"

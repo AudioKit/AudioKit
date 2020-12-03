@@ -4,9 +4,13 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of Nodes.
-public class Mixer: Node, Toggleable {
+public class Mixer: Node, Toggleable, NamedNode {
+
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
+
+    /// Name of the mixer
+    open var name: String?
 
     /// Output Volume (Default 1)
     public var volume: AUValue = 1.0 {
@@ -33,17 +37,18 @@ public class Mixer: Node, Toggleable {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    public init(volume: AUValue = 1.0) {
+    public init(volume: AUValue = 1.0, name: String? = nil) {
         super.init(avAudioNode: mixerAU)
         self.volume = volume
+        self.name = name ?? self.name
     }
 
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A variadic list of Nodes
     ///
-    public convenience init(_ inputs: Node...) {
-        self.init(inputs.compactMap { $0 })
+    public convenience init(_ inputs: Node..., name: String? = nil) {
+        self.init(inputs.compactMap { $0 }, name: name)
     }
 
     // swiftlint:enable force_unwrapping
@@ -52,8 +57,8 @@ public class Mixer: Node, Toggleable {
     ///
     /// - parameter inputs: An array of Nodes
     ///
-    public convenience init(_ inputs: [Node]) {
-        self.init()
+    public convenience init(_ inputs: [Node], name: String? = nil) {
+        self.init(name: name)
         connections = inputs
     }
 

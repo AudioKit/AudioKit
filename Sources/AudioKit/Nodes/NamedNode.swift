@@ -3,5 +3,5 @@
 import Foundation
 
 public protocol NamedNode where Self: Node {
-    var name: String { get set }
+    var name: String? { get set }
 }

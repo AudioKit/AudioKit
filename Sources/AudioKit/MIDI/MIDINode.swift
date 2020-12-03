@@ -14,7 +14,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "MIDINode"
+    open var name: String? = "MIDINode"
 
     private var internalNode: PolyphonicNode
 
@@ -41,8 +41,8 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - name: Name to connect with
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                           name: String = "MIDINode") {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
+                           name: String? = "MIDINode") {
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, name! as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = MIDIEvent(packet: e)
                 guard event.data.count > 2 else {
