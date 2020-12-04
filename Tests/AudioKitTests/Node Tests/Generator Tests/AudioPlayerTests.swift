@@ -47,7 +47,6 @@ class AudioPlayerTests: XCTestCase {
         engine.stop()
 
         testMD5(audio)
-        //audio.audition()
     }
 
     func testLoop() {
@@ -70,7 +69,6 @@ class AudioPlayerTests: XCTestCase {
         engine.stop()
 
         testMD5(audio)
-        //audio.audition()
     }
 
     func testScheduleFile() {
