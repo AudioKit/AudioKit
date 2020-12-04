@@ -378,7 +378,7 @@ class NodeTests: XCTestCase {
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix)↳Mixer("Mixer")
         \(Node.connectionTreeLinePrefix) ↳Oscillator
         \(Node.connectionTreeLinePrefix) ↳CostelloReverb
         \(Node.connectionTreeLinePrefix)  ↳Oscillator
@@ -393,7 +393,7 @@ class NodeTests: XCTestCase {
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix)↳Mixer("Mixer")
         \(Node.connectionTreeLinePrefix) ↳Compressor
         \(Node.connectionTreeLinePrefix)  ↳MIDISampler(\"\(nameString)\")
         """)
