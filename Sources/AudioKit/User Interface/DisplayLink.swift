@@ -4,7 +4,6 @@
 //  Created by aleclarson via https://gist.github.com/aleclarson/e3ac0afce979eea429eb
 //
 
-import UIKit
 import QuartzCore
 
 public class DisplayLink {
