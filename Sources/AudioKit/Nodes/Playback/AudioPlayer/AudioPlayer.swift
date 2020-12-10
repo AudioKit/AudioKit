@@ -29,6 +29,16 @@ public class AudioPlayer: Node {
         scheduleTime != nil
     }
 
+    /// The current sample rate of the buffer or file
+    public var sampleRate: Double {
+        return (isBuffered ? buffer?.format.sampleRate : file!.processingFormat.sampleRate)!
+    }
+
+    /// The duration of the buffer or file
+    public var duration: TimeInterval {
+        bufferDuration ?? file?.duration ?? 0
+    }
+
     /// If the player is currently using a buffer as an audio source
     public internal(set) var isBuffered: Bool = false
 
@@ -39,15 +49,28 @@ public class AudioPlayer: Node {
             bufferOptions = isLooping ? .loops : .interrupts
         }
     }
-
-    public var duration: TimeInterval {
-        bufferDuration ?? file?.duration ?? 0
+    
+    
+    /// Used to get the correct current time, after seeking
+    private var elapsedTimeOffset: Double = 0
+    public var current: TimeInterval {
+        if(isPlaying){
+            let nodeTime = playerNode.lastRenderTime
+            let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
+            return Double(elapsedTimeOffset)+(Double(playerTime!.sampleTime) / playerTime!.sampleRate)
+        }
+        return 0
     }
 
     /// Completion handler to be called when file or buffer is done playing.
     /// This also will be called when looping from disk,
     /// but no completion is called when looping seamlessly with a buffer
     public var completionHandler: AVAudioNodeCompletionHandler?
+    
+    /// Progress block to be called via a CADisplayLink.
+    /// Use this method to update your UI with info like progress bars, times, etc.
+    public var progressBlock: AVAudioNodeCompletionHandler?
+    private var displayLink: DisplayLink?
 
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
@@ -97,11 +120,15 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard isPlaying, engine?.isInManualRenderingMode == false else { return }
+        guard isPlaying, !isPaused, engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-        completionHandler?()
         isPlaying = false
+        elapsedTimeOffset = 0
+
+        DispatchQueue.main.async { [weak self] in
+            self!.completionHandler?()
+        }
 
         if !isBuffered, isLooping, engine?.isRunning == true {
             Log("Playing loop...")
@@ -195,6 +222,12 @@ public class AudioPlayer: Node {
             schedule(at: when)
         }
 
+        displayLink = DisplayLink.init({
+            DispatchQueue.main.async { [weak self] in
+                self!.progressBlock?()
+            }
+        })
+        
         playerNode.play()
         isPlaying = true
         isPaused = false
@@ -224,6 +257,7 @@ extension AudioPlayer: Toggleable {
         isPlaying = false
         playerNode.stop()
         scheduleTime = nil
+        elapsedTimeOffset = 0
     }
 }
 
@@ -233,6 +267,7 @@ extension AudioPlayer {
     /// or the player will call it when play() is called to load the audio data
     /// - Parameters:
     ///   - when: What time to schedule for
+    
     public func schedule(at when: AVAudioTime? = nil) {
         if isBuffered, let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
@@ -282,5 +317,43 @@ extension AudioPlayer {
                              at when: AVAudioTime?) {
         self.file = file
         schedule(at: when)
+    }
+}
+
+// Extension for seeking to a specific AVAudioTime
+extension AudioPlayer {
+    
+    /// Play the audio player from a specific time
+    /// - Parameters:
+    ///   - time: The time at which the player will seek to
+    
+    public func seek(time: Double) {
+        elapsedTimeOffset = time
+
+        if isBuffered {
+            Log("Seeking a buffer is not yet supported :(", type: .error)
+            return
+
+        } else if let file = file {
+            let playLength: Double = duration-time
+            let startFrame = AVAudioFramePosition(sampleRate * time)
+            let frameLength = AVAudioFrameCount(sampleRate * playLength)
+            
+            if playLength <= 0 {
+                return
+            }
+            
+            isPaused = true
+            playerNode.stop()
+            playerNode.scheduleSegment(file, startingFrame: startFrame, frameCount: frameLength, at: nil, completionCallbackType: .dataPlayedBack) {_ in
+                self.internalCompletionHandler()
+            }
+            playerNode.play()
+            isPlaying = true
+            isPaused = false
+        } else {
+            Log("The player needs a file or a valid buffer to seek", type: .error)
+        }
+        
     }
 }
