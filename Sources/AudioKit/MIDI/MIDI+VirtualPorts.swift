@@ -66,6 +66,95 @@ extension MIDI {
             CheckError(result)
         }
     }
+    
+    public func createMultipleVirtualPorts(_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+        Log("Creating multiple virtual input and output ports", log: OSLog.midi)
+        destroyVirtualPorts()
+        createMultipleVirtualInputPorts(name: name)
+        createMultipleVirtualOutputPorts(name: name)
+    }
+    
+    public func createMultipleVirtualInputPorts(_ uniqueIDs: [Int32]? = nil , names: [String]? = nil) {
+        destroyVirtualInputPort()
+        // Determine the number of virtualPorts to create by the size of the biggest list between uniqueIDs and Names
+        var numberOfVirtualPorts : Int
+        if uniqueIDS.count >= names.count {
+            numberOfVirtualPorts = uniqueIDS.count
+        } else {
+            numberOfVirtualPorts = names.count
+        }
+        
+        var unnamedPortIndex = 1
+        var unIDPortIndex = 1
+        for virtualPortIndex in numberOfVirtualPorts {
+            // Auto Attribute name if uniqueIDs.count > names.count
+           guard let virtualPortsName = names[virtualPortIndex] else {
+               virtualPortsName = String(\(clientName) \(unnamedPortIndex))
+               unnamedPortIndex += 1
+           }
+          
+            let result = MIDIDestinationCreateWithBlock(
+            client,
+            virtualPortname as CFString,
+            &virtualInput) { packetList, _ in
+                for packet in packetList.pointee {
+                    // a Core MIDI packet may contain multiple MIDI events
+                    for event in packet {
+                        self.handleMIDIMessage(event, fromInput: uniqueID)
+                    }
+                }
+            }
+           
+            if result == noErr {
+                // Auto Attribute uniqueID if uniqueIDs.count < names.count
+                guard let uniqueID = uniqueIDs[virtualPortIndex] else {
+                    uniqueID = 2_000_001 + unIDPortIndex
+                    unIDPortIndex += 2
+                }
+                MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+            } else {
+                Log("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualOutput)",
+                log: OSLog.midi, type: .error)
+                CheckError(result)
+            }
+        }
+    }
+    
+    public func createMultipleVirtualOutputPorts(_ uniqueIDs: [Int32]? = nil , names: [String]? = nil) {
+        destroyVirtualOutputPort()
+        // Determine the number of virtualPorts to create by the size of the biggest list between uniqueIDs and Names
+        var numberOfVirtualPorts : Int
+        if uniqueIDS.count >= names.count {
+            numberOfVirtualPorts = uniqueIDS.count
+        } else {
+            numberOfVirtualPorts = names.count
+        }
+        
+        var unnamedPortIndex = 1
+        var unIDPortIndex = 2
+        for virtualPortIndex in numberOfVirtualPorts {
+            // Auto Attribute name if uniqueIDs.count > names.count
+           guard let virtualPortsName = names[virtualPortIndex] else {
+               virtualPortsName = String(\(clientName) \(unnamedPortIndex))
+               unnamedPortIndex += 1
+           }
+          
+           let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
+            if result == noErr {
+                // Auto Attribute uniqueID if uniqueIDs.count < names.count
+                guard let uniqueID = uniqueIDs[virtualPortIndex] else {
+                    uniqueID = 2_000_001 + unIDPortIndex
+                    unIDPortIndex += 2
+                }
+                MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+            } else {
+                Log("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)",
+                log: OSLog.midi, type: .error)
+                CheckError(result)
+            }
+        }
+        
+    }
 
     /// Discard all virtual ports
     public func destroyVirtualPorts() {
