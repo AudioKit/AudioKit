@@ -79,7 +79,7 @@ extension MIDI {
     public func createMultipleVirtualInputPorts(_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualInputPort()
         // Determine the number of virtualPorts to create by the size of the biggest list between uniqueIDs and Names
-        var numberOfVirtualPorts : Int
+        var numberOfVirtualPorts: Int
         if uniqueIDS.count >= names.count {
             numberOfVirtualPorts = uniqueIDS.count
         } else {
