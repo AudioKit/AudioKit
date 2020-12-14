@@ -369,10 +369,11 @@ class NodeTests: XCTestCase {
         let osc = Oscillator()
         let verb = CostelloReverb(osc)
         let mixer = Mixer(osc, verb)
+        let mixerAddress = MemoryAddress(of: mixer).description
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer("Mixer")
+        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(Node.connectionTreeLinePrefix) ↳Oscillator
         \(Node.connectionTreeLinePrefix) ↳CostelloReverb
         \(Node.connectionTreeLinePrefix)  ↳Oscillator
@@ -384,12 +385,13 @@ class NodeTests: XCTestCase {
         let sampler = MIDISampler(name: nameString)
         let compressor = Compressor(sampler)
         let mixer = Mixer(compressor)
+        let mixerAddress = MemoryAddress(of: mixer).description
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer("Mixer")
+        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(Node.connectionTreeLinePrefix) ↳Compressor
-        \(Node.connectionTreeLinePrefix)  ↳MIDISampler(\"\(nameString)\")
+        \(Node.connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
         """)
     }
 

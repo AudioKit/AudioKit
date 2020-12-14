@@ -14,7 +14,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "MIDINode"
+    open var name = "(unset)"
 
     private var internalNode: PolyphonicNode
 
@@ -28,10 +28,10 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     public init(node: PolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init(avAudioNode: AVAudioNode())
-        name = midiOutputName ?? name
+        name = midiOutputName ?? MemoryAddress(of: self).description
         avAudioNode = internalNode.avAudioNode
         avAudioUnit = internalNode.avAudioUnit
-        enableMIDI(name: midiOutputName ?? name)
+        enableMIDI(name: name)
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -41,8 +41,9 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - name: Name to connect with
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                           name: String = "MIDINode") {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
+                           name: String? = nil) {
+        let cfName = (name ?? self.name) as CFString
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = MIDIEvent(packet: e)
                 guard event.data.count > 2 else {
@@ -123,7 +124,8 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     public func receivedMIDIController(_ controller: MIDIByte,
-                                       value: MIDIByte, channel: MIDIChannel,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
                                        offset: MIDITimeStamp) {
         // Do nothing
