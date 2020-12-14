@@ -284,8 +284,8 @@ extension MIDI {
                     }
                 }
 
-                if virtualOutput != 0 {
-                    MIDIReceived(virtualOutput, packetListPointer)
+                if virtualOutputs[0] != 0 {
+                    MIDIReceived(virtualOutputs[0], packetListPointer)
                 }
             }
         }
@@ -402,8 +402,8 @@ extension MIDI {
             }
         }
 
-        if virtualOutput != 0 {
-            MIDIReceived(virtualOutput, packetListPointer)
+        if virtualOutputs[0] != 0 {
+            MIDIReceived(virtualOutputs[0], packetListPointer)
         }
     }
 

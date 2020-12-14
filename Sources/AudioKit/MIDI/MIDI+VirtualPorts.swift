@@ -34,7 +34,7 @@ extension MIDI {
         let result = MIDIDestinationCreateWithBlock(
             client,
             virtualPortname as CFString,
-            &virtualInput) { packetList, _ in
+            &virtualInputs[0]) { packetList, _ in
                 for packet in packetList.pointee {
                     // a Core MIDI packet may contain multiple MIDI events
                     for event in packet {
@@ -44,9 +44,9 @@ extension MIDI {
         }
 
         if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+            MIDIObjectSetIntegerProperty(virtualInputs[0], kMIDIPropertyUniqueID, uniqueID)
         } else {
-            Log("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)",
+            Log("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualInputs[0])",
                 log: OSLog.midi, type: .error)
             CheckError(result)
         }
@@ -57,11 +57,11 @@ extension MIDI {
         destroyVirtualOutputPort()
         let virtualPortname = name ?? String(clientName)
 
-        let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
+        let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutputs[0])
         if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+            MIDIObjectSetIntegerProperty(virtualInputs[0], kMIDIPropertyUniqueID, uniqueID)
         } else {
-            Log("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)",
+            Log("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutputs[0])",
                 log: OSLog.midi, type: .error)
             CheckError(result)
         }
@@ -71,34 +71,38 @@ extension MIDI {
     public func createMultipleVirtualPorts(_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         Log("Creating multiple virtual input and output ports", log: OSLog.midi)
         destroyVirtualPorts()
-        createMultipleVirtualInputPorts(name: name)
-        createMultipleVirtualOutputPorts(name: name)
+        createMultipleVirtualInputPorts(names: names)
+        createMultipleVirtualOutputPorts(names: names)
     }
 
     /// Create multiple virtual MIDI input ports
-    public func createMultipleVirtualInputPorts(_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createMultipleVirtualInputPorts(numberOfPorts: Int = 2, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualInputPort()
-        // Determine the number of virtualPorts to create by the size of the biggest list between uniqueIDs and Names
-        var numberOfVirtualPorts: Int
-        if uniqueIDS.count >= names.count {
-            numberOfVirtualPorts = uniqueIDS.count
-        } else {
-            numberOfVirtualPorts = names.count
-        }
 
         var unnamedPortIndex = 1
-        var unIDPortIndex = 1
-        for virtualPortIndex in numberOfVirtualPorts {
-            // Auto Attribute name if uniqueIDs.count > names.count
-           guard let virtualPortsName = names[virtualPortIndex] else {
-               virtualPortsName = String(\(clientName) \(unnamedPortIndex))
+        var unIDPortIndex: Int32 = 0
+        for virtualPortIndex in 1...numberOfPorts {
+            var virtualPortName: String
+            var uniqueID: Int32
+            
+            if names?[virtualPortIndex] != nil {
+                virtualPortName = names![virtualPortIndex]
+            } else {
+               virtualPortName = String("\(clientName) \(unnamedPortIndex)")
                unnamedPortIndex += 1
+           }
+
+            if uniqueIDs?[virtualPortIndex] != nil {
+                uniqueID = uniqueIDs![virtualPortIndex]
+            } else {
+                uniqueID = 2_000_001 + unIDPortIndex
+                unIDPortIndex += 2
            }
 
             let result = MIDIDestinationCreateWithBlock(
             client,
-            virtualPortname as CFString,
-            &virtualInput) { packetList, _ in
+            virtualPortName as CFString,
+            &virtualInputs[virtualPortIndex]) { packetList, _ in
                 for packet in packetList.pointee {
                     // a Core MIDI packet may contain multiple MIDI events
                     for event in packet {
@@ -108,14 +112,9 @@ extension MIDI {
             }
 
             if result == noErr {
-                // Auto Attribute uniqueID if uniqueIDs.count < names.count
-                guard let uniqueID = uniqueIDs[virtualPortIndex] else {
-                    uniqueID = 2_000_001 + unIDPortIndex
-                    unIDPortIndex += 2
-                }
-                MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+                MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
-                Log("Error \(result) Creating Virtual Input Port: \(virtualPortname) -- \(virtualOutput)",
+                Log("Error \(result) Creating Virtual Input Port: \(virtualPortName) -- \(virtualInputs[virtualPortIndex])",
                 log: OSLog.midi, type: .error)
                 CheckError(result)
             }
@@ -123,35 +122,32 @@ extension MIDI {
     }
 
     /// Create multiple virtual MIDI output ports
-    public func createMultipleVirtualOutputPorts(_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createMultipleVirtualOutputPorts(numberOfPorts: Int = 2,_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualOutputPort()
-        // Determine the number of virtualPorts to create by the size of the biggest list between uniqueIDs and Names
-        var numberOfVirtualPorts: Int
-        if uniqueIDS.count >= names.count {
-            numberOfVirtualPorts = uniqueIDS.count
-        } else {
-            numberOfVirtualPorts = names.count
-        }
-
         var unnamedPortIndex = 1
-        var unIDPortIndex = 2
-        for virtualPortIndex in numberOfVirtualPorts {
-            // Auto Attribute name if uniqueIDs.count > names.count
-           guard let virtualPortsName = names[virtualPortIndex] else {
-               virtualPortsName = String(\(clientName) \(unnamedPortIndex))
+        var unIDPortIndex: Int32 = 0
+        for virtualPortIndex in 1...numberOfPorts {
+            var virtualPortName: String
+            var uniqueID: Int32
+            
+            if names?[virtualPortIndex] != nil {
+                virtualPortName = names![virtualPortIndex]
+            } else {
+               virtualPortName = String("\(clientName) \(unnamedPortIndex)")
                unnamedPortIndex += 1
            }
 
-           let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
-            if result == noErr {
-                // Auto Attribute uniqueID if uniqueIDs.count < names.count
-                guard let uniqueID = uniqueIDs[virtualPortIndex] else {
-                    uniqueID = 2_000_001 + unIDPortIndex
-                    unIDPortIndex += 2
-                }
-                MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
+            if uniqueIDs?[virtualPortIndex] != nil {
+                uniqueID = uniqueIDs![virtualPortIndex]
             } else {
-                Log("Error \(result) Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)",
+                uniqueID = 2_000_001 + unIDPortIndex
+                unIDPortIndex += 2
+           }
+           let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
+            if result == noErr {
+                MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
+            } else {
+                Log("Error \(result) Creating Virtual Output Port: \(virtualPortName) -- \(virtualOutputs[virtualPortIndex])",
                 log: OSLog.midi, type: .error)
                 CheckError(result)
             }
@@ -169,9 +165,9 @@ extension MIDI {
     /// - Returns: Returns true if virtual input closed.
     ///
     @discardableResult public func destroyVirtualInputPort() -> Bool {
-        if virtualInput != 0 {
-            if MIDIEndpointDispose(virtualInput) == noErr {
-                virtualInput = 0
+        if virtualInputs[0] != 0 {
+            if MIDIEndpointDispose(virtualInputs[0]) == noErr {
+                virtualInputs[0] = 0
                 return true
             }
         }
@@ -183,9 +179,9 @@ extension MIDI {
     /// - Returns: Returns true if virtual output closed.
     ///
     @discardableResult public func destroyVirtualOutputPort() -> Bool {
-        if virtualOutput != 0 {
-            if MIDIEndpointDispose(virtualOutput) == noErr {
-                virtualOutput = 0
+        if virtualOutputs[0] != 0 {
+            if MIDIEndpointDispose(virtualOutputs[0]) == noErr {
+                virtualOutputs[0] = 0
                 return true
             }
         }
