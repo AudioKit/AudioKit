@@ -166,7 +166,7 @@ class NodeTests: XCTestCase {
         let outputMixer = Mixer()
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 1.0)
-        
+
         let osc = Oscillator()
         let mixer = Mixer()
         mixer.addInput(osc)
