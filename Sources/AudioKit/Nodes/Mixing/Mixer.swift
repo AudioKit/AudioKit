@@ -9,7 +9,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     fileprivate var mixerAU = AVAudioMixerNode()
 
     /// Name of the node
-    open var name = "Mixer"
+    open var name = "(unset)"
 
     /// Output Volume (Default 1)
     public var volume: AUValue = 1.0 {
@@ -36,17 +36,17 @@ public class Mixer: Node, Toggleable, NamedNode {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    public init(volume: AUValue = 1.0, name: String = "Mixer") {
+    public init(volume: AUValue = 1.0, name: String? = nil) {
         super.init(avAudioNode: mixerAU)
         self.volume = volume
-        self.name = name
+        self.name = name ?? MemoryAddress(of: self).description
     }
 
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A variadic list of Nodes
     ///
-    public convenience init(_ inputs: Node..., name: String = "Mixer") {
+    public convenience init(_ inputs: Node..., name: String? = nil) {
         self.init(inputs.compactMap { $0 }, name: name)
     }
 
@@ -56,7 +56,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     ///
     /// - parameter inputs: An array of Nodes
     ///
-    public convenience init(_ inputs: [Node], name: String = "Mixer") {
+    public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
         connections = inputs
     }
