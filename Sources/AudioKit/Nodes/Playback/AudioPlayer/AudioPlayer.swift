@@ -348,7 +348,11 @@ extension AudioPlayer {
 
             isPaused = true
             playerNode.stop()
-            playerNode.scheduleSegment(file, startingFrame: startFrame, frameCount: frameLength, at: nil, completionCallbackType: .dataPlayedBack) { _ in
+            playerNode.scheduleSegment(file,
+                                       startingFrame: startFrame,
+                                       frameCount: frameLength,
+                                       at: nil,
+                                       completionCallbackType: .dataPlayedBack) { _ in
                 self.internalCompletionHandler()
             }
             playerNode.play()
