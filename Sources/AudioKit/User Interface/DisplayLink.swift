@@ -7,17 +7,15 @@
 import QuartzCore
 
 public class DisplayLink {
-
     fileprivate let callback: () -> Void
 
     private var link: CADisplayLink!
 
-    public init (_ callback: @escaping () -> Void) {
+    public init(_ callback: @escaping () -> Void) {
         self.callback = callback
         link = CADisplayLink(target: DisplayTarget(self), selector: #selector(DisplayTarget.callback))
         link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
-    
 
     deinit {
         link.invalidate()
@@ -26,21 +24,21 @@ public class DisplayLink {
     func pause() {
         link.isPaused = true
     }
+
     func resume() {
         link.isPaused = false
     }
-    
+
     public func invalidate() {
         link.invalidate()
     }
-    
 }
 
 /// Retained by CADisplayLink.
 fileprivate class DisplayTarget {
     weak var link: DisplayLink!
 
-    init (_ link: DisplayLink) {
+    init(_ link: DisplayLink) {
         self.link = link
     }
 
