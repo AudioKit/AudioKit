@@ -15,7 +15,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "AudioKit MIDI Instrument"
+    open var name = "(unset)"
 
     /// Active MPE notes
     open var mpeActiveNotes: [(note: MIDINoteNumber, channel: MIDIChannel)] = []
@@ -26,7 +26,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///
     public init(midiInputName: String? = nil) {
         super.init(avAudioNode: AVAudioNode())
-        name = midiInputName ?? name
+        name = midiInputName ?? MemoryAddress(of: self).description
         enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
@@ -38,8 +38,9 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                         name: String = "AudioKit MIDI Instrument") {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
+                         name: String? = nil) {
+        let cfName = (name ?? self.name) as CFString
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 e.forEach { (event) in
                     self.handle(event: event)
