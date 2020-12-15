@@ -31,7 +31,7 @@ public class AudioPlayer: Node {
 
     /// The current sample rate of the buffer or file
     public var sampleRate: Double {
-        return (isBuffered ? buffer?.format.sampleRate : file!.processingFormat.sampleRate)!
+        return (isBuffered ? buffer?.format.sampleRate : file?.processingFormat.sampleRate) ?? 0
     }
 
     /// The duration of the buffer or file
@@ -54,9 +54,10 @@ public class AudioPlayer: Node {
     private var elapsedTimeOffset: Double = 0
     public var currentTime: TimeInterval {
         if isPlaying {
-            let nodeTime = playerNode.lastRenderTime
-            let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
-            return Double(elapsedTimeOffset) + (Double(playerTime!.sampleTime) / playerTime!.sampleRate)
+            if let nodeTime = playerNode.lastRenderTime {
+                let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
+                return Double(elapsedTimeOffset) + (Double(playerTime!.sampleTime) / playerTime!.sampleRate)
+            }
         }
         return 0
     }
@@ -128,7 +129,7 @@ public class AudioPlayer: Node {
         elapsedTimeOffset = 0
 
         DispatchQueue.main.async { [weak self] in
-            self!.completionHandler?()
+            self?.completionHandler?()
         }
 
         if !isBuffered, isLooping, engine?.isRunning == true {
@@ -226,7 +227,7 @@ public class AudioPlayer: Node {
         #if !os(macOS)
         displayLink = DisplayLink {
             DispatchQueue.main.async { [weak self] in
-                self!.progressBlock?()
+                self?.progressBlock?()
             }
         }
         #endif
