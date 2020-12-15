@@ -54,9 +54,9 @@ public class AudioPlayer: Node {
     private var elapsedTimeOffset: Double = 0
     public var currentTime: TimeInterval {
         if isPlaying {
-            if let nodeTime = playerNode.lastRenderTime {
-                let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
-                return Double(elapsedTimeOffset) + (Double(playerTime!.sampleTime) / playerTime!.sampleRate)
+            if let nodeTime = playerNode.lastRenderTime,
+               let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+                return Double(elapsedTimeOffset) + (Double(playerTime.sampleTime) / playerTime.sampleRate)
             }
         }
         return 0
