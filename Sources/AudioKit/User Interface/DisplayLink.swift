@@ -1,50 +1,51 @@
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 //
-//  DisplayLink.swift
-//
-//  Created by aleclarson via https://gist.github.com/aleclarson/e3ac0afce979eea429eb
-//
+//  Based on work by aleclarson https://gist.github.com/aleclarson/e3ac0afce979eea429eb
+
+#if !os(macOS)
 
 import QuartzCore
 
 public class DisplayLink {
-    
+
+    fileprivate let callback: () -> Void
+
+    private var link: CADisplayLink!
+
     public init (_ callback: @escaping () -> Void) {
-        _callback = callback
-        _link = CADisplayLink(target: _DisplayTarget(self), selector: #selector(_DisplayTarget._callback))
-        _link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
+        self.callback = callback
+        link = CADisplayLink(target: DisplayTarget(self), selector: #selector(DisplayTarget.callback))
+        link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
-    fileprivate let _callback: () -> Void
-    
-    private var _link: CADisplayLink!
-    
+
     deinit {
-        _link.invalidate()
+        link.invalidate()
     }
 
     func pause() {
-        _link.isPaused = true
+        link.isPaused = true
     }
     func resume() {
-        _link.isPaused = false
+        link.isPaused = false
     }
     
     public func invalidate() {
-        _link.invalidate()
+        link.invalidate()
     }
     
 }
 
 /// Retained by CADisplayLink.
-fileprivate class _DisplayTarget {
-    
+fileprivate class DisplayTarget {
+    weak var link: DisplayLink!
+
     init (_ link: DisplayLink) {
-        _link = link
+        self.link = link
     }
-    
-    weak var _link: DisplayLink!
-    
-    @objc func _callback () {
-        _link?._callback()
+
+    @objc func callback() {
+        link?.callback()
     }
 }
+#endif

@@ -66,11 +66,13 @@ public class AudioPlayer: Node {
     /// This also will be called when looping from disk,
     /// but no completion is called when looping seamlessly with a buffer
     public var completionHandler: AVAudioNodeCompletionHandler?
-    
+
+    #if !os(macOS)
     /// Progress block to be called via a CADisplayLink.
     /// Use this method to update your UI with info like progress bars, times, etc.
     public var progressBlock: AVAudioNodeCompletionHandler?
     private var displayLink: DisplayLink?
+    #endif
 
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
@@ -222,11 +224,13 @@ public class AudioPlayer: Node {
             schedule(at: when)
         }
 
-        displayLink = DisplayLink.init({
+        #if !os(macOS)
+        displayLink = DisplayLink {
             DispatchQueue.main.async { [weak self] in
                 self!.progressBlock?()
             }
-        })
+        }
+        #endif
         
         playerNode.play()
         isPlaying = true
