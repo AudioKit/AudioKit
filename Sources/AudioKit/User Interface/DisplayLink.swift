@@ -9,34 +9,34 @@ import QuartzCore
 public class DisplayLink {
     fileprivate let callback: () -> Void
 
-    private var link: CADisplayLink!
+    private var link: CADisplayLink?
 
     public init(_ callback: @escaping () -> Void) {
         self.callback = callback
         link = CADisplayLink(target: DisplayTarget(self), selector: #selector(DisplayTarget.callback))
-        link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
+        link?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
 
     deinit {
-        link.invalidate()
+        link?.invalidate()
     }
 
     func pause() {
-        link.isPaused = true
+        link?.isPaused = true
     }
 
     func resume() {
-        link.isPaused = false
+        link?.isPaused = false
     }
 
     public func invalidate() {
-        link.invalidate()
+        link?.invalidate()
     }
 }
 
 /// Retained by CADisplayLink.
 private class DisplayTarget {
-    weak var link: DisplayLink!
+    weak var link: DisplayLink?
 
     init(_ link: DisplayLink) {
         self.link = link
