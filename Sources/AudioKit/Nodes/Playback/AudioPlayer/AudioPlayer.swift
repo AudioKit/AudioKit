@@ -52,7 +52,7 @@ public class AudioPlayer: Node {
 
     /// Used to get the correct current time, after seeking
     private var elapsedTimeOffset: Double = 0
-    public var current: TimeInterval {
+    public var currentTime: TimeInterval {
         if isPlaying {
             let nodeTime = playerNode.lastRenderTime
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
