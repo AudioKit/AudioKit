@@ -49,15 +49,14 @@ public class AudioPlayer: Node {
             bufferOptions = isLooping ? .loops : .interrupts
         }
     }
-    
-    
+
     /// Used to get the correct current time, after seeking
     private var elapsedTimeOffset: Double = 0
     public var current: TimeInterval {
-        if(isPlaying){
+        if isPlaying {
             let nodeTime = playerNode.lastRenderTime
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
-            return Double(elapsedTimeOffset)+(Double(playerTime!.sampleTime) / playerTime!.sampleRate)
+            return Double(elapsedTimeOffset) + (Double(playerTime!.sampleTime) / playerTime!.sampleRate)
         }
         return 0
     }
@@ -231,7 +230,7 @@ public class AudioPlayer: Node {
             }
         }
         #endif
-        
+
         playerNode.play()
         isPlaying = true
         isPaused = false
@@ -271,7 +270,7 @@ extension AudioPlayer {
     /// or the player will call it when play() is called to load the audio data
     /// - Parameters:
     ///   - when: What time to schedule for
-    
+
     public func schedule(at when: AVAudioTime? = nil) {
         if isBuffered, let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
@@ -299,7 +298,8 @@ extension AudioPlayer {
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
                                at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
+                               options: AVAudioPlayerNodeBufferOptions = [])
+    {
         self.buffer = buffer
         isLooping = options == .loops
         schedule(at: when)
@@ -308,7 +308,8 @@ extension AudioPlayer {
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(url: URL,
                                at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
+                               options: AVAudioPlayerNodeBufferOptions = [])
+    {
         guard let buffer = try? AVAudioPCMBuffer(url: url) else {
             Log("Failed to create buffer", type: .error)
             return
@@ -318,7 +319,8 @@ extension AudioPlayer {
 
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleFile(_ file: AVAudioFile,
-                             at when: AVAudioTime?) {
+                             at when: AVAudioTime?)
+    {
         self.file = file
         schedule(at: when)
     }
@@ -326,11 +328,10 @@ extension AudioPlayer {
 
 // Extension for seeking to a specific AVAudioTime
 extension AudioPlayer {
-    
     /// Play the audio player from a specific time
     /// - Parameters:
     ///   - time: The time at which the player will seek to
-    
+
     public func seek(time: Double) {
         elapsedTimeOffset = time
 
@@ -339,17 +340,17 @@ extension AudioPlayer {
             return
 
         } else if let file = file {
-            let playLength: Double = duration-time
+            let playLength: Double = duration - time
             let startFrame = AVAudioFramePosition(sampleRate * time)
             let frameLength = AVAudioFrameCount(sampleRate * playLength)
-            
+
             if playLength <= 0 {
                 return
             }
-            
+
             isPaused = true
             playerNode.stop()
-            playerNode.scheduleSegment(file, startingFrame: startFrame, frameCount: frameLength, at: nil, completionCallbackType: .dataPlayedBack) {_ in
+            playerNode.scheduleSegment(file, startingFrame: startFrame, frameCount: frameLength, at: nil, completionCallbackType: .dataPlayedBack) { _ in
                 self.internalCompletionHandler()
             }
             playerNode.play()
@@ -358,6 +359,5 @@ extension AudioPlayer {
         } else {
             Log("The player needs a file or a valid buffer to seek", type: .error)
         }
-        
     }
 }
