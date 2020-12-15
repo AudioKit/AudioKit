@@ -329,7 +329,6 @@ extension AudioPlayer {
     /// Play the audio player from a specific time
     /// - Parameters:
     ///   - time: The time at which the player will seek to
-
     public func seek(time: Double) {
         elapsedTimeOffset = time
 
