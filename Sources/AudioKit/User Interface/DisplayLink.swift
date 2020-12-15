@@ -35,7 +35,7 @@ public class DisplayLink {
 }
 
 /// Retained by CADisplayLink.
-fileprivate class DisplayTarget {
+private class DisplayTarget {
     weak var link: DisplayLink!
 
     init(_ link: DisplayLink) {
