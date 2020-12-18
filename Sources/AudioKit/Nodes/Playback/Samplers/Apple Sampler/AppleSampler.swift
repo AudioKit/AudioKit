@@ -69,10 +69,10 @@ open class AppleSampler: Node {
     }
 
     /// Utility method to find a file either in the main bundle or at an absolute path
-    internal func findFileURL(_ path: String, withExtension ext: String) -> URL? {
+    internal func findFileURL(_ path: String, withExtension ext: String, in bundle: Bundle = .main) -> URL? {
         if path.hasPrefix("/") && FileManager.default.fileExists(atPath: path + "." + ext) {
             return URL(fileURLWithPath: path + "." + ext)
-        } else if let url = Bundle.main.url(forResource: path, withExtension: ext) {
+        } else if let url = bundle.url(forResource: path, withExtension: ext) {
             return url
         }
         return nil
@@ -80,10 +80,12 @@ open class AppleSampler: Node {
 
     /// Load a wav file
     ///
-    /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
+    /// - Parameters:
+    ///   - file: Name of the file without an extension (assumed to be accessible from the bundle)
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadWav(_ file: String) throws {
-        guard let url = findFileURL(file, withExtension: "wav") else {
+    public func loadWav(_ file: String, in bundle: Bundle = .main) throws {
+        guard let url = findFileURL(file, withExtension: "wav", in: bundle) else {
             Log("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
@@ -163,9 +165,9 @@ open class AppleSampler: Node {
         }
     }
 
-    internal func loadInstrument(_ file: String, type: String) throws {
+    internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
         //Log("filename is \(file)")
-        guard let url = findFileURL(file, withExtension: type) else {
+        guard let url = findFileURL(file, withExtension: type, in: bundle) else {
             Log("File not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
@@ -236,8 +238,8 @@ open class AppleSampler: Node {
     // NOTE: The following methods might seem like they belong in the
     // SoundFont extension, but when place there, iOS12 beta crashed
 
-    fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
-        guard let url = findFileURL(file, withExtension: "sf2") else {
+    fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int, in bundle: Bundle = .main) throws {
+        guard let url = findFileURL(file, withExtension: "sf2", in: bundle) else {
             Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
@@ -260,9 +262,10 @@ open class AppleSampler: Node {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///   - bank: Number of the bank to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
-        guard let url = findFileURL(file, withExtension: "sf2") else {
+    public func loadSoundFont(_ file: String, preset: Int, bank: Int, in bundle: Bundle = .main) throws {
+        guard let url = findFileURL(file, withExtension: "sf2", in: bundle) else {
             Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
@@ -291,9 +294,10 @@ open class AppleSampler: Node {
     /// - Parameters:
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
+    public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
     /// Load a Percussive SoundFont SF2 sample data file
@@ -301,9 +305,10 @@ open class AppleSampler: Node {
     /// - Parameters:
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
+    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0, in bundle: Bundle = .main) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB, in: bundle)
     }
 
     /// Set the pitch bend amount
