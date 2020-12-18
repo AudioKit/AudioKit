@@ -294,9 +294,10 @@ open class AppleSampler: Node {
     /// - Parameters:
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
+    public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
     /// Load a Percussive SoundFont SF2 sample data file
@@ -304,9 +305,10 @@ open class AppleSampler: Node {
     /// - Parameters:
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
+    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0, in bundle: Bundle = .main) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB, in: bundle)
     }
 
     /// Set the pitch bend amount
