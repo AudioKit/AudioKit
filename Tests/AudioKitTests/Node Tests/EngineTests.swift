@@ -178,7 +178,7 @@ class EngineTests: XCTestCase {
         let engine = AudioEngine()
         let mixerWithoutName = Mixer()
         engine.output = mixerWithoutName
-        let addressOfMixerWithoutName = MemoryAddress(of: mixerWithoutName).description
+        let addressOfMixerWithoutName = MemoryAddress(of: mixerWithoutName)
         XCTAssertEqual(engine.connectionTreeDescription,
         """
         \(Node.connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
