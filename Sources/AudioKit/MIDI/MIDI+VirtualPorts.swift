@@ -84,7 +84,7 @@ extension MIDI {
         for virtualPortIndex in 1...numberOfPorts {
             var virtualPortName: String
             var uniqueID: Int32
-            
+
             if names?[virtualPortIndex] != nil {
                 virtualPortName = names![virtualPortIndex]
             } else {
@@ -122,14 +122,14 @@ extension MIDI {
     }
 
     /// Create multiple virtual MIDI output ports
-    public func createMultipleVirtualOutputPorts(numberOfPorts: Int = 2,_ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createMultipleVirtualOutputPorts(numberOfPorts: Int = 2, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualOutputPort()
         var unnamedPortIndex = 1
         var unIDPortIndex: Int32 = 0
         for virtualPortIndex in 1...numberOfPorts {
             var virtualPortName: String
             var uniqueID: Int32
-            
+
             if names?[virtualPortIndex] != nil {
                 virtualPortName = names![virtualPortIndex]
             } else {
