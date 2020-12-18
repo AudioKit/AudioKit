@@ -108,7 +108,7 @@ public class AudioEngine {
     private func createEngineMixer() {
         guard mainMixerNode == nil else { return }
 
-        let mixer = Mixer()
+        let mixer = Mixer(name: "AudioKit Engine Mixer")
         avEngine.attach(mixer.avAudioNode)
         avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
         mainMixerNode = mixer
