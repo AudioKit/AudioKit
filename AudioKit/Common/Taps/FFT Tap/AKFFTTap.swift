@@ -22,9 +22,9 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     /// Setup a callback for FFT data
     /// - parameters;
     ///   - f: a function to call when new FFT Data is available
-    
-    open func onData(f: @escaping FFTCallback) {
-        self.onData = f
+
+    open func onData(callback: @escaping FFTCallback) {
+        self.onData = callback
     }
     /// Initialze the FFT calculation on a given node
     ///
@@ -68,8 +68,8 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
                         updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
                         bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
-            for i in 0..<Int(bufferSize) {
-                self.fftData[i] = Double(fftData[i])
+            for idx in 0..<Int(bufferSize) {
+                self.fftData[idx] = Double(fftData[idx])
             }
             self.onData?(self.fftData)
         }
