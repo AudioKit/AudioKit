@@ -35,6 +35,7 @@ typedef struct EZAudioFFTInfo
     FFTSetup       fftSetup;
     COMPLEX_SPLIT  complexA;
     float         *outFFTData;
+    float         *windowData;
     vDSP_Length    outFFTDataLength;
     float         *inversedFFTData;
     vDSP_Length    maxFrequencyIndex;
@@ -67,6 +68,7 @@ typedef struct EZAudioFFTInfo
     free(self.info->complexA.realp);
     free(self.info->complexA.imagp);
     free(self.info->outFFTData);
+    free(self.info->windowData);
     free(self.info->inversedFFTData);
 }
 
@@ -141,6 +143,10 @@ typedef struct EZAudioFFTInfo
     self.info->complexA.realp = (float *)malloc(maximumSizePerComponentBytes);
     self.info->complexA.imagp = (float *)malloc(maximumSizePerComponentBytes);
     self.info->outFFTData = (float *)malloc(maximumSizePerComponentBytes);
+
+    self.info->windowData = (float *)malloc(maximumBufferSizeBytes);
+
+
     memset(self.info->outFFTData, 0, maximumSizePerComponentBytes);
     self.info->inversedFFTData = (float *)malloc(maximumSizePerComponentBytes);
 }
@@ -161,8 +167,13 @@ typedef struct EZAudioFFTInfo
     //
     vDSP_Length log2n = log2f(bufferSize);
     long nOver2 = bufferSize / 2;
-    float mFFTNormFactor = 10.0 / (2 * bufferSize);
-    vDSP_ctoz((COMPLEX*)buffer, 2, &(self.info->complexA), 1, nOver2);
+    float mFFTNormFactor = 1.0 / bufferSize;
+
+    vDSP_hann_window(self.info->windowData, bufferSize, 0);
+    vDSP_vmul(buffer, 1, self.info->windowData, 1, self.info->windowData, 1, bufferSize);
+
+    vDSP_ctoz((COMPLEX*)self.info->windowData, 2, &(self.info->complexA), 1, nOver2);
+
     vDSP_fft_zrip(self.info->fftSetup, &(self.info->complexA), 1, log2n, FFT_FORWARD);
     vDSP_vsmul(self.info->complexA.realp, 1, &mFFTNormFactor, self.info->complexA.realp, 1, nOver2);
     vDSP_vsmul(self.info->complexA.imagp, 1, &mFFTNormFactor, self.info->complexA.imagp, 1, nOver2);
