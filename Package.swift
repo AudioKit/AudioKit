@@ -24,7 +24,6 @@ let package = Package(
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
                 cSettings: [
-                    .define("NO_LIBSNDFILE"),
                     .headerSearchPath("lib/kissfft"),
                     .headerSearchPath("lib/inih"),
                     .headerSearchPath("Sources/soundpipe/lib/inih"),
@@ -34,8 +33,7 @@ let package = Package(
         .target(
             name: "sporth",
             dependencies: ["soundpipe"],
-            publicHeadersPath: "include",
-            cSettings: [.define("NO_LIBSNDFILE")]),
+            publicHeadersPath: "include"),
         .target(
             name: "CAudioKit",
             dependencies: ["STK", "soundpipe", "sporth"],

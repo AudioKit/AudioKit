@@ -618,9 +618,6 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
 #endif
         switch(driver) {
             case DRIVER_FILE:
-#ifndef NO_LIBSNDFILE
-                sp_process(sp, ud, process);
-#endif
                 break;
             case DRIVER_RAW:
                 sp_process_raw(sp, ud, process);
@@ -640,9 +637,6 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                 plumber_process_null(sp, ud, process);
                 break;
             default:
-#ifndef NO_LIBSNDFILE
-                sp_process(sp, ud, process);
-#endif
                 break;
         }
     }
