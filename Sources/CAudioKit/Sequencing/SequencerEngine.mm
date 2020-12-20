@@ -8,7 +8,6 @@
 #include <vector>
 #include <stdio.h>
 #include <atomic>
-#include <mutex>
 #include "TPCircularBuffer.h"
 
 #define NOTEON 0x90
