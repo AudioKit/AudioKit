@@ -32,7 +32,7 @@ Next we have things that are different but rather trivial to reimplement (and ve
 
 1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapod versions, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
 
-2. `AudioKitUI` is no longer a separate framework. You can delete any imports of this. Some of the widgets that were inside of this framework have been removed entirely, but the important stuff, like waveform display, are now included in AudioKit.
+2. `AudioKitUI` is now a [separate framework](https://github.com/AudioKit/AudioKitUI) that has AudioKit as a dependency.
 
 3. The AudioKit singleton no longer exists so instead of writing
 ```
@@ -296,7 +296,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKWhiteNoise                           | WhiteNoise                         |                                                                                                                                                              |
 | AKZitaReverb                           | ZitaReverb                         | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AudioKit                               | -                                  | This was a global singleton, instead create an instance of AudioEngine.                                                                                      |
-| AudioKitUI                             | -                                  | No longer need to import AudioKitUI. Whatever user interface elements we provide will be in AudioKit.                                                        |
+| AudioKitUI                             | -                                  | [Separate framework](https://github.com/AudioKit/AudioKitUI)                                                                                                 |
 | ClipMergeDelegate                      | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | ClipMergerError                        | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | ClipRecordingError                     | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
