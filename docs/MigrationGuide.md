@@ -24,7 +24,7 @@ The following items have been very significantly changed, even if their names ar
 
 2. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
 
-3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, many of our nodes are `Tappable` and we also have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
+3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, we have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
 
 ## Lesser Differences
 
@@ -162,7 +162,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKKeyboardDelegate                     | KeyboardDelegate                   |                                                                                                                                                              |
 | AKKeyboardView                         | KeyboardView                       |                                                                                                                                                              |
 | AKKorgLowPassFilter                    | KorgLowPassFilter                  | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
-| AKLazyTap                              | -                                  | Replaced by Tappable nodes.                                                                                                                                  |
+| AKLazyTap                              | -                                  |                                                                                                                                                              |
 | AKLog(fullname:file:line:\_:)          | Log(fullname:file:line:\_:)        |                                                                                                                                                              |
 | AKLowPassButterworthFilter             | LowPassButterworthFilter           | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AKLowPassFilter                        | LowPassFilter                      | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
@@ -244,7 +244,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKPropertySlider                       | -                                  | We have removed most of UI elements that were not specific to audio.                                                                                         |
 | AKRawMIDIPacket                        | RawMIDIPacket                      |                                                                                                                                                              |
 | AKRecordingResult                      | -                                  |                                                                                                                                                              |
-| AKRenderTap                            | -                                  | Replaced by Tappable nodes.                                                                                                                                  |
+| AKRenderTap                            | -                                  |                                                                                                                                                              |
 | AKResonantFilter                       | ResonantFilter                     | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AKResourcesAudioFileLoaderView         | -                                  | We have removed most of UI elements that were not specific to audio.                                                                                         |
 | AKReverb                               | Reverb                             | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |

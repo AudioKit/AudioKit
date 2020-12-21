@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
-public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Tappable, Toggleable {
+public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "peq0"
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A complement to the AKLowPassFilter.
-public class ToneComplementFilter: Node, AudioUnitContainer, Tappable, Toggleable {
+public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "aton"
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")

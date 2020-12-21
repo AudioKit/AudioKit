@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pink noise generator
-public class PinkNoise: Node, AudioUnitContainer, Tappable, Toggleable {
+public class PinkNoise: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "pink"
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
