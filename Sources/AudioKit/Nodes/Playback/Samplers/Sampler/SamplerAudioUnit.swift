@@ -315,6 +315,8 @@ public class SamplerAudioUnit: AudioUnitBase {
             filterEnvelopeVelocityScaling
         ]
 
+        Self._parameterAddress = 0
+        
         parameterTree = AUParameterTree.createTree(withChildren: children)
 
         masterVolume.value = 1.0
