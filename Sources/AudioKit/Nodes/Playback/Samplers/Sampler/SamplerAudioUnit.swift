@@ -8,17 +8,10 @@ import AVFoundation
 public class SamplerAudioUnit: AudioUnitBase {
     private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
-    private static var _parameterAddress: AUParameterAddress = 0
-    private static var nextAddress: AUParameterAddress {
-        let out = _parameterAddress
-        _parameterAddress += 1
-        return out
-    }
-
     var masterVolume = AUParameter(
         identifier: "masterVolume",
         name: "Master Volume",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterMasterVolume"),
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -26,7 +19,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchBend = AUParameter(
         identifier: "pitchBend",
         name: "Pitch Offset (semitones)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchBend"),
         range: -1_000.0...1_000.0,
         unit: .relativeSemiTones,
         flags: .default)
@@ -34,7 +27,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var vibratoDepth = AUParameter(
         identifier: "vibratoDepth",
         name: "Vibrato amount (semitones)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterVibratoDepth"),
         range: 0.0...24.0,
         unit: .relativeSemiTones,
         flags: .default)
@@ -42,7 +35,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var vibratoFrequency = AUParameter(
         identifier: "vibratoFrequency",
         name: "Vibrato Speed (hz)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterVibratoFrequency"),
         range: 0.0...200.0,
         unit: .hertz,
         flags: .default)
@@ -50,7 +43,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var voiceVibratoDepth = AUParameter(
         identifier: "voiceVibratoDepth",
         name: "Voice Vibrato amount (semitones)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterVoiceVibratoDepth"),
         range: 0.0...24.0,
         unit: .relativeSemiTones,
         flags: .default)
@@ -58,7 +51,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var voiceVibratoFrequency = AUParameter(
         identifier: "voiceVibratoFrequency",
         name: "Voice Vibrato Speed (hz)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterVoiceVibratoFrequency"),
         range: 0.0...200.0,
         unit: .hertz,
         flags: .default)
@@ -66,7 +59,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterCutoff = AUParameter(
         identifier: "filterCutoff",
         name: "Filter cutoff (harmonic))",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterCutoff"),
         range: 1.0...1_000.0,
         unit: .ratio,
         flags: .default)
@@ -74,7 +67,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterStrength = AUParameter(
         identifier: "filterStrength",
         name: "Filter EG strength",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterStrength"),
         range: 0.0...1_000.0,
         unit: .ratio,
         flags: .default)
@@ -82,7 +75,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterResonance = AUParameter(
         identifier: "filterResonance",
         name: "Filter resonance (dB))",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterResonance"),
         range: -20.0...20.0,
         unit: .decibels,
         flags: .default)
@@ -90,7 +83,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var glideRate = AUParameter(
         identifier: "glideRate",
         name: "Glide rate (sec/octave))",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterGlideRate"),
         range: 0.0...10.0,
         unit: .seconds,
         flags: .default)
@@ -98,7 +91,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var attackDuration = AUParameter(
         identifier: "attackDuration",
         name: "Amplitude Attack duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterAttackDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -106,7 +99,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var holdDuration = AUParameter(
         identifier: "holdDuration",
         name: "Amplitude Hold duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterHoldDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -114,7 +107,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var decayDuration = AUParameter(
         identifier: "decayDuration",
         name: "Amplitude Decay duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterDecayDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -122,7 +115,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var sustainLevel = AUParameter(
         identifier: "sustainLevel",
         name: "Amplitude Sustain level (fraction)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterSustainLevel"),
         range: 0.0...1.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -130,7 +123,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var releaseHoldDuration = AUParameter(
         identifier: "releaseHoldDuration",
         name: "Amplitude Release Hold duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterReleaseHoldDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -138,7 +131,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var releaseDuration = AUParameter(
         identifier: "releaseDuration",
         name: "Amplitude Release duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterReleaseDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -146,7 +139,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterAttackDuration = AUParameter(
         identifier: "filterAttackDuration",
         name: "Filter Attack duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterAttackDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -154,7 +147,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterDecayDuration = AUParameter(
         identifier: "filterDecayDuration",
         name: "Filter Decay duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterDecayDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -162,7 +155,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterSustainLevel = AUParameter(
         identifier: "filterSustainLevel",
         name: "Filter Sustain level (fraction)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterSustainLevel"),
         range: 0.0...1.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -170,7 +163,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterReleaseDuration = AUParameter(
         identifier: "filterReleaseDuration",
         name: "Filter Release duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterReleaseDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -178,7 +171,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterEnable = AUParameter(
         identifier: "filterEnable",
         name: "Filter Enable",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterEnable"),
         range: 0.0...1.0,
         unit: .boolean,
         flags: nonRampFlags)
@@ -186,7 +179,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var restartVoiceLFO = AUParameter(
         identifier: "restartVoiceLFO",
         name: "Restart Voice LFO",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterRestartVoiceLFO"),
         range: 0.0...1.0,
         unit: .boolean,
         flags: nonRampFlags)
@@ -194,7 +187,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchAttackDuration = AUParameter(
         identifier: "pitchAttackDuration",
         name: "Pitch Attack duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchAttackDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -202,7 +195,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchDecayDuration = AUParameter(
         identifier: "pitchDecayDuration",
         name: "Pitch Decay duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchDecayDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -210,7 +203,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchSustainLevel = AUParameter(
         identifier: "pitchSustainLevel",
         name: "Pitch Sustain level (fraction)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchSustainLevel"),
         range: 0.0...1.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -218,7 +211,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchReleaseDuration = AUParameter(
         identifier: "pitchReleaseDuration",
         name: "Pitch Release duration (seconds)",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchReleaseDuration"),
         range: 0.0...1_000.0,
         unit: .seconds,
         flags: nonRampFlags)
@@ -226,7 +219,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var pitchADSRSemitones = AUParameter(
         identifier: "pitchADSRSemitones",
         name: "Pitch EG Amount",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterPitchADSRSemitones"),
         range: -100.0...100.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -234,7 +227,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var loopThruRelease = AUParameter(
         identifier: "loopThruRelease",
         name: "Loop Thru Release",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterLoopThruRelease"),
         range: 0.0...1.0,
         unit: .boolean,
         flags: nonRampFlags)
@@ -242,7 +235,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var isMonophonic = AUParameter(
         identifier: "monophonic",
         name: "Monophonic Mode",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterMonophonic"),
         range: 0.0...1.0,
         unit: .boolean,
         flags: nonRampFlags)
@@ -250,7 +243,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var isLegato = AUParameter(
         identifier: "legato",
         name: "Legato Mode",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterLegato"),
         range: 0.0...1.0,
         unit: .boolean,
         flags: nonRampFlags)
@@ -258,7 +251,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var keyTrackingFraction = AUParameter(
         identifier: "keyTracking",
         name: "Key Tracking",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterKeyTrackingFraction"),
         range: -2.0...2.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -266,7 +259,7 @@ public class SamplerAudioUnit: AudioUnitBase {
     var filterEnvelopeVelocityScaling = AUParameter(
         identifier: "filterEnvelopeVelocityScaling",
         name: "Filter Envelope Velocity Scaling",
-        address: nextAddress,
+        address: akGetParameterAddress("SamplerParameterFilterEnvelopeVelocityScaling"),
         range: 0.0...1.0,
         unit: .generic,
         flags: nonRampFlags)
@@ -314,8 +307,6 @@ public class SamplerAudioUnit: AudioUnitBase {
             keyTrackingFraction,
             filterEnvelopeVelocityScaling
         ]
-
-        Self._parameterAddress = 0
         
         parameterTree = AUParameterTree.createTree(withChildren: children)
 
