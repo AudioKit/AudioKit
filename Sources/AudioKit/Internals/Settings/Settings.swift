@@ -74,12 +74,6 @@ public class Settings: NSObject {
         }
     }
 
-    /// Whether we should be listening to audio input (microphone)
-    public static var audioInputEnabled: Bool = false
-
-    /// Allows AudioKit to send Notifications
-    public static var notificationsEnabled: Bool = false
-
     /// AudioKit buffer length is set using Settings.bufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     public static var bufferLength: BufferLength = .veryLong
@@ -98,10 +92,4 @@ public class Settings: NSObject {
 
     /// Turn on or off AudioKit logging
     public static var enableLogging: Bool = true
-
-    /// If set to false, AudioKit will not handle the AVAudioSession category change
-    /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
-    /// instance when such notifications are posted. The developer can instead subscribe
-    /// to these notifications and restart AudioKit after rebuiling their audio chain.
-    public static var enableConfigurationChangeHandling: Bool = true
 }
