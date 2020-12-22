@@ -65,9 +65,6 @@
         /// Additional control over the options to use for bluetooth
         public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
 
-        /// Enable / disable voice processing (echo canellation)
-        public static var enableEchoCancellation: Bool = false
-
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
         public static var ioBufferDuration: Double {
