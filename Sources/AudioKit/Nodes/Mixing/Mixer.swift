@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-/// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of Nodes.
+/// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
 public class Mixer: Node, Toggleable, NamedNode {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
@@ -20,7 +20,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     }
 
     /// Output Pan (Default 0 = center)
-    public var pan: AUValue = 1.0 {
+    public var pan: AUValue = 0 {
         didSet {
             pan = min(pan, 1)
             pan = max(pan, -1)
