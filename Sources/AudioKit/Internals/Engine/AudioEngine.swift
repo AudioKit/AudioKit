@@ -136,6 +136,11 @@ public class AudioEngine {
         avEngine.stop()
     }
 
+    /// Pause the engine
+    public func pause() {
+        avEngine.pause()
+    }
+
     /// Start testing for a specified total duration
     /// - Parameter duration: Total duration of the entire test
     /// - Returns: A buffer which you can append to
