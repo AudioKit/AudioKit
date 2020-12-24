@@ -15,7 +15,7 @@ public class AudioPlayer: Node {
     /// The output of the AudioPlayer and provides sample rate conversion if needed
     public private(set) var mixerNode = AVAudioMixerNode()
 
-    /// Just the playerNode's property
+    /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
