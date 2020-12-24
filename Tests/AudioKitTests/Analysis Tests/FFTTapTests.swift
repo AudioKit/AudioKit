@@ -20,7 +20,7 @@ class FFTTapTests: XCTestCase {
         engine.output = sine
 
         let expect = expectation(description: "wait for amplitudes")
-        let knownValues: [Int] = [42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
+        let knownValues: [Int] = [42, 44, 46, 48, 49, 51, 53, 55, 57, 59]
 
         let tap = FFTTap(sine) { fft in
             let max: Float = fft.max() ?? 0.0
