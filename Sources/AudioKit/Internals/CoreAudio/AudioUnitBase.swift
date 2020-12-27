@@ -66,10 +66,10 @@ open class AudioUnitBase: AUAudioUnit {
     }
 
     private var _parameterTree: AUParameterTree?
-    
+
     /// Parameter address offset - useful for grouping multiple AudioKit node parameters in a custom Audio Unit
     public var addressOffset: AUParameterAddress?
-    
+
     /// Parameter tree
     override public var parameterTree: AUParameterTree? {
         get { return _parameterTree }
