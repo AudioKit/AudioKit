@@ -67,6 +67,8 @@ open class AudioUnitBase: AUAudioUnit {
 
     private var _parameterTree: AUParameterTree?
     
+    public var addressOffset: AUParameterAddress?
+    
     /// Parameter tree
     override public var parameterTree: AUParameterTree? {
         get { return _parameterTree }
@@ -74,11 +76,11 @@ open class AudioUnitBase: AUAudioUnit {
             _parameterTree = newValue
 
             _parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
-                setParameterValueDSP(self.dsp, parameter.address, value)
+                setParameterValueDSP(self.dsp, parameter.address - (addressOffset ?? 0), value)
             }
 
             _parameterTree?.implementorValueProvider = { [unowned self] parameter in
-                getParameterValueDSP(self.dsp, parameter.address)
+                getParameterValueDSP(self.dsp, parameter.address - (addressOffset ?? 0))
             }
 
             _parameterTree?.implementorStringFromValueCallback = { parameter, value in
