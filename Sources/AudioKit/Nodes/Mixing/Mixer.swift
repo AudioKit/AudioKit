@@ -128,37 +128,24 @@ public class Mixer: Node, Toggleable, NamedNode {
     ///
     /// If engine has not yet started, you shouldn't need to use this function.
     /// - Parameter requiredSize: how many input busses you need in the mixer
-    /// - Returns: new input busses array size or its current size in case it's less than required and resize failed, or can't be done.
+    /// - Returns: new input busses array size or its current size in case it's less than required
+    ///  and resize failed, or can't be done.
     public func resizeInputBussesArray(requiredSize: Int) -> Int {
-        
         let busses = mixerAU.auAudioUnit.inputBusses
-        
         guard busses.isCountChangeable else {
-            
             // input busses array is not changeable
-            
             return min(busses.count, requiredSize)
         }
-        
         if busses.count < requiredSize {
-            
             do {
-                
                 try busses.setBusCount(requiredSize)
-                
                 return requiredSize
-                
             } catch _ {
-                
                 // could not resize input busses array to required size
-                
                 return busses.count
             }
-            
         }
-        
         // current input busses array already matches or exceeds required size
-        
         return requiredSize
     }
 }
