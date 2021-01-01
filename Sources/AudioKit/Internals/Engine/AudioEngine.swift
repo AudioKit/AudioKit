@@ -36,6 +36,7 @@ public class AudioEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1_024
 
+    /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
 
     /// Input node mixer

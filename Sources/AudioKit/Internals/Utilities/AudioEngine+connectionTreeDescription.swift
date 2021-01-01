@@ -4,6 +4,7 @@ import Foundation
 
 extension AudioEngine {
 
+    /// Nice printout of all the node connections
     public var connectionTreeDescription: String {
         if let rootNode = mainMixerNode {
             return rootNode.connectionTreeDescription
