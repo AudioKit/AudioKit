@@ -232,6 +232,7 @@ let validatedMD5s: [String: String] = [
     "-[MorphingOscillatorTests testDefault]": "22f4e39ca1dae5dc2866513027236ef6",
     "-[MorphingOscillatorTests testParametersSetAfterInit]": "27d346246fed34eea572e30060f30950",
     "-[MorphingOscillatorTests testParametersSetOnInit]": "27d346246fed34eea572e30060f30950",
+    "-[NodeTests testAutomationAfterDelayedConnection]": "39db4fcc745c159c26b2617aeabef4e5",
     "-[NodeTests testDisconnect]": "c7e1a8f2293beba52bbbb1967f2586ab",
     "-[NodeTests testDynamicConnection]": "12feb67de0e15c5f940a1950ae9674b9",
     "-[NodeTests testDynamicConnection2]": "eb9af2b94efa3b380ce9dbd978aaf577",
