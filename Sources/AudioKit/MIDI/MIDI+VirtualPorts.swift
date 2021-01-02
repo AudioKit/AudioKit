@@ -127,7 +127,7 @@ extension MIDI {
                 guard MIDIEndpointDispose(virtualInput) == noErr else {return false}
                 virtualInputs.remove(at: index)
             }
-            virtualInputs[0] = 0
+            virtualInputs.append(0)
             return true
             }
         return false
@@ -143,7 +143,7 @@ extension MIDI {
                 guard MIDIEndpointDispose(virtualOutput) == noErr else {return false}
                 virtualOutputs.remove(at: index)
             }
-            virtualOutputs[0] = 0
+            virtualOutputs.append(0)
             return true
         }
         return false
