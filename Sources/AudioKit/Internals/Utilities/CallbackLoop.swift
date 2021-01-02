@@ -57,8 +57,23 @@ public class CallbackLoop: NSObject {
     /// Callback function
     @objc func update() {
         if isRunning {
+            if !Thread.isMainThread {
+                DispatchQueue.main.async { [self] in
+                    self.updateInternal()
+                }
+            }
+            else {
+                self.updateInternal()
+            }
+        }
+    }
+    
+    /// Call the callback function.
+    /// self.perform only works when executed on the main thread. Called from self.update()
+    @objc internal func updateInternal() {
+        if isRunning {
             self.internalHandler()
-            self.perform(#selector(update),
+            self.perform(#selector(updateInternal),
                          with: nil,
                          afterDelay: duration,
                          inModes: [.common])
