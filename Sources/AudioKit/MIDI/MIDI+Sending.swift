@@ -295,7 +295,7 @@ extension MIDI {
                 }
 
                 if virtualOutputs != [0] {
-                    virtualOutputs.forEach {MIDIReceived($0, packetListPointer)}
+                    endpointsRef.forEach {MIDIReceived($0, packetListPointer)}
                 }
             }
         }
@@ -427,10 +427,9 @@ extension MIDI {
         }
 
         if virtualOutputs != [0] {
-            virtualOutputs.forEach {MIDIReceived($0, packetListPointer)}
+            endpointsRef.forEach {MIDIReceived($0, packetListPointer)}
         }
     }
-
 }
 
 #endif
