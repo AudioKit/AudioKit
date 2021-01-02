@@ -39,14 +39,14 @@ extension MIDI {
             var uniqueID: Int32
             virtualInputs.append(0)
 
-            if let portName = names?[virtualPortIndex] {
+            if names?.count ?? 0 >= virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
             } else {
                virtualPortName = String("\(clientName) \(unnamedPortIndex)")
                unnamedPortIndex += 1
            }
 
-            if let portID = uniqueIDs?[virtualPortIndex] {
+            if uniqueIDs?.count ?? 0 >= virtualPortIndex, let portID = uniqueIDs?[virtualPortIndex] {
                 uniqueID = portID
             } else {
                 uniqueID = 2_000_000 + unIDPortIndex
@@ -86,14 +86,14 @@ extension MIDI {
             var uniqueID: Int32
             virtualOutputs.append(0)
 
-            if let portName = names?[virtualPortIndex] {
+            if names?.count ?? 0 >= virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
             } else {
                virtualPortName = String("\(clientName) \(unnamedPortIndex)")
                unnamedPortIndex += 1
            }
 
-            if let portID = uniqueIDs?[virtualPortIndex] {
+            if uniqueIDs?.count ?? 0 >= virtualPortIndex, let portID = uniqueIDs?[virtualPortIndex] {
                 uniqueID = portID
             } else {
                 uniqueID = 2_000_001 + unIDPortIndex
