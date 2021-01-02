@@ -14,7 +14,7 @@ So, first we'll start out with a list of things that are just not in AudioKit 5 
 
 4. `AKAudioUnitManager` was removed. A project to demonstrate this functionality has been started [here](https://github.com/AudioKit/AudioUnitManager).
 
-5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the examples project.
+5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the Cookbook examples project.
 
 ## Significantly Changed
 
@@ -301,6 +301,6 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | ClipMergerError                        | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | ClipRecordingError                     | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | FileClip                               | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
-| MultitouchGestureRecognizer            | MultitouchGestureRecognizer        | Original programmer hired by Apple and not available for maintaining.                                                                                        |
+| MultitouchGestureRecognizer            | MultitouchGestureRecognizer        |                                                                                       |
 | random(_:_:)                           | -                                  | Use AUValue's random(in:) method.                                                                                                                            |
 
