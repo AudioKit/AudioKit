@@ -28,7 +28,7 @@ extension MIDI {
     }
 
     /// Create virtual MIDI input ports
-    public func createVirtualInputPorts(numberOfPort: UInt = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createVirtualInputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualInputPort()
         guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",log: OSLog.midi, type: .error)}
 
@@ -76,7 +76,7 @@ extension MIDI {
     }
 
     /// Create virtual MIDI output ports
-    public func createVirtualOutputPorts(numberOfPort: UInt = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createVirtualOutputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualOutputPort()
         guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",log: OSLog.midi, type: .error)}
         var unnamedPortIndex = 1
@@ -101,7 +101,7 @@ extension MIDI {
            }
            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
             if result == noErr {
-                if virtualInputs.count =< virtualPortIndex {virtualInputs.append(0)}
+                if virtualInputs.count <= virtualPortIndex {virtualInputs.append(0)}
                 MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
                 Log("Error \(result) Creating Virtual Output Port: \(virtualPortName) -- \(virtualOutputs[virtualPortIndex])",
