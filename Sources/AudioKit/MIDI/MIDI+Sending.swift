@@ -403,7 +403,7 @@ extension MIDI {
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
     ///   - time: MIDI Timestamp
-    public func sendMessageWithTime(_ data: [MIDIByte], time: MIDITimeStamp) {
+    public func sendMessageWithTime(_ data: [MIDIByte], time: MIDITimeStamp, endpointsUIDs: [MIDIUniqueID]? = nil) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)
