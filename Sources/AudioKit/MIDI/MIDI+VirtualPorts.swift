@@ -20,7 +20,7 @@ extension MIDI {
 
 
      /// Create set of virtual input and output MIDI ports
-    public func createVirtualPorts(numberOfPort: UInt = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    public func createVirtualPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         Log("Creating \(numberOfPort) virtual input and output ports", log: OSLog.midi)
         destroyVirtualPorts()
         createVirtualInputPorts(numberOfPort: numberOfPort, names: names)
