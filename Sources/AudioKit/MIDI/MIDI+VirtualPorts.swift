@@ -123,7 +123,7 @@ extension MIDI {
     ///
     @discardableResult public func destroyVirtualInputPort() -> Bool {
         if virtualInputs != [0] {
-            for (index, virtualInput) in virtualInputs.enumerated() {
+            for (index, virtualInput) in virtualInputs.enumerated().reversed() {
                 guard MIDIEndpointDispose(virtualInput) == noErr else {return false}
                 virtualInputs.remove(at: index)
             }
@@ -139,7 +139,7 @@ extension MIDI {
     ///
     @discardableResult public func destroyVirtualOutputPort() -> Bool {
         if virtualOutputs != [0] {
-            for (index, virtualOutput) in virtualOutputs.enumerated() {
+            for (index, virtualOutput) in virtualOutputs.enumerated().reversed() {
                 guard MIDIEndpointDispose(virtualOutput) == noErr else {return false}
                 virtualOutputs.remove(at: index)
             }
