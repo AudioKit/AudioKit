@@ -61,8 +61,7 @@ public class CallbackLoop: NSObject {
                 DispatchQueue.main.async { [self] in
                     self.updateInternal()
                 }
-            }
-            else {
+            } else {
                 self.updateInternal()
             }
         }
