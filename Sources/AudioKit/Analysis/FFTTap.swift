@@ -10,6 +10,8 @@ open class FFTTap: BaseTap {
     open var fftData: [Float]
     /// Type of callback
     public typealias Handler = ([Float]) -> Void
+    /// Determines if the returned FFT data is normalized
+    public var isNormalized: Bool = true
 
     private var handler: Handler = { _ in }
 
@@ -28,11 +30,11 @@ open class FFTTap: BaseTap {
     override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
-        fftData = FFTTap.performFFT(buffer: buffer)
+        fftData = FFTTap.performFFT(buffer: buffer, isNormalized: isNormalized)
         handler(fftData)
     }
 
-    static func performFFT(buffer: AVAudioPCMBuffer) -> [Float] {
+    static func performFFT(buffer: AVAudioPCMBuffer, isNormalized: Bool = true) -> [Float] {
         let frameCount = buffer.frameLength
         let log2n = UInt(round(log2(Double(frameCount))))
         let bufferSizePOT = Int(1 << log2n)
@@ -71,17 +73,21 @@ open class FFTTap: BaseTap {
                 var magnitudes = [Float](repeating: 0.0, count: inputCount)
                 vDSP_zvmags(&output, 1, &magnitudes, 1, vDSP_Length(inputCount))
 
-                // Normalising
-                var normalizedMagnitudes = [Float](repeating: 0.0, count: inputCount)
-                vDSP_vsmul(&magnitudes,
-                           1,
-                           [1.0 / (magnitudes.max() ?? 1.0)],
-                           &normalizedMagnitudes,
-                           1,
-                           vDSP_Length(inputCount))
+                if isNormalized {
+                    // Normalising
+                    var normalizedMagnitudes = [Float](repeating: 0.0, count: inputCount)
+                    vDSP_vsmul(&magnitudes,
+                               1,
+                               [1.0 / (magnitudes.max() ?? 1.0)],
+                               &normalizedMagnitudes,
+                               1,
+                               vDSP_Length(inputCount))
 
+                    vDSP_destroy_fftsetup(fftSetup)
+                    return normalizedMagnitudes
+                }
                 vDSP_destroy_fftsetup(fftSetup)
-                return normalizedMagnitudes
+                return magnitudes
             }
         }
     }

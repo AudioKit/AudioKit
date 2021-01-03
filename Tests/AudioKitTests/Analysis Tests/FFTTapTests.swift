@@ -43,5 +43,44 @@ class FFTTapTests: XCTestCase {
             XCTAssertEqual(fftData[i], knownValues[i])
         }
     }
+    
+    func testWithoutNormalization() {
+        let engine = AudioEngine()
+
+        let sine = OperationGenerator {
+            let s = Operation.sawtooth(frequency: 0.25, amplitude: 1.0, phase: 0) + 2
+            return Operation.sineWave(frequency: 440 * s, amplitude: 0.1)
+        }
+
+        sine.start()
+
+        var fftData: [Int] = []
+
+        engine.output = sine
+
+        let expect = expectation(description: "wait for amplitudes")
+        let numValuesToCheck = 10
+
+        let tap = FFTTap(sine) { fft in
+            let max: Float = fft.max() ?? 0.0
+            fftData.append(Int(max))
+
+            if fftData.count == numValuesToCheck {
+                expect.fulfill()
+            }
+        }
+        tap.isNormalized = false
+        tap.start()
+
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+
+        wait(for: [expect], timeout: 5.0)
+
+        for i in 0..<fftData.count {
+            XCTAssertTrue(fftData[i] > 1)
+        }
+    }
 
 }
