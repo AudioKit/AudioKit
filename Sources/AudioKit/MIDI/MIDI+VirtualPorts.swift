@@ -118,9 +118,9 @@ extension MIDI {
         destroyVirtualOutputPort()
     }
 
-    /// Closes the virtuals input ports, if created one already.
+    /// Closes the virtual input ports, if created one already.
     ///
-    /// - Returns: Returns true if virtuals inputs closed.
+    /// - Returns: Returns true if virtual inputs closed.
     ///
     @discardableResult public func destroyVirtualInputPort() -> Bool {
         if virtualInputs != [0] {
@@ -134,9 +134,9 @@ extension MIDI {
         return false
     }
 
-    /// Closes the virtuals output ports, if created one already.
+    /// Closes the virtual output ports, if created one already.
     ///
-    /// - Returns: Returns true if virtuals outputs closed.
+    /// - Returns: Returns true if virtual outputs closed.
     ///
     @discardableResult public func destroyVirtualOutputPort() -> Bool {
         if virtualOutputs != [0] {
