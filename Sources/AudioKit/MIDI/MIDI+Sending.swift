@@ -243,7 +243,10 @@ extension MIDI {
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
     ///   - offset: Timestamp offset
-    public func sendMessage(_ data: [MIDIByte], offset: MIDITimeStamp = 0, endpointsUIDs: [MIDIUniqueID]? = nil) {
+    public func sendMessage(_ data: [MIDIByte],
+                            offset: MIDITimeStamp = 0,
+                            endpointsUIDs: [MIDIUniqueID]? = nil,
+                            virtualOutputPorts: [MIDIPortRef]? = nil) {
 
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
@@ -295,7 +298,7 @@ extension MIDI {
                 }
 
                 if virtualOutputs != [0] {
-                    endpointsRef.forEach {MIDIReceived($0, packetListPointer)}
+                    virtualOutputPorts?.forEach {MIDIReceived($0, packetListPointer)}
                 }
             }
         }
@@ -403,7 +406,10 @@ extension MIDI {
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
     ///   - time: MIDI Timestamp
-    public func sendMessageWithTime(_ data: [MIDIByte], time: MIDITimeStamp, endpointsUIDs: [MIDIUniqueID]? = nil) {
+    public func sendMessageWithTime(_ data: [MIDIByte],
+                                    time: MIDITimeStamp,
+                                    endpointsUIDs: [MIDIUniqueID]? = nil,
+                                    virtualOutputPorts: [MIDIPortRef]? = nil) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)
@@ -427,7 +433,7 @@ extension MIDI {
         }
 
         if virtualOutputs != [0] {
-            endpointsRef.forEach {MIDIReceived($0, packetListPointer)}
+            virtualOutputPorts?.forEach {MIDIReceived($0, packetListPointer)}
         }
     }
 }
