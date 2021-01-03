@@ -101,7 +101,6 @@ extension MIDI {
            }
            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
             if result == noErr {
-//                if virtualInputs.count <= virtualPortIndex {virtualInputs.append(0)}
                 MIDIObjectSetIntegerProperty(virtualOutputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
                 Log("Error \(result) Creating Virtual Output Port: \(virtualPortName) -- \(virtualOutputs[virtualPortIndex])",
