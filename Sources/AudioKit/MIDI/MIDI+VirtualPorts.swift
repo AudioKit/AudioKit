@@ -30,7 +30,7 @@ extension MIDI {
     /// Create virtual MIDI input ports
     public func createVirtualInputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualInputPort()
-        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",log: OSLog.midi, type: .error)}
+        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)", log: OSLog.midi, type: .error)}
 
         var unnamedPortIndex = 1
         var unIDPortIndex: Int32 = 0
@@ -78,7 +78,7 @@ extension MIDI {
     /// Create virtual MIDI output ports
     public func createVirtualOutputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualOutputPort()
-        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",log: OSLog.midi, type: .error)}
+        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)", log: OSLog.midi, type: .error)}
         var unnamedPortIndex = 1
         var unIDPortIndex: Int32 = 0
         for virtualPortIndex in 0...numberOfPort - 1 {

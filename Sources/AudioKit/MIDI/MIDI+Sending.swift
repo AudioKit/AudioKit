@@ -311,7 +311,9 @@ extension MIDI {
 
     /// Send Messsage from MIDI event data
     /// - Parameter event: Event so send
-    public func sendEvent(_ event: MIDIEvent, endpointsUIDs: [MIDIUniqueID]? = nil, virtualOutputPorts: [MIDIPortRef]? = nil) {
+    public func sendEvent(_ event: MIDIEvent,
+                          endpointsUIDs: [MIDIUniqueID]? = nil,
+                          virtualOutputPorts: [MIDIPortRef]? = nil) {
         sendMessage(event.data, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
@@ -393,7 +395,9 @@ extension MIDI {
                                           virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = MIDIByte(0x90) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessageWithTime(message, time: time, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
+        self.sendMessageWithTime(message, time: time,
+                                 endpointsUIDs: endpointsUIDs,
+                                 virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a Note Off Message with timestamp
@@ -410,7 +414,9 @@ extension MIDI {
                                            virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = MIDIByte(0x80) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessageWithTime(message, time: time, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
+        self.sendMessageWithTime(message, time: time,
+                                 endpointsUIDs: endpointsUIDs,
+                                 virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send Message with data with timestamp
