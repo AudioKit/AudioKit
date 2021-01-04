@@ -2,8 +2,8 @@
 
 Starting with AudioKit 5, the Swift Package Manager is the preferred way to integrate AudioKit within your applications.
 
-However, we also still provide build scripts in this directory to create universal static XCFrameworks, which can be installed via CocoaPods or dragged directly in your application. We strongly urge you to migrate your project to SPM however.
-
+However, we also still provide build scripts in this directory to create universal static XCFrameworks, which can be installed via CocoaPods or dragged directly in your application. We strongly urge you to migrate your project to SPM however. 
+These scripts are mostly used to build legacy XCFrameworks for CocoaPods, from within Github Actions.
 ## Universal XCFrameworks on Xcode 11 / Catalina
 
 If you are running at least macOS 10.15 (Catalina), you can now build XCFramework archives containing all supported platforms in a singular archive - including the Mac Catalyst versions.

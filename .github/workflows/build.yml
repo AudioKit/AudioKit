@@ -3,7 +3,7 @@ name: CI
 
 on: [push, pull_request]
 env:
-  XCODE_VER: 12.2
+  XCODE_VER: 12.3
 
 jobs:
   test:
@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
-          cd Frameworks
+          cd .ci
           ./build_frameworks.sh
           ./build_xcframework.sh
           cp ../LICENSE .
@@ -66,7 +66,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo xcode-select -s /Applications/Xcode_${XCODE_VER}.app
-          cd Frameworks
+          cd .ci
           ./build_frameworks.sh
           ./build_xcframework.sh
           cp ../LICENSE .
