@@ -55,7 +55,7 @@ public class PitchTap: BaseTap {
     }
 
     // AVAudioNodeTapBlock - time is unused in this case
-    override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
         let channelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)
