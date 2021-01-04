@@ -26,7 +26,7 @@ public struct NodeParameterDef {
     ///   - address: Address
     ///   - range: Value range
     ///   - unit: Physical units
-    ///   - flags: <#flags description#>Options
+    ///   - flags: Audio Unit Parameter options
     public init(identifier: String,
                 name: String,
                 address: AUParameterAddress,
