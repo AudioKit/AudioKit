@@ -182,7 +182,10 @@ public class AudioPlayer: Node {
     ///   - when: What time to schedule for. A value of nil means now or will
     ///   use a pre-existing scheduled time.
     ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
-    public func play(at when: AVAudioTime? = nil, completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
+    public func play(
+        at when: AVAudioTime? = nil, 
+        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
+    ) {
         guard !isPlaying || isPaused else { return }
 
         guard playerNode.engine != nil else {
@@ -235,8 +238,10 @@ extension AudioPlayer {
     /// - Parameters:
     ///   - when: What time to schedule for
     ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
-    
-    public func schedule(at when: AVAudioTime? = nil, completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
+    public func schedule(
+        at when: AVAudioTime? = nil, 
+        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
+    ) {
         if isBuffered, let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
                                       at: nil,
