@@ -35,8 +35,8 @@ class AmplitudeTapTests: XCTestCase {
 
         wait(for: [expect], timeout: 5.0)
 
-        let knownValues: [Float] = [0.06389575, 0.16763051, 0.27164128, 0.36971274, 0.458969,
-                                    0.53708506, 0.6020897, 0.6523612, 0.6866519, 0.70411265]
+        let knownValues: [Float] = [0.01478241, 0.03954828, 0.06425185, 0.09090047, 0.11480384,
+                                    0.14164367, 0.16560285, 0.19081590, 0.21635467, 0.23850754]
         for i in 0..<knownValues.count {
             XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
         }

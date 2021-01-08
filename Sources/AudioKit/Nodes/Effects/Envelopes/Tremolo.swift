@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
-public class Tremolo: Node, AudioUnitContainer, Tappable, Toggleable {
+public class Tremolo: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "trem"
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")

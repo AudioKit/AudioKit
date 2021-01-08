@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Brownian noise generator
-public class BrownianNoise: Node, AudioUnitContainer, Tappable, Toggleable {
+public class BrownianNoise: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "bron"
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")

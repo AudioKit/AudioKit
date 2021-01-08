@@ -275,6 +275,7 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 #endif
 
 extension Sequence where Self.Element: Equatable {
+    /// Easer to read alternative to !contains
     @inline(__always)
     public func doesNotContain(_ member: Element) -> Bool {
         return !contains(member)

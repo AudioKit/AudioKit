@@ -107,49 +107,6 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
     return SP_OK;
 }
 
-#ifndef NO_LIBSNDFILE
-int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
-{
-    SF_INFO info;
-    memset(&info, 0, sizeof(SF_INFO));
-    info.format = 0;
-    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
-#ifdef USE_DOUBLE
-    sf_readf_double(snd, ft->tbl, ft->size);
-#else
-    sf_readf_float(snd, ft->tbl, ft->size);
-#endif
-    sf_close(snd);
-    return SP_OK;
-}
-
-int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
-{
-    *ft = malloc(sizeof(sp_ftbl));
-    sp_ftbl *ftp = *ft;
-    SF_INFO info;
-    memset(&info, 0, sizeof(SF_INFO));
-    info.format = 0;
-    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
-    if(snd == NULL) {
-        return SP_NOT_OK;
-    }
-    size_t size = info.frames * info.channels;
-
-    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
-
-    sp_ftbl_init(sp, ftp, size);
-
-#ifdef USE_DOUBLE
-    sf_readf_double(snd, ftp->tbl, ftp->size);
-#else
-    sf_readf_float(snd, ftp->tbl, ftp->size);
-#endif
-    sf_close(snd);
-    return SP_OK;
-}
-#endif
-
 /* port of GEN10 from Csound */
 int sp_gen_sinesum(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {

@@ -14,7 +14,7 @@ So, first we'll start out with a list of things that are just not in AudioKit 5 
 
 4. `AKAudioUnitManager` was removed. A project to demonstrate this functionality has been started [here](https://github.com/AudioKit/AudioUnitManager).
 
-5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the examples project.
+5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the Cookbook examples project.
 
 ## Significantly Changed
 
@@ -24,7 +24,7 @@ The following items have been very significantly changed, even if their names ar
 
 2. AudioKit' 4's audio player `AKPlayer` and its associated `AKDynamicPlayer` and `AKAbstractPlayer` have all been removed. In its place we have `AudioPlayer` which is simpler. 
 
-3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, many of our nodes are `Tappable` and we also have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
+3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, we have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
 
 ## Lesser Differences
 
@@ -32,7 +32,7 @@ Next we have things that are different but rather trivial to reimplement (and ve
 
 1. The best way to use AudioKit 5 is to use Swift Package Manager. If you're hooked on Cocoapods, we still plan to provide Cocoapod versions, but we strongly encourage you to move to SPM. We have, and we do not regret it. 
 
-2. `AudioKitUI` is no longer a separate framework. You can delete any imports of this. Some of the widgets that were inside of this framework have been removed entirely, but the important stuff, like waveform display, are now included in AudioKit.
+2. `AudioKitUI` is now a [separate package](https://github.com/AudioKit/AudioKitUI) that has AudioKit as a dependency.
 
 3. The AudioKit singleton no longer exists so instead of writing
 ```
@@ -162,7 +162,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKKeyboardDelegate                     | KeyboardDelegate                   |                                                                                                                                                              |
 | AKKeyboardView                         | KeyboardView                       |                                                                                                                                                              |
 | AKKorgLowPassFilter                    | KorgLowPassFilter                  | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
-| AKLazyTap                              | -                                  | Replaced by Tappable nodes.                                                                                                                                  |
+| AKLazyTap                              | -                                  |                                                                                                                                                              |
 | AKLog(fullname:file:line:\_:)          | Log(fullname:file:line:\_:)        |                                                                                                                                                              |
 | AKLowPassButterworthFilter             | LowPassButterworthFilter           | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AKLowPassFilter                        | LowPassFilter                      | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
@@ -244,7 +244,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKPropertySlider                       | -                                  | We have removed most of UI elements that were not specific to audio.                                                                                         |
 | AKRawMIDIPacket                        | RawMIDIPacket                      |                                                                                                                                                              |
 | AKRecordingResult                      | -                                  |                                                                                                                                                              |
-| AKRenderTap                            | -                                  | Replaced by Tappable nodes.                                                                                                                                  |
+| AKRenderTap                            | -                                  |                                                                                                                                                              |
 | AKResonantFilter                       | ResonantFilter                     | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AKResourcesAudioFileLoaderView         | -                                  | We have removed most of UI elements that were not specific to audio.                                                                                         |
 | AKReverb                               | Reverb                             | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
@@ -296,11 +296,11 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 | AKWhiteNoise                           | WhiteNoise                         |                                                                                                                                                              |
 | AKZitaReverb                           | ZitaReverb                         | All effects need an input. ie. no more empty initialzers with connections defined later.                                                                     |
 | AudioKit                               | -                                  | This was a global singleton, instead create an instance of AudioEngine.                                                                                      |
-| AudioKitUI                             | -                                  | No longer need to import AudioKitUI. Whatever user interface elements we provide will be in AudioKit.                                                        |
+| AudioKitUI                             | -                                  | [Separate package](https://github.com/AudioKit/AudioKitUI)                                                                                                 |
 | ClipMergeDelegate                      | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | ClipMergerError                        | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | ClipRecordingError                     | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
 | FileClip                               | -                                  | Original programmer hired by Apple and not available for maintaining.                                                                                        |
-| MultitouchGestureRecognizer            | MultitouchGestureRecognizer        | Original programmer hired by Apple and not available for maintaining.                                                                                        |
+| MultitouchGestureRecognizer            | MultitouchGestureRecognizer        |                                                                                       |
 | random(_:_:)                           | -                                  | Use AUValue's random(in:) method.                                                                                                                            |
 

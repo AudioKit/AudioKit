@@ -340,59 +340,6 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 }
 
-void DSPBase::installTap() {
-    tapCount++;
-}
-
-void DSPBase::removeTap() {
-    if (tapCount > 0) { tapCount--; }
-}
-
-bool DSPBase::getTapData(size_t frames, float* leftData, float* rightData) {
-    // Consume bytes and return arrays
-
-    int availableBytes = 0;
-    float *data = (float*) TPCircularBufferTail(&leftBuffer, &availableBytes);
-    int n = availableBytes / sizeof(float);
-    if (n < frames) { return false; }
-    for(int i = 0; i < frames; i++) {
-        leftData[i] = data[i];
-    }
-
-    data = (float*) TPCircularBufferTail(&rightBuffer, &availableBytes);
-    n = availableBytes / sizeof(float);
-    if (n < frames) { return false; }
-    for(int i = 0; i < frames; i++) {
-        rightData[i] = data[i];
-    }
-
-    filledTapCount++;
-
-    if (filledTapCount >= tapCount) {
-        TPCircularBufferConsume(&leftBuffer, (int32_t)(frames * sizeof(float)));
-        TPCircularBufferConsume(&rightBuffer, (int32_t)(frames * sizeof(float)));
-        filledTapCount = 0;
-    }
-
-    return true;
-}
-
 void akSetSeed(unsigned int seed) {
     srand(seed);
-}
-
-AK_API void akInstallTap(DSPRef dspRef) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    dsp->installTap();
-}
-AK_API void akRemoveTap(DSPRef dspRef) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    dsp->removeTap();
-}
-AK_API bool akGetTapData(DSPRef dspRef, size_t frames, float* leftData, float* rightData) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    return dsp->getTapData(frames, leftData, rightData);
 }

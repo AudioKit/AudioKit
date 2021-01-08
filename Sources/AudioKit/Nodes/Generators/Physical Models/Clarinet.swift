@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Clarinet
 ///
-public class Clarinet: Node, AudioUnitContainer, Tappable, Toggleable {
+public class Clarinet: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "clar"
     public static let ComponentDescription = AudioComponentDescription(instrument: "clar")

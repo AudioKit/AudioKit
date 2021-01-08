@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK TubularBells
 ///
-public class TubularBells: Node, AudioUnitContainer, Tappable, Toggleable {
+public class TubularBells: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "tbel"
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")

@@ -311,6 +311,26 @@ class NodeTests: XCTestCase {
         exampleStop()
     }
 
+    func testAutomationAfterDelayedConnection() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let osc2 = Oscillator()
+        let mixer = Mixer()
+        let events = [AutomationEvent(targetValue: 1320, startTime: 0.0, rampDuration: 0.5)]
+        engine.output = mixer
+        mixer.addInput(osc)
+        let audio = engine.startTest(totalDuration: 2.0)
+        osc.play()
+        osc.$frequency.automate(events: events)
+        audio.append(engine.render(duration: 1.0))
+        mixer.removeInput(osc)
+        mixer.addInput(osc2)
+        osc2.play()
+        osc2.$frequency.automate(events: events)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {

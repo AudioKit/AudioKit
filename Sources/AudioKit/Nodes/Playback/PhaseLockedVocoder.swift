@@ -7,7 +7,7 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class PhaseLockedVocoder: Node, AudioUnitContainer, Tappable, Toggleable {
+public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "minc"
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")

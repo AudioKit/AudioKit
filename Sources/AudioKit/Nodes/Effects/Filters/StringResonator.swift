@@ -10,7 +10,7 @@ import CAudioKit
 /// of the “string” is controlled by the fundamentalFrequency.  
 /// This operation can be used to simulate sympathetic resonances to an input signal.
 /// 
-public class StringResonator: Node, AudioUnitContainer, Tappable, Toggleable {
+public class StringResonator: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "stre"
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")

@@ -10,7 +10,7 @@ import CAudioKit
 /// or 60dB down from its original amplitude). Output from a comb filter will appear
 /// only after loopDuration seconds.
 /// 
-public class CombFilterReverb: Node, AudioUnitContainer, Tappable, Toggleable {
+public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "comb"
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")

@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK RhodesPiano
 ///
-public class RhodesPianoKey: Node, AudioUnitContainer, Tappable, Toggleable {
+public class RhodesPianoKey: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "rhds"
     public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
