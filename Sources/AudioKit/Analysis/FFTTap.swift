@@ -73,21 +73,25 @@ open class FFTTap: BaseTap {
                 var magnitudes = [Float](repeating: 0.0, count: inputCount)
                 vDSP_zvmags(&output, 1, &magnitudes, 1, vDSP_Length(inputCount))
 
+                var scaledMagnitudes = [Float](repeating: 0.0, count: inputCount)
+                
+                // Scale appropriate to the algorithm - results in strictly negative amplitude values (tested against Ableton Live's Spectrum Analyzer)
+                var scaleMultiplier = [Float(1.0 / Double(frameCount))];
+                
                 if isNormalized {
                     // Normalising
-                    var normalizedMagnitudes = [Float](repeating: 0.0, count: inputCount)
-                    vDSP_vsmul(&magnitudes,
-                               1,
-                               [1.0 / (magnitudes.max() ?? 1.0)],
-                               &normalizedMagnitudes,
-                               1,
-                               vDSP_Length(inputCount))
-
-                    vDSP_destroy_fftsetup(fftSetup)
-                    return normalizedMagnitudes
+                    scaleMultiplier = [1.0 / (magnitudes.max() ?? 1.0)]
                 }
+                
+                vDSP_vsmul(&magnitudes,
+                           1,
+                           &scaleMultiplier,
+                           &scaledMagnitudes,
+                           1,
+                           vDSP_Length(inputCount))
+                
                 vDSP_destroy_fftsetup(fftSetup)
-                return magnitudes
+                return scaledMagnitudes
             }
         }
     }
