@@ -115,7 +115,6 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
     {
 
         assert( (outputBusNumber == 0) && "We don't yet support multiple output busses" );
-        printf("dspBase frameCount is %u\n", frameCount);
         if (pullInputBlock) {
             if (bCanProcessInPlace && inputBufferLists.size() == 1) {
                 // pull input directly to output buffer
