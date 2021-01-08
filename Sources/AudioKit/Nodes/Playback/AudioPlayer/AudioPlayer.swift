@@ -181,7 +181,11 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - when: What time to schedule for. A value of nil means now or will
     ///   use a pre-existing scheduled time.
-    public func play(at when: AVAudioTime? = nil) {
+    ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
+    public func play(
+        at when: AVAudioTime? = nil, 
+        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
+    ) {
         guard !isPlaying || isPaused else { return }
 
         guard playerNode.engine != nil else {
@@ -192,7 +196,7 @@ public class AudioPlayer: Node {
         if when != nil { scheduleTime = nil }
 
         if !isScheduled {
-            schedule(at: when)
+            schedule(at: when, completionCallbackType: completionCallbackType)
         }
 
         playerNode.play()
@@ -233,12 +237,16 @@ extension AudioPlayer {
     /// or the player will call it when play() is called to load the audio data
     /// - Parameters:
     ///   - when: What time to schedule for
-    public func schedule(at when: AVAudioTime? = nil) {
+    ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
+    public func schedule(
+        at when: AVAudioTime? = nil, 
+        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
+    ) {
         if isBuffered, let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
                                       at: nil,
                                       options: bufferOptions,
-                                      completionCallbackType: .dataPlayedBack) { _ in
+                                      completionCallbackType: completionCallbackType) { _ in
                 self.internalCompletionHandler()
             }
             scheduleTime = when ?? AVAudioTime.now()
@@ -246,7 +254,7 @@ extension AudioPlayer {
         } else if let file = file {
             playerNode.scheduleFile(file,
                                     at: when,
-                                    completionCallbackType: .dataPlayedBack) { _ in
+                                    completionCallbackType: completionCallbackType) { _ in
                 self.internalCompletionHandler()
             }
             scheduleTime = when ?? AVAudioTime.now()
