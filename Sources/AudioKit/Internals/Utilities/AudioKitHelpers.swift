@@ -284,7 +284,7 @@ extension Sequence where Self.Element: Equatable {
 
 extension String {
     /// Useful fo converting camel case enums to UI strings
-    func titleCase() -> String {
+    public func titleCase() -> String {
         return self
             .replacingOccurrences(of: "([A-Z])",
                                   with: " $1",
