@@ -52,6 +52,8 @@ public class AudioEngine {
     let _input = InputNode()
 
     /// Input for microphone or other device is created when this is accessed
+    /// If adjusting AudioKit.Settings, do so before setting up the microphone.
+    /// Setting the .defaultToSpeaker option in AudioKit.Settings.session.setCategory after setting up your mic can cause the AVAudioEngine to stop running.
     public var input: InputNode? {
         if #available(macOS 10.14, *) {
             guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
