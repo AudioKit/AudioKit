@@ -22,7 +22,7 @@ public class AmplitudeTap: BaseTap {
     public var rightAmplitude: Float {
         return amp[1]
     }
-    
+
     /// Determines if the returned amplitude value is the rms or peak value
     public var mode: AnalysisMode = .rms
 
