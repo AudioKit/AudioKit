@@ -34,7 +34,10 @@ public class AmplitudeTap: BaseTap {
     /// - parameter bufferSize: Size of buffer to analyze
     /// - parameter handler: Code to call with new amplitudes
     /// - parameter mode: rms or peak returned amplitudes
-    public init(_ input: Node, bufferSize: UInt32 = 1_024, mode: AnalysisMode = .rms, handler: @escaping (Float) -> Void = { _ in }) {
+    public init(_ input: Node,
+                bufferSize: UInt32 = 1_024,
+                mode: AnalysisMode = .rms,
+                handler: @escaping (Float) -> Void = { _ in }) {
         self.handler = handler
         self.mode = mode
         super.init(input, bufferSize: bufferSize)
