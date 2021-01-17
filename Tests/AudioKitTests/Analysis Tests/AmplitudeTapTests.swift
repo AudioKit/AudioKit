@@ -41,5 +41,43 @@ class AmplitudeTapTests: XCTestCase {
             XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
         }
     }
+    
+    func testPeakAnalysisMode() {
+
+        let engine = AudioEngine()
+
+        var amplitudes: [Float] = []
+
+        let sine = OperationGenerator {
+            let amplitude = Operation.sineWave(frequency: 0.25, amplitude: 1)
+            return Operation.sineWave() * amplitude }
+
+        engine.output = sine
+        sine.start()
+
+        let expect = expectation(description: "wait for amplitudes")
+
+        let tap = AmplitudeTap(sine) { amp in
+            amplitudes.append(amp)
+
+            if amplitudes.count == 10 {
+                expect.fulfill()
+            }
+        }
+        tap.mode = .peak
+        tap.start()
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+
+        wait(for: [expect], timeout: 5.0)
+
+        let knownValues: [Float] = [0.03505735, 0.07213809, 0.10766032, 0.1430245, 0.17815503,
+                                    0.2166785, 0.251323, 0.2855623, 0.3196378, 0.3532541]
+        for i in 0..<knownValues.count {
+            XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
+        }
+    }
 
 }
