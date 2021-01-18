@@ -11,14 +11,15 @@ private extension MIDIEventList.Builder {
 }
 
 // simple test sender only for testing, will not work on simulator
-@available(iOS 14.0, OSX 11.0, *)
 class TestSender {
     var client: MIDIClientRef = 0
     var source: MIDIEndpointRef = 0
 
     init() {
         MIDIClientCreateWithBlock("TestClient" as CFString, &client, nil)
-        MIDISourceCreateWithProtocol(client, "TestSender" as CFString, ._1_0, &source)
+        if #available(iOS 14.0, OSX 11.0, *) {
+            MIDISourceCreateWithProtocol(client, "TestSender" as CFString, ._1_0, &source)
+        }
     }
 
     deinit {
@@ -27,10 +28,12 @@ class TestSender {
     }
 
     func send(words: [UInt32]) {
-        let builder = MIDIEventList.Builder(inProtocol: ._1_0)
-        builder.append(timestamp: mach_absolute_time(), words: words)
-        _ = builder.withUnsafePointer {
-            MIDIReceivedEventList(source, $0)
+        if #available(iOS 14.0, OSX 11.0, *) {
+            let builder = MIDIEventList.Builder(inProtocol: ._1_0)
+            builder.append(timestamp: mach_absolute_time(), words: words)
+            _ = builder.withUnsafePointer {
+                MIDIReceivedEventList(source, $0)
+            }
         }
     }
 
