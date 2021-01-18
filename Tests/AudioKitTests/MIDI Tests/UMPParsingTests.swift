@@ -5,18 +5,12 @@ import XCTest
 
 import CoreMIDI
 
-// this test needs OSX 11.0 to compile, don't use it for now
-
-#if false
-
-@available(iOS 14.0, OSX 11.0, *)
 extension TestSender {
     func send(_ messages: UMPSysex ...) {
         send(words: messages.flatMap(\.words))
     }
 }
 
-@available(iOS 14.0, OSX 11.0, *)
 class UMPParsingTests: XCTestCase {
 
     let midi = MIDI()
@@ -27,6 +21,11 @@ class UMPParsingTests: XCTestCase {
         #if os(iOS)
         throw XCTSkip("virtual outputs cannot be used on simulator")
         #endif
+        if #available(iOS 14.0, OSX 11.0, *) {
+
+        } else {
+            throw XCTSkip("test needs iOS 14.0 or OSX 11.0")
+        }
         midi.addListener(listener)
         midi.openInput(uid: sender.uniqueID)
     }
@@ -141,4 +140,3 @@ class UMPParsingTests: XCTestCase {
          */
     }
 }
-#endif
