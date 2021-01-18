@@ -4,7 +4,6 @@ import AudioKit
 import CoreMIDI
 import XCTest
 
-
 final class TestListener: MIDIListener {
     enum Message: Equatable {
 
