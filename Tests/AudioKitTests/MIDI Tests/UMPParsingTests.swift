@@ -122,7 +122,7 @@ class UMPParsingTests: XCTestCase {
     func testSimultaneousStreams() throws {
         throw XCTSkip("skip test for now: sysex joining is not thread safe")
 
-        // FIXME: this will fail for now because sysex joining is done via a single variable for all inputs
+        //  this will fail for now because sysex joining is done via a single variable for all inputs
 
         /*
         let senderTwo = TestSender()
