@@ -22,12 +22,11 @@ class UMPParsingTests: XCTestCase {
         throw XCTSkip("virtual outputs cannot be used on simulator")
         #endif
         if #available(iOS 14.0, OSX 11.0, *) {
-
+            midi.addListener(listener)
+            midi.openInput(uid: sender.uniqueID)
         } else {
-            throw XCTSkip("test needs iOS 14.0 or OSX 11.0")
+            throw XCTSkip("test needs OSX 11.0")
         }
-        midi.addListener(listener)
-        midi.openInput(uid: sender.uniqueID)
     }
 
     func testNoteOff() {
