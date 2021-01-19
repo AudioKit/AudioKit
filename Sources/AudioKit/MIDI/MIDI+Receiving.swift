@@ -203,7 +203,7 @@ extension MIDI {
         
         let umpSysExStatus = UMPSysEx7bitStatus(rawValue: getMSB(from: bytes[0])) // status byte
         let validBytesCount = getLSB(from: bytes[0]) // valid bytes count field
-        let validBytes = Array(bytes[1...Int(validBytesCount)])
+        let validBytes = Array(bytes[1..<1+Int(validBytesCount)])
         
         guard (umpSysExStatus != nil) else {
             Log("UMP SYSEX - Got unsupported UMPSysEx7bitStatus", log: OSLog.midi)
