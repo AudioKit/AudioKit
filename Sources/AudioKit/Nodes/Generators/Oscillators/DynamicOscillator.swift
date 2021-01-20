@@ -21,7 +21,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
 
     fileprivate var waveform: Table?
 
-    public var onSetWavetable: ([Float]) -> Void = { _ in }
+    public var wavetableUpdateHandler: ([Float]) -> Void = { _ in }
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -141,7 +141,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
     public func setWaveTable(waveform: Table) {
         self.internalAU!.setWavetable(waveform.content)
         self.waveform = waveform
-        self.onSetWavetable(waveform.content)
+        self.wavetableUpdateHandler(waveform.content)
     }
 
     /// Gets the floating point values stored in the oscillator's wavetable

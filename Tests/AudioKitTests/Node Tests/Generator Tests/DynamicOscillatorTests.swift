@@ -162,4 +162,43 @@ class DynamicOscillatorTests: XCTestCase {
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
+    
+    func testSetWavetable() {
+        let engine = AudioEngine()
+        let oscillator = DynamicOscillator(frequency: 400)
+        engine.output = oscillator
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        oscillator.setWaveTable(waveform: Table(.square))
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+    
+    func testGetWavetableValues() {
+        let engine = AudioEngine()
+        let oscillator = DynamicOscillator(waveform: Table(.square), frequency: 400)
+        let floats = oscillator.getWavetableValues()
+        XCTAssertEqual(floats, Table(.square).content)
+        engine.output = oscillator
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+    
+    func testWavetableUpdateHandler() {
+        let engine = AudioEngine()
+        var floats : [Float] = []
+        let oscillator = DynamicOscillator(waveform: Table(.square), frequency: 400)
+        oscillator.wavetableUpdateHandler = { newFloats in
+            floats = newFloats
+        }
+        engine.output = oscillator
+        oscillator.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        oscillator.setWaveTable(waveform: Table(.square))
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertEqual(floats, Table(.square).content)
+        testMD5(audio)
+    }
 }
