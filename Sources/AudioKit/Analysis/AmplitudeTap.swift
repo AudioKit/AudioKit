@@ -23,8 +23,11 @@ public class AmplitudeTap: BaseTap {
         return amp[1]
     }
 
+    /// Determines if the returned amplitude value is the left, right, or average of the two
+    public var stereoMode: StereoMode = .center
+
     /// Determines if the returned amplitude value is the rms or peak value
-    public var mode: AnalysisMode = .rms
+    public var analysisMode: AnalysisMode = .rms
 
     private var handler: (Float) -> Void = { _ in }
 
@@ -32,14 +35,18 @@ public class AmplitudeTap: BaseTap {
     ///
     /// - parameter input: Node to analyze
     /// - parameter bufferSize: Size of buffer to analyze
+    /// - parameter stereoMode: left, right, or average returned amplitudes
+    /// - parameter analysisMode: rms or peak returned amplitudes
     /// - parameter handler: Code to call with new amplitudes
-    /// - parameter mode: rms or peak returned amplitudes
+
     public init(_ input: Node,
                 bufferSize: UInt32 = 1_024,
-                mode: AnalysisMode = .rms,
+                stereoMode: StereoMode = .center,
+                analysisMode: AnalysisMode = .rms,
                 handler: @escaping (Float) -> Void = { _ in }) {
         self.handler = handler
-        self.mode = mode
+        self.stereoMode = stereoMode
+        self.analysisMode = analysisMode
         super.init(input, bufferSize: bufferSize)
     }
 
@@ -54,7 +61,7 @@ public class AmplitudeTap: BaseTap {
         for n in 0 ..< channelCount {
             let data = floatData[n]
 
-            if mode == .rms {
+            if analysisMode == .rms {
                 var rms: Float = 0
                 vDSP_rmsqv(data, 1, &rms, UInt(length))
                 amp[n] = rms
@@ -66,7 +73,14 @@ public class AmplitudeTap: BaseTap {
             }
         }
 
-        handler(amplitude)
+        switch stereoMode {
+        case .left:
+            handler(leftAmplitude)
+        case .right:
+            handler(rightAmplitude)
+        case .center:
+            handler(amplitude)
+        }
     }
 
     /// Remove the tap on the input
@@ -80,4 +94,10 @@ public class AmplitudeTap: BaseTap {
 public enum AnalysisMode {
     case rms
     case peak
+}
+
+public enum StereoMode {
+    case left
+    case right
+    case center
 }
