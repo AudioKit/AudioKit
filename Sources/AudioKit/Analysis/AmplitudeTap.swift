@@ -43,8 +43,7 @@ public class AmplitudeTap: BaseTap {
                 bufferSize: UInt32 = 1_024,
                 stereoMode: StereoMode = .center,
                 analysisMode: AnalysisMode = .rms,
-                handler: @escaping (Float) -> Void = { _ in })
-    {
+                handler: @escaping (Float) -> Void = { _ in }) {
         self.handler = handler
         self.stereoMode = stereoMode
         self.analysisMode = analysisMode
