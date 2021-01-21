@@ -41,7 +41,7 @@ class AmplitudeTapTests: XCTestCase {
             XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
         }
     }
-    
+
     func testLeftStereoMode() {
 
         let engine = AudioEngine()
@@ -79,7 +79,7 @@ class AmplitudeTapTests: XCTestCase {
             XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
         }
     }
-    
+
     func testRightStereoMode() {
 
         let engine = AudioEngine()
@@ -117,7 +117,7 @@ class AmplitudeTapTests: XCTestCase {
             XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
         }
     }
-    
+
     func testPeakAnalysisMode() {
 
         let engine = AudioEngine()
