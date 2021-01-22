@@ -13,7 +13,7 @@ void STKInstrumentDSP::reset() {
 }
 
 void STKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
-
+    isStarted = true;
     uint8_t status = midiEvent.data[0] & 0xF0;
 
     uint8_t veloc = midiEvent.data[2];
