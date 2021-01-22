@@ -10,7 +10,41 @@
 #include "soundpipe.h"
 #include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
-// MARK: BEGIN RMS Average Class
+/*
+ The objects marked Cyclone were derived from the Max/MSP Cyclone library source code.
+ The license for this code can be found below:
+ 
+ --------------------------------------------------------------------------------------------------------------
+ LICENSE.txt
+ --------------------------------------------------------------------------------------------------------------
+ 
+ Copyright (c) <2003-2020>, <Krzysztof Czaja, Fred Jan Kraan, Alexandre Porres, Derek Kwan, Matt Barber and others>
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+     * Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright
+       notice, this list of conditions and the following disclaimer in the
+       documentation and/or other materials provided with the distribution.
+     * Neither the name of the <organization> nor the
+       names of its contributors may be used to endorse or promote products
+       derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+// MARK: BEGIN Cyclone RMS
 #define AVERAGE_STACK    44100 //stack value
 #define AVERAGE_MAXBUF  882000 //max buffer size
 #define AVERAGE_DEFNPOINTS  100  /* CHECKME */
@@ -147,9 +181,9 @@ int rmsaverage_destroy(rmsaverage **x) {
     free(*x);
     return 1;
 }
-// MARK: END RMS Average Class
+// MARK: END Cyclone RMS
 
-// MARK: BEGIN Slide Class
+// MARK: BEGIN Cyclone Slide
 typedef struct {
     int x_slide_up;
     int x_slide_down;
@@ -223,7 +257,7 @@ int slide_destroy(slide **x) {
     free(*x);
     return 1;
 }
-// MARK: END Slide Class
+// MARK: END Cyclone Slide
 
 enum TransientShaperParameter : AUParameterAddress {
     TransientShaperParameterInputAmount,
@@ -236,16 +270,16 @@ class TransientShaperDSP : public SoundpipeDSPBase {
 private:
     int timer1;
 
-    rmsaverage *rmsAverage1L;
-    rmsaverage *rmsAverage1R;
-    rmsaverage *rmsAverage2L;
-    rmsaverage *rmsAverage2R;
-    slide *attackSlideUpL;
-    slide *attackSlideUpR;
-    slide *attackSlideDownL;
-    slide *attackSlideDownR;
-    slide *releaseSlideDownL;
-    slide *releaseSlideDownR;
+    rmsaverage *leftRMSAverage1;
+    rmsaverage *rightRMSAverage1;
+    rmsaverage *leftRMSAverage2;
+    rmsaverage *rightRMSAverage2;
+    slide *leftAttackSlideUp;
+    slide *rightAttackSlideUp;
+    slide *leftAttackSlideDown;
+    slide *rightAttackSlideDown;
+    slide *leftReleaseSlideDown;
+    slide *rightReleaseSlideDown;
 
     AudioKitCore::StereoDelay delay1;
 
@@ -276,28 +310,28 @@ public:
 
         timer1 = 0;
 
-        rmsaverage_create(&rmsAverage1L);
-        rmsaverage_init(rmsAverage1L, 441);
-        rmsaverage_create(&rmsAverage1R);
-        rmsaverage_init(rmsAverage1R, 441);
-        rmsaverage_create(&rmsAverage2L);
-        rmsaverage_init(rmsAverage2L, 882);
-        rmsaverage_create(&rmsAverage2R);
-        rmsaverage_init(rmsAverage2R, 882);
-        slide_create(&attackSlideUpL);
-        slide_init(attackSlideUpL, 882, 882);
-        slide_create(&attackSlideUpR);
-        slide_init(attackSlideUpR, 882, 882);
-        slide_create(&attackSlideDownL);
-        slide_init(attackSlideDownL, 882, 882);
-        slide_create(&attackSlideDownR);
-        slide_init(attackSlideDownR, 882, 882);
-        slide_create(&releaseSlideDownL);
-        slide_init(releaseSlideDownL, 882, 44100);
-        slide_create(&releaseSlideDownR);
-        slide_init(releaseSlideDownR, 882, 44100);
+        rmsaverage_create(&leftRMSAverage1);
+        rmsaverage_init(leftRMSAverage1, 441);
+        rmsaverage_create(&rightRMSAverage1);
+        rmsaverage_init(rightRMSAverage1, 441);
+        rmsaverage_create(&leftRMSAverage2);
+        rmsaverage_init(leftRMSAverage2, 882);
+        rmsaverage_create(&rightRMSAverage2);
+        rmsaverage_init(rightRMSAverage2, 882);
+        slide_create(&leftAttackSlideUp);
+        slide_init(leftAttackSlideUp, 882, 0);
+        slide_create(&rightAttackSlideUp);
+        slide_init(rightAttackSlideUp, 882, 0);
+        slide_create(&leftAttackSlideDown);
+        slide_init(leftAttackSlideDown, 0, 882);
+        slide_create(&rightAttackSlideDown);
+        slide_init(rightAttackSlideDown, 0, 882);
+        slide_create(&leftReleaseSlideDown);
+        slide_init(leftReleaseSlideDown, 0, 44100);
+        slide_create(&rightReleaseSlideDown);
+        slide_init(rightReleaseSlideDown, 0, 44100);
 
-        delay1.init(sampleRate, 2000);
+        delay1.init(sampleRate, 10);
     }
 
     void deinit() override {
@@ -305,16 +339,16 @@ public:
 
         timer1 = 0;
 
-        rmsaverage_destroy(&rmsAverage1L);
-        rmsaverage_destroy(&rmsAverage1R);
-        rmsaverage_destroy(&rmsAverage2L);
-        rmsaverage_destroy(&rmsAverage2R);
-        slide_destroy(&attackSlideUpL);
-        slide_destroy(&attackSlideUpR);
-        slide_destroy(&attackSlideDownL);
-        slide_destroy(&attackSlideDownR);
-        slide_destroy(&releaseSlideDownL);
-        slide_destroy(&releaseSlideDownR);
+        rmsaverage_destroy(&leftRMSAverage1);
+        rmsaverage_destroy(&rightRMSAverage1);
+        rmsaverage_destroy(&leftRMSAverage2);
+        rmsaverage_destroy(&rightRMSAverage2);
+        slide_destroy(&leftAttackSlideUp);
+        slide_destroy(&rightAttackSlideUp);
+        slide_destroy(&leftAttackSlideDown);
+        slide_destroy(&rightAttackSlideDown);
+        slide_destroy(&leftReleaseSlideDown);
+        slide_destroy(&rightReleaseSlideDown);
 
         delay1.deinit();
     }
@@ -324,26 +358,26 @@ public:
 
         timer1 = 0;
 
-        rmsaverage_create(&rmsAverage1L);
-        rmsaverage_init(rmsAverage1L, 441);
-        rmsaverage_create(&rmsAverage1R);
-        rmsaverage_init(rmsAverage1R, 441);
-        rmsaverage_create(&rmsAverage2L);
-        rmsaverage_init(rmsAverage2L, 882);
-        rmsaverage_create(&rmsAverage2R);
-        rmsaverage_init(rmsAverage2R, 882);
-        slide_create(&attackSlideUpL);
-        slide_init(attackSlideUpL, 882, 882);
-        slide_create(&attackSlideUpR);
-        slide_init(attackSlideUpR, 882, 882);
-        slide_create(&attackSlideDownL);
-        slide_init(attackSlideDownL, 882, 882);
-        slide_create(&attackSlideDownR);
-        slide_init(attackSlideDownR, 882, 882);
-        slide_create(&releaseSlideDownL);
-        slide_init(releaseSlideDownL, 882, 44100);
-        slide_create(&releaseSlideDownR);
-        slide_init(releaseSlideDownR, 882, 44100);
+        rmsaverage_create(&leftRMSAverage1);
+        rmsaverage_init(leftRMSAverage1, 441);
+        rmsaverage_create(&rightRMSAverage1);
+        rmsaverage_init(rightRMSAverage1, 441);
+        rmsaverage_create(&leftRMSAverage2);
+        rmsaverage_init(leftRMSAverage2, 882);
+        rmsaverage_create(&rightRMSAverage2);
+        rmsaverage_init(rightRMSAverage2, 882);
+        slide_create(&leftAttackSlideUp);
+        slide_init(leftAttackSlideUp, 882, 0);
+        slide_create(&rightAttackSlideUp);
+        slide_init(rightAttackSlideUp, 882, 0);
+        slide_create(&leftAttackSlideDown);
+        slide_init(leftAttackSlideDown, 0, 882);
+        slide_create(&rightAttackSlideDown);
+        slide_init(rightAttackSlideDown, 0, 882);
+        slide_create(&leftReleaseSlideDown);
+        slide_init(leftReleaseSlideDown, 0, 44100);
+        slide_create(&rightReleaseSlideDown);
+        slide_init(rightReleaseSlideDown, 0, 44100);
 
         delay1.clear();
     }
@@ -362,12 +396,12 @@ public:
 
     int compute_attackLR(float *inChannels[2],
                          float *outChannels[2],
-                         rmsaverage *averageL,
-                         rmsaverage *averageR,
-                         slide *slideupL,
-                         slide *slideupR,
-                         slide *slidedownL,
-                         slide *slidedownR,
+                         rmsaverage *leftAverage,
+                         rmsaverage *rightAverage,
+                         slide *leftSlideUp,
+                         slide *rightSlideUp,
+                         slide *leftSlideDown,
+                         slide *rightSlideDown,
                          const int frameOffset)
     {
         for (int channel = 0; channel < channelCount; ++channel) {
@@ -384,8 +418,8 @@ public:
             }
         }
 
-        rmsaverage_compute(averageL, inChannels[0], outChannels[0]);
-        rmsaverage_compute(averageR, inChannels[1], outChannels[1]);
+        rmsaverage_compute(leftAverage, inChannels[0], outChannels[0]);
+        rmsaverage_compute(rightAverage, inChannels[1], outChannels[1]);
 
         // Mix Left and Right Channel (on left channel) and half them
         *outChannels[0] = (*outChannels[0] + *outChannels[1]) * 0.5;
@@ -396,8 +430,8 @@ public:
         // Copy this signal for later comparison
         float attackMixCopy = *outChannels[0];
 
-        slide_compute(slideupL, inChannels[0], outChannels[0]);
-        slide_compute(slideupR, inChannels[1], outChannels[1]);
+        slide_compute(leftSlideUp, inChannels[0], outChannels[0]);
+        slide_compute(rightSlideUp, inChannels[1], outChannels[1]);
 
         // Make channels equivalent again
         if (*outChannels[0] != *outChannels[1])
@@ -421,17 +455,17 @@ public:
         *outChannels[1] = comparator1 * subtractedMix1;
 
         // MARK: END Logic
-        slide_compute(attackSlideDownL, inChannels[0], outChannels[0]);
-        slide_compute(attackSlideDownR, inChannels[1], outChannels[1]);
+        slide_compute(leftAttackSlideDown, inChannels[0], outChannels[0]);
+        slide_compute(rightAttackSlideDown, inChannels[1], outChannels[1]);
         return 1;
     }
 
     int compute_releaseLR(float *inChannels[2],
                          float *outChannels[2],
-                         rmsaverage *averageL,
-                         rmsaverage *averageR,
-                         slide *slidedownL,
-                         slide *slidedownR,
+                         rmsaverage *leftAverage,
+                         rmsaverage *rightAverage,
+                         slide *leftSlideDown,
+                         slide *rightSlideDown,
                          const int frameOffset)
     {
         for (int channel = 0; channel < channelCount; ++channel) {
@@ -448,8 +482,8 @@ public:
             }
         }
 
-        rmsaverage_compute(averageL, inChannels[0], outChannels[0]);
-        rmsaverage_compute(averageR, inChannels[1], outChannels[1]);
+        rmsaverage_compute(leftAverage, inChannels[0], outChannels[0]);
+        rmsaverage_compute(rightAverage, inChannels[1], outChannels[1]);
 
         // Mix Left and Right Channel (on left channel) and half them
         *outChannels[0] = (*outChannels[0] + *outChannels[1]) * 0.5;
@@ -460,8 +494,8 @@ public:
         // Copy this signal for later comparison
         float releaseMixCopy = *outChannels[0];
 
-        slide_compute(slidedownL, inChannels[0], outChannels[0]);
-        slide_compute(slidedownR, inChannels[1], outChannels[1]);
+        slide_compute(leftSlideDown, inChannels[0], outChannels[0]);
+        slide_compute(rightSlideDown, inChannels[1], outChannels[1]);
 
         // Make channels equivalent again
         if (*outChannels[0] != *outChannels[1])
@@ -506,12 +540,12 @@ public:
             float *tmpoutattack[2];
             float *tmpinrelease[2];
             float *tmpoutrelease[2];
-            float *tmpOutMixL;
-            float tmpOutMixValL;
-            tmpOutMixL = &tmpOutMixValL;
-            float *tmpOutMixR;
-            float tmpOutMixValR;
-            tmpOutMixR = &tmpOutMixValR;
+            float *lefttmpOutMix;
+            float lefttmpOutMixVal;
+            lefttmpOutMix = &lefttmpOutMixVal;
+            float *righttmpOutMix;
+            float righttmpOutMixVal;
+            righttmpOutMix = &righttmpOutMixVal;
 
             // get input volume
             float inputAmount = inputAmountRamp.getAndStep();
@@ -525,52 +559,52 @@ public:
             float attackA = attackAmountRamp.getAndStep() * 2.5;
             float releaseA = releaseAmountRamp.getAndStep() * 2.5;
 
-            float *attackOutL;
-            float attackL;
-            attackOutL = &attackL;
-            float *attackOutR;
-            float attackR;
-            attackOutR = &attackR;
+            float *leftAttackOut;
+            float leftAttack;
+            leftAttackOut = &leftAttack;
+            float *rightAttackOut;
+            float rightAttack;
+            rightAttackOut = &rightAttack;
 
-            float *releaseOutL;
-            float releaseL;
-            releaseOutL = &releaseL;
-            float *releaseOutR;
-            float releaseR;
-            releaseOutR = &releaseR;
+            float *leftReleaseOut;
+            float leftRelease;
+            leftReleaseOut = &leftRelease;
+            float *rightReleaseOut;
+            float rightRelease;
+            rightReleaseOut = &rightRelease;
 
-            tmpoutattack[0] = attackOutL;
-            tmpoutattack[1] = attackOutR;
-            tmpoutrelease[0] = releaseOutL;
-            tmpoutrelease[1] = releaseOutR;
+            tmpoutattack[0] = leftAttackOut;
+            tmpoutattack[1] = rightAttackOut;
+            tmpoutrelease[0] = leftReleaseOut;
+            tmpoutrelease[1] = rightReleaseOut;
 
-            compute_attackLR(tmpinattack, tmpoutattack, rmsAverage1L, rmsAverage1R, attackSlideUpL, attackSlideUpR, attackSlideDownL, attackSlideDownR, frameOffset);
+            compute_attackLR(tmpinattack, tmpoutattack, leftRMSAverage1, rightRMSAverage1, leftAttackSlideUp, rightAttackSlideUp, leftAttackSlideDown, rightAttackSlideDown, frameOffset);
 
-            compute_releaseLR(tmpinrelease, tmpoutrelease, rmsAverage2L, rmsAverage2R, releaseSlideDownL, releaseSlideDownR, frameOffset);
+            compute_releaseLR(tmpinrelease, tmpoutrelease, leftRMSAverage2, rightRMSAverage2, leftReleaseSlideDown, rightReleaseSlideDown, frameOffset);
 
-            *tmpoutattack[0] = *attackOutL * attackA;
-            *tmpoutattack[1] = *attackOutR * attackA;
-            *tmpoutrelease[0] = *releaseOutL * releaseA;
-            *tmpoutrelease[1] = *releaseOutR * releaseA;
+            *tmpoutattack[0] = *leftAttackOut * attackA;
+            *tmpoutattack[1] = *rightAttackOut * attackA;
+            *tmpoutrelease[0] = *leftReleaseOut * releaseA;
+            *tmpoutrelease[1] = *rightReleaseOut * releaseA;
 
             // mix release and attack
-            *tmpOutMixL = *tmpoutattack[0] + *tmpoutrelease[0];
-            *tmpOutMixR = *tmpoutattack[1] + *tmpoutrelease[1];
+            *lefttmpOutMix = *tmpoutattack[0] + *tmpoutrelease[0];
+            *righttmpOutMix = *tmpoutattack[1] + *tmpoutrelease[1];
 
             // convert decibels to amplitude
-            *tmpOutMixL = pow(10., *tmpOutMixL / 20.0);
-            *tmpOutMixR = pow(10., *tmpOutMixR / 20.0);
+            *lefttmpOutMix = pow(10., *lefttmpOutMix / 20.0);
+            *righttmpOutMix = pow(10., *righttmpOutMix / 20.0);
 
             // reduce/increase output decibels
 
             float output = outputAmountRamp.getAndStep();
 
-            *tmpOutMixL = *tmpOutMixL * pow(10., output / 20.0);
-            *tmpOutMixR = *tmpOutMixR * pow(10., output / 20.0);
+            *lefttmpOutMix = *lefttmpOutMix * pow(10., output / 20.0);
+            *righttmpOutMix = *righttmpOutMix * pow(10., output / 20.0);
 
             // multiply delay buffers by the mix
-            *outBuffers[0] = *outBuffers[0] * *tmpOutMixL;
-            *outBuffers[1] = *outBuffers[1] * *tmpOutMixR;
+            *outBuffers[0] = *outBuffers[0] * *lefttmpOutMix;
+            *outBuffers[1] = *outBuffers[1] * *righttmpOutMix;
 
             inBuffers[0]++;
             inBuffers[1]++;
