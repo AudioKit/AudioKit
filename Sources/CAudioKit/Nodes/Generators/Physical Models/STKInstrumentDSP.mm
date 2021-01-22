@@ -2,7 +2,9 @@
 
 #include "STKInstrumentDSP.hpp"
 
-STKInstrumentDSP::STKInstrumentDSP() : DSPBase(/*inputBusCount*/0) { }
+STKInstrumentDSP::STKInstrumentDSP() : DSPBase(/*inputBusCount*/0) {
+    isStarted = false;
+}
 
 void STKInstrumentDSP::reset() {
     if(auto instr = getInstrument()) {
