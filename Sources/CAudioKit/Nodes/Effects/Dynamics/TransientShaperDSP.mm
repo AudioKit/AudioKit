@@ -268,8 +268,6 @@ enum TransientShaperParameter : AUParameterAddress {
 
 class TransientShaperDSP : public SoundpipeDSPBase {
 private:
-    int timer1;
-
     rmsaverage *leftRMSAverage1;
     rmsaverage *rightRMSAverage1;
     rmsaverage *leftRMSAverage2;
@@ -308,8 +306,6 @@ public:
     void init(int channelCount, double sampleRate) override {
         SoundpipeDSPBase::init(channelCount, sampleRate);
 
-        timer1 = 0;
-
         rmsaverage_create(&leftRMSAverage1);
         rmsaverage_init(leftRMSAverage1, 441);
         rmsaverage_create(&rightRMSAverage1);
@@ -337,8 +333,6 @@ public:
     void deinit() override {
         SoundpipeDSPBase::deinit();
 
-        timer1 = 0;
-
         rmsaverage_destroy(&leftRMSAverage1);
         rmsaverage_destroy(&rightRMSAverage1);
         rmsaverage_destroy(&leftRMSAverage2);
@@ -355,8 +349,6 @@ public:
 
     void reset() override {
         SoundpipeDSPBase::reset();
-
-        timer1 = 0;
 
         rmsaverage_create(&leftRMSAverage1);
         rmsaverage_init(leftRMSAverage1, 441);
@@ -378,6 +370,8 @@ public:
         slide_init(leftReleaseSlideDown, 0, 44100);
         slide_create(&rightReleaseSlideDown);
         slide_init(rightReleaseSlideDown, 0, 44100);
+
+        delay1.init(sampleRate, 10);
 
         delay1.clear();
     }
