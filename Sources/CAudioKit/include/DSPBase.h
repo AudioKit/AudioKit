@@ -67,7 +67,6 @@ protected:
     size_t tapCount = 0;
     size_t filledTapCount = 0;
 
-    // To support AKAudioUnit functions
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
 

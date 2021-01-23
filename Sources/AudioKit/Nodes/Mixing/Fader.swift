@@ -19,8 +19,8 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     /// Amplification Factor, from 0 ... 4
     open var gain: AUValue = 1 {
         willSet {
-            leftGain = gain
-            rightGain = gain
+            leftGain = newValue
+            rightGain = newValue
         }
     }
 
