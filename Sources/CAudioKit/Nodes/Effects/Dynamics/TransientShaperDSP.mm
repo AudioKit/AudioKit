@@ -1,13 +1,7 @@
-//
-//  TransientShaperDSP.m
-//  CAudioKit
-//
-//  Created by Evan Murray on 1/6/21.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "SoundpipeDSPBase.h"
+#include "DSPBase.h"
 #include "ParameterRamper.h"
-#include "soundpipe.h"
 #include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
 /*
@@ -266,7 +260,7 @@ enum TransientShaperParameter : AUParameterAddress {
     TransientShaperParameterOutputAmount,
 };
 
-class TransientShaperDSP : public SoundpipeDSPBase {
+class TransientShaperDSP : public DSPBase {
 private:
     rmsaverage *leftRMSAverage1;
     rmsaverage *rightRMSAverage1;
@@ -296,15 +290,15 @@ public:
     }
 
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
-        SoundpipeDSPBase::setParameter(address, value, immediate);
+        DSPBase::setParameter(address, value, immediate);
     }
 
     float getParameter(uint64_t address) override {
-        return SoundpipeDSPBase::getParameter(address);
+        return DSPBase::getParameter(address);
     }
 
     void init(int channelCount, double sampleRate) override {
-        SoundpipeDSPBase::init(channelCount, sampleRate);
+        DSPBase::init(channelCount, sampleRate);
 
         rmsaverage_create(&leftRMSAverage1);
         rmsaverage_init(leftRMSAverage1, 441);
@@ -331,7 +325,7 @@ public:
     }
 
     void deinit() override {
-        SoundpipeDSPBase::deinit();
+        DSPBase::deinit();
 
         rmsaverage_destroy(&leftRMSAverage1);
         rmsaverage_destroy(&rightRMSAverage1);
@@ -348,7 +342,7 @@ public:
     }
 
     void reset() override {
-        SoundpipeDSPBase::reset();
+        DSPBase::reset();
 
         rmsaverage_create(&leftRMSAverage1);
         rmsaverage_init(leftRMSAverage1, 441);

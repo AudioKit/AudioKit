@@ -1,9 +1,4 @@
-//
-//  TransientShaper.swift
-//  AudioKit
-//
-//  Created by Evan Murray on 1/6/21.
-//
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 import CAudioKit
