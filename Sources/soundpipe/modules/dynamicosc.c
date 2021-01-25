@@ -1,16 +1,3 @@
-/*
- * Osc
- *
- * This code has been extracted from the Csound opcode "oscili".
- * It has been modified to work as a Soundpipe module.
- * It has been further modified to take a table as an input to the compute function
- *
- * Original Author(s): Barry Vercoe, John FFitch, Robin Whittle
- * Year: 1991
- * Location: OOps/ugens2.c
- *
- */
-
 #include <stdlib.h>
 #include <math.h>
 #include "soundpipe.h"
