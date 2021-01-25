@@ -393,7 +393,7 @@ public:
                          const int frameOffset)
     {
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             float *out = (float *)outChannels[channel];
             float *basicout = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
@@ -473,8 +473,8 @@ public:
         *outChannels[1] = comparator1 * subtractedMix1;
 
         // MARK: END Logic
-        slide_compute(leftAttackSlideDown, outChannels[0], outChannels[0]);
-        slide_compute(rightAttackSlideDown, outChannels[1], outChannels[1]);
+        slide_compute(leftSlideDown, outChannels[0], outChannels[0]);
+        slide_compute(rightSlideDown, outChannels[1], outChannels[1]);
         return 1;
     }
 
@@ -487,7 +487,7 @@ public:
                          const int frameOffset)
     {
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData + frameOffset;
             float *out = (float *)outChannels[channel];
             float *basicout = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
@@ -584,16 +584,16 @@ public:
             delay1.setFeedback(0.0);
             delay1.setDryWetMix(0.0);
 
-            float *tmpinattack[2];
-            float *tmpoutattack[2];
-            float *tmpinrelease[2];
-            float *tmpoutrelease[2];
-            float *lefttmpOutMix;
-            float lefttmpOutMixVal;
-            lefttmpOutMix = &lefttmpOutMixVal;
-            float *righttmpOutMix;
-            float righttmpOutMixVal;
-            righttmpOutMix = &righttmpOutMixVal;
+            float *tmpAttackIn[2];
+            float *tmpAttackOut[2];
+            float *tmpReleaseIn[2];
+            float *tmpReleaseOut[2];
+            float *tmpLeftMixOut;
+            float tmpLeftMixOutVal;
+            tmpLeftMixOut = &tmpLeftMixOutVal;
+            float *tmpRightMixOut;
+            float tmpRightMixOutVal;
+            tmpRightMixOut = &tmpRightMixOutVal;
 
             // get input volume
             float inputAmount = inputAmountRamp.getAndStep();
@@ -602,57 +602,67 @@ public:
             *outBuffers[0] = *outBuffers[0] * pow(10., inputAmount / 20.0);
             *outBuffers[1]= *outBuffers[1] * pow(10., inputAmount / 20.0);
 
-            delay1.render(1, inBuffers, outBuffers);
-
             float attackA = attackAmountRamp.getAndStep() * 2.5;
             float releaseA = releaseAmountRamp.getAndStep() * 2.5;
 
             float *leftAttackOut;
-            float leftAttack;
-            leftAttackOut = &leftAttack;
+            float leftAttackOutVal;
+            leftAttackOut = &leftAttackOutVal;
             float *rightAttackOut;
-            float rightAttack;
-            rightAttackOut = &rightAttack;
+            float rightAttackOutVal;
+            rightAttackOut = &rightAttackOutVal;
 
             float *leftReleaseOut;
-            float leftRelease;
-            leftReleaseOut = &leftRelease;
+            float leftReleaseOutVal;
+            leftReleaseOut = &leftReleaseOutVal;
             float *rightReleaseOut;
-            float rightRelease;
-            rightReleaseOut = &rightRelease;
+            float rightReleaseOutVal;
+            rightReleaseOut = &rightReleaseOutVal;
 
-            tmpoutattack[0] = leftAttackOut;
-            tmpoutattack[1] = rightAttackOut;
-            tmpoutrelease[0] = leftReleaseOut;
-            tmpoutrelease[1] = rightReleaseOut;
+            tmpAttackOut[0] = leftAttackOut;
+            tmpAttackOut[1] = rightAttackOut;
+            tmpReleaseOut[0] = leftReleaseOut;
+            tmpReleaseOut[1] = rightReleaseOut;
 
-            compute_attackLR(tmpinattack, tmpoutattack, leftRMSAverage1, rightRMSAverage1, leftAttackSlideUp, rightAttackSlideUp, leftAttackSlideDown, rightAttackSlideDown, frameOffset);
+            compute_attackLR(tmpAttackIn, tmpAttackOut, leftRMSAverage1, rightRMSAverage1, leftAttackSlideUp, rightAttackSlideUp, leftAttackSlideDown, rightAttackSlideDown, frameOffset);
 
-            compute_releaseLR(tmpinrelease, tmpoutrelease, leftRMSAverage2, rightRMSAverage2, leftReleaseSlideDown, rightReleaseSlideDown, frameOffset);
+            compute_releaseLR(tmpReleaseIn, tmpReleaseOut, leftRMSAverage2, rightRMSAverage2, leftReleaseSlideDown, rightReleaseSlideDown, frameOffset);
 
-            *tmpoutattack[0] = *leftAttackOut * attackA;
-            *tmpoutattack[1] = *rightAttackOut * attackA;
-            *tmpoutrelease[0] = *leftReleaseOut * releaseA;
-            *tmpoutrelease[1] = *rightReleaseOut * releaseA;
+            *tmpAttackOut[0] = *leftAttackOut * attackA;
+            *tmpAttackOut[1] = *rightAttackOut * attackA;
+            *tmpReleaseOut[0] = *leftReleaseOut * releaseA;
+            *tmpReleaseOut[1] = *rightReleaseOut * releaseA;
 
             // mix release and attack
-            *lefttmpOutMix = *tmpoutattack[0] + *tmpoutrelease[0];
-            *righttmpOutMix = *tmpoutattack[1] + *tmpoutrelease[1];
+            *tmpRightMixOut = *tmpAttackOut[0] + *tmpReleaseOut[0];
+            *tmpLeftMixOut = *tmpAttackOut[1] + *tmpReleaseOut[1];
 
             // convert decibels to amplitude
-            *lefttmpOutMix = pow(10., *lefttmpOutMix / 20.0);
-            *righttmpOutMix = pow(10., *righttmpOutMix / 20.0);
+            *tmpLeftMixOut = pow(10., *tmpLeftMixOut / 20.0);
+            *tmpRightMixOut = pow(10., *tmpRightMixOut / 20.0);
 
             // reduce/increase output decibels
 
             float output = outputAmountRamp.getAndStep();
 
-            *lefttmpOutMix = *lefttmpOutMix * pow(10., output / 20.0);
-            *righttmpOutMix = *righttmpOutMix * pow(10., output / 20.0);
+            *tmpLeftMixOut = *tmpLeftMixOut * pow(10., output / 20.0);
+            *tmpRightMixOut = *tmpRightMixOut * pow(10., output / 20.0);
+
+            float *tmpDelayOut[2];
+            float *leftDelayOut;
+            float leftDelayOutVal;
+            leftDelayOut = &leftDelayOutVal;
+            float *rightDelayOut;
+            float rightDelayOutVal;
+            rightDelayOut = &rightDelayOutVal;
+            tmpDelayOut[0] = leftDelayOut;
+            tmpDelayOut[1] = rightDelayOut;
+
+            delay1.render(1, inBuffers, tmpDelayOut);
 
             // multiply delay buffers by the mix
-            *outBuffers[0] = *outBuffers[0] * *lefttmpOutMix;
-            *outBuffers[1] = *outBuffers[1] * *righttmpOutMix;
+            *outBuffers[0] = *tmpDelayOut[0] * *tmpLeftMixOut;
+            *outBuffers[1] = *tmpDelayOut[1] * *tmpRightMixOut;
 
             inBuffers[0]++;
             inBuffers[1]++;
