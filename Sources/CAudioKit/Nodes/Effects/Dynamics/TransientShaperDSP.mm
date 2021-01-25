@@ -406,33 +406,63 @@ public:
             }
         }
 
-        rmsaverage_compute(leftAverage, inChannels[0], outChannels[0]);
-        rmsaverage_compute(rightAverage, inChannels[1], outChannels[1]);
+        float *tmpRMSOut[2];
+        float *leftRMSOut;
+        float leftRMS;
+        leftRMSOut = &leftRMS;
+        float *rightRMSOut;
+        float rightRMS;
+        rightRMSOut = &rightRMS;
+        tmpRMSOut[0] = leftRMSOut;
+        tmpRMSOut[1] = rightRMSOut;
+
+        rmsaverage_compute(leftAverage, inChannels[0], tmpRMSOut[0]);
+        rmsaverage_compute(rightAverage, inChannels[1], tmpRMSOut[1]);
+
+        float *tmpMixOut[2];
+        float *leftMixOut;
+        float leftMix;
+        leftMixOut = &leftMix;
+        float *rightMixOut;
+        float rightMix;
+        rightMixOut = &rightMix;
+        tmpMixOut[0] = leftMixOut;
+        tmpMixOut[1] = rightMixOut;
 
         // Mix Left and Right Channel (on left channel) and half them
-        *outChannels[0] = (*outChannels[0] + *outChannels[1]) * 0.5;
+        *tmpMixOut[0] = (*tmpRMSOut[0] + *tmpRMSOut[1]) * 0.5;
 
         // Set the channels equal
-        *outChannels[0] = *outChannels[1];
-        
-        // Copy this signal for later comparison
-        float attackMixCopy = *outChannels[0];
+        *tmpMixOut[1] = *tmpMixOut[0];
 
-        slide_compute(leftSlideUp, inChannels[0], outChannels[0]);
-        slide_compute(rightSlideUp, inChannels[1], outChannels[1]);
+        // Copy this signal for later comparison
+        float attackMixCopy = *tmpMixOut[0];
+
+        float *tmpSlideOut[2];
+        float *leftSlideOut;
+        float leftSlide;
+        leftSlideOut = &leftSlide;
+        float *rightSlideOut;
+        float rightSlide;
+        rightSlideOut = &rightSlide;
+        tmpSlideOut[0] = leftSlideOut;
+        tmpSlideOut[1] = rightSlideOut;
+
+        slide_compute(leftSlideUp, tmpMixOut[0], tmpSlideOut[0]);
+        slide_compute(rightSlideUp, tmpMixOut[1], tmpSlideOut[1]);
 
         // Make channels equivalent again
-        if (*outChannels[0] != *outChannels[1])
-            *outChannels[0] = *outChannels[1];
-        float slideMixCopy = *outChannels[0];
+        if (*tmpSlideOut[0] != *tmpSlideOut[1])
+            *tmpSlideOut[0] = *tmpSlideOut[1];
+        float slideMixCopy = *tmpSlideOut[0];
 
         // MARK: BEGIN Logic
 
-        slideMixCopy = slideMixCopy + 0.0; // FIXME: later replace this with attack sensitivity
+        float slideToCompare = slideMixCopy + 0.0; // FIXME: later replace this with attack sensitivity
         
         float comparator1 = 0.0;
 
-        if (attackMixCopy >= slideMixCopy)
+        if (attackMixCopy >= slideToCompare)
             comparator1 = 1.0;
         else
             comparator1 = 0.0;
@@ -443,8 +473,8 @@ public:
         *outChannels[1] = comparator1 * subtractedMix1;
 
         // MARK: END Logic
-        slide_compute(leftAttackSlideDown, inChannels[0], outChannels[0]);
-        slide_compute(rightAttackSlideDown, inChannels[1], outChannels[1]);
+        slide_compute(leftAttackSlideDown, outChannels[0], outChannels[0]);
+        slide_compute(rightAttackSlideDown, outChannels[1], outChannels[1]);
         return 1;
     }
 
@@ -470,33 +500,63 @@ public:
             }
         }
 
-        rmsaverage_compute(leftAverage, inChannels[0], outChannels[0]);
-        rmsaverage_compute(rightAverage, inChannels[1], outChannels[1]);
+        float *tmpRMSOut[2];
+        float *leftRMSOut;
+        float leftRMS;
+        leftRMSOut = &leftRMS;
+        float *rightRMSOut;
+        float rightRMS;
+        rightRMSOut = &rightRMS;
+        tmpRMSOut[0] = leftRMSOut;
+        tmpRMSOut[1] = rightRMSOut;
+
+        rmsaverage_compute(leftAverage, inChannels[0], tmpRMSOut[0]);
+        rmsaverage_compute(rightAverage, inChannels[1], tmpRMSOut[1]);
+
+        float *tmpMixOut[2];
+        float *leftMixOut;
+        float leftMix;
+        leftMixOut = &leftMix;
+        float *rightMixOut;
+        float rightMix;
+        rightMixOut = &rightMix;
+        tmpMixOut[0] = leftMixOut;
+        tmpMixOut[1] = rightMixOut;
 
         // Mix Left and Right Channel (on left channel) and half them
-        *outChannels[0] = (*outChannels[0] + *outChannels[1]) * 0.5;
+        *tmpMixOut[0] = (*tmpRMSOut[0] + *tmpRMSOut[1]) * 0.5;
 
         // Set the channels equal
-        *outChannels[0] = *outChannels[1];
+        *tmpMixOut[1] = *tmpMixOut[0];
         
         // Copy this signal for later comparison
-        float releaseMixCopy = *outChannels[0];
+        float releaseMixCopy = *tmpMixOut[0];
 
-        slide_compute(leftSlideDown, inChannels[0], outChannels[0]);
-        slide_compute(rightSlideDown, inChannels[1], outChannels[1]);
+        float *tmpSlideOut[2];
+        float *leftSlideOut;
+        float leftSlide;
+        leftSlideOut = &leftSlide;
+        float *rightSlideOut;
+        float rightSlide;
+        rightSlideOut = &rightSlide;
+        tmpSlideOut[0] = leftSlideOut;
+        tmpSlideOut[1] = rightSlideOut;
+
+        slide_compute(leftSlideDown, tmpMixOut[0], tmpSlideOut[0]);
+        slide_compute(rightSlideDown, tmpMixOut[1], tmpSlideOut[1]);
 
         // Make channels equivalent again
-        if (*outChannels[0] != *outChannels[1])
-            *outChannels[0] = *outChannels[1];
-        float slideMixCopy = *outChannels[0];
+        if (*tmpSlideOut[0] != *tmpSlideOut[1])
+            *tmpSlideOut[0] = *tmpSlideOut[1];
+        float slideMixCopy = *tmpSlideOut[0];
 
         // MARK: BEGIN Logic
 
-        slideMixCopy = slideMixCopy + 0.0; // FIXME: later replace this with release sensitivity
+        float slideToCompare = slideMixCopy + 0.0; // FIXME: later replace this with release sensitivity
         
         float comparator1 = 0.0;
 
-        if (releaseMixCopy <= slideMixCopy)
+        if (releaseMixCopy <= slideToCompare)
             comparator1 = 1.0;
         else
             comparator1 = 0.0;
