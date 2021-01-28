@@ -151,21 +151,21 @@ void computebltriangle(bltriangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLO
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_bltriangle *p = ui_interface;
+    sp_bltriangle *p = (sp_bltriangle *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_bltriangle_create(sp_bltriangle **p)
 {
-    *p = malloc(sizeof(sp_bltriangle));
+    *p = (sp_bltriangle*)malloc(sizeof(sp_bltriangle));
     return SP_OK;
 }
 
 int sp_bltriangle_destroy(sp_bltriangle **p)
 {
     sp_bltriangle *pp = *p;
-    bltriangle *dsp = pp->ud;
+    bltriangle *dsp = (bltriangle *)pp->ud;
     deletebltriangle (dsp);
     free(*p);
     return SP_OK;
@@ -191,7 +191,7 @@ int sp_bltriangle_init(sp_data *sp, sp_bltriangle *p)
 int sp_bltriangle_compute(sp_data *sp, sp_bltriangle *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    bltriangle *dsp = p->ud;
+    bltriangle *dsp = (bltriangle*)p->ud;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};

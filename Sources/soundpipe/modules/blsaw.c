@@ -119,21 +119,21 @@ void computeblsaw(blsaw* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outpu
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_blsaw *p = ui_interface;
+    sp_blsaw *p = (sp_blsaw *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_blsaw_create(sp_blsaw **p)
 {
-    *p = malloc(sizeof(sp_blsaw));
+    *p = (sp_blsaw*)malloc(sizeof(sp_blsaw));
     return SP_OK;
 }
 
 int sp_blsaw_destroy(sp_blsaw **p)
 {
     sp_blsaw *pp = *p;
-    blsaw *dsp = pp->ud;
+    blsaw *dsp = (blsaw *)pp->ud;
     deleteblsaw (dsp);
     free(*p);
     return SP_OK;
@@ -160,7 +160,7 @@ int sp_blsaw_init(sp_data *sp, sp_blsaw *p)
 int sp_blsaw_compute(sp_data *sp, sp_blsaw *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    blsaw *dsp = p->ud;
+    blsaw *dsp = (blsaw *)p->ud;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};

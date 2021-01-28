@@ -4,7 +4,7 @@
 
 int sp_tseg_create(sp_tseg **p)
 {
-    *p = malloc(sizeof(sp_tseg));
+    *p = (sp_tseg*)malloc(sizeof(sp_tseg));
     return SP_OK;
 }
 

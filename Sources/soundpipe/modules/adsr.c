@@ -6,7 +6,7 @@ enum { CLEAR, ATTACK, DECAY, SUSTAIN, RELEASE };
 
 int sp_adsr_create(sp_adsr **p)
 {
-    *p = malloc(sizeof(sp_adsr));
+    *p = (sp_adsr*)malloc(sizeof(sp_adsr));
     return SP_OK;
 }
 

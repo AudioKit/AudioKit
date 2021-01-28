@@ -1077,21 +1077,21 @@ static void computevocoder(vocoder* dsp, int count, FAUSTFLOAT** inputs, FAUSTFL
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_vocoder *p = ui_interface;
+    sp_vocoder *p = (sp_vocoder*)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_vocoder_create(sp_vocoder **p)
 {
-    *p = malloc(sizeof(sp_vocoder));
+    *p = (sp_vocoder*)malloc(sizeof(sp_vocoder));
     return SP_OK;
 }
 
 int sp_vocoder_destroy(sp_vocoder **p)
 {
     sp_vocoder *pp = *p;
-    vocoder *dsp = pp->faust;
+    vocoder *dsp = (vocoder*)pp->faust;
     deletevocoder (dsp);
     free(*p);
     return SP_OK;
@@ -1119,7 +1119,7 @@ int sp_vocoder_init(sp_data *sp, sp_vocoder *p)
 int sp_vocoder_compute(sp_data *sp, sp_vocoder *p, SPFLOAT *source, SPFLOAT *excite, SPFLOAT *out)
 {
 
-    vocoder *dsp = p->faust;
+    vocoder *dsp = (vocoder*)p->faust;
     SPFLOAT *faust_out[] = {out};
     SPFLOAT *faust_in[] = {source, excite};
     computevocoder(dsp, 1, faust_in, faust_out);

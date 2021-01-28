@@ -3,7 +3,7 @@
 
 int sp_tseq_create(sp_tseq **p)
 {
-    *p = malloc(sizeof(sp_tseq));
+    *p = (sp_tseq*)malloc(sizeof(sp_tseq));
     return SP_OK;
 }
 

@@ -3,7 +3,7 @@
 
 int sp_randh_create(sp_randh **p)
 {
-    *p = malloc(sizeof(sp_randh));
+    *p = (sp_randh*)malloc(sizeof(sp_randh));
     return SP_OK;
 }
 

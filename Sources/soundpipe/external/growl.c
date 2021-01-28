@@ -16,7 +16,7 @@ static const SPFLOAT formants[] = {
 void growl_create(growl_d **form)
 {
     int i;
-    *form = malloc(sizeof(growl_d));
+    *form = (growl_d*)malloc(sizeof(growl_d));
     growl_d *fp = *form;
     for(i = 0; i < 4; i++) {
         sp_reson_create(&fp->filt[i]);

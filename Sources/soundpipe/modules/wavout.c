@@ -13,7 +13,7 @@ struct sp_wavout {
 
 int sp_wavout_create(sp_wavout **p)
 {
-    *p = malloc(sizeof(sp_wavout));
+    *p = (sp_wavout *)malloc(sizeof(sp_wavout));
     return SP_OK;
 }
 

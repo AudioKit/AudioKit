@@ -98,7 +98,7 @@ static int newpulse(sp_data *sp,
 
 int sp_fof_create(sp_fof **p)
 {
-    *p = malloc(sizeof(sp_fof));
+    *p = (sp_fof*)malloc(sizeof(sp_fof));
     return SP_OK;
 }
 

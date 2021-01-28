@@ -27,7 +27,7 @@ static uint32_t ctz[64] =
 
 int sp_pinknoise_create(sp_pinknoise **p)
 {
-    *p = malloc(sizeof(sp_pinknoise));
+    *p = (sp_pinknoise*)malloc(sizeof(sp_pinknoise));
     return SP_OK;
 }
 

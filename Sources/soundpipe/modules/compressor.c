@@ -116,21 +116,21 @@ static void computecompressor(compressor* dsp, int count, FAUSTFLOAT** inputs, F
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_compressor *p = ui_interface;
+    sp_compressor *p = (sp_compressor *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_compressor_create(sp_compressor **p)
 {
-    *p = malloc(sizeof(sp_compressor));
+    *p = (sp_compressor*)malloc(sizeof(sp_compressor));
     return SP_OK;
 }
 
 int sp_compressor_destroy(sp_compressor **p)
 {
     sp_compressor *pp = *p;
-    compressor *dsp = pp->faust;
+    compressor *dsp = (compressor *)pp->faust;
     deletecompressor (dsp);
     free(*p);
     return SP_OK;
@@ -159,7 +159,7 @@ int sp_compressor_init(sp_data *sp, sp_compressor *p)
 int sp_compressor_compute(sp_data *sp, sp_compressor *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    compressor *dsp = p->faust;
+    compressor *dsp = (compressor *)p->faust;
     SPFLOAT *faust_out[] = {out};
     SPFLOAT *faust_in[] = {in};
     computecompressor(dsp, 1, faust_in, faust_out);

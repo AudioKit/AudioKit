@@ -6,7 +6,7 @@
 
 int nano_dict_add(nano_dict *dict, const char *name)
 {
-    nano_entry *entry = malloc(sizeof(nano_entry));
+    nano_entry *entry = (nano_entry*)malloc(sizeof(nano_entry));
     entry->size = 0;
     entry->speed = 1;
     entry->pos = 0;
@@ -20,7 +20,7 @@ int nano_dict_add(nano_dict *dict, const char *name)
 int nano_ini_handler(void *user, const char *section, const char *name,
         const char *value)
 {
-    nanosamp *ss = user;
+    nanosamp *ss = (nanosamp *)user;
     nano_dict *dict = &ss->dict;
     const char *entry_name = dict->last->name;
 
@@ -46,7 +46,7 @@ int nano_ini_handler(void *user, const char *section, const char *name,
 
 int nano_create(nanosamp **smp, const char *ini, int sr)
 {
-    *smp = malloc(sizeof(nanosamp));
+    *smp = (nanosamp*)malloc(sizeof(nanosamp));
     nanosamp *psmp = *smp;
     strcpy(psmp->ini, ini);
     psmp->dict.last = &psmp->dict.root;
@@ -164,7 +164,7 @@ int nano_destroy(nanosamp **smp)
 int nano_create_index(nanosamp *smp)
 {
     nano_dict *dict = &smp->dict;
-    smp->index = malloc(dict->nval * sizeof(nano_entry *));
+    smp->index = (nano_entry **)malloc(dict->nval * sizeof(nano_entry *));
     int i;
     nano_entry *entry, *next;
     entry = dict->root.next;
@@ -185,7 +185,7 @@ int nano_destroy_index(nanosamp *smp)
 
 int sp_nsmp_create(sp_nsmp **p)
 {
-    *p = malloc(sizeof(sp_nsmp));
+    *p = (sp_nsmp*)malloc(sizeof(sp_nsmp));
     return SP_OK;
 }
 

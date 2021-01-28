@@ -3,7 +3,7 @@
 
 int sp_count_create(sp_count **p)
 {
-    *p = malloc(sizeof(sp_count));
+    *p = (sp_count*)malloc(sizeof(sp_count));
     return SP_OK;
 }
 

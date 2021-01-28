@@ -16,7 +16,7 @@
 
 int sp_diode_create(sp_diode **p)
 {
-    *p = malloc(sizeof(sp_diode));
+    *p = (sp_diode*)malloc(sizeof(sp_diode));
     return SP_OK;
 }
 

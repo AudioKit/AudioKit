@@ -15,7 +15,7 @@
 
 int sp_tabread_create(sp_tabread **p)
 {
-    *p = malloc(sizeof(sp_tabread));
+    *p = (sp_tabread*)malloc(sizeof(sp_tabread));
     return SP_OK;
 }
 

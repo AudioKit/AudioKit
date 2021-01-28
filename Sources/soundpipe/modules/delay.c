@@ -4,7 +4,7 @@
 
 int sp_delay_create(sp_delay **p)
 {
-    *p = malloc(sizeof(sp_delay));
+    *p = (sp_delay*)malloc(sizeof(sp_delay));
     return SP_OK;
 }
 

@@ -5,7 +5,7 @@ static int sp_rpt_set(sp_rpt *p, SPFLOAT bpm, int div, int rep);
 
 int sp_rpt_create(sp_rpt **p)
 {
-    *p = malloc(sizeof(sp_rpt));
+    *p = (sp_rpt*)malloc(sizeof(sp_rpt));
     return SP_OK;
 }
 

@@ -3,7 +3,7 @@
 
 int sp_clamp_create(sp_clamp **p)
 {
-    *p = malloc(sizeof(sp_clamp));
+    *p = (sp_clamp*)malloc(sizeof(sp_clamp));
     return SP_OK;
 }
 

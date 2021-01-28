@@ -20,7 +20,7 @@
 
 int sp_butbr_create(sp_butbr **p)
 {
-    *p = malloc(sizeof(sp_butbr));
+    *p = (sp_butbr*)malloc(sizeof(sp_butbr));
     return SP_OK;
 }
 

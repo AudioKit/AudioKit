@@ -104,7 +104,7 @@ char * sporth_tokenizer(const char *str,
                 break;
         }
     }
-    out = malloc(sizeof(char) * offset + 1);
+    out = (char*)malloc(sizeof(char) * offset + 1);
     strncpy(out, &str[prev], offset);
     out[offset] = '\0';
     return out;
@@ -269,7 +269,7 @@ size_t sporth_getline(char **lineptr, size_t *n, FILE *stream) {
         return -1;
     }
     if (bufptr == NULL) {
-        bufptr = malloc(128);
+        bufptr = (char*)malloc(128);
         if (bufptr == NULL) {
             return -1;
         }
@@ -279,7 +279,7 @@ size_t sporth_getline(char **lineptr, size_t *n, FILE *stream) {
     while(c != EOF) {
         if ((p - bufptr) > (size - 1)) {
             size = size + 128;
-            bufptr = realloc(bufptr, size);
+            bufptr = (char*)realloc(bufptr, size);
             if (bufptr == NULL) {
                 return -1;
             }

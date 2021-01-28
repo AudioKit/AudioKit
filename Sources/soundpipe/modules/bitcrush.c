@@ -4,7 +4,7 @@
 
 int sp_bitcrush_create(sp_bitcrush **p)
 {
-    *p = malloc(sizeof(sp_bitcrush));
+    *p = (sp_bitcrush*)malloc(sizeof(sp_bitcrush));
     return SP_OK;
 }
 

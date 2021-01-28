@@ -44,7 +44,7 @@ static SPFLOAT noise_tick(sp_data *sp)
 
 int sp_drip_create(sp_drip **p)
 {
-    *p = malloc(sizeof(sp_drip));
+    *p = (sp_drip*)malloc(sizeof(sp_drip));
     return SP_OK;
 }
 

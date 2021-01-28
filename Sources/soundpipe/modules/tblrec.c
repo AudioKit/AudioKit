@@ -4,7 +4,7 @@
 
 int sp_tblrec_create(sp_tblrec **p)
 {
-    *p = malloc(sizeof(sp_tblrec));
+    *p = (sp_tblrec*)malloc(sizeof(sp_tblrec));
     return SP_OK;
 }
 

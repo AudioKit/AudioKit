@@ -15,7 +15,7 @@
 
 int sp_hilbert_create(sp_hilbert **p)
 {
-    *p = malloc(sizeof(sp_hilbert));
+    *p = (sp_hilbert*)malloc(sizeof(sp_hilbert));
     return SP_OK;
 }
 

@@ -31,7 +31,7 @@ static void bilinear_transform(SPFLOAT acoefs[], SPFLOAT dcoefs[], SPFLOAT fs)
 
 int sp_saturator_create(sp_saturator **p)
 {
-    *p = malloc(sizeof(sp_saturator));
+    *p = (sp_saturator*)malloc(sizeof(sp_saturator));
     return SP_OK;
 }
 

@@ -57,10 +57,13 @@ static FILE *fopen_utf8 (const char *filename_utf8, const char *mode_utf8);
 #endif
 #endif
 
-//#ifdef HAVE_FSEEKO
+#ifdef HAVE_FSEEKO
 #define fseek fseeko
 #define ftell ftello
-//#endif
+#else
+#define fseeko fseeko64
+#define ftello ftello64
+#endif
 
 static int32_t read_bytes (void *id, void *data, int32_t bcount)
 {
@@ -79,24 +82,24 @@ static int64_t get_pos (void *id)
 static int set_pos_abs (void *id, int64_t pos)
 {
 #ifdef _WIN32
-    return _fseeki64 (id, pos, SEEK_SET);
+    return _fseeki64 ((FILE*)id, pos, SEEK_SET);
 #else
-    return fseek (id, pos, SEEK_SET);
+    return fseek ((FILE*)id, pos, SEEK_SET);
 #endif
 }
 
 static int set_pos_rel (void *id, int64_t delta, int mode)
 {
 #ifdef _WIN32
-    return _fseeki64 (id, delta, mode);
+    return _fseeki64 ((FILE*)id, delta, mode);
 #else
-    return fseek (id, delta, mode);
+    return fseek ((FILE*)id, delta, mode);
 #endif
 }
 
 static int push_back_byte (void *id, int c)
 {
-    return ungetc (c, id);
+    return ungetc (c, (FILE*)id);
 }
 
 #ifdef _WIN32
@@ -125,7 +128,7 @@ static int64_t get_length (void *id)
 
 static int64_t get_length (void *id)
 {
-    FILE *file = id;
+    FILE *file = (FILE *)id;
     struct stat statbuf;
 
     if (!file || fstat (fileno (file), &statbuf) || !S_ISREG(statbuf.st_mode))
@@ -138,7 +141,7 @@ static int64_t get_length (void *id)
 
 static int can_seek (void *id)
 {
-    FILE *file = id;
+    FILE *file = (FILE *)id;
     struct stat statbuf;
 
     return file && !fstat (fileno (file), &statbuf) && S_ISREG(statbuf.st_mode);
@@ -163,7 +166,7 @@ static int truncate_here (void *id)
 
 static int truncate_here (void *id)
 {
-    FILE *file = id;
+    FILE *file = (FILE *)id;
     off_t curr_pos = ftell (file);
 
     return ftruncate (fileno (file), curr_pos);
@@ -224,7 +227,7 @@ static WavpackStreamReader64 freader = {
 
 WavpackContext *WavpackOpenFileInput (const char *infilename, char *error, int flags, int norm_offset)
 {
-    char *file_mode = (flags & OPEN_EDIT_TAGS) ? "r+b" : "rb";
+    const char *file_mode = (flags & OPEN_EDIT_TAGS) ? "r+b" : "rb";
     FILE *(*fopen_func)(const char *, const char *) = fopen;
     FILE *wv_id, *wvc_id;
 
@@ -248,7 +251,7 @@ WavpackContext *WavpackOpenFileInput (const char *infilename, char *error, int f
     }
 
     if (wv_id != stdin && (flags & OPEN_WVC)) {
-        char *in2filename = malloc (strlen (infilename) + 10);
+        char *in2filename = (char *)malloc (strlen (infilename) + 10);
 
         strcpy (in2filename, infilename);
         strcat (in2filename, "c");

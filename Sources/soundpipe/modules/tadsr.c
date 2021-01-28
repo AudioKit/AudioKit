@@ -110,7 +110,7 @@ static SPFLOAT ADSR_tick(sp_tadsr *a)
 
 int sp_tadsr_create(sp_tadsr **p)
 {
-    *p = malloc(sizeof(sp_tadsr));
+    *p = (sp_tadsr*)malloc(sizeof(sp_tadsr));
     return SP_OK;
 }
 

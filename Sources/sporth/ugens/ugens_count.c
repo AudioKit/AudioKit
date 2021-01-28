@@ -1,0 +1,62 @@
+#include "plumber.h"
+
+int sporth_count(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = (plumber_data *)ud;
+    SPFLOAT trig;
+    SPFLOAT out;
+    SPFLOAT count;
+    SPFLOAT mode;
+    sp_count *cnt;
+
+    switch(pd->mode) {
+        case PLUMBER_CREATE:
+
+#ifdef DEBUG_MODE
+            plumber_print(pd, "count: Creating\n");
+#endif
+
+            sp_count_create(&cnt);
+            plumber_add_ugen(pd, SPORTH_COUNT, cnt);
+            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
+                plumber_print(pd,"Not enough arguments for count\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            mode = sporth_stack_pop_float(stack);
+            count = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            plumber_print(pd, "count: Initialising\n");
+#endif
+            mode = sporth_stack_pop_float(stack);
+            count = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            cnt = (sp_count*)pd->last->ud;
+            sp_count_init(pd->sp, cnt);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_COMPUTE:
+            mode = sporth_stack_pop_float(stack);
+            count = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            cnt = (sp_count*)pd->last->ud;
+            cnt->count = count;
+            cnt->mode = mode;
+            sp_count_compute(pd->sp, cnt, &trig, &out);
+            sporth_stack_push_float(stack, out);
+            break;
+        case PLUMBER_DESTROY:
+            cnt = (sp_count*)pd->last->ud;
+            sp_count_destroy(&cnt);
+            break;
+        default:
+            plumber_print(pd, "count: Unknown mode!\n");
+            break;
+    }
+    return PLUMBER_OK;
+}

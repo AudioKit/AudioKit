@@ -4,7 +4,7 @@
 
 int sp_noise_create(sp_noise **ns)
 {
-    *ns = malloc(sizeof(sp_noise));
+    *ns = (sp_noise*)malloc(sizeof(sp_noise));
     return SP_OK;
 }
 

@@ -44,7 +44,7 @@ SPFLOAT wpk_doFilter(sp_wpkorg35 *wpk)
 
 int sp_wpkorg35_create(sp_wpkorg35 **p)
 {
-    *p = malloc(sizeof(sp_wpkorg35));
+    *p = (sp_wpkorg35 *)malloc(sizeof(sp_wpkorg35));
     return SP_OK;
 }
 

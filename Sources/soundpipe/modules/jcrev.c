@@ -292,14 +292,14 @@ void computejcrev(jcrev* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outpu
 
 int sp_jcrev_create(sp_jcrev **p)
 {
-    *p = malloc(sizeof(sp_jcrev));
+    *p = (sp_jcrev*)malloc(sizeof(sp_jcrev));
     return SP_OK;
 }
 
 int sp_jcrev_destroy(sp_jcrev **p)
 {
     sp_jcrev *pp = *p;
-    jcrev *dsp = pp->ud;
+    jcrev *dsp = (jcrev *)pp->ud;
     deletejcrev(dsp);
     free(*p);
     return SP_OK;
@@ -316,7 +316,7 @@ int sp_jcrev_init(sp_data *sp, sp_jcrev *p)
 int sp_jcrev_compute(sp_data *sp, sp_jcrev *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    jcrev *dsp = p->ud;
+    jcrev *dsp = (jcrev *)p->ud;
     SPFLOAT out1 = 0, out2 = 0, out3 = 0, out4 = 0;
     SPFLOAT *faust_out[] = {&out1, &out2, &out3, &out4};
     computejcrev(dsp, 1, &in, faust_out);

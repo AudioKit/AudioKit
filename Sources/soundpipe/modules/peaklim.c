@@ -21,7 +21,7 @@
 
 int sp_peaklim_create(sp_peaklim **p)
 {
-    *p = malloc(sizeof(sp_peaklim));
+    *p = (sp_peaklim*)malloc(sizeof(sp_peaklim));
     return SP_OK;
 }
 

@@ -21,7 +21,7 @@
 
 int sp_bar_create(sp_bar **p)
 {
-    *p = malloc(sizeof(sp_bar));
+    *p = (sp_bar*)malloc(sizeof(sp_bar));
     return SP_OK;
 }
 

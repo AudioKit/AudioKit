@@ -3,7 +3,7 @@
 
 int sp_tevent_create(sp_tevent **te)
 {
-    *te = malloc(sizeof(sp_tevent));
+    *te = (sp_tevent*)malloc(sizeof(sp_tevent));
     return SP_NOT_OK;
 }
 

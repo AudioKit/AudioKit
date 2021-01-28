@@ -23,7 +23,7 @@
 
 int sp_tone_create(sp_tone **t)
 {
-    *t = malloc(sizeof(sp_tone));
+    *t = (sp_tone*)malloc(sizeof(sp_tone));
     return SP_OK;
 }
 

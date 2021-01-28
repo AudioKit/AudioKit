@@ -1005,21 +1005,21 @@ static void computezitarev(zitarev* dsp, int count, FAUSTFLOAT** inputs, FAUSTFL
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_zitarev *p = ui_interface;
+    sp_zitarev *p = (sp_zitarev *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_zitarev_create(sp_zitarev **p)
 {
-    *p = malloc(sizeof(sp_zitarev));
+    *p = (sp_zitarev *)malloc(sizeof(sp_zitarev));
     return SP_OK;
 }
 
 int sp_zitarev_destroy(sp_zitarev **p)
 {
     sp_zitarev *pp = *p;
-    zitarev *dsp = pp->faust;
+    zitarev *dsp = (zitarev *)pp->faust;
     deletezitarev (dsp);
     free(*p);
     return SP_OK;
@@ -1054,7 +1054,7 @@ int sp_zitarev_init(sp_data *sp, sp_zitarev *p)
 int sp_zitarev_compute(sp_data *sp, sp_zitarev *p, SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2)
 {
 
-    zitarev *dsp = p->faust;
+    zitarev *dsp = (zitarev *)p->faust;
     SPFLOAT *faust_out[] = {out1, out2};
     SPFLOAT *faust_in[] = {in1, in2};
     computezitarev(dsp, 1, faust_in, faust_out);

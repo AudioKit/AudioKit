@@ -15,7 +15,7 @@
 #include "soundpipe.h"
 int sp_posc3_create(sp_posc3 **posc3)
 {
-    *posc3 = malloc(sizeof(sp_posc3));
+    *posc3 = (sp_posc3*)malloc(sizeof(sp_posc3));
     return SP_OK;
 }
 

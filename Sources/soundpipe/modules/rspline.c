@@ -22,7 +22,7 @@
 
 int sp_rspline_create(sp_rspline **p)
 {
-    *p = malloc(sizeof(sp_rspline));
+    *p = (sp_rspline*)malloc(sizeof(sp_rspline));
     return SP_OK;
 }
 

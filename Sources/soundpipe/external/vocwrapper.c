@@ -5,7 +5,7 @@
 int sp_vocwrapper_create(sp_vocwrapper **p)
 {
     sp_vocwrapper *pp;
-    *p = malloc(sizeof(sp_vocwrapper));
+    *p = (sp_vocwrapper *)malloc(sizeof(sp_vocwrapper));
     pp = *p;
     sp_voc_create(&pp->voc);
     return SP_OK;

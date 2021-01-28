@@ -3,7 +3,7 @@
 
 int sp_samphold_create(sp_samphold **p)
 {
-    *p = malloc(sizeof(sp_samphold));
+    *p = (sp_samphold*)malloc(sizeof(sp_samphold));
     return SP_OK;
 }
 

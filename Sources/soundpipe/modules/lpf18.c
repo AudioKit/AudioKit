@@ -16,7 +16,7 @@
 
 int sp_lpf18_create(sp_lpf18 **p)
 {
-    *p = malloc(sizeof(sp_lpf18));
+    *p = (sp_lpf18*)malloc(sizeof(sp_lpf18));
     return SP_OK;
 }
 

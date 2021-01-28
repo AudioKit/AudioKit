@@ -31,7 +31,7 @@ static SPFLOAT sp_jitter_birandgab(sp_data *sp)
 
 int sp_jitter_create(sp_jitter **p)
 {
-    *p = malloc(sizeof(sp_jitter));
+    *p = (sp_jitter*)malloc(sizeof(sp_jitter));
     return SP_OK;
 }
 

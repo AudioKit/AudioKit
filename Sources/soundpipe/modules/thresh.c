@@ -3,7 +3,7 @@
 
 int sp_thresh_create(sp_thresh **p)
 {
-    *p = malloc(sizeof(sp_thresh));
+    *p = (sp_thresh*)malloc(sizeof(sp_thresh));
     return SP_OK;
 }
 

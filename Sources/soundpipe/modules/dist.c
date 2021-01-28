@@ -16,7 +16,7 @@
 
 int sp_dist_create(sp_dist **p)
 {
-    *p = malloc(sizeof(sp_dist));
+    *p = (sp_dist*)malloc(sizeof(sp_dist));
     return SP_OK;
 }
 

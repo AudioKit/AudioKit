@@ -3,7 +3,7 @@
 
 int sp_timer_create(sp_timer **p)
 {
-    *p = malloc(sizeof(sp_timer));
+    *p = (sp_timer*)malloc(sizeof(sp_timer));
     return SP_OK;
 }
 

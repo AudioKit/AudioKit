@@ -133,21 +133,21 @@ void computeblsquare(blsquare* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT**
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_blsquare *p = ui_interface;
+    sp_blsquare *p = (sp_blsquare *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_blsquare_create(sp_blsquare **p)
 {
-    *p = malloc(sizeof(sp_blsquare));
+    *p = (sp_blsquare*)malloc(sizeof(sp_blsquare));
     return SP_OK;
 }
 
 int sp_blsquare_destroy(sp_blsquare **p)
 {
     sp_blsquare *pp = *p;
-    blsquare *dsp = pp->ud;
+    blsquare *dsp = (blsquare *)pp->ud;
     deleteblsquare (dsp);
     free(*p);
     return SP_OK;
@@ -174,7 +174,7 @@ int sp_blsquare_init(sp_data *sp, sp_blsquare *p)
 int sp_blsquare_compute(sp_data *sp, sp_blsquare *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    blsquare *dsp = p->ud;
+    blsquare *dsp = (blsquare *)p->ud;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};

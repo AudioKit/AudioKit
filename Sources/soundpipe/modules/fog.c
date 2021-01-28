@@ -97,7 +97,7 @@ static int newpulse(sp_data *sp, sp_fog *p, sp_fog_overlap *ovp, SPFLOAT amp,
 
 int sp_fog_create(sp_fog **p)
 {
-    *p = malloc(sizeof(sp_fog));
+    *p = (sp_fog*)malloc(sizeof(sp_fog));
     return SP_OK;
 }
 

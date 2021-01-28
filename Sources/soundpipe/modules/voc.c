@@ -599,7 +599,7 @@ static void tract_compute(sp_data *sp, tract *tr,
 
 int sp_voc_create(sp_voc **voc)
 {
-    *voc = malloc(sizeof(sp_voc));
+    *voc = (sp_voc*)malloc(sizeof(sp_voc));
     return SP_OK;
 }
 

@@ -218,7 +218,10 @@ static __inline__ __attribute__((always_inline)) bool TPCircularBufferProduceByt
 /*!
  * Deprecated method
  */
-static __inline__ __attribute__((always_inline)) __deprecated_msg("use TPCircularBufferSetAtomic(false) and TPCircularBufferConsume instead")
+static __inline__ __attribute__((always_inline))
+#ifdef __APPLE__
+__deprecated_msg("use TPCircularBufferSetAtomic(false) and TPCircularBufferConsume instead")
+#endif // __APPLE__
 void TPCircularBufferConsumeNoBarrier(TPCircularBuffer *buffer, int32_t amount) {
     buffer->tail = (buffer->tail + amount) % buffer->length;
     buffer->fillCount -= amount;
@@ -228,7 +231,10 @@ void TPCircularBufferConsumeNoBarrier(TPCircularBuffer *buffer, int32_t amount) 
 /*!
  * Deprecated method
  */
-static __inline__ __attribute__((always_inline)) __deprecated_msg("use TPCircularBufferSetAtomic(false) and TPCircularBufferProduce instead")
+static __inline__ __attribute__((always_inline))
+#ifdef __APPLE__
+__deprecated_msg("use TPCircularBufferSetAtomic(false) and TPCircularBufferProduce instead")
+#endif // __APPLE__
 void TPCircularBufferProduceNoBarrier(TPCircularBuffer *buffer, int32_t amount) {
     buffer->head = (buffer->head + amount) % buffer->length;
     buffer->fillCount += amount;

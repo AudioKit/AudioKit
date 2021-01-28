@@ -23,7 +23,7 @@
 
 int sp_pan2_create(sp_pan2 **p)
 {
-    *p = malloc(sizeof(sp_pan2));
+    *p = (sp_pan2*)malloc(sizeof(sp_pan2));
     return SP_OK;
 }
 

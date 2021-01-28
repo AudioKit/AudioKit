@@ -16,7 +16,7 @@
 
 int sp_expon_create(sp_expon **p)
 {
-    *p = malloc(sizeof(sp_expon));
+    *p = (sp_expon*)malloc(sizeof(sp_expon));
     return SP_OK;
 }
 

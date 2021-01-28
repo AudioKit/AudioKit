@@ -15,7 +15,7 @@
 
 int sp_fold_create(sp_fold **p)
 {
-    *p = malloc(sizeof(sp_fold));
+    *p = (sp_fold*)malloc(sizeof(sp_fold));
     return SP_OK;
 }
 

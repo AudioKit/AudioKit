@@ -429,7 +429,7 @@ static int append_ape_tag_item (WavpackContext *wpc, const char *item, const cha
 
         m_tag->ape_tag_hdr.item_count++;
         m_tag->ape_tag_hdr.length += new_item_len;
-        p = m_tag->ape_tag_data = realloc (m_tag->ape_tag_data, m_tag->ape_tag_hdr.length);
+        p = m_tag->ape_tag_data = (unsigned char *)realloc (m_tag->ape_tag_data, m_tag->ape_tag_hdr.length);
         p += m_tag->ape_tag_hdr.length - sizeof (APE_Tag_Hdr) - new_item_len;
 
         *p++ = (unsigned char) vsize;

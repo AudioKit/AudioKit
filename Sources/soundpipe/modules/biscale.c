@@ -3,7 +3,7 @@
 
 int sp_biscale_create(sp_biscale **p)
 {
-    *p = malloc(sizeof(sp_biscale));
+    *p = (sp_biscale*)malloc(sizeof(sp_biscale));
     return SP_OK;
 }
 

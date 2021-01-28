@@ -86,7 +86,7 @@ static void lpc(float *buf, float *car, uint32_t n, uint32_t o)
 
 int sp_talkbox_create(sp_talkbox **p)
 {
-    *p = malloc(sizeof(sp_talkbox));
+    *p = (sp_talkbox*)malloc(sizeof(sp_talkbox));
     return SP_OK;
 }
 

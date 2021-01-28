@@ -42,7 +42,7 @@ static double my_tanh(double x)
 }
 
 int sp_moogladder_create(sp_moogladder **t){
-    *t = malloc(sizeof(sp_moogladder));
+    *t = (sp_moogladder*)malloc(sizeof(sp_moogladder));
     return SP_OK;
 }
 

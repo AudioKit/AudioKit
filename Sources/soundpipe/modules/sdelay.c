@@ -3,7 +3,7 @@
 
 int sp_sdelay_create(sp_sdelay **p)
 {
-    *p = malloc(sizeof(sp_sdelay));
+    *p = (sp_sdelay *)malloc(sizeof(sp_sdelay));
     sp_sdelay *pp = *p;
     pp->size = 0;
     return SP_OK;
@@ -25,7 +25,7 @@ int sp_sdelay_init(sp_data *sp, sp_sdelay *p, int size)
 {
     int n;
     p->size = size;
-    p->buf = malloc(size * sizeof(SPFLOAT));
+    p->buf = (float *)malloc(size * sizeof(SPFLOAT));
     for(n = 0; n < p->size; n++) p->buf[n] = 0;
     p->pos = 0;
     return SP_OK;

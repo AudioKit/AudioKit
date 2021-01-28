@@ -3,7 +3,7 @@
 
 int sp_tenv_create(sp_tenv **p)
 {
-    *p = malloc(sizeof(sp_tenv));
+    *p = (sp_tenv*)malloc(sizeof(sp_tenv));
     sp_tenv *pp = *p;
     sp_tevent_create(&pp->te);
     return SP_OK;
@@ -19,7 +19,7 @@ int sp_tenv_destroy(sp_tenv **p)
 
 static void sp_tenv_reinit(void *ud)
 {
-    sp_tenv *env = ud;
+    sp_tenv *env = (sp_tenv*)ud;
     env->pos = 0;
     env->atk_end = env->sr * env->atk;
     env->rel_start = env->sr * (env->atk + env->hold);
@@ -30,7 +30,7 @@ static void sp_tenv_reinit(void *ud)
 
 static void sp_tenv_comp(void *ud, SPFLOAT *out)
 {
-    sp_tenv *env = ud;
+    sp_tenv *env = (sp_tenv*)ud;
     SPFLOAT sig = 0;
     uint32_t pos = env->pos;
     *out = 0.0;

@@ -2,10 +2,19 @@
 
 #pragma once
 
-#import <AVFoundation/AVFoundation.h>
+#if __APPLE__
+#import <AudioToolbox/AudioToolbox.h>
+#else // __APPLE__
+#include "AudioToolbox_NonApplePorting.h"
+#endif // __APPLE__
+
 #import "Interop.h"
 
+#if __APPLE__
 typedef NS_ENUM(AUParameterAddress, SynthParameter)
+#else // __APPLE__
+enum SynthParameter
+#endif // __APPLE__
 {
     // ramped parameters
     

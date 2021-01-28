@@ -14,7 +14,7 @@
 
 int sp_pdhalf_create(sp_pdhalf **p)
 {
-    *p = malloc(sizeof(sp_pdhalf));
+    *p = (sp_pdhalf*)malloc(sizeof(sp_pdhalf));
     return SP_OK;
 }
 

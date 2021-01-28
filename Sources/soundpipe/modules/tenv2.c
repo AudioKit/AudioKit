@@ -9,7 +9,7 @@ enum {
 
 int sp_tenv2_create(sp_tenv2 **p)
 {
-    *p = malloc(sizeof(sp_tenv2));
+    *p = (sp_tenv2*)malloc(sizeof(sp_tenv2));
     return SP_OK;
 }
 

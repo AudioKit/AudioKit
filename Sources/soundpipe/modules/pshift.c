@@ -100,21 +100,21 @@ static void computepshift(pshift* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOA
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_pshift *p = ui_interface;
+    sp_pshift *p = (sp_pshift *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_pshift_create(sp_pshift **p)
 {
-    *p = malloc(sizeof(sp_pshift));
+    *p = (sp_pshift*)malloc(sizeof(sp_pshift));
     return SP_OK;
 }
 
 int sp_pshift_destroy(sp_pshift **p)
 {
     sp_pshift *pp = *p;
-    pshift *dsp = pp->faust;
+    pshift *dsp = (pshift *)pp->faust;
     deletepshift (dsp);
     free(*p);
     return SP_OK;
@@ -142,7 +142,7 @@ int sp_pshift_init(sp_data *sp, sp_pshift *p)
 int sp_pshift_compute(sp_data *sp, sp_pshift *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    pshift *dsp = p->faust;
+    pshift *dsp = (pshift*)p->faust;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};

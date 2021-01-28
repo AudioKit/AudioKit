@@ -27,12 +27,18 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+
 #include "TPCircularBuffer.h"
+
+#ifdef __APPLE__
 #include <mach/mach.h>
+#endif // __APPLE__
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define reportResult(result,operation) (_reportResult((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
+#ifdef __APPLE__
 static inline bool _reportResult(kern_return_t result, const char *operation, const char* file, int line) {
     if ( result != ERR_SUCCESS ) {
         printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result));
@@ -40,6 +46,7 @@ static inline bool _reportResult(kern_return_t result, const char *operation, co
     }
     return true;
 }
+#endif // __APPLE__
 
 bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t structSize) {
 
@@ -54,6 +61,7 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
     int retries = 3;
     while ( true ) {
 
+#ifdef __APPLE__
         buffer->length = (int32_t)round_page(length);    // We need whole page sizes
 
         // Temporarily allocate twice the length, so we have the contiguous address space to
@@ -121,6 +129,10 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
             vm_deallocate(mach_task_self(), bufferAddress, buffer->length);
             continue;
         }
+#else // __APPLE__
+        buffer->length = 4096;    // We need whole page sizes
+        char* bufferAddress = (char*)calloc(buffer->length * 2, 1);
+#endif // __APPLE__
 
         buffer->buffer = (void*)bufferAddress;
         buffer->fillCount = 0;
@@ -133,7 +145,13 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
 }
 
 void TPCircularBufferCleanup(TPCircularBuffer *buffer) {
+#ifdef __APPLE__
     vm_deallocate(mach_task_self(), (vm_address_t)buffer->buffer, buffer->length * 2);
+#else // __APPLE__
+    if (buffer->buffer != nullptr) {
+      free(buffer->buffer);
+    }
+#endif // __APPLE__
     memset(buffer, 0, sizeof(TPCircularBuffer));
 }
 

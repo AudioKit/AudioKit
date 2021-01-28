@@ -22,7 +22,7 @@ struct sp_sndwarp_warpsection {
 
 int sp_sndwarp_create(sp_sndwarp **p)
 {
-    *p = malloc(sizeof(sp_sndwarp));
+    *p = (sp_sndwarp*)malloc(sizeof(sp_sndwarp));
     return SP_OK;
 }
 
@@ -52,7 +52,7 @@ int sp_sndwarp_init(sp_data *sp, sp_sndwarp *p,
     nsections = maxoverlap;
     p->overlap = maxoverlap;
     sp_auxdata_alloc(&p->auxch, (size_t)nsections*sizeof(sp_sndwarp_warpsection));
-    auxp = p->auxch.ptr;
+    auxp = (char*)p->auxch.ptr;
     p->nsections = nsections;
     p->exp = (sp_sndwarp_warpsection *)auxp;
 

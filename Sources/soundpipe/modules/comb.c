@@ -18,7 +18,7 @@
 
 int sp_comb_create(sp_comb **p)
 {
-    *p = malloc(sizeof(sp_comb));
+    *p = (sp_comb*)malloc(sizeof(sp_comb));
     return SP_OK;
 }
 

@@ -20,7 +20,7 @@
 
 int sp_atone_create(sp_atone **p)
 {
-    *p = malloc(sizeof(sp_atone));
+    *p = (sp_atone*)malloc(sizeof(sp_atone));
     return SP_OK;
 }
 

@@ -17,26 +17,26 @@ int plumber_ftmap_init(plumber_data *plumb)
 
 int plumber_ftmap_add(plumber_data *plumb, const char *str, sp_ftbl *ft)
 {
-    plumber_ftbl *new;
-    plumber_add(plumb, str, &new);
-    new->ud = (void *)ft;
-    new->type = PTYPE_TABLE;
+    plumber_ftbl *pNew;
+    plumber_add(plumb, str, &pNew);
+    pNew->ud = (void *)ft;
+    pNew->type = PTYPE_TABLE;
     return PLUMBER_OK;
 }
 
 int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
 {
-    plumber_ftbl *new;
-    plumber_add(plumb, str, &new);
-    new->ud = ud;
-    new->type = PTYPE_USERDATA;
+    plumber_ftbl *pNew;
+    plumber_add(plumb, str, &pNew);
+    pNew->ud = ud;
+    pNew->type = PTYPE_USERDATA;
     return PLUMBER_OK;
 }
 
 int plumber_ftmap_add_function(plumber_data *plumb,
         const char *str, plumber_dyn_func f, void *ud)
 {
-    sporth_fload_d *fd = malloc(sizeof(sporth_fload_d));
+    sporth_fload_d *fd = (sporth_fload_d*)malloc(sizeof(sporth_fload_d));
     fd->fun = f;
     fd->ud = ud;
     return plumber_ftmap_add_userdata(plumb, str, (void *)fd);

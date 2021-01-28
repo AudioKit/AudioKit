@@ -12,7 +12,7 @@
 
 int sp_brown_create(sp_brown **p)
 {
-    *p = malloc(sizeof(sp_brown));
+    *p = (sp_brown*)malloc(sizeof(sp_brown));
     return SP_OK;
 }
 

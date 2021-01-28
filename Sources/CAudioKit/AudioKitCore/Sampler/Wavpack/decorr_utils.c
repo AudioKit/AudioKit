@@ -32,7 +32,7 @@
 int read_decorr_terms (WavpackStream *wps, WavpackMetadata *wpmd)
 {
     int termcnt = wpmd->byte_length;
-    unsigned char *byteptr = wpmd->data;
+    unsigned char *byteptr = (unsigned char *)wpmd->data;
     struct decorr_pass *dpp;
 
     if (termcnt > MAX_NTERMS)
@@ -61,7 +61,7 @@ int read_decorr_terms (WavpackStream *wps, WavpackMetadata *wpmd)
 int read_decorr_weights (WavpackStream *wps, WavpackMetadata *wpmd)
 {
     int termcnt = wpmd->byte_length, tcount;
-    char *byteptr = wpmd->data;
+    char *byteptr = (char *)wpmd->data;
     struct decorr_pass *dpp;
 
     if (!(wps->wphdr.flags & MONO_DATA))
@@ -93,7 +93,7 @@ int read_decorr_weights (WavpackStream *wps, WavpackMetadata *wpmd)
 
 int read_decorr_samples (WavpackStream *wps, WavpackMetadata *wpmd)
 {
-    unsigned char *byteptr = wpmd->data;
+    unsigned char *byteptr = (unsigned char *)wpmd->data;
     unsigned char *endptr = byteptr + wpmd->byte_length;
     struct decorr_pass *dpp;
     int tcount;
@@ -171,14 +171,14 @@ int read_decorr_samples (WavpackStream *wps, WavpackMetadata *wpmd)
 int read_shaping_info (WavpackStream *wps, WavpackMetadata *wpmd)
 {
     if (wpmd->byte_length == 2) {
-        char *byteptr = wpmd->data;
+        char *byteptr = (char *)wpmd->data;
 
         wps->dc.shaping_acc [0] = (int32_t) restore_weight (*byteptr++) << 16;
         wps->dc.shaping_acc [1] = (int32_t) restore_weight (*byteptr++) << 16;
         return TRUE;
     }
     else if (wpmd->byte_length >= (wps->wphdr.flags & MONO_DATA ? 4 : 8)) {
-        unsigned char *byteptr = wpmd->data;
+        unsigned char *byteptr = (unsigned char *)wpmd->data;
 
         wps->dc.error [0] = wp_exp2s ((int16_t)(byteptr [0] + (byteptr [1] << 8)));
         wps->dc.shaping_acc [0] = wp_exp2s ((int16_t)(byteptr [2] + (byteptr [3] << 8)));

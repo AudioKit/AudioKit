@@ -24,7 +24,7 @@
 
 int sp_tbvcf_create(sp_tbvcf **p)
 {
-    *p = malloc(sizeof(sp_tbvcf));
+    *p = (sp_tbvcf*)malloc(sizeof(sp_tbvcf));
     return SP_OK;
 }
 

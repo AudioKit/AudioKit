@@ -12,7 +12,7 @@
 
 int sp_incr_create(sp_incr **p)
 {
-    *p = malloc(sizeof(sp_incr));
+    *p = (sp_incr*)malloc(sizeof(sp_incr));
     return SP_OK;
 }
 

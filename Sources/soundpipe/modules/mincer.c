@@ -20,7 +20,7 @@
 
 int sp_mincer_create(sp_mincer **p)
 {
-    *p = malloc(sizeof(sp_mincer));
+    *p = (sp_mincer*)malloc(sizeof(sp_mincer));
     return SP_OK;
 }
 

@@ -34,7 +34,7 @@ static int sp_butter_filter(SPFLOAT *in, SPFLOAT *out, SPFLOAT *a)
 
 int sp_butlp_create(sp_butlp **p)
 {
-    *p = malloc(sizeof(sp_butlp));
+    *p = (sp_butlp*)malloc(sizeof(sp_butlp));
     return SP_OK;
 }
 

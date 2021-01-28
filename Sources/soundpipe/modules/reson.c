@@ -21,7 +21,7 @@
 
 int sp_reson_create(sp_reson **p)
 {
-    *p = malloc(sizeof(sp_reson));
+    *p = (sp_reson*)malloc(sizeof(sp_reson));
     return SP_OK;
 }
 

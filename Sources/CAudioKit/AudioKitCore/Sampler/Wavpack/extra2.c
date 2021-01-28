@@ -595,7 +595,7 @@ static void analyze_stereo (WavpackContext *wpc, int32_t *samples, int do_sample
     info.nterms = wps->num_terms;
 
     for (i = 0; i < info.nterms + 2; ++i)
-        info.sampleptrs [i] = malloc (wps->wphdr.block_samples * 8);
+        info.sampleptrs [i] = (int32_t*)malloc (wps->wphdr.block_samples * 8);
 
     memcpy (info.dps, wps->decorr_passes, sizeof (info.dps));
     memcpy (info.sampleptrs [0], samples, wps->wphdr.block_samples * 8);
@@ -641,7 +641,7 @@ static void analyze_stereo (WavpackContext *wpc, int32_t *samples, int do_sample
 
 static void stereo_add_noise (WavpackStream *wps, int32_t *lptr, int32_t *rptr)
 {
-    int shaping_weight, new = wps->wphdr.flags & NEW_SHAPING;
+    int shaping_weight, pNew = wps->wphdr.flags & NEW_SHAPING;
     short *shaping_array = wps->dc.shaping_array;
     int32_t error [2], temp, cnt;
 
@@ -658,7 +658,7 @@ static void stereo_add_noise (WavpackStream *wps, int32_t *lptr, int32_t *rptr)
 
             temp = -apply_weight (shaping_weight, error [0]);
 
-            if (new && shaping_weight < 0 && temp) {
+            if (pNew && shaping_weight < 0 && temp) {
                 if (temp == error [0])
                     temp = (temp < 0) ? temp + 1 : temp - 1;
 
@@ -672,7 +672,7 @@ static void stereo_add_noise (WavpackStream *wps, int32_t *lptr, int32_t *rptr)
 
             temp = -apply_weight (shaping_weight, error [1]);
 
-            if (new && shaping_weight < 0 && temp) {
+            if (pNew && shaping_weight < 0 && temp) {
                 if (temp == error [1])
                     temp = (temp < 0) ? temp + 1 : temp - 1;
 
@@ -744,9 +744,9 @@ void execute_stereo (WavpackContext *wpc, int32_t *samples, int no_history, int 
     }
 
     CLEAR (save_decorr_passes);
-    temp_buffer [0] = malloc (buf_size);
-    temp_buffer [1] = malloc (buf_size);
-    best_buffer = malloc (buf_size);
+    temp_buffer [0] = (int32_t*)malloc (buf_size);
+    temp_buffer [1] = (int32_t*)malloc (buf_size);
+    best_buffer = (int32_t*)malloc (buf_size);
 
     if (wps->num_passes > 1 && (wps->wphdr.flags & HYBRID_FLAG)) {
         CLEAR (temp_decorr_pass);
@@ -766,7 +766,7 @@ void execute_stereo (WavpackContext *wpc, int32_t *samples, int no_history, int 
             num_samples > 2048 ? 2048 : num_samples, &temp_decorr_pass, -1);
 
         decorr_stereo_pass (temp_buffer [0], temp_buffer [1], num_samples, &temp_decorr_pass, 1);
-        noisy_buffer = malloc (buf_size);
+        noisy_buffer = (int32_t*)malloc (buf_size);
         memcpy (noisy_buffer, samples, buf_size);
         stereo_add_noise (wps, noisy_buffer, temp_buffer [1]);
         no_history = 1;
@@ -801,7 +801,7 @@ void execute_stereo (WavpackContext *wpc, int32_t *samples, int no_history, int 
                 if (!js_buffer) {
                     int32_t *lptr, cnt = num_samples;
 
-                    lptr = js_buffer = malloc (buf_size);
+                    lptr = js_buffer = (int32_t*)malloc (buf_size);
                     memcpy (js_buffer, noisy_buffer ? noisy_buffer : samples, buf_size);
 
                     while (cnt--) {

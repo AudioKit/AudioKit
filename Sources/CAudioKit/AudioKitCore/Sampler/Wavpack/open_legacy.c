@@ -24,49 +24,49 @@ typedef struct {
 
 static int32_t trans_read_bytes (void *id, void *data, int32_t bcount)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->read_bytes (trans->id, data, bcount);
 }
 
 static int32_t trans_write_bytes (void *id, void *data, int32_t bcount)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->write_bytes (trans->id, data, bcount);
 }
 
 static int64_t trans_get_pos (void *id)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->get_pos (trans->id);
 }
 
 static int trans_set_pos_abs (void *id, int64_t pos)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->set_pos_abs (trans->id, (uint32_t) pos);
 }
 
 static int trans_set_pos_rel (void *id, int64_t delta, int mode)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->set_pos_rel (trans->id, (int32_t) delta, mode);
 }
 
 static int trans_push_back_byte (void *id, int c)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->push_back_byte (trans->id, c);
 }
 
 static int64_t trans_get_length (void *id)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->get_length (trans->id);
 }
 
 static int trans_can_seek (void *id)
 {
-    WavpackReaderTranslator *trans = id;
+    WavpackReaderTranslator *trans = (WavpackReaderTranslator *)id;
     return trans->reader->can_seek (trans->id);
 }
 
@@ -99,13 +99,13 @@ WavpackContext *WavpackOpenFileInputEx (WavpackStreamReader *reader, void *wv_id
         flags |= OPEN_NO_CHECKSUM;
 
     if (wv_id) {
-        trans_wv = malloc (sizeof (WavpackReaderTranslator));
+        trans_wv = (WavpackReaderTranslator*)malloc (sizeof (WavpackReaderTranslator));
         trans_wv->reader = reader;
         trans_wv->id = wv_id;
     }
 
     if (wvc_id) {
-        trans_wvc = malloc (sizeof (WavpackReaderTranslator));
+        trans_wvc = (WavpackReaderTranslator*)malloc (sizeof (WavpackReaderTranslator));
         trans_wvc->reader = reader;
         trans_wvc->id = wvc_id;
     }

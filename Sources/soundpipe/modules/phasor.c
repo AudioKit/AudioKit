@@ -15,7 +15,7 @@
 
 int sp_phasor_create(sp_phasor **p)
 {
-    *p = malloc(sizeof(sp_phasor));
+    *p = (sp_phasor*)malloc(sizeof(sp_phasor));
     return SP_OK;
 }
 

@@ -20,7 +20,7 @@
 
 int sp_rms_create(sp_rms **p)
 {
-    *p = malloc(sizeof(sp_rms));
+    *p = (sp_rms*)malloc(sizeof(sp_rms));
     return SP_OK;
 }
 

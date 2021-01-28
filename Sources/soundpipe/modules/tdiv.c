@@ -3,7 +3,7 @@
 
 int sp_tdiv_create(sp_tdiv **p)
 {
-    *p = malloc(sizeof(sp_tdiv));
+    *p = (sp_tdiv*)malloc(sizeof(sp_tdiv));
     return SP_OK;
 }
 

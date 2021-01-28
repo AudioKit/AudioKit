@@ -18,7 +18,7 @@ int sp_gen_scrambler(sp_data *sp, sp_ftbl *src, sp_ftbl **dest)
     /* set up kissfft */
     fft = kiss_fftr_alloc(size, 0, NULL, NULL);
     ifft = kiss_fftr_alloc(size, 1, NULL, NULL);
-    tmp = malloc(sizeof(kiss_fft_cpx) * size);
+    tmp = (kiss_fft_cpx*)malloc(sizeof(kiss_fft_cpx) * size);
     memset(tmp, 0, sizeof(SPFLOAT) * size);
     kiss_fftr(fft, src->tbl, tmp);
 

@@ -3,7 +3,7 @@
 
 int sp_dmetro_create(sp_dmetro **p)
 {
-    *p = malloc(sizeof(sp_dmetro));
+    *p = (sp_dmetro*)malloc(sizeof(sp_dmetro));
     return SP_OK;
 }
 

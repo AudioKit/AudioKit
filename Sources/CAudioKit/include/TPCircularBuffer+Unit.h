@@ -8,6 +8,7 @@ extern "C++" {
 
 #import "TPCircularBuffer.h"
 
+#ifdef __APPLE__
 /**
  * @brief Utilitiy functions for writing arbitrary sized values to a TPCircularBuffer.
  *
@@ -146,3 +147,4 @@ void TPCircularBufferUnitConsume(TPCircularBuffer *buffer);
 #endif
 
 
+#endif // __APPLE__

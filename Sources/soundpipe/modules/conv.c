@@ -105,7 +105,7 @@ static void set_buf_pointers(sp_conv *p,
 
 int sp_conv_create(sp_conv **p)
 {
-    *p = malloc(sizeof(sp_conv));
+    *p = (sp_conv*)malloc(sizeof(sp_conv));
     return SP_OK;
 }
 

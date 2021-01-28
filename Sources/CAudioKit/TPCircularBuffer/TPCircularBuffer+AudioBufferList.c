@@ -27,6 +27,8 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+#ifdef __APPLE__
+
 #include "TPCircularBuffer+AudioBufferList.h"
 #import <mach/mach_time.h>
 
@@ -317,3 +319,4 @@ UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioSt
 
     return availableAudioBytesPerBuffer > 0 ? availableAudioBytesPerBuffer / audioFormat->mBytesPerFrame : 0;
 }
+#endif // __APPLE__

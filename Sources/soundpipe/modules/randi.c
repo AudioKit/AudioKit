@@ -25,7 +25,7 @@
 
 int sp_randi_create(sp_randi **p)
 {
-    *p = malloc(sizeof(sp_randi));
+    *p = (sp_randi*)malloc(sizeof(sp_randi));
     return SP_OK;
 }
 

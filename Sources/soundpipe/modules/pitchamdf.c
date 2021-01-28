@@ -18,7 +18,7 @@
 
 int sp_pitchamdf_create(sp_pitchamdf **p)
 {
-    *p = malloc(sizeof(sp_pitchamdf));
+    *p = (sp_pitchamdf*)malloc(sizeof(sp_pitchamdf));
     return SP_OK;
 }
 

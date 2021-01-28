@@ -584,7 +584,7 @@ void WavpackFloatNormalize (int32_t *values, int32_t num_values, int delta_exp)
     }
 }
 
-void WavpackLittleEndianToNative (void *data, char *format)
+void WavpackLittleEndianToNative (void *data, const char *format)
 {
     unsigned char *cp = (unsigned char *) data;
     int64_t temp;
@@ -621,7 +621,7 @@ void WavpackLittleEndianToNative (void *data, char *format)
     }
 }
 
-void WavpackNativeToLittleEndian (void *data, char *format)
+void WavpackNativeToLittleEndian (void *data, const char *format)
 {
     unsigned char *cp = (unsigned char *) data;
     int64_t temp;

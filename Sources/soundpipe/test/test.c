@@ -8,10 +8,10 @@
 int sp_test_create(sp_test **t, uint32_t bufsize)
 {
     uint32_t i;
-    *t = malloc(sizeof(sp_test));
+    *t = (sp_test*)malloc(sizeof(sp_test));
     sp_test *tp = *t;
 
-    SPFLOAT *buf = malloc(sizeof(SPFLOAT) * bufsize);
+    SPFLOAT *buf = (float*)malloc(sizeof(SPFLOAT) * bufsize);
     for(i = 0; i < bufsize; i++) tp->buf = 0;
 
     tp->buf = buf;

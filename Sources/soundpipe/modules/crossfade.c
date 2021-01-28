@@ -3,7 +3,7 @@
 
 int sp_crossfade_create(sp_crossfade **p)
 {
-    *p = malloc(sizeof(sp_crossfade));
+    *p = (sp_crossfade*)malloc(sizeof(sp_crossfade));
     return SP_OK;
 }
 

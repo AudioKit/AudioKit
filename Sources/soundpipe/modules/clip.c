@@ -23,7 +23,7 @@
 
 int sp_clip_create(sp_clip **p)
 {
-    *p = malloc(sizeof(sp_clip));
+    *p = (sp_clip*)malloc(sizeof(sp_clip));
     return SP_OK;
 }
 

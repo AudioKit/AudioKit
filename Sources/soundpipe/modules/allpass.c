@@ -16,7 +16,7 @@
 
 int sp_allpass_create(sp_allpass **p)
 {
-    *p = malloc(sizeof(sp_allpass));
+    *p = (sp_allpass*)malloc(sizeof(sp_allpass));
     return SP_OK;
 }
 

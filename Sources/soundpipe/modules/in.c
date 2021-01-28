@@ -3,7 +3,7 @@
 
 int sp_in_create(sp_in **p)
 {
-    *p = malloc(sizeof(sp_in));
+    *p = (sp_in*)malloc(sizeof(sp_in));
     return SP_OK;
 }
 

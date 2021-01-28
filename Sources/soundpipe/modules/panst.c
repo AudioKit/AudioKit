@@ -11,7 +11,7 @@
 
 int sp_panst_create(sp_panst **p)
 {
-    *p = malloc(sizeof(sp_panst));
+    *p = (sp_panst*)malloc(sizeof(sp_panst));
     return SP_OK;
 }
 

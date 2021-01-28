@@ -3,7 +3,7 @@
 
 int sp_line_create(sp_line **p)
 {
-    *p = malloc(sizeof(sp_line));
+    *p = (sp_line*)malloc(sizeof(sp_line));
     return SP_OK;
 }
 

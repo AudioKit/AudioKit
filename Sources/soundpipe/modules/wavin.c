@@ -8,7 +8,7 @@
 
 int sp_wavin_create(sp_wavin **p)
 {
-    *p = malloc(sizeof(sp_wavin));
+    *p = (sp_wavin *)malloc(sizeof(sp_wavin));
     return SP_OK;
 }
 

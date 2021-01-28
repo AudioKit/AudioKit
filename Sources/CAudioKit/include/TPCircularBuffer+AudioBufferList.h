@@ -33,7 +33,9 @@ extern "C++" {
 #endif
 
 #include "TPCircularBuffer.h"
-#include <AudioToolbox/AudioToolbox.h>
+
+#if __APPLE__
+#import <AudioToolbox/AudioToolbox.h>
 
 #define kTPCircularBufferCopyAll UINT32_MAX
 
@@ -227,3 +229,4 @@ UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioSt
 }
 #endif
 
+#endif // __APPLE__

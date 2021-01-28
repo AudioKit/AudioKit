@@ -31,7 +31,7 @@ const uint32_t bitset [] = {
     1L << 16, 1L << 17, 1L << 18, 1L << 19,
     1L << 20, 1L << 21, 1L << 22, 1L << 23,
     1L << 24, 1L << 25, 1L << 26, 1L << 27,
-    1L << 28, 1L << 29, 1L << 30, 1L << 31
+    1L << 28, 1L << 29, 1L << 30, 1UL << 31
 };
 
 const uint32_t bitmask [] = {
@@ -110,7 +110,7 @@ static const unsigned char exp2_table [] = {
 
 int read_entropy_vars (WavpackStream *wps, WavpackMetadata *wpmd)
 {
-    unsigned char *byteptr = wpmd->data;
+    unsigned char *byteptr = (unsigned char *)wpmd->data;
 
     if (wpmd->byte_length != ((wps->wphdr.flags & MONO_DATA) ? 6 : 12))
         return FALSE;
@@ -135,7 +135,7 @@ int read_entropy_vars (WavpackStream *wps, WavpackMetadata *wpmd)
 
 int read_hybrid_profile (WavpackStream *wps, WavpackMetadata *wpmd)
 {
-    unsigned char *byteptr = wpmd->data;
+    unsigned char *byteptr = (unsigned char *)wpmd->data;
     unsigned char *endptr = byteptr + wpmd->byte_length;
 
     if (wps->wphdr.flags & HYBRID_BITRATE) {

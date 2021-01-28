@@ -15,7 +15,7 @@
 
 int sp_waveset_create(sp_waveset **p)
 {
-    *p = malloc(sizeof(sp_waveset));
+    *p = (sp_waveset *)malloc(sizeof(sp_waveset));
     return SP_OK;
 }
 

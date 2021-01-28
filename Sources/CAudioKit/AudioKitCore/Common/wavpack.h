@@ -337,7 +337,7 @@ int WavpackVerifySingleBlock (unsigned char *buffer, int verify_checksum);
 int WavpackGetQualifyMode (WavpackContext *wpc);
 char *WavpackGetErrorMessage (WavpackContext *wpc);
 int WavpackGetVersion (WavpackContext *wpc);
-char *WavpackGetFileExtension (WavpackContext *wpc);
+const char *WavpackGetFileExtension (WavpackContext *wpc);
 unsigned char WavpackGetFileFormat (WavpackContext *wpc);
 uint32_t WavpackUnpackSamples (WavpackContext *wpc, int32_t *buffer, uint32_t samples);
 uint32_t WavpackGetNumSamples (WavpackContext *wpc);
@@ -405,8 +405,8 @@ double WavpackGetEncodedNoise (WavpackContext *wpc, double *peak);
 
 void WavpackFloatNormalize (int32_t *values, int32_t num_values, int delta_exp);
 
-void WavpackLittleEndianToNative (void *data, char *format);
-void WavpackNativeToLittleEndian (void *data, char *format);
+void WavpackLittleEndianToNative (void *data, const char *format);
+void WavpackNativeToLittleEndian (void *data, const char *format);
 void WavpackBigEndianToNative (void *data, char *format);
 void WavpackNativeToBigEndian (void *data, char *format);
 

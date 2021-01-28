@@ -15,7 +15,7 @@
 
 int sp_dcblock_create(sp_dcblock **p)
 {
-    *p = malloc(sizeof(sp_dcblock));
+    *p = (sp_dcblock*)malloc(sizeof(sp_dcblock));
     return SP_OK;
 }
 

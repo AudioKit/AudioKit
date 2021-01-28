@@ -19,7 +19,7 @@
 
 int sp_pluck_create(sp_pluck **p)
 {
-    *p = malloc(sizeof(sp_pluck));
+    *p = (sp_pluck*)malloc(sizeof(sp_pluck));
     return SP_OK;
 }
 

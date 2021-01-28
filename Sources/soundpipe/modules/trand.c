@@ -3,7 +3,7 @@
 
 int sp_trand_create(sp_trand **p)
 {
-    *p = malloc(sizeof(sp_trand));
+    *p = (sp_trand*)malloc(sizeof(sp_trand));
     return SP_OK;
 }
 

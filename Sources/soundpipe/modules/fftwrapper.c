@@ -17,7 +17,7 @@
 
 void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 {
-    *fw = malloc(sizeof(FFTwrapper));
+    *fw = (FFTwrapper*)malloc(sizeof(FFTwrapper));
     FFTwrapper *fwp = *fw;
     fwp->fftsize = fftsize;
 
@@ -33,8 +33,8 @@ void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 #else
     fwp->fft = kiss_fftr_alloc(fftsize, 0, NULL, NULL);
     fwp->ifft = kiss_fftr_alloc(fftsize, 1, NULL, NULL);
-    fwp->tmp1 = KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
-    fwp->tmp2 = KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
+    fwp->tmp1 = (kiss_fft_cpx*)KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
+    fwp->tmp2 = (kiss_fft_cpx*)KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
     memset(fwp->tmp1, 0, sizeof(kiss_fft_cpx) * fftsize);
     memset(fwp->tmp2, 0, sizeof(kiss_fft_cpx) * fftsize);
 #endif
@@ -111,8 +111,8 @@ void freqs2smps(FFTwrapper *ft, FFTFREQS *freqs, SPFLOAT *smps)
 void newFFTFREQS(FFTFREQS *f,int size)
 {
     int i;
-    SPFLOAT *c = malloc(size * sizeof(SPFLOAT));
-    SPFLOAT *s = malloc(size * sizeof(SPFLOAT));
+    SPFLOAT *c = (float*)malloc(size * sizeof(SPFLOAT));
+    SPFLOAT *s = (float*)malloc(size * sizeof(SPFLOAT));
     f->c = c;
     f->s = s;
     for (i = 0; i<size ;i++){

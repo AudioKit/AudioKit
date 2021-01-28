@@ -42,12 +42,12 @@ int sporth_htable_add(sporth_htable *ht, const char *key, uint32_t val)
     sporth_list *list = &ht->list[pos];
     list->count++;
     sporth_entry *old = list->last;
-    sporth_entry *new = malloc(sizeof(sporth_entry));
-    new->val = val;
-    new->key = malloc(sizeof(char) * (strlen(key) + 1));
-    strcpy(new->key, key);
-    old->next = new;
-    list->last = new;
+    sporth_entry *pNew = (sporth_entry*)malloc(sizeof(sporth_entry));
+    pNew->val = val;
+    pNew->key = (char *)malloc(sizeof(char) * (strlen(key) + 1));
+    strcpy(pNew->key, key);
+    old->next = pNew;
+    list->last = pNew;
 
     return SPORTH_OK;
 }

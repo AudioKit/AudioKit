@@ -3,7 +3,7 @@
 
 int sp_progress_create(sp_progress **p)
 {
-    *p = malloc(sizeof(sp_progress));
+    *p = (sp_progress*)malloc(sizeof(sp_progress));
     return SP_OK;
 }
 

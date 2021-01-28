@@ -15,7 +15,7 @@
 
 int sp_metro_create(sp_metro **p)
 {
-    *p = malloc(sizeof(sp_metro));
+    *p = (sp_metro*)malloc(sizeof(sp_metro));
     return SP_OK;
 }
 

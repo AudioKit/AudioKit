@@ -3,7 +3,7 @@
 
 int sp_slice_create(sp_slice **p)
 {
-    *p = malloc(sizeof(sp_slice));
+    *p = (sp_slice*)malloc(sizeof(sp_slice));
     return SP_OK;
 }
 

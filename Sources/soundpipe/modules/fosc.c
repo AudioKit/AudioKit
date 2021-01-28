@@ -15,7 +15,7 @@
 
 int sp_fosc_create(sp_fosc **p)
 {
-    *p = malloc(sizeof(sp_fosc));
+    *p = (sp_fosc*)malloc(sizeof(sp_fosc));
     return SP_OK;
 }
 

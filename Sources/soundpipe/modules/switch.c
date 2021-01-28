@@ -3,7 +3,7 @@
 
 int sp_switch_create(sp_switch **p)
 {
-    *p = malloc(sizeof(sp_switch));
+    *p = (sp_switch*)malloc(sizeof(sp_switch));
     return SP_OK;
 }
 

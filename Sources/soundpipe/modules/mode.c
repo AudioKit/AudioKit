@@ -23,7 +23,7 @@
 
 int sp_mode_create(sp_mode **p)
 {
-    *p = malloc(sizeof(sp_mode));
+    *p = (sp_mode*)malloc(sizeof(sp_mode));
     return SP_OK;
 }
 

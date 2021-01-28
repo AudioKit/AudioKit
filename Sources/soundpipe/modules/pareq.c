@@ -21,7 +21,7 @@
 
 int sp_pareq_create(sp_pareq **p)
 {
-    *p = malloc(sizeof(sp_pareq));
+    *p = (sp_pareq*)malloc(sizeof(sp_pareq));
     return SP_OK;
 }
 

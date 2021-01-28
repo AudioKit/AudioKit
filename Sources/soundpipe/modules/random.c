@@ -3,7 +3,7 @@
 
 int sp_random_create(sp_random **p)
 {
-    *p = malloc(sizeof(sp_random));
+    *p = (sp_random*)malloc(sizeof(sp_random));
     return SP_OK;
 }
 

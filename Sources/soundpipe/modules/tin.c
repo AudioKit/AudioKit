@@ -3,7 +3,7 @@
 
 int sp_tin_create(sp_tin **p)
 {
-    *p = malloc(sizeof(sp_tin));
+    *p = (sp_tin*)malloc(sizeof(sp_tin));
     return SP_OK;
 }
 

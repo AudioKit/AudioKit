@@ -163,21 +163,21 @@ void computeautowah(autowah* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** o
 
 static void addVerticalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_autowah *p = ui_interface;
+    sp_autowah *p = (sp_autowah *)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_autowah_create(sp_autowah **p)
 {
-    *p = malloc(sizeof(sp_autowah));
+    *p = (sp_autowah*)malloc(sizeof(sp_autowah));
     return SP_OK;
 }
 
 int sp_autowah_destroy(sp_autowah **p)
 {
     sp_autowah *pp = *p;
-    autowah *dsp = pp->faust;
+    autowah *dsp = (autowah *)pp->faust;
     deleteautowah (dsp);
     free(*p);
     return SP_OK;
@@ -203,7 +203,7 @@ int sp_autowah_init(sp_data *sp, sp_autowah *p)
 
 int sp_autowah_compute(sp_data *sp, sp_autowah *p, SPFLOAT *in, SPFLOAT *out)
 {
-    autowah *dsp = p->faust;
+    autowah *dsp = (autowah *) p->faust;
     SPFLOAT *faust_out[] = {out};
     SPFLOAT *faust_in[] = {in};
     computeautowah(dsp, 1, faust_in, faust_out);

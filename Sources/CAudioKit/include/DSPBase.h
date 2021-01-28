@@ -3,8 +3,14 @@
 #pragma once
 
 #import "Interop.h"
+#if __APPLE__
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#else // __APPLE__
+#include "AudioToolbox_NonApplePorting.h"
+#endif // __APPLE__
+
+#import "TPCircularBuffer.h"
 #import "TPCircularBuffer.h"
 
 #include <stdarg.h>
@@ -12,7 +18,9 @@
 AK_API DSPRef akCreateDSP(const char* name);
 AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
+#ifdef __APPLE__
 AK_API AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP);
+#endif // __APPLE__
 
 AK_API size_t inputBusCountDSP(DSPRef pDSP);
 AK_API size_t outputBusCountDSP(DSPRef pDSP);
@@ -47,7 +55,9 @@ AK_API bool akGetTapData(DSPRef dsp, size_t frames, float* leftData, float* righ
 
 #ifdef __cplusplus
 
+#ifdef __APPLE__
 #import <Foundation/Foundation.h>
+#endif // __APPLE__
 #import <vector>
 
 /**
@@ -91,9 +101,11 @@ public:
     
     std::vector<AudioBufferList*> inputBufferLists;
     AudioBufferList* outputBufferList = nullptr;
-    
+
+#ifdef __APPLE__
     AUInternalRenderBlock internalRenderBlock();
-    
+#endif // __APPLE__
+
     inline bool canProcessInPlace() const { return bCanProcessInPlace; }
     
     void setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex);

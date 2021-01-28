@@ -15,7 +15,7 @@
 
 int sp_vdelay_create(sp_vdelay **p)
 {
-    *p = malloc(sizeof(sp_vdelay));
+    *p = (sp_vdelay*)malloc(sizeof(sp_vdelay));
     return SP_OK;
 }
 

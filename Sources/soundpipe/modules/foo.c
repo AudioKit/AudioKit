@@ -11,7 +11,7 @@
 
 int sp_foo_create(sp_foo **p)
 {
-    *p = malloc(sizeof(sp_foo));
+    *p = (sp_foo*)malloc(sizeof(sp_foo));
     return SP_OK;
 }
 

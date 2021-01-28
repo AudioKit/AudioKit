@@ -16,7 +16,7 @@
 
 int sp_streson_create(sp_streson **p)
 {
-    *p = malloc(sizeof(sp_streson));
+    *p = (sp_streson*)malloc(sizeof(sp_streson));
     return SP_OK;
 }
 

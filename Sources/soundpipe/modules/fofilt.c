@@ -22,7 +22,7 @@
 
 int sp_fofilt_create(sp_fofilt **p)
 {
-    *p = malloc(sizeof(sp_fofilt));
+    *p = (sp_fofilt*)malloc(sizeof(sp_fofilt));
     return SP_OK;
 }
 

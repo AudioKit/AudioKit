@@ -2,10 +2,16 @@
 
 #pragma once
 
+#ifdef __APPLE__
 #import <AVFoundation/AVFoundation.h>
+#endif // __APPLE__
 #import "Interop.h"
 
+#ifdef __APPLE__
 typedef NS_ENUM(AUParameterAddress, ModulatedDelayParameter) {
+#else // __APPLE__
+enum ModulatedDelayParameter {
+#endif // __APPLE__
     ModulatedDelayParameterFrequency,
     ModulatedDelayParameterDepth,
     ModulatedDelayParameterFeedback,

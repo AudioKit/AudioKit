@@ -3,7 +3,7 @@
 
 int sp_maygate_create(sp_maygate **p)
 {
-    *p = malloc(sizeof(sp_maygate));
+    *p = (sp_maygate*)malloc(sizeof(sp_maygate));
     return SP_OK;
 }
 

@@ -3,7 +3,7 @@
 
 int sp_tgate_create(sp_tgate **p)
 {
-    *p = malloc(sizeof(sp_tgate));
+    *p = (sp_tgate*)malloc(sizeof(sp_tgate));
     return SP_OK;
 }
 

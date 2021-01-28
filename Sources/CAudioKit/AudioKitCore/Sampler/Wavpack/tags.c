@@ -59,7 +59,7 @@ int load_tag (WavpackContext *wpc)
                 if (m_tag->ape_tag_hdr.version == 2000 && m_tag->ape_tag_hdr.item_count &&
                     m_tag->ape_tag_hdr.length > sizeof (m_tag->ape_tag_hdr) &&
                     m_tag->ape_tag_hdr.length <= APE_TAG_MAX_LENGTH &&
-                    (m_tag->ape_tag_data = malloc (m_tag->ape_tag_hdr.length)) != NULL) {
+                    (m_tag->ape_tag_data = (unsigned char*)malloc (m_tag->ape_tag_hdr.length)) != NULL) {
 
                         ape_tag_items = m_tag->ape_tag_hdr.item_count;
                         ape_tag_length = m_tag->ape_tag_hdr.length;

@@ -81,7 +81,7 @@ typedef struct {
     char res [8];
 } APE_Tag_Hdr;
 
-#define APE_Tag_Hdr_Format "8LLLL"
+#define APE_Tag_Hdr_Format ((const char*)"8LLLL")
 
 #define APE_TAG_TYPE_TEXT       0x0
 #define APE_TAG_TYPE_BINARY     0x1
@@ -140,7 +140,7 @@ typedef struct {
     uint32_t total_samples, block_index, block_samples, flags, crc;
 } WavpackHeader;
 
-#define WavpackHeaderFormat "4LS2LLLLL"
+#define WavpackHeaderFormat ((const char*)"4LS2LLLLL")
 
 // Macros to access the 40-bit block_index field
 
@@ -768,9 +768,14 @@ void WavpackFloatNormalize (int32_t *values, int32_t num_values, int delta_exp);
 /////////////////////////// high-level unpacking API and support ////////////////////////////
 // modules: open_utils.c, unpack_utils.c, unpack_seek.c, unpack_floats.c
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 WavpackContext *WavpackOpenFileInputEx64 (WavpackStreamReader64 *reader, void *wv_id, void *wvc_id, char *error, int flags, int norm_offset);
 WavpackContext *WavpackOpenFileInputEx (WavpackStreamReader *reader, void *wv_id, void *wvc_id, char *error, int flags, int norm_offset);
 WavpackContext *WavpackOpenFileInput (const char *infilename, char *error, int flags, int norm_offset);
+
 
 #define OPEN_WVC        0x1     // open/read "correction" file
 #define OPEN_TAGS       0x2     // read ID3v1 / APEv2 tags (seekable file)
@@ -864,8 +869,8 @@ double WavpackGetRatio (WavpackContext *wpc);
 double WavpackGetAverageBitrate (WavpackContext *wpc, int count_wvc);
 double WavpackGetInstantBitrate (WavpackContext *wpc);
 WavpackContext *WavpackCloseFile (WavpackContext *wpc);
-void WavpackLittleEndianToNative (void *data, char *format);
-void WavpackNativeToLittleEndian (void *data, char *format);
+void WavpackLittleEndianToNative (void *data, const char *format);
+void WavpackNativeToLittleEndian (void *data, const char *format);
 void WavpackBigEndianToNative (void *data, char *format);
 void WavpackNativeToBigEndian (void *data, char *format);
 
@@ -888,6 +893,11 @@ int load_tag (WavpackContext *wpc);
 void free_tag (M_Tag *m_tag);
 int valid_tag (M_Tag *m_tag);
 int editable_tag (M_Tag *m_tag);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

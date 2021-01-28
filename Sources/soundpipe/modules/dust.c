@@ -16,7 +16,7 @@
 
 int sp_dust_create(sp_dust **p)
 {
-    *p = malloc(sizeof(sp_dust));
+    *p = (sp_dust*)malloc(sizeof(sp_dust));
     return SP_OK;
 }
 

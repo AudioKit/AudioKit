@@ -28,7 +28,7 @@ static SPFLOAT intpow1(SPFLOAT x, int32_t n)
 
 int sp_gbuzz_create(sp_gbuzz **p)
 {
-    *p = malloc(sizeof(sp_gbuzz));
+    *p = (sp_gbuzz*)malloc(sizeof(sp_gbuzz));
     return SP_OK;
 }
 

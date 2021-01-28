@@ -302,28 +302,28 @@ void computephaser(phaser* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** out
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_phaser *p = ui_interface;
+    sp_phaser *p = (sp_phaser*)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 static void addCheckButton (void* ui_interface, const char* label, FAUSTFLOAT* zone)
 {
-    sp_phaser *p = ui_interface;
+    sp_phaser *p = (sp_phaser*)ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
 int sp_phaser_create(sp_phaser **p)
 {
-    *p = malloc(sizeof(sp_phaser));
+    *p = (sp_phaser*)malloc(sizeof(sp_phaser));
     return SP_OK;
 }
 
 int sp_phaser_destroy(sp_phaser **p)
 {
     sp_phaser *pp = *p;
-    phaser *dsp = pp->faust;
+    phaser *dsp = (phaser *)pp->faust;
     deletephaser (dsp);
     free(*p);
     return SP_OK;
@@ -359,7 +359,7 @@ int sp_phaser_init(sp_data *sp, sp_phaser *p)
 int sp_phaser_compute(sp_data *sp, sp_phaser *p,
 	SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2)
 {
-    phaser *dsp = p->faust;
+    phaser *dsp = (phaser *)p->faust;
     SPFLOAT *faust_out[] = {out1, out2};
     SPFLOAT *faust_in[] = {in1, in2};
     computephaser(dsp, 1, faust_in, faust_out);

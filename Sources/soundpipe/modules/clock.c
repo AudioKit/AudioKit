@@ -11,7 +11,7 @@
 
 int sp_clock_create(sp_clock **p)
 {
-    *p = malloc(sizeof(sp_clock));
+    *p = (sp_clock*)malloc(sizeof(sp_clock));
     return SP_OK;
 }
 

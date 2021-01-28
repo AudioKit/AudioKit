@@ -7,7 +7,7 @@ typedef struct {
 } UserData;
 
 static void process(sp_data *sp, void *udata){
-    UserData *ud = udata;
+    UserData *ud = (UserData*)udata;
     plumber_data *pd = &ud->pd;
     SPFLOAT out = 0;
     int chan;

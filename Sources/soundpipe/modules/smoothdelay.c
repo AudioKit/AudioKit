@@ -12,7 +12,7 @@
 
 int sp_smoothdelay_create(sp_smoothdelay **p)
 {
-    *p = malloc(sizeof(sp_smoothdelay));
+    *p = (sp_smoothdelay*)malloc(sizeof(sp_smoothdelay));
     return SP_OK;
 }
 

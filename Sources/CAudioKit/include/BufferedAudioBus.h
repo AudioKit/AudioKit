@@ -9,9 +9,11 @@
 #ifdef __cplusplus
 #pragma once
 
+#if __APPLE__
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
+#endif // __APPLE__
 
 #pragma mark BufferedAudioBus Utility Class
 // Utility classes to manage audio formats and buffers for an audio unit implementation's input and output audio busses.

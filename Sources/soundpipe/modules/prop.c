@@ -56,7 +56,7 @@ PTYPE_NULL
 
 int sp_prop_create(sp_prop **p)
 {
-    *p = malloc(sizeof(sp_prop));
+    *p = (sp_prop*)malloc(sizeof(sp_prop));
     return SP_OK;
 }
 
@@ -148,7 +148,7 @@ static void mode_insert_event(prop_data *pd, char type)
 
     prop_val val;
     val.type = PTYPE_EVENT;
-    prop_event *evt = malloc(sizeof(prop_event));
+    prop_event *evt = (prop_event*)malloc(sizeof(prop_event));
     evt->type = type;
     evt->val = pd->mul;
     evt->cons = pd->cons_mul;
@@ -199,7 +199,7 @@ static void mode_unsetcons(prop_data *pd)
 
 static int prop_create(prop_data **pd)
 {
-    *pd = malloc(sizeof(prop_data));
+    *pd = (prop_data*)malloc(sizeof(prop_data));
     prop_data *pdp = *pd;
 
     pdp->mul = 1;
@@ -402,10 +402,10 @@ static int prop_list_init(prop_list *lst)
 
 static int prop_list_append(prop_list *lst, prop_val val)
 {
-    prop_entry *new = malloc(sizeof(prop_entry));
-    new->val = val;
-    lst->last->next = new;
-    lst->last = new;
+    prop_entry *pNew = (prop_entry*)malloc(sizeof(prop_entry));
+    pNew->val = val;
+    lst->last->next = pNew;
+    lst->last = pNew;
     lst->size++;
     return PSTATUS_OK;
 }
@@ -475,12 +475,12 @@ static void prop_slice_encap(prop_data *pd)
     prop_val val;
     prop_list *top = pd->main->top;
     val.type = PTYPE_SLICE;
-    prop_slice *slice = malloc(sizeof(prop_slice));
+    prop_slice *slice = (prop_slice*)malloc(sizeof(prop_slice));
     val.ud = slice;
-    prop_list *lst, *new;
+    prop_list *lst, *pNew;
     prop_list_copy(pd->main, &lst);
-    new = malloc(sizeof(prop_list));
-    new->lvl = pd->main->lvl;
+    pNew = (prop_list*)malloc(sizeof(prop_list));
+    pNew->lvl = pd->main->lvl;
     slice->size = 2;
     slice->ar =
         (prop_list **)malloc(sizeof(prop_list *) * slice->size);
@@ -488,7 +488,7 @@ static void prop_slice_encap(prop_data *pd)
     /* reinit main list */
     prop_list_init(pd->main);
     prop_list_append(pd->main, val);
-    slice->ar[1] = new;
+    slice->ar[1] = pNew;
     prop_list_init(slice->ar[1]);
     pd->main = slice->ar[1];
 
@@ -501,19 +501,19 @@ static void prop_slice_append(prop_data *pd)
     prop_entry *entry = pd->main->top->last;
     prop_slice *slice = (prop_slice *)entry->val.ud;
 
-    prop_list *new = malloc(sizeof(prop_list));
-    prop_list_init(new);
+    prop_list *pNew = (prop_list*)malloc(sizeof(prop_list));
+    prop_list_init(pNew);
     slice->size++;
     slice->ar = (prop_list **)
         realloc(slice->ar, sizeof(prop_list *) * slice->size);
-    slice->ar[slice->size - 1] = new;
-    new->top = pd->main->top;
-    pd->main = new;
+    slice->ar[slice->size - 1] = pNew;
+    pNew->top = pd->main->top;
+    pd->main = pNew;
 }
 
 static int prop_list_copy(prop_list *src, prop_list **dst)
 {
-    *dst = malloc(sizeof(prop_list));
+    *dst = (prop_list*)malloc(sizeof(prop_list));
     prop_list *pdst = *dst;
     pdst->root = src->root;
     pdst->last = src->last;
@@ -527,13 +527,13 @@ static void mode_list_start(prop_data *pd)
 {
     prop_val val;
     val.type = PTYPE_LIST;
-    prop_list *new = malloc(sizeof(prop_list));
-    prop_list_init(new);
-    new->lvl = pd->main->lvl + 1;
-    val.ud = new;
+    prop_list *pNew = (prop_list*)malloc(sizeof(prop_list));
+    prop_list_init(pNew);
+    pNew->lvl = pd->main->lvl + 1;
+    val.ud = pNew;
     prop_list_append(pd->main, val);
-    new->top = pd->main;
-    pd->main = new;
+    pNew->top = pd->main;
+    pd->main = pNew;
 }
 
 static void mode_list_end(prop_data *pd)

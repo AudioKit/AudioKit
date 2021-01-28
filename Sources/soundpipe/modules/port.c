@@ -24,7 +24,7 @@
 
 int sp_port_create(sp_port **p)
 {
-    *p = malloc(sizeof(sp_port));
+    *p = (sp_port*)malloc(sizeof(sp_port));
     return SP_OK;
 }
 

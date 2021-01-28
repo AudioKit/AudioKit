@@ -83,12 +83,12 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
         plumb->next = pipe->next;
         switch(pipe->type) {
             case SPORTH_FLOAT:
-                fval = pipe->ud;
+                fval = (float*)pipe->ud;
                 if(mode != PLUMBER_DESTROY)
                     sporth_stack_push_float(&sporth->stack, *fval);
                 break;
             case SPORTH_STRING:
-                sval = pipe->ud;
+                sval = (char*)pipe->ud;
                 if(mode == PLUMBER_INIT)
                     sporth_stack_push_string(&sporth->stack, &sval);
                 break;
@@ -223,63 +223,63 @@ int plumbing_add_pipe(plumbing *pipes, plumber_pipe *pipe)
 
 int plumber_add_float(plumber_data *plumb, plumbing *pipes, float num)
 {
-    plumber_pipe *new = malloc(sizeof(plumber_pipe));
+    plumber_pipe *pNew = (plumber_pipe*)malloc(sizeof(plumber_pipe));
 
-    if(new == NULL) {
+    if(pNew == NULL) {
         plumber_print(plumb,"Memory error\n");
         return PLUMBER_NOTOK;
     }
 
-    new->type = SPORTH_FLOAT;
-    new->size = sizeof(SPFLOAT);
-    new->ud = malloc(new->size);
-    float *val = new->ud;
+    pNew->type = SPORTH_FLOAT;
+    pNew->size = sizeof(SPFLOAT);
+    pNew->ud = malloc(pNew->size);
+    float *val = (float*)pNew->ud;
     *val = num;
-    if(new->ud == NULL) {
+    if(pNew->ud == NULL) {
         plumber_print(plumb,"Memory error\n");
         return PLUMBER_NOTOK;
     }
 
-    plumbing_add_pipe(pipes, new);
+    plumbing_add_pipe(pipes, pNew);
     return PLUMBER_OK;
 }
 
 char * plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str)
 {
-    plumber_pipe *new = malloc(sizeof(plumber_pipe));
+    plumber_pipe *pNew = (plumber_pipe*)malloc(sizeof(plumber_pipe));
 
-    if(new == NULL) {
+    if(pNew == NULL) {
         plumber_print(plumb,"Memory error\n");
         return NULL;
     }
 
-    new->type = SPORTH_STRING;
-    new->size = sizeof(char) * strlen(str) + 1;
-    new->ud = malloc(new->size);
-    char *sval = new->ud;
-    strncpy(sval, str, new->size);
-    if(new->ud == NULL) {
+    pNew->type = SPORTH_STRING;
+    pNew->size = sizeof(char) * strlen(str) + 1;
+    pNew->ud = malloc(pNew->size);
+    char *sval = (char*)pNew->ud;
+    strncpy(sval, str, pNew->size);
+    if(pNew->ud == NULL) {
         plumber_print(plumb,"Memory error\n");
         return NULL;
     }
 
-    plumbing_add_pipe(pipes, new);
+    plumbing_add_pipe(pipes, pNew);
     return sval;
 }
 
 int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud)
 {
-    plumber_pipe *new = malloc(sizeof(plumber_pipe));
+    plumber_pipe *pNew = (plumber_pipe*)malloc(sizeof(plumber_pipe));
 
-    if(new == NULL) {
+    if(pNew == NULL) {
         plumber_print(plumb,"Memory error\n");
         return PLUMBER_NOTOK;
     }
 
-    new->type = id;
-    new->ud = ud;
+    pNew->type = id;
+    pNew->ud = ud;
 
-    plumbing_add_pipe(plumb->tmp, new);
+    plumbing_add_pipe(plumb->tmp, pNew);
     return PLUMBER_OK;
 }
 
@@ -371,15 +371,15 @@ int plumber_add(plumber_data *plumb, const char *str, plumber_ftbl **ft)
     uint32_t pos = sporth_hash(str);
     plumber_ftentry *entry = &plumb->ftmap[pos];
     entry->nftbl++;
-    plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
-    new->type = PTYPE_USERDATA;
-    new->to_delete = plumb->delete_ft;
-    new->name = malloc(sizeof(char) * strlen(str) + 1);
-    strcpy(new->name, str);
-    entry->last->next = new;
-    entry->last = new;
+    plumber_ftbl *pNew = (plumber_ftbl*)malloc(sizeof(plumber_ftbl));
+    pNew->type = PTYPE_USERDATA;
+    pNew->to_delete = plumb->delete_ft;
+    pNew->name = (char*)malloc(sizeof(char) * strlen(str) + 1);
+    strcpy(pNew->name, str);
+    entry->last->next = pNew;
+    entry->last = pNew;
 
-    *ft = new;
+    *ft = pNew;
     return PLUMBER_OK;
 }
 
@@ -393,8 +393,8 @@ int plumber_register(plumber_data *plumb)
     };
     #undef SPORTH_UGEN
     
-    sporth_func *flist2 = malloc(sizeof(flist));
-    flist2 = memcpy(flist2, flist, sizeof(flist));
+    sporth_func *flist2 = (sporth_func*)malloc(sizeof(flist));
+    flist2 = (sporth_func*)memcpy(flist2, flist, sizeof(flist));
     for(int i=0;flist2[i].name;++i) {
         flist2[i].ud = plumb;
     }
@@ -419,6 +419,7 @@ static uint32_t str2time(plumber_data *pd, char *str)
     }
 }
 
+/*
 void sporth_run(plumber_data *pd, int argc, char *argv[],
     void *ud, void (*process)(sp_data *, void *))
 {
@@ -664,6 +665,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
     plumber_clean(pd);
     sp_destroy(&sp);
 }
+*/
 
 static volatile int running = 1;
 

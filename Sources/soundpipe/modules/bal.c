@@ -20,7 +20,7 @@
 
 int sp_bal_create(sp_bal **p)
 {
-    *p = malloc(sizeof(sp_bal));
+    *p = (sp_bal*)malloc(sizeof(sp_bal));
     return SP_OK;
 }
 

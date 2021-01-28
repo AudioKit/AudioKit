@@ -21,7 +21,7 @@
 
 int sp_biquad_create(sp_biquad **p)
 {
-    *p = malloc(sizeof(sp_biquad));
+    *p = (sp_biquad*)malloc(sizeof(sp_biquad));
     return SP_OK;
 }
 

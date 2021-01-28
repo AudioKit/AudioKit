@@ -10,7 +10,7 @@ int sp_create(sp_data **spp)
     sp_data *sp = *spp;
     sprintf(sp->filename, "test.wav");
     sp->nchan = 1;
-    SPFLOAT *out = malloc(sizeof(SPFLOAT) * sp->nchan);
+    SPFLOAT *out = (SPFLOAT*)malloc(sizeof(SPFLOAT) * sp->nchan);
     *out = 0;
     sp->out = out;
     sp->sr = 44100;
@@ -26,7 +26,7 @@ int sp_createn(sp_data **spp, int nchan)
     sp_data *sp = *spp;
     sprintf(sp->filename, "test.wav");
     sp->nchan = nchan;
-    SPFLOAT *out = malloc(sizeof(SPFLOAT) * sp->nchan);
+    SPFLOAT *out = (SPFLOAT*)malloc(sizeof(SPFLOAT) * sp->nchan);
     *out = 0;
     sp->out = out;
     sp->sr = 44100;
@@ -43,6 +43,13 @@ int sp_destroy(sp_data **spp)
     free(*spp);
     return 0;
 }
+
+#if __APPLE__
+#else // __APPLE__
+#ifndef NO_LIBSNDFILE
+#define NO_LIBSNDFILE
+#endif // NO_LIBSNDFILE
+#endif // __APPLE__
 
 #ifndef NO_LIBSNDFILE
 

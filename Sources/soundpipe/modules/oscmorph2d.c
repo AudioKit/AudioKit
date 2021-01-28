@@ -4,7 +4,7 @@
 
 int sp_oscmorph2d_create(sp_oscmorph2d **p)
 {
-    *p = malloc(sizeof(sp_oscmorph2d));
+    *p = (sp_oscmorph2d*)malloc(sizeof(sp_oscmorph2d));
     return SP_OK;
 }
 

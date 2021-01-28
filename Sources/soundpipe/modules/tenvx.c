@@ -4,7 +4,7 @@
 
 int sp_tenvx_create(sp_tenvx **p)
 {
-    *p = malloc(sizeof(sp_tenvx));
+    *p = (sp_tenvx*)malloc(sizeof(sp_tenvx));
     return SP_OK;
 }
 

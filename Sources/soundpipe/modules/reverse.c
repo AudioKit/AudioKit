@@ -4,7 +4,7 @@
 
 int sp_reverse_create(sp_reverse **p)
 {
-    *p = malloc(sizeof(sp_reverse));
+    *p = (sp_reverse*)malloc(sizeof(sp_reverse));
     return SP_OK;
 }
 

@@ -3,7 +3,7 @@
 
 int sp_scale_create(sp_scale **p)
 {
-    *p = malloc(sizeof(sp_scale));
+    *p = (sp_scale*)malloc(sizeof(sp_scale));
     return SP_OK;
 }
 

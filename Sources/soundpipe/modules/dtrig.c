@@ -3,7 +3,7 @@
 
 int sp_dtrig_create(sp_dtrig **p)
 {
-    *p = malloc(sizeof(sp_dtrig));
+    *p = (sp_dtrig*)malloc(sizeof(sp_dtrig));
     return SP_OK;
 }
 

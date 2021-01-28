@@ -21,7 +21,7 @@
 
 int sp_eqfil_create(sp_eqfil **p)
 {
-    *p = malloc(sizeof(sp_eqfil));
+    *p = (sp_eqfil*)malloc(sizeof(sp_eqfil));
     return SP_OK;
 }
 
