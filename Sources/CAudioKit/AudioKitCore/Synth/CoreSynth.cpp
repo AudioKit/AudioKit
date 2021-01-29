@@ -9,6 +9,22 @@
 #include <math.h>
 #include <list>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4018) // more "signed/unsigned mismatch"
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4101) // unreferenced local variable
+#pragma warning(disable:4245) // 'return': conversion from 'int' to 'size_t', signed/unsigned mismatch
+#pragma warning(disable:4267) // conversion from... possible loss of data
+#pragma warning(disable:4305) // truncation from 'double' to 'float'
+#pragma warning(disable:4309) // truncation of constant value
+#pragma warning(disable:4334) // result of 32-bit shift implicitly converted to 64 bits
+#pragma warning(disable:4389) // signed/unsigned mismatch
+#pragma warning(disable:4456) // Declaration hides previous local declaration
+#pragma warning(disable:4458) // declaration ... hides class member
+#pragma warning(disable:4505) // unreferenced local function has been removed
+#endif
+
 #define MAX_VOICE_COUNT 32      // number of voices
 #define MIDI_NOTENUMBERS 128    // MIDI offers 128 distinct note numbers
 
@@ -107,7 +123,7 @@ int CoreSynth::init(double sampleRate)
     data->segParameters[0].finalLevel = 0.2f;
     data->segParameters[0].seconds = 0.01f;
     data->segParameters[1].initialLevel = 0.2f;   // hold at 0.2 for 1 sec
-    data->segParameters[1].finalLevel = 0.2;
+    data->segParameters[1].finalLevel = 0.2F;
     data->segParameters[1].seconds = 1.0f;
     data->segParameters[2].initialLevel = 0.2f;   // decay: fall to 0.0 in 0.5 sec
     data->segParameters[2].finalLevel = 0.0f;

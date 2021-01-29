@@ -102,16 +102,16 @@ public:
                     if (channel == 0) {
                         if (isFading) {
                             // get values from both tables
-                            sp_dynamicosc_compute(sp, osc, ftbl_one, nil, &temp, false); // does not move phase
-                            sp_dynamicosc_compute(sp, osc, ftbl_two, nil, &temp2, true); // does move phase
+                            sp_dynamicosc_compute(sp, osc, ftbl_one, nullptr, &temp, false); // does not move phase
+                            sp_dynamicosc_compute(sp, osc, ftbl_two, nullptr, &temp2, true); // does move phase
                             stepFade();
                         }
                         else {
                             // if we are not fading, grab from clean table (other table is dirty - could be overwritten at any moment)
                             if(!isSwapped) {
-                                sp_dynamicosc_compute(sp, osc, ftbl_one, nil, &temp, true);
+                                sp_dynamicosc_compute(sp, osc, ftbl_one, nullptr, &temp, true);
                             } else {
-                                sp_dynamicosc_compute(sp, osc, ftbl_two, nil, &temp2, true);
+                                sp_dynamicosc_compute(sp, osc, ftbl_two, nullptr, &temp2, true);
                             }
                         }
                     }

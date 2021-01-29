@@ -3,6 +3,21 @@
 #include "EnvelopeGeneratorBase.hpp"
 #include <cmath>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4018) // more "signed/unsigned mismatch"
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4101) // unreferenced local variable
+#pragma warning(disable:4245) // 'return': conversion from 'int' to 'size_t', signed/unsigned mismatch
+#pragma warning(disable:4267) // conversion from... possible loss of data
+#pragma warning(disable:4305) // truncation from 'double' to 'float'
+#pragma warning(disable:4309) // truncation of constant value
+#pragma warning(disable:4334) // result of 32-bit shift implicitly converted to 64 bits
+#pragma warning(disable:4456) // Declaration hides previous local declaration
+#pragma warning(disable:4458) // declaration ... hides class member
+#pragma warning(disable:4505) // unreferenced local function has been removed
+#endif
+
 namespace AudioKitCore
 {
 

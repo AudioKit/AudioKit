@@ -101,6 +101,7 @@ change paths to suit:
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\DiodeClipperDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\TanhDistortionDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Dynamics\DynamicRangeCompressorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Dynamics\TransientShaperDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Envelopes\AmplitudeEnvelopeDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Envelopes\TremoloDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\BandPassButterworthFilterDSP_PORT.cpp" />
@@ -142,6 +143,7 @@ change paths to suit:
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\OscillatorDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\PhaseDistortionOscillatorDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\PWMOscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\DynamicOscillatorDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\ClarinetDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\DripDSP_PORT.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\FluteDSP_PORT.cpp" />
@@ -204,6 +206,7 @@ change paths to suit:
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\drip.c" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dtrig.c" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dust.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dynamicosc.c" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\eqfil.c" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\expon.c" />
     <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fftwrapper.c" />
@@ -603,6 +606,7 @@ set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sound
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/drip.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dtrig.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dust.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dynamicosc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/eqfil.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/expon.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
 set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fftwrapper.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
@@ -955,6 +959,7 @@ include_directories( AFTER
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/DiodeClipperDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/TanhDistortionDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Dynamics/DynamicRangeCompressorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Dynamics/TransientShaperDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Envelopes/AmplitudeEnvelopeDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Envelopes/TremoloDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/BandPassButterworthFilterDSP_PORT.cpp"
@@ -996,6 +1001,7 @@ include_directories( AFTER
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/OscillatorDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/PhaseDistortionOscillatorDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/PWMOscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/DynamicOscillatorDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/ClarinetDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/DripDSP_PORT.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/FluteDSP_PORT.cpp"
@@ -1060,6 +1066,7 @@ include_directories( AFTER
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/drip.c"
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dtrig.c"
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dust.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dynamicosc.c"
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/eqfil.c"
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/expon.c"
     "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fftwrapper.c"

@@ -5,6 +5,12 @@
 #include <string.h>
 #include "soundpipe.h"
 
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4702) // unreachable code
+#endif
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif

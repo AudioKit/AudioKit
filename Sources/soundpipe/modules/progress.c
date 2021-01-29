@@ -3,9 +3,8 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable:4219) // 'e': unrecognized character escape seequence
+#pragma warning(disable:4129) // 'e': unrecognized character escape sequence
 #endif
-
 
 int sp_progress_create(sp_progress **p)
 {

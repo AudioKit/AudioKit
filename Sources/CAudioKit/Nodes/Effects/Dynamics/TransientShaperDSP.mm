@@ -2,7 +2,16 @@
 
 #include "DSPBase.h"
 #include "ParameterRamper.h"
-#include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
+#include "../../../AudioKitCore/Modulated Delay/StereoDelay.hpp"
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4189) // local variable is initialized but not referenced
+#endif
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846 // <=== PORTING
+#endif
 
 /*
  The objects marked Cyclone were derived from the Max/MSP Cyclone library source code.
@@ -187,7 +196,7 @@ typedef struct {
 int slide_compute(slide *x, float *inSample, float *outSample) {
     float last = x->x_last;
     float f = *inSample;
-    float output;
+    float output = f; // <== PORTING: fixed uninitialized variable
     if (f >= last) {
         if (x->x_slide_up > 1.)
             output = last + ((f - last) / x->x_slide_up);

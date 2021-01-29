@@ -5,7 +5,7 @@
 
 int sp_dynamicosc_create(sp_dynamicosc **dynamicosc)
 {
-    *dynamicosc = malloc(sizeof(sp_dynamicosc));
+    *dynamicosc = (sp_dynamicosc *)malloc(sizeof(sp_dynamicosc));
     return SP_OK;
 }
 

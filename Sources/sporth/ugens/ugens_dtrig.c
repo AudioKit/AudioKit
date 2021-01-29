@@ -6,7 +6,7 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
     plumber_data *pd = (plumber_data *)ud;
     SPFLOAT trig;
     SPFLOAT out;
-    sp_ftbl * ft;
+    sp_ftbl * ft = nullptr;
     const char *ftname;
     int loop;
     SPFLOAT delay, scale;

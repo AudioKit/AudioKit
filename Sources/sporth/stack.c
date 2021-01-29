@@ -5,6 +5,11 @@
 
 #include "sporth.h"
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4702) // unreachable code
+#endif
+
 #ifdef DEBUG_MODE
 static void print_guts(sporth_stack *stack)
 {

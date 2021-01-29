@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include "soundpipe.h"
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4702) // unreachable code
+#endif
+
 enum {
     T_ON,
     T_OFF,
